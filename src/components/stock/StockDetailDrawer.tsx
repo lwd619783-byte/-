@@ -4,7 +4,7 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YA
 import type { Industry, Stock } from "../../types";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
-import { DataQualityBadge, MetricCard, PriceChange, SectionPanel } from "../common/terminal";
+import { DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp } from "../common/terminal";
 
 interface StockDetailDrawerProps {
   stock: Stock | null;
@@ -35,25 +35,25 @@ export function StockDetailDrawer({ stock, industries, onClose }: StockDetailDra
 
   return (
     <div className="fixed inset-0 z-50 bg-bg/75 backdrop-blur-sm" role="dialog" aria-modal="true">
-      <aside className="ml-auto flex h-full w-full max-w-3xl flex-col border-l border-borderGlow/50 bg-bg2/95 shadow-2xl">
+      <aside className="ml-auto flex h-full w-full max-w-[920px] flex-col border-l border-borderGlow/50 bg-bg2/95 shadow-2xl">
         <div className="flex items-start justify-between gap-4 border-b border-borderGlow/40 p-5">
           <div className="min-w-0">
-            <p className="text-sm text-steel">{stock.market} · {stock.code}</p>
+            <p className="truncate text-sm text-textMuted" title={`${stock.market} · ${stock.code}`}>{stock.market} · {stock.code}</p>
             <div className="mt-1 flex flex-wrap items-center gap-2">
-              <h2 className="text-2xl font-semibold text-ink">{stock.name}</h2>
+              <h2 className="truncate text-2xl font-semibold text-textStrong" title={stock.name}>{stock.name}</h2>
               <DataQualityBadge quality={stock.dataQuality} />
             </div>
-            <p className="mt-1 text-sm text-steel">
+            <p className="mt-1 truncate text-sm text-textMuted" title={`${getIndustryName(industries, stock.industryId)} / ${getSegmentName(industries, stock.segmentId)}`}>
               {getIndustryName(industries, stock.industryId)} / {getSegmentName(industries, stock.segmentId)}
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-3 text-sm">
               <span>最新价 {numberToDisplay(stock.quote?.latestPrice)}</span>
               <PriceChange value={stock.quote?.pctChange} />
-              <span className="text-steel">覆盖率 {typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : "数据暂缺"}</span>
+              <span className="text-textMuted">覆盖率 {typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : "数据暂缺"}</span>
             </div>
           </div>
           <button
-            className="rounded-md border border-line p-2 text-slate-300 transition hover:border-risk hover:text-risk"
+            className="shrink-0 rounded-md border border-borderSoft p-2 text-textMuted transition hover:border-danger hover:text-red-200 focus:outline-none focus:ring-2 focus:ring-danger/30"
             onClick={onClose}
             aria-label="关闭详情"
           >
@@ -74,29 +74,24 @@ export function StockDetailDrawer({ stock, industries, onClose }: StockDetailDra
               <MetricCard label="跌停价" value={numberToDisplay(stock.quote?.limitDown)} />
             </div>
             {stock.priceHistory && stock.priceHistory.length > 0 ? (
-              <div className="h-56 rounded-md border border-line bg-bg/50 p-2">
+              <div className="h-56 rounded-md border border-borderSoft bg-bg/50 p-2">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={stock.priceHistory}>
                     <CartesianGrid stroke="rgba(148,163,184,0.18)" strokeDasharray="3 3" />
-                    <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#94A3B8" }} minTickGap={24} />
-                    <YAxis tick={{ fontSize: 11, fill: "#94A3B8" }} width={48} />
-                    <Tooltip contentStyle={{ background: "#0F172A", border: "1px solid #1E293B", color: "#E5E7EB" }} />
+                    <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#9CA3AF" }} minTickGap={24} />
+                    <YAxis tick={{ fontSize: 11, fill: "#9CA3AF" }} width={48} />
+                    <Tooltip contentStyle={{ background: "#0F172A", border: "1px solid #334155", color: "#E5E7EB" }} labelStyle={{ color: "#E5E7EB" }} />
                     <Line type="monotone" dataKey="close" stroke="#22D3EE" strokeWidth={2} dot={false} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
             ) : (
-              <p className="text-sm text-steel">价格历史数据暂缺。</p>
+              <p className="text-sm text-textMuted">价格历史数据暂缺。</p>
             )}
           </Section>
 
-          <Section title="财务">
-            <Grid rows={financialRows} />
-          </Section>
-
-          <Section title="估值">
-            <Grid rows={valuationRows} />
-          </Section>
+          <Section title="财务"><Grid rows={financialRows} /></Section>
+          <Section title="估值"><Grid rows={valuationRows} /></Section>
 
           <Section title="F10">
             <Grid
@@ -125,7 +120,9 @@ export function StockDetailDrawer({ stock, industries, onClose }: StockDetailDra
                 ["人气排名", nullableNumber(stock.signals?.popularityRank)],
               ]}
             />
-            <p className="mt-3 text-sm leading-6 text-steel">{stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? "数据暂缺"}</p>
+            <TextClamp lines={3} title={stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? "数据暂缺"} className="mt-3 text-sm leading-6 text-textMuted">
+              {stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? "数据暂缺"}
+            </TextClamp>
           </Section>
 
           <Section title="研报">
@@ -187,9 +184,9 @@ function Grid({ rows }: { rows: string[][] }) {
   return (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
       {rows.map(([label, value]) => (
-        <div key={label} className="rounded-md border border-line bg-bg2/70 p-3">
-          <p className="text-xs text-steel">{label}</p>
-          <p className="mt-1 break-words text-sm font-semibold text-ink">{value}</p>
+        <div key={label} className="min-w-0 rounded-md border border-borderSoft bg-bg2/70 p-3">
+          <p className="truncate text-xs text-textMuted" title={label}>{label}</p>
+          <p className="mt-1 break-all text-sm font-semibold text-textStrong" title={value}>{value}</p>
         </div>
       ))}
     </div>
@@ -197,25 +194,28 @@ function Grid({ rows }: { rows: string[][] }) {
 }
 
 function TextBlock({ title, value }: { title: string; value?: string | null }) {
+  const displayValue = value || "数据暂缺";
   return (
-    <div className="mt-3 rounded-md border border-line bg-bg2/70 p-3">
-      <p className="text-xs text-steel">{title}</p>
-      <p className="mt-2 text-sm leading-6 text-slate-300">{value || "数据暂缺"}</p>
+    <div className="mt-3 rounded-md border border-borderSoft bg-bg2/70 p-3">
+      <p className="text-xs text-textMuted">{title}</p>
+      <TextClamp lines={4} title={displayValue} className="mt-2 text-sm leading-6 text-textMuted">
+        {displayValue}
+      </TextClamp>
     </div>
   );
 }
 
 function TagList({ items, color }: { items: string[]; color: "green" | "red" | "blue" }) {
   const palette = {
-    green: "border-signal/25 bg-signal/10 text-cyan-100",
-    red: "border-risk/25 bg-risk/10 text-red-100",
-    blue: "border-steel/25 bg-steel/10 text-slate-100",
+    green: "border-success/25 bg-success/10 text-green-100",
+    red: "border-danger/25 bg-danger/10 text-red-100",
+    blue: "border-cyan/25 bg-cyan/10 text-cyan-100",
   };
   return (
     <div className="flex flex-wrap gap-2">
-      {items.length === 0 ? <span className="text-sm text-steel">数据暂缺</span> : null}
+      {items.length === 0 ? <span className="text-sm text-textMuted">数据暂缺</span> : null}
       {items.map((item) => (
-        <span key={item} className={`rounded border px-2 py-1 text-xs ${palette[color]}`}>
+        <span key={item} className={`max-w-full truncate rounded border px-2 py-1 text-xs ${palette[color]}`} title={item}>
           {item}
         </span>
       ))}
@@ -224,20 +224,21 @@ function TagList({ items, color }: { items: string[]; color: "green" | "red" | "
 }
 
 function ArticleList({ rows }: { rows: Array<{ title: string; meta: string; url?: string | null }> }) {
-  if (rows.length === 0) return <p className="text-sm text-steel">数据暂缺</p>;
+  if (rows.length === 0) return <p className="text-sm text-textMuted">数据暂缺</p>;
 
   return (
     <div className="space-y-2">
       {rows.map((row) => (
         <a
           key={`${row.title}-${row.meta}`}
-          className="block rounded-md border border-line bg-bg2/70 p-3 text-sm transition hover:border-signal"
+          className="block min-w-0 rounded-md border border-borderSoft bg-bg2/70 p-3 text-sm transition hover:border-cyan focus:outline-none focus:ring-2 focus:ring-cyan/25"
           href={row.url ?? undefined}
           target={row.url ? "_blank" : undefined}
           rel="noreferrer"
+          title={[row.title, row.meta, row.url].filter(Boolean).join(" | ")}
         >
-          <span className="font-medium text-ink">{row.title}</span>
-          <span className="mt-1 block text-xs text-steel">{row.meta}</span>
+          <TextClamp lines={2} className="font-medium text-textStrong">{row.title}</TextClamp>
+          <span className="mt-1 block truncate text-xs text-textMuted">{row.meta}</span>
         </a>
       ))}
     </div>

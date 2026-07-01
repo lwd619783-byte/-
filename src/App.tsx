@@ -9,7 +9,7 @@ import { WatchlistTab } from "./components/watchlist/WatchlistTab";
 import { dataSourceNote, macroIndicators } from "./data/macroData";
 import { buildDashboardDataset } from "./services/dataProvider";
 import type { DashboardDataMode, Stock } from "./types";
-import { GlassCard, StatusBadge } from "./components/common/terminal";
+import { GlassCard, StatusBadge, TabButton } from "./components/common/terminal";
 
 type MainTab = "宏观" | "行业" | "个股池" | "观察清单";
 
@@ -38,7 +38,7 @@ export default function App() {
   );
 
   return (
-    <div className="terminal-grid min-h-screen bg-bg text-ink">
+    <div className="terminal-grid min-h-screen bg-bg text-text">
       <Header
         search={globalSearch}
         onSearchChange={setGlobalSearch}
@@ -57,18 +57,10 @@ export default function App() {
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
-                  <button
-                    key={tab.id}
-                    className={`inline-flex h-11 items-center gap-2 rounded-md px-3 text-sm font-medium transition ${
-                      activeTab === tab.id
-                        ? "border border-borderGlow bg-signal/12 text-signal shadow-glow"
-                        : "text-steel hover:bg-panel2 hover:text-ink"
-                    }`}
-                    onClick={() => setActiveTab(tab.id)}
-                  >
+                  <TabButton key={tab.id} active={activeTab === tab.id} onClick={() => setActiveTab(tab.id)} className="h-11 justify-start">
                     <Icon className="h-4 w-4" />
                     {tab.id}
-                  </button>
+                  </TabButton>
                 );
               })}
             </nav>
@@ -76,14 +68,14 @@ export default function App() {
         </aside>
 
         <section className="min-w-0">
-        <section className="mb-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {dashboardStats.map((stat) => (
-            <GlassCard key={stat.label} className="p-4">
-              <p className="text-xs font-medium text-slate-500">{stat.label}</p>
-              <p className="mt-1 text-2xl font-semibold text-ink">{stat.value}</p>
-            </GlassCard>
-          ))}
-        </section>
+          <section className="mb-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {dashboardStats.map((stat) => (
+              <GlassCard key={stat.label} className="p-4">
+                <p className="text-xs font-medium text-textMuted">{stat.label}</p>
+                <p className="mt-1 text-2xl font-semibold text-textStrong">{stat.value}</p>
+              </GlassCard>
+            ))}
+          </section>
 
         {activeTab === "宏观" && <MacroTab indicators={macroIndicators} />}
         {activeTab === "行业" && (
@@ -114,22 +106,22 @@ export default function App() {
 
         <aside className="space-y-3 lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]">
           <GlassCard className="p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-steel">Data Console</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-textMuted">Data Console</p>
             <div className="mt-3 flex flex-wrap gap-2">
               <StatusBadge status={dataset.mode === "mock" ? "mock" : dataset.modeLabel === "Real Data" ? "real" : "stale"} />
               <StatusBadge status="unsupported_market" />
             </div>
-            <p className="mt-3 text-sm leading-6 text-steel">{dataset.coverageSummary}</p>
+            <p className="mt-3 line-clamp-3 text-sm leading-6 text-textMuted" title={dataset.coverageSummary}>{dataset.coverageSummary}</p>
           </GlassCard>
           <GlassCard className="p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-steel">Missing Watch</p>
-            <div className="mt-3 space-y-2 text-sm text-steel">
+            <p className="text-xs font-semibold uppercase tracking-wide text-textMuted">Missing Watch</p>
+            <div className="mt-3 space-y-2 text-sm text-textMuted">
               {dataset.stocks
                 .filter((stock) => (stock.missingFields?.length ?? 0) > 0)
                 .slice(0, 6)
                 .map((stock) => (
-                  <div key={stock.id} className="flex items-center justify-between gap-3 border-b border-line/70 pb-2">
-                    <span>{stock.name}</span>
+                  <div key={stock.id} className="flex items-center justify-between gap-3 border-b border-borderSoft/70 pb-2">
+                    <span className="truncate" title={stock.name}>{stock.name}</span>
                     <span className="text-warning">{stock.missingFields?.length ?? 0}</span>
                   </div>
                 ))}
