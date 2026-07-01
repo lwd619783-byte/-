@@ -1,0 +1,374 @@
+{
+  "updatedAt": "2026-07-01T08:04:41+08:00",
+  "items": {
+    "sugon": {
+      "id": "sugon",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "fii": {
+      "id": "fii",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "lenovo": {
+      "id": "lenovo",
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+      }
+    },
+    "eoptolink": {
+      "id": "eoptolink",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "innolight": {
+      "id": "innolight",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "wus": {
+      "id": "wus",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "victor-tech": {
+      "id": "victor-tech",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "shennan": {
+      "id": "shennan",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "best": {
+      "id": "best",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "wuzhou": {
+      "id": "wuzhou",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "leaderdrive": {
+      "id": "leaderdrive",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "moons": {
+      "id": "moons",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "topgroup": {
+      "id": "topgroup",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "wuxi": {
+      "id": "wuxi",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "pharmaron": {
+      "id": "pharmaron",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "asymchem": {
+      "id": "asymchem",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "nano": {
+      "id": "nano",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "hengrui": {
+      "id": "hengrui",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "beigene": {
+      "id": "beigene",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "cosco-energy": {
+      "id": "cosco-energy",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "cm-energy": {
+      "id": "cm-energy",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    },
+    "cm-nanjing": {
+      "id": "cm-nanjing",
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "dragonTigerCount30d": null,
+      "marginBalance": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "hotReason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Eastmoney optional signals",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing"
+      }
+    }
+  }
+}

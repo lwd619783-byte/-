@@ -1,0 +1,295 @@
+import { useMemo, useState } from "react";
+import { Factory, Layers3 } from "lucide-react";
+import type { Industry, Stock } from "../../types";
+import { findStocksForSegment } from "../../utils/filters";
+import { StockCard } from "../stock/StockCard";
+
+interface IndustryTabProps {
+  industries: Industry[];
+  stocks: Stock[];
+  globalSearch: string;
+  onOpenStock: (stock: Stock) => void;
+}
+
+export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: IndustryTabProps) {
+  const [activeIndustryId, setActiveIndustryId] = useState(industries[0]?.id ?? "");
+  const activeIndustry = industries.find((industry) => industry.id === activeIndustryId) ?? industries[0];
+  const [activeSegmentId, setActiveSegmentId] = useState(activeIndustry?.segments[0]?.id ?? "");
+
+  const segment = useMemo(() => {
+    const currentIndustry = industries.find((industry) => industry.id === activeIndustryId) ?? industries[0];
+    return (
+      currentIndustry?.segments.find((item) => item.id === activeSegmentId) ??
+      currentIndustry?.segments[0]
+    );
+  }, [activeIndustryId, activeSegmentId, industries]);
+
+  if (!activeIndustry || !segment) {
+    return <EmptyState title="暂无行业数据" description="请先在 src/data/industries.ts 中新增行业与细分板块。" />;
+  }
+
+  const segmentStocks = findStocksForSegment(stocks, segment.id);
+  const keyword = globalSearch.trim().toLowerCase();
+  const visibleSegmentStocks = keyword
+    ? segmentStocks.filter((stock) =>
+        [stock.name, stock.code, stock.thesis, segment.name, activeIndustry.name].join(" ").toLowerCase().includes(keyword),
+      )
+    : segmentStocks;
+
+  function switchIndustry(industry: Industry) {
+    setActiveIndustryId(industry.id);
+    setActiveSegmentId(industry.segments[0]?.id ?? "");
+  }
+
+  return (
+    <section className="grid gap-4 xl:grid-cols-[260px_1fr]">
+      <aside className="rounded-lg border border-line bg-white p-3 shadow-soft">
+        <p className="mb-3 px-2 text-xs font-semibold text-steel">行业 Tab</p>
+        <div className="grid gap-2">
+          {industries.map((industry) => (
+            <button
+              key={industry.id}
+              className={`rounded-md px-3 py-2 text-left text-sm transition ${
+                activeIndustry.id === industry.id
+                  ? "bg-ink text-white"
+                  : "border border-line bg-white text-ink hover:border-signal"
+              }`}
+              onClick={() => switchIndustry(industry)}
+            >
+              <span className="block font-medium">{industry.name}</span>
+              <span className="mt-1 block text-xs opacity-75">
+                景气：{industry.prosperity} · {industry.stage}
+              </span>
+            </button>
+          ))}
+        </div>
+      </aside>
+
+      <div className="min-w-0 space-y-4">
+        <IndustryOverview industry={activeIndustry} />
+        <ChainMap industry={activeIndustry} />
+
+        <div className="rounded-lg border border-line bg-white p-4 shadow-soft">
+          <div className="flex items-center gap-2">
+            <Layers3 className="h-5 w-5 text-signal" />
+            <h2 className="text-lg font-semibold text-ink">细分板块</h2>
+          </div>
+          <div className="scrollbar-thin mt-3 flex gap-2 overflow-x-auto pb-2">
+            {activeIndustry.segments.map((item) => (
+              <button
+                key={item.id}
+                className={`h-9 shrink-0 rounded-md px-3 text-sm transition ${
+                  segment.id === item.id
+                    ? "bg-signal text-white"
+                    : "border border-line bg-panel text-ink hover:border-signal"
+                }`}
+                onClick={() => setActiveSegmentId(item.id)}
+              >
+                {item.name}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-4 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+            <SegmentLogic industry={activeIndustry} segment={segment} />
+            <div className="space-y-3">
+              <SegmentMarketSummary stocks={visibleSegmentStocks} />
+              <StockCompare stocks={visibleSegmentStocks} />
+            </div>
+          </div>
+        </div>
+
+        {visibleSegmentStocks.length === 0 ? (
+          <EmptyState title="没有匹配个股" description="调整搜索词，或在 src/data/stocks.ts 中为该细分板块补充个股。" />
+        ) : (
+          <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+            {visibleSegmentStocks.map((stock) => (
+              <StockCard key={stock.id} stock={stock} industries={industries} onOpen={onOpenStock} />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function IndustryOverview({ industry }: { industry: Industry }) {
+  return (
+    <article className="rounded-lg border border-line bg-white p-4 shadow-soft">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <p className="text-xs font-semibold text-steel">行业总览</p>
+          <h2 className="mt-1 text-2xl font-semibold text-ink">{industry.name}</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            景气度：{industry.prosperity} · 投资阶段：{industry.stage}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {industry.styles.map((style) => (
+            <span key={style} className="rounded border border-signal/20 bg-signal/10 px-2 py-1 text-xs text-emerald-800">
+              {style}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="mt-4 grid gap-3 lg:grid-cols-3">
+        <InfoBlock title="核心驱动" items={industry.drivers} />
+        <InfoBlock title="近期催化剂" items={industry.catalysts} />
+        <InfoBlock title="主要风险" items={industry.risks} risk />
+      </div>
+    </article>
+  );
+}
+
+function ChainMap({ industry }: { industry: Industry }) {
+  return (
+    <article className="rounded-lg border border-line bg-white p-4 shadow-soft">
+      <div className="flex items-center gap-2">
+        <Factory className="h-5 w-5 text-steel" />
+        <h2 className="text-lg font-semibold text-ink">产业链结构</h2>
+      </div>
+      <div className="mt-3 grid gap-3 lg:grid-cols-3">
+        {industry.chain.map((chain) => (
+          <div key={chain.stage} className="rounded-lg border border-line bg-panel p-3">
+            <p className="text-sm font-semibold text-ink">{chain.stage}</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {chain.items.map((item) => (
+                <span key={item} className="rounded border border-line bg-white px-2 py-1 text-xs text-slate-600">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function SegmentLogic({ industry, segment }: { industry: Industry; segment: Industry["segments"][number] }) {
+  return (
+    <article className="rounded-lg border border-line bg-panel p-4">
+      <p className="text-xs font-semibold text-steel">{industry.name}</p>
+      <h3 className="mt-1 text-xl font-semibold text-ink">{segment.name}</h3>
+      <p className="mt-3 text-sm leading-6 text-slate-700">{segment.logic}</p>
+      <div className="mt-4 grid gap-2 text-sm">
+        <Field label="需求来源" value={segment.demandSource} />
+        <Field label="供给格局" value={segment.supplyPattern} />
+        <Field label="竞争壁垒" value={segment.moat} />
+        <Field label="价格 / 订单 / 产能趋势" value={segment.trend} />
+      </div>
+      <div className="mt-4">
+        <p className="text-xs font-semibold text-slate-500">未来 6-12 个月关键变量</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {segment.keyVariables.map((item) => (
+            <span key={item} className="rounded border border-steel/20 bg-white px-2 py-1 text-xs text-slate-700">
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function StockCompare({ stocks }: { stocks: Stock[] }) {
+  if (stocks.length === 0) {
+    return <EmptyState title="暂无对比数据" description="该细分板块没有匹配个股。" compact />;
+  }
+
+  return (
+    <div className="overflow-x-auto rounded-lg border border-line bg-white">
+      <table className="min-w-[760px] w-full text-left text-sm">
+        <thead className="bg-panel text-xs text-slate-500">
+          <tr>
+            {["股票", "市值", "营收增速", "利润增速", "毛利率", "ROE", "PE", "产业链位置", "龙头逻辑", "风险"].map(
+              (header) => (
+                <th key={header} className="px-3 py-3 font-medium">
+                  {header}
+                </th>
+              ),
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          {stocks.map((stock) => (
+            <tr key={stock.id} className="border-t border-line">
+              <td className="px-3 py-3 font-medium text-ink">{stock.name}</td>
+              <td className="px-3 py-3">{stock.financial.marketCap}</td>
+              <td className="px-3 py-3">{stock.financial.revenueGrowth}</td>
+              <td className="px-3 py-3">{stock.financial.profitGrowth}</td>
+              <td className="px-3 py-3">{stock.financial.grossMargin}</td>
+              <td className="px-3 py-3">{stock.financial.roe}</td>
+              <td className="px-3 py-3">{stock.valuation.pe}</td>
+              <td className="px-3 py-3">{stock.chainPosition}</td>
+              <td className="px-3 py-3">{stock.leaderPosition}</td>
+              <td className="px-3 py-3">{stock.riskLevel}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function SegmentMarketSummary({ stocks }: { stocks: Stock[] }) {
+  const realQuotes = stocks.map((stock) => stock.quote).filter(Boolean);
+  const pctValues = realQuotes.map((quote) => quote?.pctChange).filter((value): value is number => typeof value === "number");
+  const mcapValues = realQuotes.map((quote) => quote?.marketCap).filter((value): value is number => typeof value === "number");
+  const averagePct = pctValues.length ? pctValues.reduce((sum, value) => sum + value, 0) / pctValues.length : null;
+  const totalMcap = mcapValues.length ? mcapValues.reduce((sum, value) => sum + value, 0) : null;
+  const financialDates = stocks
+    .map((stock) => stock.realFinancial?.updatedAt)
+    .filter((value): value is string => Boolean(value))
+    .sort();
+  const latestFinancial = financialDates.length ? financialDates[financialDates.length - 1] : undefined;
+  const coveredStocks = stocks.filter((stock) => stock.dataQuality?.some((item) => item.status === "real" || item.status === "stale")).length;
+  const latestUpdates = stocks
+    .flatMap((stock) => stock.dataQuality?.map((item) => item.updatedAt).filter(Boolean) ?? [])
+    .sort();
+  const latestUpdate = latestUpdates.length ? latestUpdates[latestUpdates.length - 1] : undefined;
+  const coverage = stocks.length ? `${coveredStocks}/${stocks.length}` : "数据暂缺";
+
+  return (
+    <div className="grid gap-2 rounded-lg border border-line bg-white p-3 text-sm sm:grid-cols-5">
+      <Field label="龙头平均涨跌幅" value={averagePct === null ? "数据暂缺" : `${averagePct.toFixed(2)}%`} />
+      <Field label="龙头总市值合计" value={totalMcap === null ? "数据暂缺" : `${totalMcap.toFixed(1)} 亿`} />
+      <Field label="真实覆盖" value={coverage} />
+      <Field label="财务数据更新时间" value={latestFinancial ?? "数据暂缺"} />
+      <Field label="行情更新时间" value={latestUpdate ?? "数据暂缺"} />
+    </div>
+  );
+}
+
+function InfoBlock({ title, items, risk = false }: { title: string; items: string[]; risk?: boolean }) {
+  return (
+    <div className="rounded-lg border border-line bg-panel p-3">
+      <p className="text-sm font-semibold text-ink">{title}</p>
+      <ul className="mt-2 space-y-1 text-sm text-slate-600">
+        {items.map((item) => (
+          <li key={item} className={risk ? "text-red-800" : ""}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <span className="font-medium text-ink">{label}：</span>
+      <span className="text-slate-600">{value}</span>
+    </div>
+  );
+}
+
+function EmptyState({ title, description, compact = false }: { title: string; description: string; compact?: boolean }) {
+  return (
+    <div className={`rounded-lg border border-dashed border-line bg-white text-center ${compact ? "p-6" : "p-10"}`}>
+      <p className="font-medium text-ink">{title}</p>
+      <p className="mt-1 text-sm text-slate-500">{description}</p>
+    </div>
+  );
+}

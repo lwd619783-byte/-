@@ -1,0 +1,1100 @@
+{
+  "updatedAt": "2026-07-01T08:04:41+08:00",
+  "items": {
+    "sugon": {
+      "id": "sugon",
+      "reports": [
+        {
+          "title": "业绩稳健增长，落地全国首个6万卡集群",
+          "org": "太平洋",
+          "analyst": "曹佩",
+          "date": "2026-04-21",
+          "rating": "买入",
+          "epsForecast": "1.8900000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=OM4JsKFQGnDmAB23hCDvZ84UECLvdCrdYm2hL1U6FKc="
+        },
+        {
+          "title": "公司信息更新报告：扣非净利润高增，成功落地6万卡AI4S计算集群",
+          "org": "开源证券",
+          "analyst": "刘逍遥",
+          "date": "2026-04-16",
+          "rating": "买入",
+          "epsForecast": "1.8000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=fMzmk+2oClhN0YqA7sAGfLhMcRgT8ZMPse3sEp35u24="
+        },
+        {
+          "title": "海光加持赋能，乘算力国产化东风",
+          "org": "东吴证券",
+          "analyst": "王紫敬,王世杰",
+          "date": "2026-04-12",
+          "rating": "买入",
+          "epsForecast": "1.76",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=4p6Dpc5uWa9bYfsijTcvuojsUKWywO95FkwtA1mkBcw="
+        },
+        {
+          "title": "公司信息更新报告：业绩符合预期，积极推进国产算力生态建设",
+          "org": "开源证券",
+          "analyst": "陈宝健,刘逍遥",
+          "date": "2025-11-01",
+          "rating": "买入",
+          "epsForecast": "1.9600000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZuRjuN7Cp7soXyUdvbi+6zGoZQkQUgA7CDJswLMdpo="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=603019&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "fii": {
+      "id": "fii",
+      "reports": [
+        {
+          "title": "AI服务器销售占比提升，毛利预期持续改善",
+          "org": "金元证券",
+          "analyst": "周强",
+          "date": "2026-06-18",
+          "rating": "增持",
+          "epsForecast": "3.06",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=13BnGdH8vQGjruC+csEfjtQbWbVTxbLvdlhkWAJRO2U="
+        },
+        {
+          "title": "工业富联26Q1业绩点评：业绩实现翻倍增长，CPO交换机开始出货",
+          "org": "信达证券",
+          "analyst": "莫文宇",
+          "date": "2026-04-30",
+          "rating": "买入",
+          "epsForecast": "3.3500000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=z+BQzM0NJ1Yh8OoBVL6DMryc7mq2sfJ6+l2QlJ8gcjI="
+        },
+        {
+          "title": "产品结构升级释放利润弹性，现金流激增验证景气度",
+          "org": "国金证券",
+          "analyst": "刘高畅,张真桢",
+          "date": "2026-04-29",
+          "rating": "买入",
+          "epsForecast": "3.0020000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZapTwxXRoU6qdk1dhBUeNykyi1/9OfhEg4tIctueGo="
+        },
+        {
+          "title": "AI服务器与高速交换机增长强劲，公司业绩加速释放",
+          "org": "山西证券",
+          "analyst": "盖斌赫",
+          "date": "2026-03-20",
+          "rating": "买入",
+          "epsForecast": "2.8900000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=u3Nt816Iq8ZLMy7d0TYNPwyJDG3nnXmpxg0tSaML1ZA="
+        },
+        {
+          "title": "工业富联2025年年报点评：云计算业务快速增长，AI算力驱动新周期",
+          "org": "信达证券",
+          "analyst": "莫文宇",
+          "date": "2026-03-12",
+          "rating": "买入",
+          "epsForecast": "3.3500000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=duOKd2B+lgzBov5ATCbG/2YVtN0jNkMPxQDdK2AfFrc="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=601138&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "lenovo": {
+      "id": "lenovo",
+      "reports": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+      }
+    },
+    "eoptolink": {
+      "id": "eoptolink",
+      "reports": [
+        {
+          "title": "1.6T环比上量将加快，盈利能力继续维持行业领先水平",
+          "org": "山西证券",
+          "analyst": "张天",
+          "date": "2026-05-27",
+          "rating": "买入",
+          "epsForecast": "21.33",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=8gUNtjW5jnuIsoF3A3XHB7e3LdoGm5lrXrboXxX7voU="
+        },
+        {
+          "title": "1Q物料与汇兑承压，看好后续1.6T产能释放带来利润增长",
+          "org": "国金证券",
+          "analyst": "张真桢",
+          "date": "2026-04-26",
+          "rating": "买入",
+          "epsForecast": "27.18",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=HOMdg2q4xafXz13pJxyBRHXJCFXBpCs5Yb4aD9dU6WM="
+        },
+        {
+          "title": "公司信息更新报告：业绩稳步增长，静待1.6T放量",
+          "org": "开源证券",
+          "analyst": "蒋颖,杨昕东",
+          "date": "2026-04-26",
+          "rating": "买入",
+          "epsForecast": "19.4700000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=HOMdg2q4xafXz13pJxyBRBs+4rLgP0xjPU3RH2+5j9w="
+        },
+        {
+          "title": "全年利润持续高速增长，800G光模块市场份额预计快速提升",
+          "org": "群益证券",
+          "analyst": "何利超",
+          "date": "2026-02-02",
+          "rating": "增持",
+          "epsForecast": "12.59",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=YE65Nzv4hDtw2Ic9QSC9I2SinqmPYTFjIkbHuy6wTsA="
+        },
+        {
+          "title": "2025年三季度报告点评：业绩阶段性承压，下游资本开支高景气",
+          "org": "国元证券",
+          "analyst": "宇之光,郝润祺",
+          "date": "2025-11-01",
+          "rating": "买入",
+          "epsForecast": "14.6000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZuRjuN7Cp7soXyUdvbi+wx7P6FJ3YZyx4MQxfke+Rg="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300502&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "innolight": {
+      "id": "innolight",
+      "reports": [
+        {
+          "title": "业绩持续超预期增长，光互连全栈布局成型",
+          "org": "太平洋",
+          "analyst": "宋辰超",
+          "date": "2026-06-24",
+          "rating": "买入",
+          "epsForecast": "31.43",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=F+ZhHRiImQMLRMIdpezE4Hg9QkqIFigWHzB7dXUxjp4="
+        },
+        {
+          "title": "龙头交付优势充分体现，Scaleup光连接产品有望继续保持领先",
+          "org": "山西证券",
+          "analyst": "张天",
+          "date": "2026-05-27",
+          "rating": "买入",
+          "epsForecast": "33.13",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=8gUNtjW5jnuIsoF3A3XHB9FCas9IpE5zc2rGOBULTCU="
+        },
+        {
+          "title": "2026年一季报点评：800G放量驱动业绩兑现，1.6T开启新一轮成长接力",
+          "org": "西南证券",
+          "analyst": "叶泽佑",
+          "date": "2026-05-08",
+          "rating": "增持",
+          "epsForecast": "22.36",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=Vzxb5dV9nZa96IsXVdMsLls1Qk1A4VD8MDk34Ye35PI="
+        },
+        {
+          "title": "2026年一季报点评报告：全球算力投资持续增长，公司业绩持续高增",
+          "org": "华龙证券",
+          "analyst": "彭棋",
+          "date": "2026-04-23",
+          "rating": "买入",
+          "epsForecast": "26.87",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=/OdnvFqSBKsDWvabmdFdFIIqOnecxpQPp9Yg85b0Ygo="
+        },
+        {
+          "title": "公司信息更新报告：业绩兑现高增验证产业景气，AI算力基建驱动长期价值跃迁",
+          "org": "开源证券",
+          "analyst": "蒋颖,杨昕东",
+          "date": "2026-04-19",
+          "rating": "买入",
+          "epsForecast": "32.18",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=QVk5BeptH2ssWz00IL1T65tXZzzgMd1ml42ld0UiGX4="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300308&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "wus": {
+      "id": "wus",
+      "reports": [
+        {
+          "title": "高速交换机业务高增，产能扩张蓄力长期成长",
+          "org": "中邮证券",
+          "analyst": "万玮,吴文吉",
+          "date": "2026-04-24",
+          "rating": "买入",
+          "epsForecast": "2.9900000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=u0i1cZTNUMOPcM3SjCQs4HtGO7smHipwIBeglkosOBQ="
+        },
+        {
+          "title": "乘AI与高速运算东风，业绩增长动能强劲",
+          "org": "中银证券",
+          "analyst": "苏凌瑶,茅珈恺",
+          "date": "2026-04-15",
+          "rating": "买入",
+          "epsForecast": "3.1000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=yf320Ezqkk1hPscoJhu0urzrQ/gze2PTPpGGS32qFIA="
+        },
+        {
+          "title": "沪电股份26Q1业绩预告点评：AI算力景气度持续验证，高端产能释放在即",
+          "org": "信达证券",
+          "analyst": "莫文宇",
+          "date": "2026-04-15",
+          "rating": "买入",
+          "epsForecast": "3.1",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=yf320Ezqkk1hPscoJhu0urXdAsO+798MBScwvZoS3dE="
+        },
+        {
+          "title": "2025年报点评：AI驱动业绩增长，盈利能力提升",
+          "org": "东莞证券",
+          "analyst": "罗炜斌",
+          "date": "2026-04-02",
+          "rating": "买入",
+          "epsForecast": "2.94",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=XGWmSSG17O1invCqsvizvs88WaKSc8qkWjWzxz8tGIs="
+        },
+        {
+          "title": "核心业务景气延续，业绩与盈利能力同步提升",
+          "org": "华金证券",
+          "analyst": "熊军,王延森",
+          "date": "2026-03-31",
+          "rating": "增持",
+          "epsForecast": "2.7600000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=yox7xzf0O9dtTdxl8tZuT3q7uzpG0nfzgX1+Bl7l6lg="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=002463&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "victor-tech": {
+      "id": "victor-tech",
+      "reports": [
+        {
+          "title": "公司信息更新报告：2026Q1业绩同环比增长，产能建设加快推进中",
+          "org": "开源证券",
+          "analyst": "陈蓉芳,刘琦",
+          "date": "2026-04-30",
+          "rating": "买入",
+          "epsForecast": "9.2800000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=z+BQzM0NJ1Yh8OoBVL6DMvPhciLGoyfvJ6Jtth9ohMA="
+        },
+        {
+          "title": "深度报告：卡位优势明显，充分受益AI PCB浪潮",
+          "org": "东莞证券",
+          "analyst": "罗炜斌",
+          "date": "2026-04-29",
+          "rating": "买入",
+          "epsForecast": "8.9800000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZapTwxXRoU6qdk1dhBUeGFOSygajzNAZZb5g9XS6PA="
+        },
+        {
+          "title": "高端PCB突破，全球化产能落地",
+          "org": "中邮证券",
+          "analyst": "万玮,吴文吉",
+          "date": "2026-04-19",
+          "rating": "买入",
+          "epsForecast": "10.0300000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=QVk5BeptH2ssWz00IL1T6zqnb4SdTdpUdTt3AOAzCeU="
+        },
+        {
+          "title": "2025年报点评：全年业绩高增，AI PCB成长逻辑明确",
+          "org": "东莞证券",
+          "analyst": "罗炜斌",
+          "date": "2026-04-01",
+          "rating": "买入",
+          "epsForecast": "10.11",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=Gu8QRr/fLYcAt/sGSmjl8C5NlfkBli5oNWza91rQuDU="
+        },
+        {
+          "title": "AI驱动业绩持续兑现，产能释放拓展远期弹性空间",
+          "org": "中银证券",
+          "analyst": "苏凌瑶,李圣宣",
+          "date": "2025-11-10",
+          "rating": "买入",
+          "epsForecast": "13.8000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=DSlDEcPhQg9YUtRjTVcp/ZTtZlqD3tgOWNrn7+pFDr0="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300476&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "shennan": {
+      "id": "shennan",
+      "reports": [
+        {
+          "title": "AI算力+存储产品共驱25年业绩超预期增长",
+          "org": "太平洋",
+          "analyst": "张世杰,李珏晗",
+          "date": "2026-03-26",
+          "rating": "买入",
+          "epsForecast": "8.1400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=VIzhccfvkV1D8ZQW4Vd9MErUsnyPVCmjOyrcpdoApww="
+        },
+        {
+          "title": "AI、通信、汽车三轮驱动PCB高增，封装基板加速突破",
+          "org": "中银证券",
+          "analyst": "苏凌瑶,茅珈恺",
+          "date": "2026-03-17",
+          "rating": "买入",
+          "epsForecast": "8.5000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=wgy5GfHBY5ZK7yGs2a3VyUDb97r1FVT6Db+dwIhiDJw="
+        },
+        {
+          "title": "AI-led PCB growth with substrate upside ahead",
+          "org": "招银国际",
+          "analyst": "Kevin Zhang,Aaron GUO",
+          "date": "2026-03-16",
+          "rating": "买入",
+          "epsForecast": "7.57",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=ivGavoqmU0N6YSeJK0gsmtw2mPxduW8FOp7mYO9PE+Q="
+        },
+        {
+          "title": "深南电路：AI周期赋能，高端产能持续扩张",
+          "org": "华安证券",
+          "analyst": "陈耀波,闫春旭",
+          "date": "2026-01-04",
+          "rating": "买入",
+          "epsForecast": "7.21",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=dvA/5mhFfjma0zHhhOhvWV/WJTgDmvub4sp2/Dy0N90="
+        },
+        {
+          "title": "股权激励显定力信心，AI+存储景气延续",
+          "org": "中银证券",
+          "analyst": "苏凌瑶,李圣宣",
+          "date": "2025-12-14",
+          "rating": "买入",
+          "epsForecast": "8.7200000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=UuMiCa57Dzl2XEUqskt5gsJwl5GX7rzRg/9YD59jqUk="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=002916&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "best": {
+      "id": "best",
+      "reports": [
+        {
+          "title": "3Q收入实现快速增长，泰国新厂开业助力加速国际化进程",
+          "org": "群益证券",
+          "analyst": "赵旭东",
+          "date": "2025-10-22",
+          "rating": "增持",
+          "epsForecast": "0.7200000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=H997xONAa87j2f+Y2fMtWAVAMoQtr8+SQii/7HPvoZk="
+        },
+        {
+          "title": "系列点评五：25Q3业绩符合预期 国际市场布局持续深化",
+          "org": "民生证券",
+          "analyst": "崔琰,完颜尚文",
+          "date": "2025-10-22",
+          "rating": "买入",
+          "epsForecast": "0.7900000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=H997xONAa87j2f+Y2fMtWEJXzbVZZLA/ty7y0dfdGNY="
+        },
+        {
+          "title": "系列点评四：业绩符合预期 直线运动部件持续突破",
+          "org": "民生证券",
+          "analyst": "崔琰,完颜尚文",
+          "date": "2025-08-17",
+          "rating": "买入",
+          "epsForecast": "0.7900000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=gCsax9BejqO3BN5JiRYGBWDva26bHbWzl/Ln8GyD0is="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300580&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "wuzhou": {
+      "id": "wuzhou",
+      "reports": [
+        {
+          "title": "盈利能力有所修复，新业务持续取得突破",
+          "org": "山西证券",
+          "analyst": "刘斌,贾国琛",
+          "date": "2026-05-25",
+          "rating": "增持",
+          "epsForecast": "0.3700000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=yAxnM+X7+cNkaz6/iJZO1LUzOzlZZiwaQoTOzwocdMA="
+        },
+        {
+          "title": "业绩平稳向好，持续推进高端轴承与丝杠产品升级",
+          "org": "山西证券",
+          "analyst": "刘斌,贾国琛",
+          "date": "2025-11-18",
+          "rating": "增持",
+          "epsForecast": "0.5400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=bqgVzjdXCHYJiyJpYBnAuLNBC9IFu11oDuzMNVbXyUI="
+        },
+        {
+          "title": "2025年半年报点评：定增加码具身智能项目，关注丝杠产品订单",
+          "org": "国元证券",
+          "analyst": "龚斯闻,冯健然,许元琨",
+          "date": "2025-09-02",
+          "rating": "增持",
+          "epsForecast": "0.4800000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=LL5s7nKJR4zExFgtJe+5/sIp1faTESBhksWvyXD7n2Y="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=603667&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "leaderdrive": {
+      "id": "leaderdrive",
+      "reports": [
+        {
+          "title": "2026年一季度业绩快速增长，人形机器人优势持续巩固",
+          "org": "国信证券",
+          "analyst": "吴双,杜松阳",
+          "date": "2026-05-26",
+          "rating": "增持",
+          "epsForecast": "1.0300000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=ezwMyDfKd2WUFgzUwL6wAS4fF/nFAYZOWHete7omNbI="
+        },
+        {
+          "title": "2025年年报及2026年一季报点评：战略卡位具身智能，营收净利表现亮眼",
+          "org": "国元证券",
+          "analyst": "龚斯闻,楼珈利",
+          "date": "2026-04-29",
+          "rating": "增持",
+          "epsForecast": "1.0700000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZapTwxXRoU6qdk1dhBUeCL+M7GtO9bc4oFRcYeBLTo="
+        },
+        {
+          "title": "机器人需求回升，公司25Q4/26Q1净利润大幅增长",
+          "org": "群益证券",
+          "analyst": "赵旭东",
+          "date": "2026-04-23",
+          "rating": "增持",
+          "epsForecast": "0.9400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=/OdnvFqSBKsDWvabmdFdFCo/pZAfJ8/tJCWcwRQRZMQ="
+        },
+        {
+          "title": "2025年报&2026一季报点评：Q1营收同比+43%，具身智能+工业机器人双轮驱动",
+          "org": "东吴证券",
+          "analyst": "周尔双,钱尧天,陶泽",
+          "date": "2026-04-23",
+          "rating": "增持",
+          "epsForecast": "1.1500000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=/OdnvFqSBKsDWvabmdFdFK+gA+2MOvl1x4CAPiOfLxM="
+        },
+        {
+          "title": "人形机器人收入占比龙头，26Q1业绩超预期",
+          "org": "国金证券",
+          "analyst": "陈传红,冉婷",
+          "date": "2026-04-23",
+          "rating": "买入",
+          "epsForecast": "1.0830000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=/OdnvFqSBKsDWvabmdFdFGmi0gPBoaWRUCmmTzO4S18="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=688017&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "moons": {
+      "id": "moons",
+      "reports": [
+        {
+          "title": "先发布局灵巧手电机，拓展机器人产品矩阵",
+          "org": "华源证券",
+          "analyst": "赵梦妮",
+          "date": "2026-06-01",
+          "rating": "增持",
+          "epsForecast": "0.2600000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=34IjOVFT7SMXhv7RV89/dXYId4JabxTZTQq4eQVwWXc="
+        },
+        {
+          "title": "盈利能力明显改善，聚焦自动化行业前沿技术",
+          "org": "华安证券",
+          "analyst": "张志邦,刘千琳",
+          "date": "2025-11-23",
+          "rating": "买入",
+          "epsForecast": "0.26",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=Glnla3Q4EgdtXL1+3OVKQIXOixUnKGTjBsnLAdKWRxA="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=603728&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "topgroup": {
+      "id": "topgroup",
+      "reports": [
+        {
+          "title": "2026年一季报点评：营收稳定增长，机器人、液冷开拓发展新曲线",
+          "org": "华金证券",
+          "analyst": "黄程保",
+          "date": "2026-05-14",
+          "rating": "买入",
+          "epsForecast": "1.9400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=LBIS7bPRbuARj1Q2LOK57R/fJ+7gC3eQdNFXprA+6g0="
+        },
+        {
+          "title": "一季度营收同比增长15%，看好平台型产品矩阵长期成长性",
+          "org": "国信证券",
+          "analyst": "唐旭霞,孙树林",
+          "date": "2026-05-06",
+          "rating": "增持",
+          "epsForecast": "1.9300000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=vK83LYxZyxfJFYh4NqvDQBS/gogLWusrkkylxmdktpo="
+        },
+        {
+          "title": "2025年年报点评：全年营收稳定增长，机器人、液冷未来可期",
+          "org": "华金证券",
+          "analyst": "黄程保",
+          "date": "2026-03-27",
+          "rating": "买入",
+          "epsForecast": "1.9400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=+HQpsq0qvXZbuOEG3JMI5n2vdBkfqraqCd5x2yNAE9U="
+        },
+        {
+          "title": "马斯克的V3时刻：OptimusV3&星舰V3",
+          "org": "太平洋",
+          "analyst": "刘虹辰",
+          "date": "2026-03-26",
+          "rating": "买入",
+          "epsForecast": "1.9200000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=VIzhccfvkV1D8ZQW4Vd9MIUs6AB30B2hWpp7bLRaysk="
+        },
+        {
+          "title": "公司业绩符合预期，将发力海外市场及机器人新业务",
+          "org": "群益证券",
+          "analyst": "赵旭东",
+          "date": "2026-03-26",
+          "rating": "增持",
+          "epsForecast": "1.8300000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=VIzhccfvkV1D8ZQW4Vd9MOat71+YCRua5l800AQ1JKo="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=601689&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "wuxi": {
+      "id": "wuxi",
+      "reports": [
+        {
+          "title": "公司事件点评报告：回购彰显对未来信心",
+          "org": "华鑫证券",
+          "analyst": "胡博新",
+          "date": "2026-06-30",
+          "rating": "买入",
+          "epsForecast": "5.93",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=pbgGimF6GIUsJi/NFvqdcznAILk/FZYSUVXxmnPBidU="
+        },
+        {
+          "title": "新分子业务快速放量，一体化CRDMO模式高筑行业护城河",
+          "org": "国金证券",
+          "analyst": "甘坛焕,方程嫣",
+          "date": "2026-06-29",
+          "rating": "买入",
+          "epsForecast": "5.841",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=sNXHRqYfuq/YK3RNBqVl9JUpobBvIkyHeBxRVxeT5Ds="
+        },
+        {
+          "title": "业绩加速释放，三大板块盈利能力齐升",
+          "org": "中邮证券",
+          "analyst": "盛丽华,辛家齐",
+          "date": "2026-05-20",
+          "rating": "买入",
+          "epsForecast": "5.8100000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=ghB/U6yU9Yq8Vt9aUyx3xPvU4u+abi3jRgePatcgr1w="
+        },
+        {
+          "title": "1Q26 results: small molecule D&M fuelling overall growth",
+          "org": "招银国际",
+          "analyst": "Jill Wu,Benchen Huang",
+          "date": "2026-04-29",
+          "rating": "买入",
+          "epsForecast": "",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZapTwxXRoU6qdk1dhBUeJpX7k4Ti4XHf+vdOXPY6FI="
+        },
+        {
+          "title": "2025年年报点评：业绩创历史新高，TIDES业务动能强劲",
+          "org": "国信证券",
+          "analyst": "彭思宇,陈曦炳,凌珑",
+          "date": "2026-04-26",
+          "rating": "增持",
+          "epsForecast": "5.6000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=HOMdg2q4xafXz13pJxyBRBSUkR+6Wj8pwnAjC7wCcHc="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=603259&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "pharmaron": {
+      "id": "pharmaron",
+      "reports": [
+        {
+          "title": "1Q26 results: a strong start driven by CDMO services",
+          "org": "招银国际",
+          "analyst": "Benchen Huang,Jill Wu",
+          "date": "2026-04-30",
+          "rating": "买入",
+          "epsForecast": "",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=z+BQzM0NJ1Yh8OoBVL6DMtS5X3feDmZBrLTnjcq5EKg="
+        },
+        {
+          "title": "CDMO订单及收入快速增长，新疗法产能建设积极",
+          "org": "中邮证券",
+          "analyst": "盛丽华,辛家齐",
+          "date": "2026-04-17",
+          "rating": "买入",
+          "epsForecast": "1.1400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=hVZN+/0rd1itMAX5IcfSUF6w7Q/A7xG9Yqv5Mt64uwY="
+        },
+        {
+          "title": "2025年年报点评：实验室服务稳健增长，CDMO打开第二成长曲线",
+          "org": "西南证券",
+          "analyst": "杜向阳",
+          "date": "2026-04-09",
+          "rating": null,
+          "epsForecast": "1.1000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=d0GNcCoCzoVIz5+TYCcQ9aJZuwVKc2boZTg+BBzYRzY="
+        },
+        {
+          "title": "公司信息更新报告：营收稳健增长，新签大订单助力长期发展",
+          "org": "开源证券",
+          "analyst": "余汝意",
+          "date": "2026-04-02",
+          "rating": "买入",
+          "epsForecast": "1.2000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=XGWmSSG17O1invCqsvizvu39qqUkt4Y0UuYVrNAaH0s="
+        },
+        {
+          "title": "Landmark CDMO deal to fuel future growth",
+          "org": "招银国际",
+          "analyst": "Benchen Huang,Jill Wu",
+          "date": "2026-04-01",
+          "rating": "买入",
+          "epsForecast": "",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=Gu8QRr/fLYcAt/sGSmjl8BidgLsTkbWzbTM8vFQ7LPg="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300759&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "asymchem": {
+      "id": "asymchem",
+      "reports": [
+        {
+          "title": "2025年年报点评：在手订单充沛，新兴业务强势增长",
+          "org": "国信证券",
+          "analyst": "彭思宇,陈曦炳",
+          "date": "2026-04-26",
+          "rating": "增持",
+          "epsForecast": "3.7800000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=HOMdg2q4xafXz13pJxyBRIW6MoPb/YYTlZsI1A7ezUU="
+        },
+        {
+          "title": "业绩重归增长轨道，结构优化与成长确定性凸显",
+          "org": "中邮证券",
+          "analyst": "盛丽华,辛家齐",
+          "date": "2026-04-17",
+          "rating": "买入",
+          "epsForecast": "3.7900000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=hVZN+/0rd1itMAX5IcfSUI1omIHNZ8KrabdglKRuEQ8="
+        },
+        {
+          "title": "2025年年报点评：新兴业务成长兑现，小分子CDMO稳健向上",
+          "org": "西南证券",
+          "analyst": "杜向阳",
+          "date": "2026-04-10",
+          "rating": null,
+          "epsForecast": "3.9300000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=cR/s6uWt5jZZd4n+QAEFBg2vn0/pkQ4W0VfH2wd5u24="
+        },
+        {
+          "title": "新兴业务订单放量，26年收入预期加速增长",
+          "org": "华源证券",
+          "analyst": "刘闯,徐子悦",
+          "date": "2026-04-02",
+          "rating": "买入",
+          "epsForecast": "3.8600000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=XGWmSSG17O1invCqsvizvoldIj4djg/MwuYwjtCpKhQ="
+        },
+        {
+          "title": "公司信息更新报告：收入利润高质增长，多赛道景气共振下迈向加速周期",
+          "org": "开源证券",
+          "analyst": "余汝意",
+          "date": "2026-04-01",
+          "rating": "买入",
+          "epsForecast": "4.1800000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=Gu8QRr/fLYcAt/sGSmjl8M3YHR56eh+eoaZXqsoSRzQ="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=002821&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "nano": {
+      "id": "nano",
+      "reports": [
+        {
+          "title": "核心主业经营趋势向好，海外市场开拓迎来机遇",
+          "org": "信达证券",
+          "analyst": "唐爱金,贺鑫",
+          "date": "2025-08-28",
+          "rating": "买入",
+          "epsForecast": "0.5300000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=eqMxmRBMQHc2e285tinawompsOg4MsTCL6f1yc0WBa4="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=688690&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "hengrui": {
+      "id": "hengrui",
+      "reports": [
+        {
+          "title": "研发能力再得验证，创新成果加速落地",
+          "org": "西南证券",
+          "analyst": "杜向阳",
+          "date": "2026-07-01",
+          "rating": "买入",
+          "epsForecast": "",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=fTCRDmv+6Cmy8a+mlj7u5LFRYLVLhfaP+MgWc3LPJ/k="
+        },
+        {
+          "title": "BD收入稳健，26年创新药指引收入增速30%+",
+          "org": "中邮证券",
+          "analyst": "盛丽华,陈灿",
+          "date": "2026-05-07",
+          "rating": "买入",
+          "epsForecast": "1.4000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=Wq+NxWAWJ26bvphenTnhbKP31uwV9ivnHEM+rF2rhkk="
+        },
+        {
+          "title": "创新成果密集落地，全球化布局加速推进",
+          "org": "华源证券",
+          "analyst": "刘闯",
+          "date": "2026-05-07",
+          "rating": "买入",
+          "epsForecast": "1.4500000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=Wq+NxWAWJ26bvphenTnhbIUTSceZsChlhTqlGgO1ZZQ="
+        },
+        {
+          "title": "2026年一季报点评：进入创新药主导的高质量发展阶段，国际化稳步推进",
+          "org": "东吴证券",
+          "analyst": "朱国广",
+          "date": "2026-05-06",
+          "rating": "买入",
+          "epsForecast": "1.4500000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=vK83LYxZyxfJFYh4NqvDQPwrE6QIcSIOiUHW1AuC2KM="
+        },
+        {
+          "title": "业绩稳健增长，研发成果密集兑现",
+          "org": "国金证券",
+          "analyst": "甘坛焕,姜铸轩",
+          "date": "2026-04-23",
+          "rating": "买入",
+          "epsForecast": "1.4960000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=/OdnvFqSBKsDWvabmdFdFHgyx56kASBLHuegvP29BCY="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=600276&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "beigene": {
+      "id": "beigene",
+      "reports": [
+        {
+          "title": "ASCO公布新数据，彰显实体瘤管线加速推进",
+          "org": "西南证券",
+          "analyst": "杜向阳",
+          "date": "2026-06-08",
+          "rating": null,
+          "epsForecast": "2.85",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=JbxiMuPmNPwklumuVKyO7S/rftZS11Fbhi4ZTyeId5Y="
+        },
+        {
+          "title": "泽布替尼同比维持高增，全年业绩指引上调",
+          "org": "中邮证券",
+          "analyst": "盛丽华,陈灿",
+          "date": "2026-05-13",
+          "rating": "买入",
+          "epsForecast": "2.4200000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=KKx/o0h8GXci4gNIaf+w9GE8HgdoJO3h783XjIkk+Mk="
+        },
+        {
+          "title": "2026年一季报点评：泽布替尼引领增长，聚焦ASCO实体瘤领域价值增量",
+          "org": "东吴证券",
+          "analyst": "朱国广",
+          "date": "2026-05-12",
+          "rating": "买入",
+          "epsForecast": "3.4100000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=EZKzOIyOfPXOY/mOkPf0GGYDrVxN/mBlQ7yyN8xkcNA="
+        },
+        {
+          "title": "四季度收入符合预期，2026年催化剂丰富",
+          "org": "浦银国际证券",
+          "analyst": "阳景,胡泽宇",
+          "date": "2026-03-09",
+          "rating": "买入",
+          "epsForecast": "",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=sayaAh9m4uyVUYWKMmQSM70MTBgjcigehvYLulnIi4A="
+        },
+        {
+          "title": "盈利稳步提升，全年收入指引下限上调",
+          "org": "中邮证券",
+          "analyst": "盛丽华,陈灿",
+          "date": "2025-11-21",
+          "rating": "买入",
+          "epsForecast": "2.8300000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=46iwNvmVxvqC7RfgZd2I6wviaWgcWXKdw0mfMhwctcM="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=688235&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "cosco-energy": {
+      "id": "cosco-energy",
+      "reports": [
+        {
+          "title": "26Q1点评：业绩大增有望拉开“油运大时代”序幕",
+          "org": "华源证券",
+          "analyst": "孙延,曾智星,王惠武,张付哲",
+          "date": "2026-04-29",
+          "rating": "买入",
+          "epsForecast": "2.0000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZapTwxXRoU6qdk1dhBUeCAeMsI9d9eMbgQ6BOTvZbs="
+        },
+        {
+          "title": "Q1业绩大幅增长，油运高景气兑现",
+          "org": "国金证券",
+          "analyst": "李丹,霍泽嘉",
+          "date": "2026-04-28",
+          "rating": "买入",
+          "epsForecast": "2.1330000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=en3lKDpHApx5MExDYCEDEWYf9DzLZIa7n+qMBTYIT78="
+        },
+        {
+          "title": "25年报点评：Q4业绩验证周期上行，看好“油运大时代”",
+          "org": "华源证券",
+          "analyst": "孙延,曾智星,王惠武,张付哲",
+          "date": "2026-03-29",
+          "rating": "买入",
+          "epsForecast": "2.0000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=dAK1ppXG2ZMmjjQE+9CZ5WYI6FrEw3nEcjnVW8/n2q8="
+        },
+        {
+          "title": "三季度归母净利同比+4%，旺季运价弹性值得期待",
+          "org": "国信证券",
+          "analyst": "罗丹",
+          "date": "2025-11-06",
+          "rating": "增持",
+          "epsForecast": "1.0200000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=UbWPFA82PZKOsGTTaSVtT1UZUyKULDN82bJBW+6lSZg="
+        },
+        {
+          "title": "2025年三季度报告点评：Q3归母净利润+4.37%，9月运价上涨提振业绩预期",
+          "org": "信达证券",
+          "analyst": "匡培钦,黄安",
+          "date": "2025-10-31",
+          "rating": "增持",
+          "epsForecast": "1.0400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=BZx4sIvc1ZaAK0tUYa4jh4fY/BHIEPzr74sS06SHR+A="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=600026&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "cm-energy": {
+      "id": "cm-energy",
+      "reports": [
+        {
+          "title": "26Q1点评：业绩大涨初步验证周期，持续看好公司受益于油散共振",
+          "org": "华源证券",
+          "analyst": "孙延,曾智星,王惠武,张付哲",
+          "date": "2026-04-29",
+          "rating": "买入",
+          "epsForecast": "1.6700000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZapTwxXRoU6qdk1dhBUeHRrrIYVdo+v9dnOr0dEp7Y="
+        },
+        {
+          "title": "2025年油轮业务经营业绩创新高，霍尔木兹海峡通行受限支撑油运价格高位运行",
+          "org": "中银证券",
+          "analyst": "王靖添",
+          "date": "2026-04-18",
+          "rating": "增持",
+          "epsForecast": "1.8000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=jBWtOmqmnxoVD90+lx7bTLnOCj5quAkTjKADXKlTg0o="
+        },
+        {
+          "title": "25年报点评：油运业绩大涨，重视公司龙头地位与周期共振",
+          "org": "华源证券",
+          "analyst": "孙延,曾智星,王惠武,张付哲",
+          "date": "2026-04-04",
+          "rating": "买入",
+          "epsForecast": "1.6700000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=8uk5E7kXIcMxbL2jue1oN3hfRR71IQQY0U7CTSUCWgQ="
+        },
+        {
+          "title": "25Q4归母净利同比+56%，多重利好催化油运运价上行",
+          "org": "国信证券",
+          "analyst": "罗丹",
+          "date": "2026-03-31",
+          "rating": "增持",
+          "epsForecast": "1.2000000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=yox7xzf0O9dtTdxl8tZuTw5dObtQX1c+Otl/4aOg6zk="
+        },
+        {
+          "title": "25Q3点评：Q3业绩同比大涨，关注油散共振",
+          "org": "华源证券",
+          "analyst": "孙延,曾智星,王惠武,张付哲",
+          "date": "2025-11-03",
+          "rating": "买入",
+          "epsForecast": "1.0100000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=M3W+xvIoKL6BPVVY0LPN8EvD9nEK2+GD49yVz9h2j34="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=601872&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    },
+    "cm-nanjing": {
+      "id": "cm-nanjing",
+      "reports": [
+        {
+          "title": "26Q1点评：归母净利大增，关注后续地缘催化",
+          "org": "华源证券",
+          "analyst": "孙延,曾智星,王惠武,张付哲",
+          "date": "2026-04-29",
+          "rating": "买入",
+          "epsForecast": "0.4400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9ZapTwxXRoU6qdk1dhBUeG3V7BEsQ/l8tXKsWwcpbik="
+        },
+        {
+          "title": "亚太成品油运输龙头，未来有望开启分红",
+          "org": "西南证券",
+          "analyst": "胡光怿,杨蕊",
+          "date": "2026-01-19",
+          "rating": "买入",
+          "epsForecast": "0.3",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=9pB72vVM/uzl593cCjatHcihJGG2F/yJLqIgvkrkRZc="
+        }
+      ],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=601975&qType=0&pageNo=1&sortType=4&sortRule=-1"
+      }
+    }
+  }
+}

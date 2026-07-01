@@ -1,0 +1,334 @@
+{
+  "updatedAt": "2026-07-01T08:04:41+08:00",
+  "items": {
+    "sugon": {
+      "id": "sugon",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.603019&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "fii": {
+      "id": "fii",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.601138&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "lenovo": {
+      "id": "lenovo",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+      }
+    },
+    "eoptolink": {
+      "id": "eoptolink",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A0.300502&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "innolight": {
+      "id": "innolight",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A0.300308&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "wus": {
+      "id": "wus",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A0.002463&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "victor-tech": {
+      "id": "victor-tech",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A0.300476&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "shennan": {
+      "id": "shennan",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A0.002916&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "best": {
+      "id": "best",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A0.300580&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "wuzhou": {
+      "id": "wuzhou",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.603667&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "leaderdrive": {
+      "id": "leaderdrive",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.688017&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "moons": {
+      "id": "moons",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.603728&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "topgroup": {
+      "id": "topgroup",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.601689&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "wuxi": {
+      "id": "wuxi",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.603259&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "pharmaron": {
+      "id": "pharmaron",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A0.300759&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "asymchem": {
+      "id": "asymchem",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A0.002821&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "nano": {
+      "id": "nano",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.688690&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "hengrui": {
+      "id": "hengrui",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.600276&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "beigene": {
+      "id": "beigene",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.688235&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "cosco-energy": {
+      "id": "cosco-energy",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.600026&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "cm-energy": {
+      "id": "cm-energy",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.601872&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    },
+    "cm-nanjing": {
+      "id": "cm-nanjing",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney block membership",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "error",
+        "sourceUrl": "https://push2.eastmoney.com/api/qt/slist/get?pn=1&pz=20&po=1&np=1&fltt=2&invt=2&fid=f3&fs=b%3A1.601975&fields=f12%2Cf14%2Cf3%2Cf100%2Cf102",
+        "errorMessage": "'NoneType' object has no attribute 'get'"
+      }
+    }
+  }
+}

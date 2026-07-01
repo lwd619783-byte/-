@@ -1,0 +1,467 @@
+{
+  "updatedAt": "2026-07-01T08:04:41+08:00",
+  "items": {
+    "sugon": {
+      "id": "sugon",
+      "name": "中科曙光",
+      "code": "603019",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 14.63051384873636,
+      "floatShares": 14.631166651123753,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh603019"
+      }
+    },
+    "fii": {
+      "id": "fii",
+      "name": "工业富联",
+      "code": "601138",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 198.44088704088702,
+      "floatShares": 198.44088704088702,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh601138"
+      }
+    },
+    "lenovo": {
+      "id": "lenovo",
+      "name": "联想集团",
+      "code": "0992",
+      "market": "港股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": null,
+      "floatShares": null,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+      }
+    },
+    "eoptolink": {
+      "id": "eoptolink",
+      "name": "新易盛",
+      "code": "300502",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 12.542438220757825,
+      "floatShares": 13.942570016474464,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sz300502"
+      }
+    },
+    "innolight": {
+      "id": "innolight",
+      "name": "中际旭创",
+      "code": "300308",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 11.09940157480315,
+      "floatShares": 11.152346456692912,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sz300308"
+      }
+    },
+    "wus": {
+      "id": "wus",
+      "name": "沪电股份",
+      "code": "002463",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 19.228075916230367,
+      "floatShares": 19.24365183246073,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sz002463"
+      }
+    },
+    "victor-tech": {
+      "id": "victor-tech",
+      "name": "胜宏科技",
+      "code": "300476",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 8.651935455936265,
+      "floatShares": 9.827844008890684,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sz300476"
+      }
+    },
+    "shennan": {
+      "id": "shennan",
+      "name": "深南电路",
+      "code": "002916",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 6.64808910242411,
+      "floatShares": 6.811661934920289,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sz002916"
+      }
+    },
+    "best": {
+      "id": "best",
+      "name": "贝斯特",
+      "code": "300580",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 4.726006961710592,
+      "floatShares": 5.023371456986574,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sz300580"
+      }
+    },
+    "wuzhou": {
+      "id": "wuzhou",
+      "name": "五洲新春",
+      "code": "603667",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 3.6620879120879124,
+      "floatShares": 3.8315018315018317,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh603667"
+      }
+    },
+    "leaderdrive": {
+      "id": "leaderdrive",
+      "name": "绿的谐波",
+      "code": "688017",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 1.8332934475661702,
+      "floatShares": 1.8332934475661702,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh688017"
+      }
+    },
+    "moons": {
+      "id": "moons",
+      "name": "鸣志电器",
+      "code": "603728",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 4.188772160210112,
+      "floatShares": 4.188772160210112,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh603728"
+      }
+    },
+    "topgroup": {
+      "id": "topgroup",
+      "name": "拓普集团",
+      "code": "601689",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 17.378411910669975,
+      "floatShares": 17.378411910669975,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh601689"
+      }
+    },
+    "wuxi": {
+      "id": "wuxi",
+      "name": "药明康德",
+      "code": "603259",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 24.73279254678339,
+      "floatShares": 29.837603405348965,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh603259"
+      }
+    },
+    "pharmaron": {
+      "id": "pharmaron",
+      "name": "康龙化成",
+      "code": "300759",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 14.200483926719668,
+      "floatShares": 18.372969236087105,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sz300759"
+      }
+    },
+    "asymchem": {
+      "id": "asymchem",
+      "name": "凯莱英",
+      "code": "002821",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 3.170432098765432,
+      "floatShares": 3.60783950617284,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sz002821"
+      }
+    },
+    "nano": {
+      "id": "nano",
+      "name": "纳微科技",
+      "code": "688690",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 4.038095238095238,
+      "floatShares": 4.038095238095238,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh688690"
+      }
+    },
+    "hengrui": {
+      "id": "hengrui",
+      "name": "恒瑞医药",
+      "code": "600276",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 63.78996925441968,
+      "floatShares": 66.37202152190623,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh600276"
+      }
+    },
+    "beigene": {
+      "id": "beigene",
+      "name": "百济神州",
+      "code": "688235",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 1.1505439692078079,
+      "floatShares": 15.414202113035623,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh688235"
+      }
+    },
+    "cosco-energy": {
+      "id": "cosco-energy",
+      "name": "中远海能",
+      "code": "600026",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 38.277034559643255,
+      "floatShares": 54.70958751393534,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh600026"
+      }
+    },
+    "cm-energy": {
+      "id": "cm-energy",
+      "name": "招商轮船",
+      "code": "601872",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 80.7455890722823,
+      "floatShares": 80.7455890722823,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh601872"
+      }
+    },
+    "cm-nanjing": {
+      "id": "cm-nanjing",
+      "name": "招商南油",
+      "code": "601975",
+      "market": "A股",
+      "industryName": null,
+      "listDate": null,
+      "totalShares": 46.80428954423593,
+      "floatShares": 46.80428954423593,
+      "companyProfile": null,
+      "businessScope": null,
+      "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh601975"
+      }
+    }
+  }
+}

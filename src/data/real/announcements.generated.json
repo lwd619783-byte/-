@@ -1,0 +1,269 @@
+{
+  "updatedAt": "2026-07-01T08:04:41+08:00",
+  "items": {
+    "sugon": {
+      "id": "sugon",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "fii": {
+      "id": "fii",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "lenovo": {
+      "id": "lenovo",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+      }
+    },
+    "eoptolink": {
+      "id": "eoptolink",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "innolight": {
+      "id": "innolight",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "wus": {
+      "id": "wus",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "victor-tech": {
+      "id": "victor-tech",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "shennan": {
+      "id": "shennan",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "best": {
+      "id": "best",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "wuzhou": {
+      "id": "wuzhou",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "leaderdrive": {
+      "id": "leaderdrive",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "moons": {
+      "id": "moons",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "topgroup": {
+      "id": "topgroup",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "wuxi": {
+      "id": "wuxi",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "pharmaron": {
+      "id": "pharmaron",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "asymchem": {
+      "id": "asymchem",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "nano": {
+      "id": "nano",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "hengrui": {
+      "id": "hengrui",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "beigene": {
+      "id": "beigene",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "cosco-energy": {
+      "id": "cosco-energy",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "cm-energy": {
+      "id": "cm-energy",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    },
+    "cm-nanjing": {
+      "id": "cm-nanjing",
+      "announcements": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcement",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "status": "missing",
+        "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+      }
+    }
+  }
+}

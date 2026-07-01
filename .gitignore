@@ -1,0 +1,16 @@
+node_modules/
+dist/
+data-cache/
+
+.env
+.env.local
+.env.*.local
+
+*.tsbuildinfo
+*.log
+gcm-diagnose.log
+__pycache__/
+*.pyc
+
+.DS_Store
+Thumbs.db
