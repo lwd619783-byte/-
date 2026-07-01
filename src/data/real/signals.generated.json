@@ -1,373 +1,967 @@
 {
-  "updatedAt": "2026-07-01T08:04:41+08:00",
+  "updatedAt": "2026-07-01T13:28:48+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
+      "mainFundFlow5d": 33.64352816,
+      "mainFundFlow20d": 18.9685432,
+      "latestMainFundFlow": 17.17810432,
+      "marginBalance": 100.89049871,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 1.299200473064,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "latestMainFundFlow": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603019&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow5d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603019&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow20d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603019&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "fii": {
       "id": "fii",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 100.2985628,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": -1.30966315338,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "lenovo": {
       "id": "lenovo",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {},
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "unsupported_market",
         "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
       }
     },
     "eoptolink": {
       "id": "eoptolink",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 280.57266809,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 11.481627531816,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "innolight": {
       "id": "innolight",
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
+      "mainFundFlow5d": -90.80900096,
+      "mainFundFlow20d": -194.35456512,
+      "latestMainFundFlow": 20.09338624,
+      "marginBalance": 437.9828032,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": -15.782412356291,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "latestMainFundFlow": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300308&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow5d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300308&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow20d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300308&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "wus": {
       "id": "wus",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 71.05144986,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 38.872589988184,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "victor-tech": {
       "id": "victor-tech",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 232.85151272,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 2.952969065527,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "shennan": {
       "id": "shennan",
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
+      "mainFundFlow5d": 7.02793728,
+      "mainFundFlow20d": 12.70454544,
+      "latestMainFundFlow": 7.6215912,
+      "marginBalance": 21.6358665,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 24.974692164694,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "latestMainFundFlow": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002916&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow5d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002916&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow20d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002916&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "best": {
       "id": "best",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
-      "dragonTigerCount30d": null,
       "marginBalance": null,
-      "holderChangePct": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": -3.565453045835,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "wuzhou": {
       "id": "wuzhou",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 12.34234573,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 27.110105789271,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "leaderdrive": {
       "id": "leaderdrive",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 31.440586043400003,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 6.227426636569,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "moons": {
       "id": "moons",
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
+      "mainFundFlow5d": 0.87949986,
+      "mainFundFlow20d": -1.59108197,
+      "latestMainFundFlow": 1.25889828,
+      "marginBalance": 3.93074119,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": -1.639503298409,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "latestMainFundFlow": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603728&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow5d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603728&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow20d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603728&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "topgroup": {
       "id": "topgroup",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 31.18829344,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 4.748228157593,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "wuxi": {
       "id": "wuxi",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 55.0123810061,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 13.490547263682,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "pharmaron": {
       "id": "pharmaron",
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
+      "mainFundFlow5d": 1.35567514,
+      "mainFundFlow20d": -3.24940586,
+      "latestMainFundFlow": -1.76459904,
+      "marginBalance": 11.29936042,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": -16.903380676135,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "latestMainFundFlow": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300759&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow5d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300759&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow20d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300759&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "asymchem": {
       "id": "asymchem",
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
+      "mainFundFlow5d": -0.95872826,
+      "mainFundFlow20d": 0.03867993,
+      "latestMainFundFlow": -2.19678896,
+      "marginBalance": 7.13439965,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": -24.006901984321,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "latestMainFundFlow": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002821&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow5d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002821&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow20d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002821&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "nano": {
       "id": "nano",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 5.719953911,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 2.115530782873,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "hengrui": {
       "id": "hengrui",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 56.262994398400004,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 1.927080090027,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "beigene": {
       "id": "beigene",
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
+      "mainFundFlow5d": 2.23147194,
+      "mainFundFlow20d": -2.83178665,
+      "latestMainFundFlow": -0.46922384,
+      "marginBalance": 11.578352349700001,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 6.533833222471,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "latestMainFundFlow": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.688235&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow5d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.688235&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow20d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.688235&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "cosco-energy": {
       "id": "cosco-energy",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 17.53543476,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": -10.755191634193,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "cm-energy": {
       "id": "cm-energy",
+      "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
+      "marginBalance": 23.41123369,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": 2.988627347263,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     },
     "cm-nanjing": {
       "id": "cm-nanjing",
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
+      "mainFundFlow5d": -6.67864413,
+      "mainFundFlow20d": -9.45336975,
+      "latestMainFundFlow": -2.25732382,
+      "marginBalance": 11.54312446,
       "dragonTigerCount30d": null,
-      "marginBalance": null,
-      "holderChangePct": null,
+      "holderChangePct": -2.434112819996,
       "upcomingLockupCount": null,
+      "popularityRank": null,
       "hotReason": null,
+      "latestInteraction": null,
+      "fieldSources": {
+        "latestMainFundFlow": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.601975&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow5d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.601975&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "mainFundFlow20d": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney push2his fund flow",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real",
+          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.601975&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+        },
+        "marginBalance": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter margin",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        },
+        "holderChangePct": {
+          "source": "A Stock Data",
+          "sourceLayer": "signals",
+          "sourceEndpoint": "Eastmoney datacenter holder count",
+          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "status": "real"
+        }
+      },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney optional signals",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
-        "status": "missing"
+        "sourceEndpoint": "Eastmoney multi-source signals",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "status": "real"
       }
     }
   }

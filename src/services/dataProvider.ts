@@ -14,8 +14,14 @@ export function buildDashboardDataset(mode: DashboardDataMode, realData: Generat
   const aShareRealCount = stocks.filter(
     (stock) => stock.market === "A股" && stock.dataQuality?.some((item) => item.status === "real" || item.status === "stale"),
   ).length;
-  const unsupportedCount = stocks.filter((stock) => stock.dataQuality?.some((item) => item.status === "unsupported_market")).length;
-  const coverageSummary = `A股真实覆盖 ${aShareRealCount}/${aShareCount}，暂不支持市场 ${unsupportedCount}/${stocks.length}`;
+  const hkCount = stocks.filter((stock) => stock.market === "港股").length;
+  const hkRealCount = stocks.filter(
+    (stock) => stock.market === "港股" && stock.dataQuality?.some((item) => item.status === "real" || item.status === "stale"),
+  ).length;
+  const hkUnsupportedCount = stocks.filter(
+    (stock) => stock.market === "港股" && stock.dataQuality?.some((item) => item.status === "unsupported_market"),
+  ).length;
+  const coverageSummary = `A股覆盖 ${aShareRealCount}/${aShareCount}；港股覆盖 ${hkRealCount}/${hkCount}，暂未接入 ${hkUnsupportedCount}/${hkCount}`;
 
   const modeLabel =
     mode === "mock" ? "Mock Data" : hasReal && !hasMockFallback && mode === "real" ? "Real Data" : hasReal ? "Mixed Data" : "Mock Data";

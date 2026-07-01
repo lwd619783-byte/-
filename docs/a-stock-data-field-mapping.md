@@ -32,15 +32,34 @@
 
 ## 财务字段
 
-第一阶段保留 `financials.generated.json` 结构，但不伪造财务值。未抓取到可信财务快照时写入 `null + sourceStatus: missing`。
+当前实现使用新浪财报三表直连接口。金额统一换算为亿元，百分比字段以 `12.3` 表示 `12.3%`。
 
-| 看板字段 | 目标来源 | 缺失策略 |
-| --- | --- | --- |
-| `revenue` / `revenueGrowth` | 新浪三表 / 东方财富财务 / F10 补位 | `null` |
-| `netProfit` / `profitGrowth` | 同上 | `null` |
-| `eps` / `roe` | 同上 | `null` |
-| `grossMargin` / `netMargin` | 本地计算或源字段 | `null` |
-| `debtRatio` / `operatingCashFlow` | 财报三表 | `null` |
+| 看板字段 | 生成 JSON | 来源层 | 源字段/口径 | 单位 |
+| --- | --- | --- | --- | --- |
+| `reportDate` | `financials` | Sina lrb | 最新报告期 | YYYY-MM-DD |
+| `revenue` | `financials` | Sina lrb | 利润表第 0/1 行营业收入 | 亿元 |
+| `revenueGrowth` | `financials` | Sina lrb | 营业收入同比 | % |
+| `netProfit` | `financials` | Sina lrb | 归母净利润 | 亿元 |
+| `profitGrowth` | `financials` | Sina lrb | 归母净利润同比 | % |
+| `eps` | `financials` | Sina lrb | 基本每股收益 | 元 |
+| `grossMargin` | `financials` | 本地计算 | `(revenue - cost) / revenue` | % |
+| `netMargin` | `financials` | 本地计算 | `netProfit / revenue` | % |
+| `roe` | `financials` | 本地计算 | `netProfit / parentEquity` | % |
+| `debtRatio` | `financials` | 本地计算 | `liability / asset` | % |
+| `operatingCashFlow` | `financials` | Sina llb | 经营活动现金流量净额 | 亿元 |
+
+缺失时保持 `null`，并在 `quality.status` 或校验报告中标记 `missing/error`。
+
+## F10 / 公司资料
+
+| 看板字段 | 生成 JSON | 来源 | 策略 |
+| --- | --- | --- | --- |
+| `fullName` | `stocks` | 东财 HSF10 CompanySurvey | 公司全称 |
+| `industryName` | `stocks` | 东财 HSF10 / push2 | 优先东财行业，缺失时用证监会行业 |
+| `listDate` | `stocks` | 东财 push2 stock/get | 上市日期 |
+| `totalShares` / `floatShares` | `stocks` | 东财 push2 / 腾讯市值反推 | 亿股 |
+| `companyProfile` | `stocks` | 东财 HSF10 | 公司简介 |
+| `businessScope` | `stocks` | 东财 HSF10 | 主营业务 / 经营范围 |
 
 ## 研究、公告、信号、板块
 
@@ -48,8 +67,8 @@
 | --- | --- | --- | --- |
 | 研报列表 | `research` | 东方财富 reportapi | 只存元数据 |
 | 公告列表 | `announcements` | 巨潮资讯 | 只存标题、日期、链接 |
-| 资金/信号摘要 | `signals` | 预留东方财富资金流、龙虎榜、两融等 | 缺失不阻断 |
-| 板块/概念 | `sectorMembership` | 东方财富板块补位 | 失败写 `missing/error` |
+| 资金/信号摘要 | `signals` | 东方财富 push2his / datacenter | 资金流、两融、龙虎榜、股东户数、解禁，字段级来源写入 `fieldSources` |
+| 板块/概念 | `sectorMembership` | 东方财富板块补位 + HSF10 行业兜底 | 失败时至少保留行业分类 |
 
 ## 数据质量
 

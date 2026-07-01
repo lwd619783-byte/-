@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T08:04:41+08:00",
+  "updatedAt": "2026-07-01T13:28:48+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -8,7 +8,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -20,7 +20,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -32,7 +32,7 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "unsupported_market",
         "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
       }
@@ -44,7 +44,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -56,7 +56,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -68,7 +68,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -80,7 +80,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -92,7 +92,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -104,7 +104,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -116,7 +116,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -128,7 +128,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -140,7 +140,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -152,7 +152,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -164,7 +164,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -176,7 +176,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -188,7 +188,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -200,7 +200,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -212,7 +212,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -224,7 +224,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -236,7 +236,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -248,7 +248,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -260,7 +260,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcement",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "missing",
         "sourceUrl": "http://www.cninfo.com.cn/new/hisAnnouncement/query"
       }

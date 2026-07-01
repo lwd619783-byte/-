@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T08:04:41+08:00",
+  "updatedAt": "2026-07-01T13:28:48+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -45,7 +45,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=603019&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -103,7 +103,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=601138&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -115,7 +115,7 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "unsupported_market",
         "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
       }
@@ -173,7 +173,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300502&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -231,7 +231,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300308&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -289,7 +289,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=002463&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -347,7 +347,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300476&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -405,7 +405,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=002916&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -445,7 +445,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300580&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -485,7 +485,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=603667&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -543,7 +543,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=688017&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -574,7 +574,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=603728&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -632,7 +632,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=601689&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -690,7 +690,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=603259&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -748,7 +748,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=300759&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -806,7 +806,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=002821&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -828,7 +828,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=688690&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -842,7 +842,7 @@
           "analyst": "杜向阳",
           "date": "2026-07-01",
           "rating": "买入",
-          "epsForecast": "",
+          "epsForecast": "1.44",
           "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=fTCRDmv+6Cmy8a+mlj7u5LFRYLVLhfaP+MgWc3LPJ/k="
         },
         {
@@ -886,7 +886,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=600276&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -944,7 +944,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=688235&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -1002,7 +1002,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=600026&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -1060,7 +1060,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=601872&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
@@ -1091,7 +1091,7 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-01T08:04:41+08:00",
+        "updatedAt": "2026-07-01T13:28:48+08:00",
         "status": "real",
         "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-01&endTime=2026-07-01&code=601975&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }

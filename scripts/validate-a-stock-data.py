@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -36,11 +36,23 @@ A_SHARE_IDS = {
 }
 
 UNSUPPORTED_IDS = {"lenovo"}
+CORE_FINANCIAL_FIELDS = ["revenue", "netProfit", "roe"]
+SIGNAL_FIELDS = [
+    "mainFundFlow5d",
+    "mainFundFlow20d",
+    "latestMainFundFlow",
+    "marginBalance",
+    "dragonTigerCount30d",
+    "holderChangePct",
+    "upcomingLockupCount",
+    "popularityRank",
+    "hotReason",
+    "latestInteraction",
+]
 
 
 def load_json(name: str) -> dict[str, Any]:
-    path = REAL_DIR / name
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads((REAL_DIR / name).read_text(encoding="utf-8"))
 
 
 def parse_dt(value: str | None) -> datetime | None:
@@ -56,14 +68,41 @@ def is_future(value: str | None) -> bool:
     dt = parse_dt(value)
     if not dt:
         return False
-    now = datetime.now(dt.tzinfo or timezone.utc)
-    return dt > now
+    return dt > datetime.now(dt.tzinfo or timezone.utc)
+
+
+def is_stale(value: str | None) -> bool:
+    dt = parse_dt(value)
+    if not dt:
+        return True
+    return dt < datetime.now(dt.tzinfo or timezone.utc) - timedelta(days=7)
+
+
+def status_of(item: dict[str, Any] | None) -> str:
+    return ((item or {}).get("quality") or {}).get("status", "missing")
+
+
+def has_core_financial(financial: dict[str, Any]) -> bool:
+    return sum(financial.get(field) is not None for field in CORE_FINANCIAL_FIELDS) >= 2
+
+
+def has_f10(profile: dict[str, Any]) -> bool:
+    return bool(profile.get("companyProfile") or profile.get("businessScope"))
+
+
+def has_signal(signal: dict[str, Any]) -> bool:
+    return any(signal.get(field) is not None for field in SIGNAL_FIELDS)
+
+
+def pct(count: int, total: int) -> str:
+    return f"{count}/{total} ({(count / total * 100 if total else 0):.1f}%)"
 
 
 def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
-    infos: list[str] = []
+    missing_items: list[str] = []
+    stale_items: list[str] = []
     files = {
         "manifest": "data-manifest.generated.json",
         "profiles": "stocks.generated.json",
@@ -78,13 +117,13 @@ def main() -> int:
 
     data: dict[str, Any] = {}
     for key, filename in files.items():
-      try:
-          data[key] = load_json(filename)
-      except Exception as exc:
-          errors.append(f"{filename}: JSON 不可读取或不可解析：{exc}")
+        try:
+            data[key] = load_json(filename)
+        except Exception as exc:
+            errors.append(f"{filename}: JSON 不可读取或不可解析：{exc}")
 
     if errors:
-        write_report(errors, warnings, infos)
+        write_report({}, errors, warnings, missing_items, stale_items)
         return 1
 
     manifest = data["manifest"]
@@ -95,123 +134,182 @@ def main() -> int:
     quotes = data["quotes"].get("items", {})
     histories = data["history"].get("items", {})
     financials = data["financials"].get("items", {})
-    research = data["research"].get("items", {})
-    announcements = data["announcements"].get("items", {})
     signals = data["signals"].get("items", {})
-    sector = data["sector"].get("items", {})
+    sectors = data["sector"].get("items", {})
 
-    missing_profile = sorted((A_SHARE_IDS | UNSUPPORTED_IDS) - set(profiles))
-    if missing_profile:
-        errors.append(f"映射股票缺少 profile：{', '.join(missing_profile)}")
+    for stock_id in sorted(A_SHARE_IDS | UNSUPPORTED_IDS):
+        if stock_id not in profiles:
+            errors.append(f"{stock_id}: 缺少 profile")
 
-    for stock_id in A_SHARE_IDS:
-        profile = profiles.get(stock_id)
-        quote = quotes.get(stock_id)
-        history = histories.get(stock_id)
-        financial = financials.get(stock_id)
-        if not profile:
-            continue
+    quote_real = 0
+    history_real = 0
+    finance_core = 0
+    report_dates = 0
+    f10_text = 0
+    industry_count = 0
+    signal_count = 0
+    sector_count = 0
+
+    for stock_id in sorted(A_SHARE_IDS):
+        profile = profiles.get(stock_id, {})
+        quote = quotes.get(stock_id, {})
+        history = histories.get(stock_id, {})
+        financial = financials.get(stock_id, {})
+        signal = signals.get(stock_id, {})
+        sector = sectors.get(stock_id, {})
+
         code = str(profile.get("code") or "")
         if not (len(code) == 6 and code.isdigit()):
             errors.append(f"{stock_id}: A 股代码不是 6 位数字：{code}")
-        if profile.get("quality", {}).get("status") not in {"real", "stale", "missing", "error"}:
-            errors.append(f"{stock_id}: profile 状态非法")
 
-        if not quote:
-            errors.append(f"{stock_id}: 缺少 quote")
+        if status_of(quote) == "real" and isinstance(quote.get("latestPrice"), (int, float)) and quote["latestPrice"] > 0:
+            quote_real += 1
         else:
-            status = quote.get("quality", {}).get("status")
-            price = quote.get("latestPrice")
-            if status == "real" and (not isinstance(price, (int, float)) or price <= 0):
-                errors.append(f"{stock_id}: 真实行情 latestPrice 非正")
-            if status != "real":
-                warnings.append(f"{stock_id}: quote 状态为 {status}")
-            pe = quote.get("peTtm") if quote.get("peTtm") is not None else quote.get("pe")
-            pb = quote.get("pb")
-            if isinstance(pe, (int, float)) and (pe < -200 or pe > 500):
-                warnings.append(f"{stock_id}: PE TTM 可能异常：{pe}")
-            if isinstance(pb, (int, float)) and (pb < 0 or pb > 80):
-                warnings.append(f"{stock_id}: PB 可能异常：{pb}")
-            for field in ("marketCap", "floatMarketCap", "amount"):
-                value = quote.get(field)
-                if isinstance(value, (int, float)) and value < 0:
-                    warnings.append(f"{stock_id}: {field} 为负值，单位或源字段需复核")
-            if is_future(quote.get("updatedAt")):
-                errors.append(f"{stock_id}: quote.updatedAt 晚于当前时间")
+            missing_items.append(f"{stock_id}.quote")
 
-        if not history:
-            errors.append(f"{stock_id}: 缺少 priceHistory")
+        points = history.get("points") or []
+        if status_of(history) == "real" and len(points) >= 30:
+            history_real += 1
         else:
-            points = history.get("points") or []
-            if history.get("quality", {}).get("status") == "real" and len(points) < 30:
-                warnings.append(f"{stock_id}: K 线少于 30 条：{len(points)}")
-            for point in points:
-                if point.get("date") and point["date"] > datetime.now().date().isoformat():
-                    errors.append(f"{stock_id}: K 线日期晚于当前日期：{point['date']}")
-                close = point.get("close")
-                if close is not None and close <= 0:
-                    warnings.append(f"{stock_id}: K 线 close 非正：{point.get('date')}")
+            missing_items.append(f"{stock_id}.priceHistory")
 
-        if financial:
-            revenue = financial.get("revenue")
-            net_profit = financial.get("netProfit")
-            for label, value in (("revenue", revenue), ("netProfit", net_profit)):
-                if isinstance(value, (int, float)) and abs(value) > 1_000_000:
-                    warnings.append(f"{stock_id}: {label} 数量级可能异常，当前按亿元口径检查：{value}")
+        if has_core_financial(financial):
+            finance_core += 1
         else:
-            warnings.append(f"{stock_id}: 缺少 financials")
+            missing_items.append(f"{stock_id}.financialCore")
+        if financial.get("reportDate"):
+            report_dates += 1
+        else:
+            warnings.append(f"{stock_id}: 财务 reportDate 缺失")
 
-        for layer_name, bucket in (("research", research), ("announcements", announcements), ("signals", signals), ("sector", sector)):
-            if stock_id not in bucket:
-                warnings.append(f"{stock_id}: 缺少 {layer_name} 生成项")
+        if has_f10(profile):
+            f10_text += 1
+        else:
+            missing_items.append(f"{stock_id}.f10")
+        if profile.get("industryName"):
+            industry_count += 1
+        else:
+            missing_items.append(f"{stock_id}.industryName")
 
+        if has_signal(signal):
+            signal_count += 1
+        else:
+            missing_items.append(f"{stock_id}.signals")
+
+        if sector.get("industry") or sector.get("concept") or sector.get("region") or profile.get("industryName"):
+            sector_count += 1
+        else:
+            missing_items.append(f"{stock_id}.sectorMembership")
+
+        for source_name, item in {
+            "quote": quote,
+            "history": history,
+            "financial": financial,
+            "profile": profile,
+            "signal": signal,
+            "sector": sector,
+        }.items():
+            quality = item.get("quality") or {}
+            if quality.get("status") in {"missing", "error", "stale"}:
+                missing_items.append(f"{stock_id}.{source_name}:{quality.get('status')}")
+            if is_stale(quality.get("updatedAt")):
+                stale_items.append(f"{stock_id}.{source_name}")
+
+        pe = quote.get("peTtm") if quote.get("peTtm") is not None else quote.get("pe")
+        pb = quote.get("pb")
+        if isinstance(pe, (int, float)) and (pe < -200 or pe > 500):
+            warnings.append(f"{stock_id}: PE TTM 极端值：{pe}")
+        if isinstance(pb, (int, float)) and (pb < 0 or pb > 80):
+            warnings.append(f"{stock_id}: PB 极端值：{pb}")
+
+        revenue = financial.get("revenue")
+        net_profit = financial.get("netProfit")
+        market_cap = quote.get("marketCap")
+        for label, value in (("revenue", revenue), ("netProfit", net_profit), ("marketCap", market_cap)):
+            if isinstance(value, (int, float)) and abs(value) > 1_000_000:
+                warnings.append(f"{stock_id}: {label} 数量级可能异常，当前应为亿元：{value}")
+
+        if is_future(quote.get("updatedAt")):
+            errors.append(f"{stock_id}: quote.updatedAt 晚于当前时间")
+        for point in points:
+            if point.get("date") and point["date"] > datetime.now().date().isoformat():
+                errors.append(f"{stock_id}: K 线日期晚于当前日期：{point['date']}")
+
+    unsupported_ok = 0
     for stock_id in UNSUPPORTED_IDS:
-        status = profiles.get(stock_id, {}).get("quality", {}).get("status")
-        if status != "unsupported_market":
-            errors.append(f"{stock_id}: 应标记 unsupported_market，实际为 {status}")
+        profile_status = status_of(profiles.get(stock_id, {}))
+        if profile_status == "unsupported_market":
+            unsupported_ok += 1
+        else:
+            errors.append(f"{stock_id}: 应标记 unsupported_market，实际为 {profile_status}")
 
-    quote_real = sum(1 for item in quotes.values() if item.get("quality", {}).get("status") == "real")
-    history_real = sum(1 for item in histories.values() if item.get("quality", {}).get("status") == "real" and len(item.get("points") or []) >= 30)
-    infos.append(f"A 股真实行情覆盖：{quote_real}/{len(A_SHARE_IDS)}")
-    infos.append(f"最近 K 线 >=30 条覆盖：{history_real}/{len(A_SHARE_IDS)}")
-    infos.append(f"暂不支持市场：{len(UNSUPPORTED_IDS)}")
-    if quote_real < 5:
-        errors.append("真实行情少于 5 只 A 股")
-    if history_real < 5:
-        errors.append("最近 60 日价格历史成功少于 5 只股票")
+    total_a = len(A_SHARE_IDS)
+    coverage = {
+        "A 股行情覆盖": pct(quote_real, total_a),
+        "A 股 K 线覆盖": pct(history_real, total_a),
+        "A 股财务覆盖": pct(finance_core, total_a),
+        "财务报告期覆盖": pct(report_dates, total_a),
+        "F10 覆盖": pct(f10_text, total_a),
+        "行业分类覆盖": pct(industry_count, total_a),
+        "信号覆盖": pct(signal_count, total_a),
+        "板块归属覆盖": pct(sector_count, total_a),
+        "港股支持": f"unsupported_market {unsupported_ok}/{len(UNSUPPORTED_IDS)}；A 股统计未计入港股",
+        "stale 数据数量": str(len(stale_items)),
+        "missing 字段数量": str(len(missing_items)),
+    }
 
-    write_report(errors, warnings, infos)
+    if quote_real / total_a < 0.9:
+        errors.append("A 股行情覆盖率低于 90%")
+    if history_real / total_a < 0.9:
+        errors.append("A 股 K 线覆盖率低于 90%")
+    if finance_core / total_a < 0.8:
+        errors.append("A 股财务核心字段覆盖率低于 80%")
+    if f10_text / total_a < 0.9:
+        errors.append("F10 / 主营业务覆盖率低于 90%")
+    if signal_count / total_a < 0.7:
+        errors.append("信号层覆盖率低于 70%")
+
+    write_report(coverage, errors, warnings, missing_items, stale_items)
     print(f"Validation complete: errors={len(errors)}, warnings={len(warnings)}, report={REPORT_PATH}")
     return 1 if errors else 0
 
 
-def write_report(errors: list[str], warnings: list[str], infos: list[str]) -> None:
+def write_report(
+    coverage: dict[str, str],
+    errors: list[str],
+    warnings: list[str],
+    missing_items: list[str],
+    stale_items: list[str],
+) -> None:
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     lines = [
         "# A Stock Data 数据校验报告",
         "",
         f"- 生成时间：{datetime.now().replace(microsecond=0).isoformat()}",
-        f"- 阻断错误：{len(errors)}",
-        f"- 警告：{len(warnings)}",
         "",
         "## 覆盖概况",
         "",
     ]
-    lines.extend([f"- {item}" for item in infos] or ["- 暂无"])
+    if coverage:
+        lines.extend([f"- {key}：{value}" for key, value in coverage.items()])
+    else:
+        lines.append("- 暂无")
     lines.extend(["", "## 阻断错误", ""])
     lines.extend([f"- {item}" for item in errors] or ["- 无"])
-    lines.extend(["", "## 警告 / 待核验", ""])
+    lines.extend(["", "## 警告", ""])
     lines.extend([f"- {item}" for item in warnings] or ["- 无"])
+    lines.extend(["", "## stale/error/missing 数据项", ""])
+    lines.extend([f"- stale: {item}" for item in stale_items[:80]] or ["- stale: 无"])
+    lines.extend([f"- missing/error: {item}" for item in missing_items[:120]] or ["- missing/error: 无"])
     lines.extend(
         [
             "",
-            "## 校验口径",
+            "## 下一步建议",
             "",
-            "- A 股代码必须为 6 位数字。",
-            "- 港股/美股在本 MVP 中必须标记为 `unsupported_market`。",
-            "- 真实 quote 的最新价必须大于 0。",
-            "- 最近 K 线真实覆盖按不少于 30 条记录计算。",
-            "- PE/PB、营收、净利润只做异常提示，不因缺失阻断前端构建。",
+            "- 将资金流、人气榜、互动易等高频信号拆成可选刷新，避免完整刷新耗时过长。",
+            "- 接入港股 Provider 后再统计港股覆盖率；当前港股保持 unsupported_market。",
+            "- 财务字段已按新浪三表口径统一为亿元和百分比，后续可用年报原文交叉校验。",
+            "- F10 目前采用东财 HSF10 公司概况；主营收入构成如需更细，可继续接入经营分析端点。",
         ]
     )
     REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")

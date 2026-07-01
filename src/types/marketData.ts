@@ -6,13 +6,17 @@ export interface StockProfile {
   name: string;
   code: string;
   market: Market;
+  fullName?: string | null;
   industryName?: string | null;
+  industryClassifications?: Array<{ scheme: string; name: string | null }>;
   listDate?: string | null;
   totalShares?: number | null;
   floatShares?: number | null;
   companyProfile?: string | null;
   businessScope?: string | null;
   f10Summary?: string | null;
+  revenueComposition?: Array<{ name: string; revenue?: number | null; ratio?: number | null }>;
+  mainProducts?: string[];
   quality: DataQualityMeta;
 }
 
@@ -104,6 +108,8 @@ export interface SectorEntry {
   changePct?: number | null;
   code?: string | null;
   description?: string | null;
+  rank?: number | null;
+  coverage?: number | null;
 }
 
 export interface SectorMembership {
@@ -116,13 +122,17 @@ export interface SectorMembership {
 
 export interface StockSignalSummary {
   id: string;
+  mainFundFlow5d?: number | null;
   mainFundFlow20d?: number | null;
   latestMainFundFlow?: number | null;
   dragonTigerCount30d?: number | null;
   marginBalance?: number | null;
   holderChangePct?: number | null;
   upcomingLockupCount?: number | null;
+  popularityRank?: number | null;
   hotReason?: string | null;
+  latestInteraction?: string | null;
+  fieldSources?: Record<string, DataQualityMeta>;
   quality: DataQualityMeta;
 }
 

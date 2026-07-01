@@ -9,6 +9,7 @@ import { WatchlistTab } from "./components/watchlist/WatchlistTab";
 import { dataSourceNote, macroIndicators } from "./data/macroData";
 import { buildDashboardDataset } from "./services/dataProvider";
 import type { DashboardDataMode, Stock } from "./types";
+import { GlassCard, StatusBadge } from "./components/common/terminal";
 
 type MainTab = "宏观" | "行业" | "个股池" | "观察清单";
 
@@ -37,7 +38,7 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-panel">
+    <div className="terminal-grid min-h-screen bg-bg text-ink">
       <Header
         search={globalSearch}
         onSearchChange={setGlobalSearch}
@@ -49,33 +50,40 @@ export default function App() {
         onDataModeChange={setDataMode}
       />
 
-      <main className="mx-auto max-w-[1600px] px-4 py-5 lg:px-8">
-        <section className="mb-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <main className="mx-auto grid max-w-[1760px] gap-4 px-4 py-5 lg:grid-cols-[220px_minmax(0,1fr)_280px] lg:px-8">
+        <aside className="lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]">
+          <GlassCard className="p-2">
+            <nav className="grid gap-2">
+              {tabs.map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    className={`inline-flex h-11 items-center gap-2 rounded-md px-3 text-sm font-medium transition ${
+                      activeTab === tab.id
+                        ? "border border-borderGlow bg-signal/12 text-signal shadow-glow"
+                        : "text-steel hover:bg-panel2 hover:text-ink"
+                    }`}
+                    onClick={() => setActiveTab(tab.id)}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {tab.id}
+                  </button>
+                );
+              })}
+            </nav>
+          </GlassCard>
+        </aside>
+
+        <section className="min-w-0">
+        <section className="mb-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {dashboardStats.map((stat) => (
-            <div key={stat.label} className="rounded-lg border border-line bg-white p-4 shadow-soft">
+            <GlassCard key={stat.label} className="p-4">
               <p className="text-xs font-medium text-slate-500">{stat.label}</p>
               <p className="mt-1 text-2xl font-semibold text-ink">{stat.value}</p>
-            </div>
+            </GlassCard>
           ))}
         </section>
-
-        <nav className="mb-4 flex gap-2 overflow-x-auto rounded-lg border border-line bg-white p-2 shadow-soft">
-          {tabs.map((tab) => {
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                className={`inline-flex h-11 shrink-0 items-center gap-2 rounded-md px-4 text-sm font-medium transition ${
-                  activeTab === tab.id ? "bg-ink text-white" : "text-slate-600 hover:bg-panel hover:text-ink"
-                }`}
-                onClick={() => setActiveTab(tab.id)}
-              >
-                <Icon className="h-4 w-4" />
-                {tab.id}
-              </button>
-            );
-          })}
-        </nav>
 
         {activeTab === "宏观" && <MacroTab indicators={macroIndicators} />}
         {activeTab === "行业" && (
@@ -102,6 +110,32 @@ export default function App() {
             onOpenStock={setSelectedStock}
           />
         )}
+        </section>
+
+        <aside className="space-y-3 lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]">
+          <GlassCard className="p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-steel">Data Console</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <StatusBadge status={dataset.mode === "mock" ? "mock" : dataset.modeLabel === "Real Data" ? "real" : "stale"} />
+              <StatusBadge status="unsupported_market" />
+            </div>
+            <p className="mt-3 text-sm leading-6 text-steel">{dataset.coverageSummary}</p>
+          </GlassCard>
+          <GlassCard className="p-4">
+            <p className="text-xs font-semibold uppercase tracking-wide text-steel">Missing Watch</p>
+            <div className="mt-3 space-y-2 text-sm text-steel">
+              {dataset.stocks
+                .filter((stock) => (stock.missingFields?.length ?? 0) > 0)
+                .slice(0, 6)
+                .map((stock) => (
+                  <div key={stock.id} className="flex items-center justify-between gap-3 border-b border-line/70 pb-2">
+                    <span>{stock.name}</span>
+                    <span className="text-warning">{stock.missingFields?.length ?? 0}</span>
+                  </div>
+                ))}
+            </div>
+          </GlassCard>
+        </aside>
       </main>
 
       <StockDetailDrawer stock={selectedStock} industries={dataset.industries} onClose={() => setSelectedStock(null)} />

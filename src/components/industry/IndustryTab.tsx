@@ -3,6 +3,7 @@ import { Factory, Layers3 } from "lucide-react";
 import type { Industry, Stock } from "../../types";
 import { findStocksForSegment } from "../../utils/filters";
 import { StockCard } from "../stock/StockCard";
+import { GlassCard, PriceChange } from "../common/terminal";
 
 interface IndustryTabProps {
   industries: Industry[];
@@ -43,7 +44,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
 
   return (
     <section className="grid gap-4 xl:grid-cols-[260px_1fr]">
-      <aside className="rounded-lg border border-line bg-white p-3 shadow-soft">
+      <aside className="rounded-lg border border-line bg-card p-3 shadow-soft">
         <p className="mb-3 px-2 text-xs font-semibold text-steel">行业 Tab</p>
         <div className="grid gap-2">
           {industries.map((industry) => (
@@ -52,7 +53,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
               className={`rounded-md px-3 py-2 text-left text-sm transition ${
                 activeIndustry.id === industry.id
                   ? "bg-ink text-white"
-                  : "border border-line bg-white text-ink hover:border-signal"
+                  : "border border-line bg-panel/70 text-ink hover:border-signal"
               }`}
               onClick={() => switchIndustry(industry)}
             >
@@ -69,20 +70,20 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
         <IndustryOverview industry={activeIndustry} />
         <ChainMap industry={activeIndustry} />
 
-        <div className="rounded-lg border border-line bg-white p-4 shadow-soft">
+        <GlassCard className="p-4">
           <div className="flex items-center gap-2">
             <Layers3 className="h-5 w-5 text-signal" />
             <h2 className="text-lg font-semibold text-ink">细分板块</h2>
           </div>
           <div className="scrollbar-thin mt-3 flex gap-2 overflow-x-auto pb-2">
             {activeIndustry.segments.map((item) => (
-              <button
-                key={item.id}
-                className={`h-9 shrink-0 rounded-md px-3 text-sm transition ${
-                  segment.id === item.id
-                    ? "bg-signal text-white"
-                    : "border border-line bg-panel text-ink hover:border-signal"
-                }`}
+                <button
+                  key={item.id}
+                  className={`h-9 shrink-0 rounded-md px-3 text-sm transition ${
+                    segment.id === item.id
+                      ? "bg-signal text-white"
+                      : "border border-line bg-panel/70 text-ink hover:border-signal"
+                  }`}
                 onClick={() => setActiveSegmentId(item.id)}
               >
                 {item.name}
@@ -97,7 +98,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
               <StockCompare stocks={visibleSegmentStocks} />
             </div>
           </div>
-        </div>
+        </GlassCard>
 
         {visibleSegmentStocks.length === 0 ? (
           <EmptyState title="没有匹配个股" description="调整搜索词，或在 src/data/stocks.ts 中为该细分板块补充个股。" />
@@ -115,14 +116,15 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
 
 function IndustryOverview({ industry }: { industry: Industry }) {
   return (
-    <article className="rounded-lg border border-line bg-white p-4 shadow-soft">
+    <GlassCard className="p-4">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <p className="text-xs font-semibold text-steel">行业总览</p>
           <h2 className="mt-1 text-2xl font-semibold text-ink">{industry.name}</h2>
-          <p className="mt-2 text-sm text-slate-600">
-            景气度：{industry.prosperity} · 投资阶段：{industry.stage}
-          </p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <span className="rounded border border-signal/30 bg-signal/10 px-2 py-1 text-xs text-signal">景气：{industry.prosperity}</span>
+            <span className="rounded border border-terminalViolet/30 bg-terminalViolet/10 px-2 py-1 text-xs text-violet-200">阶段：{industry.stage}</span>
+          </div>
         </div>
         <div className="flex flex-wrap gap-2">
           {industry.styles.map((style) => (
@@ -137,24 +139,24 @@ function IndustryOverview({ industry }: { industry: Industry }) {
         <InfoBlock title="近期催化剂" items={industry.catalysts} />
         <InfoBlock title="主要风险" items={industry.risks} risk />
       </div>
-    </article>
+    </GlassCard>
   );
 }
 
 function ChainMap({ industry }: { industry: Industry }) {
   return (
-    <article className="rounded-lg border border-line bg-white p-4 shadow-soft">
+    <GlassCard className="p-4">
       <div className="flex items-center gap-2">
         <Factory className="h-5 w-5 text-steel" />
         <h2 className="text-lg font-semibold text-ink">产业链结构</h2>
       </div>
       <div className="mt-3 grid gap-3 lg:grid-cols-3">
         {industry.chain.map((chain) => (
-          <div key={chain.stage} className="rounded-lg border border-line bg-panel p-3">
+          <div key={chain.stage} className="rounded-lg border border-line bg-bg2/70 p-3">
             <p className="text-sm font-semibold text-ink">{chain.stage}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {chain.items.map((item) => (
-                <span key={item} className="rounded border border-line bg-white px-2 py-1 text-xs text-slate-600">
+                <span key={item} className="rounded border border-line bg-panel/70 px-2 py-1 text-xs text-slate-300">
                   {item}
                 </span>
               ))}
@@ -162,13 +164,13 @@ function ChainMap({ industry }: { industry: Industry }) {
           </div>
         ))}
       </div>
-    </article>
+    </GlassCard>
   );
 }
 
 function SegmentLogic({ industry, segment }: { industry: Industry; segment: Industry["segments"][number] }) {
   return (
-    <article className="rounded-lg border border-line bg-panel p-4">
+    <article className="rounded-lg border border-line bg-panel/72 p-4">
       <p className="text-xs font-semibold text-steel">{industry.name}</p>
       <h3 className="mt-1 text-xl font-semibold text-ink">{segment.name}</h3>
       <p className="mt-3 text-sm leading-6 text-slate-700">{segment.logic}</p>
@@ -182,7 +184,7 @@ function SegmentLogic({ industry, segment }: { industry: Industry; segment: Indu
         <p className="text-xs font-semibold text-slate-500">未来 6-12 个月关键变量</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {segment.keyVariables.map((item) => (
-            <span key={item} className="rounded border border-steel/20 bg-white px-2 py-1 text-xs text-slate-700">
+            <span key={item} className="rounded border border-steel/20 bg-bg2/70 px-2 py-1 text-xs text-slate-300">
               {item}
             </span>
           ))}
@@ -200,7 +202,7 @@ function StockCompare({ stocks }: { stocks: Stock[] }) {
   return (
     <div className="overflow-x-auto rounded-lg border border-line bg-white">
       <table className="min-w-[760px] w-full text-left text-sm">
-        <thead className="bg-panel text-xs text-slate-500">
+        <thead className="bg-bg2 text-xs text-steel">
           <tr>
             {["股票", "市值", "营收增速", "利润增速", "毛利率", "ROE", "PE", "产业链位置", "龙头逻辑", "风险"].map(
               (header) => (
@@ -213,7 +215,7 @@ function StockCompare({ stocks }: { stocks: Stock[] }) {
         </thead>
         <tbody>
           {stocks.map((stock) => (
-            <tr key={stock.id} className="border-t border-line">
+            <tr key={stock.id} className="border-t border-line hover:bg-signal/5">
               <td className="px-3 py-3 font-medium text-ink">{stock.name}</td>
               <td className="px-3 py-3">{stock.financial.marketCap}</td>
               <td className="px-3 py-3">{stock.financial.revenueGrowth}</td>
@@ -236,8 +238,10 @@ function SegmentMarketSummary({ stocks }: { stocks: Stock[] }) {
   const realQuotes = stocks.map((stock) => stock.quote).filter(Boolean);
   const pctValues = realQuotes.map((quote) => quote?.pctChange).filter((value): value is number => typeof value === "number");
   const mcapValues = realQuotes.map((quote) => quote?.marketCap).filter((value): value is number => typeof value === "number");
+  const amountValues = realQuotes.map((quote) => quote?.amount).filter((value): value is number => typeof value === "number");
   const averagePct = pctValues.length ? pctValues.reduce((sum, value) => sum + value, 0) / pctValues.length : null;
   const totalMcap = mcapValues.length ? mcapValues.reduce((sum, value) => sum + value, 0) : null;
+  const averageAmount = amountValues.length ? amountValues.reduce((sum, value) => sum + value, 0) / amountValues.length : null;
   const financialDates = stocks
     .map((stock) => stock.realFinancial?.updatedAt)
     .filter((value): value is string => Boolean(value))
@@ -251,9 +255,10 @@ function SegmentMarketSummary({ stocks }: { stocks: Stock[] }) {
   const coverage = stocks.length ? `${coveredStocks}/${stocks.length}` : "数据暂缺";
 
   return (
-    <div className="grid gap-2 rounded-lg border border-line bg-white p-3 text-sm sm:grid-cols-5">
-      <Field label="龙头平均涨跌幅" value={averagePct === null ? "数据暂缺" : `${averagePct.toFixed(2)}%`} />
+    <div className="grid gap-2 rounded-lg border border-line bg-bg2/80 p-3 text-sm sm:grid-cols-6">
+      <div><span className="font-medium text-ink">龙头平均涨跌幅：</span>{averagePct === null ? <span className="text-steel">数据暂缺</span> : <PriceChange value={averagePct} />}</div>
       <Field label="龙头总市值合计" value={totalMcap === null ? "数据暂缺" : `${totalMcap.toFixed(1)} 亿`} />
+      <Field label="平均成交额" value={averageAmount === null ? "数据暂缺" : `${averageAmount.toFixed(1)} 亿`} />
       <Field label="真实覆盖" value={coverage} />
       <Field label="财务数据更新时间" value={latestFinancial ?? "数据暂缺"} />
       <Field label="行情更新时间" value={latestUpdate ?? "数据暂缺"} />
@@ -263,7 +268,7 @@ function SegmentMarketSummary({ stocks }: { stocks: Stock[] }) {
 
 function InfoBlock({ title, items, risk = false }: { title: string; items: string[]; risk?: boolean }) {
   return (
-    <div className="rounded-lg border border-line bg-panel p-3">
+    <div className="rounded-lg border border-line bg-bg2/70 p-3">
       <p className="text-sm font-semibold text-ink">{title}</p>
       <ul className="mt-2 space-y-1 text-sm text-slate-600">
         {items.map((item) => (
