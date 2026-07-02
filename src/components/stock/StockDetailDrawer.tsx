@@ -4,7 +4,7 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YA
 import type { Industry, Stock } from "../../types";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
-import { DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp } from "../common/terminal";
+import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp } from "../common/terminal";
 
 interface StockDetailDrawerProps {
   stock: Stock | null;
@@ -73,11 +73,16 @@ export function StockDetailDrawer({ stock, industries, onClose }: StockDetailDra
               <MetricCard label="涨停价" value={numberToDisplay(stock.quote?.limitUp)} />
               <MetricCard label="跌停价" value={numberToDisplay(stock.quote?.limitDown)} />
             </div>
-            {stock.priceHistory && stock.priceHistory.length > 0 ? (
-              <div className="h-56 rounded-md border border-borderSoft bg-bg/50 p-2">
+            <ChartPanel
+              title="60 日价格走势"
+              description="使用已生成的历史价格序列；无数据时不回填假图。"
+              empty={!stock.priceHistory || stock.priceHistory.length === 0}
+              className="mt-3"
+            >
+              <div className="h-56">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={stock.priceHistory}>
-                    <CartesianGrid stroke="rgba(148,163,184,0.18)" strokeDasharray="3 3" />
+                    <CartesianGrid stroke="rgba(148,163,184,0.12)" strokeDasharray="3 3" />
                     <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#9CA3AF" }} minTickGap={24} />
                     <YAxis tick={{ fontSize: 11, fill: "#9CA3AF" }} width={48} />
                     <Tooltip contentStyle={{ background: "#0F172A", border: "1px solid #334155", color: "#E5E7EB" }} labelStyle={{ color: "#E5E7EB" }} />
@@ -85,9 +90,7 @@ export function StockDetailDrawer({ stock, industries, onClose }: StockDetailDra
                   </LineChart>
                 </ResponsiveContainer>
               </div>
-            ) : (
-              <p className="text-sm text-textMuted">价格历史数据暂缺。</p>
-            )}
+            </ChartPanel>
           </Section>
 
           <Section title="财务"><Grid rows={financialRows} /></Section>

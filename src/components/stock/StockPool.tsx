@@ -10,7 +10,19 @@ import {
   type StockFilters,
 } from "../../utils/filters";
 import { StockCard } from "./StockCard";
-import { FilterInput, FilterSelect, GlassCard, OverflowTooltip, PriceChange, TabButton, TextClamp } from "../common/terminal";
+import {
+  DataTable,
+  EmptyState,
+  FilterBar,
+  FilterInput,
+  FilterSelect,
+  MobileCardList,
+  OverflowTooltip,
+  PriceChange,
+  SectionHeader,
+  TabButton,
+  TextClamp,
+} from "../common/terminal";
 
 interface StockPoolProps {
   stocks: Stock[];
@@ -58,55 +70,8 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
 
   return (
     <section className="space-y-4">
-      <GlassCard className="p-4">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
-          <div className="grid min-w-0 flex-1 gap-3 md:grid-cols-2 xl:grid-cols-7">
-            <FilterInput label="池内搜索" value={filters.search} onChange={(value) => updateFilter("search", value)} />
-            <FilterSelect label="行业" value={filters.industryId} onChange={(value) => updateFilter("industryId", value)}>
-              <option value="全部">全部</option>
-              {industries.map((industry) => (
-                <option key={industry.id} value={industry.id}>
-                  {industry.name}
-                </option>
-              ))}
-            </FilterSelect>
-            <FilterSelect label="细分板块" value={filters.segmentId} onChange={(value) => updateFilter("segmentId", value)}>
-              <option value="全部">全部</option>
-              {segmentOptions.map((segment) => (
-                <option key={segment.id} value={segment.id}>
-                  {segment.name}
-                </option>
-              ))}
-            </FilterSelect>
-            <FilterSelect label="市场" value={filters.market} onChange={(value) => updateFilter("market", value as "全部" | Market)}>
-              {["全部", "A股", "港股", "美股"].map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </FilterSelect>
-            <FilterSelect label="风险等级" value={filters.riskLevel} onChange={(value) => updateFilter("riskLevel", value as "全部" | RiskLevel)}>
-              {["全部", "低", "中", "高"].map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </FilterSelect>
-            <FilterSelect label="数据质量" value={qualityFilter} onChange={(value) => setQualityFilter(value as QualityFilter)}>
-              {["全部", "真实数据", "缺失项", "暂不支持", "最近更新"].map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </FilterSelect>
-            <FilterSelect label="排序" value={sortMode} onChange={(value) => setSortMode(value as SortMode)}>
-              {["默认", "覆盖率高到低", "覆盖率低到高", "涨跌幅", "市值", "PE"].map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </FilterSelect>
-          </div>
+      <FilterBar
+        action={
           <div className="flex shrink-0 rounded-md border border-borderSoft bg-bg2 p-1">
             <TabButton active={view === "table"} onClick={() => setView("table")}>
               <Table2 className="h-4 w-4" />
@@ -117,14 +82,57 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
               卡片
             </TabButton>
           </div>
-        </div>
-      </GlassCard>
+        }
+      >
+        <FilterInput label="池内搜索" value={filters.search} onChange={(value) => updateFilter("search", value)} />
+        <FilterSelect label="行业" value={filters.industryId} onChange={(value) => updateFilter("industryId", value)}>
+          <option value="全部">全部</option>
+          {industries.map((industry) => (
+            <option key={industry.id} value={industry.id}>
+              {industry.name}
+            </option>
+          ))}
+        </FilterSelect>
+        <FilterSelect label="细分板块" value={filters.segmentId} onChange={(value) => updateFilter("segmentId", value)}>
+          <option value="全部">全部</option>
+          {segmentOptions.map((segment) => (
+            <option key={segment.id} value={segment.id}>
+              {segment.name}
+            </option>
+          ))}
+        </FilterSelect>
+        <FilterSelect label="市场" value={filters.market} onChange={(value) => updateFilter("market", value as "全部" | Market)}>
+          {["全部", "A股", "港股", "美股"].map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </FilterSelect>
+        <FilterSelect label="风险等级" value={filters.riskLevel} onChange={(value) => updateFilter("riskLevel", value as "全部" | RiskLevel)}>
+          {["全部", "低", "中", "高"].map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </FilterSelect>
+        <FilterSelect label="数据质量" value={qualityFilter} onChange={(value) => setQualityFilter(value as QualityFilter)}>
+          {["全部", "真实数据", "缺失项", "暂不支持", "最近更新"].map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </FilterSelect>
+        <FilterSelect label="排序" value={sortMode} onChange={(value) => setSortMode(value as SortMode)}>
+          {["默认", "覆盖率高到低", "覆盖率低到高", "涨跌幅", "市值", "PE"].map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </FilterSelect>
+      </FilterBar>
 
       {visibleStocks.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-borderSoft bg-surface/70 p-10 text-center">
-          <p className="font-medium text-textStrong">没有匹配个股</p>
-          <p className="mt-1 text-sm text-textMuted">请调整搜索词或筛选条件。</p>
-        </div>
+        <EmptyState title="没有匹配个股" description="请调整搜索词、行业或数据质量筛选条件。" />
       ) : view === "cards" ? (
         <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
           {visibleStocks.map((stock) => (
@@ -132,8 +140,16 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
           ))}
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-borderSoft bg-card shadow-soft">
-          <table className="w-full min-w-[1180px] table-fixed text-left text-sm">
+        <>
+          <div className="md:hidden">
+            <SectionHeader title="筛选结果" description={`当前显示 ${visibleStocks.length} 只股票。移动端优先使用卡片阅读。`} />
+            <MobileCardList className="mt-3">
+              {visibleStocks.map((stock) => (
+                <StockCard key={stock.id} stock={stock} industries={industries} onOpen={onOpenStock} />
+              ))}
+            </MobileCardList>
+          </div>
+          <DataTable className="hidden md:block" minWidth="1180px">
             <thead className="sticky top-0 bg-bg2 text-xs text-textMuted">
               <tr>
                 {["股票", "代码", "市场", "行业", "细分板块", "最新价", "涨跌幅", "市值", "PE", "覆盖率", "缺失", "风险", "核心看点"].map((header) => (
@@ -184,8 +200,8 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
                 </tr>
               ))}
             </tbody>
-          </table>
-        </div>
+          </DataTable>
+        </>
       )}
     </section>
   );

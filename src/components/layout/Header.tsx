@@ -31,15 +31,18 @@ export function Header({
     .filter(Boolean);
 
   return (
-    <header className="border-b border-borderGlow/50 bg-bg/78 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1760px] flex-col gap-4 px-4 py-4 lg:px-8">
-        <div className="grid gap-3 xl:grid-cols-[360px_minmax(280px,1fr)_420px] xl:items-center">
+    <header className="border-b border-borderGlow/40 bg-bg/82 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-[1760px] flex-col gap-4 px-4 py-5 lg:px-8">
+        <div className="grid gap-4 xl:grid-cols-[420px_minmax(300px,1fr)_420px] xl:items-center">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-2xl font-semibold tracking-wide text-textStrong">投资研究看板</h1>
               <StatusBadge status={modeStatus} />
             </div>
-            <p className="mt-1 truncate text-sm text-textMuted" title={`交易日：${tradeDate} · 更新时间：${updatedAt}`}>
+            <p className="mt-1 text-sm leading-6 text-textMuted">
+              面向行业比较、核心资产跟踪、风险核验和研究线索沉淀的内部投研终端。
+            </p>
+            <p className="mt-1 truncate text-xs text-textWeak" title={`交易日：${tradeDate} · 更新时间：${updatedAt}`}>
               交易日：{tradeDate} · 更新时间：{updatedAt}
             </p>
             {coverageBadges.length > 0 ? (
@@ -77,7 +80,7 @@ export function Header({
             <div className="rounded-md border border-borderSoft bg-surface/70 px-3 py-2 text-xs text-textMuted">{modeLabel}</div>
           </div>
         </div>
-        <div className="flex items-start gap-2 rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-sm text-amber-100">
+        <div className="flex items-start gap-2 rounded-md border border-warning/25 bg-warning/10 px-3 py-2 text-sm text-amber-100">
           <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0" />
           <span className="min-w-0 break-words">
             当前模式：{modeLabel}。{sourceNote} 本页面仅用于内部研究，不构成投资建议，missing / stale / unsupported 字段会明确显示。

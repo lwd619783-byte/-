@@ -3,7 +3,7 @@ import { Factory, Layers3 } from "lucide-react";
 import type { Industry, Stock } from "../../types";
 import { findStocksForSegment } from "../../utils/filters";
 import { StockCard } from "../stock/StockCard";
-import { GlassCard, OverflowTooltip, PriceChange, TextClamp } from "../common/terminal";
+import { DashboardCard, OverflowTooltip, PriceChange, TextClamp } from "../common/terminal";
 
 interface IndustryTabProps {
   industries: Industry[];
@@ -70,7 +70,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
         <IndustryOverview industry={activeIndustry} />
         <ChainMap industry={activeIndustry} />
 
-        <GlassCard className="p-4">
+        <DashboardCard className="p-4">
           <div className="flex items-center gap-2">
             <Layers3 className="h-5 w-5 text-cyan" />
             <h2 className="text-lg font-semibold text-textStrong">细分板块</h2>
@@ -99,7 +99,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
               <StockCompare stocks={visibleSegmentStocks} />
             </div>
           </div>
-        </GlassCard>
+        </DashboardCard>
 
         {visibleSegmentStocks.length === 0 ? (
           <EmptyState title="没有匹配个股" description="调整搜索词，或在 src/data/stocks.ts 中为该细分板块补充个股。" />
@@ -117,7 +117,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
 
 function IndustryOverview({ industry }: { industry: Industry }) {
   return (
-    <GlassCard className="p-4">
+    <DashboardCard className="p-4">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <p className="text-xs font-semibold text-textMuted">行业总览</p>
@@ -140,13 +140,13 @@ function IndustryOverview({ industry }: { industry: Industry }) {
         <InfoBlock title="近期催化剂" items={industry.catalysts} />
         <InfoBlock title="主要风险" items={industry.risks} risk />
       </div>
-    </GlassCard>
+    </DashboardCard>
   );
 }
 
 function ChainMap({ industry }: { industry: Industry }) {
   return (
-    <GlassCard className="p-4">
+    <DashboardCard className="p-4">
       <div className="flex items-center gap-2">
         <Factory className="h-5 w-5 text-textMuted" />
         <h2 className="text-lg font-semibold text-textStrong">产业链结构</h2>
@@ -165,7 +165,7 @@ function ChainMap({ industry }: { industry: Industry }) {
           </div>
         ))}
       </div>
-    </GlassCard>
+    </DashboardCard>
   );
 }
 

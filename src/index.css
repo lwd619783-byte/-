@@ -15,9 +15,13 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background:
-    radial-gradient(circle at 18% 8%, rgba(34, 211, 238, 0.18), transparent 28rem),
-    radial-gradient(circle at 84% 12%, rgba(139, 92, 246, 0.14), transparent 26rem),
+    radial-gradient(circle at 18% 8%, rgba(34, 211, 238, 0.12), transparent 28rem),
+    radial-gradient(circle at 84% 12%, rgba(59, 130, 246, 0.1), transparent 26rem),
     linear-gradient(135deg, #020617 0%, #08111f 48%, #020617 100%);
 }
 

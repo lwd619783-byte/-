@@ -1,7 +1,7 @@
 import { CalendarClock } from "lucide-react";
 import type { Industry, Stock, WatchlistItem } from "../../types";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
-import { GlassCard, TextClamp } from "../common/terminal";
+import { DashboardCard, EmptyState, TextClamp } from "../common/terminal";
 
 interface WatchlistTabProps {
   watchlist: WatchlistItem[];
@@ -17,17 +17,14 @@ export function WatchlistTab({ watchlist, stocks, industries, onOpenStock }: Wat
 
   if (rows.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-borderSoft bg-surface/70 p-10 text-center">
-        <p className="font-medium text-textStrong">观察清单为空</p>
-        <p className="mt-1 text-sm text-textMuted">请在 src/data/watchlist.ts 中新增关注项。</p>
-      </div>
+      <EmptyState title="观察清单为空" description="暂无需要跟踪的资产，请在数据文件中新增关注项。" />
     );
   }
 
   return (
     <section className="grid gap-4 xl:grid-cols-2">
       {rows.map(({ item, stock }) => (
-        <GlassCard key={item.id} className="p-4">
+        <DashboardCard key={item.id} className="p-4" interactive>
           <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
             <div className="min-w-0">
               <p className="truncate text-xs text-textMuted" title={`${stock.market} · ${stock.code} · ${getIndustryName(industries, stock.industryId)} / ${getSegmentName(industries, stock.segmentId)}`}>
@@ -68,7 +65,7 @@ export function WatchlistTab({ watchlist, stocks, industries, onOpenStock }: Wat
               查看个股
             </button>
           </div>
-        </GlassCard>
+        </DashboardCard>
       ))}
     </section>
   );

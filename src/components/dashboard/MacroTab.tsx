@@ -1,7 +1,7 @@
 import { Activity, ArrowDownRight, ArrowUpRight, Minus, Radar } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { MacroIndicator } from "../../types";
-import { GlassCard, StatusBadge } from "../common/terminal";
+import { ChartPanel, DashboardCard, StatusBadge } from "../common/terminal";
 
 const trendIcon = {
   上行: ArrowUpRight,
@@ -24,7 +24,7 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
         {indicators.map((indicator) => {
           const Icon = trendIcon[indicator.trend];
           return (
-            <GlassCard key={indicator.id} className="p-4">
+            <DashboardCard key={indicator.id} className="p-4" interactive>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-xs font-medium text-textMuted">{indicator.category}</p>
@@ -65,22 +65,19 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
                   ))}
                 </div>
               </div>
-            </GlassCard>
+            </DashboardCard>
           );
         })}
       </div>
-      <GlassCard className="p-4">
-        <div className="flex items-center gap-2">
-          <Activity className="h-5 w-5 text-cyan" />
-          <h2 className="text-lg font-semibold text-textStrong">宏观观察雷达</h2>
-        </div>
-        <p className="mt-2 text-sm text-textMuted">
-          下图为示例评分，用于展示未来接入真实指标后的呈现方式，不代表当前市场实时判断。
-        </p>
-        <div className="mt-4 h-[300px]">
+      <ChartPanel
+        title="宏观观察雷达"
+        description="示例评分用于展示未来接入真实指标后的呈现方式，不代表当前市场实时判断。"
+        legend={<span className="inline-flex items-center gap-2 text-xs text-textMuted"><Activity className="h-4 w-4 text-cyan" />示例评分</span>}
+      >
+        <div className="h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} layout="vertical" margin={{ left: 10, right: 20 }}>
-              <CartesianGrid stroke="rgba(148,163,184,0.18)" strokeDasharray="3 3" horizontal={false} />
+              <CartesianGrid stroke="rgba(148,163,184,0.12)" strokeDasharray="3 3" horizontal={false} />
               <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 12, fill: "#94A3B8" }} />
               <YAxis dataKey="name" type="category" tick={{ fontSize: 12, fill: "#94A3B8" }} width={60} />
               <Tooltip contentStyle={{ background: "#0F172A", border: "1px solid #334155", color: "#E5E7EB" }} labelStyle={{ color: "#E5E7EB" }} />
@@ -88,7 +85,7 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </GlassCard>
+      </ChartPanel>
     </section>
   );
 }
