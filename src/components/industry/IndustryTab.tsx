@@ -3,7 +3,7 @@ import { Factory, Layers3 } from "lucide-react";
 import type { Industry, Stock } from "../../types";
 import { findStocksForSegment } from "../../utils/filters";
 import { StockCard } from "../stock/StockCard";
-import { DashboardCard, OverflowTooltip, PriceChange, TextClamp } from "../common/terminal";
+import { DashboardCard, MetricCard, OverflowTooltip, SectionHeader, TextClamp } from "../common/terminal";
 
 interface IndustryTabProps {
   industries: Industry[];
@@ -71,10 +71,12 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
         <ChainMap industry={activeIndustry} />
 
         <DashboardCard className="p-4">
-          <div className="flex items-center gap-2">
-            <Layers3 className="h-5 w-5 text-cyan" />
-            <h2 className="text-lg font-semibold text-textStrong">细分板块</h2>
-          </div>
+          <SectionHeader
+            eyebrow="Segment Analysis"
+            title="细分板块"
+            description="按产业链细分查看逻辑、关键变量、真实行情覆盖和龙头公司对比。"
+            action={<Layers3 className="h-5 w-5 text-cyan" />}
+          />
           <div className="scrollbar-thin mt-3 flex gap-2 overflow-x-auto pb-2">
             {activeIndustry.segments.map((item) => (
                 <button
@@ -96,8 +98,10 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
             <SegmentLogic industry={activeIndustry} segment={segment} />
             <div className="space-y-3">
               <SegmentMarketSummary stocks={visibleSegmentStocks} />
-              <StockCompare stocks={visibleSegmentStocks} />
             </div>
+          </div>
+          <div className="mt-4">
+            <StockCompare stocks={visibleSegmentStocks} />
           </div>
         </DashboardCard>
 
@@ -204,12 +208,12 @@ function StockCompare({ stocks }: { stocks: Stock[] }) {
 
   return (
     <div className="overflow-x-auto rounded-lg border border-borderSoft bg-card">
-      <table className="w-full min-w-[820px] table-fixed text-left text-sm">
-        <thead className="bg-bg2 text-xs text-textMuted">
+      <table className="w-full min-w-[1080px] text-left text-sm">
+        <thead className="sticky top-0 bg-bg2 text-xs text-textMuted">
           <tr>
             {["股票", "市值", "营收增速", "利润增速", "毛利率", "ROE", "PE", "产业链位置", "龙头逻辑", "风险"].map(
               (header) => (
-                <th key={header} className="px-3 py-3 font-medium">
+                <th key={header} className={`px-3 py-3 font-medium ${["市值", "营收增速", "利润增速", "毛利率", "ROE", "PE"].includes(header) ? "text-right" : ""}`}>
                   {header}
                 </th>
               ),
@@ -218,14 +222,14 @@ function StockCompare({ stocks }: { stocks: Stock[] }) {
         </thead>
         <tbody>
           {stocks.map((stock) => (
-            <tr key={stock.id} className="border-t border-borderSoft hover:bg-cyan/5">
+            <tr key={stock.id} className="h-16 border-t border-borderSoft transition hover:bg-cyan/5">
               <td className="px-3 py-3 font-medium text-textStrong"><OverflowTooltip title={stock.name}>{stock.name}</OverflowTooltip></td>
-              <td className="px-3 py-3">{stock.financial.marketCap}</td>
-              <td className="px-3 py-3">{stock.financial.revenueGrowth}</td>
-              <td className="px-3 py-3">{stock.financial.profitGrowth}</td>
-              <td className="px-3 py-3">{stock.financial.grossMargin}</td>
-              <td className="px-3 py-3">{stock.financial.roe}</td>
-              <td className="px-3 py-3">{stock.valuation.pe}</td>
+              <ValueCell value={stock.financial.marketCap} numeric />
+              <ValueCell value={stock.financial.revenueGrowth} numeric />
+              <ValueCell value={stock.financial.profitGrowth} numeric />
+              <ValueCell value={stock.financial.grossMargin} numeric />
+              <ValueCell value={stock.financial.roe} numeric />
+              <ValueCell value={stock.valuation.pe} numeric />
               <td className="px-3 py-3"><TextClamp lines={2} title={stock.chainPosition}>{stock.chainPosition}</TextClamp></td>
               <td className="px-3 py-3"><TextClamp lines={2} title={stock.leaderPosition}>{stock.leaderPosition}</TextClamp></td>
               <td className="px-3 py-3">{stock.riskLevel}</td>
@@ -258,14 +262,33 @@ function SegmentMarketSummary({ stocks }: { stocks: Stock[] }) {
   const coverage = stocks.length ? `${coveredStocks}/${stocks.length}` : "数据暂缺";
 
   return (
-    <div className="grid gap-2 rounded-lg border border-borderSoft bg-bg2/80 p-3 text-sm sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
-      <div><span className="font-medium text-textStrong">龙头平均涨跌幅：</span>{averagePct === null ? <span className="text-textMuted">数据暂缺</span> : <PriceChange value={averagePct} />}</div>
-      <Field label="龙头总市值合计" value={totalMcap === null ? "数据暂缺" : `${totalMcap.toFixed(1)} 亿`} />
-      <Field label="平均成交额" value={averageAmount === null ? "数据暂缺" : `${averageAmount.toFixed(1)} 亿`} />
-      <Field label="真实覆盖" value={coverage} />
-      <Field label="财务数据更新时间" value={latestFinancial ?? "数据暂缺"} />
-      <Field label="行情更新时间" value={latestUpdate ?? "数据暂缺"} />
+    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+      <MetricCard
+        label="龙头平均涨跌幅"
+        value={averagePct === null ? "暂无" : `${averagePct.toFixed(2)}%`}
+        tone={averagePct === null ? "neutral" : averagePct >= 0 ? "green" : "red"}
+      />
+      <MetricCard label="龙头总市值合计" value={totalMcap === null ? "暂无" : `${totalMcap.toFixed(1)} 亿`} />
+      <MetricCard label="平均成交额" value={averageAmount === null ? "暂无" : `${averageAmount.toFixed(1)} 亿`} tone="cyan" />
+      <MetricCard label="真实覆盖" value={coverage} tone="cyan" />
+      <MetricCard label="财务数据更新时间" value={latestFinancial ?? "暂无"} />
+      <MetricCard label="行情更新时间" value={latestUpdate ?? "暂无"} />
     </div>
+  );
+}
+
+function ValueCell({ value, numeric = false }: { value: string; numeric?: boolean }) {
+  const missing = !value || value.includes("数据暂缺");
+  return (
+    <td className={`px-3 py-3 ${numeric ? "text-right tabular-nums" : ""}`}>
+      {missing ? (
+        <span className="inline-flex rounded border border-borderSoft bg-surface/70 px-2 py-0.5 text-xs text-textWeak" title="数据源暂未覆盖">
+          —
+        </span>
+      ) : (
+        <span className="whitespace-nowrap text-text">{value}</span>
+      )}
+    </td>
   );
 }
 

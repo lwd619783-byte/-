@@ -40,8 +40,8 @@ export default {
         terminalViolet: "#8B5CF6"
       },
       boxShadow: {
-        soft: "0 20px 70px rgba(0, 0, 0, 0.34)",
-        glow: "0 0 0 1px rgba(34, 211, 238, 0.18), 0 16px 54px rgba(34, 211, 238, 0.09)"
+        soft: "0 12px 32px rgba(0, 0, 0, 0.24)",
+        glow: "0 0 0 1px rgba(34, 211, 238, 0.14), 0 10px 28px rgba(34, 211, 238, 0.06)"
       }
     },
   },

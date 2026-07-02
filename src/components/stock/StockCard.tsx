@@ -29,7 +29,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
       </div>
       <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
         <MetricCard label="最新价" value={numberToDisplay(stock.quote?.latestPrice)} />
-        <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={(stock.quote?.pctChange ?? 0) > 0 ? "red" : (stock.quote?.pctChange ?? 0) < 0 ? "green" : "neutral"} />
+        <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={(stock.quote?.pctChange ?? 0) > 0 ? "green" : (stock.quote?.pctChange ?? 0) < 0 ? "red" : "neutral"} />
         <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />
       </div>
       <div className="mt-3 rounded-md border border-borderSoft bg-bg2/60 p-2">

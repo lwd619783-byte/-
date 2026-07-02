@@ -1,6 +1,9 @@
 import { useMemo, useState } from "react";
 import { Activity, AlertTriangle, BarChart3, Binoculars, Building2, Database, LineChart, RefreshCw, type LucideIcon } from "lucide-react";
 import { Header } from "./components/layout/Header";
+import { DashboardLayout } from "./components/layout/DashboardLayout";
+import { RightRail } from "./components/layout/RightRail";
+import { Sidebar } from "./components/layout/Sidebar";
 import { MacroTab } from "./components/dashboard/MacroTab";
 import { IndustryTab } from "./components/industry/IndustryTab";
 import { StockPool } from "./components/stock/StockPool";
@@ -9,7 +12,7 @@ import { WatchlistTab } from "./components/watchlist/WatchlistTab";
 import { dataSourceNote, macroIndicators } from "./data/macroData";
 import { buildDashboardDataset } from "./services/dataProvider";
 import type { DashboardDataMode, Stock } from "./types";
-import { DashboardCard, KpiCard, SectionHeader, StatusBadge, TabButton } from "./components/common/terminal";
+import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
 import { formatPercent } from "./utils/normalize";
 
 type MainTab = "宏观" | "行业" | "个股池" | "观察清单";
@@ -43,8 +46,9 @@ export default function App() {
     const focusStocks = [...dataset.stocks]
       .sort((a, b) => Math.abs(b.quote?.pctChange ?? 0) - Math.abs(a.quote?.pctChange ?? 0))
       .slice(0, 4);
+    const missingStocks = dataset.stocks.filter((stock) => (stock.missingFields?.length ?? 0) > 0).slice(0, 6);
 
-    return { stocksWithReal, missingFields, averagePct, recentlyUpdated, highRisk, segments, focusStocks };
+    return { stocksWithReal, missingFields, averagePct, recentlyUpdated, highRisk, segments, focusStocks, missingStocks };
   }, [dataset]);
 
   return (
@@ -60,24 +64,10 @@ export default function App() {
         onDataModeChange={setDataMode}
       />
 
-      <main className="mx-auto grid max-w-[1760px] gap-4 px-4 py-5 lg:grid-cols-[220px_minmax(0,1fr)_300px] lg:px-8">
-        <aside className="lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]">
-          <DashboardCard className="p-2">
-            <nav className="scrollbar-thin flex gap-2 overflow-x-auto lg:grid lg:overflow-visible">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                return (
-                  <TabButton key={tab.id} active={activeTab === tab.id} onClick={() => setActiveTab(tab.id)} className="h-11 shrink-0 justify-start">
-                    <Icon className="h-4 w-4" />
-                    {tab.id}
-                  </TabButton>
-                );
-              })}
-            </nav>
-          </DashboardCard>
-        </aside>
-
-        <section className="min-w-0 space-y-4">
+      <DashboardLayout
+        sidebar={<Sidebar tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />}
+        main={
+          <section className="min-w-0 space-y-4">
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
               <SectionHeader
@@ -165,63 +155,20 @@ export default function App() {
             />
           )}
         </section>
-
-        <aside className="space-y-3 lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]">
-          <DashboardCard className="p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">Data Console</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <StatusBadge status={dataset.mode === "mock" ? "mock" : dataset.modeLabel === "Real Data" ? "real" : "stale"} />
-              <StatusBadge status="unsupported_market" />
-            </div>
-            <p className="mt-3 line-clamp-3 text-sm leading-6 text-textMuted" title={dataset.coverageSummary}>{dataset.coverageSummary}</p>
-          </DashboardCard>
-          <DashboardCard className="p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">Risk Radar</p>
-            <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-              <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
-                <p className="text-xs text-textMuted">高风险</p>
-                <p className="mt-1 text-lg font-semibold text-warning tabular-nums">{dashboardStats.highRisk}</p>
-              </div>
-              <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
-                <p className="text-xs text-textMuted">缺失字段</p>
-                <p className="mt-1 text-lg font-semibold text-warning tabular-nums">{dashboardStats.missingFields}</p>
-              </div>
-            </div>
-          </DashboardCard>
-          <DashboardCard className="p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">Focus Assets</p>
-            <div className="mt-3 space-y-2 text-sm">
-              {dashboardStats.focusStocks.map((stock) => (
-                <button
-                  key={stock.id}
-                  className="flex w-full min-w-0 items-center justify-between gap-3 rounded-md border border-borderSoft bg-bg2/60 px-3 py-2 text-left transition hover:border-borderGlow hover:bg-cardHover"
-                  onClick={() => setSelectedStock(stock)}
-                >
-                  <span className="min-w-0">
-                    <span className="block truncate font-medium text-textStrong" title={stock.name}>{stock.name}</span>
-                    <span className="block truncate text-xs text-textMuted">{stock.market} · {stock.code}</span>
-                  </span>
-                  <span className={(stock.quote?.pctChange ?? 0) >= 0 ? "text-success" : "text-danger"}>{formatPercent(stock.quote?.pctChange)}</span>
-                </button>
-              ))}
-            </div>
-          </DashboardCard>
-          <DashboardCard className="p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">Missing Watch</p>
-            <div className="mt-3 space-y-2 text-sm text-textMuted">
-              {dataset.stocks
-                .filter((stock) => (stock.missingFields?.length ?? 0) > 0)
-                .slice(0, 6)
-                .map((stock) => (
-                  <div key={stock.id} className="flex items-center justify-between gap-3 border-b border-borderSoft/70 pb-2">
-                    <span className="truncate" title={stock.name}>{stock.name}</span>
-                    <span className="text-warning">{stock.missingFields?.length ?? 0}</span>
-                  </div>
-                ))}
-            </div>
-          </DashboardCard>
-        </aside>
-      </main>
+        }
+        rightRail={
+          <RightRail
+            mode={dataset.mode}
+            modeLabel={dataset.modeLabel}
+            coverageSummary={dataset.coverageSummary}
+            highRisk={dashboardStats.highRisk}
+            missingFields={dashboardStats.missingFields}
+            focusStocks={dashboardStats.focusStocks}
+            missingStocks={dashboardStats.missingStocks}
+            onOpenStock={setSelectedStock}
+          />
+        }
+      />
 
       <StockDetailDrawer stock={selectedStock} industries={dataset.industries} onClose={() => setSelectedStock(null)} />
     </div>

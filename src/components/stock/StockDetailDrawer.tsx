@@ -65,7 +65,7 @@ export function StockDetailDrawer({ stock, industries, onClose }: StockDetailDra
           <Section title="行情">
             <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
               <MetricCard label="最新价" value={numberToDisplay(stock.quote?.latestPrice)} />
-              <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={(stock.quote?.pctChange ?? 0) > 0 ? "red" : (stock.quote?.pctChange ?? 0) < 0 ? "green" : "neutral"} />
+              <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={(stock.quote?.pctChange ?? 0) > 0 ? "green" : (stock.quote?.pctChange ?? 0) < 0 ? "red" : "neutral"} />
               <MetricCard label="成交额" value={formatYi(stock.quote?.amount)} />
               <MetricCard label="换手率" value={formatPercent(stock.quote?.turnover)} />
               <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />

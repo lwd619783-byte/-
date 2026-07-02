@@ -11,7 +11,7 @@ export function DataTable({
 }) {
   return (
     <div className={`overflow-x-auto rounded-lg border border-borderSoft bg-card shadow-soft ${className}`}>
-      <table className="w-full table-fixed text-left text-sm" style={{ minWidth }}>
+      <table className="w-full text-left text-sm" style={{ minWidth }}>
         {children}
       </table>
     </div>

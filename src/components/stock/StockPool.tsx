@@ -141,7 +141,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
         </div>
       ) : (
         <>
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <SectionHeader title="筛选结果" description={`当前显示 ${visibleStocks.length} 只股票。移动端优先使用卡片阅读。`} />
             <MobileCardList className="mt-3">
               {visibleStocks.map((stock) => (
@@ -149,11 +149,11 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
               ))}
             </MobileCardList>
           </div>
-          <DataTable className="hidden md:block" minWidth="1180px">
+          <DataTable className="hidden lg:block" minWidth="1180px">
             <thead className="sticky top-0 bg-bg2 text-xs text-textMuted">
               <tr>
                 {["股票", "代码", "市场", "行业", "细分板块", "最新价", "涨跌幅", "市值", "PE", "覆盖率", "缺失", "风险", "核心看点"].map((header) => (
-                  <th key={header} className="px-3 py-3 font-medium">
+                  <th key={header} className={`px-3 py-3 font-medium ${["最新价", "涨跌幅", "市值", "PE", "覆盖率", "缺失"].includes(header) ? "text-right" : ""}`}>
                     {header}
                   </th>
                 ))}
@@ -161,7 +161,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
             </thead>
             <tbody>
               {visibleStocks.map((stock) => (
-                <tr key={stock.id} className="border-t border-borderSoft hover:bg-cyan/5">
+                <tr key={stock.id} className="h-16 border-t border-borderSoft transition hover:bg-cyan/5">
                   <td className="px-3 py-3">
                     <button className="max-w-full truncate font-medium text-cyan hover:underline" onClick={() => onOpenStock(stock)} title={stock.name}>
                       {stock.name}
@@ -179,14 +179,14 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
                       {getSegmentName(industries, stock.segmentId)}
                     </OverflowTooltip>
                   </td>
-                  <td className="px-3 py-3 text-right">{stock.quote?.latestPrice ?? "数据暂缺"}</td>
+                  <DataValue value={stock.quote?.latestPrice} numeric />
                   <td className="px-3 py-3 text-right">
                     <PriceChange value={stock.quote?.pctChange} />
                   </td>
-                  <td className="px-3 py-3 text-right">{stock.financial.marketCap}</td>
-                  <td className="px-3 py-3 text-right">{stock.valuation.pe}</td>
-                  <td className="px-3 py-3 text-right">{typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : "数据暂缺"}</td>
-                  <td className="px-3 py-3">
+                  <DataValue value={stock.financial.marketCap} numeric />
+                  <DataValue value={stock.valuation.pe} numeric />
+                  <DataValue value={typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : "数据暂缺"} numeric />
+                  <td className="px-3 py-3 text-right">
                     <span className={`rounded border px-2 py-1 text-xs ${(stock.missingFields?.length ?? 0) > 0 ? "border-warning/40 bg-warning/10 text-warning" : "border-success/30 bg-success/10 text-success"}`}>
                       {stock.missingFields?.length ?? 0}
                     </span>
@@ -204,5 +204,20 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
         </>
       )}
     </section>
+  );
+}
+
+function DataValue({ value, numeric = false }: { value: string | number | null | undefined; numeric?: boolean }) {
+  const missing = value === null || value === undefined || String(value).includes("数据暂缺");
+  return (
+    <td className={`px-3 py-3 ${numeric ? "text-right tabular-nums" : ""}`}>
+      {missing ? (
+        <span className="inline-flex rounded border border-borderSoft bg-surface/70 px-2 py-0.5 text-xs text-textWeak" title="数据源暂未覆盖">
+          —
+        </span>
+      ) : (
+        <span className="whitespace-nowrap text-text">{value}</span>
+      )}
+    </td>
   );
 }
