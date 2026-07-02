@@ -19,5 +19,5 @@ export function DataTable({
 }
 
 export function MobileCardList({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`grid gap-3 ${className}`}>{children}</div>;
+  return <div className={`grid min-w-0 gap-3 ${className}`}>{children}</div>;
 }

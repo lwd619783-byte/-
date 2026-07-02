@@ -13,8 +13,8 @@ interface StockCardProps {
 
 export function StockCard({ stock, industries, onOpen }: StockCardProps) {
   return (
-    <GlassCard className="flex h-full flex-col p-4 transition hover:border-cyan/60 hover:shadow-glow">
-      <div className="flex items-start justify-between gap-3">
+    <GlassCard className="flex h-full w-full min-w-0 flex-col p-4 transition hover:border-cyan/60 hover:shadow-glow">
+      <div className="flex min-w-0 items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-xs text-textMuted">{stock.market} · {stock.code}</p>
           <h3 className="mt-1 truncate text-lg font-semibold text-textStrong" title={stock.name}>{stock.name}</h3>
@@ -27,7 +27,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
           <span className="rounded border border-borderSoft bg-surface/80 px-2 py-1 text-xs text-textMuted">风险：{stock.riskLevel}</span>
         </div>
       </div>
-      <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
+      <div className="mt-3 grid min-w-0 grid-cols-1 gap-2 text-sm sm:grid-cols-3">
         <MetricCard label="最新价" value={numberToDisplay(stock.quote?.latestPrice)} />
         <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={(stock.quote?.pctChange ?? 0) > 0 ? "green" : (stock.quote?.pctChange ?? 0) < 0 ? "red" : "neutral"} />
         <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />
@@ -42,7 +42,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
         {stock.thesis}
       </TextClamp>
 
-      <div className="mt-4 grid grid-cols-3 gap-2 text-sm">
+      <div className="mt-4 grid min-w-0 grid-cols-1 gap-2 text-sm sm:grid-cols-3">
         <MetricCard label="PE / PB" value={`${numberToDisplay(stock.quote?.peTtm ?? stock.quote?.pe)} / ${numberToDisplay(stock.quote?.pb)}`} />
         <MetricCard label="报告期" value={stock.realFinancial?.reportDate ?? "数据暂缺"} />
         <MetricCard label="覆盖率" value={typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : "数据暂缺"} tone="cyan" />
