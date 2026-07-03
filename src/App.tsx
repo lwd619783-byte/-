@@ -170,7 +170,13 @@ export default function App() {
         }
       />
 
-      <StockDetailDrawer stock={selectedStock} industries={dataset.industries} onClose={() => setSelectedStock(null)} />
+      <StockDetailDrawer
+        stock={selectedStock}
+        stocks={dataset.stocks}
+        industries={dataset.industries}
+        onClose={() => setSelectedStock(null)}
+        onOpenStock={setSelectedStock}
+      />
     </div>
   );
 }

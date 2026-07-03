@@ -96,6 +96,26 @@ export interface Stock {
   missingFields?: string[];
   isRecentlyUpdated?: boolean;
   dataCoverage?: number;
+  researchProfile?: {
+    macroMapping?: string[];
+    industryLogic?: string;
+    businessBreakdown?: Array<{
+      name: string;
+      description: string;
+      revenueDriver?: string;
+      marginDriver?: string;
+    }>;
+    profitDrivers?: string[];
+    competitiveAdvantages?: string[];
+    weaknesses?: string[];
+    validationSignals?: string[];
+  };
+  relations?: Array<{
+    stockId: string;
+    relationType: "上游" | "下游" | "同行竞争" | "同环节" | "同主题" | "客户" | "供应商";
+    strength?: "强" | "中" | "弱";
+    reason?: string;
+  }>;
 }
 
 export interface WatchlistItem {

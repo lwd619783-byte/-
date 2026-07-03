@@ -37,6 +37,27 @@ export const stocks: Stock[] = [
     trackingMetrics: ["订单变化", "毛利率", "经营现金流", "国产芯片适配"],
     riskLevel: "中",
     chainPosition: "AI 服务器 / 算力基础设施",
+    researchProfile: {
+      macroMapping: ["AI 基建资本开支", "国产算力替代", "政企数字化预算"],
+      industryLogic: "mock / 待验证：算力需求扩张与国产化安全诉求共同抬升服务器和基础设施环节关注度。",
+      businessBreakdown: [
+        {
+          name: "高端计算与数据中心基础设施",
+          description: "mock / 待验证：围绕服务器、存储和数据中心方案承接政企与科研算力需求。",
+          revenueDriver: "订单确认、交付节奏、国产算力平台适配",
+          marginDriver: "产品结构、供应链成本和项目毛利率",
+        },
+      ],
+      profitDrivers: ["mock / 待验证：国产算力订单放量", "mock / 待验证：高端服务器产品结构提升"],
+      competitiveAdvantages: ["客户认证与交付经验", "国产算力生态适配能力"],
+      weaknesses: ["订单节奏不确定", "估值对业绩兑现敏感"],
+      validationSignals: ["订单变化", "毛利率", "经营现金流", "国产芯片适配"],
+    },
+    relations: [
+      { stockId: "fii", relationType: "同行竞争", strength: "中", reason: "同属 AI 服务器与算力基础设施链条，mock / 待验证。" },
+      { stockId: "wus", relationType: "上游", strength: "弱", reason: "高端 PCB 属服务器供应链环节，mock / 待验证。" },
+      { stockId: "innolight", relationType: "上游", strength: "弱", reason: "光模块服务于数据中心互联，mock / 待验证。" },
+    ],
   },
   {
     id: "fii",
@@ -55,6 +76,26 @@ export const stocks: Stock[] = [
     trackingMetrics: ["AI 服务器收入占比", "大客户资本开支", "毛利率"],
     riskLevel: "中",
     chainPosition: "AI 服务器整机",
+    researchProfile: {
+      industryLogic: "mock / 待验证：云厂商资本开支和 AI 服务器订单决定整机制造环节景气兑现。",
+      businessBreakdown: [
+        {
+          name: "AI 服务器与云计算设备",
+          description: "mock / 待验证：以整机制造和供应链整合承接大客户 AI 基建需求。",
+          revenueDriver: "大客户订单、产品代际升级、交付规模",
+          marginDriver: "高端产品占比、制造效率、客户结构",
+        },
+      ],
+      profitDrivers: ["mock / 待验证：AI 服务器收入占比提升", "mock / 待验证：产品结构升级"],
+      competitiveAdvantages: ["全球制造和供应链整合", "大客户交付经验"],
+      weaknesses: ["客户集中度较高", "制造环节毛利率弹性需验证"],
+      validationSignals: ["AI 服务器收入占比", "大客户资本开支", "毛利率"],
+    },
+    relations: [
+      { stockId: "sugon", relationType: "同行竞争", strength: "中", reason: "同为 AI 服务器链条代表，mock / 待验证。" },
+      { stockId: "lenovo", relationType: "同行竞争", strength: "中", reason: "均涉及服务器平台与终端硬件，mock / 待验证。" },
+      { stockId: "wus", relationType: "上游", strength: "弱", reason: "高端 PCB 为服务器价值链关键环节之一，mock / 待验证。" },
+    ],
   },
   {
     id: "lenovo",
@@ -73,6 +114,25 @@ export const stocks: Stock[] = [
     trackingMetrics: ["服务器订单", "AI PC 出货", "利润率"],
     riskLevel: "中",
     chainPosition: "服务器 / 终端",
+    researchProfile: {
+      industryLogic: "mock / 待验证：AI PC 与服务器更新周期若共振，硬件平台公司存在估值修复窗口。",
+      businessBreakdown: [
+        {
+          name: "智能设备与基础设施方案",
+          description: "mock / 待验证：覆盖 PC、服务器和基础设施方案，受硬件周期和 AI 终端渗透影响。",
+          revenueDriver: "AI PC 出货、服务器订单、全球渠道动销",
+          marginDriver: "产品结构、库存周期和服务收入占比",
+        },
+      ],
+      profitDrivers: ["mock / 待验证：AI PC 换机周期", "mock / 待验证：服务器订单修复"],
+      competitiveAdvantages: ["全球渠道和平台型硬件能力"],
+      weaknesses: ["硬件周期波动", "价格竞争压力"],
+      validationSignals: ["服务器订单", "AI PC 出货", "利润率"],
+    },
+    relations: [
+      { stockId: "fii", relationType: "同行竞争", strength: "中", reason: "均涉及服务器和硬件平台链条，mock / 待验证。" },
+      { stockId: "sugon", relationType: "同主题", strength: "弱", reason: "同属 AI 算力和服务器主题，mock / 待验证。" },
+    ],
   },
   {
     id: "eoptolink",
