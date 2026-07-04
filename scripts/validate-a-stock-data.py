@@ -10,33 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REAL_DIR = ROOT / "src" / "data" / "real"
 DOCS_DIR = ROOT / "docs"
 REPORT_PATH = DOCS_DIR / "a-stock-data-validation-report.md"
-SYMBOL_MAP_PATH = ROOT / "src" / "utils" / "symbol.ts"
-
-A_SHARE_IDS = {
-    "sugon",
-    "fii",
-    "eoptolink",
-    "innolight",
-    "wus",
-    "victor-tech",
-    "shennan",
-    "best",
-    "wuzhou",
-    "leaderdrive",
-    "moons",
-    "topgroup",
-    "wuxi",
-    "pharmaron",
-    "asymchem",
-    "nano",
-    "hengrui",
-    "beigene",
-    "cosco-energy",
-    "cm-energy",
-    "cm-nanjing",
-}
-
-UNSUPPORTED_IDS = {"lenovo"}
+STOCK_UNIVERSE_PATH = REAL_DIR / "stock-universe.generated.json"
 CORE_FINANCIAL_FIELDS = ["revenue", "netProfit", "roe"]
 SIGNAL_FIELDS = [
     "mainFundFlow5d",
@@ -56,17 +30,10 @@ def load_json(name: str) -> dict[str, Any]:
     return json.loads((REAL_DIR / name).read_text(encoding="utf-8"))
 
 
-def load_symbol_sets() -> tuple[set[str], set[str]]:
-    try:
-        text = SYMBOL_MAP_PATH.read_text(encoding="utf-8")
-    except OSError:
-        return set(A_SHARE_IDS), set(UNSUPPORTED_IDS)
-
-    import re
-
-    a_share_ids = set(re.findall(r'mapA\("([^"]+)"', text))
-    unsupported_ids = set(re.findall(r'mapHK\("([^"]+)"', text))
-    return a_share_ids or set(A_SHARE_IDS), unsupported_ids or set(UNSUPPORTED_IDS)
+def load_stock_universe() -> dict[str, Any]:
+    if not STOCK_UNIVERSE_PATH.exists():
+        raise FileNotFoundError("stock-universe.generated.json is missing; run `npm run data:universe` first")
+    return json.loads(STOCK_UNIVERSE_PATH.read_text(encoding="utf-8"))
 
 
 def parse_dt(value: str | None) -> datetime | None:
@@ -112,12 +79,52 @@ def pct(count: int, total: int) -> str:
     return f"{count}/{total} ({(count / total * 100 if total else 0):.1f}%)"
 
 
+def count_by_market(items: list[dict[str, Any]], predicate=lambda item: True) -> dict[str, int]:
+    counts: dict[str, int] = {"A股": 0, "港股": 0, "美股": 0, "未上市": 0}
+    for item in items:
+        if predicate(item):
+            market = str(item.get("market") or "unknown")
+            counts[market] = counts.get(market, 0) + 1
+    return counts
+
+
+def format_stock(item: dict[str, Any] | None, stock_id: str) -> str:
+    if not item:
+        return stock_id
+    name = item.get("name") or stock_id
+    market = item.get("market") or "unknown"
+    return f"{stock_id} | {name} | {market}"
+
+
 def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
     missing_items: list[str] = []
     stale_items: list[str] = []
-    a_share_ids, unsupported_ids = load_symbol_sets()
+
+    try:
+        universe_payload = load_stock_universe()
+    except Exception as exc:
+        errors.append(f"stock-universe.generated.json: 不可读取或不可解析：{exc}")
+        write_report({}, {}, [], errors, warnings, missing_items, stale_items)
+        return 1
+
+    universe_items = universe_payload.get("items", [])
+    if not isinstance(universe_items, list) or not universe_items:
+        errors.append("stock-universe.generated.json: items 为空")
+        write_report({}, universe_payload, [], errors, warnings, missing_items, stale_items)
+        return 1
+
+    universe_by_id = {str(item.get("id")): item for item in universe_items if item.get("id")}
+    a_share_items = [
+        item
+        for item in universe_items
+        if item.get("dataStatus") == "supported" and item.get("shouldValidate", False)
+    ]
+    unsupported_items = [item for item in universe_items if item.get("dataStatus") == "unsupported_market"]
+    a_share_ids = {str(item["id"]) for item in a_share_items}
+    unsupported_ids = {str(item["id"]) for item in unsupported_items}
+
     files = {
         "manifest": "data-manifest.generated.json",
         "profiles": "stocks.generated.json",
@@ -138,12 +145,25 @@ def main() -> int:
             errors.append(f"{filename}: JSON 不可读取或不可解析：{exc}")
 
     if errors:
-        write_report({}, errors, warnings, missing_items, stale_items)
+        write_report({}, universe_payload, unsupported_items, errors, warnings, missing_items, stale_items)
         return 1
 
     manifest = data["manifest"]
+    manifest_universe = manifest.get("universe") or {}
+    expected_markets = count_by_market(universe_items)
+    expected_supported = count_by_market(universe_items, lambda item: item.get("dataStatus") == "supported")
+    expected_unsupported = count_by_market(universe_items, lambda item: item.get("dataStatus") != "supported")
+
     if is_future(manifest.get("updatedAt")):
         errors.append("manifest.updatedAt 晚于当前时间")
+    if manifest_universe.get("total") != len(universe_items):
+        errors.append(f"manifest.universe.total 与 stock-universe 不一致：{manifest_universe.get('total')} != {len(universe_items)}")
+    if manifest_universe.get("markets") != expected_markets:
+        errors.append("manifest.universe.markets 与 stock-universe 不一致")
+    if manifest_universe.get("supported") != expected_supported:
+        errors.append("manifest.universe.supported 与 stock-universe 不一致")
+    if manifest_universe.get("unsupported") != expected_unsupported:
+        errors.append("manifest.universe.unsupported 与 stock-universe 不一致")
 
     profiles = data["profiles"].get("items", {})
     quotes = data["quotes"].get("items", {})
@@ -153,6 +173,9 @@ def main() -> int:
     announcement_items = data["announcements"].get("items", {})
     signals = data["signals"].get("items", {})
     sectors = data["sector"].get("items", {})
+
+    def add_missing(stock_id: str, module: str, reason: str) -> None:
+        missing_items.append(f"{format_stock(universe_by_id.get(stock_id), stock_id)} | {module} | {reason}")
 
     for stock_id in sorted(a_share_ids | unsupported_ids):
         if stock_id not in profiles:
@@ -179,25 +202,25 @@ def main() -> int:
         signal = signals.get(stock_id, {})
         sector = sectors.get(stock_id, {})
 
-        code = str(profile.get("code") or "")
+        code = str(profile.get("code") or universe_by_id.get(stock_id, {}).get("code") or "")
         if not (len(code) == 6 and code.isdigit()):
             errors.append(f"{stock_id}: A 股代码不是 6 位数字：{code}")
 
         if status_of(quote) == "real" and isinstance(quote.get("latestPrice"), (int, float)) and quote["latestPrice"] > 0:
             quote_real += 1
         else:
-            missing_items.append(f"{stock_id}.quote")
+            add_missing(stock_id, "quote", status_of(quote))
 
         points = history.get("points") or []
         if status_of(history) == "real" and len(points) >= 30:
             history_real += 1
         else:
-            missing_items.append(f"{stock_id}.priceHistory")
+            add_missing(stock_id, "priceHistory", f"{status_of(history)} / {len(points)} points")
 
         if has_core_financial(financial):
             finance_core += 1
         else:
-            missing_items.append(f"{stock_id}.financialCore")
+            add_missing(stock_id, "financialCore", "核心财务字段不足")
         if financial.get("reportDate"):
             report_dates += 1
         else:
@@ -206,31 +229,31 @@ def main() -> int:
         if has_f10(profile):
             f10_text += 1
         else:
-            missing_items.append(f"{stock_id}.f10")
+            add_missing(stock_id, "f10", "公司概况/经营范围缺失")
         if profile.get("industryName"):
             industry_count += 1
         else:
-            missing_items.append(f"{stock_id}.industryName")
+            add_missing(stock_id, "industryName", "行业分类缺失")
 
         if status_of(research) == "real" and research.get("reports"):
             research_count += 1
         else:
-            missing_items.append(f"{stock_id}.research")
+            add_missing(stock_id, "research", status_of(research))
 
         if status_of(announcement) == "real" and announcement.get("announcements"):
             announcement_count += 1
         else:
-            missing_items.append(f"{stock_id}.announcements")
+            add_missing(stock_id, "announcements", status_of(announcement))
 
         if has_signal(signal):
             signal_count += 1
         else:
-            missing_items.append(f"{stock_id}.signals")
+            add_missing(stock_id, "signals", "信号字段为空")
 
         if sector.get("industry") or sector.get("concept") or sector.get("region") or profile.get("industryName"):
             sector_count += 1
         else:
-            missing_items.append(f"{stock_id}.sectorMembership")
+            add_missing(stock_id, "sectorMembership", "板块归属缺失")
 
         for source_name, item in {
             "quote": quote,
@@ -244,9 +267,9 @@ def main() -> int:
         }.items():
             quality = item.get("quality") or {}
             if quality.get("status") in {"missing", "error", "stale"}:
-                missing_items.append(f"{stock_id}.{source_name}:{quality.get('status')}")
+                add_missing(stock_id, source_name, str(quality.get("status")))
             if is_stale(quality.get("updatedAt")):
-                stale_items.append(f"{stock_id}.{source_name}")
+                stale_items.append(f"{format_stock(universe_by_id.get(stock_id), stock_id)} | {source_name}")
 
         pe = quote.get("peTtm") if quote.get("peTtm") is not None else quote.get("pe")
         pb = quote.get("pb")
@@ -278,6 +301,11 @@ def main() -> int:
 
     total_a = len(a_share_ids)
     coverage = {
+        "Universe 总数": str(len(universe_items)),
+        "Universe 市场分布": json.dumps(expected_markets, ensure_ascii=False),
+        "Universe 支持分布": json.dumps(expected_supported, ensure_ascii=False),
+        "Universe 不支持分布": json.dumps(expected_unsupported, ensure_ascii=False),
+        "Manifest Universe 总数": str(manifest_universe.get("total")),
         "A 股行情覆盖": pct(quote_real, total_a),
         "A 股 K 线覆盖": pct(history_real, total_a),
         "A 股财务覆盖": pct(finance_core, total_a),
@@ -293,26 +321,38 @@ def main() -> int:
         "missing 字段数量": str(len(missing_items)),
     }
 
-    if quote_real / total_a < 0.9:
-        errors.append("A 股行情覆盖率低于 90%")
-    if history_real / total_a < 0.9:
-        errors.append("A 股 K 线覆盖率低于 90%")
-    if finance_core / total_a < 0.8:
-        errors.append("A 股财务核心字段覆盖率低于 80%")
-    if f10_text / total_a < 0.9:
-        errors.append("F10 / 主营业务覆盖率低于 90%")
-    if signal_count / total_a < 0.7:
-        errors.append("信号层覆盖率低于 70%")
-    if announcement_count / total_a < 0.7:
-        errors.append("公告覆盖率低于 70%")
+    manifest_coverage = manifest.get("coverage") or {}
+    for module, summary in manifest_coverage.items():
+        if isinstance(summary, dict) and summary.get("total") != total_a:
+            errors.append(f"manifest.coverage.{module}.total 与 A 股支持分母不一致")
+        if isinstance(summary, dict) and summary.get("unsupportedTotal") != len(unsupported_ids):
+            errors.append(f"manifest.coverage.{module}.unsupportedTotal 与 unsupported universe 不一致")
 
-    write_report(coverage, errors, warnings, missing_items, stale_items)
+    if total_a == 0:
+        errors.append("A 股 Universe 为空")
+    else:
+        if quote_real / total_a < 0.9:
+            errors.append("A 股行情覆盖率低于 90%")
+        if history_real / total_a < 0.9:
+            errors.append("A 股 K 线覆盖率低于 90%")
+        if finance_core / total_a < 0.8:
+            errors.append("A 股财务核心字段覆盖率低于 80%")
+        if f10_text / total_a < 0.9:
+            errors.append("F10 / 主营业务覆盖率低于 90%")
+        if signal_count / total_a < 0.7:
+            errors.append("信号层覆盖率低于 70%")
+        if announcement_count / total_a < 0.7:
+            errors.append("公告覆盖率低于 70%")
+
+    write_report(coverage, universe_payload, unsupported_items, errors, warnings, missing_items, stale_items)
     print(f"Validation complete: errors={len(errors)}, warnings={len(warnings)}, report={REPORT_PATH}")
     return 1 if errors else 0
 
 
 def write_report(
     coverage: dict[str, str],
+    universe_payload: dict[str, Any],
+    unsupported_items: list[dict[str, Any]],
     errors: list[str],
     warnings: list[str],
     missing_items: list[str],
@@ -323,30 +363,45 @@ def write_report(
         "# A Stock Data 数据校验报告",
         "",
         f"- 生成时间：{datetime.now().replace(microsecond=0).isoformat()}",
+        "- 口径：以 `src/data/real/stock-universe.generated.json` 为唯一 Universe 来源。",
+        "- 港股状态：第一阶段明确标记为 `unsupported_market`，不纳入 A 股覆盖率分母。",
         "",
-        "## 覆盖概况",
+        "## Universe Overview",
+        "",
+        f"- Universe 总数：{universe_payload.get('total', 'N/A')}",
+        f"- 市场分布：{json.dumps(universe_payload.get('markets', {}), ensure_ascii=False)}",
+        f"- 支持分布：{json.dumps(universe_payload.get('supported', {}), ensure_ascii=False)}",
+        f"- 不支持分布：{json.dumps(universe_payload.get('unsupported', {}), ensure_ascii=False)}",
+        f"- 未上市公司：{(universe_payload.get('privateCompanies') or {}).get('total', 0)}，不进入行情覆盖分母。",
+        "",
+        "## A 股覆盖",
         "",
     ]
-    if coverage:
-        lines.extend([f"- {key}：{value}" for key, value in coverage.items()])
-    else:
-        lines.append("- 暂无")
+    lines.extend([f"- {key}：{value}" for key, value in coverage.items()] or ["- 暂无"])
+    lines.extend(["", "## 港股 Unsupported List", ""])
+    lines.extend(
+        [
+            f"- {item.get('id')} | {item.get('name')} | {item.get('standardSymbol')} | {item.get('dataStatus')}"
+            for item in unsupported_items
+        ]
+        or ["- 暂无"]
+    )
     lines.extend(["", "## 阻断错误", ""])
     lines.extend([f"- {item}" for item in errors] or ["- 无"])
-    lines.extend(["", "## 警告", ""])
+    lines.extend(["", "## 异常数据 / 警告", ""])
     lines.extend([f"- {item}" for item in warnings] or ["- 无"])
-    lines.extend(["", "## stale/error/missing 数据项", ""])
-    lines.extend([f"- stale: {item}" for item in stale_items[:80]] or ["- stale: 无"])
-    lines.extend([f"- missing/error: {item}" for item in missing_items[:120]] or ["- missing/error: 无"])
+    lines.extend(["", "## 缺失明细", ""])
+    lines.extend([f"- {item}" for item in missing_items[:160]] or ["- 无"])
+    lines.extend(["", "## Stale 明细", ""])
+    lines.extend([f"- {item}" for item in stale_items[:80]] or ["- 无"])
     lines.extend(
         [
             "",
             "## 下一步建议",
             "",
-            "- 将资金流、人气榜、互动易等高频信号拆成可选刷新，避免完整刷新耗时过长。",
-            "- 接入港股 Provider 后再统计港股覆盖率；当前港股保持 unsupported_market。",
-            "- 财务字段已按新浪三表口径统一为亿元和百分比，后续可用年报原文交叉校验。",
-            "- F10 目前采用东财 HSF10 公司概况；主营收入构成如需更细，可继续接入经营分析端点。",
+            "- 继续保持 A 股抓取串行限流，避免对东财端点高频请求。",
+            "- 港股 Provider 接入前继续保持 `unsupported_market`，不得用 mock 数据伪装真实行情。",
+            "- 机器人未上市公司只进入研究池或私有公司清单，不进入上市股票行情覆盖分母。",
         ]
     )
     REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T19:42:17+08:00",
+  "updatedAt": "2026-07-05T00:34:58+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -45,9 +45,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603019&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603019&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "fii": {
@@ -103,9 +103,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601138&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601138&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "eoptolink": {
@@ -161,9 +161,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300502&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300502&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "innolight": {
@@ -219,9 +219,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300308&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300308&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "wus": {
@@ -277,9 +277,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002463&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002463&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "victor-tech": {
@@ -335,9 +335,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300476&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300476&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "shennan": {
@@ -393,9 +393,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002916&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002916&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "siasun": {
@@ -405,9 +405,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "missing",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300024&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300024&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "estun": {
@@ -463,9 +463,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002747&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002747&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "efort": {
@@ -475,9 +475,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "missing",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688165&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688165&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "leaderdrive": {
@@ -533,9 +533,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688017&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688017&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "zhongda-lide": {
@@ -573,9 +573,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002896&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002896&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "shuanghuan": {
@@ -631,9 +631,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002472&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002472&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "siling": {
@@ -671,9 +671,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=301550&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=301550&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "beite": {
@@ -729,9 +729,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603009&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603009&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "best": {
@@ -769,9 +769,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300580&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300580&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "wuzhou": {
@@ -809,9 +809,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603667&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603667&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "jinwo": {
@@ -849,9 +849,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300984&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300984&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "sanhua": {
@@ -907,9 +907,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002050&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002050&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "topgroup": {
@@ -965,9 +965,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601689&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601689&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "hengli-hydraulic": {
@@ -1023,9 +1023,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601100&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601100&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "inovance": {
@@ -1081,9 +1081,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300124&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300124&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "leisai": {
@@ -1139,9 +1139,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002979&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002979&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "moons": {
@@ -1170,9 +1170,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603728&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603728&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "orbbec": {
@@ -1228,9 +1228,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688322&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688322&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "hanwei": {
@@ -1250,9 +1250,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300007&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300007&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "hengshuai": {
@@ -1290,9 +1290,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300969&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300969&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "fortior": {
@@ -1312,9 +1312,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688279&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688279&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "xinje": {
@@ -1370,9 +1370,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603416&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603416&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "rongtai": {
@@ -1428,9 +1428,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603119&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603119&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "luster": {
@@ -1450,9 +1450,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688400&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688400&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "everwin": {
@@ -1508,9 +1508,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300115&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300115&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "xusheng": {
@@ -1566,9 +1566,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603305&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603305&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "hengbo": {
@@ -1588,9 +1588,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=301225&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=301225&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "xinquan": {
@@ -1646,9 +1646,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603179&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603179&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "keboda": {
@@ -1704,9 +1704,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603786&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603786&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "joyson": {
@@ -1762,9 +1762,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=600699&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600699&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "xingyu": {
@@ -1820,9 +1820,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601799&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601799&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "riying": {
@@ -1832,9 +1832,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "missing",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603286&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603286&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "daimei": {
@@ -1890,9 +1890,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603730&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603730&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "molding-tech": {
@@ -1948,9 +1948,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=000700&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=000700&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "wanxiang-qc": {
@@ -1960,9 +1960,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "missing",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=000559&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=000559&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "tieliu": {
@@ -2000,9 +2000,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603926&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603926&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "zhaomin": {
@@ -2012,9 +2012,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "missing",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=301000&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=301000&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "dongli": {
@@ -2024,9 +2024,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "missing",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002164&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002164&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "kaidi": {
@@ -2064,9 +2064,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=605288&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=605288&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "henghui": {
@@ -2086,9 +2086,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300952&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300952&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "wuxi": {
@@ -2144,9 +2144,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603259&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603259&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "pharmaron": {
@@ -2202,9 +2202,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300759&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300759&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "asymchem": {
@@ -2260,9 +2260,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002821&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002821&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "nano": {
@@ -2282,9 +2282,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688690&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688690&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "hengrui": {
@@ -2340,9 +2340,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=600276&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600276&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "beigene": {
@@ -2398,9 +2398,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688235&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688235&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "cosco-energy": {
@@ -2456,9 +2456,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=600026&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600026&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "cm-energy": {
@@ -2514,9 +2514,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601872&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601872&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "cm-nanjing": {
@@ -2545,9 +2545,9 @@
         "source": "A Stock Data",
         "sourceLayer": "research",
         "sourceEndpoint": "Eastmoney reportapi",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
-        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601975&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601975&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     },
     "lenovo": {
@@ -2557,9 +2557,9 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     },
     "ubtech": {
@@ -2569,9 +2569,9 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     },
     "sunny-optical": {
@@ -2581,9 +2581,9 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     }
   }

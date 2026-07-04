@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T19:42:17+08:00",
+  "updatedAt": "2026-07-05T00:34:58+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -14,12 +14,12 @@
       "roe": 1.0101376414634726,
       "debtRatio": 41.13533580277765,
       "operatingCashFlow": -13.906986652999999,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603019&source=lrb&type=0&page=1&num=2"
       }
@@ -37,12 +37,12 @@
       "roe": 6.012354167090384,
       "debtRatio": 61.38221170921165,
       "operatingCashFlow": 250.24028,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601138&source=lrb&type=0&page=1&num=2"
       }
@@ -60,12 +60,12 @@
       "roe": 13.642801903448841,
       "debtRatio": 31.034979857387533,
       "operatingCashFlow": 6.8407135588,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300502&source=lrb&type=0&page=1&num=2"
       }
@@ -83,12 +83,12 @@
       "roe": 16.113992296108034,
       "debtRatio": 32.63618566731946,
       "operatingCashFlow": 33.6757367662,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300308&source=lrb&type=0&page=1&num=2"
       }
@@ -106,12 +106,12 @@
       "roe": 7.3978021758575165,
       "debtRatio": 48.64311885393524,
       "operatingCashFlow": 5.11016585,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002463&source=lrb&type=0&page=1&num=2"
       }
@@ -129,12 +129,12 @@
       "roe": 7.402980287839525,
       "debtRatio": 55.23393838212346,
       "operatingCashFlow": 21.1665846316,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300476&source=lrb&type=0&page=1&num=2"
       }
@@ -152,12 +152,12 @@
       "roe": 4.69988951332393,
       "debtRatio": 47.24247083691391,
       "operatingCashFlow": 2.4740984458,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002916&source=lrb&type=0&page=1&num=2"
       }
@@ -175,12 +175,12 @@
       "roe": -2.286159764031622,
       "debtRatio": 63.465235248490345,
       "operatingCashFlow": -4.6054826191,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300024&source=lrb&type=0&page=1&num=2"
       }
@@ -198,12 +198,12 @@
       "roe": 3.0217132143925176,
       "debtRatio": 69.18173324240891,
       "operatingCashFlow": -1.4668896829,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002747&source=lrb&type=0&page=1&num=2"
       }
@@ -221,12 +221,12 @@
       "roe": -0.8096340622743087,
       "debtRatio": 61.81454454993817,
       "operatingCashFlow": 0.11181547369999999,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688165&source=lrb&type=0&page=1&num=2"
       }
@@ -244,12 +244,12 @@
       "roe": 0.9144228737374894,
       "debtRatio": 9.443144847456193,
       "operatingCashFlow": 0.0539390849,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688017&source=lrb&type=0&page=1&num=2"
       }
@@ -267,12 +267,12 @@
       "roe": 0.9181510002285965,
       "debtRatio": 34.977707255569996,
       "operatingCashFlow": -0.09797699439999999,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002896&source=lrb&type=0&page=1&num=2"
       }
@@ -290,12 +290,12 @@
       "roe": 2.756753928275982,
       "debtRatio": 43.333737449009476,
       "operatingCashFlow": 5.6648904381,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002472&source=lrb&type=0&page=1&num=2"
       }
@@ -313,12 +313,12 @@
       "roe": 2.100253986355207,
       "debtRatio": 26.384194816727252,
       "operatingCashFlow": 0.3469164353,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz301550&source=lrb&type=0&page=1&num=2"
       }
@@ -336,12 +336,12 @@
       "roe": 1.3219267471307452,
       "debtRatio": 46.55534785812303,
       "operatingCashFlow": -0.167403618,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603009&source=lrb&type=0&page=1&num=2"
       }
@@ -359,12 +359,12 @@
       "roe": 2.173640406742795,
       "debtRatio": 14.045807811736294,
       "operatingCashFlow": -0.1513188687,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300580&source=lrb&type=0&page=1&num=2"
       }
@@ -382,12 +382,12 @@
       "roe": 1.026556398556809,
       "debtRatio": 39.54489693595191,
       "operatingCashFlow": 0.443294566,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603667&source=lrb&type=0&page=1&num=2"
       }
@@ -405,12 +405,12 @@
       "roe": 1.358772455098209,
       "debtRatio": 36.15696044728482,
       "operatingCashFlow": -0.165792603,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300984&source=lrb&type=0&page=1&num=2"
       }
@@ -428,12 +428,12 @@
       "roe": 2.8430344226807818,
       "debtRatio": 33.27778610881532,
       "operatingCashFlow": 11.057901871199999,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002050&source=lrb&type=0&page=1&num=2"
       }
@@ -451,12 +451,12 @@
       "roe": 2.2441578549551,
       "debtRatio": 40.774880537801565,
       "operatingCashFlow": 5.4721482974,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601689&source=lrb&type=0&page=1&num=2"
       }
@@ -474,12 +474,12 @@
       "roe": 3.6463877011099592,
       "debtRatio": 20.431045584369958,
       "operatingCashFlow": 5.1779642136,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601100&source=lrb&type=0&page=1&num=2"
       }
@@ -497,12 +497,12 @@
       "roe": 2.785569978462987,
       "debtRatio": 45.55159038171684,
       "operatingCashFlow": 0.9405122497,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300124&source=lrb&type=0&page=1&num=2"
       }
@@ -520,12 +520,12 @@
       "roe": 3.849813651589678,
       "debtRatio": 39.97957187488211,
       "operatingCashFlow": -0.4775965429,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002979&source=lrb&type=0&page=1&num=2"
       }
@@ -543,12 +543,12 @@
       "roe": 0.4646686197467217,
       "debtRatio": 34.69149070032526,
       "operatingCashFlow": -0.14533462519999998,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603728&source=lrb&type=0&page=1&num=2"
       }
@@ -566,12 +566,12 @@
       "roe": 1.0351469858101874,
       "debtRatio": 10.902049729920538,
       "operatingCashFlow": -1.1743040443000001,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688322&source=lrb&type=0&page=1&num=2"
       }
@@ -589,12 +589,12 @@
       "roe": 0.8373566805093584,
       "debtRatio": 38.802313330301956,
       "operatingCashFlow": -1.0943658145,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300007&source=lrb&type=0&page=1&num=2"
       }
@@ -612,12 +612,12 @@
       "roe": 2.7633129270833643,
       "debtRatio": 30.247541376658972,
       "operatingCashFlow": 0.6271724382,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300969&source=lrb&type=0&page=1&num=2"
       }
@@ -635,12 +635,12 @@
       "roe": 1.697065436018108,
       "debtRatio": 2.2848563045373553,
       "operatingCashFlow": 0.5178261744,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688279&source=lrb&type=0&page=1&num=2"
       }
@@ -658,12 +658,12 @@
       "roe": 1.97291165362775,
       "debtRatio": 25.412203589988437,
       "operatingCashFlow": -0.2339045081,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603416&source=lrb&type=0&page=1&num=2"
       }
@@ -681,12 +681,12 @@
       "roe": 3.4039939793593605,
       "debtRatio": 34.45562837908529,
       "operatingCashFlow": 0.8861198145,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603119&source=lrb&type=0&page=1&num=2"
       }
@@ -704,12 +704,12 @@
       "roe": 3.500820046880189,
       "debtRatio": 26.36535893074157,
       "operatingCashFlow": -0.6392749546000001,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688400&source=lrb&type=0&page=1&num=2"
       }
@@ -727,12 +727,12 @@
       "roe": 1.4739805315894936,
       "debtRatio": 65.31558715480003,
       "operatingCashFlow": -1.7675169197999998,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300115&source=lrb&type=0&page=1&num=2"
       }
@@ -750,12 +750,12 @@
       "roe": 1.3378826280903917,
       "debtRatio": 25.987448565175963,
       "operatingCashFlow": 2.0829619558,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603305&source=lrb&type=0&page=1&num=2"
       }
@@ -773,12 +773,12 @@
       "roe": 1.65990399851608,
       "debtRatio": 32.954567458896804,
       "operatingCashFlow": -0.1466109496,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz301225&source=lrb&type=0&page=1&num=2"
       }
@@ -796,12 +796,12 @@
       "roe": 2.6920949774508247,
       "debtRatio": 59.211104156386426,
       "operatingCashFlow": 1.0041572231,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603179&source=lrb&type=0&page=1&num=2"
       }
@@ -819,12 +819,12 @@
       "roe": 2.6213472174665244,
       "debtRatio": 33.89221229928063,
       "operatingCashFlow": 1.4877509225999999,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603786&source=lrb&type=0&page=1&num=2"
       }
@@ -842,12 +842,12 @@
       "roe": 2.2942440549971805,
       "debtRatio": 64.92140573967117,
       "operatingCashFlow": 9.148541034199999,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600699&source=lrb&type=0&page=1&num=2"
       }
@@ -865,12 +865,12 @@
       "roe": 3.0696289045618,
       "debtRatio": 39.430685225135946,
       "operatingCashFlow": 4.2105536565,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601799&source=lrb&type=0&page=1&num=2"
       }
@@ -888,12 +888,12 @@
       "roe": -0.6875859182975366,
       "debtRatio": 57.12682921974046,
       "operatingCashFlow": -0.10647672279999999,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603286&source=lrb&type=0&page=1&num=2"
       }
@@ -911,12 +911,12 @@
       "roe": 3.7112573803681848,
       "debtRatio": 33.8731074415453,
       "operatingCashFlow": 0.9708455311,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603730&source=lrb&type=0&page=1&num=2"
       }
@@ -934,12 +934,12 @@
       "roe": 4.100761810775485,
       "debtRatio": 46.45109990155992,
       "operatingCashFlow": 1.7889482699,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz000700&source=lrb&type=0&page=1&num=2"
       }
@@ -957,12 +957,12 @@
       "roe": 2.811374219571043,
       "debtRatio": 64.5321130515253,
       "operatingCashFlow": -0.396701539,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz000559&source=lrb&type=0&page=1&num=2"
       }
@@ -980,12 +980,12 @@
       "roe": 1.6943190865223292,
       "debtRatio": 41.189085668397645,
       "operatingCashFlow": 0.0885014556,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603926&source=lrb&type=0&page=1&num=2"
       }
@@ -1003,12 +1003,12 @@
       "roe": 2.0364842030716517,
       "debtRatio": 13.357634053114834,
       "operatingCashFlow": 0.2372720299,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz301000&source=lrb&type=0&page=1&num=2"
       }
@@ -1026,12 +1026,12 @@
       "roe": 1.3696513124182648,
       "debtRatio": 40.60396609854198,
       "operatingCashFlow": -0.5928861108,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002164&source=lrb&type=0&page=1&num=2"
       }
@@ -1049,12 +1049,12 @@
       "roe": -0.3837003989419598,
       "debtRatio": 20.926427315826203,
       "operatingCashFlow": 0.39257710939999996,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh605288&source=lrb&type=0&page=1&num=2"
       }
@@ -1072,12 +1072,12 @@
       "roe": 0.3859852878301382,
       "debtRatio": 39.76804472834517,
       "operatingCashFlow": 0.5754512391,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300952&source=lrb&type=0&page=1&num=2"
       }
@@ -1095,12 +1095,12 @@
       "roe": 5.52294114303454,
       "debtRatio": 21.079887599526625,
       "operatingCashFlow": 35.958103265300004,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603259&source=lrb&type=0&page=1&num=2"
       }
@@ -1118,12 +1118,12 @@
       "roe": 2.0376080581998717,
       "debtRatio": 40.0783951185751,
       "operatingCashFlow": 6.0443991655,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300759&source=lrb&type=0&page=1&num=2"
       }
@@ -1141,12 +1141,12 @@
       "roe": 1.6951307661969128,
       "debtRatio": 13.249019110946591,
       "operatingCashFlow": 5.266635325,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002821&source=lrb&type=0&page=1&num=2"
       }
@@ -1164,12 +1164,12 @@
       "roe": 3.3326598665663876,
       "debtRatio": 12.27443790552675,
       "operatingCashFlow": 0.1490495057,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688690&source=lrb&type=0&page=1&num=2"
       }
@@ -1187,12 +1187,12 @@
       "roe": 3.5869907756519313,
       "debtRatio": 10.024391887669742,
       "operatingCashFlow": 7.864459007100001,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600276&source=lrb&type=0&page=1&num=2"
       }
@@ -1210,12 +1210,12 @@
       "roe": 4.867426681559136,
       "debtRatio": 44.079745433389256,
       "operatingCashFlow": 13.53071,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688235&source=lrb&type=0&page=1&num=2"
       }
@@ -1233,12 +1233,12 @@
       "roe": 4.5075499918082444,
       "debtRatio": 45.55051591554241,
       "operatingCashFlow": 37.6568331033,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600026&source=lrb&type=0&page=1&num=2"
       }
@@ -1256,12 +1256,12 @@
       "roe": 6.132573496928824,
       "debtRatio": 46.25961419089589,
       "operatingCashFlow": 33.1393394369,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601872&source=lrb&type=0&page=1&num=2"
       }
@@ -1279,12 +1279,12 @@
       "roe": 3.6043021080993403,
       "debtRatio": 11.076388003629773,
       "operatingCashFlow": 3.1571672689,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "finance",
         "sourceEndpoint": "Sina financial statements",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real",
         "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601975&source=lrb&type=0&page=1&num=2"
       }
@@ -1302,14 +1302,14 @@
       "roe": null,
       "debtRatio": null,
       "operatingCashFlow": null,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     },
     "ubtech": {
@@ -1325,14 +1325,14 @@
       "roe": null,
       "debtRatio": null,
       "operatingCashFlow": null,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     },
     "sunny-optical": {
@@ -1348,14 +1348,14 @@
       "roe": null,
       "debtRatio": null,
       "operatingCashFlow": null,
-      "updatedAt": "2026-07-04T19:42:17+08:00",
+      "updatedAt": "2026-07-05T00:34:58+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     }
   }

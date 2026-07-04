@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T19:42:17+08:00",
+  "updatedAt": "2026-07-05T00:34:58+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -8,7 +8,7 @@
           "name": "信息技术-计算机硬件-专用计算机设备",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -17,7 +17,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -28,7 +28,7 @@
           "name": "电子设备-消费电子设备-消费电子设备",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -37,7 +37,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -48,7 +48,7 @@
           "name": "信息技术-通信设备-通信传输设备",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -57,7 +57,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -68,7 +68,7 @@
           "name": "信息技术-通信设备-通信传输设备",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -77,7 +77,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -88,7 +88,7 @@
           "name": "电子设备-电子元件-电子元件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -97,7 +97,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -108,7 +108,7 @@
           "name": "电子设备-电子元件-电子元件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -117,7 +117,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -128,7 +128,7 @@
           "name": "电子设备-电子元件-电子元件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -137,7 +137,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -148,7 +148,7 @@
           "name": "机械设备-机器人-工业机器人",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -157,7 +157,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -168,7 +168,7 @@
           "name": "机械设备-机器人-工业机器人",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -177,7 +177,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -188,7 +188,7 @@
           "name": "机械设备-机器人-工业机器人",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -197,7 +197,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -208,7 +208,7 @@
           "name": "机械设备-通用设备-其他通用机械",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -217,7 +217,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -228,7 +228,7 @@
           "name": "机械设备-通用设备-其他通用机械",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -237,7 +237,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -248,7 +248,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -257,7 +257,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -268,7 +268,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -277,7 +277,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -288,7 +288,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -297,7 +297,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -308,7 +308,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -317,7 +317,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -328,7 +328,7 @@
           "name": "机械设备-通用设备-基础件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -337,7 +337,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -348,7 +348,7 @@
           "name": "机械设备-通用设备-基础件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -357,7 +357,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -368,7 +368,7 @@
           "name": "机械设备-通用设备-其他通用机械",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -377,7 +377,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -388,7 +388,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -397,7 +397,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -408,7 +408,7 @@
           "name": "机械设备-通用设备-基础件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -417,7 +417,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -428,7 +428,7 @@
           "name": "机械设备-机器人-工业机器人",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -437,7 +437,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -448,7 +448,7 @@
           "name": "机械设备-通用设备-仪器仪表",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -457,7 +457,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -468,7 +468,7 @@
           "name": "电气设备-电机-电机",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -477,7 +477,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -488,7 +488,7 @@
           "name": "电子设备-电子设备制造-电子设备制造",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -497,7 +497,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -508,7 +508,7 @@
           "name": "机械设备-通用设备-仪器仪表",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -517,7 +517,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -528,7 +528,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -537,7 +537,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -548,7 +548,7 @@
           "name": "电子设备-半导体-集成电路",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -557,7 +557,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -568,7 +568,7 @@
           "name": "电气设备-输变电设备-电气自控设备",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -577,7 +577,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -588,7 +588,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -597,7 +597,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -608,7 +608,7 @@
           "name": "机械设备-专用设备-其他专用机械",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -617,7 +617,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -628,7 +628,7 @@
           "name": "电子设备-电子器件-其他电子器件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -637,7 +637,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -648,7 +648,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -657,7 +657,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -668,7 +668,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -677,7 +677,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -688,7 +688,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -697,7 +697,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -708,7 +708,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -717,7 +717,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -728,7 +728,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -737,7 +737,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -748,7 +748,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -757,7 +757,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -768,7 +768,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -777,7 +777,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -788,7 +788,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -797,7 +797,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -808,7 +808,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -817,7 +817,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -828,7 +828,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -837,7 +837,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -848,7 +848,7 @@
           "name": "交运设备-汽车-汽车零部件",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -857,7 +857,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -868,7 +868,7 @@
           "name": "基础化工-化学制品-塑料制品",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -877,7 +877,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -888,7 +888,7 @@
           "name": "机械设备-专用设备-矿山冶金机械",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -897,7 +897,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -908,7 +908,7 @@
           "name": "电气设备-电机-电机",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -917,7 +917,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -928,7 +928,7 @@
           "name": "纺织服装-纺织-其他纺织",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -937,7 +937,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -948,7 +948,7 @@
           "name": "医药生物-医疗服务-医疗服务",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -957,7 +957,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -968,7 +968,7 @@
           "name": "医药生物-生物医药-生物医药",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -977,7 +977,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -988,7 +988,7 @@
           "name": "医药生物-化学制药-化学原料药",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -997,7 +997,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -1008,7 +1008,7 @@
           "name": "基础化工-化学原料-其他化学原料",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -1017,7 +1017,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -1028,7 +1028,7 @@
           "name": "医药生物-化学制药-化学制剂",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -1037,7 +1037,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -1048,7 +1048,7 @@
           "name": "医药生物-生物医药-生物医药",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -1057,7 +1057,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -1068,7 +1068,7 @@
           "name": "交通运输-港口航运-航运",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -1077,7 +1077,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -1088,7 +1088,7 @@
           "name": "交通运输-港口航运-航运",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -1097,7 +1097,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -1108,7 +1108,7 @@
           "name": "交通运输-港口航运-航运",
           "changePct": null,
           "code": null,
-          "description": "来自东财 HSF10/个股资料行业分类"
+          "description": "Eastmoney HSF10 industry fallback"
         }
       ],
       "concept": [],
@@ -1117,7 +1117,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "real"
       }
     },
@@ -1130,9 +1130,9 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     },
     "ubtech": {
@@ -1144,9 +1144,9 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     },
     "sunny-optical": {
@@ -1158,9 +1158,9 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "updatedAt": "2026-07-05T00:34:58+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
     }
   }

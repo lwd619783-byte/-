@@ -14,54 +14,18 @@ from urllib import parse, request
 ROOT = Path(__file__).resolve().parents[1]
 REAL_DIR = ROOT / "src" / "data" / "real"
 LOG_DIR = ROOT / "data-cache" / "a-stock-data" / "raw"
-SYMBOL_MAP_PATH = ROOT / "src" / "utils" / "symbol.ts"
+STOCK_UNIVERSE_PATH = REAL_DIR / "stock-universe.generated.json"
 CN_TZ = timezone(timedelta(hours=8))
 
-UNIVERSE = [
-    {"id": "sugon", "name": "中科曙光", "code": "603019", "exchange": "SH", "market": "A股"},
-    {"id": "fii", "name": "工业富联", "code": "601138", "exchange": "SH", "market": "A股"},
-    {"id": "lenovo", "name": "联想集团", "code": "0992", "exchange": "HK", "market": "港股"},
-    {"id": "eoptolink", "name": "新易盛", "code": "300502", "exchange": "SZ", "market": "A股"},
-    {"id": "innolight", "name": "中际旭创", "code": "300308", "exchange": "SZ", "market": "A股"},
-    {"id": "wus", "name": "沪电股份", "code": "002463", "exchange": "SZ", "market": "A股"},
-    {"id": "victor-tech", "name": "胜宏科技", "code": "300476", "exchange": "SZ", "market": "A股"},
-    {"id": "shennan", "name": "深南电路", "code": "002916", "exchange": "SZ", "market": "A股"},
-    {"id": "best", "name": "贝斯特", "code": "300580", "exchange": "SZ", "market": "A股"},
-    {"id": "wuzhou", "name": "五洲新春", "code": "603667", "exchange": "SH", "market": "A股"},
-    {"id": "leaderdrive", "name": "绿的谐波", "code": "688017", "exchange": "SH", "market": "A股"},
-    {"id": "moons", "name": "鸣志电器", "code": "603728", "exchange": "SH", "market": "A股"},
-    {"id": "topgroup", "name": "拓普集团", "code": "601689", "exchange": "SH", "market": "A股"},
-    {"id": "wuxi", "name": "药明康德", "code": "603259", "exchange": "SH", "market": "A股"},
-    {"id": "pharmaron", "name": "康龙化成", "code": "300759", "exchange": "SZ", "market": "A股"},
-    {"id": "asymchem", "name": "凯莱英", "code": "002821", "exchange": "SZ", "market": "A股"},
-    {"id": "nano", "name": "纳微科技", "code": "688690", "exchange": "SH", "market": "A股"},
-    {"id": "hengrui", "name": "恒瑞医药", "code": "600276", "exchange": "SH", "market": "A股"},
-    {"id": "beigene", "name": "百济神州", "code": "688235", "exchange": "SH", "market": "A股"},
-    {"id": "cosco-energy", "name": "中远海能", "code": "600026", "exchange": "SH", "market": "A股"},
-    {"id": "cm-energy", "name": "招商轮船", "code": "601872", "exchange": "SH", "market": "A股"},
-    {"id": "cm-nanjing", "name": "招商南油", "code": "601975", "exchange": "SH", "market": "A股"},
-]
+def load_stock_universe() -> list[dict[str, Any]]:
+    if not STOCK_UNIVERSE_PATH.exists():
+        raise FileNotFoundError("stock-universe.generated.json is missing; run `npm run data:universe` first")
+    payload = json.loads(STOCK_UNIVERSE_PATH.read_text(encoding="utf-8"))
+    items = payload.get("items", [])
+    if not isinstance(items, list) or not items:
+        raise ValueError("stock-universe.generated.json has no items")
+    return items
 
-
-def load_universe_from_symbol_map() -> list[dict[str, str]]:
-    """Use src/utils/symbol.ts as the authoritative stock universe.
-
-    The static list above is kept only as a fallback so historical caches can
-    still be refreshed if the TypeScript source is temporarily unreadable.
-    """
-    try:
-        text = SYMBOL_MAP_PATH.read_text(encoding="utf-8")
-    except OSError:
-        return UNIVERSE
-
-    universe: list[dict[str, str]] = []
-    for match in re.finditer(r'mapA\("([^"]+)",\s*"([^"]+)",\s*"(\d{6})",\s*"(SH|SZ)"\)', text):
-        stock_id, name, code, exchange = match.groups()
-        universe.append({"id": stock_id, "name": name, "code": code, "exchange": exchange, "market": "A股"})
-    for match in re.finditer(r'mapHK\("([^"]+)",\s*"([^"]+)",\s*"(\d+)"\)', text):
-        stock_id, name, code = match.groups()
-        universe.append({"id": stock_id, "name": name, "code": code.zfill(4), "exchange": "HK", "market": "港股"})
-    return universe or UNIVERSE
 
 
 def now_iso() -> str:
@@ -273,8 +237,8 @@ def fetch_eastmoney_f10(stock: dict[str, str], updated_at: str) -> dict[str, Any
         data = em_json(url)
         item = (data.get("jbzl") or [{}])[0]
         industries = [
-            {"scheme": "东财行业", "name": item.get("EM2016")},
-            {"scheme": "证监会行业", "name": item.get("INDUSTRYCSRC1")},
+            {"scheme": "Eastmoney industry", "name": item.get("EM2016")},
+            {"scheme": "CSRC industry", "name": item.get("INDUSTRYCSRC1")},
         ]
         industries = [row for row in industries if row.get("name")]
         profile = {
@@ -284,7 +248,7 @@ def fetch_eastmoney_f10(stock: dict[str, str], updated_at: str) -> dict[str, Any
             "companyProfile": clean_text(item.get("ORG_PROFILE"), 900),
             "businessScope": clean_text(item.get("BUSINESS_SCOPE"), 900),
             "f10Summary": clean_text(
-                "；".join(
+                " | ".join(
                     filter(
                         None,
                         [
@@ -581,7 +545,7 @@ def generate_signals_from_real_data(
 
     pct_change = quote.get("pctChange")
     if isinstance(pct_change, (int, float)) and abs(pct_change) >= 5:
-        notes.append(f"近期涨跌幅异常：{pct_change:.2f}%")
+        notes.append(f"price move signal: {pct_change:.2f}%")
         field_sources["pctChangeSignal"] = quote.get("quality")
 
     points = history.get("points") or []
@@ -591,25 +555,25 @@ def generate_signals_from_real_data(
         if isinstance(latest_amount, (int, float)) and previous_amounts:
             avg_amount = sum(previous_amounts) / len(previous_amounts)
             if avg_amount > 0 and latest_amount / avg_amount >= 1.8:
-                notes.append(f"成交额放大：约 {latest_amount / avg_amount:.1f} 倍")
+                notes.append(f"amount expansion: {latest_amount / avg_amount:.1f}x")
                 field_sources["amountExpansion"] = history.get("quality")
 
     revenue_growth = financial.get("revenueGrowth")
     profit_growth = financial.get("profitGrowth")
     if isinstance(revenue_growth, (int, float)) and revenue_growth >= 20:
-        notes.append(f"营收增长：{revenue_growth:.1f}%")
+        notes.append(f"revenue growth: {revenue_growth:.1f}%")
         field_sources["revenueGrowth"] = financial.get("quality")
     if isinstance(profit_growth, (int, float)) and profit_growth >= 20:
-        notes.append(f"利润增长：{profit_growth:.1f}%")
+        notes.append(f"profit growth: {profit_growth:.1f}%")
         field_sources["profitGrowth"] = financial.get("quality")
 
     pe = quote.get("peTtm") if quote.get("peTtm") is not None else quote.get("pe")
     pb = quote.get("pb")
     if isinstance(pe, (int, float)) and pe > 80:
-        notes.append(f"估值偏高：PE TTM {pe:.1f}x")
+        notes.append(f"valuation risk: PE TTM {pe:.1f}x")
         field_sources["valuationRisk"] = quote.get("quality")
     elif isinstance(pe, (int, float)) and 0 < pe < 15 and isinstance(pb, (int, float)) and pb < 2:
-        notes.append(f"估值偏低：PE {pe:.1f}x / PB {pb:.1f}x")
+        notes.append(f"valuation low: PE {pe:.1f}x / PB {pb:.1f}x")
         field_sources["valuationLow"] = quote.get("quality")
 
     reports = research.get("reports") or []
@@ -617,27 +581,27 @@ def generate_signals_from_real_data(
         latest_report = reports[0]
         title = latest_report.get("title")
         if title:
-            notes.append(f"最新研报：{title}")
+            notes.append(f"latest research: {title}")
             field_sources["research"] = research.get("quality")
 
     ann_list = announcements.get("announcements") or []
     latest_announcement = ann_list[0].get("title") if ann_list else None
     if latest_announcement:
-        notes.append(f"公告催化：{latest_announcement}")
+        notes.append(f"announcement: {latest_announcement}")
         field_sources["announcement"] = announcements.get("quality")
 
     missing = []
     for label, item in {
-        "行情": quote,
-        "历史行情": history,
-        "财务": financial,
-        "研报": research,
-        "公告": announcements,
+        "quote": quote,
+        "history": history,
+        "financial": financial,
+        "research": research,
+        "announcement": announcements,
     }.items():
         if (item.get("quality") or {}).get("status") in {"missing", "error", "unsupported_market"}:
             missing.append(label)
     if missing:
-        notes.append(f"数据缺失：{', '.join(missing)}")
+        notes.append(f"missing data: {', '.join(missing)}")
 
     status = "real" if notes else "missing"
     return {
@@ -650,7 +614,7 @@ def generate_signals_from_real_data(
         "holderChangePct": None,
         "upcomingLockupCount": None,
         "popularityRank": None,
-        "hotReason": "；".join(notes[:4]) if notes else None,
+        "hotReason": " | ".join(notes[:4]) if notes else None,
         "latestInteraction": latest_announcement,
         "fieldSources": field_sources,
         "quality": quality("A Stock Data", status, "signals", "Derived from quote/history/financial/research/announcements", updated_at),
@@ -692,7 +656,7 @@ def fetch_tencent_quote(stock: dict[str, str], updated_at: str) -> tuple[dict[st
         "floatShares": float_shares_yi,
         "companyProfile": None,
         "businessScope": None,
-        "f10Summary": "腾讯行情补齐价格、估值、市值与股本口径；公司介绍等待 F10 补位。",
+        "f10Summary": "Tencent quote fallback; company profile waits for F10 enrichment.",
         "revenueComposition": [],
         "mainProducts": [],
         "quality": q,
@@ -844,7 +808,7 @@ def fetch_announcements(stock: dict[str, str], updated_at: str) -> dict[str, Any
                     "date": (row.get("announcementTime") and datetime.fromtimestamp(row["announcementTime"] / 1000, CN_TZ).date().isoformat()) or None,
                     "type": row.get("announcementTypeName"),
                     "url": f"http://static.cninfo.com.cn/{adjunct}" if adjunct else None,
-                    "source": "巨潮资讯",
+                    "source": "CNInfo",
                 }
             )
         status = "real" if announcements else "missing"
@@ -887,7 +851,7 @@ def fetch_sector(stock: dict[str, str], updated_at: str) -> dict[str, Any]:
 def merge_sector_profile_fallback(sector: dict[str, Any], profile: dict[str, Any], updated_at: str) -> dict[str, Any]:
     industry_name = profile.get("industryName")
     if industry_name and not sector.get("industry"):
-        sector["industry"] = [{"name": industry_name, "changePct": None, "code": None, "description": "来自东财 HSF10/个股资料行业分类"}]
+        sector["industry"] = [{"name": industry_name, "changePct": None, "code": None, "description": "Eastmoney HSF10 industry fallback"}]
     if sector.get("industry") or sector.get("concept") or sector.get("region"):
         if sector.get("quality", {}).get("status") in {"missing", "error"}:
             sector["quality"] = quality("A Stock Data", "real", "sector", "Eastmoney HSF10 industry fallback", updated_at)
@@ -899,9 +863,45 @@ def write_json_preserve(filename: str, payload: dict[str, Any], errors: list[str
     path = REAL_DIR / filename
     has_items = isinstance(payload.get("items"), dict) and len(payload["items"]) > 0
     if not has_items and path.exists():
-        errors.append(f"{filename}: 新数据为空，保留旧缓存")
+        errors.append(f"{filename}: new payload is empty; kept previous cache")
         return
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def count_items_by_market(universe: list[dict[str, Any]], predicate) -> dict[str, int]:
+    counts: dict[str, int] = {"A股": 0, "港股": 0, "美股": 0, "未上市": 0}
+    for item in universe:
+        if predicate(item):
+            market = item.get("market", "unknown")
+            counts[market] = counts.get(market, 0) + 1
+    return counts
+
+
+def module_coverage(items: dict[str, Any], universe: list[dict[str, Any]], status_key: str = "quality") -> dict[str, Any]:
+    supported_ids = [item["id"] for item in universe if item.get("shouldValidate") and item.get("dataStatus") == "supported"]
+    unsupported_ids = [item["id"] for item in universe if item.get("dataStatus") != "supported"]
+    real = 0
+    missing: list[str] = []
+    unsupported = 0
+    for stock_id in supported_ids:
+        status = ((items.get(stock_id) or {}).get(status_key) or {}).get("status")
+        if status == "real":
+            real += 1
+        else:
+            missing.append(stock_id)
+    for stock_id in unsupported_ids:
+        status = ((items.get(stock_id) or {}).get(status_key) or {}).get("status")
+        if status == "unsupported_market":
+            unsupported += 1
+    total = len(supported_ids)
+    return {
+        "real": real,
+        "total": total,
+        "pct": round(real / total * 100, 1) if total else 0,
+        "missing": missing,
+        "unsupported": unsupported,
+        "unsupportedTotal": len(unsupported_ids),
+    }
 
 
 def main() -> int:
@@ -917,12 +917,14 @@ def main() -> int:
     errors: list[str] = []
     logs: list[dict[str, Any]] = []
 
-    universe = load_universe_from_symbol_map()
+    universe = load_stock_universe()
 
     for index, stock in enumerate(universe, start=1):
         print(f"[{index}/{len(universe)}] fetching {stock['id']} {stock['code']} {stock['exchange']}", flush=True)
-        if stock["exchange"] == "HK":
-            bundle = empty_bundle(stock["id"], stock["name"], stock["code"], stock["market"], updated_at, "unsupported_market", "A Stock Data MVP 暂不接入港股/美股")
+        if not stock.get("shouldFetchQuote", False):
+            status = stock.get("dataStatus", "unsupported_market")
+            message = "A Stock Data MVP 暂不接入该市场"
+            bundle = empty_bundle(stock["id"], stock["name"], stock["code"], stock["market"], updated_at, status, message)
             profiles[stock["id"]] = bundle["profile"]
             quotes[stock["id"]] = bundle["quote"]
             financials[stock["id"]] = bundle["financial"]
@@ -1002,13 +1004,26 @@ def main() -> int:
         logs.append(stock_log)
 
     manifest = {
+        "generatedAt": updated_at,
         "updatedAt": updated_at,
         "status": "mixed" if any(q["quality"]["status"] == "real" for q in quotes.values()) else "error",
         "sourceSummary": ["A Stock Data", "Tencent quote/kline", "Eastmoney serial fallback", "CNInfo metadata"],
         "universe": {
             "total": len(universe),
-            "aShare": sum(1 for stock in universe if stock["exchange"] != "HK"),
-            "hk": sum(1 for stock in universe if stock["exchange"] == "HK"),
+            "markets": count_items_by_market(universe, lambda item: True),
+            "supported": count_items_by_market(universe, lambda item: item.get("dataStatus") == "supported"),
+            "unsupported": count_items_by_market(universe, lambda item: item.get("dataStatus") != "supported"),
+            "source": "src/data/real/stock-universe.generated.json",
+        },
+        "coverage": {
+            "quotes": module_coverage(quotes, universe),
+            "priceHistory": module_coverage(histories, universe),
+            "financials": module_coverage(financials, universe),
+            "profiles": module_coverage(profiles, universe),
+            "research": module_coverage(research, universe),
+            "announcements": module_coverage(announcements, universe),
+            "signals": module_coverage(signals, universe),
+            "sectorMembership": module_coverage(sectors, universe),
         },
         "errors": errors,
     }

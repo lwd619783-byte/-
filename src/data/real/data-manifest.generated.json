@@ -1,18 +1,112 @@
 {
-  "updatedAt": "2026-07-04T19:57:22+08:00",
+  "generatedAt": "2026-07-05T00:47:19.683+08:00",
+  "updatedAt": "2026-07-05T00:34:58+08:00",
   "status": "mixed",
   "sourceSummary": [
     "A Stock Data",
     "Tencent quote/kline",
     "Eastmoney serial fallback",
     "CNInfo metadata",
-    "CNInfo announcement metadata",
-    "Derived signals from real data"
+    "Generated stock universe"
   ],
   "universe": {
     "total": 59,
-    "aShare": 56,
-    "hk": 3
+    "markets": {
+      "A股": 56,
+      "港股": 3,
+      "美股": 0,
+      "未上市": 0
+    },
+    "supported": {
+      "A股": 56,
+      "港股": 0,
+      "美股": 0,
+      "未上市": 0
+    },
+    "unsupported": {
+      "A股": 0,
+      "港股": 3,
+      "美股": 0,
+      "未上市": 0
+    },
+    "privateCompanies": 1,
+    "source": "src/data/real/stock-universe.generated.json"
   },
-  "errors": []
+  "coverage": {
+    "quotes": {
+      "real": 56,
+      "total": 56,
+      "pct": 100,
+      "missing": [],
+      "unsupported": 3,
+      "unsupportedTotal": 3
+    },
+    "priceHistory": {
+      "real": 56,
+      "total": 56,
+      "pct": 100,
+      "missing": [],
+      "unsupported": 3,
+      "unsupportedTotal": 3
+    },
+    "financials": {
+      "real": 56,
+      "total": 56,
+      "pct": 100,
+      "missing": [],
+      "unsupported": 3,
+      "unsupportedTotal": 3
+    },
+    "profiles": {
+      "real": 56,
+      "total": 56,
+      "pct": 100,
+      "missing": [],
+      "unsupported": 3,
+      "unsupportedTotal": 3
+    },
+    "research": {
+      "real": 50,
+      "total": 56,
+      "pct": 89.3,
+      "missing": [
+        "siasun",
+        "efort",
+        "riying",
+        "wanxiang-qc",
+        "zhaomin",
+        "dongli"
+      ],
+      "unsupported": 3,
+      "unsupportedTotal": 3
+    },
+    "announcements": {
+      "real": 55,
+      "total": 56,
+      "pct": 98.2,
+      "missing": [
+        "siasun"
+      ],
+      "unsupported": 3,
+      "unsupportedTotal": 3
+    },
+    "signals": {
+      "real": 56,
+      "total": 56,
+      "pct": 100,
+      "missing": [],
+      "unsupported": 3,
+      "unsupportedTotal": 3
+    },
+    "sectorMembership": {
+      "real": 56,
+      "total": 56,
+      "pct": 100,
+      "missing": [],
+      "unsupported": 3,
+      "unsupportedTotal": 3
+    }
+  },
+  "errors": [],
+  "universeWarnings": []
 }
