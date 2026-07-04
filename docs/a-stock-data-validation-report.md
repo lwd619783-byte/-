@@ -1,20 +1,22 @@
 # A Stock Data 数据校验报告
 
-- 生成时间：2026-07-04T11:12:36
+- 生成时间：2026-07-04T20:00:25
 
 ## 覆盖概况
 
-- A 股行情覆盖：21/21 (100.0%)
-- A 股 K 线覆盖：21/21 (100.0%)
-- A 股财务覆盖：21/21 (100.0%)
-- 财务报告期覆盖：21/21 (100.0%)
-- F10 覆盖：21/21 (100.0%)
-- 行业分类覆盖：21/21 (100.0%)
-- 信号覆盖：21/21 (100.0%)
-- 板块归属覆盖：21/21 (100.0%)
-- 港股支持：unsupported_market 1/1；A 股统计未计入港股
+- A 股行情覆盖：56/56 (100.0%)
+- A 股 K 线覆盖：56/56 (100.0%)
+- A 股财务覆盖：56/56 (100.0%)
+- 财务报告期覆盖：56/56 (100.0%)
+- F10 覆盖：56/56 (100.0%)
+- 行业分类覆盖：56/56 (100.0%)
+- 研报覆盖：50/56 (89.3%)
+- 公告覆盖：55/56 (98.2%)
+- 信号覆盖：56/56 (100.0%)
+- 板块归属覆盖：56/56 (100.0%)
+- 港股支持：unsupported_market 3/3；A 股统计未计入港股
 - stale 数据数量：0
-- missing 字段数量：0
+- missing 字段数量：14
 
 ## 阻断错误
 
@@ -22,12 +24,25 @@
 
 ## 警告
 
-- leaderdrive: PE TTM 极端值：548.64
+- leaderdrive: PE TTM 极端值：654.21
 
 ## stale/error/missing 数据项
 
 - stale: 无
-- missing/error: 无
+- missing/error: dongli.research
+- missing/error: dongli.research:missing
+- missing/error: efort.research
+- missing/error: efort.research:missing
+- missing/error: riying.research
+- missing/error: riying.research:missing
+- missing/error: siasun.research
+- missing/error: siasun.announcements
+- missing/error: siasun.research:missing
+- missing/error: siasun.announcement:missing
+- missing/error: wanxiang-qc.research
+- missing/error: wanxiang-qc.research:missing
+- missing/error: zhaomin.research
+- missing/error: zhaomin.research:missing
 
 ## 下一步建议
 

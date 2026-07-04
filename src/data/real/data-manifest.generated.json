@@ -1,11 +1,18 @@
 {
-  "updatedAt": "2026-07-01T13:28:48+08:00",
+  "updatedAt": "2026-07-04T19:57:22+08:00",
   "status": "mixed",
   "sourceSummary": [
     "A Stock Data",
     "Tencent quote/kline",
     "Eastmoney serial fallback",
-    "CNInfo metadata"
+    "CNInfo metadata",
+    "CNInfo announcement metadata",
+    "Derived signals from real data"
   ],
+  "universe": {
+    "total": 59,
+    "aShare": 56,
+    "hk": 3
+  },
   "errors": []
 }

@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REAL_DIR = ROOT / "src" / "data" / "real"
 DOCS_DIR = ROOT / "docs"
 REPORT_PATH = DOCS_DIR / "a-stock-data-validation-report.md"
+SYMBOL_MAP_PATH = ROOT / "src" / "utils" / "symbol.ts"
 
 A_SHARE_IDS = {
     "sugon",
@@ -53,6 +54,19 @@ SIGNAL_FIELDS = [
 
 def load_json(name: str) -> dict[str, Any]:
     return json.loads((REAL_DIR / name).read_text(encoding="utf-8"))
+
+
+def load_symbol_sets() -> tuple[set[str], set[str]]:
+    try:
+        text = SYMBOL_MAP_PATH.read_text(encoding="utf-8")
+    except OSError:
+        return set(A_SHARE_IDS), set(UNSUPPORTED_IDS)
+
+    import re
+
+    a_share_ids = set(re.findall(r'mapA\("([^"]+)"', text))
+    unsupported_ids = set(re.findall(r'mapHK\("([^"]+)"', text))
+    return a_share_ids or set(A_SHARE_IDS), unsupported_ids or set(UNSUPPORTED_IDS)
 
 
 def parse_dt(value: str | None) -> datetime | None:
@@ -103,6 +117,7 @@ def main() -> int:
     warnings: list[str] = []
     missing_items: list[str] = []
     stale_items: list[str] = []
+    a_share_ids, unsupported_ids = load_symbol_sets()
     files = {
         "manifest": "data-manifest.generated.json",
         "profiles": "stocks.generated.json",
@@ -134,10 +149,12 @@ def main() -> int:
     quotes = data["quotes"].get("items", {})
     histories = data["history"].get("items", {})
     financials = data["financials"].get("items", {})
+    research_items = data["research"].get("items", {})
+    announcement_items = data["announcements"].get("items", {})
     signals = data["signals"].get("items", {})
     sectors = data["sector"].get("items", {})
 
-    for stock_id in sorted(A_SHARE_IDS | UNSUPPORTED_IDS):
+    for stock_id in sorted(a_share_ids | unsupported_ids):
         if stock_id not in profiles:
             errors.append(f"{stock_id}: 缺少 profile")
 
@@ -147,14 +164,18 @@ def main() -> int:
     report_dates = 0
     f10_text = 0
     industry_count = 0
+    research_count = 0
+    announcement_count = 0
     signal_count = 0
     sector_count = 0
 
-    for stock_id in sorted(A_SHARE_IDS):
+    for stock_id in sorted(a_share_ids):
         profile = profiles.get(stock_id, {})
         quote = quotes.get(stock_id, {})
         history = histories.get(stock_id, {})
         financial = financials.get(stock_id, {})
+        research = research_items.get(stock_id, {})
+        announcement = announcement_items.get(stock_id, {})
         signal = signals.get(stock_id, {})
         sector = sectors.get(stock_id, {})
 
@@ -191,6 +212,16 @@ def main() -> int:
         else:
             missing_items.append(f"{stock_id}.industryName")
 
+        if status_of(research) == "real" and research.get("reports"):
+            research_count += 1
+        else:
+            missing_items.append(f"{stock_id}.research")
+
+        if status_of(announcement) == "real" and announcement.get("announcements"):
+            announcement_count += 1
+        else:
+            missing_items.append(f"{stock_id}.announcements")
+
         if has_signal(signal):
             signal_count += 1
         else:
@@ -206,6 +237,8 @@ def main() -> int:
             "history": history,
             "financial": financial,
             "profile": profile,
+            "research": research,
+            "announcement": announcement,
             "signal": signal,
             "sector": sector,
         }.items():
@@ -236,14 +269,14 @@ def main() -> int:
                 errors.append(f"{stock_id}: K 线日期晚于当前日期：{point['date']}")
 
     unsupported_ok = 0
-    for stock_id in UNSUPPORTED_IDS:
+    for stock_id in unsupported_ids:
         profile_status = status_of(profiles.get(stock_id, {}))
         if profile_status == "unsupported_market":
             unsupported_ok += 1
         else:
             errors.append(f"{stock_id}: 应标记 unsupported_market，实际为 {profile_status}")
 
-    total_a = len(A_SHARE_IDS)
+    total_a = len(a_share_ids)
     coverage = {
         "A 股行情覆盖": pct(quote_real, total_a),
         "A 股 K 线覆盖": pct(history_real, total_a),
@@ -251,9 +284,11 @@ def main() -> int:
         "财务报告期覆盖": pct(report_dates, total_a),
         "F10 覆盖": pct(f10_text, total_a),
         "行业分类覆盖": pct(industry_count, total_a),
+        "研报覆盖": pct(research_count, total_a),
+        "公告覆盖": pct(announcement_count, total_a),
         "信号覆盖": pct(signal_count, total_a),
         "板块归属覆盖": pct(sector_count, total_a),
-        "港股支持": f"unsupported_market {unsupported_ok}/{len(UNSUPPORTED_IDS)}；A 股统计未计入港股",
+        "港股支持": f"unsupported_market {unsupported_ok}/{len(unsupported_ids)}；A 股统计未计入港股",
         "stale 数据数量": str(len(stale_items)),
         "missing 字段数量": str(len(missing_items)),
     }
@@ -268,6 +303,8 @@ def main() -> int:
         errors.append("F10 / 主营业务覆盖率低于 90%")
     if signal_count / total_a < 0.7:
         errors.append("信号层覆盖率低于 70%")
+    if announcement_count / total_a < 0.7:
+        errors.append("公告覆盖率低于 70%")
 
     write_report(coverage, errors, warnings, missing_items, stale_items)
     print(f"Validation complete: errors={len(errors)}, warnings={len(warnings)}, report={REPORT_PATH}")

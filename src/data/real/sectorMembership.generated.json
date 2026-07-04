@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T13:28:48+08:00",
+  "updatedAt": "2026-07-04T19:42:17+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -17,7 +17,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -37,22 +37,8 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
-      }
-    },
-    "lenovo": {
-      "id": "lenovo",
-      "industry": [],
-      "concept": [],
-      "region": [],
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "symbol",
-        "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
       }
     },
     "eoptolink": {
@@ -71,7 +57,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -91,7 +77,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -111,7 +97,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -131,7 +117,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -151,15 +137,15 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
-    "best": {
-      "id": "best",
+    "siasun": {
+      "id": "siasun",
       "industry": [
         {
-          "name": "交运设备-汽车-汽车零部件",
+          "name": "机械设备-机器人-工业机器人",
           "changePct": null,
           "code": null,
           "description": "来自东财 HSF10/个股资料行业分类"
@@ -171,15 +157,15 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
-    "wuzhou": {
-      "id": "wuzhou",
+    "estun": {
+      "id": "estun",
       "industry": [
         {
-          "name": "机械设备-通用设备-基础件",
+          "name": "机械设备-机器人-工业机器人",
           "changePct": null,
           "code": null,
           "description": "来自东财 HSF10/个股资料行业分类"
@@ -191,7 +177,27 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "efort": {
+      "id": "efort",
+      "industry": [
+        {
+          "name": "机械设备-机器人-工业机器人",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -211,15 +217,15 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
-    "moons": {
-      "id": "moons",
+    "zhongda-lide": {
+      "id": "zhongda-lide",
       "industry": [
         {
-          "name": "电气设备-电机-电机",
+          "name": "机械设备-通用设备-其他通用机械",
           "changePct": null,
           "code": null,
           "description": "来自东财 HSF10/个股资料行业分类"
@@ -231,7 +237,147 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "shuanghuan": {
+      "id": "shuanghuan",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "siling": {
+      "id": "siling",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "beite": {
+      "id": "beite",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "best": {
+      "id": "best",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "wuzhou": {
+      "id": "wuzhou",
+      "industry": [
+        {
+          "name": "机械设备-通用设备-基础件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "jinwo": {
+      "id": "jinwo",
+      "industry": [
+        {
+          "name": "机械设备-通用设备-基础件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "sanhua": {
+      "id": "sanhua",
+      "industry": [
+        {
+          "name": "机械设备-通用设备-其他通用机械",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -251,7 +397,547 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "hengli-hydraulic": {
+      "id": "hengli-hydraulic",
+      "industry": [
+        {
+          "name": "机械设备-通用设备-基础件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "inovance": {
+      "id": "inovance",
+      "industry": [
+        {
+          "name": "机械设备-机器人-工业机器人",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "leisai": {
+      "id": "leisai",
+      "industry": [
+        {
+          "name": "机械设备-通用设备-仪器仪表",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "moons": {
+      "id": "moons",
+      "industry": [
+        {
+          "name": "电气设备-电机-电机",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "orbbec": {
+      "id": "orbbec",
+      "industry": [
+        {
+          "name": "电子设备-电子设备制造-电子设备制造",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "hanwei": {
+      "id": "hanwei",
+      "industry": [
+        {
+          "name": "机械设备-通用设备-仪器仪表",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "hengshuai": {
+      "id": "hengshuai",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "fortior": {
+      "id": "fortior",
+      "industry": [
+        {
+          "name": "电子设备-半导体-集成电路",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "xinje": {
+      "id": "xinje",
+      "industry": [
+        {
+          "name": "电气设备-输变电设备-电气自控设备",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "rongtai": {
+      "id": "rongtai",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "luster": {
+      "id": "luster",
+      "industry": [
+        {
+          "name": "机械设备-专用设备-其他专用机械",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "everwin": {
+      "id": "everwin",
+      "industry": [
+        {
+          "name": "电子设备-电子器件-其他电子器件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "xusheng": {
+      "id": "xusheng",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "hengbo": {
+      "id": "hengbo",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "xinquan": {
+      "id": "xinquan",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "keboda": {
+      "id": "keboda",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "joyson": {
+      "id": "joyson",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "xingyu": {
+      "id": "xingyu",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "riying": {
+      "id": "riying",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "daimei": {
+      "id": "daimei",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "molding-tech": {
+      "id": "molding-tech",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "wanxiang-qc": {
+      "id": "wanxiang-qc",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "tieliu": {
+      "id": "tieliu",
+      "industry": [
+        {
+          "name": "交运设备-汽车-汽车零部件",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "zhaomin": {
+      "id": "zhaomin",
+      "industry": [
+        {
+          "name": "基础化工-化学制品-塑料制品",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "dongli": {
+      "id": "dongli",
+      "industry": [
+        {
+          "name": "机械设备-专用设备-矿山冶金机械",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "kaidi": {
+      "id": "kaidi",
+      "industry": [
+        {
+          "name": "电气设备-电机-电机",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "real"
+      }
+    },
+    "henghui": {
+      "id": "henghui",
+      "industry": [
+        {
+          "name": "纺织服装-纺织-其他纺织",
+          "changePct": null,
+          "code": null,
+          "description": "来自东财 HSF10/个股资料行业分类"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -271,7 +957,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -291,7 +977,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -311,7 +997,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -331,7 +1017,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -351,7 +1037,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -371,7 +1057,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -391,7 +1077,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -411,7 +1097,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
       }
     },
@@ -431,8 +1117,50 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
         "status": "real"
+      }
+    },
+    "lenovo": {
+      "id": "lenovo",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+      }
+    },
+    "ubtech": {
+      "id": "ubtech",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+      }
+    },
+    "sunny-optical": {
+      "id": "sunny-optical",
+      "industry": [],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-04T19:42:17+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
       }
     }
   }

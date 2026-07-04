@@ -14,6 +14,7 @@ from urllib import parse, request
 ROOT = Path(__file__).resolve().parents[1]
 REAL_DIR = ROOT / "src" / "data" / "real"
 LOG_DIR = ROOT / "data-cache" / "a-stock-data" / "raw"
+SYMBOL_MAP_PATH = ROOT / "src" / "utils" / "symbol.ts"
 CN_TZ = timezone(timedelta(hours=8))
 
 UNIVERSE = [
@@ -40,6 +41,27 @@ UNIVERSE = [
     {"id": "cm-energy", "name": "招商轮船", "code": "601872", "exchange": "SH", "market": "A股"},
     {"id": "cm-nanjing", "name": "招商南油", "code": "601975", "exchange": "SH", "market": "A股"},
 ]
+
+
+def load_universe_from_symbol_map() -> list[dict[str, str]]:
+    """Use src/utils/symbol.ts as the authoritative stock universe.
+
+    The static list above is kept only as a fallback so historical caches can
+    still be refreshed if the TypeScript source is temporarily unreadable.
+    """
+    try:
+        text = SYMBOL_MAP_PATH.read_text(encoding="utf-8")
+    except OSError:
+        return UNIVERSE
+
+    universe: list[dict[str, str]] = []
+    for match in re.finditer(r'mapA\("([^"]+)",\s*"([^"]+)",\s*"(\d{6})",\s*"(SH|SZ)"\)', text):
+        stock_id, name, code, exchange = match.groups()
+        universe.append({"id": stock_id, "name": name, "code": code, "exchange": exchange, "market": "A股"})
+    for match in re.finditer(r'mapHK\("([^"]+)",\s*"([^"]+)",\s*"(\d+)"\)', text):
+        stock_id, name, code = match.groups()
+        universe.append({"id": stock_id, "name": name, "code": code.zfill(4), "exchange": "HK", "market": "港股"})
+    return universe or UNIVERSE
 
 
 def now_iso() -> str:
@@ -545,6 +567,96 @@ def fetch_signals(stock: dict[str, str], updated_at: str) -> dict[str, Any]:
     return fields
 
 
+def generate_signals_from_real_data(
+    stock: dict[str, str],
+    updated_at: str,
+    quote: dict[str, Any],
+    history: dict[str, Any],
+    financial: dict[str, Any],
+    research: dict[str, Any],
+    announcements: dict[str, Any],
+) -> dict[str, Any]:
+    notes: list[str] = []
+    field_sources: dict[str, Any] = {}
+
+    pct_change = quote.get("pctChange")
+    if isinstance(pct_change, (int, float)) and abs(pct_change) >= 5:
+        notes.append(f"近期涨跌幅异常：{pct_change:.2f}%")
+        field_sources["pctChangeSignal"] = quote.get("quality")
+
+    points = history.get("points") or []
+    if len(points) >= 20:
+        latest_amount = points[-1].get("amount")
+        previous_amounts = [point.get("amount") for point in points[-20:-1] if isinstance(point.get("amount"), (int, float))]
+        if isinstance(latest_amount, (int, float)) and previous_amounts:
+            avg_amount = sum(previous_amounts) / len(previous_amounts)
+            if avg_amount > 0 and latest_amount / avg_amount >= 1.8:
+                notes.append(f"成交额放大：约 {latest_amount / avg_amount:.1f} 倍")
+                field_sources["amountExpansion"] = history.get("quality")
+
+    revenue_growth = financial.get("revenueGrowth")
+    profit_growth = financial.get("profitGrowth")
+    if isinstance(revenue_growth, (int, float)) and revenue_growth >= 20:
+        notes.append(f"营收增长：{revenue_growth:.1f}%")
+        field_sources["revenueGrowth"] = financial.get("quality")
+    if isinstance(profit_growth, (int, float)) and profit_growth >= 20:
+        notes.append(f"利润增长：{profit_growth:.1f}%")
+        field_sources["profitGrowth"] = financial.get("quality")
+
+    pe = quote.get("peTtm") if quote.get("peTtm") is not None else quote.get("pe")
+    pb = quote.get("pb")
+    if isinstance(pe, (int, float)) and pe > 80:
+        notes.append(f"估值偏高：PE TTM {pe:.1f}x")
+        field_sources["valuationRisk"] = quote.get("quality")
+    elif isinstance(pe, (int, float)) and 0 < pe < 15 and isinstance(pb, (int, float)) and pb < 2:
+        notes.append(f"估值偏低：PE {pe:.1f}x / PB {pb:.1f}x")
+        field_sources["valuationLow"] = quote.get("quality")
+
+    reports = research.get("reports") or []
+    if reports:
+        latest_report = reports[0]
+        title = latest_report.get("title")
+        if title:
+            notes.append(f"最新研报：{title}")
+            field_sources["research"] = research.get("quality")
+
+    ann_list = announcements.get("announcements") or []
+    latest_announcement = ann_list[0].get("title") if ann_list else None
+    if latest_announcement:
+        notes.append(f"公告催化：{latest_announcement}")
+        field_sources["announcement"] = announcements.get("quality")
+
+    missing = []
+    for label, item in {
+        "行情": quote,
+        "历史行情": history,
+        "财务": financial,
+        "研报": research,
+        "公告": announcements,
+    }.items():
+        if (item.get("quality") or {}).get("status") in {"missing", "error", "unsupported_market"}:
+            missing.append(label)
+    if missing:
+        notes.append(f"数据缺失：{', '.join(missing)}")
+
+    status = "real" if notes else "missing"
+    return {
+        "id": stock["id"],
+        "mainFundFlow5d": None,
+        "mainFundFlow20d": None,
+        "latestMainFundFlow": None,
+        "marginBalance": None,
+        "dragonTigerCount30d": None,
+        "holderChangePct": None,
+        "upcomingLockupCount": None,
+        "popularityRank": None,
+        "hotReason": "；".join(notes[:4]) if notes else None,
+        "latestInteraction": latest_announcement,
+        "fieldSources": field_sources,
+        "quality": quality("A Stock Data", status, "signals", "Derived from quote/history/financial/research/announcements", updated_at),
+    }
+
+
 def fetch_tencent_quote(stock: dict[str, str], updated_at: str) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     url = f"https://qt.gtimg.cn/q={market_prefix(stock)}"
     text = http_get(url, encoding="gbk")
@@ -690,10 +802,10 @@ def fetch_research(stock: dict[str, str], updated_at: str) -> dict[str, Any]:
 
 
 def fetch_announcements(stock: dict[str, str], updated_at: str) -> dict[str, Any]:
-    url = "http://www.cninfo.com.cn/new/hisAnnouncement/query"
+    url = "https://www.cninfo.com.cn/new/hisAnnouncement/query"
     form = parse.urlencode(
         {
-            "stock": f"{stock['code']},{stock['name']}",
+            "stock": "",
             "tabName": "fulltext",
             "pageSize": 5,
             "pageNum": 1,
@@ -701,7 +813,7 @@ def fetch_announcements(stock: dict[str, str], updated_at: str) -> dict[str, Any
             "category": "",
             "plate": "",
             "seDate": "",
-            "searchkey": "",
+            "searchkey": stock["code"],
             "secid": "",
             "sortName": "",
             "sortType": "",
@@ -713,7 +825,8 @@ def fetch_announcements(stock: dict[str, str], updated_at: str) -> dict[str, Any
         data=form,
         headers={
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Referer": "http://www.cninfo.com.cn/new/commonUrl/pageOfSearch",
+            "Referer": "https://www.cninfo.com.cn/new/disclosure",
+            "Origin": "https://www.cninfo.com.cn",
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
     )
@@ -721,7 +834,7 @@ def fetch_announcements(stock: dict[str, str], updated_at: str) -> dict[str, Any
         time.sleep(0.4 + random.random() * 0.2)
         with request.urlopen(req, timeout=12) as resp:
             data = json.loads(resp.read().decode("utf-8", errors="replace"))
-        rows = data.get("announcements") or []
+        rows = [row for row in (data.get("announcements") or []) if str(row.get("secCode") or "") == stock["code"]]
         announcements = []
         for row in rows:
             adjunct = row.get("adjunctUrl")
@@ -804,8 +917,11 @@ def main() -> int:
     errors: list[str] = []
     logs: list[dict[str, Any]] = []
 
-    for stock in UNIVERSE:
-        if stock["market"] != "A股":
+    universe = load_universe_from_symbol_map()
+
+    for index, stock in enumerate(universe, start=1):
+        print(f"[{index}/{len(universe)}] fetching {stock['id']} {stock['code']} {stock['exchange']}", flush=True)
+        if stock["exchange"] == "HK":
             bundle = empty_bundle(stock["id"], stock["name"], stock["code"], stock["market"], updated_at, "unsupported_market", "A Stock Data MVP 暂不接入港股/美股")
             profiles[stock["id"]] = bundle["profile"]
             quotes[stock["id"]] = bundle["quote"]
@@ -862,9 +978,17 @@ def main() -> int:
             stock_log["steps"].append({"history": "error", "message": str(exc)})
 
         financials[stock["id"]] = fetch_financial(stock, updated_at)
-        signals[stock["id"]] = fetch_signals(stock, updated_at)
         research[stock["id"]] = fetch_research(stock, updated_at)
         announcements[stock["id"]] = fetch_announcements(stock, updated_at)
+        signals[stock["id"]] = generate_signals_from_real_data(
+            stock,
+            updated_at,
+            quotes.get(stock["id"], {}),
+            histories.get(stock["id"], {}),
+            financials.get(stock["id"], {}),
+            research.get(stock["id"], {}),
+            announcements.get(stock["id"], {}),
+        )
         sectors[stock["id"]] = merge_sector_profile_fallback(fetch_sector(stock, updated_at), profiles[stock["id"]], updated_at)
         stock_log["steps"].extend(
             [
@@ -881,6 +1005,11 @@ def main() -> int:
         "updatedAt": updated_at,
         "status": "mixed" if any(q["quality"]["status"] == "real" for q in quotes.values()) else "error",
         "sourceSummary": ["A Stock Data", "Tencent quote/kline", "Eastmoney serial fallback", "CNInfo metadata"],
+        "universe": {
+            "total": len(universe),
+            "aShare": sum(1 for stock in universe if stock["exchange"] != "HK"),
+            "hk": sum(1 for stock in universe if stock["exchange"] == "HK"),
+        },
         "errors": errors,
     }
 

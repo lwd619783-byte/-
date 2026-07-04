@@ -1,63 +1,57 @@
 {
-  "updatedAt": "2026-07-01T13:28:48+08:00",
+  "updatedAt": "2026-07-04T19:57:22+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
-      "mainFundFlow5d": 33.64352816,
-      "mainFundFlow20d": 18.9685432,
-      "latestMainFundFlow": 17.17810432,
-      "marginBalance": 100.89049871,
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
       "dragonTigerCount30d": null,
-      "holderChangePct": 1.299200473064,
+      "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
+      "hotReason": "营收增长：23.7%；利润增长：22.2%；最新研报：业绩稳健增长，落地全国首个6万卡集群；公告催化：中科曙光关于向不特定对象发行可转换公司债券申请获得中国证券监督管理委员会同意注册批复的公告",
+      "latestInteraction": "中科曙光关于向不特定对象发行可转换公司债券申请获得中国证券监督管理委员会同意注册批复的公告",
       "fieldSources": {
-        "latestMainFundFlow": {
+        "revenueGrowth": {
           "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
           "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603019&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603019&source=lrb&type=0&page=1&num=2"
         },
-        "mainFundFlow5d": {
+        "profitGrowth": {
           "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
           "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603019&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603019&source=lrb&type=0&page=1&num=2"
         },
-        "mainFundFlow20d": {
+        "research": {
           "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
           "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603019&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603019&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
-        "marginBalance": {
+        "announcement": {
           "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
       },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
         "status": "real"
       }
     },
@@ -66,34 +60,2855 @@
       "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
-      "marginBalance": 100.2985628,
+      "marginBalance": null,
       "dragonTigerCount30d": null,
-      "holderChangePct": -1.30966315338,
+      "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
+      "hotReason": "营收增长：56.5%；利润增长：102.5%；最新研报：AI服务器销售占比提升，毛利预期持续改善；公告催化：富士康工业互联网股份有限公司2026年第一次临时股东会会议资料",
+      "latestInteraction": "富士康工业互联网股份有限公司2026年第一次临时股东会会议资料",
       "fieldSources": {
-        "marginBalance": {
+        "revenueGrowth": {
           "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601138&source=lrb&type=0&page=1&num=2"
         },
-        "holderChangePct": {
+        "profitGrowth": {
           "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601138&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601138&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
       },
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "eoptolink": {
+      "id": "eoptolink",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "营收增长：105.8%；利润增长：76.8%；最新研报：1.6T环比上量将加快，盈利能力继续维持行业领先水平；公告催化：关于完成更换公司董事的公告",
+      "latestInteraction": "关于完成更换公司董事的公告",
+      "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300502&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300502&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300502&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "innolight": {
+      "id": "innolight",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "营收增长：192.1%；利润增长：262.3%；估值偏高：PE TTM 83.3x；最新研报：业绩持续超预期增长，光互连全栈布局成型",
+      "latestInteraction": "关于选举第六届董事会职工代表董事的公告",
+      "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300308&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300308&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300308"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300308&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "wus": {
+      "id": "wus",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "营收增长：53.9%；利润增长：62.9%；最新研报：高速交换机业务高增，产能扩张蓄力长期成长；公告催化：关于吸收合并全资子公司的公告",
+      "latestInteraction": "关于吸收合并全资子公司的公告",
+      "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002463&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002463&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002463&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "victor-tech": {
+      "id": "victor-tech",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "营收增长：28.0%；利润增长：39.9%；最新研报：公司信息更新报告：2026Q1业绩同环比增长，产能建设加快推进中；公告催化：H股公告-证券变动月报表",
+      "latestInteraction": "H股公告-证券变动月报表",
+      "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300476&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300476&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300476&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "shennan": {
+      "id": "shennan",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：7.42%；营收增长：37.9%；利润增长：73.0%；估值偏高：PE TTM 85.2x",
+      "latestInteraction": "董事会审计委员会关于公司2026年度向特定对象发行股票相关事项的书面审核意见",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002916"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002916&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002916&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002916"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002916&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "siasun": {
+      "id": "siasun",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "数据缺失：研报, 公告",
+      "latestInteraction": null,
+      "fieldSources": {},
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "estun": {
+      "id": "estun",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：10.00%；利润增长：674.6%；估值偏高：PE TTM 332.8x；最新研报：2026年一季报点评：盈利能力逐步增强，工业机器人市场份额持续提升",
+      "latestInteraction": "H股公告-截至2026年6月30日止月份之股份发行人的证券变动月报表",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002747"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002747&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002747"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002747&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "efort": {
+      "id": "efort",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：9.87%；营收增长：20.6%；利润增长：85.5%；公告催化：国信证券关于埃夫特使用暂时闲置募集资金进行现金管理的核查意见",
+      "latestInteraction": "国信证券关于埃夫特使用暂时闲置募集资金进行现金管理的核查意见",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688165"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688165&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688165&source=lrb&type=0&page=1&num=2"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "leaderdrive": {
+      "id": "leaderdrive",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：18.15%；营收增长：43.0%；利润增长：61.2%；估值偏高：PE TTM 654.2x",
+      "latestInteraction": "股票交易风险提示公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688017"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688017&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688017&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688017"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688017&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "zhongda-lide": {
+      "id": "zhongda-lide",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：9.99%；估值偏高：PE TTM 298.5x；最新研报：深耕精密传动领域，有望受益于人形机器人产业；公告催化：2025年年度权益分派实施公告",
+      "latestInteraction": "2025年年度权益分派实施公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002896"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002896"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002896&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "shuanghuan": {
+      "id": "shuanghuan",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：9.99%；最新研报：双环传动2025年年报与2026年一季报点评报告：稳增长跑赢行业，新方向持续开拓；公告催化：关于公司为全资子公司提供担保的进展公告",
+      "latestInteraction": "关于公司为全资子公司提供担保的进展公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002472"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002472&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "siling": {
+      "id": "siling",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：6.64%；估值偏高：PE TTM 221.2x；最新研报：25年年报及26年一季报点评：业绩符合预期，机器人海外产能落地在即；公告催化：关于完成工商变更登记并换发营业执照的公告",
+      "latestInteraction": "关于完成工商变更登记并换发营业执照的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz301550"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz301550"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=301550&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "beite": {
+      "id": "beite",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：5.62%；估值偏高：PE TTM 149.4x；最新研报：2025年报及26年一季报点评：业绩符合市场预期，丝杠产能建设有序进行；公告催化：北特科技2025年年度权益分派实施公告",
+      "latestInteraction": "北特科技2025年年度权益分派实施公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603009"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603009"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603009&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "best": {
+      "id": "best",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：20.02%；最新研报：3Q收入实现快速增长，泰国新厂开业助力加速国际化进程；公告催化：关于选举第五届董事会职工代表董事的公告",
+      "latestInteraction": "关于选举第五届董事会职工代表董事的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300580"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300580&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "wuzhou": {
+      "id": "wuzhou",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：8.51%；估值偏高：PE TTM 345.9x；最新研报：盈利能力有所修复，新业务持续取得突破；公告催化：五洲新春关于完成工商变更登记并换发营业执照的公告",
+      "latestInteraction": "五洲新春关于完成工商变更登记并换发营业执照的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603667"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603667"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603667&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "jinwo": {
+      "id": "jinwo",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "估值偏高：PE TTM 166.5x；最新研报：轴承盈利向暖，绝缘套圈+精密丝杠高端赛道突围；公告催化：2025年年度权益分派实施公告",
+      "latestInteraction": "2025年年度权益分派实施公告",
+      "fieldSources": {
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300984"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300984&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "sanhua": {
+      "id": "sanhua",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：9.06%；最新研报：2026年一季报点评：业绩符合市场预期，仿生机器人等新兴产业蓄势待发；公告催化：北京市中伦律师事务所关于浙江三花智能控制股份有限公司2024年股票增值权激励计划第二个行权期行权条件成就的法律意见书",
+      "latestInteraction": "北京市中伦律师事务所关于浙江三花智能控制股份有限公司2024年股票增值权激励计划第二个行权期行权条件成就的法律意见书",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002050"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002050&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "topgroup": {
+      "id": "topgroup",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：10.01%；最新研报：2026年一季报点评：营收稳定增长，机器人、液冷开拓发展新曲线；公告催化：拓普集团关于闲置募集资金现金管理到期赎回的公告",
+      "latestInteraction": "拓普集团关于闲置募集资金现金管理到期赎回的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh601689"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601689&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "hengli-hydraulic": {
+      "id": "hengli-hydraulic",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：10.00%；营收增长：32.5%；最新研报：Takeaways from plant visit: More positive than we thought；公告催化：江苏恒立液压股份有限公司2025年年度权益分派实施公告",
+      "latestInteraction": "江苏恒立液压股份有限公司2025年年度权益分派实施公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh601100"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601100&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601100&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "inovance": {
+      "id": "inovance",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：5.48%；最新研报：2025年营收净利双增，全面拥抱AI战略；公告催化：关于回购公司股份的进展公告",
+      "latestInteraction": "关于回购公司股份的进展公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300124"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300124&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "leisai": {
+      "id": "leisai",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：10.00%；营收增长：34.5%；利润增长：29.2%；估值偏高：PE TTM 90.9x",
+      "latestInteraction": "关于2025年员工持股计划预留份额完成非交易过户的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002979"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002979&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002979&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002979"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002979&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "moons": {
+      "id": "moons",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：7.34%；利润增长：92.2%；估值偏高：PE TTM 420.5x；最新研报：先发布局灵巧手电机，拓展机器人产品矩阵",
+      "latestInteraction": "上海鸣志电器股份有限公司2025年年度权益分派实施公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603728"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603728&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603728"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603728&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "orbbec": {
+      "id": "orbbec",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：13.32%；利润增长：27.5%；估值偏高：PE TTM 450.2x；最新研报：让所有终端都能看懂世界",
+      "latestInteraction": "关于设立募集资金专项账户并签订募集资金专户存储三方监管协议的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688322"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688322&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688322"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688322&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "hanwei": {
+      "id": "hanwei",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：9.38%；利润增长：46.1%；估值偏高：PE TTM 85.0x；最新研报：业绩稳中向好，多维度布局人形机器人领域",
+      "latestInteraction": "关于为参股公司提供财务资助的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300007"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300007&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300007"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300007&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "hengshuai": {
+      "id": "hengshuai",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：10.93%；估值偏高：PE TTM 116.4x；最新研报：Q3业绩符合预期，机器人谐波磁场电机行业领先；公告催化：关于使用部分闲置募集资金进行现金管理到期赎回并继续进行现金管理的进展公告",
+      "latestInteraction": "关于使用部分闲置募集资金进行现金管理到期赎回并继续进行现金管理的进展公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300969"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300969"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300969&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "fortior": {
+      "id": "fortior",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：5.86%；营收增长：46.2%；利润增长：75.1%；估值偏高：PE TTM 108.2x",
+      "latestInteraction": "H股公告（证券变动月报表）",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688279"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688279&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688279&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688279"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688279&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "xinje": {
+      "id": "xinje",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "最新研报：2025年年报&2026年一季报点评：业绩符合预期，加速布局人形机器人；公告催化：无锡信捷电气股份有限公司股票交易异常波动公告",
+      "latestInteraction": "无锡信捷电气股份有限公司股票交易异常波动公告",
+      "fieldSources": {
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603416&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "rongtai": {
+      "id": "rongtai",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：7.89%；营收增长：41.3%；利润增长：20.6%；估值偏高：PE TTM 121.7x",
+      "latestInteraction": "浙江荣泰电工器材股份有限公司关于部分募集资金专户销户完成的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603119"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603119&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603119&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603119"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603119&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "luster": {
+      "id": "luster",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：9.02%；利润增长：1233.1%；估值偏高：PE TTM 98.9x；最新研报：凌云光点评报告：AI赋能，机器视觉主业多点开花，具身智能与光通信打开想象空间",
+      "latestInteraction": "北京市中伦律师事务所关于凌云光2025年年度股东会法律意见书",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688400"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688400&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688400"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688400&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "everwin": {
+      "id": "everwin",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：10.78%；估值偏高：PE TTM 82.4x；最新研报：公司动态研究报告：精密制造全球龙头，全面拥抱新兴产业；公告催化：2025年度权益分派实施公告",
+      "latestInteraction": "2025年度权益分派实施公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300115"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300115"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300115&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "xusheng": {
+      "id": "xusheng",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：6.63%；利润增长：30.9%；最新研报：储能驱动业绩重回正增长，积极布局机器人及商业航天新业务；公告催化：2026-043 旭升集团2025年年度权益分派实施公告_2026-06-11",
+      "latestInteraction": "2026-043 旭升集团2025年年度权益分派实施公告_2026-06-11",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603305"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603305&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603305&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "hengbo": {
+      "id": "hengbo",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：15.41%；营收增长：35.2%；最新研报：公司动态研究报告：汽摩进气系统领军企业，积极开拓成长新曲线；公告催化：2025年年度权益分派实施公告",
+      "latestInteraction": "2025年年度权益分派实施公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz301225"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz301225&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=301225&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "xinquan": {
+      "id": "xinquan",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：5.82%；最新研报：公司事件点评报告：26Q1业绩超预期，盈利能力稳步修复；公告催化：江苏新泉汽车饰件股份有限公司关于调整2026年限制性股票激励计划相关事项的公告",
+      "latestInteraction": "江苏新泉汽车饰件股份有限公司关于调整2026年限制性股票激励计划相关事项的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603179"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603179&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "keboda": {
+      "id": "keboda",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "最新研报：在手订单充沛，收购智能科技60%股权打开驾驶域控成长空间；公告催化：科博达技术股份有限公司向不特定对象发行可转换公司债券发行提示性公告",
+      "latestInteraction": "科博达技术股份有限公司向不特定对象发行可转换公司债券发行提示性公告",
+      "fieldSources": {
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603786&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "joyson": {
+      "id": "joyson",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：7.27%；最新研报：2025年报&2026年一季报点评：盈利能力持续优化，前瞻布局光模块业务；公告催化：均胜电子关于实际控制人、董事长增持公司股份的公告",
+      "latestInteraction": "均胜电子关于实际控制人、董事长增持公司股份的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh600699"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=600699&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "xingyu": {
+      "id": "xingyu",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "最新研报：2026年第一季度报告点评：2026Q1业绩符合预期，自主车灯龙头持续成长；公告催化：星宇股份关于股份回购进展公告",
+      "latestInteraction": "星宇股份关于股份回购进展公告",
+      "fieldSources": {
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601799&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "riying": {
+      "id": "riying",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：10.00%；利润增长：24.8%；公告催化：股票交易异常波动公告；数据缺失：研报",
+      "latestInteraction": "股票交易异常波动公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603286"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603286&source=lrb&type=0&page=1&num=2"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "daimei": {
+      "id": "daimei",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：9.98%；最新研报：2025年年报&2026年一季报点评：业绩受偶发因素影响，遮阳龙头探索机器人新曲线；公告催化：上海岱美汽车内饰件股份有限公司关于使用闲置募集资金进行现金管理进展的公告",
+      "latestInteraction": "上海岱美汽车内饰件股份有限公司关于使用闲置募集资金进行现金管理进展的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh603730"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603730&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "molding-tech": {
+      "id": "molding-tech",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "最新研报：公司事件点评报告：26Q1利润超预期，人形机器人外覆盖件开辟成长新曲线；公告催化：模塑科技股票交易异常波动公告",
+      "latestInteraction": "模塑科技股票交易异常波动公告",
+      "fieldSources": {
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=000700&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "wanxiang-qc": {
+      "id": "wanxiang-qc",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：7.97%；公告催化：关于重大资产重组的进展公告；数据缺失：研报",
+      "latestInteraction": "关于重大资产重组的进展公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz000559"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "tieliu": {
+      "id": "tieliu",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "最新研报：中小盘信息更新：设立子公司全面进军具身智能，深度合作哈特研究院；公告催化：铁流股份控股股东减持股份计划公告",
+      "latestInteraction": "铁流股份控股股东减持股份计划公告",
+      "fieldSources": {
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603926&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "zhaomin": {
+      "id": "zhaomin",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：8.09%；公告催化：中信证券股份有限公司关于上海肇民新材料科技股份有限公司将募集资金理财收益和利息收入用于募投项目的核查意见；数据缺失：研报",
+      "latestInteraction": "中信证券股份有限公司关于上海肇民新材料科技股份有限公司将募集资金理财收益和利息收入用于募投项目的核查意见",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz301000"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "dongli": {
+      "id": "dongli",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：7.32%；利润增长：37.4%；公告催化：关于回购公司股份的进展公告；数据缺失：研报",
+      "latestInteraction": "关于回购公司股份的进展公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002164"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002164&source=lrb&type=0&page=1&num=2"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "kaidi": {
+      "id": "kaidi",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：6.47%；估值偏高：PE TTM 270.1x；最新研报：公司事件点评报告：26Q1业绩承压，增资浦元科技继续押注机器人领域；公告催化：常州市凯迪电器股份有限公司关于回购注销部分限制性股票通知债权人的公告",
+      "latestInteraction": "常州市凯迪电器股份有限公司关于回购注销部分限制性股票通知债权人的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh605288"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh605288"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=605288&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "henghui": {
+      "id": "henghui",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：12.76%；最新研报：公司动态研究报告：全球安防手套领军企业，布局人形机器人纺织品；公告催化：《公司章程》（2026年6月）",
+      "latestInteraction": "《公司章程》（2026年6月）",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz300952"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300952&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "wuxi": {
+      "id": "wuxi",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "营收增长：28.8%；利润增长：26.7%；最新研报：公司事件点评报告：回购彰显对未来信心；公告催化：H股公告",
+      "latestInteraction": "H股公告",
+      "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603259&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603259&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=603259&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "pharmaron": {
+      "id": "pharmaron",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "最新研报：一体化CXO平台持续深化 小分子CDMO商业化能力逐步验证；公告催化：H股公告",
+      "latestInteraction": "H股公告",
+      "fieldSources": {
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=300759&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "asymchem": {
+      "id": "asymchem",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：8.23%；最新研报：2025年年报点评：在手订单充沛，新兴业务强势增长；公告催化：H股公告：证券变动月报表",
+      "latestInteraction": "H股公告：证券变动月报表",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sz002821"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=002821&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "nano": {
+      "id": "nano",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "营收增长：34.0%；利润增长：133.2%；估值偏高：PE TTM 93.0x；最新研报：核心主业经营趋势向好，海外市场开拓迎来机遇",
+      "latestInteraction": "苏州纳微科技股份有限公司关于举办2026年投资者开放日活动的公告",
+      "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688690&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688690&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688690"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688690&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "hengrui": {
+      "id": "hengrui",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "利润增长：21.8%；最新研报：研发能力再得验证，创新成果加速落地；公告催化：恒瑞医药关于获得药物临床试验批准通知书的公告",
+      "latestInteraction": "恒瑞医药关于获得药物临床试验批准通知书的公告",
+      "fieldSources": {
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600276&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=600276&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "beigene": {
+      "id": "beigene",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：5.28%；营收增长：31.0%；利润增长：1801.3%；估值偏高：PE TTM 130.1x",
+      "latestInteraction": "百济神州有限公司自愿披露关于百悦泽（泽布替尼胶囊）临床试验进展的公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688235"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688235&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688235&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688235"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=688235&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "cosco-energy": {
+      "id": "cosco-energy",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "近期涨跌幅异常：5.27%；营收增长：26.9%；利润增长：206.7%；最新研报：26Q1点评：业绩大增有望拉开“油运大时代”序幕",
+      "latestInteraction": "中远海能关于2023年股票期权激励计划限制行权期间延长的提示性公告",
+      "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh600026"
+        },
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600026&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600026&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=600026&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "cm-energy": {
+      "id": "cm-energy",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "营收增长：52.9%；利润增长：219.3%；最新研报：26Q1点评：业绩大涨初步验证周期，持续看好公司受益于油散共振；公告催化：招商轮船2025年末期权益分派实施公告",
+      "latestInteraction": "招商轮船2025年末期权益分派实施公告",
+      "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601872&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601872&source=lrb&type=0&page=1&num=2"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601872&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "real"
+      }
+    },
+    "cm-nanjing": {
+      "id": "cm-nanjing",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "利润增长：51.7%；估值偏低：PE 11.8x / PB 1.5x；最新研报：26Q1点评：归母净利大增，关注后续地缘催化；公告催化：招商南油股票交易异常波动公告",
+      "latestInteraction": "招商南油股票交易异常波动公告",
+      "fieldSources": {
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601975&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationLow": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh601975"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-07-04T19:42:17+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-04&endTime=2026-07-04&code=601975&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcement",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-07-04T19:57:22+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
         "status": "real"
       }
     },
@@ -114,854 +2929,53 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
         "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入港股/美股"
+        "errorMessage": "A Stock Data MVP ??????/??"
       }
     },
-    "eoptolink": {
-      "id": "eoptolink",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 280.57266809,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 11.481627531816,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "innolight": {
-      "id": "innolight",
-      "mainFundFlow5d": -90.80900096,
-      "mainFundFlow20d": -194.35456512,
-      "latestMainFundFlow": 20.09338624,
-      "marginBalance": 437.9828032,
-      "dragonTigerCount30d": null,
-      "holderChangePct": -15.782412356291,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "latestMainFundFlow": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300308&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow5d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300308&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow20d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300308&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "wus": {
-      "id": "wus",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 71.05144986,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 38.872589988184,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "victor-tech": {
-      "id": "victor-tech",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 232.85151272,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 2.952969065527,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "shennan": {
-      "id": "shennan",
-      "mainFundFlow5d": 7.02793728,
-      "mainFundFlow20d": 12.70454544,
-      "latestMainFundFlow": 7.6215912,
-      "marginBalance": 21.6358665,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 24.974692164694,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "latestMainFundFlow": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002916&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow5d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002916&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow20d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002916&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "best": {
-      "id": "best",
+    "ubtech": {
+      "id": "ubtech",
       "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
       "marginBalance": null,
       "dragonTigerCount30d": null,
-      "holderChangePct": -3.565453045835,
+      "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
       "hotReason": null,
       "latestInteraction": null,
-      "fieldSources": {
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
+      "fieldSources": {},
       "quality": {
         "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP ??????/??"
       }
     },
-    "wuzhou": {
-      "id": "wuzhou",
+    "sunny-optical": {
+      "id": "sunny-optical",
       "mainFundFlow5d": null,
       "mainFundFlow20d": null,
       "latestMainFundFlow": null,
-      "marginBalance": 12.34234573,
+      "marginBalance": null,
       "dragonTigerCount30d": null,
-      "holderChangePct": 27.110105789271,
+      "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
       "hotReason": null,
       "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
+      "fieldSources": {},
       "quality": {
         "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "leaderdrive": {
-      "id": "leaderdrive",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 31.440586043400003,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 6.227426636569,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "moons": {
-      "id": "moons",
-      "mainFundFlow5d": 0.87949986,
-      "mainFundFlow20d": -1.59108197,
-      "latestMainFundFlow": 1.25889828,
-      "marginBalance": 3.93074119,
-      "dragonTigerCount30d": null,
-      "holderChangePct": -1.639503298409,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "latestMainFundFlow": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603728&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow5d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603728&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow20d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.603728&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "topgroup": {
-      "id": "topgroup",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 31.18829344,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 4.748228157593,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "wuxi": {
-      "id": "wuxi",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 55.0123810061,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 13.490547263682,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "pharmaron": {
-      "id": "pharmaron",
-      "mainFundFlow5d": 1.35567514,
-      "mainFundFlow20d": -3.24940586,
-      "latestMainFundFlow": -1.76459904,
-      "marginBalance": 11.29936042,
-      "dragonTigerCount30d": null,
-      "holderChangePct": -16.903380676135,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "latestMainFundFlow": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300759&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow5d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300759&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow20d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.300759&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "asymchem": {
-      "id": "asymchem",
-      "mainFundFlow5d": -0.95872826,
-      "mainFundFlow20d": 0.03867993,
-      "latestMainFundFlow": -2.19678896,
-      "marginBalance": 7.13439965,
-      "dragonTigerCount30d": null,
-      "holderChangePct": -24.006901984321,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "latestMainFundFlow": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002821&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow5d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002821&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow20d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=0.002821&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "nano": {
-      "id": "nano",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 5.719953911,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 2.115530782873,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "hengrui": {
-      "id": "hengrui",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 56.262994398400004,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 1.927080090027,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "beigene": {
-      "id": "beigene",
-      "mainFundFlow5d": 2.23147194,
-      "mainFundFlow20d": -2.83178665,
-      "latestMainFundFlow": -0.46922384,
-      "marginBalance": 11.578352349700001,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 6.533833222471,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "latestMainFundFlow": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.688235&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow5d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.688235&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow20d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.688235&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "cosco-energy": {
-      "id": "cosco-energy",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 17.53543476,
-      "dragonTigerCount30d": null,
-      "holderChangePct": -10.755191634193,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "cm-energy": {
-      "id": "cm-energy",
-      "mainFundFlow5d": null,
-      "mainFundFlow20d": null,
-      "latestMainFundFlow": null,
-      "marginBalance": 23.41123369,
-      "dragonTigerCount30d": null,
-      "holderChangePct": 2.988627347263,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
-      }
-    },
-    "cm-nanjing": {
-      "id": "cm-nanjing",
-      "mainFundFlow5d": -6.67864413,
-      "mainFundFlow20d": -9.45336975,
-      "latestMainFundFlow": -2.25732382,
-      "marginBalance": 11.54312446,
-      "dragonTigerCount30d": null,
-      "holderChangePct": -2.434112819996,
-      "upcomingLockupCount": null,
-      "popularityRank": null,
-      "hotReason": null,
-      "latestInteraction": null,
-      "fieldSources": {
-        "latestMainFundFlow": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.601975&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow5d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.601975&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "mainFundFlow20d": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney push2his fund flow",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real",
-          "sourceUrl": "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?secid=1.601975&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&lmt=120"
-        },
-        "marginBalance": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter margin",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        },
-        "holderChangePct": {
-          "source": "A Stock Data",
-          "sourceLayer": "signals",
-          "sourceEndpoint": "Eastmoney datacenter holder count",
-          "updatedAt": "2026-07-01T13:28:48+08:00",
-          "status": "real"
-        }
-      },
-      "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "signals",
-        "sourceEndpoint": "Eastmoney multi-source signals",
-        "updatedAt": "2026-07-01T13:28:48+08:00",
-        "status": "real"
+        "sourceLayer": "symbol",
+        "sourceEndpoint": "market-support",
+        "updatedAt": "2026-07-04T19:57:22+08:00",
+        "status": "unsupported_market",
+        "errorMessage": "A Stock Data MVP ??????/??"
       }
     }
   }

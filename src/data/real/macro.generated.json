@@ -1,34 +1,42 @@
 {
-  "updatedAt": "2026-07-04T11:12:28+08:00",
+  "updatedAt": "2026-07-04T19:22:16+08:00",
   "sourceSummary": [
+    "AKShare:macro_china_bank_financing",
     "AKShare:macro_china_consumer_goods_retail",
     "AKShare:macro_china_cpi",
+    "AKShare:macro_china_exports_yoy",
     "AKShare:macro_china_gdp",
     "AKShare:macro_china_gyzjz",
+    "AKShare:macro_china_imports_yoy",
     "AKShare:macro_china_lpr",
     "AKShare:macro_china_market_margin_sh",
     "AKShare:macro_china_market_margin_sz",
     "AKShare:macro_china_money_supply",
     "AKShare:macro_china_new_financial_credit",
+    "AKShare:macro_china_new_house_price",
     "AKShare:macro_china_non_man_pmi",
     "AKShare:macro_china_pmi",
     "AKShare:macro_china_ppi",
+    "AKShare:macro_china_real_estate",
     "AKShare:macro_china_reserve_requirement_ratio",
     "AKShare:macro_china_rmb",
-    "AKShare:macro_china_shibor_all"
+    "AKShare:macro_china_shibor_all",
+    "AKShare:macro_china_trade_balance"
   ],
-  "errors": [],
+  "errors": [
+    "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+  ],
   "indicators": [
     {
       "id": "macro-cycle",
       "category": "宏观环境",
       "name": "增长与价格组合",
-      "currentStatus": "GDP 5%；制造业 PMI 50.3；CPI 1.2% / PPI 3.9%",
+      "currentStatus": "GDP 5%；制造业 PMI 50.3；CPI/PPI 1.2% / 3.9%",
       "trend": "待验证",
-      "marketImpact": "增长、价格与生产端数据用于判断盈利弹性是否从政策预期走向真实需求；若 PMI 回升且 PPI 收窄，对顺周期和制造链更友好。",
+      "marketImpact": "增长、价格、生产与消费数据用于判断盈利弹性是否从政策预期走向真实需求。",
       "trackingIndicators": [
         "GDP",
-        "官方制造业 PMI",
+        "制造业 PMI",
         "非制造业 PMI",
         "CPI",
         "PPI",
@@ -83,98 +91,149 @@
           "updatedAt": "2026年05月份",
           "source": "AKShare macro_china_gyzjz",
           "status": "real"
+        },
+        {
+          "label": "社零同比",
+          "value": "-0.6%",
+          "note": "月份：2026年05月份",
+          "updatedAt": "2026年05月份",
+          "source": "AKShare macro_china_consumer_goods_retail",
+          "status": "real"
         }
       ],
       "dataQuality": [
         {
+          "source": "AKShare:macro_china_bank_financing",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
           "source": "AKShare:macro_china_consumer_goods_retail",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_cpi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_exports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_gdp",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_gyzjz",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_imports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_lpr",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_market_margin_sh",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_market_margin_sz",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_money_supply",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_new_financial_credit",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_house_price",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_non_man_pmi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_pmi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_ppi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_real_estate",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_reserve_requirement_ratio",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_rmb",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_shibor_all",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_trade_balance",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "macro_china_urban_unemployment",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "error",
+          "message": "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
         }
       ]
     },
@@ -182,9 +241,9 @@
       "id": "liquidity",
       "category": "流动性",
       "name": "资金与利率环境",
-      "currentStatus": "M2 同比 8.6%；LPR 1Y/5Y 3% / 3.5%；SHIBOR O/N 1.369%",
+      "currentStatus": "M2 8.6%；LPR 3% / 3.5%；两融 3 万亿",
       "trend": "震荡",
-      "marketImpact": "流动性数据用于约束估值扩张空间；M2、信贷与短端利率组合决定主题行情能否扩散。",
+      "marketImpact": "流动性决定估值扩张空间，M2、信贷、短端利率和两融共同约束主题行情能否扩散。",
       "trackingIndicators": [
         "M2",
         "新增人民币贷款",
@@ -229,10 +288,10 @@
         {
           "label": "美元/人民币中间价",
           "value": "6.4612",
-          "note": "日期：2021-05-13",
+          "note": "日期：2021-05-13；当前接口仅返回旧数据，按 stale 处理",
           "updatedAt": "2021-05-13",
           "source": "AKShare macro_china_rmb",
-          "status": "real"
+          "status": "stale"
         },
         {
           "label": "沪深两融余额",
@@ -241,98 +300,149 @@
           "updatedAt": "2026-07-02",
           "source": "AKShare macro_china_market_margin_sh/sz",
           "status": "real"
+        },
+        {
+          "label": "银行结售汇差额",
+          "value": "3375 亿",
+          "note": "月份：2026-06-01；环比：20.9%",
+          "updatedAt": "2026-06-01",
+          "source": "AKShare macro_china_bank_financing",
+          "status": "real"
         }
       ],
       "dataQuality": [
         {
+          "source": "AKShare:macro_china_bank_financing",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
           "source": "AKShare:macro_china_consumer_goods_retail",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_cpi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_exports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_gdp",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_gyzjz",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_imports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_lpr",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_market_margin_sh",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_market_margin_sz",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_money_supply",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_new_financial_credit",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_house_price",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_non_man_pmi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_pmi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_ppi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_real_estate",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_reserve_requirement_ratio",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_rmb",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_shibor_all",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_trade_balance",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "macro_china_urban_unemployment",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "error",
+          "message": "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
         }
       ]
     },
@@ -340,9 +450,9 @@
       "id": "policy",
       "category": "政策窗口",
       "name": "政策与信用脉冲",
-      "currentStatus": "大型机构存准率 9%；社零同比 -0.6%；新增信贷 4965 亿",
+      "currentStatus": "大型机构存准率 9%；新增信贷 4965 亿",
       "trend": "待验证",
-      "marketImpact": "政策窗口以信用、消费和准备金率变化验证；只作为研究线索，不替代政策原文解读。",
+      "marketImpact": "政策窗口先用信用、消费、生产和准备金率验证，不替代政策原文解读。",
       "trackingIndicators": [
         "存款准备金率",
         "新增信贷",
@@ -361,112 +471,155 @@
           "status": "real"
         },
         {
+          "label": "新增人民币贷款",
+          "value": "4965 亿",
+          "note": "月份：2026年05月份",
+          "updatedAt": "2026年05月份",
+          "source": "AKShare macro_china_new_financial_credit",
+          "status": "real"
+        },
+        {
           "label": "社零同比",
           "value": "-0.6%",
           "note": "月份：2026年05月份",
           "updatedAt": "2026年05月份",
           "source": "AKShare macro_china_consumer_goods_retail",
           "status": "real"
-        },
-        {
-          "label": "工业增加值",
-          "value": "4.5%",
-          "note": "月份：2026年05月份",
-          "updatedAt": "2026年05月份",
-          "source": "AKShare macro_china_gyzjz",
-          "status": "real"
         }
       ],
       "dataQuality": [
         {
+          "source": "AKShare:macro_china_bank_financing",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
           "source": "AKShare:macro_china_consumer_goods_retail",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_cpi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_exports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_gdp",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_gyzjz",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_imports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_lpr",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_market_margin_sh",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_market_margin_sz",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_money_supply",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_new_financial_credit",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_house_price",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_non_man_pmi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_pmi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_ppi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_real_estate",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_reserve_requirement_ratio",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_rmb",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_shibor_all",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_trade_balance",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "macro_china_urban_unemployment",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "error",
+          "message": "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
         }
       ]
     },
@@ -474,9 +627,9 @@
       "id": "style",
       "category": "市场风格",
       "name": "市场风格与杠杆温度",
-      "currentStatus": "沪深两融余额 3 万亿；人民币中间价 6.4612；短端 SHIBOR 1.369%",
+      "currentStatus": "两融 3 万亿；人民币中间价 6.4612；短端 SHIBOR 1.369%",
       "trend": "震荡",
-      "marketImpact": "市场风格用两融余额、汇率和短端利率做温度计；后续可接入 ETF 资金和风格指数相对强弱。",
+      "marketImpact": "市场风格先用两融、汇率和短端利率观察风险偏好，后续可接 ETF 资金和风格指数相对强弱。",
       "trackingIndicators": [
         "沪深两融余额",
         "人民币汇率",
@@ -497,10 +650,10 @@
         {
           "label": "美元/人民币中间价",
           "value": "6.4612",
-          "note": "日期：2021-05-13",
+          "note": "日期：2021-05-13；当前接口仅返回旧数据，按 stale 处理",
           "updatedAt": "2021-05-13",
           "source": "AKShare macro_china_rmb",
-          "status": "real"
+          "status": "stale"
         },
         {
           "label": "SHIBOR 1W",
@@ -513,94 +666,829 @@
       ],
       "dataQuality": [
         {
+          "source": "AKShare:macro_china_bank_financing",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
           "source": "AKShare:macro_china_consumer_goods_retail",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_cpi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_exports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_gdp",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_gyzjz",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_imports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_lpr",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_market_margin_sh",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_market_margin_sz",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_money_supply",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_new_financial_credit",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_house_price",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_non_man_pmi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_pmi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_ppi",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_real_estate",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_reserve_requirement_ratio",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_rmb",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
         },
         {
           "source": "AKShare:macro_china_shibor_all",
           "sourceLayer": "macro",
-          "updatedAt": "2026-07-04T11:12:28+08:00",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
           "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_trade_balance",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "macro_china_urban_unemployment",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "error",
+          "message": "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "category": "宏观环境",
+      "name": "外贸需求与顺差",
+      "currentStatus": "出口同比 7.2%；进口同比 4.1%；贸易差额 982.4 亿美元",
+      "trend": "待验证",
+      "marketImpact": "外贸数据用于验证海外需求、汇率压力和出口链盈利弹性。",
+      "trackingIndicators": [
+        "出口同比",
+        "进口同比",
+        "贸易差额",
+        "海外需求"
+      ],
+      "metrics": [
+        {
+          "label": "出口同比",
+          "value": "7.2%",
+          "note": "日期：2025-08-07；前值：5.8%",
+          "updatedAt": "2025-08-07",
+          "source": "AKShare macro_china_exports_yoy",
+          "status": "real"
+        },
+        {
+          "label": "进口同比",
+          "value": "4.1%",
+          "note": "日期：2025-08-07；前值：1.1%",
+          "updatedAt": "2025-08-07",
+          "source": "AKShare macro_china_imports_yoy",
+          "status": "real"
+        },
+        {
+          "label": "贸易差额",
+          "value": "982.4 亿美元",
+          "note": "日期：2025-08-07；前值：1147.7 亿美元",
+          "updatedAt": "2025-08-07",
+          "source": "AKShare macro_china_trade_balance",
+          "status": "real"
+        }
+      ],
+      "dataQuality": [
+        {
+          "source": "AKShare:macro_china_bank_financing",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_consumer_goods_retail",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_cpi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_exports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_gdp",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_gyzjz",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_imports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_lpr",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_market_margin_sh",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_market_margin_sz",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_money_supply",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_financial_credit",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_house_price",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_non_man_pmi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_pmi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_ppi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_real_estate",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_reserve_requirement_ratio",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_rmb",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_shibor_all",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_trade_balance",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "macro_china_urban_unemployment",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "error",
+          "message": "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+        }
+      ]
+    },
+    {
+      "id": "real-estate",
+      "category": "宏观环境",
+      "name": "地产销售与价格",
+      "currentStatus": "地产景气指数 91.45；新房同比 97.9",
+      "trend": "待验证",
+      "marketImpact": "地产链数据用于判断信用扩张是否能传导到内需和周期资产。",
+      "trackingIndicators": [
+        "地产景气指数",
+        "新房价格同比",
+        "新房价格环比",
+        "销售开工竣工"
+      ],
+      "metrics": [
+        {
+          "label": "地产景气指数",
+          "value": "91.45",
+          "note": "日期：2025-12-01；月度变动：-0.48%",
+          "updatedAt": "2025-12-01",
+          "source": "AKShare macro_china_real_estate",
+          "status": "real"
+        },
+        {
+          "label": "新房价格同比",
+          "value": "97.9",
+          "note": "城市：北京；日期：2026-05-01",
+          "updatedAt": "2026-05-01",
+          "source": "AKShare macro_china_new_house_price",
+          "status": "real"
+        },
+        {
+          "label": "新房价格环比",
+          "value": "99.8",
+          "note": "城市：北京；日期：2026-05-01",
+          "updatedAt": "2026-05-01",
+          "source": "AKShare macro_china_new_house_price",
+          "status": "real"
+        }
+      ],
+      "dataQuality": [
+        {
+          "source": "AKShare:macro_china_bank_financing",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_consumer_goods_retail",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_cpi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_exports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_gdp",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_gyzjz",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_imports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_lpr",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_market_margin_sh",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_market_margin_sz",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_money_supply",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_financial_credit",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_house_price",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_non_man_pmi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_pmi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_ppi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_real_estate",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_reserve_requirement_ratio",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_rmb",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_shibor_all",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_trade_balance",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "macro_china_urban_unemployment",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "error",
+          "message": "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+        }
+      ]
+    },
+    {
+      "id": "employment",
+      "category": "宏观环境",
+      "name": "就业与居民压力",
+      "currentStatus": "就业数据用于校验消费修复质量，当前按接口状态展示。",
+      "trend": "待验证",
+      "marketImpact": "就业是消费和政策托底的重要约束，接口失败时只能保留缺口，不能用旧数替代。",
+      "trackingIndicators": [
+        "城镇调查失业率",
+        "居民收入",
+        "招聘景气"
+      ],
+      "metrics": [
+        {
+          "label": "城镇调查失业率",
+          "value": "数据暂缺",
+          "note": "国家统计局接口当前返回异常，保留待接入",
+          "updatedAt": "数据暂缺",
+          "source": "AKShare macro_china_urban_unemployment",
+          "status": "missing"
+        }
+      ],
+      "dataQuality": [
+        {
+          "source": "AKShare:macro_china_bank_financing",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_consumer_goods_retail",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_cpi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_exports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_gdp",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_gyzjz",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_imports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_lpr",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_market_margin_sh",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_market_margin_sz",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_money_supply",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_financial_credit",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_house_price",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_non_man_pmi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_pmi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_ppi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_real_estate",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_reserve_requirement_ratio",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_rmb",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_shibor_all",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_trade_balance",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "macro_china_urban_unemployment",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "error",
+          "message": "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+        }
+      ]
+    },
+    {
+      "id": "risk",
+      "category": "市场风格",
+      "name": "风险因子与外部压力",
+      "currentStatus": "CPI/PPI 1.2% / 3.9%；人民币 6.4612；银行结售汇 3375 亿",
+      "trend": "震荡",
+      "marketImpact": "风险因子用于观察通胀、汇率、外部需求和资金面是否压制估值。",
+      "trackingIndicators": [
+        "CPI",
+        "PPI",
+        "人民币汇率",
+        "贸易差额",
+        "银行结售汇"
+      ],
+      "metrics": [
+        {
+          "label": "CPI 同比",
+          "value": "1.2%",
+          "note": "月份：2026年05月份",
+          "updatedAt": "2026年05月份",
+          "source": "AKShare macro_china_cpi",
+          "status": "real"
+        },
+        {
+          "label": "PPI 同比",
+          "value": "3.9%",
+          "note": "月份：2026年05月份",
+          "updatedAt": "2026年05月份",
+          "source": "AKShare macro_china_ppi",
+          "status": "real"
+        },
+        {
+          "label": "美元/人民币中间价",
+          "value": "6.4612",
+          "note": "日期：2021-05-13；当前接口仅返回旧数据，按 stale 处理",
+          "updatedAt": "2021-05-13",
+          "source": "AKShare macro_china_rmb",
+          "status": "stale"
+        },
+        {
+          "label": "银行结售汇差额",
+          "value": "3375 亿",
+          "note": "月份：2026-06-01；环比：20.9%",
+          "updatedAt": "2026-06-01",
+          "source": "AKShare macro_china_bank_financing",
+          "status": "real"
+        }
+      ],
+      "dataQuality": [
+        {
+          "source": "AKShare:macro_china_bank_financing",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_consumer_goods_retail",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_cpi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_exports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_gdp",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_gyzjz",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_imports_yoy",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_lpr",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_market_margin_sh",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_market_margin_sz",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_money_supply",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_financial_credit",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_new_house_price",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_non_man_pmi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_pmi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_ppi",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_real_estate",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_reserve_requirement_ratio",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_rmb",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_shibor_all",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "AKShare:macro_china_trade_balance",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "real"
+        },
+        {
+          "source": "macro_china_urban_unemployment",
+          "sourceLayer": "macro",
+          "updatedAt": "2026-07-04T19:22:16+08:00",
+          "status": "error",
+          "message": "macro_china_urban_unemployment: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
         }
       ]
     }
