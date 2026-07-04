@@ -14,7 +14,7 @@ describe("stock filters", () => {
     const result = getSegmentsByIndustry(industries, "robotics");
 
     expect(result.map((segment) => segment.name)).toEqual(
-      expect.arrayContaining(["丝杠", "灵巧手", "减速器", "电机"]),
+      expect.arrayContaining(["本体整机", "关节与执行器总成", "精密减速器", "线性执行器与丝杠", "电机驱动与运动控制", "视觉、传感器与电子皮肤", "汽车零部件迁移"]),
     );
   });
 });

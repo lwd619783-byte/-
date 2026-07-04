@@ -19,6 +19,82 @@ const baseValuation = {
   ps: "X",
 };
 
+const roboticsObservationNote = "机构纪要提及，公开验证程度有限，需继续跟踪公告、调研纪要和客户认证。";
+
+type RobotStockSeed = {
+  id: string;
+  name: string;
+  code: string;
+  market?: "A股" | "港股";
+  segmentId: string;
+  chainPosition: string;
+  candidateType: "核心池" | "观察池";
+  evidenceLevel: "高" | "中" | "低";
+  verificationStatus: "已验证" | "部分验证" | "待验证";
+  themeTags: string[];
+  leaderPosition?: string;
+  business?: string;
+  thesis?: string;
+  growthDrivers?: string[];
+  risks?: string[];
+  trackingMetrics?: string[];
+  riskLevel?: "低" | "中" | "高";
+  evidenceNotes?: string[];
+  relations?: Stock["relations"];
+};
+
+function robotStock(seed: RobotStockSeed): Stock {
+  const isObservation = seed.candidateType === "观察池";
+  const themeText = seed.themeTags.join(" / ");
+  const trackingMetrics = seed.trackingMetrics ?? ["公告与定点", "客户认证", "量产节奏", "收入确认"];
+
+  return {
+    id: seed.id,
+    name: seed.name,
+    code: seed.code,
+    market: seed.market ?? "A股",
+    industryId: "robotics",
+    segmentId: seed.segmentId,
+    leaderPosition: seed.leaderPosition ?? `${seed.name}是机器人产业链${seed.chainPosition}环节的${seed.candidateType}公司。`,
+    business: seed.business ?? `${seed.name}主营业务与${themeText}相关，需结合公告、年报和调研验证机器人业务占比。`,
+    thesis:
+      seed.thesis ??
+      `${seed.name}的研究重点是${themeText}能否从主题线索进入订单、客户认证和收入确认阶段；${isObservation ? "当前按观察池处理，不写成确定供货关系。" : "当前按核心池跟踪，仍需持续验证量产节奏。"}`,
+    financial: { ...baseFinancial },
+    valuation: { ...baseValuation },
+    growthDrivers: seed.growthDrivers ?? seed.themeTags,
+    risks:
+      seed.risks ??
+      (isObservation
+        ? ["公开验证程度有限", "主题交易拥挤", "客户认证和收入确认不确定"]
+        : ["量产节奏不确定", "价格和毛利率波动", "客户验证不及预期"]),
+    trackingMetrics,
+    riskLevel: seed.riskLevel ?? (isObservation ? "高" : "中"),
+    chainPosition: seed.chainPosition,
+    evidenceLevel: seed.evidenceLevel,
+    verificationStatus: seed.verificationStatus,
+    themeTags: seed.themeTags,
+    candidateType: seed.candidateType,
+    evidenceNotes: seed.evidenceNotes ?? (isObservation ? [roboticsObservationNote] : ["公开资料和产业链研究已纳入核心池，仍需持续跟踪公告、年报、订单和客户认证。"]),
+    researchProfile: {
+      industryLogic: "机器人产业链研究字段，需以公告、年报、调研纪要和真实行情数据持续验证。",
+      businessBreakdown: [
+        {
+          name: seed.chainPosition,
+          description: seed.business ?? `${seed.name}处于${seed.chainPosition}环节，主题标签：${themeText}。`,
+          revenueDriver: trackingMetrics[0],
+          marginDriver: "量产良率、价格、产品结构和客户认证",
+        },
+      ],
+      profitDrivers: seed.growthDrivers ?? seed.themeTags,
+      competitiveAdvantages: [seed.leaderPosition ?? `${seed.chainPosition}环节能力待持续验证`],
+      weaknesses: seed.risks ?? (isObservation ? ["公开验证程度有限"] : ["量产和盈利弹性仍需验证"]),
+      validationSignals: trackingMetrics,
+    },
+    relations: seed.relations,
+  };
+}
+
 export const stocks: Stock[] = [
   {
     id: "sugon",
@@ -224,96 +300,125 @@ export const stocks: Stock[] = [
     riskLevel: "中",
     chainPosition: "PCB / 封装基板",
   },
-  {
-    id: "best",
-    name: "贝斯特",
-    code: "300580",
-    market: "A股",
-    industryId: "robotics",
-    segmentId: "lead-screw",
-    leaderPosition: "精密零部件和丝杠方向观察标的。",
-    business: "精密零部件、汽车零部件、机器人相关部件。",
-    thesis: "人形机器人丝杠定点和扩产节奏是关键。",
-    financial: baseFinancial,
-    valuation: baseValuation,
-    growthDrivers: ["丝杠", "客户定点", "产能扩张"],
-    risks: ["量产不及预期", "单价下修", "主题拥挤"],
-    trackingMetrics: ["样品验证", "定点公告", "产能爬坡"],
-    riskLevel: "高",
-    chainPosition: "丝杠 / 精密传动",
-  },
-  {
-    id: "wuzhou",
-    name: "五洲新春",
-    code: "603667",
-    market: "A股",
-    industryId: "robotics",
-    segmentId: "lead-screw",
-    leaderPosition: "机器人丝杠和精密轴承方向观察样本。",
-    business: "轴承、精密零部件、汽车和机器人相关部件。",
-    thesis: "丝杠链条的产业化进展和客户验证决定弹性。",
-    financial: baseFinancial,
-    valuation: baseValuation,
-    growthDrivers: ["丝杠", "精密制造", "客户验证"],
-    risks: ["量产不及预期", "订单不确定", "主题拥挤"],
-    trackingMetrics: ["丝杠订单", "产能爬坡", "毛利率"],
-    riskLevel: "高",
-    chainPosition: "丝杠 / 精密传动",
-  },
-  {
-    id: "topgroup",
-    name: "拓普集团",
-    code: "601689",
-    market: "A股",
-    industryId: "robotics",
-    segmentId: "dexterous-hand",
-    leaderPosition: "汽车零部件平台型公司，机器人链条延伸观察。",
-    business: "汽车 NVH、底盘、热管理、智能执行系统等。",
-    thesis: "大客户平台能力和机器人执行系统拓展构成想象空间。",
-    financial: baseFinancial,
-    valuation: baseValuation,
-    growthDrivers: ["大客户", "平台化能力", "机器人部件"],
-    risks: ["客户集中", "新业务兑现慢", "估值波动"],
-    trackingMetrics: ["机器人业务进展", "客户订单", "毛利率"],
-    riskLevel: "中",
-    chainPosition: "执行系统 / 灵巧手",
-  },
-  {
+  robotStock({
+    id: "ubtech",
+    name: "优必选",
+    code: "09880",
+    market: "港股",
+    segmentId: "robot-oem",
+    chainPosition: "本体整机 / 人形机器人",
+    candidateType: "核心池",
+    evidenceLevel: "高",
+    verificationStatus: "已验证",
+    themeTags: ["本体整机", "港股机器人", "具身智能"],
+    leaderPosition: "港股人形机器人本体整机代表公司。",
+    business: "人形机器人、服务机器人、教育和行业机器人产品。",
+    thesis: "商业化订单、产品迭代和港股机器人稀缺性是核心观察点。",
+  }),
+  robotStock({ id: "siasun", name: "机器人", code: "300024", segmentId: "robot-oem", chainPosition: "工业机器人 / 系统集成", candidateType: "核心池", evidenceLevel: "高", verificationStatus: "已验证", themeTags: ["工业机器人", "系统集成"], leaderPosition: "国内工业机器人与系统集成代表公司。" }),
+  robotStock({ id: "estun", name: "埃斯顿", code: "002747", segmentId: "robot-oem", chainPosition: "工业机器人 / 运动控制", candidateType: "核心池", evidenceLevel: "高", verificationStatus: "已验证", themeTags: ["工业机器人", "运动控制"], leaderPosition: "工业机器人本体和运动控制平台型公司。" }),
+  robotStock({ id: "efort", name: "埃夫特", code: "688165", segmentId: "robot-oem", chainPosition: "工业机器人本体", candidateType: "核心池", evidenceLevel: "高", verificationStatus: "已验证", themeTags: ["工业机器人", "本体制造"], leaderPosition: "工业机器人本体和系统方案供应商。" }),
+  robotStock({
     id: "leaderdrive",
     name: "绿的谐波",
     code: "688017",
-    market: "A股",
-    industryId: "robotics",
-    segmentId: "reducer",
+    segmentId: "precision-reducer",
+    chainPosition: "谐波减速器",
+    candidateType: "核心池",
+    evidenceLevel: "高",
+    verificationStatus: "已验证",
+    themeTags: ["谐波减速器", "核心零部件", "国产替代"],
     leaderPosition: "国产谐波减速器代表公司。",
     business: "精密传动装置、谐波减速器。",
     thesis: "机器人需求放量与国产替代共同驱动，但需验证价格和利润率。",
-    financial: baseFinancial,
-    valuation: baseValuation,
-    growthDrivers: ["工业机器人", "人形机器人", "国产替代"],
-    risks: ["竞争加剧", "价格下行", "需求不及预期"],
-    trackingMetrics: ["下游订单", "毛利率", "新品验证"],
-    riskLevel: "高",
-    chainPosition: "减速器",
-  },
-  {
-    id: "moons",
-    name: "鸣志电器",
-    code: "603728",
-    market: "A股",
-    industryId: "robotics",
-    segmentId: "motor",
-    leaderPosition: "控制电机和运动控制方向代表。",
-    business: "步进电机、伺服系统、控制电机。",
-    thesis: "机器人执行器升级带来电机和控制系统机会。",
-    financial: baseFinancial,
-    valuation: baseValuation,
-    growthDrivers: ["控制电机", "机器人执行器", "海外渠道"],
-    risks: ["需求波动", "竞争加剧", "毛利率下滑"],
-    trackingMetrics: ["新品订单", "机器人客户", "海外收入"],
-    riskLevel: "中",
-    chainPosition: "电机 / 控制",
-  },
+    relations: [
+      { stockId: "zhongda-lide", relationType: "同环节", strength: "中", reason: "同属精密减速器链条。" },
+      { stockId: "shuanghuan", relationType: "同环节", strength: "中", reason: "同属 RV 减速器 / 精密传动相关环节。" },
+      { stockId: "siling", relationType: "同环节", strength: "弱", reason: "同属精密传动与轴承主题。" },
+    ],
+  }),
+  robotStock({ id: "zhongda-lide", name: "中大力德", code: "002896", segmentId: "precision-reducer", chainPosition: "精密减速器 / 执行单元", candidateType: "核心池", evidenceLevel: "高", verificationStatus: "已验证", themeTags: ["减速器", "执行单元"] }),
+  robotStock({ id: "shuanghuan", name: "双环传动", code: "002472", segmentId: "precision-reducer", chainPosition: "RV 减速器 / 精密传动", candidateType: "核心池", evidenceLevel: "中", verificationStatus: "部分验证", themeTags: ["RV减速器", "精密传动"] }),
+  robotStock({ id: "siling", name: "斯菱股份", code: "301550", segmentId: "precision-reducer", chainPosition: "轴承 / 精密传动", candidateType: "核心池", evidenceLevel: "中", verificationStatus: "部分验证", themeTags: ["轴承", "减速器主题"] }),
+  robotStock({
+    id: "beite",
+    name: "北特科技",
+    code: "603009",
+    segmentId: "linear-actuator-screw",
+    chainPosition: "行星滚柱丝杠 / 线性执行器",
+    candidateType: "核心池",
+    evidenceLevel: "高",
+    verificationStatus: "已验证",
+    themeTags: ["行星滚柱丝杠", "线性执行器"],
+    relations: [
+      { stockId: "best", relationType: "同环节", strength: "中", reason: "同属线性执行器与丝杠链条。" },
+      { stockId: "wuzhou", relationType: "同环节", strength: "中", reason: "同属丝杠、轴承和精密零部件方向。" },
+      { stockId: "jinwo", relationType: "同环节", strength: "弱", reason: "同属丝杠零部件主题。" },
+    ],
+  }),
+  robotStock({ id: "best", name: "贝斯特", code: "300580", segmentId: "linear-actuator-screw", chainPosition: "丝杠 / 直线导轨 / 精密零部件", candidateType: "核心池", evidenceLevel: "中", verificationStatus: "部分验证", themeTags: ["丝杠", "直线导轨"], leaderPosition: "精密零部件和丝杠方向观察标的。" }),
+  robotStock({ id: "wuzhou", name: "五洲新春", code: "603667", segmentId: "linear-actuator-screw", chainPosition: "轴承 / 丝杠 / 精密零部件", candidateType: "核心池", evidenceLevel: "中", verificationStatus: "部分验证", themeTags: ["轴承", "丝杠"], leaderPosition: "机器人丝杠和精密轴承方向观察样本。" }),
+  robotStock({ id: "jinwo", name: "金沃股份", code: "300984", segmentId: "linear-actuator-screw", chainPosition: "轴承套圈 / 丝杠零部件", candidateType: "核心池", evidenceLevel: "中", verificationStatus: "部分验证", themeTags: ["丝杠零部件", "轴承套圈"] }),
+  robotStock({ id: "sanhua", name: "三花智控", code: "002050", segmentId: "actuator-module", chainPosition: "机电执行器 / 热管理", candidateType: "核心池", evidenceLevel: "高", verificationStatus: "已验证", themeTags: ["机电执行器", "热管理", "T链主题"] }),
+  robotStock({ id: "topgroup", name: "拓普集团", code: "601689", segmentId: "actuator-module", chainPosition: "关节模组 / 结构件 / 汽零迁移", candidateType: "核心池", evidenceLevel: "中", verificationStatus: "部分验证", themeTags: ["关节模组", "汽零迁移", "T链主题"], leaderPosition: "汽车零部件平台型公司，机器人链条延伸观察。" }),
+  robotStock({ id: "hengli-hydraulic", name: "恒立液压", code: "601100", segmentId: "linear-actuator-screw", chainPosition: "液压件 / 线性执行器相关能力", candidateType: "核心池", evidenceLevel: "中", verificationStatus: "部分验证", themeTags: ["线性执行器", "液压"] }),
+  robotStock({
+    id: "inovance",
+    name: "汇川技术",
+    code: "300124",
+    segmentId: "motor-drive-control",
+    chainPosition: "电机 / 驱动器 / 控制器 / 关节模组",
+    candidateType: "核心池",
+    evidenceLevel: "高",
+    verificationStatus: "已验证",
+    themeTags: ["运动控制", "无框电机", "驱动器", "关节模组"],
+    relations: [
+      { stockId: "leisai", relationType: "同环节", strength: "中", reason: "同属运动控制、伺服和关节电机链条。" },
+      { stockId: "moons", relationType: "同环节", strength: "中", reason: "同属电机驱动与运动控制链条。" },
+      { stockId: "ubtech", relationType: "下游", strength: "弱", reason: "机器人运动控制链条相关，非直接供货关系。" },
+    ],
+  }),
+  robotStock({ id: "leisai", name: "雷赛智能", code: "002979", segmentId: "motor-drive-control", chainPosition: "运动控制 / 伺服 / 关节电机", candidateType: "核心池", evidenceLevel: "高", verificationStatus: "已验证", themeTags: ["运动控制", "灵巧手", "关节电机"] }),
+  robotStock({ id: "moons", name: "鸣志电器", code: "603728", segmentId: "motor-drive-control", chainPosition: "空心杯电机 / 无刷电机 / 驱动控制", candidateType: "核心池", evidenceLevel: "中", verificationStatus: "部分验证", themeTags: ["空心杯电机", "无刷电机"], leaderPosition: "控制电机和运动控制方向代表。" }),
+  robotStock({
+    id: "orbbec",
+    name: "奥比中光",
+    code: "688322",
+    segmentId: "vision-sensor-skin",
+    chainPosition: "3D 视觉 / 机器人视觉",
+    candidateType: "核心池",
+    evidenceLevel: "高",
+    verificationStatus: "已验证",
+    themeTags: ["3D视觉", "机器人眼睛", "感知层"],
+    relations: [
+      { stockId: "hanwei", relationType: "同环节", strength: "中", reason: "同属机器人感知层。" },
+      { stockId: "luster", relationType: "同环节", strength: "中", reason: "同属机器视觉与感知链条。" },
+      { stockId: "sunny-optical", relationType: "同环节", strength: "弱", reason: "同属光学模组和机器人视觉主题。" },
+    ],
+  }),
+  robotStock({ id: "hanwei", name: "汉威科技", code: "300007", segmentId: "vision-sensor-skin", chainPosition: "柔性传感器 / 电子皮肤", candidateType: "核心池", evidenceLevel: "高", verificationStatus: "已验证", themeTags: ["电子皮肤", "柔性传感器", "感知层"] }),
+  robotStock({ id: "hengshuai", name: "恒帅股份", code: "300969", segmentId: "motor-drive-control", chainPosition: "灵巧手 / 关节电机", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["灵巧手", "关节电机", "机构纪要提及", "待验证", "T链主题"] }),
+  robotStock({ id: "fortior", name: "峰岹科技", code: "688279", segmentId: "motor-drive-control", chainPosition: "BLDC 电机驱控芯片", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["BLDC电机驱控芯片", "机构纪要提及", "待验证"] }),
+  robotStock({ id: "xinje", name: "信捷电气", code: "603416", segmentId: "motor-drive-control", chainPosition: "PLC / 伺服 / 工控", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["PLC", "伺服", "工控", "待验证"] }),
+  robotStock({ id: "rongtai", name: "浙江荣泰", code: "603119", segmentId: "linear-actuator-screw", chainPosition: "微型丝杠 / 绝缘件", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["微型丝杠", "绝缘件", "机构纪要提及", "待验证"] }),
+  robotStock({ id: "luster", name: "凌云光", code: "688400", segmentId: "vision-sensor-skin", chainPosition: "机器视觉", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["机器视觉", "感知层", "待验证"] }),
+  robotStock({ id: "sunny-optical", name: "舜宇光学科技", code: "02382", market: "港股", segmentId: "vision-sensor-skin", chainPosition: "光学模组 / 机器人视觉", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["光学模组", "机器人视觉", "待验证"] }),
+  robotStock({ id: "everwin", name: "长盈精密", code: "300115", segmentId: "auto-parts-migration", chainPosition: "精密结构件", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["精密结构件", "汽零迁移", "机构纪要提及", "待验证", "T链主题"] }),
+  robotStock({ id: "xusheng", name: "旭升集团", code: "603305", segmentId: "auto-parts-migration", chainPosition: "结构件", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["结构件", "汽零迁移", "待验证"] }),
+  robotStock({ id: "hengbo", name: "恒勃股份", code: "301225", segmentId: "auto-parts-migration", chainPosition: "汽零迁移", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["汽零迁移", "机构纪要提及", "待验证"] }),
+  robotStock({ id: "xinquan", name: "新泉股份", code: "603179", segmentId: "auto-parts-migration", chainPosition: "结构件 / 汽零迁移", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["结构件", "汽零迁移", "待验证"] }),
+  robotStock({ id: "keboda", name: "科博达", code: "603786", segmentId: "auto-parts-migration", chainPosition: "汽车电子", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["汽车电子", "汽零迁移", "待验证"] }),
+  robotStock({ id: "joyson", name: "均胜电子", code: "600699", segmentId: "auto-parts-migration", chainPosition: "汽车电子", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["汽车电子", "汽零迁移", "待验证"] }),
+  robotStock({ id: "xingyu", name: "星宇股份", code: "601799", segmentId: "auto-parts-migration", chainPosition: "汽车电子 / 外设", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["汽车电子", "外设", "待验证"] }),
+  robotStock({ id: "riying", name: "日盈电子", code: "603286", segmentId: "vision-sensor-skin", chainPosition: "电子皮肤主题", candidateType: "观察池", evidenceLevel: "低", verificationStatus: "待验证", themeTags: ["电子皮肤主题", "低验证", "机构纪要提及", "待验证"] }),
+  robotStock({ id: "daimei", name: "岱美股份", code: "603730", segmentId: "auto-parts-migration", chainPosition: "内饰迁移 / 电子皮肤主题", candidateType: "观察池", evidenceLevel: "低", verificationStatus: "待验证", themeTags: ["内饰迁移", "电子皮肤主题", "低验证", "待验证"] }),
+  robotStock({ id: "molding-tech", name: "模塑科技", code: "000700", segmentId: "auto-parts-migration", chainPosition: "结构件", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["结构件", "汽零迁移", "待验证"] }),
+  robotStock({ id: "wanxiang-qc", name: "万向钱潮", code: "000559", segmentId: "auto-parts-migration", chainPosition: "传动 / 汽车零部件", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["传动", "汽车零部件", "待验证"] }),
+  robotStock({ id: "tieliu", name: "铁流股份", code: "603926", segmentId: "auto-parts-migration", chainPosition: "传动件", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["传动件", "汽零迁移", "待验证"] }),
+  robotStock({ id: "zhaomin", name: "肇民科技", code: "301000", segmentId: "auto-parts-migration", chainPosition: "精密注塑件", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["精密注塑件", "待验证"] }),
+  robotStock({ id: "dongli", name: "宁波东力", code: "002164", segmentId: "auto-parts-migration", chainPosition: "传动设备", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["传动设备", "汽零迁移", "待验证"] }),
+  robotStock({ id: "kaidi", name: "凯迪股份", code: "605288", segmentId: "linear-actuator-screw", chainPosition: "线性驱动", candidateType: "观察池", evidenceLevel: "中", verificationStatus: "待验证", themeTags: ["线性驱动", "待验证"] }),
+  robotStock({ id: "henghui", name: "恒辉安防", code: "300952", segmentId: "auto-parts-migration", chainPosition: "灵巧手材料 / 低验证主题", candidateType: "观察池", evidenceLevel: "低", verificationStatus: "待验证", themeTags: ["灵巧手材料", "低验证", "机构纪要提及", "待验证"] }),
   {
     id: "wuxi",
     name: "药明康德",

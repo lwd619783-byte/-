@@ -92,6 +92,11 @@ export interface Stock {
   trackingMetrics: string[];
   riskLevel: RiskLevel;
   chainPosition: string;
+  evidenceLevel?: "高" | "中" | "低";
+  verificationStatus?: "已验证" | "部分验证" | "待验证";
+  themeTags?: string[];
+  candidateType?: "核心池" | "观察池";
+  evidenceNotes?: string[];
   profile?: import("./marketData").StockProfile;
   quote?: import("./marketData").StockQuote;
   realFinancial?: import("./marketData").RealFinancialMetric;

@@ -78,6 +78,12 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
             <InvestmentLogic stock={stock} />
           </Section>
 
+          {stock.evidenceLevel || stock.themeTags?.length || stock.evidenceNotes?.length ? (
+            <Section title="证据与验证" icon={<AlertTriangle className="h-4 w-4" />}>
+              <EvidenceVerification stock={stock} />
+            </Section>
+          ) : null}
+
           <Section title="关联公司" icon={<BarChart3 className="h-4 w-4" />}>
             <CompanyRelationGraph stock={stock} stocks={stocks} industry={industry} onOpenStock={switchStock} />
           </Section>
@@ -316,6 +322,29 @@ function InvestmentLogic({ stock }: { stock: Stock }) {
         <ListCard title="缺点 / 风险" items={stock.researchProfile?.weaknesses ?? stock.risks} tone="warning" />
         <ListCard title="验证指标" items={stock.researchProfile?.validationSignals ?? stock.trackingMetrics} tone="cyan" />
       </div>
+    </div>
+  );
+}
+
+function EvidenceVerification({ stock }: { stock: Stock }) {
+  return (
+    <div className="space-y-4">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <MiniField label="候选池" value={stock.candidateType ?? PENDING} />
+        <MiniField label="证据等级" value={stock.evidenceLevel ?? PENDING} />
+        <MiniField label="验证状态" value={stock.verificationStatus ?? PENDING} />
+        <MiniField label="研究提示" value={stock.verificationStatus === "待验证" ? "不得写成确定供货关系" : "仍需持续跟踪公告和订单"} />
+      </div>
+      <Panel title="主题标签">
+        <TagList items={stock.themeTags ?? []} color="blue" />
+      </Panel>
+      <Panel title="证据说明">
+        <ul className="space-y-2 text-sm leading-6 text-textMuted">
+          {(stock.evidenceNotes?.length ? stock.evidenceNotes : [PENDING]).map((note) => (
+            <li key={note}>• {note}</li>
+          ))}
+        </ul>
+      </Panel>
     </div>
   );
 }

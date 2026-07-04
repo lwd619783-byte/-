@@ -60,5 +60,5 @@ export function filterStocks(stocks: Stock[], filters: StockFilters, industries:
 }
 
 export function findStocksForSegment(stocks: Stock[], segmentId: string) {
-  return stocks.filter((stock) => stock.segmentId === segmentId).slice(0, 3);
+  return stocks.filter((stock) => stock.segmentId === segmentId);
 }

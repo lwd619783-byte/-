@@ -42,6 +42,25 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
         {stock.thesis}
       </TextClamp>
 
+      {stock.evidenceLevel ? (
+        <div className="mt-3 rounded-md border border-borderSoft bg-bg2/60 p-3">
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="rounded border border-cyan/20 bg-cyan/10 px-2 py-1 text-cyan">验证等级：{stock.evidenceLevel}</span>
+            <span className="rounded border border-borderSoft bg-surface/70 px-2 py-1 text-textMuted">状态：{stock.verificationStatus ?? "待验证"}</span>
+            <span className="rounded border border-warning/25 bg-warning/10 px-2 py-1 text-warning">{stock.candidateType ?? "观察池"}</span>
+          </div>
+          {stock.themeTags?.length ? (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {stock.themeTags.slice(0, 5).map((tag) => (
+                <span key={tag} className="max-w-full truncate rounded bg-surface/80 px-2 py-0.5 text-[11px] text-textMuted" title={tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
       <div className="mt-4 grid min-w-0 grid-cols-1 gap-2 text-sm sm:grid-cols-3">
         <MetricCard label="PE / PB" value={`${numberToDisplay(stock.quote?.peTtm ?? stock.quote?.pe)} / ${numberToDisplay(stock.quote?.pb)}`} />
         <MetricCard label="报告期" value={stock.realFinancial?.reportDate ?? "数据暂缺"} />

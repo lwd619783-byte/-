@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { Factory, Layers3 } from "lucide-react";
+import { ChevronDown, ChevronRight, Factory, Layers3 } from "lucide-react";
+import { roboticsPrivateCompanies } from "../../data/privateCompanies";
 import type { Industry, Stock } from "../../types";
 import { findStocksForSegment } from "../../utils/filters";
 import { StockCard } from "../stock/StockCard";
@@ -16,30 +17,41 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
   const [activeIndustryId, setActiveIndustryId] = useState(industries[0]?.id ?? "");
   const activeIndustry = industries.find((industry) => industry.id === activeIndustryId) ?? industries[0];
   const [activeSegmentId, setActiveSegmentId] = useState(activeIndustry?.segments[0]?.id ?? "");
+  const [showObservationPool, setShowObservationPool] = useState(false);
+  const isRobotics = activeIndustry?.id === "robotics";
 
   const segment = useMemo(() => {
     const currentIndustry = industries.find((industry) => industry.id === activeIndustryId) ?? industries[0];
+    if (activeSegmentId === "全部" && currentIndustry?.id === "robotics") return undefined;
     return (
       currentIndustry?.segments.find((item) => item.id === activeSegmentId) ??
       currentIndustry?.segments[0]
     );
   }, [activeIndustryId, activeSegmentId, industries]);
 
-  if (!activeIndustry || !segment) {
+  if (!activeIndustry) {
     return <EmptyState title="暂无行业数据" description="请先在 src/data/industries.ts 中新增行业与细分板块。" />;
   }
 
-  const segmentStocks = findStocksForSegment(stocks, segment.id);
+  const segmentStocks =
+    isRobotics && activeSegmentId === "全部"
+      ? stocks.filter((stock) => stock.industryId === activeIndustry.id)
+      : segment
+        ? findStocksForSegment(stocks, segment.id)
+        : [];
   const keyword = globalSearch.trim().toLowerCase();
   const visibleSegmentStocks = keyword
     ? segmentStocks.filter((stock) =>
-        [stock.name, stock.code, stock.thesis, segment.name, activeIndustry.name].join(" ").toLowerCase().includes(keyword),
+        [stock.name, stock.code, stock.thesis, segment?.name ?? "全部", activeIndustry.name, stock.themeTags?.join(" ") ?? ""].join(" ").toLowerCase().includes(keyword),
       )
     : segmentStocks;
+  const corePoolStocks = isRobotics ? visibleSegmentStocks.filter((stock) => stock.candidateType !== "观察池") : visibleSegmentStocks;
+  const observationPoolStocks = isRobotics ? visibleSegmentStocks.filter((stock) => stock.candidateType === "观察池") : [];
 
   function switchIndustry(industry: Industry) {
     setActiveIndustryId(industry.id);
-    setActiveSegmentId(industry.segments[0]?.id ?? "");
+    setActiveSegmentId(industry.id === "robotics" ? "全部" : industry.segments[0]?.id ?? "");
+    setShowObservationPool(false);
   }
 
   return (
@@ -78,11 +90,11 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
             action={<Layers3 className="h-5 w-5 text-cyan" />}
           />
           <div className="scrollbar-thin mt-3 flex gap-2 overflow-x-auto pb-2">
-            {activeIndustry.segments.map((item) => (
+            {(isRobotics ? [{ id: "全部", name: "全部" }, ...activeIndustry.segments] : activeIndustry.segments).map((item) => (
                 <button
                   key={item.id}
                   className={`h-9 max-w-[220px] shrink-0 truncate rounded-md px-3 text-sm transition focus:outline-none focus:ring-2 focus:ring-cyan/30 ${
-                    segment.id === item.id
+                    activeSegmentId === item.id
                       ? "border border-cyan/45 bg-cyan/15 text-textStrong"
                       : "border border-borderSoft bg-surface/70 text-text hover:border-borderGlow"
                   }`}
@@ -95,7 +107,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
           </div>
 
           <div className="mt-4 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
-            <SegmentLogic industry={activeIndustry} segment={segment} />
+            {segment ? <SegmentLogic industry={activeIndustry} segment={segment} /> : <AllRoboticsSummary industry={activeIndustry} stocks={visibleSegmentStocks} />}
             <div className="space-y-3">
               <SegmentMarketSummary stocks={visibleSegmentStocks} />
             </div>
@@ -107,15 +119,61 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
 
         {visibleSegmentStocks.length === 0 ? (
           <EmptyState title="没有匹配个股" description="调整搜索词，或在 src/data/stocks.ts 中为该细分板块补充个股。" />
-        ) : (
-          <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-            {visibleSegmentStocks.map((stock) => (
-              <StockCard key={stock.id} stock={stock} industries={industries} onOpen={onOpenStock} />
-            ))}
+        ) : isRobotics ? (
+          <div className="space-y-4">
+            <StockSection title="核心池" description="已进入机器人产业链重点跟踪的上市公司。" stocks={corePoolStocks} industries={industries} onOpenStock={onOpenStock} />
+            <DashboardCard className="p-4">
+              <button
+                type="button"
+                className="flex w-full items-center justify-between gap-3 text-left"
+                onClick={() => setShowObservationPool((value) => !value)}
+              >
+                <div>
+                  <h3 className="text-lg font-semibold text-textStrong">观察池</h3>
+                  <p className="mt-1 text-sm text-textMuted">机构纪要、主题映射或迁移线索公司，默认折叠，需继续验证公告、调研和客户认证。</p>
+                </div>
+                {showObservationPool ? <ChevronDown className="h-5 w-5 text-cyan" /> : <ChevronRight className="h-5 w-5 text-textMuted" />}
+              </button>
+              {showObservationPool ? (
+                <div className="mt-4">
+                  <StockGrid stocks={observationPoolStocks} industries={industries} onOpenStock={onOpenStock} />
+                </div>
+              ) : null}
+            </DashboardCard>
+            <PrivateCompanySection />
           </div>
+        ) : (
+          <StockGrid stocks={visibleSegmentStocks} industries={industries} onOpenStock={onOpenStock} />
         )}
       </div>
     </section>
+  );
+}
+
+function StockSection({ title, description, stocks, industries, onOpenStock }: { title: string; description: string; stocks: Stock[]; industries: Industry[]; onOpenStock: (stock: Stock) => void }) {
+  return (
+    <DashboardCard className="p-4">
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div>
+          <h3 className="text-lg font-semibold text-textStrong">{title}</h3>
+          <p className="mt-1 text-sm text-textMuted">{description}</p>
+        </div>
+        <span className="rounded border border-borderSoft bg-bg2/70 px-2 py-1 text-xs text-textMuted">{stocks.length} 家</span>
+      </div>
+      <StockGrid stocks={stocks} industries={industries} onOpenStock={onOpenStock} />
+    </DashboardCard>
+  );
+}
+
+function StockGrid({ stocks, industries, onOpenStock }: { stocks: Stock[]; industries: Industry[]; onOpenStock: (stock: Stock) => void }) {
+  if (stocks.length === 0) return <EmptyState title="暂无公司" description="当前筛选条件下没有匹配公司。" compact />;
+
+  return (
+    <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+      {stocks.map((stock) => (
+        <StockCard key={stock.id} stock={stock} industries={industries} onOpen={onOpenStock} />
+      ))}
+    </div>
   );
 }
 
@@ -198,6 +256,66 @@ function SegmentLogic({ industry, segment }: { industry: Industry; segment: Indu
         </div>
       </div>
     </article>
+  );
+}
+
+function AllRoboticsSummary({ industry, stocks }: { industry: Industry; stocks: Stock[] }) {
+  const coreCount = stocks.filter((stock) => stock.candidateType !== "观察池").length;
+  const observationCount = stocks.filter((stock) => stock.candidateType === "观察池").length;
+  return (
+    <article className="rounded-lg border border-borderSoft bg-surface/72 p-4">
+      <p className="text-xs font-semibold text-textMuted">{industry.name}</p>
+      <h3 className="mt-1 text-xl font-semibold text-textStrong">全部机器人产业链</h3>
+      <p className="mt-3 text-sm leading-6 text-textMuted">
+        当前展示机器人行业全部上市公司池，覆盖本体整机、关节与执行器、精密减速器、线性执行器与丝杠、运动控制、感知层和汽零迁移。
+      </p>
+      <div className="mt-4 grid gap-2 sm:grid-cols-3">
+        <MiniSummary label="核心池" value={`${coreCount} 家`} />
+        <MiniSummary label="观察池" value={`${observationCount} 家`} />
+        <MiniSummary label="细分环节" value={`${industry.segments.length} 个`} />
+      </div>
+    </article>
+  );
+}
+
+function MiniSummary({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
+      <p className="text-xs text-textMuted">{label}</p>
+      <p className="mt-1 text-lg font-semibold text-textStrong">{value}</p>
+    </div>
+  );
+}
+
+function PrivateCompanySection() {
+  return (
+    <DashboardCard className="p-4">
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-textStrong">未上市公司 / 待上市公司</h3>
+        <p className="mt-1 text-sm text-textMuted">未上市公司不进入行情 merge，只作为产业链跟踪线索展示。</p>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        {roboticsPrivateCompanies.map((company) => (
+          <div key={company.id} className="rounded-lg border border-borderSoft bg-bg2/70 p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h4 className="text-base font-semibold text-textStrong">{company.name}</h4>
+                <p className="mt-1 text-xs text-textMuted">市场：{company.market} · 细分：本体整机</p>
+              </div>
+              <span className="rounded border border-warning/30 bg-warning/10 px-2 py-1 text-xs text-warning">无法接入行情</span>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-textMuted">{company.thesis}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {company.themeTags.map((tag) => (
+                <span key={tag} className="rounded border border-cyan/20 bg-cyan/10 px-2 py-1 text-xs text-cyan">{tag}</span>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-textWeak">需跟踪：{company.trackingMetrics.join(" / ")}</p>
+            <p className="mt-2 text-xs text-warning">无法接入行情，需跟踪 IPO 和产品进展。</p>
+          </div>
+        ))}
+      </div>
+    </DashboardCard>
   );
 }
 
