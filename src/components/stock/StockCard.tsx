@@ -17,8 +17,8 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
       <div className="flex min-w-0 items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-xs text-textMuted">{stock.market} · {stock.code}</p>
-          <h3 className="mt-1 truncate text-lg font-semibold text-textStrong" title={stock.name}>{stock.name}</h3>
-          <p className="mt-1 truncate text-xs text-textMuted" title={`${getIndustryName(industries, stock.industryId)} / ${getSegmentName(industries, stock.segmentId)}`}>
+          <h3 className="mt-1 line-clamp-1 break-words text-lg font-semibold text-textStrong" title={stock.name}>{stock.name}</h3>
+          <p className="mt-1 line-clamp-2 break-words text-xs leading-5 text-textMuted" title={`${getIndustryName(industries, stock.industryId)} / ${getSegmentName(industries, stock.segmentId)}`}>
             {getIndustryName(industries, stock.industryId)} / {getSegmentName(industries, stock.segmentId)}
           </p>
         </div>
@@ -52,7 +52,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
           {stock.themeTags?.length ? (
             <div className="mt-2 flex flex-wrap gap-1.5">
               {stock.themeTags.slice(0, 5).map((tag) => (
-                <span key={tag} className="max-w-full truncate rounded bg-surface/80 px-2 py-0.5 text-[11px] text-textMuted" title={tag}>
+                <span key={tag} className="rounded bg-surface/80 px-2 py-0.5 text-[11px] leading-5 text-textMuted" title={tag}>
                   {tag}
                 </span>
               ))}
@@ -73,10 +73,10 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
             {stock.dataQuality?.map((item) => item.source).filter(Boolean).join(" / ") || "mock"}
           </OverflowTooltip>
         </p>
-        <p className="truncate" title={stock.dataQuality?.map((item) => item.status).join(" / ") || "mock"}>
+        <p className="break-words" title={stock.dataQuality?.map((item) => item.status).join(" / ") || "mock"}>
           状态：{stock.dataQuality?.map((item) => item.status).join(" / ") || "mock"}
         </p>
-        <p className="truncate" title={stock.quote?.updatedAt ?? stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? "数据暂缺"}>
+        <p className="break-words" title={stock.quote?.updatedAt ?? stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? "数据暂缺"}>
           更新：{stock.quote?.updatedAt ?? stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? "数据暂缺"}
         </p>
         <p>
@@ -87,7 +87,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
 
       <div className="mt-4 flex flex-wrap gap-2">
         {stock.growthDrivers.slice(0, 3).map((driver) => (
-          <span key={driver} className="max-w-full truncate rounded border border-cyan/20 bg-cyan/10 px-2 py-1 text-xs text-cyan" title={driver}>
+          <span key={driver} className="rounded border border-cyan/20 bg-cyan/10 px-2 py-1 text-xs leading-5 text-cyan" title={driver}>
             {driver}
           </span>
         ))}

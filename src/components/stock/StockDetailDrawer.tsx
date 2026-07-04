@@ -345,6 +345,22 @@ function EvidenceVerification({ stock }: { stock: Stock }) {
           ))}
         </ul>
       </Panel>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Panel title="跟踪指标">
+          <ul className="space-y-2 text-sm leading-6 text-textMuted">
+            {(stock.trackingMetrics.length ? stock.trackingMetrics : [PENDING]).map((item) => (
+              <li key={item}>• {item}</li>
+            ))}
+          </ul>
+        </Panel>
+        <Panel title="主要风险">
+          <ul className="space-y-2 text-sm leading-6 text-warning">
+            {(stock.risks.length ? stock.risks : [PENDING]).map((item) => (
+              <li key={item}>• {item}</li>
+            ))}
+          </ul>
+        </Panel>
+      </div>
     </div>
   );
 }

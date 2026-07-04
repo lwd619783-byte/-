@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
-import { ChevronDown, ChevronRight, Factory, Layers3 } from "lucide-react";
+import { Factory, Layers3 } from "lucide-react";
 import { roboticsPrivateCompanies } from "../../data/privateCompanies";
 import type { Industry, Stock } from "../../types";
 import { findStocksForSegment } from "../../utils/filters";
 import { StockCard } from "../stock/StockCard";
 import { DashboardCard, MetricCard, OverflowTooltip, SectionHeader, TextClamp } from "../common/terminal";
+import { RoboticsStockSection } from "./RoboticsStockSection";
 
 interface IndustryTabProps {
   industries: Industry[];
@@ -17,12 +18,11 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
   const [activeIndustryId, setActiveIndustryId] = useState(industries[0]?.id ?? "");
   const activeIndustry = industries.find((industry) => industry.id === activeIndustryId) ?? industries[0];
   const [activeSegmentId, setActiveSegmentId] = useState(activeIndustry?.segments[0]?.id ?? "");
-  const [showObservationPool, setShowObservationPool] = useState(false);
   const isRobotics = activeIndustry?.id === "robotics";
 
   const segment = useMemo(() => {
     const currentIndustry = industries.find((industry) => industry.id === activeIndustryId) ?? industries[0];
-    if (activeSegmentId === "全部" && currentIndustry?.id === "robotics") return undefined;
+    if (activeSegmentId === "__all__" && currentIndustry?.id === "robotics") return undefined;
     return (
       currentIndustry?.segments.find((item) => item.id === activeSegmentId) ??
       currentIndustry?.segments[0]
@@ -34,7 +34,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
   }
 
   const segmentStocks =
-    isRobotics && activeSegmentId === "全部"
+    isRobotics && activeSegmentId === "__all__"
       ? stocks.filter((stock) => stock.industryId === activeIndustry.id)
       : segment
         ? findStocksForSegment(stocks, segment.id)
@@ -45,24 +45,21 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
         [stock.name, stock.code, stock.thesis, segment?.name ?? "全部", activeIndustry.name, stock.themeTags?.join(" ") ?? ""].join(" ").toLowerCase().includes(keyword),
       )
     : segmentStocks;
-  const corePoolStocks = isRobotics ? visibleSegmentStocks.filter((stock) => stock.candidateType !== "观察池") : visibleSegmentStocks;
-  const observationPoolStocks = isRobotics ? visibleSegmentStocks.filter((stock) => stock.candidateType === "观察池") : [];
 
   function switchIndustry(industry: Industry) {
     setActiveIndustryId(industry.id);
-    setActiveSegmentId(industry.id === "robotics" ? "全部" : industry.segments[0]?.id ?? "");
-    setShowObservationPool(false);
+    setActiveSegmentId(industry.id === "robotics" ? "__all__" : industry.segments[0]?.id ?? "");
   }
 
   return (
-    <section className="grid gap-4 xl:grid-cols-[260px_1fr]">
-      <aside className="rounded-lg border border-borderSoft bg-card p-3 shadow-soft">
+    <section className="grid gap-4 2xl:grid-cols-[260px_minmax(0,1fr)]">
+      <aside className="rounded-lg border border-borderSoft bg-card p-3 shadow-soft 2xl:sticky 2xl:top-24 2xl:self-start">
         <p className="mb-3 px-2 text-xs font-semibold text-textMuted">行业 Tab</p>
-        <div className="grid gap-2">
+        <div className="scrollbar-thin flex gap-2 overflow-x-auto pb-1 2xl:grid 2xl:overflow-visible 2xl:pb-0">
           {industries.map((industry) => (
             <button
               key={industry.id}
-              className={`rounded-md px-3 py-2 text-left text-sm transition focus:outline-none focus:ring-2 focus:ring-cyan/30 ${
+              className={`min-w-[150px] shrink-0 rounded-md px-3 py-2 text-left text-sm transition focus:outline-none focus:ring-2 focus:ring-cyan/30 2xl:min-w-0 ${
                 activeIndustry.id === industry.id
                   ? "border border-cyan/45 bg-cyan/15 text-textStrong shadow-glow"
                   : "border border-borderSoft bg-surface/70 text-text hover:border-borderGlow hover:bg-cardHover"
@@ -90,10 +87,10 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
             action={<Layers3 className="h-5 w-5 text-cyan" />}
           />
           <div className="scrollbar-thin mt-3 flex gap-2 overflow-x-auto pb-2">
-            {(isRobotics ? [{ id: "全部", name: "全部" }, ...activeIndustry.segments] : activeIndustry.segments).map((item) => (
+            {(isRobotics ? [{ id: "__all__", name: "全部" }, ...activeIndustry.segments] : activeIndustry.segments).map((item) => (
                 <button
                   key={item.id}
-                  className={`h-9 max-w-[220px] shrink-0 truncate rounded-md px-3 text-sm transition focus:outline-none focus:ring-2 focus:ring-cyan/30 ${
+                  className={`min-w-fit shrink-0 whitespace-nowrap rounded-md px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-cyan/30 ${
                     activeSegmentId === item.id
                       ? "border border-cyan/45 bg-cyan/15 text-textStrong"
                       : "border border-borderSoft bg-surface/70 text-text hover:border-borderGlow"
@@ -121,25 +118,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
           <EmptyState title="没有匹配个股" description="调整搜索词，或在 src/data/stocks.ts 中为该细分板块补充个股。" />
         ) : isRobotics ? (
           <div className="space-y-4">
-            <StockSection title="核心池" description="已进入机器人产业链重点跟踪的上市公司。" stocks={corePoolStocks} industries={industries} onOpenStock={onOpenStock} />
-            <DashboardCard className="p-4">
-              <button
-                type="button"
-                className="flex w-full items-center justify-between gap-3 text-left"
-                onClick={() => setShowObservationPool((value) => !value)}
-              >
-                <div>
-                  <h3 className="text-lg font-semibold text-textStrong">观察池</h3>
-                  <p className="mt-1 text-sm text-textMuted">机构纪要、主题映射或迁移线索公司，默认折叠，需继续验证公告、调研和客户认证。</p>
-                </div>
-                {showObservationPool ? <ChevronDown className="h-5 w-5 text-cyan" /> : <ChevronRight className="h-5 w-5 text-textMuted" />}
-              </button>
-              {showObservationPool ? (
-                <div className="mt-4">
-                  <StockGrid stocks={observationPoolStocks} industries={industries} onOpenStock={onOpenStock} />
-                </div>
-              ) : null}
-            </DashboardCard>
+            <RoboticsStockSection stocks={visibleSegmentStocks} industries={industries} onOpenStock={onOpenStock} />
             <PrivateCompanySection />
           </div>
         ) : (
@@ -147,21 +126,6 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
         )}
       </div>
     </section>
-  );
-}
-
-function StockSection({ title, description, stocks, industries, onOpenStock }: { title: string; description: string; stocks: Stock[]; industries: Industry[]; onOpenStock: (stock: Stock) => void }) {
-  return (
-    <DashboardCard className="p-4">
-      <div className="mb-4 flex items-start justify-between gap-3">
-        <div>
-          <h3 className="text-lg font-semibold text-textStrong">{title}</h3>
-          <p className="mt-1 text-sm text-textMuted">{description}</p>
-        </div>
-        <span className="rounded border border-borderSoft bg-bg2/70 px-2 py-1 text-xs text-textMuted">{stocks.length} 家</span>
-      </div>
-      <StockGrid stocks={stocks} industries={industries} onOpenStock={onOpenStock} />
-    </DashboardCard>
   );
 }
 
@@ -219,7 +183,7 @@ function ChainMap({ industry }: { industry: Industry }) {
             <p className="text-sm font-semibold text-textStrong">{chain.stage}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {chain.items.map((item) => (
-                <span key={item} className="max-w-full truncate rounded border border-borderSoft bg-surface/70 px-2 py-1 text-xs text-textMuted" title={item}>
+                <span key={item} className="rounded border border-borderSoft bg-surface/70 px-2 py-1 text-xs leading-5 text-textMuted" title={item}>
                   {item}
                 </span>
               ))}
@@ -249,7 +213,7 @@ function SegmentLogic({ industry, segment }: { industry: Industry; segment: Indu
         <p className="text-xs font-semibold text-textMuted">未来 6-12 个月关键变量</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {segment.keyVariables.map((item) => (
-            <span key={item} className="max-w-full truncate rounded border border-borderSoft bg-bg2/70 px-2 py-1 text-xs text-textMuted" title={item}>
+            <span key={item} className="rounded border border-borderSoft bg-bg2/70 px-2 py-1 text-xs leading-5 text-textMuted" title={item}>
               {item}
             </span>
           ))}
