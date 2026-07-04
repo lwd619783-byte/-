@@ -1,9 +1,17 @@
 import type { MacroIndicator } from "../types";
+import generatedMacro from "./real/macro.generated.json";
 
-export const dataUpdatedAt = "2026-06-30 20:00";
-export const dataSourceNote = "示例数据 / 待接入真实数据源；数值仅用于结构演示，不代表实时行情或投资建议。";
+type GeneratedMacroData = {
+  updatedAt?: string;
+  sourceSummary?: string[];
+  errors?: string[];
+  indicators?: MacroIndicator[];
+};
 
-export const macroIndicators: MacroIndicator[] = [
+const fallbackUpdatedAt = "2026-06-30 20:00";
+const fallbackSourceNote = "示例数据 / 待接入真实数据源；数值仅用于结构演示，不代表实时行情或投资建议。";
+
+const fallbackMacroIndicators: MacroIndicator[] = [
   {
     id: "macro-cycle",
     category: "宏观环境",
@@ -61,3 +69,13 @@ export const macroIndicators: MacroIndicator[] = [
     ],
   },
 ];
+
+const realMacro = generatedMacro as GeneratedMacroData;
+const hasRealMacro = Boolean(realMacro.indicators?.length);
+
+export const dataUpdatedAt = hasRealMacro ? realMacro.updatedAt ?? fallbackUpdatedAt : fallbackUpdatedAt;
+export const dataSourceNote = hasRealMacro
+  ? `宏观数据：AKShare 本地生成 JSON；覆盖 ${realMacro.sourceSummary?.length ?? 0} 个宏观接口；错误 ${realMacro.errors?.length ?? 0} 个。`
+  : fallbackSourceNote;
+
+export const macroIndicators: MacroIndicator[] = hasRealMacro ? realMacro.indicators ?? fallbackMacroIndicators : fallbackMacroIndicators;

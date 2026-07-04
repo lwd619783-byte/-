@@ -1,6 +1,6 @@
 import { Activity, ArrowDownRight, ArrowUpRight, Minus, Radar } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { MacroIndicator } from "../../types";
+import type { DataSourceStatus, MacroIndicator } from "../../types";
 import { ChartPanel, DashboardCard, StatusBadge } from "../common/terminal";
 
 const trendIcon = {
@@ -18,6 +18,8 @@ const chartData = [
 ];
 
 export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
+  const realMetricCount = indicators.flatMap((indicator) => indicator.metrics).filter((metric) => metric.status === "real").length;
+
   return (
     <section className="grid gap-4 xl:grid-cols-[1.4fr_0.9fr]">
       <div className="grid gap-4 lg:grid-cols-2">
@@ -31,7 +33,7 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
                   <h2 className="mt-1 text-lg font-semibold text-textStrong">{indicator.name}</h2>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <StatusBadge status={indicator.currentStatus.includes("X") || indicator.currentStatus.includes("待接入") ? "missing" : "mock"} />
+                  <StatusBadge status={indicatorStatus(indicator)} />
                   <span className="inline-flex items-center gap-1 rounded border border-borderSoft bg-bg2 px-2 py-1 text-xs text-textMuted">
                     <Icon className="h-3.5 w-3.5" />
                     {indicator.trend}
@@ -47,10 +49,15 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
                   <div key={metric.label} className="min-w-0 rounded-md border border-borderSoft bg-bg2/70 p-3">
                     <div className="flex items-center justify-between gap-2">
                       <p className="truncate text-xs text-textMuted" title={metric.label}>{metric.label}</p>
-                      <StatusBadge status={metric.value.includes("X") || metric.value.includes("待") ? "missing" : "mock"} />
+                      <StatusBadge status={metric.status ?? (metric.value.includes("X") || metric.value.includes("待") ? "missing" : "mock")} />
                     </div>
                     <p className="mt-1 truncate text-base font-semibold text-textStrong" title={metric.value}>{metric.value}</p>
                     <p className="mt-1 line-clamp-2 text-xs text-textMuted" title={metric.note}>{metric.note}</p>
+                    {metric.source ? (
+                      <p className="mt-1 truncate text-[10px] text-textWeak" title={`${metric.source} · ${metric.updatedAt ?? ""}`}>
+                        {metric.source}
+                      </p>
+                    ) : null}
                   </div>
                 ))}
               </div>
@@ -71,8 +78,8 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
       </div>
       <ChartPanel
         title="宏观观察雷达"
-        description="示例评分用于展示未来接入真实指标后的呈现方式，不代表当前市场实时判断。"
-        legend={<span className="inline-flex items-center gap-2 text-xs text-textMuted"><Activity className="h-4 w-4 text-cyan" />示例评分</span>}
+        description="评分仍是展示用聚合视图；卡片中的底层指标已接入 AKShare 生成的宏观数据。"
+        legend={<span className="inline-flex items-center gap-2 text-xs text-textMuted"><Activity className="h-4 w-4 text-cyan" />真实指标 {realMetricCount} 项</span>}
       >
         <div className="h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -88,4 +95,11 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
       </ChartPanel>
     </section>
   );
+}
+
+function indicatorStatus(indicator: MacroIndicator): DataSourceStatus {
+  if (indicator.metrics.some((metric) => metric.status === "real")) return "real";
+  if (indicator.metrics.some((metric) => metric.status === "stale")) return "stale";
+  if (indicator.currentStatus.includes("X") || indicator.currentStatus.includes("待接入")) return "missing";
+  return "mock";
 }

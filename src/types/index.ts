@@ -18,7 +18,15 @@ export interface MacroIndicator {
   trend: "上行" | "下行" | "震荡" | "待验证";
   marketImpact: string;
   trackingIndicators: string[];
-  metrics: Array<{ label: string; value: string; note: string }>;
+  metrics: Array<{
+    label: string;
+    value: string;
+    note: string;
+    source?: string;
+    updatedAt?: string;
+    status?: import("./dataSource").DataSourceStatus;
+  }>;
+  dataQuality?: import("./dataSource").DataQualityMeta[];
 }
 
 export interface IndustrySegment {
