@@ -3,6 +3,13 @@ import { getAStockData } from "./providers/aStockDataProvider";
 import { enrichStocksWithRealData } from "./stockProvider";
 import type { DashboardDataMode, GeneratedRealDataBundle } from "../types";
 
+function marketCount(
+  map: Partial<Record<"A股" | "港股" | "美股" | "未上市", number>> | undefined,
+  market: "A股" | "港股" | "美股" | "未上市",
+) {
+  return map?.[market] ?? null;
+}
+
 export function buildDashboardDataset(mode: DashboardDataMode, realData: GeneratedRealDataBundle = getAStockData()) {
   const mock = getMockDashboardData();
   const useReal = mode !== "mock";
@@ -10,17 +17,24 @@ export function buildDashboardDataset(mode: DashboardDataMode, realData: Generat
   const realQualities = stocks.flatMap((stock) => stock.dataQuality ?? []);
   const hasReal = realQualities.some((item) => item.status === "real" || item.status === "stale");
   const hasMockFallback = stocks.some((stock) => (stock.missingFields?.length ?? 0) > 0) || !hasReal;
-  const aShareCount = stocks.filter((stock) => stock.market === "A股").length;
-  const aShareRealCount = stocks.filter(
+  const manifestUniverse = realData.manifest.universe;
+  const quoteCoverage = realData.manifest.coverage?.quotes;
+  const fallbackAShareCount = stocks.filter((stock) => stock.market === "A股").length;
+  const fallbackAShareRealCount = stocks.filter(
     (stock) => stock.market === "A股" && stock.dataQuality?.some((item) => item.status === "real" || item.status === "stale"),
   ).length;
-  const hkCount = stocks.filter((stock) => stock.market === "港股").length;
-  const hkRealCount = stocks.filter(
+  const fallbackHkCount = stocks.filter((stock) => stock.market === "港股").length;
+  const fallbackHkRealCount = stocks.filter(
     (stock) => stock.market === "港股" && stock.dataQuality?.some((item) => item.status === "real" || item.status === "stale"),
   ).length;
-  const hkUnsupportedCount = stocks.filter(
+  const fallbackHkUnsupportedCount = stocks.filter(
     (stock) => stock.market === "港股" && stock.dataQuality?.some((item) => item.status === "unsupported_market"),
   ).length;
+  const aShareCount = quoteCoverage?.total ?? fallbackAShareCount;
+  const aShareRealCount = quoteCoverage?.real ?? fallbackAShareRealCount;
+  const hkCount = marketCount(manifestUniverse?.markets, "港股") ?? fallbackHkCount;
+  const hkRealCount = marketCount(manifestUniverse?.supported, "港股") ?? fallbackHkRealCount;
+  const hkUnsupportedCount = marketCount(manifestUniverse?.unsupported, "港股") ?? fallbackHkUnsupportedCount;
   const coverageSummary = `A股覆盖 ${aShareRealCount}/${aShareCount}；港股覆盖 ${hkRealCount}/${hkCount}，暂未接入 ${hkUnsupportedCount}/${hkCount}`;
 
   const modeLabel =

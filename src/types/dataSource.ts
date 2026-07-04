@@ -16,4 +16,25 @@ export interface DataManifest {
   status: DashboardDataMode | "missing" | "error" | "stale";
   sourceSummary: string[];
   errors: string[];
+  generatedAt?: string;
+  universe?: {
+    total: number;
+    markets: Partial<Record<"A股" | "港股" | "美股" | "未上市", number>>;
+    supported?: Partial<Record<"A股" | "港股" | "美股" | "未上市", number>>;
+    unsupported?: Partial<Record<"A股" | "港股" | "美股" | "未上市", number>>;
+    privateCompanies?: number;
+    source?: string;
+  };
+  coverage?: Record<
+    string,
+    {
+      real: number;
+      total: number;
+      pct: number;
+      missing: string[];
+      unsupported: number;
+      unsupportedTotal: number;
+    }
+  >;
+  universeWarnings?: string[];
 }

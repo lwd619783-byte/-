@@ -1,6 +1,6 @@
 # A Stock Data 数据校验报告
 
-- 生成时间：2026-07-05T00:47:19
+- 生成时间：2026-07-05T00:50:25
 - 口径：以 `src/data/real/stock-universe.generated.json` 为唯一 Universe 来源。
 - 港股状态：第一阶段明确标记为 `unsupported_market`，不纳入 A 股覆盖率分母。
 
