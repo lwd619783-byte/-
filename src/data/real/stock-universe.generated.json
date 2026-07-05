@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T14:20:27.000+08:00",
+  "generatedAt": "2026-07-05T17:14:53.064+08:00",
   "total": 59,
   "markets": {
     "A股": 56,
@@ -9,13 +9,13 @@
   },
   "supported": {
     "A股": 56,
-    "港股": 0,
+    "港股": 3,
     "美股": 0,
     "未上市": 0
   },
   "unsupported": {
     "A股": 0,
-    "港股": 3,
+    "港股": 0,
     "美股": 0,
     "未上市": 0
   },
@@ -820,9 +820,9 @@
       "exchange": "HK",
       "standardSymbol": "0992.HK",
       "providerSymbol": "0992.HK",
-      "dataProvider": "unsupported",
-      "dataStatus": "unsupported_market",
-      "shouldFetchQuote": false,
+      "dataProvider": "yfinance",
+      "dataStatus": "supported",
+      "shouldFetchQuote": true,
       "shouldFetchFinancials": false,
       "shouldValidate": true
     },
@@ -834,9 +834,9 @@
       "exchange": "HK",
       "standardSymbol": "9880.HK",
       "providerSymbol": "9880.HK",
-      "dataProvider": "unsupported",
-      "dataStatus": "unsupported_market",
-      "shouldFetchQuote": false,
+      "dataProvider": "yfinance",
+      "dataStatus": "supported",
+      "shouldFetchQuote": true,
       "shouldFetchFinancials": false,
       "shouldValidate": true
     },
@@ -848,9 +848,9 @@
       "exchange": "HK",
       "standardSymbol": "2382.HK",
       "providerSymbol": "2382.HK",
-      "dataProvider": "unsupported",
-      "dataStatus": "unsupported_market",
-      "shouldFetchQuote": false,
+      "dataProvider": "yfinance",
+      "dataStatus": "supported",
+      "shouldFetchQuote": true,
       "shouldFetchFinancials": false,
       "shouldValidate": true
     }

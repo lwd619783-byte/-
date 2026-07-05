@@ -95,9 +95,9 @@ for (const match of symbolSource.matchAll(/mapHK\("([^"]+)",\s*"([^"]+)",\s*"(\d
     exchange: "HK",
     standardSymbol,
     providerSymbol: standardSymbol,
-    dataProvider: "unsupported",
-    dataStatus: "unsupported_market",
-    shouldFetchQuote: false,
+    dataProvider: "yfinance",
+    dataStatus: "supported",
+    shouldFetchQuote: true,
     shouldFetchFinancials: false,
     shouldValidate: true,
   });

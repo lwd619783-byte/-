@@ -53,7 +53,7 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
             ["sectorMembership", sectorMembership?.quality],
           ];
           const moduleMissingFields = moduleQualities
-            .filter(([, quality]) => quality?.status === "missing" || quality?.status === "error")
+            .filter(([, quality]) => quality?.status === "missing" || quality?.status === "error" || quality?.status === "not_implemented")
             .map(([module]) => module as string);
           return [...new Set([...valueMissingFields, ...moduleMissingFields])];
         })()

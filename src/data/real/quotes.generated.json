@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T10:33:48+08:00",
+  "updatedAt": "2026-07-05T17:14:14+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -16,12 +16,12 @@
       "turnover": 5.4,
       "limitUp": 104.02,
       "limitDown": 85.1,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603019"
       }
@@ -41,12 +41,12 @@
       "turnover": 0.66,
       "limitUp": 70.42,
       "limitDown": 57.62,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh601138"
       }
@@ -66,12 +66,12 @@
       "turnover": 4.26,
       "limitUp": 610.8,
       "limitDown": 407.2,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300502"
       }
@@ -91,12 +91,12 @@
       "turnover": 2.96,
       "limitUp": 1371.6,
       "limitDown": 914.4,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300308"
       }
@@ -116,12 +116,12 @@
       "turnover": 4.54,
       "limitUp": 143.56,
       "limitDown": 117.46,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002463"
       }
@@ -141,12 +141,12 @@
       "turnover": 3.82,
       "limitUp": 367.31,
       "limitDown": 244.87,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300476"
       }
@@ -166,12 +166,12 @@
       "turnover": 2.65,
       "limitUp": 465.41,
       "limitDown": 380.79,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002916"
       }
@@ -191,12 +191,12 @@
       "turnover": 10.33,
       "limitUp": 21.35,
       "limitDown": 14.23,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300024"
       }
@@ -216,12 +216,12 @@
       "turnover": 16.2,
       "limitUp": 44.77,
       "limitDown": 36.63,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002747"
       }
@@ -241,12 +241,12 @@
       "turnover": 7.37,
       "limitUp": 25.4,
       "limitDown": 16.94,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh688165"
       }
@@ -266,12 +266,12 @@
       "turnover": 14.7,
       "limitUp": 495.66,
       "limitDown": 330.44,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh688017"
       }
@@ -291,12 +291,12 @@
       "turnover": 10.3,
       "limitUp": 85.62,
       "limitDown": 70.06,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002896"
       }
@@ -316,12 +316,12 @@
       "turnover": 9.97,
       "limitUp": 47.01,
       "limitDown": 38.47,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002472"
       }
@@ -341,12 +341,12 @@
       "turnover": 9.63,
       "limitUp": 122.76,
       "limitDown": 81.84,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz301550"
       }
@@ -366,12 +366,12 @@
       "turnover": 4.27,
       "limitUp": 55.55,
       "limitDown": 45.45,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603009"
       }
@@ -391,12 +391,12 @@
       "turnover": 9.28,
       "limitUp": 25.96,
       "limitDown": 17.3,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300580"
       }
@@ -416,12 +416,12 @@
       "turnover": 15.17,
       "limitUp": 77.2,
       "limitDown": 63.16,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603667"
       }
@@ -441,12 +441,12 @@
       "turnover": 6.55,
       "limitUp": 71.94,
       "limitDown": 47.96,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300984"
       }
@@ -466,12 +466,12 @@
       "turnover": 8.73,
       "limitUp": 49.41,
       "limitDown": 40.43,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002050"
       }
@@ -491,12 +491,12 @@
       "turnover": 4.97,
       "limitUp": 62.43,
       "limitDown": 51.08,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh601689"
       }
@@ -516,12 +516,12 @@
       "turnover": 1.51,
       "limitUp": 121.66,
       "limitDown": 99.54,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh601100"
       }
@@ -541,12 +541,12 @@
       "turnover": 4.03,
       "limitUp": 82.08,
       "limitDown": 54.72,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300124"
       }
@@ -566,12 +566,12 @@
       "turnover": 2.48,
       "limitUp": 69.55,
       "limitDown": 56.91,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002979"
       }
@@ -591,12 +591,12 @@
       "turnover": 6.3,
       "limitUp": 69.71,
       "limitDown": 57.03,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603728"
       }
@@ -616,12 +616,12 @@
       "turnover": 11.72,
       "limitUp": 156.01,
       "limitDown": 104.01,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh688322"
       }
@@ -641,12 +641,12 @@
       "turnover": 13.17,
       "limitUp": 47.47,
       "limitDown": 31.65,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300007"
       }
@@ -666,12 +666,12 @@
       "turnover": 8.96,
       "limitUp": 126.56,
       "limitDown": 84.38,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300969"
       }
@@ -691,12 +691,12 @@
       "turnover": 4.52,
       "limitUp": 273.6,
       "limitDown": 182.4,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh688279"
       }
@@ -716,12 +716,12 @@
       "turnover": 7.43,
       "limitUp": 65.86,
       "limitDown": 53.88,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603416"
       }
@@ -741,12 +741,12 @@
       "turnover": 13.14,
       "limitUp": 76.27,
       "limitDown": 62.41,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603119"
       }
@@ -766,12 +766,12 @@
       "turnover": 7.88,
       "limitUp": 78.6,
       "limitDown": 52.4,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh688400"
       }
@@ -791,12 +791,12 @@
       "turnover": 9.38,
       "limitUp": 35.94,
       "limitDown": 23.96,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300115"
       }
@@ -816,12 +816,12 @@
       "turnover": 4.84,
       "limitUp": 13.44,
       "limitDown": 11.0,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603305"
       }
@@ -841,12 +841,12 @@
       "turnover": 16.55,
       "limitUp": 100.08,
       "limitDown": 66.72,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz301225"
       }
@@ -866,12 +866,12 @@
       "turnover": 6.84,
       "limitUp": 55.58,
       "limitDown": 45.48,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603179"
       }
@@ -891,12 +891,12 @@
       "turnover": 2.13,
       "limitUp": 47.75,
       "limitDown": 39.07,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603786"
       }
@@ -916,12 +916,12 @@
       "turnover": 5.68,
       "limitUp": 24.05,
       "limitDown": 19.67,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh600699"
       }
@@ -941,12 +941,12 @@
       "turnover": 2.17,
       "limitUp": 108.35,
       "limitDown": 88.65,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh601799"
       }
@@ -966,12 +966,12 @@
       "turnover": 6.17,
       "limitUp": 56.96,
       "limitDown": 46.6,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603286"
       }
@@ -991,12 +991,12 @@
       "turnover": 2.82,
       "limitUp": 13.0,
       "limitDown": 10.64,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603730"
       }
@@ -1016,12 +1016,12 @@
       "turnover": 21.66,
       "limitUp": 18.56,
       "limitDown": 15.18,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz000700"
       }
@@ -1041,12 +1041,12 @@
       "turnover": 4.37,
       "limitUp": 14.49,
       "limitDown": 11.85,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz000559"
       }
@@ -1066,12 +1066,12 @@
       "turnover": 5.93,
       "limitUp": 21.04,
       "limitDown": 17.22,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603926"
       }
@@ -1091,12 +1091,12 @@
       "turnover": 6.96,
       "limitUp": 39.44,
       "limitDown": 26.3,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz301000"
       }
@@ -1116,12 +1116,12 @@
       "turnover": 6.71,
       "limitUp": 13.23,
       "limitDown": 10.83,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002164"
       }
@@ -1141,12 +1141,12 @@
       "turnover": 3.38,
       "limitUp": 98.34,
       "limitDown": 80.46,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh605288"
       }
@@ -1166,12 +1166,12 @@
       "turnover": 12.09,
       "limitUp": 21.54,
       "limitDown": 14.36,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300952"
       }
@@ -1191,12 +1191,12 @@
       "turnover": 2.88,
       "limitUp": 133.43,
       "limitDown": 109.17,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh603259"
       }
@@ -1216,12 +1216,12 @@
       "turnover": 3.92,
       "limitUp": 34.93,
       "limitDown": 23.29,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz300759"
       }
@@ -1241,12 +1241,12 @@
       "turnover": 5.49,
       "limitUp": 168.51,
       "limitDown": 137.87,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sz002821"
       }
@@ -1266,12 +1266,12 @@
       "turnover": 4.46,
       "limitUp": 50.78,
       "limitDown": 33.86,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh688690"
       }
@@ -1291,12 +1291,12 @@
       "turnover": 1.72,
       "limitUp": 58.84,
       "limitDown": 48.14,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh600276"
       }
@@ -1316,12 +1316,12 @@
       "turnover": 7.48,
       "limitUp": 304.27,
       "limitDown": 202.85,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh688235"
       }
@@ -1341,12 +1341,12 @@
       "turnover": 2.37,
       "limitUp": 18.15,
       "limitDown": 14.85,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh600026"
       }
@@ -1366,12 +1366,12 @@
       "turnover": 1.88,
       "limitUp": 18.18,
       "limitDown": 14.88,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh601872"
       }
@@ -1391,89 +1391,95 @@
       "turnover": 5.13,
       "limitUp": 4.05,
       "limitDown": 3.31,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:01:07+08:00",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "quote",
         "sourceEndpoint": "Tencent qt.gtimg.cn",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://qt.gtimg.cn/q=sh601975"
       }
     },
     "lenovo": {
       "id": "lenovo",
-      "latestPrice": null,
-      "pctChange": null,
+      "latestPrice": 21.3,
+      "pctChange": -3.2698,
+      "change": -0.72,
       "amount": null,
-      "marketCap": null,
+      "marketCap": 2642.1923,
       "floatMarketCap": null,
-      "pe": null,
-      "peTtm": null,
-      "pb": null,
-      "ps": null,
-      "dividendYield": null,
+      "pe": 19.5413,
+      "peTtm": 19.5413,
+      "pb": 4.7562,
+      "ps": 3.1805,
+      "dividendYield": 198.0,
       "turnover": null,
+      "volume": 85627007.0,
       "limitUp": null,
       "limitDown": null,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:14:14+08:00",
+      "currency": "HKD",
       "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "symbol",
-        "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
-        "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入该市场"
+        "source": "yfinance",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "yfinance Ticker",
+        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "status": "real"
       }
     },
     "ubtech": {
       "id": "ubtech",
-      "latestPrice": null,
-      "pctChange": null,
+      "latestPrice": 108.9,
+      "pctChange": 17.6026,
+      "change": 16.3,
       "amount": null,
-      "marketCap": null,
+      "marketCap": 548.2041,
       "floatMarketCap": null,
       "pe": null,
       "peTtm": null,
-      "pb": null,
-      "ps": null,
+      "pb": 6.5731,
+      "ps": 27.3965,
       "dividendYield": null,
       "turnover": null,
+      "volume": 32650632.0,
       "limitUp": null,
       "limitDown": null,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:14:14+08:00",
+      "currency": "HKD",
       "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "symbol",
-        "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
-        "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入该市场"
+        "source": "yfinance",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "yfinance Ticker",
+        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "status": "real"
       }
     },
     "sunny-optical": {
       "id": "sunny-optical",
-      "latestPrice": null,
-      "pctChange": null,
+      "latestPrice": 60.05,
+      "pctChange": 1.4358,
+      "change": 0.85,
       "amount": null,
-      "marketCap": null,
+      "marketCap": 645.042,
       "floatMarketCap": null,
-      "pe": null,
-      "peTtm": null,
-      "pb": null,
-      "ps": null,
-      "dividendYield": null,
+      "pe": 12.2551,
+      "peTtm": 12.2551,
+      "pb": 1.944,
+      "ps": 1.4921,
+      "dividendYield": 201.0,
       "turnover": null,
+      "volume": 14270828.0,
       "limitUp": null,
       "limitDown": null,
-      "updatedAt": "2026-07-05T10:33:48+08:00",
+      "updatedAt": "2026-07-05T17:14:14+08:00",
+      "currency": "HKD",
       "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "symbol",
-        "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
-        "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入该市场"
+        "source": "yfinance",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "yfinance Ticker",
+        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "status": "real"
       }
     }
   }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T10:33:48+08:00",
+  "updatedAt": "2026-07-05T17:14:14+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -45,7 +45,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -94,7 +94,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -143,7 +143,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -192,7 +192,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -241,7 +241,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -290,7 +290,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -339,7 +339,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -347,15 +347,15 @@
     "siasun": {
       "id": "siasun",
       "announcements": [],
-      "reason": "Current announcement data source returned no result",
+      "reason": "当前公告数据源未返回结果",
       "quality": {
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "missing",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-        "errorMessage": "Current announcement data source returned no result"
+        "errorMessage": "当前公告数据源未返回结果"
       }
     },
     "estun": {
@@ -402,7 +402,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -451,7 +451,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -459,6 +459,13 @@
     "leaderdrive": {
       "id": "leaderdrive",
       "announcements": [
+        {
+          "title": "2025年年度权益分派实施公告",
+          "date": "2026-07-06",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-07-06/1225410279.PDF",
+          "source": "CNInfo"
+        },
         {
           "title": "股票交易风险提示公告",
           "date": "2026-07-01",
@@ -486,13 +493,6 @@
           "type": null,
           "url": "http://static.cninfo.com.cn/finalpage/2026-05-19/1225312513.PDF",
           "source": "CNInfo"
-        },
-        {
-          "title": "中信证券股份有限公司关于苏州绿的谐波传动科技股份有限公司2025年度持续督导工作现场检查报告",
-          "date": "2026-05-19",
-          "type": null,
-          "url": "http://static.cninfo.com.cn/finalpage/2026-05-19/1225312510.PDF",
-          "source": "CNInfo"
         }
       ],
       "reason": null,
@@ -500,7 +500,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -549,7 +549,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -598,7 +598,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -647,7 +647,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -696,7 +696,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -704,6 +704,13 @@
     "best": {
       "id": "best",
       "announcements": [
+        {
+          "title": "关于股票交易异常波动公告",
+          "date": "2026-07-06",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-07-06/1225409765.PDF",
+          "source": "CNInfo"
+        },
         {
           "title": "关于选举第五届董事会职工代表董事的公告",
           "date": "2026-07-02",
@@ -731,13 +738,6 @@
           "type": null,
           "url": "http://static.cninfo.com.cn/finalpage/2026-07-01/1225400624.PDF",
           "source": "CNInfo"
-        },
-        {
-          "title": "2026年第一次临时股东会决议公告",
-          "date": "2026-07-01",
-          "type": null,
-          "url": "http://static.cninfo.com.cn/finalpage/2026-07-01/1225400623.PDF",
-          "source": "CNInfo"
         }
       ],
       "reason": null,
@@ -745,7 +745,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -794,7 +794,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -843,7 +843,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -892,7 +892,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -941,7 +941,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -990,7 +990,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1039,7 +1039,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1074,7 +1074,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1123,7 +1123,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1172,7 +1172,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1221,7 +1221,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1270,7 +1270,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1319,7 +1319,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1368,7 +1368,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1417,7 +1417,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1425,6 +1425,20 @@
     "luster": {
       "id": "luster",
       "announcements": [
+        {
+          "title": "2025年年度权益分派实施公告",
+          "date": "2026-07-06",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-07-06/1225410296.PDF",
+          "source": "CNInfo"
+        },
+        {
+          "title": "中国国际金融股份有限公司关于凌云光技术股份有限公司差异化分红事项的核查意见",
+          "date": "2026-07-06",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-07-06/1225410285.PDF",
+          "source": "CNInfo"
+        },
         {
           "title": "北京市中伦律师事务所关于凌云光2025年年度股东会法律意见书",
           "date": "2026-05-30",
@@ -1445,20 +1459,6 @@
           "type": null,
           "url": "http://static.cninfo.com.cn/finalpage/2026-05-30/1225339562.PDF",
           "source": "CNInfo"
-        },
-        {
-          "title": "中国国际金融股份有限公司关于凌云光技术股份有限公司部分募集资金投资项目延期事项的核查意见",
-          "date": "2026-05-19",
-          "type": null,
-          "url": "http://static.cninfo.com.cn/finalpage/2026-05-19/1225312281.PDF",
-          "source": "CNInfo"
-        },
-        {
-          "title": "关于部分募集资金投资项目延期的公告",
-          "date": "2026-05-19",
-          "type": null,
-          "url": "http://static.cninfo.com.cn/finalpage/2026-05-19/1225312279.PDF",
-          "source": "CNInfo"
         }
       ],
       "reason": null,
@@ -1466,7 +1466,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1515,7 +1515,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1564,7 +1564,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1613,7 +1613,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1662,7 +1662,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1670,6 +1670,13 @@
     "keboda": {
       "id": "keboda",
       "announcements": [
+        {
+          "title": "科博达技术股份有限公司向不特定对象发行可转换公司债券网上中签率及优先配售结果公告",
+          "date": "2026-07-06",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-07-06/1225410313.PDF",
+          "source": "CNInfo"
+        },
         {
           "title": "科博达技术股份有限公司向不特定对象发行可转换公司债券发行提示性公告",
           "date": "2026-07-03",
@@ -1697,13 +1704,6 @@
           "type": null,
           "url": "http://static.cninfo.com.cn/finalpage/2026-07-01/1225401634.PDF",
           "source": "CNInfo"
-        },
-        {
-          "title": "科博达技术股份有限公司向不特定对象发行可转换公司债券发行公告",
-          "date": "2026-07-01",
-          "type": null,
-          "url": "http://static.cninfo.com.cn/finalpage/2026-07-01/1225401631.PDF",
-          "source": "CNInfo"
         }
       ],
       "reason": null,
@@ -1711,7 +1711,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1760,7 +1760,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1809,7 +1809,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1858,7 +1858,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1907,7 +1907,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1935,7 +1935,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -1984,7 +1984,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2033,7 +2033,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2082,7 +2082,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2103,7 +2103,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2152,7 +2152,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2201,7 +2201,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2250,7 +2250,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2299,7 +2299,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2348,7 +2348,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2397,7 +2397,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2446,7 +2446,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2495,7 +2495,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2544,7 +2544,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2552,6 +2552,13 @@
     "cm-energy": {
       "id": "cm-energy",
       "announcements": [
+        {
+          "title": "招商轮船2026年半年度业绩预增公告",
+          "date": "2026-07-06",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-07-06/1225410320.PDF",
+          "source": "CNInfo"
+        },
         {
           "title": "招商轮船2025年末期权益分派实施公告",
           "date": "2026-07-03",
@@ -2579,13 +2586,6 @@
           "type": null,
           "url": "http://static.cninfo.com.cn/finalpage/2026-06-25/1225385275.PDF",
           "source": "CNInfo"
-        },
-        {
-          "title": "招商轮船关于持股5%以上股东提前终止减持计划暨减持股份结果公告",
-          "date": "2026-06-23",
-          "type": null,
-          "url": "http://static.cninfo.com.cn/finalpage/2026-06-23/1225381011.PDF",
-          "source": "CNInfo"
         }
       ],
       "reason": null,
@@ -2593,7 +2593,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2642,7 +2642,7 @@
         "source": "A Stock Data",
         "sourceLayer": "announcements",
         "sourceEndpoint": "CNInfo hisAnnouncement",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
+        "updatedAt": "2026-07-05T17:01:07+08:00",
         "status": "real",
         "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
@@ -2651,36 +2651,36 @@
       "id": "lenovo",
       "announcements": [],
       "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "symbol",
-        "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
-        "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入该市场"
+        "source": "yfinance",
+        "sourceLayer": "announcements",
+        "sourceEndpoint": "HK provider MVP",
+        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "status": "not_implemented",
+        "errorMessage": "港股该模块暂未接入"
       }
     },
     "ubtech": {
       "id": "ubtech",
       "announcements": [],
       "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "symbol",
-        "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
-        "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入该市场"
+        "source": "yfinance",
+        "sourceLayer": "announcements",
+        "sourceEndpoint": "HK provider MVP",
+        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "status": "not_implemented",
+        "errorMessage": "港股该模块暂未接入"
       }
     },
     "sunny-optical": {
       "id": "sunny-optical",
       "announcements": [],
       "quality": {
-        "source": "A Stock Data",
-        "sourceLayer": "symbol",
-        "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T10:33:48+08:00",
-        "status": "unsupported_market",
-        "errorMessage": "A Stock Data MVP 暂不接入该市场"
+        "source": "yfinance",
+        "sourceLayer": "announcements",
+        "sourceEndpoint": "HK provider MVP",
+        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "status": "not_implemented",
+        "errorMessage": "港股该模块暂未接入"
       }
     }
   }

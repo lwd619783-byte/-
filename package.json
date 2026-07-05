@@ -10,12 +10,13 @@
     "test": "vitest run",
     "data:research": "node -e \"console.log('See docs/a-stock-data-usage-notes.md and docs/a-stock-data-field-mapping.md')\"",
     "data:universe": "node scripts/generate-stock-universe.mjs",
-    "data:fetch": "npm run data:universe && python scripts/fetch-a-stock-data.py",
+    "data:fetch": "npm run data:universe && python scripts/fetch-a-stock-data.py && python scripts/fetch-hk-stock-data.py",
     "data:fetch:a-stock": "npm run data:universe && python scripts/fetch-a-stock-data.py",
+    "data:fetch:hk": "npm run data:universe && python scripts/fetch-hk-stock-data.py",
     "data:fetch:macro": "python scripts/fetch-macro-data.py",
     "data:validate": "npm run data:universe && python scripts/validate-a-stock-data.py",
     "data:validate:a-stock": "npm run data:universe && python scripts/validate-a-stock-data.py",
-    "data:refresh": "npm run data:universe && npm run data:fetch:a-stock && npm run data:fetch:macro && npm run data:validate:a-stock",
+    "data:refresh": "npm run data:fetch && npm run data:fetch:macro && npm run data:validate:a-stock",
     "ui:audit": "node scripts/ui-audit.mjs"
   },
   "dependencies": {

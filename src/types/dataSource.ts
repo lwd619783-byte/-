@@ -1,4 +1,4 @@
-export type DataSourceStatus = "mock" | "real" | "stale" | "missing" | "error" | "unsupported_market";
+export type DataSourceStatus = "mock" | "real" | "partial" | "stale" | "missing" | "error" | "not_implemented" | "unsupported_market";
 export type DashboardDataMode = "mock" | "real" | "mixed";
 
 export interface DataQualityMeta {
@@ -32,8 +32,10 @@ export interface DataManifest {
       total: number;
       pct: number;
       missing: string[];
+      partial?: string[];
       unsupported: number;
       unsupportedTotal: number;
+      status?: string;
     }
   >;
   universeWarnings?: string[];

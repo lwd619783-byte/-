@@ -43,7 +43,7 @@ Python 数据依赖：
 pip install -r requirements-data.txt
 ```
 
-本机已验证 `akshare`、`baostock`、`pandas` 可用；如需港股样本，请安装 `yfinance`。未安装时，联想集团、百济神州等港股字段会显示为缺失。
+本机已验证 `akshare`、`baostock`、`pandas`、`yfinance` 可用。A 股数据由本地 A Stock Data 脚本生成；港股 MVP 使用 `yfinance` 生成联想集团、优必选、舜宇光学科技的 quote 与 60 日 K 线。港股财务、研报、公告当前仍标记为 `not_implemented`，不伪造数据。
 
 数据源与字段说明：
 

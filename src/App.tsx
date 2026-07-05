@@ -33,10 +33,11 @@ export default function App() {
 
   const dashboardStats = useMemo(() => {
     const quoteCoverage = dataset.realManifest.coverage?.quotes;
-    const hkRealCount = 0;
-    const hkUnsupportedTotal = quoteCoverage?.unsupportedTotal ?? dataset.realManifest.universe?.markets?.["港股"];
+    const hkQuoteCoverage = dataset.realManifest.coverage?.hkQuotes;
+    const hkRealCount = hkQuoteCoverage?.real ?? 0;
+    const hkQuoteTotal = hkQuoteCoverage?.total ?? quoteCoverage?.unsupportedTotal ?? dataset.realManifest.universe?.markets?.["港股"];
     const stocksWithReal = dataset.stocks.filter((stock) =>
-      stock.dataQuality?.some((item) => item.status === "real" || item.status === "stale"),
+      stock.dataQuality?.some((item) => item.status === "real" || item.status === "partial" || item.status === "stale"),
     ).length;
     const missingFields = dataset.stocks.reduce((sum, stock) => sum + (stock.missingFields?.length ?? 0), 0);
     const pctValues = dataset.stocks
@@ -52,10 +53,14 @@ export default function App() {
     const missingStocks = dataset.stocks.filter((stock) => (stock.missingFields?.length ?? 0) > 0).slice(0, 6);
     const quoteCoverageReal = quoteCoverage?.real ?? stocksWithReal;
     const quoteCoverageTotal = quoteCoverage?.total ?? dataset.stocks.filter((stock) => stock.market === "A股").length;
-    const hkUnsupportedSummary =
-      hkUnsupportedTotal === undefined
+    const hkCoverageSummary =
+      hkQuoteTotal === undefined
         ? "港股暂未接入"
-        : `港股 ${hkRealCount}/${hkUnsupportedTotal} 暂未接入`;
+        : hkRealCount > 0 && hkRealCount === hkQuoteTotal
+          ? `港股行情 ${hkRealCount}/${hkQuoteTotal}`
+          : hkRealCount > 0
+            ? `港股行情 ${hkRealCount}/${hkQuoteTotal}，部分数据暂缺`
+            : `港股 ${hkRealCount}/${hkQuoteTotal} 暂未接入`;
 
     return {
       stocksWithReal,
@@ -68,7 +73,7 @@ export default function App() {
       missingStocks,
       quoteCoverageReal,
       quoteCoverageTotal,
-      hkUnsupportedSummary,
+      hkCoverageSummary,
     };
   }, [dataset]);
 
@@ -120,7 +125,7 @@ export default function App() {
               label="真实行情覆盖"
               value={`${dashboardStats.quoteCoverageReal}/${dashboardStats.quoteCoverageTotal}`}
               delta={dashboardStats.quoteCoverageReal === dashboardStats.quoteCoverageTotal ? "A股全量覆盖" : "A股部分覆盖"}
-              description={`A 股真实行情覆盖；${dashboardStats.hkUnsupportedSummary}`}
+              description={`A 股真实行情覆盖；${dashboardStats.hkCoverageSummary}`}
               tone={dashboardStats.quoteCoverageReal === dashboardStats.quoteCoverageTotal ? "positive" : "info"}
               icon={<Database className="h-4 w-4" />}
             />

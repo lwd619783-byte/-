@@ -1,23 +1,23 @@
 # A Stock Data 数据校验报告
 
-- 生成时间：2026-07-05T14:20:27
+- 生成时间：2026-07-05T17:14:53
 - 口径来源：`src/data/real/stock-universe.generated.json`
-- 港股状态：第一阶段统一为 `unsupported_market`，不纳入 A 股覆盖率分母。
+- 港股状态：第三步接入 yfinance quote / priceHistory MVP；港股行情单独统计，不纳入 A 股覆盖率分母。
 
 ## 1. Universe 口径
 
 - Universe 总数：59
 - 市场分布：{"A股": 56, "港股": 3, "美股": 0, "未上市": 0}
-- 支持分布：{"A股": 56, "港股": 0, "美股": 0, "未上市": 0}
-- 不支持分布：{"A股": 0, "港股": 3, "美股": 0, "未上市": 0}
+- 支持分布：{"A股": 56, "港股": 3, "美股": 0, "未上市": 0}
+- 不支持分布：{"A股": 0, "港股": 0, "美股": 0, "未上市": 0}
 - 未上市公司：1，单独维护，不进入行情覆盖率。
 
 ## 2. A 股覆盖率
 
 - Universe 总数：59
 - Universe 市场分布：{"A股": 56, "港股": 3, "美股": 0, "未上市": 0}
-- Universe 支持分布：{"A股": 56, "港股": 0, "美股": 0, "未上市": 0}
-- Universe 不支持分布：{"A股": 0, "港股": 3, "美股": 0, "未上市": 0}
+- Universe 支持分布：{"A股": 56, "港股": 3, "美股": 0, "未上市": 0}
+- Universe 不支持分布：{"A股": 0, "港股": 0, "美股": 0, "未上市": 0}
 - Manifest Universe 总数：59
 - A 股 quotes 覆盖：56/56 (100.0%)
 - A 股 priceHistory 覆盖：56/56 (100.0%)
@@ -29,16 +29,22 @@
 - A 股 announcements 覆盖：55/56 (98.2%)
 - A 股 signals 覆盖：56/56 (100.0%)
 - A 股 sectorMembership 覆盖：56/56 (100.0%)
-- 港股 unsupported：unsupported_market 3/3，不计入 A 股覆盖率
+- HK quotes 覆盖：3/3 (100.0%)
+- HK priceHistory 覆盖：3/3 (100.0%)
+- HK financials 覆盖：0/3（暂未接入）
+- HK research 覆盖：0/3（暂未接入）
+- HK announcements 覆盖：0/3（暂未接入）
+- 港股 unsupported：unsupported_market 0/0，不计入 A 股覆盖率
 - stale 数据数量：0
 - missing 明细数量：7
 
-## 3. 港股状态
+## 3. 港股行情覆盖
 
-- lenovo | 联想集团 | 0992.HK | unsupported_market
-- ubtech | 优必选 | 9880.HK | unsupported_market
-- sunny-optical | 舜宇光学科技 | 2382.HK | unsupported_market
-- 说明：港股 Provider 尚未接入，不纳入 A 股覆盖率，也不作为 A 股缺失项。
+- lenovo | 联想集团 | 0992.HK | quote=real | priceHistory=real | financials=not_implemented | research=not_implemented | announcements=not_implemented | source=yfinance
+- sunny-optical | 舜宇光学科技 | 2382.HK | quote=real | priceHistory=real | financials=not_implemented | research=not_implemented | announcements=not_implemented | source=yfinance
+- ubtech | 优必选 | 9880.HK | quote=real | priceHistory=real | financials=not_implemented | research=not_implemented | announcements=not_implemented | source=yfinance
+- 说明：本阶段只接入港股 quote 与 priceHistory；financials / research / announcements 继续标记为 not_implemented，不伪造数据。
+- 港股行情单独统计，不计入 A 股覆盖率分母。
 
 ## 4. 缺失明细
 
@@ -67,4 +73,4 @@
 - research 缺失继续保留为真实缺口，不用 mock 研报填充。
 - announcements 缺失继续保留为真实缺口，不用 mock 公告填充。
 - 继续保持 A 股抓取串行限流，避免对东财端点高频请求。
-- 港股 Provider 接入前继续保持 `unsupported_market`。
+- 港股财务、研报、公告等待后续 Provider 接入；当前保持 not_implemented。

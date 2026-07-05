@@ -900,7 +900,11 @@ def count_items_by_market(universe: list[dict[str, Any]], predicate) -> dict[str
 
 
 def module_coverage(items: dict[str, Any], universe: list[dict[str, Any]], status_key: str = "quality") -> dict[str, Any]:
-    supported_ids = [item["id"] for item in universe if item.get("shouldValidate") and item.get("dataStatus") == "supported"]
+    supported_ids = [
+        item["id"]
+        for item in universe
+        if item.get("shouldValidate") and item.get("dataStatus") == "supported" and item.get("dataProvider") == "aStockData"
+    ]
     unsupported_ids = [item["id"] for item in universe if item.get("dataStatus") != "supported"]
     real = 0
     missing: list[str] = []
@@ -943,6 +947,9 @@ def main() -> int:
 
     for index, stock in enumerate(universe, start=1):
         print(f"[{index}/{len(universe)}] fetching {stock['id']} {stock['code']} {stock['exchange']}", flush=True)
+        if stock.get("dataProvider") != "aStockData":
+            logs.append({"id": stock["id"], "status": "skipped_non_a_stock_provider", "provider": stock.get("dataProvider")})
+            continue
         if not stock.get("shouldFetchQuote", False):
             status = stock.get("dataStatus", "unsupported_market")
             message = "A Stock Data MVP 暂不接入该市场"

@@ -1,12 +1,13 @@
 {
-  "generatedAt": "2026-07-05T14:20:27.000+08:00",
-  "updatedAt": "2026-07-05T10:33:48+08:00",
+  "generatedAt": "2026-07-05T17:14:53.064+08:00",
+  "updatedAt": "2026-07-05T17:14:14+08:00",
   "status": "mixed",
   "sourceSummary": [
     "A Stock Data",
     "Tencent quote/kline",
     "Eastmoney serial fallback",
     "CNInfo metadata",
+    "yfinance HK quote/history",
     "Generated stock universe"
   ],
   "universe": {
@@ -19,13 +20,13 @@
     },
     "supported": {
       "A股": 56,
-      "港股": 0,
+      "港股": 3,
       "美股": 0,
       "未上市": 0
     },
     "unsupported": {
       "A股": 0,
-      "港股": 3,
+      "港股": 0,
       "美股": 0,
       "未上市": 0
     },
@@ -38,32 +39,32 @@
       "total": 56,
       "pct": 100,
       "missing": [],
-      "unsupported": 3,
-      "unsupportedTotal": 3
+      "unsupported": 0,
+      "unsupportedTotal": 0
     },
     "priceHistory": {
       "real": 56,
       "total": 56,
       "pct": 100,
       "missing": [],
-      "unsupported": 3,
-      "unsupportedTotal": 3
+      "unsupported": 0,
+      "unsupportedTotal": 0
     },
     "financials": {
       "real": 56,
       "total": 56,
       "pct": 100,
       "missing": [],
-      "unsupported": 3,
-      "unsupportedTotal": 3
+      "unsupported": 0,
+      "unsupportedTotal": 0
     },
     "profiles": {
       "real": 56,
       "total": 56,
       "pct": 100,
       "missing": [],
-      "unsupported": 3,
-      "unsupportedTotal": 3
+      "unsupported": 0,
+      "unsupportedTotal": 0
     },
     "research": {
       "real": 50,
@@ -77,8 +78,8 @@
         "zhaomin",
         "dongli"
       ],
-      "unsupported": 3,
-      "unsupportedTotal": 3
+      "unsupported": 0,
+      "unsupportedTotal": 0
     },
     "announcements": {
       "real": 55,
@@ -87,24 +88,84 @@
       "missing": [
         "siasun"
       ],
-      "unsupported": 3,
-      "unsupportedTotal": 3
+      "unsupported": 0,
+      "unsupportedTotal": 0
     },
     "signals": {
       "real": 56,
       "total": 56,
       "pct": 100,
       "missing": [],
-      "unsupported": 3,
-      "unsupportedTotal": 3
+      "unsupported": 0,
+      "unsupportedTotal": 0
     },
     "sectorMembership": {
       "real": 56,
       "total": 56,
       "pct": 100,
       "missing": [],
-      "unsupported": 3,
-      "unsupportedTotal": 3
+      "unsupported": 0,
+      "unsupportedTotal": 0
+    },
+    "hkQuotes": {
+      "real": 3,
+      "total": 3,
+      "pct": 100,
+      "missing": [],
+      "partial": [],
+      "unsupported": 0,
+      "unsupportedTotal": 0
+    },
+    "hkPriceHistory": {
+      "real": 3,
+      "total": 3,
+      "pct": 100,
+      "missing": [],
+      "partial": [],
+      "unsupported": 0,
+      "unsupportedTotal": 0
+    },
+    "hkFinancials": {
+      "real": 0,
+      "total": 3,
+      "pct": 0,
+      "missing": [
+        "lenovo",
+        "ubtech",
+        "sunny-optical"
+      ],
+      "partial": [],
+      "unsupported": 0,
+      "unsupportedTotal": 0,
+      "status": "not_implemented"
+    },
+    "hkResearch": {
+      "real": 0,
+      "total": 3,
+      "pct": 0,
+      "missing": [
+        "lenovo",
+        "ubtech",
+        "sunny-optical"
+      ],
+      "partial": [],
+      "unsupported": 0,
+      "unsupportedTotal": 0,
+      "status": "not_implemented"
+    },
+    "hkAnnouncements": {
+      "real": 0,
+      "total": 3,
+      "pct": 0,
+      "missing": [
+        "lenovo",
+        "ubtech",
+        "sunny-optical"
+      ],
+      "partial": [],
+      "unsupported": 0,
+      "unsupportedTotal": 0,
+      "status": "not_implemented"
     }
   },
   "errors": [],
