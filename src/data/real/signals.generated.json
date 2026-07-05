@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T17:14:14+08:00",
+  "updatedAt": "2026-07-05T17:40:20+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -18,7 +18,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603019&source=lrb&type=0&page=1&num=2"
         },
@@ -26,7 +26,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603019&source=lrb&type=0&page=1&num=2"
         },
@@ -34,7 +34,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603019&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -42,7 +42,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -51,7 +51,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -72,7 +72,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601138&source=lrb&type=0&page=1&num=2"
         },
@@ -80,7 +80,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601138&source=lrb&type=0&page=1&num=2"
         },
@@ -88,7 +88,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601138&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -96,7 +96,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -105,7 +105,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -126,7 +126,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300502&source=lrb&type=0&page=1&num=2"
         },
@@ -134,7 +134,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300502&source=lrb&type=0&page=1&num=2"
         },
@@ -142,7 +142,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300502&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -150,7 +150,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -159,7 +159,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -180,7 +180,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300308&source=lrb&type=0&page=1&num=2"
         },
@@ -188,7 +188,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300308&source=lrb&type=0&page=1&num=2"
         },
@@ -196,7 +196,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300308"
         },
@@ -204,7 +204,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300308&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -212,7 +212,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -221,7 +221,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -242,7 +242,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002463&source=lrb&type=0&page=1&num=2"
         },
@@ -250,7 +250,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002463&source=lrb&type=0&page=1&num=2"
         },
@@ -258,7 +258,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002463&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -266,7 +266,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -275,7 +275,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -296,7 +296,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300476&source=lrb&type=0&page=1&num=2"
         },
@@ -304,7 +304,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300476&source=lrb&type=0&page=1&num=2"
         },
@@ -312,7 +312,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300476&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -320,7 +320,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -329,7 +329,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -350,7 +350,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002916"
         },
@@ -358,7 +358,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002916&source=lrb&type=0&page=1&num=2"
         },
@@ -366,7 +366,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002916&source=lrb&type=0&page=1&num=2"
         },
@@ -374,7 +374,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002916"
         },
@@ -382,7 +382,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002916&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -390,7 +390,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -399,7 +399,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -420,7 +420,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -441,7 +441,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002747"
         },
@@ -449,7 +449,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002747&source=lrb&type=0&page=1&num=2"
         },
@@ -457,7 +457,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002747"
         },
@@ -465,7 +465,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002747&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -473,7 +473,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -482,7 +482,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -503,7 +503,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688165"
         },
@@ -511,7 +511,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688165&source=lrb&type=0&page=1&num=2"
         },
@@ -519,7 +519,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688165&source=lrb&type=0&page=1&num=2"
         },
@@ -527,7 +527,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -536,7 +536,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -557,7 +557,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688017"
         },
@@ -565,7 +565,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688017&source=lrb&type=0&page=1&num=2"
         },
@@ -573,7 +573,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688017&source=lrb&type=0&page=1&num=2"
         },
@@ -581,7 +581,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688017"
         },
@@ -589,7 +589,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688017&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -597,7 +597,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -606,7 +606,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -627,7 +627,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002896"
         },
@@ -635,7 +635,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002896"
         },
@@ -643,7 +643,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002896&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -651,7 +651,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -660,7 +660,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -681,7 +681,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002472"
         },
@@ -689,7 +689,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002472&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -697,7 +697,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -706,7 +706,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -727,7 +727,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz301550"
         },
@@ -735,7 +735,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz301550"
         },
@@ -743,7 +743,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=301550&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -751,7 +751,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -760,7 +760,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -781,7 +781,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603009"
         },
@@ -789,7 +789,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603009"
         },
@@ -797,7 +797,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603009&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -805,7 +805,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -814,7 +814,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -835,7 +835,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300580"
         },
@@ -843,7 +843,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300580&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -851,7 +851,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -860,7 +860,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -881,7 +881,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603667"
         },
@@ -889,7 +889,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603667"
         },
@@ -897,7 +897,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603667&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -905,7 +905,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -914,7 +914,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -935,7 +935,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300984"
         },
@@ -943,7 +943,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300984&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -951,7 +951,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -960,7 +960,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -981,7 +981,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002050"
         },
@@ -989,7 +989,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002050&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -997,7 +997,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1006,7 +1006,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1027,7 +1027,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh601689"
         },
@@ -1035,7 +1035,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601689&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1043,7 +1043,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1052,7 +1052,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1073,7 +1073,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh601100"
         },
@@ -1081,7 +1081,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601100&source=lrb&type=0&page=1&num=2"
         },
@@ -1089,7 +1089,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601100&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1097,7 +1097,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1106,7 +1106,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1127,7 +1127,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300124"
         },
@@ -1135,7 +1135,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300124&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1143,7 +1143,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1152,7 +1152,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1173,7 +1173,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002979"
         },
@@ -1181,7 +1181,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002979&source=lrb&type=0&page=1&num=2"
         },
@@ -1189,7 +1189,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002979&source=lrb&type=0&page=1&num=2"
         },
@@ -1197,7 +1197,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002979"
         },
@@ -1205,7 +1205,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002979&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1213,7 +1213,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1222,7 +1222,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1243,7 +1243,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603728"
         },
@@ -1251,7 +1251,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603728&source=lrb&type=0&page=1&num=2"
         },
@@ -1259,7 +1259,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603728"
         },
@@ -1267,7 +1267,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603728&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1275,7 +1275,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1284,7 +1284,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1305,7 +1305,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688322"
         },
@@ -1313,7 +1313,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688322&source=lrb&type=0&page=1&num=2"
         },
@@ -1321,7 +1321,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688322"
         },
@@ -1329,7 +1329,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688322&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1337,7 +1337,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1346,7 +1346,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1367,7 +1367,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300007"
         },
@@ -1375,7 +1375,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300007&source=lrb&type=0&page=1&num=2"
         },
@@ -1383,7 +1383,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300007"
         },
@@ -1391,7 +1391,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300007&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1399,7 +1399,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1408,7 +1408,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1429,7 +1429,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300969"
         },
@@ -1437,7 +1437,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300969"
         },
@@ -1445,7 +1445,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300969&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1453,7 +1453,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1462,7 +1462,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1483,7 +1483,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688279"
         },
@@ -1491,7 +1491,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688279&source=lrb&type=0&page=1&num=2"
         },
@@ -1499,7 +1499,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688279&source=lrb&type=0&page=1&num=2"
         },
@@ -1507,7 +1507,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688279"
         },
@@ -1515,7 +1515,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688279&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1523,7 +1523,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1532,7 +1532,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1553,7 +1553,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603416&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1561,7 +1561,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1570,7 +1570,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1591,7 +1591,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603119"
         },
@@ -1599,7 +1599,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603119&source=lrb&type=0&page=1&num=2"
         },
@@ -1607,7 +1607,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603119&source=lrb&type=0&page=1&num=2"
         },
@@ -1615,7 +1615,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603119"
         },
@@ -1623,7 +1623,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603119&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1631,7 +1631,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1640,7 +1640,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1661,7 +1661,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688400"
         },
@@ -1669,7 +1669,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688400&source=lrb&type=0&page=1&num=2"
         },
@@ -1677,7 +1677,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688400"
         },
@@ -1685,7 +1685,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688400&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1693,7 +1693,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1702,7 +1702,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1723,7 +1723,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300115"
         },
@@ -1731,7 +1731,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300115"
         },
@@ -1739,7 +1739,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300115&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1747,7 +1747,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1756,7 +1756,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1777,7 +1777,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603305"
         },
@@ -1785,7 +1785,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603305&source=lrb&type=0&page=1&num=2"
         },
@@ -1793,7 +1793,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603305&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1801,7 +1801,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1810,7 +1810,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1831,7 +1831,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz301225"
         },
@@ -1839,7 +1839,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz301225&source=lrb&type=0&page=1&num=2"
         },
@@ -1847,7 +1847,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=301225&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1855,7 +1855,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1864,7 +1864,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1885,7 +1885,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603179"
         },
@@ -1893,7 +1893,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603179&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1901,7 +1901,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1910,7 +1910,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1931,7 +1931,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603786&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1939,7 +1939,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1948,7 +1948,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1969,7 +1969,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh600699"
         },
@@ -1977,7 +1977,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600699&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -1985,7 +1985,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1994,7 +1994,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2015,7 +2015,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601799&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2023,7 +2023,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2032,7 +2032,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2053,7 +2053,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603286"
         },
@@ -2061,7 +2061,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603286&source=lrb&type=0&page=1&num=2"
         },
@@ -2069,7 +2069,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2078,7 +2078,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2099,7 +2099,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603730"
         },
@@ -2107,7 +2107,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603730&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2115,7 +2115,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2124,7 +2124,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2145,7 +2145,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=000700&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2153,7 +2153,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2162,7 +2162,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2183,7 +2183,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz000559"
         },
@@ -2191,7 +2191,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2200,7 +2200,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2221,7 +2221,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603926&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2229,7 +2229,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2238,7 +2238,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2259,7 +2259,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz301000"
         },
@@ -2267,7 +2267,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2276,7 +2276,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2297,7 +2297,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002164"
         },
@@ -2305,7 +2305,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002164&source=lrb&type=0&page=1&num=2"
         },
@@ -2313,7 +2313,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2322,7 +2322,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2343,7 +2343,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh605288"
         },
@@ -2351,7 +2351,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh605288"
         },
@@ -2359,7 +2359,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=605288&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2367,7 +2367,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2376,7 +2376,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2397,7 +2397,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300952"
         },
@@ -2405,7 +2405,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300952&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2413,7 +2413,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2422,7 +2422,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2443,7 +2443,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603259&source=lrb&type=0&page=1&num=2"
         },
@@ -2451,7 +2451,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603259&source=lrb&type=0&page=1&num=2"
         },
@@ -2459,7 +2459,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603259&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2467,7 +2467,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2476,7 +2476,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2497,7 +2497,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300759&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2505,7 +2505,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2514,7 +2514,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2535,7 +2535,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002821"
         },
@@ -2543,7 +2543,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002821&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2551,7 +2551,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2560,7 +2560,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2581,7 +2581,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688690&source=lrb&type=0&page=1&num=2"
         },
@@ -2589,7 +2589,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688690&source=lrb&type=0&page=1&num=2"
         },
@@ -2597,7 +2597,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688690"
         },
@@ -2605,7 +2605,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688690&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2613,7 +2613,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2622,7 +2622,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2643,7 +2643,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600276&source=lrb&type=0&page=1&num=2"
         },
@@ -2651,7 +2651,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600276&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2659,7 +2659,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2668,7 +2668,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2689,7 +2689,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688235"
         },
@@ -2697,7 +2697,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688235&source=lrb&type=0&page=1&num=2"
         },
@@ -2705,7 +2705,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688235&source=lrb&type=0&page=1&num=2"
         },
@@ -2713,7 +2713,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688235"
         },
@@ -2721,7 +2721,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688235&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2729,7 +2729,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2738,7 +2738,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2759,7 +2759,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh600026"
         },
@@ -2767,7 +2767,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600026&source=lrb&type=0&page=1&num=2"
         },
@@ -2775,7 +2775,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600026&source=lrb&type=0&page=1&num=2"
         },
@@ -2783,7 +2783,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600026&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2791,7 +2791,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2800,7 +2800,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2821,7 +2821,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601872&source=lrb&type=0&page=1&num=2"
         },
@@ -2829,7 +2829,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601872&source=lrb&type=0&page=1&num=2"
         },
@@ -2837,7 +2837,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601872&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2845,7 +2845,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2854,7 +2854,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2875,7 +2875,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601975&source=lrb&type=0&page=1&num=2"
         },
@@ -2883,7 +2883,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh601975"
         },
@@ -2891,7 +2891,7 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601975&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
@@ -2899,7 +2899,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:01:07+08:00",
+          "updatedAt": "2026-07-05T17:27:47+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2908,7 +2908,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -2929,7 +2929,7 @@
         "source": "yfinance",
         "sourceLayer": "signals",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }
@@ -2951,7 +2951,7 @@
         "source": "yfinance",
         "sourceLayer": "signals",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }
@@ -2973,7 +2973,7 @@
         "source": "yfinance",
         "sourceLayer": "signals",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }

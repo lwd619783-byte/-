@@ -36,10 +36,13 @@ export function buildDashboardDataset(mode: DashboardDataMode, realData: Generat
   const hkCount = hkQuoteCoverage?.total ?? marketCount(manifestUniverse?.markets, "港股") ?? fallbackHkCount;
   const hkRealCount = hkQuoteCoverage?.real ?? fallbackHkRealCount;
   const hkUnsupportedCount = marketCount(manifestUniverse?.unsupported, "港股") ?? fallbackHkUnsupportedCount;
-  const coverageSummary =
-    hkRealCount > 0
-      ? `A股覆盖 ${aShareRealCount}/${aShareCount}；港股行情 ${hkRealCount}/${hkCount}；港股财务暂未接入`
-      : `A股覆盖 ${aShareRealCount}/${aShareCount}；港股覆盖 ${hkRealCount}/${hkCount}，暂未接入 ${hkUnsupportedCount}/${hkCount}`;
+  const hkMissingCount = Math.max(0, hkCount - hkRealCount);
+  const hkQuoteSummary = hkQuoteCoverage
+    ? hkMissingCount > 0
+      ? `港股行情 ${hkRealCount}/${hkCount}，${hkMissingCount} 只暂缺；港股财务暂未接入`
+      : `港股行情 ${hkRealCount}/${hkCount}；港股财务暂未接入`
+    : `港股覆盖 ${hkRealCount}/${hkCount}，暂未接入 ${hkUnsupportedCount}/${hkCount}`;
+  const coverageSummary = `A股覆盖 ${aShareRealCount}/${aShareCount}；${hkQuoteSummary}`;
 
   const modeLabel =
     mode === "mock" ? "Mock Data" : hasReal && !hasMockFallback && mode === "real" ? "Real Data" : hasReal ? "Mixed Data" : "Mock Data";

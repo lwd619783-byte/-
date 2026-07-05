@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T17:14:14+08:00",
+  "updatedAt": "2026-07-05T17:40:20+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -17,7 +17,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -37,7 +37,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -57,7 +57,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -77,7 +77,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -97,7 +97,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -117,7 +117,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -137,7 +137,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -157,7 +157,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -177,7 +177,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -197,7 +197,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -217,7 +217,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -237,7 +237,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -257,7 +257,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -277,7 +277,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -297,7 +297,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -317,7 +317,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -337,7 +337,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -357,7 +357,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -377,7 +377,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -397,7 +397,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -417,7 +417,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -437,7 +437,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -457,7 +457,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -477,7 +477,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -497,7 +497,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -517,7 +517,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -537,7 +537,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -557,7 +557,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -577,7 +577,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -597,7 +597,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -617,7 +617,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -637,7 +637,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -657,7 +657,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -677,7 +677,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -697,7 +697,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -717,7 +717,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -737,7 +737,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -757,7 +757,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -777,7 +777,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -797,7 +797,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -817,7 +817,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -837,7 +837,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -857,7 +857,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -877,7 +877,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -897,7 +897,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -917,7 +917,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -937,7 +937,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -957,7 +957,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -977,7 +977,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -997,7 +997,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1017,7 +1017,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1037,7 +1037,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1057,7 +1057,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1077,7 +1077,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1097,7 +1097,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1117,7 +1117,7 @@
         "source": "A Stock Data",
         "sourceLayer": "sector",
         "sourceEndpoint": "Eastmoney HSF10 industry fallback",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real"
       }
     },
@@ -1130,7 +1130,7 @@
         "source": "yfinance",
         "sourceLayer": "sectorMembership",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }
@@ -1144,7 +1144,7 @@
         "source": "yfinance",
         "sourceLayer": "sectorMembership",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }
@@ -1158,7 +1158,7 @@
         "source": "yfinance",
         "sourceLayer": "sectorMembership",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }

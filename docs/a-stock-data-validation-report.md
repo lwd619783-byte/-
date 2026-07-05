@@ -1,6 +1,6 @@
 # A Stock Data 数据校验报告
 
-- 生成时间：2026-07-05T17:14:53
+- 生成时间：2026-07-05T17:40:50
 - 口径来源：`src/data/real/stock-universe.generated.json`
 - 港股状态：第三步接入 yfinance quote / priceHistory MVP；港股行情单独统计，不纳入 A 股覆盖率分母。
 

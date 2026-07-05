@@ -54,13 +54,11 @@ export default function App() {
     const quoteCoverageReal = quoteCoverage?.real ?? stocksWithReal;
     const quoteCoverageTotal = quoteCoverage?.total ?? dataset.stocks.filter((stock) => stock.market === "A股").length;
     const hkCoverageSummary =
-      hkQuoteTotal === undefined
-        ? "港股暂未接入"
-        : hkRealCount > 0 && hkRealCount === hkQuoteTotal
-          ? `港股行情 ${hkRealCount}/${hkQuoteTotal}`
-          : hkRealCount > 0
-            ? `港股行情 ${hkRealCount}/${hkQuoteTotal}，部分数据暂缺`
-            : `港股 ${hkRealCount}/${hkQuoteTotal} 暂未接入`;
+      hkQuoteCoverage
+        ? `港股行情 ${hkQuoteCoverage.real}/${hkQuoteCoverage.total}`
+        : hkQuoteTotal === undefined
+          ? "港股暂未接入"
+          : `港股 ${hkRealCount}/${hkQuoteTotal} 暂未接入`;
 
     return {
       stocksWithReal,

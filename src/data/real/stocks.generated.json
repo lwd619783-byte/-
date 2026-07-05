@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T17:14:14+08:00",
+  "updatedAt": "2026-07-05T17:40:20+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -30,7 +30,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603019.SH"
       }
@@ -64,7 +64,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=601138.SH"
       }
@@ -98,7 +98,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300502.SZ"
       }
@@ -132,7 +132,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300308.SZ"
       }
@@ -166,7 +166,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002463.SZ"
       }
@@ -200,7 +200,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300476.SZ"
       }
@@ -234,7 +234,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002916.SZ"
       }
@@ -268,7 +268,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300024.SZ"
       }
@@ -302,7 +302,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002747.SZ"
       }
@@ -336,7 +336,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=688165.SH"
       }
@@ -370,7 +370,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=688017.SH"
       }
@@ -404,7 +404,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002896.SZ"
       }
@@ -438,7 +438,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002472.SZ"
       }
@@ -472,7 +472,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=301550.SZ"
       }
@@ -506,7 +506,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603009.SH"
       }
@@ -540,7 +540,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300580.SZ"
       }
@@ -574,7 +574,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603667.SH"
       }
@@ -608,7 +608,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300984.SZ"
       }
@@ -642,7 +642,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002050.SZ"
       }
@@ -676,7 +676,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=601689.SH"
       }
@@ -710,7 +710,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=601100.SH"
       }
@@ -744,7 +744,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300124.SZ"
       }
@@ -778,7 +778,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002979.SZ"
       }
@@ -812,7 +812,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603728.SH"
       }
@@ -846,7 +846,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=688322.SH"
       }
@@ -880,7 +880,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300007.SZ"
       }
@@ -914,7 +914,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300969.SZ"
       }
@@ -948,7 +948,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=688279.SH"
       }
@@ -982,7 +982,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603416.SH"
       }
@@ -1016,7 +1016,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603119.SH"
       }
@@ -1050,7 +1050,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=688400.SH"
       }
@@ -1084,7 +1084,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300115.SZ"
       }
@@ -1118,7 +1118,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603305.SH"
       }
@@ -1152,7 +1152,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=301225.SZ"
       }
@@ -1186,7 +1186,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603179.SH"
       }
@@ -1220,7 +1220,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603786.SH"
       }
@@ -1254,7 +1254,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=600699.SH"
       }
@@ -1288,7 +1288,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=601799.SH"
       }
@@ -1322,7 +1322,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603286.SH"
       }
@@ -1356,7 +1356,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603730.SH"
       }
@@ -1390,7 +1390,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=000700.SZ"
       }
@@ -1424,7 +1424,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=000559.SZ"
       }
@@ -1446,9 +1446,9 @@
           "name": "制造业-汽车制造业"
         }
       ],
-      "listDate": null,
-      "totalShares": 2.3081728266527852,
-      "floatShares": 2.3300364393545028,
+      "listDate": "2017-05-10",
+      "totalShares": 2.32986611,
+      "floatShares": 2.30838611,
       "companyProfile": "铁流股份有限公司(铁流股份:603926)成立于2009年(前身为成立于1985年的西湖离合器厂),于2017年在上海证券交易所主板上市,是一家集汽车零部件智能制造及智慧服务为一体的全球性集团公司。公司主营三大板块:1、汽车传动系统制造板块;2、新能源汽车高精密零部件制造板块;3、汽车智慧服务板块。公司致力于“智能化”和“信息化”建设,成立国家级实验室,通过智能制造、智能物流数字化运营,建立研发、生产、销售、物流等全面协同的智慧信息系统,在浙江杭州(2大基地)、浙江湖州、湖北黄石、德国、印度均建有现代化工厂,打造全球性协同生产基地。公司积极拥抱汽车产业的电动化、网联化、智能化、共享化发展,重点布局新能源。与博世、重汽、一汽、东风等多家主机厂配套。是浙江奥思伟尔电动科技有限公司、理想、零跑等企业定点供应商。同时,盖格新能源公司还积极与华为、小米等造车新势力以及华域麦格纳、联合电子等新能源整车企业配套商进行前期技术交流。同时积极打造汽车后市场“车联网”智慧服务系统,实现从制造业向智能制造+智慧服务的全面转型。",
       "businessScope": "一般项目:汽车零部件及配件制造;汽车零部件研发;汽车零配件零售;汽车零配件批发;机械零件、零部件加工;货物进出口;数据处理服务;互联网数据服务;国内货物运输代理;普通货物仓储服务(不含危险化学品等需许可审批的项目)(除依法须经批准的项目外,凭营业执照依法自主开展经营活动)。(分支机构经营场所设在:浙江省杭州市临平区东湖北路958号)",
       "f10Summary": "铁流股份有限公司 | 上交所主板A股 | 上海证券交易所 | www.chinaclutch.com",
@@ -1458,7 +1458,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603926.SH"
       }
@@ -1492,7 +1492,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=301000.SZ"
       }
@@ -1526,7 +1526,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002164.SZ"
       }
@@ -1560,7 +1560,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=605288.SH"
       }
@@ -1594,7 +1594,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300952.SZ"
       }
@@ -1628,7 +1628,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=603259.SH"
       }
@@ -1662,7 +1662,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=300759.SZ"
       }
@@ -1696,7 +1696,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=002821.SZ"
       }
@@ -1730,7 +1730,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=688690.SH"
       }
@@ -1764,7 +1764,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=600276.SH"
       }
@@ -1798,7 +1798,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=688235.SH"
       }
@@ -1832,7 +1832,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=600026.SH"
       }
@@ -1866,7 +1866,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=601872.SH"
       }
@@ -1900,7 +1900,7 @@
         "source": "A Stock Data",
         "sourceLayer": "f10",
         "sourceEndpoint": "Eastmoney HSF10 CompanySurvey",
-        "updatedAt": "2026-07-05T17:01:07+08:00",
+        "updatedAt": "2026-07-05T17:27:47+08:00",
         "status": "real",
         "sourceUrl": "https://emweb.securities.eastmoney.com/PC_HSF10/CompanySurvey/PageAjax?code=601975.SH"
       }
@@ -1925,7 +1925,7 @@
         "source": "yfinance",
         "sourceLayer": "profile",
         "sourceEndpoint": "stock-universe + yfinance",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "real"
       }
     },
@@ -1949,7 +1949,7 @@
         "source": "yfinance",
         "sourceLayer": "profile",
         "sourceEndpoint": "stock-universe + yfinance",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "real"
       }
     },
@@ -1973,7 +1973,7 @@
         "source": "yfinance",
         "sourceLayer": "profile",
         "sourceEndpoint": "stock-universe + yfinance",
-        "updatedAt": "2026-07-05T17:14:14+08:00",
+        "updatedAt": "2026-07-05T17:40:20+08:00",
         "status": "real"
       }
     }

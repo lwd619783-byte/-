@@ -16,7 +16,7 @@
     "data:fetch:macro": "python scripts/fetch-macro-data.py",
     "data:validate": "npm run data:universe && python scripts/validate-a-stock-data.py",
     "data:validate:a-stock": "npm run data:universe && python scripts/validate-a-stock-data.py",
-    "data:refresh": "npm run data:fetch && npm run data:fetch:macro && npm run data:validate:a-stock",
+    "data:refresh": "npm run data:universe && npm run data:fetch:a-stock && npm run data:fetch:hk && npm run data:fetch:macro && npm run data:validate:a-stock",
     "ui:audit": "node scripts/ui-audit.mjs"
   },
   "dependencies": {
