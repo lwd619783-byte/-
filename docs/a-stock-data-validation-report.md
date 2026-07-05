@@ -1,6 +1,6 @@
 # A Stock Data 数据校验报告
 
-- 生成时间：2026-07-05T10:46:12
+- 生成时间：2026-07-05T14:20:27
 - 口径来源：`src/data/real/stock-universe.generated.json`
 - 港股状态：第一阶段统一为 `unsupported_market`，不纳入 A 股覆盖率分母。
 
@@ -42,13 +42,13 @@
 
 ## 4. 缺失明细
 
-- dongli | 宁波东力 | A股 | research | No public research report returned by current data source
-- efort | 埃夫特 | A股 | research | No public research report returned by current data source
-- riying | 日盈电子 | A股 | research | No public research report returned by current data source
-- siasun | 机器人 | A股 | research | No public research report returned by current data source
-- siasun | 机器人 | A股 | announcements | Current announcement data source returned no result
-- wanxiang-qc | 万向钱潮 | A股 | research | No public research report returned by current data source
-- zhaomin | 肇民科技 | A股 | research | No public research report returned by current data source
+- dongli | 宁波东力 | A股 | research | 当前数据源未获取到公开研报
+- efort | 埃夫特 | A股 | research | 当前数据源未获取到公开研报
+- riying | 日盈电子 | A股 | research | 当前数据源未获取到公开研报
+- siasun | 机器人 | A股 | research | 当前数据源未获取到公开研报
+- siasun | 机器人 | A股 | announcements | 当前公告数据源未返回结果
+- wanxiang-qc | 万向钱潮 | A股 | research | 当前数据源未获取到公开研报
+- zhaomin | 肇民科技 | A股 | research | 当前数据源未获取到公开研报
 
 ## 5. 异常值 / 警告
 

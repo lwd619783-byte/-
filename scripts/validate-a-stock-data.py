@@ -37,6 +37,20 @@ MODULE_ALIASES = {
     "kline": "priceHistory",
     "f10": "profiles",
 }
+MISSING_REASONS = {
+    "quotes": "行情接口未返回有效最新价",
+    "priceHistory": "K 线数据不足或接口未返回",
+    "financials": "核心财务字段不足",
+    "profiles": "F10 / 公司资料缺失",
+    "research": "当前数据源未获取到公开研报",
+    "announcements": "当前公告数据源未返回结果",
+    "signals": "信号字段为空",
+    "sectorMembership": "板块归属缺失",
+}
+LEGACY_REASON_MAP = {
+    "No public research report returned by current data source": MISSING_REASONS["research"],
+    "Current announcement data source returned no result": MISSING_REASONS["announcements"],
+}
 
 
 class UniqueList:
@@ -94,10 +108,15 @@ def normalize_module(module: str) -> str:
     return MODULE_ALIASES.get(module, module)
 
 
-def quality_reason(item: dict[str, Any] | None, default: str) -> str:
+def quality_reason(item: dict[str, Any] | None, default: str, module: str | None = None) -> str:
+    if module:
+        normalized = normalize_module(module)
+        if normalized in MISSING_REASONS:
+            return MISSING_REASONS[normalized]
     if not item:
         return default
-    return str(item.get("reason") or (item.get("quality") or {}).get("errorMessage") or default)
+    reason = str(item.get("reason") or (item.get("quality") or {}).get("errorMessage") or default)
+    return LEGACY_REASON_MAP.get(reason, reason)
 
 
 def has_core_financial(financial: dict[str, Any]) -> bool:
@@ -212,7 +231,7 @@ def main() -> int:
     def add_missing(stock_id: str, module: str, reason: str) -> None:
         normalized = normalize_module(module)
         missing_items.add(
-            f"{stock_id}:{normalized}:{reason}",
+            f"{stock_id}:{normalized}",
             f"{format_stock(universe_by_id.get(stock_id), stock_id)} | {normalized} | {reason}",
         )
 
@@ -257,18 +276,18 @@ def main() -> int:
         if status_of(quote) == "real" and isinstance(quote.get("latestPrice"), (int, float)) and quote["latestPrice"] > 0:
             counters["quotes"] += 1
         else:
-            add_missing(stock_id, "quotes", quality_reason(quote, status_of(quote)))
+            add_missing(stock_id, "quotes", quality_reason(quote, "行情接口未返回有效最新价", "quotes"))
 
         points = history.get("points") or []
         if status_of(history) == "real" and len(points) >= 30:
             counters["priceHistory"] += 1
         else:
-            add_missing(stock_id, "priceHistory", quality_reason(history, f"{status_of(history)} / {len(points)} points"))
+            add_missing(stock_id, "priceHistory", quality_reason(history, "K 线数据不足或接口未返回", "priceHistory"))
 
         if has_core_financial(financial):
             counters["financials"] += 1
         else:
-            add_missing(stock_id, "financials", quality_reason(financial, "核心财务字段不足"))
+            add_missing(stock_id, "financials", quality_reason(financial, "核心财务字段不足", "financials"))
         if financial.get("reportDate"):
             counters["reportDates"] += 1
         else:
@@ -277,31 +296,31 @@ def main() -> int:
         if has_f10(profile):
             counters["profiles"] += 1
         else:
-            add_missing(stock_id, "profiles", quality_reason(profile, "公司概况/经营范围缺失"))
+            add_missing(stock_id, "profiles", quality_reason(profile, "F10 / 公司资料缺失", "profiles"))
         if profile.get("industryName"):
             counters["industry"] += 1
         else:
-            add_missing(stock_id, "profiles", "行业分类缺失")
+            add_missing(stock_id, "profiles", "F10 / 公司资料缺失")
 
         if status_of(research) == "real" and research.get("reports"):
             counters["research"] += 1
         else:
-            add_missing(stock_id, "research", quality_reason(research, "当前数据源未返回公开研报"))
+            add_missing(stock_id, "research", quality_reason(research, "当前数据源未获取到公开研报", "research"))
 
         if status_of(announcement) == "real" and announcement.get("announcements"):
             counters["announcements"] += 1
         else:
-            add_missing(stock_id, "announcements", quality_reason(announcement, "当前公告数据源未返回结果"))
+            add_missing(stock_id, "announcements", quality_reason(announcement, "当前公告数据源未返回结果", "announcements"))
 
         if has_signal(signal):
             counters["signals"] += 1
         else:
-            add_missing(stock_id, "signals", quality_reason(signal, "信号字段为空"))
+            add_missing(stock_id, "signals", quality_reason(signal, "信号字段为空", "signals"))
 
         if sector.get("industry") or sector.get("concept") or sector.get("region") or profile.get("industryName"):
             counters["sectorMembership"] += 1
         else:
-            add_missing(stock_id, "sectorMembership", quality_reason(sector, "板块归属缺失"))
+            add_missing(stock_id, "sectorMembership", quality_reason(sector, "板块归属缺失", "sectorMembership"))
 
         module_items = {
             "quotes": quote,

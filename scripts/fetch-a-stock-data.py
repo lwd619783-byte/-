@@ -760,7 +760,7 @@ def fetch_research(stock: dict[str, str], updated_at: str) -> dict[str, Any]:
             if row.get("title")
         ]
         status = "real" if reports else "missing"
-        reason = None if reports else "No public research report returned by current data source"
+        reason = None if reports else "当前数据源未获取到公开研报"
         return {
             "id": stock["id"],
             "reports": reports,
@@ -823,7 +823,7 @@ def fetch_announcements(stock: dict[str, str], updated_at: str) -> dict[str, Any
                 }
             )
         status = "real" if announcements else "missing"
-        reason = None if announcements else "Current announcement data source returned no result"
+        reason = None if announcements else "当前公告数据源未返回结果"
         return {
             "id": stock["id"],
             "announcements": announcements,

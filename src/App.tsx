@@ -33,8 +33,8 @@ export default function App() {
 
   const dashboardStats = useMemo(() => {
     const quoteCoverage = dataset.realManifest.coverage?.quotes;
-    const hkMarketCount = dataset.realManifest.universe?.markets?.["港股"];
-    const hkUnsupportedCount = dataset.realManifest.universe?.unsupported?.["港股"];
+    const hkRealCount = 0;
+    const hkUnsupportedTotal = quoteCoverage?.unsupportedTotal ?? dataset.realManifest.universe?.markets?.["港股"];
     const stocksWithReal = dataset.stocks.filter((stock) =>
       stock.dataQuality?.some((item) => item.status === "real" || item.status === "stale"),
     ).length;
@@ -53,9 +53,9 @@ export default function App() {
     const quoteCoverageReal = quoteCoverage?.real ?? stocksWithReal;
     const quoteCoverageTotal = quoteCoverage?.total ?? dataset.stocks.filter((stock) => stock.market === "A股").length;
     const hkUnsupportedSummary =
-      hkMarketCount === undefined || hkUnsupportedCount === undefined
+      hkUnsupportedTotal === undefined
         ? "港股暂未接入"
-        : `港股 0/${hkMarketCount} 暂未接入 ${hkUnsupportedCount}/${hkMarketCount}`;
+        : `港股 ${hkRealCount}/${hkUnsupportedTotal} 暂未接入`;
 
     return {
       stocksWithReal,
@@ -119,8 +119,8 @@ export default function App() {
             <KpiCard
               label="真实行情覆盖"
               value={`${dashboardStats.quoteCoverageReal}/${dashboardStats.quoteCoverageTotal}`}
-              delta={dashboardStats.quoteCoverageReal === dashboardStats.quoteCoverageTotal ? "A 股全量覆盖" : "A 股待补齐"}
-              description={`A 股真实行情覆盖，${dashboardStats.hkUnsupportedSummary}`}
+              delta={dashboardStats.quoteCoverageReal === dashboardStats.quoteCoverageTotal ? "A股全量覆盖" : "A股部分覆盖"}
+              description={`A 股真实行情覆盖；${dashboardStats.hkUnsupportedSummary}`}
               tone={dashboardStats.quoteCoverageReal === dashboardStats.quoteCoverageTotal ? "positive" : "info"}
               icon={<Database className="h-4 w-4" />}
             />
