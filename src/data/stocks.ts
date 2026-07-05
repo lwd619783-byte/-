@@ -40,8 +40,38 @@ type RobotStockSeed = {
   trackingMetrics?: string[];
   riskLevel?: "低" | "中" | "高";
   evidenceNotes?: string[];
+  evidenceItems?: Stock["evidenceItems"];
   relations?: Stock["relations"];
 };
+
+function defaultRobotEvidence(seed: RobotStockSeed): Stock["evidenceItems"] {
+  if (seed.evidenceItems?.length) return seed.evidenceItems;
+
+  const isObservation = seed.candidateType === "观察池";
+  const isHighConfidence = seed.evidenceLevel === "高" && seed.verificationStatus === "已验证" && !isObservation;
+  const sourceType = isObservation ? "机构纪要" : isHighConfidence ? "年报" : "调研纪要";
+  const confidence = isObservation ? "低" : isHighConfidence ? "高" : "中";
+  const verificationStatus = isObservation ? "待验证" : isHighConfidence ? "已验证" : "部分验证";
+  const sourceName = isObservation ? "机构纪要线索（待公开资料复核）" : isHighConfidence ? "公司公开披露资料" : "公开调研纪要与公司披露交叉线索";
+  const claim = isObservation
+    ? `${seed.name}被纳入${seed.chainPosition}观察线索，但公开验证程度有限，不能写成确定供货关系。`
+    : `${seed.name}公开资料可支持其处于机器人产业链${seed.chainPosition}环节，后续仍需跟踪订单、客户认证与收入确认。`;
+
+  return [
+    {
+      id: `${seed.id}-robotics-chain`,
+      claim,
+      sourceType,
+      sourceName,
+      confidence,
+      relatedSegmentId: seed.segmentId,
+      verificationStatus,
+      note: isObservation
+        ? "机构纪要提及，公开验证程度有限，需继续跟踪公告、年报、调研纪要或客户认证。"
+        : "仅确认产业链位置与业务相关性，不代表已经形成确定供货关系或已量产供货人形机器人。",
+    },
+  ];
+}
 
 function robotStock(seed: RobotStockSeed): Stock {
   const isObservation = seed.candidateType === "观察池";
@@ -76,6 +106,7 @@ function robotStock(seed: RobotStockSeed): Stock {
     themeTags: seed.themeTags,
     candidateType: seed.candidateType,
     evidenceNotes: seed.evidenceNotes ?? (isObservation ? [roboticsObservationNote] : ["公开资料和产业链研究已纳入核心池，仍需持续跟踪公告、年报、订单和客户认证。"]),
+    evidenceItems: defaultRobotEvidence(seed),
     researchProfile: {
       industryLogic: "机器人产业链研究字段，需以公告、年报、调研纪要和真实行情数据持续验证。",
       businessBreakdown: [

@@ -75,6 +75,32 @@ export interface ValuationMetric {
   dividendYield?: string;
 }
 
+export type EvidenceSourceType =
+  | "年报"
+  | "半年报"
+  | "公告"
+  | "官网"
+  | "投资者关系"
+  | "互动易"
+  | "调研纪要"
+  | "机构纪要"
+  | "媒体报道"
+  | "招股书"
+  | "其他";
+
+export interface EvidenceItem {
+  id: string;
+  claim: string;
+  sourceType: EvidenceSourceType;
+  sourceName: string;
+  sourceDate?: string;
+  confidence: "高" | "中" | "低";
+  url?: string;
+  note?: string;
+  relatedSegmentId?: string;
+  verificationStatus?: "已验证" | "部分验证" | "待验证";
+}
+
 export interface Stock {
   id: string;
   name: string;
@@ -97,6 +123,7 @@ export interface Stock {
   themeTags?: string[];
   candidateType?: "核心池" | "观察池";
   evidenceNotes?: string[];
+  evidenceItems?: EvidenceItem[];
   profile?: import("./marketData").StockProfile;
   quote?: import("./marketData").StockQuote;
   realFinancial?: import("./marketData").RealFinancialMetric;

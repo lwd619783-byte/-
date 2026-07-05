@@ -29,7 +29,7 @@ function parseStockIds(source) {
 }
 
 function parsePrivateCompanyIds(source) {
-  return parseStockIds(source);
+  return uniq([...source.matchAll(/(?:^|\n)  \{\r?\n    id:\s*"([^"]+)"/g)].map((match) => match[1]));
 }
 
 function marketCounts(items, predicate = () => true) {

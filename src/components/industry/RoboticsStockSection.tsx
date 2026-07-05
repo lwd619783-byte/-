@@ -111,6 +111,9 @@ function RoboticsStockRow({ stock, industries, onOpenStock }: { stock: Stock; in
   const displayedTags = tags.slice(0, 5);
   const remainingTags = tags.length - displayedTags.length;
   const tracking = stock.trackingMetrics.slice(0, 3);
+  const evidenceCount = stock.evidenceItems?.length ?? 0;
+  const topEvidence = stock.evidenceItems?.[0];
+  const confidenceLabel = highestConfidenceLabel(stock);
 
   return (
     <article className="grid gap-4 rounded-lg border border-borderSoft bg-card p-4 transition hover:border-cyan/35 hover:bg-cardHover xl:grid-cols-[minmax(190px,1.05fr)_minmax(0,2fr)_minmax(210px,0.95fr)]">
@@ -123,6 +126,8 @@ function RoboticsStockRow({ stock, industries, onOpenStock }: { stock: Stock; in
           <Badge tone="amber">{stock.candidateType ?? "核心池"}</Badge>
           <Badge tone="cyan">验证等级：{stock.evidenceLevel ?? "待验证"}</Badge>
           <Badge>状态：{stock.verificationStatus ?? "待验证"}</Badge>
+          <Badge tone={confidenceLabel === "高可信" ? "cyan" : "amber"}>证据 {evidenceCount} 条</Badge>
+          <Badge tone={confidenceLabel === "高可信" ? "cyan" : "amber"}>{confidenceLabel}</Badge>
         </div>
       </button>
 
@@ -140,6 +145,17 @@ function RoboticsStockRow({ stock, industries, onOpenStock }: { stock: Stock; in
             </span>
           ))}
         </div>
+        {topEvidence ? (
+          <div className="mt-3 rounded-md border border-borderSoft bg-bg2/70 p-3">
+            <p className="text-xs font-semibold text-textMuted">核心证据</p>
+            <TextClamp lines={2} title={topEvidence.claim} className="mt-1 text-sm leading-6 text-textStrong">
+              {topEvidence.claim}
+            </TextClamp>
+            {topEvidence.confidence === "低" || topEvidence.verificationStatus === "待验证" ? (
+              <p className="mt-1 text-xs text-warning">待验证 / 非公告确认</p>
+            ) : null}
+          </div>
+        ) : null}
         <div className="mt-3 flex flex-wrap gap-2">
           {displayedTags.map((tag) => (
             <span key={tag} className="rounded bg-surface/80 px-2 py-1 text-xs leading-5 text-textMuted">
@@ -170,6 +186,13 @@ function RoboticsStockRow({ stock, industries, onOpenStock }: { stock: Stock; in
       </div>
     </article>
   );
+}
+
+function highestConfidenceLabel(stock: Stock) {
+  const confidences = stock.evidenceItems?.map((item) => item.confidence) ?? [];
+  if (confidences.includes("高")) return "高可信";
+  if (confidences.includes("中")) return "中可信";
+  return stock.verificationStatus === "待验证" ? "待验证" : "低可信";
 }
 
 function QuoteField({ label, value }: { label: string; value: string }) {

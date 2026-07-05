@@ -345,6 +345,9 @@ function EvidenceVerification({ stock }: { stock: Stock }) {
           ))}
         </ul>
       </Panel>
+      <Panel title="结构化证据项">
+        <EvidenceItemList stock={stock} />
+      </Panel>
       <div className="grid gap-4 lg:grid-cols-2">
         <Panel title="跟踪指标">
           <ul className="space-y-2 text-sm leading-6 text-textMuted">
@@ -361,6 +364,42 @@ function EvidenceVerification({ stock }: { stock: Stock }) {
           </ul>
         </Panel>
       </div>
+    </div>
+  );
+}
+
+function EvidenceItemList({ stock }: { stock: Stock }) {
+  const items = stock.evidenceItems ?? [];
+  if (items.length === 0) return <p className="text-sm text-textMuted">{PENDING}</p>;
+
+  return (
+    <div className="space-y-3">
+      {items.map((item) => {
+        const isLowConfidence = item.confidence === "低" || item.verificationStatus === "待验证";
+        return (
+          <article key={item.id} className={`rounded-lg border p-3 ${isLowConfidence ? "border-warning/35 bg-warning/10" : "border-borderSoft bg-surface/70"}`}>
+            <div className="flex flex-wrap items-center gap-2 text-xs">
+              <span className="rounded border border-borderSoft bg-bg2/70 px-2 py-1 text-textMuted">{item.sourceType}</span>
+              <span className={item.confidence === "高" ? "rounded border border-cyan/30 bg-cyan/10 px-2 py-1 text-cyan" : item.confidence === "中" ? "rounded border border-warning/30 bg-warning/10 px-2 py-1 text-warning" : "rounded border border-danger/30 bg-danger/10 px-2 py-1 text-red-200"}>
+                {item.confidence}可信
+              </span>
+              <span className="rounded border border-borderSoft bg-bg2/70 px-2 py-1 text-textMuted">{item.verificationStatus ?? "待验证"}</span>
+              {isLowConfidence ? <span className="rounded border border-warning/35 bg-warning/10 px-2 py-1 text-warning">机构纪要提及 / 非公告确认</span> : null}
+            </div>
+            <p className="mt-3 text-sm font-medium leading-6 text-textStrong">{item.claim}</p>
+            <div className="mt-2 grid gap-2 text-xs text-textMuted sm:grid-cols-2">
+              <span>来源：{item.sourceName || PENDING}</span>
+              <span>日期：{item.sourceDate ?? PENDING}</span>
+            </div>
+            {item.note ? <p className="mt-2 text-xs leading-5 text-textMuted">{item.note}</p> : null}
+            {item.url ? (
+              <a className="mt-2 inline-flex text-xs text-cyan underline-offset-4 hover:underline" href={item.url} target="_blank" rel="noreferrer">
+                查看来源
+              </a>
+            ) : null}
+          </article>
+        );
+      })}
     </div>
   );
 }

@@ -12,6 +12,8 @@ interface StockCardProps {
 }
 
 export function StockCard({ stock, industries, onOpen }: StockCardProps) {
+  const topEvidence = stock.evidenceItems?.[0];
+
   return (
     <GlassCard className="flex h-full w-full min-w-0 flex-col p-4 transition hover:border-cyan/60 hover:shadow-glow">
       <div className="flex min-w-0 items-start justify-between gap-3">
@@ -56,6 +58,19 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
                   {tag}
                 </span>
               ))}
+            </div>
+          ) : null}
+          {topEvidence ? (
+            <div className="mt-3 rounded border border-borderSoft bg-surface/70 p-2">
+              <div className="mb-1 flex flex-wrap gap-1.5 text-[11px] leading-5">
+                <span className="rounded bg-bg2/80 px-2 py-0.5 text-textMuted">证据 {stock.evidenceItems?.length ?? 0} 条</span>
+                <span className={topEvidence.confidence === "高" ? "rounded bg-cyan/10 px-2 py-0.5 text-cyan" : "rounded bg-warning/10 px-2 py-0.5 text-warning"}>
+                  {topEvidence.confidence}可信
+                </span>
+              </div>
+              <TextClamp lines={2} title={topEvidence.claim} className="text-xs leading-5 text-textMuted">
+                {topEvidence.claim}
+              </TextClamp>
             </div>
           ) : null}
         </div>
