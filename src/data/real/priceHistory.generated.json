@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T00:34:58+08:00",
+  "updatedAt": "2026-07-05T10:33:48+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -609,7 +609,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603019,day,,,80,qfq"
       }
@@ -1222,7 +1222,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh601138,day,,,80,qfq"
       }
@@ -1835,7 +1835,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300502,day,,,80,qfq"
       }
@@ -2448,7 +2448,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300308,day,,,80,qfq"
       }
@@ -3061,7 +3061,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002463,day,,,80,qfq"
       }
@@ -3674,7 +3674,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300476,day,,,80,qfq"
       }
@@ -4287,7 +4287,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002916,day,,,80,qfq"
       }
@@ -4900,7 +4900,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300024,day,,,80,qfq"
       }
@@ -5513,7 +5513,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002747,day,,,80,qfq"
       }
@@ -6126,7 +6126,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh688165,day,,,80,qfq"
       }
@@ -6739,7 +6739,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh688017,day,,,80,qfq"
       }
@@ -7352,7 +7352,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002896,day,,,80,qfq"
       }
@@ -7965,7 +7965,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002472,day,,,80,qfq"
       }
@@ -8578,7 +8578,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz301550,day,,,80,qfq"
       }
@@ -9191,7 +9191,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603009,day,,,80,qfq"
       }
@@ -9804,7 +9804,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300580,day,,,80,qfq"
       }
@@ -10417,7 +10417,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603667,day,,,80,qfq"
       }
@@ -11030,7 +11030,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300984,day,,,80,qfq"
       }
@@ -11643,7 +11643,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002050,day,,,80,qfq"
       }
@@ -12256,7 +12256,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh601689,day,,,80,qfq"
       }
@@ -12869,7 +12869,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh601100,day,,,80,qfq"
       }
@@ -13482,7 +13482,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300124,day,,,80,qfq"
       }
@@ -14095,7 +14095,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002979,day,,,80,qfq"
       }
@@ -14708,7 +14708,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603728,day,,,80,qfq"
       }
@@ -15321,7 +15321,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh688322,day,,,80,qfq"
       }
@@ -15934,7 +15934,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300007,day,,,80,qfq"
       }
@@ -16547,7 +16547,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300969,day,,,80,qfq"
       }
@@ -17160,7 +17160,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh688279,day,,,80,qfq"
       }
@@ -17773,7 +17773,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603416,day,,,80,qfq"
       }
@@ -18386,7 +18386,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603119,day,,,80,qfq"
       }
@@ -18999,7 +18999,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh688400,day,,,80,qfq"
       }
@@ -19612,7 +19612,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300115,day,,,80,qfq"
       }
@@ -20225,7 +20225,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603305,day,,,80,qfq"
       }
@@ -20838,7 +20838,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz301225,day,,,80,qfq"
       }
@@ -21451,7 +21451,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603179,day,,,80,qfq"
       }
@@ -22064,7 +22064,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603786,day,,,80,qfq"
       }
@@ -22677,7 +22677,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600699,day,,,80,qfq"
       }
@@ -23290,7 +23290,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh601799,day,,,80,qfq"
       }
@@ -23903,7 +23903,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603286,day,,,80,qfq"
       }
@@ -24516,7 +24516,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603730,day,,,80,qfq"
       }
@@ -25129,7 +25129,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz000700,day,,,80,qfq"
       }
@@ -25742,7 +25742,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz000559,day,,,80,qfq"
       }
@@ -26355,7 +26355,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603926,day,,,80,qfq"
       }
@@ -26968,7 +26968,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz301000,day,,,80,qfq"
       }
@@ -27581,7 +27581,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002164,day,,,80,qfq"
       }
@@ -28194,7 +28194,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh605288,day,,,80,qfq"
       }
@@ -28807,7 +28807,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300952,day,,,80,qfq"
       }
@@ -29420,7 +29420,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh603259,day,,,80,qfq"
       }
@@ -30033,7 +30033,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz300759,day,,,80,qfq"
       }
@@ -30646,7 +30646,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sz002821,day,,,80,qfq"
       }
@@ -31259,7 +31259,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh688690,day,,,80,qfq"
       }
@@ -31872,7 +31872,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600276,day,,,80,qfq"
       }
@@ -32485,7 +32485,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh688235,day,,,80,qfq"
       }
@@ -33098,7 +33098,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh600026,day,,,80,qfq"
       }
@@ -33711,7 +33711,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh601872,day,,,80,qfq"
       }
@@ -34324,7 +34324,7 @@
         "source": "A Stock Data",
         "sourceLayer": "kline",
         "sourceEndpoint": "Tencent fqkline",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "real",
         "sourceUrl": "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh601975,day,,,80,qfq"
       }
@@ -34336,7 +34336,7 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "unsupported_market",
         "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
@@ -34348,7 +34348,7 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "unsupported_market",
         "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }
@@ -34360,7 +34360,7 @@
         "source": "A Stock Data",
         "sourceLayer": "symbol",
         "sourceEndpoint": "market-support",
-        "updatedAt": "2026-07-05T00:34:58+08:00",
+        "updatedAt": "2026-07-05T10:33:48+08:00",
         "status": "unsupported_market",
         "errorMessage": "A Stock Data MVP 暂不接入该市场"
       }

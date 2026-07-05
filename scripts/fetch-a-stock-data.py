@@ -760,9 +760,20 @@ def fetch_research(stock: dict[str, str], updated_at: str) -> dict[str, Any]:
             if row.get("title")
         ]
         status = "real" if reports else "missing"
-        return {"id": stock["id"], "reports": reports, "quality": quality("A Stock Data", status, "research", "Eastmoney reportapi", updated_at, url)}
+        reason = None if reports else "No public research report returned by current data source"
+        return {
+            "id": stock["id"],
+            "reports": reports,
+            "reason": reason,
+            "quality": quality("A Stock Data", status, "research", "Eastmoney reportapi", updated_at, url, reason),
+        }
     except Exception as exc:
-        return {"id": stock["id"], "reports": [], "quality": quality("A Stock Data", "error", "research", "Eastmoney reportapi", updated_at, url, str(exc))}
+        return {
+            "id": stock["id"],
+            "reports": [],
+            "reason": str(exc),
+            "quality": quality("A Stock Data", "error", "research", "Eastmoney reportapi", updated_at, url, str(exc)),
+        }
 
 
 def fetch_announcements(stock: dict[str, str], updated_at: str) -> dict[str, Any]:
@@ -812,9 +823,20 @@ def fetch_announcements(stock: dict[str, str], updated_at: str) -> dict[str, Any
                 }
             )
         status = "real" if announcements else "missing"
-        return {"id": stock["id"], "announcements": announcements, "quality": quality("A Stock Data", status, "announcement", "CNInfo hisAnnouncement", updated_at, url)}
+        reason = None if announcements else "Current announcement data source returned no result"
+        return {
+            "id": stock["id"],
+            "announcements": announcements,
+            "reason": reason,
+            "quality": quality("A Stock Data", status, "announcements", "CNInfo hisAnnouncement", updated_at, url, reason),
+        }
     except Exception as exc:
-        return {"id": stock["id"], "announcements": [], "quality": quality("A Stock Data", "error", "announcement", "CNInfo hisAnnouncement", updated_at, url, str(exc))}
+        return {
+            "id": stock["id"],
+            "announcements": [],
+            "reason": str(exc),
+            "quality": quality("A Stock Data", "error", "announcements", "CNInfo hisAnnouncement", updated_at, url, str(exc)),
+        }
 
 
 def fetch_sector(stock: dict[str, str], updated_at: str) -> dict[str, Any]:

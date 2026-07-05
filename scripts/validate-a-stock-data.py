@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections import OrderedDict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -11,6 +12,8 @@ REAL_DIR = ROOT / "src" / "data" / "real"
 DOCS_DIR = ROOT / "docs"
 REPORT_PATH = DOCS_DIR / "a-stock-data-validation-report.md"
 STOCK_UNIVERSE_PATH = REAL_DIR / "stock-universe.generated.json"
+
+MARKETS = ["A股", "港股", "美股", "未上市"]
 CORE_FINANCIAL_FIELDS = ["revenue", "netProfit", "roe"]
 SIGNAL_FIELDS = [
     "mainFundFlow5d",
@@ -24,6 +27,30 @@ SIGNAL_FIELDS = [
     "hotReason",
     "latestInteraction",
 ]
+MODULE_ALIASES = {
+    "quote": "quotes",
+    "history": "priceHistory",
+    "financial": "financials",
+    "profile": "profiles",
+    "announcement": "announcements",
+    "sector": "sectorMembership",
+    "kline": "priceHistory",
+    "f10": "profiles",
+}
+
+
+class UniqueList:
+    def __init__(self) -> None:
+        self.items: "OrderedDict[str, str]" = OrderedDict()
+
+    def add(self, key: str, text: str) -> None:
+        self.items.setdefault(key, text)
+
+    def values(self) -> list[str]:
+        return list(self.items.values())
+
+    def __len__(self) -> int:
+        return len(self.items)
 
 
 def load_json(name: str) -> dict[str, Any]:
@@ -63,6 +90,16 @@ def status_of(item: dict[str, Any] | None) -> str:
     return ((item or {}).get("quality") or {}).get("status", "missing")
 
 
+def normalize_module(module: str) -> str:
+    return MODULE_ALIASES.get(module, module)
+
+
+def quality_reason(item: dict[str, Any] | None, default: str) -> str:
+    if not item:
+        return default
+    return str(item.get("reason") or (item.get("quality") or {}).get("errorMessage") or default)
+
+
 def has_core_financial(financial: dict[str, Any]) -> bool:
     return sum(financial.get(field) is not None for field in CORE_FINANCIAL_FIELDS) >= 2
 
@@ -80,7 +117,7 @@ def pct(count: int, total: int) -> str:
 
 
 def count_by_market(items: list[dict[str, Any]], predicate=lambda item: True) -> dict[str, int]:
-    counts: dict[str, int] = {"A股": 0, "港股": 0, "美股": 0, "未上市": 0}
+    counts = {market: 0 for market in MARKETS}
     for item in items:
         if predicate(item):
             market = str(item.get("market") or "unknown")
@@ -90,28 +127,26 @@ def count_by_market(items: list[dict[str, Any]], predicate=lambda item: True) ->
 
 def format_stock(item: dict[str, Any] | None, stock_id: str) -> str:
     if not item:
-        return stock_id
-    name = item.get("name") or stock_id
-    market = item.get("market") or "unknown"
-    return f"{stock_id} | {name} | {market}"
+        return f"{stock_id} | {stock_id} | unknown"
+    return f"{stock_id} | {item.get('name') or stock_id} | {item.get('market') or 'unknown'}"
 
 
 def main() -> int:
-    errors: list[str] = []
-    warnings: list[str] = []
-    missing_items: list[str] = []
-    stale_items: list[str] = []
+    errors = UniqueList()
+    warnings = UniqueList()
+    missing_items = UniqueList()
+    stale_items = UniqueList()
 
     try:
         universe_payload = load_stock_universe()
     except Exception as exc:
-        errors.append(f"stock-universe.generated.json: 不可读取或不可解析：{exc}")
+        errors.add("universe:read", f"stock-universe.generated.json: 不可读取或不可解析：{exc}")
         write_report({}, {}, [], errors, warnings, missing_items, stale_items)
         return 1
 
     universe_items = universe_payload.get("items", [])
     if not isinstance(universe_items, list) or not universe_items:
-        errors.append("stock-universe.generated.json: items 为空")
+        errors.add("universe:empty", "stock-universe.generated.json: items 为空")
         write_report({}, universe_payload, [], errors, warnings, missing_items, stale_items)
         return 1
 
@@ -129,12 +164,12 @@ def main() -> int:
         "manifest": "data-manifest.generated.json",
         "profiles": "stocks.generated.json",
         "quotes": "quotes.generated.json",
-        "history": "priceHistory.generated.json",
+        "priceHistory": "priceHistory.generated.json",
         "financials": "financials.generated.json",
         "research": "research.generated.json",
         "announcements": "announcements.generated.json",
         "signals": "signals.generated.json",
-        "sector": "sectorMembership.generated.json",
+        "sectorMembership": "sectorMembership.generated.json",
     }
 
     data: dict[str, Any] = {}
@@ -142,9 +177,9 @@ def main() -> int:
         try:
             data[key] = load_json(filename)
         except Exception as exc:
-            errors.append(f"{filename}: JSON 不可读取或不可解析：{exc}")
+            errors.add(f"file:{filename}", f"{filename}: JSON 不可读取或不可解析：{exc}")
 
-    if errors:
+    if len(errors):
         write_report({}, universe_payload, unsupported_items, errors, warnings, missing_items, stale_items)
         return 1
 
@@ -155,42 +190,55 @@ def main() -> int:
     expected_unsupported = count_by_market(universe_items, lambda item: item.get("dataStatus") != "supported")
 
     if is_future(manifest.get("updatedAt")):
-        errors.append("manifest.updatedAt 晚于当前时间")
+        errors.add("manifest:future", "manifest.updatedAt 晚于当前时间")
     if manifest_universe.get("total") != len(universe_items):
-        errors.append(f"manifest.universe.total 与 stock-universe 不一致：{manifest_universe.get('total')} != {len(universe_items)}")
+        errors.add("manifest:total", f"manifest.universe.total 与 stock-universe 不一致：{manifest_universe.get('total')} != {len(universe_items)}")
     if manifest_universe.get("markets") != expected_markets:
-        errors.append("manifest.universe.markets 与 stock-universe 不一致")
+        errors.add("manifest:markets", "manifest.universe.markets 与 stock-universe 不一致")
     if manifest_universe.get("supported") != expected_supported:
-        errors.append("manifest.universe.supported 与 stock-universe 不一致")
+        errors.add("manifest:supported", "manifest.universe.supported 与 stock-universe 不一致")
     if manifest_universe.get("unsupported") != expected_unsupported:
-        errors.append("manifest.universe.unsupported 与 stock-universe 不一致")
+        errors.add("manifest:unsupported", "manifest.universe.unsupported 与 stock-universe 不一致")
 
     profiles = data["profiles"].get("items", {})
     quotes = data["quotes"].get("items", {})
-    histories = data["history"].get("items", {})
+    histories = data["priceHistory"].get("items", {})
     financials = data["financials"].get("items", {})
     research_items = data["research"].get("items", {})
     announcement_items = data["announcements"].get("items", {})
     signals = data["signals"].get("items", {})
-    sectors = data["sector"].get("items", {})
+    sectors = data["sectorMembership"].get("items", {})
 
     def add_missing(stock_id: str, module: str, reason: str) -> None:
-        missing_items.append(f"{format_stock(universe_by_id.get(stock_id), stock_id)} | {module} | {reason}")
+        normalized = normalize_module(module)
+        missing_items.add(
+            f"{stock_id}:{normalized}:{reason}",
+            f"{format_stock(universe_by_id.get(stock_id), stock_id)} | {normalized} | {reason}",
+        )
+
+    def add_stale(stock_id: str, module: str) -> None:
+        normalized = normalize_module(module)
+        stale_items.add(
+            f"{stock_id}:{normalized}",
+            f"{format_stock(universe_by_id.get(stock_id), stock_id)} | {normalized}",
+        )
 
     for stock_id in sorted(a_share_ids | unsupported_ids):
         if stock_id not in profiles:
-            errors.append(f"{stock_id}: 缺少 profile")
+            errors.add(f"{stock_id}:profiles", f"{stock_id}: 缺少 profile")
 
-    quote_real = 0
-    history_real = 0
-    finance_core = 0
-    report_dates = 0
-    f10_text = 0
-    industry_count = 0
-    research_count = 0
-    announcement_count = 0
-    signal_count = 0
-    sector_count = 0
+    counters = {
+        "quotes": 0,
+        "priceHistory": 0,
+        "financials": 0,
+        "reportDates": 0,
+        "profiles": 0,
+        "industry": 0,
+        "research": 0,
+        "announcements": 0,
+        "signals": 0,
+        "sectorMembership": 0,
+    }
 
     for stock_id in sorted(a_share_ids):
         profile = profiles.get(stock_id, {})
@@ -204,92 +252,91 @@ def main() -> int:
 
         code = str(profile.get("code") or universe_by_id.get(stock_id, {}).get("code") or "")
         if not (len(code) == 6 and code.isdigit()):
-            errors.append(f"{stock_id}: A 股代码不是 6 位数字：{code}")
+            errors.add(f"{stock_id}:code", f"{stock_id}: A 股代码不是 6 位数字：{code}")
 
         if status_of(quote) == "real" and isinstance(quote.get("latestPrice"), (int, float)) and quote["latestPrice"] > 0:
-            quote_real += 1
+            counters["quotes"] += 1
         else:
-            add_missing(stock_id, "quote", status_of(quote))
+            add_missing(stock_id, "quotes", quality_reason(quote, status_of(quote)))
 
         points = history.get("points") or []
         if status_of(history) == "real" and len(points) >= 30:
-            history_real += 1
+            counters["priceHistory"] += 1
         else:
-            add_missing(stock_id, "priceHistory", f"{status_of(history)} / {len(points)} points")
+            add_missing(stock_id, "priceHistory", quality_reason(history, f"{status_of(history)} / {len(points)} points"))
 
         if has_core_financial(financial):
-            finance_core += 1
+            counters["financials"] += 1
         else:
-            add_missing(stock_id, "financialCore", "核心财务字段不足")
+            add_missing(stock_id, "financials", quality_reason(financial, "核心财务字段不足"))
         if financial.get("reportDate"):
-            report_dates += 1
+            counters["reportDates"] += 1
         else:
-            warnings.append(f"{stock_id}: 财务 reportDate 缺失")
+            warnings.add(f"{stock_id}:reportDate", f"{stock_id}: 财务 reportDate 缺失")
 
         if has_f10(profile):
-            f10_text += 1
+            counters["profiles"] += 1
         else:
-            add_missing(stock_id, "f10", "公司概况/经营范围缺失")
+            add_missing(stock_id, "profiles", quality_reason(profile, "公司概况/经营范围缺失"))
         if profile.get("industryName"):
-            industry_count += 1
+            counters["industry"] += 1
         else:
-            add_missing(stock_id, "industryName", "行业分类缺失")
+            add_missing(stock_id, "profiles", "行业分类缺失")
 
         if status_of(research) == "real" and research.get("reports"):
-            research_count += 1
+            counters["research"] += 1
         else:
-            add_missing(stock_id, "research", status_of(research))
+            add_missing(stock_id, "research", quality_reason(research, "当前数据源未返回公开研报"))
 
         if status_of(announcement) == "real" and announcement.get("announcements"):
-            announcement_count += 1
+            counters["announcements"] += 1
         else:
-            add_missing(stock_id, "announcements", status_of(announcement))
+            add_missing(stock_id, "announcements", quality_reason(announcement, "当前公告数据源未返回结果"))
 
         if has_signal(signal):
-            signal_count += 1
+            counters["signals"] += 1
         else:
-            add_missing(stock_id, "signals", "信号字段为空")
+            add_missing(stock_id, "signals", quality_reason(signal, "信号字段为空"))
 
         if sector.get("industry") or sector.get("concept") or sector.get("region") or profile.get("industryName"):
-            sector_count += 1
+            counters["sectorMembership"] += 1
         else:
-            add_missing(stock_id, "sectorMembership", "板块归属缺失")
+            add_missing(stock_id, "sectorMembership", quality_reason(sector, "板块归属缺失"))
 
-        for source_name, item in {
-            "quote": quote,
-            "history": history,
-            "financial": financial,
-            "profile": profile,
+        module_items = {
+            "quotes": quote,
+            "priceHistory": history,
+            "financials": financial,
+            "profiles": profile,
             "research": research,
-            "announcement": announcement,
-            "signal": signal,
-            "sector": sector,
-        }.items():
+            "announcements": announcement,
+            "signals": signal,
+            "sectorMembership": sector,
+        }
+        for module, item in module_items.items():
             quality = item.get("quality") or {}
-            if quality.get("status") in {"missing", "error", "stale"}:
-                add_missing(stock_id, source_name, str(quality.get("status")))
+            status = quality.get("status")
+            if status in {"error", "stale"}:
+                add_missing(stock_id, module, quality_reason(item, str(status)))
             if is_stale(quality.get("updatedAt")):
-                stale_items.append(f"{format_stock(universe_by_id.get(stock_id), stock_id)} | {source_name}")
+                add_stale(stock_id, module)
 
         pe = quote.get("peTtm") if quote.get("peTtm") is not None else quote.get("pe")
         pb = quote.get("pb")
         if isinstance(pe, (int, float)) and (pe < -200 or pe > 500):
-            warnings.append(f"{stock_id}: PE TTM 极端值：{pe}")
+            warnings.add(f"{stock_id}:pe", f"{stock_id}: PE TTM 极端值：{pe}")
         if isinstance(pb, (int, float)) and (pb < 0 or pb > 80):
-            warnings.append(f"{stock_id}: PB 极端值：{pb}")
+            warnings.add(f"{stock_id}:pb", f"{stock_id}: PB 极端值：{pb}")
 
-        revenue = financial.get("revenue")
-        net_profit = financial.get("netProfit")
-        market_cap = quote.get("marketCap")
-        for label, value in (("revenue", revenue), ("netProfit", net_profit), ("marketCap", market_cap)):
+        for label, value in (("revenue", financial.get("revenue")), ("netProfit", financial.get("netProfit")), ("marketCap", quote.get("marketCap"))):
             if isinstance(value, (int, float)) and abs(value) > 1_000_000:
-                warnings.append(f"{stock_id}: {label} 数量级可能异常，当前应为亿元：{value}")
+                warnings.add(f"{stock_id}:{label}:scale", f"{stock_id}: {label} 数量级可能异常，当前应为亿元：{value}")
 
         if is_future(quote.get("updatedAt")):
-            errors.append(f"{stock_id}: quote.updatedAt 晚于当前时间")
+            errors.add(f"{stock_id}:quote:future", f"{stock_id}: quote.updatedAt 晚于当前时间")
         for point in points:
             if point.get("date") and point["date"] > datetime.now().date().isoformat():
-                errors.append(f"{stock_id}: K 线日期晚于当前日期：{point['date']}")
+                errors.add(f"{stock_id}:history:future:{point['date']}", f"{stock_id}: K 线日期晚于当前日期：{point['date']}")
 
     unsupported_ok = 0
     for stock_id in unsupported_ids:
@@ -297,7 +344,7 @@ def main() -> int:
         if profile_status == "unsupported_market":
             unsupported_ok += 1
         else:
-            errors.append(f"{stock_id}: 应标记 unsupported_market，实际为 {profile_status}")
+            errors.add(f"{stock_id}:unsupported", f"{stock_id}: 应标记 unsupported_market，实际为 {profile_status}")
 
     total_a = len(a_share_ids)
     coverage = {
@@ -306,79 +353,79 @@ def main() -> int:
         "Universe 支持分布": json.dumps(expected_supported, ensure_ascii=False),
         "Universe 不支持分布": json.dumps(expected_unsupported, ensure_ascii=False),
         "Manifest Universe 总数": str(manifest_universe.get("total")),
-        "A 股行情覆盖": pct(quote_real, total_a),
-        "A 股 K 线覆盖": pct(history_real, total_a),
-        "A 股财务覆盖": pct(finance_core, total_a),
-        "财务报告期覆盖": pct(report_dates, total_a),
-        "F10 覆盖": pct(f10_text, total_a),
-        "行业分类覆盖": pct(industry_count, total_a),
-        "研报覆盖": pct(research_count, total_a),
-        "公告覆盖": pct(announcement_count, total_a),
-        "信号覆盖": pct(signal_count, total_a),
-        "板块归属覆盖": pct(sector_count, total_a),
-        "港股支持": f"unsupported_market {unsupported_ok}/{len(unsupported_ids)}；A 股统计未计入港股",
+        "A 股 quotes 覆盖": pct(counters["quotes"], total_a),
+        "A 股 priceHistory 覆盖": pct(counters["priceHistory"], total_a),
+        "A 股 financials 覆盖": pct(counters["financials"], total_a),
+        "财务报告期覆盖": pct(counters["reportDates"], total_a),
+        "A 股 profiles / F10 覆盖": pct(counters["profiles"], total_a),
+        "行业分类覆盖": pct(counters["industry"], total_a),
+        "A 股 research 覆盖": pct(counters["research"], total_a),
+        "A 股 announcements 覆盖": pct(counters["announcements"], total_a),
+        "A 股 signals 覆盖": pct(counters["signals"], total_a),
+        "A 股 sectorMembership 覆盖": pct(counters["sectorMembership"], total_a),
+        "港股 unsupported": f"unsupported_market {unsupported_ok}/{len(unsupported_ids)}，不计入 A 股覆盖率",
         "stale 数据数量": str(len(stale_items)),
-        "missing 字段数量": str(len(missing_items)),
+        "missing 明细数量": str(len(missing_items)),
     }
 
     manifest_coverage = manifest.get("coverage") or {}
     for module, summary in manifest_coverage.items():
         if isinstance(summary, dict) and summary.get("total") != total_a:
-            errors.append(f"manifest.coverage.{module}.total 与 A 股支持分母不一致")
+            errors.add(f"manifest:{module}:total", f"manifest.coverage.{module}.total 与 A 股支持分母不一致")
         if isinstance(summary, dict) and summary.get("unsupportedTotal") != len(unsupported_ids):
-            errors.append(f"manifest.coverage.{module}.unsupportedTotal 与 unsupported universe 不一致")
+            errors.add(f"manifest:{module}:unsupported", f"manifest.coverage.{module}.unsupportedTotal 与 unsupported universe 不一致")
 
     if total_a == 0:
-        errors.append("A 股 Universe 为空")
+        errors.add("a-share:empty", "A 股 Universe 为空")
     else:
-        if quote_real / total_a < 0.9:
-            errors.append("A 股行情覆盖率低于 90%")
-        if history_real / total_a < 0.9:
-            errors.append("A 股 K 线覆盖率低于 90%")
-        if finance_core / total_a < 0.8:
-            errors.append("A 股财务核心字段覆盖率低于 80%")
-        if f10_text / total_a < 0.9:
-            errors.append("F10 / 主营业务覆盖率低于 90%")
-        if signal_count / total_a < 0.7:
-            errors.append("信号层覆盖率低于 70%")
-        if announcement_count / total_a < 0.7:
-            errors.append("公告覆盖率低于 70%")
+        thresholds = {
+            "quotes": (0.9, "A 股行情覆盖率低于 90%"),
+            "priceHistory": (0.9, "A 股 K 线覆盖率低于 90%"),
+            "financials": (0.8, "A 股财务核心字段覆盖率低于 80%"),
+            "profiles": (0.9, "F10 / 主营业务覆盖率低于 90%"),
+            "signals": (0.7, "信号层覆盖率低于 70%"),
+            "announcements": (0.7, "公告覆盖率低于 70%"),
+        }
+        for module, (threshold, message) in thresholds.items():
+            if counters[module] / total_a < threshold:
+                errors.add(f"coverage:{module}", message)
 
     write_report(coverage, universe_payload, unsupported_items, errors, warnings, missing_items, stale_items)
     print(f"Validation complete: errors={len(errors)}, warnings={len(warnings)}, report={REPORT_PATH}")
-    return 1 if errors else 0
+    return 1 if len(errors) else 0
 
 
 def write_report(
     coverage: dict[str, str],
     universe_payload: dict[str, Any],
     unsupported_items: list[dict[str, Any]],
-    errors: list[str],
-    warnings: list[str],
-    missing_items: list[str],
-    stale_items: list[str],
+    errors: UniqueList,
+    warnings: UniqueList,
+    missing_items: UniqueList,
+    stale_items: UniqueList,
 ) -> None:
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    private_total = (universe_payload.get("privateCompanies") or {}).get("total", 0)
     lines = [
         "# A Stock Data 数据校验报告",
         "",
         f"- 生成时间：{datetime.now().replace(microsecond=0).isoformat()}",
-        "- 口径：以 `src/data/real/stock-universe.generated.json` 为唯一 Universe 来源。",
-        "- 港股状态：第一阶段明确标记为 `unsupported_market`，不纳入 A 股覆盖率分母。",
+        "- 口径来源：`src/data/real/stock-universe.generated.json`",
+        "- 港股状态：第一阶段统一为 `unsupported_market`，不纳入 A 股覆盖率分母。",
         "",
-        "## Universe Overview",
+        "## 1. Universe 口径",
         "",
         f"- Universe 总数：{universe_payload.get('total', 'N/A')}",
         f"- 市场分布：{json.dumps(universe_payload.get('markets', {}), ensure_ascii=False)}",
         f"- 支持分布：{json.dumps(universe_payload.get('supported', {}), ensure_ascii=False)}",
         f"- 不支持分布：{json.dumps(universe_payload.get('unsupported', {}), ensure_ascii=False)}",
-        f"- 未上市公司：{(universe_payload.get('privateCompanies') or {}).get('total', 0)}，不进入行情覆盖分母。",
+        f"- 未上市公司：{private_total}，单独维护，不进入行情覆盖率。",
         "",
-        "## A 股覆盖",
+        "## 2. A 股覆盖率",
         "",
     ]
     lines.extend([f"- {key}：{value}" for key, value in coverage.items()] or ["- 暂无"])
-    lines.extend(["", "## 港股 Unsupported List", ""])
+    lines.extend(["", "## 3. 港股状态", ""])
     lines.extend(
         [
             f"- {item.get('id')} | {item.get('name')} | {item.get('standardSymbol')} | {item.get('dataStatus')}"
@@ -386,22 +433,24 @@ def write_report(
         ]
         or ["- 暂无"]
     )
+    lines.extend(["- 说明：港股 Provider 尚未接入，不纳入 A 股覆盖率，也不作为 A 股缺失项。"])
+    lines.extend(["", "## 4. 缺失明细", ""])
+    lines.extend([f"- {item}" for item in missing_items.values()] or ["- 无"])
+    lines.extend(["", "## 5. 异常值 / 警告", ""])
+    lines.extend([f"- {item}" for item in warnings.values()] or ["- 无"])
     lines.extend(["", "## 阻断错误", ""])
-    lines.extend([f"- {item}" for item in errors] or ["- 无"])
-    lines.extend(["", "## 异常数据 / 警告", ""])
-    lines.extend([f"- {item}" for item in warnings] or ["- 无"])
-    lines.extend(["", "## 缺失明细", ""])
-    lines.extend([f"- {item}" for item in missing_items[:160]] or ["- 无"])
+    lines.extend([f"- {item}" for item in errors.values()] or ["- 无"])
     lines.extend(["", "## Stale 明细", ""])
-    lines.extend([f"- {item}" for item in stale_items[:80]] or ["- 无"])
+    lines.extend([f"- {item}" for item in stale_items.values()] or ["- 无"])
     lines.extend(
         [
             "",
-            "## 下一步建议",
+            "## 6. 下一步建议",
             "",
+            "- research 缺失继续保留为真实缺口，不用 mock 研报填充。",
+            "- announcements 缺失继续保留为真实缺口，不用 mock 公告填充。",
             "- 继续保持 A 股抓取串行限流，避免对东财端点高频请求。",
-            "- 港股 Provider 接入前继续保持 `unsupported_market`，不得用 mock 数据伪装真实行情。",
-            "- 机器人未上市公司只进入研究池或私有公司清单，不进入上市股票行情覆盖分母。",
+            "- 港股 Provider 接入前继续保持 `unsupported_market`。",
         ]
     )
     REPORT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
