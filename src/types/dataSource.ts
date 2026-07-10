@@ -1,4 +1,38 @@
 export type DataSourceStatus = "mock" | "real" | "partial" | "stale" | "missing" | "error" | "not_implemented" | "unsupported_market";
+export type EvidenceSourceType = "real" | "generated_real" | "manual_verified" | "manual_unverified" | "static_reference" | "inferred" | "mock" | "placeholder" | "stale" | "conflicted" | "partial" | "not_implemented" | "source_unavailable" | "unknown";
+
+export interface DataFreshness {
+  fetchedAt: string | null;
+  sourceUpdatedAt: string | null;
+  generatedAt: string | null;
+  status: EvidenceSourceType;
+  error: string | null;
+  isStale: boolean | null;
+  staleReason: string | null;
+}
+
+export interface DataSourceRegistryEntry {
+  id: string;
+  category: string;
+  market: string | null;
+  status: EvidenceSourceType;
+  provider: string | null;
+  sourceType: EvidenceSourceType;
+  sourceUrl: string | null;
+  sourceDescription: string | null;
+  storageLocation: string | null;
+  generatedBy: string | null;
+  refreshMethod: string | null;
+  refreshFrequency: string | null;
+  lastUpdated: string | null;
+  coverage: { numerator: number | null; denominator: number | null; note?: string } | null;
+  frontendConsumers: string[];
+  fallbackBehavior: string | null;
+  isDisplayed: boolean | null;
+  verificationStatus: string | null;
+  knownLimitations: string[];
+  notes: string | null;
+}
 export type DashboardDataMode = "mock" | "real" | "mixed";
 
 export interface DataQualityMeta {

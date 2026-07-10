@@ -1,8 +1,8 @@
 import type { Stock } from "../types";
 
 const baseFinancial = {
-  revenue: "示例值",
-  netProfit: "示例值",
+  revenue: "数据暂缺",
+  netProfit: "数据暂缺",
   grossMargin: "X",
   netMargin: "X",
   roe: "X",
