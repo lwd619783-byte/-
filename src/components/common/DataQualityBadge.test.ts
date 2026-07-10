@@ -22,4 +22,23 @@ describe("DataQualityBadge priority", () => {
     ])).toBe("manual_unverified");
     expect(getHighestRiskStatus([{ source: "model", status: "inferred" }])).toBe("inferred");
   });
+
+  it("prioritizes unavailable and not-implemented states over partial or real", () => {
+    expect(getHighestRiskStatus([
+      { source: "provider", status: "real" },
+      { source: "partial", status: "partial" },
+      { source: "missing-provider", status: "source_unavailable" },
+    ])).toBe("source_unavailable");
+    expect(getHighestRiskStatus([
+      { source: "provider", status: "real" },
+      { source: "gap", status: "not_implemented" },
+    ])).toBe("not_implemented");
+  });
+
+  it("prioritizes explicit errors over every evidence state", () => {
+    expect(getHighestRiskStatus([
+      { source: "provider", status: "conflicted" },
+      { source: "request", status: "error" },
+    ])).toBe("error");
+  });
 });
