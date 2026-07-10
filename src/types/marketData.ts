@@ -73,6 +73,136 @@ export interface RealFinancialMetric {
   quality: DataQualityMeta;
 }
 
+export type FinancialFetchStatus = "success" | "partial" | "not_applicable" | "source_unavailable" | "fetch_error" | "validation_error" | "stale";
+export type FinancialReportType = "Q1" | "H1" | "Q3" | "FY" | "unknown";
+export type FinancialStatementScope = "consolidated" | "parent" | "unknown";
+
+export interface IncomeStatementMetrics {
+  operatingRevenue: number | null;
+  operatingCost: number | null;
+  operatingProfit: number | null;
+  totalProfit: number | null;
+  netProfit: number | null;
+  netProfitAttributableToParent: number | null;
+  netProfitExcludingNonRecurring: number | null;
+  researchAndDevelopmentExpense: number | null;
+  sellingExpense: number | null;
+  administrativeExpense: number | null;
+  financialExpense: number | null;
+}
+
+export interface CashFlowMetrics {
+  netOperatingCashFlow: number | null;
+  cashReceivedFromSales: number | null;
+  cashPaidForGoodsAndServices: number | null;
+  capitalExpenditure: number | null;
+  netInvestingCashFlow: number | null;
+  netFinancingCashFlow: number | null;
+}
+
+export type FinancialPeriodMetrics = IncomeStatementMetrics & CashFlowMetrics;
+
+export interface BalanceSheetMetrics {
+  totalAssets: number | null;
+  totalLiabilities: number | null;
+  equityAttributableToParent: number | null;
+  cashAndCashEquivalents: number | null;
+  accountsReceivable: number | null;
+  notesReceivable: number | null;
+  contractAssets: number | null;
+  inventory: number | null;
+  accountsPayable: number | null;
+  contractLiabilities: number | null;
+  shortTermBorrowings: number | null;
+  longTermBorrowings: number | null;
+  goodwill: number | null;
+}
+
+export interface FinancialChangeMetric {
+  value: number | null;
+  changeAmount: number | null;
+  reason: "missing_value" | "denominator_zero" | null;
+  baseSign: "positive" | "negative" | "zero" | null;
+}
+
+export interface FinancialDerivedMetrics {
+  revenueYoY: FinancialChangeMetric;
+  revenueQoQ: FinancialChangeMetric;
+  parentNetProfitYoY: FinancialChangeMetric;
+  parentNetProfitQoQ: FinancialChangeMetric;
+  deductedNetProfitYoY: FinancialChangeMetric;
+  deductedNetProfitQoQ: FinancialChangeMetric;
+  grossMargin: number | null;
+  netMargin: number | null;
+  operatingCashFlowToNetProfit: number | null;
+  receivablesToRevenue: number | null;
+  inventoryToRevenue: number | null;
+  debtToAssetRatio: number | null;
+  researchExpenseRatio: number | null;
+}
+
+export interface FinancialDataProvenance {
+  provider: string;
+  providerVersion: string;
+  sourceDescription: string;
+  sourceUrl: string;
+  sourceIdentifier: string;
+  fetchedAt: string;
+  sourceUpdatedAt: string | null;
+  generatedAt: string;
+}
+
+export interface FinancialReport extends FinancialDataProvenance {
+  stockCode: string;
+  market: "SH" | "SZ" | "BJ" | "unknown";
+  companyName: string;
+  reportPeriod: string;
+  reportType: FinancialReportType;
+  fiscalYear: number;
+  fiscalQuarter: number;
+  announcementDate: string | null;
+  statementScope: FinancialStatementScope;
+  currency: "CNY";
+  unit: "yuan";
+  sourceUnit: string;
+  normalizedUnit: "元";
+  normalizationFactor: number;
+  status: "success" | "partial" | "conflicted";
+  errorCode: string | null;
+  errorMessage: string | null;
+  isRestated: boolean | null;
+  isDerived: boolean;
+  derivationMethod: string | null;
+  sourcePeriods: Array<string | null>;
+  rawFieldCoverage: { available: number; total: number };
+  coreFieldCoverage: { available: number; total: number };
+  fieldStatus: Record<string, "available" | "missing" | "not_applicable">;
+  cumulative: FinancialPeriodMetrics;
+  singleQuarter: FinancialPeriodMetrics | null;
+  balanceSheet: BalanceSheetMetrics;
+  derived: FinancialDerivedMetrics;
+  auditStatus: string | null;
+}
+
+export interface AShareFinancialData {
+  id: string;
+  stockCode: string;
+  market: "SH" | "SZ" | "BJ" | "unknown";
+  companyName: string;
+  industryType: "general" | "financial";
+  status: FinancialFetchStatus;
+  errorCode: string | null;
+  errorMessage: string | null;
+  provider: string;
+  providerVersion: string;
+  fetchedAt: string;
+  generatedAt: string;
+  lastSuccessfulFetchAt: string | null;
+  currentFetchError: string | null;
+  reports: FinancialReport[];
+  quality: DataQualityMeta;
+}
+
 export interface ResearchReport {
   title: string;
   org?: string | null;
@@ -141,6 +271,7 @@ export interface GeneratedRealDataBundle {
   profiles: Record<string, StockProfile>;
   quotes: Record<string, StockQuote>;
   financials: Record<string, RealFinancialMetric>;
+  aShareFinancials: Record<string, AShareFinancialData>;
   priceHistory: Record<string, PriceHistorySeries>;
   research: Record<string, ResearchReportSeries>;
   announcements: Record<string, AnnouncementSeries>;

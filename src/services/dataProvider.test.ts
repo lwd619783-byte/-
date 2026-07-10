@@ -35,6 +35,7 @@ const generated: GeneratedRealDataBundle = {
     },
   },
   financials: {},
+  aShareFinancials: {},
   priceHistory: {
     sugon: {
       id: "sugon",

@@ -29,16 +29,40 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   const trackingFocus = safeJoin(stock.researchProfile?.validationSignals ?? stock.trackingMetrics, "、");
   const positioning = `公司位于${industryName} / ${segmentName}的${display(stock.chainPosition)}，主营${display(stock.business)}，核心看点是${display(stock.thesis)}，后续重点跟踪${trackingFocus || PENDING}。`;
 
-  const financialRows = [
-    ["营收", stock.financial.revenue],
-    ["归母净利润", stock.financial.netProfit],
-    ["ROE", stock.financial.roe],
-    ["毛利率", stock.financial.grossMargin],
-    ["净利率", stock.financial.netMargin],
-    ["资产负债率", stock.financial.debtRatio],
-    ["经营现金流", stock.financial.operatingCashFlow],
-    ["报告期", stock.realFinancial?.reportDate ?? EMPTY],
-  ];
+  const latestFinancialReport = stock.aShareFinancial?.reports?.[0];
+  const singleQuarter = latestFinancialReport?.singleQuarter;
+  const derived = latestFinancialReport?.derived;
+  const financialRows = latestFinancialReport
+    ? [
+        ["最新报告期", latestFinancialReport.reportPeriod],
+        ["单季度营业收入", formatFinancialAmount(singleQuarter?.operatingRevenue)],
+        ["单季度归母净利润", formatFinancialAmount(singleQuarter?.netProfitAttributableToParent)],
+        ["单季度扣非净利润", formatFinancialAmount(singleQuarter?.netProfitExcludingNonRecurring)],
+        ["单季度收入同比", formatFinancialRatio(derived?.revenueYoY.value)],
+        ["单季度归母净利润同比", formatFinancialRatio(derived?.parentNetProfitYoY.value)],
+        ["单季度收入环比", formatFinancialRatio(derived?.revenueQoQ.value)],
+        ["单季度归母净利润环比", formatFinancialRatio(derived?.parentNetProfitQoQ.value)],
+        ["毛利率", displayFinancialField(derived?.grossMargin, latestFinancialReport.fieldStatus.grossMargin, true)],
+        ["净利率", formatFinancialRatio(derived?.netMargin)],
+        ["经营现金流", formatFinancialAmount(singleQuarter?.netOperatingCashFlow)],
+        ["应收账款", displayFinancialField(latestFinancialReport.balanceSheet.accountsReceivable, latestFinancialReport.fieldStatus.accountsReceivable)],
+        ["存货", displayFinancialField(latestFinancialReport.balanceSheet.inventory, latestFinancialReport.fieldStatus.inventory)],
+        ["研发费用率", displayFinancialField(derived?.researchExpenseRatio, latestFinancialReport.fieldStatus.researchExpenseRatio, true)],
+        ["报告发布日期", latestFinancialReport.announcementDate ?? "暂未获取"],
+        ["数据来源", latestFinancialReport.provider],
+        ["抓取时间", latestFinancialReport.fetchedAt],
+        ["数据状态", financialStatusLabel(stock.aShareFinancial?.status)],
+        ["单季度口径", latestFinancialReport.isDerived ? "由累计值推导" : latestFinancialReport.singleQuarter ? "报告期直接值" : "暂未获取"],
+      ]
+    : [
+        ["营业收入", stock.financial.revenue],
+        ["归母净利润", stock.financial.netProfit],
+        ["毛利率", stock.financial.grossMargin],
+        ["净利率", stock.financial.netMargin],
+        ["经营现金流", stock.financial.operatingCashFlow],
+        ["报告期", stock.realFinancial?.reportDate ?? "暂未获取"],
+        ["数据状态", financialStatusLabel(stock.aShareFinancial?.status)],
+      ];
 
   const valuationRows = [
     ["PE", stock.valuation.pe],
@@ -547,4 +571,31 @@ function safeJoin(items: string[] | undefined, separator: string) {
 
 function nullableNumber(value: number | null | undefined) {
   return value === null || value === undefined ? EMPTY : String(value);
+}
+
+export function formatFinancialAmount(value: number | null | undefined) {
+  if (value === null || value === undefined || !Number.isFinite(value)) return "暂未获取";
+  const absolute = Math.abs(value);
+  if (absolute >= 100_000_000) return `${(value / 100_000_000).toFixed(2)} 亿元`;
+  if (absolute >= 10_000) return `${(value / 10_000).toFixed(2)} 万元`;
+  return `${value.toFixed(2)} 元`;
+}
+
+export function formatFinancialRatio(value: number | null | undefined) {
+  if (value === null || value === undefined || !Number.isFinite(value)) return "暂未获取";
+  return `${(value * 100).toFixed(2)}%`;
+}
+
+export function displayFinancialField(value: number | null | undefined, status?: string, percentage = false) {
+  if (status === "not_applicable") return "不适用";
+  return percentage ? formatFinancialRatio(value) : formatFinancialAmount(value);
+}
+
+export function financialStatusLabel(status?: string) {
+  if (status === "stale") return "数据已过期";
+  if (status === "fetch_error" || status === "source_unavailable" || status === "validation_error") return "数据获取失败";
+  if (status === "partial") return "部分字段可用";
+  if (status === "not_applicable") return "不适用";
+  if (status === "success") return "真实数据可用";
+  return "暂未获取";
 }

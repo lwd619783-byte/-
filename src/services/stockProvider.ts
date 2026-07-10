@@ -7,6 +7,10 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
     const profile = real.profiles[stock.id];
     const quote = real.quotes[stock.id];
     const realFinancial = real.financials[stock.id];
+    const aShareFinancial = real.aShareFinancials[stock.id];
+    const latestFinancialReport = aShareFinancial?.reports?.[0];
+    const latestSingleQuarter = latestFinancialReport?.singleQuarter;
+    const latestDerived = latestFinancialReport?.derived;
     const history = real.priceHistory[stock.id];
     const research = real.research[stock.id];
     const announcements = real.announcements[stock.id];
@@ -16,7 +20,7 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       ? mergeQuality(
           profile?.quality,
           quote?.quality,
-          realFinancial?.quality,
+          aShareFinancial?.quality ?? realFinancial?.quality,
           history?.quality,
           research?.quality,
           announcements?.quality,
@@ -37,15 +41,15 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
             pe: quote?.pe ?? null,
             pb: quote?.pb ?? null,
             ps: quote?.ps ?? null,
-            revenue: realFinancial?.revenue ?? null,
-            netProfit: realFinancial?.netProfit ?? null,
+            revenue: latestSingleQuarter?.operatingRevenue ?? realFinancial?.revenue ?? null,
+            netProfit: latestSingleQuarter?.netProfitAttributableToParent ?? realFinancial?.netProfit ?? null,
             roe: realFinancial?.roe ?? null,
-            operatingCashFlow: realFinancial?.operatingCashFlow ?? null,
+            operatingCashFlow: latestSingleQuarter?.netOperatingCashFlow ?? realFinancial?.operatingCashFlow ?? null,
           });
           const moduleQualities: Array<[string, DataQualityMeta | undefined]> = [
             ["quotes", quote?.quality],
             ["priceHistory", history?.quality],
-            ["financials", realFinancial?.quality],
+            ["financials", aShareFinancial?.quality ?? realFinancial?.quality],
             ["profiles", profile?.quality],
             ["research", research?.quality],
             ["announcements", announcements?.quality],
@@ -75,6 +79,7 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       profile,
       quote,
       realFinancial,
+      aShareFinancial,
       priceHistory: history?.points ?? [],
       research,
       announcements,
@@ -86,15 +91,15 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       isRecentlyUpdated: dataQuality.some((item) => isRecentlyUpdated(item.updatedAt)),
       financial: {
         ...stock.financial,
-        revenue: realFinancial ? formatYi(realFinancial.revenue) : stock.financial.revenue,
-        netProfit: realFinancial ? formatYi(realFinancial.netProfit) : stock.financial.netProfit,
-        grossMargin: realFinancial ? formatPercent(realFinancial.grossMargin) : stock.financial.grossMargin,
-        netMargin: realFinancial ? formatPercent(realFinancial.netMargin) : stock.financial.netMargin,
+        revenue: latestSingleQuarter ? formatYi(toYi(latestSingleQuarter.operatingRevenue)) : realFinancial ? formatYi(realFinancial.revenue) : stock.financial.revenue,
+        netProfit: latestSingleQuarter ? formatYi(toYi(latestSingleQuarter.netProfitAttributableToParent)) : realFinancial ? formatYi(realFinancial.netProfit) : stock.financial.netProfit,
+        grossMargin: latestFinancialReport ? formatDecimalPercent(latestDerived?.grossMargin) : realFinancial ? formatPercent(realFinancial.grossMargin) : stock.financial.grossMargin,
+        netMargin: latestFinancialReport ? formatDecimalPercent(latestDerived?.netMargin) : realFinancial ? formatPercent(realFinancial.netMargin) : stock.financial.netMargin,
         roe: realFinancial ? formatPercent(realFinancial.roe) : stock.financial.roe,
-        debtRatio: realFinancial ? formatPercent(realFinancial.debtRatio) : stock.financial.debtRatio,
-        operatingCashFlow: realFinancial ? formatYi(realFinancial.operatingCashFlow) : stock.financial.operatingCashFlow,
-        revenueGrowth: realFinancial ? formatPercent(realFinancial.revenueGrowth) : stock.financial.revenueGrowth,
-        profitGrowth: realFinancial ? formatPercent(realFinancial.profitGrowth) : stock.financial.profitGrowth,
+        debtRatio: latestFinancialReport ? formatDecimalPercent(latestDerived?.debtToAssetRatio) : realFinancial ? formatPercent(realFinancial.debtRatio) : stock.financial.debtRatio,
+        operatingCashFlow: latestSingleQuarter ? formatYi(toYi(latestSingleQuarter.netOperatingCashFlow)) : realFinancial ? formatYi(realFinancial.operatingCashFlow) : stock.financial.operatingCashFlow,
+        revenueGrowth: latestFinancialReport ? formatDecimalPercent(latestDerived?.revenueYoY.value) : realFinancial ? formatPercent(realFinancial.revenueGrowth) : stock.financial.revenueGrowth,
+        profitGrowth: latestFinancialReport ? formatDecimalPercent(latestDerived?.parentNetProfitYoY.value) : realFinancial ? formatPercent(realFinancial.profitGrowth) : stock.financial.profitGrowth,
         marketCap: quote ? formatYi(quote.marketCap) : stock.financial.marketCap,
       },
       valuation: {
@@ -106,4 +111,12 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       },
     };
   });
+}
+
+function toYi(value: number | null | undefined) {
+  return value === null || value === undefined ? null : value / 100_000_000;
+}
+
+function formatDecimalPercent(value: number | null | undefined) {
+  return value === null || value === undefined ? formatPercent(null) : formatPercent(value * 100);
 }
