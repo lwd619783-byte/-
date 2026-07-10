@@ -34,8 +34,7 @@ const generated: GeneratedRealDataBundle = {
       quality: { source: "AKShare", status: "real", updatedAt: "2026-06-30T10:00:00+08:00" },
     },
   },
-  financials: {},
-  aShareFinancials: {},
+  aShareFinancialSummaries: {},
   priceHistory: {
     sugon: {
       id: "sugon",
@@ -91,5 +90,14 @@ describe("dashboard data provider", () => {
     expect(stock?.announcements?.announcements[0].title).toBe("年度报告");
     expect(stock?.signals?.dragonTigerCount30d).toBe(1);
     expect(stock?.sectorMembership?.concept[0].name).toBe("算力");
+    expect(stock?.financial.revenue).toBe("数据获取失败");
+    expect(stock?.financial.netProfit).toBe("数据获取失败");
+  });
+
+  it("preserves static financial examples only in mock mode", () => {
+    const mixedStock = buildDashboardDataset("mixed", generated).stocks.find((item) => item.id === "sugon");
+    const mockStock = buildDashboardDataset("mock", generated).stocks.find((item) => item.id === "sugon");
+    expect(mixedStock?.financial.revenue).not.toBe(mockStock?.financial.revenue);
+    expect(mockStock?.financial.revenue).not.toBe("数据获取失败");
   });
 });

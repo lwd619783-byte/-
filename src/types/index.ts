@@ -127,7 +127,8 @@ export interface Stock {
   profile?: import("./marketData").StockProfile;
   quote?: import("./marketData").StockQuote;
   realFinancial?: import("./marketData").RealFinancialMetric;
-  aShareFinancial?: import("./marketData").AShareFinancialData;
+  aShareFinancialSummary?: import("./marketData").AShareFinancialSummary;
+  dataMode?: import("./dataSource").DashboardDataMode;
   priceHistory?: import("./marketData").PricePoint[];
   research?: import("./marketData").ResearchReportSeries;
   announcements?: import("./marketData").AnnouncementSeries;
@@ -173,9 +174,13 @@ export interface WatchlistItem {
 export type { DashboardDataMode, DataQualityMeta, DataSourceStatus, DataManifest } from "./dataSource";
 export type {
   AShareFinancialData,
+  AShareFinancialManifest,
+  AShareFinancialManifestEntry,
+  AShareFinancialSummary,
   BalanceSheetMetrics,
   CashFlowMetrics,
   FinancialDataProvenance,
+  FinancialChangeMetric,
   FinancialDerivedMetrics,
   FinancialFetchStatus,
   FinancialPeriodMetrics,

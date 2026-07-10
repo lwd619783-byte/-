@@ -16,6 +16,7 @@ from a_share_financials.core import (
     BALANCE_FIELDS, FLOW_FIELDS, build_company_record, build_summary, derive_single_quarters,
     normalize_amount, parse_number, safe_change, select_report_versions, validate_dataset,
 )
+from a_share_financials.artifacts import publish_staged_artifacts, validate_split_artifacts, write_staged_artifacts
 from a_share_financials.provider import ProviderError, SinaFinancialProvider
 
 
@@ -163,6 +164,58 @@ class ProviderFailureTests(unittest.TestCase):
         second = json.dumps(payload, ensure_ascii=False, indent=2)
         self.assertEqual(first, second)
         self.assertLess(first.index('"a"'), first.index('"z"'))
+
+
+class SplitArtifactTests(unittest.TestCase):
+    stock = {"id": "demo", "code": "300001", "name": "测试科技", "market": "A股", "exchange": "SZ"}
+
+    def record(self):
+        return build_company_record(self.stock, raw_period("20250331"), "2025-04-30T00:00:00Z", "2025-04-30T00:00:00Z")
+
+    def test_summary_manifest_and_detail_are_consistent(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            summary, manifest, details = write_staged_artifacts({"demo": self.record()}, "2025-04-30T00:00:00Z", root)
+            self.assertEqual(validate_split_artifacts(summary, manifest, details, {"demo"}), [])
+            manifest_data = json.loads(manifest.read_text(encoding="utf-8"))
+            self.assertEqual(manifest_data["total"], 1)
+            self.assertEqual(manifest_data["items"][0]["relativePath"], "data/a-share-financials/demo.json")
+
+    def test_checksum_or_orphan_file_fails_validation(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            summary, manifest, details = write_staged_artifacts({"demo": self.record()}, "2025-04-30T00:00:00Z", root)
+            (details / "demo.json").write_text("{}\n", encoding="utf-8")
+            (details / "orphan.json").write_text("{}\n", encoding="utf-8")
+            errors = validate_split_artifacts(summary, manifest, details, {"demo"})
+            self.assertTrue(any("checksum" in error for error in errors))
+            self.assertTrue(any("orphan" in error for error in errors))
+
+    def test_manifest_path_traversal_is_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            summary, manifest, details = write_staged_artifacts({"demo": self.record()}, "2025-04-30T00:00:00Z", root)
+            value = json.loads(manifest.read_text(encoding="utf-8"))
+            value["items"][0]["relativePath"] = "data/a-share-financials/../secret.json"
+            manifest.write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
+            self.assertTrue(any("unsafe" in error for error in validate_split_artifacts(summary, manifest, details, {"demo"})))
+
+    def test_publish_failure_restores_previous_detail_directory(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            output_details = root / "public/data/a-share-financials"
+            output_details.mkdir(parents=True)
+            (output_details / "old.json").write_text("old", encoding="utf-8")
+            output_summary = root / "src/data/real/summary.json"
+            output_summary.parent.mkdir(parents=True)
+            output_summary.write_text("old-summary", encoding="utf-8")
+            stage_details = root / "stage-details"
+            stage_details.mkdir()
+            (stage_details / "new.json").write_text("new", encoding="utf-8")
+            with self.assertRaises(FileNotFoundError):
+                publish_staged_artifacts(root / "missing-summary.json", stage_details, output_summary, output_details, root)
+            self.assertTrue((output_details / "old.json").exists())
+            self.assertEqual(output_summary.read_text(encoding="utf-8"), "old-summary")
 
 
 if __name__ == "__main__":

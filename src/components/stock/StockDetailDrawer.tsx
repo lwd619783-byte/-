@@ -1,7 +1,9 @@
 import { AlertTriangle, BarChart3, BookOpen, CheckCircle2, LineChart as LineChartIcon, Target, X } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { Industry, IndustrySegment, Stock } from "../../types";
+import { loadAShareFinancial } from "../../services/aShareFinancialLoader";
+import type { AShareFinancialData, Industry, IndustrySegment, Stock } from "../../types";
+import { displayFinancialField, financialStatusLabel, financialUnavailableLabel, formatFinancialAmount, formatFinancialChangeMetric, formatFinancialRatio } from "../../utils/financialDisplay";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
 import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp, metricTone } from "../common/terminal";
@@ -20,6 +22,34 @@ const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
 export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock }: StockDetailDrawerProps) {
+  const selectedStockId = useRef<string | null>(stock?.id ?? null);
+  selectedStockId.current = stock?.id ?? null;
+  const [financialLoad, setFinancialLoad] = useState<{
+    stockId: string | null;
+    status: "idle" | "loading" | "success" | "error";
+    data: AShareFinancialData | null;
+  }>({ stockId: null, status: "idle", data: null });
+
+  useEffect(() => {
+    let active = true;
+    const requestStockId = stock?.id ?? null;
+    setFinancialLoad({ stockId: requestStockId, status: "idle", data: null });
+    if (!shouldLoadAShareFinancial(stock)) return () => { active = false; };
+    setFinancialLoad({ stockId: requestStockId, status: "loading", data: null });
+    loadAShareFinancial(requestStockId as string)
+      .then((data) => {
+        if (canApplyFinancialLoad(requestStockId, selectedStockId.current, active)) {
+          setFinancialLoad({ stockId: requestStockId, status: "success", data });
+        }
+      })
+      .catch(() => {
+        if (canApplyFinancialLoad(requestStockId, selectedStockId.current, active)) {
+          setFinancialLoad({ stockId: requestStockId, status: "error", data: null });
+        }
+      });
+    return () => { active = false; };
+  }, [stock?.id, stock?.market, stock?.dataMode, stock?.aShareFinancialSummary?.detailPath]);
+
   if (!stock) return null;
 
   const industry = industries.find((item) => item.id === stock.industryId);
@@ -29,40 +59,8 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   const trackingFocus = safeJoin(stock.researchProfile?.validationSignals ?? stock.trackingMetrics, "、");
   const positioning = `公司位于${industryName} / ${segmentName}的${display(stock.chainPosition)}，主营${display(stock.business)}，核心看点是${display(stock.thesis)}，后续重点跟踪${trackingFocus || PENDING}。`;
 
-  const latestFinancialReport = stock.aShareFinancial?.reports?.[0];
-  const singleQuarter = latestFinancialReport?.singleQuarter;
-  const derived = latestFinancialReport?.derived;
-  const financialRows = latestFinancialReport
-    ? [
-        ["最新报告期", latestFinancialReport.reportPeriod],
-        ["单季度营业收入", formatFinancialAmount(singleQuarter?.operatingRevenue)],
-        ["单季度归母净利润", formatFinancialAmount(singleQuarter?.netProfitAttributableToParent)],
-        ["单季度扣非净利润", formatFinancialAmount(singleQuarter?.netProfitExcludingNonRecurring)],
-        ["单季度收入同比", formatFinancialRatio(derived?.revenueYoY.value)],
-        ["单季度归母净利润同比", formatFinancialRatio(derived?.parentNetProfitYoY.value)],
-        ["单季度收入环比", formatFinancialRatio(derived?.revenueQoQ.value)],
-        ["单季度归母净利润环比", formatFinancialRatio(derived?.parentNetProfitQoQ.value)],
-        ["毛利率", displayFinancialField(derived?.grossMargin, latestFinancialReport.fieldStatus.grossMargin, true)],
-        ["净利率", formatFinancialRatio(derived?.netMargin)],
-        ["经营现金流", formatFinancialAmount(singleQuarter?.netOperatingCashFlow)],
-        ["应收账款", displayFinancialField(latestFinancialReport.balanceSheet.accountsReceivable, latestFinancialReport.fieldStatus.accountsReceivable)],
-        ["存货", displayFinancialField(latestFinancialReport.balanceSheet.inventory, latestFinancialReport.fieldStatus.inventory)],
-        ["研发费用率", displayFinancialField(derived?.researchExpenseRatio, latestFinancialReport.fieldStatus.researchExpenseRatio, true)],
-        ["报告发布日期", latestFinancialReport.announcementDate ?? "暂未获取"],
-        ["数据来源", latestFinancialReport.provider],
-        ["抓取时间", latestFinancialReport.fetchedAt],
-        ["数据状态", financialStatusLabel(stock.aShareFinancial?.status)],
-        ["单季度口径", latestFinancialReport.isDerived ? "由累计值推导" : latestFinancialReport.singleQuarter ? "报告期直接值" : "暂未获取"],
-      ]
-    : [
-        ["营业收入", stock.financial.revenue],
-        ["归母净利润", stock.financial.netProfit],
-        ["毛利率", stock.financial.grossMargin],
-        ["净利率", stock.financial.netMargin],
-        ["经营现金流", stock.financial.operatingCashFlow],
-        ["报告期", stock.realFinancial?.reportDate ?? "暂未获取"],
-        ["数据状态", financialStatusLabel(stock.aShareFinancial?.status)],
-      ];
+  const loadedFinancial = financialLoad.stockId === stock.id && financialLoad.status === "success" ? financialLoad.data : null;
+  const financialRows = buildFinancialRows(stock, loadedFinancial, financialLoad.stockId === stock.id ? financialLoad.status : "idle");
 
   const valuationRows = [
     ["PE", stock.valuation.pe],
@@ -216,7 +214,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                       ["状态", stock.dataQuality?.map((item) => item.status).join(" / ") || "mock"],
                       ["更新时间", stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? EMPTY],
                       ["缺失字段数", String(stock.missingFields?.length ?? 0)],
-                      ["财务更新时间", stock.realFinancial?.updatedAt ?? EMPTY],
+                      ["财务更新时间", stock.aShareFinancialSummary?.fetchedAt ?? (stock.market === "港股" && stock.dataMode !== "mock" ? "港股财务数据暂未接入" : EMPTY)],
                       ["源分层", stock.dataQuality?.map((item) => item.sourceLayer).filter(Boolean).join(" / ") || EMPTY],
                       ["源端点", stock.dataQuality?.map((item) => item.sourceEndpoint).filter(Boolean).join(" / ") || EMPTY],
                     ]}
@@ -573,29 +571,61 @@ function nullableNumber(value: number | null | undefined) {
   return value === null || value === undefined ? EMPTY : String(value);
 }
 
-export function formatFinancialAmount(value: number | null | undefined) {
-  if (value === null || value === undefined || !Number.isFinite(value)) return "暂未获取";
-  const absolute = Math.abs(value);
-  if (absolute >= 100_000_000) return `${(value / 100_000_000).toFixed(2)} 亿元`;
-  if (absolute >= 10_000) return `${(value / 10_000).toFixed(2)} 万元`;
-  return `${value.toFixed(2)} 元`;
+export function shouldLoadAShareFinancial(stock: Stock | null) {
+  return Boolean(stock && stock.market === "A股" && stock.dataMode !== "mock" && stock.aShareFinancialSummary?.detailPath);
 }
 
-export function formatFinancialRatio(value: number | null | undefined) {
-  if (value === null || value === undefined || !Number.isFinite(value)) return "暂未获取";
-  return `${(value * 100).toFixed(2)}%`;
+export function canApplyFinancialLoad(requestStockId: string | null, currentStockId: string | null, active: boolean) {
+  return active && requestStockId !== null && requestStockId === currentStockId;
 }
 
-export function displayFinancialField(value: number | null | undefined, status?: string, percentage = false) {
-  if (status === "not_applicable") return "不适用";
-  return percentage ? formatFinancialRatio(value) : formatFinancialAmount(value);
-}
+function buildFinancialRows(stock: Stock, detail: AShareFinancialData | null, loadStatus: "idle" | "loading" | "success" | "error"): string[][] {
+  if (stock.dataMode === "mock") {
+    return [
+      ["营业收入", stock.financial.revenue], ["归母净利润", stock.financial.netProfit], ["毛利率", stock.financial.grossMargin],
+      ["净利率", stock.financial.netMargin], ["经营现金流", stock.financial.operatingCashFlow], ["数据状态", "Mock 示例数据"],
+    ];
+  }
+  if (stock.market === "港股") return [["财务状态", "港股财务数据暂未接入"]];
+  if (stock.market !== "A股") return [["财务状态", financialUnavailableLabel(stock.market, "not_implemented")]];
 
-export function financialStatusLabel(status?: string) {
-  if (status === "stale") return "数据已过期";
-  if (status === "fetch_error" || status === "source_unavailable" || status === "validation_error") return "数据获取失败";
-  if (status === "partial") return "部分字段可用";
-  if (status === "not_applicable") return "不适用";
-  if (status === "success") return "真实数据可用";
-  return "暂未获取";
+  const summary = stock.aShareFinancialSummary;
+  if (!summary) return [["财务状态", financialUnavailableLabel(stock.market, "source_unavailable")]];
+  const report = detail?.reports?.[0];
+  const single = report?.singleQuarter ?? summary.latestSingleQuarter;
+  const changes = report?.derived ?? summary.latestChanges;
+  const ratios = report?.derived ?? summary.latestRatios;
+  const balance = report?.balanceSheet ?? summary.latestBalanceSheet;
+  const fieldStatus = report?.fieldStatus ?? summary.fieldStatus;
+  const loadingLabel = loadStatus === "loading"
+    ? "正在加载完整财务数据"
+    : loadStatus === "error"
+      ? "完整财务数据加载失败（已保留真实摘要）"
+      : loadStatus === "success"
+        ? "完整财务数据已加载"
+        : "使用真实财务摘要";
+  return [
+    ["最新报告期", report?.reportPeriod ?? summary.latestReportPeriod ?? "暂未获取"],
+    ["单季度营业收入", formatFinancialAmount(single?.operatingRevenue)],
+    ["单季度归母净利润", formatFinancialAmount(single?.netProfitAttributableToParent)],
+    ["单季度扣非净利润", formatFinancialAmount(single?.netProfitExcludingNonRecurring)],
+    ["单季度收入同比", formatFinancialChangeMetric(changes?.revenueYoY)],
+    ["单季度收入环比", formatFinancialChangeMetric(changes?.revenueQoQ)],
+    ["单季度归母净利润同比", formatFinancialChangeMetric(changes?.parentNetProfitYoY)],
+    ["单季度归母净利润环比", formatFinancialChangeMetric(changes?.parentNetProfitQoQ)],
+    ["单季度扣非净利润同比", formatFinancialChangeMetric(changes?.deductedNetProfitYoY)],
+    ["单季度扣非净利润环比", formatFinancialChangeMetric(changes?.deductedNetProfitQoQ)],
+    ["毛利率", displayFinancialField(ratios?.grossMargin, fieldStatus.grossMargin, true)],
+    ["净利率", formatFinancialRatio(ratios?.netMargin)],
+    ["经营现金流", formatFinancialAmount(single?.netOperatingCashFlow)],
+    ["应收账款", displayFinancialField(balance?.accountsReceivable, fieldStatus.accountsReceivable)],
+    ["存货", displayFinancialField(balance?.inventory, fieldStatus.inventory)],
+    ["研发费用率", displayFinancialField(ratios?.researchExpenseRatio, fieldStatus.researchExpenseRatio, true)],
+    ["报告发布日期", report?.announcementDate ?? "完整数据加载后显示"],
+    ["数据来源", report?.provider ?? summary.provider],
+    ["抓取时间", report?.fetchedAt ?? summary.fetchedAt],
+    ["数据状态", financialStatusLabel(summary.status)],
+    ["完整数据", loadingLabel],
+    ["单季度口径", report ? (report.isDerived ? "由累计值推导" : report.singleQuarter ? "报告期直接值" : "暂未获取") : "摘要口径：最新单季度"],
+  ];
 }

@@ -21,6 +21,9 @@ export interface DataSourceRegistryEntry {
   sourceUrl: string | null;
   sourceDescription: string | null;
   storageLocation: string | null;
+  summaryLocation?: string | null;
+  manifestLocation?: string | null;
+  detailLocationPattern?: string | null;
   generatedBy: string | null;
   refreshMethod: string | null;
   refreshFrequency: string | null;

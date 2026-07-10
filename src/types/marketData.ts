@@ -185,6 +185,7 @@ export interface FinancialReport extends FinancialDataProvenance {
 }
 
 export interface AShareFinancialData {
+  schemaVersion: string;
   id: string;
   stockCode: string;
   market: "SH" | "SZ" | "BJ" | "unknown";
@@ -201,6 +202,54 @@ export interface AShareFinancialData {
   currentFetchError: string | null;
   reports: FinancialReport[];
   quality: DataQualityMeta;
+}
+
+export interface AShareFinancialSummary {
+  id: string;
+  stockCode: string;
+  companyName: string;
+  market: "SH" | "SZ" | "BJ" | "unknown";
+  industryType: "general" | "financial";
+  status: FinancialFetchStatus;
+  errorCode: string | null;
+  errorMessage: string | null;
+  provider: string;
+  providerVersion: string;
+  fetchedAt: string;
+  generatedAt: string;
+  lastSuccessfulFetchAt: string | null;
+  currentFetchError: string | null;
+  quality: DataQualityMeta;
+  latestReportPeriod: string | null;
+  latestReportType: FinancialReportType;
+  latestSingleQuarter: Pick<FinancialPeriodMetrics, "operatingRevenue" | "netProfitAttributableToParent" | "netProfitExcludingNonRecurring" | "netOperatingCashFlow">;
+  latestChanges: Pick<FinancialDerivedMetrics, "revenueYoY" | "revenueQoQ" | "parentNetProfitYoY" | "parentNetProfitQoQ" | "deductedNetProfitYoY" | "deductedNetProfitQoQ">;
+  latestRatios: Pick<FinancialDerivedMetrics, "grossMargin" | "netMargin" | "debtToAssetRatio" | "researchExpenseRatio">;
+  latestBalanceSheet: Pick<BalanceSheetMetrics, "accountsReceivable" | "inventory">;
+  fieldStatus: Record<string, "available" | "missing" | "not_applicable">;
+  detailPath: string;
+}
+
+export interface AShareFinancialManifestEntry {
+  id: string;
+  stockCode: string;
+  relativePath: string;
+  byteSize: number;
+  checksumSha256: string;
+  latestReportPeriod: string | null;
+  status: FinancialFetchStatus;
+}
+
+export interface AShareFinancialManifest {
+  schemaVersion: string;
+  generatedAt: string;
+  provider: string;
+  providerVersion: string;
+  total: number;
+  success: number;
+  partial: number;
+  error: number;
+  items: AShareFinancialManifestEntry[];
 }
 
 export interface ResearchReport {
@@ -270,8 +319,7 @@ export interface GeneratedRealDataBundle {
   manifest: DataManifest;
   profiles: Record<string, StockProfile>;
   quotes: Record<string, StockQuote>;
-  financials: Record<string, RealFinancialMetric>;
-  aShareFinancials: Record<string, AShareFinancialData>;
+  aShareFinancialSummaries: Record<string, AShareFinancialSummary>;
   priceHistory: Record<string, PriceHistorySeries>;
   research: Record<string, ResearchReportSeries>;
   announcements: Record<string, AnnouncementSeries>;

@@ -30,6 +30,7 @@ export default function App() {
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [dataMode, setDataMode] = useState<DashboardDataMode>("mixed");
   const dataset = useMemo(() => buildDashboardDataset(dataMode), [dataMode]);
+  const activeSelectedStock = selectedStock ? dataset.stocks.find((stock) => stock.id === selectedStock.id) ?? null : null;
 
   const dashboardStats = useMemo(() => {
     const quoteCoverage = dataset.realManifest.coverage?.quotes;
@@ -195,7 +196,7 @@ export default function App() {
       />
 
       <StockDetailDrawer
-        stock={selectedStock}
+        stock={activeSelectedStock}
         stocks={dataset.stocks}
         industries={dataset.industries}
         onClose={() => setSelectedStock(null)}

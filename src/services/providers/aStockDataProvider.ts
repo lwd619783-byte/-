@@ -1,7 +1,6 @@
 import manifestJson from "../../data/real/data-manifest.generated.json";
 import announcementsJson from "../../data/real/announcements.generated.json";
-import financialsJson from "../../data/real/financials.generated.json";
-import aShareFinancialsJson from "../../data/real/a-share-financials.generated.json";
+import aShareFinancialSummariesJson from "../../data/real/a-share-financial-summaries.generated.json";
 import priceHistoryJson from "../../data/real/priceHistory.generated.json";
 import profilesJson from "../../data/real/stocks.generated.json";
 import quotesJson from "../../data/real/quotes.generated.json";
@@ -15,8 +14,7 @@ export function getAStockData(): GeneratedRealDataBundle {
     manifest: manifestJson,
     profiles: profilesJson.items,
     quotes: quotesJson.items,
-    financials: financialsJson.items,
-    aShareFinancials: aShareFinancialsJson.items,
+    aShareFinancialSummaries: aShareFinancialSummariesJson.items,
     priceHistory: priceHistoryJson.items,
     research: researchJson.items,
     announcements: announcementsJson.items,

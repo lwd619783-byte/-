@@ -1,0 +1,5122 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-07-10T15:58:30Z",
+  "provider": "Sina CompanyFinanceService",
+  "providerVersion": "2022-openapi",
+  "summary": {
+    "totalCompanies": 56,
+    "statusRecords": 56,
+    "successCompanies": 56,
+    "partialCompanies": 0,
+    "errorCompanies": 0,
+    "latestReportCoverage": 56,
+    "operatingRevenueCoverage": 56,
+    "parentNetProfitCoverage": 56,
+    "deductedNetProfitCoverage": 56,
+    "operatingCashFlowCoverage": 56,
+    "balanceSheetCoverage": 56,
+    "singleQuarterCoverage": 56,
+    "yoyCoverage": 56,
+    "qoqCoverage": 56,
+    "traceableSourceCoverage": 56,
+    "financialIndustryCompanies": 0
+  },
+  "items": {
+    "asymchem": {
+      "id": "asymchem",
+      "stockCode": "002821",
+      "companyName": "凯莱英",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:37Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:37Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:37Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 1801847990.24,
+        "netProfitAttributableToParent": 304321266.6,
+        "netProfitExcludingNonRecurring": 271925058.17,
+        "netOperatingCashFlow": 526663532.5
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.16910839559182594,
+          "changeAmount": 260632481.88,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.11687273356785406,
+          "changeAmount": -238455892.03,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.0682364288631517,
+          "changeAmount": -22286551.12,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.08426489413549484,
+          "changeAmount": -28003293.91,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.10877212325211538,
+          "changeAmount": -33187770.17,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.11853503910255074,
+          "changeAmount": -36567134.07,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.43016154524597894,
+        "netMargin": 0.16889397343638599,
+        "debtToAssetRatio": 0.13249019110946592,
+        "researchExpenseRatio": 0.07047540873472123
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1844741844.08,
+        "inventory": 1620703407.04
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/asymchem.json"
+    },
+    "beigene": {
+      "id": "beigene",
+      "stockCode": "688235",
+      "companyName": "百济神州",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:41Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:41Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:41Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 10544044000,
+        "netProfitAttributableToParent": 1607782000,
+        "netProfitExcludingNonRecurring": 1394195000,
+        "netOperatingCashFlow": 1353071000
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.31016579542164574,
+          "changeAmount": 2496174000,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.008064335564865681,
+          "changeAmount": -85722000,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 18.013026041501327,
+          "changeAmount": 1702285000,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "parentNetProfitQoQ": {
+          "value": 3.9913446792129497,
+          "changeAmount": 1285668000,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 8.107437805872756,
+          "changeAmount": 1590355000,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 2.0958032641279005,
+          "changeAmount": 943845000,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.8902124270346368,
+        "netMargin": 0.15248248205337533,
+        "debtToAssetRatio": 0.44079745433389256,
+        "researchExpenseRatio": 0.3588830812921494
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 6361338000,
+        "inventory": 4706935000
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/beigene.json"
+    },
+    "beite": {
+      "id": "beite",
+      "stockCode": "603009",
+      "companyName": "北特科技",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:58Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:58Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:58Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 585714962.76,
+        "netProfitAttributableToParent": 27178079.78,
+        "netProfitExcludingNonRecurring": 24038298.75,
+        "netOperatingCashFlow": -16740361.8
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.0803642964601472,
+          "changeAmount": 43569165.57,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.04115877257874936,
+          "changeAmount": -25142128.08,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.1785767706718166,
+          "changeAmount": 4117995.4,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.011125577238915014,
+          "changeAmount": 299044.78,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.1611396846157266,
+          "changeAmount": 3335967.18,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.04367262419111968,
+          "changeAmount": -1097757.54,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.18837968726301962,
+        "netMargin": 0.04640154598737197,
+        "debtToAssetRatio": 0.46555347858123025,
+        "researchExpenseRatio": 0.04287523742208044
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 646573758.97,
+        "inventory": 539918252.32
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/beite.json"
+    },
+    "best": {
+      "id": "best",
+      "stockCode": "300580",
+      "companyName": "贝斯特",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:59Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:59Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:59Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 385895271.61,
+        "netProfitAttributableToParent": 73030459.88,
+        "netProfitExcludingNonRecurring": 68538628.87,
+        "netOperatingCashFlow": -15131886.87
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.10384438483095382,
+          "changeAmount": 36303176.1,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.0067707042314887975,
+          "changeAmount": 2595211.34,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.05233315474570676,
+          "changeAmount": 3631848.28,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.7469196816992687,
+          "changeAmount": 31225183.63,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.04853233321692474,
+          "changeAmount": 3172376.73,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.7351097813363822,
+          "changeAmount": 29037595.79,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.33586797132613877,
+        "netMargin": 0.18924942919178153,
+        "debtToAssetRatio": 0.14045807811736294,
+        "researchExpenseRatio": 0.034178618320386316
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 549083185.17,
+        "inventory": 333074332.17
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/best.json"
+    },
+    "cm-energy": {
+      "id": "cm-energy",
+      "stockCode": "601872",
+      "companyName": "招商轮船",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:43Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:43Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:43Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 8556013852.97,
+        "netProfitAttributableToParent": 2763413437.55,
+        "netProfitExcludingNonRecurring": 2756650105.79,
+        "netOperatingCashFlow": 3313933943.69
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.5291773001206374,
+          "changeAmount": 2960839341.62,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.03510238327900708,
+          "changeAmount": -311262534.39,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 2.193070304187576,
+          "changeAmount": 1897972600.27,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.018879528551433978,
+          "changeAmount": 51205212.62,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 2.231028020686782,
+          "changeAmount": 1903469604.68,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.2983990608223233,
+          "changeAmount": 633535426.36,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.4179371666478458,
+        "netMargin": 0.3229790747230677,
+        "debtToAssetRatio": 0.46259614190895887,
+        "researchExpenseRatio": null
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1565418634.12,
+        "inventory": 1390100389.43
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "missing",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/cm-energy.json"
+    },
+    "cm-nanjing": {
+      "id": "cm-nanjing",
+      "stockCode": "601975",
+      "companyName": "招商南油",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:44Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:44Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:44Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 1568479601.53,
+        "netProfitAttributableToParent": 431860717.87,
+        "netProfitExcludingNonRecurring": 352024421.13,
+        "netOperatingCashFlow": 315716726.89
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.14185863509953672,
+          "changeAmount": 194859826.44,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.011191233747505473,
+          "changeAmount": 17358953.74,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.5172817653279017,
+          "changeAmount": 147232820.97,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.18502641049312432,
+          "changeAmount": 67429415.71,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.2468271469800873,
+          "changeAmount": 69688235.25,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.02852408280995761,
+          "changeAmount": -10335998.62,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.29064561825688534,
+        "netMargin": 0.27533715927751573,
+        "debtToAssetRatio": 0.11076388003629774,
+        "researchExpenseRatio": null
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 312637137.44,
+        "inventory": 362720459.15
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "missing",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/cm-nanjing.json"
+    },
+    "cosco-energy": {
+      "id": "cosco-energy",
+      "stockCode": "600026",
+      "companyName": "中远海能",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:42Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:42Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:42Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 7303414755.4,
+        "netProfitAttributableToParent": 2173313711.03,
+        "netProfitExcludingNonRecurring": 2049732271.52,
+        "netOperatingCashFlow": 3765683310.33
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.2692181748058243,
+          "changeAmount": 1549152091.679999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.07650823783627383,
+          "changeAmount": 519059096.329998,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 2.0673760669232784,
+          "changeAmount": 1464788357.89,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.6534452236072023,
+          "changeAmount": 858898404.13,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 1.897572576012288,
+          "changeAmount": 1342335918.97,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 1.3859820210044136,
+          "changeAmount": 1190659464.82,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.42658288367047104,
+        "netMargin": 0.2975750089262143,
+        "debtToAssetRatio": 0.4555051591554241,
+        "researchExpenseRatio": 0.0030402659829201904
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1058666083.76,
+        "inventory": 1134492126.34
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/cosco-energy.json"
+    },
+    "daimei": {
+      "id": "daimei",
+      "stockCode": "603730",
+      "companyName": "岱美股份",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:25Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:25Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:25Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 1539312622.72,
+        "netProfitAttributableToParent": 186431844.31,
+        "netProfitExcludingNonRecurring": 181802051.66,
+        "netOperatingCashFlow": 97084553.11
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.03360175347991452,
+          "changeAmount": -53522037.59,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.054001286460236275,
+          "changeAmount": -87869952.36,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.10794396426724204,
+          "changeAmount": -22559336.56,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.13301273946955564,
+          "changeAmount": -28602277.64,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.11761227772812141,
+          "changeAmount": -24232151.98,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.1049853163847752,
+          "changeAmount": 17273121.76,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.27019219904471203,
+        "netMargin": 0.12111369812622645,
+        "debtToAssetRatio": 0.338731074415453,
+        "researchExpenseRatio": 0.029583628840470708
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1063852351.92,
+        "inventory": 1946683405.24
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/daimei.json"
+    },
+    "dongli": {
+      "id": "dongli",
+      "stockCode": "002164",
+      "companyName": "宁波东力",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:31Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:31Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:31Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 337190311.05,
+        "netProfitAttributableToParent": 21776502.59,
+        "netProfitExcludingNonRecurring": 19538170.13,
+        "netOperatingCashFlow": -59288611.08
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.01221064270485386,
+          "changeAmount": 4067641.89,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.04504340555653473,
+          "changeAmount": -15904597.15,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.37400638344115,
+          "changeAmount": 5927593.26,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.8415685197010131,
+          "changeAmount": -115674100.97,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.278314651480454,
+          "changeAmount": 4253850.18,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 2.3151831712003204,
+          "changeAmount": 13644628.47,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.23628475098202265,
+        "netMargin": 0.06458223109136398,
+        "debtToAssetRatio": 0.4060396609854198,
+        "researchExpenseRatio": 0.048861418404032755
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 440567365.67,
+        "inventory": 473189117.46
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/dongli.json"
+    },
+    "efort": {
+      "id": "efort",
+      "stockCode": "688165",
+      "companyName": "埃夫特",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:52Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:52Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:52Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 304126829.69,
+        "netProfitAttributableToParent": -9786013.76,
+        "netProfitExcludingNonRecurring": -56723900,
+        "netOperatingCashFlow": 11181547.37
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.2055086132193831,
+          "changeAmount": 51845903.32,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.3218037473998696,
+          "changeAmount": 74042121.36,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.8547152928014887,
+          "changeAmount": 57571480.01,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.9670292776357737,
+          "changeAmount": 287023187.2,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.1907660658698524,
+          "changeAmount": 13371900,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.8109014865148226,
+          "changeAmount": 243246200,
+          "reason": null,
+          "baseSign": "negative"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.14693527738262988,
+        "netMargin": -0.03217741022709176,
+        "debtToAssetRatio": 0.6181454454993817,
+        "researchExpenseRatio": 0.16515056452334928
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 678531717.57,
+        "inventory": 238246358.68
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/efort.json"
+    },
+    "eoptolink": {
+      "id": "eoptolink",
+      "stockCode": "300502",
+      "companyName": "新易盛",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:45Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:45Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:45Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 8337902040.74,
+        "netProfitAttributableToParent": 2780222960.23,
+        "netProfitExcludingNonRecurring": 2767975248.13,
+        "netOperatingCashFlow": 684071355.88
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 1.0575948145903615,
+          "changeAmount": 4285645502.37,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.00010056440940389504,
+          "changeAmount": 838411.879999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.7679983242812435,
+          "changeAmount": 1207697171.01,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.13248978343423723,
+          "changeAmount": -424607262.1,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.7644241010646695,
+          "changeAmount": 1199205445.87,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.13661247810392382,
+          "changeAmount": -437972461.25,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.49160955149051005,
+        "netMargin": 0.3334439462883461,
+        "debtToAssetRatio": 0.31034979857387535,
+        "researchExpenseRatio": 0.014381205857793684
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 5566729063.71,
+        "inventory": 9026237850.72
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/eoptolink.json"
+    },
+    "estun": {
+      "id": "estun",
+      "stockCode": "002747",
+      "companyName": "埃斯顿",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:51Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:51Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:51Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 1216554921.4,
+        "netProfitAttributableToParent": 97836660.5,
+        "netProfitExcludingNonRecurring": 19358592.41,
+        "netOperatingCashFlow": -146688968.29
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.022164415756012953,
+          "changeAmount": -27575422.19,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.12182648372960579,
+          "changeAmount": 132113665.07,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 6.746405502998043,
+          "changeAmount": 85206717.43,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 5.126940019168271,
+          "changeAmount": 81868385.93,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 3.6452883997044534,
+          "changeAmount": 15191231.69,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 2.707032950067959,
+          "changeAmount": 14136466.61,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.3039391136032603,
+        "netMargin": 0.0804210798698759,
+        "debtToAssetRatio": 0.6918173324240892,
+        "researchExpenseRatio": 0.08096953668696079
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 2109418078.41,
+        "inventory": 1374770088.41
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/estun.json"
+    },
+    "everwin": {
+      "id": "everwin",
+      "stockCode": "300115",
+      "companyName": "长盈精密",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:17Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:17Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:17Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 5130825705.85,
+        "netProfitAttributableToParent": 125232197.99,
+        "netProfitExcludingNonRecurring": 119857434.71,
+        "netOperatingCashFlow": -176751691.98
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.16738645474879926,
+          "changeAmount": 735686731.110001,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.033468250960427215,
+          "changeAmount": -177665930.299997,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.2838718678233078,
+          "changeAmount": -49641811.79,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.03460203662957729,
+          "changeAmount": -4488603.94,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.2872451049485629,
+          "changeAmount": -48303367.19,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.05848696221881172,
+          "changeAmount": -7445565.78,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.1854247420069767,
+        "netMargin": 0.024407805910696658,
+        "debtToAssetRatio": 0.6531558715480003,
+        "researchExpenseRatio": 0.07455904143534432
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 4594302900.97,
+        "inventory": 4850923638.07
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/everwin.json"
+    },
+    "fii": {
+      "id": "fii",
+      "stockCode": "601138",
+      "companyName": "工业富联",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:44Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:44Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:44Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 251078078000,
+        "netProfitAttributableToParent": 10594857000,
+        "netProfitExcludingNonRecurring": 10249511000,
+        "netOperatingCashFlow": 25024028000
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.5651778086583659,
+          "changeAmount": 90663027000,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.16014971686880838,
+          "changeAmount": -47877680000,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 1.0254851336561026,
+          "changeAmount": 5364082000,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.17219873780285375,
+          "changeAmount": -2203936000,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 1.0905342416271129,
+          "changeAmount": 5346692000,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.18206778818902206,
+          "changeAmount": -2281492000,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.07350507916505558,
+        "netMargin": 0.04219745938950512,
+        "debtToAssetRatio": 0.6138221170921165,
+        "researchExpenseRatio": 0.009305710871340985
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 102501294000,
+        "inventory": 167332053000
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/fii.json"
+    },
+    "fortior": {
+      "id": "fortior",
+      "stockCode": "688279",
+      "companyName": "峰岹科技",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:13Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:13Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:13Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 250291452.83,
+        "netProfitAttributableToParent": 88267191.13,
+        "netProfitExcludingNonRecurring": 83117184.37,
+        "netOperatingCashFlow": 51782617.44
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.4620133867334698,
+          "changeAmount": 79095036.23,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.15839404715405905,
+          "changeAmount": 34223825.89,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.7508952879587394,
+          "changeAmount": 37854586.94,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.7076435626654541,
+          "changeAmount": 36577720.88,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.8941509354360563,
+          "changeAmount": 39236212.26,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.9999426318004115,
+          "changeAmount": 41557400.08,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.5181922764581686,
+        "netMargin": 0.3526576322602266,
+        "debtToAssetRatio": 0.022848563045373554,
+        "researchExpenseRatio": 0.14887547109053234
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 20717457.8,
+        "inventory": 202761811.22
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/fortior.json"
+    },
+    "hanwei": {
+      "id": "hanwei",
+      "stockCode": "300007",
+      "companyName": "汉威科技",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:11Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:11Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:11Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 508513085.1,
+        "netProfitAttributableToParent": 24740540.83,
+        "netProfitExcludingNonRecurring": 20735200.82,
+        "netOperatingCashFlow": -109436581.45
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.15608876511019165,
+          "changeAmount": -94053943.37,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.2852707687552858,
+          "changeAmount": -202963461.36,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.4608232841733153,
+          "changeAmount": 7804515.03,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.6655439050664224,
+          "changeAmount": -49231921.34,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 12.913211695487481,
+          "changeAmount": 19244876.28,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 60.35925765220359,
+          "changeAmount": 20397269.73,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.3406146671642452,
+        "netMargin": 0.04865271229969378,
+        "debtToAssetRatio": 0.3880231333030196,
+        "researchExpenseRatio": 0.09750342874706883
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1460260776.1,
+        "inventory": 517047197.58
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/hanwei.json"
+    },
+    "hengbo": {
+      "id": "hengbo",
+      "stockCode": "301225",
+      "companyName": "恒勃股份",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:19Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:19Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:19Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 291338909.87,
+        "netProfitAttributableToParent": 26595320.11,
+        "netProfitExcludingNonRecurring": 25678671.82,
+        "netOperatingCashFlow": -14661094.96
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.3516863862938277,
+          "changeAmount": 75801553.85,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.28652002403662935,
+          "changeAmount": -116996179.67,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.1955430370215988,
+          "changeAmount": -6464646.22,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.3697335841159483,
+          "changeAmount": -15601629.37,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.18890668604665076,
+          "changeAmount": -5980659.33,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.3046292577142647,
+          "changeAmount": -11249358.45,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.22943632335216307,
+        "netMargin": 0.09128653677556235,
+        "debtToAssetRatio": 0.32954567458896805,
+        "researchExpenseRatio": 0.0535203757265298
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 308694351.92,
+        "inventory": 298088956.63
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/hengbo.json"
+    },
+    "henghui": {
+      "id": "henghui",
+      "stockCode": "300952",
+      "companyName": "恒辉安防",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:33Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:33Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:33Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 269879041.08,
+        "netProfitAttributableToParent": 6548168.96,
+        "netProfitExcludingNonRecurring": 1910822.84,
+        "netOperatingCashFlow": 57545123.91
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.04145965662917172,
+          "changeAmount": -11673053.15,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.22316536810598628,
+          "changeAmount": -77529570.74,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.7587402816360636,
+          "changeAmount": -20593406.95,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.6712100364127799,
+          "changeAmount": -13367794.68,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.9220590047739626,
+          "changeAmount": -22605451.74,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.862969998252164,
+          "changeAmount": -12033735.4,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.20357434412149858,
+        "netMargin": 0.024263347512261734,
+        "debtToAssetRatio": 0.3976804472834517,
+        "researchExpenseRatio": 0.052379476425550374
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 254262576.36,
+        "inventory": 517237525.34
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/henghui.json"
+    },
+    "hengli-hydraulic": {
+      "id": "hengli-hydraulic",
+      "stockCode": "601100",
+      "companyName": "恒立液压",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:05Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:05Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:05Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 3209889672.03,
+        "netProfitAttributableToParent": 652191721.93,
+        "netProfitExcludingNonRecurring": 557398389.25,
+        "netOperatingCashFlow": 517796421.36
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.32521418671203556,
+          "changeAmount": 787722973.08,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.018634422543811188,
+          "changeAmount": 58720223.020001,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.05587751469446124,
+          "changeAmount": 34514280.32,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.007609561910495093,
+          "changeAmount": 4925413.05,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.18325043505822886,
+          "changeAmount": -125060975.5,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.1456520380139426,
+          "changeAmount": 70864633.14,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.38573534803984627,
+        "netMargin": 0.20318197463701004,
+        "debtToAssetRatio": 0.20431045584369958,
+        "researchExpenseRatio": 0.05693069823625142
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 2252840925.98,
+        "inventory": 2301146802.62
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/hengli-hydraulic.json"
+    },
+    "hengrui": {
+      "id": "hengrui",
+      "stockCode": "600276",
+      "companyName": "恒瑞医药",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:40Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:40Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:40Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 8140565320.77,
+        "netProfitAttributableToParent": 2282268233.13,
+        "netProfitExcludingNonRecurring": 2172398804.54,
+        "netOperatingCashFlow": 786445900.71
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.1297536297930369,
+          "changeAmount": 934954198.05,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.035630498075989066,
+          "changeAmount": -300768944.290001,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.21782316948345076,
+          "changeAmount": 408212713.15,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.1644907296475345,
+          "changeAmount": 322382958.8,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.16589622589190312,
+          "changeAmount": 309112213.25,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.19097166955242667,
+          "changeAmount": 348342985.179999,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.8659860715586262,
+        "netMargin": 0.28035746206801826,
+        "debtToAssetRatio": 0.10024391887669742,
+        "researchExpenseRatio": 0.20276536277383136
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 5021464384.51,
+        "inventory": 2886056361
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/hengrui.json"
+    },
+    "hengshuai": {
+      "id": "hengshuai",
+      "stockCode": "300969",
+      "companyName": "恒帅股份",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:12Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:12Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:12Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 238623592.72,
+        "netProfitAttributableToParent": 40156898.38,
+        "netProfitExcludingNonRecurring": 34308940.71,
+        "netOperatingCashFlow": 62717243.82
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.1764585135852297,
+          "changeAmount": 35791457.15,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.10882390471486023,
+          "changeAmount": -29138967.32,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.03932658912911925,
+          "changeAmount": -1643882.12,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.06840114375514592,
+          "changeAmount": 2570923.66,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.05971959597175549,
+          "changeAmount": -2179047.94,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.09619567007604547,
+          "changeAmount": 3010750.39,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.303582255611259,
+        "netMargin": 0.168285532550505,
+        "debtToAssetRatio": 0.3024754137665897,
+        "researchExpenseRatio": 0.031517625454683916
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 217183183.24,
+        "inventory": 142024509.38
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/hengshuai.json"
+    },
+    "innolight": {
+      "id": "innolight",
+      "stockCode": "300308",
+      "companyName": "中际旭创",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:46Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:46Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:46Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 19496398083.95,
+        "netProfitAttributableToParent": 5734501526.83,
+        "netProfitExcludingNonRecurring": 5717748340.78,
+        "netOperatingCashFlow": 3367573676.62
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 1.921169094232574,
+          "changeAmount": 12822221596.720001,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.4730789216924556,
+          "changeAmount": 6261263294.600002,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 2.6228365713294144,
+          "changeAmount": 4151625398.16,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.5645287753700886,
+          "changeAmount": 2069179663.079999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 2.6456273770740433,
+          "changeAmount": 4149363053.59,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.5767211573300808,
+          "changeAmount": 2091394806.93,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.4605813302577327,
+        "netMargin": 0.2941313314458227,
+        "debtToAssetRatio": 0.32636185667319456,
+        "researchExpenseRatio": 0.03306705707197917
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 9535572287.39,
+        "inventory": 15672078021.87
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/innolight.json"
+    },
+    "inovance": {
+      "id": "inovance",
+      "stockCode": "300124",
+      "companyName": "汇川技术",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:06Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:06Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:06Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 10143223378.12,
+        "netProfitAttributableToParent": 1013451151.58,
+        "netProfitExcludingNonRecurring": 1045687470.08,
+        "netOperatingCashFlow": 94051224.97
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.1297976281041855,
+          "changeAmount": 1165311647.910002,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.24542151526225184,
+          "changeAmount": -3299014352.319998,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.23387362891072586,
+          "changeAmount": -309373893.77,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.2733855077529239,
+          "changeAmount": 217579716.409999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.15245932720334487,
+          "changeAmount": -188102840.69,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.015731866950606854,
+          "changeAmount": -16713551.52,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.29077055136753277,
+        "netMargin": 0.0999141115008983,
+        "debtToAssetRatio": 0.45551590381716844,
+        "researchExpenseRatio": 0.09931223294785675
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 10912713738.22,
+        "inventory": 9267382665.47
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/inovance.json"
+    },
+    "jinwo": {
+      "id": "jinwo",
+      "stockCode": "300984",
+      "companyName": "金沃股份",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:01Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:01Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:01Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 323958196.3,
+        "netProfitAttributableToParent": 14649630.8,
+        "netProfitExcludingNonRecurring": 13035750.48,
+        "netOperatingCashFlow": -16579260.3
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.09446490464438725,
+          "changeAmount": 27961316.98,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.024621065188452557,
+          "changeAmount": 7784532.39,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.1899765610136341,
+          "changeAmount": 2338774.2,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.3495008618152722,
+          "changeAmount": 3794038.77,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.09557772026674664,
+          "changeAmount": 1137233.16,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.3602355439637905,
+          "changeAmount": 3452299.63,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.16177719449168323,
+        "netMargin": 0.045220744427264856,
+        "debtToAssetRatio": 0.36156960447284814,
+        "researchExpenseRatio": 0.03826854881769818
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 319803805.91,
+        "inventory": 317455365.61
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/jinwo.json"
+    },
+    "joyson": {
+      "id": "joyson",
+      "stockCode": "600699",
+      "companyName": "均胜电子",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:22Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:22Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:22Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 13815230879.12,
+        "netProfitAttributableToParent": 402088780.16,
+        "netProfitExcludingNonRecurring": 362354723.87,
+        "netOperatingCashFlow": 914854103.42
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.052191148373577974,
+          "changeAmount": -760736474.859999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.09929246974087617,
+          "changeAmount": -1522967609.290003,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.1810502989899321,
+          "changeAmount": 61638605.85,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.8651555834032824,
+          "changeAmount": 186509563.21,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.13232416388948154,
+          "changeAmount": 42345016.91,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.031076861720545673,
+          "changeAmount": -11622023.67,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.1766566421614127,
+        "netMargin": 0.02910474560129915,
+        "debtToAssetRatio": 0.6492140573967117,
+        "researchExpenseRatio": 0.060758716982330124
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 8156770933.01,
+        "inventory": 10435648032.57
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/joyson.json"
+    },
+    "kaidi": {
+      "id": "kaidi",
+      "stockCode": "605288",
+      "companyName": "凯迪股份",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:32Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:32Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:32Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 303520552.71,
+        "netProfitAttributableToParent": -8590968.16,
+        "netProfitExcludingNonRecurring": -8923457.14,
+        "netOperatingCashFlow": 39257710.94
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.09326844637040818,
+          "changeAmount": 25893814.54,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.2647805955318314,
+          "changeAmount": -109309346.59,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -1.4965694131317522,
+          "changeAmount": -25891607.17,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -1.2679308360059265,
+          "changeAmount": -40655094.44,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -1.6182488377522486,
+          "changeAmount": -23356896.55,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -1.2760979147110016,
+          "changeAmount": -41243357.67,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.2239534729134026,
+        "netMargin": -0.028304403386508976,
+        "debtToAssetRatio": 0.20926427315826204,
+        "researchExpenseRatio": 0.05871808505511073
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 247397382.48,
+        "inventory": 357063261.62
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/kaidi.json"
+    },
+    "keboda": {
+      "id": "keboda",
+      "stockCode": "603786",
+      "companyName": "科博达",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:21Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:21Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:21Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 1529915587.11,
+        "netProfitAttributableToParent": 151212311.04,
+        "netProfitExcludingNonRecurring": 145458279.79,
+        "netOperatingCashFlow": 148775092.26
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.032789569474654924,
+          "changeAmount": 48572598.83,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.2102257900136184,
+          "changeAmount": -407240080.63,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.2240553138561689,
+          "changeAmount": -43662805.37,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.17416790329601364,
+          "changeAmount": -31890660.67,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.22844722905238027,
+          "changeAmount": -43068396.89,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.0399126663634012,
+          "changeAmount": -6046978.84,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.2529005112634236,
+        "netMargin": 0.09883702886225182,
+        "debtToAssetRatio": 0.33892212299280633,
+        "researchExpenseRatio": 0.09535965714656808
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1693058444.44,
+        "inventory": 1701350290.85
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/keboda.json"
+    },
+    "leaderdrive": {
+      "id": "leaderdrive",
+      "stockCode": "688017",
+      "companyName": "绿的谐波",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:54Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:54Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:54Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 140134456.3,
+        "netProfitAttributableToParent": 32634147.52,
+        "netProfitExcludingNonRecurring": 23426565.79,
+        "netOperatingCashFlow": 5393908.49
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.429556261555255,
+          "changeAmount": 42107914.73,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.14583970623057843,
+          "changeAmount": -23926619.03,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.6116876185430974,
+          "changeAmount": 12385715.29,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.06301663648630343,
+          "changeAmount": 1934583.28,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.41572402674588727,
+          "changeAmount": 6879155.88,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.011962929378352367,
+          "changeAmount": -283643.56,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.3361800988412584,
+        "netMargin": 0.23287739776245164,
+        "debtToAssetRatio": 0.09443144847456193,
+        "researchExpenseRatio": 0.0989973138390804
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 197532664.46,
+        "inventory": 297412321.77
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/leaderdrive.json"
+    },
+    "leisai": {
+      "id": "leisai",
+      "stockCode": "002979",
+      "companyName": "雷赛智能",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:07Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:07Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:07Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 525392709.49,
+        "netProfitAttributableToParent": 72120345.94,
+        "netProfitExcludingNonRecurring": 70154795.1,
+        "netOperatingCashFlow": -47759654.29
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.3454832500159209,
+          "changeAmount": 134906458.93,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.08378391803596633,
+          "changeAmount": -48044845.07,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.29202775769302614,
+          "changeAmount": 16300843.99,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.1059250109208881,
+          "changeAmount": 6907655.0,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.30828784609304494,
+          "changeAmount": 16531431.32,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.13890811395733485,
+          "changeAmount": 8556502.63,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.38944248205997317,
+        "netMargin": 0.13726940750663896,
+        "debtToAssetRatio": 0.39979571874882114,
+        "researchExpenseRatio": 0.11712046107326353
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 828202845.43,
+        "inventory": 514307526.98
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/leisai.json"
+    },
+    "luster": {
+      "id": "luster",
+      "stockCode": "688400",
+      "companyName": "凌云光",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:16Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:16Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:16Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 597286049.19,
+        "netProfitAttributableToParent": 199770110.95,
+        "netProfitExcludingNonRecurring": 46533076.73,
+        "netOperatingCashFlow": -63927495.46
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.027942575391191802,
+          "changeAmount": -17169469.66,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.23841987975066056,
+          "changeAmount": -186986062.58,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 12.331308976824474,
+          "changeAmount": 184785077.5,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 5.962759379568748,
+          "changeAmount": 171078883.8,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 5.615604448269763,
+          "changeAmount": 39499240.73,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 3.4254573163548208,
+          "changeAmount": 36018213.88,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.4237422003966629,
+        "netMargin": 0.3344630453380169,
+        "debtToAssetRatio": 0.2636535893074157,
+        "researchExpenseRatio": 0.1653604403684666
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1280777869.57,
+        "inventory": 526505561.43
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/luster.json"
+    },
+    "molding-tech": {
+      "id": "molding-tech",
+      "stockCode": "000700",
+      "companyName": "模塑科技",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:26Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:26Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:26Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 1403580486.49,
+        "netProfitAttributableToParent": 162577721.35,
+        "netProfitExcludingNonRecurring": 149801649.15,
+        "netOperatingCashFlow": 178894826.99
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.12219926777104985,
+          "changeAmount": -195393443.42,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.2984839213607301,
+          "changeAmount": -597201148.07,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.09574923031125941,
+          "changeAmount": 14206436.34,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.5071775656464192,
+          "changeAmount": 54708731.62,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.0928772105804474,
+          "changeAmount": 12730761.68,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.7315887417341741,
+          "changeAmount": 63290547.79,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.19284097029367506,
+        "netMargin": 0.11583070790373111,
+        "debtToAssetRatio": 0.4645109990155992,
+        "researchExpenseRatio": 0.032988734807642174
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 977232246.19,
+        "inventory": 763847727.33
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/molding-tech.json"
+    },
+    "moons": {
+      "id": "moons",
+      "stockCode": "603728",
+      "companyName": "鸣志电器",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:08Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:08Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:08Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 700402051.46,
+        "netProfitAttributableToParent": 13817143.28,
+        "netProfitExcludingNonRecurring": 10910412.92,
+        "netOperatingCashFlow": -14533462.52
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.17653150017399305,
+          "changeAmount": 105091130.03,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.025677922723653775,
+          "changeAmount": -18458854.8,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.9219053882620281,
+          "changeAmount": 6627849.07,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.22383454071016015,
+          "changeAmount": 2527101.35,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.9614043385312285,
+          "changeAmount": 5347861.28,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.23043030901912062,
+          "changeAmount": 2043260.64,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.3702315044615618,
+        "netMargin": 0.019727445473921627,
+        "debtToAssetRatio": 0.3469149070032526,
+        "researchExpenseRatio": 0.10563873480348528
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 558622879.06,
+        "inventory": 623128745.51
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/moons.json"
+    },
+    "nano": {
+      "id": "nano",
+      "stockCode": "688690",
+      "companyName": "纳微科技",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:39Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:39Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:39Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 252775299.49,
+        "netProfitAttributableToParent": 68134676.89,
+        "netProfitExcludingNonRecurring": 61653700,
+        "netOperatingCashFlow": 14904950.57
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.34031048848936307,
+          "changeAmount": 64180715.13,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.0045448316573121405,
+          "changeAmount": -1154066.22,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 1.3321502073455662,
+          "changeAmount": 38919287.3,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 1.4125657946035315,
+          "changeAmount": 39893093.99,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 1.4586638273096693,
+          "changeAmount": 36577600,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 1.7686010534871501,
+          "changeAmount": 39384800,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.7419494252341673,
+        "netMargin": 0.2695464193988442,
+        "debtToAssetRatio": 0.12274437905526749,
+        "researchExpenseRatio": 0.16340895919553283
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 356125729.87,
+        "inventory": 370253459.47
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/nano.json"
+    },
+    "orbbec": {
+      "id": "orbbec",
+      "stockCode": "688322",
+      "companyName": "奥比中光",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:10Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:10Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:10Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 202887914.06,
+        "netProfitAttributableToParent": 30996569.3,
+        "netProfitExcludingNonRecurring": 21759705.15,
+        "netOperatingCashFlow": -117430404.43
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.06191676800206736,
+          "changeAmount": 11829706.7,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.10522497218034954,
+          "changeAmount": -23859489.2,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.274791302059478,
+          "changeAmount": 6681554.56,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.5583204387316417,
+          "changeAmount": 11105558.1,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 5.310095912408603,
+          "changeAmount": 18311309.84,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 8.407820701075368,
+          "changeAmount": 19446767.24,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.4858425934669004,
+        "netMargin": 0.15277681494045717,
+        "debtToAssetRatio": 0.10902049729920538,
+        "researchExpenseRatio": 0.2636293080729404
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 107983889.37,
+        "inventory": 235357685.81
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/orbbec.json"
+    },
+    "pharmaron": {
+      "id": "pharmaron",
+      "stockCode": "300759",
+      "companyName": "康龙化成",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:36Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:36Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:36Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 3578424402.86,
+        "netProfitAttributableToParent": 335359234.94,
+        "netProfitExcludingNonRecurring": 343439584.32,
+        "netOperatingCashFlow": 604439916.55
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.15477240632679462,
+          "changeAmount": 479610832.97,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.10750365843669979,
+          "changeAmount": -431031139.100001,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.09746880722213237,
+          "changeAmount": 29784048.9,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.3587614375563176,
+          "changeAmount": -187627457.66,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.17450992645278166,
+          "changeAmount": 51028616.49,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.3189338186125542,
+          "changeAmount": -160827979.84,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.32495836004824336,
+        "netMargin": 0.0937170098303514,
+        "debtToAssetRatio": 0.400783951185751,
+        "researchExpenseRatio": 0.03905807494446268
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 2660923269.99,
+        "inventory": 1693670515.27
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/pharmaron.json"
+    },
+    "riying": {
+      "id": "riying",
+      "stockCode": "603286",
+      "companyName": "日盈电子",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:24Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:24Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:24Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 235980638.09,
+        "netProfitAttributableToParent": -5568791.93,
+        "netProfitExcludingNonRecurring": -6486632.52,
+        "netOperatingCashFlow": -10647672.28
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.03451135749211241,
+          "changeAmount": -8435119.59,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.0711029900971598,
+          "changeAmount": -18063282.36,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.24786899372656354,
+          "changeAmount": 1835226.63,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.8368518306950635,
+          "changeAmount": 28564548.05,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.2808278106032581,
+          "changeAmount": 2532949.46,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.7980940328510792,
+          "changeAmount": 25640365.07,
+          "reason": null,
+          "baseSign": "negative"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.2097996462791072,
+        "netMargin": -0.023598512043501354,
+        "debtToAssetRatio": 0.5712682921974046,
+        "researchExpenseRatio": 0.0607702613488598
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 276087789.11,
+        "inventory": 256876001.64
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/riying.json"
+    },
+    "rongtai": {
+      "id": "rongtai",
+      "stockCode": "603119",
+      "companyName": "浙江荣泰",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:15Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:15Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:15Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 376118986.97,
+        "netProfitAttributableToParent": 71792393.09,
+        "netProfitExcludingNonRecurring": 67582324.25,
+        "netOperatingCashFlow": 88611981.45
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.4126152219101103,
+          "changeAmount": 109861777.55,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.09570350858945505,
+          "changeAmount": -39805425.59,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.20625410081219633,
+          "changeAmount": 12275585.61,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.04430213692955994,
+          "changeAmount": -3327993.66,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.2946242505781071,
+          "changeAmount": 15380054.58,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.011371127807208331,
+          "changeAmount": 759846.93,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.3597813342797115,
+        "netMargin": 0.1908768117992573,
+        "debtToAssetRatio": 0.3445562837908529,
+        "researchExpenseRatio": 0.05230953230651258
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 307861750.66,
+        "inventory": 449266405.63
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/rongtai.json"
+    },
+    "sanhua": {
+      "id": "sanhua",
+      "stockCode": "002050",
+      "companyName": "三花智控",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:02Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:02Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:02Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 7773555419.29,
+        "netProfitAttributableToParent": 927621853.77,
+        "netProfitExcludingNonRecurring": 985709560.79,
+        "netOperatingCashFlow": 1105790187.12
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.013573975694354238,
+          "changeAmount": 104104934.47,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.11330213730380026,
+          "changeAmount": 791124362.330001,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.02679345079885853,
+          "changeAmount": 24205637.93,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.1305087676829992,
+          "changeAmount": 107086993.46,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.15516617967625368,
+          "changeAmount": 132404141.94,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.12644082914270519,
+          "changeAmount": 110644013.37,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.277966881815497,
+        "netMargin": 0.1193304483902071,
+        "debtToAssetRatio": 0.3327778610881532,
+        "researchExpenseRatio": 0.047270734063096474
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 7010919404.89,
+        "inventory": 5879322018.99
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/sanhua.json"
+    },
+    "shennan": {
+      "id": "shennan",
+      "stockCode": "002916",
+      "companyName": "深南电路",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:49Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:49Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:49Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 6595587902.38,
+        "netProfitAttributableToParent": 850230796.58,
+        "netProfitExcludingNonRecurring": 849446715.47,
+        "netOperatingCashFlow": 247409844.58
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.37899447303563977,
+          "changeAmount": 1812691356.13,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.04314166813673492,
+          "changeAmount": -297373869.229999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.7300517686647926,
+          "changeAmount": 358782614.52,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.10493786808041945,
+          "changeAmount": -99681803.07,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.7503553723966877,
+          "changeAmount": 364147142.1,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.08824797443469344,
+          "changeAmount": -82217477.92,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.29169011205593626,
+        "netMargin": 0.12890902360245954,
+        "debtToAssetRatio": 0.4724247083691391,
+        "researchExpenseRatio": 0.06055064580306624
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 5849083215.17,
+        "inventory": 6501333507.81
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/shennan.json"
+    },
+    "shuanghuan": {
+      "id": "shuanghuan",
+      "stockCode": "002472",
+      "companyName": "双环传动",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:56Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:56Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:56Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 2095472955.93,
+        "netProfitAttributableToParent": 284090469.65,
+        "netProfitExcludingNonRecurring": 258063286.19,
+        "netOperatingCashFlow": 566489043.81
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.01487966282925622,
+          "changeAmount": 30722786.35,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.20799986094334505,
+          "changeAmount": -550325766.31,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.029288408310895426,
+          "changeAmount": 8083796.15,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.21765383632842925,
+          "changeAmount": -79035832.8,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.040419408029780855,
+          "changeAmount": -10870129.46,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.27751785681977914,
+          "changeAmount": -99126560.82,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.27548045139232213,
+        "netMargin": 0.13557343646266085,
+        "debtToAssetRatio": 0.43333737449009474,
+        "researchExpenseRatio": 0.053758550832742454
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 2664827068.9,
+        "inventory": 2255983922.08
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/shuanghuan.json"
+    },
+    "siasun": {
+      "id": "siasun",
+      "stockCode": "300024",
+      "companyName": "机器人",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:50Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:50Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:50Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 630344972.44,
+        "netProfitAttributableToParent": -92501585.14,
+        "netProfitExcludingNonRecurring": -104644335.28,
+        "netOperatingCashFlow": -460548261.91
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.0841926714314739,
+          "changeAmount": -57949336.61,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.668818929795706,
+          "changeAmount": -1272979308.9,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.8402275434951151,
+          "changeAmount": -42235200.71,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.6119365776369193,
+          "changeAmount": 145865598.7,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.6073737842246562,
+          "changeAmount": -39541658.91,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.5862237353983106,
+          "changeAmount": 148256433.16,
+          "reason": null,
+          "baseSign": "negative"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.14135944136285095,
+        "netMargin": -0.14674755758253447,
+        "debtToAssetRatio": 0.6346523524849035,
+        "researchExpenseRatio": 0.09791409526293135
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1485184635.45,
+        "inventory": 3636334672.04
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/siasun.json"
+    },
+    "siling": {
+      "id": "siling",
+      "stockCode": "301550",
+      "companyName": "斯菱股份",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:57Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:57Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:57Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 212563584.79,
+        "netProfitAttributableToParent": 39233022.1,
+        "netProfitExcludingNonRecurring": 37855202.78,
+        "netOperatingCashFlow": 34691643.53
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.08715093349720053,
+          "changeAmount": 17040057.89,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.02667504949773243,
+          "changeAmount": 5522822.58,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.1555083519772272,
+          "changeAmount": -7224538.72,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.19659636883863624,
+          "changeAmount": 6445840.79,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.12651271943039846,
+          "changeAmount": -5482809.83,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.22783352026326864,
+          "changeAmount": 7024310.68,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.31316832761248986,
+        "netMargin": 0.1845707586215196,
+        "debtToAssetRatio": 0.2638419481672725,
+        "researchExpenseRatio": 0.03534491068835911
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 286673514.4,
+        "inventory": 227298922.49
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/siling.json"
+    },
+    "sugon": {
+      "id": "sugon",
+      "stockCode": "603019",
+      "companyName": "中科曙光",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:30Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:30Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:30Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 3199430492.82,
+        "netProfitAttributableToParent": 227843919.03,
+        "netProfitExcludingNonRecurring": 164129860.91,
+        "netOperatingCashFlow": -1390698665.3
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.2371004917665579,
+          "changeAmount": 613197188.32,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.47921054724059325,
+          "changeAmount": -2943993641.19,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.22186116316175397,
+          "changeAmount": 41371080.79,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.811727138558522,
+          "changeAmount": -982335377.58,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.5329621164866897,
+          "changeAmount": 57062726.54,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.8480793176968715,
+          "changeAmount": -916235619.43,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.26557524416824513,
+        "netMargin": 0.07121389870519637,
+        "debtToAssetRatio": 0.41135335802777645,
+        "researchExpenseRatio": 0.18510136954030657
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 2021171452.82,
+        "inventory": 4335706083.72
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/sugon.json"
+    },
+    "tieliu": {
+      "id": "tieliu",
+      "stockCode": "603926",
+      "companyName": "铁流股份",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:29Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:29Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:29Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 568309232.35,
+        "netProfitAttributableToParent": 29646240.27,
+        "netProfitExcludingNonRecurring": 25199172.59,
+        "netOperatingCashFlow": 8850145.56
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.028902001205830814,
+          "changeAmount": 15963885.87,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.07562122937844423,
+          "changeAmount": -46492027.06,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.1155655681601753,
+          "changeAmount": 3071163.81,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 26.287421923109243,
+          "changeAmount": 28559796.84,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.052429474661973355,
+          "changeAmount": 1255361.44,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 6.756835363602431,
+          "changeAmount": 29576433.88,
+          "reason": null,
+          "baseSign": "negative"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.19446811858572122,
+        "netMargin": 0.05216568477589329,
+        "debtToAssetRatio": 0.41189085668397646,
+        "researchExpenseRatio": 0.022264795800831405
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 391737565.39,
+        "inventory": 418544630.1
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/tieliu.json"
+    },
+    "topgroup": {
+      "id": "topgroup",
+      "stockCode": "601689",
+      "companyName": "拓普集团",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:03Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:03Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:03Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 6628185769.77,
+        "netProfitAttributableToParent": 551799928.86,
+        "netProfitExcludingNonRecurring": 473133166.14,
+        "netOperatingCashFlow": 547214829.74
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.14921172384375705,
+          "changeAmount": 860592529.77,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.23402477885085815,
+          "changeAmount": -2025078182.849998,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.024171122199725118,
+          "changeAmount": -13667994.27,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.32088374770589334,
+          "changeAmount": -260726537.7,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.027676290479144505,
+          "changeAmount": -13467295.73,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.4046016745269872,
+          "changeAmount": -321516643.74,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.19256242305264926,
+        "netMargin": 0.08325052254519831,
+        "debtToAssetRatio": 0.40774880537801567,
+        "researchExpenseRatio": 0.055446336212564035
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 5684893350.78,
+        "inventory": 4343143676.48
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/topgroup.json"
+    },
+    "victor-tech": {
+      "id": "victor-tech",
+      "stockCode": "300476",
+      "companyName": "胜宏科技",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:48Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:48Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:48Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 5519485066.85,
+        "netProfitAttributableToParent": 1288427592.46,
+        "netProfitExcludingNonRecurring": 1257223943.14,
+        "netOperatingCashFlow": 2116658463.16
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.2799278264953664,
+          "changeAmount": 1207144204.660001,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.06656290498400448,
+          "changeAmount": 344464408.379999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.3994799885324656,
+          "changeAmount": 367780206.99,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.20734040733151862,
+          "changeAmount": 221265767.48,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.3607011617304405,
+          "changeAmount": 333270926.49,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.19073289271417562,
+          "changeAmount": 201383501.65,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.34458493338499835,
+        "netMargin": 0.23343257149082433,
+        "debtToAssetRatio": 0.5523393838212346,
+        "researchExpenseRatio": 0.0280467281829874
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 5555179586.77,
+        "inventory": 3905227018.22
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/victor-tech.json"
+    },
+    "wanxiang-qc": {
+      "id": "wanxiang-qc",
+      "stockCode": "000559",
+      "companyName": "万向钱潮",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:28Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:28Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:28Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 2804433281.47,
+        "netProfitAttributableToParent": 246804916.67,
+        "netProfitExcludingNonRecurring": 224830772.55,
+        "netOperatingCashFlow": -39670153.9
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.1983646768931613,
+          "changeAmount": -693957072.14,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.06054919580343816,
+          "changeAmount": -180750475.830001,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.15838218781569033,
+          "changeAmount": -46445669.4,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.0589668664318008,
+          "changeAmount": -15465249.88,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.2192785443879778,
+          "changeAmount": -63147444.18,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.2457852346380849,
+          "changeAmount": 44357632.96,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.22519365766439817,
+        "netMargin": 0.08800527304419674,
+        "debtToAssetRatio": 0.645321130515253,
+        "researchExpenseRatio": 0.040112210489470106
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 3124960067.14,
+        "inventory": 3462531264.89
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/wanxiang-qc.json"
+    },
+    "wus": {
+      "id": "wus",
+      "stockCode": "002463",
+      "companyName": "沪电股份",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:47Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:47Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:47Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 6214156406,
+        "netProfitAttributableToParent": 1242081367,
+        "netProfitExcludingNonRecurring": 1162681935,
+        "netOperatingCashFlow": 511016585
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.5390614097654189,
+          "changeAmount": 2176529079,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.1438156542886964,
+          "changeAmount": 781326052,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.6290330905507319,
+          "changeAmount": 479615967,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.12437272383583012,
+          "changeAmount": 137393090,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.5601573445611194,
+          "changeAmount": 417448168,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.07243873958473733,
+          "changeAmount": 78534289,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.3563241792340558,
+        "netMargin": 0.19987932164062108,
+        "debtToAssetRatio": 0.4864311885393524,
+        "researchExpenseRatio": 0.06710881328917745
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 6476447190,
+        "inventory": 4913409150
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/wus.json"
+    },
+    "wuxi": {
+      "id": "wuxi",
+      "stockCode": "603259",
+      "companyName": "药明康德",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:34Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:34Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:34Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 12435776568.29,
+        "netProfitAttributableToParent": 4651517987.76,
+        "netProfitExcludingNonRecurring": 4275624429.82,
+        "netOperatingCashFlow": 3595810326.53
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.28806813505451323,
+          "changeAmount": 2781181264.01,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.012990464391210202,
+          "changeAmount": -163672697.029999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.2667667359492534,
+          "changeAmount": 979557037.29,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.34254808030811246,
+          "changeAmount": -2423551456.009998,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.8356097066168973,
+          "changeAmount": 1946357802.82,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.14993519595775032,
+          "changeAmount": 557480620.629999,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.5040259251611727,
+        "netMargin": 0.37404322618829533,
+        "debtToAssetRatio": 0.21079887599526625,
+        "researchExpenseRatio": 0.021466830611987127
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 7700936967.37,
+        "inventory": 9965880371.58
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/wuxi.json"
+    },
+    "wuzhou": {
+      "id": "wuzhou",
+      "stockCode": "603667",
+      "companyName": "五洲新春",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:00Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:00Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:00Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 721790126.21,
+        "netProfitAttributableToParent": 30800005.98,
+        "netProfitExcludingNonRecurring": 26222788.49,
+        "netOperatingCashFlow": 44329456.6
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.18828804173553607,
+          "changeAmount": -167429404.02,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.05773439309526959,
+          "changeAmount": 39397522.81,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.18620443424297767,
+          "changeAmount": -7047344.48,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 5.342327897538303,
+          "changeAmount": 37892977.01,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.19008713854596265,
+          "changeAmount": -6154507.56,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 3.6720148462389632,
+          "changeAmount": 36036651.81,
+          "reason": null,
+          "baseSign": "negative"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.19757180795586274,
+        "netMargin": 0.0426716920356416,
+        "debtToAssetRatio": 0.3954489693595191,
+        "researchExpenseRatio": 0.03600405843240802
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 805051752.89,
+        "inventory": 904327595.67
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/wuzhou.json"
+    },
+    "xingyu": {
+      "id": "xingyu",
+      "stockCode": "601799",
+      "companyName": "星宇股份",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:23Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:23Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:23Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 3429874326.99,
+        "netProfitAttributableToParent": 355156708.89,
+        "netProfitExcludingNonRecurring": 347005659.22,
+        "netOperatingCashFlow": 421055365.65
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.10837394297266956,
+          "changeAmount": 335364257.77,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.24563612737746718,
+          "changeAmount": -1116836420.26,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.10256447135863711,
+          "changeAmount": 33037941.13,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.2647709852343894,
+          "changeAmount": -127899184.93,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.10940237661485801,
+          "changeAmount": 34219544.34,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.2596193062368472,
+          "changeAmount": -121679791.58,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.19332094571286984,
+        "netMargin": 0.10354802393056761,
+        "debtToAssetRatio": 0.3943068522513595,
+        "researchExpenseRatio": 0.06676326653372092
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 4053489242.63,
+        "inventory": 2317969411.65
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/xingyu.json"
+    },
+    "xinje": {
+      "id": "xinje",
+      "stockCode": "603416",
+      "companyName": "信捷电气",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:14Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:14Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:14Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 464305113.28,
+        "netProfitAttributableToParent": 54367736.3,
+        "netProfitExcludingNonRecurring": 44505205.55,
+        "netOperatingCashFlow": -23390450.81
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.1957446717255844,
+          "changeAmount": 76007239.78,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.26490960023452365,
+          "changeAmount": -167324837.85,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.1816668313940128,
+          "changeAmount": 8358374.9,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.26538884022582804,
+          "changeAmount": -19641126.18,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.09918916922593651,
+          "changeAmount": 4016082.48,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.3593919023771164,
+          "changeAmount": -24968167.82,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.37773067117663944,
+        "netMargin": 0.11709484721356804,
+        "debtToAssetRatio": 0.25412203589988436,
+        "researchExpenseRatio": 0.11048505911901123
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 338268634.69,
+        "inventory": 863832349.54
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/xinje.json"
+    },
+    "xinquan": {
+      "id": "xinquan",
+      "stockCode": "603179",
+      "companyName": "新泉股份",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:20Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:20Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:20Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 3639122555.78,
+        "netProfitAttributableToParent": 203498773.34,
+        "netProfitExcludingNonRecurring": 200394542.54,
+        "netOperatingCashFlow": 100415722.31
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.0341577142971312,
+          "changeAmount": 120198405.75,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.11478141590841252,
+          "changeAmount": -471864968.859999,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.045680892559488095,
+          "changeAmount": -9740982.37,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.057295944170286994,
+          "changeAmount": 11027805.81,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.042936269120657664,
+          "changeAmount": -8990199.64,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 0.03665913913447392,
+          "changeAmount": 7086506.2,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.20233246551988712,
+        "netMargin": 0.055919736205856524,
+        "debtToAssetRatio": 0.5921110415638643,
+        "researchExpenseRatio": 0.05132072816106899
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 3986987442.61,
+        "inventory": 3184530987.53
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/xinquan.json"
+    },
+    "xusheng": {
+      "id": "xusheng",
+      "stockCode": "603305",
+      "companyName": "旭升集团",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:18Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:18Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:18Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 1218635720.93,
+        "netProfitAttributableToParent": 125170087.08,
+        "netProfitExcludingNonRecurring": 113787357.64,
+        "netOperatingCashFlow": 208296195.58
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.16452056671660717,
+          "changeAmount": 172165820.99,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.004294999345933155,
+          "changeAmount": -5256616.79,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 0.3087073773630596,
+          "changeAmount": 29526026.96,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 0.9174643640951143,
+          "changeAmount": 59891123.14,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": 0.3994279998724101,
+          "changeAmount": 32477452.7,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 1.2349943463484783,
+          "changeAmount": 62875659.44,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.22908429028073427,
+        "netMargin": 0.10271329235653509,
+        "debtToAssetRatio": 0.25987448565175963,
+        "researchExpenseRatio": 0.04371130317708764
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 1230439966.73,
+        "inventory": 987377942.63
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/xusheng.json"
+    },
+    "zhaomin": {
+      "id": "zhaomin",
+      "stockCode": "301000",
+      "companyName": "肇民科技",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T11:00:30Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T11:00:30Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T11:00:30Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 181968858.6,
+        "netProfitAttributableToParent": 26794857.7,
+        "netProfitExcludingNonRecurring": 24574332.15,
+        "netOperatingCashFlow": 23727202.99
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": -0.04243583837714883,
+          "changeAmount": -8064212.7,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.2587585334537468,
+          "changeAmount": -63523152.86,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.2656955198872608,
+          "changeAmount": -9695261.08,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.3578820549122317,
+          "changeAmount": -14934014.55,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.2884247500180807,
+          "changeAmount": -9960781.53,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.37157987821752936,
+          "changeAmount": -14530609.43,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.319512762883264,
+        "netMargin": 0.14724968824967943,
+        "debtToAssetRatio": 0.13357634053114834,
+        "researchExpenseRatio": 0.051745171522442034
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 214838560.16,
+        "inventory": 194600496.67
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/zhaomin.json"
+    },
+    "zhongda-lide": {
+      "id": "zhongda-lide",
+      "stockCode": "002896",
+      "companyName": "中大力德",
+      "market": "SZ",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-07-10T10:59:55Z",
+      "generatedAt": "2026-07-10T11:19:45Z",
+      "lastSuccessfulFetchAt": "2026-07-10T10:59:55Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-07-10T10:59:55Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-03-31",
+      "latestReportType": "Q1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 242301287.43,
+        "netProfitAttributableToParent": 11062020.61,
+        "netProfitExcludingNonRecurring": 6804036.91,
+        "netOperatingCashFlow": -9797699.44
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.051163758718618134,
+          "changeAmount": 11793637.77,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": -0.12235691191628052,
+          "changeAmount": -33780517.03,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -0.36418658251732955,
+          "changeAmount": -6336197.65,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": 1.0124007809082851,
+          "changeAmount": 5565093.4,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.4318726802120706,
+          "changeAmount": -5172216.78,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 2.6665160856150356,
+          "changeAmount": 4948314.27,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.24407046742203115,
+        "netMargin": 0.04565399023393872,
+        "debtToAssetRatio": 0.34977707255569995,
+        "researchExpenseRatio": 0.06731561046580115
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 150369369.56,
+        "inventory": 355957078.18
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/zhongda-lide.json"
+    }
+  }
+}
