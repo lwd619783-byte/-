@@ -4,7 +4,7 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YA
 import type { Industry, IndustrySegment, Stock } from "../../types";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
-import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp } from "../common/terminal";
+import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp, metricTone } from "../common/terminal";
 import { CompanyRelationGraph } from "./CompanyRelationGraph";
 import { IndustryChainMap } from "./IndustryChainMap";
 
@@ -92,7 +92,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
                 <MetricCard label="最新价" value={numberToDisplay(stock.quote?.latestPrice)} />
-                <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={(stock.quote?.pctChange ?? 0) > 0 ? "green" : (stock.quote?.pctChange ?? 0) < 0 ? "red" : "neutral"} />
+                <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={metricTone(stock.quote?.pctChange)} />
                 <MetricCard label="成交额" value={formatYi(stock.quote?.amount)} />
                 <MetricCard label="换手率" value={formatPercent(stock.quote?.turnover)} />
                 <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />

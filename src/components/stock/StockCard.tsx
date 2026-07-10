@@ -3,7 +3,7 @@ import type { Stock } from "../../types";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import type { Industry } from "../../types";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
-import { DataQualityBadge, GlassCard, MetricCard, OverflowTooltip, Sparkline, TextClamp } from "../common/terminal";
+import { DataQualityBadge, GlassCard, MetricCard, OverflowTooltip, Sparkline, TextClamp, metricTone } from "../common/terminal";
 
 interface StockCardProps {
   stock: Stock;
@@ -31,7 +31,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
       </div>
       <div className="mt-3 grid min-w-0 grid-cols-1 gap-2 text-sm sm:grid-cols-3">
         <MetricCard label="最新价" value={numberToDisplay(stock.quote?.latestPrice)} />
-        <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={(stock.quote?.pctChange ?? 0) > 0 ? "green" : (stock.quote?.pctChange ?? 0) < 0 ? "red" : "neutral"} />
+        <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={metricTone(stock.quote?.pctChange)} />
         <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />
       </div>
       <div className="mt-3 rounded-md border border-borderSoft bg-bg2/60 p-2">
