@@ -1,59 +1,81 @@
 # 数据真实性审计与数据源注册表 V1
 
-- 执行时间：2026-07-10T04:57:30.308Z
+- 执行时间：2026-07-10T06:11:17.386Z
+- 扫描文件：78
 - 注册表条目：21
-- P0：0；P1：0；P2：0；P3：0
-- 结论：已建立统一注册表和可运行审计入口；未确认信息保留为 null/unknown，不将缺失数据伪装成有效数字。
+- P0：0；P1：9；P2：6；P3：0
+- errors：0；warnings：15；skipped：10；allowlist 命中：28
+- 结论：审计器已覆盖项目源码、脚本和 JSON；当前已知能力缺口与人工证据风险被保留为风险项，未将其伪装为零风险。
 
 ## 执行摘要
 
-- A 股/港股行情和历史价格沿用既有抓取链路，归类为 generated_real；不接入新 Provider。
-- A 股财务归类为 partial；港股财务、公告、业绩预告、业绩快报、研报、一致预期均明确为 not_implemented。
-- 客户、供应商、产业链定位、技术路线、风险提示和 evidenceItems 均注册了人工/推断属性，不能当作同等级事实。
-- 审计脚本检查注册表完整性、状态枚举、生成文件存在性和示例财务值残留。
+- 递归扫描 `src/**/*.ts(x)`、`scripts/**/*.js/mjs/ts`、`public/**/*.json` 和生成 JSON。
+- P0/P1/P2/P3 来自结构化风险项；errors 仅表示阻断性结构错误，warnings 表示非阻断风险。
+- not_implemented、manual_unverified、inferred、partial 等能力边界计入风险，但不会让命令因已知缺口自动失败。
 
-## 注册表状态分布
+## 风险统计
 
-- status：{"generated_real":5,"partial":2,"not_implemented":7,"static_reference":1,"manual_unverified":4,"inferred":2}
-- sourceType：{"generated_real":7,"not_implemented":7,"static_reference":1,"manual_unverified":4,"inferred":2}
+- 状态分布：{"generated_real":5,"partial":2,"not_implemented":7,"static_reference":1,"manual_unverified":4,"inferred":2}
+- 风险分布：{"P0":0,"P1":9,"P2":6,"P3":0}
 
-## 数据流概览
+## 风险清单
 
-`外部接口 → scripts/fetch-*.py → src/data/real/*.generated.json → src/services/providers → src/services/stockProvider.ts → React components`
+| id | severity | title | file | line | registry | status | resolved |
+|---|---|---|---|---:|---|---|---|
+| data-limitation | P1 | Data limitation: a-share-financials | src/data/data-source-registry.ts | - | a-share-financials | open | no |
+| capability-gap | P1 | Capability not implemented: hk-financials | src/data/data-source-registry.ts | - | hk-financials | open | no |
+| capability-gap | P1 | Capability not implemented: announcements | src/data/data-source-registry.ts | - | announcements | open | no |
+| capability-gap | P1 | Capability not implemented: earnings-preview | src/data/data-source-registry.ts | - | earnings-preview | open | no |
+| capability-gap | P1 | Capability not implemented: earnings-flash | src/data/data-source-registry.ts | - | earnings-flash | open | no |
+| capability-gap | P1 | Capability not implemented: broker-research | src/data/data-source-registry.ts | - | broker-research | open | no |
+| capability-gap | P1 | Capability not implemented: institution-consensus | src/data/data-source-registry.ts | - | institution-consensus | open | no |
+| capability-gap | P1 | Capability not implemented: eps-net-profit-forecast | src/data/data-source-registry.ts | - | eps-net-profit-forecast | open | no |
+| data-limitation | P1 | Data limitation: valuation | src/data/data-source-registry.ts | - | valuation | open | no |
+| evidence-governance | P2 | Evidence requires verification: customer-relations | src/data/data-source-registry.ts | - | customer-relations | open | no |
+| evidence-governance | P2 | Evidence requires verification: supplier-relations | src/data/data-source-registry.ts | - | supplier-relations | open | no |
+| evidence-governance | P2 | Evidence requires verification: industry-chain-position | src/data/data-source-registry.ts | - | industry-chain-position | open | no |
+| evidence-governance | P2 | Evidence requires verification: technical-route | src/data/data-source-registry.ts | - | technical-route | open | no |
+| evidence-governance | P2 | Evidence requires verification: risk-alerts | src/data/data-source-registry.ts | - | risk-alerts | open | no |
+| evidence-governance | P2 | Evidence requires verification: evidence-items | src/data/data-source-registry.ts | - | evidence-items | open | no |
 
-行情/历史价格使用既有生成文件；研究 seed 位于 `src/data/stocks.ts`，不应覆盖真实财务或行情缺失。
+## 已解决问题
 
-## 真实数据覆盖与当前边界
+- 本次没有自动标记为 resolved 的历史问题。
 
-| 数据类 | 状态 | 生成脚本/存储 | 前端消费者 | 边界 |
-|---|---|---|---|---|
-| A 股行情 | generated_real | `fetch-a-stock-data.py` → `quotes.generated.json` | `stockProvider.ts`、股票组件 | 以 quality.status/updatedAt 为准 |
-| A 股历史价格 | generated_real | `fetch-a-stock-data.py` → `priceHistory.generated.json` | `stockProvider.ts`、Sparkline | 区间和复权口径需看脚本 |
-| 港股行情/历史 | generated_real | `fetch-hk-stock-data.py` | `stockProvider.ts` | 依赖 yfinance |
-| A 股财务 | partial | `fetch-a-stock-data.py` → `financials.generated.json` | 详情抽屉 | 字段可能缺失 |
-| 港股财务/公告/研报 | not_implemented | 占位或空生成文件 | 详情抽屉 | 不得显示具体数字或已获取事实 |
+## 尚未解决但不阻断合并的能力边界
 
-## P0-P3 问题清单
+- P1 Data limitation: a-share-financials：Show the limitation and freshness state
+- P1 Capability not implemented: hk-financials：Keep the UI unavailable and add a provider only in a separate approved task
+- P1 Capability not implemented: announcements：Keep the UI unavailable and add a provider only in a separate approved task
+- P1 Capability not implemented: earnings-preview：Keep the UI unavailable and add a provider only in a separate approved task
+- P1 Capability not implemented: earnings-flash：Keep the UI unavailable and add a provider only in a separate approved task
+- P1 Capability not implemented: broker-research：Keep the UI unavailable and add a provider only in a separate approved task
+- P1 Capability not implemented: institution-consensus：Keep the UI unavailable and add a provider only in a separate approved task
+- P1 Capability not implemented: eps-net-profit-forecast：Keep the UI unavailable and add a provider only in a separate approved task
+- P1 Data limitation: valuation：Show the limitation and freshness state
+- P2 Evidence requires verification: customer-relations：Keep it labelled as a lead/inference until sourced
+- P2 Evidence requires verification: supplier-relations：Keep it labelled as a lead/inference until sourced
+- P2 Evidence requires verification: industry-chain-position：Keep it labelled as a lead/inference until sourced
+- P2 Evidence requires verification: technical-route：Keep it labelled as a lead/inference until sourced
+- P2 Evidence requires verification: risk-alerts：Keep it labelled as a lead/inference until sourced
+- P2 Evidence requires verification: evidence-items：Keep it labelled as a lead/inference until sourced
 
-- P0：无结构性错误
-- P1：无自动发现项
-- P2：人工研究字段的来源和日期并非全部完整，已在注册表标记 manual_unverified/unknown。
-- P3：注册表字段统一为 camelCase，状态值统一为枚举。
+## 缺失值转零规则
 
-## 前端防误导约束
+- 财务、估值、行情、预测和投资结论字段附近的 `?? 0`、`|| 0`、`Number(value) || 0`、`parseFloat(value) || 0` 记为 P0。
+- 仅数组长度、计数、分页索引和明确的数值排序 fallback 可进入 allowlist；每次命中都输出文件、行号、表达式和原因。
+- 真实缺失值必须使用 `数据暂缺`、null 或明确的 unavailable 状态。
 
-- 缺失值显示 `数据暂缺`，null/undefined/NaN 不转为 0。
-- not_implemented 显示未接入/数据暂缺，不沿用 mock 财务值。
-- generated_real 必须能定位到生成脚本和存储文件；更新时间不确定时保留 null。
-- manual_unverified/inferred 仅作为线索或推断，不能显示为已验证事实。
+## 数据能力边界
 
-## 下一阶段（本次不执行）
+- 港股财务、公告、业绩预告、业绩快报、研报和一致预期仍为 not_implemented。
+- 客户、供应商、产业链定位、技术路线、风险提示和 evidenceItems 中的人工/推断内容仍需逐条核验。
+- 本次未接入新的金融数据 Provider、未扩大股票池、未重构前端。
 
-- 逐字段补公告、财务和研报的原始来源与更新时间。
-- 将 evidenceItems 的 sourceUrl/sourceDate/verificationStatus 做强校验。
-- 在不引入新 Provider 前提下，补充前端统一 DataFreshnessLabel/MissingDataState。
+## 审计命令契约
 
-## 检查结果
-
-运行命令：`npm run data:audit`。
+- `npm run data:audit` 检查文件递归范围、缺失值转零、注册表结构、路径、Provider/生成脚本、前端消费者和状态矛盾。
+- P0、注册表结构错误、路径声明错误、mock 进入生产路径或 generated_real 缺少必要来源时返回非零。
+- 已知 not_implemented/manual_unverified/inferred/partial 能力缺口作为 warning/risk 输出，不静默忽略。
+- 新增 allowlist 必须在 `SAFE_ZERO` 中增加窄规则并写明原因，禁止用大范围目录或关键词屏蔽。
 

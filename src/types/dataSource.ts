@@ -1,4 +1,4 @@
-export type DataSourceStatus = "mock" | "real" | "partial" | "stale" | "missing" | "error" | "not_implemented" | "unsupported_market";
+export type DataSourceStatus = "mock" | "real" | "partial" | "stale" | "missing" | "error" | "not_implemented" | "unsupported_market" | "conflicted" | "source_unavailable";
 export type EvidenceSourceType = "real" | "generated_real" | "manual_verified" | "manual_unverified" | "static_reference" | "inferred" | "mock" | "placeholder" | "stale" | "conflicted" | "partial" | "not_implemented" | "source_unavailable" | "unknown";
 
 export interface DataFreshness {
@@ -41,7 +41,7 @@ export interface DataQualityMeta {
   sourceEndpoint?: string;
   sourceUrl?: string;
   updatedAt?: string;
-  status: DataSourceStatus;
+  status: DataSourceStatus | EvidenceSourceType;
   errorMessage?: string;
 }
 
