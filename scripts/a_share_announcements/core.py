@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 import re
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from . import PROVIDER, PROVIDER_VERSION, SCHEMA_VERSION
@@ -28,7 +28,7 @@ def normalize_title(value: str | None) -> str:
 
 def parse_announcement_date(value: Any) -> tuple[str | None, str | None]:
     if isinstance(value, (int, float)):
-        dt = datetime.fromtimestamp(value / 1000)
+        dt = datetime.fromtimestamp(value / 1000, tz=timezone(timedelta(hours=8)))
         return dt.date().isoformat(), dt.time().replace(microsecond=0).isoformat()
     if isinstance(value, str) and value:
         text = value.strip().replace("/", "-")
