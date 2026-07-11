@@ -7,6 +7,7 @@ import {
   classifyRisks,
   detectZeroFallbacks,
   detectFinancialArchitectureRisks,
+  detectAnnouncementArchitectureRisks,
   finding,
   parseRegistryEntries,
   runSelfTests,
@@ -137,6 +138,13 @@ describe("financial architecture gates", () => {
   it("blocks production static imports of the financial monolith", () => {
     const file = write("src/provider.ts", 'import financials from "./a-share-financials.generated.json";\n');
     expect(ids(detectFinancialArchitectureRisks([file], root))).toContain("financial-history-static-import");
+  });
+});
+
+describe("announcement architecture gates", () => {
+  it("blocks production static imports of announcement history", () => {
+    const file = write("src/provider.ts", 'import announcements from "./announcements.generated.json";\n');
+    expect(ids(detectAnnouncementArchitectureRisks([file], root))).toContain("announcement-history-static-import");
   });
 });
 

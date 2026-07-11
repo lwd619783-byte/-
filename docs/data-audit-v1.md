@@ -1,7 +1,7 @@
 # 数据真实性审计与数据源注册表 V1
 
-- 执行时间：2026-07-10T16:06:33.262Z
-- 扫描文件：134
+- 执行时间：2026-07-11T15:31:09.594Z
+- 扫描文件：193
 - 注册表条目：21
 - P0：0；P1：8；P2：6；P3：0
 - errors：0；warnings：14；skipped 目录：10；allowlist 命中：21
@@ -19,7 +19,7 @@
 
 ## 状态与风险统计
 
-- 状态分布：{"generated_real":6,"not_implemented":7,"partial":1,"static_reference":1,"manual_unverified":4,"inferred":2}
+- 状态分布：{"generated_real":6,"not_implemented":4,"partial":4,"static_reference":1,"manual_unverified":4,"inferred":2}
 - 风险分布：{"P0":0,"P1":8,"P2":6,"P3":0}
 - 阻断风险：0
 - 非阻断风险：14
@@ -29,9 +29,9 @@
 | id | severity | blocking | category | title | file | line | registryIds |
 |---|---|---|---|---|---|---:|---|
 | capability-gap | P1 | no | capability | Capability not implemented: hk-financials | src/data/data-source-registry.ts | - | hk-financials |
-| capability-gap | P1 | no | capability | Capability not implemented: announcements | src/data/data-source-registry.ts | - | announcements |
-| capability-gap | P1 | no | capability | Capability not implemented: earnings-preview | src/data/data-source-registry.ts | - | earnings-preview |
-| capability-gap | P1 | no | capability | Capability not implemented: earnings-flash | src/data/data-source-registry.ts | - | earnings-flash |
+| data-limitation | P1 | no | limitation | Data limitation: announcements | src/data/data-source-registry.ts | - | announcements |
+| data-limitation | P1 | no | limitation | Data limitation: earnings-preview | src/data/data-source-registry.ts | - | earnings-preview |
+| data-limitation | P1 | no | limitation | Data limitation: earnings-flash | src/data/data-source-registry.ts | - | earnings-flash |
 | capability-gap | P1 | no | capability | Capability not implemented: broker-research | src/data/data-source-registry.ts | - | broker-research |
 | capability-gap | P1 | no | capability | Capability not implemented: institution-consensus | src/data/data-source-registry.ts | - | institution-consensus |
 | capability-gap | P1 | no | capability | Capability not implemented: eps-net-profit-forecast | src/data/data-source-registry.ts | - | eps-net-profit-forecast |

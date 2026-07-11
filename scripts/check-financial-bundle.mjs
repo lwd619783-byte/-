@@ -20,6 +20,19 @@ export function scanFinancialBundleSource(rootPath) {
   return findings;
 }
 
+export function scanAnnouncementBundleSource(rootPath) {
+  const findings = [];
+  const sourceRoot = path.join(rootPath, "src");
+  for (const file of walk(sourceRoot).filter((item) => /\.(?:ts|tsx|js|jsx)$/.test(item) && !/\.(?:test|spec)\./.test(item))) {
+    const relative = path.relative(rootPath, file).replaceAll("\\", "/");
+    const text = fs.readFileSync(file, "utf8");
+    if (/from\s+["'][^"']*(?:a-share-)?announcements\.generated\.json["']/.test(text)) findings.push(`${relative}: statically imports a legacy announcement history file`);
+    if (/import\s+[^;]+from\s+["'][^"']*public\/data\/a-share-announcements/.test(text)) findings.push(`${relative}: statically imports a full announcement detail file`);
+    if (/import\s+[^;]+from\s+["'][^"']*a-share-announcements\/[^"']+\.json["']/.test(text)) findings.push(`${relative}: statically imports the per-company announcement directory`);
+  }
+  return findings;
+}
+
 export function collectFinancialBundleMetrics(rootPath) {
   const distPath = path.join(rootPath, "dist");
   const indexHtml = fs.readFileSync(path.join(distPath, "index.html"), "utf8");
@@ -34,6 +47,11 @@ export function collectFinancialBundleMetrics(rootPath) {
   const detailDir = path.join(rootPath, "public/data/a-share-financials");
   const detailFiles = fs.readdirSync(detailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json").map((name) => path.join(detailDir, name));
   const detailBytes = detailFiles.reduce((sum, file) => sum + fs.statSync(file).size, 0);
+  const announcementSummaryPath = path.join(rootPath, "src/data/real/a-share-announcement-summaries.generated.json");
+  const announcementDetailDir = path.join(rootPath, "public/data/a-share-announcements");
+  const announcementManifestPath = path.join(announcementDetailDir, "manifest.generated.json");
+  const announcementDetailFiles = fs.readdirSync(announcementDetailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json").map((name) => path.join(announcementDetailDir, name));
+  const announcementDetailBytes = announcementDetailFiles.reduce((sum, file) => sum + fs.statSync(file).size, 0);
   return {
     initialJsBytes,
     initialGzipBytes,
@@ -47,11 +65,17 @@ export function collectFinancialBundleMetrics(rootPath) {
     initialReductionPct: Number(((1 - initialJsBytes / BASELINE_INITIAL_JS_BYTES) * 100).toFixed(2)),
     initialGzipReductionPct: Number(((1 - initialGzipBytes / BASELINE_INITIAL_GZIP_BYTES) * 100).toFixed(2)),
     containsFullHistoryMarker: entryText.includes("sourceIdentifier"),
+    announcementSummaryBytes: fs.statSync(announcementSummaryPath).size,
+    announcementManifestBytes: fs.statSync(announcementManifestPath).size,
+    announcementDetailFiles: announcementDetailFiles.length,
+    announcementDetailBytes,
+    averageAnnouncementDetailBytes: Math.round(announcementDetailBytes / announcementDetailFiles.length),
+    containsFullAnnouncementHistoryMarker: entryText.includes("announcementParsingResult"),
   };
 }
 
 export function checkFinancialBundle(rootPath) {
-  const errors = scanFinancialBundleSource(rootPath);
+  const errors = [...scanFinancialBundleSource(rootPath), ...scanAnnouncementBundleSource(rootPath)];
   const legacy = path.join(rootPath, "src/data/real/a-share-financials.generated.json");
   if (fs.existsSync(legacy)) errors.push("legacy monolithic financial JSON still exists");
   const metrics = collectFinancialBundleMetrics(rootPath);
@@ -61,6 +85,9 @@ export function checkFinancialBundle(rootPath) {
   if (metrics.summaryBytes > 300_000) errors.push("financial summary exceeds the 300 kB synchronous-data budget");
   if (metrics.detailFiles !== 56) errors.push(`expected 56 company detail files, found ${metrics.detailFiles}`);
   if (metrics.containsFullHistoryMarker) errors.push("initial JavaScript still contains full financial-history markers");
+  if (metrics.announcementSummaryBytes > 1_000_000) errors.push("announcement summary exceeds the 1 MB synchronous-data budget");
+  if (metrics.announcementDetailFiles !== 56) errors.push(`expected 56 announcement detail files, found ${metrics.announcementDetailFiles}`);
+  if (metrics.containsFullAnnouncementHistoryMarker) errors.push("initial JavaScript still contains full announcement-history markers");
   return { errors, metrics };
 }
 

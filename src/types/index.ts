@@ -128,6 +128,7 @@ export interface Stock {
   quote?: import("./marketData").StockQuote;
   realFinancial?: import("./marketData").RealFinancialMetric;
   aShareFinancialSummary?: import("./marketData").AShareFinancialSummary;
+  aShareAnnouncementSummary?: import("./marketData").AShareAnnouncementSummary;
   dataMode?: import("./dataSource").DashboardDataMode;
   priceHistory?: import("./marketData").PricePoint[];
   research?: import("./marketData").ResearchReportSeries;
@@ -173,6 +174,15 @@ export interface WatchlistItem {
 
 export type { DashboardDataMode, DataQualityMeta, DataSourceStatus, DataManifest } from "./dataSource";
 export type {
+  AShareAnnouncementData,
+  AShareAnnouncementDetailItem,
+  AShareAnnouncementManifest,
+  AShareAnnouncementManifestEntry,
+  AShareAnnouncementPreview,
+  AShareAnnouncementSummary,
+  AnnouncementCategory,
+  AnnouncementFetchStatus,
+  AnnouncementParseStatus,
   AShareFinancialData,
   AShareFinancialManifest,
   AShareFinancialManifestEntry,
@@ -189,6 +199,8 @@ export type {
   GeneratedRealDataBundle,
   Announcement,
   AnnouncementSeries,
+  PerformanceExpressEvent,
+  PerformanceForecastEvent,
   PriceHistorySeries,
   PricePoint,
   RealFinancialMetric,
