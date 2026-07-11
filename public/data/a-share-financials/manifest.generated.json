@@ -1,0 +1,516 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-07-10T15:58:30Z",
+  "provider": "Sina CompanyFinanceService",
+  "providerVersion": "2022-openapi",
+  "total": 56,
+  "success": 56,
+  "partial": 0,
+  "error": 0,
+  "items": [
+    {
+      "id": "asymchem",
+      "stockCode": "002821",
+      "relativePath": "data/a-share-financials/asymchem.json",
+      "byteSize": 75437,
+      "checksumSha256": "ed50e54caa1c0654a3034c699b95c500bd34f7f0082c43439abe709ac67f000d",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "beigene",
+      "stockCode": "688235",
+      "relativePath": "data/a-share-financials/beigene.json",
+      "byteSize": 74104,
+      "checksumSha256": "923cb341badc9438252dfac14f39112ac056dabd1db3eaf4295479b2194a2d4a",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "beite",
+      "stockCode": "603009",
+      "relativePath": "data/a-share-financials/beite.json",
+      "byteSize": 75195,
+      "checksumSha256": "9b2469010c148a33d09fe872cbade13ee8725f374c61169e692c281408f49f51",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "best",
+      "stockCode": "300580",
+      "relativePath": "data/a-share-financials/best.json",
+      "byteSize": 74791,
+      "checksumSha256": "01d6f080235c1d7cf46409823b384df36a9702d5309e9d7d3f49a737d6fb5717",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "cm-energy",
+      "stockCode": "601872",
+      "relativePath": "data/a-share-financials/cm-energy.json",
+      "byteSize": 75997,
+      "checksumSha256": "ae4f1ace94c2833474d213cd1d056d4d49cb9f2c1aeb7161c5d5690dca0a081e",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "cm-nanjing",
+      "stockCode": "601975",
+      "relativePath": "data/a-share-financials/cm-nanjing.json",
+      "byteSize": 75070,
+      "checksumSha256": "fc2517df7d70e64957c7baf4f36d6af0e46b1b1d999dfe42dd7066c82300abe7",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "cosco-energy",
+      "stockCode": "600026",
+      "relativePath": "data/a-share-financials/cosco-energy.json",
+      "byteSize": 76047,
+      "checksumSha256": "7de84a3317767eccd114856cb6ae4c50cd2f722bf29629802c70bfe6e0a1e552",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "daimei",
+      "stockCode": "603730",
+      "relativePath": "data/a-share-financials/daimei.json",
+      "byteSize": 75274,
+      "checksumSha256": "3d350bd5abe3ca445ce5d8d9aaa6dee0260bcd603349c679a58bf3af47c08a60",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "dongli",
+      "stockCode": "002164",
+      "relativePath": "data/a-share-financials/dongli.json",
+      "byteSize": 75084,
+      "checksumSha256": "f5180e7ce15d8b187d910c6af5f84382f4c3475f2f27b68fd00fca031a47d685",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "efort",
+      "stockCode": "688165",
+      "relativePath": "data/a-share-financials/efort.json",
+      "byteSize": 75269,
+      "checksumSha256": "c94adc9c7b33cefa0df09ce7f16284fced34f1f8e72a9229150fe47313439ca5",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "eoptolink",
+      "stockCode": "300502",
+      "relativePath": "data/a-share-financials/eoptolink.json",
+      "byteSize": 75306,
+      "checksumSha256": "4c46c803b0832a5ef6feaf710e1855a89fa4c12ee7cbab3a801912356c6cfe22",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "estun",
+      "stockCode": "002747",
+      "relativePath": "data/a-share-financials/estun.json",
+      "byteSize": 75512,
+      "checksumSha256": "615d2a2a0ffad8ad337332c67855852700fc93ca93b46f7569ce331e7ec595a3",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "everwin",
+      "stockCode": "300115",
+      "relativePath": "data/a-share-financials/everwin.json",
+      "byteSize": 75730,
+      "checksumSha256": "a11fcdcee608f4fce42c7bf49ab9ff2d6b1cf4965788e3aeb7e729c434abb04e",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "fii",
+      "stockCode": "601138",
+      "relativePath": "data/a-share-financials/fii.json",
+      "byteSize": 74694,
+      "checksumSha256": "b04877495c18d10363cb0f417f9a365ac4063f4280a179bf3b10dc34e207c8c3",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "fortior",
+      "stockCode": "688279",
+      "relativePath": "data/a-share-financials/fortior.json",
+      "byteSize": 74625,
+      "checksumSha256": "835baa9f8f7884012a5ca36c22561befbb402492891631ab8b107e3fa39415f3",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "hanwei",
+      "stockCode": "300007",
+      "relativePath": "data/a-share-financials/hanwei.json",
+      "byteSize": 75320,
+      "checksumSha256": "f5c918888a03dfbf1f3944f0fa809860b5215d6baba4e06c5bb62bbc4d09e9b4",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "hengbo",
+      "stockCode": "301225",
+      "relativePath": "data/a-share-financials/hengbo.json",
+      "byteSize": 74894,
+      "checksumSha256": "60cafb337eeb9c98f19877b30b3ef536b829dc4b9f0f092647c39ac4404b786a",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "henghui",
+      "stockCode": "300952",
+      "relativePath": "data/a-share-financials/henghui.json",
+      "byteSize": 75022,
+      "checksumSha256": "0fded4c8455780a354a3c0ade0667a766d064fd4bf85508bd5936b9b0609f735",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "hengli-hydraulic",
+      "stockCode": "601100",
+      "relativePath": "data/a-share-financials/hengli-hydraulic.json",
+      "byteSize": 75721,
+      "checksumSha256": "361f01034745ab80cea18bbfc7bace6e0c88323564920e3a1b716c9cdb1c0ad0",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "hengrui",
+      "stockCode": "600276",
+      "relativePath": "data/a-share-financials/hengrui.json",
+      "byteSize": 75655,
+      "checksumSha256": "8418d426511a82ef6ac30b2702b6772006747598c555ae183c39076e5b1a1ae6",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "hengshuai",
+      "stockCode": "300969",
+      "relativePath": "data/a-share-financials/hengshuai.json",
+      "byteSize": 74704,
+      "checksumSha256": "28191915b78e65c4e3c67e9c1b60b0ccbed4b2bd542a80e5a1a3d9672084d309",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "innolight",
+      "stockCode": "300308",
+      "relativePath": "data/a-share-financials/innolight.json",
+      "byteSize": 75860,
+      "checksumSha256": "606e47a3b383e4899fd0591d83e7475cc671cf7cb0464231a519b59768372763",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "inovance",
+      "stockCode": "300124",
+      "relativePath": "data/a-share-financials/inovance.json",
+      "byteSize": 76209,
+      "checksumSha256": "e63806c100fc2f1178dd78da2dfde69d0d06391ab73f59abdb6bb60ffd983440",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "jinwo",
+      "stockCode": "300984",
+      "relativePath": "data/a-share-financials/jinwo.json",
+      "byteSize": 74664,
+      "checksumSha256": "b112349fcad4c51be92583e372fbda41739498f38f59d16425f4c86b679143de",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "joyson",
+      "stockCode": "600699",
+      "relativePath": "data/a-share-financials/joyson.json",
+      "byteSize": 76049,
+      "checksumSha256": "f2152d0854181a546cfadd376b35020ef94f5115bddc27fcc0e19133bc860b01",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "kaidi",
+      "stockCode": "605288",
+      "relativePath": "data/a-share-financials/kaidi.json",
+      "byteSize": 74765,
+      "checksumSha256": "3f5e9537962a03be6fdb78957a896dedecb2f2924918acaee0e5949d56b48eaf",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "keboda",
+      "stockCode": "603786",
+      "relativePath": "data/a-share-financials/keboda.json",
+      "byteSize": 75247,
+      "checksumSha256": "356066d9a91511cc934ea4a71eecc9f466bf62b52baa96cfdc4856a923114a80",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "leaderdrive",
+      "stockCode": "688017",
+      "relativePath": "data/a-share-financials/leaderdrive.json",
+      "byteSize": 74785,
+      "checksumSha256": "a8156028c9bdd132044af15aa7df3dee8cf8f694f85f4e27df04b9c4af68f09a",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "leisai",
+      "stockCode": "002979",
+      "relativePath": "data/a-share-financials/leisai.json",
+      "byteSize": 75110,
+      "checksumSha256": "9e7db6c19f609b6ebea1e43b460a4455e8e39f472fdc06eb1c4e8d1a42f0fa34",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "luster",
+      "stockCode": "688400",
+      "relativePath": "data/a-share-financials/luster.json",
+      "byteSize": 75319,
+      "checksumSha256": "346225843644a408b50153d8652114b851b523ab9c0fd96d893d2a6efd27f8b6",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "molding-tech",
+      "stockCode": "000700",
+      "relativePath": "data/a-share-financials/molding-tech.json",
+      "byteSize": 75326,
+      "checksumSha256": "10d2eec0269be9786fca4c586c2d0dc999fe7341acd8bd0c8e2ecdb54133f741",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "moons",
+      "stockCode": "603728",
+      "relativePath": "data/a-share-financials/moons.json",
+      "byteSize": 75176,
+      "checksumSha256": "fec67159779ed300e7549f131871dacf622dd2e549073acd363733574ed8e6a6",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "nano",
+      "stockCode": "688690",
+      "relativePath": "data/a-share-financials/nano.json",
+      "byteSize": 74930,
+      "checksumSha256": "3ffbab6cb2013bf5f55611e8e2b23a9c76fe25e913d0b0a87769a9900c12fc7d",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "orbbec",
+      "stockCode": "688322",
+      "relativePath": "data/a-share-financials/orbbec.json",
+      "byteSize": 74979,
+      "checksumSha256": "081825e5e793a1a466f182a4b20701220fd28b40dc0b6667ead6348dced613cc",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "pharmaron",
+      "stockCode": "300759",
+      "relativePath": "data/a-share-financials/pharmaron.json",
+      "byteSize": 75747,
+      "checksumSha256": "3dbfe725ede94c0681f42cf4edc7038bbae12fce3a7ed30388ab194a149a6bf4",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "riying",
+      "stockCode": "603286",
+      "relativePath": "data/a-share-financials/riying.json",
+      "byteSize": 74881,
+      "checksumSha256": "d7295fb1ae0aadcc270488854248b70208db0441b74a6f7b737c353b4d3fbd4f",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "rongtai",
+      "stockCode": "603119",
+      "relativePath": "data/a-share-financials/rongtai.json",
+      "byteSize": 74898,
+      "checksumSha256": "095d3fb3e3db7b5517eb3c4739ca24222da8e72c1985c967c9ad1e6d4af0b5d7",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "sanhua",
+      "stockCode": "002050",
+      "relativePath": "data/a-share-financials/sanhua.json",
+      "byteSize": 75876,
+      "checksumSha256": "86264cb9ed07df83517d4f52bb32353d919843a6948c99475fc45d6927f3b922",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "shennan",
+      "stockCode": "002916",
+      "relativePath": "data/a-share-financials/shennan.json",
+      "byteSize": 75699,
+      "checksumSha256": "3ffde4811e453ef91168517399add27efa51b2fc77243279f96ad233febc5e65",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "shuanghuan",
+      "stockCode": "002472",
+      "relativePath": "data/a-share-financials/shuanghuan.json",
+      "byteSize": 75546,
+      "checksumSha256": "9e2cbbe9fcca2aec27dd163c54b9eed4bd38b3d503e86ce1e35343a7f069dff9",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "siasun",
+      "stockCode": "300024",
+      "relativePath": "data/a-share-financials/siasun.json",
+      "byteSize": 75466,
+      "checksumSha256": "2403864f8c3c40ef77cf46453d319920169b3496871e97891bfc8eb6f8303c90",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "siling",
+      "stockCode": "301550",
+      "relativePath": "data/a-share-financials/siling.json",
+      "byteSize": 74702,
+      "checksumSha256": "3b3f9cf01340040e15c5fb36fa6d70516c5746b532d26b571b663f6bda06ec1a",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "sugon",
+      "stockCode": "603019",
+      "relativePath": "data/a-share-financials/sugon.json",
+      "byteSize": 75812,
+      "checksumSha256": "568ffc3ba47a02a8cb26adc68b9e2c29af0495d7c086d1824335aef4047db4ad",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "tieliu",
+      "stockCode": "603926",
+      "relativePath": "data/a-share-financials/tieliu.json",
+      "byteSize": 75143,
+      "checksumSha256": "7b5fff021cbc5b7ca24a893f212f2f94787be7ae5b603eb195c440af8357110b",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "topgroup",
+      "stockCode": "601689",
+      "relativePath": "data/a-share-financials/topgroup.json",
+      "byteSize": 75827,
+      "checksumSha256": "1f510062b834a9a2d793682d6b8f693db2d517a53511213d40a2fc8acd99e405",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "victor-tech",
+      "stockCode": "300476",
+      "relativePath": "data/a-share-financials/victor-tech.json",
+      "byteSize": 75723,
+      "checksumSha256": "5b6379cee8fd4f95e46609d08ecb14a325554cf79dca2e94ba409528521bc28e",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "wanxiang-qc",
+      "stockCode": "000559",
+      "relativePath": "data/a-share-financials/wanxiang-qc.json",
+      "byteSize": 75591,
+      "checksumSha256": "1cbdc6b6e1e2321f0b9525d85d92431f324265c1ceba15c6b8a8f14b7d3cc107",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "wus",
+      "stockCode": "002463",
+      "relativePath": "data/a-share-financials/wus.json",
+      "byteSize": 73929,
+      "checksumSha256": "d3dfc04a456c54b93ef376f0418426d9251a6def88779a04749b7b611824bf12",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "wuxi",
+      "stockCode": "603259",
+      "relativePath": "data/a-share-financials/wuxi.json",
+      "byteSize": 76344,
+      "checksumSha256": "d5129aa4380f795bbc647dde6498037fa585575bae5ab33c0fd20c3e6b212ece",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "wuzhou",
+      "stockCode": "603667",
+      "relativePath": "data/a-share-financials/wuzhou.json",
+      "byteSize": 75257,
+      "checksumSha256": "d61743f6fc7e9c59450064686ee35b70db044f1a3786ad371bd6e70e774d2c1f",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "xingyu",
+      "stockCode": "601799",
+      "relativePath": "data/a-share-financials/xingyu.json",
+      "byteSize": 75285,
+      "checksumSha256": "8610bba44f9dadd12afc6839153cefe3643a585d4950c0f54546f1b60eb7a9a7",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "xinje",
+      "stockCode": "603416",
+      "relativePath": "data/a-share-financials/xinje.json",
+      "byteSize": 74840,
+      "checksumSha256": "3335377008056fb5dbaac3a3ce961d8701538c3bac16156951072a625a59ae3d",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "xinquan",
+      "stockCode": "603179",
+      "relativePath": "data/a-share-financials/xinquan.json",
+      "byteSize": 75536,
+      "checksumSha256": "7e931a60a1dd161a719a622b1d81abd34e98a68dd2554ba6037c70e1dce06c9b",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "xusheng",
+      "stockCode": "603305",
+      "relativePath": "data/a-share-financials/xusheng.json",
+      "byteSize": 75176,
+      "checksumSha256": "ccc76e91c49b95bd7b2d4635bc4ad45adc80e951b82c4b11a93c8a4b93a9f51b",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "zhaomin",
+      "stockCode": "301000",
+      "relativePath": "data/a-share-financials/zhaomin.json",
+      "byteSize": 74650,
+      "checksumSha256": "2b465424fd61d1bbb75880495338ec0c3d23aede8fae98caa7a9fa0161d5187b",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    },
+    {
+      "id": "zhongda-lide",
+      "stockCode": "002896",
+      "relativePath": "data/a-share-financials/zhongda-lide.json",
+      "byteSize": 74812,
+      "checksumSha256": "3af636ae7ee323c29baf73cfee93ddf9cf331dc2b1ea647a4784d345bd1806ed",
+      "latestReportPeriod": "2026-03-31",
+      "status": "success"
+    }
+  ]
+}

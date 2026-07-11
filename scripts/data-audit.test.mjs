@@ -6,6 +6,7 @@ import {
   auditExitCode,
   classifyRisks,
   detectZeroFallbacks,
+  detectFinancialArchitectureRisks,
   finding,
   parseRegistryEntries,
   runSelfTests,
@@ -129,6 +130,13 @@ describe("scan and zero-fallback rules", () => {
   it("blocks rendered financial Math.abs fallback", () => {
     const result = detectZeroFallbacks([write("src/render.tsx", "return <span>{Math.abs(row.price ?? 0)}</span>;\n")], root);
     expect(result.findings[0]).toMatchObject({ severity: "P0", blocking: true });
+  });
+});
+
+describe("financial architecture gates", () => {
+  it("blocks production static imports of the financial monolith", () => {
+    const file = write("src/provider.ts", 'import financials from "./a-share-financials.generated.json";\n');
+    expect(ids(detectFinancialArchitectureRisks([file], root))).toContain("financial-history-static-import");
   });
 });
 

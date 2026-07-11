@@ -1,10 +1,10 @@
 # 数据真实性审计与数据源注册表 V1
 
-- 执行时间：2026-07-10T10:24:01.227Z
-- 扫描文件：72
+- 执行时间：2026-07-10T16:06:33.262Z
+- 扫描文件：134
 - 注册表条目：21
-- P0：0；P1：9；P2：6；P3：0
-- errors：0；warnings：15；skipped 目录：10；allowlist 命中：21
+- P0：0；P1：8；P2：6；P3：0
+- errors：0；warnings：14；skipped 目录：10；allowlist 命中：21
 - 退出码：0
 
 ## 结论
@@ -19,16 +19,15 @@
 
 ## 状态与风险统计
 
-- 状态分布：{"generated_real":5,"partial":2,"not_implemented":7,"static_reference":1,"manual_unverified":4,"inferred":2}
-- 风险分布：{"P0":0,"P1":9,"P2":6,"P3":0}
+- 状态分布：{"generated_real":6,"not_implemented":7,"partial":1,"static_reference":1,"manual_unverified":4,"inferred":2}
+- 风险分布：{"P0":0,"P1":8,"P2":6,"P3":0}
 - 阻断风险：0
-- 非阻断风险：15
+- 非阻断风险：14
 
 ## 风险清单
 
 | id | severity | blocking | category | title | file | line | registryIds |
 |---|---|---|---|---|---|---:|---|
-| data-limitation | P1 | no | limitation | Data limitation: a-share-financials | src/data/data-source-registry.ts | - | a-share-financials |
 | capability-gap | P1 | no | capability | Capability not implemented: hk-financials | src/data/data-source-registry.ts | - | hk-financials |
 | capability-gap | P1 | no | capability | Capability not implemented: announcements | src/data/data-source-registry.ts | - | announcements |
 | capability-gap | P1 | no | capability | Capability not implemented: earnings-preview | src/data/data-source-registry.ts | - | earnings-preview |

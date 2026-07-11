@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements-financial-test.txt
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Install minimal financial-test dependency
+        run: python -m pip install -r requirements-financial-test.txt
+
+      - name: Test financial provider offline
+        run: npm run test:financials:a
+
+      - name: Validate committed financial artifacts
+        run: npm run data:validate:financials:a
+
+      - name: Run data authenticity audit
+        run: npm run data:audit
+
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Build and enforce financial bundle budget
+        run: npm run build

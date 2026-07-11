@@ -50,6 +50,11 @@ function nullableString(block, field) {
   return raw === undefined || raw === "null" ? null : raw.slice(1, -1);
 }
 
+function pathExpression(block, field) {
+  const raw = block.match(new RegExp(`${field}:\\s*(null|(?:generated|source|publicData)\\("[^"]+"\\)|"[^"]+")`))?.[1];
+  return raw === undefined || raw === "null" ? null : raw;
+}
+
 function numberOrInvalid(value) {
   if (value === undefined) return undefined;
   if (value === "null") return null;
@@ -73,14 +78,16 @@ function parseCoverage(block) {
 export function parseRegistryEntries(registrySource) {
   return [...registrySource.matchAll(/entry\(\{([\s\S]*?)\}\),/g)].map((match) => {
     const block = match[0];
-    const storageRaw = block.match(/storageLocation:\s*(null|generated\("[^"]+"\)|source\("[^"]+"\)|"[^"]+")/)?.[1];
     const frontendMatch = block.match(/frontendConsumers:\s*\[([^\]]*)\]/s);
     return {
       id: literal(block, "id"),
       status: literal(block, "status"),
       sourceType: literal(block, "sourceType"),
       provider: nullableString(block, "provider"),
-      storageLocation: storageRaw === undefined || storageRaw === "null" ? null : storageRaw,
+      storageLocation: pathExpression(block, "storageLocation"),
+      summaryLocation: pathExpression(block, "summaryLocation"),
+      manifestLocation: pathExpression(block, "manifestLocation"),
+      detailLocationPattern: pathExpression(block, "detailLocationPattern"),
       generatedBy: nullableString(block, "generatedBy"),
       isDisplayed: block.match(/isDisplayed:\s*(true|false|null)/)?.[1] ?? "null",
       frontendConsumers: [...(frontendMatch?.[1] ?? "").matchAll(/"([^"]+)"/g)].map((item) => item[1]),
@@ -104,10 +111,11 @@ function withinRoot(rootPath, candidate) {
 }
 
 function resolveStorage(rootPath, expression) {
-  const helper = expression?.match(/(generated|source)\("([^"]+)"\)/);
+  const helper = expression?.match(/(generated|source|publicData)\("([^"]+)"\)/);
   const raw = expression?.match(/^"([^"]+)"$/)?.[1];
   if (!helper && !raw) return null;
-  const relative = helper ? path.join(helper[1] === "generated" ? "src/data/real" : "src", helper[2]) : raw;
+  const helperRoot = helper?.[1] === "generated" ? "src/data/real" : helper?.[1] === "publicData" ? "public/data" : "src";
+  const relative = helper ? path.join(helperRoot, helper[2]) : raw;
   return path.resolve(rootPath, relative);
 }
 
@@ -164,6 +172,16 @@ export function validateRegistryEntries(entries, rootPath, { requireRequiredIds 
     if (entry.storageLocation) {
       const resolved = resolveStorage(rootPath, entry.storageLocation);
       if (!resolved || !withinRoot(rootPath, resolved) || /(^|[\\/])(?:dist|build|coverage)([\\/]|$)/i.test(resolved) || !fs.existsSync(resolved)) add(findings, "P0", "path", "storage-invalid", `storageLocation is missing, outside the project, or a build artifact: ${entry.id}`, ids, "Point to an existing source/data file inside the project");
+    }
+    for (const [field, expression] of [["summaryLocation", entry.summaryLocation], ["manifestLocation", entry.manifestLocation]]) {
+      if (!expression) continue;
+      const resolved = resolveStorage(rootPath, expression);
+      if (!resolved || !withinRoot(rootPath, resolved) || !fs.existsSync(resolved) || !fs.statSync(resolved).isFile()) add(findings, "P0", "path", `${field}-invalid`, `${field} is missing or invalid: ${entry.id}`, ids, `Point ${field} to an existing project file`);
+    }
+    if (entry.detailLocationPattern) {
+      const rawPattern = entry.detailLocationPattern.match(/publicData\("([^"]+)"\)/)?.[1] ?? entry.detailLocationPattern.match(/^"([^"]+)"$/)?.[1];
+      const matches = rawPattern ? wildcardMatches(rootPath, rawPattern.startsWith("public/") ? rawPattern : `public/data/${rawPattern}`) : [];
+      if (matches.length === 0) add(findings, "P0", "path", "detailLocationPattern-invalid", `detailLocationPattern has no files: ${entry.id}`, ids, "Point to the committed per-company detail directory");
     }
 
     if (entry.generatedBy) {
@@ -222,6 +240,56 @@ export function detectZeroFallbacks(files, rootPath) {
   return { findings, allowlisted };
 }
 
+export function detectFinancialArchitectureRisks(files, rootPath) {
+  const findings = [];
+  const productionSources = files.filter((file) => /^src[\\/]/.test(path.relative(rootPath, file)) && /\.(?:ts|tsx|js|jsx)$/.test(file));
+  for (const file of productionSources) {
+    const relative = path.relative(rootPath, file).replaceAll("\\", "/");
+    const text = fs.readFileSync(file, "utf8");
+    if (/from\s+["'][^"']*a-share-financials\.generated\.json["']/.test(text)) {
+      add(findings, "P0", "bundle", "financial-history-static-import", `Production code statically imports full A-share financial history: ${relative}`, ["a-share-financials"], "Import only the generated summary and load detail files through the manifest", { file: relative });
+    }
+  }
+  const providerPath = path.join(rootPath, "src/services/providers/aStockDataProvider.ts");
+  const stockProviderPath = path.join(rootPath, "src/services/stockProvider.ts");
+  const drawerPath = path.join(rootPath, "src/components/stock/StockDetailDrawer.tsx");
+  const formatterPath = path.join(rootPath, "src/utils/financialDisplay.ts");
+  const loaderPath = path.join(rootPath, "src/services/aShareFinancialLoader.ts");
+  const requiredTexts = [providerPath, stockProviderPath, drawerPath, formatterPath, loaderPath];
+  if (requiredTexts.some((file) => !fs.existsSync(file))) {
+    add(findings, "P0", "financial-architecture", "financial-lazy-load-files-missing", "Financial lazy-load production files are incomplete", ["a-share-financials", "hk-financials"], "Add the summary provider, manifest loader, fallback resolver and drawer integration");
+    return findings;
+  }
+  const provider = fs.readFileSync(providerPath, "utf8");
+  const stockProvider = fs.readFileSync(stockProviderPath, "utf8");
+  const drawer = fs.readFileSync(drawerPath, "utf8");
+  const formatter = fs.readFileSync(formatterPath, "utf8");
+  const loader = fs.readFileSync(loaderPath, "utf8");
+  if (!provider.includes("a-share-financial-summaries.generated.json") || provider.includes("a-share-financials.generated.json")) add(findings, "P0", "bundle", "financial-summary-provider-invalid", "Synchronous data provider must load only the A-share financial summary", ["a-share-financials"], "Replace full-history imports with the generated summary", { file: path.relative(rootPath, providerPath).replaceAll("\\", "/") });
+  if (!loader.includes("manifest.generated.json") || !loader.includes("entry.relativePath") || !loader.includes("inFlight")) add(findings, "P0", "financial-architecture", "financial-loader-contract-missing", "A-share financial loader lacks manifest allowlisting or request deduplication", ["a-share-financials"], "Resolve paths only through the validated manifest and cache in-flight requests", { file: path.relative(rootPath, loaderPath).replaceAll("\\", "/") });
+  if (!stockProvider.includes("resolveFinancialDisplayValue") || !stockProvider.includes("aShareFinancialSummaries")) add(findings, "P0", "production-route", "financial-real-fallback-unsafe", "Real/Mixed financial display is not routed through the centralized no-mock resolver", ["a-share-financials", "hk-financials"], "Use financial summaries and explicit unavailable states", { file: path.relative(rootPath, stockProviderPath).replaceAll("\\", "/") });
+  if (!drawer.includes("港股财务数据暂未接入") || !drawer.includes("shouldLoadAShareFinancial")) add(findings, "P0", "production-route", "hk-financial-unavailable-ui-missing", "HK financials can enter the A-share loader or lack an explicit unavailable state", ["hk-financials"], "Do not request A-share details for HK stocks and show the not-implemented label", { file: path.relative(rootPath, drawerPath).replaceAll("\\", "/") });
+  if (!formatter.includes("denominator_zero") || !formatter.includes("baseSign === \"negative\"") || !formatter.includes("上期为负，需谨慎解读")) add(findings, "P0", "financial-semantics", "financial-change-base-warning-missing", "Financial change formatting does not disclose zero or negative comparison bases", ["a-share-financials"], "Format denominator_zero as not applicable and negative bases with a caution", { file: path.relative(rootPath, formatterPath).replaceAll("\\", "/") });
+
+  const legacyPath = path.join(rootPath, "src/data/real/a-share-financials.generated.json");
+  const summaryPath = path.join(rootPath, "src/data/real/a-share-financial-summaries.generated.json");
+  const manifestPath = path.join(rootPath, "public/data/a-share-financials/manifest.generated.json");
+  const detailDir = path.dirname(manifestPath);
+  if (fs.existsSync(legacyPath)) add(findings, "P0", "bundle", "financial-monolith-present", "Legacy full-history financial JSON remains in the synchronous data directory", ["a-share-financials"], "Remove the monolith after publishing split artifacts", { file: path.relative(rootPath, legacyPath).replaceAll("\\", "/") });
+  if (!fs.existsSync(summaryPath) || !fs.existsSync(manifestPath)) add(findings, "P0", "path", "financial-split-artifacts-missing", "Financial summary or manifest is missing", ["a-share-financials"], "Generate and commit both split artifacts");
+  else {
+    try {
+      const summary = JSON.parse(fs.readFileSync(summaryPath, "utf8"));
+      const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+      const detailFiles = fs.readdirSync(detailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json");
+      if (manifest.total !== 56 || manifest.items?.length !== 56 || Object.keys(summary.items ?? {}).length !== 56 || detailFiles.length !== 56) add(findings, "P0", "coverage", "financial-split-count-mismatch", "Financial summary, manifest and detail directory must each cover 56 companies", ["a-share-financials"], "Regenerate split artifacts and remove orphan/missing files");
+    } catch {
+      add(findings, "P0", "schema", "financial-split-json-invalid", "Financial summary or manifest JSON is invalid", ["a-share-financials"], "Regenerate valid UTF-8 JSON artifacts");
+    }
+  }
+  return findings;
+}
+
 function capabilityRisks(entries) {
   return entries.flatMap((entry) => {
     const base = { file: REGISTRY_FILE, registryIds: [entry.id], blocking: false };
@@ -246,7 +314,7 @@ export function runAudit(rootPath) {
   const entries = parseRegistryEntries(fs.readFileSync(registryFile, "utf8"));
   const files = walkFiles(rootPath);
   const zeroResult = detectZeroFallbacks(files, rootPath);
-  const risks = [...validateRegistryEntries(entries, rootPath), ...zeroResult.findings, ...capabilityRisks(entries)];
+  const risks = [...validateRegistryEntries(entries, rootPath), ...zeroResult.findings, ...detectFinancialArchitectureRisks(files, rootPath), ...capabilityRisks(entries)];
   return { entries, files, risks, ...classifyRisks(risks), allowlisted: zeroResult.allowlisted, skipped: SKIP_DIRS.size };
 }
 

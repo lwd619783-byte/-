@@ -12,8 +12,7 @@ function marketCount(
 
 export function buildDashboardDataset(mode: DashboardDataMode, realData: GeneratedRealDataBundle = getAStockData()) {
   const mock = getMockDashboardData();
-  const useReal = mode !== "mock";
-  const stocks = enrichStocksWithRealData(mock.stocks, realData, useReal);
+  const stocks = enrichStocksWithRealData(mock.stocks, realData, mode);
   const realQualities = stocks.flatMap((stock) => stock.dataQuality ?? []);
   const hasReal = realQualities.some((item) => item.status === "real" || item.status === "partial" || item.status === "stale");
   const hasMockFallback = stocks.some((stock) => (stock.missingFields?.length ?? 0) > 0) || !hasReal;
