@@ -1,0 +1,3 @@
+public/data/a-share-financials/*.json -text
+public/data/a-share-announcements/*.json -text
+src/data/real/*-summaries.generated.json -text

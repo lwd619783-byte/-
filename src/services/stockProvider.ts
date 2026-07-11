@@ -20,11 +20,16 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
     const latestChanges = summary?.latestChanges;
     const history = real.priceHistory[stock.id];
     const research = real.research[stock.id];
-    const announcements = real.announcements[stock.id];
+    const announcementSummary = real.aShareAnnouncementSummaries[stock.id];
+    const announcementQuality: DataQualityMeta = announcementSummary?.quality ?? {
+      source: stock.market === "港股" ? "HK announcement provider" : "A-share announcement summary",
+      status: stock.market === "港股" ? "not_implemented" : "source_unavailable",
+      errorMessage: stock.market === "港股" ? "港股公告数据暂未接入" : "A 股公告摘要暂未获取",
+    };
     const signals = real.signals[stock.id];
     const sectorMembership = real.sectorMembership[stock.id];
     const dataQuality = useReal
-      ? mergeQuality(profile?.quality, quote?.quality, financialQuality, history?.quality, research?.quality, announcements?.quality, signals?.quality, sectorMembership?.quality)
+      ? mergeQuality(profile?.quality, quote?.quality, financialQuality, history?.quality, research?.quality, announcementQuality, signals?.quality, sectorMembership?.quality)
       : [{ source: "mock", status: "mock" as const }];
 
     const missingFields = useReal
@@ -46,7 +51,7 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
           });
           const moduleQualities: Array<[string, DataQualityMeta | undefined]> = [
             ["quotes", quote?.quality], ["priceHistory", history?.quality], ["financials", financialQuality], ["profiles", profile?.quality],
-            ["research", research?.quality], ["announcements", announcements?.quality], ["signals", signals?.quality], ["sectorMembership", sectorMembership?.quality],
+            ["research", research?.quality], ["announcements", announcementQuality], ["signals", signals?.quality], ["sectorMembership", sectorMembership?.quality],
           ];
           const moduleMissingFields = moduleQualities
             .filter(([, quality]) => quality && ["missing", "error", "not_implemented", "source_unavailable"].includes(String(quality.status)))
@@ -69,9 +74,10 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       quote,
       realFinancial: undefined,
       aShareFinancialSummary: summary,
+      aShareAnnouncementSummary: announcementSummary,
       priceHistory: history?.points ?? [],
       research,
-      announcements,
+      announcements: undefined,
       signals,
       sectorMembership,
       dataQuality,

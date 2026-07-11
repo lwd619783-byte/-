@@ -282,6 +282,184 @@ export interface AnnouncementSeries {
   quality: DataQualityMeta;
 }
 
+export type AnnouncementCategory =
+  | "performance_forecast" | "performance_forecast_revision" | "performance_express"
+  | "annual_report" | "semi_annual_report" | "quarterly_report" | "periodic_report_summary"
+  | "correction" | "investor_relations" | "major_contract" | "share_repurchase"
+  | "shareholding_change" | "equity_incentive" | "financing" | "merger_acquisition"
+  | "regulatory" | "other" | "unknown";
+
+export type AnnouncementFetchStatus = "success" | "partial" | "empty" | "source_unavailable" | "fetch_error" | "validation_error" | "stale";
+export type AnnouncementParseStatus = "metadata_only" | "parse_success" | "parse_partial" | "parse_unavailable";
+
+export interface PerformanceForecastEvent {
+  forecastPeriod: string | null;
+  forecastType: "increase" | "decrease" | "turn_positive" | "turn_negative" | "increase_loss" | "reduce_loss" | "uncertain" | "no_material_change" | "unknown";
+  profitMetric: "netProfitAttributableToParent" | "netProfitExcludingNonRecurring" | "netProfit" | "operatingRevenue" | "other" | "unknown";
+  lowerBound: number | null;
+  upperBound: number | null;
+  priorPeriodValue: number | null;
+  changeLowerPercent: number | null;
+  changeUpperPercent: number | null;
+  expectedDirection: string;
+  turnPositive: boolean;
+  turnNegative: boolean;
+  increaseLoss: boolean;
+  reduceLoss: boolean;
+  revisionType: string | null;
+  previousForecastAnnouncementId: string | null;
+  previousLowerBound: number | null;
+  previousUpperBound: number | null;
+  revisionDirection: string | null;
+  derivedMidpoint: number | null;
+  sourceTextEvidence: string;
+  extractionMethod: string;
+  extractionConfidence: "high" | "medium" | "low";
+}
+
+export interface PerformanceExpressEvent {
+  reportPeriod: string | null;
+  operatingRevenue: number | null;
+  operatingProfit: number | null;
+  totalProfit: number | null;
+  netProfit: number | null;
+  netProfitAttributableToParent: number | null;
+  netProfitExcludingNonRecurring: number | null;
+  basicEPS: number | null;
+  totalAssets: number | null;
+  equityAttributableToParent: number | null;
+  revenueYoY: number | null;
+  parentNetProfitYoY: number | null;
+  sourceUnit: string;
+  normalizedUnit: "CNY";
+  correctionStatus: string;
+  sourceTextEvidence: string;
+  extractionMethod: string;
+  extractionConfidence: "high" | "medium" | "low";
+}
+
+export interface AShareAnnouncementDetailItem {
+  schemaVersion: string;
+  announcementId: string;
+  stockId: string;
+  stockCode: string;
+  companyName: string;
+  market: "A股";
+  title: string;
+  rawTitle: string;
+  category: AnnouncementCategory;
+  subcategory: string | null;
+  classificationConfidence: "high" | "medium" | "low";
+  classificationEvidence: string[];
+  announcementDate: string | null;
+  announcementTime: string | null;
+  reportPeriod: string | null;
+  sourceProvider: string;
+  sourceDescription: string;
+  officialUrl: string | null;
+  pdfUrl: string | null;
+  fetchedAt: string;
+  sourceUpdatedAt: string | null;
+  status: "success" | "partial";
+  parseStatus: AnnouncementParseStatus;
+  parseErrorCode: string | null;
+  parseErrorMessage: string | null;
+  isCorrection: boolean;
+  correctedAnnouncementId: string | null;
+  isCancelled: boolean;
+  isDuplicate: boolean;
+  duplicateOf: string | null;
+  supersededBy: string | null;
+  performanceForecastEvents: PerformanceForecastEvent[];
+  performanceExpressEvent: PerformanceExpressEvent | null;
+  periodicReportEvent: { reportPeriod: string | null; reportType: string | null; summaryUrl: string | null; linkedFinancialReportPeriod: string | null; linkedFinancialStatus: "matched" | "not_found" | "not_applicable"; linkedFinancialGeneratedAt: string | null } | null;
+  reasonSummary: string | null;
+  reasonItems: Array<{ category: string; summary: string; evidenceText: string; sourcePage: number | null; extractionMethod: string; confidence: "high" | "medium" | "low" }>;
+  announcementParsingResult: { status: AnnouncementParseStatus; method: string; confidence: "high" | "medium" | "low"; evidenceCount: number };
+}
+
+export interface AShareAnnouncementData {
+  schemaVersion: string;
+  stockId: string;
+  stockCode: string;
+  companyName: string;
+  market: "A股";
+  provider: string;
+  providerVersion: string;
+  generatedAt: string;
+  fetchedAt: string;
+  lastSuccessfulFetchAt: string | null;
+  currentFetchError: string | null;
+  status: AnnouncementFetchStatus;
+  dateRange: { start: string; end: string };
+  announcements: AShareAnnouncementDetailItem[];
+  quality: DataQualityMeta;
+}
+
+export interface AShareAnnouncementPreview {
+  announcementId: string;
+  title: string;
+  category: AnnouncementCategory;
+  announcementDate: string | null;
+  reportPeriod?: string | null;
+  officialUrl: string | null;
+  pdfUrl: string | null;
+  status?: "success" | "partial";
+  parseStatus: AnnouncementParseStatus;
+  performanceForecastEvents?: PerformanceForecastEvent[];
+  performanceExpressEvent?: PerformanceExpressEvent | null;
+  reasonSummary?: string | null;
+}
+
+export interface AShareAnnouncementSummary {
+  stockId: string;
+  stockCode: string;
+  companyName: string;
+  market: "A股";
+  status: AnnouncementFetchStatus;
+  provider: string;
+  providerVersion: string;
+  fetchedAt: string;
+  generatedAt: string;
+  lastSuccessfulFetchAt: string | null;
+  currentFetchError: string | null;
+  announcementCount: number;
+  categoryCounts: Partial<Record<AnnouncementCategory, number>>;
+  latestAnnouncementDate: string | null;
+  latestPerformanceAnnouncementDate: string | null;
+  recentAnnouncements: AShareAnnouncementPreview[];
+  latestPerformanceAnnouncement: AShareAnnouncementPreview | null;
+  detailPath: string;
+  quality: DataQualityMeta;
+}
+
+export interface AShareAnnouncementManifestEntry {
+  stockId: string;
+  stockCode: string;
+  relativePath: string;
+  byteSize: number;
+  checksumSha256: string;
+  announcementCount: number;
+  latestAnnouncementDate: string | null;
+  latestPerformanceAnnouncementDate: string | null;
+  status: AnnouncementFetchStatus;
+}
+
+export interface AShareAnnouncementManifest {
+  schemaVersion: string;
+  generatedAt: string;
+  provider: string;
+  providerVersion: string;
+  totalCompanies: number;
+  totalAnnouncements: number;
+  dateRange: { start: string | null; end: string | null };
+  success: number;
+  partial: number;
+  error: number;
+  empty: number;
+  items: AShareAnnouncementManifestEntry[];
+}
+
 export interface SectorEntry {
   name: string;
   changePct?: number | null;
@@ -322,7 +500,7 @@ export interface GeneratedRealDataBundle {
   aShareFinancialSummaries: Record<string, AShareFinancialSummary>;
   priceHistory: Record<string, PriceHistorySeries>;
   research: Record<string, ResearchReportSeries>;
-  announcements: Record<string, AnnouncementSeries>;
+  aShareAnnouncementSummaries: Record<string, AShareAnnouncementSummary>;
   signals: Record<string, StockSignalSummary>;
   sectorMembership: Record<string, SectorMembership>;
 }

@@ -2,7 +2,8 @@ import { AlertTriangle, BarChart3, BookOpen, CheckCircle2, LineChart as LineChar
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { loadAShareFinancial } from "../../services/aShareFinancialLoader";
-import type { AShareFinancialData, Industry, IndustrySegment, Stock } from "../../types";
+import { loadAShareAnnouncements } from "../../services/aShareAnnouncementLoader";
+import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancialData, Industry, IndustrySegment, Stock } from "../../types";
 import { displayFinancialField, financialStatusLabel, financialUnavailableLabel, formatFinancialAmount, formatFinancialChangeMetric, formatFinancialRatio } from "../../utils/financialDisplay";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
@@ -29,6 +30,11 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
     status: "idle" | "loading" | "success" | "error";
     data: AShareFinancialData | null;
   }>({ stockId: null, status: "idle", data: null });
+  const [announcementLoad, setAnnouncementLoad] = useState<{
+    stockId: string | null;
+    status: "idle" | "loading" | "success" | "error";
+    data: AShareAnnouncementData | null;
+  }>({ stockId: null, status: "idle", data: null });
 
   useEffect(() => {
     let active = true;
@@ -50,6 +56,22 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
     return () => { active = false; };
   }, [stock?.id, stock?.market, stock?.dataMode, stock?.aShareFinancialSummary?.detailPath]);
 
+  useEffect(() => {
+    let active = true;
+    const requestStockId = stock?.id ?? null;
+    setAnnouncementLoad({ stockId: requestStockId, status: "idle", data: null });
+    if (!shouldLoadAShareAnnouncements(stock)) return () => { active = false; };
+    setAnnouncementLoad({ stockId: requestStockId, status: "loading", data: null });
+    loadAShareAnnouncements(requestStockId as string)
+      .then((data) => {
+        if (canApplyAnnouncementLoad(requestStockId, selectedStockId.current, active)) setAnnouncementLoad({ stockId: requestStockId, status: "success", data });
+      })
+      .catch(() => {
+        if (canApplyAnnouncementLoad(requestStockId, selectedStockId.current, active)) setAnnouncementLoad({ stockId: requestStockId, status: "error", data: null });
+      });
+    return () => { active = false; };
+  }, [stock?.id, stock?.market, stock?.dataMode, stock?.aShareAnnouncementSummary?.detailPath]);
+
   if (!stock) return null;
 
   const industry = industries.find((item) => item.id === stock.industryId);
@@ -61,6 +83,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
 
   const loadedFinancial = financialLoad.stockId === stock.id && financialLoad.status === "success" ? financialLoad.data : null;
   const financialRows = buildFinancialRows(stock, loadedFinancial, financialLoad.stockId === stock.id ? financialLoad.status : "idle");
+  const loadedAnnouncements = announcementLoad.stockId === stock.id && announcementLoad.status === "success" ? announcementLoad.data : null;
 
   const valuationRows = [
     ["PE", stock.valuation.pe],
@@ -170,14 +193,8 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                     }))}
                   />
                 </Panel>
-                <Panel title="公告">
-                  <ArticleList
-                    rows={(stock.announcements?.announcements ?? []).slice(0, 5).map((item) => ({
-                      title: item.title,
-                      meta: [item.date, item.type, item.source].filter(Boolean).join(" · ") || EMPTY,
-                      url: item.url,
-                    }))}
-                  />
+                <Panel title="公告与业绩动态">
+                  <AnnouncementPanel stock={stock} detail={loadedAnnouncements} loadStatus={announcementLoad.stockId === stock.id ? announcementLoad.status : "idle"} />
                 </Panel>
               </div>
 
@@ -578,6 +595,54 @@ export function shouldLoadAShareFinancial(stock: Stock | null) {
 export function canApplyFinancialLoad(requestStockId: string | null, currentStockId: string | null, active: boolean) {
   return active && requestStockId !== null && requestStockId === currentStockId;
 }
+
+export function shouldLoadAShareAnnouncements(stock: Stock | null) {
+  return Boolean(stock && stock.market === "A股" && stock.dataMode !== "mock" && stock.aShareAnnouncementSummary?.detailPath);
+}
+
+export function canApplyAnnouncementLoad(requestStockId: string | null, currentStockId: string | null, active: boolean) {
+  return active && requestStockId !== null && requestStockId === currentStockId;
+}
+
+function AnnouncementPanel({ stock, detail, loadStatus }: { stock: Stock; detail: AShareAnnouncementData | null; loadStatus: "idle" | "loading" | "success" | "error" }) {
+  if (stock.dataMode === "mock") {
+    return <ArticleList rows={(stock.announcements?.announcements ?? []).slice(0, 5).map((item) => ({ title: item.title, meta: [item.date, item.type, "Mock 示例"].filter(Boolean).join(" · "), url: item.url }))} />;
+  }
+  if (stock.market === "港股") return <p className="text-sm text-textMuted">港股公告数据暂未接入</p>;
+  const summary = stock.aShareAnnouncementSummary;
+  if (!summary) return <p className="text-sm text-textMuted">公告数据暂未接入</p>;
+  const rows = (detail?.announcements ?? summary.recentAnnouncements).slice(0, 8) as AShareAnnouncementPreview[];
+  const latestPerformance = (detail?.announcements.find((item) => isPerformanceAnnouncement(item.category)) ?? summary.latestPerformanceAnnouncement) as AShareAnnouncementPreview | null;
+  const loadLabel = loadStatus === "loading" ? "正在加载完整公告数据" : loadStatus === "error" ? "公告数据加载失败（已保留真实摘要）" : loadStatus === "success" ? "完整公告数据已加载" : "使用真实公告摘要";
+  const statusLabel = summary.status === "stale" ? "数据已过期" : summary.status === "source_unavailable" ? "来源不可用" : summary.status === "empty" ? "当前范围内暂无公告" : summary.status === "partial" ? "公告元数据完整，部分正文未结构化" : "数据可用";
+  return (
+    <div className="space-y-3">
+      <Grid rows={[["最新公告", summary.latestAnnouncementDate ?? "当前范围内暂无公告"], ["公告数量", String(summary.announcementCount)], ["数据状态", statusLabel], ["完整数据", loadLabel]]} />
+      {latestPerformance ? <PerformanceAnnouncementCard item={latestPerformance} /> : <p className="rounded-md border border-borderSoft bg-surface/60 p-3 text-sm text-textMuted">当前范围内未发现业绩预告或业绩快报；这不代表业绩无变化。</p>}
+      <ArticleList rows={rows.map((item) => ({ title: item.title, meta: [item.announcementDate, announcementCategoryLabel(item.category), item.parseStatus].filter(Boolean).join(" · "), url: item.officialUrl ?? item.pdfUrl }))} />
+    </div>
+  );
+}
+
+function PerformanceAnnouncementCard({ item }: { item: AShareAnnouncementPreview }) {
+  const events = item.performanceForecastEvents ?? [];
+  return (
+    <article className="rounded-md border border-cyan/30 bg-cyan/10 p-3 text-sm">
+      <p className="font-medium text-textStrong">{item.title}</p>
+      <p className="mt-1 text-xs text-textMuted">{[item.announcementDate, announcementCategoryLabel(item.category), item.reportPeriod].filter(Boolean).join(" · ")}</p>
+      {events.map((event) => <div key={`${event.profitMetric}-${event.forecastPeriod}`} className="mt-2 text-xs leading-5 text-textMuted"><span className="text-textStrong">{profitMetricLabel(event.profitMetric)}：</span>{formatAnnouncementRange(event.lowerBound, event.upperBound)}{event.changeLowerPercent !== null && event.changeUpperPercent !== null ? `；同比 ${(event.changeLowerPercent * 100).toFixed(0)}% 至 ${(event.changeUpperPercent * 100).toFixed(0)}%` : ""}</div>)}
+      {item.performanceExpressEvent ? <p className="mt-2 text-xs text-textMuted">快报归母净利润：{formatFinancialAmount(item.performanceExpressEvent.netProfitAttributableToParent)}</p> : null}
+      {item.reasonSummary ? <p className="mt-2 text-xs leading-5 text-textMuted">公告原因摘要：{item.reasonSummary}</p> : null}
+      <p className="mt-2 text-xs text-warning">仅展示公司正式披露与规则提取，不生成“超预期/不及预期”判断。</p>
+      {item.officialUrl ? <a className="mt-2 inline-flex text-xs text-cyan underline-offset-4 hover:underline" href={item.officialUrl} target="_blank" rel="noopener noreferrer">查看巨潮正式公告</a> : null}
+    </article>
+  );
+}
+
+function isPerformanceAnnouncement(category: string) { return ["performance_forecast", "performance_forecast_revision", "performance_express", "annual_report", "semi_annual_report", "quarterly_report", "periodic_report_summary"].includes(category); }
+function announcementCategoryLabel(category: string) { return ({ performance_forecast: "业绩预告", performance_forecast_revision: "预告修正", performance_express: "业绩快报", annual_report: "年度报告", semi_annual_report: "半年度报告", quarterly_report: "季度报告", periodic_report_summary: "定期报告摘要" } as Record<string, string>)[category] ?? "其他公告"; }
+function profitMetricLabel(metric: string) { return ({ netProfitAttributableToParent: "归母净利润", netProfitExcludingNonRecurring: "扣非归母净利润", netProfit: "净利润", operatingRevenue: "营业收入" } as Record<string, string>)[metric] ?? "其他指标"; }
+function formatAnnouncementRange(lower: number | null, upper: number | null) { return lower === null || upper === null ? "暂未获取" : `${formatFinancialAmount(lower)} 至 ${formatFinancialAmount(upper)}`; }
 
 function buildFinancialRows(stock: Stock, detail: AShareFinancialData | null, loadStatus: "idle" | "loading" | "success" | "error"): string[][] {
   if (stock.dataMode === "mock") {

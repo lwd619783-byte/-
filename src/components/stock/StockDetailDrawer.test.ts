@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canApplyFinancialLoad, shouldLoadAShareFinancial } from "./StockDetailDrawer";
+import { canApplyAnnouncementLoad, canApplyFinancialLoad, shouldLoadAShareAnnouncements, shouldLoadAShareFinancial } from "./StockDetailDrawer";
 import { displayFinancialField, financialStatusLabel, formatFinancialAmount, formatFinancialChangeMetric, formatFinancialRatio } from "../../utils/financialDisplay";
 
 describe("A-share financial display states", () => {
@@ -37,5 +37,20 @@ describe("A-share financial display states", () => {
     expect(canApplyFinancialLoad("a", "b", true)).toBe(false);
     expect(canApplyFinancialLoad("a", "a", false)).toBe(false);
     expect(canApplyFinancialLoad("a", "a", true)).toBe(true);
+  });
+
+  it("loads announcement details only for A-share non-mock summaries", () => {
+    const aShare = { id: "a", market: "A股", dataMode: "real", aShareAnnouncementSummary: { detailPath: "data/a-share-announcements/a.json" } } as never;
+    const hk = { id: "hk", market: "港股", dataMode: "mixed", aShareAnnouncementSummary: { detailPath: "data/a-share-announcements/hk.json" } } as never;
+    const mock = { id: "mock", market: "A股", dataMode: "mock", aShareAnnouncementSummary: { detailPath: "data/a-share-announcements/mock.json" } } as never;
+    expect(shouldLoadAShareAnnouncements(aShare)).toBe(true);
+    expect(shouldLoadAShareAnnouncements(hk)).toBe(false);
+    expect(shouldLoadAShareAnnouncements(mock)).toBe(false);
+  });
+
+  it("prevents a previous announcement request from overwriting a switched or closed stock", () => {
+    expect(canApplyAnnouncementLoad("a", "b", true)).toBe(false);
+    expect(canApplyAnnouncementLoad("a", "a", false)).toBe(false);
+    expect(canApplyAnnouncementLoad("a", "a", true)).toBe(true);
   });
 });

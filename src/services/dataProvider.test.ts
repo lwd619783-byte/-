@@ -49,10 +49,13 @@ const generated: GeneratedRealDataBundle = {
       quality: { source: "Eastmoney reportapi", status: "real", updatedAt: "2026-06-30T10:00:00+08:00" },
     },
   },
-  announcements: {
+  aShareAnnouncementSummaries: {
     sugon: {
-      id: "sugon",
-      announcements: [{ title: "年度报告", date: "2026-06-30", type: "定期报告", url: "https://example.com" }],
+      stockId: "sugon", stockCode: "603019", companyName: "中科曙光", market: "A股", status: "success",
+      provider: "CNInfo hisAnnouncement", providerVersion: "2026-public-web", fetchedAt: "2026-06-30T10:00:00+08:00",
+      generatedAt: "2026-06-30T10:00:00+08:00", lastSuccessfulFetchAt: "2026-06-30T10:00:00+08:00", currentFetchError: null,
+      announcementCount: 1, categoryCounts: { annual_report: 1 }, latestAnnouncementDate: "2026-06-30", latestPerformanceAnnouncementDate: "2026-06-30",
+      recentAnnouncements: [], latestPerformanceAnnouncement: null, detailPath: "data/a-share-announcements/sugon.json",
       quality: { source: "CNInfo", status: "real", updatedAt: "2026-06-30T10:00:00+08:00" },
     },
   },
@@ -87,7 +90,7 @@ describe("dashboard data provider", () => {
     expect(stock?.leaderPosition).toContain("国产服务器");
     expect(stock?.missingFields).toContain("ps");
     expect(stock?.research?.reports[0].title).toBe("算力服务器跟踪");
-    expect(stock?.announcements?.announcements[0].title).toBe("年度报告");
+    expect(stock?.aShareAnnouncementSummary?.announcementCount).toBe(1);
     expect(stock?.signals?.dragonTigerCount30d).toBe(1);
     expect(stock?.sectorMembership?.concept[0].name).toBe("算力");
     expect(stock?.financial.revenue).toBe("数据获取失败");

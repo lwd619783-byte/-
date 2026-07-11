@@ -290,6 +290,51 @@ export function detectFinancialArchitectureRisks(files, rootPath) {
   return findings;
 }
 
+export function detectAnnouncementArchitectureRisks(files, rootPath) {
+  const findings = [];
+  const productionSources = files.filter((file) => /^src[\\/]/.test(path.relative(rootPath, file)) && /\.(?:ts|tsx|js|jsx)$/.test(file));
+  for (const file of productionSources) {
+    const relative = path.relative(rootPath, file).replaceAll("\\", "/");
+    const text = fs.readFileSync(file, "utf8");
+    if (/from\s+["'][^"']*(?:a-share-)?announcements\.generated\.json["']/.test(text) || /from\s+["'][^"']*a-share-announcements\/[^"']+\.json["']/.test(text)) {
+      add(findings, "P0", "bundle", "announcement-history-static-import", `Production code statically imports full A-share announcement history: ${relative}`, ["announcements"], "Import only the generated summary and resolve company details through the manifest", { file: relative });
+    }
+  }
+
+  const providerPath = path.join(rootPath, "src/services/providers/aStockDataProvider.ts");
+  const stockProviderPath = path.join(rootPath, "src/services/stockProvider.ts");
+  const drawerPath = path.join(rootPath, "src/components/stock/StockDetailDrawer.tsx");
+  const loaderPath = path.join(rootPath, "src/services/aShareAnnouncementLoader.ts");
+  if ([providerPath, stockProviderPath, drawerPath, loaderPath].some((file) => !fs.existsSync(file))) {
+    add(findings, "P0", "announcement-architecture", "announcement-lazy-load-files-missing", "Announcement lazy-load production files are incomplete", ["announcements", "earnings-preview", "earnings-flash"], "Add the summary provider, manifest loader and drawer integration");
+    return findings;
+  }
+  const provider = fs.readFileSync(providerPath, "utf8");
+  const stockProvider = fs.readFileSync(stockProviderPath, "utf8");
+  const drawer = fs.readFileSync(drawerPath, "utf8");
+  const loader = fs.readFileSync(loaderPath, "utf8");
+  if (!provider.includes("a-share-announcement-summaries.generated.json") || provider.includes("announcements.generated.json")) add(findings, "P0", "bundle", "announcement-summary-provider-invalid", "Synchronous data provider must load only A-share announcement summaries", ["announcements"], "Remove legacy/full-history imports from the synchronous provider", { file: path.relative(rootPath, providerPath).replaceAll("\\", "/") });
+  if (!loader.includes("manifest.generated.json") || !loader.includes("entry.relativePath") || !loader.includes("inFlight") || !loader.includes("SAFE_PATH")) add(findings, "P0", "announcement-architecture", "announcement-loader-contract-missing", "Announcement loader lacks manifest allowlisting or request deduplication", ["announcements"], "Resolve only validated manifest paths and deduplicate in-flight requests", { file: path.relative(rootPath, loaderPath).replaceAll("\\", "/") });
+  if (!stockProvider.includes("aShareAnnouncementSummaries") || !stockProvider.includes("港股公告数据暂未接入")) add(findings, "P0", "production-route", "announcement-real-fallback-unsafe", "Real/Mixed announcements can fall back to static data or HK lacks an explicit unavailable state", ["announcements"], "Use real summaries only and retain mock announcements only in mock mode", { file: path.relative(rootPath, stockProviderPath).replaceAll("\\", "/") });
+  if (!drawer.includes("shouldLoadAShareAnnouncements") || !drawer.includes("港股公告数据暂未接入") || !drawer.includes("不生成“超预期/不及预期”判断")) add(findings, "P0", "announcement-semantics", "announcement-ui-boundary-missing", "Announcement UI lacks A-share-only loading, HK unavailable state, or subjective-judgment boundary", ["announcements", "earnings-preview"], "Keep HK unavailable and show only disclosed facts without outperform/underperform judgments", { file: path.relative(rootPath, drawerPath).replaceAll("\\", "/") });
+
+  const summaryPath = path.join(rootPath, "src/data/real/a-share-announcement-summaries.generated.json");
+  const manifestPath = path.join(rootPath, "public/data/a-share-announcements/manifest.generated.json");
+  const detailDir = path.dirname(manifestPath);
+  if (!fs.existsSync(summaryPath) || !fs.existsSync(manifestPath)) add(findings, "P0", "path", "announcement-split-artifacts-missing", "Announcement summary or manifest is missing", ["announcements"], "Generate and commit the summary, manifest and company details");
+  else {
+    try {
+      const summary = JSON.parse(fs.readFileSync(summaryPath, "utf8"));
+      const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+      const detailFiles = fs.readdirSync(detailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json");
+      if (manifest.totalCompanies !== 56 || manifest.items?.length !== 56 || Object.keys(summary.items ?? {}).length !== 56 || detailFiles.length !== 56) add(findings, "P0", "coverage", "announcement-split-count-mismatch", "Announcement summary, manifest and detail directory must each cover 56 companies", ["announcements"], "Regenerate split artifacts and remove orphan/missing files");
+    } catch {
+      add(findings, "P0", "schema", "announcement-split-json-invalid", "Announcement summary or manifest JSON is invalid", ["announcements"], "Regenerate valid UTF-8 JSON artifacts");
+    }
+  }
+  return findings;
+}
+
 function capabilityRisks(entries) {
   return entries.flatMap((entry) => {
     const base = { file: REGISTRY_FILE, registryIds: [entry.id], blocking: false };
@@ -314,7 +359,7 @@ export function runAudit(rootPath) {
   const entries = parseRegistryEntries(fs.readFileSync(registryFile, "utf8"));
   const files = walkFiles(rootPath);
   const zeroResult = detectZeroFallbacks(files, rootPath);
-  const risks = [...validateRegistryEntries(entries, rootPath), ...zeroResult.findings, ...detectFinancialArchitectureRisks(files, rootPath), ...capabilityRisks(entries)];
+  const risks = [...validateRegistryEntries(entries, rootPath), ...zeroResult.findings, ...detectFinancialArchitectureRisks(files, rootPath), ...detectAnnouncementArchitectureRisks(files, rootPath), ...capabilityRisks(entries)];
   return { entries, files, risks, ...classifyRisks(risks), allowlisted: zeroResult.allowlisted, skipped: SKIP_DIRS.size };
 }
 
