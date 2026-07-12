@@ -49,6 +49,9 @@ jobs:
       - name: Validate committed announcement artifacts
         run: npm run data:validate:announcements:a
 
+      - name: Test provider observability offline
+        run: npm run test:provider-observability
+
       - name: Run data authenticity audit
         run: npm run data:audit
 

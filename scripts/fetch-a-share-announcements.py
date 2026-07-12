@@ -39,6 +39,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-cache", action="store_true")
     parser.add_argument("--delay", type=float, default=0.35)
+    parser.add_argument("--output-root", type=Path, help="Isolated output root; never points at production generated files")
+    parser.add_argument("--cache-dir", type=Path, help="Override cache directory for isolated observation runs")
     return parser.parse_args()
 
 
@@ -47,13 +49,13 @@ def load_universe() -> list[dict[str, str]]:
     return [item for item in doc["items"] if item.get("market") == "A股"]
 
 
-def load_existing() -> dict[str, dict[str, Any]]:
-    manifest_path = DETAIL_OUTPUT / MANIFEST_FILENAME
+def load_existing(detail_output: Path) -> dict[str, dict[str, Any]]:
+    manifest_path = detail_output / MANIFEST_FILENAME
     if not manifest_path.exists(): return {}
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     result: dict[str, dict[str, Any]] = {}
     for entry in manifest.get("items", []):
-        path = DETAIL_OUTPUT / f"{entry.get('stockId')}.json"
+        path = detail_output / f"{entry.get('stockId')}.json"
         if path.exists():
             value = json.loads(path.read_text(encoding="utf-8")); value.pop("schemaVersion", None); result[value["stockId"]] = value
     return result
@@ -106,7 +108,14 @@ def fetch_one(client: CNInfoClient, stock: dict[str, str], start: str, end: str,
 
 
 def main() -> int:
-    args = parse_args(); started = time.monotonic(); universe = load_universe(); expected = {item["id"] for item in universe}; existing = load_existing()
+    args = parse_args()
+    if args.output_root and any(base == args.output_root.resolve() or base in args.output_root.resolve().parents for base in (ROOT / "src", ROOT / "public")):
+        print("--output-root must not target production src/ or public/ paths", file=sys.stderr); return 2
+    started = time.monotonic(); universe = load_universe(); expected = {item["id"] for item in universe}
+    summary_output = args.output_root / SUMMARY_OUTPUT.name if args.output_root else SUMMARY_OUTPUT
+    detail_output = args.output_root / "a-share-announcements" if args.output_root else DETAIL_OUTPUT
+    cache_root = args.cache_dir or CACHE_ROOT
+    existing = load_existing(detail_output)
     selected = universe
     if args.stock:
         selected = [item for item in universe if item["id"] == args.stock or item["code"] == args.stock]
@@ -114,7 +123,7 @@ def main() -> int:
     if args.missing_only: selected = [item for item in universe if item["id"] not in existing or existing[item["id"]].get("status") in {"error", "empty"}]
     start = args.start
     if args.incremental: start = max(start, (date.today() - timedelta(days=30)).isoformat())
-    generated_at = now_iso(); client = CNInfoClient(CACHE_ROOT / "raw", delay=args.delay); result = dict(existing)
+    generated_at = now_iso(); client = CNInfoClient(cache_root / "raw", delay=args.delay); result = dict(existing)
     for index, stock in enumerate(selected, 1):
         detail = fetch_one(client, stock, start, args.end, generated_at, not args.no_cache, args.performance_only, existing.get(stock["id"]))
         result[stock["id"]] = detail
@@ -122,7 +131,7 @@ def main() -> int:
     for stock in universe:
         if stock["id"] not in result:
             result[stock["id"]] = fetch_one(client, stock, start, args.end, generated_at, not args.no_cache, args.performance_only, None)
-    stage_root = CACHE_ROOT / f"stage-{int(time.time())}"
+    stage_root = cache_root / f"stage-{int(time.time())}"
     if stage_root.exists(): shutil.rmtree(stage_root)
     stage_root.mkdir(parents=True)
     try:
@@ -130,9 +139,9 @@ def main() -> int:
         errors = validate_artifacts(stage_summary, stage_detail, expected)
         if errors:
             print("\n".join(errors), file=sys.stderr); return 1
-        if not args.dry_run: publish(stage_summary, stage_detail, SUMMARY_OUTPUT, DETAIL_OUTPUT, CACHE_ROOT)
+        if not args.dry_run: publish(stage_summary, stage_detail, summary_output, detail_output, cache_root)
         elapsed = round(time.monotonic() - started, 2)
-        print(json.dumps({"dryRun": args.dry_run, "elapsedSeconds": elapsed, "summaryOutput": str(SUMMARY_OUTPUT), "detailOutput": str(DETAIL_OUTPUT), **{key: manifest[key] for key in ("totalCompanies", "totalAnnouncements", "dateRange", "success", "partial", "error", "empty")}}, ensure_ascii=False, indent=2))
+        print(json.dumps({"dryRun": args.dry_run, "elapsedSeconds": elapsed, "summaryOutput": str(summary_output), "detailOutput": str(detail_output), **{key: manifest[key] for key in ("totalCompanies", "totalAnnouncements", "dateRange", "success", "partial", "error", "empty")}}, ensure_ascii=False, indent=2))
     finally:
         if stage_root.exists(): shutil.rmtree(stage_root)
     return 0

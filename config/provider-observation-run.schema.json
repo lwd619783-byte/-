@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Provider observation run V1",
+  "type": "object",
+  "required": ["schemaVersion", "runId", "providerId", "providerVersion", "domain", "startedAt", "endedAt", "timezone", "durationSeconds", "status", "exitCode", "metrics", "failures"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "runId": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+    "status": {"enum": ["success", "partial", "failed"]},
+    "failures": {"type": "array"}
+  },
+  "additionalProperties": true
+}

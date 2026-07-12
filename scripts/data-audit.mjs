@@ -335,6 +335,40 @@ export function detectAnnouncementArchitectureRisks(files, rootPath) {
   return findings;
 }
 
+export function detectProviderObservabilityRisks(rootPath) {
+  const findings = [];
+  const configPath = path.join(rootPath, "config/provider-stability-gate-v1.json");
+  const runnerPath = path.join(rootPath, "scripts/observe-providers.py");
+  const healthPath = path.join(rootPath, "scripts/provider-health.py");
+  const testPath = path.join(rootPath, "scripts/tests/test_provider_observability.py");
+  const packagePath = path.join(rootPath, "package.json");
+  const ignorePath = path.join(rootPath, ".gitignore");
+  const ciPath = path.join(rootPath, ".github/workflows/ci.yml");
+  if ([configPath, runnerPath, healthPath, testPath].some((file) => !fs.existsSync(file))) {
+    add(findings, "P0", "provider-observability", "provider-observability-files-missing", "Provider stability gate files are incomplete", ["a-share-financials", "announcements"], "Add the config, isolated runner, health evaluator and offline tests");
+    return findings;
+  }
+  try {
+    const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+    if (config.schemaVersion !== "1.0.0" || config.minimumDistinctDays < 5 || config.minimumRunsPerProvider < 10 || config.minimumSuccessfulDaysPerProvider < 5 || config.expectedCompanies !== 56) add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config weakens the V1 minimum window", ["a-share-financials", "announcements"], "Restore the documented minimum observation thresholds");
+  } catch {
+    add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config is invalid JSON", ["a-share-financials", "announcements"], "Commit valid UTF-8 JSON config");
+  }
+  const packageJson = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+  const scripts = packageJson.scripts ?? {};
+  for (const name of ["data:observe:providers", "data:observe:financials:a", "data:observe:announcements:a", "data:health:providers", "data:refresh:eligibility", "test:provider-observability"]) {
+    if (!scripts[name]) add(findings, "P0", "provider-observability", "provider-observability-command-missing", `Missing provider observability command: ${name}`, ["a-share-financials", "announcements"], "Restore the offline-safe observation command contract");
+  }
+  if (/financials:a|announcements:a|observe:providers/.test(scripts["data:refresh"] ?? "")) add(findings, "P0", "production-route", "unqualified-provider-in-default-refresh", "Default data:refresh includes an unqualified provider", ["a-share-financials", "announcements"], "Keep providers independent until the eligibility gate qualifies them");
+  if (!fs.readFileSync(ignorePath, "utf8").split(/\r?\n/).includes(".provider-observations/")) add(findings, "P0", "credentials", "provider-observation-output-not-ignored", "Local provider observation output is not ignored", ["a-share-financials", "announcements"], "Ignore .provider-observations/");
+  const runner = fs.readFileSync(runnerPath, "utf8");
+  if (!runner.includes("--output-root") || !runner.includes("productionUnchanged") || !runner.includes("redact")) add(findings, "P0", "provider-observability", "provider-observation-isolation-missing", "Observation runner lacks isolated output, production checksum, or redaction", ["a-share-financials", "announcements"], "Write only under the ignored observation root and verify production remains unchanged");
+  const test = fs.readFileSync(testPath, "utf8");
+  if (!test.includes("first_day_insufficient") || !test.includes("validate_rejects_secret") || !test.includes("default_refresh_unchanged")) add(findings, "P0", "provider-observability", "provider-observability-negative-tests-missing", "Provider observability lacks first-day, secret, or default-refresh negative tests", ["a-share-financials", "announcements"], "Restore the mandatory negative tests");
+  if (!fs.existsSync(ciPath) || !fs.readFileSync(ciPath, "utf8").includes("test:provider-observability")) add(findings, "P0", "ci", "provider-observability-ci-missing", "CI does not run offline provider observability tests", ["a-share-financials", "announcements"], "Run test:provider-observability without live network access");
+  return findings;
+}
+
 function capabilityRisks(entries) {
   return entries.flatMap((entry) => {
     const base = { file: REGISTRY_FILE, registryIds: [entry.id], blocking: false };
@@ -359,7 +393,7 @@ export function runAudit(rootPath) {
   const entries = parseRegistryEntries(fs.readFileSync(registryFile, "utf8"));
   const files = walkFiles(rootPath);
   const zeroResult = detectZeroFallbacks(files, rootPath);
-  const risks = [...validateRegistryEntries(entries, rootPath), ...zeroResult.findings, ...detectFinancialArchitectureRisks(files, rootPath), ...detectAnnouncementArchitectureRisks(files, rootPath), ...capabilityRisks(entries)];
+  const risks = [...validateRegistryEntries(entries, rootPath), ...zeroResult.findings, ...detectFinancialArchitectureRisks(files, rootPath), ...detectAnnouncementArchitectureRisks(files, rootPath), ...detectProviderObservabilityRisks(rootPath), ...capabilityRisks(entries)];
   return { entries, files, risks, ...classifyRisks(risks), allowlisted: zeroResult.allowlisted, skipped: SKIP_DIRS.size };
 }
 
