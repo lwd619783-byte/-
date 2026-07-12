@@ -340,11 +340,14 @@ export function detectProviderObservabilityRisks(rootPath) {
   const configPath = path.join(rootPath, "config/provider-stability-gate-v1.json");
   const runnerPath = path.join(rootPath, "scripts/observe-providers.py");
   const healthPath = path.join(rootPath, "scripts/provider-health.py");
+  const corePath = path.join(rootPath, "scripts/provider_observability/core.py");
+  const productionPath = path.join(rootPath, "scripts/provider_observability/production.py");
+  const schemaPath = path.join(rootPath, "config/provider-observation-run.schema.json");
   const testPath = path.join(rootPath, "scripts/tests/test_provider_observability.py");
   const packagePath = path.join(rootPath, "package.json");
   const ignorePath = path.join(rootPath, ".gitignore");
   const ciPath = path.join(rootPath, ".github/workflows/ci.yml");
-  if ([configPath, runnerPath, healthPath, testPath].some((file) => !fs.existsSync(file))) {
+  if ([configPath, runnerPath, healthPath, corePath, productionPath, schemaPath, testPath].some((file) => !fs.existsSync(file))) {
     add(findings, "P0", "provider-observability", "provider-observability-files-missing", "Provider stability gate files are incomplete", ["a-share-financials", "announcements"], "Add the config, isolated runner, health evaluator and offline tests");
     return findings;
   }
@@ -363,8 +366,25 @@ export function detectProviderObservabilityRisks(rootPath) {
   if (!fs.readFileSync(ignorePath, "utf8").split(/\r?\n/).includes(".provider-observations/")) add(findings, "P0", "credentials", "provider-observation-output-not-ignored", "Local provider observation output is not ignored", ["a-share-financials", "announcements"], "Ignore .provider-observations/");
   const runner = fs.readFileSync(runnerPath, "utf8");
   if (!runner.includes("--output-root") || !runner.includes("productionUnchanged") || !runner.includes("redact")) add(findings, "P0", "provider-observability", "provider-observation-isolation-missing", "Observation runner lacks isolated output, production checksum, or redaction", ["a-share-financials", "announcements"], "Write only under the ignored observation root and verify production remains unchanged");
+  if (!runner.includes("observation_eligibility(git_status()") || !runner.includes("preflight_failed")) add(findings, "P0", "provider-observability", "provider-observation-dirty-preflight-missing", "Default provider observation does not reject a dirty worktree before network execution", ["a-share-financials", "announcements"], "Run the clean-worktree preflight before calling either provider");
+  const core = fs.readFileSync(corePath, "utf8");
+  if (!core.includes("expectedExpired") || !core.includes("unexpectedRemoved") || !core.includes("unverifiableRemoved") || !core.includes("windowShiftDays")) add(findings, "P0", "provider-observability", "announcement-window-diff-incomplete", "Announcement diff does not distinguish expiry, overlap removal and unverifiable removal", ["announcements"], "Classify removals against the previous/current window overlap");
+  if (!core.includes("def tree_digest(paths: list[Path], relative_to: Path)") || !core.includes("PurePosixPath") || !core.includes("path.relative_to(root)")) add(findings, "P0", "provider-observability", "artifact-checksum-unstable", "Artifact checksum is not rooted in stable logical relative paths", ["a-share-financials", "announcements"], "Hash normalized relative paths and raw bytes, never absolute run directories");
+  if (!core.includes('"data_value_drift"') || !core.match(/BLOCKING_FAILURES\s*=\s*\{[\s\S]*?"data_value_drift"/)) add(findings, "P0", "provider-observability", "financial-drift-not-blocking", "Same-period financial data drift is not a blocking failure", ["a-share-financials"], "Keep data_value_drift blocking until explicitly resolved");
+  if (!core.includes("completeSuccessRate") || !core.includes("totalSuccessRate") || !core.includes("completeSuccessRuns") || !core.includes("usableRuns")) add(findings, "P0", "provider-observability", "provider-success-rates-aliased", "Complete and total success rates are not independently derived", ["a-share-financials", "announcements"], "Compute complete success from success runs and total success from usable success/partial runs");
+  if (!core.includes("append_resolution") || !core.includes("provider-health-resolutions.jsonl") || !fs.readFileSync(healthPath, "utf8").includes("--resolve")) add(findings, "P0", "provider-observability", "provider-resolution-ledger-missing", "Controlled append-only failure resolution is missing", ["a-share-financials", "announcements"], "Resolve referenced failures through the separate resolution ledger CLI");
+  const production = fs.readFileSync(productionPath, "utf8");
+  const health = fs.readFileSync(healthPath, "utf8");
+  if (!production.includes("validate_split_artifacts") || !production.includes("validate_artifacts") || !production.includes('scripts/data-audit.mjs') || !production.includes("validate_default_refresh") || !health.includes("validate_production(ROOT)")) add(findings, "P0", "provider-observability", "provider-production-gate-hardcoded", "Provider health does not perform real offline production validation", ["a-share-financials", "announcements"], "Reuse committed artifact validators and structured data audit output");
+  try {
+    const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
+    const required = new Set(schema.required ?? []);
+    if (schema.additionalProperties !== false || ["metrics", "difference", "failures", "validation", "atomicity", "worktree", "artifacts"].some((field) => !required.has(field)) || !schema.properties?.failures?.items?.properties?.category?.enum) add(findings, "P0", "provider-observability", "provider-observation-schema-incomplete", "Provider observation JSON Schema lacks core constraints", ["a-share-financials", "announcements"], "Constrain all core objects, dates, metrics and failure categories");
+  } catch {
+    add(findings, "P0", "provider-observability", "provider-observation-schema-incomplete", "Provider observation JSON Schema is invalid", ["a-share-financials", "announcements"], "Commit valid Draft 2020-12 JSON Schema");
+  }
   const test = fs.readFileSync(testPath, "utf8");
-  if (!test.includes("first_day_insufficient") || !test.includes("validate_rejects_secret") || !test.includes("default_refresh_unchanged")) add(findings, "P0", "provider-observability", "provider-observability-negative-tests-missing", "Provider observability lacks first-day, secret, or default-refresh negative tests", ["a-share-financials", "announcements"], "Restore the mandatory negative tests");
+  if (!test.includes("first_day_insufficient") || !test.includes("sensitive_detected") || !test.includes("default_refresh_unchanged") || !test.includes("expected_expiry") || !test.includes("resolution_unblocks_failure")) add(findings, "P0", "provider-observability", "provider-observability-negative-tests-missing", "Provider observability lacks mandatory window, secret, refresh or resolution tests", ["a-share-financials", "announcements"], "Restore the mandatory offline negative tests");
   if (!fs.existsSync(ciPath) || !fs.readFileSync(ciPath, "utf8").includes("test:provider-observability")) add(findings, "P0", "ci", "provider-observability-ci-missing", "CI does not run offline provider observability tests", ["a-share-financials", "announcements"], "Run test:provider-observability without live network access");
   return findings;
 }
@@ -465,9 +485,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
   runSelfTests();
   const result = runAudit(root);
-  fs.writeFileSync(path.join(root, "docs", "data-audit-v1.md"), renderReport(result), "utf8");
+  if (!process.argv.includes("--no-write")) fs.writeFileSync(path.join(root, "docs", "data-audit-v1.md"), renderReport(result), "utf8");
   const riskCounts = Object.fromEntries(["P0", "P1", "P2", "P3"].map((severity) => [severity, result.risks.filter((item) => item.severity === severity && !item.resolved).length]));
   const exit = auditExitCode(result);
-  console.log(JSON.stringify({ scanned: result.files.length, registry: result.entries.length, ...riskCounts, errors: result.errors.length, warnings: result.warnings.length, skipped: result.skipped, allowlisted: result.allowlisted.length, exit }, null, 2));
+  console.log(JSON.stringify({ scanned: result.files.length, registry: result.entries.length, ...riskCounts, errors: result.errors.length, warnings: result.warnings.length, skipped: result.skipped, allowlisted: result.allowlisted.length, exit }, null, process.argv.includes("--json") ? 0 : 2));
   if (exit) process.exitCode = exit;
 }

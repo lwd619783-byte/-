@@ -30,12 +30,13 @@ jobs:
           cache-dependency-path: |
             requirements-financial-test.txt
             requirements-announcement-provider.txt
+            requirements-provider-observability-test.txt
 
       - name: Install JavaScript dependencies
         run: npm ci
 
       - name: Install minimal provider-test dependencies
-        run: python -m pip install -r requirements-financial-test.txt -r requirements-announcement-provider.txt
+        run: python -m pip install -r requirements-financial-test.txt -r requirements-announcement-provider.txt -r requirements-provider-observability-test.txt
 
       - name: Test financial provider offline
         run: npm run test:financials:a
