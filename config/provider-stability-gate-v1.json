@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "timezone": "Asia/Shanghai",
+  "minimumDistinctDays": 5,
+  "minimumRunsPerProvider": 10,
+  "minimumSuccessfulDaysPerProvider": 5,
+  "minimumCompleteSuccessRate": 0.9,
+  "minimumTotalSuccessRate": 0.95,
+  "expectedCompanies": 56,
+  "requireLatestSuccess": true,
+  "providers": ["a-share-financials", "a-share-announcements"]
+}

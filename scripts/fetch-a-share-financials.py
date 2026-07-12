@@ -38,6 +38,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-reports", type=int, default=12)
     parser.add_argument("--timeout", type=float, default=15)
     parser.add_argument("--retries", type=int, default=2)
+    parser.add_argument("--output-root", type=Path, help="Isolated output root; never points at production generated files")
+    parser.add_argument("--cache-dir", type=Path, help="Override cache directory for isolated observation runs")
     return parser.parse_args()
 
 
@@ -45,11 +47,11 @@ def load_json(path: Path, fallback=None):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else fallback
 
 
-def load_existing_items() -> dict[str, dict]:
-    split = load_existing_split_items(DETAIL_OUTPUT_DIR)
+def load_existing_items(detail_output: Path, allow_legacy: bool = True) -> dict[str, dict]:
+    split = load_existing_split_items(detail_output)
     if split:
         return split
-    legacy = load_json(LEGACY_OUTPUT_PATH, {}) or {}
+    legacy = load_json(LEGACY_OUTPUT_PATH, {}) or {} if allow_legacy else {}
     return legacy.get("items", {})
 
 
@@ -65,6 +67,13 @@ def error_record(stock: dict, provider: SinaFinancialProvider, fetched_at: str, 
 
 def main() -> int:
     args = parse_args()
+    if args.output_root and any(base == args.output_root.resolve() or base in args.output_root.resolve().parents for base in (ROOT / "src", ROOT / "public")):
+        print("--output-root must not target production src/ or public/ paths", file=sys.stderr)
+        return 2
+    summary_output = args.output_root / SUMMARY_OUTPUT_PATH.name if args.output_root else SUMMARY_OUTPUT_PATH
+    detail_output = args.output_root / "a-share-financials" if args.output_root else DETAIL_OUTPUT_DIR
+    cache_path = args.cache_dir or CACHE_PATH
+    stage_base = args.output_root / ".stage" if args.output_root else STAGE_ROOT
     if args.period and not args.dry_run:
         print("--period is an inspection filter and requires --dry-run to avoid truncating committed history", file=sys.stderr)
         return 2
@@ -77,8 +86,8 @@ def main() -> int:
             print(f"Unknown or non-A-share stock code: {args.stock}", file=sys.stderr)
             return 2
 
-    old_items = load_existing_items()
-    provider = SinaFinancialProvider(CACHE_PATH, timeout=args.timeout, retries=args.retries)
+    old_items = load_existing_items(detail_output, allow_legacy=not bool(args.output_root))
+    provider = SinaFinancialProvider(cache_path, timeout=args.timeout, retries=args.retries)
     generated_at = utc_now()
     started = time.monotonic()
     # Single-stock and missing-only runs always preserve all existing companies.
@@ -122,7 +131,7 @@ def main() -> int:
             print(f"- {error}", file=sys.stderr)
         return 3
 
-    stage_root = STAGE_ROOT / f"a-share-financial-stage-{uuid.uuid4().hex}"
+    stage_root = stage_base / f"a-share-financial-stage-{uuid.uuid4().hex}"
     stage_root.mkdir(parents=True, exist_ok=False)
     artifact_metrics: dict[str, int | float] = {}
     try:
@@ -142,14 +151,14 @@ def main() -> int:
             "averageDetailBytes": round(detail_bytes / len(detail_files), 2) if detail_files else 0,
         }
         if not args.dry_run:
-            publish_staged_artifacts(summary_path, detail_dir, SUMMARY_OUTPUT_PATH, DETAIL_OUTPUT_DIR, STAGE_ROOT)
+            publish_staged_artifacts(summary_path, detail_dir, summary_output, detail_output, stage_base)
     finally:
         if stage_root.exists():
             shutil.rmtree(stage_root)
 
     elapsed = time.monotonic() - started
     print(json.dumps({
-        "summaryOutput": str(SUMMARY_OUTPUT_PATH), "detailOutput": str(DETAIL_OUTPUT_DIR), "dryRun": args.dry_run,
+        "summaryOutput": str(summary_output), "detailOutput": str(detail_output), "dryRun": args.dry_run,
         "elapsedSeconds": round(elapsed, 2), **artifact_metrics,
         **dataset["summary"],
     }, ensure_ascii=False, indent=2))

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "provider-observation-run.schema.json",
+  "title": "Provider observation run V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "providerId", "providerVersion", "domain", "startedAt", "endedAt", "timezone", "durationSeconds", "status", "exitCode", "metrics", "difference", "failures", "validation", "atomicity", "worktree", "artifacts"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "runId": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+    "providerId": {"enum": ["a-share-financials", "a-share-announcements"]},
+    "providerVersion": {"type": "string", "minLength": 1},
+    "domain": {"enum": ["financials", "announcements"]},
+    "startedAt": {"type": "string", "format": "date-time"},
+    "endedAt": {"type": "string", "format": "date-time"},
+    "timezone": {"const": "Asia/Shanghai"},
+    "durationSeconds": {"type": "number", "minimum": 0},
+    "platform": {"type": "string"},
+    "pythonVersion": {"type": "string"},
+    "nodeVersion": {"type": "string"},
+    "command": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["success", "partial", "failed"]},
+    "exitCode": {"type": "integer"},
+    "metrics": {
+      "type": "object",
+      "required": ["expectedCompanies", "companyCoverage", "structuralValidationRate", "eligibleSample", "cacheMode", "timeoutCount", "rateLimitCount", "httpStatusCounts"],
+      "properties": {
+        "expectedCompanies": {"type": "integer", "minimum": 0},
+        "companyCoverage": {"type": "integer", "minimum": 0},
+        "structuralValidationRate": {"type": "number", "minimum": 0, "maximum": 1},
+        "eligibleSample": {"type": "boolean"},
+        "cacheMode": {"enum": ["isolated", "bypass"]},
+        "retryCount": {"type": ["integer", "null"], "minimum": 0},
+        "timeoutCount": {"type": "integer", "minimum": 0},
+        "rateLimitCount": {"type": "integer", "minimum": 0},
+        "httpStatusCounts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "success": {"type": "integer", "minimum": 0},
+        "partial": {"type": "integer", "minimum": 0},
+        "error": {"type": "integer", "minimum": 0},
+        "detailFiles": {"type": "integer", "minimum": 0},
+        "totalAnnouncements": {"type": "integer", "minimum": 0},
+        "latestAnnouncementDate": {"type": ["string", "null"], "format": "date"},
+        "categoryCounts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "manifestChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "artifactChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "expectedWindowExpiryCount": {"type": "integer", "minimum": 0},
+        "unexpectedRemovalCount": {"type": "integer", "minimum": 0},
+        "unverifiableRemovalCount": {"type": "integer", "minimum": 0},
+        "windowShiftDays": {"type": ["integer", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "difference": {"type": "object", "additionalProperties": true},
+    "failures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["category", "message", "resolved"],
+        "properties": {
+          "category": {"enum": ["network_transient", "provider_unavailable", "timeout", "rate_limited", "authentication_unexpected", "schema_drift", "empty_response", "coverage_drop", "unexpected_removal", "unverifiable_removal", "window_anomaly", "data_value_drift", "manifest_mismatch", "checksum_mismatch", "atomicity_failure", "validation_failure", "audit_failure", "default_refresh_violation", "filesystem_failure", "timezone_failure", "unknown"]},
+          "message": {"type": "string"},
+          "resolved": {"type": "boolean"}
+        }
+      }
+    },
+    "validation": {"type": "object", "additionalProperties": false, "required": ["passed"], "properties": {"passed": {"type": "boolean"}}},
+    "atomicity": {"type": "object", "additionalProperties": false, "required": ["productionUnchanged", "beforeChecksum", "afterChecksum"], "properties": {"productionUnchanged": {"type": "boolean"}, "beforeChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "afterChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}},
+    "worktree": {"type": "object", "additionalProperties": false, "required": ["unchanged"], "properties": {"unchanged": {"type": "boolean"}}},
+    "messages": {"type": "array", "items": {"type": "string"}},
+    "artifacts": {"type": "object", "additionalProperties": false, "required": ["generatedRoot"], "properties": {"generatedRoot": {"type": "string", "pattern": "^artifacts/[A-Za-z0-9._-]+/generated$"}}}
+  }
+}

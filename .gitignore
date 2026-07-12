@@ -1,6 +1,7 @@
 node_modules/
 dist/
 data-cache/
+.provider-observations/
 .ssh-private/
 
 .env

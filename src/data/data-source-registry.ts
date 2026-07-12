@@ -38,5 +38,20 @@ export const dataSourceRegistry: DataSourceRegistryEntry[] = [
   entry({ id: "macro-indicators", category: "宏观指标", status: "generated_real", sourceType: "generated_real", provider: "AKShare", sourceUrl: "https://akshare.akfamily.xyz/", storageLocation: generated("macro.generated.json"), generatedBy: "scripts/fetch-macro-data.py", refreshMethod: "npm run data:fetch:macro", refreshFrequency: "按需", isDisplayed: true, verificationStatus: "脚本校验", frontendConsumers: ["src/components/dashboard/MacroTab.tsx"], fallbackBehavior: "失败指标显示数据暂缺", knownLimitations: ["不同指标更新频率不同"] }),
 ];
 
+export const providerStabilityGate = {
+  schemaVersion: "1.0.0",
+  configLocation: "config/provider-stability-gate-v1.json",
+  observationCommand: "npm run data:observe:providers",
+  healthCommand: "npm run data:health:providers",
+  eligibilityCommand: "npm run data:refresh:eligibility",
+  localStorageLocation: ".provider-observations/ (gitignored; never production data)",
+  defaultRefreshEligible: false,
+  status: "insufficient_observation_window",
+  knownLimitations: [
+    "First real baseline is not cross-day stability validation.",
+    "Sina and CNInfo remain outside default data:refresh until the five-day gate is satisfied.",
+  ],
+} as const;
+
 export { statuses as evidenceSourceStatuses };
 export default dataSourceRegistry;
