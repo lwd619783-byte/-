@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Activity, AlertTriangle, BarChart3, Binoculars, Building2, Database, LineChart, RefreshCw, type LucideIcon } from "lucide-react";
+import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, LineChart, RefreshCw, type LucideIcon } from "lucide-react";
 import { Header } from "./components/layout/Header";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { RightRail } from "./components/layout/RightRail";
@@ -9,19 +9,22 @@ import { IndustryTab } from "./components/industry/IndustryTab";
 import { StockPool } from "./components/stock/StockPool";
 import { StockDetailDrawer } from "./components/stock/StockDetailDrawer";
 import { WatchlistTab } from "./components/watchlist/WatchlistTab";
+import { ResearchEventCenter } from "./components/research/ResearchEventCenter";
 import { dataSourceNote, macroIndicators } from "./data/macroData";
 import { buildDashboardDataset } from "./services/dataProvider";
+import { buildResearchEventSnapshot } from "./services/researchEventProvider";
 import type { DashboardDataMode, Stock } from "./types";
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
 import { formatPercent } from "./utils/normalize";
 
-type MainTab = "宏观" | "行业" | "个股池" | "观察清单";
+type MainTab = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心";
 
 const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
   { id: "宏观", icon: LineChart },
   { id: "行业", icon: Building2 },
   { id: "个股池", icon: BarChart3 },
   { id: "观察清单", icon: Binoculars },
+  { id: "验证中心", icon: FlaskConical },
 ];
 
 export default function App() {
@@ -30,6 +33,7 @@ export default function App() {
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [dataMode, setDataMode] = useState<DashboardDataMode>("mixed");
   const dataset = useMemo(() => buildDashboardDataset(dataMode), [dataMode]);
+  const researchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
   const activeSelectedStock = selectedStock ? dataset.stocks.find((stock) => stock.id === selectedStock.id) ?? null : null;
 
   const dashboardStats = useMemo(() => {
@@ -60,6 +64,13 @@ export default function App() {
         : hkQuoteTotal === undefined
           ? "港股暂未接入"
           : `港股 ${hkRealCount}/${hkQuoteTotal} 暂未接入`;
+    const sevenDayCutoff = new Date();
+    sevenDayCutoff.setDate(sevenDayCutoff.getDate() - 6);
+    const cutoff = `${sevenDayCutoff.getFullYear()}-${String(sevenDayCutoff.getMonth() + 1).padStart(2, "0")}-${String(sevenDayCutoff.getDate()).padStart(2, "0")}`;
+    const recentEvents = researchSnapshot.events.filter((event) => event.eventType !== "data_warning" && (event.eventDate ?? event.publishedAt?.slice(0, 10) ?? event.updatedAt?.slice(0, 10) ?? "") >= cutoff).length;
+    const pendingReviewCompanies = new Set(researchSnapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
+    const verificationChains = researchSnapshot.chains.length;
+    const dataReviewItems = researchSnapshot.events.filter((event) => event.eventType === "data_warning" || event.reviewStatus === "pending").length;
 
     return {
       stocksWithReal,
@@ -73,8 +84,12 @@ export default function App() {
       quoteCoverageReal,
       quoteCoverageTotal,
       hkCoverageSummary,
+      recentEvents,
+      pendingReviewCompanies,
+      verificationChains,
+      dataReviewItems,
     };
-  }, [dataset]);
+  }, [dataset, researchSnapshot]);
 
   return (
     <div className="terminal-grid min-h-screen bg-bg text-text">
@@ -97,8 +112,8 @@ export default function App() {
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
               <SectionHeader
                 eyebrow="Research Command Center"
-                title="市场覆盖、风险核验与核心资产跟踪"
-                description="整合 mock 研究框架和本地生成真实行情数据，优先展示覆盖质量、行情变化、缺失风险和待跟踪资产。"
+                title="事件验证、风险核验与核心资产跟踪"
+                description="优先展示真实公告和财务数据触发的投研动作；数据健康与缺失覆盖保留为底层证据状态。"
               />
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
@@ -121,38 +136,47 @@ export default function App() {
 
           <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
             <KpiCard
-              label="真实行情覆盖"
-              value={`${dashboardStats.quoteCoverageReal}/${dashboardStats.quoteCoverageTotal}`}
-              delta={dashboardStats.quoteCoverageReal === dashboardStats.quoteCoverageTotal ? "A股全量覆盖" : "A股部分覆盖"}
-              description={`A 股真实行情覆盖；${dashboardStats.hkCoverageSummary}`}
-              tone={dashboardStats.quoteCoverageReal === dashboardStats.quoteCoverageTotal ? "positive" : "info"}
-              icon={<Database className="h-4 w-4" />}
-            />
-            <KpiCard
-              label="平均涨跌幅"
-              value={formatPercent(dashboardStats.averagePct)}
-              delta={dashboardStats.averagePct === null ? "待接入" : dashboardStats.averagePct >= 0 ? "上行" : "下行"}
-              description="基于已获取最新行情的个股均值"
-              tone={dashboardStats.averagePct === null ? "neutral" : dashboardStats.averagePct >= 0 ? "positive" : "negative"}
-              icon={<Activity className="h-4 w-4" />}
-            />
-            <KpiCard
-              label="缺失字段"
-              value={dashboardStats.missingFields}
-              delta={dashboardStats.missingFields > 0 ? "需核验" : "完整"}
-              description="所有股票待补字段总数"
-              tone={dashboardStats.missingFields > 0 ? "warning" : "positive"}
-              icon={<AlertTriangle className="h-4 w-4" />}
-            />
-            <KpiCard
-              label="最近更新"
-              value={dashboardStats.recentlyUpdated}
-              delta="近端数据"
-              description="标记为最近更新的样本数量"
+              label="最近事件"
+              value={dashboardStats.recentEvents}
+              delta="最近 7 天"
+              description="真实公告与财务更新时间触发"
               tone="info"
               icon={<RefreshCw className="h-4 w-4" />}
             />
+            <KpiCard
+              label="待复盘"
+              value={dashboardStats.pendingReviewCompanies}
+              delta="公司数量"
+              description="存在新事件、部分解析或数据缺口"
+              tone={dashboardStats.pendingReviewCompanies ? "warning" : "positive"}
+              icon={<CheckSquare className="h-4 w-4" />}
+            />
+            <KpiCard
+              label="业绩验证"
+              value={dashboardStats.verificationChains}
+              delta="公司 / 报告期链"
+              description="预告、修正、快报与正式报告关联"
+              tone="positive"
+              icon={<FileCheck2 className="h-4 w-4" />}
+            />
+            <KpiCard
+              label="数据核验"
+              value={dashboardStats.dataReviewItems}
+              delta="待人工核验"
+              description="保留部分解析、过期、缺失和错误状态"
+              tone={dashboardStats.dataReviewItems ? "warning" : "positive"}
+              icon={<AlertTriangle className="h-4 w-4" />}
+            />
           </section>
+
+          <DashboardCard className="p-3">
+            <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-4" aria-label="数据健康信息">
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">真实行情覆盖：<strong className="text-textStrong">{dashboardStats.quoteCoverageReal}/{dashboardStats.quoteCoverageTotal}</strong></span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">平均涨跌幅：<strong className="text-textStrong">{formatPercent(dashboardStats.averagePct)}</strong></span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">缺失字段：<strong className="text-warning">{dashboardStats.missingFields}</strong></span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">最近更新样本：<strong className="text-textStrong">{dashboardStats.recentlyUpdated}</strong> · {dashboardStats.hkCoverageSummary}</span>
+            </div>
+          </DashboardCard>
 
           {activeTab === "宏观" && <MacroTab indicators={macroIndicators} />}
           {activeTab === "行业" && (
@@ -174,6 +198,15 @@ export default function App() {
           {activeTab === "观察清单" && (
             <WatchlistTab
               watchlist={dataset.watchlist}
+              stocks={dataset.stocks}
+              industries={dataset.industries}
+              events={researchSnapshot.events}
+              onOpenStock={setSelectedStock}
+            />
+          )}
+          {activeTab === "验证中心" && (
+            <ResearchEventCenter
+              snapshot={researchSnapshot}
               stocks={dataset.stocks}
               industries={dataset.industries}
               onOpenStock={setSelectedStock}

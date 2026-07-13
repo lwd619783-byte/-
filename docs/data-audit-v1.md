@@ -1,10 +1,10 @@
 # 数据真实性审计与数据源注册表 V1
 
-- 执行时间：2026-07-12T05:27:39.577Z
-- 扫描文件：193
+- 执行时间：2026-07-13T04:16:17.987Z
+- 扫描文件：198
 - 注册表条目：21
-- P0：0；P1：8；P2：6；P3：0
-- errors：0；warnings：14；skipped 目录：10；allowlist 命中：21
+- P0：0；P1：8；P2：9；P3：0
+- errors：0；warnings：17；skipped 目录：10；allowlist 命中：22
 - 退出码：0
 
 ## 结论
@@ -20,14 +20,17 @@
 ## 状态与风险统计
 
 - 状态分布：{"generated_real":6,"not_implemented":4,"partial":4,"static_reference":1,"manual_unverified":4,"inferred":2}
-- 风险分布：{"P0":0,"P1":8,"P2":6,"P3":0}
+- 风险分布：{"P0":0,"P1":8,"P2":9,"P3":0}
 - 阻断风险：0
-- 非阻断风险：14
+- 非阻断风险：17
 
 ## 风险清单
 
 | id | severity | blocking | category | title | file | line | registryIds |
 |---|---|---|---|---|---|---:|---|
+| missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(match[1]), minor: Number(match[2] ?? 0), patch: Number(match[3] ?? 0) | scripts/dev-health.mjs | 228 | - |
+| missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(manifest.partial ?? 0) | scripts/dev-health.mjs | 745 | - |
+| missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(manifest.error ?? 0) | scripts/dev-health.mjs | 746 | - |
 | capability-gap | P1 | no | capability | Capability not implemented: hk-financials | src/data/data-source-registry.ts | - | hk-financials |
 | data-limitation | P1 | no | limitation | Data limitation: announcements | src/data/data-source-registry.ts | - | announcements |
 | data-limitation | P1 | no | limitation | Data limitation: earnings-preview | src/data/data-source-registry.ts | - | earnings-preview |

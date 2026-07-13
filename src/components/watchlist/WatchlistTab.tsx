@@ -1,5 +1,6 @@
-import { CalendarClock } from "lucide-react";
-import type { Industry, Stock, WatchlistItem } from "../../types";
+import { BellRing, CalendarClock } from "lucide-react";
+import type { Industry, ResearchEvent, Stock, WatchlistItem } from "../../types";
+import { buildWatchlistEventHints } from "../../services/researchEventProvider";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { DashboardCard, EmptyState, TextClamp } from "../common/terminal";
 
@@ -7,10 +8,11 @@ interface WatchlistTabProps {
   watchlist: WatchlistItem[];
   stocks: Stock[];
   industries: Industry[];
+  events?: ResearchEvent[];
   onOpenStock: (stock: Stock) => void;
 }
 
-export function WatchlistTab({ watchlist, stocks, industries, onOpenStock }: WatchlistTabProps) {
+export function WatchlistTab({ watchlist, stocks, industries, events = [], onOpenStock }: WatchlistTabProps) {
   const rows = watchlist
     .map((item) => ({ item, stock: stocks.find((stock) => stock.id === item.stockId) }))
     .filter((row): row is { item: WatchlistItem; stock: Stock } => Boolean(row.stock));
@@ -23,7 +25,9 @@ export function WatchlistTab({ watchlist, stocks, industries, onOpenStock }: Wat
 
   return (
     <section className="grid gap-4 xl:grid-cols-2">
-      {rows.map(({ item, stock }) => (
+      {rows.map(({ item, stock }) => {
+        const hints = buildWatchlistEventHints(item, events.filter((event) => event.stockId === stock.id));
+        return (
         <DashboardCard key={item.id} className="p-4" interactive>
           <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
             <div className="min-w-0">
@@ -53,6 +57,16 @@ export function WatchlistTab({ watchlist, stocks, industries, onOpenStock }: Wat
             </ul>
           </div>
 
+          {hints.length ? (
+            <div className="mt-4 rounded-md border border-warning/35 bg-warning/10 p-3">
+              <p className="inline-flex items-center gap-2 text-xs font-semibold text-warning"><BellRing className="h-3.5 w-3.5" />真实事件提示（只读）</p>
+              <ul className="mt-2 space-y-1 text-sm text-textMuted">
+                {hints.map((hint) => <li key={hint}>• {hint}</li>)}
+              </ul>
+              <p className="mt-2 text-xs text-textWeak">提示不会自动改变“{item.status}”状态。</p>
+            </div>
+          ) : null}
+
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <div className="inline-flex items-center gap-2 text-sm text-textMuted">
               <CalendarClock className="h-4 w-4 text-textMuted" />
@@ -66,7 +80,8 @@ export function WatchlistTab({ watchlist, stocks, industries, onOpenStock }: Wat
             </button>
           </div>
         </DashboardCard>
-      ))}
+        );
+      })}
     </section>
   );
 }
