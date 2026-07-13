@@ -8,7 +8,6 @@ export type InvestmentStage =
   | "高位震荡"
   | "景气下行";
 export type InvestmentStyle = "趋势" | "价值" | "主题" | "周期" | "防御";
-export type WatchStatus = "观察" | "已配置" | "等回调" | "等业绩验证" | "剔除观察";
 
 export interface MacroIndicator {
   id: string;
@@ -161,18 +160,25 @@ export interface Stock {
   }>;
 }
 
-export interface WatchlistItem {
-  id: string;
-  stockId: string;
-  reason: string;
-  status: WatchStatus;
-  trigger: string;
-  questions: string[];
-  nextReviewDate: string;
-  latestNote: string;
-}
-
 export type { DashboardDataMode, DataQualityMeta, DataSourceStatus, DataManifest } from "./dataSource";
+export type {
+  ReviewEntry,
+  ReviewEvidenceRef,
+  ReviewTask,
+  ReviewTaskRuleType,
+  ReviewTaskSeverity,
+  ReviewTaskState,
+  ReviewTaskStatus,
+  ReviewTriggerType,
+  WatchItem,
+  WatchItemSnapshot,
+  WatchItemSource,
+  WatchPriority,
+  WatchStatus,
+  WatchlistExportFile,
+  WatchlistSettings,
+  WatchlistStoreEnvelope,
+} from "./watchlist";
 export type {
   EarningsVerificationChain,
   EarningsVerificationDifference,
