@@ -9,11 +9,17 @@ import { IndustryTab } from "./components/industry/IndustryTab";
 import { StockPool } from "./components/stock/StockPool";
 import { StockDetailDrawer } from "./components/stock/StockDetailDrawer";
 import { WatchlistTab } from "./components/watchlist/WatchlistTab";
+import { WatchItemFormModal } from "./components/watchlist/WatchItemFormModal";
+import { ReviewFormModal } from "./components/watchlist/ReviewFormModal";
 import { ResearchEventCenter } from "./components/research/ResearchEventCenter";
 import { dataSourceNote, macroIndicators } from "./data/macroData";
+import { watchlistSamples } from "./data/watchlist";
 import { buildDashboardDataset } from "./services/dataProvider";
 import { buildResearchEventSnapshot } from "./services/researchEventProvider";
-import type { DashboardDataMode, Stock } from "./types";
+import { buildReviewTasks } from "./services/reviewTaskProvider";
+import { createBrowserWatchlistRepository, createEmptyWatchlistEnvelope } from "./services/watchlistRepository";
+import { WatchlistStore, type CreateWatchItemInput, type WatchItemMetadataInput, type WatchlistActionResult } from "./services/watchlistStore";
+import type { DashboardDataMode, Stock, WatchItem } from "./types";
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
 import { formatPercent } from "./utils/normalize";
 
@@ -32,8 +38,26 @@ export default function App() {
   const [globalSearch, setGlobalSearch] = useState("");
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [dataMode, setDataMode] = useState<DashboardDataMode>("mixed");
+  const repository = useMemo(() => createBrowserWatchlistRepository(), []);
+  const watchlistStore = useMemo(() => new WatchlistStore(repository), [repository]);
+  const initialWatchlistLoad = useMemo(() => repository.load(), [repository]);
+  const [watchlistData, setWatchlistData] = useState(initialWatchlistLoad.data);
+  const [storageError, setStorageError] = useState<string | null>(initialWatchlistLoad.error);
+  const [corruptedRaw, setCorruptedRaw] = useState<string | null>(initialWatchlistLoad.corruptedRaw);
+  const [workflowMessage, setWorkflowMessage] = useState<string | null>(null);
+  const [watchForm, setWatchForm] = useState<{ itemId?: string; stockId?: string } | null>(null);
+  const [reviewItemId, setReviewItemId] = useState<string | null>(null);
+  const [correctionReviewId, setCorrectionReviewId] = useState<string | null>(null);
   const dataset = useMemo(() => buildDashboardDataset(dataMode), [dataMode]);
   const researchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
+  const reviewTasks = useMemo(() => buildReviewTasks({
+    watchItems: watchlistData.watchItems,
+    events: researchSnapshot.events,
+    chains: researchSnapshot.chains,
+    taskStates: watchlistData.reviewTaskStates,
+    longUnreviewedDays: watchlistData.settings.longUnreviewedDays,
+  }), [researchSnapshot, watchlistData]);
+  const exportJson = useMemo(() => repository.export(watchlistData), [repository, watchlistData]);
   const activeSelectedStock = selectedStock ? dataset.stocks.find((stock) => stock.id === selectedStock.id) ?? null : null;
 
   const dashboardStats = useMemo(() => {
@@ -71,6 +95,12 @@ export default function App() {
     const pendingReviewCompanies = new Set(researchSnapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
     const verificationChains = researchSnapshot.chains.length;
     const dataReviewItems = researchSnapshot.events.filter((event) => event.eventType === "data_warning" || event.reviewStatus === "pending").length;
+    const today = localDate(new Date());
+    const pendingTasks = reviewTasks.filter((task) => task.status === "pending");
+    const todayReview = new Set(pendingTasks.filter((task) => task.ruleType === "due_review" || task.dueAt === today).map((task) => task.watchItemId)).size;
+    const overdueReview = new Set(pendingTasks.filter((task) => task.ruleType === "overdue_review").map((task) => task.watchItemId)).size;
+    const newEventReminder = new Set(pendingTasks.filter((task) => task.relatedEventIds.length > 0).map((task) => task.watchItemId)).size;
+    const highPriorityWatch = watchlistData.watchItems.filter((item) => !item.archivedAt && item.priority === "high").length;
 
     return {
       stocksWithReal,
@@ -88,8 +118,34 @@ export default function App() {
       pendingReviewCompanies,
       verificationChains,
       dataReviewItems,
+      todayReview,
+      overdueReview,
+      newEventReminder,
+      highPriorityWatch,
     };
-  }, [dataset, researchSnapshot]);
+  }, [dataset, researchSnapshot, reviewTasks, watchlistData.watchItems]);
+
+  const applyAction = (result: WatchlistActionResult, successMessage: string) => {
+    if (result.ok) {
+      setWatchlistData(result.data);
+      setStorageError(null);
+      setWorkflowMessage(successMessage);
+    } else {
+      setStorageError(result.error);
+      setWorkflowMessage(null);
+    }
+    return result.ok;
+  };
+
+  const createWatchItem = (input: CreateWatchItemInput) => {
+    if (applyAction(watchlistStore.createWatchItem(watchlistData, input), "观察项已保存。")) setWatchForm(null);
+  };
+  const updateWatchItem = (input: WatchItemMetadataInput) => {
+    if (!watchForm?.itemId) return;
+    if (applyAction(watchlistStore.updateWatchItemMetadata(watchlistData, watchForm.itemId, input), "观察项元数据已更新。")) setWatchForm(null);
+  };
+  const restoreWatchItem = (item: WatchItem) => applyAction(watchlistStore.restoreWatchItem(watchlistData, item.id), "归档观察项已恢复。");
+  const startReview = (item: WatchItem) => { setCorrectionReviewId(null); setReviewItemId(item.id); };
 
   return (
     <div className="terminal-grid min-h-screen bg-bg text-text">
@@ -128,7 +184,7 @@ export default function App() {
                 </div>
                 <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
                   <p className="text-xs text-textMuted">观察项</p>
-                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{dataset.watchlist.length}</p>
+                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{watchlistData.watchItems.filter((item) => !item.archivedAt).length}</p>
                 </div>
               </div>
             </div>
@@ -136,35 +192,35 @@ export default function App() {
 
           <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
             <KpiCard
-              label="最近事件"
-              value={dashboardStats.recentEvents}
-              delta="最近 7 天"
-              description="真实公告与财务更新时间触发"
+              label="今日待复盘"
+              value={dashboardStats.todayReview}
+              delta="用户观察项"
+              description="复盘日期已到或任务今日到期"
               tone="info"
               icon={<RefreshCw className="h-4 w-4" />}
             />
             <KpiCard
-              label="待复盘"
-              value={dashboardStats.pendingReviewCompanies}
-              delta="公司数量"
-              description="存在新事件、部分解析或数据缺口"
-              tone={dashboardStats.pendingReviewCompanies ? "warning" : "positive"}
+              label="已逾期复盘"
+              value={dashboardStats.overdueReview}
+              delta="只读提醒"
+              description="不会自动改变观察状态"
+              tone={dashboardStats.overdueReview ? "warning" : "positive"}
               icon={<CheckSquare className="h-4 w-4" />}
             />
             <KpiCard
-              label="业绩验证"
-              value={dashboardStats.verificationChains}
-              delta="公司 / 报告期链"
-              description="预告、修正、快报与正式报告关联"
-              tone="positive"
+              label="新事件提醒"
+              value={dashboardStats.newEventReminder}
+              delta="ResearchEvent"
+              description="上次复盘后新增真实事件"
+              tone="info"
               icon={<FileCheck2 className="h-4 w-4" />}
             />
             <KpiCard
-              label="数据核验"
-              value={dashboardStats.dataReviewItems}
-              delta="待人工核验"
-              description="保留部分解析、过期、缺失和错误状态"
-              tone={dashboardStats.dataReviewItems ? "warning" : "positive"}
+              label="高优先级观察"
+              value={dashboardStats.highPriorityWatch}
+              delta="用户数据"
+              description="示例模板不计入"
+              tone={dashboardStats.highPriorityWatch ? "warning" : "positive"}
               icon={<AlertTriangle className="h-4 w-4" />}
             />
           </section>
@@ -177,6 +233,8 @@ export default function App() {
               <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">最近更新样本：<strong className="text-textStrong">{dashboardStats.recentlyUpdated}</strong> · {dashboardStats.hkCoverageSummary}</span>
             </div>
           </DashboardCard>
+
+          {workflowMessage ? <div role="status" className="rounded-md border border-success/35 bg-success/10 px-3 py-2 text-sm text-success">{workflowMessage}</div> : null}
 
           {activeTab === "宏观" && <MacroTab indicators={macroIndicators} />}
           {activeTab === "行业" && (
@@ -197,10 +255,53 @@ export default function App() {
           )}
           {activeTab === "观察清单" && (
             <WatchlistTab
-              watchlist={dataset.watchlist}
+              watchItems={watchlistData.watchItems}
+              samples={watchlistSamples}
+              reviewEntries={watchlistData.reviewEntries}
+              tasks={reviewTasks}
               stocks={dataset.stocks}
               industries={dataset.industries}
               events={researchSnapshot.events}
+              storageError={storageError}
+              corruptedRaw={corruptedRaw}
+              exportJson={exportJson}
+              onValidateImport={(raw) => repository.validateImport(raw, watchlistData)}
+              onMergeImport={(raw) => {
+                const result = repository.mergeImport(raw, watchlistData);
+                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setWorkflowMessage(`合并完成：新增 ${result.preview.addCount}，跳过 ${result.preview.skipCount}。`); }
+                else setStorageError(result.error);
+              }}
+              onReplaceImport={(raw) => {
+                const result = repository.replaceImport(raw, watchlistData);
+                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setCorruptedRaw(null); setWorkflowMessage(`替换完成，备份键：${result.backupKey ?? "已创建"}`); }
+                else setStorageError(result.error);
+              }}
+              onReset={() => {
+                const result = repository.reset();
+                if (result.ok) { setWatchlistData(createEmptyWatchlistEnvelope()); setStorageError(null); setCorruptedRaw(null); setWorkflowMessage("本地观察清单已重置为空状态。"); }
+                else setStorageError(result.error);
+              }}
+              onAdd={() => setWatchForm({})}
+              onEdit={(item) => setWatchForm({ itemId: item.id })}
+              onStartReview={startReview}
+              onCorrectReview={(entry) => { setReviewItemId(entry.watchItemId); setCorrectionReviewId(entry.id); }}
+              onArchive={(item) => { if (window.confirm(`确认归档 ${dataset.stocks.find((stock) => stock.id === item.stockId)?.name ?? item.stockId}？`)) applyAction(watchlistStore.archiveWatchItem(watchlistData, item.id), "观察项已归档。"); }}
+              onRestore={restoreWatchItem}
+              onLoadSample={(sample) => applyAction(watchlistStore.loadSample(watchlistData, sample), "示例已复制为用户观察项。")}
+              onLoadAllSamples={() => {
+                let next = watchlistData;
+                let loaded = 0;
+                let loadError: string | null = null;
+                for (const sample of watchlistSamples) {
+                  const result = watchlistStore.loadSample(next, sample);
+                  if (result.ok) { next = result.data; loaded += 1; }
+                  else if (!result.error?.includes("已经存在")) loadError = result.error;
+                }
+                setWatchlistData(next);
+                if (loadError) setStorageError(loadError);
+                setWorkflowMessage(`已载入 ${loaded} 个示例；重复公司已跳过。`);
+              }}
+              onTaskState={(taskId, status, snoozedUntil) => applyAction(watchlistStore.setTaskState(watchlistData, taskId, status, snoozedUntil), status === "snoozed" ? "任务已暂缓。" : status === "dismissed" ? "任务已忽略。" : "任务已确认。")}
               onOpenStock={setSelectedStock}
             />
           )}
@@ -209,6 +310,9 @@ export default function App() {
               snapshot={researchSnapshot}
               stocks={dataset.stocks}
               industries={dataset.industries}
+              watchItems={watchlistData.watchItems}
+              reviewTasks={reviewTasks}
+              onStartReview={startReview}
               onOpenStock={setSelectedStock}
             />
           )}
@@ -232,9 +336,42 @@ export default function App() {
         stock={activeSelectedStock}
         stocks={dataset.stocks}
         industries={dataset.industries}
+        watchItems={watchlistData.watchItems}
+        reviewEntries={watchlistData.reviewEntries}
+        reviewTasks={reviewTasks}
+        researchEvents={researchSnapshot.events}
+        onAddToWatchlist={(stock) => setWatchForm({ stockId: stock.id })}
+        onEditWatchItem={(item) => setWatchForm({ itemId: item.id })}
+        onStartReview={startReview}
+        onCorrectReview={(entry) => { setReviewItemId(entry.watchItemId); setCorrectionReviewId(entry.id); }}
+        onRestoreWatchItem={restoreWatchItem}
         onClose={() => setSelectedStock(null)}
         onOpenStock={setSelectedStock}
       />
+
+      {watchForm ? <WatchItemFormModal
+        stocks={dataset.stocks}
+        item={watchForm.itemId ? watchlistData.watchItems.find((item) => item.id === watchForm.itemId) : null}
+        initialStockId={watchForm.stockId}
+        onClose={() => setWatchForm(null)}
+        onCreate={createWatchItem}
+        onUpdate={updateWatchItem}
+      /> : null}
+
+      {reviewItemId && watchlistData.watchItems.some((item) => item.id === reviewItemId) ? <ReviewFormModal
+        watchItem={watchlistData.watchItems.find((item) => item.id === reviewItemId) as WatchItem}
+        events={researchSnapshot.events}
+        tasks={reviewTasks.filter((task) => task.watchItemId === reviewItemId)}
+        correctionTarget={correctionReviewId ? watchlistData.reviewEntries.find((entry) => entry.id === correctionReviewId) : null}
+        onClose={() => { setReviewItemId(null); setCorrectionReviewId(null); }}
+        onSubmit={(input) => {
+          if (applyAction(watchlistStore.completeReview(watchlistData, reviewItemId, input), "复盘已提交，当前判断与历史记录已原子保存。")) { setReviewItemId(null); setCorrectionReviewId(null); }
+        }}
+      /> : null}
     </div>
   );
+}
+
+function localDate(value: Date) {
+  return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`;
 }

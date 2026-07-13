@@ -52,8 +52,8 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
   }
 
   return (
-    <section className="grid gap-4 2xl:grid-cols-[260px_minmax(0,1fr)]">
-      <aside className="rounded-lg border border-borderSoft bg-card p-3 shadow-soft 2xl:sticky 2xl:top-24 2xl:self-start">
+    <section className="grid min-w-0 gap-4 2xl:grid-cols-[260px_minmax(0,1fr)]">
+      <aside className="min-w-0 rounded-lg border border-borderSoft bg-card p-3 shadow-soft 2xl:sticky 2xl:top-24 2xl:self-start">
         <p className="mb-3 px-2 text-xs font-semibold text-textMuted">行业 Tab</p>
         <div className="scrollbar-thin flex gap-2 overflow-x-auto pb-1 2xl:grid 2xl:overflow-visible 2xl:pb-0">
           {industries.map((industry) => (

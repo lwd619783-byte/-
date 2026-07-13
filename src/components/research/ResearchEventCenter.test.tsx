@@ -1,7 +1,7 @@
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import type { ResearchEvent, ResearchEventSnapshot, Stock } from "../../types";
+import type { ResearchEvent, ResearchEventSnapshot, ReviewTask, Stock, WatchItem } from "../../types";
 import { ResearchEventCenter } from "./ResearchEventCenter";
 
 const stock = { id: "demo", name: "测试公司", code: "300001.SZ", market: "A股", industryId: "tech" } as Stock;
@@ -73,5 +73,15 @@ describe("ResearchEventCenter", () => {
     expect(html).toContain("metadata_only / metadata_only");
     expect(html).toContain("parse_partial / partial");
     expect(html).toContain("缺少阶段");
+  });
+
+  it("shows watch status, pending task count and start-review action without copying the editor", () => {
+    const snapshot: ResearchEventSnapshot = { events: [event], chains: [], generatedAt: "2026-07-13" };
+    const watchItem = { id: "watch-1", stockId: stock.id, createdAt: "2026-07-01", updatedAt: "2026-07-01", status: "观察", priority: "high", tags: [], reason: "理由", thesis: "假设", validationCriteria: [], riskCriteria: [], nextReviewAt: null, lastReviewedAt: null, archivedAt: null, source: "user", schemaVersion: 2 } as WatchItem;
+    const task = { id: "task-1", watchItemId: watchItem.id, ruleType: "earnings_preview", relatedEventIds: [event.id], createdAt: "2026-07-12", dueAt: "2026-07-12", severity: "high", title: "复盘", description: "复盘", status: "pending", acknowledgedAt: null, dismissedAt: null, snoozedUntil: null } as ReviewTask;
+    const html = renderToStaticMarkup(<ResearchEventCenter snapshot={snapshot} stocks={[stock]} industries={[{ id: "tech", name: "科技", segments: [] } as never]} watchItems={[watchItem]} reviewTasks={[task]} onStartReview={() => undefined} onOpenStock={() => undefined} now={new Date("2026-07-13T12:00:00+08:00")} />);
+    expect(html).toContain("观察状态：观察 · 待复盘 1");
+    expect(html).toContain("开始复盘");
+    expect(html).not.toContain("编辑观察项元数据");
   });
 });

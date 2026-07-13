@@ -1,9 +1,9 @@
-import { AlertTriangle, BarChart3, BookOpen, CheckCircle2, LineChart as LineChartIcon, Target, X } from "lucide-react";
+import { AlertTriangle, BarChart3, Binoculars, BookOpen, CheckCircle2, LineChart as LineChartIcon, Target, X } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { loadAShareFinancial } from "../../services/aShareFinancialLoader";
 import { loadAShareAnnouncements } from "../../services/aShareAnnouncementLoader";
-import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancialData, Industry, IndustrySegment, Stock } from "../../types";
+import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancialData, Industry, IndustrySegment, ResearchEvent, ReviewEntry, ReviewTask, Stock, WatchItem } from "../../types";
 import { displayFinancialField, financialStatusLabel, financialUnavailableLabel, formatFinancialAmount, formatFinancialChangeMetric, formatFinancialRatio } from "../../utils/financialDisplay";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
@@ -11,6 +11,7 @@ import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, Te
 import { CompanyRelationGraph } from "./CompanyRelationGraph";
 import { IndustryChainMap } from "./IndustryChainMap";
 import { EarningsVerificationPanel } from "../research/EarningsVerificationPanel";
+import { StockWatchlistPanel } from "../watchlist/StockWatchlistPanel";
 
 interface StockDetailDrawerProps {
   stock: Stock | null;
@@ -18,12 +19,24 @@ interface StockDetailDrawerProps {
   industries: Industry[];
   onClose: () => void;
   onOpenStock?: (stock: Stock) => void;
+  watchItems?: WatchItem[];
+  reviewEntries?: ReviewEntry[];
+  reviewTasks?: ReviewTask[];
+  researchEvents?: ResearchEvent[];
+  onAddToWatchlist?: (stock: Stock) => void;
+  onEditWatchItem?: (item: WatchItem) => void;
+  onStartReview?: (item: WatchItem) => void;
+  onCorrectReview?: (entry: ReviewEntry) => void;
+  onRestoreWatchItem?: (item: WatchItem) => void;
 }
 
 const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
-export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock }: StockDetailDrawerProps) {
+export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem }: StockDetailDrawerProps) {
+  const drawerRef = useRef<HTMLElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
   const selectedStockId = useRef<string | null>(stock?.id ?? null);
   selectedStockId.current = stock?.id ?? null;
   const [financialLoad, setFinancialLoad] = useState<{
@@ -36,6 +49,16 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
     status: "idle" | "loading" | "success" | "error";
     data: AShareAnnouncementData | null;
   }>({ stockId: null, status: "idle", data: null });
+
+  useEffect(() => {
+    if (!stock) return;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const closeButton = drawerRef.current?.querySelector<HTMLElement>("button[aria-label='关闭详情']");
+    closeButton?.focus();
+    const handleKey = (event: KeyboardEvent) => { if (event.key === "Escape") onCloseRef.current(); };
+    document.addEventListener("keydown", handleKey);
+    return () => { document.removeEventListener("keydown", handleKey); previous?.focus(); };
+  }, [stock?.id]);
 
   useEffect(() => {
     let active = true;
@@ -85,6 +108,9 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   const loadedFinancial = financialLoad.stockId === stock.id && financialLoad.status === "success" ? financialLoad.data : null;
   const financialRows = buildFinancialRows(stock, loadedFinancial, financialLoad.stockId === stock.id ? financialLoad.status : "idle");
   const loadedAnnouncements = announcementLoad.stockId === stock.id && announcementLoad.status === "success" ? announcementLoad.data : null;
+  const activeWatchItem = watchItems.find((item) => item.stockId === stock.id && !item.archivedAt);
+  const archivedWatchItem = watchItems.find((item) => item.stockId === stock.id && item.archivedAt);
+  const stockResearchEvents = researchEvents.filter((event) => event.stockId === stock.id);
 
   const valuationRows = [
     ["PE", stock.valuation.pe],
@@ -99,7 +125,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
 
   return (
     <div className="fixed inset-0 z-50 bg-bg/75 backdrop-blur-sm" role="dialog" aria-modal="true">
-      <aside className="ml-auto flex h-full w-full max-w-[1180px] flex-col border-l border-borderGlow/50 bg-bg2/95 shadow-2xl">
+      <aside ref={drawerRef} className="ml-auto flex h-full w-full max-w-[1180px] flex-col border-l border-borderGlow/50 bg-bg2/95 shadow-2xl">
         <ResearchHeader
           stock={stock}
           industryName={industryName}
@@ -122,6 +148,21 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
 
           <Section title="公司投资逻辑" icon={<CheckCircle2 className="h-4 w-4" />}>
             <InvestmentLogic stock={stock} />
+          </Section>
+
+          <Section title="观察清单与复盘" icon={<Binoculars className="h-4 w-4" />}>
+            <StockWatchlistPanel
+              activeItem={activeWatchItem}
+              archivedItem={archivedWatchItem}
+              tasks={reviewTasks}
+              entries={reviewEntries}
+              events={stockResearchEvents}
+              onAdd={() => onAddToWatchlist?.(stock)}
+              onEdit={(item) => onEditWatchItem?.(item)}
+              onStartReview={(item) => onStartReview?.(item)}
+              onCorrectReview={(entry) => onCorrectReview?.(entry)}
+              onRestore={(item) => onRestoreWatchItem?.(item)}
+            />
           </Section>
 
           {stock.evidenceLevel || stock.themeTags?.length || stock.evidenceNotes?.length ? (

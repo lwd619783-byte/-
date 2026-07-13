@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AlertTriangle, CalendarDays, CheckSquare, ExternalLink, FileCheck2, Link2 } from "lucide-react";
-import type { EarningsVerificationChain, EarningsVerificationStage, Industry, ResearchEvent, ResearchEventSnapshot, ResearchEventType, Stock } from "../../types";
+import type { EarningsVerificationChain, EarningsVerificationStage, Industry, ResearchEvent, ResearchEventSnapshot, ResearchEventType, ReviewTask, Stock, WatchItem } from "../../types";
 import { eventTypeLabel, stageLabel } from "../../services/researchEventProvider";
 import { formatFinancialAmount } from "../../utils/financialDisplay";
 import { DashboardCard, EmptyState, KpiCard, SectionHeader, TextClamp } from "../common/terminal";
@@ -10,12 +10,15 @@ interface ResearchEventCenterProps {
   stocks: Stock[];
   industries: Industry[];
   onOpenStock: (stock: Stock) => void;
+  watchItems?: WatchItem[];
+  reviewTasks?: ReviewTask[];
+  onStartReview?: (item: WatchItem) => void;
   now?: Date;
 }
 
 type DateWindow = "7" | "30" | "all";
 
-export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock, now = new Date() }: ResearchEventCenterProps) {
+export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock, watchItems = [], reviewTasks = [], onStartReview, now = new Date() }: ResearchEventCenterProps) {
   const [company, setCompany] = useState("all");
   const [industry, setIndustry] = useState("all");
   const [eventType, setEventType] = useState<ResearchEventType | "all">("all");
@@ -85,7 +88,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
           <p className="mt-1 text-xs text-textMuted">共 {filteredEvents.length} 条；无来源数字不会进入事件指标。</p>
           <div className="mt-4 space-y-3">
             {filteredEvents.length === 0 ? <EmptyState title="没有匹配事件" description="请调整筛选条件，或检查摘要数据状态。" /> : filteredEvents.slice(0, 80).map((event) => (
-              <EventCard key={event.id} event={event} stock={stocks.find((stock) => stock.id === event.stockId)} onOpenStock={onOpenStock} />
+              <EventCard key={event.id} event={event} stock={stocks.find((stock) => stock.id === event.stockId)} watchItem={watchItems.find((item) => item.stockId === event.stockId && !item.archivedAt)} tasks={reviewTasks} onOpenStock={onOpenStock} onStartReview={onStartReview} />
             ))}
           </div>
         </DashboardCard>
@@ -123,7 +126,8 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
   );
 }
 
-function EventCard({ event, stock, onOpenStock }: { event: ResearchEvent; stock?: Stock; onOpenStock: (stock: Stock) => void }) {
+function EventCard({ event, stock, watchItem, tasks, onOpenStock, onStartReview }: { event: ResearchEvent; stock?: Stock; watchItem?: WatchItem; tasks: ReviewTask[]; onOpenStock: (stock: Stock) => void; onStartReview?: (item: WatchItem) => void }) {
+  const pendingTaskCount = watchItem ? tasks.filter((task) => task.watchItemId === watchItem.id && task.status === "pending").length : 0;
   return (
     <article className="rounded-lg border border-borderSoft bg-bg2/65 p-4">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
@@ -132,6 +136,7 @@ function EventCard({ event, stock, onOpenStock }: { event: ResearchEvent; stock?
             <span className="font-medium text-textStrong">{event.stockName} · {event.stockCode}</span>
             <span className="rounded border border-borderSoft px-2 py-1">{eventTypeLabel(event.eventType)}</span>
             <ResearchEventStatusBadge event={event} />
+            {watchItem ? <span className="rounded border border-cyan/30 bg-cyan/5 px-2 py-1 text-cyan">观察状态：{watchItem.status} · 待复盘 {pendingTaskCount}</span> : null}
           </div>
           <p className="mt-2 text-sm font-semibold text-textStrong">{event.title}</p>
           <p className="mt-1 text-xs text-textMuted">公告 / 事件日期：{event.eventDate ?? "缺失"} · 报告期：{event.reportPeriod ?? "缺失"}</p>
@@ -149,6 +154,7 @@ function EventCard({ event, stock, onOpenStock }: { event: ResearchEvent; stock?
         <div className="flex shrink-0 flex-wrap gap-2">
           {event.sourceUrl || event.pdfUrl ? <a href={event.sourceUrl ?? event.pdfUrl ?? undefined} target="_blank" rel="noreferrer" className="inline-flex h-9 items-center gap-2 rounded-md border border-cyan/40 px-3 text-xs text-cyan hover:border-cyan"><ExternalLink className="h-3.5 w-3.5" />官方来源</a> : <span className="inline-flex h-9 items-center rounded-md border border-warning/35 px-3 text-xs text-warning">来源链接缺失</span>}
           {stock ? <button type="button" onClick={() => onOpenStock(stock)} className="h-9 rounded-md border border-borderSoft px-3 text-xs text-textStrong hover:border-cyan">打开个股详情</button> : null}
+          {watchItem && onStartReview ? <button type="button" onClick={() => onStartReview(watchItem)} className="h-9 rounded-md border border-cyan/50 px-3 text-xs text-cyan hover:border-cyan">开始复盘</button> : null}
         </div>
       </div>
     </article>

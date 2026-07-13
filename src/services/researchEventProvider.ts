@@ -17,7 +17,7 @@ import type {
   ResearchParseStatus,
   ResearchVerificationStatus,
   Stock,
-  WatchlistItem,
+  WatchItem,
 } from "../types";
 
 type AnnouncementLike = AShareAnnouncementPreview | AShareAnnouncementDetailItem;
@@ -344,13 +344,14 @@ export function buildEarningsVerificationChains(events: ResearchEvent[]): Earnin
   }).sort((left, right) => right.reportPeriod.localeCompare(left.reportPeriod) || left.stockId.localeCompare(right.stockId));
 }
 
-export function buildWatchlistEventHints(item: WatchlistItem, stockEvents: ResearchEvent[], now: Date = new Date()): string[] {
+export function buildWatchlistEventHints(item: WatchItem, stockEvents: ResearchEvent[], now: Date = new Date()): string[] {
   const hints: string[] = [];
   const today = dateOnly(now);
-  if (item.nextReviewDate <= today) hints.push(item.nextReviewDate < today ? "复盘日期已逾期" : "复盘日期已到");
+  if (item.nextReviewAt && item.nextReviewAt <= today) hints.push(item.nextReviewAt < today ? "复盘日期已逾期" : "复盘日期已到");
+  const reviewBoundary = item.lastReviewedAt ?? item.createdAt;
   const performanceEvents = stockEvents.filter((event) => ["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report"].includes(event.eventType));
-  if (performanceEvents.some((event) => (event.eventDate ?? "") >= item.nextReviewDate)) hints.push("复盘节点后发布了新的业绩公告");
-  if (stockEvents.some((event) => event.eventType === "financial_update" && (event.updatedAt ?? event.eventDate ?? "") >= item.nextReviewDate)) {
+  if (performanceEvents.some((event) => (event.publishedAt ?? event.eventDate ?? "") > reviewBoundary)) hints.push("上次复盘后发布了新的业绩公告");
+  if (stockEvents.some((event) => event.eventType === "financial_update" && (event.updatedAt ?? event.eventDate ?? "") > reviewBoundary)) {
     hints.push("原有验证指标出现新的财务数据");
   }
   if (stockEvents.some((event) => event.parseStatus === "metadata_only" || event.parseStatus === "parse_partial")) {
