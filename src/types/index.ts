@@ -174,6 +174,20 @@ export interface WatchlistItem {
 
 export type { DashboardDataMode, DataQualityMeta, DataSourceStatus, DataManifest } from "./dataSource";
 export type {
+  EarningsVerificationChain,
+  EarningsVerificationDifference,
+  EarningsVerificationStage,
+  ResearchEvent,
+  ResearchEventMetric,
+  ResearchEventSnapshot,
+  ResearchEventType,
+  ResearchMateriality,
+  ResearchMetricPeriodBasis,
+  ResearchParseStatus,
+  ResearchReviewStatus,
+  ResearchVerificationStatus,
+} from "./researchEvent";
+export type {
   AShareAnnouncementData,
   AShareAnnouncementDetailItem,
   AShareAnnouncementManifest,

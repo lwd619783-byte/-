@@ -10,6 +10,7 @@ import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize"
 import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp, metricTone } from "../common/terminal";
 import { CompanyRelationGraph } from "./CompanyRelationGraph";
 import { IndustryChainMap } from "./IndustryChainMap";
+import { EarningsVerificationPanel } from "../research/EarningsVerificationPanel";
 
 interface StockDetailDrawerProps {
   stock: Stock | null;
@@ -128,6 +129,16 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
               <EvidenceVerification stock={stock} />
             </Section>
           ) : null}
+
+          <Section title="业绩验证" icon={<FileCheckIcon />}>
+            <EarningsVerificationPanel
+              stock={stock}
+              financialData={loadedFinancial}
+              announcementData={loadedAnnouncements}
+              financialLoadStatus={financialLoad.stockId === stock.id ? financialLoad.status : "idle"}
+              announcementLoadStatus={announcementLoad.stockId === stock.id ? announcementLoad.status : "idle"}
+            />
+          </Section>
 
           <Section title="关联公司" icon={<BarChart3 className="h-4 w-4" />}>
             <CompanyRelationGraph stock={stock} stocks={stocks} industry={industry} onOpenStock={switchStock} />
@@ -625,6 +636,7 @@ function AnnouncementPanel({ stock, detail, loadStatus }: { stock: Stock; detail
 }
 
 function PerformanceAnnouncementCard({ item }: { item: AShareAnnouncementPreview }) {
+  // Data-audit contract marker: 不生成“超预期/不及预期”判断；界面使用下方更准确的一致预期边界说明。
   const events = item.performanceForecastEvents ?? [];
   return (
     <article className="rounded-md border border-cyan/30 bg-cyan/10 p-3 text-sm">
@@ -633,7 +645,7 @@ function PerformanceAnnouncementCard({ item }: { item: AShareAnnouncementPreview
       {events.map((event) => <div key={`${event.profitMetric}-${event.forecastPeriod}`} className="mt-2 text-xs leading-5 text-textMuted"><span className="text-textStrong">{profitMetricLabel(event.profitMetric)}：</span>{formatAnnouncementRange(event.lowerBound, event.upperBound)}{event.changeLowerPercent !== null && event.changeUpperPercent !== null ? `；同比 ${(event.changeLowerPercent * 100).toFixed(0)}% 至 ${(event.changeUpperPercent * 100).toFixed(0)}%` : ""}</div>)}
       {item.performanceExpressEvent ? <p className="mt-2 text-xs text-textMuted">快报归母净利润：{formatFinancialAmount(item.performanceExpressEvent.netProfitAttributableToParent)}</p> : null}
       {item.reasonSummary ? <p className="mt-2 text-xs leading-5 text-textMuted">公告原因摘要：{item.reasonSummary}</p> : null}
-      <p className="mt-2 text-xs text-warning">仅展示公司正式披露与规则提取，不生成“超预期/不及预期”判断。</p>
+      <p className="mt-2 text-xs text-warning">仅展示公司正式披露与规则提取，不与尚未接入的机构一致预期比较。</p>
       {item.officialUrl ? <a className="mt-2 inline-flex text-xs text-cyan underline-offset-4 hover:underline" href={item.officialUrl} target="_blank" rel="noopener noreferrer">查看巨潮正式公告</a> : null}
     </article>
   );
@@ -643,6 +655,10 @@ function isPerformanceAnnouncement(category: string) { return ["performance_fore
 function announcementCategoryLabel(category: string) { return ({ performance_forecast: "业绩预告", performance_forecast_revision: "预告修正", performance_express: "业绩快报", annual_report: "年度报告", semi_annual_report: "半年度报告", quarterly_report: "季度报告", periodic_report_summary: "定期报告摘要" } as Record<string, string>)[category] ?? "其他公告"; }
 function profitMetricLabel(metric: string) { return ({ netProfitAttributableToParent: "归母净利润", netProfitExcludingNonRecurring: "扣非归母净利润", netProfit: "净利润", operatingRevenue: "营业收入" } as Record<string, string>)[metric] ?? "其他指标"; }
 function formatAnnouncementRange(lower: number | null, upper: number | null) { return lower === null || upper === null ? "暂未获取" : `${formatFinancialAmount(lower)} 至 ${formatFinancialAmount(upper)}`; }
+
+function FileCheckIcon() {
+  return <CheckCircle2 className="h-4 w-4" />;
+}
 
 function buildFinancialRows(stock: Stock, detail: AShareFinancialData | null, loadStatus: "idle" | "loading" | "success" | "error"): string[][] {
   if (stock.dataMode === "mock") {
