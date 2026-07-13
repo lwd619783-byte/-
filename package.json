@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "env:check": "node scripts/dev-health.mjs",
+    "env:check:json": "node scripts/dev-health.mjs --json",
     "build": "tsc -b && vite build && node scripts/check-financial-bundle.mjs",
     "build:check": "node scripts/check-financial-bundle.mjs",
     "preview": "vite preview",
