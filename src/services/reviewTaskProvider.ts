@@ -12,6 +12,9 @@ const PERFORMANCE_RULES: Partial<Record<ResearchEvent["eventType"], ReviewTaskRu
   earnings_preview_revision: "earnings_preview_revision",
   earnings_flash: "earnings_flash",
   periodic_report: "periodic_report",
+  earnings_expectation_added: "earnings_expectation_added",
+  earnings_expectation_comparison_available: "earnings_expectation_comparison",
+  earnings_expectation_data_warning: "earnings_expectation_data_warning",
 };
 
 const QUALITY_STATUSES = new Set(["metadata_only", "parse_partial", "stale", "missing", "error"]);
@@ -23,6 +26,7 @@ export interface ReviewTaskInput {
   taskStates: ReviewTaskState[];
   now?: Date;
   longUnreviewedDays?: number;
+  expectationRevisionThreshold?: number;
 }
 
 export function buildReviewTasks({
@@ -32,6 +36,7 @@ export function buildReviewTasks({
   taskStates,
   now = new Date(),
   longUnreviewedDays = 90,
+  expectationRevisionThreshold = 0.1,
 }: ReviewTaskInput): ReviewTask[] {
   const tasks: ReviewTask[] = [];
   const today = dateOnly(now);
@@ -45,17 +50,23 @@ export function buildReviewTasks({
     const boundary = item.lastReviewedAt ?? item.createdAt;
     const stockEvents = events.filter((event) => event.stockId === item.stockId && eventTimestamp(event) > boundary);
     for (const event of stockEvents) {
-      const ruleType = PERFORMANCE_RULES[event.eventType];
+      let ruleType = PERFORMANCE_RULES[event.eventType];
+      if (event.eventType === "earnings_expectation_revision") {
+        const magnitude = event.expectation?.revisionMagnitude;
+        if (magnitude !== null && magnitude !== undefined && Math.abs(magnitude) >= expectationRevisionThreshold) {
+          ruleType = magnitude > 0 ? "earnings_expectation_revision_up" : "earnings_expectation_revision_down";
+        }
+      }
       if (ruleType) {
         tasks.push(task(
           item,
           ruleType,
           event.id,
           [event.id],
-          event.eventType === "earnings_preview_revision" || event.eventType === "periodic_report" ? "high" : "medium",
+          event.eventType === "earnings_preview_revision" || event.eventType === "periodic_report" || event.eventType === "earnings_expectation_comparison_available" ? "high" : "medium",
           performanceTitle(event.eventType),
-          `公司新增正式披露事件“${event.title}”，请结合报告期 ${event.reportPeriod ?? "暂缺"} 主动复盘。`,
-          event.eventDate ?? event.publishedAt,
+          expectationTaskDescription(event, expectationRevisionThreshold),
+          reviewTaskEventDate(event),
         ));
       }
       if (QUALITY_STATUSES.has(event.parseStatus) || ["stale", "missing", "error"].includes(event.verificationStatus)) {
@@ -197,11 +208,30 @@ function performanceTitle(eventType: ResearchEvent["eventType"]) {
     earnings_preview_revision: "公司发布业绩预告修正",
     earnings_flash: "公司发布业绩快报",
     periodic_report: "公司发布正式定期报告",
+    earnings_expectation_added: "新增业绩预期快照",
+    earnings_expectation_revision: "业绩预期出现修订",
+    earnings_expectation_comparison_available: "实际业绩与预期比较可复盘",
+    earnings_expectation_data_warning: "业绩预期证据需要核验",
   } as Record<string, string>)[eventType] ?? "公司发布新的业绩事件";
 }
 
+function expectationTaskDescription(event: ResearchEvent, threshold: number) {
+  if (!event.eventType.startsWith("earnings_expectation")) return `公司新增正式披露事件“${event.title}”，请结合报告期 ${event.reportPeriod ?? "暂缺"} 主动复盘。`;
+  const category = ({ company_guidance: "公司指引", institution_single: "单家机构预测", institution_consensus: "机构一致预期", user_estimate: "用户个人预测" } as Record<string, string>)[event.expectation?.sourceCategory ?? ""] ?? "业绩预期";
+  if (event.eventType === "earnings_expectation_revision") return `${category}修订幅度达到 ${(threshold * 100).toFixed(0)}% 工作流提醒阈值。该阈值不是投资结论或行业标准，请核对来源和口径。`;
+  if (event.eventType === "earnings_expectation_comparison_available") return `${category}已与同报告期可靠实际值形成比较，请打开来源和计算详情完成复盘；不自动生成买卖建议。`;
+  if (event.eventType === "earnings_expectation_data_warning") return `报告期 ${event.reportPeriod ?? "暂缺"} 的${category}存在来源或可比性缺口，需要人工核验。`;
+  return `新增${category}快照，请核对报告期、期间口径、指标、币种、单位和来源。`;
+}
+
 function eventTimestamp(event: ResearchEvent) {
+  if (event.eventType === "earnings_expectation_added" || event.eventType === "earnings_expectation_revision") return event.updatedAt ?? event.publishedAt ?? event.eventDate ?? "";
   return event.publishedAt ?? event.eventDate ?? event.updatedAt ?? "";
+}
+
+function reviewTaskEventDate(event: ResearchEvent) {
+  if (event.eventType === "earnings_expectation_added" || event.eventType === "earnings_expectation_revision") return event.updatedAt ?? event.eventDate ?? event.publishedAt;
+  return event.eventDate ?? event.publishedAt ?? event.updatedAt;
 }
 
 function latestEventDate(events: ResearchEvent[]) {

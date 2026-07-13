@@ -371,6 +371,10 @@ export function eventTypeLabel(eventType: ResearchEventType) {
     financial_update: "财务更新",
     announcement: "公告",
     data_warning: "数据警告",
+    earnings_expectation_added: "新增业绩预期",
+    earnings_expectation_revision: "业绩预期修订",
+    earnings_expectation_comparison_available: "预期比较可复盘",
+    earnings_expectation_data_warning: "预期数据核验",
   } as Record<ResearchEventType, string>)[eventType];
 }
 

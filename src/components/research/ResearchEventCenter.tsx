@@ -45,7 +45,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
 
   const queue = useMemo(() => snapshot.events.filter(needsDataReview), [snapshot.events]);
   const sevenDayCutoff = dateCutoff(now, "7") as string;
-  const recentCount = snapshot.events.filter((event) => event.eventType !== "data_warning" && (eventDate(event) ?? "") >= sevenDayCutoff).length;
+  const recentCount = snapshot.events.filter((event) => !["data_warning", "earnings_expectation_data_warning"].includes(event.eventType) && (eventDate(event) ?? "") >= sevenDayCutoff).length;
   const pendingCompanies = new Set(snapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
   const performanceCount = snapshot.events.filter((event) => ["earnings_preview", "earnings_flash", "periodic_report"].includes(event.eventType)).length;
 
@@ -70,7 +70,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
           <Filter label="公司" value={company} onChange={setCompany} options={[{ value: "all", label: "全部公司" }, ...stocks.filter((stock) => stock.market === "A股").map((stock) => ({ value: stock.id, label: `${stock.name} ${stock.code}` }))]} />
           <Filter label="行业" value={industry} onChange={setIndustry} options={[{ value: "all", label: "全部行业" }, ...industries.map((item) => ({ value: item.id, label: item.name }))]} />
-          <Filter label="事件类型" value={eventType} onChange={(value) => setEventType(value as ResearchEventType | "all")} options={[{ value: "all", label: "全部事件" }, ...(["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report", "financial_update", "announcement", "data_warning"] as ResearchEventType[]).map((value) => ({ value, label: eventTypeLabel(value) }))]} />
+          <Filter label="事件类型" value={eventType} onChange={(value) => setEventType(value as ResearchEventType | "all")} options={[{ value: "all", label: "全部事件" }, ...(["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report", "financial_update", "announcement", "data_warning", "earnings_expectation_added", "earnings_expectation_revision", "earnings_expectation_comparison_available", "earnings_expectation_data_warning"] as ResearchEventType[]).map((value) => ({ value, label: eventTypeLabel(value) }))]} />
           <Filter label="日期" value={dateWindow} onChange={(value) => setDateWindow(value as DateWindow)} options={[{ value: "7", label: "最近 7 天" }, { value: "30", label: "最近 30 天" }, { value: "all", label: "全部日期" }]} />
           <Filter label="解析 / 数据状态" value={parseStatus} onChange={setParseStatus} options={[{ value: "all", label: "全部状态" }, { value: "parse_success", label: "parse_success" }, { value: "parse_partial", label: "parse_partial" }, { value: "metadata_only", label: "metadata_only" }, { value: "stale", label: "stale" }, { value: "missing", label: "missing" }, { value: "error", label: "error" }]} />
           <label className="flex min-w-0 flex-col gap-1 text-xs text-textMuted">
@@ -218,7 +218,7 @@ function dateCutoff(now: Date, window: DateWindow) {
 }
 
 function needsDataReview(event: ResearchEvent) {
-  return event.eventType === "data_warning"
+  return event.eventType === "data_warning" || event.eventType === "earnings_expectation_data_warning"
     || ["parse_partial", "metadata_only", "parse_unavailable", "missing", "stale", "error"].includes(event.parseStatus)
     || event.metrics.some((metric) => metric.value === null)
     || event.reviewReasons.some((reason) => reason.includes("无法匹配"));

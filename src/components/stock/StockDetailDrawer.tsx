@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { loadAShareFinancial } from "../../services/aShareFinancialLoader";
 import { loadAShareAnnouncements } from "../../services/aShareAnnouncementLoader";
-import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancialData, Industry, IndustrySegment, ResearchEvent, ReviewEntry, ReviewTask, Stock, WatchItem } from "../../types";
+import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancialData, EarningsExpectationSnapshot, Industry, IndustrySegment, ResearchEvent, ReviewEntry, ReviewTask, Stock, WatchItem } from "../../types";
 import { displayFinancialField, financialStatusLabel, financialUnavailableLabel, formatFinancialAmount, formatFinancialChangeMetric, formatFinancialRatio } from "../../utils/financialDisplay";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
@@ -12,6 +12,7 @@ import { CompanyRelationGraph } from "./CompanyRelationGraph";
 import { IndustryChainMap } from "./IndustryChainMap";
 import { EarningsVerificationPanel } from "../research/EarningsVerificationPanel";
 import { StockWatchlistPanel } from "../watchlist/StockWatchlistPanel";
+import { StockEarningsExpectationPanel } from "../expectation/StockEarningsExpectationPanel";
 
 interface StockDetailDrawerProps {
   stock: Stock | null;
@@ -23,17 +24,20 @@ interface StockDetailDrawerProps {
   reviewEntries?: ReviewEntry[];
   reviewTasks?: ReviewTask[];
   researchEvents?: ResearchEvent[];
+  earningsExpectationSnapshots?: EarningsExpectationSnapshot[];
   onAddToWatchlist?: (stock: Stock) => void;
   onEditWatchItem?: (item: WatchItem) => void;
   onStartReview?: (item: WatchItem) => void;
   onCorrectReview?: (entry: ReviewEntry) => void;
   onRestoreWatchItem?: (item: WatchItem) => void;
+  onAddEarningsExpectation?: (stock: Stock) => void;
+  onCorrectEarningsExpectation?: (snapshot: EarningsExpectationSnapshot) => void;
 }
 
 const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
-export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem }: StockDetailDrawerProps) {
+export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation }: StockDetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
@@ -178,6 +182,19 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
               announcementData={loadedAnnouncements}
               financialLoadStatus={financialLoad.stockId === stock.id ? financialLoad.status : "idle"}
               announcementLoadStatus={announcementLoad.stockId === stock.id ? announcementLoad.status : "idle"}
+            />
+          </Section>
+
+          <Section title="业绩预期" icon={<FileCheckIcon />}>
+            <StockEarningsExpectationPanel
+              stock={stock}
+              snapshots={earningsExpectationSnapshots}
+              financialData={loadedFinancial}
+              announcementData={loadedAnnouncements}
+              financialLoadStatus={financialLoad.stockId === stock.id ? financialLoad.status : "idle"}
+              announcementLoadStatus={announcementLoad.stockId === stock.id ? announcementLoad.status : "idle"}
+              onAdd={onAddEarningsExpectation}
+              onCorrect={onCorrectEarningsExpectation}
             />
           </Section>
 
@@ -597,8 +614,8 @@ function TagList({ items, color }: { items: string[]; color: "green" | "blue" })
   return (
     <div className="flex flex-wrap gap-2">
       {items.length === 0 ? <span className="text-sm text-textMuted">{EMPTY}</span> : null}
-      {items.map((item) => (
-        <span key={item} className={`max-w-full truncate rounded border px-2 py-1 text-xs ${palette[color]}`} title={item}>
+      {items.map((item, index) => (
+        <span key={`${item}-${index}`} className={`max-w-full truncate rounded border px-2 py-1 text-xs ${palette[color]}`} title={item}>
           {item}
         </span>
       ))}

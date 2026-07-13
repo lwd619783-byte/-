@@ -1,0 +1,99 @@
+import { useMemo, useState } from "react";
+import type { EarningsExpectationSnapshot, Stock } from "../../types";
+import type { CreateEarningsExpectationSnapshotInput } from "../../services/earningsExpectationStore";
+import { Modal } from "../common/Modal";
+
+interface EarningsExpectationFormModalProps {
+  stocks: Stock[];
+  initialStockId?: string;
+  correctionTarget?: EarningsExpectationSnapshot | null;
+  onClose: () => void;
+  onSubmit: (input: CreateEarningsExpectationSnapshotInput, correctsSnapshotId?: string) => void;
+}
+
+export function EarningsExpectationFormModal({ stocks, initialStockId, correctionTarget, onClose, onSubmit }: EarningsExpectationFormModalProps) {
+  const initial = useMemo(() => formFrom(correctionTarget, initialStockId), [correctionTarget, initialStockId]);
+  const [form, setForm] = useState(initial);
+  const [dirty, setDirty] = useState(false);
+  const close = () => { if (!dirty || window.confirm("表单尚未保存，确认关闭？")) onClose(); };
+  const set = (key: keyof FormState, value: string) => { setDirty(true); setForm((current) => ({ ...current, [key]: value })); };
+  const selectedStock = stocks.find((stock) => stock.id === form.stockId);
+  const immutable = Boolean(correctionTarget);
+  const submit = () => {
+    if (!selectedStock) return;
+    const sourceVerificationStatus = form.sourceCategory === "user_estimate"
+      ? "verified"
+      : form.sourceCategory === "company_guidance" && !form.sourceUrl.trim()
+        ? "pending"
+        : form.sourceVerificationStatus as EarningsExpectationSnapshot["sourceVerificationStatus"];
+    onSubmit({
+      stockId: selectedStock.id,
+      market: selectedStock.market,
+      reportPeriod: form.reportPeriod,
+      periodScope: form.periodScope as EarningsExpectationSnapshot["periodScope"],
+      metric: form.metric as EarningsExpectationSnapshot["metric"],
+      estimateShape: form.estimateShape as EarningsExpectationSnapshot["estimateShape"],
+      value: form.estimateShape === "point" ? numberOrNull(form.value) : null,
+      lowerBound: form.estimateShape === "range" ? numberOrNull(form.lowerBound) : null,
+      upperBound: form.estimateShape === "range" ? numberOrNull(form.upperBound) : null,
+      currency: form.currency as EarningsExpectationSnapshot["currency"],
+      unit: form.unit as EarningsExpectationSnapshot["unit"],
+      accountingBasis: form.accountingBasis as EarningsExpectationSnapshot["accountingBasis"],
+      sourceCategory: form.sourceCategory as EarningsExpectationSnapshot["sourceCategory"],
+      sourceName: form.sourceCategory === "user_estimate" ? (form.sourceName.trim() || "用户个人预测") : form.sourceName.trim(),
+      sourceTitle: form.sourceTitle.trim(),
+      sourceUrl: form.sourceUrl.trim() || null,
+      sourcePublishedAt: form.sourcePublishedAt || null,
+      asOfDate: form.asOfDate,
+      analystCount: integerOrNull(form.analystCount),
+      institutionCount: integerOrNull(form.institutionCount),
+      ingestionMethod: "manual",
+      sourceVerificationStatus,
+      notes: form.notes.trim() || null,
+    }, correctionTarget?.id);
+  };
+
+  return (
+    <Modal title={correctionTarget ? "创建纠正快照" : "添加业绩预期"} description="保存后不可原地修改；错误修正必须追加纠正快照。" onClose={close} footer={<><button type="button" onClick={close} className={buttonClass}>取消</button><button type="button" onClick={submit} className={`${buttonClass} border-cyan/50 text-cyan`}>{correctionTarget ? "保存纠正快照" : "保存不可变快照"}</button></>}>
+      <div className="grid min-w-0 gap-3 sm:grid-cols-2">
+        <Field label="公司"><select disabled={immutable} value={form.stockId} onChange={(event) => set("stockId", event.target.value)} className={inputClass}><option value="">请选择公司</option>{stocks.map((stock) => <option key={stock.id} value={stock.id}>{stock.name} · {stock.code}</option>)}</select></Field>
+        <Field label="报告期"><input disabled={immutable} type="text" inputMode="numeric" placeholder="YYYY-MM-DD" value={form.reportPeriod} onChange={(event) => set("reportPeriod", event.target.value)} className={inputClass} /></Field>
+        <Field label="期间口径"><select disabled={immutable} value={form.periodScope} onChange={(event) => set("periodScope", event.target.value)} className={inputClass}>{periodScopeOptions.map(option)}</select></Field>
+        <Field label="财务指标"><select disabled={immutable} value={form.metric} onChange={(event) => { set("metric", event.target.value); if (event.target.value === "eps") set("unit", "currency_per_share"); else if (form.unit === "currency_per_share") set("unit", "yuan"); }} className={inputClass}>{metricOptions.map(option)}</select></Field>
+        <Field label="预测形态"><select value={form.estimateShape} onChange={(event) => set("estimateShape", event.target.value)} className={inputClass}><option value="point">点预测</option><option value="range">区间预测</option></select></Field>
+        {form.estimateShape === "point" ? <Field label="预测值"><input inputMode="decimal" value={form.value} onChange={(event) => set("value", event.target.value)} className={inputClass} placeholder="不允许空字符串、NaN 或 Infinity" /></Field> : <><Field label="区间下限"><input inputMode="decimal" value={form.lowerBound} onChange={(event) => set("lowerBound", event.target.value)} className={inputClass} /></Field><Field label="区间上限"><input inputMode="decimal" value={form.upperBound} onChange={(event) => set("upperBound", event.target.value)} className={inputClass} /></Field></>}
+        <Field label="币种"><select value={form.currency} onChange={(event) => set("currency", event.target.value)} className={inputClass}><option>CNY</option><option>HKD</option><option>USD</option></select></Field>
+        <Field label="单位"><select value={form.unit} onChange={(event) => set("unit", event.target.value)} className={inputClass} disabled={form.metric === "eps"}>{unitOptions.map(option)}</select></Field>
+        <Field label="会计口径"><select value={form.accountingBasis} onChange={(event) => set("accountingBasis", event.target.value)} className={inputClass}><option value="PRC_GAAP">中国企业会计准则</option><option value="IFRS">IFRS</option><option value="unknown">未知（将不可比较）</option></select></Field>
+        <Field label="来源类别"><select disabled={immutable} value={form.sourceCategory} onChange={(event) => set("sourceCategory", event.target.value)} className={inputClass}>{sourceCategoryOptions.map(option)}</select></Field>
+        <Field label="来源主体 / 机构"><input value={form.sourceName} onChange={(event) => set("sourceName", event.target.value)} className={inputClass} placeholder={form.sourceCategory === "user_estimate" ? "默认：用户个人预测" : "公司或机构名称"} /></Field>
+        <Field label="来源标题"><input value={form.sourceTitle} onChange={(event) => set("sourceTitle", event.target.value)} className={inputClass} /></Field>
+        <Field label="来源链接"><input type="url" value={form.sourceUrl} onChange={(event) => set("sourceUrl", event.target.value)} className={inputClass} placeholder="https://；一致预期必须填写" /></Field>
+        <Field label="来源发布日期"><input type="text" inputMode="numeric" placeholder="YYYY-MM-DD（外部来源必填）" value={form.sourcePublishedAt} onChange={(event) => set("sourcePublishedAt", event.target.value)} className={inputClass} /></Field>
+        <Field label="预期形成日期"><input type="text" inputMode="numeric" placeholder="YYYY-MM-DD" value={form.asOfDate} onChange={(event) => set("asOfDate", event.target.value)} className={inputClass} /></Field>
+        <Field label="分析师数量"><input type="number" min="0" step="1" value={form.analystCount} onChange={(event) => set("analystCount", event.target.value)} className={inputClass} /></Field>
+        <Field label="机构数量"><input type="number" min="0" step="1" value={form.institutionCount} onChange={(event) => set("institutionCount", event.target.value)} className={inputClass} /></Field>
+        <Field label="来源核验状态"><select value={form.sourceVerificationStatus} onChange={(event) => set("sourceVerificationStatus", event.target.value)} className={inputClass} disabled={form.sourceCategory === "user_estimate"}><option value="verified">已核验</option><option value="pending">待核验</option><option value="unverified">无法核验</option></select></Field>
+        <label className="min-w-0 text-xs text-textMuted sm:col-span-2">备注<textarea value={form.notes} onChange={(event) => set("notes", event.target.value)} className={`${inputClass} mt-1 min-h-24 py-2`} /></label>
+      </div>
+      <div className="mt-4 rounded border border-warning/35 bg-warning/10 p-3 text-xs leading-5 text-warning">
+        {form.sourceCategory === "user_estimate" ? "当前记录会显著标记为用户个人预测，不会包装成机构预测。" : form.sourceCategory === "institution_single" ? "单家机构预测不会包装成机构一致预期。" : form.sourceCategory === "institution_consensus" ? "必须提供明确、可核验的来源主体、标题和链接。" : "公司指引应关联公司公告或明确来源；缺少链接时自动进入待核验状态。"}
+      </div>
+    </Modal>
+  );
+}
+
+interface FormState { stockId: string; reportPeriod: string; periodScope: string; metric: string; estimateShape: string; value: string; lowerBound: string; upperBound: string; currency: string; unit: string; accountingBasis: string; sourceCategory: string; sourceName: string; sourceTitle: string; sourceUrl: string; sourcePublishedAt: string; asOfDate: string; analystCount: string; institutionCount: string; sourceVerificationStatus: string; notes: string }
+function formFrom(snapshot?: EarningsExpectationSnapshot | null, stockId = ""): FormState { return snapshot ? { stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric, estimateShape: snapshot.estimateShape, value: text(snapshot.value), lowerBound: text(snapshot.lowerBound), upperBound: text(snapshot.upperBound), currency: snapshot.currency, unit: snapshot.unit, accountingBasis: snapshot.accountingBasis, sourceCategory: snapshot.sourceCategory, sourceName: snapshot.sourceName, sourceTitle: snapshot.sourceTitle, sourceUrl: snapshot.sourceUrl ?? "", sourcePublishedAt: snapshot.sourcePublishedAt?.slice(0, 10) ?? "", asOfDate: snapshot.asOfDate.slice(0, 10), analystCount: text(snapshot.analystCount), institutionCount: text(snapshot.institutionCount), sourceVerificationStatus: snapshot.sourceVerificationStatus, notes: snapshot.notes ?? "" } : { stockId, reportPeriod: "", periodScope: "single_quarter", metric: "revenue", estimateShape: "point", value: "", lowerBound: "", upperBound: "", currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: "", sourcePublishedAt: "", asOfDate: today(), analystCount: "", institutionCount: "", sourceVerificationStatus: "verified", notes: "" }; }
+function numberOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
+function integerOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
+function text(value: number | null) { return value === null ? "" : String(value); }
+function today() { const value = new Date(); return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`; }
+function option([value, label]: [string, string]) { return <option key={value} value={value}>{label}</option>; }
+const periodScopeOptions: Array<[string, string]> = [["single_quarter", "单季度"], ["year_to_date", "年初至今累计"], ["half_year", "半年度"], ["first_three_quarters", "前三季度累计"], ["full_year", "全年度"], ["ttm", "TTM"]];
+const metricOptions: Array<[string, string]> = [["revenue", "营业收入"], ["attributable_net_profit", "归母净利润"], ["adjusted_net_profit", "扣非净利润"], ["eps", "每股收益"], ["operating_cash_flow", "经营现金流"]];
+const unitOptions: Array<[string, string]> = [["yuan", "元"], ["ten_thousand_yuan", "万元"], ["million_yuan", "百万元"], ["hundred_million_yuan", "亿元"], ["currency_per_share", "每股币值"]];
+const sourceCategoryOptions: Array<[string, string]> = [["company_guidance", "公司指引"], ["institution_single", "单家机构预测"], ["institution_consensus", "机构一致预期"], ["user_estimate", "用户个人预测"]];
+const inputClass = "mt-1 h-10 w-full min-w-0 rounded border border-borderSoft bg-bg px-3 text-sm text-textStrong outline-none focus:border-cyan disabled:opacity-60";
+const buttonClass = "h-9 rounded border border-borderSoft px-3 text-sm text-textStrong";
+function Field({ label, children }: { label: string; children: React.ReactNode }) { return <label className="min-w-0 text-xs text-textMuted">{label}{children}</label>; }

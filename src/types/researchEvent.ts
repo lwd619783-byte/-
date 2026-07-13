@@ -1,5 +1,6 @@
 import type { Market } from ".";
 import type { AnnouncementParseStatus } from "./marketData";
+import type { EarningsExpectationEventPayload } from "./earningsExpectation";
 
 export type ResearchEventType =
   | "earnings_preview"
@@ -8,9 +9,13 @@ export type ResearchEventType =
   | "periodic_report"
   | "financial_update"
   | "announcement"
-  | "data_warning";
+  | "data_warning"
+  | "earnings_expectation_added"
+  | "earnings_expectation_revision"
+  | "earnings_expectation_comparison_available"
+  | "earnings_expectation_data_warning";
 
-export type ResearchEventSourceType = "announcement" | "financial_report" | "provider_status";
+export type ResearchEventSourceType = "announcement" | "financial_report" | "provider_status" | "earnings_expectation";
 export type ResearchVerificationStatus = "verified" | "partial" | "metadata_only" | "stale" | "missing" | "error";
 export type ResearchParseStatus = AnnouncementParseStatus | "not_applicable" | "missing" | "stale" | "error";
 export type ResearchMateriality = "high" | "medium" | "low" | "unknown";
@@ -54,6 +59,7 @@ export interface ResearchEvent {
   reviewReasons: string[];
   isRestated: boolean | null;
   updatedAt: string | null;
+  expectation?: EarningsExpectationEventPayload;
 }
 
 export type EarningsVerificationStage = "preview" | "revision" | "flash" | "formal";
