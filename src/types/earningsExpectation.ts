@@ -14,6 +14,8 @@ export type EarningsExpectationCurrency = "CNY" | "HKD" | "USD";
 export type EarningsExpectationUnit = "yuan" | "ten_thousand_yuan" | "million_yuan" | "hundred_million_yuan" | "currency_per_share";
 export type EarningsExpectationAccountingBasis = "PRC_GAAP" | "IFRS" | "unknown";
 export type EarningsExpectationVerificationStatus = "verified" | "pending" | "unverified" | "invalid";
+export type EarningsExpectationTimePrecision = "date" | "datetime";
+export type EarningsExpectationCorrectionScope = "value" | "basis";
 
 export interface EarningsExpectationSnapshot {
   id: string;
@@ -34,7 +36,13 @@ export interface EarningsExpectationSnapshot {
   sourceTitle: string;
   sourceUrl: string | null;
   sourcePublishedAt: string | null;
+  /** Legacy snapshots omit this field and are migrated conservatively from sourcePublishedAt. */
+  sourcePublishedAtPrecision?: EarningsExpectationTimePrecision | null;
   asOfDate: string;
+  /** Exact prediction formation time; never inferred from createdAt. */
+  formedAt?: string | null;
+  /** Legacy date-only records are treated as date precision. */
+  formedAtPrecision?: EarningsExpectationTimePrecision;
   analystCount: number | null;
   institutionCount: number | null;
   ingestionMethod: EarningsExpectationIngestionMethod;
@@ -43,6 +51,7 @@ export interface EarningsExpectationSnapshot {
   sourceVerificationStatus: EarningsExpectationVerificationStatus;
   notes: string | null;
   correctsSnapshotId: string | null;
+  correctionScope?: EarningsExpectationCorrectionScope | null;
   schemaVersion: 1;
 }
 
@@ -66,6 +75,12 @@ export interface EarningsExpectationComparison {
   comparisonResult: EarningsExpectationComparisonResult;
   comparisonMethod: string;
   isExAnte: boolean;
+  /** isExAnte means beforeAnyPerformanceDisclosure, not merely before the selected actual value. */
+  beforeActualDisclosure?: boolean | null;
+  beforeAnyPerformanceDisclosure?: boolean | null;
+  actualDisclosureAt?: string | null;
+  performanceInformationCutoff?: string | null;
+  comparisonAvailableAt?: string | null;
   comparabilityStatus: EarningsExpectationComparabilityStatus;
   nonComparableReasons: string[];
   calculatedAt: string;
@@ -121,6 +136,9 @@ export interface EarningsExpectationEventPayload {
   expectedLowerBound: number | null;
   expectedUpperBound: number | null;
   isExAnte: boolean | null;
+  beforeActualDisclosure?: boolean | null;
+  beforeAnyPerformanceDisclosure?: boolean | null;
+  performanceInformationCutoff?: string | null;
   comparisonResult: EarningsExpectationComparisonResult | null;
   sourceVerificationStatus: EarningsExpectationVerificationStatus;
   revisionDirection?: "up" | "down" | "unchanged" | null;

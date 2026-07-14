@@ -463,10 +463,10 @@ export default function App() {
         exportCsv={expectationExportCsv}
         csvTemplate={earningsExpectationCsvTemplate()}
         corruptedRaw={expectationCorruptedRaw}
-        onPreviewJson={(raw) => expectationRepository.previewJson(raw, expectationData)}
+        onPreviewJson={(raw) => expectationRepository.previewJson(raw, expectationData, { validStocks: dataset.stocks.map((stock) => ({ id: stock.id, code: stock.code, market: stock.market })) })}
         onPreviewCsv={(raw, fileName) => expectationRepository.previewCsv(raw, expectationData, { fileName, validStocks: dataset.stocks.map((stock) => ({ id: stock.id, code: stock.code, market: stock.market })) })}
-        onImport={(preview, method, mode, fileName) => {
-          const result = expectationRepository.importPreview(preview, expectationData, method, mode, fileName);
+        onImport={(preview, method, mode, fileName, partialConfirmed) => {
+          const result = expectationRepository.importPreview(preview, expectationData, method, mode, fileName, partialConfirmed);
           if (result.ok && result.data) {
             setExpectationData(result.data);
             setExpectationStorageError(null);

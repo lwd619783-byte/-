@@ -10,7 +10,7 @@ export function buildEarningsExpectationResearchEvents(
   const events: ResearchEvent[] = [];
   const comparisonBySnapshot = new Map(comparisons.map((comparison) => [comparison.snapshotId, comparison]));
   const history = new Map<string, EarningsExpectationSnapshot[]>();
-  for (const snapshot of [...snapshots].sort((left, right) => left.asOfDate.localeCompare(right.asOfDate) || left.createdAt.localeCompare(right.createdAt) || left.id.localeCompare(right.id))) {
+  for (const snapshot of [...snapshots].sort((left, right) => snapshotBusinessTime(left).localeCompare(snapshotBusinessTime(right)) || left.id.localeCompare(right.id))) {
     const stock = stocks.find((item) => item.id === snapshot.stockId);
     if (!stock) continue;
     const key = expectationGroupKey(snapshot);
@@ -47,7 +47,7 @@ function snapshotEvent(
     ...base(stock, snapshot),
     id: `expectation-event:${snapshot.id}:${type}`,
     eventType: type,
-    title: `${category}${isRevision ? "修订" : "新增"} · ${metricLabel(snapshot.metric)}`,
+    title: `${category}${isRevision ? snapshot.correctionScope === "basis" ? "口径纠正" : "修订" : "新增"} · ${metricLabel(snapshot.metric)}`,
     summary: `${snapshot.reportPeriod} ${periodScopeLabel(snapshot.periodScope)}；${formatExpectation(snapshot)}。${snapshot.sourceCategory === "user_estimate" ? "该记录为用户个人预测，不代表机构观点。" : ""}`,
     verificationStatus: snapshot.sourceVerificationStatus === "verified" ? "verified" : snapshot.sourceVerificationStatus === "invalid" ? "error" : "partial",
     reviewStatus: reasons.length ? "pending" : "not_required",
@@ -58,14 +58,15 @@ function snapshotEvent(
 }
 
 function comparisonEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, comparison: EarningsExpectationComparison): ResearchEvent {
+  const availableAt = comparison.comparisonAvailableAt ?? comparison.actualDisclosureAt ?? comparison.performanceInformationCutoff ?? snapshotBusinessTime(snapshot);
   return {
     ...base(stock, snapshot),
     id: `expectation-event:${snapshot.id}:comparison:${comparison.actualEventId ?? "missing"}`,
     eventType: "earnings_expectation_comparison_available",
-    eventDate: comparison.calculatedAt.slice(0, 10),
-    publishedAt: comparison.calculatedAt,
+    eventDate: availableAt.slice(0, 10),
+    publishedAt: availableAt,
     title: `${sourceCategoryLabel(snapshot.sourceCategory)}比较结果可用 · ${metricLabel(snapshot.metric)}`,
-    summary: `${comparisonResultLabel(comparison, snapshot)}；${comparison.comparisonMethod}。${comparison.isExAnte ? "事前有效快照。" : "仅作事后参考或口径核验。"}`,
+    summary: `${comparisonResultLabel(comparison, snapshot)}；${comparison.comparisonMethod}。${comparison.isExAnte ? "形成于任何同指标业绩信息披露前。" : "仅作事后参考或口径核验。"}`,
     verificationStatus: comparison.comparabilityStatus === "comparable" ? "verified" : "partial",
     reviewStatus: "pending",
     reviewReasons: comparison.nonComparableReasons,
@@ -133,6 +134,9 @@ function payload(snapshot: EarningsExpectationSnapshot, comparison: EarningsExpe
     expectedLowerBound: snapshot.lowerBound,
     expectedUpperBound: snapshot.upperBound,
     isExAnte: comparison?.isExAnte ?? null,
+    beforeActualDisclosure: comparison?.beforeActualDisclosure ?? null,
+    beforeAnyPerformanceDisclosure: comparison?.beforeAnyPerformanceDisclosure ?? null,
+    performanceInformationCutoff: comparison?.performanceInformationCutoff ?? null,
     comparisonResult: comparison?.comparisonResult ?? null,
     sourceVerificationStatus: snapshot.sourceVerificationStatus,
     revisionDirection: revision.direction,
@@ -142,6 +146,7 @@ function payload(snapshot: EarningsExpectationSnapshot, comparison: EarningsExpe
 
 function dedupe(events: ResearchEvent[]) { return [...new Map(events.map((event) => [event.id, event])).values()]; }
 function eventTime(event: ResearchEvent) { return event.publishedAt ?? event.eventDate ?? event.updatedAt ?? ""; }
+function snapshotBusinessTime(snapshot: EarningsExpectationSnapshot) { return snapshot.formedAtPrecision === "datetime" && snapshot.formedAt ? snapshot.formedAt : snapshot.asOfDate; }
 function metricLabel(metric: EarningsExpectationSnapshot["metric"]) { return ({ revenue: "营业收入", attributable_net_profit: "归母净利润", adjusted_net_profit: "扣非净利润", eps: "每股收益", operating_cash_flow: "经营现金流" })[metric]; }
 function periodScopeLabel(scope: EarningsExpectationSnapshot["periodScope"]) { return ({ single_quarter: "单季度", year_to_date: "年初至今累计", half_year: "半年度", first_three_quarters: "前三季度累计", full_year: "全年度", ttm: "TTM" })[scope]; }
 function formatExpectation(snapshot: EarningsExpectationSnapshot) { const suffix = snapshot.metric === "eps" ? `${snapshot.currency}/股` : unitLabel(snapshot.unit); return snapshot.estimateShape === "point" ? `点预测 ${snapshot.value ?? "缺失"} ${suffix}` : `区间 ${snapshot.lowerBound ?? "缺失"} 至 ${snapshot.upperBound ?? "缺失"} ${suffix}`; }

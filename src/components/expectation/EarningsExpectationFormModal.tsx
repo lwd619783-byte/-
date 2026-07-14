@@ -21,6 +21,8 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
   const immutable = Boolean(correctionTarget);
   const submit = () => {
     if (!selectedStock) return;
+    const sourcePublishedAt = temporalValue(form.sourcePublishedAt);
+    const formedAt = form.formedAt ? new Date(form.formedAt).toISOString() : null;
     const sourceVerificationStatus = form.sourceCategory === "user_estimate"
       ? "verified"
       : form.sourceCategory === "company_guidance" && !form.sourceUrl.trim()
@@ -43,8 +45,11 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
       sourceName: form.sourceCategory === "user_estimate" ? (form.sourceName.trim() || "用户个人预测") : form.sourceName.trim(),
       sourceTitle: form.sourceTitle.trim(),
       sourceUrl: form.sourceUrl.trim() || null,
-      sourcePublishedAt: form.sourcePublishedAt || null,
+      sourcePublishedAt,
+      sourcePublishedAtPrecision: sourcePublishedAt ? (sourcePublishedAt.includes("T") ? "datetime" : "date") : null,
       asOfDate: form.asOfDate,
+      formedAt,
+      formedAtPrecision: formedAt ? "datetime" : "date",
       analystCount: integerOrNull(form.analystCount),
       institutionCount: integerOrNull(form.institutionCount),
       ingestionMethod: "manual",
@@ -66,11 +71,12 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
         <Field label="单位"><select value={form.unit} onChange={(event) => set("unit", event.target.value)} className={inputClass} disabled={form.metric === "eps"}>{unitOptions.map(option)}</select></Field>
         <Field label="会计口径"><select value={form.accountingBasis} onChange={(event) => set("accountingBasis", event.target.value)} className={inputClass}><option value="PRC_GAAP">中国企业会计准则</option><option value="IFRS">IFRS</option><option value="unknown">未知（将不可比较）</option></select></Field>
         <Field label="来源类别"><select disabled={immutable} value={form.sourceCategory} onChange={(event) => set("sourceCategory", event.target.value)} className={inputClass}>{sourceCategoryOptions.map(option)}</select></Field>
-        <Field label="来源主体 / 机构"><input value={form.sourceName} onChange={(event) => set("sourceName", event.target.value)} className={inputClass} placeholder={form.sourceCategory === "user_estimate" ? "默认：用户个人预测" : "公司或机构名称"} /></Field>
+        <Field label="来源主体 / 机构"><input disabled={immutable} value={form.sourceName} onChange={(event) => set("sourceName", event.target.value)} className={inputClass} placeholder={form.sourceCategory === "user_estimate" ? "默认：用户个人预测" : "公司或机构名称"} /></Field>
         <Field label="来源标题"><input value={form.sourceTitle} onChange={(event) => set("sourceTitle", event.target.value)} className={inputClass} /></Field>
         <Field label="来源链接"><input type="url" value={form.sourceUrl} onChange={(event) => set("sourceUrl", event.target.value)} className={inputClass} placeholder="https://；一致预期必须填写" /></Field>
-        <Field label="来源发布日期"><input type="text" inputMode="numeric" placeholder="YYYY-MM-DD（外部来源必填）" value={form.sourcePublishedAt} onChange={(event) => set("sourcePublishedAt", event.target.value)} className={inputClass} /></Field>
+        <Field label="来源发布日期 / 时间"><input type="text" placeholder="YYYY-MM-DD 或 ISO 时间（外部已核验来源必填）" value={form.sourcePublishedAt} onChange={(event) => set("sourcePublishedAt", event.target.value)} className={inputClass} /></Field>
         <Field label="预期形成日期"><input type="text" inputMode="numeric" placeholder="YYYY-MM-DD" value={form.asOfDate} onChange={(event) => set("asOfDate", event.target.value)} className={inputClass} /></Field>
+        <Field label="精确形成时间（可选）"><input type="datetime-local" value={form.formedAt} onChange={(event) => set("formedAt", event.target.value)} className={inputClass} /><span className="mt-1 block leading-4">留空按日期精度处理；同日披露无法证明事前形成。</span></Field>
         <Field label="分析师数量"><input type="number" min="0" step="1" value={form.analystCount} onChange={(event) => set("analystCount", event.target.value)} className={inputClass} /></Field>
         <Field label="机构数量"><input type="number" min="0" step="1" value={form.institutionCount} onChange={(event) => set("institutionCount", event.target.value)} className={inputClass} /></Field>
         <Field label="来源核验状态"><select value={form.sourceVerificationStatus} onChange={(event) => set("sourceVerificationStatus", event.target.value)} className={inputClass} disabled={form.sourceCategory === "user_estimate"}><option value="verified">已核验</option><option value="pending">待核验</option><option value="unverified">无法核验</option></select></Field>
@@ -83,12 +89,14 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
   );
 }
 
-interface FormState { stockId: string; reportPeriod: string; periodScope: string; metric: string; estimateShape: string; value: string; lowerBound: string; upperBound: string; currency: string; unit: string; accountingBasis: string; sourceCategory: string; sourceName: string; sourceTitle: string; sourceUrl: string; sourcePublishedAt: string; asOfDate: string; analystCount: string; institutionCount: string; sourceVerificationStatus: string; notes: string }
-function formFrom(snapshot?: EarningsExpectationSnapshot | null, stockId = ""): FormState { return snapshot ? { stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric, estimateShape: snapshot.estimateShape, value: text(snapshot.value), lowerBound: text(snapshot.lowerBound), upperBound: text(snapshot.upperBound), currency: snapshot.currency, unit: snapshot.unit, accountingBasis: snapshot.accountingBasis, sourceCategory: snapshot.sourceCategory, sourceName: snapshot.sourceName, sourceTitle: snapshot.sourceTitle, sourceUrl: snapshot.sourceUrl ?? "", sourcePublishedAt: snapshot.sourcePublishedAt?.slice(0, 10) ?? "", asOfDate: snapshot.asOfDate.slice(0, 10), analystCount: text(snapshot.analystCount), institutionCount: text(snapshot.institutionCount), sourceVerificationStatus: snapshot.sourceVerificationStatus, notes: snapshot.notes ?? "" } : { stockId, reportPeriod: "", periodScope: "single_quarter", metric: "revenue", estimateShape: "point", value: "", lowerBound: "", upperBound: "", currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: "", sourcePublishedAt: "", asOfDate: today(), analystCount: "", institutionCount: "", sourceVerificationStatus: "verified", notes: "" }; }
+interface FormState { stockId: string; reportPeriod: string; periodScope: string; metric: string; estimateShape: string; value: string; lowerBound: string; upperBound: string; currency: string; unit: string; accountingBasis: string; sourceCategory: string; sourceName: string; sourceTitle: string; sourceUrl: string; sourcePublishedAt: string; asOfDate: string; formedAt: string; analystCount: string; institutionCount: string; sourceVerificationStatus: string; notes: string }
+function formFrom(snapshot?: EarningsExpectationSnapshot | null, stockId = ""): FormState { return snapshot ? { stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric, estimateShape: snapshot.estimateShape, value: text(snapshot.value), lowerBound: text(snapshot.lowerBound), upperBound: text(snapshot.upperBound), currency: snapshot.currency, unit: snapshot.unit, accountingBasis: snapshot.accountingBasis, sourceCategory: snapshot.sourceCategory, sourceName: snapshot.sourceName, sourceTitle: snapshot.sourceTitle, sourceUrl: snapshot.sourceUrl ?? "", sourcePublishedAt: snapshot.sourcePublishedAt ?? "", asOfDate: snapshot.asOfDate.slice(0, 10), formedAt: localDateTime(snapshot.formedAt), analystCount: text(snapshot.analystCount), institutionCount: text(snapshot.institutionCount), sourceVerificationStatus: snapshot.sourceVerificationStatus, notes: snapshot.notes ?? "" } : { stockId, reportPeriod: "", periodScope: "single_quarter", metric: "revenue", estimateShape: "point", value: "", lowerBound: "", upperBound: "", currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: "", sourcePublishedAt: "", asOfDate: today(), formedAt: "", analystCount: "", institutionCount: "", sourceVerificationStatus: "verified", notes: "" }; }
 function numberOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
 function integerOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
 function text(value: number | null) { return value === null ? "" : String(value); }
 function today() { const value = new Date(); return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`; }
+function temporalValue(value: string) { const input = value.trim(); if (!input) return null; if (/^\d{4}-\d{2}-\d{2}$/.test(input)) return input; const parsed = Date.parse(input); return Number.isNaN(parsed) ? input : new Date(parsed).toISOString(); }
+function localDateTime(value?: string | null) { if (!value || !value.includes("T")) return ""; const date = new Date(value); const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000); return local.toISOString().slice(0, 16); }
 function option([value, label]: [string, string]) { return <option key={value} value={value}>{label}</option>; }
 const periodScopeOptions: Array<[string, string]> = [["single_quarter", "单季度"], ["year_to_date", "年初至今累计"], ["half_year", "半年度"], ["first_three_quarters", "前三季度累计"], ["full_year", "全年度"], ["ttm", "TTM"]];
 const metricOptions: Array<[string, string]> = [["revenue", "营业收入"], ["attributable_net_profit", "归母净利润"], ["adjusted_net_profit", "扣非净利润"], ["eps", "每股收益"], ["operating_cash_flow", "经营现金流"]];

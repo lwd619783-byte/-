@@ -24,10 +24,14 @@ export class EarningsExpectationStore {
   appendSnapshot(data: EarningsExpectationStoreEnvelope, input: CreateEarningsExpectationSnapshotInput): EarningsExpectationActionResult {
     return this.append(data, {
       ...clone(input),
+      formedAt: input.formedAt ?? null,
+      formedAtPrecision: input.formedAtPrecision ?? (input.formedAt ? "datetime" : "date"),
+      sourcePublishedAtPrecision: input.sourcePublishedAtPrecision ?? (input.sourcePublishedAt ? (input.sourcePublishedAt.includes("T") ? "datetime" : "date") : null),
       id: input.id ?? this.idFactory(),
       createdAt: input.createdAt ?? this.now().toISOString(),
       createdBy: input.createdBy ?? "local-user",
       correctsSnapshotId: null,
+      correctionScope: null,
       schemaVersion: 1,
     });
   }
@@ -42,14 +46,18 @@ export class EarningsExpectationStore {
     if (data.snapshots.some((snapshot) => snapshot.correctsSnapshotId === correctsSnapshotId)) return failure(data, "该快照已有纠正版本，请基于最新有效快照继续追加纠正。");
     const candidate: EarningsExpectationSnapshot = {
       ...clone(input),
+      formedAt: input.formedAt ?? null,
+      formedAtPrecision: input.formedAtPrecision ?? (input.formedAt ? "datetime" : "date"),
+      sourcePublishedAtPrecision: input.sourcePublishedAtPrecision ?? (input.sourcePublishedAt ? (input.sourcePublishedAt.includes("T") ? "datetime" : "date") : null),
       id: input.id ?? this.idFactory(),
       createdAt: input.createdAt ?? this.now().toISOString(),
       createdBy: input.createdBy ?? "local-user",
       correctsSnapshotId,
+      correctionScope: basisChanged(input, original) ? "basis" : "value",
       schemaVersion: 1,
     };
-    if (candidate.stockId !== original.stockId || candidate.reportPeriod !== original.reportPeriod || candidate.periodScope !== original.periodScope || candidate.metric !== original.metric || candidate.sourceCategory !== original.sourceCategory) {
-      return failure(data, "纠正快照必须保持公司、报告期、期间口径、指标和来源类别一致。");
+    if (candidate.stockId !== original.stockId || candidate.reportPeriod !== original.reportPeriod || candidate.periodScope !== original.periodScope || candidate.metric !== original.metric || candidate.sourceCategory !== original.sourceCategory || candidate.sourceName.trim() !== original.sourceName.trim()) {
+      return failure(data, "纠正快照必须保持公司、报告期、期间口径、指标、来源类别和来源名称一致。");
     }
     return this.append(data, candidate);
   }
@@ -72,4 +80,5 @@ export class EarningsExpectationStore {
 
 function failure(data: EarningsExpectationStoreEnvelope, error: string): EarningsExpectationActionResult { return { ok: false, data, error }; }
 function clone<T>(value: T): T { return JSON.parse(JSON.stringify(value)) as T; }
+function basisChanged(current: CreateEarningsExpectationSnapshotInput, previous: EarningsExpectationSnapshot) { return current.currency !== previous.currency || current.unit !== previous.unit || current.accountingBasis !== previous.accountingBasis; }
 function defaultId() { const random = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`; return `expectation-${random}`; }
