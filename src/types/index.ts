@@ -245,6 +245,7 @@ export type {
   EarningsExpectationIngestionMethod,
   EarningsExpectationMetric,
   EarningsExpectationPeriodScope,
+  EarningsExpectationCorrectionScope,
   EarningsExpectationSettings,
   EarningsExpectationShape,
   EarningsExpectationSnapshot,
@@ -252,4 +253,5 @@ export type {
   EarningsExpectationStoreEnvelope,
   EarningsExpectationUnit,
   EarningsExpectationVerificationStatus,
+  EarningsExpectationTimePrecision,
 } from "./earningsExpectation";

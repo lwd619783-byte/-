@@ -8,11 +8,27 @@ import type {
   ResearchEventMetric,
 } from "../types";
 import { effectiveEarningsExpectationSnapshots } from "./earningsExpectationRepository";
+import {
+  correctionBasisChanged,
+  getExpectationBusinessTime,
+  getExpectationGroupKey,
+} from "./earningsExpectationIntegrity";
+import {
+  compareBusinessTemporal,
+  isCalendarDate,
+  isPreciseInstant,
+  isStrictlyBeforeBusinessTemporal,
+  laterBusinessTemporal,
+  resolveTimeZone,
+  toBusinessTemporal,
+  type BusinessTemporalValue,
+} from "../utils/dateTime";
 
 export const DEFAULT_EXPECTATION_COMPARISON_SETTINGS: EarningsExpectationSettings = {
   revisionReminderThreshold: 0.1,
   nearZeroThreshold: 1e-9,
   roundingTolerance: 1e-9,
+  timeZone: resolveTimeZone(),
 };
 
 interface ActualCandidate {
@@ -28,7 +44,7 @@ export function buildEarningsExpectationComparisons(
   settings: EarningsExpectationSettings = DEFAULT_EXPECTATION_COMPARISON_SETTINGS,
   calculatedAt = new Date().toISOString(),
 ): EarningsExpectationComparison[] {
-  return effectiveEarningsExpectationSnapshots(snapshots)
+  return effectiveEarningsExpectationSnapshots(snapshots, settings.timeZone)
     .map((snapshot) => compareEarningsExpectation(snapshot, events, settings, calculatedAt))
     .sort((left, right) => right.reportPeriod.localeCompare(left.reportPeriod) || left.snapshotId.localeCompare(right.snapshotId));
 }
@@ -41,13 +57,13 @@ export function compareEarningsExpectation(
 ): EarningsExpectationComparison {
   const candidates = actualCandidates(snapshot, events);
   const actual = candidates.length
-    ? [...candidates].sort((left, right) => actualPriority(right.event) - actualPriority(left.event) || timestamp(right.disclosedAt) - timestamp(left.disclosedAt) || left.event.id.localeCompare(right.event.id))[0]
+    ? [...candidates].sort((left, right) => actualPriority(right.event) - actualPriority(left.event) || compareTemporalStrings(right.disclosedAt, left.disclosedAt, settings.timeZone) || left.event.id.localeCompare(right.event.id))[0]
     : null;
   const actualDisclosureAt = actual?.disclosedAt ?? null;
-  const performanceInformationCutoff = performanceCutoff(snapshot, events);
-  const beforeActualDisclosure = actualDisclosureAt ? snapshotBeforeCutoff(snapshot, actualDisclosureAt) : null;
-  const beforeAnyPerformanceDisclosure = performanceInformationCutoff ? snapshotBeforeCutoff(snapshot, performanceInformationCutoff) : null;
-  const comparisonAvailableAt = actualDisclosureAt ? laterTemporal(snapshotAvailableAt(snapshot), actualDisclosureAt) : null;
+  const performanceInformationCutoff = performanceCutoff(snapshot, events, settings.timeZone);
+  const beforeActualDisclosure = actualDisclosureAt ? snapshotBeforeCutoff(snapshot, actualDisclosureAt, settings.timeZone) : null;
+  const beforeAnyPerformanceDisclosure = performanceInformationCutoff ? snapshotBeforeCutoff(snapshot, performanceInformationCutoff, settings.timeZone) : null;
+  const comparisonAvailableAt = actualDisclosureAt ? laterTemporal(snapshotAvailableAt(snapshot, settings.timeZone), actualDisclosureAt, settings.timeZone) : null;
   const base: EarningsExpectationComparison = {
     ...comparisonBase(snapshot, calculatedAt),
     beforeActualDisclosure,
@@ -68,7 +84,7 @@ export function compareEarningsExpectation(
     return { ...base, comparisonResult: "insufficient_data", comparabilityStatus: "insufficient_data", nonComparableReasons: reasons, comparisonMethod: "未找到同公司、同报告期、同期间口径和同指标的可靠实际值" };
   }
 
-  const timingReasons = exAnteReasons(snapshot, actualDisclosureAt, performanceInformationCutoff);
+  const timingReasons = exAnteReasons(snapshot, actualDisclosureAt, performanceInformationCutoff, settings.timeZone);
   if (timingReasons.length) {
     return notComparable({ ...base, actualEventId: actual.event.id, actualValue: actual.actualValue }, timingReasons, "实际披露后形成或来源无法核验，仅作事后参考");
   }
@@ -129,7 +145,7 @@ export function expectationRevision(
 }
 
 export function expectationGroupKey(snapshot: EarningsExpectationSnapshot) {
-  return [snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric, snapshot.sourceCategory, snapshot.sourceName].join("|");
+  return getExpectationGroupKey(snapshot);
 }
 
 export function sourceCategoryLabel(category: EarningsExpectationSnapshot["sourceCategory"]) {
@@ -188,12 +204,12 @@ function structuralComparabilityReasons(snapshot: EarningsExpectationSnapshot) {
   return reasons;
 }
 
-function exAnteReasons(snapshot: EarningsExpectationSnapshot, actualDisclosureAt: string | null, performanceInformationCutoff: string | null) {
+function exAnteReasons(snapshot: EarningsExpectationSnapshot, actualDisclosureAt: string | null, performanceInformationCutoff: string | null, timeZone: string) {
   const reasons: string[] = [];
   if (!actualDisclosureAt) reasons.push("实际值候选的公开披露时间缺失");
-  else if (snapshotBeforeCutoff(snapshot, actualDisclosureAt) !== true) reasons.push(timingFailureReason(snapshot, actualDisclosureAt, "实际值披露"));
+  else if (snapshotBeforeCutoff(snapshot, actualDisclosureAt, timeZone) !== true) reasons.push(timingFailureReason(snapshot, actualDisclosureAt, "实际值披露", timeZone));
   if (!performanceInformationCutoff) reasons.push("同指标业绩信息首次公开披露时间缺失");
-  else if (snapshotBeforeCutoff(snapshot, performanceInformationCutoff) !== true) reasons.push(timingFailureReason(snapshot, performanceInformationCutoff, "同指标业绩信息披露"));
+  else if (snapshotBeforeCutoff(snapshot, performanceInformationCutoff, timeZone) !== true) reasons.push(timingFailureReason(snapshot, performanceInformationCutoff, "同指标业绩信息披露", timeZone));
   if (snapshot.sourceCategory !== "user_estimate" && !snapshot.sourcePublishedAt) reasons.push("外部来源发布日期缺失");
   return reasons;
 }
@@ -214,7 +230,7 @@ function actualCandidates(snapshot: EarningsExpectationSnapshot, events: Researc
   return candidates;
 }
 
-function performanceCutoff(snapshot: EarningsExpectationSnapshot, events: ResearchEvent[]) {
+function performanceCutoff(snapshot: EarningsExpectationSnapshot, events: ResearchEvent[], timeZone: string) {
   const allowedEvents = new Set(["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report", "financial_update"]);
   const keys = new Set(cutoffMetricKeys(snapshot.metric, snapshot.periodScope));
   const disclosures = events
@@ -222,7 +238,7 @@ function performanceCutoff(snapshot: EarningsExpectationSnapshot, events: Resear
     .filter((event) => event.metrics.some((metric) => keys.has(metric.key) && metric.value !== null))
     .map((event) => event.publishedAt ?? event.eventDate)
     .filter((value): value is string => Boolean(value))
-    .sort((left, right) => timestamp(left) - timestamp(right) || left.localeCompare(right));
+    .sort((left, right) => compareTemporalStrings(left, right, timeZone) || left.localeCompare(right));
   return disclosures[0] ?? null;
 }
 
@@ -238,46 +254,42 @@ function cutoffMetricKeys(metric: EarningsExpectationMetric, scope: EarningsExpe
   return [...actual, ...forecast];
 }
 
-function snapshotBeforeCutoff(snapshot: EarningsExpectationSnapshot, cutoff: string) {
-  const formation = snapshot.formedAtPrecision === "datetime" && snapshot.formedAt ? snapshot.formedAt : snapshot.asOfDate;
-  const formationPrecision = snapshot.formedAtPrecision === "datetime" && snapshot.formedAt ? "datetime" : "date";
-  if (!strictlyBefore(formation, formationPrecision, cutoff)) return false;
+function snapshotBeforeCutoff(snapshot: EarningsExpectationSnapshot, cutoff: string, timeZone: string) {
+  const formation = getExpectationBusinessTime(snapshot, timeZone);
+  const cutoffTime = temporalFromString(cutoff, timeZone);
+  if (!cutoffTime || !isStrictlyBeforeBusinessTemporal(formation, cutoffTime)) return false;
   if (snapshot.sourceCategory === "user_estimate") return true;
   if (!snapshot.sourcePublishedAt) return false;
   const sourcePrecision = snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date";
-  return strictlyBefore(snapshot.sourcePublishedAt, sourcePrecision, cutoff);
+  const sourceTime = toBusinessTemporal(snapshot.sourcePublishedAt, sourcePrecision, timeZone);
+  return Boolean(sourceTime && isStrictlyBeforeBusinessTemporal(sourceTime, cutoffTime));
 }
 
-function strictlyBefore(value: string, precision: "date" | "datetime", cutoff: string) {
-  const valueDate = value.slice(0, 10);
-  const cutoffDate = cutoff.slice(0, 10);
-  if (valueDate < cutoffDate) return true;
-  if (valueDate > cutoffDate) return false;
-  if (precision !== "datetime" || !isExactDateTime(cutoff)) return false;
-  return Date.parse(value) < Date.parse(cutoff);
-}
-
-function timingFailureReason(snapshot: EarningsExpectationSnapshot, cutoff: string, label: string) {
-  const formation = snapshot.formedAtPrecision === "datetime" && snapshot.formedAt ? snapshot.formedAt : snapshot.asOfDate;
+function timingFailureReason(snapshot: EarningsExpectationSnapshot, cutoff: string, label: string, timeZone: string) {
+  const formation = getExpectationBusinessTime(snapshot, timeZone);
+  const cutoffTime = temporalFromString(cutoff, timeZone);
   const source = snapshot.sourceCategory === "user_estimate" ? null : snapshot.sourcePublishedAt;
-  if (formation.slice(0, 10) === cutoff.slice(0, 10) && (snapshot.formedAtPrecision !== "datetime" || !snapshot.formedAt || !isExactDateTime(cutoff))) return `预期形成时间与${label}同日但缺少双方精确时间，不能证明事前形成`;
-  if (source && source.slice(0, 10) === cutoff.slice(0, 10) && (snapshot.sourcePublishedAtPrecision !== "datetime" || !isExactDateTime(cutoff))) return `外部来源与${label}同日但缺少双方精确时间，不能证明事前发布`;
+  if (cutoffTime && formation.calendarDate === cutoffTime.calendarDate && (formation.precision !== "datetime" || cutoffTime.precision !== "datetime")) return `预期形成时间与${label}同日但缺少双方精确时间，无法确认先后顺序`;
+  if (source) {
+    const sourceTime = toBusinessTemporal(source, snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date", timeZone);
+    if (cutoffTime && sourceTime?.calendarDate === cutoffTime.calendarDate && (sourceTime.precision !== "datetime" || cutoffTime.precision !== "datetime")) return `外部来源与${label}同日但缺少双方精确时间，无法确认先后顺序`;
+  }
   return `预期形成或外部来源时间不早于${label}`;
 }
 
-function snapshotAvailableAt(snapshot: EarningsExpectationSnapshot) {
-  const formation = snapshot.formedAtPrecision === "datetime" && snapshot.formedAt ? snapshot.formedAt : snapshot.asOfDate;
-  if (snapshot.sourceCategory === "user_estimate" || !snapshot.sourcePublishedAt) return formation;
-  return laterTemporal(formation, snapshot.sourcePublishedAt);
+function snapshotAvailableAt(snapshot: EarningsExpectationSnapshot, timeZone: string) {
+  const formation = getExpectationBusinessTime(snapshot, timeZone);
+  if (snapshot.sourceCategory === "user_estimate" || !snapshot.sourcePublishedAt) return formation.value;
+  const source = toBusinessTemporal(snapshot.sourcePublishedAt, snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date", timeZone);
+  return source ? laterBusinessTemporal(formation, source).value : formation.value;
 }
 
-function laterTemporal(left: string, right: string) {
-  const leftTime = Date.parse(left);
-  const rightTime = Date.parse(right);
-  if (Number.isNaN(leftTime)) return right;
-  if (Number.isNaN(rightTime)) return left;
-  if (leftTime === rightTime) return left.localeCompare(right) >= 0 ? left : right;
-  return leftTime > rightTime ? left : right;
+function laterTemporal(left: string, right: string, timeZone: string) {
+  const leftTime = temporalFromString(left, timeZone);
+  const rightTime = temporalFromString(right, timeZone);
+  if (!leftTime) return right;
+  if (!rightTime) return left;
+  return laterBusinessTemporal(leftTime, rightTime).value;
 }
 
 function metricKeys(metric: EarningsExpectationMetric, scope: EarningsExpectationPeriodScope) {
@@ -308,8 +320,19 @@ function relativeDifference(expected: number, actual: number, metric: EarningsEx
 }
 
 function snapshotMidpoint(snapshot: EarningsExpectationSnapshot) { if (snapshot.estimateShape === "point") return snapshot.value; return snapshot.lowerBound === null || snapshot.upperBound === null ? null : (snapshot.lowerBound + snapshot.upperBound) / 2; }
-function correctionBasisChanged(current: EarningsExpectationSnapshot, previous: EarningsExpectationSnapshot) { return current.currency !== previous.currency || current.unit !== previous.unit || current.accountingBasis !== previous.accountingBasis; }
 function actualPriority(event: ResearchEvent) { if (event.eventType === "financial_update") return 3; if (event.eventType === "periodic_report") return 2; return 1; }
-function timestamp(value: string | null) { if (!value) return Number.MAX_SAFE_INTEGER; const result = Date.parse(value); return Number.isNaN(result) ? Number.MAX_SAFE_INTEGER : result; }
-function isExactDateTime(value: string) { return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value) && !Number.isNaN(Date.parse(value)); }
+function temporalFromString(value: string | null, timeZone: string): BusinessTemporalValue | null {
+  if (!value) return null;
+  if (isPreciseInstant(value)) return toBusinessTemporal(value, "datetime", timeZone);
+  if (isCalendarDate(value)) return toBusinessTemporal(value, "date", timeZone);
+  return null;
+}
+function compareTemporalStrings(left: string | null, right: string | null, timeZone: string) {
+  const leftTime = temporalFromString(left, timeZone);
+  const rightTime = temporalFromString(right, timeZone);
+  if (!leftTime && !rightTime) return 0;
+  if (!leftTime) return 1;
+  if (!rightTime) return -1;
+  return compareBusinessTemporal(leftTime, rightTime).order;
+}
 function stableHash(value: string) { let hash = 2166136261; for (let index = 0; index < value.length; index += 1) { hash ^= value.charCodeAt(index); hash = Math.imul(hash, 16777619); } return (hash >>> 0).toString(36); }

@@ -1,18 +1,22 @@
 import { useMemo, useState } from "react";
 import type { EarningsExpectationSnapshot, Stock } from "../../types";
 import type { CreateEarningsExpectationSnapshotInput } from "../../services/earningsExpectationStore";
+import { getCalendarToday, isoToZonedLocalDateTime, resolveTimeZone, zonedLocalDateTimeToIso } from "../../utils/dateTime";
 import { Modal } from "../common/Modal";
 
 interface EarningsExpectationFormModalProps {
   stocks: Stock[];
   initialStockId?: string;
   correctionTarget?: EarningsExpectationSnapshot | null;
+  timeZone?: string;
+  now?: Date;
   onClose: () => void;
   onSubmit: (input: CreateEarningsExpectationSnapshotInput, correctsSnapshotId?: string) => void;
 }
 
-export function EarningsExpectationFormModal({ stocks, initialStockId, correctionTarget, onClose, onSubmit }: EarningsExpectationFormModalProps) {
-  const initial = useMemo(() => formFrom(correctionTarget, initialStockId), [correctionTarget, initialStockId]);
+export function EarningsExpectationFormModal({ stocks, initialStockId, correctionTarget, timeZone: requestedTimeZone, now, onClose, onSubmit }: EarningsExpectationFormModalProps) {
+  const timeZone = resolveTimeZone(requestedTimeZone);
+  const initial = useMemo(() => formFrom(correctionTarget, initialStockId, timeZone, now ?? new Date()), [correctionTarget, initialStockId, now, timeZone]);
   const [form, setForm] = useState(initial);
   const [dirty, setDirty] = useState(false);
   const close = () => { if (!dirty || window.confirm("表单尚未保存，确认关闭？")) onClose(); };
@@ -22,7 +26,7 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
   const submit = () => {
     if (!selectedStock) return;
     const sourcePublishedAt = temporalValue(form.sourcePublishedAt);
-    const formedAt = form.formedAt ? new Date(form.formedAt).toISOString() : null;
+    const formedAt = form.formedAt ? zonedLocalDateTimeToIso(form.formedAt, timeZone) : null;
     const sourceVerificationStatus = form.sourceCategory === "user_estimate"
       ? "verified"
       : form.sourceCategory === "company_guidance" && !form.sourceUrl.trim()
@@ -42,7 +46,7 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
       unit: form.unit as EarningsExpectationSnapshot["unit"],
       accountingBasis: form.accountingBasis as EarningsExpectationSnapshot["accountingBasis"],
       sourceCategory: form.sourceCategory as EarningsExpectationSnapshot["sourceCategory"],
-      sourceName: form.sourceCategory === "user_estimate" ? (form.sourceName.trim() || "用户个人预测") : form.sourceName.trim(),
+      sourceName: form.sourceCategory === "user_estimate" ? (form.sourceName.trim() ? form.sourceName : "用户个人预测") : form.sourceName,
       sourceTitle: form.sourceTitle.trim(),
       sourceUrl: form.sourceUrl.trim() || null,
       sourcePublishedAt,
@@ -82,7 +86,8 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
         <Field label="来源核验状态"><select value={form.sourceVerificationStatus} onChange={(event) => set("sourceVerificationStatus", event.target.value)} className={inputClass} disabled={form.sourceCategory === "user_estimate"}><option value="verified">已核验</option><option value="pending">待核验</option><option value="unverified">无法核验</option></select></Field>
         <label className="min-w-0 text-xs text-textMuted sm:col-span-2">备注<textarea value={form.notes} onChange={(event) => set("notes", event.target.value)} className={`${inputClass} mt-1 min-h-24 py-2`} /></label>
       </div>
-      <div className="mt-4 rounded border border-warning/35 bg-warning/10 p-3 text-xs leading-5 text-warning">
+      <div className="mt-4 rounded border border-borderSoft bg-surface/60 p-3 text-xs leading-5 text-textMuted">工作流时区：<span className="font-semibold text-textStrong">{timeZone}</span>。日期校验与 datetime-local 转换均使用该时区。</div>
+      <div className="mt-3 rounded border border-warning/35 bg-warning/10 p-3 text-xs leading-5 text-warning">
         {form.sourceCategory === "user_estimate" ? "当前记录会显著标记为用户个人预测，不会包装成机构预测。" : form.sourceCategory === "institution_single" ? "单家机构预测不会包装成机构一致预期。" : form.sourceCategory === "institution_consensus" ? "必须提供明确、可核验的来源主体、标题和链接。" : "公司指引应关联公司公告或明确来源；缺少链接时自动进入待核验状态。"}
       </div>
     </Modal>
@@ -90,13 +95,11 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
 }
 
 interface FormState { stockId: string; reportPeriod: string; periodScope: string; metric: string; estimateShape: string; value: string; lowerBound: string; upperBound: string; currency: string; unit: string; accountingBasis: string; sourceCategory: string; sourceName: string; sourceTitle: string; sourceUrl: string; sourcePublishedAt: string; asOfDate: string; formedAt: string; analystCount: string; institutionCount: string; sourceVerificationStatus: string; notes: string }
-function formFrom(snapshot?: EarningsExpectationSnapshot | null, stockId = ""): FormState { return snapshot ? { stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric, estimateShape: snapshot.estimateShape, value: text(snapshot.value), lowerBound: text(snapshot.lowerBound), upperBound: text(snapshot.upperBound), currency: snapshot.currency, unit: snapshot.unit, accountingBasis: snapshot.accountingBasis, sourceCategory: snapshot.sourceCategory, sourceName: snapshot.sourceName, sourceTitle: snapshot.sourceTitle, sourceUrl: snapshot.sourceUrl ?? "", sourcePublishedAt: snapshot.sourcePublishedAt ?? "", asOfDate: snapshot.asOfDate.slice(0, 10), formedAt: localDateTime(snapshot.formedAt), analystCount: text(snapshot.analystCount), institutionCount: text(snapshot.institutionCount), sourceVerificationStatus: snapshot.sourceVerificationStatus, notes: snapshot.notes ?? "" } : { stockId, reportPeriod: "", periodScope: "single_quarter", metric: "revenue", estimateShape: "point", value: "", lowerBound: "", upperBound: "", currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: "", sourcePublishedAt: "", asOfDate: today(), formedAt: "", analystCount: "", institutionCount: "", sourceVerificationStatus: "verified", notes: "" }; }
+function formFrom(snapshot: EarningsExpectationSnapshot | null | undefined, stockId: string | undefined, timeZone: string, now: Date): FormState { return snapshot ? { stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric, estimateShape: snapshot.estimateShape, value: text(snapshot.value), lowerBound: text(snapshot.lowerBound), upperBound: text(snapshot.upperBound), currency: snapshot.currency, unit: snapshot.unit, accountingBasis: snapshot.accountingBasis, sourceCategory: snapshot.sourceCategory, sourceName: snapshot.sourceName, sourceTitle: snapshot.sourceTitle, sourceUrl: snapshot.sourceUrl ?? "", sourcePublishedAt: snapshot.sourcePublishedAt ?? "", asOfDate: snapshot.asOfDate, formedAt: isoToZonedLocalDateTime(snapshot.formedAt, timeZone), analystCount: text(snapshot.analystCount), institutionCount: text(snapshot.institutionCount), sourceVerificationStatus: snapshot.sourceVerificationStatus, notes: snapshot.notes ?? "" } : { stockId: stockId ?? "", reportPeriod: "", periodScope: "single_quarter", metric: "revenue", estimateShape: "point", value: "", lowerBound: "", upperBound: "", currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: "", sourcePublishedAt: "", asOfDate: getCalendarToday(now, timeZone), formedAt: "", analystCount: "", institutionCount: "", sourceVerificationStatus: "verified", notes: "" }; }
 function numberOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
 function integerOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
 function text(value: number | null) { return value === null ? "" : String(value); }
-function today() { const value = new Date(); return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`; }
 function temporalValue(value: string) { const input = value.trim(); if (!input) return null; if (/^\d{4}-\d{2}-\d{2}$/.test(input)) return input; const parsed = Date.parse(input); return Number.isNaN(parsed) ? input : new Date(parsed).toISOString(); }
-function localDateTime(value?: string | null) { if (!value || !value.includes("T")) return ""; const date = new Date(value); const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000); return local.toISOString().slice(0, 16); }
 function option([value, label]: [string, string]) { return <option key={value} value={value}>{label}</option>; }
 const periodScopeOptions: Array<[string, string]> = [["single_quarter", "单季度"], ["year_to_date", "年初至今累计"], ["half_year", "半年度"], ["first_three_quarters", "前三季度累计"], ["full_year", "全年度"], ["ttm", "TTM"]];
 const metricOptions: Array<[string, string]> = [["revenue", "营业收入"], ["attributable_net_profit", "归母净利润"], ["adjusted_net_profit", "扣非净利润"], ["eps", "每股收益"], ["operating_cash_flow", "经营现金流"]];

@@ -26,6 +26,8 @@ import { createBrowserEarningsExpectationRepository, createEmptyEarningsExpectat
 import { EarningsExpectationStore, type CreateEarningsExpectationSnapshotInput, type EarningsExpectationActionResult } from "./services/earningsExpectationStore";
 import { buildEarningsExpectationComparisons } from "./services/earningsExpectationComparisonProvider";
 import { buildEarningsExpectationResearchEvents } from "./services/earningsExpectationEventProvider";
+import { getExpectationCalendarDate } from "./services/earningsExpectationIntegrity";
+import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant } from "./utils/dateTime";
 import type { DashboardDataMode, EarningsExpectationSnapshot, Stock, WatchItem } from "./types";
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
 import { formatPercent } from "./utils/normalize";
@@ -67,8 +69,8 @@ export default function App() {
   const dataset = useMemo(() => buildDashboardDataset(dataMode), [dataMode]);
   const baseResearchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
   const expectationComparisons = useMemo(() => buildEarningsExpectationComparisons(expectationData.snapshots, baseResearchSnapshot.events, expectationData.settings), [baseResearchSnapshot.events, expectationData.settings, expectationData.snapshots]);
-  const expectationEvents = useMemo(() => buildEarningsExpectationResearchEvents(expectationData.snapshots, expectationComparisons, dataset.stocks, expectationData.settings.revisionReminderThreshold), [dataset.stocks, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.snapshots]);
-  const researchSnapshot = useMemo(() => ({ ...baseResearchSnapshot, events: sortResearchEvents(deduplicateResearchEvents([...baseResearchSnapshot.events, ...expectationEvents])) }), [baseResearchSnapshot, expectationEvents]);
+  const expectationEvents = useMemo(() => buildEarningsExpectationResearchEvents(expectationData.snapshots, expectationComparisons, dataset.stocks, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone), [dataset.stocks, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationData.snapshots]);
+  const researchSnapshot = useMemo(() => ({ ...baseResearchSnapshot, events: sortResearchEvents(deduplicateResearchEvents([...baseResearchSnapshot.events, ...expectationEvents]), expectationData.settings.timeZone) }), [baseResearchSnapshot, expectationData.settings.timeZone, expectationEvents]);
   const reviewTasks = useMemo(() => buildReviewTasks({
     watchItems: watchlistData.watchItems,
     events: researchSnapshot.events,
@@ -76,7 +78,8 @@ export default function App() {
     taskStates: watchlistData.reviewTaskStates,
     longUnreviewedDays: watchlistData.settings.longUnreviewedDays,
     expectationRevisionThreshold: expectationData.settings.revisionReminderThreshold,
-  }), [expectationData.settings.revisionReminderThreshold, researchSnapshot, watchlistData]);
+    timeZone: expectationData.settings.timeZone,
+  }), [expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, researchSnapshot, watchlistData]);
   const exportJson = useMemo(() => repository.export(watchlistData), [repository, watchlistData]);
   const expectationExportJson = useMemo(() => expectationRepository.export(expectationData), [expectationData, expectationRepository]);
   const expectationExportCsv = useMemo(() => exportEarningsExpectationCsv(expectationData.snapshots), [expectationData.snapshots]);
@@ -110,20 +113,18 @@ export default function App() {
         : hkQuoteTotal === undefined
           ? "港股暂未接入"
           : `港股 ${hkRealCount}/${hkQuoteTotal} 暂未接入`;
-    const sevenDayCutoff = new Date();
-    sevenDayCutoff.setDate(sevenDayCutoff.getDate() - 6);
-    const cutoff = `${sevenDayCutoff.getFullYear()}-${String(sevenDayCutoff.getMonth() + 1).padStart(2, "0")}-${String(sevenDayCutoff.getDate()).padStart(2, "0")}`;
-    const recentEvents = researchSnapshot.events.filter((event) => event.eventType !== "data_warning" && (event.eventDate ?? event.publishedAt?.slice(0, 10) ?? event.updatedAt?.slice(0, 10) ?? "") >= cutoff).length;
+    const cutoff = shiftCalendarDate(getCalendarToday(new Date(), expectationData.settings.timeZone), -6);
+    const recentEvents = researchSnapshot.events.filter((event) => event.eventType !== "data_warning" && eventCalendarDate(event, expectationData.settings.timeZone) >= cutoff).length;
     const pendingReviewCompanies = new Set(researchSnapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
     const verificationChains = researchSnapshot.chains.length;
     const dataReviewItems = researchSnapshot.events.filter((event) => event.eventType === "data_warning" || event.reviewStatus === "pending").length;
-    const today = localDate(new Date());
+    const today = getCalendarToday(new Date(), expectationData.settings.timeZone);
     const pendingTasks = reviewTasks.filter((task) => task.status === "pending");
     const todayReview = new Set(pendingTasks.filter((task) => task.ruleType === "due_review" || task.dueAt === today).map((task) => task.watchItemId)).size;
     const overdueReview = new Set(pendingTasks.filter((task) => task.ruleType === "overdue_review").map((task) => task.watchItemId)).size;
     const newEventReminder = new Set(pendingTasks.filter((task) => task.relatedEventIds.length > 0).map((task) => task.watchItemId)).size;
     const highPriorityWatch = watchlistData.watchItems.filter((item) => !item.archivedAt && item.priority === "high").length;
-    const recentExpectationSnapshots = expectationData.snapshots.filter((snapshot) => snapshot.createdAt.slice(0, 10) >= cutoff).length;
+    const recentExpectationSnapshots = expectationData.snapshots.filter((snapshot) => getExpectationCalendarDate(snapshot, expectationData.settings.timeZone) >= cutoff).length;
     const latestExpectationRevisions = expectationEvents.filter((event) => event.eventType === "earnings_expectation_revision" && event.eventDate && event.eventDate >= cutoff);
     const expectationRevisionUp = latestExpectationRevisions.filter((event) => event.expectation?.revisionDirection === "up" && typeof event.expectation.revisionMagnitude === "number" && Math.abs(event.expectation.revisionMagnitude) >= expectationData.settings.revisionReminderThreshold).length;
     const expectationRevisionDown = latestExpectationRevisions.filter((event) => event.expectation?.revisionDirection === "down" && typeof event.expectation.revisionMagnitude === "number" && Math.abs(event.expectation.revisionMagnitude) >= expectationData.settings.revisionReminderThreshold).length;
@@ -156,7 +157,7 @@ export default function App() {
       reviewableExpectationActuals,
       pendingExpectationSources,
     };
-  }, [dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.snapshots, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
+  }, [dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationData.snapshots, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
 
   const applyAction = (result: WatchlistActionResult, successMessage: string) => {
     if (result.ok) {
@@ -375,6 +376,7 @@ export default function App() {
               industries={dataset.industries}
               watchItems={watchlistData.watchItems}
               reviewTasks={reviewTasks}
+              timeZone={expectationData.settings.timeZone}
               onStartReview={startReview}
               onOpenStock={setSelectedStock}
             />
@@ -388,6 +390,7 @@ export default function App() {
               industries={dataset.industries}
               watchItems={watchlistData.watchItems}
               storageError={expectationStorageError}
+              timeZone={expectationData.settings.timeZone}
               onAdd={() => setExpectationForm({})}
               onCorrect={(snapshot) => setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id })}
               onImport={() => setExpectationImportOpen(true)}
@@ -419,6 +422,7 @@ export default function App() {
         reviewTasks={reviewTasks}
         researchEvents={researchSnapshot.events}
         earningsExpectationSnapshots={expectationData.snapshots}
+        earningsExpectationTimeZone={expectationData.settings.timeZone}
         onAddToWatchlist={(stock) => setWatchForm({ stockId: stock.id })}
         onEditWatchItem={(item) => setWatchForm({ itemId: item.id })}
         onStartReview={startReview}
@@ -454,6 +458,7 @@ export default function App() {
         stocks={dataset.stocks}
         initialStockId={expectationForm.stockId}
         correctionTarget={expectationForm.correctionId ? expectationData.snapshots.find((snapshot) => snapshot.id === expectationForm.correctionId) : null}
+        timeZone={expectationData.settings.timeZone}
         onClose={() => setExpectationForm(null)}
         onSubmit={saveExpectation}
       /> : null}
@@ -463,8 +468,8 @@ export default function App() {
         exportCsv={expectationExportCsv}
         csvTemplate={earningsExpectationCsvTemplate()}
         corruptedRaw={expectationCorruptedRaw}
-        onPreviewJson={(raw) => expectationRepository.previewJson(raw, expectationData, { validStocks: dataset.stocks.map((stock) => ({ id: stock.id, code: stock.code, market: stock.market })) })}
-        onPreviewCsv={(raw, fileName) => expectationRepository.previewCsv(raw, expectationData, { fileName, validStocks: dataset.stocks.map((stock) => ({ id: stock.id, code: stock.code, market: stock.market })) })}
+        onPreviewJson={(raw) => expectationRepository.previewJson(raw, expectationData, { timeZone: expectationData.settings.timeZone, validStocks: dataset.stocks.map((stock) => ({ id: stock.id, code: stock.code, market: stock.market })) })}
+        onPreviewCsv={(raw, fileName) => expectationRepository.previewCsv(raw, expectationData, { timeZone: expectationData.settings.timeZone, fileName, validStocks: dataset.stocks.map((stock) => ({ id: stock.id, code: stock.code, market: stock.market })) })}
         onImport={(preview, method, mode, fileName, partialConfirmed) => {
           const result = expectationRepository.importPreview(preview, expectationData, method, mode, fileName, partialConfirmed);
           if (result.ok && result.data) {
@@ -491,6 +496,18 @@ export default function App() {
   );
 }
 
-function localDate(value: Date) {
-  return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`;
+function shiftCalendarDate(value: string, days: number) {
+  const date = new Date(`${value}T00:00:00.000Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function eventCalendarDate(event: { eventDate: string | null; publishedAt: string | null; updatedAt: string | null }, timeZone: string) {
+  if (event.eventDate) return event.eventDate;
+  for (const value of [event.publishedAt, event.updatedAt]) {
+    if (!value) continue;
+    const calendarDate = getTemporalCalendarDate(value, isPreciseInstant(value) ? "datetime" : "date", timeZone);
+    if (calendarDate) return calendarDate;
+  }
+  return "";
 }

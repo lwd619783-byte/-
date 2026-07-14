@@ -50,16 +50,16 @@ export function EarningsExpectationImportModal(props: EarningsExpectationImportM
 
 export function EarningsExpectationImportActions({ preview, method, fileName, onImport }: { preview: EarningsExpectationImportPreview | null; method: "json_import" | "csv_import"; fileName: string | null; onImport: EarningsExpectationImportModalProps["onImport"] }) {
   const run = (mode: "merge" | "replace") => {
-    if (!preview?.ok) return;
+    if (!preview?.ok || (mode === "merge" ? !preview.mergeAllowed : !preview.replaceAllowed)) return;
     const partialConfirmed = !preview.partial || window.confirm(`本次将导入 ${preview.validCount} 条并跳过 ${preview.invalidCount} 条无效记录。确认继续？`);
     if (!partialConfirmed) return;
     if (mode === "replace" && !window.confirm("替换快照会先完整备份当前状态，再仅替换快照；当前设置和导入历史会保留。确认继续？")) return;
     onImport(preview, method, mode, fileName, preview.partial);
   };
-  return <div className="mt-3 flex flex-wrap gap-2"><button type="button" disabled={!preview?.ok} onClick={() => run("merge")} className={`${buttonClass} border-cyan/50 text-cyan disabled:opacity-40`}>合并快照</button><button type="button" disabled={!preview?.ok} onClick={() => run("replace")} className={`${buttonClass} border-warning/50 text-warning disabled:opacity-40`}>替换快照</button></div>;
+  return <div className="mt-3 flex flex-wrap gap-2"><button type="button" disabled={!preview?.mergeAllowed} onClick={() => run("merge")} className={`${buttonClass} border-cyan/50 text-cyan disabled:opacity-40`}>合并快照</button><button type="button" disabled={!preview?.replaceAllowed} onClick={() => run("replace")} className={`${buttonClass} border-warning/50 text-warning disabled:opacity-40`}>替换快照</button></div>;
 }
 
-export function Preview({ value }: { value: EarningsExpectationImportPreview }) { const tone = value.ok && !value.partial ? "border-success/35 bg-success/10 text-textMuted" : "border-warning/35 bg-warning/10 text-warning"; return <div className={`mt-3 rounded border p-3 text-xs ${tone}`}><p>{value.partial ? "部分可导入，需二次确认" : value.ok ? "校验通过" : "校验未通过"} · 版本：{value.schemaVersion ?? "未知"}</p><p className="mt-1">总数：{value.totalCount} · 有效：{value.validCount} · 将新增：{value.addCount} · 将跳过：{value.skippedCount}</p><p className="mt-1">重复：{value.duplicateCount} · 冲突：{value.conflictCount} · 无效/待核验：{value.invalidCount}</p>{value.issues.slice(0, 20).map((issue, index) => <p key={`${issue.row}-${issue.code}-${index}`} className="mt-1 break-words">• 第 {issue.row || "-"} 行：{issue.message}</p>)}</div>; }
+export function Preview({ value }: { value: EarningsExpectationImportPreview }) { const tone = value.ok && !value.partial ? "border-success/35 bg-success/10 text-textMuted" : "border-warning/35 bg-warning/10 text-warning"; return <div className={`mt-3 rounded border p-3 text-xs ${tone}`}><p>{value.partial ? "部分可导入，需二次确认" : value.ok ? "校验通过" : "校验未通过"} · 版本：{value.schemaVersion ?? "未知"}</p><p className="mt-1">合并：{value.mergeAllowed ? "允许" : "禁止"} · 替换：{value.replaceAllowed ? "允许" : "禁止"}</p><p className="mt-1">总数：{value.totalCount} · 有效：{value.validCount} · 将新增：{value.addCount} · 将跳过：{value.skippedCount}</p><p className="mt-1">重复：{value.duplicateCount} · 冲突：{value.conflictCount} · 无效/待核验：{value.invalidCount}</p>{value.issues.slice(0, 20).map((issue, index) => <p key={`${issue.row}-${issue.code}-${index}`} className="mt-1 break-words">• 第 {issue.row || "-"} 行：{issue.message}</p>)}</div>; }
 function download(value: string, name: string, type: string) { const url = URL.createObjectURL(new Blob([value], { type })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = name; anchor.click(); URL.revokeObjectURL(url); }
 const inputClass = "h-10 min-w-0 rounded border border-borderSoft bg-bg px-3 text-sm text-textStrong outline-none focus:border-cyan";
 const buttonClass = "h-9 rounded border border-borderSoft px-3 text-sm text-textStrong";

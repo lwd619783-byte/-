@@ -1,5 +1,10 @@
 import type { EarningsExpectationSnapshot, EarningsExpectationStoreEnvelope } from "../types";
 import { EarningsExpectationRepository, earningsExpectationFingerprint, validateEarningsExpectationSnapshot } from "./earningsExpectationRepository";
+import {
+  correctionBasisChanged,
+  sameCorrectionIdentity,
+  validateEarningsExpectationCorrectionGraph,
+} from "./earningsExpectationIntegrity";
 
 export type CreateEarningsExpectationSnapshotInput = Omit<EarningsExpectationSnapshot, "id" | "createdAt" | "createdBy" | "schemaVersion" | "correctsSnapshotId"> & {
   id?: string;
@@ -53,10 +58,10 @@ export class EarningsExpectationStore {
       createdAt: input.createdAt ?? this.now().toISOString(),
       createdBy: input.createdBy ?? "local-user",
       correctsSnapshotId,
-      correctionScope: basisChanged(input, original) ? "basis" : "value",
+      correctionScope: correctionBasisChanged(input as EarningsExpectationSnapshot, original) ? "basis" : "value",
       schemaVersion: 1,
     };
-    if (candidate.stockId !== original.stockId || candidate.reportPeriod !== original.reportPeriod || candidate.periodScope !== original.periodScope || candidate.metric !== original.metric || candidate.sourceCategory !== original.sourceCategory || candidate.sourceName.trim() !== original.sourceName.trim()) {
+    if (!sameCorrectionIdentity(candidate, original)) {
       return failure(data, "纠正快照必须保持公司、报告期、期间口径、指标、来源类别和来源名称一致。");
     }
     return this.append(data, candidate);
@@ -64,10 +69,12 @@ export class EarningsExpectationStore {
 
   /** Historical snapshots are append-only; no update or delete API is intentionally exposed. */
   private append(data: EarningsExpectationStoreEnvelope, snapshot: EarningsExpectationSnapshot): EarningsExpectationActionResult {
-    const errors = validateEarningsExpectationSnapshot(snapshot);
+    const errors = validateEarningsExpectationSnapshot(snapshot, { now: this.now(), timeZone: data.settings.timeZone });
     if (errors.length) return failure(data, errors.join("；"));
     if (data.snapshots.some((item) => item.id === snapshot.id)) return failure(data, "快照 ID 已存在，未写入任何数据。");
     if (data.snapshots.some((item) => earningsExpectationFingerprint(item) === earningsExpectationFingerprint(snapshot))) return failure(data, "相同快照已存在，未重复写入。");
+    const graph = validateEarningsExpectationCorrectionGraph([...data.snapshots, snapshot]);
+    if (!graph.ok) return failure(data, `纠正关系图无效，未写入任何数据：${graph.issues.map((issue) => issue.message).join("；")}`);
     const next: EarningsExpectationStoreEnvelope = {
       ...clone(data),
       updatedAt: snapshot.createdAt,
@@ -80,5 +87,4 @@ export class EarningsExpectationStore {
 
 function failure(data: EarningsExpectationStoreEnvelope, error: string): EarningsExpectationActionResult { return { ok: false, data, error }; }
 function clone<T>(value: T): T { return JSON.parse(JSON.stringify(value)) as T; }
-function basisChanged(current: CreateEarningsExpectationSnapshotInput, previous: EarningsExpectationSnapshot) { return current.currency !== previous.currency || current.unit !== previous.unit || current.accountingBasis !== previous.accountingBasis; }
 function defaultId() { const random = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`; return `expectation-${random}`; }

@@ -6,6 +6,14 @@ import type {
   ReviewTaskState,
   WatchItem,
 } from "../types";
+import {
+  compareBusinessTemporal,
+  getCalendarToday,
+  isCalendarDate,
+  isPreciseInstant,
+  resolveTimeZone,
+  toBusinessTemporal,
+} from "../utils/dateTime";
 
 const PERFORMANCE_RULES: Partial<Record<ResearchEvent["eventType"], ReviewTaskRuleType>> = {
   earnings_preview: "earnings_preview",
@@ -27,6 +35,7 @@ export interface ReviewTaskInput {
   now?: Date;
   longUnreviewedDays?: number;
   expectationRevisionThreshold?: number;
+  timeZone?: string;
 }
 
 export function buildReviewTasks({
@@ -37,9 +46,10 @@ export function buildReviewTasks({
   now = new Date(),
   longUnreviewedDays = 90,
   expectationRevisionThreshold = 0.1,
+  timeZone = resolveTimeZone(),
 }: ReviewTaskInput): ReviewTask[] {
   const tasks: ReviewTask[] = [];
-  const today = dateOnly(now);
+  const today = getCalendarToday(now, timeZone);
   for (const item of watchItems.filter((candidate) => !candidate.archivedAt && candidate.source === "user")) {
     if (item.nextReviewAt === today) {
       tasks.push(task(item, "due_review", item.nextReviewAt, [], "medium", "复盘日期已到", `观察项计划在 ${item.nextReviewAt} 复盘，请由用户主动核验并记录判断。`, item.nextReviewAt));
@@ -48,7 +58,7 @@ export function buildReviewTasks({
     }
 
     const boundary = item.lastReviewedAt ?? item.createdAt;
-    const stockEvents = events.filter((event) => event.stockId === item.stockId && eventTimestamp(event) > boundary);
+    const stockEvents = events.filter((event) => event.stockId === item.stockId && eventAfterBoundary(event, boundary, timeZone));
     for (const event of stockEvents) {
       let ruleType = PERFORMANCE_RULES[event.eventType];
       if (event.eventType === "earnings_expectation_revision") {
@@ -98,7 +108,7 @@ export function buildReviewTasks({
 
     for (const chain of chains.filter((candidate) => candidate.stockId === item.stockId && candidate.hasMaterialDifference)) {
       const related = [...chain.preview, ...chain.revision, ...chain.flash, ...chain.formal, ...chain.financialUpdates]
-        .filter((event) => eventTimestamp(event) > boundary);
+        .filter((event) => eventAfterBoundary(event, boundary, timeZone));
       if (!related.length) continue;
       tasks.push(task(
         item,
@@ -108,15 +118,15 @@ export function buildReviewTasks({
         "high",
         "业绩验证链存在显著数值差异",
         `报告期 ${chain.reportPeriod} 的预告、快报或正式财务值达到现有验证规则的差异阈值，请打开原始来源核验口径。`,
-        latestEventDate(related),
+        latestEventDate(related, timeZone),
       ));
     }
 
-    if (daysBetween(item.lastReviewedAt ?? item.createdAt, now) >= longUnreviewedDays) {
+    if (daysBetween(calendarDate(item.lastReviewedAt ?? item.createdAt, timeZone), today) >= longUnreviewedDays) {
       tasks.push(task(
         item,
         "long_unreviewed",
-        dateOnly(new Date(item.lastReviewedAt ?? item.createdAt)),
+        calendarDate(item.lastReviewedAt ?? item.createdAt, timeZone),
         [],
         "medium",
         "观察项长期未复盘",
@@ -127,7 +137,7 @@ export function buildReviewTasks({
   }
 
   const states = new Map(taskStates.map((state) => [state.taskId, state]));
-  const unique = new Map(tasks.map((item) => [item.id, applyState(item, states.get(item.id), now)]));
+  const unique = new Map(tasks.map((item) => [item.id, applyState(item, states.get(item.id), now, timeZone)]));
   return [...unique.values()].sort((left, right) => severityRank(right.severity) - severityRank(left.severity)
     || (left.dueAt ?? "9999").localeCompare(right.dueAt ?? "9999")
     || left.id.localeCompare(right.id));
@@ -170,9 +180,9 @@ function task(
   };
 }
 
-function applyState(taskValue: ReviewTask, state: ReviewTaskState | undefined, now: Date): ReviewTask {
+function applyState(taskValue: ReviewTask, state: ReviewTaskState | undefined, now: Date, timeZone: string): ReviewTask {
   if (!state) return taskValue;
-  if (state.status === "snoozed" && state.snoozedUntil && state.snoozedUntil <= dateOnly(now)) return taskValue;
+  if (state.status === "snoozed" && state.snoozedUntil && state.snoozedUntil <= getCalendarToday(now, timeZone)) return taskValue;
   return {
     ...taskValue,
     status: state.status,
@@ -225,30 +235,40 @@ function expectationTaskDescription(event: ResearchEvent, threshold: number) {
 }
 
 function eventTimestamp(event: ResearchEvent) {
-  if (event.eventType === "earnings_expectation_added" || event.eventType === "earnings_expectation_revision") return event.updatedAt ?? event.publishedAt ?? event.eventDate ?? "";
   return event.publishedAt ?? event.eventDate ?? event.updatedAt ?? "";
 }
 
 function reviewTaskEventDate(event: ResearchEvent) {
-  if (event.eventType === "earnings_expectation_added" || event.eventType === "earnings_expectation_revision") return event.updatedAt ?? event.eventDate ?? event.publishedAt;
-  return event.eventDate ?? event.publishedAt ?? event.updatedAt;
+  return event.publishedAt ?? event.eventDate ?? event.updatedAt;
 }
 
-function latestEventDate(events: ResearchEvent[]) {
-  const dates = events.map(eventTimestamp).sort();
+function latestEventDate(events: ResearchEvent[], timeZone: string) {
+  const dates = events.map(eventTimestamp).sort((left, right) => compareTemporal(left, right, timeZone));
   return dates[dates.length - 1] ?? null;
 }
 
-function dateOnly(value: Date) {
-  const year = value.getFullYear();
-  const month = String(value.getMonth() + 1).padStart(2, "0");
-  const day = String(value.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+function eventAfterBoundary(event: ResearchEvent, boundary: string, timeZone: string) {
+  return compareTemporal(eventTimestamp(event), boundary, timeZone) > 0;
 }
 
-function daysBetween(value: string, now: Date) {
-  const timestamp = Date.parse(value);
-  return Number.isNaN(timestamp) ? 0 : Math.floor((now.getTime() - timestamp) / 86_400_000);
+function compareTemporal(left: string, right: string, timeZone: string) {
+  const leftValue = isPreciseInstant(left) ? toBusinessTemporal(left, "datetime", timeZone) : isCalendarDate(left) ? toBusinessTemporal(left, "date", timeZone) : null;
+  const rightValue = isPreciseInstant(right) ? toBusinessTemporal(right, "datetime", timeZone) : isCalendarDate(right) ? toBusinessTemporal(right, "date", timeZone) : null;
+  if (!leftValue || !rightValue) return left.localeCompare(right);
+  return compareBusinessTemporal(leftValue, rightValue).order;
+}
+
+function calendarDate(value: string, timeZone: string) {
+  const fallback = value;
+  if (isCalendarDate(value)) return value;
+  if (isPreciseInstant(value)) return toBusinessTemporal(value, "datetime", timeZone)?.calendarDate ?? fallback.slice(0, 10);
+  return fallback.slice(0, 10);
+}
+
+function daysBetween(value: string, today: string) {
+  const timestamp = Date.parse(`${value}T00:00:00.000Z`);
+  const current = Date.parse(`${today}T00:00:00.000Z`);
+  return Number.isNaN(timestamp) || Number.isNaN(current) ? 0 : Math.floor((current - timestamp) / 86_400_000);
 }
 
 function severityRank(value: ReviewTask["severity"]) {

@@ -7,6 +7,22 @@ import type {
   EarningsExpectationUnit,
   Market,
 } from "../types";
+import {
+  correctionBasisChanged,
+  getSourceIdentityKey,
+  sameCorrectionIdentity,
+  selectEffectiveEarningsExpectations,
+  validateEarningsExpectationCorrectionGraph,
+} from "./earningsExpectationIntegrity";
+import {
+  getCalendarToday,
+  isCalendarDate,
+  isPreciseInstant,
+  isStrictlyBeforeBusinessTemporal,
+  isValidTimeZone,
+  resolveTimeZone,
+  toBusinessTemporal,
+} from "../utils/dateTime";
 
 export const EARNINGS_EXPECTATION_STORAGE_KEY = "investment-research-dashboard.earnings-expectation.v1";
 export const EARNINGS_EXPECTATION_BACKUP_PREFIX = "investment-research-dashboard.earnings-expectation.backup.";
@@ -33,6 +49,8 @@ export interface EarningsExpectationWriteResult {
 
 export interface EarningsExpectationImportPreview {
   ok: boolean;
+  mergeAllowed: boolean;
+  replaceAllowed: boolean;
   partial: boolean;
   schemaVersion: number | null;
   totalCount: number;
@@ -56,6 +74,7 @@ export interface CsvImportOptions {
   fileName?: string | null;
   validStocks: EarningsExpectationStockIdentity[];
   now?: Date;
+  timeZone?: string;
 }
 
 export interface EarningsExpectationStockIdentity {
@@ -66,12 +85,21 @@ export interface EarningsExpectationStockIdentity {
 
 export interface JsonImportOptions {
   validStocks: EarningsExpectationStockIdentity[];
+  now?: Date;
+  timeZone?: string;
+}
+
+export interface EarningsExpectationValidationContext {
+  validStocks?: EarningsExpectationStockIdentity[];
+  now?: Date;
+  timeZone?: string;
 }
 
 const DEFAULT_SETTINGS = {
   revisionReminderThreshold: 0.1,
   nearZeroThreshold: 1e-9,
   roundingTolerance: 1e-9,
+  timeZone: resolveTimeZone(),
 };
 
 const MARKETS = ["A股", "港股", "美股"] as const;
@@ -129,11 +157,11 @@ export function migrateEarningsExpectationSnapshot(value: unknown): EarningsExpe
   if (!isRecord(clonedValue)) return clonedValue as unknown as EarningsExpectationSnapshot;
   const cloned = clonedValue as Record<string, unknown>;
   if (!("formedAt" in cloned)) cloned.formedAt = null;
-  if (!("formedAtPrecision" in cloned)) cloned.formedAtPrecision = isExactDateTime(cloned.formedAt) ? "datetime" : "date";
+  if (!("formedAtPrecision" in cloned)) cloned.formedAtPrecision = isPreciseInstant(cloned.formedAt) ? "datetime" : "date";
   if (!("sourcePublishedAtPrecision" in cloned)) {
     cloned.sourcePublishedAtPrecision = cloned.sourcePublishedAt === null || cloned.sourcePublishedAt === undefined
       ? null
-      : isExactDateTime(cloned.sourcePublishedAt) ? "datetime" : "date";
+      : isPreciseInstant(cloned.sourcePublishedAt) ? "datetime" : "date";
   }
   if (!("correctionScope" in cloned)) cloned.correctionScope = null;
   return cloned as unknown as EarningsExpectationSnapshot;
@@ -157,7 +185,7 @@ export class EarningsExpectationRepository {
     if (raw === null) return { data: empty, error: null, corruptedRaw: null };
     try {
       const data = migrateEarningsExpectationEnvelope(JSON.parse(raw) as unknown);
-      const errors = validateEarningsExpectationEnvelope(data);
+      const errors = validateEarningsExpectationEnvelope(data, { now: this.now(), timeZone: data.settings.timeZone });
       if (errors.length) throw new Error(errors.join("；"));
       return { data, error: null, corruptedRaw: null };
     } catch (error) {
@@ -171,7 +199,7 @@ export class EarningsExpectationRepository {
 
   save(data: EarningsExpectationStoreEnvelope): EarningsExpectationWriteResult {
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法保存。" };
-    const errors = validateEarningsExpectationEnvelope(data);
+    const errors = validateEarningsExpectationEnvelope(data, { now: this.now(), timeZone: data.settings.timeZone });
     if (errors.length) return { ok: false, error: `业绩预期校验失败：${errors.join("；")}` };
     try {
       this.storage.setItem(EARNINGS_EXPECTATION_STORAGE_KEY, JSON.stringify(data));
@@ -220,17 +248,17 @@ export class EarningsExpectationRepository {
     if (!("snapshots" in parsed)) return invalidPreview("JSON 缺少 snapshots 字段，未写入任何数据。", "missing_snapshots");
     if (!Array.isArray(parsed.snapshots)) return invalidPreview("JSON snapshots 必须为数组，未写入任何数据。", "invalid_snapshots");
     if (parsed.snapshots.length === 0) return invalidPreview("JSON snapshots 为空；清空数据只能使用单独的重置操作。", "empty_snapshots");
-    return buildImportPreview(parsed.snapshots, current, EARNINGS_EXPECTATION_SCHEMA_VERSION, options.validStocks, true);
+    return buildImportPreview(parsed.snapshots, current, EARNINGS_EXPECTATION_SCHEMA_VERSION, options.validStocks, true, options.now ?? this.now(), options.timeZone ?? current.settings.timeZone);
   }
 
   previewCsv(raw: string, current: EarningsExpectationStoreEnvelope, options: CsvImportOptions): EarningsExpectationImportPreview {
     if (new TextEncoder().encode(raw).byteLength > EARNINGS_EXPECTATION_MAX_IMPORT_BYTES) return invalidPreview("CSV 文件超过 2MB 限制。", "file_too_large");
     const parsed = parseEarningsExpectationCsv(raw, options);
-    const preview = buildImportPreview(parsed.snapshots, current, EARNINGS_EXPECTATION_SCHEMA_VERSION, options.validStocks, false);
+    const preview = buildImportPreview(parsed.snapshots, current, EARNINGS_EXPECTATION_SCHEMA_VERSION, options.validStocks, false, options.now ?? this.now(), options.timeZone ?? current.settings.timeZone);
     preview.totalCount = parsed.totalCount;
     preview.invalidCount += parsed.issues.length;
     preview.issues = [...parsed.issues, ...preview.issues];
-    preview.ok = preview.validCount > 0 && preview.conflictCount === 0;
+    preview.ok = preview.validCount > 0 && preview.conflictCount === 0 && (preview.mergeAllowed || preview.replaceAllowed);
     preview.partial = preview.validCount > 0 && preview.invalidCount > 0;
     preview.skippedCount = Math.max(0, preview.totalCount - preview.addCount);
     return preview;
@@ -244,7 +272,7 @@ export class EarningsExpectationRepository {
     fileName: string | null = null,
     partialConfirmed = false,
   ): EarningsExpectationImportResult {
-    if (!preview.ok) return { ok: false, error: "导入预览包含无效或冲突记录，未写入任何数据。", data: null, preview };
+    if (!preview.ok || (mode === "merge" ? !preview.mergeAllowed : !preview.replaceAllowed)) return { ok: false, error: `导入预览不允许${mode === "merge" ? "合并" : "替换"}：纠正关系图无效或包含冲突，未写入任何数据。`, data: null, preview };
     if (preview.snapshots.length === 0) return { ok: false, error: "导入快照为空；清空数据只能使用单独的重置操作。", data: null, preview };
     if (preview.partial && !partialConfirmed) return { ok: false, error: "部分记录无效并将被跳过，请在界面二次确认后再导入。", data: null, preview };
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法导入。", data: null, preview };
@@ -269,6 +297,8 @@ export class EarningsExpectationRepository {
       const fingerprints = new Set(current.snapshots.map(earningsExpectationFingerprint));
       snapshots = [...current.snapshots, ...incoming.filter((snapshot) => !fingerprints.has(earningsExpectationFingerprint(snapshot)))];
     }
+    const graph = validateEarningsExpectationCorrectionGraph(snapshots);
+    if (!graph.ok) return { ok: false, error: `纠正关系图无效，导入已原子取消：${graph.issues.map((issue) => issue.message).join("；")}`, data: null, preview };
     const next: EarningsExpectationStoreEnvelope = {
       ...cloneJson(current),
       updatedAt: timestamp,
@@ -295,7 +325,7 @@ export function createBrowserEarningsExpectationRepository() {
   return new EarningsExpectationRepository(storage);
 }
 
-export function validateEarningsExpectationEnvelope(data: EarningsExpectationStoreEnvelope): string[] {
+export function validateEarningsExpectationEnvelope(data: EarningsExpectationStoreEnvelope, context: EarningsExpectationValidationContext = {}): string[] {
   const errors: string[] = [];
   if (!isRecord(data) || data.schemaVersion !== 1) return ["schemaVersion 必须为 1。"];
   if (typeof data.updatedAt !== "string") errors.push("updatedAt 必须为字符串。");
@@ -305,29 +335,26 @@ export function validateEarningsExpectationEnvelope(data: EarningsExpectationSto
   if (errors.length) return errors;
   const ids = new Set<string>();
   data.snapshots.forEach((snapshot, index) => {
-    const issues = validateEarningsExpectationSnapshot(snapshot);
+    const issues = validateEarningsExpectationSnapshot(snapshot, { ...context, timeZone: context.timeZone ?? data.settings.timeZone });
     issues.forEach((issue) => errors.push(`snapshots[${index}]：${issue}`));
     if (ids.has(snapshot.id)) errors.push(`snapshots 存在重复 ID：${snapshot.id}`);
     ids.add(snapshot.id);
   });
-  for (const snapshot of data.snapshots) {
-    if (snapshot.correctsSnapshotId && !ids.has(snapshot.correctsSnapshotId)) errors.push(`纠正目标不存在：${snapshot.correctsSnapshotId}`);
-    if (snapshot.correctsSnapshotId === snapshot.id) errors.push(`快照不能纠正自身：${snapshot.id}`);
-    if (snapshot.correctsSnapshotId) {
-      const original = data.snapshots.find((item) => item.id === snapshot.correctsSnapshotId);
-      if (original && !sameCorrectionIdentity(snapshot, original)) errors.push(`纠正快照 ${snapshot.id} 改变了公司、报告期、指标或来源身份。`);
-      if (original && snapshot.correctionScope !== null && snapshot.correctionScope !== undefined && snapshot.correctionScope !== (correctionBasisChanged(snapshot, original) ? "basis" : "value")) errors.push(`纠正快照 ${snapshot.id} 的 correctionScope 与实际口径变化不一致。`);
-    }
-  }
+  validateEarningsExpectationCorrectionGraph(data.snapshots).issues.forEach((issue) => errors.push(issue.message));
   if (![data.settings.revisionReminderThreshold, data.settings.nearZeroThreshold, data.settings.roundingTolerance].every((value) => typeof value === "number" && Number.isFinite(value) && value >= 0)) {
     errors.push("settings 阈值必须为非负有限数字。");
   }
+  if (!isValidTimeZone(data.settings.timeZone)) errors.push("settings.timeZone 必须是有效 IANA 时区。");
   return errors;
 }
 
-export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectationSnapshot, validStocks?: EarningsExpectationStockIdentity[]): string[] {
+export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectationSnapshot, context: EarningsExpectationValidationContext | EarningsExpectationStockIdentity[] = {}): string[] {
   const errors: string[] = [];
   if (!isRecord(snapshot)) return ["快照必须为对象。"];
+  const normalizedContext: EarningsExpectationValidationContext = Array.isArray(context) ? { validStocks: context } : context;
+  const timeZone = resolveTimeZone(normalizedContext.timeZone);
+  const now = normalizedContext.now;
+  const validStocks = normalizedContext.validStocks;
   const textFields = ["id", "stockId", "market", "reportPeriod", "periodScope", "metric", "estimateShape", "currency", "unit", "accountingBasis", "sourceCategory", "sourceName", "sourceTitle", "asOfDate", "ingestionMethod", "createdAt", "createdBy", "sourceVerificationStatus"];
   if (textFields.some((key) => typeof snapshot[key as keyof EarningsExpectationSnapshot] !== "string")) errors.push("必填文本字段类型错误。");
   const sourceName = typeof snapshot.sourceName === "string" ? snapshot.sourceName.trim() : "";
@@ -347,21 +374,33 @@ export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectatio
   if (snapshot.sourcePublishedAtPrecision !== null && snapshot.sourcePublishedAtPrecision !== undefined && !hasAllowedValue(TIME_PRECISIONS, snapshot.sourcePublishedAtPrecision)) errors.push("sourcePublishedAtPrecision 不受支持。");
   if (snapshot.correctionScope !== null && snapshot.correctionScope !== undefined && !hasAllowedValue(CORRECTION_SCOPES, snapshot.correctionScope)) errors.push("correctionScope 不受支持。");
   if (!isReportPeriod(snapshot.reportPeriod)) errors.push("报告期必须是有效季度末日期。");
-  if (!isExactDate(snapshot.asOfDate)) errors.push("预期形成日期必须是 YYYY-MM-DD。");
-  if (!isExactDateTime(snapshot.createdAt)) errors.push("录入时间必须是有效 ISO 日期时间。");
+  if (!isCalendarDate(snapshot.asOfDate)) errors.push("预期形成日期必须是 YYYY-MM-DD。");
+  if (!isPreciseInstant(snapshot.createdAt)) errors.push("录入时间必须是带时区的有效 ISO 日期时间。");
   const formedAt = snapshot.formedAt ?? null;
   const formedPrecision = snapshot.formedAtPrecision ?? "date";
-  if (formedAt !== null && !isExactDateTime(formedAt)) errors.push("精确预期形成时间必须是有效 ISO 日期时间。");
+  if (formedAt !== null && !isPreciseInstant(formedAt)) errors.push("精确预期形成时间必须是带时区的有效 ISO 日期时间。");
   if (formedPrecision === "datetime" && !formedAt) errors.push("datetime 精度必须提供 formedAt。");
   if (formedPrecision === "date" && formedAt) errors.push("date 精度不得伪装为精确 formedAt。");
-  if (snapshot.sourcePublishedAt !== null && snapshot.sourcePublishedAt !== undefined && !isExactDate(snapshot.sourcePublishedAt) && !isExactDateTime(snapshot.sourcePublishedAt)) errors.push("来源发布日期必须是 YYYY-MM-DD 或 ISO 日期时间。");
-  const sourcePrecision = snapshot.sourcePublishedAtPrecision ?? (snapshot.sourcePublishedAt ? (isExactDateTime(snapshot.sourcePublishedAt) ? "datetime" : "date") : null);
-  if (sourcePrecision === "datetime" && !isExactDateTime(snapshot.sourcePublishedAt)) errors.push("来源 datetime 精度必须提供精确日期时间。");
-  if (sourcePrecision === "date" && snapshot.sourcePublishedAt !== null && snapshot.sourcePublishedAt !== undefined && !isExactDate(snapshot.sourcePublishedAt)) errors.push("来源 date 精度只能保存 YYYY-MM-DD。");
+  const formedBusinessTime = formedAt && isPreciseInstant(formedAt) ? toBusinessTemporal(formedAt, "datetime", timeZone) : null;
+  if (formedBusinessTime && isCalendarDate(snapshot.asOfDate) && formedBusinessTime.calendarDate !== snapshot.asOfDate) errors.push(`formedAt 在工作流时区 ${timeZone} 的日历日期必须与 asOfDate 一致。`);
+  if (snapshot.sourcePublishedAt !== null && snapshot.sourcePublishedAt !== undefined && !isCalendarDate(snapshot.sourcePublishedAt) && !isPreciseInstant(snapshot.sourcePublishedAt)) errors.push("来源发布日期必须是 YYYY-MM-DD 或带时区的 ISO 日期时间。");
+  const sourcePrecision = snapshot.sourcePublishedAtPrecision ?? (snapshot.sourcePublishedAt ? (isPreciseInstant(snapshot.sourcePublishedAt) ? "datetime" : "date") : null);
+  if (sourcePrecision === "datetime" && !isPreciseInstant(snapshot.sourcePublishedAt)) errors.push("来源 datetime 精度必须提供带时区的精确日期时间。");
+  if (sourcePrecision === "date" && snapshot.sourcePublishedAt !== null && snapshot.sourcePublishedAt !== undefined && !isCalendarDate(snapshot.sourcePublishedAt)) errors.push("来源 date 精度只能保存 YYYY-MM-DD。");
   if (sourcePrecision !== null && !snapshot.sourcePublishedAt) errors.push("来源时间精度存在但发布日期缺失。");
-  if (typeof snapshot.sourcePublishedAt === "string" && validDate(snapshot.createdAt) && Date.parse(snapshot.sourcePublishedAt) > Date.parse(snapshot.createdAt)) errors.push("来源发布日期不得晚于录入时间。");
-  if (formedAt && isExactDateTime(snapshot.createdAt) && Date.parse(formedAt) > Date.parse(snapshot.createdAt)) errors.push("预期形成时间不得晚于录入时间。");
-  if (isExactDate(snapshot.asOfDate) && isExactDateTime(snapshot.createdAt) && snapshot.asOfDate > snapshot.createdAt.slice(0, 10)) errors.push("预期形成日期不得晚于录入日期。");
+  if (now) {
+    const today = getCalendarToday(now, timeZone);
+    if (isCalendarDate(snapshot.asOfDate) && snapshot.asOfDate > today) errors.push(`预期形成日期不得晚于工作流时区 ${timeZone} 的当前日期 ${today}。`);
+    if (formedAt && isPreciseInstant(formedAt) && Date.parse(formedAt) > now.getTime()) errors.push("预期形成时间不得晚于当前时刻。");
+    if (snapshot.sourcePublishedAt && sourcePrecision === "datetime" && isPreciseInstant(snapshot.sourcePublishedAt) && Date.parse(snapshot.sourcePublishedAt) > now.getTime()) errors.push("来源发布时间不得晚于当前时刻。");
+    if (snapshot.sourcePublishedAt && sourcePrecision === "date" && isCalendarDate(snapshot.sourcePublishedAt) && snapshot.sourcePublishedAt > today) errors.push(`来源发布日期不得晚于工作流时区 ${timeZone} 的当前日期 ${today}。`);
+  }
+  if (snapshot.sourceCategory !== "user_estimate" && snapshot.sourcePublishedAt) {
+    const sourceTime = toBusinessTemporal(snapshot.sourcePublishedAt, sourcePrecision === "datetime" ? "datetime" : "date", timeZone);
+    const formationTime = formedPrecision === "datetime" && formedAt ? toBusinessTemporal(formedAt, "datetime", timeZone) : toBusinessTemporal(snapshot.asOfDate, "date", timeZone);
+    if (sourceTime && formationTime && sourceTime.calendarDate > formationTime.calendarDate) errors.push("来源日历日期不得晚于预期形成日历日期。");
+    if (sourceTime && formationTime && sourceTime.precision === "datetime" && formationTime.precision === "datetime" && !isStrictlyBeforeBusinessTemporal(sourceTime, formationTime) && Date.parse(sourceTime.value) !== Date.parse(formationTime.value)) errors.push("来源发布时间不得晚于预期形成时间。");
+  }
   if (!([snapshot.value, snapshot.lowerBound, snapshot.upperBound] as Array<number | null>).every(nullableFinite)) errors.push("预测数字必须为有限数值或 null。");
   if (snapshot.estimateShape === "point") {
     if (snapshot.value === null) errors.push("点预测必须填写 value。");
@@ -388,18 +427,11 @@ export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectatio
 }
 
 export function earningsExpectationFingerprint(snapshot: EarningsExpectationSnapshot) {
-  return [snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric, snapshot.estimateShape, snapshot.value, snapshot.lowerBound, snapshot.upperBound, snapshot.currency, snapshot.unit, snapshot.accountingBasis, snapshot.sourceCategory, snapshot.sourceName.trim(), snapshot.sourceTitle.trim(), snapshot.sourceUrl ?? "", snapshot.sourcePublishedAt ?? "", snapshot.sourcePublishedAtPrecision ?? "", snapshot.asOfDate, snapshot.formedAt ?? "", snapshot.formedAtPrecision ?? "date", snapshot.correctsSnapshotId ?? "", snapshot.correctionScope ?? ""].join("|");
+  return [snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric, snapshot.estimateShape, snapshot.value, snapshot.lowerBound, snapshot.upperBound, snapshot.currency, snapshot.unit, snapshot.accountingBasis, getSourceIdentityKey(snapshot), snapshot.sourceTitle.trim(), snapshot.sourceUrl ?? "", snapshot.sourcePublishedAt ?? "", snapshot.sourcePublishedAtPrecision ?? "", snapshot.asOfDate, snapshot.formedAt ?? "", snapshot.formedAtPrecision ?? "date", snapshot.correctsSnapshotId ?? "", snapshot.correctionScope ?? ""].join("|");
 }
 
-export function effectiveEarningsExpectationSnapshots(snapshots: EarningsExpectationSnapshot[]) {
-  const corrected = new Set(snapshots.map((snapshot) => snapshot.correctsSnapshotId).filter((value): value is string => Boolean(value)));
-  const latest = new Map<string, EarningsExpectationSnapshot>();
-  for (const snapshot of snapshots.filter((item) => !corrected.has(item.id))) {
-    const key = [snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric, snapshot.sourceCategory, snapshot.sourceName].join("|");
-    const current = latest.get(key);
-    if (!current || snapshot.asOfDate > current.asOfDate || (snapshot.asOfDate === current.asOfDate && snapshot.createdAt > current.createdAt) || (snapshot.asOfDate === current.asOfDate && snapshot.createdAt === current.createdAt && snapshot.id > current.id)) latest.set(key, snapshot);
-  }
-  return [...latest.values()];
+export function effectiveEarningsExpectationSnapshots(snapshots: EarningsExpectationSnapshot[], timeZone?: string | null) {
+  return selectEffectiveEarningsExpectations(snapshots, timeZone).map((selection) => selection.snapshot);
 }
 
 export function parseEarningsExpectationCsv(raw: string, options: CsvImportOptions) {
@@ -464,7 +496,7 @@ export function parseEarningsExpectationCsv(raw: string, options: CsvImportOptio
       sourceTitle: record.sourceTitle,
       sourceUrl: record.sourceUrl || null,
       sourcePublishedAt,
-      sourcePublishedAtPrecision: sourcePublishedAt ? (isExactDateTime(sourcePublishedAt) ? "datetime" : "date") : null,
+      sourcePublishedAtPrecision: sourcePublishedAt ? (isPreciseInstant(sourcePublishedAt) ? "datetime" : "date") : null,
       asOfDate: normalizeDate(record.asOfDate),
       formedAt,
       formedAtPrecision: formedAt ? "datetime" : "date",
@@ -479,7 +511,7 @@ export function parseEarningsExpectationCsv(raw: string, options: CsvImportOptio
       correctionScope: null,
       schemaVersion: 1,
     };
-    const rowIssues = validateEarningsExpectationSnapshot(snapshot, options.validStocks);
+    const rowIssues = validateEarningsExpectationSnapshot(snapshot, { validStocks: options.validStocks, now, timeZone: options.timeZone });
     if (rowIssues.length) rowIssues.forEach((message) => issues.push({ row: rowNumber, code: "invalid_snapshot", message, raw: record }));
     else snapshots.push(snapshot);
   });
@@ -502,6 +534,8 @@ function buildImportPreview(
   schemaVersion: number,
   validStocks: EarningsExpectationStockIdentity[],
   strict: boolean,
+  now: Date,
+  timeZone?: string | null,
 ): EarningsExpectationImportPreview {
   if (values.length > EARNINGS_EXPECTATION_MAX_IMPORT_RECORDS) return { ...invalidPreview("导入记录超过 5000 条限制。", "too_many_records"), schemaVersion, totalCount: values.length };
   const snapshots: EarningsExpectationSnapshot[] = [];
@@ -511,53 +545,59 @@ function buildImportPreview(
     const snapshot = migrateEarningsExpectationSnapshot(value);
     const stock = isRecord(snapshot) && typeof snapshot.stockId === "string" ? resolveStock(snapshot.stockId, validStocks) : undefined;
     if (stock) snapshot.stockId = stock.id;
-    const errors = validateEarningsExpectationSnapshot(snapshot, validStocks);
+    const errors = validateEarningsExpectationSnapshot(snapshot, { validStocks, now, timeZone: resolveTimeZone(timeZone) });
     if (errors.length) {
       invalidCount += 1;
       errors.forEach((message) => issues.push({ row: index + 1, code: "invalid_snapshot", message, raw: cloneJson(value) as Record<string, unknown> }));
     }
     else snapshots.push(snapshot);
   });
-  const candidateById = new Map([...current.snapshots, ...snapshots].map((snapshot) => [snapshot.id, snapshot]));
-  const linkedSnapshots = snapshots.filter((snapshot, index) => {
-    if (!snapshot.correctsSnapshotId) return true;
-    const original = candidateById.get(snapshot.correctsSnapshotId);
-    let message: string | null = null;
-    if (!original) message = `纠正目标不存在：${snapshot.correctsSnapshotId}`;
-    else if (!sameCorrectionIdentity(snapshot, original)) message = "纠正快照必须保持公司、报告期、期间口径、指标、来源类别和来源名称一致。";
-    else {
-      const expectedScope = correctionBasisChanged(snapshot, original) ? "basis" : "value";
-      if (snapshot.correctionScope !== null && snapshot.correctionScope !== undefined && snapshot.correctionScope !== expectedScope) message = "correctionScope 与实际口径变化不一致。";
-      else snapshot.correctionScope = expectedScope;
-    }
-    if (!message) return true;
-    invalidCount += 1;
-    issues.push({ row: index + 1, code: "invalid_correction_chain", message, raw: cloneJson(snapshot) as unknown as Record<string, unknown> });
-    return false;
-  });
   const currentById = new Map(current.snapshots.map((snapshot) => [snapshot.id, snapshot]));
   const currentFingerprints = new Set(current.snapshots.map(earningsExpectationFingerprint));
   const seen = new Set<string>();
   let duplicateCount = 0;
   let conflictCount = 0;
-  for (const snapshot of linkedSnapshots) {
+  for (const snapshot of snapshots) {
     const fingerprint = earningsExpectationFingerprint(snapshot);
+    const deduplicationKey = importDeduplicationKey(snapshot);
     const sameId = currentById.get(snapshot.id);
-    if (currentFingerprints.has(fingerprint) || seen.has(fingerprint)) duplicateCount += 1;
-    else if (sameId && earningsExpectationFingerprint(sameId) !== fingerprint) {
+    if (sameId && earningsExpectationFingerprint(sameId) !== fingerprint) {
       conflictCount += 1;
-      issues.push({ row: linkedSnapshots.indexOf(snapshot) + 1, code: "id_conflict", message: `快照 ID ${snapshot.id} 与现有记录冲突。` });
+      issues.push({ row: snapshots.indexOf(snapshot) + 1, code: "id_conflict", message: `快照 ID ${snapshot.id} 与现有记录冲突。` });
     }
-    seen.add(fingerprint);
+    else if ((sameId && earningsExpectationFingerprint(sameId) === fingerprint) || (!snapshot.correctsSnapshotId && currentFingerprints.has(fingerprint)) || seen.has(deduplicationKey)) duplicateCount += 1;
+    seen.add(deduplicationKey);
   }
-  const unique = deduplicateSnapshots(linkedSnapshots);
-  const addCount = unique.filter((snapshot) => !currentFingerprints.has(earningsExpectationFingerprint(snapshot)) && !currentById.has(snapshot.id)).length;
+  const unique = deduplicateSnapshots(snapshots);
+  const unionById = new Map([...current.snapshots, ...unique].map((snapshot) => [snapshot.id, snapshot]));
+  for (const snapshot of unique) {
+    if (!snapshot.correctsSnapshotId || snapshot.correctionScope) continue;
+    const original = unionById.get(snapshot.correctsSnapshotId);
+    if (original) snapshot.correctionScope = correctionBasisChanged(snapshot, original) ? "basis" : "value";
+  }
+  const addCount = unique.filter((snapshot) => !currentById.has(snapshot.id) && (Boolean(snapshot.correctsSnapshotId) || !currentFingerprints.has(earningsExpectationFingerprint(snapshot)))).length;
+  const incomingForMerge = unique.filter((snapshot) => !currentById.has(snapshot.id) && (Boolean(snapshot.correctsSnapshotId) || !currentFingerprints.has(earningsExpectationFingerprint(snapshot))));
+  const mergeGraph = validateEarningsExpectationCorrectionGraph([...current.snapshots, ...incomingForMerge]);
+  const replaceGraph = validateEarningsExpectationCorrectionGraph(unique);
+  const structuralAllowed = (strict ? invalidCount === 0 : snapshots.length > 0) && conflictCount === 0;
+  const mergeAllowed = structuralAllowed && mergeGraph.ok;
+  const replaceAllowed = structuralAllowed && replaceGraph.ok;
+  for (const [mode, graph] of [["merge", mergeGraph], ["replace", replaceGraph]] as const) {
+    if (!graph.ok) issues.push({ row: 0, code: "invalid_correction_chain", message: `${mode === "merge" ? "合并" : "替换"}纠正关系图无效，整次操作将原子拒绝。` });
+    for (const graphIssue of graph.issues) {
+      const incomingId = graphIssue.snapshotIds.find((id) => unique.some((snapshot) => snapshot.id === id));
+      const row = incomingId ? unique.findIndex((snapshot) => snapshot.id === incomingId) + 1 : 0;
+      issues.push({ row, code: `correction_graph_${mode}_${graphIssue.code}`, message: `${mode === "merge" ? "合并" : "替换"}不可用：${graphIssue.message}`, raw: incomingId ? cloneJson(unique.find((snapshot) => snapshot.id === incomingId)) as unknown as Record<string, unknown> : undefined });
+    }
+  }
   return {
-    ok: (strict ? invalidCount === 0 : snapshots.length > 0) && conflictCount === 0,
-    partial: linkedSnapshots.length > 0 && invalidCount > 0,
+    ok: mergeAllowed || replaceAllowed,
+    mergeAllowed,
+    replaceAllowed,
+    partial: snapshots.length > 0 && invalidCount > 0,
     schemaVersion,
     totalCount: values.length,
-    validCount: linkedSnapshots.length,
+    validCount: snapshots.length,
     addCount,
     skippedCount: Math.max(0, values.length - addCount),
     duplicateCount,
@@ -570,12 +610,17 @@ function buildImportPreview(
 
 function deduplicateSnapshots(snapshots: EarningsExpectationSnapshot[]) {
   const selected = new Map<string, EarningsExpectationSnapshot>();
-  snapshots.forEach((snapshot) => { if (!selected.has(earningsExpectationFingerprint(snapshot))) selected.set(earningsExpectationFingerprint(snapshot), snapshot); });
+  snapshots.forEach((snapshot) => { const key = importDeduplicationKey(snapshot); if (!selected.has(key)) selected.set(key, snapshot); });
   return [...selected.values()];
 }
 
+function importDeduplicationKey(snapshot: EarningsExpectationSnapshot) {
+  const fingerprint = earningsExpectationFingerprint(snapshot);
+  return snapshot.correctsSnapshotId ? `${fingerprint}|correction-id:${snapshot.id}` : fingerprint;
+}
+
 function invalidPreview(message: string, code: string): EarningsExpectationImportPreview {
-  return { ok: false, partial: false, schemaVersion: null, totalCount: 0, validCount: 0, addCount: 0, skippedCount: 0, duplicateCount: 0, conflictCount: 0, invalidCount: 1, issues: [{ row: 0, code, message }], snapshots: [] };
+  return { ok: false, mergeAllowed: false, replaceAllowed: false, partial: false, schemaVersion: null, totalCount: 0, validCount: 0, addCount: 0, skippedCount: 0, duplicateCount: 0, conflictCount: 0, invalidCount: 1, issues: [{ row: 0, code, message }], snapshots: [] };
 }
 
 function parseCsvRows(raw: string) {
@@ -646,13 +691,12 @@ function normalizeDate(value: string) {
   if (slash) return `${slash[1]}-${slash[2].padStart(2, "0")}-${slash[3].padStart(2, "0")}`;
   return input.slice(0, 10);
 }
-function normalizeDateTime(value: string) { const timestamp = Date.parse(value); return Number.isNaN(timestamp) ? value : new Date(timestamp).toISOString(); }
+function normalizeDateTime(value: string) { const timestamp = isPreciseInstant(value) ? Date.parse(value) : Number.NaN; return Number.isNaN(timestamp) ? value : new Date(timestamp).toISOString(); }
 function normalizeTemporal(value: string) { const input = value.trim(); return /[T\s]\d{1,2}:\d{2}/.test(input) ? normalizeDateTime(input) : normalizeDate(input); }
 function parseOptionalInteger(value: string) { if (!value.trim()) return null; const parsed = Number(value); return Number.isInteger(parsed) ? parsed : Number.NaN; }
 function isReportPeriod(value: unknown): value is string { if (!validDate(value)) return false; return ["03-31", "06-30", "09-30", "12-31"].includes(value.slice(5)); }
 function validDate(value: unknown): value is string { if (typeof value !== "string" || !value || Number.isNaN(Date.parse(value))) return false; const dateOnly = value.slice(0, 10); const parsed = new Date(`${dateOnly}T00:00:00Z`); return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === dateOnly; }
 function isExactDate(value: unknown): value is string { return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && validDate(value); }
-function isExactDateTime(value: unknown): value is string { return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value) && !Number.isNaN(Date.parse(value)); }
 function periodScopeMatchesReportPeriod(period: unknown, scope: unknown) { if (typeof period !== "string" || !hasAllowedValue(PERIOD_SCOPES, scope)) return false; const suffix = period.slice(5); if (scope === "half_year") return suffix === "06-30"; if (scope === "first_three_quarters") return suffix === "09-30"; if (scope === "full_year") return suffix === "12-31"; if (scope === "year_to_date") return ["03-31", "06-30", "09-30", "12-31"].includes(suffix); return true; }
 function nullableFinite(value: number | null) { return value === null || (typeof value === "number" && Number.isFinite(value)); }
 function nullableNonNegativeInteger(value: number | null) { return value === null || (Number.isInteger(value) && value >= 0); }
@@ -660,8 +704,6 @@ function isMetricUnitCompatible(metric: EarningsExpectationSnapshot["metric"], u
 function knownImportedUnit(value: string, metric: EarningsExpectationSnapshot["metric"] | null) { const key = value.trim(); if (!metric) return false; return metric === "eps" ? ["currency_per_share", "每股", "元/股"].includes(key) : ["yuan", "元", "ten_thousand_yuan", "万元", "million_yuan", "百万元", "hundred_million_yuan", "亿元"].includes(key); }
 function safeSourceUrl(value: unknown) { if (typeof value !== "string" || !value) return false; try { const parsed = new URL(value); return parsed.protocol === "https:" || parsed.protocol === "http:"; } catch { return false; } }
 function hasAllowedValue(values: readonly string[], value: unknown): value is string { return typeof value === "string" && values.includes(value); }
-function correctionBasisChanged(current: EarningsExpectationSnapshot, previous: EarningsExpectationSnapshot) { return current.currency !== previous.currency || current.unit !== previous.unit || current.accountingBasis !== previous.accountingBasis; }
-function sameCorrectionIdentity(current: EarningsExpectationSnapshot, previous: EarningsExpectationSnapshot) { return current.stockId === previous.stockId && current.reportPeriod === previous.reportPeriod && current.periodScope === previous.periodScope && current.metric === previous.metric && current.sourceCategory === previous.sourceCategory && typeof current.sourceName === "string" && typeof previous.sourceName === "string" && current.sourceName.trim() === previous.sourceName.trim(); }
 function csvCell(value: unknown) { let text = value === null || value === undefined ? "" : String(value); if (/^[=+\-@]/.test(text)) text = `'${text}`; return `"${text.replace(/"/g, '""')}"`; }
 function cloneJson<T>(value: T): T { return JSON.parse(JSON.stringify(value)) as T; }
 function isRecord(value: unknown): value is Record<string, any> { return typeof value === "object" && value !== null && !Array.isArray(value); }

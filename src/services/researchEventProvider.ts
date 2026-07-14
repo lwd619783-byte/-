@@ -19,6 +19,13 @@ import type {
   Stock,
   WatchItem,
 } from "../types";
+import {
+  compareBusinessTemporal,
+  isCalendarDate,
+  isPreciseInstant,
+  resolveTimeZone,
+  toBusinessTemporal,
+} from "../utils/dateTime";
 
 type AnnouncementLike = AShareAnnouncementPreview | AShareAnnouncementDetailItem;
 
@@ -272,9 +279,9 @@ export function deduplicateResearchEvents(events: ResearchEvent[]): ResearchEven
   return [...selected.values()];
 }
 
-export function sortResearchEvents(events: ResearchEvent[]): ResearchEvent[] {
+export function sortResearchEvents(events: ResearchEvent[], timeZone = resolveTimeZone()): ResearchEvent[] {
   return [...events].sort((left, right) => {
-    const byDate = comparableDate(right) - comparableDate(left);
+    const byDate = compareEventBusinessTime(right, left, timeZone);
     return byDate === 0 ? left.id.localeCompare(right.id) : byDate;
   });
 }
@@ -392,7 +399,7 @@ function announcementCategoryToEventType(category: AnnouncementLike["category"])
 
 function announcementPublishedAt(item: AnnouncementLike) {
   if (!item.announcementDate) return null;
-  if ("announcementTime" in item && item.announcementTime) return `${item.announcementDate}T${item.announcementTime}`;
+  if ("announcementTime" in item && item.announcementTime) return `${item.announcementDate}T${item.announcementTime}+08:00`;
   return item.announcementDate;
 }
 
@@ -549,11 +556,22 @@ function eventRichness(event: ResearchEvent) {
   return parseScore * 10 + event.metrics.filter((item) => item.value !== null).length + fullReportBonus;
 }
 
-function comparableDate(event: ResearchEvent) {
-  const value = event.publishedAt ?? event.eventDate ?? event.updatedAt;
-  if (!value) return Number.NEGATIVE_INFINITY;
-  const parsed = Date.parse(value);
-  return Number.isNaN(parsed) ? Number.NEGATIVE_INFINITY : parsed;
+function compareEventBusinessTime(left: ResearchEvent, right: ResearchEvent, timeZone: string) {
+  const leftValue = eventBusinessTemporal(left, timeZone);
+  const rightValue = eventBusinessTemporal(right, timeZone);
+  if (!leftValue && !rightValue) return 0;
+  if (!leftValue) return -1;
+  if (!rightValue) return 1;
+  return compareBusinessTemporal(leftValue, rightValue).order;
+}
+
+function eventBusinessTemporal(event: ResearchEvent, timeZone: string) {
+  for (const value of [event.publishedAt, event.eventDate, event.updatedAt]) {
+    if (!value) continue;
+    if (isPreciseInstant(value)) return toBusinessTemporal(value, "datetime", timeZone);
+    if (isCalendarDate(value)) return toBusinessTemporal(value, "date", timeZone);
+  }
+  return null;
 }
 
 function buildVerificationDifferences(

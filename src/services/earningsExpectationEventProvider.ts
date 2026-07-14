@@ -1,16 +1,30 @@
 import type { EarningsExpectationComparison, EarningsExpectationSnapshot, ResearchEvent, Stock } from "../types";
 import { comparisonResultLabel, expectationGroupKey, expectationRevision, sourceCategoryLabel } from "./earningsExpectationComparisonProvider";
+import {
+  getExpectationEventBusinessTime,
+  isExpectationBusinessOrderUncertain,
+  sortExpectationsByBusinessTime,
+} from "./earningsExpectationIntegrity";
+import {
+  compareBusinessTemporal,
+  getTemporalCalendarDate,
+  isCalendarDate,
+  isPreciseInstant,
+  resolveTimeZone,
+  toBusinessTemporal,
+} from "../utils/dateTime";
 
 export function buildEarningsExpectationResearchEvents(
   snapshots: EarningsExpectationSnapshot[],
   comparisons: EarningsExpectationComparison[],
   stocks: Stock[],
   revisionReminderThreshold = 0.1,
+  timeZone = resolveTimeZone(),
 ): ResearchEvent[] {
   const events: ResearchEvent[] = [];
   const comparisonBySnapshot = new Map(comparisons.map((comparison) => [comparison.snapshotId, comparison]));
   const history = new Map<string, EarningsExpectationSnapshot[]>();
-  for (const snapshot of [...snapshots].sort((left, right) => snapshotBusinessTime(left).localeCompare(snapshotBusinessTime(right)) || left.id.localeCompare(right.id))) {
+  for (const snapshot of sortExpectationsByBusinessTime(snapshots, timeZone)) {
     const stock = stocks.find((item) => item.id === snapshot.stockId);
     if (!stock) continue;
     const key = expectationGroupKey(snapshot);
@@ -18,19 +32,20 @@ export function buildEarningsExpectationResearchEvents(
     const previous = previousHistory[previousHistory.length - 1];
     const revision = expectationRevision(snapshot, previous);
     const isRevision = Boolean(previous || snapshot.correctsSnapshotId);
-    events.push(snapshotEvent(stock, snapshot, isRevision, revision, revisionReminderThreshold));
+    const nextHistory = [...previousHistory, snapshot];
+    events.push(snapshotEvent(stock, snapshot, isRevision, revision, revisionReminderThreshold, timeZone, isExpectationBusinessOrderUncertain(nextHistory, timeZone)));
     history.set(key, [...(history.get(key) ?? []), snapshot]);
 
     const comparison = comparisonBySnapshot.get(snapshot.id);
     if (comparison?.comparabilityStatus === "comparable") {
-      events.push(comparisonEvent(stock, snapshot, comparison));
+      events.push(comparisonEvent(stock, snapshot, comparison, timeZone, isExpectationBusinessOrderUncertain(nextHistory, timeZone)));
     } else if (comparison) {
-      events.push(warningEvent(stock, snapshot, comparison));
+      events.push(warningEvent(stock, snapshot, comparison, timeZone, isExpectationBusinessOrderUncertain(nextHistory, timeZone)));
     } else if (snapshot.sourceVerificationStatus !== "verified") {
-      events.push(warningEvent(stock, snapshot, null));
+      events.push(warningEvent(stock, snapshot, null, timeZone, isExpectationBusinessOrderUncertain(nextHistory, timeZone)));
     }
   }
-  return dedupe(events).sort((left, right) => eventTime(right).localeCompare(eventTime(left)) || left.id.localeCompare(right.id));
+  return dedupe(events).sort((left, right) => compareResearchEventTime(right, left, timeZone) || left.id.localeCompare(right.id));
 }
 
 function snapshotEvent(
@@ -39,12 +54,14 @@ function snapshotEvent(
   isRevision: boolean,
   revision: ReturnType<typeof expectationRevision>,
   revisionReminderThreshold: number,
+  timeZone: string,
+  businessOrderUncertain: boolean,
 ): ResearchEvent {
   const type = isRevision ? "earnings_expectation_revision" : "earnings_expectation_added";
   const category = sourceCategoryLabel(snapshot.sourceCategory);
   const reasons = snapshot.sourceVerificationStatus === "verified" ? [] : ["预期来源待核验"];
   return {
-    ...base(stock, snapshot),
+    ...base(stock, snapshot, timeZone),
     id: `expectation-event:${snapshot.id}:${type}`,
     eventType: type,
     title: `${category}${isRevision ? snapshot.correctionScope === "basis" ? "口径纠正" : "修订" : "新增"} · ${metricLabel(snapshot.metric)}`,
@@ -53,17 +70,17 @@ function snapshotEvent(
     reviewStatus: reasons.length ? "pending" : "not_required",
     reviewReasons: reasons,
     materiality: isRevision && revision.magnitude !== null && Math.abs(revision.magnitude) >= revisionReminderThreshold ? "high" : "medium",
-    expectation: payload(snapshot, null, revision),
+    expectation: payload(snapshot, null, revision, businessOrderUncertain, timeZone),
   };
 }
 
-function comparisonEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, comparison: EarningsExpectationComparison): ResearchEvent {
-  const availableAt = comparison.comparisonAvailableAt ?? comparison.actualDisclosureAt ?? comparison.performanceInformationCutoff ?? snapshotBusinessTime(snapshot);
+function comparisonEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, comparison: EarningsExpectationComparison, timeZone: string, businessOrderUncertain: boolean): ResearchEvent {
+  const availableAt = comparison.comparisonAvailableAt ?? comparison.actualDisclosureAt ?? comparison.performanceInformationCutoff ?? getExpectationEventBusinessTime(snapshot, timeZone).value;
   return {
-    ...base(stock, snapshot),
+    ...base(stock, snapshot, timeZone),
     id: `expectation-event:${snapshot.id}:comparison:${comparison.actualEventId ?? "missing"}`,
     eventType: "earnings_expectation_comparison_available",
-    eventDate: availableAt.slice(0, 10),
+    eventDate: calendarDate(availableAt, timeZone) ?? snapshot.asOfDate,
     publishedAt: availableAt,
     title: `${sourceCategoryLabel(snapshot.sourceCategory)}比较结果可用 · ${metricLabel(snapshot.metric)}`,
     summary: `${comparisonResultLabel(comparison, snapshot)}；${comparison.comparisonMethod}。${comparison.isExAnte ? "形成于任何同指标业绩信息披露前。" : "仅作事后参考或口径核验。"}`,
@@ -71,14 +88,14 @@ function comparisonEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, co
     reviewStatus: "pending",
     reviewReasons: comparison.nonComparableReasons,
     materiality: comparison.comparisonResult === "above" || comparison.comparisonResult === "below" ? "high" : "medium",
-    expectation: payload(snapshot, comparison, { direction: null, magnitude: null }),
+    expectation: payload(snapshot, comparison, { direction: null, magnitude: null }, businessOrderUncertain, timeZone),
   };
 }
 
-function warningEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, comparison: EarningsExpectationComparison | null): ResearchEvent {
+function warningEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, comparison: EarningsExpectationComparison | null, timeZone: string, businessOrderUncertain: boolean): ResearchEvent {
   const reasons = comparison?.nonComparableReasons.length ? comparison.nonComparableReasons : ["预期来源待核验"];
   return {
-    ...base(stock, snapshot),
+    ...base(stock, snapshot, timeZone),
     id: `expectation-event:${snapshot.id}:warning:${stableHash(reasons.join("|"))}`,
     eventType: "earnings_expectation_data_warning",
     title: `业绩预期数据需要核验 · ${metricLabel(snapshot.metric)}`,
@@ -88,11 +105,12 @@ function warningEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, compa
     reviewStatus: "pending",
     reviewReasons: reasons,
     materiality: "medium",
-    expectation: payload(snapshot, comparison, { direction: null, magnitude: null }),
+    expectation: payload(snapshot, comparison, { direction: null, magnitude: null }, businessOrderUncertain, timeZone),
   };
 }
 
-function base(stock: Stock, snapshot: EarningsExpectationSnapshot): ResearchEvent {
+function base(stock: Stock, snapshot: EarningsExpectationSnapshot, timeZone: string): ResearchEvent {
+  const businessTime = getExpectationEventBusinessTime(snapshot, timeZone);
   return {
     id: "",
     stockId: stock.id,
@@ -101,8 +119,8 @@ function base(stock: Stock, snapshot: EarningsExpectationSnapshot): ResearchEven
     industryId: stock.industryId,
     market: stock.market,
     eventType: "earnings_expectation_added",
-    eventDate: snapshot.asOfDate,
-    publishedAt: snapshot.sourcePublishedAt ?? snapshot.asOfDate,
+    eventDate: businessTime.calendarDate,
+    publishedAt: businessTime.value,
     reportPeriod: snapshot.reportPeriod,
     title: "",
     summary: "",
@@ -123,7 +141,7 @@ function base(stock: Stock, snapshot: EarningsExpectationSnapshot): ResearchEven
   };
 }
 
-function payload(snapshot: EarningsExpectationSnapshot, comparison: EarningsExpectationComparison | null, revision: ReturnType<typeof expectationRevision>) {
+function payload(snapshot: EarningsExpectationSnapshot, comparison: EarningsExpectationComparison | null, revision: ReturnType<typeof expectationRevision>, businessOrderUncertain: boolean, timeZone: string) {
   return {
     snapshotId: snapshot.id,
     sourceCategory: snapshot.sourceCategory,
@@ -141,12 +159,21 @@ function payload(snapshot: EarningsExpectationSnapshot, comparison: EarningsExpe
     sourceVerificationStatus: snapshot.sourceVerificationStatus,
     revisionDirection: revision.direction,
     revisionMagnitude: revision.magnitude,
+    businessTimePrecision: getExpectationEventBusinessTime(snapshot, timeZone).precision,
+    businessOrderUncertain,
   };
 }
 
 function dedupe(events: ResearchEvent[]) { return [...new Map(events.map((event) => [event.id, event])).values()]; }
-function eventTime(event: ResearchEvent) { return event.publishedAt ?? event.eventDate ?? event.updatedAt ?? ""; }
-function snapshotBusinessTime(snapshot: EarningsExpectationSnapshot) { return snapshot.formedAtPrecision === "datetime" && snapshot.formedAt ? snapshot.formedAt : snapshot.asOfDate; }
+function calendarDate(value: string, timeZone: string) { return getTemporalCalendarDate(value, isPreciseInstant(value) ? "datetime" : "date", timeZone); }
+function compareResearchEventTime(left: ResearchEvent, right: ResearchEvent, timeZone: string) {
+  const leftValue = left.publishedAt ?? left.eventDate ?? left.updatedAt ?? "";
+  const rightValue = right.publishedAt ?? right.eventDate ?? right.updatedAt ?? "";
+  const leftTime = isPreciseInstant(leftValue) ? toBusinessTemporal(leftValue, "datetime", timeZone) : isCalendarDate(leftValue) ? toBusinessTemporal(leftValue, "date", timeZone) : null;
+  const rightTime = isPreciseInstant(rightValue) ? toBusinessTemporal(rightValue, "datetime", timeZone) : isCalendarDate(rightValue) ? toBusinessTemporal(rightValue, "date", timeZone) : null;
+  if (!leftTime || !rightTime) return leftValue.localeCompare(rightValue);
+  return compareBusinessTemporal(leftTime, rightTime).order;
+}
 function metricLabel(metric: EarningsExpectationSnapshot["metric"]) { return ({ revenue: "营业收入", attributable_net_profit: "归母净利润", adjusted_net_profit: "扣非净利润", eps: "每股收益", operating_cash_flow: "经营现金流" })[metric]; }
 function periodScopeLabel(scope: EarningsExpectationSnapshot["periodScope"]) { return ({ single_quarter: "单季度", year_to_date: "年初至今累计", half_year: "半年度", first_three_quarters: "前三季度累计", full_year: "全年度", ttm: "TTM" })[scope]; }
 function formatExpectation(snapshot: EarningsExpectationSnapshot) { const suffix = snapshot.metric === "eps" ? `${snapshot.currency}/股` : unitLabel(snapshot.unit); return snapshot.estimateShape === "point" ? `点预测 ${snapshot.value ?? "缺失"} ${suffix}` : `区间 ${snapshot.lowerBound ?? "缺失"} 至 ${snapshot.upperBound ?? "缺失"} ${suffix}`; }

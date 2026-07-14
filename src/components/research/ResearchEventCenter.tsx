@@ -3,6 +3,7 @@ import { AlertTriangle, CalendarDays, CheckSquare, ExternalLink, FileCheck2, Lin
 import type { EarningsVerificationChain, EarningsVerificationStage, Industry, ResearchEvent, ResearchEventSnapshot, ResearchEventType, ReviewTask, Stock, WatchItem } from "../../types";
 import { eventTypeLabel, stageLabel } from "../../services/researchEventProvider";
 import { formatFinancialAmount } from "../../utils/financialDisplay";
+import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant, resolveTimeZone } from "../../utils/dateTime";
 import { DashboardCard, EmptyState, KpiCard, SectionHeader, TextClamp } from "../common/terminal";
 
 interface ResearchEventCenterProps {
@@ -14,18 +15,20 @@ interface ResearchEventCenterProps {
   reviewTasks?: ReviewTask[];
   onStartReview?: (item: WatchItem) => void;
   now?: Date;
+  timeZone?: string;
 }
 
 type DateWindow = "7" | "30" | "all";
 
-export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock, watchItems = [], reviewTasks = [], onStartReview, now = new Date() }: ResearchEventCenterProps) {
+export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock, watchItems = [], reviewTasks = [], onStartReview, now = new Date(), timeZone: requestedTimeZone }: ResearchEventCenterProps) {
+  const timeZone = resolveTimeZone(requestedTimeZone);
   const [company, setCompany] = useState("all");
   const [industry, setIndustry] = useState("all");
   const [eventType, setEventType] = useState<ResearchEventType | "all">("all");
   const [dateWindow, setDateWindow] = useState<DateWindow>("30");
   const [parseStatus, setParseStatus] = useState("all");
   const [reviewOnly, setReviewOnly] = useState(false);
-  const cutoff = useMemo(() => dateCutoff(now, dateWindow), [now, dateWindow]);
+  const cutoff = useMemo(() => dateCutoff(now, dateWindow, timeZone), [now, dateWindow, timeZone]);
 
   const filteredEvents = useMemo(() => snapshot.events.filter((event) => {
     if (company !== "all" && event.stockId !== company) return false;
@@ -33,10 +36,10 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
     if (eventType !== "all" && event.eventType !== eventType) return false;
     if (parseStatus !== "all" && event.parseStatus !== parseStatus && event.verificationStatus !== parseStatus) return false;
     if (reviewOnly && event.reviewStatus !== "pending") return false;
-    if (cutoff && !eventDate(event)) return false;
-    if (cutoff && (eventDate(event) as string) < cutoff) return false;
+    if (cutoff && !eventDate(event, timeZone)) return false;
+    if (cutoff && (eventDate(event, timeZone) as string) < cutoff) return false;
     return true;
-  }), [company, cutoff, eventType, industry, parseStatus, reviewOnly, snapshot.events]);
+  }), [company, cutoff, eventType, industry, parseStatus, reviewOnly, snapshot.events, timeZone]);
 
   const visibleChains = useMemo(() => snapshot.chains.filter((chain) => {
     const stock = stocks.find((item) => item.id === chain.stockId);
@@ -44,8 +47,8 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
   }).slice(0, 12), [company, industry, snapshot.chains, stocks]);
 
   const queue = useMemo(() => snapshot.events.filter(needsDataReview), [snapshot.events]);
-  const sevenDayCutoff = dateCutoff(now, "7") as string;
-  const recentCount = snapshot.events.filter((event) => !["data_warning", "earnings_expectation_data_warning"].includes(event.eventType) && (eventDate(event) ?? "") >= sevenDayCutoff).length;
+  const sevenDayCutoff = dateCutoff(now, "7", timeZone) as string;
+  const recentCount = snapshot.events.filter((event) => !["data_warning", "earnings_expectation_data_warning"].includes(event.eventType) && (eventDate(event, timeZone) ?? "") >= sevenDayCutoff).length;
   const pendingCompanies = new Set(snapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
   const performanceCount = snapshot.events.filter((event) => ["earnings_preview", "earnings_flash", "periodic_report"].includes(event.eventType)).length;
 
@@ -57,6 +60,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
           title="投研事件与业绩验证中心"
           description="把已提交的真实公告与财务摘要统一为可追溯事件；全量历史和差异明细在打开个股后按需加载。"
         />
+        <p className="mt-2 text-xs text-textMuted">工作流时区：{timeZone}</p>
       </DashboardCard>
 
       <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4" aria-label="验证中心指标">
@@ -140,6 +144,7 @@ function EventCard({ event, stock, watchItem, tasks, onOpenStock, onStartReview 
           </div>
           <p className="mt-2 text-sm font-semibold text-textStrong">{event.title}</p>
           <p className="mt-1 text-xs text-textMuted">公告 / 事件日期：{event.eventDate ?? "缺失"} · 报告期：{event.reportPeriod ?? "缺失"}</p>
+          {event.expectation ? <p className="mt-1 text-xs text-textMuted">业务时间：{event.publishedAt ?? event.eventDate ?? "缺失"}（{event.expectation.businessTimePrecision ?? "date"}）{event.expectation.businessOrderUncertain ? " · 同日业务顺序不确定" : ""}</p> : null}
           <TextClamp lines={3} title={event.summary} className="mt-2 text-sm leading-6 text-textMuted">{event.summary}</TextClamp>
           {event.metrics.some((metric) => metric.value !== null) ? (
             <div className="mt-3 flex flex-wrap gap-2 text-xs text-textMuted">
@@ -206,15 +211,21 @@ function formatMetric(metric: ResearchEvent["metrics"][number]) {
   return String(metric.value);
 }
 
-function eventDate(event: ResearchEvent) {
-  return event.eventDate ?? event.publishedAt?.slice(0, 10) ?? event.updatedAt?.slice(0, 10) ?? null;
+function eventDate(event: ResearchEvent, timeZone: string) {
+  if (event.eventDate) return event.eventDate;
+  for (const value of [event.publishedAt, event.updatedAt]) {
+    if (!value) continue;
+    const calendarDate = getTemporalCalendarDate(value, isPreciseInstant(value) ? "datetime" : "date", timeZone);
+    if (calendarDate) return calendarDate;
+  }
+  return null;
 }
 
-function dateCutoff(now: Date, window: DateWindow) {
+function dateCutoff(now: Date, window: DateWindow, timeZone: string) {
   if (window === "all") return null;
-  const value = new Date(now);
-  value.setDate(value.getDate() - (Number(window) - 1));
-  return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`;
+  const value = new Date(`${getCalendarToday(now, timeZone)}T00:00:00.000Z`);
+  value.setUTCDate(value.getUTCDate() - (Number(window) - 1));
+  return value.toISOString().slice(0, 10);
 }
 
 function needsDataReview(event: ResearchEvent) {

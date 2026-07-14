@@ -111,6 +111,8 @@ export interface EarningsExpectationSettings {
   revisionReminderThreshold: number;
   nearZeroThreshold: number;
   roundingTolerance: number;
+  /** IANA time zone used for calendar-date validation and display. */
+  timeZone: string;
 }
 
 export interface EarningsExpectationStoreEnvelope {
@@ -143,4 +145,6 @@ export interface EarningsExpectationEventPayload {
   sourceVerificationStatus: EarningsExpectationVerificationStatus;
   revisionDirection?: "up" | "down" | "unchanged" | null;
   revisionMagnitude?: number | null;
+  businessTimePrecision?: EarningsExpectationTimePrecision;
+  businessOrderUncertain?: boolean;
 }

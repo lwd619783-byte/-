@@ -25,6 +25,7 @@ interface StockDetailDrawerProps {
   reviewTasks?: ReviewTask[];
   researchEvents?: ResearchEvent[];
   earningsExpectationSnapshots?: EarningsExpectationSnapshot[];
+  earningsExpectationTimeZone?: string;
   onAddToWatchlist?: (stock: Stock) => void;
   onEditWatchItem?: (item: WatchItem) => void;
   onStartReview?: (item: WatchItem) => void;
@@ -37,7 +38,7 @@ interface StockDetailDrawerProps {
 const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
-export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation }: StockDetailDrawerProps) {
+export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation }: StockDetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
@@ -193,6 +194,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
               announcementData={loadedAnnouncements}
               financialLoadStatus={financialLoad.stockId === stock.id ? financialLoad.status : "idle"}
               announcementLoadStatus={announcementLoad.stockId === stock.id ? announcementLoad.status : "idle"}
+              timeZone={earningsExpectationTimeZone}
               onAdd={onAddEarningsExpectation}
               onCorrect={onCorrectEarningsExpectation}
             />
