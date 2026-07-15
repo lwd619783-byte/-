@@ -9,7 +9,16 @@ export interface BusinessTemporalValue {
 export interface BusinessTemporalComparison {
   order: -1 | 0 | 1;
   uncertain: boolean;
+  status: "before" | "after" | "equal" | "uncertain";
+  reason: "date_precision" | "mixed_precision" | null;
 }
+
+export type WorkflowTemporalInputResolution =
+  | { status: "empty"; value: null; precision: null; interpretedTimeZone: null }
+  | { status: "date"; value: string; precision: "date"; interpretedTimeZone: null }
+  | { status: "absolute"; value: string; precision: "datetime"; interpretedTimeZone: null }
+  | { status: "local"; value: string; precision: "datetime"; interpretedTimeZone: string }
+  | { status: "nonexistent" | "ambiguous" | "invalid"; value: null; precision: null; interpretedTimeZone: string | null; message: string };
 
 export type ZonedLocalDateTimeResolution =
   | { status: "valid"; instant: string; offsetMinutes: number }
@@ -18,7 +27,8 @@ export type ZonedLocalDateTimeResolution =
   | { status: "invalid"; reason: string };
 
 const CALENDAR_DATE = /^\d{4}-\d{2}-\d{2}$/;
-const PRECISE_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/;
+const PRECISE_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/;
+const LOCAL_DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/;
 
 export function resolveTimeZone(preferred?: string | null) {
   if (preferred && isValidTimeZone(preferred)) return preferred;
@@ -91,13 +101,21 @@ export function compareBusinessTemporal(
   right: BusinessTemporalValue,
 ): BusinessTemporalComparison {
   const calendarOrder = compareCalendarDates(left.calendarDate, right.calendarDate);
-  if (calendarOrder !== 0) return { order: calendarOrder, uncertain: false };
+  if (calendarOrder !== 0) return { order: calendarOrder, uncertain: false, status: calendarOrder < 0 ? "before" : "after", reason: null };
   if (left.precision === "datetime" && right.precision === "datetime") {
     const leftTime = parsePreciseInstant(left.value);
     const rightTime = parsePreciseInstant(right.value);
-    if (leftTime !== null && rightTime !== null) return { order: leftTime === rightTime ? 0 : leftTime < rightTime ? -1 : 1, uncertain: leftTime === rightTime };
+    if (leftTime !== null && rightTime !== null) {
+      if (leftTime === rightTime) return { order: 0, uncertain: false, status: "equal", reason: null };
+      return { order: leftTime < rightTime ? -1 : 1, uncertain: false, status: leftTime < rightTime ? "before" : "after", reason: null };
+    }
   }
-  return { order: 0, uncertain: true };
+  return {
+    order: 0,
+    uncertain: true,
+    status: "uncertain",
+    reason: left.precision === right.precision ? "date_precision" : "mixed_precision",
+  };
 }
 
 export function isStrictlyBeforeBusinessTemporal(left: BusinessTemporalValue, right: BusinessTemporalValue) {
@@ -110,6 +128,33 @@ export function laterBusinessTemporal(left: BusinessTemporalValue, right: Busine
   if (comparison.order > 0) return left;
   if (comparison.order < 0) return right;
   return stableTie === "left" ? left : right;
+}
+
+/** Parses user/import source times without consulting the machine-local time zone. */
+export function resolveWorkflowTemporalInput(value: string | null | undefined, timeZone?: string | null): WorkflowTemporalInputResolution {
+  const input = value?.trim() ?? "";
+  if (!input) return { status: "empty", value: null, precision: null, interpretedTimeZone: null };
+  if (isCalendarDate(input)) return { status: "date", value: input, precision: "date", interpretedTimeZone: null };
+  if (isPreciseInstant(input)) {
+    const timestamp = parsePreciseInstant(input);
+    return timestamp === null
+      ? { status: "invalid", value: null, precision: null, interpretedTimeZone: null, message: "带时区的来源时间无效。" }
+      : { status: "absolute", value: new Date(timestamp).toISOString(), precision: "datetime", interpretedTimeZone: null };
+  }
+  if (!LOCAL_DATE_TIME.test(input)) {
+    return { status: "invalid", value: null, precision: null, interpretedTimeZone: null, message: "来源时间必须是 YYYY-MM-DD、带偏移的 ISO 时间或不带偏移的本地时间。" };
+  }
+  const zone = timeZone && isValidTimeZone(timeZone) ? timeZone : null;
+  if (!zone) return { status: "invalid", value: null, precision: null, interpretedTimeZone: null, message: "解析无偏移来源时间需要有效的工作流 IANA 时区。" };
+  const resolved = resolveZonedLocalDateTime(input, zone);
+  if (resolved.status === "valid") return { status: "local", value: resolved.instant, precision: "datetime", interpretedTimeZone: zone };
+  if (resolved.status === "nonexistent") return { status: "nonexistent", value: null, precision: null, interpretedTimeZone: zone, message: `该来源时间在 ${zone} 因夏令时跳转不存在，请改用带偏移的 ISO 时间或日期精度。` };
+  if (resolved.status === "ambiguous") return { status: "ambiguous", value: null, precision: null, interpretedTimeZone: zone, message: `该来源时间在 ${zone} 因夏令时回拨存在两个可能时刻，请改用带偏移的 ISO 时间或日期精度。` };
+  return { status: "invalid", value: null, precision: null, interpretedTimeZone: zone, message: resolved.reason };
+}
+
+export function isUnzonedLocalDateTime(value: unknown): value is string {
+  return typeof value === "string" && LOCAL_DATE_TIME.test(value);
 }
 
 export function getCalendarToday(now: Date, timeZone?: string | null) {

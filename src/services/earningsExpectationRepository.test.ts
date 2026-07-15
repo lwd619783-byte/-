@@ -66,6 +66,49 @@ describe("earnings expectation repository and validation", () => {
   it("87 rejects forged correction chains during JSON preview", () => { const forged = { ...snapshot(), id: "s-2", correctsSnapshotId: "s-1", sourceName: "伪造来源", value: 120 }; const preview = jsonPreview({ schemaVersion: 1, snapshots: [snapshot(), forged] }); expect(preview.ok).toBe(false); expect(preview.issues.some((item) => item.code === "invalid_correction_chain")).toBe(true); });
   it("88 migrates legacy date-only snapshots conservatively without borrowing createdAt", () => { const migrated = migrateEarningsExpectationEnvelope({ ...createEmptyEarningsExpectationEnvelope(), snapshots: [snapshot()] }).snapshots[0]; expect(migrated.formedAt).toBeNull(); expect(migrated.formedAtPrecision).toBe("date"); expect(migrated.sourcePublishedAtPrecision).toBeNull(); expect(migrated.createdAt).toBe(snapshot().createdAt); });
   it("92 converts forged runtime field types into invalid records without throwing", () => { const forged = { ...snapshot(), stockId: 123, reportPeriod: {}, sourceName: 456, sourceTitle: [], sourceUrl: { protocol: "javascript:" } }; expect(() => jsonPreview({ schemaVersion: 1, snapshots: [forged] })).not.toThrow(); expect(jsonPreview({ schemaVersion: 1, snapshots: [forged] }).ok).toBe(false); });
+  it("93 resolves manual unzoned source time with the envelope workflow zone and preserves it after reload", () => {
+    const storage = new MemoryStorage();
+    const repo = new EarningsExpectationRepository(storage, () => new Date("2026-07-16T00:00:00.000Z"));
+    const store = new EarningsExpectationStore(repo, () => new Date("2026-07-16T00:00:00.000Z"), () => "source-local");
+    const data = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "Asia/Shanghai" } };
+    const result = store.appendSnapshot(data, { ...input(), asOfDate: "2026-07-15", sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime" });
+    expect(result.ok).toBe(true);
+    expect(result.snapshot).toMatchObject({ sourcePublishedAt: "2026-07-15T07:00:00.000Z", sourcePublishedAtResolution: "workflow_time_zone", sourcePublishedAtTimeZone: "Asia/Shanghai" });
+    expect(repo.load().data.snapshots[0].sourcePublishedAt).toBe("2026-07-15T07:00:00.000Z");
+  });
+  it("94 resolves JSON and CSV unzoned source times with the explicit import workflow zone", () => {
+    const repo = new EarningsExpectationRepository(new MemoryStorage());
+    const current = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "Asia/Shanghai" } };
+    const json = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: "json-local", asOfDate: "2026-07-15", sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime" }] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    expect(json.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T07:00:00.000Z", sourcePublishedAtResolution: "workflow_time_zone", sourcePublishedAtTimeZone: "Asia/Shanghai" });
+    const csv = `${csvHeader()}\n${csvRow().replace("https://example.com,,2026-06-01", "https://example.com,2026-07-15T15:00,2026-07-15")}`;
+    const csvResult = repo.previewCsv(csv, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    expect(csvResult.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T07:00:00.000Z", sourcePublishedAtResolution: "workflow_time_zone", sourcePublishedAtTimeZone: "Asia/Shanghai" });
+  });
+  it("95 rejects imported New York source-time DST gaps and overlaps", () => {
+    const repo = new EarningsExpectationRepository(new MemoryStorage());
+    const current = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "America/New_York" } };
+    for (const sourcePublishedAt of ["2026-03-08T02:30", "2026-11-01T01:30"]) {
+      const preview = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: `dst-${sourcePublishedAt}`, asOfDate: sourcePublishedAt.slice(0, 10), sourcePublishedAt, sourcePublishedAtPrecision: "datetime" }] }, current, { ...jsonOptions(), now: new Date("2026-12-01T00:00:00.000Z"), timeZone: "America/New_York" });
+      expect(preview.ok).toBe(false);
+      expect(preview.issues.some((issue) => issue.code.includes("source_published_at"))).toBe(true);
+    }
+  });
+  it("96 preserves historical unzoned source time as unresolved instead of reinterpreting it", () => {
+    const legacy = { ...createEmptyEarningsExpectationEnvelope(), snapshots: [{ ...snapshot(), sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: undefined, sourcePublishedAtResolution: undefined, sourcePublishedAtTimeZone: undefined }] };
+    const migrated = migrateEarningsExpectationEnvelope(legacy);
+    expect(migrated.schemaVersion).toBe(1);
+    expect(migrated.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "unresolved_legacy", sourcePublishedAtTimeZone: null });
+    expect(migrateEarningsExpectationEnvelope(migrated)).toEqual(migrated);
+  });
+  it("97 records a new correction at the store clock instead of copying the original timestamp", () => {
+    const store = new EarningsExpectationStore(new EarningsExpectationRepository(new MemoryStorage()), () => new Date("2026-07-15T09:00:00.000Z"), () => "correction-now");
+    const data = { ...createEmptyEarningsExpectationEnvelope(), snapshots: [snapshot()] };
+    const result = store.appendCorrection(data, "s-1", { ...input(), value: 110, createdAt: "2026-06-01T00:00:00.000Z" });
+    expect(result.ok).toBe(true);
+    expect(result.snapshot?.createdAt).toBe("2026-07-15T09:00:00.000Z");
+    expect(data.snapshots[0].createdAt).toBe("2026-07-13T00:00:00.000Z");
+  });
 });
 
 function snapshot(): EarningsExpectationSnapshot { return { id: "s-1", stockId: "demo", market: "A股", reportPeriod: "2026-06-30", periodScope: "half_year", metric: "revenue", estimateShape: "point", value: 100, lowerBound: null, upperBound: null, currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: null, sourcePublishedAt: null, asOfDate: "2026-06-01", analystCount: null, institutionCount: null, ingestionMethod: "manual", createdAt: "2026-07-13T00:00:00.000Z", createdBy: "local-user", sourceVerificationStatus: "verified", notes: null, correctsSnapshotId: null, schemaVersion: 1 }; }

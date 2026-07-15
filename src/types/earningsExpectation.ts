@@ -16,8 +16,9 @@ export type EarningsExpectationAccountingBasis = "PRC_GAAP" | "IFRS" | "unknown"
 export type EarningsExpectationVerificationStatus = "verified" | "pending" | "unverified" | "invalid";
 export type EarningsExpectationTimePrecision = "date" | "datetime";
 export type EarningsExpectationCorrectionScope = "value" | "basis";
-export type EarningsExpectationBusinessOrderStatus = "confirmed" | "uncertain";
+export type EarningsExpectationBusinessOrderStatus = "confirmed" | "equal" | "uncertain";
 export type EarningsExpectationDisclosureTimingStatus = "before" | "after" | "same_time" | "unknown";
+export type EarningsExpectationSourceTimeResolution = "date" | "absolute" | "workflow_time_zone" | "unresolved_legacy";
 
 export interface EarningsExpectationCorrectionDelta {
   correctionTargetId: string;
@@ -35,7 +36,13 @@ export interface EarningsExpectationCorrectionDelta {
 }
 
 export interface EarningsExpectationBusinessRevisionDelta {
+  /** Legacy alias for previousEffectiveSnapshotId. */
   previousBusinessSnapshotId: string;
+  previousBusinessRootSnapshotId: string;
+  previousEffectiveSnapshotId: string;
+  currentSnapshotId: string;
+  baselineValue: number;
+  resolvedThroughCorrectionChain: boolean;
   absoluteDelta: number;
   relativeDelta: number;
   direction: "up" | "down" | "unchanged";
@@ -62,6 +69,10 @@ export interface EarningsExpectationSnapshot {
   sourcePublishedAt: string | null;
   /** Legacy snapshots omit this field and are migrated conservatively from sourcePublishedAt. */
   sourcePublishedAtPrecision?: EarningsExpectationTimePrecision | null;
+  /** How sourcePublishedAt was made reliable; unresolved legacy wall clocks are never reinterpreted. */
+  sourcePublishedAtResolution?: EarningsExpectationSourceTimeResolution | null;
+  /** Set only when an unzoned wall clock was resolved with an explicit workflow IANA time zone. */
+  sourcePublishedAtTimeZone?: string | null;
   asOfDate: string;
   /** Exact prediction formation time; never inferred from createdAt. */
   formedAt?: string | null;
@@ -100,6 +111,8 @@ export interface EarningsExpectationComparison {
   comparisonMethod: string;
   isExAnte: boolean;
   businessOrderStatus?: EarningsExpectationBusinessOrderStatus;
+  businessRootSnapshotId?: string;
+  effectiveSnapshotId?: string;
   /** isExAnte means beforeAnyPerformanceDisclosure, not merely before the selected actual value. */
   beforeActualDisclosure?: boolean | null;
   beforeAnyPerformanceDisclosure?: boolean | null;
@@ -158,6 +171,11 @@ export interface EarningsExpectationExportFile extends EarningsExpectationStoreE
 
 export interface EarningsExpectationEventPayload {
   snapshotId: string;
+  businessRootSnapshotId?: string;
+  effectiveSnapshotId?: string;
+  correctionChainSnapshotIds?: string[];
+  originalBusinessTime?: string;
+  correctionRecordedAt?: string | null;
   sourceCategory: EarningsExpectationSourceCategory;
   sourceName: string;
   reportPeriod: string;
@@ -171,6 +189,10 @@ export interface EarningsExpectationEventPayload {
   performanceInformationCutoff?: string | null;
   comparisonResult: EarningsExpectationComparisonResult | null;
   sourceVerificationStatus: EarningsExpectationVerificationStatus;
+  sourcePublishedAt?: string | null;
+  sourcePublishedAtPrecision?: EarningsExpectationTimePrecision | null;
+  sourcePublishedAtResolution?: EarningsExpectationSourceTimeResolution | null;
+  sourcePublishedAtTimeZone?: string | null;
   correctsSnapshotId?: string | null;
   businessOrderStatus?: EarningsExpectationBusinessOrderStatus;
   correctionDelta?: EarningsExpectationCorrectionDelta | null;

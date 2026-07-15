@@ -255,6 +255,7 @@ export type {
   EarningsExpectationShape,
   EarningsExpectationSnapshot,
   EarningsExpectationSourceCategory,
+  EarningsExpectationSourceTimeResolution,
   EarningsExpectationStoreEnvelope,
   EarningsExpectationUnit,
   EarningsExpectationVerificationStatus,

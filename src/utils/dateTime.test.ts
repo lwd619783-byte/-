@@ -3,12 +3,16 @@ import type { EarningsExpectationSnapshot, ResearchEvent } from "../types";
 import { compareEarningsExpectation } from "../services/earningsExpectationComparisonProvider";
 import { validateEarningsExpectationSnapshot } from "../services/earningsExpectationRepository";
 import {
+  compareBusinessTemporal,
   getCalendarDateInTimeZone,
   getCalendarToday,
   isoToZonedLocalDateTime,
   isValidTimeZone,
+  laterBusinessTemporal,
   resolveTimeZone,
+  resolveWorkflowTemporalInput,
   resolveZonedLocalDateTime,
+  toBusinessTemporal,
   zonedLocalDateTimeToIso,
 } from "./dateTime";
 
@@ -95,6 +99,37 @@ describe("workflow calendar date and IANA time-zone contract", () => {
     expect(result.isExAnte).toBe(false);
     expect(result.performanceDisclosureTimingStatus).toBe("unknown");
     expect(result.nonComparableReasons.some((item) => item.includes("同日") && item.includes("先后顺序"))).toBe(true);
+  });
+  it("resolves an unzoned source time with the explicit workflow zone rather than a browser zone", () => {
+    const shanghai = resolveWorkflowTemporalInput("2026-07-15T15:00", "Asia/Shanghai");
+    const tokyo = resolveWorkflowTemporalInput("2026-07-15T15:00", "Asia/Tokyo");
+    expect(shanghai).toMatchObject({ status: "local", value: "2026-07-15T07:00:00.000Z", interpretedTimeZone: "Asia/Shanghai" });
+    expect(tokyo).toMatchObject({ status: "local", value: "2026-07-15T06:00:00.000Z", interpretedTimeZone: "Asia/Tokyo" });
+  });
+  it("keeps dates as dates and offset/Z source times as absolute instants", () => {
+    expect(resolveWorkflowTemporalInput("2026-07-15", "Asia/Shanghai")).toMatchObject({ status: "date", value: "2026-07-15", precision: "date" });
+    expect(resolveWorkflowTemporalInput("2026-07-15T15:00:00+08:00", "Asia/Tokyo")).toMatchObject({ status: "absolute", value: "2026-07-15T07:00:00.000Z" });
+    expect(resolveWorkflowTemporalInput("2026-07-15T07:00:00Z", "Asia/Tokyo")).toMatchObject({ status: "absolute", value: "2026-07-15T07:00:00.000Z" });
+  });
+  it("rejects source-time DST gaps and overlaps without guessing", () => {
+    expect(resolveWorkflowTemporalInput("2026-03-08T02:30", "America/New_York").status).toBe("nonexistent");
+    expect(resolveWorkflowTemporalInput("2026-11-01T01:30", "America/New_York").status).toBe("ambiguous");
+  });
+  it("distinguishes an exact equal instant from date or mixed-precision uncertainty", () => {
+    const exact = toBusinessTemporal("2026-07-15T07:00:00.000Z", "datetime", "Asia/Shanghai")!;
+    const same = toBusinessTemporal("2026-07-15T15:00:00+08:00", "datetime", "Asia/Shanghai")!;
+    const date = toBusinessTemporal("2026-07-15", "date", "Asia/Shanghai")!;
+    expect(compareBusinessTemporal(exact, same)).toMatchObject({ order: 0, uncertain: false, status: "equal", reason: null });
+    expect(compareBusinessTemporal(date, date)).toMatchObject({ order: 0, uncertain: true, status: "uncertain", reason: "date_precision" });
+    expect(compareBusinessTemporal(date, exact)).toMatchObject({ order: 0, uncertain: true, status: "uncertain", reason: "mixed_precision" });
+    expect(laterBusinessTemporal(exact, same, "left")).toEqual(exact);
+  });
+  it("marks an exact prediction/disclosure tie as same_time and never ex-ante", () => {
+    const tied = compareEarningsExpectation(snapshot({ formedAt: "2026-07-15T15:00:00+08:00", formedAtPrecision: "datetime", asOfDate: "2026-07-15" }), [actual("2026-07-15T07:00:00Z")], { ...comparisonSettings(), timeZone: "Asia/Shanghai" });
+    expect(tied.actualDisclosureTimingStatus).toBe("same_time");
+    expect(tied.performanceDisclosureTimingStatus).toBe("same_time");
+    expect(tied.isExAnte).toBe(false);
+    expect(tied.nonComparableReasons.some((reason) => reason.includes("相同"))).toBe(true);
   });
 });
 

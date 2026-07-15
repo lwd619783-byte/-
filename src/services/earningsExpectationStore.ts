@@ -5,6 +5,7 @@ import {
   sameCorrectionIdentity,
   validateEarningsExpectationCorrectionGraph,
 } from "./earningsExpectationIntegrity";
+import { isUnzonedLocalDateTime, isValidTimeZone, resolveWorkflowTemporalInput } from "../utils/dateTime";
 
 export type CreateEarningsExpectationSnapshotInput = Omit<EarningsExpectationSnapshot, "id" | "createdAt" | "createdBy" | "schemaVersion" | "correctsSnapshotId"> & {
   id?: string;
@@ -27,11 +28,13 @@ export class EarningsExpectationStore {
   ) {}
 
   appendSnapshot(data: EarningsExpectationStoreEnvelope, input: CreateEarningsExpectationSnapshotInput): EarningsExpectationActionResult {
+    const sourceTime = normalizeSourceTimeForWrite(input, data.settings.timeZone, false);
+    if (!sourceTime.ok) return failure(data, sourceTime.error);
     return this.append(data, {
       ...clone(input),
+      ...sourceTime.fields,
       formedAt: input.formedAt ?? null,
       formedAtPrecision: input.formedAtPrecision ?? (input.formedAt ? "datetime" : "date"),
-      sourcePublishedAtPrecision: input.sourcePublishedAtPrecision ?? (input.sourcePublishedAt ? (input.sourcePublishedAt.includes("T") ? "datetime" : "date") : null),
       id: input.id ?? this.idFactory(),
       createdAt: input.createdAt ?? this.now().toISOString(),
       createdBy: input.createdBy ?? "local-user",
@@ -49,13 +52,17 @@ export class EarningsExpectationStore {
     const original = data.snapshots.find((snapshot) => snapshot.id === correctsSnapshotId);
     if (!original) return failure(data, "待纠正的原快照不存在。");
     if (data.snapshots.some((snapshot) => snapshot.correctsSnapshotId === correctsSnapshotId)) return failure(data, "该快照已有纠正版本，请基于最新有效快照继续追加纠正。");
+    const preserveUnresolvedLegacy = original.sourcePublishedAtResolution === "unresolved_legacy"
+      && original.sourcePublishedAt === input.sourcePublishedAt;
+    const sourceTime = normalizeSourceTimeForWrite(input, data.settings.timeZone, preserveUnresolvedLegacy);
+    if (!sourceTime.ok) return failure(data, sourceTime.error);
     const candidate: EarningsExpectationSnapshot = {
       ...clone(input),
+      ...sourceTime.fields,
       formedAt: input.formedAt ?? null,
       formedAtPrecision: input.formedAtPrecision ?? (input.formedAt ? "datetime" : "date"),
-      sourcePublishedAtPrecision: input.sourcePublishedAtPrecision ?? (input.sourcePublishedAt ? (input.sourcePublishedAt.includes("T") ? "datetime" : "date") : null),
       id: input.id ?? this.idFactory(),
-      createdAt: input.createdAt ?? this.now().toISOString(),
+      createdAt: this.now().toISOString(),
       createdBy: input.createdBy ?? "local-user",
       correctsSnapshotId,
       correctionScope: correctionBasisChanged(input as EarningsExpectationSnapshot, original) ? "basis" : "value",
@@ -86,5 +93,29 @@ export class EarningsExpectationStore {
 }
 
 function failure(data: EarningsExpectationStoreEnvelope, error: string): EarningsExpectationActionResult { return { ok: false, data, error }; }
+function normalizeSourceTimeForWrite(
+  input: CreateEarningsExpectationSnapshotInput,
+  timeZone: string,
+  preserveUnresolvedLegacy: boolean,
+): { ok: true; fields: Pick<EarningsExpectationSnapshot, "sourcePublishedAt" | "sourcePublishedAtPrecision" | "sourcePublishedAtResolution" | "sourcePublishedAtTimeZone"> } | { ok: false; error: string } {
+  if (preserveUnresolvedLegacy && input.sourcePublishedAt && isUnzonedLocalDateTime(input.sourcePublishedAt)) {
+    return { ok: true, fields: { sourcePublishedAt: input.sourcePublishedAt, sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "unresolved_legacy", sourcePublishedAtTimeZone: null } };
+  }
+  const resolved = resolveWorkflowTemporalInput(input.sourcePublishedAt, timeZone);
+  if (["nonexistent", "ambiguous", "invalid"].includes(resolved.status)) return { ok: false, error: "message" in resolved ? resolved.message : "来源时间无效。" };
+  if (resolved.status === "empty") return { ok: true, fields: { sourcePublishedAt: null, sourcePublishedAtPrecision: null, sourcePublishedAtResolution: null, sourcePublishedAtTimeZone: null } };
+  const preserveWorkflowZone = resolved.status === "absolute"
+    && input.sourcePublishedAtResolution === "workflow_time_zone"
+    && isValidTimeZone(input.sourcePublishedAtTimeZone);
+  return {
+    ok: true,
+    fields: {
+      sourcePublishedAt: resolved.value,
+      sourcePublishedAtPrecision: resolved.precision,
+      sourcePublishedAtResolution: resolved.status === "date" ? "date" : resolved.status === "local" || preserveWorkflowZone ? "workflow_time_zone" : "absolute",
+      sourcePublishedAtTimeZone: resolved.status === "local" ? resolved.interpretedTimeZone : preserveWorkflowZone ? input.sourcePublishedAtTimeZone ?? null : null,
+    },
+  };
+}
 function clone<T>(value: T): T { return JSON.parse(JSON.stringify(value)) as T; }
 function defaultId() { const random = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`; return `expectation-${random}`; }

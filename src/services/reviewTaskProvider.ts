@@ -232,8 +232,11 @@ function expectationTaskDescription(event: ResearchEvent, threshold: number) {
   const category = ({ company_guidance: "公司指引", institution_single: "单家机构预测", institution_consensus: "机构一致预期", user_estimate: "用户个人预测" } as Record<string, string>)[event.expectation?.sourceCategory ?? ""] ?? "业绩预期";
   const metric = ({ revenue: "营业收入", attributable_net_profit: "归母净利润", adjusted_net_profit: "扣非净利润", eps: "每股收益", operating_cash_flow: "经营现金流" } as Record<string, string>)[event.expectation?.metric ?? ""] ?? "业绩指标";
   const source = event.expectation?.sourceName || category;
-  if (event.eventType === "earnings_expectation_revision") return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}预测，相对业务快照 ${event.expectation?.businessRevisionDelta?.previousBusinessSnapshotId ?? "基准缺失"} 的修订幅度达到 ${(threshold * 100).toFixed(0)}% 工作流提醒阈值。该阈值不是投资结论或行业标准，请核对来源和口径。`;
-  if (event.eventType === "earnings_expectation_correction") return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}快照进行了数据或口径更正，被更正记录为 ${event.expectation?.correctionDelta?.correctionTargetId ?? event.expectation?.correctsSnapshotId ?? "缺失"}。更正差异不代表业务预测上调或下调，请核对变更字段。`;
+  if (event.eventType === "earnings_expectation_revision") {
+    const revision = event.expectation?.businessRevisionDelta;
+    return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}预测，相对上一业务根快照 ${revision?.previousBusinessRootSnapshotId ?? "基准缺失"} 的当前有效终点 ${revision?.previousEffectiveSnapshotId ?? "基准缺失"}，修订幅度达到 ${(threshold * 100).toFixed(0)}% 工作流提醒阈值；当前有效快照为 ${revision?.currentSnapshotId ?? event.expectation?.effectiveSnapshotId ?? "缺失"}。该阈值不是投资结论或行业标准，请核对来源和口径。`;
+  }
+  if (event.eventType === "earnings_expectation_correction") return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}快照进行了数据或口径更正；原业务形成时间 ${event.expectation?.originalBusinessTime ?? "缺失"}，纠正记录时间 ${event.expectation?.correctionRecordedAt ?? event.publishedAt ?? "缺失"}，被更正记录 ${event.expectation?.correctionDelta?.correctionTargetId ?? event.expectation?.correctsSnapshotId ?? "缺失"}，当前纠正链终点 ${event.expectation?.effectiveSnapshotId ?? "缺失"}。更正差异不代表业务预测上调或下调，请核对变更字段。`;
   if (event.eventType === "earnings_expectation_comparison_available") return `${category}已与同报告期可靠实际值形成比较，请打开来源和计算详情完成复盘；不自动生成买卖建议。`;
   if (event.eventType === "earnings_expectation_data_warning") return `报告期 ${event.reportPeriod ?? "暂缺"} 的${category}存在来源或可比性缺口，需要人工核验。${event.reviewReasons.join("；") || event.summary}`;
   return `新增${category}快照，请核对报告期、期间口径、指标、币种、单位和来源。`;

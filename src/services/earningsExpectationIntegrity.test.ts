@@ -8,6 +8,7 @@ import {
   getEffectiveCorrectionTerminals,
   getExpectationGroupKey,
   normalizeSourceIdentity,
+  resolveEffectiveBusinessHistory,
   selectEffectiveEarningsExpectations,
   sortExpectationsByBusinessTime,
   validateEarningsExpectationCorrectionGraph,
@@ -199,7 +200,7 @@ describe("earnings expectation business chronology and source identity", () => {
     const events = buildEarningsExpectationResearchEvents([correction, businessRevision, original], [], [stock()], 0.1, "Asia/Shanghai");
     const revisionEvent = events.find((event) => event.eventType === "earnings_expectation_revision");
     const correctionEvent = events.find((event) => event.eventType === "earnings_expectation_correction");
-    expect(revisionEvent?.expectation?.businessRevisionDelta?.previousBusinessSnapshotId).toBe("a");
+    expect(revisionEvent?.expectation?.businessRevisionDelta).toMatchObject({ previousBusinessSnapshotId: "c", previousBusinessRootSnapshotId: "a", previousEffectiveSnapshotId: "c" });
     expect(correctionEvent?.expectation?.correctionDelta?.correctionTargetId).toBe("a");
     expect(correctionEvent?.expectation?.correctsSnapshotId).toBe("a");
     expect(correctionEvent?.expectation?.businessRevisionDelta).toBeNull();
@@ -211,6 +212,60 @@ describe("earnings expectation business chronology and source identity", () => {
   });
   it("never derives a business revision when order is uncertain", () => {
     expect(deriveExpectationBusinessRevisionDelta(snapshot("z", null, { value: 120 }), snapshot("a", null, { value: 100 }), "uncertain")).toBeNull();
+  });
+  it("uses the correction terminal as the next business revision baseline and its 10% threshold", () => {
+    const original = snapshot("a", null, { asOfDate: "2026-06-01", value: 100, createdAt: "2026-06-01T01:00:00.000Z" });
+    const correction = snapshot("c", "a", { asOfDate: "2026-06-01", value: 110, createdAt: "2026-07-15T03:00:00.000Z" });
+    const next = snapshot("b", null, { asOfDate: "2026-06-10", value: 120, createdAt: "2026-06-10T01:00:00.000Z" });
+    const history = resolveEffectiveBusinessHistory([next, correction, original], "Asia/Shanghai");
+    expect(history.map((node) => [node.businessRootSnapshot.id, node.effectiveSnapshot.id])).toEqual([["a", "c"], ["b", "b"]]);
+    const events = buildEarningsExpectationResearchEvents([next, correction, original], [], [stock()], 0.1, "Asia/Shanghai");
+    const revision = events.find((event) => event.eventType === "earnings_expectation_revision")?.expectation?.businessRevisionDelta;
+    expect(revision).toMatchObject({ previousBusinessRootSnapshotId: "a", previousEffectiveSnapshotId: "c", currentSnapshotId: "b", baselineValue: 110, resolvedThroughCorrectionChain: true, absoluteDelta: 10, direction: "up" });
+    expect(revision?.relativeDelta).toBeCloseTo(10 / 110);
+    const tasks = buildReviewTasks({ watchItems: [{ ...watchItem(), createdAt: "2026-05-01", lastReviewedAt: "2026-05-01" }], events, chains: [], taskStates: [], now: new Date("2026-07-20T00:00:00.000Z"), expectationRevisionThreshold: 0.1, timeZone: "Asia/Shanghai" });
+    expect(tasks.some((task) => task.ruleType === "earnings_expectation_revision_up")).toBe(false);
+  });
+  it("resolves a shuffled multi-level correction chain and keeps derived revision IDs stable when its terminal changes", () => {
+    const a = snapshot("a", null, { asOfDate: "2026-06-01", value: 100 });
+    const c = snapshot("c", "a", { asOfDate: "2026-06-01", value: 110, createdAt: "2026-07-10T01:00:00.000Z" });
+    const d = snapshot("d", "c", { asOfDate: "2026-06-01", value: 115, createdAt: "2026-07-15T01:00:00.000Z" });
+    const b = snapshot("b", null, { asOfDate: "2026-06-20", value: 130 });
+    const firstEvents = buildEarningsExpectationResearchEvents([b, c, a], [], [stock()], 0.1, "Asia/Shanghai");
+    const nextEvents = buildEarningsExpectationResearchEvents([d, b, a, c], [], [stock()], 0.1, "Asia/Shanghai");
+    const firstRevision = firstEvents.find((event) => event.eventType === "earnings_expectation_revision");
+    const nextRevision = nextEvents.find((event) => event.eventType === "earnings_expectation_revision");
+    expect(resolveEffectiveBusinessHistory([d, b, a, c], "Asia/Shanghai")[0].effectiveSnapshot.id).toBe("d");
+    expect(nextRevision?.expectation?.businessRevisionDelta).toMatchObject({ previousEffectiveSnapshotId: "d", baselineValue: 115, currentSnapshotId: "b" });
+    expect(nextRevision?.expectation?.businessRevisionDelta?.relativeDelta).toBeCloseTo(15 / 115);
+    expect(nextRevision?.id).toBe(firstRevision?.id);
+    expect(nextEvents.find((event) => event.id === "expectation-event:c:earnings_expectation_correction")?.expectation?.effectiveSnapshotId).toBe("d");
+  });
+  it("dates correction audit events by createdAt while preserving the original business time and stable task IDs", () => {
+    const original = snapshot("a", null, { asOfDate: "2026-06-01", createdAt: "2026-06-01T00:00:00.000Z" });
+    const correction = snapshot("c", "a", { asOfDate: "2026-06-01", value: 110, createdAt: "2026-07-15T04:00:00.000Z" });
+    const events = buildEarningsExpectationResearchEvents([correction, original], [], [stock()], 0.1, "Asia/Shanghai");
+    const event = events.find((candidate) => candidate.eventType === "earnings_expectation_correction");
+    expect(event).toMatchObject({ eventDate: "2026-07-15", publishedAt: "2026-07-15T04:00:00.000Z" });
+    expect(event?.expectation).toMatchObject({ originalBusinessTime: "2026-06-01", correctionRecordedAt: "2026-07-15T04:00:00.000Z", businessRootSnapshotId: "a", effectiveSnapshotId: "c" });
+    const before = buildReviewTasks({ watchItems: [{ ...watchItem(), lastReviewedAt: "2026-07-01" }], events, chains: [], taskStates: [], now: new Date("2026-07-20T00:00:00.000Z"), timeZone: "Asia/Shanghai" }).find((task) => task.ruleType === "earnings_expectation_correction");
+    const reloaded = buildReviewTasks({ watchItems: [{ ...watchItem(), lastReviewedAt: "2026-07-01" }], events: buildEarningsExpectationResearchEvents([original, correction], [], [stock()], 0.1, "Asia/Shanghai"), chains: [], taskStates: [], now: new Date("2026-07-21T00:00:00.000Z"), timeZone: "Asia/Shanghai" }).find((task) => task.ruleType === "earnings_expectation_correction");
+    const after = buildReviewTasks({ watchItems: [{ ...watchItem(), lastReviewedAt: "2026-07-16" }], events, chains: [], taskStates: [], now: new Date("2026-07-20T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    expect(before?.id).toBe(reloaded?.id);
+    expect(after.some((task) => task.ruleType === "earnings_expectation_correction")).toBe(false);
+  });
+  it("treats identical exact business instants as equal and emits only a stable data warning", () => {
+    const left = snapshot("a", null, { formedAt: "2026-07-14T09:00:00+09:00", formedAtPrecision: "datetime", value: 100 });
+    const right = snapshot("z", null, { formedAt: "2026-07-14T00:00:00Z", formedAtPrecision: "datetime", value: 120 });
+    const selection = selectEffectiveEarningsExpectations([right, left], "Asia/Tokyo")[0];
+    expect(selection.businessOrderStatus).toBe("equal");
+    const first = buildEarningsExpectationResearchEvents([left, right], [], [stock()], 0.1, "Asia/Tokyo");
+    const reloaded = buildEarningsExpectationResearchEvents([right, left], [], [stock()], 0.1, "Asia/Tokyo");
+    expect(first.some((event) => event.eventType === "earnings_expectation_revision")).toBe(false);
+    expect(first.some((event) => event.eventType === "earnings_expectation_data_warning" && event.expectation?.businessOrderStatus === "equal")).toBe(true);
+    expect(first.map((event) => event.id)).toEqual(reloaded.map((event) => event.id));
+    const tasks = buildReviewTasks({ watchItems: [{ ...watchItem(), createdAt: "2026-07-01", lastReviewedAt: "2026-07-01" }], events: first, chains: [], taskStates: [], now: FIXED_NOW, timeZone: "Asia/Tokyo" });
+    expect(tasks.some((task) => task.ruleType === "earnings_expectation_revision_up" || task.ruleType === "earnings_expectation_revision_down")).toBe(false);
   });
   it("does not create a new ReviewTask from a late system entry for an older business event", () => {
     const lateEntry = snapshot("late-entry", null, { asOfDate: "2026-06-01", createdAt: "2026-07-14T12:00:00.000Z" });

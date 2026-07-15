@@ -8,7 +8,7 @@ import { buildEarningsExpectationResearchEvents } from "../../services/earningsE
 import { buildEarningsExpectationComparisons } from "../../services/earningsExpectationComparisonProvider";
 import { buildReviewTasks } from "../../services/reviewTaskProvider";
 import { EarningsExpectationCenter } from "./EarningsExpectationCenter";
-import { EarningsExpectationFormModal, resolveFormationInput } from "./EarningsExpectationFormModal";
+import { EarningsExpectationFormModal, resolveFormationInput, resolveSourcePublishedInput } from "./EarningsExpectationFormModal";
 import { EarningsExpectationImportActions, Preview } from "./EarningsExpectationImportModal";
 import { StockEarningsExpectationPanel } from "./StockEarningsExpectationPanel";
 import { StockDetailDrawer } from "../stock/StockDetailDrawer";
@@ -68,6 +68,32 @@ describe("earnings expectation UI and workflow linkage", () => {
     expect(first[0]).toMatchObject({ snapshotId: "z", businessOrderStatus: "confirmed", comparisonResult: "below", comparabilityStatus: "comparable" });
   });
   it("disables only the correction-graph import mode that is unsafe", () => { const preview = { ...invalidPreview(), ok: true, mergeAllowed: false, replaceAllowed: true, issues: [{ row: 1, code: "correction_graph_merge_branch", message: "合并不可用：同一历史快照存在多个直接纠正者" }] }; const html = renderToStaticMarkup(<><Preview value={preview} /><EarningsExpectationImportActions preview={preview} method="json_import" fileName={null} onImport={() => undefined} /></>); expect(html).toContain("同一历史快照存在多个直接纠正者"); expect((html.match(/disabled=""/g) ?? [])).toHaveLength(1); expect(html).toContain("合并：禁止"); expect(html).toContain("替换：允许"); });
+  it("resolves form source times with the workflow zone and blocks DST ambiguity", () => {
+    expect(resolveSourcePublishedInput("2026-07-15T15:00", "Asia/Shanghai")).toMatchObject({ value: "2026-07-15T07:00:00.000Z", precision: "datetime", resolution: "workflow_time_zone", interpretedTimeZone: "Asia/Shanghai", error: null });
+    expect(resolveSourcePublishedInput("2026-03-08T02:30", "America/New_York").error).toContain("不存在");
+    expect(resolveSourcePublishedInput("2026-11-01T01:30", "America/New_York").error).toContain("两个可能时刻");
+  });
+  it("renders original business time and correction-recorded time in both expectation surfaces", () => {
+    const original = { ...snapshot(), id: "a", asOfDate: "2026-06-01", createdAt: "2026-06-01T00:00:00.000Z" };
+    const correction = { ...snapshot(), id: "c", correctsSnapshotId: "a", correctionScope: "value" as const, value: 110, asOfDate: "2026-06-01", createdAt: "2026-07-15T04:00:00.000Z", notes: "修正录入错误" };
+    const center = centerHtml([original, correction]);
+    const panel = renderToStaticMarkup(<StockEarningsExpectationPanel stock={stock()} snapshots={[correction, original]} financialData={null} announcementData={null} financialLoadStatus="idle" announcementLoadStatus="idle" timeZone="Asia/Shanghai" />);
+    for (const html of [center, panel]) {
+      expect(html).toContain("原业务");
+      expect(html).toContain("2026-06-01");
+      expect(html).toContain("纠正记录 2026-07-15T04:00:00.000Z");
+      expect(html).toContain("a");
+      expect(html).toContain("c");
+    }
+  });
+  it("renders exact equal order and same-time disclosure without directional wording", () => {
+    const first = { ...snapshot(), id: "a", formedAt: "2026-06-01T07:00:00.000Z", formedAtPrecision: "datetime" as const };
+    const second = { ...snapshot(), id: "z", value: 110, formedAt: "2026-06-01T15:00:00+08:00", formedAtPrecision: "datetime" as const };
+    const html = centerHtml([first, second], [{ ...comparison(), snapshotId: "z", actualDisclosureTimingStatus: "same_time", performanceDisclosureTimingStatus: "same_time", isExAnte: false, comparabilityStatus: "not_comparable", comparisonResult: "not_comparable", nonComparableReasons: ["预期可用时间与披露时间相同"] }]);
+    expect(html).toContain("时间关系为 equal");
+    expect(html).toContain("预测形成时间与披露时间相同，无法认定为披露前预测");
+    expect(html).not.toContain("业务预测较前值 +");
+  });
 });
 
 function centerHtml(values: EarningsExpectationSnapshot[], comparisons: EarningsExpectationComparison[] = []) { return renderToStaticMarkup(<EarningsExpectationCenter {...centerProps()} snapshots={values} comparisons={comparisons} />); }

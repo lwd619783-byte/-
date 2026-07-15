@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import type { EarningsExpectationSnapshot, Stock } from "../../types";
 import type { CreateEarningsExpectationSnapshotInput } from "../../services/earningsExpectationStore";
-import { getCalendarToday, isoToZonedLocalDateTime, resolveTimeZone, resolveZonedLocalDateTime } from "../../utils/dateTime";
+import { getCalendarToday, isoToZonedLocalDateTime, resolveTimeZone, resolveWorkflowTemporalInput, resolveZonedLocalDateTime } from "../../utils/dateTime";
 import { Modal } from "../common/Modal";
 
 interface EarningsExpectationFormModalProps {
@@ -20,13 +20,16 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
   const [form, setForm] = useState(initial);
   const [dirty, setDirty] = useState(false);
   const [formationTimeError, setFormationTimeError] = useState<string | null>(null);
+  const [sourceTimeError, setSourceTimeError] = useState<string | null>(null);
   const close = () => { if (!dirty || window.confirm("表单尚未保存，确认关闭？")) onClose(); };
-  const set = (key: keyof FormState, value: string) => { setDirty(true); if (key === "formedAt") setFormationTimeError(null); setForm((current) => ({ ...current, [key]: value })); };
+  const set = (key: keyof FormState, value: string) => { setDirty(true); if (key === "formedAt") setFormationTimeError(null); if (key === "sourcePublishedAt") setSourceTimeError(null); setForm((current) => ({ ...current, [key]: value })); };
   const selectedStock = stocks.find((stock) => stock.id === form.stockId);
   const immutable = Boolean(correctionTarget);
   const submit = () => {
     if (!selectedStock) return;
-    const sourcePublishedAt = temporalValue(form.sourcePublishedAt);
+    const preserveLegacySourceTime = correctionTarget?.sourcePublishedAtResolution === "unresolved_legacy" && correctionTarget.sourcePublishedAt === form.sourcePublishedAt.trim();
+    const sourceTime = resolveSourcePublishedInput(form.sourcePublishedAt, timeZone, preserveLegacySourceTime);
+    if (sourceTime.error) { setSourceTimeError(sourceTime.error); return; }
     const formation = resolveFormationInput(form.formedAt, timeZone);
     if (formation.error) { setFormationTimeError(formation.error); return; }
     const formedAt = formation.formedAt;
@@ -52,8 +55,10 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
       sourceName: form.sourceCategory === "user_estimate" ? (form.sourceName.trim() ? form.sourceName : "用户个人预测") : form.sourceName,
       sourceTitle: form.sourceTitle.trim(),
       sourceUrl: form.sourceUrl.trim() || null,
-      sourcePublishedAt,
-      sourcePublishedAtPrecision: sourcePublishedAt ? (sourcePublishedAt.includes("T") ? "datetime" : "date") : null,
+      sourcePublishedAt: sourceTime.value,
+      sourcePublishedAtPrecision: sourceTime.precision,
+      sourcePublishedAtResolution: sourceTime.resolution,
+      sourcePublishedAtTimeZone: sourceTime.interpretedTimeZone,
       asOfDate: form.asOfDate,
       formedAt,
       formedAtPrecision: formation.precision,
@@ -81,7 +86,7 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
         <Field label="来源主体 / 机构"><input disabled={immutable} value={form.sourceName} onChange={(event) => set("sourceName", event.target.value)} className={inputClass} placeholder={form.sourceCategory === "user_estimate" ? "默认：用户个人预测" : "公司或机构名称"} /></Field>
         <Field label="来源标题"><input value={form.sourceTitle} onChange={(event) => set("sourceTitle", event.target.value)} className={inputClass} /></Field>
         <Field label="来源链接"><input type="url" value={form.sourceUrl} onChange={(event) => set("sourceUrl", event.target.value)} className={inputClass} placeholder="https://；一致预期必须填写" /></Field>
-        <Field label="来源发布日期 / 时间"><input type="text" placeholder="YYYY-MM-DD 或 ISO 时间（外部已核验来源必填）" value={form.sourcePublishedAt} onChange={(event) => set("sourcePublishedAt", event.target.value)} className={inputClass} /></Field>
+        <Field label="来源发布日期 / 时间"><input type="text" placeholder="YYYY-MM-DD、带偏移 ISO 或本地时间" value={form.sourcePublishedAt} onChange={(event) => set("sourcePublishedAt", event.target.value)} className={inputClass} aria-invalid={Boolean(sourceTimeError)} /><span className="mt-1 block leading-4">不带偏移时按工作流时区 {timeZone} 解释；DST gap/overlap 将拒绝。</span>{sourceTimeError ? <span role="alert" className="mt-1 block leading-4 text-danger">{sourceTimeError}</span> : null}</Field>
         <Field label="预期形成日期"><input type="text" inputMode="numeric" placeholder="YYYY-MM-DD" value={form.asOfDate} onChange={(event) => set("asOfDate", event.target.value)} className={inputClass} /></Field>
         <Field label="精确形成时间（可选）"><input type="datetime-local" value={form.formedAt} onChange={(event) => set("formedAt", event.target.value)} className={inputClass} aria-invalid={Boolean(formationTimeError)} /><span className="mt-1 block leading-4">留空按日期精度处理；同日披露无法证明事前形成。</span>{formationTimeError ? <span role="alert" className="mt-1 block leading-4 text-danger">{formationTimeError}</span> : null}</Field>
         <Field label="分析师数量"><input type="number" min="0" step="1" value={form.analystCount} onChange={(event) => set("analystCount", event.target.value)} className={inputClass} /></Field>
@@ -106,11 +111,20 @@ export function resolveFormationInput(value: string, timeZone: string): { formed
   if (resolved.status === "ambiguous") return { formedAt: null, precision: "date", error: `该本地时间在 ${timeZone} 因夏令时回拨存在两个可能时刻，V1 暂不猜测偏移，请调整时间或留空按日期精度保存。` };
   return { formedAt: null, precision: "date", error: resolved.reason };
 }
+export function resolveSourcePublishedInput(value: string, timeZone: string, preserveUnresolvedLegacy = false): { value: string | null; precision: "date" | "datetime" | null; resolution: EarningsExpectationSnapshot["sourcePublishedAtResolution"]; interpretedTimeZone: string | null; error: string | null } {
+  const input = value.trim();
+  if (preserveUnresolvedLegacy) return { value: input || null, precision: input ? "datetime" : null, resolution: input ? "unresolved_legacy" : null, interpretedTimeZone: null, error: null };
+  const resolved = resolveWorkflowTemporalInput(input, timeZone);
+  if (resolved.status === "empty") return { value: null, precision: null, resolution: null, interpretedTimeZone: null, error: null };
+  if (resolved.status === "date") return { value: resolved.value, precision: "date", resolution: "date", interpretedTimeZone: null, error: null };
+  if (resolved.status === "absolute") return { value: resolved.value, precision: "datetime", resolution: "absolute", interpretedTimeZone: null, error: null };
+  if (resolved.status === "local") return { value: resolved.value, precision: "datetime", resolution: "workflow_time_zone", interpretedTimeZone: resolved.interpretedTimeZone, error: null };
+  return { value: null, precision: null, resolution: null, interpretedTimeZone: null, error: resolved.message };
+}
 function formFrom(snapshot: EarningsExpectationSnapshot | null | undefined, stockId: string | undefined, timeZone: string, now: Date): FormState { return snapshot ? { stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric, estimateShape: snapshot.estimateShape, value: text(snapshot.value), lowerBound: text(snapshot.lowerBound), upperBound: text(snapshot.upperBound), currency: snapshot.currency, unit: snapshot.unit, accountingBasis: snapshot.accountingBasis, sourceCategory: snapshot.sourceCategory, sourceName: snapshot.sourceName, sourceTitle: snapshot.sourceTitle, sourceUrl: snapshot.sourceUrl ?? "", sourcePublishedAt: snapshot.sourcePublishedAt ?? "", asOfDate: snapshot.asOfDate, formedAt: isoToZonedLocalDateTime(snapshot.formedAt, timeZone), analystCount: text(snapshot.analystCount), institutionCount: text(snapshot.institutionCount), sourceVerificationStatus: snapshot.sourceVerificationStatus, notes: snapshot.notes ?? "" } : { stockId: stockId ?? "", reportPeriod: "", periodScope: "single_quarter", metric: "revenue", estimateShape: "point", value: "", lowerBound: "", upperBound: "", currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: "", sourcePublishedAt: "", asOfDate: getCalendarToday(now, timeZone), formedAt: "", analystCount: "", institutionCount: "", sourceVerificationStatus: "verified", notes: "" }; }
 function numberOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
 function integerOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
 function text(value: number | null) { return value === null ? "" : String(value); }
-function temporalValue(value: string) { const input = value.trim(); if (!input) return null; if (/^\d{4}-\d{2}-\d{2}$/.test(input)) return input; const parsed = Date.parse(input); return Number.isNaN(parsed) ? input : new Date(parsed).toISOString(); }
 function option([value, label]: [string, string]) { return <option key={value} value={value}>{label}</option>; }
 const periodScopeOptions: Array<[string, string]> = [["single_quarter", "单季度"], ["year_to_date", "年初至今累计"], ["half_year", "半年度"], ["first_three_quarters", "前三季度累计"], ["full_year", "全年度"], ["ttm", "TTM"]];
 const metricOptions: Array<[string, string]> = [["revenue", "营业收入"], ["attributable_net_profit", "归母净利润"], ["adjusted_net_profit", "扣非净利润"], ["eps", "每股收益"], ["operating_cash_flow", "经营现金流"]];
