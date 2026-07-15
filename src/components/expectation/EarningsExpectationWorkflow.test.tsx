@@ -79,7 +79,7 @@ describe("earnings expectation UI and workflow linkage", () => {
     const center = centerHtml([original, correction]);
     const panel = renderToStaticMarkup(<StockEarningsExpectationPanel stock={stock()} snapshots={[correction, original]} financialData={null} announcementData={null} financialLoadStatus="idle" announcementLoadStatus="idle" timeZone="Asia/Shanghai" />);
     for (const html of [center, panel]) {
-      expect(html).toContain("原业务");
+      expect(html).toContain("原记录业务时间");
       expect(html).toContain("2026-06-01");
       expect(html).toContain("纠正记录 2026-07-15T04:00:00.000Z");
       expect(html).toContain("a");
@@ -94,6 +94,25 @@ describe("earnings expectation UI and workflow linkage", () => {
     expect(html).toContain("预测形成时间与披露时间相同，无法认定为披露前预测");
     expect(html).not.toContain("业务预测较前值 +");
   });
+  it("uses the same declared record time zone in manual source and formedAt resolution", () => {
+    expect(resolveSourcePublishedInput("2026-07-15T15:00", "Asia/Shanghai", false, "workflow_time_zone", "Asia/Tokyo")).toMatchObject({ value: "2026-07-15T06:00:00.000Z", resolution: "workflow_time_zone", interpretedTimeZone: "Asia/Tokyo", error: null });
+    expect(resolveFormationInput("2026-07-15T00:30", "Asia/Shanghai", "2026-07-15", "workflow_time_zone", "Asia/Tokyo")).toMatchObject({ formedAt: "2026-07-14T15:30:00.000Z", resolution: "workflow_time_zone", interpretedTimeZone: "Asia/Tokyo", error: null });
+  });
+  it("renders import-time interpretation notes and record/workflow conflicts", () => {
+    const html = renderToStaticMarkup(<Preview value={{ ...invalidPreview(), ok: true, mergeAllowed: true, replaceAllowed: true, invalidCount: 0, timeZoneNotes: [{ row: 2, field: "sourcePublishedAt", timeZone: "Asia/Tokyo", message: "使用记录时区 Asia/Tokyo 解释，而非当前工作流时区 Asia/Shanghai。" }] }} />);
+    expect(html).toContain("sourcePublishedAt");
+    expect(html).toContain("使用记录时区 Asia/Tokyo 解释");
+    expect(html).toContain("Asia/Shanghai");
+  });
+  it("renders original and corrected temporal evidence plus the actual source interpretation zone", () => {
+    const root = { ...snapshot(), id: "root-time", sourceCategory: "institution_single" as const, sourceName: "测试证券", sourceTitle: "盈利预测", sourceUrl: "https://example.com/report", sourcePublishedAt: "2026-06-01T07:00:00.000Z", sourcePublishedAtPrecision: "datetime" as const, sourcePublishedAtResolution: "absolute" as const, asOfDate: "2026-06-01", formedAt: "2026-06-01T08:00:00.000Z", formedAtPrecision: "datetime" as const, formedAtResolution: "absolute" as const };
+    const correction = { ...root, id: "corrected-time", correctsSnapshotId: "root-time", correctionScope: "value" as const, sourcePublishedAt: "2026-06-01T06:00:00.000Z", sourcePublishedAtResolution: "workflow_time_zone" as const, sourcePublishedAtTimeZone: "Asia/Tokyo", formedAt: "2026-06-01T09:00:00.000Z", createdAt: "2026-07-15T04:00:00.000Z" };
+    const html = renderToStaticMarkup(<EarningsExpectationCenter {...centerProps()} timeZone="Asia/Shanghai" snapshots={[root, correction]} comparisons={[]} />);
+    expect(html).toContain("时间字段已纠正");
+    expect(html).toContain("原记录业务时间");
+    expect(html).toContain("纠正后有效业务时间");
+    expect(html).toContain("来源时间实际按记录时区 Asia/Tokyo 解释");
+  });
 });
 
 function centerHtml(values: EarningsExpectationSnapshot[], comparisons: EarningsExpectationComparison[] = []) { return renderToStaticMarkup(<EarningsExpectationCenter {...centerProps()} snapshots={values} comparisons={comparisons} />); }
@@ -103,4 +122,4 @@ function snapshot(): EarningsExpectationSnapshot { return { id: "s-1", stockId: 
 function comparison(): EarningsExpectationComparison { return { id: "c-1", snapshotId: "s-1", actualEventId: "actual-1", stockId: "demo", reportPeriod: "2026-06-30", periodScope: "half_year", metric: "revenue", expectedValue: 100, expectedLowerBound: null, expectedUpperBound: null, actualValue: 120, absoluteDifference: 20, relativeDifference: 0.2, comparisonResult: "above", comparisonMethod: "点预测：实际值减预期值", isExAnte: true, beforeActualDisclosure: true, beforeAnyPerformanceDisclosure: true, actualDisclosureAt: "2026-07-01T08:00:00.000Z", performanceInformationCutoff: "2026-07-01T08:00:00.000Z", comparisonAvailableAt: "2026-07-01T08:00:00.000Z", comparabilityStatus: "comparable", nonComparableReasons: [], calculatedAt: "2026-07-01" }; }
 function watchItem(): WatchItem { return { id: "watch-1", stockId: "demo", createdAt: "2026-05-01", updatedAt: "2026-05-01", status: "观察", priority: "high", tags: [], reason: "跟踪", thesis: "假设", validationCriteria: [], riskCriteria: [], nextReviewAt: null, lastReviewedAt: null, archivedAt: null, source: "user", schemaVersion: 2 }; }
 function researchEvent(id: string, eventType: ResearchEvent["eventType"]): ResearchEvent { return { id, stockId: "demo", stockName: "测试公司", stockCode: "000001.SZ", industryId: "tech", market: "A股", eventType, eventDate: "2026-07-01", publishedAt: "2026-07-01", reportPeriod: "2026-06-30", title: "正式财务", summary: "正式财务", sourceType: "financial_report", sourceName: "正式来源", sourceUrl: "https://example.com/actual", pdfUrl: null, verificationStatus: "verified", parseStatus: "not_applicable", materiality: "high", metrics: [], relatedAnnouncementIds: [], relatedFinancialPeriod: "2026-06-30", reviewStatus: "not_required", reviewReasons: [], isRestated: false, updatedAt: "2026-07-01" }; }
-function invalidPreview() { return { ok: false, mergeAllowed: false, replaceAllowed: false, partial: false, schemaVersion: 1, totalCount: 0, validCount: 0, addCount: 0, skippedCount: 0, duplicateCount: 0, conflictCount: 0, invalidCount: 1, issues: [{ row: 0, code: "invalid", message: "无效" }], snapshots: [] }; }
+function invalidPreview() { return { ok: false, mergeAllowed: false, replaceAllowed: false, partial: false, schemaVersion: 1, totalCount: 0, validCount: 0, addCount: 0, skippedCount: 0, duplicateCount: 0, conflictCount: 0, invalidCount: 1, issues: [{ row: 0, code: "invalid", message: "无效" }], timeZoneNotes: [], snapshots: [] }; }

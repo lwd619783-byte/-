@@ -109,6 +109,71 @@ describe("earnings expectation repository and validation", () => {
     expect(result.snapshot?.createdAt).toBe("2026-07-15T09:00:00.000Z");
     expect(data.snapshots[0].createdAt).toBe("2026-07-13T00:00:00.000Z");
   });
+  it("98 gives a valid record-declared source time zone precedence in both JSON and CSV previews", () => {
+    const repo = new EarningsExpectationRepository(new MemoryStorage());
+    const current = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "Asia/Shanghai" } };
+    const value = { ...snapshot(), id: "tokyo-source", asOfDate: "2026-07-15", sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime" as const, sourcePublishedAtResolution: "workflow_time_zone" as const, sourcePublishedAtTimeZone: "Asia/Tokyo" };
+    const json = repo.previewJson({ schemaVersion: 1, snapshots: [value] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    const csv = repo.previewCsv(exportEarningsExpectationCsv([value]), current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    for (const preview of [json, csv]) {
+      expect(preview.ok).toBe(true);
+      expect(preview.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T06:00:00.000Z", sourcePublishedAtResolution: "workflow_time_zone", sourcePublishedAtTimeZone: "Asia/Tokyo" });
+      expect(preview.timeZoneNotes.some((note) => note.field === "sourcePublishedAt" && note.timeZone === "Asia/Tokyo" && note.message.includes("而非当前工作流时区 Asia/Shanghai"))).toBe(true);
+    }
+  });
+  it("99 uses envelope or explicit workflow time zone only when a source record does not declare one", () => {
+    const repo = new EarningsExpectationRepository(new MemoryStorage());
+    const current = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "Asia/Shanghai" } };
+    const raw = { ...snapshot(), id: "workflow-source", asOfDate: "2026-07-15", sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime" as const, sourcePublishedAtResolution: undefined, sourcePublishedAtTimeZone: undefined };
+    const envelope = repo.previewJson({ schemaVersion: 1, settings: { timeZone: "Asia/Tokyo" }, snapshots: [raw] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z") });
+    expect(envelope.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T06:00:00.000Z", sourcePublishedAtResolution: "workflow_time_zone", sourcePublishedAtTimeZone: "Asia/Tokyo" });
+    const explicit = repo.previewJson({ schemaVersion: 1, settings: { timeZone: "Asia/Tokyo" }, snapshots: [raw] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    expect(explicit.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T07:00:00.000Z", sourcePublishedAtTimeZone: "Asia/Shanghai" });
+    const tokyoCurrent = { ...current, settings: { ...current.settings, timeZone: "Asia/Tokyo" } };
+    const csv = repo.previewCsv(exportEarningsExpectationCsv([raw as EarningsExpectationSnapshot]), tokyoCurrent, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z") });
+    expect(csv.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T06:00:00.000Z", sourcePublishedAtTimeZone: "Asia/Tokyo" });
+  });
+  it("100 preserves absolute source instants without reinterpretation and rejects declared-zone DST gaps", () => {
+    const repo = new EarningsExpectationRepository(new MemoryStorage());
+    const current = createEmptyEarningsExpectationEnvelope();
+    for (const rawTime of ["2026-07-15T15:00:00+08:00", "2026-07-15T07:00:00Z"]) {
+      const preview = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: `absolute-${rawTime}`, asOfDate: "2026-07-15", sourcePublishedAt: rawTime, sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "absolute", sourcePublishedAtTimeZone: "Asia/Tokyo" }] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+      expect(preview.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T07:00:00.000Z", sourcePublishedAtResolution: "absolute", sourcePublishedAtTimeZone: null });
+    }
+    for (const rawTime of ["2026-03-08T02:30", "2026-11-01T01:30"]) {
+      const preview = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: `declared-dst-${rawTime}`, asOfDate: rawTime.slice(0, 10), sourcePublishedAt: rawTime, sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "workflow_time_zone", sourcePublishedAtTimeZone: "America/New_York" }] }, current, { ...jsonOptions(), now: new Date("2026-12-01T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+      expect(preview.ok).toBe(false);
+      expect(preview.issues.some((issue) => issue.code.includes("source_published_at"))).toBe(true);
+    }
+  });
+  it("101 applies the same declared-zone formedAt contract to JSON, CSV and direct Store writes", () => {
+    const repo = new EarningsExpectationRepository(new MemoryStorage(), () => new Date("2026-07-16T00:00:00.000Z"));
+    const current = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "Asia/Shanghai" } };
+    const value = { ...snapshot(), id: "tokyo-formed", asOfDate: "2026-07-15", formedAt: "2026-07-15T00:30", formedAtPrecision: "datetime" as const, formedAtResolution: "workflow_time_zone" as const, formedAtTimeZone: "Asia/Tokyo" };
+    const json = repo.previewJson({ schemaVersion: 1, snapshots: [value] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    const csv = repo.previewCsv(exportEarningsExpectationCsv([value]), current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    for (const preview of [json, csv]) expect(preview.snapshots[0]).toMatchObject({ formedAt: "2026-07-14T15:30:00.000Z", formedAtResolution: "workflow_time_zone", formedAtTimeZone: "Asia/Tokyo" });
+    const store = new EarningsExpectationStore(repo, () => new Date("2026-07-16T00:00:00.000Z"), () => "store-tokyo");
+    const stored = store.appendSnapshot(current, { ...input(), id: "store-tokyo", asOfDate: "2026-07-15", formedAt: "2026-07-15T00:30", formedAtPrecision: "datetime", formedAtResolution: "workflow_time_zone", formedAtTimeZone: "Asia/Tokyo" });
+    expect(stored.snapshot).toMatchObject({ formedAt: "2026-07-14T15:30:00.000Z", formedAtResolution: "workflow_time_zone", formedAtTimeZone: "Asia/Tokyo" });
+  });
+  it("102 validates absolute formedAt in the workflow zone and rejects date mismatch plus DST ambiguity", () => {
+    const repo = new EarningsExpectationRepository(new MemoryStorage());
+    const current = createEmptyEarningsExpectationEnvelope();
+    const absolute = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: "absolute-formed", asOfDate: "2026-07-15", formedAt: "2026-07-15T00:30:00Z", formedAtPrecision: "datetime", formedAtResolution: "absolute" }] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    expect(absolute.ok).toBe(true);
+    const mismatch = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: "mismatch-formed", asOfDate: "2026-07-14", formedAt: "2026-07-15T00:30:00Z", formedAtPrecision: "datetime", formedAtResolution: "absolute" }] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+    expect(mismatch.ok).toBe(false);
+    for (const formedAt of ["2026-03-08T02:30", "2026-11-01T01:30"]) {
+      const dst = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: `formed-dst-${formedAt}`, asOfDate: formedAt.slice(0, 10), formedAt, formedAtPrecision: "datetime", formedAtResolution: "workflow_time_zone", formedAtTimeZone: "America/New_York" }] }, current, { ...jsonOptions(), now: new Date("2026-12-01T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
+      expect(dst.ok).toBe(false);
+      expect(dst.issues.some((issue) => issue.code.includes("formed_at"))).toBe(true);
+    }
+  });
+  it("103 preserves legacy unzoned formedAt as unresolved and never substitutes createdAt", () => {
+    const migrated = migrateEarningsExpectationEnvelope({ ...createEmptyEarningsExpectationEnvelope(), snapshots: [{ ...snapshot(), formedAt: "2026-07-15T15:00", formedAtPrecision: undefined, formedAtResolution: undefined, formedAtTimeZone: undefined, createdAt: "2026-07-20T00:00:00.000Z" }] });
+    expect(migrated.snapshots[0]).toMatchObject({ formedAt: "2026-07-15T15:00", formedAtPrecision: "datetime", formedAtResolution: "unresolved_legacy", formedAtTimeZone: null, createdAt: "2026-07-20T00:00:00.000Z" });
+  });
 });
 
 function snapshot(): EarningsExpectationSnapshot { return { id: "s-1", stockId: "demo", market: "A股", reportPeriod: "2026-06-30", periodScope: "half_year", metric: "revenue", estimateShape: "point", value: 100, lowerBound: null, upperBound: null, currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: null, sourcePublishedAt: null, asOfDate: "2026-06-01", analystCount: null, institutionCount: null, ingestionMethod: "manual", createdAt: "2026-07-13T00:00:00.000Z", createdBy: "local-user", sourceVerificationStatus: "verified", notes: null, correctsSnapshotId: null, schemaVersion: 1 }; }

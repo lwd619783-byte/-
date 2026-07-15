@@ -20,6 +20,25 @@ export type WorkflowTemporalInputResolution =
   | { status: "local"; value: string; precision: "datetime"; interpretedTimeZone: string }
   | { status: "nonexistent" | "ambiguous" | "invalid"; value: null; precision: null; interpretedTimeZone: string | null; message: string };
 
+export type ImportedTemporalResolution =
+  | { status: "empty"; value: null; precision: null; resolution: null; interpretedTimeZone: null; usedDeclaredTimeZone: false; note: null }
+  | { status: "date"; value: string; precision: "date"; resolution: "date"; interpretedTimeZone: null; usedDeclaredTimeZone: false; note: null }
+  | { status: "absolute"; value: string; precision: "datetime"; resolution: "absolute"; interpretedTimeZone: null; usedDeclaredTimeZone: false; note: string | null }
+  | { status: "local"; value: string; precision: "datetime"; resolution: "workflow_time_zone"; interpretedTimeZone: string; usedDeclaredTimeZone: boolean; note: string }
+  | { status: "unresolved_legacy"; value: string; precision: "datetime"; resolution: "unresolved_legacy"; interpretedTimeZone: null; usedDeclaredTimeZone: false; note: string }
+  | { status: "nonexistent" | "ambiguous" | "invalid"; value: null; precision: null; resolution: null; interpretedTimeZone: string | null; usedDeclaredTimeZone: boolean; note: null; message: string };
+
+export interface ImportedTemporalInputOptions {
+  rawValue: string | null | undefined;
+  declaredResolution?: string | null;
+  declaredTimeZone?: string | null;
+  fallbackTimeZone?: string | null;
+}
+
+export interface ImportedFormedAtOptions extends ImportedTemporalInputOptions {
+  asOfDate: string;
+}
+
 export type ZonedLocalDateTimeResolution =
   | { status: "valid"; instant: string; offsetMinutes: number }
   | { status: "nonexistent"; candidates: [] }
@@ -29,6 +48,7 @@ export type ZonedLocalDateTimeResolution =
 const CALENDAR_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const PRECISE_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/;
 const LOCAL_DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/;
+export const DEFAULT_WORKFLOW_TIME_ZONE = "Asia/Shanghai";
 
 export function resolveTimeZone(preferred?: string | null) {
   if (preferred && isValidTimeZone(preferred)) return preferred;
@@ -39,6 +59,11 @@ export function resolveTimeZone(preferred?: string | null) {
     // Use the deterministic safe fallback below.
   }
   return "UTC";
+}
+
+/** Import paths must never inherit the browser or Node process time zone. */
+export function resolveSafeWorkflowTimeZone(preferred?: string | null) {
+  return preferred && isValidTimeZone(preferred) ? preferred : DEFAULT_WORKFLOW_TIME_ZONE;
 }
 
 export function isValidTimeZone(value: unknown): value is string {
@@ -151,6 +176,95 @@ export function resolveWorkflowTemporalInput(value: string | null | undefined, t
   if (resolved.status === "nonexistent") return { status: "nonexistent", value: null, precision: null, interpretedTimeZone: zone, message: `该来源时间在 ${zone} 因夏令时跳转不存在，请改用带偏移的 ISO 时间或日期精度。` };
   if (resolved.status === "ambiguous") return { status: "ambiguous", value: null, precision: null, interpretedTimeZone: zone, message: `该来源时间在 ${zone} 因夏令时回拨存在两个可能时刻，请改用带偏移的 ISO 时间或日期精度。` };
   return { status: "invalid", value: null, precision: null, interpretedTimeZone: zone, message: resolved.reason };
+}
+
+/**
+ * Resolves imported source publication time with record-declared IANA time zone taking precedence.
+ * The returned interpretedTimeZone is the exact zone used to turn an unzoned wall clock into an instant.
+ */
+export function resolveImportedSourcePublishedAt(options: ImportedTemporalInputOptions): ImportedTemporalResolution {
+  const input = options.rawValue?.trim() ?? "";
+  if (!input) return { status: "empty", value: null, precision: null, resolution: null, interpretedTimeZone: null, usedDeclaredTimeZone: false, note: null };
+  if (options.declaredResolution === "unresolved_legacy" && isUnzonedLocalDateTime(input)) {
+    return {
+      status: "unresolved_legacy",
+      value: input,
+      precision: "datetime",
+      resolution: "unresolved_legacy",
+      interpretedTimeZone: null,
+      usedDeclaredTimeZone: false,
+      note: "历史无时区时间保留原值，未重新解释为绝对时刻。",
+    };
+  }
+  const declared = options.declaredTimeZone?.trim() ?? "";
+  if (declared && !isValidTimeZone(declared)) {
+    return { status: "invalid", value: null, precision: null, resolution: null, interpretedTimeZone: null, usedDeclaredTimeZone: false, note: null, message: `记录声明的 IANA 时区无效：${declared}` };
+  }
+  const fallback = resolveSafeWorkflowTimeZone(options.fallbackTimeZone);
+  const interpretationZone = declared || fallback;
+  const resolved = resolveWorkflowTemporalInput(input, interpretationZone);
+  if (resolved.status === "empty") return { status: "empty", value: null, precision: null, resolution: null, interpretedTimeZone: null, usedDeclaredTimeZone: false, note: null };
+  if (resolved.status === "date") return { status: "date", value: resolved.value, precision: "date", resolution: "date", interpretedTimeZone: null, usedDeclaredTimeZone: false, note: null };
+  if (resolved.status === "absolute") {
+    const note = declared ? `输入已包含偏移或 Z，按绝对时刻保存；记录时区 ${declared} 未参与重新解释。` : null;
+    return { status: "absolute", value: resolved.value, precision: "datetime", resolution: "absolute", interpretedTimeZone: null, usedDeclaredTimeZone: false, note };
+  }
+  if (resolved.status === "local") {
+    const usedDeclaredTimeZone = Boolean(declared);
+    return {
+      status: "local",
+      value: resolved.value,
+      precision: "datetime",
+      resolution: "workflow_time_zone",
+      interpretedTimeZone: resolved.interpretedTimeZone,
+      usedDeclaredTimeZone,
+      note: usedDeclaredTimeZone
+        ? resolved.interpretedTimeZone === fallback
+          ? `使用记录声明且与工作流一致的时区 ${resolved.interpretedTimeZone} 解释。`
+          : `使用记录时区 ${resolved.interpretedTimeZone} 解释，而非当前工作流时区 ${fallback}。`
+        : `使用工作流时区 ${resolved.interpretedTimeZone} 解释。`,
+    };
+  }
+  return { ...resolved, resolution: null, usedDeclaredTimeZone: Boolean(declared), note: null };
+}
+
+/** Uses the same deterministic contract for manual, Store, JSON and CSV formedAt values. */
+export function resolveImportedFormedAt(options: ImportedFormedAtOptions): ImportedTemporalResolution {
+  const resolved = resolveImportedSourcePublishedAt(options);
+  if (resolved.status === "empty") return { ...resolved, precision: null, resolution: null };
+  if (resolved.status === "unresolved_legacy") return resolved;
+  if (resolved.status === "date") {
+    return { status: "invalid", value: null, precision: null, resolution: null, interpretedTimeZone: null, usedDeclaredTimeZone: false, note: null, message: "formedAt 必须是精确日期时间；日期精度请留空并使用 asOfDate。" };
+  }
+  if (resolved.status === "nonexistent" || resolved.status === "ambiguous" || resolved.status === "invalid") return resolved;
+  if (!isCalendarDate(options.asOfDate)) {
+    return { status: "invalid", value: null, precision: null, resolution: null, interpretedTimeZone: resolved.interpretedTimeZone, usedDeclaredTimeZone: resolved.usedDeclaredTimeZone, note: null, message: "校验 formedAt 前必须提供有效的 asOfDate。" };
+  }
+  const preservesWorkflowProvenance = resolved.status === "absolute"
+    && options.declaredResolution === "workflow_time_zone"
+    && isValidTimeZone(options.declaredTimeZone);
+  const validationZone = resolved.status === "local"
+    ? resolved.interpretedTimeZone
+    : preservesWorkflowProvenance
+      ? options.declaredTimeZone as string
+      : resolveSafeWorkflowTimeZone(options.fallbackTimeZone);
+  if (!resolved.value || !validationZone) {
+    return { status: "invalid", value: null, precision: null, resolution: null, interpretedTimeZone: resolved.interpretedTimeZone, usedDeclaredTimeZone: resolved.usedDeclaredTimeZone, note: null, message: "formedAt 无法解析为可核验的精确时间。" };
+  }
+  const calendarDate = getCalendarDateInTimeZone(resolved.value, validationZone);
+  if (calendarDate !== options.asOfDate) {
+    return {
+      status: "invalid",
+      value: null,
+      precision: null,
+      resolution: null,
+      interpretedTimeZone: resolved.interpretedTimeZone,
+      usedDeclaredTimeZone: resolved.usedDeclaredTimeZone,
+      note: null,
+      message: `formedAt 在 ${validationZone} 的日历日期 ${calendarDate ?? "无效"} 必须与 asOfDate ${options.asOfDate} 一致。`,
+    };
+  }
+  return resolved;
 }
 
 export function isUnzonedLocalDateTime(value: unknown): value is string {

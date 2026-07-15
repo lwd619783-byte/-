@@ -78,6 +78,10 @@ export interface EarningsExpectationSnapshot {
   formedAt?: string | null;
   /** Legacy date-only records are treated as date precision. */
   formedAtPrecision?: EarningsExpectationTimePrecision;
+  /** How formedAt was resolved; unresolved legacy wall clocks are retained for audit but not used as exact time. */
+  formedAtResolution?: EarningsExpectationSourceTimeResolution | null;
+  /** Exact IANA time zone used only when an unzoned formedAt wall clock was resolved. */
+  formedAtTimeZone?: string | null;
   analystCount: number | null;
   institutionCount: number | null;
   ingestionMethod: EarningsExpectationIngestionMethod;
@@ -119,6 +123,13 @@ export interface EarningsExpectationComparison {
   actualDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
   performanceDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
   performanceDisclosureUncertain?: boolean;
+  originalBusinessTime?: string;
+  effectiveBusinessTime?: string;
+  originalSourcePublishedAt?: string | null;
+  effectiveSourcePublishedAt?: string | null;
+  temporalCorrectionApplied?: boolean;
+  correctedTemporalFields?: string[];
+  actualSourceInterpretationTimeZone?: string | null;
   actualDisclosureAt?: string | null;
   performanceInformationCutoff?: string | null;
   comparisonAvailableAt?: string | null;
@@ -175,6 +186,12 @@ export interface EarningsExpectationEventPayload {
   effectiveSnapshotId?: string;
   correctionChainSnapshotIds?: string[];
   originalBusinessTime?: string;
+  effectiveBusinessTime?: string;
+  originalSourcePublishedAt?: string | null;
+  effectiveSourcePublishedAt?: string | null;
+  temporalCorrectionApplied?: boolean;
+  correctedTemporalFields?: string[];
+  actualSourceInterpretationTimeZone?: string | null;
   correctionRecordedAt?: string | null;
   sourceCategory: EarningsExpectationSourceCategory;
   sourceName: string;
@@ -204,5 +221,6 @@ export interface EarningsExpectationEventPayload {
   revisionDirection?: "up" | "down" | "unchanged" | null;
   revisionMagnitude?: number | null;
   businessTimePrecision?: EarningsExpectationTimePrecision;
+  effectiveBusinessTimePrecision?: EarningsExpectationTimePrecision;
   businessOrderUncertain?: boolean;
 }

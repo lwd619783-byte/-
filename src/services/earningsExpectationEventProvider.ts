@@ -23,7 +23,7 @@ import {
   getTemporalCalendarDate,
   isCalendarDate,
   isPreciseInstant,
-  resolveTimeZone,
+  resolveSafeWorkflowTimeZone,
   toBusinessTemporal,
 } from "../utils/dateTime";
 
@@ -32,7 +32,7 @@ export function buildEarningsExpectationResearchEvents(
   comparisons: EarningsExpectationComparison[],
   stocks: Stock[],
   revisionReminderThreshold = 0.1,
-  timeZone = resolveTimeZone(),
+  timeZone = resolveSafeWorkflowTimeZone(),
 ): ResearchEvent[] {
   const events: ResearchEvent[] = [];
   const comparisonSnapshotIds = new Set(comparisons.map((comparison) => comparison.snapshotId));
@@ -48,7 +48,7 @@ export function buildEarningsExpectationResearchEvents(
       const stock = stocks.find((item) => item.id === node.businessRootSnapshot.stockId);
       if (!stock) return;
       const previous = index > 0 ? group[index - 1] : undefined;
-      const priorStatuses = group.slice(0, index).map((candidate) => getExpectationBusinessOrderStatus(candidate.businessRootSnapshot, node.businessRootSnapshot, timeZone));
+      const priorStatuses = group.slice(0, index).map((candidate) => getExpectationBusinessOrderStatus(candidate.effectiveSnapshot, node.effectiveSnapshot, timeZone));
       const businessOrderStatus = priorStatuses.includes("uncertain") ? "uncertain" : priorStatuses.includes("equal") ? "equal" : "confirmed";
       const businessRevisionDelta = deriveExpectationBusinessRevisionDelta(
         node.effectiveSnapshot,
@@ -191,8 +191,8 @@ function warningEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, compa
   };
 }
 
-function base(stock: Stock, snapshot: EarningsExpectationSnapshot, timeZone: string, businessRootSnapshot: EarningsExpectationSnapshot = snapshot): ResearchEvent {
-  const businessTime = getExpectationEventBusinessTime(businessRootSnapshot, timeZone);
+function base(stock: Stock, snapshot: EarningsExpectationSnapshot, timeZone: string, _businessRootSnapshot: EarningsExpectationSnapshot = snapshot): ResearchEvent {
+  const businessTime = getExpectationEventBusinessTime(snapshot, timeZone);
   return {
     id: "",
     stockId: stock.id,
@@ -235,13 +235,21 @@ function payload(
   correctionRecordedAt: string | null,
   effectiveSnapshotId = snapshot.id,
 ): EarningsExpectationEventPayload {
-  const originalBusinessTime = getExpectationBusinessTime(businessRootSnapshot, timeZone);
+  const temporalNode = resolveEffectiveBusinessHistory(correctionChain, timeZone).find((node) => node.businessRootSnapshot.id === businessRootSnapshot.id);
+  const originalBusinessTime = temporalNode?.originalBusinessTime ?? getExpectationBusinessTime(businessRootSnapshot, timeZone);
+  const effectiveBusinessTime = temporalNode?.effectiveBusinessTime ?? getExpectationBusinessTime(snapshot, timeZone);
   return {
     snapshotId: snapshot.id,
     businessRootSnapshotId: businessRootSnapshot.id,
     effectiveSnapshotId,
     correctionChainSnapshotIds: correctionChain.map((item) => item.id),
     originalBusinessTime: originalBusinessTime.value,
+    effectiveBusinessTime: effectiveBusinessTime.value,
+    originalSourcePublishedAt: businessRootSnapshot.sourcePublishedAt ?? null,
+    effectiveSourcePublishedAt: snapshot.sourcePublishedAt ?? null,
+    temporalCorrectionApplied: temporalNode?.temporalCorrectionApplied ?? false,
+    correctedTemporalFields: temporalNode?.correctedTemporalFields ?? [],
+    actualSourceInterpretationTimeZone: temporalNode?.actualSourceInterpretationTimeZone ?? null,
     correctionRecordedAt,
     sourceCategory: snapshot.sourceCategory,
     sourceName: snapshot.sourceName,
@@ -270,6 +278,7 @@ function payload(
     revisionDirection: businessRevisionDelta?.direction ?? null,
     revisionMagnitude: businessRevisionDelta?.relativeDelta ?? null,
     businessTimePrecision: originalBusinessTime.precision,
+    effectiveBusinessTimePrecision: effectiveBusinessTime.precision,
     businessOrderUncertain: businessOrderStatus === "uncertain",
   };
 }

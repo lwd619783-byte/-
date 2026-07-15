@@ -200,11 +200,11 @@ describe("earnings expectation business chronology and source identity", () => {
     const events = buildEarningsExpectationResearchEvents([correction, businessRevision, original], [], [stock()], 0.1, "Asia/Shanghai");
     const revisionEvent = events.find((event) => event.eventType === "earnings_expectation_revision");
     const correctionEvent = events.find((event) => event.eventType === "earnings_expectation_correction");
-    expect(revisionEvent?.expectation?.businessRevisionDelta).toMatchObject({ previousBusinessSnapshotId: "c", previousBusinessRootSnapshotId: "a", previousEffectiveSnapshotId: "c" });
+    expect(revisionEvent?.expectation?.businessRevisionDelta).toMatchObject({ previousBusinessSnapshotId: "b", previousBusinessRootSnapshotId: "b", previousEffectiveSnapshotId: "b" });
     expect(correctionEvent?.expectation?.correctionDelta?.correctionTargetId).toBe("a");
     expect(correctionEvent?.expectation?.correctsSnapshotId).toBe("a");
     expect(correctionEvent?.expectation?.businessRevisionDelta).toBeNull();
-    expect(events.some((event) => event.eventType === "earnings_expectation_revision" && event.expectation?.snapshotId === "c")).toBe(false);
+    expect(events.some((event) => event.eventType === "earnings_expectation_revision" && event.expectation?.snapshotId === "c" && event.expectation?.businessRootSnapshotId === "a")).toBe(true);
     const correctionOnlyEvents = buildEarningsExpectationResearchEvents([correction, original], [], [stock()], 0.1, "Asia/Shanghai");
     const correctionOnlyTasks = buildReviewTasks({ watchItems: [watchItem()], events: correctionOnlyEvents, chains: [], taskStates: [], now: FIXED_NOW, timeZone: "Asia/Shanghai" });
     expect(correctionOnlyTasks.filter((task) => task.ruleType === "earnings_expectation_correction")).toHaveLength(1);
@@ -272,6 +272,42 @@ describe("earnings expectation business chronology and source identity", () => {
     const events = buildEarningsExpectationResearchEvents([lateEntry], [], [stock()], 0.1, "Asia/Tokyo");
     const tasks = buildReviewTasks({ watchItems: [watchItem()], events, chains: [], taskStates: [], now: FIXED_NOW, timeZone: "Asia/Tokyo" });
     expect(tasks.some((task) => task.ruleType === "earnings_expectation_added")).toBe(false);
+  });
+  it("uses the correction terminal formedAt for current ordering while preserving the root audit time", () => {
+    const root = snapshot("a", null, { asOfDate: "2026-07-10", formedAt: "2026-07-10T02:00:00.000Z", formedAtPrecision: "datetime", formedAtResolution: "absolute" });
+    const other = snapshot("b", null, { asOfDate: "2026-07-11", formedAt: "2026-07-11T02:00:00.000Z", formedAtPrecision: "datetime", formedAtResolution: "absolute", value: 120 });
+    const correction = snapshot("c", "a", { asOfDate: "2026-07-12", formedAt: "2026-07-12T02:00:00.000Z", formedAtPrecision: "datetime", formedAtResolution: "absolute", value: 105, createdAt: "2026-07-15T04:00:00.000Z" });
+    const history = resolveEffectiveBusinessHistory([correction, other, root], "Asia/Shanghai");
+    expect(history.map((node) => node.businessRootSnapshot.id)).toEqual(["b", "a"]);
+    expect(history[1]).toMatchObject({ originalBusinessTime: { value: "2026-07-10T02:00:00.000Z" }, effectiveBusinessTime: { value: "2026-07-12T02:00:00.000Z" }, correctionRecordedAt: "2026-07-15T04:00:00.000Z", temporalCorrectionApplied: true });
+    expect(history[1].correctedTemporalFields).toEqual(expect.arrayContaining(["asOfDate", "formedAt"]));
+    expect(selectEffectiveEarningsExpectations([root, correction, other], "Asia/Shanghai")[0]).toMatchObject({ snapshot: { id: "c" }, businessRootSnapshot: { id: "a" }, originalBusinessTime: { value: "2026-07-10T02:00:00.000Z" }, effectiveBusinessTime: { value: "2026-07-12T02:00:00.000Z" } });
+    const events = buildEarningsExpectationResearchEvents([root, correction, other], [], [stock()], 0.1, "Asia/Shanghai");
+    const revision = events.find((event) => event.eventType === "earnings_expectation_revision" && event.expectation?.businessRootSnapshotId === "a");
+    expect(revision?.expectation).toMatchObject({ originalBusinessTime: "2026-07-10T02:00:00.000Z", effectiveBusinessTime: "2026-07-12T02:00:00.000Z", temporalCorrectionApplied: true });
+    expect(events.find((event) => event.eventType === "earnings_expectation_correction")?.publishedAt).toBe("2026-07-15T04:00:00.000Z");
+  });
+  it("lets a corrected formedAt move a business node earlier instead of leaving root chronology active", () => {
+    const root = snapshot("a", null, { asOfDate: "2026-07-12", formedAt: "2026-07-12T02:00:00.000Z", formedAtPrecision: "datetime", formedAtResolution: "absolute" });
+    const correction = snapshot("c", "a", { asOfDate: "2026-07-10", formedAt: "2026-07-10T02:00:00.000Z", formedAtPrecision: "datetime", formedAtResolution: "absolute", createdAt: "2026-07-15T04:00:00.000Z" });
+    const other = snapshot("b", null, { asOfDate: "2026-07-11", formedAt: "2026-07-11T02:00:00.000Z", formedAtPrecision: "datetime", formedAtResolution: "absolute", value: 120 });
+    const selection = selectEffectiveEarningsExpectations([root, correction, other], "Asia/Shanghai")[0];
+    expect(selection.snapshot.id).toBe("b");
+    expect(resolveEffectiveBusinessHistory([other, correction, root], "Asia/Shanghai").map((node) => node.businessRootSnapshot.id)).toEqual(["a", "b"]);
+  });
+  it("uses corrected external source time and the terminal of a multi-level chain for availability ordering", () => {
+    const external = (id: string, correctsSnapshotId: string | null, sourcePublishedAt: string, overrides: Partial<EarningsExpectationSnapshot> = {}) => snapshot(id, correctsSnapshotId, { sourceCategory: "institution_single", sourceName: "ABC Securities", sourceTitle: "盈利预测", sourceUrl: "https://example.com/report", sourcePublishedAt, sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "absolute", asOfDate: sourcePublishedAt.slice(0, 10), formedAt: `${sourcePublishedAt.slice(0, 10)}T00:00:00.000Z`, formedAtPrecision: "datetime", formedAtResolution: "absolute", ...overrides });
+    const root = external("a", null, "2026-07-10T06:00:00.000Z");
+    const firstCorrection = external("c", "a", "2026-07-12T06:00:00.000Z", { createdAt: "2026-07-14T01:00:00.000Z" });
+    const terminal = external("d", "c", "2026-07-09T06:00:00.000Z", { createdAt: "2026-07-15T01:00:00.000Z" });
+    const other = external("b", null, "2026-07-11T06:00:00.000Z", { value: 120 });
+    const history = resolveEffectiveBusinessHistory([firstCorrection, other, terminal, root], "Asia/Shanghai");
+    expect(history.map((node) => node.businessRootSnapshot.id)).toEqual(["a", "b"]);
+    expect(history[0]).toMatchObject({ effectiveSnapshot: { id: "d" }, correctionRecordedAt: "2026-07-15T01:00:00.000Z", temporalCorrectionApplied: true });
+    expect(history[0].correctedTemporalFields).toContain("sourcePublishedAt");
+    expect(history[0].originalSourcePublishedAt?.value).toBe("2026-07-10T06:00:00.000Z");
+    expect(history[0].effectiveSourcePublishedAt?.value).toBe("2026-07-09T06:00:00.000Z");
+    expect(selectEffectiveEarningsExpectations([terminal, root, other, firstCorrection], "Asia/Shanghai")[0].snapshot.id).toBe("b");
   });
 });
 

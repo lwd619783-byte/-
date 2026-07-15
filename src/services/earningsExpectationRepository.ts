@@ -16,14 +16,16 @@ import {
 } from "./earningsExpectationIntegrity";
 import {
   getCalendarToday,
+  DEFAULT_WORKFLOW_TIME_ZONE,
   isCalendarDate,
   isPreciseInstant,
   isUnzonedLocalDateTime,
-  isStrictlyBeforeBusinessTemporal,
   isValidTimeZone,
-  resolveTimeZone,
-  resolveWorkflowTemporalInput,
+  resolveImportedFormedAt,
+  resolveImportedSourcePublishedAt,
+  resolveSafeWorkflowTimeZone,
   toBusinessTemporal,
+  type ImportedTemporalResolution,
 } from "../utils/dateTime";
 
 export const EARNINGS_EXPECTATION_STORAGE_KEY = "investment-research-dashboard.earnings-expectation.v1";
@@ -63,6 +65,7 @@ export interface EarningsExpectationImportPreview {
   conflictCount: number;
   invalidCount: number;
   issues: EarningsExpectationImportIssue[];
+  timeZoneNotes: Array<{ row: number; field: "sourcePublishedAt" | "formedAt"; timeZone: string | null; message: string }>;
   snapshots: EarningsExpectationSnapshot[];
 }
 
@@ -101,7 +104,7 @@ const DEFAULT_SETTINGS = {
   revisionReminderThreshold: 0.1,
   nearZeroThreshold: 1e-9,
   roundingTolerance: 1e-9,
-  timeZone: resolveTimeZone(),
+  timeZone: DEFAULT_WORKFLOW_TIME_ZONE,
 };
 
 const MARKETS = ["A股", "港股", "美股"] as const;
@@ -160,7 +163,17 @@ export function migrateEarningsExpectationSnapshot(value: unknown): EarningsExpe
   if (!isRecord(clonedValue)) return clonedValue as unknown as EarningsExpectationSnapshot;
   const cloned = clonedValue as Record<string, unknown>;
   if (!("formedAt" in cloned)) cloned.formedAt = null;
-  if (!("formedAtPrecision" in cloned)) cloned.formedAtPrecision = isPreciseInstant(cloned.formedAt) ? "datetime" : "date";
+  if (!("formedAtPrecision" in cloned)) cloned.formedAtPrecision = isPreciseInstant(cloned.formedAt) || isUnzonedLocalDateTime(cloned.formedAt) ? "datetime" : "date";
+  if (!("formedAtResolution" in cloned)) {
+    cloned.formedAtResolution = cloned.formedAt === null || cloned.formedAt === undefined
+      ? "date"
+      : isPreciseInstant(cloned.formedAt)
+        ? "absolute"
+        : isUnzonedLocalDateTime(cloned.formedAt)
+          ? "unresolved_legacy"
+          : null;
+  }
+  if (!("formedAtTimeZone" in cloned)) cloned.formedAtTimeZone = null;
   if (!("sourcePublishedAtPrecision" in cloned)) {
     cloned.sourcePublishedAtPrecision = cloned.sourcePublishedAt === null || cloned.sourcePublishedAt === undefined
       ? null
@@ -263,16 +276,19 @@ export class EarningsExpectationRepository {
     if (!("snapshots" in parsed)) return invalidPreview("JSON 缺少 snapshots 字段，未写入任何数据。", "missing_snapshots");
     if (!Array.isArray(parsed.snapshots)) return invalidPreview("JSON snapshots 必须为数组，未写入任何数据。", "invalid_snapshots");
     if (parsed.snapshots.length === 0) return invalidPreview("JSON snapshots 为空；清空数据只能使用单独的重置操作。", "empty_snapshots");
-    return buildImportPreview(parsed.snapshots, current, EARNINGS_EXPECTATION_SCHEMA_VERSION, options.validStocks, true, options.now ?? this.now(), options.timeZone ?? current.settings.timeZone);
+    const envelopeTimeZone = isRecord(parsed.settings) && isValidTimeZone(parsed.settings.timeZone) ? parsed.settings.timeZone : null;
+    return buildImportPreview(parsed.snapshots, current, EARNINGS_EXPECTATION_SCHEMA_VERSION, options.validStocks, true, options.now ?? this.now(), options.timeZone ?? envelopeTimeZone ?? current.settings.timeZone);
   }
 
   previewCsv(raw: string, current: EarningsExpectationStoreEnvelope, options: CsvImportOptions): EarningsExpectationImportPreview {
     if (new TextEncoder().encode(raw).byteLength > EARNINGS_EXPECTATION_MAX_IMPORT_BYTES) return invalidPreview("CSV 文件超过 2MB 限制。", "file_too_large");
-    const parsed = parseEarningsExpectationCsv(raw, options);
-    const preview = buildImportPreview(parsed.snapshots, current, EARNINGS_EXPECTATION_SCHEMA_VERSION, options.validStocks, false, options.now ?? this.now(), options.timeZone ?? current.settings.timeZone);
+    const importTimeZone = resolveSafeWorkflowTimeZone(options.timeZone ?? current.settings.timeZone);
+    const parsed = parseEarningsExpectationCsv(raw, { ...options, timeZone: importTimeZone });
+    const preview = buildImportPreview(parsed.snapshots, current, EARNINGS_EXPECTATION_SCHEMA_VERSION, options.validStocks, false, options.now ?? this.now(), importTimeZone);
     preview.totalCount = parsed.totalCount;
     preview.invalidCount += parsed.issues.length;
     preview.issues = [...parsed.issues, ...preview.issues];
+    preview.timeZoneNotes = [...parsed.timeZoneNotes, ...preview.timeZoneNotes];
     preview.ok = preview.validCount > 0 && preview.conflictCount === 0 && (preview.mergeAllowed || preview.replaceAllowed);
     preview.partial = preview.validCount > 0 && preview.invalidCount > 0;
     preview.skippedCount = Math.max(0, preview.totalCount - preview.addCount);
@@ -367,7 +383,7 @@ export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectatio
   const errors: string[] = [];
   if (!isRecord(snapshot)) return ["快照必须为对象。"];
   const normalizedContext: EarningsExpectationValidationContext = Array.isArray(context) ? { validStocks: context } : context;
-  const timeZone = resolveTimeZone(normalizedContext.timeZone);
+  const timeZone = resolveSafeWorkflowTimeZone(normalizedContext.timeZone);
   const now = normalizedContext.now;
   const validStocks = normalizedContext.validStocks;
   const textFields = ["id", "stockId", "market", "reportPeriod", "periodScope", "metric", "estimateShape", "currency", "unit", "accountingBasis", "sourceCategory", "sourceName", "sourceTitle", "asOfDate", "ingestionMethod", "createdAt", "createdBy", "sourceVerificationStatus"];
@@ -386,6 +402,8 @@ export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectatio
   if (!hasAllowedValue(INGESTION_METHODS, snapshot.ingestionMethod)) errors.push("ingestionMethod 不受支持；本轮未实现自动 Provider。");
   if (!hasAllowedValue(VERIFICATION_STATUSES, snapshot.sourceVerificationStatus)) errors.push("sourceVerificationStatus 不受支持。");
   if (!hasAllowedValue(TIME_PRECISIONS, snapshot.formedAtPrecision ?? "date")) errors.push("formedAtPrecision 不受支持。");
+  if (snapshot.formedAtResolution !== null && snapshot.formedAtResolution !== undefined && !hasAllowedValue(SOURCE_TIME_RESOLUTIONS, snapshot.formedAtResolution)) errors.push("formedAtResolution 不受支持。");
+  if (snapshot.formedAtTimeZone !== null && snapshot.formedAtTimeZone !== undefined && !isValidTimeZone(snapshot.formedAtTimeZone)) errors.push("formedAtTimeZone 必须是有效 IANA 时区。");
   if (snapshot.sourcePublishedAtPrecision !== null && snapshot.sourcePublishedAtPrecision !== undefined && !hasAllowedValue(TIME_PRECISIONS, snapshot.sourcePublishedAtPrecision)) errors.push("sourcePublishedAtPrecision 不受支持。");
   if (snapshot.sourcePublishedAtResolution !== null && snapshot.sourcePublishedAtResolution !== undefined && !hasAllowedValue(SOURCE_TIME_RESOLUTIONS, snapshot.sourcePublishedAtResolution)) errors.push("sourcePublishedAtResolution 不受支持。");
   if (snapshot.sourcePublishedAtTimeZone !== null && snapshot.sourcePublishedAtTimeZone !== undefined && !isValidTimeZone(snapshot.sourcePublishedAtTimeZone)) errors.push("sourcePublishedAtTimeZone 必须是有效 IANA 时区。");
@@ -395,11 +413,19 @@ export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectatio
   if (!isPreciseInstant(snapshot.createdAt)) errors.push("录入时间必须是带时区的有效 ISO 日期时间。");
   const formedAt = snapshot.formedAt ?? null;
   const formedPrecision = snapshot.formedAtPrecision ?? "date";
-  if (formedAt !== null && !isPreciseInstant(formedAt)) errors.push("精确预期形成时间必须是带时区的有效 ISO 日期时间。");
+  const unresolvedLegacyFormedAt = snapshot.formedAtResolution === "unresolved_legacy";
+  if (formedAt !== null && !isPreciseInstant(formedAt) && !(unresolvedLegacyFormedAt && isUnzonedLocalDateTime(formedAt))) errors.push("精确预期形成时间必须是带时区的有效 ISO 日期时间，或明确标记为待核验的历史无时区时间。");
   if (formedPrecision === "datetime" && !formedAt) errors.push("datetime 精度必须提供 formedAt。");
   if (formedPrecision === "date" && formedAt) errors.push("date 精度不得伪装为精确 formedAt。");
-  const formedBusinessTime = formedAt && isPreciseInstant(formedAt) ? toBusinessTemporal(formedAt, "datetime", timeZone) : null;
-  if (formedBusinessTime && isCalendarDate(snapshot.asOfDate) && formedBusinessTime.calendarDate !== snapshot.asOfDate) errors.push(`formedAt 在工作流时区 ${timeZone} 的日历日期必须与 asOfDate 一致。`);
+  if (snapshot.formedAtResolution === "date" && formedAt) errors.push("date 形成时间解释不得保存精确 formedAt。");
+  if (["absolute", "workflow_time_zone"].includes(snapshot.formedAtResolution ?? "") && !isPreciseInstant(formedAt)) errors.push("已解析的 formedAt 必须保存为带时区的绝对时刻。");
+  if (snapshot.formedAtResolution === "workflow_time_zone" && !snapshot.formedAtTimeZone) errors.push("按工作流时区解析的 formedAt 必须记录 formedAtTimeZone。");
+  if (snapshot.formedAtResolution !== "workflow_time_zone" && snapshot.formedAtTimeZone) errors.push("只有按明确 IANA 时区解析的 formedAt 才能记录 formedAtTimeZone。");
+  const formedCalendarZone = snapshot.formedAtResolution === "workflow_time_zone" && isValidTimeZone(snapshot.formedAtTimeZone)
+    ? snapshot.formedAtTimeZone
+    : timeZone;
+  const formedBusinessTime = formedAt && isPreciseInstant(formedAt) && !unresolvedLegacyFormedAt ? toBusinessTemporal(formedAt, "datetime", formedCalendarZone) : null;
+  if (formedBusinessTime && isCalendarDate(snapshot.asOfDate) && formedBusinessTime.calendarDate !== snapshot.asOfDate) errors.push(`formedAt 在解释时区 ${formedCalendarZone} 的日历日期必须与 asOfDate 一致。`);
   const unresolvedLegacySourceTime = snapshot.sourcePublishedAtResolution === "unresolved_legacy";
   if (snapshot.sourcePublishedAt !== null && snapshot.sourcePublishedAt !== undefined && !isCalendarDate(snapshot.sourcePublishedAt) && !isPreciseInstant(snapshot.sourcePublishedAt) && !(unresolvedLegacySourceTime && isUnzonedLocalDateTime(snapshot.sourcePublishedAt))) errors.push("来源发布日期必须是 YYYY-MM-DD、带时区的 ISO 日期时间，或明确标记为待核验的历史无时区时间。");
   const sourcePrecision = snapshot.sourcePublishedAtPrecision ?? (snapshot.sourcePublishedAt ? (isPreciseInstant(snapshot.sourcePublishedAt) ? "datetime" : "date") : null);
@@ -418,10 +444,14 @@ export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectatio
     if (snapshot.sourcePublishedAt && sourcePrecision === "date" && isCalendarDate(snapshot.sourcePublishedAt) && snapshot.sourcePublishedAt > today) errors.push(`来源发布日期不得晚于工作流时区 ${timeZone} 的当前日期 ${today}。`);
   }
   if (snapshot.sourceCategory !== "user_estimate" && snapshot.sourcePublishedAt && !unresolvedLegacySourceTime) {
-    const sourceTime = toBusinessTemporal(snapshot.sourcePublishedAt, sourcePrecision === "datetime" ? "datetime" : "date", timeZone);
-    const formationTime = formedPrecision === "datetime" && formedAt ? toBusinessTemporal(formedAt, "datetime", timeZone) : toBusinessTemporal(snapshot.asOfDate, "date", timeZone);
-    if (sourceTime && formationTime && sourceTime.calendarDate > formationTime.calendarDate) errors.push("来源日历日期不得晚于预期形成日历日期。");
-    if (sourceTime && formationTime && sourceTime.precision === "datetime" && formationTime.precision === "datetime" && !isStrictlyBeforeBusinessTemporal(sourceTime, formationTime) && Date.parse(sourceTime.value) !== Date.parse(formationTime.value)) errors.push("来源发布时间不得晚于预期形成时间。");
+    const sourceCalendarZone = snapshot.sourcePublishedAtResolution === "workflow_time_zone" && isValidTimeZone(snapshot.sourcePublishedAtTimeZone)
+      ? snapshot.sourcePublishedAtTimeZone
+      : timeZone;
+    const sourceTime = toBusinessTemporal(snapshot.sourcePublishedAt, sourcePrecision === "datetime" ? "datetime" : "date", sourceCalendarZone);
+    const formationTime = formedPrecision === "datetime" && formedAt && !unresolvedLegacyFormedAt ? toBusinessTemporal(formedAt, "datetime", formedCalendarZone) : toBusinessTemporal(snapshot.asOfDate, "date", timeZone);
+    if (sourceTime && formationTime && sourceTime.precision === "datetime" && formationTime.precision === "datetime") {
+      if (Date.parse(sourceTime.value) > Date.parse(formationTime.value)) errors.push("来源发布时间不得晚于预期形成时间。");
+    } else if (sourceTime && formationTime && sourceTime.calendarDate > formationTime.calendarDate) errors.push("来源日历日期不得晚于预期形成日历日期。");
   }
   if (!([snapshot.value, snapshot.lowerBound, snapshot.upperBound] as Array<number | null>).every(nullableFinite)) errors.push("预测数字必须为有限数值或 null。");
   if (snapshot.estimateShape === "point") {
@@ -449,7 +479,8 @@ export function validateEarningsExpectationSnapshot(snapshot: EarningsExpectatio
 }
 
 export function earningsExpectationFingerprint(snapshot: EarningsExpectationSnapshot) {
-  return [snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric, snapshot.estimateShape, snapshot.value, snapshot.lowerBound, snapshot.upperBound, snapshot.currency, snapshot.unit, snapshot.accountingBasis, getSourceIdentityKey(snapshot), snapshot.sourceTitle.trim(), snapshot.sourceUrl ?? "", snapshot.sourcePublishedAt ?? "", snapshot.sourcePublishedAtPrecision ?? "", snapshot.sourcePublishedAtResolution ?? "", snapshot.sourcePublishedAtTimeZone ?? "", snapshot.asOfDate, snapshot.formedAt ?? "", snapshot.formedAtPrecision ?? "date", snapshot.correctsSnapshotId ?? "", snapshot.correctionScope ?? ""].join("|");
+  const formedAtResolution = snapshot.formedAtResolution ?? (snapshot.formedAt ? "" : "date");
+  return [snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric, snapshot.estimateShape, snapshot.value, snapshot.lowerBound, snapshot.upperBound, snapshot.currency, snapshot.unit, snapshot.accountingBasis, getSourceIdentityKey(snapshot), snapshot.sourceTitle.trim(), snapshot.sourceUrl ?? "", snapshot.sourcePublishedAt ?? "", snapshot.sourcePublishedAtPrecision ?? "", snapshot.sourcePublishedAtResolution ?? "", snapshot.sourcePublishedAtTimeZone ?? "", snapshot.asOfDate, snapshot.formedAt ?? "", snapshot.formedAtPrecision ?? "date", formedAtResolution, snapshot.formedAtTimeZone ?? "", snapshot.correctsSnapshotId ?? "", snapshot.correctionScope ?? ""].join("|");
 }
 
 export function effectiveEarningsExpectationSnapshots(snapshots: EarningsExpectationSnapshot[], timeZone?: string | null) {
@@ -458,18 +489,20 @@ export function effectiveEarningsExpectationSnapshots(snapshots: EarningsExpecta
 
 export function parseEarningsExpectationCsv(raw: string, options: CsvImportOptions) {
   const rows = parseCsvRows(raw.replace(/^\uFEFF/, "")).filter((row) => row.some((cell) => cell.trim() !== ""));
-  if (rows.length < 2) return { snapshots: [] as EarningsExpectationSnapshot[], issues: [{ row: 1, code: "empty_csv", message: "CSV 必须包含表头和至少一条记录。" }], totalCount: Math.max(0, rows.length - 1) };
-  if (rows.length - 1 > EARNINGS_EXPECTATION_MAX_IMPORT_RECORDS) return { snapshots: [] as EarningsExpectationSnapshot[], issues: [{ row: 1, code: "too_many_records", message: "CSV 超过 5000 条记录限制。" }], totalCount: rows.length - 1 };
+  if (rows.length < 2) return { snapshots: [] as EarningsExpectationSnapshot[], issues: [{ row: 1, code: "empty_csv", message: "CSV 必须包含表头和至少一条记录。" }], timeZoneNotes: [] as EarningsExpectationImportPreview["timeZoneNotes"], totalCount: Math.max(0, rows.length - 1) };
+  if (rows.length - 1 > EARNINGS_EXPECTATION_MAX_IMPORT_RECORDS) return { snapshots: [] as EarningsExpectationSnapshot[], issues: [{ row: 1, code: "too_many_records", message: "CSV 超过 5000 条记录限制。" }], timeZoneNotes: [] as EarningsExpectationImportPreview["timeZoneNotes"], totalCount: rows.length - 1 };
   const headers = rows[0].map(normalizeHeader);
   const snapshots: EarningsExpectationSnapshot[] = [];
   const issues: EarningsExpectationImportIssue[] = [];
+  const timeZoneNotes: EarningsExpectationImportPreview["timeZoneNotes"] = [];
   const now = options.now ?? new Date();
+  const importTimeZone = resolveSafeWorkflowTimeZone(options.timeZone);
   rows.slice(1).forEach((cells, offset) => {
     const rowNumber = offset + 2;
     const record: Record<string, string> = Object.fromEntries([
       "id", "stockId", "reportPeriod", "periodScope", "metric", "estimateShape", "value", "lowerBound", "upperBound",
       "currency", "unit", "accountingBasis", "sourceCategory", "sourceName", "sourceTitle", "sourceUrl",
-      "sourcePublishedAt", "sourcePublishedAtResolution", "sourcePublishedAtTimeZone", "asOfDate", "formedAt", "analystCount", "institutionCount", "sourceVerificationStatus", "notes",
+      "sourcePublishedAt", "sourcePublishedAtResolution", "sourcePublishedAtTimeZone", "asOfDate", "formedAt", "formedAtResolution", "formedAtTimeZone", "analystCount", "institutionCount", "sourceVerificationStatus", "notes",
       "correctsSnapshotId", "createdAt", "createdBy",
     ].map((key) => [key, ""]));
     headers.forEach((header, index) => { if (header) record[header] = cells[index]?.trim() ?? ""; });
@@ -497,13 +530,19 @@ export function parseEarningsExpectationCsv(raw: string, options: CsvImportOptio
     const parsedUpper = parseImportedNumber(record.upperBound, record.unit, metric);
     const unit: EarningsExpectationUnit = metric === "eps" ? "currency_per_share" : "yuan";
     const sourceVerificationStatus = verification ?? (sourceCategory === "user_estimate" ? "verified" : "pending");
-    const sourceTime = resolveWorkflowTemporalInput(record.sourcePublishedAt, resolveTimeZone(options.timeZone));
-    if (["nonexistent", "ambiguous", "invalid"].includes(sourceTime.status)) {
-      issues.push({ row: rowNumber, code: `invalid_source_published_at_${sourceTime.status}`, message: "message" in sourceTime ? sourceTime.message : "来源时间无效。", raw: record });
+    const asOfDate = normalizeDate(record.asOfDate);
+    const sourceTime = normalizeImportedSourceTime(record.sourcePublishedAt, record.sourcePublishedAtResolution, record.sourcePublishedAtTimeZone, importTimeZone);
+    if (!sourceTime.ok) {
+      issues.push({ row: rowNumber, code: `invalid_source_published_at_${sourceTime.status}`, message: sourceTime.message, raw: record });
       return;
     }
-    const sourcePublishedAt = sourceTime.value;
-    const formedAt = record.formedAt ? normalizeDateTime(record.formedAt) : null;
+    const formationTime = normalizeImportedFormationTime(record.formedAt, record.formedAtResolution, record.formedAtTimeZone, importTimeZone, asOfDate);
+    if (!formationTime.ok) {
+      issues.push({ row: rowNumber, code: `invalid_formed_at_${formationTime.status}`, message: formationTime.message, raw: record });
+      return;
+    }
+    if (sourceTime.note) timeZoneNotes.push({ row: rowNumber, field: "sourcePublishedAt", timeZone: sourceTime.fields.sourcePublishedAtTimeZone ?? null, message: sourceTime.note });
+    if (formationTime.note) timeZoneNotes.push({ row: rowNumber, field: "formedAt", timeZone: formationTime.fields.formedAtTimeZone ?? null, message: formationTime.note });
     const snapshot: EarningsExpectationSnapshot = {
       id: record.id || `expectation-${stableHash(`${stock.id}|${normalizeDate(record.reportPeriod)}|${metric}|${record.asOfDate}|${rowNumber}`)}`,
       stockId: stock.id,
@@ -522,13 +561,9 @@ export function parseEarningsExpectationCsv(raw: string, options: CsvImportOptio
       sourceName: sourceCategory === "user_estimate" ? (record.sourceName || "用户个人预测") : record.sourceName,
       sourceTitle: record.sourceTitle,
       sourceUrl: record.sourceUrl || null,
-      sourcePublishedAt,
-      sourcePublishedAtPrecision: sourceTime.precision,
-      sourcePublishedAtResolution: sourceTime.status === "date" ? "date" : record.sourcePublishedAtResolution === "workflow_time_zone" && isValidTimeZone(record.sourcePublishedAtTimeZone) ? "workflow_time_zone" : sourceTime.status === "absolute" ? "absolute" : sourceTime.status === "local" ? "workflow_time_zone" : null,
-      sourcePublishedAtTimeZone: record.sourcePublishedAtResolution === "workflow_time_zone" && isValidTimeZone(record.sourcePublishedAtTimeZone) ? record.sourcePublishedAtTimeZone : sourceTime.status === "local" ? sourceTime.interpretedTimeZone : null,
-      asOfDate: normalizeDate(record.asOfDate),
-      formedAt,
-      formedAtPrecision: formedAt ? "datetime" : "date",
+      ...sourceTime.fields,
+      asOfDate,
+      ...formationTime.fields,
       analystCount: parseOptionalInteger(record.analystCount),
       institutionCount: parseOptionalInteger(record.institutionCount),
       ingestionMethod: "csv_import",
@@ -540,20 +575,20 @@ export function parseEarningsExpectationCsv(raw: string, options: CsvImportOptio
       correctionScope: null,
       schemaVersion: 1,
     };
-    const rowIssues = validateEarningsExpectationSnapshot(snapshot, { validStocks: options.validStocks, now, timeZone: options.timeZone });
+    const rowIssues = validateEarningsExpectationSnapshot(snapshot, { validStocks: options.validStocks, now, timeZone: importTimeZone });
     if (rowIssues.length) rowIssues.forEach((message) => issues.push({ row: rowNumber, code: "invalid_snapshot", message, raw: record }));
     else snapshots.push(snapshot);
   });
-  return { snapshots, issues, totalCount: rows.length - 1 };
+  return { snapshots, issues, timeZoneNotes, totalCount: rows.length - 1 };
 }
 
 export function earningsExpectationCsvTemplate() {
-  return "stockId,reportPeriod,periodScope,metric,estimateShape,value,lowerBound,upperBound,currency,unit,accountingBasis,sourceCategory,sourceName,sourceTitle,sourceUrl,sourcePublishedAt,sourcePublishedAtResolution,sourcePublishedAtTimeZone,asOfDate,formedAt,analystCount,institutionCount,sourceVerificationStatus,notes\n";
+  return "stockId,reportPeriod,periodScope,metric,estimateShape,value,lowerBound,upperBound,currency,unit,accountingBasis,sourceCategory,sourceName,sourceTitle,sourceUrl,sourcePublishedAt,sourcePublishedAtResolution,sourcePublishedAtTimeZone,asOfDate,formedAt,formedAtResolution,formedAtTimeZone,analystCount,institutionCount,sourceVerificationStatus,notes\n";
 }
 
 export function exportEarningsExpectationCsv(snapshots: EarningsExpectationSnapshot[]) {
   const headers = earningsExpectationCsvTemplate().trimEnd();
-  const rows = snapshots.map((snapshot) => [snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric, snapshot.estimateShape, snapshot.value, snapshot.lowerBound, snapshot.upperBound, snapshot.currency, snapshot.unit, snapshot.accountingBasis, snapshot.sourceCategory, snapshot.sourceName, snapshot.sourceTitle, snapshot.sourceUrl, snapshot.sourcePublishedAt, snapshot.sourcePublishedAtResolution, snapshot.sourcePublishedAtTimeZone, snapshot.asOfDate, snapshot.formedAt, snapshot.analystCount, snapshot.institutionCount, snapshot.sourceVerificationStatus, snapshot.notes].map(csvCell).join(","));
+  const rows = snapshots.map((snapshot) => [snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric, snapshot.estimateShape, snapshot.value, snapshot.lowerBound, snapshot.upperBound, snapshot.currency, snapshot.unit, snapshot.accountingBasis, snapshot.sourceCategory, snapshot.sourceName, snapshot.sourceTitle, snapshot.sourceUrl, snapshot.sourcePublishedAt, snapshot.sourcePublishedAtResolution, snapshot.sourcePublishedAtTimeZone, snapshot.asOfDate, snapshot.formedAt, snapshot.formedAtResolution, snapshot.formedAtTimeZone, snapshot.analystCount, snapshot.institutionCount, snapshot.sourceVerificationStatus, snapshot.notes].map(csvCell).join(","));
   return `\uFEFF${headers}\n${rows.join("\n")}`;
 }
 
@@ -569,28 +604,42 @@ function buildImportPreview(
   if (values.length > EARNINGS_EXPECTATION_MAX_IMPORT_RECORDS) return { ...invalidPreview("导入记录超过 5000 条限制。", "too_many_records"), schemaVersion, totalCount: values.length };
   const snapshots: EarningsExpectationSnapshot[] = [];
   const issues: EarningsExpectationImportIssue[] = [];
+  const timeZoneNotes: EarningsExpectationImportPreview["timeZoneNotes"] = [];
+  const importTimeZone = resolveSafeWorkflowTimeZone(timeZone);
   let invalidCount = 0;
   values.forEach((value, index) => {
+    const rawRecord = isRecord(value) ? value : {};
     const snapshot = migrateEarningsExpectationSnapshot(value);
-    const explicitlyUnresolvedLegacy = isRecord(value) && value.sourcePublishedAtResolution === "unresolved_legacy";
-    if (snapshot.sourcePublishedAt && !explicitlyUnresolvedLegacy) {
-      const existingWorkflowTimeZone = snapshot.sourcePublishedAtResolution === "workflow_time_zone" && isValidTimeZone(snapshot.sourcePublishedAtTimeZone)
-        ? snapshot.sourcePublishedAtTimeZone
-        : null;
-      const sourceTime = resolveWorkflowTemporalInput(snapshot.sourcePublishedAt, resolveTimeZone(timeZone));
-      if (["nonexistent", "ambiguous", "invalid"].includes(sourceTime.status)) {
-        invalidCount += 1;
-        issues.push({ row: index + 1, code: `invalid_source_published_at_${sourceTime.status}`, message: "message" in sourceTime ? sourceTime.message : "来源时间无效。", raw: cloneJson(value) as Record<string, unknown> });
-        return;
-      }
-      snapshot.sourcePublishedAt = sourceTime.value;
-      snapshot.sourcePublishedAtPrecision = sourceTime.precision;
-      snapshot.sourcePublishedAtResolution = sourceTime.status === "date" ? "date" : sourceTime.status === "local" || existingWorkflowTimeZone ? "workflow_time_zone" : sourceTime.status === "absolute" ? "absolute" : null;
-      snapshot.sourcePublishedAtTimeZone = sourceTime.status === "local" ? sourceTime.interpretedTimeZone : existingWorkflowTimeZone;
+    const sourceTime = normalizeImportedSourceTime(
+      typeof rawRecord.sourcePublishedAt === "string" ? rawRecord.sourcePublishedAt : snapshot.sourcePublishedAt,
+      typeof rawRecord.sourcePublishedAtResolution === "string" ? rawRecord.sourcePublishedAtResolution : null,
+      typeof rawRecord.sourcePublishedAtTimeZone === "string" ? rawRecord.sourcePublishedAtTimeZone : null,
+      importTimeZone,
+    );
+    if (!sourceTime.ok) {
+      invalidCount += 1;
+      issues.push({ row: index + 1, code: `invalid_source_published_at_${sourceTime.status}`, message: sourceTime.message, raw: cloneJson(value) as Record<string, unknown> });
+      return;
     }
+    Object.assign(snapshot, sourceTime.fields);
+    if (sourceTime.note) timeZoneNotes.push({ row: index + 1, field: "sourcePublishedAt", timeZone: sourceTime.fields.sourcePublishedAtTimeZone ?? null, message: sourceTime.note });
+    const formationTime = normalizeImportedFormationTime(
+      typeof rawRecord.formedAt === "string" ? rawRecord.formedAt : snapshot.formedAt,
+      typeof rawRecord.formedAtResolution === "string" ? rawRecord.formedAtResolution : null,
+      typeof rawRecord.formedAtTimeZone === "string" ? rawRecord.formedAtTimeZone : null,
+      importTimeZone,
+      snapshot.asOfDate,
+    );
+    if (!formationTime.ok) {
+      invalidCount += 1;
+      issues.push({ row: index + 1, code: `invalid_formed_at_${formationTime.status}`, message: formationTime.message, raw: cloneJson(value) as Record<string, unknown> });
+      return;
+    }
+    Object.assign(snapshot, formationTime.fields);
+    if (formationTime.note) timeZoneNotes.push({ row: index + 1, field: "formedAt", timeZone: formationTime.fields.formedAtTimeZone ?? null, message: formationTime.note });
     const stock = isRecord(snapshot) && typeof snapshot.stockId === "string" ? resolveStock(snapshot.stockId, validStocks) : undefined;
     if (stock) snapshot.stockId = stock.id;
-    const errors = validateEarningsExpectationSnapshot(snapshot, { validStocks, now, timeZone: resolveTimeZone(timeZone) });
+    const errors = validateEarningsExpectationSnapshot(snapshot, { validStocks, now, timeZone: importTimeZone });
     if (errors.length) {
       invalidCount += 1;
       errors.forEach((message) => issues.push({ row: index + 1, code: "invalid_snapshot", message, raw: cloneJson(value) as Record<string, unknown> }));
@@ -649,6 +698,7 @@ function buildImportPreview(
     conflictCount,
     invalidCount,
     issues,
+    timeZoneNotes,
     snapshots: unique,
   };
 }
@@ -659,13 +709,76 @@ function deduplicateSnapshots(snapshots: EarningsExpectationSnapshot[]) {
   return [...selected.values()];
 }
 
+type NormalizedSourceImport =
+  | { ok: true; status: ImportedTemporalResolution["status"]; fields: Pick<EarningsExpectationSnapshot, "sourcePublishedAt" | "sourcePublishedAtPrecision" | "sourcePublishedAtResolution" | "sourcePublishedAtTimeZone">; note: string | null }
+  | { ok: false; status: "nonexistent" | "ambiguous" | "invalid"; message: string };
+
+type NormalizedFormationImport =
+  | { ok: true; status: ImportedTemporalResolution["status"]; fields: Pick<EarningsExpectationSnapshot, "formedAt" | "formedAtPrecision" | "formedAtResolution" | "formedAtTimeZone">; note: string | null }
+  | { ok: false; status: "nonexistent" | "ambiguous" | "invalid"; message: string };
+
+function normalizeImportedSourceTime(
+  rawValue: string | null | undefined,
+  declaredResolution: string | null | undefined,
+  declaredTimeZone: string | null | undefined,
+  fallbackTimeZone: string,
+): NormalizedSourceImport {
+  const resolved = resolveImportedSourcePublishedAt({ rawValue, declaredResolution, declaredTimeZone, fallbackTimeZone });
+  if (resolved.status === "nonexistent" || resolved.status === "ambiguous" || resolved.status === "invalid") return { ok: false, status: resolved.status, message: resolved.message };
+  if (resolved.status === "empty") return { ok: true, status: resolved.status, fields: { sourcePublishedAt: null, sourcePublishedAtPrecision: null, sourcePublishedAtResolution: null, sourcePublishedAtTimeZone: null }, note: null };
+  const preserveWorkflowProvenance = resolved.status === "absolute"
+    && declaredResolution === "workflow_time_zone"
+    && isValidTimeZone(declaredTimeZone);
+  return {
+    ok: true,
+    status: resolved.status,
+    fields: {
+      sourcePublishedAt: resolved.value,
+      sourcePublishedAtPrecision: resolved.precision,
+      sourcePublishedAtResolution: preserveWorkflowProvenance ? "workflow_time_zone" : resolved.resolution,
+      sourcePublishedAtTimeZone: preserveWorkflowProvenance ? declaredTimeZone : resolved.interpretedTimeZone,
+    },
+    note: preserveWorkflowProvenance
+      ? `来源时间已是绝对时刻，未重新解释；保留历史解析时区 ${declaredTimeZone} 仅用于溯源。`
+      : resolved.note,
+  };
+}
+
+function normalizeImportedFormationTime(
+  rawValue: string | null | undefined,
+  declaredResolution: string | null | undefined,
+  declaredTimeZone: string | null | undefined,
+  fallbackTimeZone: string,
+  asOfDate: string,
+): NormalizedFormationImport {
+  const resolved = resolveImportedFormedAt({ rawValue, declaredResolution, declaredTimeZone, fallbackTimeZone, asOfDate });
+  if (resolved.status === "nonexistent" || resolved.status === "ambiguous" || resolved.status === "invalid") return { ok: false, status: resolved.status, message: resolved.message };
+  if (resolved.status === "empty") return { ok: true, status: resolved.status, fields: { formedAt: null, formedAtPrecision: "date", formedAtResolution: "date", formedAtTimeZone: null }, note: null };
+  const preserveWorkflowProvenance = resolved.status === "absolute"
+    && declaredResolution === "workflow_time_zone"
+    && isValidTimeZone(declaredTimeZone);
+  return {
+    ok: true,
+    status: resolved.status,
+    fields: {
+      formedAt: resolved.value,
+      formedAtPrecision: "datetime",
+      formedAtResolution: preserveWorkflowProvenance ? "workflow_time_zone" : resolved.resolution,
+      formedAtTimeZone: preserveWorkflowProvenance ? declaredTimeZone : resolved.interpretedTimeZone,
+    },
+    note: preserveWorkflowProvenance
+      ? `formedAt 已是绝对时刻，未重新解释；保留历史解析时区 ${declaredTimeZone} 仅用于溯源。`
+      : resolved.note,
+  };
+}
+
 function importDeduplicationKey(snapshot: EarningsExpectationSnapshot) {
   const fingerprint = earningsExpectationFingerprint(snapshot);
   return snapshot.correctsSnapshotId ? `${fingerprint}|correction-id:${snapshot.id}` : fingerprint;
 }
 
 function invalidPreview(message: string, code: string): EarningsExpectationImportPreview {
-  return { ok: false, mergeAllowed: false, replaceAllowed: false, partial: false, schemaVersion: null, totalCount: 0, validCount: 0, addCount: 0, skippedCount: 0, duplicateCount: 0, conflictCount: 0, invalidCount: 1, issues: [{ row: 0, code, message }], snapshots: [] };
+  return { ok: false, mergeAllowed: false, replaceAllowed: false, partial: false, schemaVersion: null, totalCount: 0, validCount: 0, addCount: 0, skippedCount: 0, duplicateCount: 0, conflictCount: 0, invalidCount: 1, issues: [{ row: 0, code, message }], timeZoneNotes: [], snapshots: [] };
 }
 
 function parseCsvRows(raw: string) {
@@ -700,6 +813,8 @@ const HEADER_MAP: Record<string, string> = {
   sourcepublishedatresolution: "sourcePublishedAtResolution", 来源时间解释: "sourcePublishedAtResolution",
   sourcepublishedattimezone: "sourcePublishedAtTimeZone", 来源时间时区: "sourcePublishedAtTimeZone",
   formedat: "formedAt", 精确形成时间: "formedAt", 预期形成时间: "formedAt",
+  formedatresolution: "formedAtResolution", 形成时间解释: "formedAtResolution",
+  formedattimezone: "formedAtTimeZone", 形成时间时区: "formedAtTimeZone",
   analystcount: "analystCount", 分析师数量: "analystCount", institutioncount: "institutionCount", 机构数量: "institutionCount",
   sourceverificationstatus: "sourceVerificationStatus", 来源核验状态: "sourceVerificationStatus", notes: "notes", 备注: "notes",
   correctssnapshotid: "correctsSnapshotId", 纠正快照id: "correctsSnapshotId", createdat: "createdAt", createdby: "createdBy",

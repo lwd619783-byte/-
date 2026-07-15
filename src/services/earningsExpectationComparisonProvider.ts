@@ -16,13 +16,14 @@ import {
   isExpectationSourcePublishedAtReliable,
   isExpectationSourcePublishedAtUnresolved,
   selectEffectiveEarningsExpectations,
+  type EarningsExpectationSelection,
 } from "./earningsExpectationIntegrity";
 import {
   compareBusinessTemporal,
   isCalendarDate,
   isPreciseInstant,
   laterBusinessTemporal,
-  resolveTimeZone,
+  resolveSafeWorkflowTimeZone,
   toBusinessTemporal,
   type BusinessTemporalValue,
 } from "../utils/dateTime";
@@ -31,7 +32,7 @@ export const DEFAULT_EXPECTATION_COMPARISON_SETTINGS: EarningsExpectationSetting
   revisionReminderThreshold: 0.1,
   nearZeroThreshold: 1e-9,
   roundingTolerance: 1e-9,
-  timeZone: resolveTimeZone(),
+  timeZone: resolveSafeWorkflowTimeZone(),
 };
 
 interface ActualCandidate {
@@ -48,7 +49,7 @@ export function buildEarningsExpectationComparisons(
   calculatedAt = new Date().toISOString(),
 ): EarningsExpectationComparison[] {
   return selectEffectiveEarningsExpectations(snapshots, settings.timeZone)
-    .map(({ snapshot, businessRootSnapshot, businessOrderStatus }) => compareEarningsExpectation(snapshot, events, settings, calculatedAt, businessOrderStatus, businessRootSnapshot.id, businessRootSnapshot))
+    .map((selection) => compareEarningsExpectation(selection.snapshot, events, settings, calculatedAt, selection.businessOrderStatus, selection.businessRootSnapshot.id, selection.snapshot, selection))
     .sort((left, right) => right.reportPeriod.localeCompare(left.reportPeriod) || left.snapshotId.localeCompare(right.snapshotId));
 }
 
@@ -60,6 +61,7 @@ export function compareEarningsExpectation(
   businessOrderStatus: EarningsExpectationBusinessOrderStatus = "confirmed",
   businessRootSnapshotId = snapshot.id,
   businessTemporalSnapshot: EarningsExpectationSnapshot = snapshot,
+  temporalEvidence?: EarningsExpectationSelection,
 ): EarningsExpectationComparison {
   const candidates = actualCandidates(snapshot, events);
   const actual = candidates.length
@@ -74,7 +76,7 @@ export function compareEarningsExpectation(
   const beforeAnyPerformanceDisclosure = timingStatusToLegacyBoolean(performanceDisclosureTimingStatus);
   const comparisonAvailableAt = actualDisclosureAt ? laterTemporal(snapshotAvailableAt(businessTemporalSnapshot, settings.timeZone), actualDisclosureAt, settings.timeZone) : null;
   const base: EarningsExpectationComparison = {
-    ...comparisonBase(snapshot, calculatedAt, businessRootSnapshotId),
+    ...comparisonBase(snapshot, calculatedAt, businessRootSnapshotId, settings.timeZone, temporalEvidence),
     beforeActualDisclosure,
     beforeAnyPerformanceDisclosure,
     actualDisclosureTimingStatus,
@@ -176,7 +178,15 @@ export function comparisonResultLabel(comparison: EarningsExpectationComparison,
   return `${direction}${sourceCategoryLabel(snapshot.sourceCategory)}`;
 }
 
-function comparisonBase(snapshot: EarningsExpectationSnapshot, calculatedAt: string, businessRootSnapshotId: string): EarningsExpectationComparison {
+function comparisonBase(
+  snapshot: EarningsExpectationSnapshot,
+  calculatedAt: string,
+  businessRootSnapshotId: string,
+  timeZone: string,
+  temporalEvidence?: EarningsExpectationSelection,
+): EarningsExpectationComparison {
+  const effectiveBusinessTime = temporalEvidence?.effectiveBusinessTime ?? getExpectationBusinessTime(snapshot, timeZone);
+  const originalBusinessTime = temporalEvidence?.originalBusinessTime ?? effectiveBusinessTime;
   return {
     id: `expectation-comparison-${stableHash(businessRootSnapshotId)}`,
     snapshotId: snapshot.id,
@@ -202,6 +212,14 @@ function comparisonBase(snapshot: EarningsExpectationSnapshot, calculatedAt: str
     actualDisclosureTimingStatus: "unknown",
     performanceDisclosureTimingStatus: "unknown",
     performanceDisclosureUncertain: false,
+    originalBusinessTime: originalBusinessTime.value,
+    effectiveBusinessTime: effectiveBusinessTime.value,
+    originalSourcePublishedAt: temporalEvidence?.businessRootSnapshot.sourcePublishedAt ?? snapshot.sourcePublishedAt ?? null,
+    effectiveSourcePublishedAt: temporalEvidence?.snapshot.sourcePublishedAt ?? snapshot.sourcePublishedAt ?? null,
+    temporalCorrectionApplied: temporalEvidence?.temporalCorrectionApplied ?? false,
+    correctedTemporalFields: temporalEvidence?.correctedTemporalFields ?? [],
+    actualSourceInterpretationTimeZone: temporalEvidence?.actualSourceInterpretationTimeZone
+      ?? (snapshot.sourcePublishedAtResolution === "workflow_time_zone" ? snapshot.sourcePublishedAtTimeZone ?? null : null),
     actualDisclosureAt: null,
     performanceInformationCutoff: null,
     comparisonAvailableAt: null,
@@ -283,9 +301,13 @@ function performanceDisclosureBoundary(snapshot: EarningsExpectationSnapshot, ev
   const all = [...confirmed, ...possible].sort(order);
   if (!all.length) return { cutoff: null, timingStatus: "unknown", uncertain: false };
   const confirmedStatus = confirmed.length ? snapshotDisclosureTimingStatus(snapshot, confirmed[0], timeZone) : null;
-  if (confirmedStatus === "after" || confirmedStatus === "same_time") return { cutoff: all[0], timingStatus: confirmedStatus, uncertain: possible.length > 0 };
-  if (possible.length > 0) return { cutoff: all[0], timingStatus: "unknown", uncertain: true };
-  if (confirmedStatus === "before") return { cutoff: all[0], timingStatus: "before", uncertain: false };
+  const possibleStatus = possible.length ? snapshotDisclosureTimingStatus(snapshot, possible[0], timeZone) : null;
+  if (confirmedStatus === "after" || confirmedStatus === "same_time") return { cutoff: all[0], timingStatus: confirmedStatus, uncertain: false };
+  if (confirmedStatus === "before") {
+    if (!possibleStatus || possibleStatus === "before") return { cutoff: all[0], timingStatus: "before", uncertain: false };
+    return { cutoff: all[0], timingStatus: "unknown", uncertain: true };
+  }
+  if (!confirmedStatus && possibleStatus === "before") return { cutoff: all[0], timingStatus: "before", uncertain: false };
   return { cutoff: all[0], timingStatus: "unknown", uncertain: true };
 }
 

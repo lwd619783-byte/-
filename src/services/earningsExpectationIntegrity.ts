@@ -11,7 +11,8 @@ import {
   isPreciseInstant,
   isCalendarDate,
   isUnzonedLocalDateTime,
-  resolveTimeZone,
+  laterBusinessTemporal,
+  resolveSafeWorkflowTimeZone,
   toBusinessTemporal,
   type BusinessTemporalValue,
 } from "../utils/dateTime";
@@ -33,6 +34,14 @@ export interface EarningsExpectationSelection {
   correctionChain: EarningsExpectationSnapshot[];
   businessOrderUncertain: boolean;
   businessOrderStatus: EarningsExpectationBusinessOrderStatus;
+  originalBusinessTime: BusinessTemporalValue;
+  effectiveBusinessTime: BusinessTemporalValue;
+  originalSourcePublishedAt: BusinessTemporalValue | null;
+  effectiveSourcePublishedAt: BusinessTemporalValue | null;
+  correctionRecordedAt: string | null;
+  correctedTemporalFields: string[];
+  temporalCorrectionApplied: boolean;
+  actualSourceInterpretationTimeZone: string | null;
 }
 
 export interface EffectiveEarningsExpectationBusinessNode {
@@ -40,7 +49,19 @@ export interface EffectiveEarningsExpectationBusinessNode {
   effectiveSnapshot: EarningsExpectationSnapshot;
   correctionChain: EarningsExpectationSnapshot[];
   originalBusinessTime: BusinessTemporalValue;
+  effectiveBusinessTime: BusinessTemporalValue;
+  originalSourcePublishedAt: BusinessTemporalValue | null;
+  effectiveSourcePublishedAt: BusinessTemporalValue | null;
+  correctionRecordedAt: string | null;
+  correctedTemporalFields: string[];
+  temporalCorrectionApplied: boolean;
+  actualSourceInterpretationTimeZone: string | null;
 }
+
+const TEMPORAL_CORRECTION_FIELDS: Array<keyof EarningsExpectationSnapshot> = [
+  "asOfDate", "formedAt", "formedAtPrecision", "formedAtResolution", "formedAtTimeZone",
+  "sourcePublishedAt", "sourcePublishedAtPrecision", "sourcePublishedAtResolution", "sourcePublishedAtTimeZone",
+];
 
 export function normalizeSourceIdentity(value: string) {
   return value.normalize("NFKC").replace(/\s+/gu, " ").trim().toLocaleLowerCase("en-US");
@@ -55,8 +76,14 @@ export function getExpectationGroupKey(snapshot: EarningsExpectationSnapshot) {
 }
 
 export function getExpectationBusinessTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue {
-  const zone = resolveTimeZone(timeZone);
-  if (snapshot.formedAtPrecision === "datetime" && snapshot.formedAt && isPreciseInstant(snapshot.formedAt)) {
+  const formationTime = getExpectationFormationTime(snapshot, timeZone);
+  const sourceTime = snapshot.sourceCategory === "user_estimate" ? null : getExpectationSourcePublishedTime(snapshot, timeZone);
+  return sourceTime ? laterBusinessTemporal(formationTime, sourceTime) : formationTime;
+}
+
+export function getExpectationFormationTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue {
+  const zone = resolveSafeWorkflowTimeZone(timeZone);
+  if (snapshot.formedAtResolution !== "unresolved_legacy" && snapshot.formedAtPrecision === "datetime" && snapshot.formedAt && isPreciseInstant(snapshot.formedAt)) {
     return toBusinessTemporal(snapshot.formedAt, "datetime", zone) as BusinessTemporalValue;
   }
   return {
@@ -66,10 +93,15 @@ export function getExpectationBusinessTime(snapshot: EarningsExpectationSnapshot
   };
 }
 
+export function getExpectationSourcePublishedTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue | null {
+  if (!isExpectationSourcePublishedAtReliable(snapshot) || !snapshot.sourcePublishedAt) return null;
+  const precision: EarningsExpectationTimePrecision = snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date";
+  return toBusinessTemporal(snapshot.sourcePublishedAt, precision, resolveSafeWorkflowTimeZone(timeZone));
+}
+
 export function getExpectationEventBusinessTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue {
-  if (snapshot.sourceCategory !== "user_estimate" && snapshot.sourcePublishedAt && isExpectationSourcePublishedAtReliable(snapshot)) {
-    const precision: EarningsExpectationTimePrecision = snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date";
-    const sourceTime = toBusinessTemporal(snapshot.sourcePublishedAt, precision, timeZone);
+  if (snapshot.sourceCategory !== "user_estimate") {
+    const sourceTime = getExpectationSourcePublishedTime(snapshot, timeZone);
     if (sourceTime) return sourceTime;
   }
   return getExpectationBusinessTime(snapshot, timeZone);
@@ -84,6 +116,10 @@ export function isExpectationSourcePublishedAtReliable(snapshot: EarningsExpecta
 export function isExpectationSourcePublishedAtUnresolved(snapshot: EarningsExpectationSnapshot) {
   return snapshot.sourcePublishedAtResolution === "unresolved_legacy"
     || Boolean(snapshot.sourcePublishedAt && isUnzonedLocalDateTime(snapshot.sourcePublishedAt) && !isPreciseInstant(snapshot.sourcePublishedAt));
+}
+
+export function isExpectationBusinessTimeUnresolved(snapshot: EarningsExpectationSnapshot) {
+  return snapshot.sourceCategory !== "user_estimate" && (!snapshot.sourcePublishedAt || !isExpectationSourcePublishedAtReliable(snapshot));
 }
 
 export function compareExpectationBusinessTime(
@@ -115,7 +151,7 @@ export function deriveExpectationCorrectionDelta(
   const fields: Array<keyof EarningsExpectationSnapshot> = [
     "estimateShape", "value", "lowerBound", "upperBound", "currency", "unit", "accountingBasis",
     "sourceTitle", "sourceUrl", "sourcePublishedAt", "sourcePublishedAtPrecision", "sourcePublishedAtResolution", "sourcePublishedAtTimeZone",
-    "asOfDate", "formedAt", "formedAtPrecision",
+    "asOfDate", "formedAt", "formedAtPrecision", "formedAtResolution", "formedAtTimeZone",
   ];
   const changedFields = fields.filter((field) => current[field] !== target[field]);
   const currentMidpoint = snapshotMidpoint(current);
@@ -281,15 +317,27 @@ export function resolveEffectiveBusinessHistory(
   const roots = snapshots.filter((snapshot) => !snapshot.correctsSnapshotId);
   const nodes = roots.map((businessRootSnapshot) => {
     const resolved = resolveEarningsExpectationCorrectionChain(snapshots, businessRootSnapshot.id);
+    const correctionChain = resolved.chain.length ? resolved.chain : [businessRootSnapshot];
+    const effectiveSnapshot = resolved.terminal ?? businessRootSnapshot;
+    const correctedTemporalFields = temporalCorrectionFields(correctionChain);
     return {
       businessRootSnapshot,
-      effectiveSnapshot: resolved.terminal ?? businessRootSnapshot,
-      correctionChain: resolved.chain.length ? resolved.chain : [businessRootSnapshot],
+      effectiveSnapshot,
+      correctionChain,
       originalBusinessTime: getExpectationBusinessTime(businessRootSnapshot, timeZone),
+      effectiveBusinessTime: getExpectationBusinessTime(effectiveSnapshot, timeZone),
+      originalSourcePublishedAt: getExpectationSourcePublishedTime(businessRootSnapshot, timeZone),
+      effectiveSourcePublishedAt: getExpectationSourcePublishedTime(effectiveSnapshot, timeZone),
+      correctionRecordedAt: correctionChain.length > 1 ? correctionChain[correctionChain.length - 1].createdAt : null,
+      correctedTemporalFields,
+      temporalCorrectionApplied: correctedTemporalFields.length > 0,
+      actualSourceInterpretationTimeZone: effectiveSnapshot.sourcePublishedAtResolution === "workflow_time_zone"
+        ? effectiveSnapshot.sourcePublishedAtTimeZone ?? null
+        : null,
     } satisfies EffectiveEarningsExpectationBusinessNode;
   });
   return nodes.sort((left, right) => {
-    const comparison = compareBusinessTemporal(left.originalBusinessTime, right.originalBusinessTime);
+    const comparison = compareBusinessTemporal(left.effectiveBusinessTime, right.effectiveBusinessTime);
     if (comparison.order !== 0) return comparison.order;
     return left.businessRootSnapshot.id.localeCompare(right.businessRootSnapshot.id);
   });
@@ -304,14 +352,16 @@ export function selectEffectiveEarningsExpectations(snapshots: EarningsExpectati
   }
   return [...groups.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([, group]) => {
     const ordered = [...group].sort((left, right) => {
-      const comparison = compareBusinessTemporal(left.originalBusinessTime, right.originalBusinessTime);
+      const comparison = compareBusinessTemporal(left.effectiveBusinessTime, right.effectiveBusinessTime);
       return comparison.order || left.businessRootSnapshot.id.localeCompare(right.businessRootSnapshot.id);
     });
     const selected = ordered[ordered.length - 1];
     const relations = ordered
       .filter((candidate) => candidate.businessRootSnapshot.id !== selected.businessRootSnapshot.id)
-      .map((candidate) => compareBusinessTemporal(candidate.originalBusinessTime, selected.originalBusinessTime));
-    const businessOrderStatus: EarningsExpectationBusinessOrderStatus = relations.some((relation) => relation.status === "uncertain")
+      .map((candidate) => compareBusinessTemporal(candidate.effectiveBusinessTime, selected.effectiveBusinessTime));
+    const hasUnresolvedAvailability = ordered.some((candidate) => candidate.businessRootSnapshot.id !== selected.businessRootSnapshot.id
+      && (isExpectationBusinessTimeUnresolved(candidate.effectiveSnapshot) || isExpectationBusinessTimeUnresolved(selected.effectiveSnapshot)));
+    const businessOrderStatus: EarningsExpectationBusinessOrderStatus = hasUnresolvedAvailability || relations.some((relation) => relation.status === "uncertain")
       ? "uncertain"
       : relations.some((relation) => relation.status === "equal")
         ? "equal"
@@ -322,6 +372,14 @@ export function selectEffectiveEarningsExpectations(snapshots: EarningsExpectati
       correctionChain: selected.correctionChain,
       businessOrderUncertain: businessOrderStatus === "uncertain",
       businessOrderStatus,
+      originalBusinessTime: selected.originalBusinessTime,
+      effectiveBusinessTime: selected.effectiveBusinessTime,
+      originalSourcePublishedAt: selected.originalSourcePublishedAt,
+      effectiveSourcePublishedAt: selected.effectiveSourcePublishedAt,
+      correctionRecordedAt: selected.correctionRecordedAt,
+      correctedTemporalFields: selected.correctedTemporalFields,
+      temporalCorrectionApplied: selected.temporalCorrectionApplied,
+      actualSourceInterpretationTimeZone: selected.actualSourceInterpretationTimeZone,
     };
   });
 }
@@ -338,6 +396,7 @@ export function getExpectationBusinessOrderStatus(
   right: EarningsExpectationSnapshot,
   timeZone?: string | null,
 ): EarningsExpectationBusinessOrderStatus {
+  if (isExpectationBusinessTimeUnresolved(left) || isExpectationBusinessTimeUnresolved(right)) return "uncertain";
   const comparison = compareBusinessTemporal(getExpectationBusinessTime(left, timeZone), getExpectationBusinessTime(right, timeZone));
   if (comparison.status === "uncertain") return "uncertain";
   if (comparison.status === "equal") return "equal";
@@ -345,6 +404,7 @@ export function getExpectationBusinessOrderStatus(
 }
 
 function isSameCalendarOrderUncertain(left: EarningsExpectationSnapshot, right: EarningsExpectationSnapshot, timeZone?: string | null) {
+  if (isExpectationBusinessTimeUnresolved(left) || isExpectationBusinessTimeUnresolved(right)) return true;
   const leftTime = getExpectationBusinessTime(left, timeZone);
   const rightTime = getExpectationBusinessTime(right, timeZone);
   return leftTime.calendarDate === rightTime.calendarDate && compareBusinessTemporal(leftTime, rightTime).uncertain;
@@ -357,6 +417,16 @@ function issue(code: EarningsExpectationCorrectionGraphIssue["code"], snapshotId
 function snapshotMidpoint(snapshot: EarningsExpectationSnapshot) {
   if (snapshot.estimateShape === "point") return snapshot.value;
   return snapshot.lowerBound === null || snapshot.upperBound === null ? null : (snapshot.lowerBound + snapshot.upperBound) / 2;
+}
+
+function temporalCorrectionFields(chain: EarningsExpectationSnapshot[]) {
+  const changed = new Set<string>();
+  for (let index = 1; index < chain.length; index += 1) {
+    const previous = chain[index - 1];
+    const current = chain[index];
+    for (const field of TEMPORAL_CORRECTION_FIELDS) if (current[field] !== previous[field]) changed.add(String(field));
+  }
+  return [...changed].sort();
 }
 
 export function getExpectationCalendarDate(snapshot: EarningsExpectationSnapshot, timeZone?: string | null) {

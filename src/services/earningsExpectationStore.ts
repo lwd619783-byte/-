@@ -5,7 +5,12 @@ import {
   sameCorrectionIdentity,
   validateEarningsExpectationCorrectionGraph,
 } from "./earningsExpectationIntegrity";
-import { isUnzonedLocalDateTime, isValidTimeZone, resolveWorkflowTemporalInput } from "../utils/dateTime";
+import {
+  isUnzonedLocalDateTime,
+  isValidTimeZone,
+  resolveImportedFormedAt,
+  resolveImportedSourcePublishedAt,
+} from "../utils/dateTime";
 
 export type CreateEarningsExpectationSnapshotInput = Omit<EarningsExpectationSnapshot, "id" | "createdAt" | "createdBy" | "schemaVersion" | "correctsSnapshotId"> & {
   id?: string;
@@ -30,11 +35,12 @@ export class EarningsExpectationStore {
   appendSnapshot(data: EarningsExpectationStoreEnvelope, input: CreateEarningsExpectationSnapshotInput): EarningsExpectationActionResult {
     const sourceTime = normalizeSourceTimeForWrite(input, data.settings.timeZone, false);
     if (!sourceTime.ok) return failure(data, sourceTime.error);
+    const formationTime = normalizeFormationTimeForWrite(input, data.settings.timeZone, false);
+    if (!formationTime.ok) return failure(data, formationTime.error);
     return this.append(data, {
       ...clone(input),
       ...sourceTime.fields,
-      formedAt: input.formedAt ?? null,
-      formedAtPrecision: input.formedAtPrecision ?? (input.formedAt ? "datetime" : "date"),
+      ...formationTime.fields,
       id: input.id ?? this.idFactory(),
       createdAt: input.createdAt ?? this.now().toISOString(),
       createdBy: input.createdBy ?? "local-user",
@@ -56,11 +62,14 @@ export class EarningsExpectationStore {
       && original.sourcePublishedAt === input.sourcePublishedAt;
     const sourceTime = normalizeSourceTimeForWrite(input, data.settings.timeZone, preserveUnresolvedLegacy);
     if (!sourceTime.ok) return failure(data, sourceTime.error);
+    const preserveUnresolvedFormation = original.formedAtResolution === "unresolved_legacy"
+      && original.formedAt === input.formedAt;
+    const formationTime = normalizeFormationTimeForWrite(input, data.settings.timeZone, preserveUnresolvedFormation);
+    if (!formationTime.ok) return failure(data, formationTime.error);
     const candidate: EarningsExpectationSnapshot = {
       ...clone(input),
       ...sourceTime.fields,
-      formedAt: input.formedAt ?? null,
-      formedAtPrecision: input.formedAtPrecision ?? (input.formedAt ? "datetime" : "date"),
+      ...formationTime.fields,
       id: input.id ?? this.idFactory(),
       createdAt: this.now().toISOString(),
       createdBy: input.createdBy ?? "local-user",
@@ -101,10 +110,15 @@ function normalizeSourceTimeForWrite(
   if (preserveUnresolvedLegacy && input.sourcePublishedAt && isUnzonedLocalDateTime(input.sourcePublishedAt)) {
     return { ok: true, fields: { sourcePublishedAt: input.sourcePublishedAt, sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "unresolved_legacy", sourcePublishedAtTimeZone: null } };
   }
-  const resolved = resolveWorkflowTemporalInput(input.sourcePublishedAt, timeZone);
+  const resolved = resolveImportedSourcePublishedAt({
+    rawValue: input.sourcePublishedAt,
+    declaredResolution: input.sourcePublishedAtResolution,
+    declaredTimeZone: input.sourcePublishedAtTimeZone,
+    fallbackTimeZone: timeZone,
+  });
   if (["nonexistent", "ambiguous", "invalid"].includes(resolved.status)) return { ok: false, error: "message" in resolved ? resolved.message : "来源时间无效。" };
   if (resolved.status === "empty") return { ok: true, fields: { sourcePublishedAt: null, sourcePublishedAtPrecision: null, sourcePublishedAtResolution: null, sourcePublishedAtTimeZone: null } };
-  const preserveWorkflowZone = resolved.status === "absolute"
+  const preserveWorkflowProvenance = resolved.status === "absolute"
     && input.sourcePublishedAtResolution === "workflow_time_zone"
     && isValidTimeZone(input.sourcePublishedAtTimeZone);
   return {
@@ -112,10 +126,33 @@ function normalizeSourceTimeForWrite(
     fields: {
       sourcePublishedAt: resolved.value,
       sourcePublishedAtPrecision: resolved.precision,
-      sourcePublishedAtResolution: resolved.status === "date" ? "date" : resolved.status === "local" || preserveWorkflowZone ? "workflow_time_zone" : "absolute",
-      sourcePublishedAtTimeZone: resolved.status === "local" ? resolved.interpretedTimeZone : preserveWorkflowZone ? input.sourcePublishedAtTimeZone ?? null : null,
+      sourcePublishedAtResolution: preserveWorkflowProvenance ? "workflow_time_zone" : resolved.resolution,
+      sourcePublishedAtTimeZone: preserveWorkflowProvenance ? input.sourcePublishedAtTimeZone : resolved.interpretedTimeZone,
     },
   };
+}
+
+function normalizeFormationTimeForWrite(
+  input: CreateEarningsExpectationSnapshotInput,
+  timeZone: string,
+  preserveUnresolvedLegacy: boolean,
+): { ok: true; fields: Pick<EarningsExpectationSnapshot, "formedAt" | "formedAtPrecision" | "formedAtResolution" | "formedAtTimeZone"> } | { ok: false; error: string } {
+  if (preserveUnresolvedLegacy && input.formedAt && isUnzonedLocalDateTime(input.formedAt)) {
+    return { ok: true, fields: { formedAt: input.formedAt, formedAtPrecision: "datetime", formedAtResolution: "unresolved_legacy", formedAtTimeZone: null } };
+  }
+  const resolved = resolveImportedFormedAt({
+    rawValue: input.formedAt,
+    declaredResolution: input.formedAtResolution,
+    declaredTimeZone: input.formedAtTimeZone,
+    fallbackTimeZone: timeZone,
+    asOfDate: input.asOfDate,
+  });
+  if (["nonexistent", "ambiguous", "invalid"].includes(resolved.status)) return { ok: false, error: "message" in resolved ? resolved.message : "预期形成时间无效。" };
+  if (resolved.status === "empty") return { ok: true, fields: { formedAt: null, formedAtPrecision: "date", formedAtResolution: "date", formedAtTimeZone: null } };
+  const preserveWorkflowProvenance = resolved.status === "absolute"
+    && input.formedAtResolution === "workflow_time_zone"
+    && isValidTimeZone(input.formedAtTimeZone);
+  return { ok: true, fields: { formedAt: resolved.value, formedAtPrecision: "datetime", formedAtResolution: preserveWorkflowProvenance ? "workflow_time_zone" : resolved.resolution, formedAtTimeZone: preserveWorkflowProvenance ? input.formedAtTimeZone : resolved.interpretedTimeZone } };
 }
 function clone<T>(value: T): T { return JSON.parse(JSON.stringify(value)) as T; }
 function defaultId() { const random = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`; return `expectation-${random}`; }

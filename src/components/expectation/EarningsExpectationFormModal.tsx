@@ -1,7 +1,14 @@
 import { useMemo, useState } from "react";
 import type { EarningsExpectationSnapshot, Stock } from "../../types";
 import type { CreateEarningsExpectationSnapshotInput } from "../../services/earningsExpectationStore";
-import { getCalendarToday, isoToZonedLocalDateTime, resolveTimeZone, resolveWorkflowTemporalInput, resolveZonedLocalDateTime } from "../../utils/dateTime";
+import {
+  getCalendarToday,
+  isValidTimeZone,
+  isoToZonedLocalDateTime,
+  resolveImportedFormedAt,
+  resolveImportedSourcePublishedAt,
+  resolveSafeWorkflowTimeZone,
+} from "../../utils/dateTime";
 import { Modal } from "../common/Modal";
 
 interface EarningsExpectationFormModalProps {
@@ -15,7 +22,7 @@ interface EarningsExpectationFormModalProps {
 }
 
 export function EarningsExpectationFormModal({ stocks, initialStockId, correctionTarget, timeZone: requestedTimeZone, now, onClose, onSubmit }: EarningsExpectationFormModalProps) {
-  const timeZone = resolveTimeZone(requestedTimeZone);
+  const timeZone = resolveSafeWorkflowTimeZone(requestedTimeZone);
   const initial = useMemo(() => formFrom(correctionTarget, initialStockId, timeZone, now ?? new Date()), [correctionTarget, initialStockId, now, timeZone]);
   const [form, setForm] = useState(initial);
   const [dirty, setDirty] = useState(false);
@@ -28,9 +35,13 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
   const submit = () => {
     if (!selectedStock) return;
     const preserveLegacySourceTime = correctionTarget?.sourcePublishedAtResolution === "unresolved_legacy" && correctionTarget.sourcePublishedAt === form.sourcePublishedAt.trim();
-    const sourceTime = resolveSourcePublishedInput(form.sourcePublishedAt, timeZone, preserveLegacySourceTime);
+    const sourceTime = correctionTarget && form.sourcePublishedAt === initial.sourcePublishedAt
+      ? { value: correctionTarget.sourcePublishedAt, precision: correctionTarget.sourcePublishedAtPrecision ?? null, resolution: correctionTarget.sourcePublishedAtResolution ?? null, interpretedTimeZone: correctionTarget.sourcePublishedAtTimeZone ?? null, error: null }
+      : resolveSourcePublishedInput(form.sourcePublishedAt, timeZone, preserveLegacySourceTime, correctionTarget?.sourcePublishedAtResolution, correctionTarget?.sourcePublishedAtTimeZone);
     if (sourceTime.error) { setSourceTimeError(sourceTime.error); return; }
-    const formation = resolveFormationInput(form.formedAt, timeZone);
+    const formation = correctionTarget && form.formedAt === initial.formedAt && form.asOfDate === initial.asOfDate
+      ? { formedAt: correctionTarget.formedAt ?? null, precision: correctionTarget.formedAtPrecision ?? "date" as const, resolution: correctionTarget.formedAtResolution ?? (correctionTarget.formedAt ? null : "date" as const), interpretedTimeZone: correctionTarget.formedAtTimeZone ?? null, error: null }
+      : resolveFormationInput(form.formedAt, timeZone, form.asOfDate, correctionTarget?.formedAtResolution, correctionTarget?.formedAtTimeZone);
     if (formation.error) { setFormationTimeError(formation.error); return; }
     const formedAt = formation.formedAt;
     const sourceVerificationStatus = form.sourceCategory === "user_estimate"
@@ -62,6 +73,8 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
       asOfDate: form.asOfDate,
       formedAt,
       formedAtPrecision: formation.precision,
+      formedAtResolution: formation.resolution,
+      formedAtTimeZone: formation.interpretedTimeZone,
       analystCount: integerOrNull(form.analystCount),
       institutionCount: integerOrNull(form.institutionCount),
       ingestionMethod: "manual",
@@ -103,25 +116,39 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
 }
 
 interface FormState { stockId: string; reportPeriod: string; periodScope: string; metric: string; estimateShape: string; value: string; lowerBound: string; upperBound: string; currency: string; unit: string; accountingBasis: string; sourceCategory: string; sourceName: string; sourceTitle: string; sourceUrl: string; sourcePublishedAt: string; asOfDate: string; formedAt: string; analystCount: string; institutionCount: string; sourceVerificationStatus: string; notes: string }
-export function resolveFormationInput(value: string, timeZone: string): { formedAt: string | null; precision: "date" | "datetime"; error: string | null } {
-  if (!value) return { formedAt: null, precision: "date", error: null };
-  const resolved = resolveZonedLocalDateTime(value, timeZone);
-  if (resolved.status === "valid") return { formedAt: resolved.instant, precision: "datetime", error: null };
-  if (resolved.status === "nonexistent") return { formedAt: null, precision: "date", error: `该本地时间在 ${timeZone} 因夏令时跳转不存在，请调整时间或留空按日期精度保存。` };
-  if (resolved.status === "ambiguous") return { formedAt: null, precision: "date", error: `该本地时间在 ${timeZone} 因夏令时回拨存在两个可能时刻，V1 暂不猜测偏移，请调整时间或留空按日期精度保存。` };
-  return { formedAt: null, precision: "date", error: resolved.reason };
+export function resolveFormationInput(
+  value: string,
+  timeZone: string,
+  asOfDate = value.slice(0, 10),
+  declaredResolution?: EarningsExpectationSnapshot["formedAtResolution"],
+  declaredTimeZone?: string | null,
+): { formedAt: string | null; precision: "date" | "datetime"; resolution: EarningsExpectationSnapshot["formedAtResolution"]; interpretedTimeZone: string | null; error: string | null } {
+  const resolved = resolveImportedFormedAt({ rawValue: value, declaredResolution, declaredTimeZone, fallbackTimeZone: timeZone, asOfDate });
+  if (resolved.status === "empty") return { formedAt: null, precision: "date", resolution: "date", interpretedTimeZone: null, error: null };
+  if (resolved.status === "absolute" || resolved.status === "local" || resolved.status === "unresolved_legacy") {
+    const preserveWorkflowProvenance = resolved.status === "absolute" && declaredResolution === "workflow_time_zone" && isValidTimeZone(declaredTimeZone);
+    return { formedAt: resolved.value, precision: "datetime", resolution: preserveWorkflowProvenance ? "workflow_time_zone" : resolved.resolution, interpretedTimeZone: preserveWorkflowProvenance ? declaredTimeZone : resolved.interpretedTimeZone, error: null };
+  }
+  return { formedAt: null, precision: "date", resolution: null, interpretedTimeZone: null, error: "message" in resolved ? resolved.message : "预期形成时间无效。" };
 }
-export function resolveSourcePublishedInput(value: string, timeZone: string, preserveUnresolvedLegacy = false): { value: string | null; precision: "date" | "datetime" | null; resolution: EarningsExpectationSnapshot["sourcePublishedAtResolution"]; interpretedTimeZone: string | null; error: string | null } {
+export function resolveSourcePublishedInput(
+  value: string,
+  timeZone: string,
+  preserveUnresolvedLegacy = false,
+  declaredResolution?: EarningsExpectationSnapshot["sourcePublishedAtResolution"],
+  declaredTimeZone?: string | null,
+): { value: string | null; precision: "date" | "datetime" | null; resolution: EarningsExpectationSnapshot["sourcePublishedAtResolution"]; interpretedTimeZone: string | null; error: string | null } {
   const input = value.trim();
   if (preserveUnresolvedLegacy) return { value: input || null, precision: input ? "datetime" : null, resolution: input ? "unresolved_legacy" : null, interpretedTimeZone: null, error: null };
-  const resolved = resolveWorkflowTemporalInput(input, timeZone);
+  const resolved = resolveImportedSourcePublishedAt({ rawValue: input, declaredResolution, declaredTimeZone, fallbackTimeZone: timeZone });
   if (resolved.status === "empty") return { value: null, precision: null, resolution: null, interpretedTimeZone: null, error: null };
-  if (resolved.status === "date") return { value: resolved.value, precision: "date", resolution: "date", interpretedTimeZone: null, error: null };
-  if (resolved.status === "absolute") return { value: resolved.value, precision: "datetime", resolution: "absolute", interpretedTimeZone: null, error: null };
-  if (resolved.status === "local") return { value: resolved.value, precision: "datetime", resolution: "workflow_time_zone", interpretedTimeZone: resolved.interpretedTimeZone, error: null };
-  return { value: null, precision: null, resolution: null, interpretedTimeZone: null, error: resolved.message };
+  if (resolved.status === "date" || resolved.status === "absolute" || resolved.status === "local" || resolved.status === "unresolved_legacy") {
+    const preserveWorkflowProvenance = resolved.status === "absolute" && declaredResolution === "workflow_time_zone" && isValidTimeZone(declaredTimeZone);
+    return { value: resolved.value, precision: resolved.precision, resolution: preserveWorkflowProvenance ? "workflow_time_zone" : resolved.resolution, interpretedTimeZone: preserveWorkflowProvenance ? declaredTimeZone : resolved.interpretedTimeZone, error: null };
+  }
+  return { value: null, precision: null, resolution: null, interpretedTimeZone: null, error: "message" in resolved ? resolved.message : "来源时间无效。" };
 }
-function formFrom(snapshot: EarningsExpectationSnapshot | null | undefined, stockId: string | undefined, timeZone: string, now: Date): FormState { return snapshot ? { stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric, estimateShape: snapshot.estimateShape, value: text(snapshot.value), lowerBound: text(snapshot.lowerBound), upperBound: text(snapshot.upperBound), currency: snapshot.currency, unit: snapshot.unit, accountingBasis: snapshot.accountingBasis, sourceCategory: snapshot.sourceCategory, sourceName: snapshot.sourceName, sourceTitle: snapshot.sourceTitle, sourceUrl: snapshot.sourceUrl ?? "", sourcePublishedAt: snapshot.sourcePublishedAt ?? "", asOfDate: snapshot.asOfDate, formedAt: isoToZonedLocalDateTime(snapshot.formedAt, timeZone), analystCount: text(snapshot.analystCount), institutionCount: text(snapshot.institutionCount), sourceVerificationStatus: snapshot.sourceVerificationStatus, notes: snapshot.notes ?? "" } : { stockId: stockId ?? "", reportPeriod: "", periodScope: "single_quarter", metric: "revenue", estimateShape: "point", value: "", lowerBound: "", upperBound: "", currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: "", sourcePublishedAt: "", asOfDate: getCalendarToday(now, timeZone), formedAt: "", analystCount: "", institutionCount: "", sourceVerificationStatus: "verified", notes: "" }; }
+function formFrom(snapshot: EarningsExpectationSnapshot | null | undefined, stockId: string | undefined, timeZone: string, now: Date): FormState { return snapshot ? { stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric, estimateShape: snapshot.estimateShape, value: text(snapshot.value), lowerBound: text(snapshot.lowerBound), upperBound: text(snapshot.upperBound), currency: snapshot.currency, unit: snapshot.unit, accountingBasis: snapshot.accountingBasis, sourceCategory: snapshot.sourceCategory, sourceName: snapshot.sourceName, sourceTitle: snapshot.sourceTitle, sourceUrl: snapshot.sourceUrl ?? "", sourcePublishedAt: snapshot.sourcePublishedAt ?? "", asOfDate: snapshot.asOfDate, formedAt: snapshot.formedAtResolution === "unresolved_legacy" ? snapshot.formedAt ?? "" : isoToZonedLocalDateTime(snapshot.formedAt, snapshot.formedAtTimeZone ?? timeZone), analystCount: text(snapshot.analystCount), institutionCount: text(snapshot.institutionCount), sourceVerificationStatus: snapshot.sourceVerificationStatus, notes: snapshot.notes ?? "" } : { stockId: stockId ?? "", reportPeriod: "", periodScope: "single_quarter", metric: "revenue", estimateShape: "point", value: "", lowerBound: "", upperBound: "", currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: "", sourcePublishedAt: "", asOfDate: getCalendarToday(now, timeZone), formedAt: "", analystCount: "", institutionCount: "", sourceVerificationStatus: "verified", notes: "" }; }
 function numberOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
 function integerOrNull(value: string) { if (!value.trim()) return null; return Number(value); }
 function text(value: number | null) { return value === null ? "" : String(value); }
