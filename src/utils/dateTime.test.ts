@@ -7,6 +7,8 @@ import {
   getCalendarDateInTimeZone,
   getCalendarToday,
   isoToZonedLocalDateTime,
+  isCalendarDate,
+  isPreciseInstant,
   isValidTimeZone,
   laterBusinessTemporal,
   resolveTimeZone,
@@ -85,8 +87,8 @@ describe("workflow calendar date and IANA time-zone contract", () => {
     expect(validateEarningsExpectationSnapshot(value, { now: new Date("2026-07-13T15:30:00.000Z"), timeZone: "Asia/Tokyo" }).some((item) => item.includes("当前时刻"))).toBe(true);
   });
   it("rejects a precise formation whose workflow calendar day disagrees with asOfDate", () => {
-    const value = snapshot({ asOfDate: "2026-07-13", formedAt: "2026-07-13T15:30:00.000Z", formedAtPrecision: "datetime" });
-    expect(validateEarningsExpectationSnapshot(value, { now: new Date("2026-07-14T12:00:00.000Z"), timeZone: "Asia/Tokyo" }).some((item) => item.includes("asOfDate"))).toBe(true);
+    const value = snapshot({ asOfDate: "2026-07-13", formedAt: "2026-07-13T15:30:00.000Z", formedAtPrecision: "datetime", formedAtResolution: "absolute", formedAtTimeZone: "Asia/Tokyo" });
+    expect(validateEarningsExpectationSnapshot(value, { now: new Date("2026-07-14T12:00:00.000Z"), timeZone: "Asia/Tokyo" }).some((item) => item.includes("业务日期"))).toBe(true);
   });
   it("confirms same-day ex-ante status only with two exact instants", () => {
     const early = compareEarningsExpectation(snapshot({ formedAt: "2026-07-14T08:59:00+09:00", formedAtPrecision: "datetime" }), [actual("2026-07-14T09:01:00+09:00")], comparisonSettings());
@@ -134,7 +136,7 @@ describe("workflow calendar date and IANA time-zone contract", () => {
 });
 
 function snapshot(overrides: Partial<EarningsExpectationSnapshot> = {}): EarningsExpectationSnapshot {
-  return {
+  const value: EarningsExpectationSnapshot = {
     id: "snapshot",
     stockId: "demo",
     market: "A股",
@@ -154,9 +156,15 @@ function snapshot(overrides: Partial<EarningsExpectationSnapshot> = {}): Earning
     sourceUrl: null,
     sourcePublishedAt: null,
     sourcePublishedAtPrecision: null,
+    sourcePublishedAtResolution: null,
+    sourcePublishedAtTimeZone: null,
+    sourcePublishedAtCalendarDate: null,
     asOfDate: "2026-07-14",
     formedAt: null,
     formedAtPrecision: "date",
+    formedAtResolution: "date",
+    formedAtTimeZone: null,
+    formedAtCalendarDate: "2026-07-14",
     analystCount: null,
     institutionCount: null,
     ingestionMethod: "manual",
@@ -166,9 +174,16 @@ function snapshot(overrides: Partial<EarningsExpectationSnapshot> = {}): Earning
     notes: null,
     correctsSnapshotId: null,
     correctionScope: null,
-    schemaVersion: 1,
+    schemaVersion: 2,
     ...overrides,
   };
+  if (!("formedAtCalendarDate" in overrides)) value.formedAtCalendarDate = value.asOfDate;
+  if (!("sourcePublishedAtCalendarDate" in overrides)) value.sourcePublishedAtCalendarDate = isCalendarDate(value.sourcePublishedAt)
+    ? value.sourcePublishedAt
+    : isPreciseInstant(value.sourcePublishedAt) && isValidTimeZone(value.sourcePublishedAtTimeZone)
+      ? getCalendarDateInTimeZone(value.sourcePublishedAt, value.sourcePublishedAtTimeZone)
+      : value.sourcePublishedAt ? String(value.sourcePublishedAt).slice(0, 10) : null;
+  return value;
 }
 
 function actual(publishedAt: string): ResearchEvent {

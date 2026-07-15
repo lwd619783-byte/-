@@ -22,7 +22,7 @@ describe("earnings expectation repository and validation", () => {
   it("1 initializes an empty state", () => expect(createEmptyEarningsExpectationEnvelope(new Date("2026-07-13Z")).snapshots).toEqual([]));
   it("2 saves and reads normal data", () => { const storage = new MemoryStorage(); const repo = new EarningsExpectationRepository(storage); const data = { ...createEmptyEarningsExpectationEnvelope(), snapshots: [snapshot()] }; expect(repo.save(data).ok).toBe(true); expect(repo.load().data.snapshots[0].id).toBe("s-1"); });
   it("3 safely recovers corrupted JSON without overwriting it", () => { const storage = new MemoryStorage(); storage.setItem(EARNINGS_EXPECTATION_STORAGE_KEY, "{broken"); const result = new EarningsExpectationRepository(storage).load(); expect(result.data.snapshots).toEqual([]); expect(result.corruptedRaw).toBe("{broken"); expect(storage.getItem(EARNINGS_EXPECTATION_STORAGE_KEY)).toBe("{broken"); });
-  it("4 rejects unknown schema versions", () => expect(() => migrateEarningsExpectationEnvelope({ schemaVersion: 2 })).toThrow("schemaVersion"));
+  it("4 rejects unknown schema versions", () => expect(() => migrateEarningsExpectationEnvelope({ schemaVersion: 3 })).toThrow("schemaVersion"));
   it("5 appends snapshots only", () => { const storage = new MemoryStorage(); const store = new EarningsExpectationStore(new EarningsExpectationRepository(storage), () => new Date("2026-07-13Z"), () => "s-new"); const result = store.appendSnapshot(createEmptyEarningsExpectationEnvelope(), input()); expect(result.ok).toBe(true); expect(result.data.snapshots).toHaveLength(1); });
   it("6 exposes no in-place update API", () => expect("updateSnapshot" in new EarningsExpectationStore(new EarningsExpectationRepository(new MemoryStorage()))).toBe(false));
   it("7 links a correction snapshot", () => { const storage = new MemoryStorage(); const store = new EarningsExpectationStore(new EarningsExpectationRepository(storage), () => new Date("2026-07-13Z"), () => "s-2"); const data = { ...createEmptyEarningsExpectationEnvelope(), snapshots: [snapshot()] }; const result = store.appendCorrection(data, "s-1", { ...input(), value: 120 }); expect(result.ok).toBe(true); expect(result.snapshot?.correctsSnapshotId).toBe("s-1"); expect(result.data.snapshots).toHaveLength(2); });
@@ -97,14 +97,14 @@ describe("earnings expectation repository and validation", () => {
   it("96 preserves historical unzoned source time as unresolved instead of reinterpreting it", () => {
     const legacy = { ...createEmptyEarningsExpectationEnvelope(), snapshots: [{ ...snapshot(), sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: undefined, sourcePublishedAtResolution: undefined, sourcePublishedAtTimeZone: undefined }] };
     const migrated = migrateEarningsExpectationEnvelope(legacy);
-    expect(migrated.schemaVersion).toBe(1);
+    expect(migrated.schemaVersion).toBe(2);
     expect(migrated.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "unresolved_legacy", sourcePublishedAtTimeZone: null });
     expect(migrateEarningsExpectationEnvelope(migrated)).toEqual(migrated);
   });
   it("97 records a new correction at the store clock instead of copying the original timestamp", () => {
     const store = new EarningsExpectationStore(new EarningsExpectationRepository(new MemoryStorage()), () => new Date("2026-07-15T09:00:00.000Z"), () => "correction-now");
     const data = { ...createEmptyEarningsExpectationEnvelope(), snapshots: [snapshot()] };
-    const result = store.appendCorrection(data, "s-1", { ...input(), value: 110, createdAt: "2026-06-01T00:00:00.000Z" });
+    const result = store.appendCorrection(data, "s-1", { ...input(), value: 110 });
     expect(result.ok).toBe(true);
     expect(result.snapshot?.createdAt).toBe("2026-07-15T09:00:00.000Z");
     expect(data.snapshots[0].createdAt).toBe("2026-07-13T00:00:00.000Z");
@@ -112,7 +112,7 @@ describe("earnings expectation repository and validation", () => {
   it("98 gives a valid record-declared source time zone precedence in both JSON and CSV previews", () => {
     const repo = new EarningsExpectationRepository(new MemoryStorage());
     const current = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "Asia/Shanghai" } };
-    const value = { ...snapshot(), id: "tokyo-source", asOfDate: "2026-07-15", sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime" as const, sourcePublishedAtResolution: "workflow_time_zone" as const, sourcePublishedAtTimeZone: "Asia/Tokyo" };
+    const value = { ...snapshot(), id: "tokyo-source", asOfDate: "2026-07-15", formedAtCalendarDate: "2026-07-15", sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime" as const, sourcePublishedAtResolution: "workflow_time_zone" as const, sourcePublishedAtTimeZone: "Asia/Tokyo", sourcePublishedAtCalendarDate: "2026-07-15" };
     const json = repo.previewJson({ schemaVersion: 1, snapshots: [value] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
     const csv = repo.previewCsv(exportEarningsExpectationCsv([value]), current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
     for (const preview of [json, csv]) {
@@ -124,7 +124,7 @@ describe("earnings expectation repository and validation", () => {
   it("99 uses envelope or explicit workflow time zone only when a source record does not declare one", () => {
     const repo = new EarningsExpectationRepository(new MemoryStorage());
     const current = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "Asia/Shanghai" } };
-    const raw = { ...snapshot(), id: "workflow-source", asOfDate: "2026-07-15", sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime" as const, sourcePublishedAtResolution: undefined, sourcePublishedAtTimeZone: undefined };
+    const raw = { ...snapshot(), id: "workflow-source", asOfDate: "2026-07-15", formedAtCalendarDate: "2026-07-15", sourcePublishedAt: "2026-07-15T15:00", sourcePublishedAtPrecision: "datetime" as const, sourcePublishedAtResolution: undefined, sourcePublishedAtTimeZone: undefined, sourcePublishedAtCalendarDate: undefined };
     const envelope = repo.previewJson({ schemaVersion: 1, settings: { timeZone: "Asia/Tokyo" }, snapshots: [raw] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z") });
     expect(envelope.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T06:00:00.000Z", sourcePublishedAtResolution: "workflow_time_zone", sourcePublishedAtTimeZone: "Asia/Tokyo" });
     const explicit = repo.previewJson({ schemaVersion: 1, settings: { timeZone: "Asia/Tokyo" }, snapshots: [raw] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
@@ -138,7 +138,7 @@ describe("earnings expectation repository and validation", () => {
     const current = createEmptyEarningsExpectationEnvelope();
     for (const rawTime of ["2026-07-15T15:00:00+08:00", "2026-07-15T07:00:00Z"]) {
       const preview = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: `absolute-${rawTime}`, asOfDate: "2026-07-15", sourcePublishedAt: rawTime, sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "absolute", sourcePublishedAtTimeZone: "Asia/Tokyo" }] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
-      expect(preview.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T07:00:00.000Z", sourcePublishedAtResolution: "absolute", sourcePublishedAtTimeZone: null });
+      expect(preview.snapshots[0]).toMatchObject({ sourcePublishedAt: "2026-07-15T07:00:00.000Z", sourcePublishedAtResolution: "absolute", sourcePublishedAtTimeZone: "Asia/Tokyo", sourcePublishedAtCalendarDate: "2026-07-15" });
     }
     for (const rawTime of ["2026-03-08T02:30", "2026-11-01T01:30"]) {
       const preview = repo.previewJson({ schemaVersion: 1, snapshots: [{ ...snapshot(), id: `declared-dst-${rawTime}`, asOfDate: rawTime.slice(0, 10), sourcePublishedAt: rawTime, sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "workflow_time_zone", sourcePublishedAtTimeZone: "America/New_York" }] }, current, { ...jsonOptions(), now: new Date("2026-12-01T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
@@ -149,7 +149,7 @@ describe("earnings expectation repository and validation", () => {
   it("101 applies the same declared-zone formedAt contract to JSON, CSV and direct Store writes", () => {
     const repo = new EarningsExpectationRepository(new MemoryStorage(), () => new Date("2026-07-16T00:00:00.000Z"));
     const current = { ...createEmptyEarningsExpectationEnvelope(), settings: { ...createEmptyEarningsExpectationEnvelope().settings, timeZone: "Asia/Shanghai" } };
-    const value = { ...snapshot(), id: "tokyo-formed", asOfDate: "2026-07-15", formedAt: "2026-07-15T00:30", formedAtPrecision: "datetime" as const, formedAtResolution: "workflow_time_zone" as const, formedAtTimeZone: "Asia/Tokyo" };
+    const value = { ...snapshot(), id: "tokyo-formed", asOfDate: "2026-07-15", formedAt: "2026-07-15T00:30", formedAtPrecision: "datetime" as const, formedAtResolution: "workflow_time_zone" as const, formedAtTimeZone: "Asia/Tokyo", formedAtCalendarDate: "2026-07-15" };
     const json = repo.previewJson({ schemaVersion: 1, snapshots: [value] }, current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
     const csv = repo.previewCsv(exportEarningsExpectationCsv([value]), current, { ...jsonOptions(), now: new Date("2026-07-16T00:00:00.000Z"), timeZone: "Asia/Shanghai" });
     for (const preview of [json, csv]) expect(preview.snapshots[0]).toMatchObject({ formedAt: "2026-07-14T15:30:00.000Z", formedAtResolution: "workflow_time_zone", formedAtTimeZone: "Asia/Tokyo" });
@@ -176,7 +176,7 @@ describe("earnings expectation repository and validation", () => {
   });
 });
 
-function snapshot(): EarningsExpectationSnapshot { return { id: "s-1", stockId: "demo", market: "A股", reportPeriod: "2026-06-30", periodScope: "half_year", metric: "revenue", estimateShape: "point", value: 100, lowerBound: null, upperBound: null, currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: null, sourcePublishedAt: null, asOfDate: "2026-06-01", analystCount: null, institutionCount: null, ingestionMethod: "manual", createdAt: "2026-07-13T00:00:00.000Z", createdBy: "local-user", sourceVerificationStatus: "verified", notes: null, correctsSnapshotId: null, schemaVersion: 1 }; }
+function snapshot(): EarningsExpectationSnapshot { return { id: "s-1", stockId: "demo", market: "A股", reportPeriod: "2026-06-30", periodScope: "half_year", metric: "revenue", estimateShape: "point", value: 100, lowerBound: null, upperBound: null, currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "user_estimate", sourceName: "用户个人预测", sourceTitle: "", sourceUrl: null, sourcePublishedAt: null, sourcePublishedAtPrecision: null, sourcePublishedAtResolution: null, sourcePublishedAtTimeZone: null, sourcePublishedAtCalendarDate: null, asOfDate: "2026-06-01", formedAt: null, formedAtPrecision: "date", formedAtResolution: "date", formedAtTimeZone: null, formedAtCalendarDate: "2026-06-01", analystCount: null, institutionCount: null, ingestionMethod: "manual", createdAt: "2026-07-13T00:00:00.000Z", createdBy: "local-user", sourceVerificationStatus: "verified", notes: null, correctsSnapshotId: null, correctionScope: null, schemaVersion: 2 }; }
 function input() { const { id: _id, createdAt: _createdAt, createdBy: _createdBy, correctsSnapshotId: _corrects, schemaVersion: _version, ...value } = snapshot(); return value; }
 function csvHeader() { return "stockId,reportPeriod,periodScope,metric,estimateShape,value,lowerBound,upperBound,currency,unit,accountingBasis,sourceCategory,sourceName,sourceTitle,sourceUrl,sourcePublishedAt,asOfDate,analystCount,institutionCount,sourceVerificationStatus,notes"; }
 function csvRow(value = "100", unit = "元") { return `demo,2026-06-30,half_year,revenue,point,${value},,,CNY,${unit},PRC_GAAP,user_estimate,用户个人预测,,https://example.com,,2026-06-01,,,verified,`; }

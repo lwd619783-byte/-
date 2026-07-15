@@ -145,7 +145,10 @@ export function buildReviewTasks({
 }
 
 export function stableReviewTaskId(watchItemId: string, ruleType: ReviewTaskRuleType, discriminator: string) {
-  const raw = `${watchItemId}|${ruleType}|${discriminator}`;
+  const identityRule = (["earnings_expectation_added", "earnings_expectation_revision_up", "earnings_expectation_revision_down"] as ReviewTaskRuleType[]).includes(ruleType)
+    ? "earnings_expectation_business"
+    : ruleType;
+  const raw = `${watchItemId}|${identityRule}|${discriminator}`;
   let hash = 2166136261;
   for (let index = 0; index < raw.length; index += 1) {
     hash ^= raw.charCodeAt(index);
@@ -243,10 +246,12 @@ function expectationTaskDescription(event: ResearchEvent, threshold: number) {
 }
 
 function eventTimestamp(event: ResearchEvent) {
+  if (event.expectation) return event.eventDate ?? event.publishedAt ?? event.updatedAt ?? "";
   return event.publishedAt ?? event.eventDate ?? event.updatedAt ?? "";
 }
 
 function reviewTaskEventDate(event: ResearchEvent) {
+  if (event.expectation) return event.eventDate ?? event.publishedAt ?? event.updatedAt;
   return event.publishedAt ?? event.eventDate ?? event.updatedAt;
 }
 

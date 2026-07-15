@@ -234,9 +234,13 @@ export type {
   StockSignalSummary,
 } from "./marketData";
 export type {
+  CanonicalBusinessTemporal,
+  CanonicalTemporalStatus,
+  CanonicalTemporalUncertaintyReason,
   EarningsExpectationAccountingBasis,
   EarningsExpectationBusinessOrderStatus,
   EarningsExpectationBusinessRevisionDelta,
+  EarningsExpectationAvailabilityResolution,
   EarningsExpectationComparabilityStatus,
   EarningsExpectationComparison,
   EarningsExpectationComparisonResult,
@@ -260,4 +264,7 @@ export type {
   EarningsExpectationUnit,
   EarningsExpectationVerificationStatus,
   EarningsExpectationTimePrecision,
+  EarningsExpectationWarningCode,
+  PerformanceDisclosureEvidence,
+  PreviousBusinessNodeStatus,
 } from "./earningsExpectation";

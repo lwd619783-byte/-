@@ -19,6 +19,43 @@ export type EarningsExpectationCorrectionScope = "value" | "basis";
 export type EarningsExpectationBusinessOrderStatus = "confirmed" | "equal" | "uncertain";
 export type EarningsExpectationDisclosureTimingStatus = "before" | "after" | "same_time" | "unknown";
 export type EarningsExpectationSourceTimeResolution = "date" | "absolute" | "workflow_time_zone" | "unresolved_legacy";
+export type CanonicalTemporalStatus = "resolved" | "date_only" | "uncertain" | "unresolved_legacy" | "invalid";
+export type CanonicalTemporalUncertaintyReason = "date_precision" | "mixed_precision" | "missing_time" | "legacy_time_zone_unknown" | null;
+export type EarningsExpectationWarningCode =
+  | "business_order_ambiguous"
+  | "business_order_equal"
+  | "business_order_unresolved"
+  | "availability_uncertain"
+  | "source_verification_pending"
+  | "source_time_unresolved"
+  | "disclosure_scope_uncertain"
+  | "actual_value_unavailable"
+  | "audit_time_invalid";
+
+export interface CanonicalBusinessTemporal {
+  value: string | null;
+  precision: EarningsExpectationTimePrecision | null;
+  businessCalendarDate: string | null;
+  instant: string | null;
+  interpretationTimeZone: string | null;
+  resolution: EarningsExpectationSourceTimeResolution | null;
+  status: CanonicalTemporalStatus;
+  uncertaintyReason: CanonicalTemporalUncertaintyReason;
+}
+
+export type EarningsExpectationAvailabilityResolution =
+  | { status: "resolved"; value: CanonicalBusinessTemporal; decisiveSide: "formation" | "source" | "equal" }
+  | { status: "uncertain"; value: null; candidates: CanonicalBusinessTemporal[]; reason: Exclude<CanonicalTemporalUncertaintyReason, null> };
+
+export type PreviousBusinessNodeStatus = "unique" | "none" | "ambiguous" | "equal_time" | "unresolved";
+
+export interface PerformanceDisclosureEvidence {
+  eventId: string;
+  occurredAt: string;
+  /** Persisted event business date; prevents display-zone reinterpretation of absolute disclosure instants. */
+  businessCalendarDate?: string | null;
+  category: "confirmed" | "possible";
+}
 
 export interface EarningsExpectationCorrectionDelta {
   correctionTargetId: string;
@@ -71,7 +108,7 @@ export interface EarningsExpectationSnapshot {
   sourcePublishedAtPrecision?: EarningsExpectationTimePrecision | null;
   /** How sourcePublishedAt was made reliable; unresolved legacy wall clocks are never reinterpreted. */
   sourcePublishedAtResolution?: EarningsExpectationSourceTimeResolution | null;
-  /** Set only when an unzoned wall clock was resolved with an explicit workflow IANA time zone. */
+  /** IANA zone used to interpret an unzoned clock or to freeze an absolute instant's source business date. */
   sourcePublishedAtTimeZone?: string | null;
   asOfDate: string;
   /** Exact prediction formation time; never inferred from createdAt. */
@@ -80,8 +117,10 @@ export interface EarningsExpectationSnapshot {
   formedAtPrecision?: EarningsExpectationTimePrecision;
   /** How formedAt was resolved; unresolved legacy wall clocks are retained for audit but not used as exact time. */
   formedAtResolution?: EarningsExpectationSourceTimeResolution | null;
-  /** Exact IANA time zone used only when an unzoned formedAt wall clock was resolved. */
+  /** IANA zone used to interpret/validate formedAt against the persisted asOfDate. */
   formedAtTimeZone?: string | null;
+  /** Persisted authority for the prediction business date; never recomputed from the current UI time zone. */
+  formedAtCalendarDate?: string | null;
   analystCount: number | null;
   institutionCount: number | null;
   ingestionMethod: EarningsExpectationIngestionMethod;
@@ -91,7 +130,10 @@ export interface EarningsExpectationSnapshot {
   notes: string | null;
   correctsSnapshotId: string | null;
   correctionScope?: EarningsExpectationCorrectionScope | null;
-  schemaVersion: 1;
+  /** Persisted authority for the source publication business date. */
+  sourcePublishedAtCalendarDate?: string | null;
+  /** Runtime storage writes V2; V1 is accepted only as a legacy input for idempotent migration. */
+  schemaVersion: 1 | 2;
 }
 
 export type EarningsExpectationComparisonResult = "above" | "within" | "below" | "not_comparable" | "insufficient_data";
@@ -123,6 +165,10 @@ export interface EarningsExpectationComparison {
   actualDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
   performanceDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
   performanceDisclosureUncertain?: boolean;
+  earliestConfirmedDisclosure?: PerformanceDisclosureEvidence | null;
+  earliestPossibleDisclosure?: PerformanceDisclosureEvidence | null;
+  decisiveDisclosureEvent?: PerformanceDisclosureEvidence | null;
+  disclosureUncertaintyReasonCode?: EarningsExpectationWarningCode | null;
   originalBusinessTime?: string;
   effectiveBusinessTime?: string;
   originalSourcePublishedAt?: string | null;
@@ -133,6 +179,18 @@ export interface EarningsExpectationComparison {
   actualDisclosureAt?: string | null;
   performanceInformationCutoff?: string | null;
   comparisonAvailableAt?: string | null;
+  comparisonAvailableBusinessCalendarDate?: string | null;
+  availableAt?: EarningsExpectationAvailabilityResolution;
+  businessCalendarDate?: string | null;
+  interpretationTimeZone?: string | null;
+  availabilityStatus?: "resolved" | "uncertain";
+  availabilityUncertaintyReason?: CanonicalTemporalUncertaintyReason;
+  previousResolutionStatus?: PreviousBusinessNodeStatus;
+  previousCandidateIds?: string[];
+  previousCandidateEffectiveSnapshotIds?: string[];
+  auditTimeStatus?: "valid" | "invalid";
+  structuredWarningCodes?: EarningsExpectationWarningCode[];
+  nonComparableReasonCodes?: EarningsExpectationWarningCode[];
   comparabilityStatus: EarningsExpectationComparabilityStatus;
   nonComparableReasons: string[];
   calculatedAt: string;
@@ -168,7 +226,7 @@ export interface EarningsExpectationSettings {
 }
 
 export interface EarningsExpectationStoreEnvelope {
-  schemaVersion: 1;
+  schemaVersion: 2;
   updatedAt: string;
   snapshots: EarningsExpectationSnapshot[];
   settings: EarningsExpectationSettings;
@@ -182,6 +240,7 @@ export interface EarningsExpectationExportFile extends EarningsExpectationStoreE
 
 export interface EarningsExpectationEventPayload {
   snapshotId: string;
+  businessEventKey?: string;
   businessRootSnapshotId?: string;
   effectiveSnapshotId?: string;
   correctionChainSnapshotIds?: string[];
@@ -217,6 +276,21 @@ export interface EarningsExpectationEventPayload {
   actualDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
   performanceDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
   performanceDisclosureUncertain?: boolean;
+  earliestConfirmedDisclosure?: PerformanceDisclosureEvidence | null;
+  earliestPossibleDisclosure?: PerformanceDisclosureEvidence | null;
+  decisiveDisclosureEvent?: PerformanceDisclosureEvidence | null;
+  disclosureUncertaintyReasonCode?: EarningsExpectationWarningCode | null;
+  availableAt?: EarningsExpectationAvailabilityResolution;
+  businessCalendarDate?: string | null;
+  interpretationTimeZone?: string | null;
+  availabilityStatus?: "resolved" | "uncertain";
+  availabilityUncertaintyReason?: CanonicalTemporalUncertaintyReason;
+  previousResolutionStatus?: PreviousBusinessNodeStatus;
+  previousCandidateIds?: string[];
+  previousCandidateEffectiveSnapshotIds?: string[];
+  auditTimeStatus?: "valid" | "invalid";
+  structuredWarningCodes?: EarningsExpectationWarningCode[];
+  nonComparableReasonCodes?: EarningsExpectationWarningCode[];
   /** Legacy compatibility fields. New consumers must use businessRevisionDelta. */
   revisionDirection?: "up" | "down" | "unchanged" | null;
   revisionMagnitude?: number | null;

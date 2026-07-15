@@ -1,3 +1,11 @@
+import type {
+  CanonicalBusinessTemporal,
+  CanonicalTemporalUncertaintyReason,
+  EarningsExpectationAvailabilityResolution,
+  EarningsExpectationSourceTimeResolution,
+  EarningsExpectationTimePrecision,
+} from "../types/earningsExpectation";
+
 export type BusinessTimePrecision = "date" | "datetime";
 
 export interface BusinessTemporalValue {
@@ -23,7 +31,7 @@ export type WorkflowTemporalInputResolution =
 export type ImportedTemporalResolution =
   | { status: "empty"; value: null; precision: null; resolution: null; interpretedTimeZone: null; usedDeclaredTimeZone: false; note: null }
   | { status: "date"; value: string; precision: "date"; resolution: "date"; interpretedTimeZone: null; usedDeclaredTimeZone: false; note: null }
-  | { status: "absolute"; value: string; precision: "datetime"; resolution: "absolute"; interpretedTimeZone: null; usedDeclaredTimeZone: false; note: string | null }
+  | { status: "absolute"; value: string; precision: "datetime"; resolution: "absolute"; interpretedTimeZone: string; usedDeclaredTimeZone: boolean; note: string }
   | { status: "local"; value: string; precision: "datetime"; resolution: "workflow_time_zone"; interpretedTimeZone: string; usedDeclaredTimeZone: boolean; note: string }
   | { status: "unresolved_legacy"; value: string; precision: "datetime"; resolution: "unresolved_legacy"; interpretedTimeZone: null; usedDeclaredTimeZone: false; note: string }
   | { status: "nonexistent" | "ambiguous" | "invalid"; value: null; precision: null; resolution: null; interpretedTimeZone: string | null; usedDeclaredTimeZone: boolean; note: null; message: string };
@@ -37,6 +45,15 @@ export interface ImportedTemporalInputOptions {
 
 export interface ImportedFormedAtOptions extends ImportedTemporalInputOptions {
   asOfDate: string;
+}
+
+export interface CanonicalTemporalInput {
+  value: string | null | undefined;
+  precision: EarningsExpectationTimePrecision | null | undefined;
+  resolution: EarningsExpectationSourceTimeResolution | null | undefined;
+  interpretationTimeZone: string | null | undefined;
+  businessCalendarDate: string | null | undefined;
+  fallbackBusinessCalendarDate?: string | null;
 }
 
 export type ZonedLocalDateTimeResolution =
@@ -143,6 +160,113 @@ export function compareBusinessTemporal(
   };
 }
 
+/**
+ * Builds an immutable business-time value from persisted evidence. Current UI/workflow time zone is intentionally absent.
+ */
+export function toCanonicalBusinessTemporal(input: CanonicalTemporalInput): CanonicalBusinessTemporal {
+  const raw = input.value?.trim() ?? "";
+  const precision = input.precision ?? null;
+  const resolution = input.resolution ?? null;
+  const persistedCalendarDate = isCalendarDate(input.businessCalendarDate)
+    ? input.businessCalendarDate
+    : isCalendarDate(input.fallbackBusinessCalendarDate)
+      ? input.fallbackBusinessCalendarDate
+      : null;
+  if (!raw) {
+    return {
+      value: null,
+      precision,
+      businessCalendarDate: persistedCalendarDate,
+      instant: null,
+      interpretationTimeZone: isValidTimeZone(input.interpretationTimeZone) ? input.interpretationTimeZone : null,
+      resolution,
+      status: persistedCalendarDate && precision === "date" ? "date_only" : "uncertain",
+      uncertaintyReason: persistedCalendarDate && precision === "date" ? "date_precision" : "missing_time",
+    };
+  }
+  if (precision === "date" && isCalendarDate(raw)) {
+    return { value: raw, precision: "date", businessCalendarDate: raw, instant: null, interpretationTimeZone: null, resolution: "date", status: "date_only", uncertaintyReason: "date_precision" };
+  }
+  if (resolution === "unresolved_legacy" && isUnzonedLocalDateTime(raw)) {
+    return {
+      value: raw,
+      precision: "datetime",
+      businessCalendarDate: persistedCalendarDate ?? raw.slice(0, 10),
+      instant: null,
+      interpretationTimeZone: null,
+      resolution,
+      status: "unresolved_legacy",
+      uncertaintyReason: "legacy_time_zone_unknown",
+    };
+  }
+  if (precision === "datetime" && isPreciseInstant(raw)) {
+    const instant = new Date(parsePreciseInstant(raw) as number).toISOString();
+    const zone = isValidTimeZone(input.interpretationTimeZone) ? input.interpretationTimeZone : null;
+    const businessCalendarDate = persistedCalendarDate ?? (zone ? getCalendarDateInTimeZone(instant, zone) : null);
+    return {
+      value: instant,
+      precision: "datetime",
+      businessCalendarDate,
+      instant,
+      interpretationTimeZone: zone,
+      resolution: resolution ?? "absolute",
+      status: businessCalendarDate ? "resolved" : "uncertain",
+      uncertaintyReason: businessCalendarDate ? null : "legacy_time_zone_unknown",
+    };
+  }
+  return {
+    value: raw,
+    precision,
+    businessCalendarDate: persistedCalendarDate,
+    instant: null,
+    interpretationTimeZone: isValidTimeZone(input.interpretationTimeZone) ? input.interpretationTimeZone : null,
+    resolution,
+    status: "invalid",
+    uncertaintyReason: "missing_time",
+  };
+}
+
+export function compareCanonicalBusinessTemporal(left: CanonicalBusinessTemporal, right: CanonicalBusinessTemporal): BusinessTemporalComparison {
+  if (["invalid", "unresolved_legacy", "uncertain"].includes(left.status) || ["invalid", "unresolved_legacy", "uncertain"].includes(right.status)) {
+    return { order: 0, uncertain: true, status: "uncertain", reason: left.uncertaintyReason === "mixed_precision" || right.uncertaintyReason === "mixed_precision" ? "mixed_precision" : "date_precision" };
+  }
+  if (left.instant && right.instant) {
+    const leftTime = Date.parse(left.instant);
+    const rightTime = Date.parse(right.instant);
+    if (leftTime === rightTime) return { order: 0, uncertain: false, status: "equal", reason: null };
+    return { order: leftTime < rightTime ? -1 : 1, uncertain: false, status: leftTime < rightTime ? "before" : "after", reason: null };
+  }
+  if (!left.businessCalendarDate || !right.businessCalendarDate) return { order: 0, uncertain: true, status: "uncertain", reason: "date_precision" };
+  const calendarOrder = compareCalendarDates(left.businessCalendarDate, right.businessCalendarDate);
+  if (calendarOrder !== 0) return { order: calendarOrder, uncertain: false, status: calendarOrder < 0 ? "before" : "after", reason: null };
+  return {
+    order: 0,
+    uncertain: true,
+    status: "uncertain",
+    reason: left.precision === right.precision ? "date_precision" : "mixed_precision",
+  };
+}
+
+export function laterCanonicalBusinessTemporal(
+  formation: CanonicalBusinessTemporal,
+  source: CanonicalBusinessTemporal,
+): EarningsExpectationAvailabilityResolution {
+  const comparison = compareCanonicalBusinessTemporal(formation, source);
+  if (comparison.uncertain) {
+    const reason: Exclude<CanonicalTemporalUncertaintyReason, null> = formation.uncertaintyReason === "legacy_time_zone_unknown" || source.uncertaintyReason === "legacy_time_zone_unknown"
+      ? "legacy_time_zone_unknown"
+      : formation.value === null || source.value === null
+        ? "missing_time"
+        : comparison.reason === "mixed_precision"
+          ? "mixed_precision"
+          : "date_precision";
+    return { status: "uncertain", value: null, candidates: [formation, source], reason };
+  }
+  if (comparison.order > 0) return { status: "resolved", value: formation, decisiveSide: "formation" };
+  if (comparison.order < 0) return { status: "resolved", value: source, decisiveSide: "source" };
+  return { status: "resolved", value: formation, decisiveSide: "equal" };
+}
+
 export function isStrictlyBeforeBusinessTemporal(left: BusinessTemporalValue, right: BusinessTemporalValue) {
   const comparison = compareBusinessTemporal(left, right);
   return comparison.order < 0 && !comparison.uncertain;
@@ -206,8 +330,11 @@ export function resolveImportedSourcePublishedAt(options: ImportedTemporalInputO
   if (resolved.status === "empty") return { status: "empty", value: null, precision: null, resolution: null, interpretedTimeZone: null, usedDeclaredTimeZone: false, note: null };
   if (resolved.status === "date") return { status: "date", value: resolved.value, precision: "date", resolution: "date", interpretedTimeZone: null, usedDeclaredTimeZone: false, note: null };
   if (resolved.status === "absolute") {
-    const note = declared ? `输入已包含偏移或 Z，按绝对时刻保存；记录时区 ${declared} 未参与重新解释。` : null;
-    return { status: "absolute", value: resolved.value, precision: "datetime", resolution: "absolute", interpretedTimeZone: null, usedDeclaredTimeZone: false, note };
+    const calendarZone = declared || fallback;
+    const note = declared
+      ? `输入已包含偏移或 Z，绝对时刻未重新解释；记录时区 ${declared} 仅用于固定业务日历日期。`
+      : `输入已包含偏移或 Z，绝对时刻未重新解释；工作流时区 ${fallback} 仅用于固定业务日历日期。`;
+    return { status: "absolute", value: resolved.value, precision: "datetime", resolution: "absolute", interpretedTimeZone: calendarZone, usedDeclaredTimeZone: Boolean(declared), note };
   }
   if (resolved.status === "local") {
     const usedDeclaredTimeZone = Boolean(declared);

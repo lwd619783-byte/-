@@ -6,26 +6,28 @@ import type {
   EarningsExpectationSnapshot,
   EarningsExpectationBusinessOrderStatus,
   EarningsExpectationDisclosureTimingStatus,
+  EarningsExpectationAvailabilityResolution,
+  EarningsExpectationWarningCode,
+  PerformanceDisclosureEvidence,
   ResearchEvent,
   ResearchEventMetric,
 } from "../types";
 import {
   deriveExpectationBusinessRevisionDelta,
+  getExpectationAvailability,
   getExpectationBusinessTime,
   getExpectationGroupKey,
-  isExpectationSourcePublishedAtReliable,
   isExpectationSourcePublishedAtUnresolved,
   selectEffectiveEarningsExpectations,
   type EarningsExpectationSelection,
 } from "./earningsExpectationIntegrity";
 import {
-  compareBusinessTemporal,
+  compareCanonicalBusinessTemporal,
   isCalendarDate,
   isPreciseInstant,
-  laterBusinessTemporal,
+  laterCanonicalBusinessTemporal,
+  toCanonicalBusinessTemporal,
   resolveSafeWorkflowTimeZone,
-  toBusinessTemporal,
-  type BusinessTemporalValue,
 } from "../utils/dateTime";
 
 export const DEFAULT_EXPECTATION_COMPARISON_SETTINGS: EarningsExpectationSettings = {
@@ -65,16 +67,24 @@ export function compareEarningsExpectation(
 ): EarningsExpectationComparison {
   const candidates = actualCandidates(snapshot, events);
   const actual = candidates.length
-    ? [...candidates].sort((left, right) => actualPriority(right.event) - actualPriority(left.event) || compareTemporalStrings(right.disclosedAt, left.disclosedAt, settings.timeZone) || left.event.id.localeCompare(right.event.id))[0]
+    ? [...candidates].sort((left, right) => actualPriority(right.event) - actualPriority(left.event) || compareResearchDisclosureTime(right.event, left.event) || left.event.id.localeCompare(right.event.id))[0]
     : null;
   const actualDisclosureAt = actual?.disclosedAt ?? null;
   const disclosureBoundary = performanceDisclosureBoundary(businessTemporalSnapshot, events, settings.timeZone);
-  const performanceInformationCutoff = disclosureBoundary.cutoff;
-  const actualDisclosureTimingStatus = actualDisclosureAt ? snapshotDisclosureTimingStatus(businessTemporalSnapshot, actualDisclosureAt, settings.timeZone) : "unknown";
+  const performanceInformationCutoff = disclosureBoundary.decisiveEvent?.occurredAt ?? null;
+  const actualDisclosureTimingStatus = actualDisclosureAt ? snapshotDisclosureTimingStatus(businessTemporalSnapshot, actualDisclosureAt, settings.timeZone, actual?.event.eventDate ?? null) : "unknown";
   const performanceDisclosureTimingStatus = disclosureBoundary.timingStatus;
   const beforeActualDisclosure = timingStatusToLegacyBoolean(actualDisclosureTimingStatus);
   const beforeAnyPerformanceDisclosure = timingStatusToLegacyBoolean(performanceDisclosureTimingStatus);
-  const comparisonAvailableAt = actualDisclosureAt ? laterTemporal(snapshotAvailableAt(businessTemporalSnapshot, settings.timeZone), actualDisclosureAt, settings.timeZone) : null;
+  const availability = snapshotAvailableAt(businessTemporalSnapshot);
+  const comparisonAvailability = actualDisclosureAt ? resolveComparisonAvailability(availability, actualDisclosureAt, actual?.event.eventDate ?? null, settings.timeZone) : null;
+  const comparisonAvailableAt = comparisonAvailability?.occurredAt ?? null;
+  const initialWarningCodes: EarningsExpectationWarningCode[] = [];
+  if (availability.status === "uncertain") initialWarningCodes.push("availability_uncertain");
+  if (disclosureBoundary.reasonCode) initialWarningCodes.push(disclosureBoundary.reasonCode);
+  if (snapshot.sourceVerificationStatus !== "verified") initialWarningCodes.push("source_verification_pending");
+  if (isExpectationSourcePublishedAtUnresolved(snapshot)) initialWarningCodes.push("source_time_unresolved");
+  if (temporalEvidence?.auditTimeStatus === "invalid" || !isPreciseInstant(snapshot.createdAt)) initialWarningCodes.push("audit_time_invalid");
   const base: EarningsExpectationComparison = {
     ...comparisonBase(snapshot, calculatedAt, businessRootSnapshotId, settings.timeZone, temporalEvidence),
     beforeActualDisclosure,
@@ -82,17 +92,29 @@ export function compareEarningsExpectation(
     actualDisclosureTimingStatus,
     performanceDisclosureTimingStatus,
     performanceDisclosureUncertain: disclosureBoundary.uncertain,
+    earliestConfirmedDisclosure: disclosureBoundary.earliestConfirmed,
+    earliestPossibleDisclosure: disclosureBoundary.earliestPossible,
+    decisiveDisclosureEvent: disclosureBoundary.decisiveEvent,
+    disclosureUncertaintyReasonCode: disclosureBoundary.reasonCode,
     businessOrderStatus,
     actualDisclosureAt,
     performanceInformationCutoff,
     comparisonAvailableAt,
+    comparisonAvailableBusinessCalendarDate: comparisonAvailability?.businessCalendarDate ?? null,
+    availableAt: availability,
+    businessCalendarDate: availability.status === "resolved" ? availability.value.businessCalendarDate : null,
+    interpretationTimeZone: availability.status === "resolved" ? availability.value.interpretationTimeZone : null,
+    availabilityStatus: availability.status,
+    availabilityUncertaintyReason: availability.status === "uncertain" ? availability.reason : null,
+    structuredWarningCodes: [...new Set(initialWarningCodes)],
+    nonComparableReasonCodes: [...new Set(initialWarningCodes)],
     isExAnte: beforeAnyPerformanceDisclosure === true,
   };
   if (businessOrderStatus === "uncertain") {
-    return notComparable(base, ["同日存在多条仅日期精度的预测，无法确认业务先后顺序。当前不生成正式预期差，请补充精确形成时间。"], "业务顺序不确定，未执行数值比较");
+    return notComparable(withWarningCode(base, "business_order_ambiguous"), ["同日存在多条仅日期精度的预测，无法确认业务先后顺序。当前不生成正式预期差，请补充精确形成时间。"], "业务顺序不确定，未执行数值比较");
   }
   if (businessOrderStatus === "equal") {
-    return notComparable(base, ["存在形成于同一精确时刻的独立预测，时间关系为 equal；稳定 ID 仅用于显示，不能据此认定业务先后。"], "独立预测形成时刻相同，未执行方向性或最新值比较");
+    return notComparable(withWarningCode(base, "business_order_equal"), ["存在形成于同一精确时刻的独立预测，时间关系为 equal；稳定 ID 仅用于显示，不能据此认定业务先后。"], "独立预测形成时刻相同，未执行方向性或最新值比较");
   }
   const structuralReasons = structuralComparabilityReasons(snapshot);
   if (structuralReasons.length) return notComparable(base, structuralReasons, "口径校验失败，未执行数值比较");
@@ -103,7 +125,7 @@ export function compareEarningsExpectation(
     const reasons = actualDisclosureRecognized
       ? ["无法匹配实际值", "公司实际业绩披露已识别，但本地实际值缺失、口径不匹配或解析状态不足"]
       : ["无法匹配实际值"];
-    return { ...base, comparisonResult: "insufficient_data", comparabilityStatus: "insufficient_data", nonComparableReasons: reasons, comparisonMethod: actualDisclosureRecognized ? "实际值暂不可可靠比较：公司披露已识别，但本地指标值缺失或尚未可靠解析" : "未找到同公司、同报告期、同期间口径和同指标的可靠实际值" };
+    return { ...withWarningCode(base, "actual_value_unavailable"), comparisonResult: "insufficient_data", comparabilityStatus: "insufficient_data", nonComparableReasons: reasons, comparisonMethod: actualDisclosureRecognized ? "实际值暂不可可靠比较：公司披露已识别，但本地指标值缺失或尚未可靠解析" : "未找到同公司、同报告期、同期间口径和同指标的可靠实际值" };
   }
 
   const timingReasons = exAnteReasons(businessTemporalSnapshot, actualDisclosureAt, actualDisclosureTimingStatus, performanceDisclosureTimingStatus);
@@ -223,6 +245,18 @@ function comparisonBase(
     actualDisclosureAt: null,
     performanceInformationCutoff: null,
     comparisonAvailableAt: null,
+    comparisonAvailableBusinessCalendarDate: null,
+    availableAt: temporalEvidence?.availableAt ?? getExpectationAvailability(snapshot),
+    businessCalendarDate: temporalEvidence?.availableAt.status === "resolved" ? temporalEvidence.availableAt.value.businessCalendarDate : null,
+    interpretationTimeZone: temporalEvidence?.availableAt.status === "resolved" ? temporalEvidence.availableAt.value.interpretationTimeZone : null,
+    availabilityStatus: temporalEvidence?.availableAt.status ?? getExpectationAvailability(snapshot).status,
+    availabilityUncertaintyReason: temporalEvidence?.availableAt.status === "uncertain" ? temporalEvidence.availableAt.reason : null,
+    previousResolutionStatus: temporalEvidence?.previousResolution.status ?? "none",
+    previousCandidateIds: temporalEvidence?.previousResolution.candidateNodes.map((node) => node.businessRootSnapshot.id) ?? [],
+    previousCandidateEffectiveSnapshotIds: temporalEvidence?.previousResolution.candidateNodes.map((node) => node.effectiveSnapshot.id) ?? [],
+    auditTimeStatus: temporalEvidence?.auditTimeStatus ?? (isPreciseInstant(snapshot.createdAt) ? "valid" : "invalid"),
+    structuredWarningCodes: temporalEvidence?.availableAt.status === "uncertain" ? ["availability_uncertain"] : [],
+    nonComparableReasonCodes: [],
     comparabilityStatus: "insufficient_data",
     nonComparableReasons: [],
     calculatedAt,
@@ -231,6 +265,14 @@ function comparisonBase(
 
 function notComparable(base: EarningsExpectationComparison, reasons: string[], method: string): EarningsExpectationComparison {
   return { ...base, comparisonResult: "not_comparable", comparabilityStatus: "not_comparable", nonComparableReasons: [...new Set(reasons)], comparisonMethod: method, absoluteDifference: null, relativeDifference: null };
+}
+
+function withWarningCode(base: EarningsExpectationComparison, code: EarningsExpectationWarningCode): EarningsExpectationComparison {
+  return {
+    ...base,
+    structuredWarningCodes: [...new Set([...(base.structuredWarningCodes ?? []), code])],
+    nonComparableReasonCodes: [...new Set([...(base.nonComparableReasonCodes ?? []), code])],
+  };
 }
 
 function structuralComparabilityReasons(snapshot: EarningsExpectationSnapshot) {
@@ -277,38 +319,43 @@ function actualCandidates(snapshot: EarningsExpectationSnapshot, events: Researc
 }
 
 interface PerformanceDisclosureBoundary {
-  cutoff: string | null;
+  earliestConfirmed: PerformanceDisclosureEvidence | null;
+  earliestPossible: PerformanceDisclosureEvidence | null;
+  decisiveEvent: PerformanceDisclosureEvidence | null;
   timingStatus: EarningsExpectationDisclosureTimingStatus;
   uncertain: boolean;
+  reasonCode: "disclosure_scope_uncertain" | null;
 }
 
 function performanceDisclosureBoundary(snapshot: EarningsExpectationSnapshot, events: ResearchEvent[], timeZone: string): PerformanceDisclosureBoundary {
   const allowedEvents = new Set(["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report", "financial_update"]);
   const keys = new Set(cutoffMetricKeys(snapshot.metric, snapshot.periodScope));
-  const confirmed: string[] = [];
-  const possible: string[] = [];
+  const confirmed: PerformanceDisclosureEvidence[] = [];
+  const possible: PerformanceDisclosureEvidence[] = [];
   for (const event of events) {
     if (event.stockId !== snapshot.stockId || event.reportPeriod !== snapshot.reportPeriod || !allowedEvents.has(event.eventType)) continue;
     const disclosedAt = event.publishedAt ?? event.eventDate;
     if (!disclosedAt) continue;
     const scope = inferPerformanceDisclosureScope(event, keys);
-    if (scope === "all_metrics" || (scope === "listed_metrics" && event.metrics.some((metric) => keys.has(metric.key)))) confirmed.push(disclosedAt);
-    else if (scope === "unknown") possible.push(disclosedAt);
+    if (scope === "all_metrics" || (scope === "listed_metrics" && event.metrics.some((metric) => keys.has(metric.key)))) confirmed.push({ eventId: event.id, occurredAt: disclosedAt, businessCalendarDate: event.eventDate ?? disclosedAt.slice(0, 10), category: "confirmed" });
+    else if (scope === "unknown") possible.push({ eventId: event.id, occurredAt: disclosedAt, businessCalendarDate: event.eventDate ?? disclosedAt.slice(0, 10), category: "possible" });
   }
-  const order = (left: string, right: string) => compareTemporalStrings(left, right, timeZone) || left.localeCompare(right);
+  const order = (left: PerformanceDisclosureEvidence, right: PerformanceDisclosureEvidence) => compareDisclosureEvidenceTime(left, right) || left.eventId.localeCompare(right.eventId);
   confirmed.sort(order);
   possible.sort(order);
+  const earliestConfirmed = confirmed[0] ?? null;
+  const earliestPossible = possible[0] ?? null;
   const all = [...confirmed, ...possible].sort(order);
-  if (!all.length) return { cutoff: null, timingStatus: "unknown", uncertain: false };
-  const confirmedStatus = confirmed.length ? snapshotDisclosureTimingStatus(snapshot, confirmed[0], timeZone) : null;
-  const possibleStatus = possible.length ? snapshotDisclosureTimingStatus(snapshot, possible[0], timeZone) : null;
-  if (confirmedStatus === "after" || confirmedStatus === "same_time") return { cutoff: all[0], timingStatus: confirmedStatus, uncertain: false };
+  if (!all.length) return { earliestConfirmed: null, earliestPossible: null, decisiveEvent: null, timingStatus: "unknown", uncertain: false, reasonCode: null };
+  const confirmedStatus = earliestConfirmed ? snapshotDisclosureTimingStatus(snapshot, earliestConfirmed.occurredAt, timeZone, earliestConfirmed.businessCalendarDate) : null;
+  const possibleStatus = earliestPossible ? snapshotDisclosureTimingStatus(snapshot, earliestPossible.occurredAt, timeZone, earliestPossible.businessCalendarDate) : null;
+  if (confirmedStatus === "after" || confirmedStatus === "same_time") return { earliestConfirmed, earliestPossible, decisiveEvent: earliestConfirmed, timingStatus: confirmedStatus, uncertain: false, reasonCode: null };
   if (confirmedStatus === "before") {
-    if (!possibleStatus || possibleStatus === "before") return { cutoff: all[0], timingStatus: "before", uncertain: false };
-    return { cutoff: all[0], timingStatus: "unknown", uncertain: true };
+    if (!possibleStatus || possibleStatus === "before") return { earliestConfirmed, earliestPossible, decisiveEvent: all[0], timingStatus: "before", uncertain: false, reasonCode: null };
+    return { earliestConfirmed, earliestPossible, decisiveEvent: earliestPossible, timingStatus: "unknown", uncertain: true, reasonCode: "disclosure_scope_uncertain" };
   }
-  if (!confirmedStatus && possibleStatus === "before") return { cutoff: all[0], timingStatus: "before", uncertain: false };
-  return { cutoff: all[0], timingStatus: "unknown", uncertain: true };
+  if (!confirmedStatus && possibleStatus === "before") return { earliestConfirmed, earliestPossible, decisiveEvent: earliestPossible, timingStatus: "before", uncertain: false, reasonCode: null };
+  return { earliestConfirmed, earliestPossible, decisiveEvent: earliestPossible ?? earliestConfirmed, timingStatus: "unknown", uncertain: true, reasonCode: "disclosure_scope_uncertain" };
 }
 
 function inferPerformanceDisclosureScope(event: ResearchEvent, keys: Set<string>) {
@@ -331,22 +378,17 @@ function cutoffMetricKeys(metric: EarningsExpectationMetric, scope: EarningsExpe
   return [...actual, ...forecast];
 }
 
-function snapshotDisclosureTimingStatus(snapshot: EarningsExpectationSnapshot, cutoff: string, timeZone: string): EarningsExpectationDisclosureTimingStatus {
-  const formation = getExpectationBusinessTime(snapshot, timeZone);
-  const cutoffTime = temporalFromString(cutoff, timeZone);
-  if (!cutoffTime) return "unknown";
-  const formationStatus = temporalTimingStatus(formation, cutoffTime);
-  if (formationStatus !== "before") return formationStatus;
-  if (snapshot.sourceCategory === "user_estimate") return "before";
-  if (!snapshot.sourcePublishedAt) return "unknown";
-  if (!isExpectationSourcePublishedAtReliable(snapshot)) return "unknown";
-  const sourcePrecision = snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date";
-  const sourceTime = toBusinessTemporal(snapshot.sourcePublishedAt, sourcePrecision, timeZone);
-  return sourceTime ? temporalTimingStatus(sourceTime, cutoffTime) : "unknown";
-}
-
-function temporalTimingStatus(left: BusinessTemporalValue, right: BusinessTemporalValue): EarningsExpectationDisclosureTimingStatus {
-  const comparison = compareBusinessTemporal(left, right);
+function snapshotDisclosureTimingStatus(snapshot: EarningsExpectationSnapshot, cutoff: string, timeZone: string, cutoffBusinessCalendarDate?: string | null): EarningsExpectationDisclosureTimingStatus {
+  const availability = getExpectationAvailability(snapshot);
+  if (availability.status === "uncertain") return "unknown";
+  const cutoffCanonical = toCanonicalBusinessTemporal({
+    value: cutoff,
+    precision: isPreciseInstant(cutoff) ? "datetime" : isCalendarDate(cutoff) ? "date" : null,
+    resolution: isPreciseInstant(cutoff) ? "absolute" : isCalendarDate(cutoff) ? "date" : null,
+    interpretationTimeZone: isPreciseInstant(cutoff) && !cutoffBusinessCalendarDate ? timeZone : null,
+    businessCalendarDate: cutoffBusinessCalendarDate ?? (isCalendarDate(cutoff) ? cutoff : null),
+  });
+  const comparison = compareCanonicalBusinessTemporal(availability.value, cutoffCanonical);
   if (comparison.uncertain) return "unknown";
   if (comparison.order < 0) return "before";
   if (comparison.order > 0) return "after";
@@ -366,20 +408,23 @@ function disclosureTimingReason(snapshot: EarningsExpectationSnapshot, status: E
   return snapshot.sourceCategory !== "user_estimate" && !snapshot.sourcePublishedAt ? "外部来源发布日期缺失" : "";
 }
 
-function snapshotAvailableAt(snapshot: EarningsExpectationSnapshot, timeZone: string) {
-  const formation = getExpectationBusinessTime(snapshot, timeZone);
-  if (snapshot.sourceCategory === "user_estimate" || !snapshot.sourcePublishedAt) return formation.value;
-  if (!isExpectationSourcePublishedAtReliable(snapshot)) return formation.value;
-  const source = toBusinessTemporal(snapshot.sourcePublishedAt, snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date", timeZone);
-  return source ? laterBusinessTemporal(formation, source).value : formation.value;
+function snapshotAvailableAt(snapshot: EarningsExpectationSnapshot) {
+  return getExpectationAvailability(snapshot);
 }
 
-function laterTemporal(left: string, right: string, timeZone: string) {
-  const leftTime = temporalFromString(left, timeZone);
-  const rightTime = temporalFromString(right, timeZone);
-  if (!leftTime) return right;
-  if (!rightTime) return left;
-  return laterBusinessTemporal(leftTime, rightTime).value;
+function resolveComparisonAvailability(availability: EarningsExpectationAvailabilityResolution, actualDisclosureAt: string, actualBusinessCalendarDate: string | null, timeZone: string) {
+  if (availability.status === "uncertain") return null;
+  const actualCanonical = toCanonicalBusinessTemporal({
+    value: actualDisclosureAt,
+    precision: isPreciseInstant(actualDisclosureAt) ? "datetime" : isCalendarDate(actualDisclosureAt) ? "date" : null,
+    resolution: isPreciseInstant(actualDisclosureAt) ? "absolute" : isCalendarDate(actualDisclosureAt) ? "date" : null,
+    interpretationTimeZone: isPreciseInstant(actualDisclosureAt) && !actualBusinessCalendarDate ? timeZone : null,
+    businessCalendarDate: actualBusinessCalendarDate ?? (isCalendarDate(actualDisclosureAt) ? actualDisclosureAt : null),
+  });
+  const later = laterCanonicalBusinessTemporal(availability.value, actualCanonical);
+  return later.status === "resolved"
+    ? { occurredAt: later.value.value ?? later.value.businessCalendarDate, businessCalendarDate: later.value.businessCalendarDate }
+    : null;
 }
 
 function metricKeys(metric: EarningsExpectationMetric, scope: EarningsExpectationPeriodScope) {
@@ -410,18 +455,23 @@ function relativeDifference(expected: number, actual: number, metric: EarningsEx
 }
 
 function actualPriority(event: ResearchEvent) { if (event.eventType === "financial_update") return 3; if (event.eventType === "periodic_report") return 2; return 1; }
-function temporalFromString(value: string | null, timeZone: string): BusinessTemporalValue | null {
-  if (!value) return null;
-  if (isPreciseInstant(value)) return toBusinessTemporal(value, "datetime", timeZone);
-  if (isCalendarDate(value)) return toBusinessTemporal(value, "date", timeZone);
-  return null;
+function compareResearchDisclosureTime(left: ResearchEvent, right: ResearchEvent) {
+  return compareDisclosureEvidenceTime(
+    { eventId: left.id, occurredAt: left.publishedAt ?? left.eventDate ?? "", businessCalendarDate: left.eventDate, category: "confirmed" },
+    { eventId: right.id, occurredAt: right.publishedAt ?? right.eventDate ?? "", businessCalendarDate: right.eventDate, category: "confirmed" },
+  );
 }
-function compareTemporalStrings(left: string | null, right: string | null, timeZone: string) {
-  const leftTime = temporalFromString(left, timeZone);
-  const rightTime = temporalFromString(right, timeZone);
-  if (!leftTime && !rightTime) return 0;
-  if (!leftTime) return 1;
-  if (!rightTime) return -1;
-  return compareBusinessTemporal(leftTime, rightTime).order;
+
+function compareDisclosureEvidenceTime(left: PerformanceDisclosureEvidence, right: PerformanceDisclosureEvidence) {
+  const canonical = (evidence: PerformanceDisclosureEvidence) => toCanonicalBusinessTemporal({
+    value: evidence.occurredAt,
+    precision: isPreciseInstant(evidence.occurredAt) ? "datetime" : isCalendarDate(evidence.occurredAt) ? "date" : null,
+    resolution: isPreciseInstant(evidence.occurredAt) ? "absolute" : isCalendarDate(evidence.occurredAt) ? "date" : null,
+    interpretationTimeZone: null,
+    businessCalendarDate: evidence.businessCalendarDate ?? (isCalendarDate(evidence.occurredAt) ? evidence.occurredAt : null),
+  });
+  const comparison = compareCanonicalBusinessTemporal(canonical(left), canonical(right));
+  if (!comparison.uncertain) return comparison.order;
+  return (left.businessCalendarDate ?? "").localeCompare(right.businessCalendarDate ?? "");
 }
 function stableHash(value: string) { let hash = 2166136261; for (let index = 0; index < value.length; index += 1) { hash ^= value.charCodeAt(index); hash = Math.imul(hash, 16777619); } return (hash >>> 0).toString(36); }

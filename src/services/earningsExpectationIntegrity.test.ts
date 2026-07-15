@@ -21,6 +21,7 @@ import {
 import { EarningsExpectationStore } from "./earningsExpectationStore";
 import { buildEarningsExpectationResearchEvents } from "./earningsExpectationEventProvider";
 import { buildReviewTasks } from "./reviewTaskProvider";
+import { getCalendarDateInTimeZone, isCalendarDate, isPreciseInstant, isValidTimeZone } from "../utils/dateTime";
 
 class MemoryStorage {
   values = new Map<string, string>();
@@ -173,10 +174,12 @@ describe("earnings expectation business chronology and source identity", () => {
     const afternoon = snapshot("afternoon", null, { formedAt: "2026-07-14T15:00:00+09:00", formedAtPrecision: "datetime", createdAt: "2026-07-14T07:00:00.000Z" });
     const events = buildEarningsExpectationResearchEvents([afternoon, morning], [], [stock()], 0.1, "Asia/Tokyo");
     expect(events.map((event) => event.expectation?.snapshotId)).toEqual(["afternoon", "morning"]);
-    expect(events[0].publishedAt).toBe("2026-07-14T15:00:00+09:00");
+    expect(events[0].publishedAt).toBe("2026-07-14T06:00:00.000Z");
   });
   it("uses an external source publication date without fabricating an hour", () => {
     const external = snapshot("external", null, { sourceCategory: "institution_single", sourceName: "ABC Securities", sourceTitle: "盈利预测", sourceUrl: "https://example.com/report", sourcePublishedAt: "2026-07-13", sourcePublishedAtPrecision: "date", sourceVerificationStatus: "verified" });
+    external.asOfDate = "2026-07-12";
+    external.formedAtCalendarDate = "2026-07-12";
     const event = buildEarningsExpectationResearchEvents([external], [], [stock()], 0.1, "Asia/Tokyo")[0];
     expect(event.eventDate).toBe("2026-07-13");
     expect(event.publishedAt).toBe("2026-07-13");
@@ -227,7 +230,7 @@ describe("earnings expectation business chronology and source identity", () => {
     expect(tasks.some((task) => task.ruleType === "earnings_expectation_revision_up")).toBe(false);
   });
   it("resolves a shuffled multi-level correction chain and keeps derived revision IDs stable when its terminal changes", () => {
-    const a = snapshot("a", null, { asOfDate: "2026-06-01", value: 100 });
+    const a = snapshot("a", null, { asOfDate: "2026-06-01", value: 100, createdAt: "2026-06-01T01:00:00.000Z" });
     const c = snapshot("c", "a", { asOfDate: "2026-06-01", value: 110, createdAt: "2026-07-10T01:00:00.000Z" });
     const d = snapshot("d", "c", { asOfDate: "2026-06-01", value: 115, createdAt: "2026-07-15T01:00:00.000Z" });
     const b = snapshot("b", null, { asOfDate: "2026-06-20", value: 130 });
@@ -297,7 +300,7 @@ describe("earnings expectation business chronology and source identity", () => {
   });
   it("uses corrected external source time and the terminal of a multi-level chain for availability ordering", () => {
     const external = (id: string, correctsSnapshotId: string | null, sourcePublishedAt: string, overrides: Partial<EarningsExpectationSnapshot> = {}) => snapshot(id, correctsSnapshotId, { sourceCategory: "institution_single", sourceName: "ABC Securities", sourceTitle: "盈利预测", sourceUrl: "https://example.com/report", sourcePublishedAt, sourcePublishedAtPrecision: "datetime", sourcePublishedAtResolution: "absolute", asOfDate: sourcePublishedAt.slice(0, 10), formedAt: `${sourcePublishedAt.slice(0, 10)}T00:00:00.000Z`, formedAtPrecision: "datetime", formedAtResolution: "absolute", ...overrides });
-    const root = external("a", null, "2026-07-10T06:00:00.000Z");
+    const root = external("a", null, "2026-07-10T06:00:00.000Z", { createdAt: "2026-07-10T07:00:00.000Z" });
     const firstCorrection = external("c", "a", "2026-07-12T06:00:00.000Z", { createdAt: "2026-07-14T01:00:00.000Z" });
     const terminal = external("d", "c", "2026-07-09T06:00:00.000Z", { createdAt: "2026-07-15T01:00:00.000Z" });
     const other = external("b", null, "2026-07-11T06:00:00.000Z", { value: 120 });
@@ -314,7 +317,7 @@ describe("earnings expectation business chronology and source identity", () => {
 const FIXED_NOW = new Date("2026-07-14T12:00:00.000Z");
 
 function snapshot(id: string, correctsSnapshotId: string | null = null, overrides: Partial<EarningsExpectationSnapshot> = {}): EarningsExpectationSnapshot {
-  return {
+  const value: EarningsExpectationSnapshot = {
     id,
     stockId: "demo",
     market: "A股",
@@ -334,9 +337,15 @@ function snapshot(id: string, correctsSnapshotId: string | null = null, override
     sourceUrl: null,
     sourcePublishedAt: null,
     sourcePublishedAtPrecision: null,
+    sourcePublishedAtResolution: null,
+    sourcePublishedAtTimeZone: null,
+    sourcePublishedAtCalendarDate: null,
     asOfDate: "2026-07-14",
     formedAt: null,
     formedAtPrecision: "date",
+    formedAtResolution: "date",
+    formedAtTimeZone: null,
+    formedAtCalendarDate: "2026-07-14",
     analystCount: null,
     institutionCount: null,
     ingestionMethod: "manual",
@@ -346,9 +355,18 @@ function snapshot(id: string, correctsSnapshotId: string | null = null, override
     notes: null,
     correctsSnapshotId,
     correctionScope: correctsSnapshotId ? "value" : null,
-    schemaVersion: 1,
+    schemaVersion: 2,
     ...overrides,
   };
+  if (!("formedAtCalendarDate" in overrides)) value.formedAtCalendarDate = value.asOfDate;
+  if (!("sourcePublishedAtCalendarDate" in overrides)) {
+    value.sourcePublishedAtCalendarDate = isCalendarDate(value.sourcePublishedAt)
+      ? value.sourcePublishedAt
+      : isPreciseInstant(value.sourcePublishedAt) && isValidTimeZone(value.sourcePublishedAtTimeZone)
+        ? getCalendarDateInTimeZone(value.sourcePublishedAt, value.sourcePublishedAtTimeZone)
+        : value.sourcePublishedAt ? String(value.sourcePublishedAt).slice(0, 10) : null;
+  }
+  return value;
 }
 
 function input(overrides: Partial<EarningsExpectationSnapshot> = {}) {
