@@ -4,20 +4,21 @@ import type {
   EarningsExpectationPeriodScope,
   EarningsExpectationSettings,
   EarningsExpectationSnapshot,
+  EarningsExpectationBusinessOrderStatus,
+  EarningsExpectationDisclosureTimingStatus,
   ResearchEvent,
   ResearchEventMetric,
 } from "../types";
-import { effectiveEarningsExpectationSnapshots } from "./earningsExpectationRepository";
 import {
-  correctionBasisChanged,
+  deriveExpectationBusinessRevisionDelta,
   getExpectationBusinessTime,
   getExpectationGroupKey,
+  selectEffectiveEarningsExpectations,
 } from "./earningsExpectationIntegrity";
 import {
   compareBusinessTemporal,
   isCalendarDate,
   isPreciseInstant,
-  isStrictlyBeforeBusinessTemporal,
   laterBusinessTemporal,
   resolveTimeZone,
   toBusinessTemporal,
@@ -44,8 +45,8 @@ export function buildEarningsExpectationComparisons(
   settings: EarningsExpectationSettings = DEFAULT_EXPECTATION_COMPARISON_SETTINGS,
   calculatedAt = new Date().toISOString(),
 ): EarningsExpectationComparison[] {
-  return effectiveEarningsExpectationSnapshots(snapshots, settings.timeZone)
-    .map((snapshot) => compareEarningsExpectation(snapshot, events, settings, calculatedAt))
+  return selectEffectiveEarningsExpectations(snapshots, settings.timeZone)
+    .map(({ snapshot, businessOrderUncertain }) => compareEarningsExpectation(snapshot, events, settings, calculatedAt, businessOrderUncertain ? "uncertain" : "confirmed"))
     .sort((left, right) => right.reportPeriod.localeCompare(left.reportPeriod) || left.snapshotId.localeCompare(right.snapshotId));
 }
 
@@ -54,37 +55,49 @@ export function compareEarningsExpectation(
   events: ResearchEvent[],
   settings: EarningsExpectationSettings = DEFAULT_EXPECTATION_COMPARISON_SETTINGS,
   calculatedAt = new Date().toISOString(),
+  businessOrderStatus: EarningsExpectationBusinessOrderStatus = "confirmed",
 ): EarningsExpectationComparison {
   const candidates = actualCandidates(snapshot, events);
   const actual = candidates.length
     ? [...candidates].sort((left, right) => actualPriority(right.event) - actualPriority(left.event) || compareTemporalStrings(right.disclosedAt, left.disclosedAt, settings.timeZone) || left.event.id.localeCompare(right.event.id))[0]
     : null;
   const actualDisclosureAt = actual?.disclosedAt ?? null;
-  const performanceInformationCutoff = performanceCutoff(snapshot, events, settings.timeZone);
-  const beforeActualDisclosure = actualDisclosureAt ? snapshotBeforeCutoff(snapshot, actualDisclosureAt, settings.timeZone) : null;
-  const beforeAnyPerformanceDisclosure = performanceInformationCutoff ? snapshotBeforeCutoff(snapshot, performanceInformationCutoff, settings.timeZone) : null;
+  const disclosureBoundary = performanceDisclosureBoundary(snapshot, events, settings.timeZone);
+  const performanceInformationCutoff = disclosureBoundary.cutoff;
+  const actualDisclosureTimingStatus = actualDisclosureAt ? snapshotDisclosureTimingStatus(snapshot, actualDisclosureAt, settings.timeZone) : "unknown";
+  const performanceDisclosureTimingStatus = disclosureBoundary.timingStatus;
+  const beforeActualDisclosure = timingStatusToLegacyBoolean(actualDisclosureTimingStatus);
+  const beforeAnyPerformanceDisclosure = timingStatusToLegacyBoolean(performanceDisclosureTimingStatus);
   const comparisonAvailableAt = actualDisclosureAt ? laterTemporal(snapshotAvailableAt(snapshot, settings.timeZone), actualDisclosureAt, settings.timeZone) : null;
   const base: EarningsExpectationComparison = {
     ...comparisonBase(snapshot, calculatedAt),
     beforeActualDisclosure,
     beforeAnyPerformanceDisclosure,
+    actualDisclosureTimingStatus,
+    performanceDisclosureTimingStatus,
+    performanceDisclosureUncertain: disclosureBoundary.uncertain,
+    businessOrderStatus,
     actualDisclosureAt,
     performanceInformationCutoff,
     comparisonAvailableAt,
     isExAnte: beforeAnyPerformanceDisclosure === true,
   };
+  if (businessOrderStatus === "uncertain") {
+    return notComparable(base, ["同日存在多条仅日期精度的预测，无法确认业务先后顺序。当前不生成正式预期差，请补充精确形成时间。"], "业务顺序不确定，未执行数值比较");
+  }
   const structuralReasons = structuralComparabilityReasons(snapshot);
   if (structuralReasons.length) return notComparable(base, structuralReasons, "口径校验失败，未执行数值比较");
 
   if (!actual) {
     const related = events.filter((event) => event.stockId === snapshot.stockId && event.reportPeriod === snapshot.reportPeriod);
-    const reasons = related.some((event) => event.verificationStatus !== "verified" || !["parse_success", "not_applicable"].includes(event.parseStatus))
-      ? ["实际数据解析状态不足"]
+    const actualDisclosureRecognized = related.some((event) => ["earnings_flash", "periodic_report", "financial_update"].includes(event.eventType) && event.performanceDisclosureScope !== "none" && Boolean(event.publishedAt ?? event.eventDate));
+    const reasons = actualDisclosureRecognized
+      ? ["无法匹配实际值", "公司实际业绩披露已识别，但本地实际值缺失、口径不匹配或解析状态不足"]
       : ["无法匹配实际值"];
-    return { ...base, comparisonResult: "insufficient_data", comparabilityStatus: "insufficient_data", nonComparableReasons: reasons, comparisonMethod: "未找到同公司、同报告期、同期间口径和同指标的可靠实际值" };
+    return { ...base, comparisonResult: "insufficient_data", comparabilityStatus: "insufficient_data", nonComparableReasons: reasons, comparisonMethod: actualDisclosureRecognized ? "实际值暂不可可靠比较：公司披露已识别，但本地指标值缺失或尚未可靠解析" : "未找到同公司、同报告期、同期间口径和同指标的可靠实际值" };
   }
 
-  const timingReasons = exAnteReasons(snapshot, actualDisclosureAt, performanceInformationCutoff, settings.timeZone);
+  const timingReasons = exAnteReasons(snapshot, actualDisclosureAt, actualDisclosureTimingStatus, performanceDisclosureTimingStatus);
   if (timingReasons.length) {
     return notComparable({ ...base, actualEventId: actual.event.id, actualValue: actual.actualValue }, timingReasons, "实际披露后形成或来源无法核验，仅作事后参考");
   }
@@ -136,12 +149,8 @@ export function expectationRevision(
   current: EarningsExpectationSnapshot,
   previous: EarningsExpectationSnapshot | undefined,
 ): { direction: "up" | "down" | "unchanged" | null; magnitude: number | null } {
-  if (!previous || current.estimateShape !== previous.estimateShape || correctionBasisChanged(current, previous)) return { direction: null, magnitude: null };
-  const currentMid = snapshotMidpoint(current);
-  const previousMid = snapshotMidpoint(previous);
-  if (currentMid === null || previousMid === null || previousMid === 0 || Math.sign(currentMid) !== Math.sign(previousMid)) return { direction: null, magnitude: null };
-  const magnitude = (currentMid - previousMid) / Math.abs(previousMid);
-  return { direction: magnitude > 0 ? "up" : magnitude < 0 ? "down" : "unchanged", magnitude };
+  const revision = deriveExpectationBusinessRevisionDelta(current, previous);
+  return revision ? { direction: revision.direction, magnitude: revision.relativeDelta } : { direction: null, magnitude: null };
 }
 
 export function expectationGroupKey(snapshot: EarningsExpectationSnapshot) {
@@ -178,8 +187,12 @@ function comparisonBase(snapshot: EarningsExpectationSnapshot, calculatedAt: str
     comparisonResult: "insufficient_data",
     comparisonMethod: "尚未比较",
     isExAnte: false,
+    businessOrderStatus: "confirmed",
     beforeActualDisclosure: null,
     beforeAnyPerformanceDisclosure: null,
+    actualDisclosureTimingStatus: "unknown",
+    performanceDisclosureTimingStatus: "unknown",
+    performanceDisclosureUncertain: false,
     actualDisclosureAt: null,
     performanceInformationCutoff: null,
     comparisonAvailableAt: null,
@@ -204,12 +217,16 @@ function structuralComparabilityReasons(snapshot: EarningsExpectationSnapshot) {
   return reasons;
 }
 
-function exAnteReasons(snapshot: EarningsExpectationSnapshot, actualDisclosureAt: string | null, performanceInformationCutoff: string | null, timeZone: string) {
+function exAnteReasons(
+  snapshot: EarningsExpectationSnapshot,
+  actualDisclosureAt: string | null,
+  actualStatus: EarningsExpectationDisclosureTimingStatus,
+  performanceStatus: EarningsExpectationDisclosureTimingStatus,
+) {
   const reasons: string[] = [];
   if (!actualDisclosureAt) reasons.push("实际值候选的公开披露时间缺失");
-  else if (snapshotBeforeCutoff(snapshot, actualDisclosureAt, timeZone) !== true) reasons.push(timingFailureReason(snapshot, actualDisclosureAt, "实际值披露", timeZone));
-  if (!performanceInformationCutoff) reasons.push("同指标业绩信息首次公开披露时间缺失");
-  else if (snapshotBeforeCutoff(snapshot, performanceInformationCutoff, timeZone) !== true) reasons.push(timingFailureReason(snapshot, performanceInformationCutoff, "同指标业绩信息披露", timeZone));
+  else if (actualStatus !== "before") reasons.push(disclosureTimingReason(snapshot, actualStatus, "实际值披露"));
+  if (performanceStatus !== "before") reasons.push(disclosureTimingReason(snapshot, performanceStatus, "同指标业绩信息披露"));
   if (snapshot.sourceCategory !== "user_estimate" && !snapshot.sourcePublishedAt) reasons.push("外部来源发布日期缺失");
   return reasons;
 }
@@ -221,6 +238,7 @@ function actualCandidates(snapshot: EarningsExpectationSnapshot, events: Researc
   const candidates: ActualCandidate[] = [];
   for (const event of events) {
     if (event.stockId !== snapshot.stockId || event.reportPeriod !== snapshot.reportPeriod || !allowedEvents.has(event.eventType)) continue;
+    if (event.performanceDisclosureScope === "none") continue;
     if (event.verificationStatus !== "verified" || !["parse_success", "not_applicable"].includes(event.parseStatus)) continue;
     for (const metric of event.metrics) {
       if (!keys.includes(metric.key) || metric.periodBasis !== expectedBasis || metric.value === null || metric.unit !== "CNY") continue;
@@ -230,16 +248,43 @@ function actualCandidates(snapshot: EarningsExpectationSnapshot, events: Researc
   return candidates;
 }
 
-function performanceCutoff(snapshot: EarningsExpectationSnapshot, events: ResearchEvent[], timeZone: string) {
+interface PerformanceDisclosureBoundary {
+  cutoff: string | null;
+  timingStatus: EarningsExpectationDisclosureTimingStatus;
+  uncertain: boolean;
+}
+
+function performanceDisclosureBoundary(snapshot: EarningsExpectationSnapshot, events: ResearchEvent[], timeZone: string): PerformanceDisclosureBoundary {
   const allowedEvents = new Set(["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report", "financial_update"]);
   const keys = new Set(cutoffMetricKeys(snapshot.metric, snapshot.periodScope));
-  const disclosures = events
-    .filter((event) => event.stockId === snapshot.stockId && event.reportPeriod === snapshot.reportPeriod && allowedEvents.has(event.eventType))
-    .filter((event) => event.metrics.some((metric) => keys.has(metric.key) && metric.value !== null))
-    .map((event) => event.publishedAt ?? event.eventDate)
-    .filter((value): value is string => Boolean(value))
-    .sort((left, right) => compareTemporalStrings(left, right, timeZone) || left.localeCompare(right));
-  return disclosures[0] ?? null;
+  const confirmed: string[] = [];
+  const possible: string[] = [];
+  for (const event of events) {
+    if (event.stockId !== snapshot.stockId || event.reportPeriod !== snapshot.reportPeriod || !allowedEvents.has(event.eventType)) continue;
+    const disclosedAt = event.publishedAt ?? event.eventDate;
+    if (!disclosedAt) continue;
+    const scope = inferPerformanceDisclosureScope(event, keys);
+    if (scope === "all_metrics" || (scope === "listed_metrics" && event.metrics.some((metric) => keys.has(metric.key)))) confirmed.push(disclosedAt);
+    else if (scope === "unknown") possible.push(disclosedAt);
+  }
+  const order = (left: string, right: string) => compareTemporalStrings(left, right, timeZone) || left.localeCompare(right);
+  confirmed.sort(order);
+  possible.sort(order);
+  const all = [...confirmed, ...possible].sort(order);
+  if (!all.length) return { cutoff: null, timingStatus: "unknown", uncertain: false };
+  const confirmedStatus = confirmed.length ? snapshotDisclosureTimingStatus(snapshot, confirmed[0], timeZone) : null;
+  if (confirmedStatus === "after" || confirmedStatus === "same_time") return { cutoff: all[0], timingStatus: confirmedStatus, uncertain: possible.length > 0 };
+  if (possible.length > 0) return { cutoff: all[0], timingStatus: "unknown", uncertain: true };
+  if (confirmedStatus === "before") return { cutoff: all[0], timingStatus: "before", uncertain: false };
+  return { cutoff: all[0], timingStatus: "unknown", uncertain: true };
+}
+
+function inferPerformanceDisclosureScope(event: ResearchEvent, keys: Set<string>) {
+  if (event.performanceDisclosureScope) return event.performanceDisclosureScope;
+  if (event.eventType === "periodic_report" || event.eventType === "earnings_flash") return "all_metrics" as const;
+  if (event.eventType === "earnings_preview" || event.eventType === "earnings_preview_revision") return event.metrics.length ? "listed_metrics" as const : "unknown" as const;
+  if (event.eventType === "financial_update") return event.metrics.some((metric) => keys.has(metric.key)) ? "listed_metrics" as const : "none" as const;
+  return "none" as const;
 }
 
 function cutoffMetricKeys(metric: EarningsExpectationMetric, scope: EarningsExpectationPeriodScope) {
@@ -254,27 +299,38 @@ function cutoffMetricKeys(metric: EarningsExpectationMetric, scope: EarningsExpe
   return [...actual, ...forecast];
 }
 
-function snapshotBeforeCutoff(snapshot: EarningsExpectationSnapshot, cutoff: string, timeZone: string) {
+function snapshotDisclosureTimingStatus(snapshot: EarningsExpectationSnapshot, cutoff: string, timeZone: string): EarningsExpectationDisclosureTimingStatus {
   const formation = getExpectationBusinessTime(snapshot, timeZone);
   const cutoffTime = temporalFromString(cutoff, timeZone);
-  if (!cutoffTime || !isStrictlyBeforeBusinessTemporal(formation, cutoffTime)) return false;
-  if (snapshot.sourceCategory === "user_estimate") return true;
-  if (!snapshot.sourcePublishedAt) return false;
+  if (!cutoffTime) return "unknown";
+  const formationStatus = temporalTimingStatus(formation, cutoffTime);
+  if (formationStatus !== "before") return formationStatus;
+  if (snapshot.sourceCategory === "user_estimate") return "before";
+  if (!snapshot.sourcePublishedAt) return "unknown";
   const sourcePrecision = snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date";
   const sourceTime = toBusinessTemporal(snapshot.sourcePublishedAt, sourcePrecision, timeZone);
-  return Boolean(sourceTime && isStrictlyBeforeBusinessTemporal(sourceTime, cutoffTime));
+  return sourceTime ? temporalTimingStatus(sourceTime, cutoffTime) : "unknown";
 }
 
-function timingFailureReason(snapshot: EarningsExpectationSnapshot, cutoff: string, label: string, timeZone: string) {
-  const formation = getExpectationBusinessTime(snapshot, timeZone);
-  const cutoffTime = temporalFromString(cutoff, timeZone);
-  const source = snapshot.sourceCategory === "user_estimate" ? null : snapshot.sourcePublishedAt;
-  if (cutoffTime && formation.calendarDate === cutoffTime.calendarDate && (formation.precision !== "datetime" || cutoffTime.precision !== "datetime")) return `预期形成时间与${label}同日但缺少双方精确时间，无法确认先后顺序`;
-  if (source) {
-    const sourceTime = toBusinessTemporal(source, snapshot.sourcePublishedAtPrecision === "datetime" ? "datetime" : "date", timeZone);
-    if (cutoffTime && sourceTime?.calendarDate === cutoffTime.calendarDate && (sourceTime.precision !== "datetime" || cutoffTime.precision !== "datetime")) return `外部来源与${label}同日但缺少双方精确时间，无法确认先后顺序`;
-  }
-  return `预期形成或外部来源时间不早于${label}`;
+function temporalTimingStatus(left: BusinessTemporalValue, right: BusinessTemporalValue): EarningsExpectationDisclosureTimingStatus {
+  const comparison = compareBusinessTemporal(left, right);
+  if (comparison.uncertain) return "unknown";
+  if (comparison.order < 0) return "before";
+  if (comparison.order > 0) return "after";
+  return "same_time";
+}
+
+function timingStatusToLegacyBoolean(status: EarningsExpectationDisclosureTimingStatus) {
+  if (status === "before") return true;
+  if (status === "unknown") return null;
+  return false;
+}
+
+function disclosureTimingReason(snapshot: EarningsExpectationSnapshot, status: EarningsExpectationDisclosureTimingStatus, label: string) {
+  if (status === "unknown") return `预期形成、外部来源与${label}同日或缺少可确认先后顺序的精确时间`;
+  if (status === "same_time") return `预期可用时间与${label}相同，不能认定为事前预测`;
+  if (status === "after") return `预期形成或外部来源时间不早于${label}`;
+  return snapshot.sourceCategory !== "user_estimate" && !snapshot.sourcePublishedAt ? "外部来源发布日期缺失" : "";
 }
 
 function snapshotAvailableAt(snapshot: EarningsExpectationSnapshot, timeZone: string) {
@@ -319,7 +375,6 @@ function relativeDifference(expected: number, actual: number, metric: EarningsEx
   return { value: (actual - expected) / Math.abs(expected), reason: null };
 }
 
-function snapshotMidpoint(snapshot: EarningsExpectationSnapshot) { if (snapshot.estimateShape === "point") return snapshot.value; return snapshot.lowerBound === null || snapshot.upperBound === null ? null : (snapshot.lowerBound + snapshot.upperBound) / 2; }
 function actualPriority(event: ResearchEvent) { if (event.eventType === "financial_update") return 3; if (event.eventType === "periodic_report") return 2; return 1; }
 function temporalFromString(value: string | null, timeZone: string): BusinessTemporalValue | null {
   if (!value) return null;

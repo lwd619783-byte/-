@@ -1,8 +1,10 @@
 import { DatabaseBackup, ExternalLink, History, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
-import type { EarningsExpectationComparison, EarningsExpectationImportRecord, EarningsExpectationSnapshot, Industry, Stock, WatchItem } from "../../types";
-import { comparisonResultLabel, expectationGroupKey, expectationRevision, sourceCategoryLabel } from "../../services/earningsExpectationComparisonProvider";
+import type { EarningsExpectationComparison, EarningsExpectationImportRecord, EarningsExpectationSnapshot, Industry, ResearchEvent, Stock, WatchItem } from "../../types";
+import { comparisonResultLabel, expectationGroupKey, sourceCategoryLabel } from "../../services/earningsExpectationComparisonProvider";
 import {
+  deriveExpectationBusinessRevisionDelta,
+  deriveExpectationCorrectionDelta,
   getExpectationBusinessTime,
   compareExpectationBusinessTime,
   selectEffectiveEarningsExpectations,
@@ -15,6 +17,7 @@ import { DashboardCard, EmptyState, KpiCard } from "../common/terminal";
 interface EarningsExpectationCenterProps {
   snapshots: EarningsExpectationSnapshot[];
   comparisons: EarningsExpectationComparison[];
+  researchEvents?: ResearchEvent[];
   importHistory: EarningsExpectationImportRecord[];
   stocks: Stock[];
   industries: Industry[];
@@ -43,9 +46,9 @@ export function EarningsExpectationCenter(props: EarningsExpectationCenterProps)
   const uncertaintyBySnapshot = useMemo(() => new Map(selections.map((selection) => [selection.snapshot.id, selection.businessOrderUncertain])), [selections]);
   const comparisonBySnapshot = useMemo(() => new Map(props.comparisons.map((item) => [item.snapshotId, item])), [props.comparisons]);
   const activeWatchStocks = useMemo(() => new Set(props.watchItems.filter((item) => !item.archivedAt).map((item) => item.stockId)), [props.watchItems]);
-  const revisionKeys = useMemo(() => new Set(props.snapshots.reduce<string[]>((keys, snapshot) => {
+  const revisionKeys = useMemo(() => new Set(props.snapshots.filter((snapshot) => !snapshot.correctsSnapshotId).reduce<string[]>((keys, snapshot) => {
     const key = expectationGroupKey(snapshot);
-    return props.snapshots.filter((item) => expectationGroupKey(item) === key).length > 1 ? [...keys, key] : keys;
+    return props.snapshots.filter((item) => !item.correctsSnapshotId && expectationGroupKey(item) === key).length > 1 ? [...keys, key] : keys;
   }, [])), [props.snapshots]);
   const periods = [...new Set(props.snapshots.map((snapshot) => snapshot.reportPeriod))].sort().reverse();
   const filtered = effective.filter((snapshot) => {
@@ -75,13 +78,15 @@ export function EarningsExpectationCenter(props: EarningsExpectationCenterProps)
     below: props.comparisons.filter((item) => item.comparisonResult === "below").length,
     nonComparable: props.comparisons.filter((item) => item.comparabilityStatus !== "comparable").length,
     pendingSources: effective.filter((snapshot) => snapshot.sourceVerificationStatus !== "verified").length,
+    businessRevisions: props.researchEvents?.filter((event) => event.eventType === "earnings_expectation_revision" && event.expectation?.businessRevisionDelta).length ?? 0,
+    corrections: props.researchEvents?.filter((event) => event.eventType === "earnings_expectation_correction").length ?? props.snapshots.filter((snapshot) => snapshot.correctsSnapshotId).length,
   };
 
   return (
     <section className="min-w-0 space-y-4" aria-label="业绩预期证据中心">
       {props.storageError ? <div role="alert" className="rounded border border-warning/40 bg-warning/10 p-3 text-sm text-warning">{props.storageError}</div> : null}
       <DashboardCard className="p-4"><div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs uppercase tracking-[0.16em] text-cyan">Expectation Evidence V1</p><h1 className="mt-1 text-xl font-semibold text-textStrong">业绩预期证据中心</h1><p className="mt-1 max-w-3xl text-sm leading-6 text-textMuted">区分公司指引、单家机构、机构一致预期和用户预测；“事前有效”严格指快照形成与外部来源发布均早于任何同指标业绩信息披露，来源核验和数值可比性另行展示。</p><p className="mt-1 text-xs text-textMuted">工作流时区：{props.timeZone ?? "浏览器本地时区"}</p></div><div className="flex flex-wrap gap-2"><button type="button" onClick={props.onImport} className={buttonClass}><DatabaseBackup className="h-4 w-4" />导出 / 快照导入</button><button type="button" onClick={props.onAdd} className={`${buttonClass} border-cyan/50 text-cyan`}><Plus className="h-4 w-4" />添加业绩预期</button></div></div></DashboardCard>
-      <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-8" aria-label="预期证据指标">
+      <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5" aria-label="预期证据指标">
         <KpiCard label="有快照公司" value={kpis.companies} delta="全部来源" description="不等于机构覆盖" tone="info" />
         <KpiCard label="事前有效报告期" value={kpis.exAntePeriods} delta="严格时间口径" description="早于任何同指标披露" tone="positive" />
         <KpiCard label="可比较结果" value={kpis.comparisons} delta="严格同口径" description="实际值已匹配" tone="info" />
@@ -90,6 +95,8 @@ export function EarningsExpectationCenter(props: EarningsExpectationCenterProps)
         <KpiCard label="低于对应预测" value={kpis.below} delta="按来源区分" description="需复盘口径" tone={kpis.below ? "warning" : "positive"} />
         <KpiCard label="不可比较" value={kpis.nonComparable} delta="具体原因" description="不强行计算" tone={kpis.nonComparable ? "warning" : "positive"} />
         <KpiCard label="来源待核验" value={kpis.pendingSources} delta="证据队列" description="不参与事前判断" tone={kpis.pendingSources ? "warning" : "positive"} />
+        <KpiCard label="业务预测修订" value={kpis.businessRevisions} delta="先后顺序已确认" description="不含数据更正" tone="info" />
+        <KpiCard label="数据更正" value={kpis.corrections} delta="追加式纠错" description="不表示业务上调/下调" tone={kpis.corrections ? "warning" : "positive"} />
       </section>
 
       <DashboardCard className="p-4"><h2 className="text-base font-semibold text-textStrong">筛选</h2><div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
@@ -106,7 +113,7 @@ export function EarningsExpectationCenter(props: EarningsExpectationCenterProps)
       </div></DashboardCard>
 
       <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.55fr)]">
-        <DashboardCard className="min-w-0 p-4"><h2 className="text-base font-semibold text-textStrong">有效快照与修订时间线</h2><div className="mt-4 space-y-3">{filtered.length ? filtered.map((snapshot) => <SnapshotCard key={snapshot.id} snapshot={snapshot} comparison={comparisonBySnapshot.get(snapshot.id)} history={props.snapshots.filter((item) => expectationGroupKey(item) === expectationGroupKey(snapshot))} stock={props.stocks.find((item) => item.id === snapshot.stockId)} industries={props.industries} watched={activeWatchStocks.has(snapshot.stockId)} businessOrderUncertain={uncertaintyBySnapshot.get(snapshot.id) ?? false} timeZone={props.timeZone} onCorrect={props.onCorrect} onOpenStock={props.onOpenStock} />) : <EmptyState title="没有匹配的业绩预期" description="请调整筛选，或添加一条有明确来源和形成时间的快照。" />}</div></DashboardCard>
+        <DashboardCard className="min-w-0 p-4"><h2 className="text-base font-semibold text-textStrong">有效快照、业务修订与数据更正时间线</h2><div className="mt-4 space-y-3">{filtered.length ? filtered.map((snapshot) => <SnapshotCard key={snapshot.id} snapshot={snapshot} comparison={comparisonBySnapshot.get(snapshot.id)} history={props.snapshots.filter((item) => expectationGroupKey(item) === expectationGroupKey(snapshot))} stock={props.stocks.find((item) => item.id === snapshot.stockId)} industries={props.industries} watched={activeWatchStocks.has(snapshot.stockId)} businessOrderUncertain={uncertaintyBySnapshot.get(snapshot.id) ?? false} timeZone={props.timeZone} onCorrect={props.onCorrect} onOpenStock={props.onOpenStock} />) : <EmptyState title="没有匹配的业绩预期" description="请调整筛选，或添加一条有明确来源和形成时间的快照。" />}</div></DashboardCard>
         <DashboardCard className="min-w-0 p-4"><h2 className="text-base font-semibold text-textStrong">数据核验队列</h2><p className="mt-1 text-xs text-textMuted">来源、日期、口径、单位、实际值或解析状态不足时明确保留。</p><div className="mt-4 space-y-3">{queueSnapshots.map((snapshot) => { const comparison = comparisonBySnapshot.get(snapshot.id); return <article key={`queue-${snapshot.id}`} className="rounded border border-warning/35 bg-warning/10 p-3"><p className="break-words text-sm font-medium text-textStrong">{props.stocks.find((stock) => stock.id === snapshot.stockId)?.name ?? snapshot.stockId} · {snapshot.reportPeriod}</p><p className="mt-1 text-xs text-warning">{snapshot.sourceVerificationStatus !== "verified" ? `来源状态：${snapshot.sourceVerificationStatus}` : comparison?.nonComparableReasons.join("；") || "无法匹配实际值"}</p></article>; })}{importIssues.map(({ record, issue }, index) => <article key={`${record.id}-${index}`} className="rounded border border-warning/35 bg-warning/10 p-3"><p className="text-sm text-textStrong">{record.ingestionMethod === "csv_import" ? "CSV" : "JSON"} 导入核验 · 第 {issue.row} 行</p><p className="mt-1 break-words text-xs text-warning">{issue.message}</p></article>)}{!queueSnapshots.length && !importIssues.length ? <p className="text-sm text-textMuted">当前没有数据核验项。</p> : null}</div></DashboardCard>
       </div>
     </section>
@@ -115,19 +122,34 @@ export function EarningsExpectationCenter(props: EarningsExpectationCenterProps)
 
 function SnapshotCard({ snapshot, comparison, history, stock, industries, watched, businessOrderUncertain, timeZone, onCorrect, onOpenStock }: { snapshot: EarningsExpectationSnapshot; comparison?: EarningsExpectationComparison; history: EarningsExpectationSnapshot[]; stock?: Stock; industries: Industry[]; watched: boolean; businessOrderUncertain: boolean; timeZone?: string; onCorrect: (snapshot: EarningsExpectationSnapshot) => void; onOpenStock: (stock: Stock) => void }) {
   const ordered = sortExpectationsByBusinessTime(history, timeZone);
+  const byId = new Map(history.map((item) => [item.id, item]));
+  const businessOrdered = ordered.filter((item) => !item.correctsSnapshotId);
   const correctedIds = new Set(history.map((item) => item.correctsSnapshotId).filter(Boolean));
   return <article className="min-w-0 rounded-lg border border-borderSoft bg-bg2/65 p-4"><div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0"><p className="break-words text-xs text-textMuted">{stock?.name ?? snapshot.stockId} · {stock?.code ?? ""} · {stock ? getIndustryName(industries, stock.industryId) : "行业缺失"}</p><h3 className="mt-1 break-words text-base font-semibold text-textStrong">{metricLabel(snapshot.metric)} · {snapshot.reportPeriod} · {periodScopeLabel(snapshot.periodScope)}</h3><div className="mt-2 flex flex-wrap gap-2 text-xs"><Badge value={sourceCategoryLabel(snapshot.sourceCategory)} warning={snapshot.sourceCategory === "user_estimate"} /><Badge value={snapshot.sourceVerificationStatus} warning={snapshot.sourceVerificationStatus !== "verified"} />{watched ? <Badge value="观察清单" /> : null}{snapshot.correctsSnapshotId ? <Badge value={snapshot.correctionScope === "basis" ? "口径纠正" : "数值纠正"} warning /> : null}</div></div><div className="flex flex-wrap gap-2">{snapshot.sourceUrl ? <a href={snapshot.sourceUrl} target="_blank" rel="noreferrer" className={buttonClass}><ExternalLink className="h-4 w-4" />来源</a> : null}{stock ? <button type="button" onClick={() => onOpenStock(stock)} className={buttonClass}>个股详情</button> : null}<button type="button" onClick={() => onCorrect(snapshot)} className={buttonClass}>创建纠正</button></div></div>
-    {businessOrderUncertain ? <div role="status" className="mt-3 rounded border border-warning/40 bg-warning/10 p-2 text-xs text-warning">同日业务顺序不确定：至少一条记录只有日期精度；当前选择仅按稳定 ID 固定展示，不能描述为已确认的最新预测。</div> : null}
+    {businessOrderUncertain ? <div role="status" className="mt-3 rounded border border-warning/40 bg-warning/10 p-2 text-xs text-warning">同日存在多条仅日期精度的预测，无法确认业务先后顺序。当前不生成正式预期差，请补充精确形成时间。</div> : null}
     <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-4"><Value label="当前预期" value={formatSnapshot(snapshot)} /><Value label="形成 / 来源时间" value={`${getExpectationBusinessTime(snapshot, timeZone).value} (${snapshot.formedAtPrecision ?? "date"}) / ${snapshot.sourcePublishedAt ?? "缺失"} (${snapshot.sourcePublishedAtPrecision ?? "缺失"})`} /><Value label="来源" value={`${snapshot.sourceName || "缺失"} · ${snapshot.sourceTitle || "标题缺失"}`} /><Value label="分析师 / 机构" value={`${snapshot.analystCount ?? "-"} / ${snapshot.institutionCount ?? "-"}`} /></div>
-    <div className={`mt-3 rounded border p-3 text-xs ${comparison?.comparabilityStatus === "comparable" ? "border-success/30 bg-success/10 text-textMuted" : "border-warning/30 bg-warning/10 text-warning"}`}><p className="font-semibold text-textStrong">{comparison ? comparisonResultLabel(comparison, snapshot) : "尚未生成比较"}{comparison?.isExAnte ? " · 事前有效" : " · 非事前有效或待匹配"}</p><p className="mt-1 break-words">{comparison?.comparisonMethod ?? "等待同公司、同报告期、同口径的可靠实际值。"}</p>{comparison ? <p className="mt-1">早于实际值披露：{statusText(comparison.beforeActualDisclosure)} · 早于任何同指标业绩信息：{statusText(comparison.beforeAnyPerformanceDisclosure)}</p> : null}{comparison?.nonComparableReasons.length ? <p className="mt-1">原因：{comparison.nonComparableReasons.join("；")}</p> : null}{comparison?.actualValue !== null && comparison?.actualValue !== undefined ? <p className="mt-1">实际值：{formatFinancialAmount(comparison.actualValue)} · 绝对差异：{formatFinancialAmount(comparison.absoluteDifference)}{comparison.relativeDifference === null ? "" : ` · 相对差异 ${(comparison.relativeDifference * 100).toFixed(2)}%`}</p> : null}</div>
-    {ordered.length > 1 ? <div className="mt-3 rounded border border-borderSoft bg-surface/60 p-3"><p className="inline-flex items-center gap-2 text-xs font-semibold text-textStrong"><History className="h-4 w-4" />修订时间线</p><div className="mt-2 space-y-2">{ordered.map((item, index) => { const change = expectationRevision(item, ordered[index - 1]); return <div key={item.id} className="flex flex-col gap-1 border-l border-borderSoft pl-3 text-xs text-textMuted sm:flex-row sm:items-center sm:justify-between"><span>{getExpectationBusinessTime(item, timeZone).value} · {formatSnapshot(item)} · {item.sourceName || sourceCategoryLabel(item.sourceCategory)}</span><span>{correctedIds.has(item.id) ? "已被纠正" : item.correctionScope === "basis" ? "口径纠正，未计算修订率" : change.magnitude === null ? index ? "口径变化，未计算修订率" : "首个快照" : `较前值 ${change.magnitude >= 0 ? "+" : ""}${(change.magnitude * 100).toFixed(2)}%`}</span></div>; })}</div></div> : null}
+    <div className={`mt-3 rounded border p-3 text-xs ${comparison?.comparabilityStatus === "comparable" ? "border-success/30 bg-success/10 text-textMuted" : "border-warning/30 bg-warning/10 text-warning"}`}><p className="font-semibold text-textStrong">{comparison ? comparisonResultLabel(comparison, snapshot) : "尚未生成比较"}{comparison?.isExAnte ? " · 事前有效" : " · 非事前有效或待匹配"}</p><p className="mt-1 break-words">{comparison?.comparisonMethod ?? "等待同公司、同报告期、同口径的可靠实际值。"}</p>{comparison ? <p className="mt-1">相对实际值披露：{timingStatusText(comparison.actualDisclosureTimingStatus)} · 相对公司业绩信息披露：{timingStatusText(comparison.performanceDisclosureTimingStatus)}{comparison.performanceDisclosureUncertain ? "（指标覆盖待核验）" : ""}</p> : null}<p className="mt-1">公司是否公开披露与本地数值是否解析成功分别判断；metadata_only / parse_partial 不会被包装成“未披露”。</p>{comparison?.nonComparableReasons.length ? <p className="mt-1">原因：{comparison.nonComparableReasons.join("；")}</p> : null}{comparison?.actualValue !== null && comparison?.actualValue !== undefined ? <p className="mt-1">本地已可靠解析实际值：{formatFinancialAmount(comparison.actualValue)} · 绝对差异：{formatFinancialAmount(comparison.absoluteDifference)}{comparison.relativeDifference === null ? "" : ` · 相对差异 ${(comparison.relativeDifference * 100).toFixed(2)}%`}</p> : null}</div>
+    {ordered.length > 1 ? <div className="mt-3 rounded border border-borderSoft bg-surface/60 p-3"><p className="inline-flex items-center gap-2 text-xs font-semibold text-textStrong"><History className="h-4 w-4" />业务修订与数据更正时间线</p><div className="mt-2 space-y-2">{ordered.map((item) => {
+      const businessIndex = businessOrdered.findIndex((candidate) => candidate.id === item.id);
+      const previousBusiness = businessIndex > 0 ? businessOrdered[businessIndex - 1] : undefined;
+      const correction = deriveExpectationCorrectionDelta(item, item.correctsSnapshotId ? byId.get(item.correctsSnapshotId) : undefined);
+      const revision = deriveExpectationBusinessRevisionDelta(item, previousBusiness, businessOrderUncertain ? "uncertain" : "confirmed");
+      const changeLabel = correction
+        ? `历史数据更正：${correction.previousValue ?? "缺失"} → ${correction.correctedValue ?? "缺失"}${correction.valueDelta === null ? " · 不跨口径计算差异" : ""}`
+        : businessOrderUncertain && previousBusiness
+          ? "业务顺序不确定，不生成上调/下调"
+          : revision
+            ? `业务预测较前值 ${revision.relativeDelta >= 0 ? "+" : ""}${(revision.relativeDelta * 100).toFixed(2)}%`
+            : previousBusiness ? "口径变化，未计算业务修订率" : "首个业务快照";
+      return <div key={item.id} className="flex flex-col gap-1 border-l border-borderSoft pl-3 text-xs text-textMuted sm:flex-row sm:items-center sm:justify-between"><span>{getExpectationBusinessTime(item, timeZone).value} · {formatSnapshot(item)} · {item.sourceName || sourceCategoryLabel(item.sourceCategory)}</span><span>{correctedIds.has(item.id) ? `已被纠正 · ${changeLabel}` : changeLabel}</span></div>;
+    })}</div></div> : null}
   </article>;
 }
 
 function formatSnapshot(snapshot: EarningsExpectationSnapshot) { const unit = snapshot.metric === "eps" ? `${snapshot.currency}/股` : ({ yuan: "元", ten_thousand_yuan: "万元", million_yuan: "百万元", hundred_million_yuan: "亿元", currency_per_share: "每股" })[snapshot.unit]; return snapshot.estimateShape === "point" ? `${snapshot.value ?? "缺失"} ${unit}` : `${snapshot.lowerBound ?? "缺失"} 至 ${snapshot.upperBound ?? "缺失"} ${unit}`; }
 function metricLabel(value: EarningsExpectationSnapshot["metric"]) { return Object.fromEntries(metricOptions)[value]; }
 function periodScopeLabel(value: EarningsExpectationSnapshot["periodScope"]) { return ({ single_quarter: "单季度", year_to_date: "年初至今累计", half_year: "半年度", first_three_quarters: "前三季度累计", full_year: "全年度", ttm: "TTM" })[value]; }
-function statusText(value?: boolean | null) { return value === true ? "是" : value === false ? "否" : "待匹配"; }
+function timingStatusText(value?: EarningsExpectationComparison["performanceDisclosureTimingStatus"]) { return ({ before: "披露前", after: "披露后", same_time: "同一时刻", unknown: "先后未知" } as Record<string, string>)[value ?? "unknown"]; }
 function Badge({ value, warning = false }: { value: string; warning?: boolean }) { return <span className={`rounded border px-2 py-1 ${warning ? "border-warning/40 bg-warning/10 text-warning" : "border-borderSoft text-textMuted"}`}>{value}</span>; }
 function Value({ label, value }: { label: string; value: string }) { return <div className="min-w-0 rounded border border-borderSoft bg-surface/60 p-3"><p className="text-xs text-textMuted">{label}</p><p className="mt-1 break-words text-sm text-textStrong">{value}</p></div>; }
 function Select({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: Array<[string, string]> }) { return <Field label={label}><select value={value} onChange={(event) => onChange(event.target.value)} className={inputClass}>{options.map(([optionValue, labelValue]) => <option key={optionValue} value={optionValue}>{labelValue}</option>)}</select></Field>; }

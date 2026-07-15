@@ -16,6 +16,30 @@ export type EarningsExpectationAccountingBasis = "PRC_GAAP" | "IFRS" | "unknown"
 export type EarningsExpectationVerificationStatus = "verified" | "pending" | "unverified" | "invalid";
 export type EarningsExpectationTimePrecision = "date" | "datetime";
 export type EarningsExpectationCorrectionScope = "value" | "basis";
+export type EarningsExpectationBusinessOrderStatus = "confirmed" | "uncertain";
+export type EarningsExpectationDisclosureTimingStatus = "before" | "after" | "same_time" | "unknown";
+
+export interface EarningsExpectationCorrectionDelta {
+  correctionTargetId: string;
+  previousValue: number | null;
+  correctedValue: number | null;
+  valueDelta: number | null;
+  relativeDelta: number | null;
+  changedFields: string[];
+  basisChanged: boolean;
+  accountingScopeChanged: boolean;
+  unitChanged: boolean;
+  currencyChanged: boolean;
+  correctionReason: string | null;
+  calculationNote: string | null;
+}
+
+export interface EarningsExpectationBusinessRevisionDelta {
+  previousBusinessSnapshotId: string;
+  absoluteDelta: number;
+  relativeDelta: number;
+  direction: "up" | "down" | "unchanged";
+}
 
 export interface EarningsExpectationSnapshot {
   id: string;
@@ -75,9 +99,13 @@ export interface EarningsExpectationComparison {
   comparisonResult: EarningsExpectationComparisonResult;
   comparisonMethod: string;
   isExAnte: boolean;
+  businessOrderStatus?: EarningsExpectationBusinessOrderStatus;
   /** isExAnte means beforeAnyPerformanceDisclosure, not merely before the selected actual value. */
   beforeActualDisclosure?: boolean | null;
   beforeAnyPerformanceDisclosure?: boolean | null;
+  actualDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
+  performanceDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
+  performanceDisclosureUncertain?: boolean;
   actualDisclosureAt?: string | null;
   performanceInformationCutoff?: string | null;
   comparisonAvailableAt?: string | null;
@@ -143,6 +171,14 @@ export interface EarningsExpectationEventPayload {
   performanceInformationCutoff?: string | null;
   comparisonResult: EarningsExpectationComparisonResult | null;
   sourceVerificationStatus: EarningsExpectationVerificationStatus;
+  correctsSnapshotId?: string | null;
+  businessOrderStatus?: EarningsExpectationBusinessOrderStatus;
+  correctionDelta?: EarningsExpectationCorrectionDelta | null;
+  businessRevisionDelta?: EarningsExpectationBusinessRevisionDelta | null;
+  actualDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
+  performanceDisclosureTimingStatus?: EarningsExpectationDisclosureTimingStatus;
+  performanceDisclosureUncertain?: boolean;
+  /** Legacy compatibility fields. New consumers must use businessRevisionDelta. */
   revisionDirection?: "up" | "down" | "unchanged" | null;
   revisionMagnitude?: number | null;
   businessTimePrecision?: EarningsExpectationTimePrecision;

@@ -26,7 +26,6 @@ import { createBrowserEarningsExpectationRepository, createEmptyEarningsExpectat
 import { EarningsExpectationStore, type CreateEarningsExpectationSnapshotInput, type EarningsExpectationActionResult } from "./services/earningsExpectationStore";
 import { buildEarningsExpectationComparisons } from "./services/earningsExpectationComparisonProvider";
 import { buildEarningsExpectationResearchEvents } from "./services/earningsExpectationEventProvider";
-import { getExpectationCalendarDate } from "./services/earningsExpectationIntegrity";
 import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant } from "./utils/dateTime";
 import type { DashboardDataMode, EarningsExpectationSnapshot, Stock, WatchItem } from "./types";
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
@@ -124,10 +123,11 @@ export default function App() {
     const overdueReview = new Set(pendingTasks.filter((task) => task.ruleType === "overdue_review").map((task) => task.watchItemId)).size;
     const newEventReminder = new Set(pendingTasks.filter((task) => task.relatedEventIds.length > 0).map((task) => task.watchItemId)).size;
     const highPriorityWatch = watchlistData.watchItems.filter((item) => !item.archivedAt && item.priority === "high").length;
-    const recentExpectationSnapshots = expectationData.snapshots.filter((snapshot) => getExpectationCalendarDate(snapshot, expectationData.settings.timeZone) >= cutoff).length;
+    const recentExpectationSnapshots = expectationEvents.filter((event) => event.eventType === "earnings_expectation_added" && event.eventDate && event.eventDate >= cutoff).length;
+    const expectationCorrections = expectationEvents.filter((event) => event.eventType === "earnings_expectation_correction" && event.eventDate && event.eventDate >= cutoff).length;
     const latestExpectationRevisions = expectationEvents.filter((event) => event.eventType === "earnings_expectation_revision" && event.eventDate && event.eventDate >= cutoff);
-    const expectationRevisionUp = latestExpectationRevisions.filter((event) => event.expectation?.revisionDirection === "up" && typeof event.expectation.revisionMagnitude === "number" && Math.abs(event.expectation.revisionMagnitude) >= expectationData.settings.revisionReminderThreshold).length;
-    const expectationRevisionDown = latestExpectationRevisions.filter((event) => event.expectation?.revisionDirection === "down" && typeof event.expectation.revisionMagnitude === "number" && Math.abs(event.expectation.revisionMagnitude) >= expectationData.settings.revisionReminderThreshold).length;
+    const expectationRevisionUp = latestExpectationRevisions.filter((event) => event.expectation?.businessOrderStatus === "confirmed" && event.expectation.businessRevisionDelta?.direction === "up" && Math.abs(event.expectation.businessRevisionDelta.relativeDelta) >= expectationData.settings.revisionReminderThreshold).length;
+    const expectationRevisionDown = latestExpectationRevisions.filter((event) => event.expectation?.businessOrderStatus === "confirmed" && event.expectation.businessRevisionDelta?.direction === "down" && Math.abs(event.expectation.businessRevisionDelta.relativeDelta) >= expectationData.settings.revisionReminderThreshold).length;
     const reviewableExpectationActuals = expectationComparisons.filter((comparison) => comparison.comparabilityStatus === "comparable").length;
     const pendingExpectationSources = expectationData.snapshots.filter((snapshot) => snapshot.sourceVerificationStatus !== "verified").length;
 
@@ -152,6 +152,7 @@ export default function App() {
       newEventReminder,
       highPriorityWatch,
       recentExpectationSnapshots,
+      expectationCorrections,
       expectationRevisionUp,
       expectationRevisionDown,
       reviewableExpectationActuals,
@@ -280,8 +281,9 @@ export default function App() {
           </section>
 
           <DashboardCard className="p-3">
-            <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-5" aria-label="业绩预期行动指标">
+            <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-6" aria-label="业绩预期行动指标">
               <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增业绩预期：<strong className="text-textStrong">{dashboardStats.recentExpectationSnapshots}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">数据更正：<strong className="text-cyan">{dashboardStats.expectationCorrections}</strong></button>
               <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期上修：<strong className="text-success">{dashboardStats.expectationRevisionUp}</strong></button>
               <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期下修：<strong className="text-warning">{dashboardStats.expectationRevisionDown}</strong></button>
               <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增可复盘实际结果：<strong className="text-textStrong">{dashboardStats.reviewableExpectationActuals}</strong></button>
@@ -385,6 +387,7 @@ export default function App() {
             <EarningsExpectationCenter
               snapshots={expectationData.snapshots}
               comparisons={expectationComparisons}
+              researchEvents={expectationEvents}
               importHistory={expectationData.importHistory}
               stocks={dataset.stocks}
               industries={dataset.industries}

@@ -97,6 +97,7 @@ export function announcementToResearchEvent(stock: Stock, item: AnnouncementLike
     parseStatus,
     materiality: eventType === "announcement" ? "medium" : "high",
     metrics,
+    performanceDisclosureScope: announcementPerformanceDisclosureScope(eventType, metrics),
     relatedAnnouncementIds: [...new Set(relatedIds)],
     relatedFinancialPeriod:
       "periodicReportEvent" in item ? item.periodicReportEvent?.linkedFinancialReportPeriod ?? null : null,
@@ -138,6 +139,7 @@ export function financialReportToResearchEvent(stock: Stock, report: FinancialRe
     parseStatus: "not_applicable",
     materiality: "high",
     metrics,
+    performanceDisclosureScope: "all_metrics",
     relatedAnnouncementIds: [],
     relatedFinancialPeriod: report.reportPeriod,
     reviewStatus: reviewReasons.length > 0 ? "pending" : "not_required",
@@ -183,6 +185,7 @@ export function financialSummaryToResearchEvent(stock: Stock, summary: AShareFin
     parseStatus: summary.status === "stale" ? "stale" : isFinancialError(summary.status) ? "error" : "not_applicable",
     materiality: "high",
     metrics,
+    performanceDisclosureScope: "none",
     relatedAnnouncementIds: [],
     relatedFinancialPeriod: reportPeriod,
     reviewStatus: reviewReasons.length > 0 ? "pending" : "not_required",
@@ -379,6 +382,7 @@ export function eventTypeLabel(eventType: ResearchEventType) {
     announcement: "公告",
     data_warning: "数据警告",
     earnings_expectation_added: "新增业绩预期",
+    earnings_expectation_correction: "业绩预期数据更正",
     earnings_expectation_revision: "业绩预期修订",
     earnings_expectation_comparison_available: "预期比较可复盘",
     earnings_expectation_data_warning: "预期数据核验",
@@ -387,6 +391,12 @@ export function eventTypeLabel(eventType: ResearchEventType) {
 
 export function stageLabel(stage: EarningsVerificationStage) {
   return STAGE_LABELS[stage];
+}
+
+function announcementPerformanceDisclosureScope(eventType: ResearchEventType, metrics: ResearchEventMetric[]) {
+  if (eventType === "periodic_report" || eventType === "earnings_flash") return "all_metrics" as const;
+  if (eventType === "earnings_preview" || eventType === "earnings_preview_revision") return metrics.length ? "listed_metrics" as const : "unknown" as const;
+  return "none" as const;
 }
 
 function announcementCategoryToEventType(category: AnnouncementLike["category"]): ResearchEventType {

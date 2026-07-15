@@ -187,6 +187,7 @@ export type {
   ResearchEventMetric,
   ResearchEventSnapshot,
   ResearchEventType,
+  PerformanceDisclosureScope,
   ResearchMateriality,
   ResearchMetricPeriodBasis,
   ResearchParseStatus,
@@ -234,6 +235,8 @@ export type {
 } from "./marketData";
 export type {
   EarningsExpectationAccountingBasis,
+  EarningsExpectationBusinessOrderStatus,
+  EarningsExpectationBusinessRevisionDelta,
   EarningsExpectationComparabilityStatus,
   EarningsExpectationComparison,
   EarningsExpectationComparisonResult,
@@ -246,6 +249,8 @@ export type {
   EarningsExpectationMetric,
   EarningsExpectationPeriodScope,
   EarningsExpectationCorrectionScope,
+  EarningsExpectationCorrectionDelta,
+  EarningsExpectationDisclosureTimingStatus,
   EarningsExpectationSettings,
   EarningsExpectationShape,
   EarningsExpectationSnapshot,

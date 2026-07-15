@@ -1,4 +1,10 @@
-import type { EarningsExpectationSnapshot, EarningsExpectationTimePrecision } from "../types";
+import type {
+  EarningsExpectationBusinessOrderStatus,
+  EarningsExpectationBusinessRevisionDelta,
+  EarningsExpectationCorrectionDelta,
+  EarningsExpectationSnapshot,
+  EarningsExpectationTimePrecision,
+} from "../types";
 import {
   compareBusinessTemporal,
   getTemporalCalendarDate,
@@ -72,7 +78,64 @@ export function sortExpectationsByBusinessTime(snapshots: EarningsExpectationSna
 }
 
 export function correctionBasisChanged(current: EarningsExpectationSnapshot, previous: EarningsExpectationSnapshot) {
-  return current.currency !== previous.currency || current.unit !== previous.unit || current.accountingBasis !== previous.accountingBasis;
+  return current.estimateShape !== previous.estimateShape || current.currency !== previous.currency || current.unit !== previous.unit || current.accountingBasis !== previous.accountingBasis;
+}
+
+export function deriveExpectationCorrectionDelta(
+  current: EarningsExpectationSnapshot,
+  target: EarningsExpectationSnapshot | undefined,
+): EarningsExpectationCorrectionDelta | null {
+  if (!current.correctsSnapshotId || !target || current.correctsSnapshotId !== target.id) return null;
+  const fields: Array<keyof EarningsExpectationSnapshot> = ["estimateShape", "value", "lowerBound", "upperBound", "currency", "unit", "accountingBasis"];
+  const changedFields = fields.filter((field) => current[field] !== target[field]);
+  const currentMidpoint = snapshotMidpoint(current);
+  const targetMidpoint = snapshotMidpoint(target);
+  const basisChanged = correctionBasisChanged(current, target) || current.estimateShape !== target.estimateShape;
+  const valueDelta = !basisChanged && currentMidpoint !== null && targetMidpoint !== null ? currentMidpoint - targetMidpoint : null;
+  const relativeDelta = valueDelta !== null && targetMidpoint !== null && targetMidpoint !== 0 && (currentMidpoint === 0 || Math.sign(currentMidpoint as number) === Math.sign(targetMidpoint))
+    ? valueDelta / Math.abs(targetMidpoint)
+    : null;
+  const reason = basisChanged
+    ? "更正改变了预测形态、币种、单位或会计口径，不计算跨口径相对差异。"
+    : targetMidpoint === 0
+      ? "被更正值为 0，不计算相对差异。"
+      : currentMidpoint !== null && targetMidpoint !== null && currentMidpoint !== 0 && Math.sign(currentMidpoint) !== Math.sign(targetMidpoint)
+        ? "更正前后数值跨越正负号，不计算相对差异。"
+        : null;
+  return {
+    correctionTargetId: target.id,
+    previousValue: targetMidpoint,
+    correctedValue: currentMidpoint,
+    valueDelta,
+    relativeDelta,
+    changedFields,
+    basisChanged,
+    accountingScopeChanged: current.accountingBasis !== target.accountingBasis,
+    unitChanged: current.unit !== target.unit,
+    currencyChanged: current.currency !== target.currency,
+    correctionReason: current.notes,
+    calculationNote: reason,
+  };
+}
+
+export function deriveExpectationBusinessRevisionDelta(
+  current: EarningsExpectationSnapshot,
+  previous: EarningsExpectationSnapshot | undefined,
+  businessOrderStatus: EarningsExpectationBusinessOrderStatus = "confirmed",
+): EarningsExpectationBusinessRevisionDelta | null {
+  if (!previous || current.correctsSnapshotId || businessOrderStatus === "uncertain") return null;
+  if (current.estimateShape !== previous.estimateShape || correctionBasisChanged(current, previous)) return null;
+  const currentMidpoint = snapshotMidpoint(current);
+  const previousMidpoint = snapshotMidpoint(previous);
+  if (currentMidpoint === null || previousMidpoint === null || previousMidpoint === 0 || (currentMidpoint !== 0 && Math.sign(currentMidpoint) !== Math.sign(previousMidpoint))) return null;
+  const absoluteDelta = currentMidpoint - previousMidpoint;
+  const relativeDelta = absoluteDelta / Math.abs(previousMidpoint);
+  return {
+    previousBusinessSnapshotId: previous.id,
+    absoluteDelta,
+    relativeDelta,
+    direction: relativeDelta > 0 ? "up" : relativeDelta < 0 ? "down" : "unchanged",
+  };
 }
 
 export function sameCorrectionIdentity(current: EarningsExpectationSnapshot, previous: EarningsExpectationSnapshot) {
@@ -188,7 +251,8 @@ export function selectEffectiveEarningsExpectations(snapshots: EarningsExpectati
 export function isExpectationBusinessOrderUncertain(snapshots: EarningsExpectationSnapshot[], timeZone?: string | null) {
   if (snapshots.length < 2) return false;
   const ordered = sortExpectationsByBusinessTime(snapshots, timeZone);
-  return isSameCalendarOrderUncertain(ordered[ordered.length - 2], ordered[ordered.length - 1], timeZone);
+  const selected = ordered[ordered.length - 1];
+  return ordered.some((candidate) => candidate.id !== selected.id && isSameCalendarOrderUncertain(candidate, selected, timeZone));
 }
 
 function isSameCalendarOrderUncertain(left: EarningsExpectationSnapshot, right: EarningsExpectationSnapshot, timeZone?: string | null) {
@@ -199,6 +263,11 @@ function isSameCalendarOrderUncertain(left: EarningsExpectationSnapshot, right: 
 
 function issue(code: EarningsExpectationCorrectionGraphIssue["code"], snapshotIds: string[], message: string): EarningsExpectationCorrectionGraphIssue {
   return { code, snapshotIds, message };
+}
+
+function snapshotMidpoint(snapshot: EarningsExpectationSnapshot) {
+  if (snapshot.estimateShape === "point") return snapshot.value;
+  return snapshot.lowerBound === null || snapshot.upperBound === null ? null : (snapshot.lowerBound + snapshot.upperBound) / 2;
 }
 
 export function getExpectationCalendarDate(snapshot: EarningsExpectationSnapshot, timeZone?: string | null) {

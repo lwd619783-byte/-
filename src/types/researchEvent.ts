@@ -11,6 +11,7 @@ export type ResearchEventType =
   | "announcement"
   | "data_warning"
   | "earnings_expectation_added"
+  | "earnings_expectation_correction"
   | "earnings_expectation_revision"
   | "earnings_expectation_comparison_available"
   | "earnings_expectation_data_warning";
@@ -21,6 +22,7 @@ export type ResearchParseStatus = AnnouncementParseStatus | "not_applicable" | "
 export type ResearchMateriality = "high" | "medium" | "low" | "unknown";
 export type ResearchReviewStatus = "pending" | "reviewed" | "not_required";
 export type ResearchMetricPeriodBasis = "cumulative" | "single_quarter" | "range" | "point";
+export type PerformanceDisclosureScope = "all_metrics" | "listed_metrics" | "unknown" | "none";
 
 export interface ResearchEventMetric {
   key: string;
@@ -53,6 +55,8 @@ export interface ResearchEvent {
   parseStatus: ResearchParseStatus;
   materiality: ResearchMateriality;
   metrics: ResearchEventMetric[];
+  /** Public performance-information coverage, independent from local numeric parse success. */
+  performanceDisclosureScope?: PerformanceDisclosureScope;
   relatedAnnouncementIds: string[];
   relatedFinancialPeriod: string | null;
   reviewStatus: ResearchReviewStatus;

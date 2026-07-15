@@ -21,6 +21,7 @@ const PERFORMANCE_RULES: Partial<Record<ResearchEvent["eventType"], ReviewTaskRu
   earnings_flash: "earnings_flash",
   periodic_report: "periodic_report",
   earnings_expectation_added: "earnings_expectation_added",
+  earnings_expectation_correction: "earnings_expectation_correction",
   earnings_expectation_comparison_available: "earnings_expectation_comparison",
   earnings_expectation_data_warning: "earnings_expectation_data_warning",
 };
@@ -62,9 +63,9 @@ export function buildReviewTasks({
     for (const event of stockEvents) {
       let ruleType = PERFORMANCE_RULES[event.eventType];
       if (event.eventType === "earnings_expectation_revision") {
-        const magnitude = event.expectation?.revisionMagnitude;
-        if (magnitude !== null && magnitude !== undefined && Math.abs(magnitude) >= expectationRevisionThreshold) {
-          ruleType = magnitude > 0 ? "earnings_expectation_revision_up" : "earnings_expectation_revision_down";
+        const revision = event.expectation?.businessRevisionDelta;
+        if (event.expectation?.businessOrderStatus === "confirmed" && revision && Math.abs(revision.relativeDelta) >= expectationRevisionThreshold) {
+          ruleType = revision.direction === "up" ? "earnings_expectation_revision_up" : revision.direction === "down" ? "earnings_expectation_revision_down" : undefined;
         }
       }
       if (ruleType) {
@@ -219,6 +220,7 @@ function performanceTitle(eventType: ResearchEvent["eventType"]) {
     earnings_flash: "公司发布业绩快报",
     periodic_report: "公司发布正式定期报告",
     earnings_expectation_added: "新增业绩预期快照",
+    earnings_expectation_correction: "业绩预期数据发生更正",
     earnings_expectation_revision: "业绩预期出现修订",
     earnings_expectation_comparison_available: "实际业绩与预期比较可复盘",
     earnings_expectation_data_warning: "业绩预期证据需要核验",
@@ -228,9 +230,12 @@ function performanceTitle(eventType: ResearchEvent["eventType"]) {
 function expectationTaskDescription(event: ResearchEvent, threshold: number) {
   if (!event.eventType.startsWith("earnings_expectation")) return `公司新增正式披露事件“${event.title}”，请结合报告期 ${event.reportPeriod ?? "暂缺"} 主动复盘。`;
   const category = ({ company_guidance: "公司指引", institution_single: "单家机构预测", institution_consensus: "机构一致预期", user_estimate: "用户个人预测" } as Record<string, string>)[event.expectation?.sourceCategory ?? ""] ?? "业绩预期";
-  if (event.eventType === "earnings_expectation_revision") return `${category}修订幅度达到 ${(threshold * 100).toFixed(0)}% 工作流提醒阈值。该阈值不是投资结论或行业标准，请核对来源和口径。`;
+  const metric = ({ revenue: "营业收入", attributable_net_profit: "归母净利润", adjusted_net_profit: "扣非净利润", eps: "每股收益", operating_cash_flow: "经营现金流" } as Record<string, string>)[event.expectation?.metric ?? ""] ?? "业绩指标";
+  const source = event.expectation?.sourceName || category;
+  if (event.eventType === "earnings_expectation_revision") return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}预测，相对业务快照 ${event.expectation?.businessRevisionDelta?.previousBusinessSnapshotId ?? "基准缺失"} 的修订幅度达到 ${(threshold * 100).toFixed(0)}% 工作流提醒阈值。该阈值不是投资结论或行业标准，请核对来源和口径。`;
+  if (event.eventType === "earnings_expectation_correction") return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}快照进行了数据或口径更正，被更正记录为 ${event.expectation?.correctionDelta?.correctionTargetId ?? event.expectation?.correctsSnapshotId ?? "缺失"}。更正差异不代表业务预测上调或下调，请核对变更字段。`;
   if (event.eventType === "earnings_expectation_comparison_available") return `${category}已与同报告期可靠实际值形成比较，请打开来源和计算详情完成复盘；不自动生成买卖建议。`;
-  if (event.eventType === "earnings_expectation_data_warning") return `报告期 ${event.reportPeriod ?? "暂缺"} 的${category}存在来源或可比性缺口，需要人工核验。`;
+  if (event.eventType === "earnings_expectation_data_warning") return `报告期 ${event.reportPeriod ?? "暂缺"} 的${category}存在来源或可比性缺口，需要人工核验。${event.reviewReasons.join("；") || event.summary}`;
   return `新增${category}快照，请核对报告期、期间口径、指标、币种、单位和来源。`;
 }
 

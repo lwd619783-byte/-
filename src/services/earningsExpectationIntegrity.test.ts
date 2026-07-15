@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import type { EarningsExpectationSnapshot, Stock, WatchItem } from "../types";
 import {
   compareExpectationBusinessTime,
+  deriveExpectationBusinessRevisionDelta,
+  deriveExpectationCorrectionDelta,
   getEffectiveCorrectionTerminal,
   getEffectiveCorrectionTerminals,
   getExpectationGroupKey,
@@ -127,6 +129,17 @@ describe("earnings expectation business chronology and source identity", () => {
     expect(second).toEqual(first);
     expect(first.businessOrderUncertain).toBe(true);
   });
+  it("keeps the selected candidate uncertain when any same-day candidate lacks comparable precision", () => {
+    const dateOnly = snapshot("a");
+    const morning = snapshot("b", null, { formedAt: "2026-07-14T09:00:00+09:00", formedAtPrecision: "datetime" });
+    const afternoon = snapshot("z", null, { formedAt: "2026-07-14T15:00:00+09:00", formedAtPrecision: "datetime", value: 120 });
+    const selection = selectEffectiveEarningsExpectations([afternoon, dateOnly, morning], "Asia/Tokyo")[0];
+    expect(selection.snapshot.id).toBe("z");
+    expect(selection.businessOrderUncertain).toBe(true);
+    const events = buildEarningsExpectationResearchEvents([afternoon, dateOnly, morning], [], [stock()], 0.1, "Asia/Tokyo");
+    expect(events.find((event) => event.expectation?.snapshotId === "z")?.eventType).toBe("earnings_expectation_added");
+    expect(events.find((event) => event.expectation?.snapshotId === "z")?.expectation?.businessRevisionDelta).toBeNull();
+  });
   it("uses stable IDs for identical exact instants", () => {
     const left = snapshot("a", null, { formedAt: "2026-07-14T09:00:00+09:00", formedAtPrecision: "datetime" });
     const right = snapshot("z", null, { formedAt: "2026-07-14T00:00:00Z", formedAtPrecision: "datetime" });
@@ -173,6 +186,31 @@ describe("earnings expectation business chronology and source identity", () => {
     const second = buildEarningsExpectationResearchEvents([snapshot("z", null, { value: 110 }), snapshot("a")], [], [stock()], 0.1, "Asia/Tokyo");
     expect(second).toEqual(first);
     expect(first.some((event) => event.expectation?.businessOrderUncertain)).toBe(true);
+    expect(first.some((event) => event.eventType === "earnings_expectation_revision")).toBe(false);
+    expect(first.every((event) => event.expectation?.businessRevisionDelta == null)).toBe(true);
+  });
+  it("keeps correction deltas target-directed and separate from business revisions", () => {
+    const original = snapshot("a", null, { asOfDate: "2026-07-10", value: 100 });
+    const businessRevision = snapshot("b", null, { asOfDate: "2026-07-11", value: 120 });
+    const correction = snapshot("c", "a", { asOfDate: "2026-07-12", value: 105, correctionScope: "value" });
+    expect(deriveExpectationBusinessRevisionDelta(businessRevision, original)).toMatchObject({ previousBusinessSnapshotId: "a", relativeDelta: 0.2, direction: "up" });
+    expect(deriveExpectationCorrectionDelta(correction, original)).toMatchObject({ correctionTargetId: "a", previousValue: 100, correctedValue: 105, valueDelta: 5, relativeDelta: 0.05, basisChanged: false, unitChanged: false, currencyChanged: false, accountingScopeChanged: false });
+    expect(deriveExpectationBusinessRevisionDelta(correction, businessRevision)).toBeNull();
+    const events = buildEarningsExpectationResearchEvents([correction, businessRevision, original], [], [stock()], 0.1, "Asia/Shanghai");
+    const revisionEvent = events.find((event) => event.eventType === "earnings_expectation_revision");
+    const correctionEvent = events.find((event) => event.eventType === "earnings_expectation_correction");
+    expect(revisionEvent?.expectation?.businessRevisionDelta?.previousBusinessSnapshotId).toBe("a");
+    expect(correctionEvent?.expectation?.correctionDelta?.correctionTargetId).toBe("a");
+    expect(correctionEvent?.expectation?.correctsSnapshotId).toBe("a");
+    expect(correctionEvent?.expectation?.businessRevisionDelta).toBeNull();
+    expect(events.some((event) => event.eventType === "earnings_expectation_revision" && event.expectation?.snapshotId === "c")).toBe(false);
+    const correctionOnlyEvents = buildEarningsExpectationResearchEvents([correction, original], [], [stock()], 0.1, "Asia/Shanghai");
+    const correctionOnlyTasks = buildReviewTasks({ watchItems: [watchItem()], events: correctionOnlyEvents, chains: [], taskStates: [], now: FIXED_NOW, timeZone: "Asia/Shanghai" });
+    expect(correctionOnlyTasks.filter((task) => task.ruleType === "earnings_expectation_correction")).toHaveLength(1);
+    expect(correctionOnlyTasks.some((task) => task.ruleType === "earnings_expectation_revision_up" || task.ruleType === "earnings_expectation_revision_down")).toBe(false);
+  });
+  it("never derives a business revision when order is uncertain", () => {
+    expect(deriveExpectationBusinessRevisionDelta(snapshot("z", null, { value: 120 }), snapshot("a", null, { value: 100 }), "uncertain")).toBeNull();
   });
   it("does not create a new ReviewTask from a late system entry for an older business event", () => {
     const lateEntry = snapshot("late-entry", null, { asOfDate: "2026-06-01", createdAt: "2026-07-14T12:00:00.000Z" });

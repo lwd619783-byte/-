@@ -11,6 +11,12 @@ export interface BusinessTemporalComparison {
   uncertain: boolean;
 }
 
+export type ZonedLocalDateTimeResolution =
+  | { status: "valid"; instant: string; offsetMinutes: number }
+  | { status: "nonexistent"; candidates: [] }
+  | { status: "ambiguous"; candidates: Array<{ instant: string; offsetMinutes: number }> }
+  | { status: "invalid"; reason: string };
+
 const CALENDAR_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const PRECISE_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/;
 
@@ -110,21 +116,40 @@ export function getCalendarToday(now: Date, timeZone?: string | null) {
   return getCalendarDateInTimeZone(now, timeZone) ?? now.toISOString().slice(0, 10);
 }
 
-/** Converts a datetime-local wall clock value in the selected IANA zone into a precise UTC instant. */
-export function zonedLocalDateTimeToIso(value: string, timeZone?: string | null) {
+/** Resolves a datetime-local wall clock without silently normalizing DST gaps or overlaps. */
+export function resolveZonedLocalDateTime(value: string, timeZone?: string | null): ZonedLocalDateTimeResolution {
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?$/);
-  if (!match) return null;
-  const zone = resolveTimeZone(timeZone);
-  const wallClockUtc = Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]), Number(match[4]), Number(match[5]), Number(match[6] ?? "0"));
-  let candidate = wallClockUtc;
-  for (let index = 0; index < 3; index += 1) {
-    const parts = zonedParts(new Date(candidate), zone);
-    if (!parts) return null;
-    const representedUtc = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
-    candidate = wallClockUtc - (representedUtc - candidate);
+  if (!match) return { status: "invalid", reason: "本地日期时间格式无效" };
+  if (!timeZone || !isValidTimeZone(timeZone)) return { status: "invalid", reason: "IANA 时区无效" };
+  const wall = {
+    year: Number(match[1]),
+    month: Number(match[2]),
+    day: Number(match[3]),
+    hour: Number(match[4]),
+    minute: Number(match[5]),
+    second: Number(match[6] ?? "0"),
+  };
+  if (!isValidWallClock(wall)) return { status: "invalid", reason: "本地日期时间无效" };
+  const wallClockUtc = Date.UTC(wall.year, wall.month - 1, wall.day, wall.hour, wall.minute, wall.second);
+  const offsets = new Set<number>();
+  for (let sample = wallClockUtc - 36 * 60 * 60 * 1000; sample <= wallClockUtc + 36 * 60 * 60 * 1000; sample += 30 * 60 * 1000) {
+    const offset = zonedOffsetMinutes(new Date(sample), timeZone);
+    if (offset !== null) offsets.add(offset);
   }
-  const result = new Date(candidate);
-  return Number.isNaN(result.getTime()) ? null : result.toISOString();
+  const candidates = [...offsets]
+    .map((offsetMinutes) => ({ instantMs: wallClockUtc - offsetMinutes * 60_000, offsetMinutes }))
+    .filter(({ instantMs }) => sameWallClock(zonedParts(new Date(instantMs), timeZone), wall))
+    .sort((left, right) => left.instantMs - right.instantMs)
+    .map(({ instantMs, offsetMinutes }) => ({ instant: new Date(instantMs).toISOString(), offsetMinutes }));
+  if (candidates.length === 0) return { status: "nonexistent", candidates: [] };
+  if (candidates.length > 1) return { status: "ambiguous", candidates };
+  return { status: "valid", ...candidates[0] };
+}
+
+/** Compatibility wrapper: only uniquely resolvable wall clocks are converted. */
+export function zonedLocalDateTimeToIso(value: string, timeZone?: string | null) {
+  const resolved = resolveZonedLocalDateTime(value, timeZone);
+  return resolved.status === "valid" ? resolved.instant : null;
 }
 
 export function isoToZonedLocalDateTime(value: string | null | undefined, timeZone?: string | null) {
@@ -151,4 +176,34 @@ function zonedParts(date: Date, timeZone: string) {
   } catch {
     return null;
   }
+}
+
+function zonedOffsetMinutes(date: Date, timeZone: string) {
+  const parts = zonedParts(date, timeZone);
+  if (!parts) return null;
+  return (Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second) - date.getTime()) / 60_000;
+}
+
+function isValidWallClock(value: { year: number; month: number; day: number; hour: number; minute: number; second: number }) {
+  if (value.hour < 0 || value.hour > 23 || value.minute < 0 || value.minute > 59 || value.second < 0 || value.second > 59) return false;
+  const date = new Date(Date.UTC(value.year, value.month - 1, value.day, value.hour, value.minute, value.second));
+  return date.getUTCFullYear() === value.year
+    && date.getUTCMonth() + 1 === value.month
+    && date.getUTCDate() === value.day
+    && date.getUTCHours() === value.hour
+    && date.getUTCMinutes() === value.minute
+    && date.getUTCSeconds() === value.second;
+}
+
+function sameWallClock(
+  actual: ReturnType<typeof zonedParts>,
+  expected: { year: number; month: number; day: number; hour: number; minute: number; second: number },
+) {
+  return Boolean(actual
+    && actual.year === expected.year
+    && actual.month === expected.month
+    && actual.day === expected.day
+    && actual.hour === expected.hour
+    && actual.minute === expected.minute
+    && actual.second === expected.second);
 }

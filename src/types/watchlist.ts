@@ -73,6 +73,7 @@ export type ReviewTaskRuleType =
   | "earnings_expectation_added"
   | "earnings_expectation_revision_up"
   | "earnings_expectation_revision_down"
+  | "earnings_expectation_correction"
   | "earnings_expectation_comparison"
   | "earnings_expectation_data_warning";
 
