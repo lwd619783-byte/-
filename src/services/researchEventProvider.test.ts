@@ -124,6 +124,7 @@ describe("research event provider", () => {
       sourceUrl: "https://example.com/announcement",
     });
     expect(event.metrics.find((metric) => metric.key === "netProfitAttributableToParentForecastMidpoint")?.value).toBe(100);
+    expect(event.performanceDisclosureScope).toBe("listed_metrics");
   });
 
   it("associates periodic announcements with the exact financial report period", () => {
@@ -175,6 +176,16 @@ describe("research event provider", () => {
     expect(metadata.reviewStatus).toBe("pending");
     expect(partial.verificationStatus).toBe("partial");
     expect(partial.reviewReasons.join(" ")).toContain("部分解析");
+    expect(metadata.performanceDisclosureScope).toBe("unknown");
+  });
+
+  it("marks formal disclosures independently from local parsing and local summary refreshes", () => {
+    const metadataFormal = announcementToResearchEvent(stock, announcement({ category: "annual_report", parseStatus: "metadata_only", performanceForecastEvents: [], periodicReportEvent: null }));
+    const partialFlash = announcementToResearchEvent(stock, announcement({ category: "performance_express", parseStatus: "parse_partial", status: "partial", performanceForecastEvents: [], performanceExpressEvent: null }));
+    expect(metadataFormal.performanceDisclosureScope).toBe("all_metrics");
+    expect(partialFlash.performanceDisclosureScope).toBe("all_metrics");
+    expect(financialReportToResearchEvent(stock, report()).performanceDisclosureScope).toBe("all_metrics");
+    expect(financialSummaryToResearchEvent(stock, summary()).performanceDisclosureScope).toBe("none");
   });
 
   it("keeps missing financial values null and never converts them to zero", () => {

@@ -1,5 +1,6 @@
 import type { Market } from ".";
 import type { AnnouncementParseStatus } from "./marketData";
+import type { EarningsExpectationEventPayload } from "./earningsExpectation";
 
 export type ResearchEventType =
   | "earnings_preview"
@@ -8,14 +9,20 @@ export type ResearchEventType =
   | "periodic_report"
   | "financial_update"
   | "announcement"
-  | "data_warning";
+  | "data_warning"
+  | "earnings_expectation_added"
+  | "earnings_expectation_correction"
+  | "earnings_expectation_revision"
+  | "earnings_expectation_comparison_available"
+  | "earnings_expectation_data_warning";
 
-export type ResearchEventSourceType = "announcement" | "financial_report" | "provider_status";
+export type ResearchEventSourceType = "announcement" | "financial_report" | "provider_status" | "earnings_expectation";
 export type ResearchVerificationStatus = "verified" | "partial" | "metadata_only" | "stale" | "missing" | "error";
 export type ResearchParseStatus = AnnouncementParseStatus | "not_applicable" | "missing" | "stale" | "error";
 export type ResearchMateriality = "high" | "medium" | "low" | "unknown";
 export type ResearchReviewStatus = "pending" | "reviewed" | "not_required";
 export type ResearchMetricPeriodBasis = "cumulative" | "single_quarter" | "range" | "point";
+export type PerformanceDisclosureScope = "all_metrics" | "listed_metrics" | "unknown" | "none";
 
 export interface ResearchEventMetric {
   key: string;
@@ -37,6 +44,17 @@ export interface ResearchEvent {
   eventType: ResearchEventType;
   eventDate: string | null;
   publishedAt: string | null;
+  /** Business occurrence time; never replaced with a warning detection or audit time. */
+  eventOccurredAt?: string | null;
+  /** Persisted/normalized business date used for grouping and display fallback. */
+  eventBusinessDate?: string | null;
+  /** First exact audit instant at which the current warning episode became active. */
+  detectedAt?: string | null;
+  stateActivatedAt?: string | null;
+  /** Audit time at which the related snapshot entered local storage. */
+  recordedAt?: string | null;
+  /** Stable structured identity for one continuous warning lifecycle. */
+  warningEpisodeKey?: string | null;
   reportPeriod: string | null;
   title: string;
   summary: string;
@@ -48,12 +66,15 @@ export interface ResearchEvent {
   parseStatus: ResearchParseStatus;
   materiality: ResearchMateriality;
   metrics: ResearchEventMetric[];
+  /** Public performance-information coverage, independent from local numeric parse success. */
+  performanceDisclosureScope?: PerformanceDisclosureScope;
   relatedAnnouncementIds: string[];
   relatedFinancialPeriod: string | null;
   reviewStatus: ResearchReviewStatus;
   reviewReasons: string[];
   isRestated: boolean | null;
   updatedAt: string | null;
+  expectation?: EarningsExpectationEventPayload;
 }
 
 export type EarningsVerificationStage = "preview" | "revision" | "flash" | "formal";

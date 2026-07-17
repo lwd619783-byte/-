@@ -19,6 +19,13 @@ import type {
   Stock,
   WatchItem,
 } from "../types";
+import {
+  compareBusinessTemporal,
+  isCalendarDate,
+  isPreciseInstant,
+  resolveTimeZone,
+  toBusinessTemporal,
+} from "../utils/dateTime";
 
 type AnnouncementLike = AShareAnnouncementPreview | AShareAnnouncementDetailItem;
 
@@ -90,6 +97,7 @@ export function announcementToResearchEvent(stock: Stock, item: AnnouncementLike
     parseStatus,
     materiality: eventType === "announcement" ? "medium" : "high",
     metrics,
+    performanceDisclosureScope: announcementPerformanceDisclosureScope(eventType, metrics),
     relatedAnnouncementIds: [...new Set(relatedIds)],
     relatedFinancialPeriod:
       "periodicReportEvent" in item ? item.periodicReportEvent?.linkedFinancialReportPeriod ?? null : null,
@@ -131,6 +139,7 @@ export function financialReportToResearchEvent(stock: Stock, report: FinancialRe
     parseStatus: "not_applicable",
     materiality: "high",
     metrics,
+    performanceDisclosureScope: "all_metrics",
     relatedAnnouncementIds: [],
     relatedFinancialPeriod: report.reportPeriod,
     reviewStatus: reviewReasons.length > 0 ? "pending" : "not_required",
@@ -176,6 +185,7 @@ export function financialSummaryToResearchEvent(stock: Stock, summary: AShareFin
     parseStatus: summary.status === "stale" ? "stale" : isFinancialError(summary.status) ? "error" : "not_applicable",
     materiality: "high",
     metrics,
+    performanceDisclosureScope: "none",
     relatedAnnouncementIds: [],
     relatedFinancialPeriod: reportPeriod,
     reviewStatus: reviewReasons.length > 0 ? "pending" : "not_required",
@@ -272,9 +282,9 @@ export function deduplicateResearchEvents(events: ResearchEvent[]): ResearchEven
   return [...selected.values()];
 }
 
-export function sortResearchEvents(events: ResearchEvent[]): ResearchEvent[] {
+export function sortResearchEvents(events: ResearchEvent[], timeZone = resolveTimeZone()): ResearchEvent[] {
   return [...events].sort((left, right) => {
-    const byDate = comparableDate(right) - comparableDate(left);
+    const byDate = compareEventBusinessTime(right, left, timeZone);
     return byDate === 0 ? left.id.localeCompare(right.id) : byDate;
   });
 }
@@ -371,11 +381,22 @@ export function eventTypeLabel(eventType: ResearchEventType) {
     financial_update: "财务更新",
     announcement: "公告",
     data_warning: "数据警告",
+    earnings_expectation_added: "新增业绩预期",
+    earnings_expectation_correction: "业绩预期数据更正",
+    earnings_expectation_revision: "业绩预期修订",
+    earnings_expectation_comparison_available: "预期比较可复盘",
+    earnings_expectation_data_warning: "预期数据核验",
   } as Record<ResearchEventType, string>)[eventType];
 }
 
 export function stageLabel(stage: EarningsVerificationStage) {
   return STAGE_LABELS[stage];
+}
+
+function announcementPerformanceDisclosureScope(eventType: ResearchEventType, metrics: ResearchEventMetric[]) {
+  if (eventType === "periodic_report" || eventType === "earnings_flash") return "all_metrics" as const;
+  if (eventType === "earnings_preview" || eventType === "earnings_preview_revision") return metrics.length ? "listed_metrics" as const : "unknown" as const;
+  return "none" as const;
 }
 
 function announcementCategoryToEventType(category: AnnouncementLike["category"]): ResearchEventType {
@@ -388,7 +409,7 @@ function announcementCategoryToEventType(category: AnnouncementLike["category"])
 
 function announcementPublishedAt(item: AnnouncementLike) {
   if (!item.announcementDate) return null;
-  if ("announcementTime" in item && item.announcementTime) return `${item.announcementDate}T${item.announcementTime}`;
+  if ("announcementTime" in item && item.announcementTime) return `${item.announcementDate}T${item.announcementTime}+08:00`;
   return item.announcementDate;
 }
 
@@ -545,11 +566,22 @@ function eventRichness(event: ResearchEvent) {
   return parseScore * 10 + event.metrics.filter((item) => item.value !== null).length + fullReportBonus;
 }
 
-function comparableDate(event: ResearchEvent) {
-  const value = event.publishedAt ?? event.eventDate ?? event.updatedAt;
-  if (!value) return Number.NEGATIVE_INFINITY;
-  const parsed = Date.parse(value);
-  return Number.isNaN(parsed) ? Number.NEGATIVE_INFINITY : parsed;
+function compareEventBusinessTime(left: ResearchEvent, right: ResearchEvent, timeZone: string) {
+  const leftValue = eventBusinessTemporal(left, timeZone);
+  const rightValue = eventBusinessTemporal(right, timeZone);
+  if (!leftValue && !rightValue) return 0;
+  if (!leftValue) return -1;
+  if (!rightValue) return 1;
+  return compareBusinessTemporal(leftValue, rightValue).order;
+}
+
+function eventBusinessTemporal(event: ResearchEvent, timeZone: string) {
+  for (const value of [event.publishedAt, event.eventDate, event.updatedAt]) {
+    if (!value) continue;
+    if (isPreciseInstant(value)) return toBusinessTemporal(value, "datetime", timeZone);
+    if (isCalendarDate(value)) return toBusinessTemporal(value, "date", timeZone);
+  }
+  return null;
 }
 
 function buildVerificationDifferences(

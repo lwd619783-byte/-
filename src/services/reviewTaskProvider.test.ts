@@ -90,6 +90,15 @@ describe("reviewTaskProvider", () => {
     for (const forbidden of ["买入", "卖出", "加仓", "减仓", "超机构预期", "目标价", "买入评级"]) expect(copy).not.toContain(forbidden);
   });
 
+  it("never creates directional tasks from uncertain business order or correction deltas", () => {
+    const uncertain = { ...event("uncertain", "earnings_expectation_revision"), expectation: { snapshotId: "z", sourceCategory: "user_estimate", sourceName: "用户个人预测", reportPeriod: "2026-06-30", metric: "revenue", expectedValue: 120, expectedLowerBound: null, expectedUpperBound: null, isExAnte: null, comparisonResult: null, sourceVerificationStatus: "verified", businessOrderStatus: "uncertain", businessRevisionDelta: null, revisionDirection: "up", revisionMagnitude: 0.2 } } as ResearchEvent;
+    const correction = { ...event("correction", "earnings_expectation_correction"), expectation: { ...uncertain.expectation, snapshotId: "c", correctsSnapshotId: "a", businessOrderStatus: "confirmed", correctionDelta: { correctionTargetId: "a", previousValue: 100, correctedValue: 120, valueDelta: 20, relativeDelta: 0.2, changedFields: ["value"], basisChanged: false, accountingScopeChanged: false, unitChanged: false, currencyChanged: false, correctionReason: null, calculationNote: null }, revisionDirection: null, revisionMagnitude: null } } as ResearchEvent;
+    const tasks = build([watch("watch", "stock-a", null)], [uncertain, correction]);
+    expect(tasks.some((task) => task.ruleType === "earnings_expectation_revision_up" || task.ruleType === "earnings_expectation_revision_down")).toBe(false);
+    expect(tasks.some((task) => task.ruleType === "earnings_expectation_correction")).toBe(true);
+    expect(tasks.find((task) => task.ruleType === "earnings_expectation_correction")?.description).toContain("不代表业务预测上调或下调");
+  });
+
   it("ignores archived and sample items", () => {
     const archived = { ...watch("archived", "stock-a", null), archivedAt: "2026-07-12" };
     const sample = { ...watch("sample", "stock-b", null), source: "sample" as const };

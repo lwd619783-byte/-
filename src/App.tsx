@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, LineChart, RefreshCw, type LucideIcon } from "lucide-react";
+import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, LineChart, Plus, ScrollText, RefreshCw, type LucideIcon } from "lucide-react";
 import { Header } from "./components/layout/Header";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { RightRail } from "./components/layout/RightRail";
@@ -12,18 +12,26 @@ import { WatchlistTab } from "./components/watchlist/WatchlistTab";
 import { WatchItemFormModal } from "./components/watchlist/WatchItemFormModal";
 import { ReviewFormModal } from "./components/watchlist/ReviewFormModal";
 import { ResearchEventCenter } from "./components/research/ResearchEventCenter";
+import { EarningsExpectationCenter } from "./components/expectation/EarningsExpectationCenter";
+import { EarningsExpectationFormModal } from "./components/expectation/EarningsExpectationFormModal";
+import { EarningsExpectationImportModal } from "./components/expectation/EarningsExpectationImportModal";
 import { dataSourceNote, macroIndicators } from "./data/macroData";
 import { watchlistSamples } from "./data/watchlist";
 import { buildDashboardDataset } from "./services/dataProvider";
-import { buildResearchEventSnapshot } from "./services/researchEventProvider";
+import { buildResearchEventSnapshot, deduplicateResearchEvents, sortResearchEvents } from "./services/researchEventProvider";
 import { buildReviewTasks } from "./services/reviewTaskProvider";
 import { createBrowserWatchlistRepository, createEmptyWatchlistEnvelope } from "./services/watchlistRepository";
 import { WatchlistStore, type CreateWatchItemInput, type WatchItemMetadataInput, type WatchlistActionResult } from "./services/watchlistStore";
-import type { DashboardDataMode, Stock, WatchItem } from "./types";
+import { createBrowserEarningsExpectationRepository, createEmptyEarningsExpectationEnvelope, earningsExpectationCsvTemplate, exportEarningsExpectationCsv } from "./services/earningsExpectationRepository";
+import { EarningsExpectationStore, type CreateEarningsExpectationSnapshotInput, type EarningsExpectationActionResult } from "./services/earningsExpectationStore";
+import { buildEarningsExpectationComparisons } from "./services/earningsExpectationComparisonProvider";
+import { buildEarningsExpectationResearchEvents } from "./services/earningsExpectationEventProvider";
+import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant } from "./utils/dateTime";
+import type { DashboardDataMode, EarningsExpectationSnapshot, Stock, WatchItem } from "./types";
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
 import { formatPercent } from "./utils/normalize";
 
-type MainTab = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心";
+type MainTab = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心" | "预期证据";
 
 const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
   { id: "宏观", icon: LineChart },
@@ -31,6 +39,7 @@ const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
   { id: "个股池", icon: BarChart3 },
   { id: "观察清单", icon: Binoculars },
   { id: "验证中心", icon: FlaskConical },
+  { id: "预期证据", icon: ScrollText },
 ];
 
 export default function App() {
@@ -48,16 +57,31 @@ export default function App() {
   const [watchForm, setWatchForm] = useState<{ itemId?: string; stockId?: string } | null>(null);
   const [reviewItemId, setReviewItemId] = useState<string | null>(null);
   const [correctionReviewId, setCorrectionReviewId] = useState<string | null>(null);
+  const expectationRepository = useMemo(() => createBrowserEarningsExpectationRepository(), []);
+  const expectationStore = useMemo(() => new EarningsExpectationStore(expectationRepository), [expectationRepository]);
+  const initialExpectationLoad = useMemo(() => expectationRepository.load(), [expectationRepository]);
+  const [expectationData, setExpectationData] = useState(initialExpectationLoad.data);
+  const [expectationStorageError, setExpectationStorageError] = useState<string | null>(initialExpectationLoad.error);
+  const [expectationCorruptedRaw, setExpectationCorruptedRaw] = useState<string | null>(initialExpectationLoad.corruptedRaw);
+  const [expectationForm, setExpectationForm] = useState<{ stockId?: string; correctionId?: string } | null>(null);
+  const [expectationImportOpen, setExpectationImportOpen] = useState(false);
   const dataset = useMemo(() => buildDashboardDataset(dataMode), [dataMode]);
-  const researchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
+  const baseResearchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
+  const expectationComparisons = useMemo(() => buildEarningsExpectationComparisons(expectationData.snapshots, baseResearchSnapshot.events, expectationData.settings), [baseResearchSnapshot.events, expectationData.settings, expectationData.snapshots]);
+  const expectationEvents = useMemo(() => buildEarningsExpectationResearchEvents(expectationData.snapshots, expectationComparisons, dataset.stocks, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone), [dataset.stocks, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationData.snapshots]);
+  const researchSnapshot = useMemo(() => ({ ...baseResearchSnapshot, events: sortResearchEvents(deduplicateResearchEvents([...baseResearchSnapshot.events, ...expectationEvents]), expectationData.settings.timeZone) }), [baseResearchSnapshot, expectationData.settings.timeZone, expectationEvents]);
   const reviewTasks = useMemo(() => buildReviewTasks({
     watchItems: watchlistData.watchItems,
     events: researchSnapshot.events,
     chains: researchSnapshot.chains,
     taskStates: watchlistData.reviewTaskStates,
     longUnreviewedDays: watchlistData.settings.longUnreviewedDays,
-  }), [researchSnapshot, watchlistData]);
+    expectationRevisionThreshold: expectationData.settings.revisionReminderThreshold,
+    timeZone: expectationData.settings.timeZone,
+  }), [expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, researchSnapshot, watchlistData]);
   const exportJson = useMemo(() => repository.export(watchlistData), [repository, watchlistData]);
+  const expectationExportJson = useMemo(() => expectationRepository.export(expectationData), [expectationData, expectationRepository]);
+  const expectationExportCsv = useMemo(() => exportEarningsExpectationCsv(expectationData.snapshots), [expectationData.snapshots]);
   const activeSelectedStock = selectedStock ? dataset.stocks.find((stock) => stock.id === selectedStock.id) ?? null : null;
 
   const dashboardStats = useMemo(() => {
@@ -88,19 +112,24 @@ export default function App() {
         : hkQuoteTotal === undefined
           ? "港股暂未接入"
           : `港股 ${hkRealCount}/${hkQuoteTotal} 暂未接入`;
-    const sevenDayCutoff = new Date();
-    sevenDayCutoff.setDate(sevenDayCutoff.getDate() - 6);
-    const cutoff = `${sevenDayCutoff.getFullYear()}-${String(sevenDayCutoff.getMonth() + 1).padStart(2, "0")}-${String(sevenDayCutoff.getDate()).padStart(2, "0")}`;
-    const recentEvents = researchSnapshot.events.filter((event) => event.eventType !== "data_warning" && (event.eventDate ?? event.publishedAt?.slice(0, 10) ?? event.updatedAt?.slice(0, 10) ?? "") >= cutoff).length;
+    const cutoff = shiftCalendarDate(getCalendarToday(new Date(), expectationData.settings.timeZone), -6);
+    const recentEvents = researchSnapshot.events.filter((event) => event.eventType !== "data_warning" && eventCalendarDate(event, expectationData.settings.timeZone) >= cutoff).length;
     const pendingReviewCompanies = new Set(researchSnapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
     const verificationChains = researchSnapshot.chains.length;
     const dataReviewItems = researchSnapshot.events.filter((event) => event.eventType === "data_warning" || event.reviewStatus === "pending").length;
-    const today = localDate(new Date());
+    const today = getCalendarToday(new Date(), expectationData.settings.timeZone);
     const pendingTasks = reviewTasks.filter((task) => task.status === "pending");
     const todayReview = new Set(pendingTasks.filter((task) => task.ruleType === "due_review" || task.dueAt === today).map((task) => task.watchItemId)).size;
     const overdueReview = new Set(pendingTasks.filter((task) => task.ruleType === "overdue_review").map((task) => task.watchItemId)).size;
     const newEventReminder = new Set(pendingTasks.filter((task) => task.relatedEventIds.length > 0).map((task) => task.watchItemId)).size;
     const highPriorityWatch = watchlistData.watchItems.filter((item) => !item.archivedAt && item.priority === "high").length;
+    const recentExpectationSnapshots = expectationEvents.filter((event) => event.eventType === "earnings_expectation_added" && event.eventDate && event.eventDate >= cutoff).length;
+    const expectationCorrections = expectationEvents.filter((event) => event.eventType === "earnings_expectation_correction" && event.eventDate && event.eventDate >= cutoff).length;
+    const latestExpectationRevisions = expectationEvents.filter((event) => event.eventType === "earnings_expectation_revision" && event.eventDate && event.eventDate >= cutoff);
+    const expectationRevisionUp = latestExpectationRevisions.filter((event) => event.expectation?.businessOrderStatus === "confirmed" && event.expectation.businessRevisionDelta?.direction === "up" && Math.abs(event.expectation.businessRevisionDelta.relativeDelta) >= expectationData.settings.revisionReminderThreshold).length;
+    const expectationRevisionDown = latestExpectationRevisions.filter((event) => event.expectation?.businessOrderStatus === "confirmed" && event.expectation.businessRevisionDelta?.direction === "down" && Math.abs(event.expectation.businessRevisionDelta.relativeDelta) >= expectationData.settings.revisionReminderThreshold).length;
+    const reviewableExpectationActuals = expectationComparisons.filter((comparison) => comparison.comparabilityStatus === "comparable").length;
+    const pendingExpectationSources = expectationData.snapshots.filter((snapshot) => snapshot.sourceVerificationStatus !== "verified").length;
 
     return {
       stocksWithReal,
@@ -122,8 +151,14 @@ export default function App() {
       overdueReview,
       newEventReminder,
       highPriorityWatch,
+      recentExpectationSnapshots,
+      expectationCorrections,
+      expectationRevisionUp,
+      expectationRevisionDown,
+      reviewableExpectationActuals,
+      pendingExpectationSources,
     };
-  }, [dataset, researchSnapshot, reviewTasks, watchlistData.watchItems]);
+  }, [dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationData.snapshots, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
 
   const applyAction = (result: WatchlistActionResult, successMessage: string) => {
     if (result.ok) {
@@ -146,6 +181,23 @@ export default function App() {
   };
   const restoreWatchItem = (item: WatchItem) => applyAction(watchlistStore.restoreWatchItem(watchlistData, item.id), "归档观察项已恢复。");
   const startReview = (item: WatchItem) => { setCorrectionReviewId(null); setReviewItemId(item.id); };
+  const applyExpectationAction = (result: EarningsExpectationActionResult, message: string) => {
+    if (result.ok) {
+      setExpectationData(result.data);
+      setExpectationStorageError(null);
+      setWorkflowMessage(message);
+      setExpectationForm(null);
+    } else {
+      setExpectationStorageError(result.error);
+      setWorkflowMessage(null);
+    }
+  };
+  const saveExpectation = (input: CreateEarningsExpectationSnapshotInput, correctsSnapshotId?: string) => {
+    const result = correctsSnapshotId
+      ? expectationStore.appendCorrection(expectationData, correctsSnapshotId, input)
+      : expectationStore.appendSnapshot(expectationData, input);
+    applyExpectationAction(result, correctsSnapshotId ? "纠正快照已追加，原快照保持不变。" : "业绩预期不可变快照已保存。");
+  };
 
   return (
     <div className="terminal-grid min-h-screen bg-bg text-text">
@@ -166,11 +218,14 @@ export default function App() {
           <section className="min-w-0 space-y-4">
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
-              <SectionHeader
-                eyebrow="Research Command Center"
-                title="事件验证、风险核验与核心资产跟踪"
-                description="优先展示真实公告和财务数据触发的投研动作；数据健康与缺失覆盖保留为底层证据状态。"
-              />
+              <div className="min-w-0">
+                <SectionHeader
+                  eyebrow="Research Command Center"
+                  title="事件验证、风险核验与核心资产跟踪"
+                  description="优先展示真实公告和财务数据触发的投研动作；数据健康与缺失覆盖保留为底层证据状态。"
+                />
+                <button type="button" onClick={() => setExpectationForm({})} className="mt-4 inline-flex h-9 items-center gap-2 rounded border border-cyan/50 px-3 text-xs text-cyan hover:border-cyan"><Plus className="h-4 w-4" />添加业绩预期</button>
+              </div>
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
                   <p className="text-xs text-textMuted">行业 / 细分</p>
@@ -224,6 +279,17 @@ export default function App() {
               icon={<AlertTriangle className="h-4 w-4" />}
             />
           </section>
+
+          <DashboardCard className="p-3">
+            <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-6" aria-label="业绩预期行动指标">
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增业绩预期：<strong className="text-textStrong">{dashboardStats.recentExpectationSnapshots}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">数据更正：<strong className="text-cyan">{dashboardStats.expectationCorrections}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期上修：<strong className="text-success">{dashboardStats.expectationRevisionUp}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期下修：<strong className="text-warning">{dashboardStats.expectationRevisionDown}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增可复盘实际结果：<strong className="text-textStrong">{dashboardStats.reviewableExpectationActuals}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">来源待核验：<strong className="text-warning">{dashboardStats.pendingExpectationSources}</strong></button>
+            </div>
+          </DashboardCard>
 
           <DashboardCard className="p-3">
             <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-4" aria-label="数据健康信息">
@@ -312,7 +378,25 @@ export default function App() {
               industries={dataset.industries}
               watchItems={watchlistData.watchItems}
               reviewTasks={reviewTasks}
+              timeZone={expectationData.settings.timeZone}
               onStartReview={startReview}
+              onOpenStock={setSelectedStock}
+            />
+          )}
+          {activeTab === "预期证据" && (
+            <EarningsExpectationCenter
+              snapshots={expectationData.snapshots}
+              comparisons={expectationComparisons}
+              researchEvents={expectationEvents}
+              importHistory={expectationData.importHistory}
+              stocks={dataset.stocks}
+              industries={dataset.industries}
+              watchItems={watchlistData.watchItems}
+              storageError={expectationStorageError}
+              timeZone={expectationData.settings.timeZone}
+              onAdd={() => setExpectationForm({})}
+              onCorrect={(snapshot) => setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id })}
+              onImport={() => setExpectationImportOpen(true)}
               onOpenStock={setSelectedStock}
             />
           )}
@@ -340,11 +424,15 @@ export default function App() {
         reviewEntries={watchlistData.reviewEntries}
         reviewTasks={reviewTasks}
         researchEvents={researchSnapshot.events}
+        earningsExpectationSnapshots={expectationData.snapshots}
+        earningsExpectationTimeZone={expectationData.settings.timeZone}
         onAddToWatchlist={(stock) => setWatchForm({ stockId: stock.id })}
         onEditWatchItem={(item) => setWatchForm({ itemId: item.id })}
         onStartReview={startReview}
         onCorrectReview={(entry) => { setReviewItemId(entry.watchItemId); setCorrectionReviewId(entry.id); }}
         onRestoreWatchItem={restoreWatchItem}
+        onAddEarningsExpectation={(stock) => setExpectationForm({ stockId: stock.id })}
+        onCorrectEarningsExpectation={(snapshot) => setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id })}
         onClose={() => setSelectedStock(null)}
         onOpenStock={setSelectedStock}
       />
@@ -368,10 +456,61 @@ export default function App() {
           if (applyAction(watchlistStore.completeReview(watchlistData, reviewItemId, input), "复盘已提交，当前判断与历史记录已原子保存。")) { setReviewItemId(null); setCorrectionReviewId(null); }
         }}
       /> : null}
+
+      {expectationForm ? <EarningsExpectationFormModal
+        stocks={dataset.stocks}
+        initialStockId={expectationForm.stockId}
+        correctionTarget={expectationForm.correctionId ? expectationData.snapshots.find((snapshot) => snapshot.id === expectationForm.correctionId) : null}
+        timeZone={expectationData.settings.timeZone}
+        onClose={() => setExpectationForm(null)}
+        onSubmit={saveExpectation}
+      /> : null}
+
+      {expectationImportOpen ? <EarningsExpectationImportModal
+        exportJson={expectationExportJson}
+        exportCsv={expectationExportCsv}
+        csvTemplate={earningsExpectationCsvTemplate()}
+        corruptedRaw={expectationCorruptedRaw}
+        onPreviewJson={(raw) => expectationRepository.previewJson(raw, expectationData, { timeZone: expectationData.settings.timeZone, validStocks: dataset.stocks.map((stock) => ({ id: stock.id, code: stock.code, market: stock.market })) })}
+        onPreviewCsv={(raw, fileName) => expectationRepository.previewCsv(raw, expectationData, { timeZone: expectationData.settings.timeZone, fileName, validStocks: dataset.stocks.map((stock) => ({ id: stock.id, code: stock.code, market: stock.market })) })}
+        onImport={(preview, method, mode, fileName, partialConfirmed) => {
+          const result = expectationRepository.importPreview(preview, expectationData, method, mode, fileName, partialConfirmed);
+          if (result.ok && result.data) {
+            setExpectationData(result.data);
+            setExpectationStorageError(null);
+            setExpectationCorruptedRaw(null);
+            setWorkflowMessage(`${mode === "replace" ? "替换" : "合并"}导入完成：新增 ${result.preview.addCount}，重复 ${result.preview.duplicateCount}。`);
+            setExpectationImportOpen(false);
+          } else setExpectationStorageError(result.error);
+        }}
+        onReset={() => {
+          const result = expectationRepository.reset();
+          if (result.ok) {
+            setExpectationData(createEmptyEarningsExpectationEnvelope());
+            setExpectationStorageError(null);
+            setExpectationCorruptedRaw(null);
+            setWorkflowMessage("本地业绩预期已重置为空状态。");
+            setExpectationImportOpen(false);
+          } else setExpectationStorageError(result.error);
+        }}
+        onClose={() => setExpectationImportOpen(false)}
+      /> : null}
     </div>
   );
 }
 
-function localDate(value: Date) {
-  return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`;
+function shiftCalendarDate(value: string, days: number) {
+  const date = new Date(`${value}T00:00:00.000Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function eventCalendarDate(event: { eventDate: string | null; publishedAt: string | null; updatedAt: string | null }, timeZone: string) {
+  if (event.eventDate) return event.eventDate;
+  for (const value of [event.publishedAt, event.updatedAt]) {
+    if (!value) continue;
+    const calendarDate = getTemporalCalendarDate(value, isPreciseInstant(value) ? "datetime" : "date", timeZone);
+    if (calendarDate) return calendarDate;
+  }
+  return "";
 }

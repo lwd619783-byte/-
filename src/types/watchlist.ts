@@ -69,7 +69,13 @@ export type ReviewTaskRuleType =
   | "material_difference"
   | "cash_flow_profit_divergence"
   | "data_quality_warning"
-  | "long_unreviewed";
+  | "long_unreviewed"
+  | "earnings_expectation_added"
+  | "earnings_expectation_revision_up"
+  | "earnings_expectation_revision_down"
+  | "earnings_expectation_correction"
+  | "earnings_expectation_comparison"
+  | "earnings_expectation_data_warning";
 
 export type ReviewTaskSeverity = "high" | "medium" | "low";
 export type ReviewTaskStatus = "pending" | "acknowledged" | "dismissed" | "snoozed";

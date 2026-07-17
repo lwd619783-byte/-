@@ -3,6 +3,7 @@ import { AlertTriangle, CalendarDays, CheckSquare, ExternalLink, FileCheck2, Lin
 import type { EarningsVerificationChain, EarningsVerificationStage, Industry, ResearchEvent, ResearchEventSnapshot, ResearchEventType, ReviewTask, Stock, WatchItem } from "../../types";
 import { eventTypeLabel, stageLabel } from "../../services/researchEventProvider";
 import { formatFinancialAmount } from "../../utils/financialDisplay";
+import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant, resolveTimeZone } from "../../utils/dateTime";
 import { DashboardCard, EmptyState, KpiCard, SectionHeader, TextClamp } from "../common/terminal";
 
 interface ResearchEventCenterProps {
@@ -14,18 +15,20 @@ interface ResearchEventCenterProps {
   reviewTasks?: ReviewTask[];
   onStartReview?: (item: WatchItem) => void;
   now?: Date;
+  timeZone?: string;
 }
 
 type DateWindow = "7" | "30" | "all";
 
-export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock, watchItems = [], reviewTasks = [], onStartReview, now = new Date() }: ResearchEventCenterProps) {
+export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock, watchItems = [], reviewTasks = [], onStartReview, now = new Date(), timeZone: requestedTimeZone }: ResearchEventCenterProps) {
+  const timeZone = resolveTimeZone(requestedTimeZone);
   const [company, setCompany] = useState("all");
   const [industry, setIndustry] = useState("all");
   const [eventType, setEventType] = useState<ResearchEventType | "all">("all");
   const [dateWindow, setDateWindow] = useState<DateWindow>("30");
   const [parseStatus, setParseStatus] = useState("all");
   const [reviewOnly, setReviewOnly] = useState(false);
-  const cutoff = useMemo(() => dateCutoff(now, dateWindow), [now, dateWindow]);
+  const cutoff = useMemo(() => dateCutoff(now, dateWindow, timeZone), [now, dateWindow, timeZone]);
 
   const filteredEvents = useMemo(() => snapshot.events.filter((event) => {
     if (company !== "all" && event.stockId !== company) return false;
@@ -33,10 +36,10 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
     if (eventType !== "all" && event.eventType !== eventType) return false;
     if (parseStatus !== "all" && event.parseStatus !== parseStatus && event.verificationStatus !== parseStatus) return false;
     if (reviewOnly && event.reviewStatus !== "pending") return false;
-    if (cutoff && !eventDate(event)) return false;
-    if (cutoff && (eventDate(event) as string) < cutoff) return false;
+    if (cutoff && !eventDate(event, timeZone)) return false;
+    if (cutoff && (eventDate(event, timeZone) as string) < cutoff) return false;
     return true;
-  }), [company, cutoff, eventType, industry, parseStatus, reviewOnly, snapshot.events]);
+  }), [company, cutoff, eventType, industry, parseStatus, reviewOnly, snapshot.events, timeZone]);
 
   const visibleChains = useMemo(() => snapshot.chains.filter((chain) => {
     const stock = stocks.find((item) => item.id === chain.stockId);
@@ -44,8 +47,8 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
   }).slice(0, 12), [company, industry, snapshot.chains, stocks]);
 
   const queue = useMemo(() => snapshot.events.filter(needsDataReview), [snapshot.events]);
-  const sevenDayCutoff = dateCutoff(now, "7") as string;
-  const recentCount = snapshot.events.filter((event) => event.eventType !== "data_warning" && (eventDate(event) ?? "") >= sevenDayCutoff).length;
+  const sevenDayCutoff = dateCutoff(now, "7", timeZone) as string;
+  const recentCount = snapshot.events.filter((event) => !["data_warning", "earnings_expectation_data_warning"].includes(event.eventType) && (eventDate(event, timeZone) ?? "") >= sevenDayCutoff).length;
   const pendingCompanies = new Set(snapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
   const performanceCount = snapshot.events.filter((event) => ["earnings_preview", "earnings_flash", "periodic_report"].includes(event.eventType)).length;
 
@@ -57,6 +60,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
           title="投研事件与业绩验证中心"
           description="把已提交的真实公告与财务摘要统一为可追溯事件；全量历史和差异明细在打开个股后按需加载。"
         />
+        <p className="mt-2 text-xs text-textMuted">工作流时区：{timeZone}</p>
       </DashboardCard>
 
       <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4" aria-label="验证中心指标">
@@ -70,7 +74,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
           <Filter label="公司" value={company} onChange={setCompany} options={[{ value: "all", label: "全部公司" }, ...stocks.filter((stock) => stock.market === "A股").map((stock) => ({ value: stock.id, label: `${stock.name} ${stock.code}` }))]} />
           <Filter label="行业" value={industry} onChange={setIndustry} options={[{ value: "all", label: "全部行业" }, ...industries.map((item) => ({ value: item.id, label: item.name }))]} />
-          <Filter label="事件类型" value={eventType} onChange={(value) => setEventType(value as ResearchEventType | "all")} options={[{ value: "all", label: "全部事件" }, ...(["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report", "financial_update", "announcement", "data_warning"] as ResearchEventType[]).map((value) => ({ value, label: eventTypeLabel(value) }))]} />
+          <Filter label="事件类型" value={eventType} onChange={(value) => setEventType(value as ResearchEventType | "all")} options={[{ value: "all", label: "全部事件" }, ...(["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report", "financial_update", "announcement", "data_warning", "earnings_expectation_added", "earnings_expectation_correction", "earnings_expectation_revision", "earnings_expectation_comparison_available", "earnings_expectation_data_warning"] as ResearchEventType[]).map((value) => ({ value, label: eventTypeLabel(value) }))]} />
           <Filter label="日期" value={dateWindow} onChange={(value) => setDateWindow(value as DateWindow)} options={[{ value: "7", label: "最近 7 天" }, { value: "30", label: "最近 30 天" }, { value: "all", label: "全部日期" }]} />
           <Filter label="解析 / 数据状态" value={parseStatus} onChange={setParseStatus} options={[{ value: "all", label: "全部状态" }, { value: "parse_success", label: "parse_success" }, { value: "parse_partial", label: "parse_partial" }, { value: "metadata_only", label: "metadata_only" }, { value: "stale", label: "stale" }, { value: "missing", label: "missing" }, { value: "error", label: "error" }]} />
           <label className="flex min-w-0 flex-col gap-1 text-xs text-textMuted">
@@ -140,6 +144,8 @@ function EventCard({ event, stock, watchItem, tasks, onOpenStock, onStartReview 
           </div>
           <p className="mt-2 text-sm font-semibold text-textStrong">{event.title}</p>
           <p className="mt-1 text-xs text-textMuted">公告 / 事件日期：{event.eventDate ?? "缺失"} · 报告期：{event.reportPeriod ?? "缺失"}</p>
+          {event.expectation ? <p className="mt-1 text-xs text-textMuted">原记录时间：{event.expectation.originalBusinessTime ?? "缺失"}（{event.expectation.businessTimePrecision ?? "date"}） · 当前有效时间：{event.expectation.effectiveBusinessTime ?? event.expectation.originalBusinessTime ?? "缺失"}（{event.expectation.effectiveBusinessTimePrecision ?? event.expectation.businessTimePrecision ?? "date"}）{event.expectation.temporalCorrectionApplied ? ` · 时间字段已纠正：${event.expectation.correctedTemporalFields?.join("、") || "待核验"}` : ""}{event.expectation.correctionRecordedAt ? ` · 纠正记录时间：${event.expectation.correctionRecordedAt}` : ""}{event.expectation.businessOrderStatus === "uncertain" ? " · 业务顺序不确定" : event.expectation.businessOrderStatus === "equal" ? " · 精确时刻相同，不代表先后" : ""}</p> : null}
+          {event.eventType === "earnings_expectation_correction" && event.expectation ? <p className="mt-1 text-xs text-warning">被纠正快照：{event.expectation.correctionDelta?.correctionTargetId ?? event.expectation.correctsSnapshotId ?? "缺失"} · 当前纠正链终点：{event.expectation.effectiveSnapshotId ?? "缺失"} · 变化字段：{event.expectation.correctionDelta?.changedFields.join("、") || "待核验"}</p> : null}
           <TextClamp lines={3} title={event.summary} className="mt-2 text-sm leading-6 text-textMuted">{event.summary}</TextClamp>
           {event.metrics.some((metric) => metric.value !== null) ? (
             <div className="mt-3 flex flex-wrap gap-2 text-xs text-textMuted">
@@ -206,19 +212,25 @@ function formatMetric(metric: ResearchEvent["metrics"][number]) {
   return String(metric.value);
 }
 
-function eventDate(event: ResearchEvent) {
-  return event.eventDate ?? event.publishedAt?.slice(0, 10) ?? event.updatedAt?.slice(0, 10) ?? null;
+function eventDate(event: ResearchEvent, timeZone: string) {
+  if (event.eventDate) return event.eventDate;
+  for (const value of [event.publishedAt, event.updatedAt]) {
+    if (!value) continue;
+    const calendarDate = getTemporalCalendarDate(value, isPreciseInstant(value) ? "datetime" : "date", timeZone);
+    if (calendarDate) return calendarDate;
+  }
+  return null;
 }
 
-function dateCutoff(now: Date, window: DateWindow) {
+function dateCutoff(now: Date, window: DateWindow, timeZone: string) {
   if (window === "all") return null;
-  const value = new Date(now);
-  value.setDate(value.getDate() - (Number(window) - 1));
-  return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`;
+  const value = new Date(`${getCalendarToday(now, timeZone)}T00:00:00.000Z`);
+  value.setUTCDate(value.getUTCDate() - (Number(window) - 1));
+  return value.toISOString().slice(0, 10);
 }
 
 function needsDataReview(event: ResearchEvent) {
-  return event.eventType === "data_warning"
+  return event.eventType === "data_warning" || event.eventType === "earnings_expectation_data_warning"
     || ["parse_partial", "metadata_only", "parse_unavailable", "missing", "stale", "error"].includes(event.parseStatus)
     || event.metrics.some((metric) => metric.value === null)
     || event.reviewReasons.some((reason) => reason.includes("无法匹配"));
