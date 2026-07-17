@@ -2,9 +2,9 @@
 
 ## 目标与边界
 
-V1 为人工录入或结构化导入的业绩预期建立可追溯、append-only 的证据链，并在真实财务或业绩快报出现后进行严格同口径比较。它不抓取商业数据库、不保存完整券商研报正文、不绕过登录或订阅限制，也不生成买卖建议。
+V1 为人工录入、结构化导入以及只读公司官方指引 Provider 建立可追溯的业绩预期证据链，并在真实财务或业绩快报出现后进行严格同口径比较。它不抓取商业数据库、不保存完整券商研报正文、不绕过登录或订阅限制，也不生成买卖建议。
 
-自动机构一致预期 Provider 尚未实现，数据源注册表继续标记为 `not_implemented`。支持人工录入“有明确来源的机构一致预期”，不等于系统已经接入自动一致预期数据。
+自动机构一致预期 Provider 尚未实现，数据源注册表继续标记为 `not_implemented`。现有自动 Provider 仅来自已提交巨潮公告中可靠解析的公司业绩预告/修正；支持人工录入“有明确来源的机构一致预期”，不等于系统已经接入自动一致预期数据。
 
 ## 领域模型
 
@@ -36,9 +36,17 @@ V1 为人工录入或结构化导入的业绩预期建立可追溯、append-only
 - `manual`：表单人工录入；
 - `json_import`：结构化 JSON 导入；
 - `csv_import`：结构化 CSV 导入；
-- `provider`：为未来接口预留。本轮没有自动 Provider，Repository 会拒绝真实 `provider` 记录。
+- `provider`：只读公司指引 Provider。它不属于用户 Store，Store/Repository 和 JSON/CSV 导入均拒绝把 Provider 快照写入 LocalStorage。
 
 来源类别与录入方式互相独立。通过 CSV 导入的单家机构预测仍是 `institution_single`，通过表单录入的一致预期也不能因此声称自动 Provider 已接入。
+
+## 公司官方指引 Provider
+
+公司指引 Provider 从已提交巨潮公告摘要、Manifest 与 56 个公司详情中确定性生成，只接受可靠的 `earnings_preview` / `earnings_preview_revision` 字段。快报和正式报告仍是实际披露或披露边界，不会映射成预测。Provider 摘要同步加载、详情按公司通过 allowlist Manifest 懒加载；快照只读，不进入 LocalStorage，不覆盖人工、JSON 或 CSV 证据。
+
+Provider 快照 ID 由 Provider、公告 ID、公司、报告期、期间口径和指标组成的稳定业务身份生成。公司内部形成时间未知，记录使用 `formationTimeBasis=public_disclosure_proxy`、保留 `formedAt=null`，公开公告时间只作为证据可用时间。详情、指标、覆盖、排除、修正链和验证命令见 [A股公司指引预期 Provider V1](./company-guidance-expectation-provider-v1.md)。
+
+用户曾手工录入同一官方公告时，两条记录均保留并显示重复标记；Comparison、ResearchEvent 和 ReviewTask 只使用官方 Provider 一次。Provider 刷新不会修改用户快照或既有任务状态。
 
 ## 本地存储与不可变纠错
 

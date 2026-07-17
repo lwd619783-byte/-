@@ -41,6 +41,7 @@ export class EarningsExpectationStore {
   ) {}
 
   appendSnapshot(data: EarningsExpectationStoreEnvelope, input: CreateEarningsExpectationSnapshotInput): EarningsExpectationActionResult {
+    if (input.ingestionMethod === "provider") return failure(data, "Provider 快照只读，用户 Store API 不允许写入 ingestionMethod=provider。");
     const sourceTime = normalizeSourceTimeForWrite(input, data.settings.timeZone, false);
     if (!sourceTime.ok) return failure(data, sourceTime.error);
     const formationTime = normalizeFormationTimeForWrite(input, data.settings.timeZone, false);
@@ -63,6 +64,7 @@ export class EarningsExpectationStore {
     correctsSnapshotId: string,
     input: CreateEarningsExpectationSnapshotInput,
   ): EarningsExpectationActionResult {
+    if (input.ingestionMethod === "provider") return failure(data, "Provider 快照只读，用户 Store API 不允许写入 ingestionMethod=provider。");
     const original = data.snapshots.find((snapshot) => snapshot.id === correctsSnapshotId);
     if (!original) return failure(data, "待纠正的原快照不存在。");
     if (data.snapshots.some((snapshot) => snapshot.correctsSnapshotId === correctsSnapshotId)) return failure(data, "该快照已有纠正版本，请基于最新有效快照继续追加纠正。");

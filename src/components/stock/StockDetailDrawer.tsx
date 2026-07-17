@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { loadAShareFinancial } from "../../services/aShareFinancialLoader";
 import { loadAShareAnnouncements } from "../../services/aShareAnnouncementLoader";
-import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancialData, EarningsExpectationSnapshot, Industry, IndustrySegment, ResearchEvent, ReviewEntry, ReviewTask, Stock, WatchItem } from "../../types";
+import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancialData, EarningsExpectationProviderSnapshot, EarningsExpectationSnapshot, Industry, IndustrySegment, ResearchEvent, ReviewEntry, ReviewTask, Stock, WatchItem } from "../../types";
 import { displayFinancialField, financialStatusLabel, financialUnavailableLabel, formatFinancialAmount, formatFinancialChangeMetric, formatFinancialRatio } from "../../utils/financialDisplay";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
@@ -25,6 +25,11 @@ interface StockDetailDrawerProps {
   reviewTasks?: ReviewTask[];
   researchEvents?: ResearchEvent[];
   earningsExpectationSnapshots?: EarningsExpectationSnapshot[];
+  earningsExpectationProviderSnapshotIds?: Set<string>;
+  earningsExpectationDuplicateOfProviderByLocalId?: Map<string, string>;
+  earningsExpectationProviderRecordBySnapshotId?: Map<string, EarningsExpectationProviderSnapshot>;
+  companyGuidanceLoadStatus?: "idle" | "loading" | "success" | "error";
+  companyGuidanceLoadError?: string | null;
   earningsExpectationTimeZone?: string;
   onAddToWatchlist?: (stock: Stock) => void;
   onEditWatchItem?: (item: WatchItem) => void;
@@ -38,7 +43,7 @@ interface StockDetailDrawerProps {
 const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
-export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation }: StockDetailDrawerProps) {
+export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation }: StockDetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
@@ -194,6 +199,11 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
               announcementData={loadedAnnouncements}
               financialLoadStatus={financialLoad.stockId === stock.id ? financialLoad.status : "idle"}
               announcementLoadStatus={announcementLoad.stockId === stock.id ? announcementLoad.status : "idle"}
+              providerSnapshotIds={earningsExpectationProviderSnapshotIds}
+              duplicateOfProviderByLocalId={earningsExpectationDuplicateOfProviderByLocalId}
+              providerRecordBySnapshotId={earningsExpectationProviderRecordBySnapshotId}
+              providerLoadStatus={companyGuidanceLoadStatus}
+              providerLoadError={companyGuidanceLoadError}
               timeZone={earningsExpectationTimeZone}
               onAdd={onAddEarningsExpectation}
               onCorrect={onCorrectEarningsExpectation}

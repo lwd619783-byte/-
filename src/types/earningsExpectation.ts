@@ -16,6 +16,7 @@ export type EarningsExpectationAccountingBasis = "PRC_GAAP" | "IFRS" | "unknown"
 export type EarningsExpectationVerificationStatus = "verified" | "pending" | "unverified" | "invalid";
 export type EarningsExpectationTimePrecision = "date" | "datetime";
 export type EarningsExpectationCorrectionScope = "value" | "basis";
+export type EarningsExpectationFormationTimeBasis = "actual" | "public_disclosure_proxy" | "unknown";
 export type EarningsExpectationBusinessOrderStatus = "confirmed" | "equal" | "uncertain";
 export type EarningsExpectationDisclosureTimingStatus = "before" | "after" | "same_time" | "unknown";
 export type EarningsExpectationSourceTimeResolution = "date" | "absolute" | "workflow_time_zone" | "unresolved_legacy";
@@ -152,6 +153,16 @@ export interface EarningsExpectationSnapshot {
   formedAtTimeZone?: string | null;
   /** Persisted authority for the prediction business date; never recomputed from the current UI time zone. */
   formedAtCalendarDate?: string | null;
+  /** Provider records may use public disclosure as the evidence-availability proxy without claiming an internal formation time. */
+  formationTimeBasis?: EarningsExpectationFormationTimeBasis;
+  /** Present only on generated provider snapshots; local snapshot writers must not set these fields. */
+  providerId?: string;
+  providerVersion?: string;
+  providerGeneratedAt?: string;
+  sourceAnnouncementId?: string;
+  sourceAnnouncementType?: EarningsExpectationProviderSourceAnnouncementType;
+  officialPdfUrl?: string;
+  artifactChecksum?: string;
   analystCount: number | null;
   institutionCount: number | null;
   ingestionMethod: EarningsExpectationIngestionMethod;
@@ -290,6 +301,13 @@ export interface EarningsExpectationEventPayload {
   correctionRecordedAt?: string | null;
   sourceCategory: EarningsExpectationSourceCategory;
   sourceName: string;
+  ingestionMethod?: EarningsExpectationIngestionMethod;
+  providerId?: string;
+  providerVersion?: string;
+  providerGeneratedAt?: string;
+  sourceAnnouncementId?: string;
+  sourceAnnouncementType?: EarningsExpectationProviderSourceAnnouncementType;
+  officialPdfUrl?: string;
   reportPeriod: string;
   metric: EarningsExpectationMetric;
   expectedValue: number | null;
@@ -351,4 +369,122 @@ export interface EarningsExpectationBusinessOrderCandidate {
   sourceName: string;
   formationTime: CanonicalBusinessTemporal;
   availableAt: EarningsExpectationAvailabilityResolution;
+}
+
+export type EarningsExpectationProviderSourceAnnouncementType = "earnings_preview" | "earnings_preview_revision";
+export type CompanyGuidanceExpectationProviderStatus = "generated_real" | "partial" | "missing";
+
+export interface EarningsExpectationProviderSnapshot {
+  providerId: string;
+  providerVersion: string;
+  snapshot: EarningsExpectationSnapshot;
+  sourceAnnouncementId: string;
+  sourceAnnouncementType: EarningsExpectationProviderSourceAnnouncementType;
+  officialSourceUrl: string;
+  officialPdfUrl: string;
+  sourceDate: string;
+  generatedAt: string;
+  artifactChecksum: string;
+  sourceParseStatus: "parse_success" | "parse_partial";
+  sourceExtractionConfidence: "high" | "medium" | "low";
+  sourceTextEvidence: string;
+  originalUnitEvidence: string | null;
+  correctionCandidateAnnouncementIds: string[];
+  structuredWarnings: string[];
+}
+
+export interface CompanyGuidanceExpectationExclusion {
+  stockId: string;
+  companyName: string;
+  sourceAnnouncementId: string;
+  sourceAnnouncementType: EarningsExpectationProviderSourceAnnouncementType;
+  sourceTitle: string;
+  sourceDate: string | null;
+  reportPeriod: string | null;
+  periodScope: EarningsExpectationPeriodScope | null;
+  metric: string | null;
+  parseStatus: string;
+  officialSourceUrl: string | null;
+  candidateAnnouncementIds: string[];
+  reasons: string[];
+}
+
+export interface CompanyGuidanceExpectationWarning {
+  code: string;
+  sourceAnnouncementId: string;
+  candidateAnnouncementIds: string[];
+  message: string;
+}
+
+export interface CompanyGuidanceExpectationDetail {
+  schemaVersion: "1.0.0";
+  providerId: string;
+  providerVersion: string;
+  generatedAt: string;
+  stockId: string;
+  stockCode: string;
+  companyName: string;
+  market: "A股";
+  status: CompanyGuidanceExpectationProviderStatus;
+  totalAnnouncementCount: number;
+  providerSnapshots: EarningsExpectationProviderSnapshot[];
+  exclusions: CompanyGuidanceExpectationExclusion[];
+  warnings: CompanyGuidanceExpectationWarning[];
+}
+
+export interface CompanyGuidanceExpectationManifestEntry {
+  stockId: string;
+  stockCode: string;
+  companyName: string;
+  relativePath: string;
+  snapshotCount: number;
+  excludedAnnouncementCount: number;
+  byteSize: number;
+  checksumSha256: string;
+  latestReportPeriod: string | null;
+  latestSourceDate: string | null;
+  status: CompanyGuidanceExpectationProviderStatus;
+}
+
+export interface CompanyGuidanceExpectationManifest {
+  schemaVersion: "1.0.0";
+  providerId: string;
+  providerVersion: string;
+  generatedAt: string;
+  totalCompanies: number;
+  companiesWithSnapshots: number;
+  totalSnapshots: number;
+  items: CompanyGuidanceExpectationManifestEntry[];
+}
+
+export interface CompanyGuidanceExpectationSummaryItem {
+  stockId: string;
+  stockCode: string;
+  companyName: string;
+  status: CompanyGuidanceExpectationProviderStatus;
+  snapshotCount: number;
+  excludedAnnouncementCount: number;
+  latestReportPeriod: string | null;
+  latestSourceDate: string | null;
+  detailPath: string;
+}
+
+export interface CompanyGuidanceExpectationSummary {
+  schemaVersion: "1.0.0";
+  providerId: string;
+  providerVersion: string;
+  generatedAt: string;
+  sourceArtifact: string;
+  sourceGeneratedAt: string;
+  status: CompanyGuidanceExpectationProviderStatus;
+  audit: Record<string, unknown>;
+  items: Record<string, CompanyGuidanceExpectationSummaryItem>;
+}
+
+export interface AggregatedEarningsExpectationEvidence {
+  snapshots: EarningsExpectationSnapshot[];
+  comparisonSnapshots: EarningsExpectationSnapshot[];
+  providerSnapshotIds: Set<string>;
+  duplicateOfProviderByLocalId: Map<string, string>;
+  providerRecordBySnapshotId: Map<string, EarningsExpectationProviderSnapshot>;
 }

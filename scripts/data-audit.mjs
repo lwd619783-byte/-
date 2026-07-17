@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const ALLOWED_STATUSES = ["real", "generated_real", "manual_verified", "manual_unverified", "static_reference", "inferred", "mock", "placeholder", "stale", "conflicted", "partial", "not_implemented", "source_unavailable", "unknown"];
-export const REQUIRED_IDS = ["a-share-quotes", "a-share-price-history", "hk-quotes", "hk-price-history", "a-share-financials", "hk-financials", "announcements", "earnings-preview", "earnings-flash", "broker-research", "institution-consensus", "eps-net-profit-forecast", "valuation", "industry-prosperity", "customer-relations", "supplier-relations", "industry-chain-position", "technical-route", "risk-alerts", "evidence-items"];
+export const REQUIRED_IDS = ["a-share-quotes", "a-share-price-history", "hk-quotes", "hk-price-history", "a-share-financials", "hk-financials", "announcements", "earnings-preview", "earnings-flash", "expectation-company-guidance", "expectation-company-guidance-provider", "broker-research", "institution-consensus", "eps-net-profit-forecast", "valuation", "industry-prosperity", "customer-relations", "supplier-relations", "industry-chain-position", "technical-route", "risk-alerts", "evidence-items"];
 export const SKIP_DIRS = new Set(["node_modules", "dist", "build", "coverage", ".git", ".cache", "cache", "__pycache__", "test-fixtures", "fixtures"]);
 const SCAN_ROOTS = ["src", "scripts", "public"];
 const REGISTRY_FILE = "src/data/data-source-registry.ts";
@@ -335,6 +335,46 @@ export function detectAnnouncementArchitectureRisks(files, rootPath) {
   return findings;
 }
 
+export function detectCompanyGuidanceArchitectureRisks(files, rootPath) {
+  const findings = [];
+  const registryIds = ["expectation-company-guidance", "expectation-company-guidance-provider"];
+  const productionSources = files.filter((file) => /^src[\\/]/.test(path.relative(rootPath, file)) && /\.(?:ts|tsx|js|jsx)$/.test(file));
+  for (const file of productionSources) {
+    const relative = path.relative(rootPath, file).replaceAll("\\", "/");
+    const text = fs.readFileSync(file, "utf8");
+    if (/from\s+["'][^"']*a-share-company-guidance-expectations\/[^"']+\.json["']/.test(text)) {
+      add(findings, "P0", "bundle", "company-guidance-detail-static-import", `Production code statically imports a per-company guidance detail: ${relative}`, registryIds, "Import only the generated summary and resolve company details through the manifest", { file: relative });
+    }
+  }
+
+  const loaderPath = path.join(rootPath, "src/services/companyGuidanceExpectationProvider.ts");
+  const storePath = path.join(rootPath, "src/services/earningsExpectationStore.ts");
+  const summaryPath = path.join(rootPath, "src/data/real/a-share-company-guidance-expectation-summaries.generated.json");
+  const manifestPath = path.join(rootPath, "public/data/a-share-company-guidance-expectations/manifest.generated.json");
+  const detailDir = path.dirname(manifestPath);
+  if ([loaderPath, storePath, summaryPath, manifestPath].some((file) => !fs.existsSync(file))) {
+    add(findings, "P0", "company-guidance-architecture", "company-guidance-provider-files-missing", "Company guidance Provider production files or split artifacts are incomplete", registryIds, "Generate and commit the summary, manifest, details, loader and read-only Store guard");
+    return findings;
+  }
+
+  const loader = fs.readFileSync(loaderPath, "utf8");
+  const store = fs.readFileSync(storePath, "utf8");
+  if (!loader.includes("a-share-company-guidance-expectation-summaries.generated.json") || !loader.includes("manifest.generated.json") || !loader.includes("SAFE_PATH") || !loader.includes("inFlight")) add(findings, "P0", "company-guidance-architecture", "company-guidance-loader-contract-missing", "Company guidance loader lacks summary-only bootstrap, manifest allowlisting or in-flight deduplication", registryIds, "Keep the summary synchronous and load validated per-company details lazily", { file: path.relative(rootPath, loaderPath).replaceAll("\\", "/") });
+  if (!store.includes('ingestionMethod === "provider"')) add(findings, "P0", "production-route", "company-guidance-provider-write-guard-missing", "User expectation Store does not explicitly reject Provider writes", registryIds, "Reject Provider snapshots before any LocalStorage mutation", { file: path.relative(rootPath, storePath).replaceAll("\\", "/") });
+
+  try {
+    const summary = JSON.parse(fs.readFileSync(summaryPath, "utf8"));
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    const detailFiles = fs.readdirSync(detailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json");
+    if (summary.providerId !== "cninfo-company-guidance" || manifest.providerId !== "cninfo-company-guidance") add(findings, "P0", "schema", "company-guidance-provider-identity-mismatch", "Company guidance summary or manifest has an unexpected provider identity", registryIds, "Regenerate artifacts with the fixed V1 provider identity");
+    if (manifest.totalCompanies !== 56 || manifest.items?.length !== 56 || Object.keys(summary.items ?? {}).length !== 56 || detailFiles.length !== 56) add(findings, "P0", "coverage", "company-guidance-split-count-mismatch", "Company guidance summary, manifest and detail directory must each cover 56 company states", registryIds, "Regenerate split artifacts and remove orphan/missing files");
+    if (manifest.companiesWithSnapshots !== 15 || manifest.totalSnapshots !== 56 || summary.audit?.reliableCompanyCount !== 15 || summary.audit?.reliableSnapshotCount !== 56) add(findings, "P0", "coverage", "company-guidance-audit-count-mismatch", "Company guidance manifest and feasibility audit counts disagree", registryIds, "Regenerate artifacts from the committed announcement inputs and validate counts");
+  } catch {
+    add(findings, "P0", "schema", "company-guidance-split-json-invalid", "Company guidance summary or manifest JSON is invalid", registryIds, "Regenerate valid UTF-8 JSON artifacts");
+  }
+  return findings;
+}
+
 export function detectProviderObservabilityRisks(rootPath) {
   const findings = [];
   const configPath = path.join(rootPath, "config/provider-stability-gate-v1.json");
@@ -413,7 +453,7 @@ export function runAudit(rootPath) {
   const entries = parseRegistryEntries(fs.readFileSync(registryFile, "utf8"));
   const files = walkFiles(rootPath);
   const zeroResult = detectZeroFallbacks(files, rootPath);
-  const risks = [...validateRegistryEntries(entries, rootPath), ...zeroResult.findings, ...detectFinancialArchitectureRisks(files, rootPath), ...detectAnnouncementArchitectureRisks(files, rootPath), ...detectProviderObservabilityRisks(rootPath), ...capabilityRisks(entries)];
+  const risks = [...validateRegistryEntries(entries, rootPath), ...zeroResult.findings, ...detectFinancialArchitectureRisks(files, rootPath), ...detectAnnouncementArchitectureRisks(files, rootPath), ...detectCompanyGuidanceArchitectureRisks(files, rootPath), ...detectProviderObservabilityRisks(rootPath), ...capabilityRisks(entries)];
   return { entries, files, risks, ...classifyRisks(risks), allowlisted: zeroResult.allowlisted, skipped: SKIP_DIRS.size };
 }
 

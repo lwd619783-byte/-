@@ -50,6 +50,12 @@ jobs:
       - name: Validate committed announcement artifacts
         run: npm run data:validate:announcements:a
 
+      - name: Test company-guidance expectation provider offline
+        run: npm run test:expectations:company-guidance
+
+      - name: Validate committed company-guidance expectation artifacts
+        run: npm run data:validate:expectations:company-guidance
+
       - name: Test provider observability offline
         run: npm run test:provider-observability
 

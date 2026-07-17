@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "1.0.0",
+  "providerId": "cninfo-company-guidance",
+  "providerVersion": "1.0.0",
+  "generatedAt": "2026-07-11T07:31:40Z",
+  "stockId": "leisai",
+  "stockCode": "002979",
+  "companyName": "雷赛智能",
+  "market": "A股",
+  "status": "partial",
+  "totalAnnouncementCount": 291,
+  "targetAnnouncements": [
+    {
+      "sourceAnnouncementId": "1225404882",
+      "stockId": "leisai",
+      "sourceAnnouncementType": "earnings_preview_revision",
+      "sourceDate": "2026-07-03",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1225403602",
+      "stockId": "leisai",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2026-07-02",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    }
+  ],
+  "providerSnapshots": [],
+  "exclusions": [
+    {
+      "stockId": "leisai",
+      "companyName": "雷赛智能",
+      "sourceAnnouncementId": "1225404882",
+      "sourceAnnouncementType": "earnings_preview_revision",
+      "sourceTitle": "关于2026年半年度业绩预告的补充说明公告",
+      "sourceDate": "2026-07-03",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225404882",
+      "candidateAnnouncementIds": [
+        "1225403602"
+      ],
+      "reasons": [
+        "no_reliable_revised_range",
+        "parse_status_parse_partial"
+      ]
+    },
+    {
+      "stockId": "leisai",
+      "companyName": "雷赛智能",
+      "sourceAnnouncementId": "1225403602",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2026年半年度业绩预告",
+      "sourceDate": "2026-07-02",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225403602",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "code": "revision_without_reliable_range",
+      "sourceAnnouncementId": "1225404882",
+      "candidateAnnouncementIds": [
+        "1225403602"
+      ],
+      "message": "修正公告身份已保留，但没有可靠新区间，未生成方向性修订快照。"
+    }
+  ],
+  "quality": {
+    "source": "CNInfo",
+    "sourceLayer": "company_guidance_expectations",
+    "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+    "updatedAt": "2026-07-11T07:31:40Z",
+    "status": "partial"
+  }
+}

@@ -133,6 +133,11 @@ export function getExpectationAvailability(snapshot: EarningsExpectationSnapshot
   }
   const source = getExpectationSourcePublishedTemporal(snapshot);
   if (!source) return { status: "uncertain", value: null, candidates: [formation], reason: "missing_time", bounds: deriveAvailabilityBounds([formation, missingCanonicalTemporal()]) };
+  if (snapshot.ingestionMethod === "provider" && snapshot.formationTimeBasis === "public_disclosure_proxy") {
+    return source.status === "resolved" || source.status === "date_only"
+      ? { status: "resolved", value: source, decisiveSide: "source", bounds: source.bounds }
+      : { status: "uncertain", value: null, candidates: [source], reason: source.uncertaintyReason ?? "missing_time", bounds: deriveAvailabilityBounds([source]) };
+  }
   return laterCanonicalBusinessTemporal(formation, source);
 }
 

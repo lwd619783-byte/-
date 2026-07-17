@@ -1,10 +1,10 @@
 # 数据真实性审计与数据源注册表 V1
 
-- 执行时间：2026-07-17T13:21:59.788Z
-- 扫描文件：221
-- 注册表条目：28
-- P0：0；P1：8；P2：15；P3：0
-- errors：0；warnings：23；skipped 目录：10；allowlist 命中：23
+- 执行时间：2026-07-17T15:21:05.956Z
+- 扫描文件：283
+- 注册表条目：29
+- P0：0；P1：10；P2：14；P3：0
+- errors：0；warnings：24；skipped 目录：10；allowlist 命中：28
 - 退出码：0
 
 ## 结论
@@ -19,10 +19,10 @@
 
 ## 状态与风险统计
 
-- 状态分布：{"generated_real":6,"not_implemented":4,"partial":4,"manual_unverified":10,"manual_verified":1,"static_reference":1,"inferred":2}
-- 风险分布：{"P0":0,"P1":8,"P2":15,"P3":0}
+- 状态分布：{"generated_real":6,"not_implemented":4,"partial":6,"manual_unverified":9,"manual_verified":1,"static_reference":1,"inferred":2}
+- 风险分布：{"P0":0,"P1":10,"P2":14,"P3":0}
 - 阻断风险：0
-- 非阻断风险：23
+- 非阻断风险：24
 
 ## 风险清单
 
@@ -36,7 +36,8 @@
 | data-limitation | P1 | no | limitation | Data limitation: earnings-preview | src/data/data-source-registry.ts | - | earnings-preview |
 | data-limitation | P1 | no | limitation | Data limitation: earnings-flash | src/data/data-source-registry.ts | - | earnings-flash |
 | capability-gap | P1 | no | capability | Capability not implemented: broker-research | src/data/data-source-registry.ts | - | broker-research |
-| evidence-governance | P2 | no | evidence | Evidence requires verification: expectation-company-guidance | src/data/data-source-registry.ts | - | expectation-company-guidance |
+| data-limitation | P1 | no | limitation | Data limitation: expectation-company-guidance | src/data/data-source-registry.ts | - | expectation-company-guidance |
+| data-limitation | P1 | no | limitation | Data limitation: expectation-company-guidance-provider | src/data/data-source-registry.ts | - | expectation-company-guidance-provider |
 | evidence-governance | P2 | no | evidence | Evidence requires verification: expectation-institution-single | src/data/data-source-registry.ts | - | expectation-institution-single |
 | evidence-governance | P2 | no | evidence | Evidence requires verification: expectation-institution-consensus-manual | src/data/data-source-registry.ts | - | expectation-institution-consensus-manual |
 | evidence-governance | P2 | no | evidence | Evidence requires verification: expectation-manual-ingestion | src/data/data-source-registry.ts | - | expectation-manual-ingestion |

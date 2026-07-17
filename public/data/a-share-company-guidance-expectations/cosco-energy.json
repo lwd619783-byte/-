@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "1.0.0",
+  "providerId": "cninfo-company-guidance",
+  "providerVersion": "1.0.0",
+  "generatedAt": "2026-07-11T07:31:40Z",
+  "stockId": "cosco-energy",
+  "stockCode": "600026",
+  "companyName": "中远海能",
+  "market": "A股",
+  "status": "partial",
+  "totalAnnouncementCount": 354,
+  "targetAnnouncements": [
+    {
+      "sourceAnnouncementId": "1225418348",
+      "stockId": "cosco-energy",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2026-07-11",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1222284498",
+      "stockId": "cosco-energy",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2025-01-10",
+      "reportPeriod": null,
+      "periodScope": null,
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    }
+  ],
+  "providerSnapshots": [],
+  "exclusions": [
+    {
+      "stockId": "cosco-energy",
+      "companyName": "中远海能",
+      "sourceAnnouncementId": "1225418348",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "中远海能2026年半年度业绩预增公告",
+      "sourceDate": "2026-07-11",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225418348",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
+    },
+    {
+      "stockId": "cosco-energy",
+      "companyName": "中远海能",
+      "sourceAnnouncementId": "1222284498",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "中远海能二〇二四年年度业绩预告",
+      "sourceDate": "2025-01-10",
+      "reportPeriod": null,
+      "periodScope": null,
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222284498",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial",
+        "report_period_missing"
+      ]
+    }
+  ],
+  "warnings": [],
+  "quality": {
+    "source": "CNInfo",
+    "sourceLayer": "company_guidance_expectations",
+    "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+    "updatedAt": "2026-07-11T07:31:40Z",
+    "status": "partial"
+  }
+}

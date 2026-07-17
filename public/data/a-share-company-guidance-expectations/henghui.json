@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "providerId": "cninfo-company-guidance",
+  "providerVersion": "1.0.0",
+  "generatedAt": "2026-07-11T07:31:40Z",
+  "stockId": "henghui",
+  "stockCode": "300952",
+  "companyName": "恒辉安防",
+  "market": "A股",
+  "status": "missing",
+  "totalAnnouncementCount": 404,
+  "targetAnnouncements": [],
+  "providerSnapshots": [],
+  "exclusions": [],
+  "warnings": [],
+  "quality": {
+    "source": "CNInfo",
+    "sourceLayer": "company_guidance_expectations",
+    "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+    "updatedAt": "2026-07-11T07:31:40Z",
+    "status": "missing"
+  }
+}

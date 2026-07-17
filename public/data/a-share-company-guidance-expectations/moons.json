@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "providerId": "cninfo-company-guidance",
+  "providerVersion": "1.0.0",
+  "generatedAt": "2026-07-11T07:31:40Z",
+  "stockId": "moons",
+  "stockCode": "603728",
+  "companyName": "鸣志电器",
+  "market": "A股",
+  "status": "missing",
+  "totalAnnouncementCount": 177,
+  "targetAnnouncements": [],
+  "providerSnapshots": [],
+  "exclusions": [],
+  "warnings": [],
+  "quality": {
+    "source": "CNInfo",
+    "sourceLayer": "company_guidance_expectations",
+    "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+    "updatedAt": "2026-07-11T07:31:40Z",
+    "status": "missing"
+  }
+}

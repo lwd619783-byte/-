@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "providerId": "cninfo-company-guidance",
+  "providerVersion": "1.0.0",
+  "generatedAt": "2026-07-11T07:31:40Z",
+  "stockId": "topgroup",
+  "stockCode": "601689",
+  "companyName": "拓普集团",
+  "market": "A股",
+  "status": "partial",
+  "totalAnnouncementCount": 302,
+  "targetAnnouncements": [
+    {
+      "sourceAnnouncementId": "1222378284",
+      "stockId": "topgroup",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2025-01-21",
+      "reportPeriod": "2024-12-31",
+      "periodScope": "full_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    }
+  ],
+  "providerSnapshots": [],
+  "exclusions": [
+    {
+      "stockId": "topgroup",
+      "companyName": "拓普集团",
+      "sourceAnnouncementId": "1222378284",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "拓普集团2024年年度业绩预增公告",
+      "sourceDate": "2025-01-21",
+      "reportPeriod": "2024-12-31",
+      "periodScope": "full_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222378284",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
+    }
+  ],
+  "warnings": [],
+  "quality": {
+    "source": "CNInfo",
+    "sourceLayer": "company_guidance_expectations",
+    "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+    "updatedAt": "2026-07-11T07:31:40Z",
+    "status": "partial"
+  }
+}
