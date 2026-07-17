@@ -44,6 +44,17 @@ export interface ResearchEvent {
   eventType: ResearchEventType;
   eventDate: string | null;
   publishedAt: string | null;
+  /** Business occurrence time; never replaced with a warning detection or audit time. */
+  eventOccurredAt?: string | null;
+  /** Persisted/normalized business date used for grouping and display fallback. */
+  eventBusinessDate?: string | null;
+  /** First exact audit instant at which the current warning episode became active. */
+  detectedAt?: string | null;
+  stateActivatedAt?: string | null;
+  /** Audit time at which the related snapshot entered local storage. */
+  recordedAt?: string | null;
+  /** Stable structured identity for one continuous warning lifecycle. */
+  warningEpisodeKey?: string | null;
   reportPeriod: string | null;
   title: string;
   summary: string;

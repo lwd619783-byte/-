@@ -1,5 +1,8 @@
 import type {
   CanonicalBusinessTemporal,
+  CanonicalTemporalBoundary,
+  CanonicalTemporalBounds,
+  CanonicalTemporalBoundsUncertaintyReason,
   CanonicalTemporalUncertaintyReason,
   EarningsExpectationAvailabilityResolution,
   EarningsExpectationSourceTimeResolution,
@@ -18,7 +21,7 @@ export interface BusinessTemporalComparison {
   order: -1 | 0 | 1;
   uncertain: boolean;
   status: "before" | "after" | "equal" | "uncertain";
-  reason: "date_precision" | "mixed_precision" | null;
+  reason: "date_precision" | "mixed_precision" | Exclude<CanonicalTemporalBoundsUncertaintyReason, null> | null;
 }
 
 export type WorkflowTemporalInputResolution =
@@ -173,7 +176,7 @@ export function toCanonicalBusinessTemporal(input: CanonicalTemporalInput): Cano
       ? input.fallbackBusinessCalendarDate
       : null;
   if (!raw) {
-    return {
+    return withCanonicalBounds({
       value: null,
       precision,
       businessCalendarDate: persistedCalendarDate,
@@ -182,13 +185,13 @@ export function toCanonicalBusinessTemporal(input: CanonicalTemporalInput): Cano
       resolution,
       status: persistedCalendarDate && precision === "date" ? "date_only" : "uncertain",
       uncertaintyReason: persistedCalendarDate && precision === "date" ? "date_precision" : "missing_time",
-    };
+    });
   }
   if (precision === "date" && isCalendarDate(raw)) {
-    return { value: raw, precision: "date", businessCalendarDate: raw, instant: null, interpretationTimeZone: null, resolution: "date", status: "date_only", uncertaintyReason: "date_precision" };
+    return withCanonicalBounds({ value: raw, precision: "date", businessCalendarDate: raw, instant: null, interpretationTimeZone: null, resolution: "date", status: "date_only", uncertaintyReason: "date_precision" });
   }
   if (resolution === "unresolved_legacy" && isUnzonedLocalDateTime(raw)) {
-    return {
+    return withCanonicalBounds({
       value: raw,
       precision: "datetime",
       businessCalendarDate: persistedCalendarDate ?? raw.slice(0, 10),
@@ -197,13 +200,13 @@ export function toCanonicalBusinessTemporal(input: CanonicalTemporalInput): Cano
       resolution,
       status: "unresolved_legacy",
       uncertaintyReason: "legacy_time_zone_unknown",
-    };
+    });
   }
   if (precision === "datetime" && isPreciseInstant(raw)) {
     const instant = new Date(parsePreciseInstant(raw) as number).toISOString();
     const zone = isValidTimeZone(input.interpretationTimeZone) ? input.interpretationTimeZone : null;
     const businessCalendarDate = persistedCalendarDate ?? (zone ? getCalendarDateInTimeZone(instant, zone) : null);
-    return {
+    return withCanonicalBounds({
       value: instant,
       precision: "datetime",
       businessCalendarDate,
@@ -212,9 +215,9 @@ export function toCanonicalBusinessTemporal(input: CanonicalTemporalInput): Cano
       resolution: resolution ?? "absolute",
       status: businessCalendarDate ? "resolved" : "uncertain",
       uncertaintyReason: businessCalendarDate ? null : "legacy_time_zone_unknown",
-    };
+    });
   }
-  return {
+  return withCanonicalBounds({
     value: raw,
     precision,
     businessCalendarDate: persistedCalendarDate,
@@ -223,27 +226,44 @@ export function toCanonicalBusinessTemporal(input: CanonicalTemporalInput): Cano
     resolution,
     status: "invalid",
     uncertaintyReason: "missing_time",
-  };
+  });
 }
 
 export function compareCanonicalBusinessTemporal(left: CanonicalBusinessTemporal, right: CanonicalBusinessTemporal): BusinessTemporalComparison {
-  if (["invalid", "unresolved_legacy", "uncertain"].includes(left.status) || ["invalid", "unresolved_legacy", "uncertain"].includes(right.status)) {
-    return { order: 0, uncertain: true, status: "uncertain", reason: left.uncertaintyReason === "mixed_precision" || right.uncertaintyReason === "mixed_precision" ? "mixed_precision" : "date_precision" };
+  return compareCanonicalTemporalBounds(left.bounds, right.bounds, left.precision, right.precision);
+}
+
+export function compareAvailabilityResolution(
+  left: EarningsExpectationAvailabilityResolution,
+  right: EarningsExpectationAvailabilityResolution,
+): BusinessTemporalComparison {
+  const leftPrecision = left.status === "resolved" ? left.value.precision : combinedPrecision(left.candidates);
+  const rightPrecision = right.status === "resolved" ? right.value.precision : combinedPrecision(right.candidates);
+  return compareCanonicalTemporalBounds(left.bounds, right.bounds, leftPrecision, rightPrecision);
+}
+
+export function compareCanonicalTemporalBounds(
+  left: CanonicalTemporalBounds,
+  right: CanonicalTemporalBounds,
+  leftPrecision: EarningsExpectationTimePrecision | null = null,
+  rightPrecision: EarningsExpectationTimePrecision | null = null,
+): BusinessTemporalComparison {
+  if (!left.bounded || !right.bounded || !left.earliest || !left.latest || !right.earliest || !right.latest) {
+    return { order: 0, uncertain: true, status: "uncertain", reason: left.uncertaintyReason ?? right.uncertaintyReason ?? "missing_time" };
   }
-  if (left.instant && right.instant) {
-    const leftTime = Date.parse(left.instant);
-    const rightTime = Date.parse(right.instant);
-    if (leftTime === rightTime) return { order: 0, uncertain: false, status: "equal", reason: null };
-    return { order: leftTime < rightTime ? -1 : 1, uncertain: false, status: leftTime < rightTime ? "before" : "after", reason: null };
+  if (compareTemporalBoundary(left.latest, right.earliest) < 0) return { order: -1, uncertain: false, status: "before", reason: null };
+  if (compareTemporalBoundary(left.earliest, right.latest) > 0) return { order: 1, uncertain: false, status: "after", reason: null };
+  const leftPoint = sameTemporalBoundary(left.earliest, left.latest);
+  const rightPoint = sameTemporalBoundary(right.earliest, right.latest);
+  if (leftPoint && rightPoint && left.earliest.edge === "instant" && right.earliest.edge === "instant" && sameTemporalBoundary(left.earliest, right.earliest)) {
+    return { order: 0, uncertain: false, status: "equal", reason: null };
   }
-  if (!left.businessCalendarDate || !right.businessCalendarDate) return { order: 0, uncertain: true, status: "uncertain", reason: "date_precision" };
-  const calendarOrder = compareCalendarDates(left.businessCalendarDate, right.businessCalendarDate);
-  if (calendarOrder !== 0) return { order: calendarOrder, uncertain: false, status: calendarOrder < 0 ? "before" : "after", reason: null };
+  const reason = left.uncertaintyReason ?? right.uncertaintyReason;
   return {
     order: 0,
     uncertain: true,
     status: "uncertain",
-    reason: left.precision === right.precision ? "date_precision" : "mixed_precision",
+    reason: reason ?? (leftPrecision === rightPrecision ? "overlapping_date_precision" : "mixed_precision_overlap"),
   };
 }
 
@@ -260,11 +280,93 @@ export function laterCanonicalBusinessTemporal(
         : comparison.reason === "mixed_precision"
           ? "mixed_precision"
           : "date_precision";
-    return { status: "uncertain", value: null, candidates: [formation, source], reason };
+    return { status: "uncertain", value: null, candidates: [formation, source], reason, bounds: deriveAvailabilityBounds([formation, source]) };
   }
-  if (comparison.order > 0) return { status: "resolved", value: formation, decisiveSide: "formation" };
-  if (comparison.order < 0) return { status: "resolved", value: source, decisiveSide: "source" };
-  return { status: "resolved", value: formation, decisiveSide: "equal" };
+  if (comparison.order > 0) return { status: "resolved", value: formation, decisiveSide: "formation", bounds: formation.bounds };
+  if (comparison.order < 0) return { status: "resolved", value: source, decisiveSide: "source", bounds: source.bounds };
+  return { status: "resolved", value: formation, decisiveSide: "equal", bounds: formation.bounds };
+}
+
+export function deriveAvailabilityBounds(candidates: CanonicalBusinessTemporal[]): CanonicalTemporalBounds {
+  if (!candidates.length) return unboundedTemporalBounds("missing_time");
+  const unbounded = candidates.find((candidate) => !candidate.bounds.bounded);
+  if (unbounded) return unboundedTemporalBounds(unbounded.bounds.uncertaintyReason ?? "missing_time");
+  const earliestValues = candidates.map((candidate) => candidate.bounds.earliest).filter((value): value is CanonicalTemporalBoundary => Boolean(value));
+  const latestValues = candidates.map((candidate) => candidate.bounds.latest).filter((value): value is CanonicalTemporalBoundary => Boolean(value));
+  if (earliestValues.length !== candidates.length || latestValues.length !== candidates.length) return unboundedTemporalBounds("missing_time");
+  const earliest = earliestValues.reduce(maxTemporalBoundary);
+  const latest = latestValues.reduce(maxTemporalBoundary);
+  const precisionKinds = new Set(candidates.map((candidate) => candidate.precision));
+  const point = sameTemporalBoundary(earliest, latest) && earliest.edge === "instant";
+  return {
+    earliest,
+    latest,
+    businessDateMin: earliest.businessCalendarDate,
+    businessDateMax: latest.businessCalendarDate,
+    bounded: true,
+    uncertaintyReason: point ? null : precisionKinds.size > 1 ? "mixed_precision_overlap" : "overlapping_date_precision",
+  };
+}
+
+type CanonicalTemporalWithoutBounds = Omit<CanonicalBusinessTemporal, "bounds">;
+
+function withCanonicalBounds(value: CanonicalTemporalWithoutBounds): CanonicalBusinessTemporal {
+  return { ...value, bounds: deriveCanonicalTemporalBounds(value) };
+}
+
+function deriveCanonicalTemporalBounds(value: CanonicalTemporalWithoutBounds): CanonicalTemporalBounds {
+  if (value.status === "unresolved_legacy") return unboundedTemporalBounds("legacy_time_zone_unknown");
+  if (value.status === "invalid") return unboundedTemporalBounds("invalid_time");
+  if (value.status === "uncertain") {
+    if (value.uncertaintyReason === "legacy_time_zone_unknown") return unboundedTemporalBounds("legacy_time_zone_unknown");
+    return unboundedTemporalBounds(value.uncertaintyReason === "missing_time" ? "missing_time" : "invalid_time");
+  }
+  if (!value.businessCalendarDate) return unboundedTemporalBounds("missing_time");
+  if (value.instant) {
+    const boundary: CanonicalTemporalBoundary = { businessCalendarDate: value.businessCalendarDate, instant: value.instant, edge: "instant" };
+    return { earliest: boundary, latest: boundary, businessDateMin: value.businessCalendarDate, businessDateMax: value.businessCalendarDate, bounded: true, uncertaintyReason: null };
+  }
+  if (value.precision === "date") {
+    return {
+      earliest: { businessCalendarDate: value.businessCalendarDate, instant: null, edge: "start" },
+      latest: { businessCalendarDate: value.businessCalendarDate, instant: null, edge: "end" },
+      businessDateMin: value.businessCalendarDate,
+      businessDateMax: value.businessCalendarDate,
+      bounded: true,
+      uncertaintyReason: "overlapping_date_precision",
+    };
+  }
+  return unboundedTemporalBounds("missing_time");
+}
+
+function unboundedTemporalBounds(reason: Exclude<CanonicalTemporalBoundsUncertaintyReason, null>): CanonicalTemporalBounds {
+  return { earliest: null, latest: null, businessDateMin: null, businessDateMax: null, bounded: false, uncertaintyReason: reason };
+}
+
+function compareTemporalBoundary(left: CanonicalTemporalBoundary, right: CanonicalTemporalBoundary): -1 | 0 | 1 {
+  if (left.edge === "instant" && right.edge === "instant" && left.instant && right.instant) {
+    const leftTime = Date.parse(left.instant);
+    const rightTime = Date.parse(right.instant);
+    return leftTime === rightTime ? 0 : leftTime < rightTime ? -1 : 1;
+  }
+  const calendarOrder = compareCalendarDates(left.businessCalendarDate, right.businessCalendarDate);
+  if (calendarOrder !== 0) return calendarOrder;
+  const rank = { start: 0, instant: 1, end: 2 } as const;
+  return rank[left.edge] === rank[right.edge] ? 0 : rank[left.edge] < rank[right.edge] ? -1 : 1;
+}
+
+function sameTemporalBoundary(left: CanonicalTemporalBoundary, right: CanonicalTemporalBoundary) {
+  if (left.edge === "instant" && right.edge === "instant" && left.instant && right.instant) return left.instant === right.instant;
+  return left.businessCalendarDate === right.businessCalendarDate && left.edge === right.edge && left.instant === right.instant;
+}
+
+function maxTemporalBoundary(left: CanonicalTemporalBoundary, right: CanonicalTemporalBoundary) {
+  return compareTemporalBoundary(left, right) >= 0 ? left : right;
+}
+
+function combinedPrecision(values: CanonicalBusinessTemporal[]): EarningsExpectationTimePrecision | null {
+  const precisions = [...new Set(values.map((value) => value.precision).filter((value): value is EarningsExpectationTimePrecision => Boolean(value)))];
+  return precisions.length === 1 ? precisions[0] : null;
 }
 
 export function isStrictlyBeforeBusinessTemporal(left: BusinessTemporalValue, right: BusinessTemporalValue) {

@@ -21,6 +21,13 @@ export type EarningsExpectationDisclosureTimingStatus = "before" | "after" | "sa
 export type EarningsExpectationSourceTimeResolution = "date" | "absolute" | "workflow_time_zone" | "unresolved_legacy";
 export type CanonicalTemporalStatus = "resolved" | "date_only" | "uncertain" | "unresolved_legacy" | "invalid";
 export type CanonicalTemporalUncertaintyReason = "date_precision" | "mixed_precision" | "missing_time" | "legacy_time_zone_unknown" | null;
+export type CanonicalTemporalBoundsUncertaintyReason =
+  | "overlapping_date_precision"
+  | "mixed_precision_overlap"
+  | "legacy_time_zone_unknown"
+  | "missing_time"
+  | "invalid_time"
+  | null;
 export type EarningsExpectationWarningCode =
   | "business_order_ambiguous"
   | "business_order_equal"
@@ -41,11 +48,27 @@ export interface CanonicalBusinessTemporal {
   resolution: EarningsExpectationSourceTimeResolution | null;
   status: CanonicalTemporalStatus;
   uncertaintyReason: CanonicalTemporalUncertaintyReason;
+  bounds: CanonicalTemporalBounds;
+}
+
+export interface CanonicalTemporalBoundary {
+  businessCalendarDate: string;
+  instant: string | null;
+  edge: "start" | "instant" | "end";
+}
+
+export interface CanonicalTemporalBounds {
+  earliest: CanonicalTemporalBoundary | null;
+  latest: CanonicalTemporalBoundary | null;
+  businessDateMin: string | null;
+  businessDateMax: string | null;
+  bounded: boolean;
+  uncertaintyReason: CanonicalTemporalBoundsUncertaintyReason;
 }
 
 export type EarningsExpectationAvailabilityResolution =
-  | { status: "resolved"; value: CanonicalBusinessTemporal; decisiveSide: "formation" | "source" | "equal" }
-  | { status: "uncertain"; value: null; candidates: CanonicalBusinessTemporal[]; reason: Exclude<CanonicalTemporalUncertaintyReason, null> };
+  | { status: "resolved"; value: CanonicalBusinessTemporal; decisiveSide: "formation" | "source" | "equal"; bounds: CanonicalTemporalBounds }
+  | { status: "uncertain"; value: null; candidates: CanonicalBusinessTemporal[]; reason: Exclude<CanonicalTemporalUncertaintyReason, null>; bounds: CanonicalTemporalBounds };
 
 export type PreviousBusinessNodeStatus = "unique" | "none" | "ambiguous" | "equal_time" | "unresolved";
 
@@ -169,8 +192,10 @@ export interface EarningsExpectationComparison {
   earliestPossibleDisclosure?: PerformanceDisclosureEvidence | null;
   decisiveDisclosureEvent?: PerformanceDisclosureEvidence | null;
   disclosureUncertaintyReasonCode?: EarningsExpectationWarningCode | null;
-  originalBusinessTime?: string;
-  effectiveBusinessTime?: string;
+  originalBusinessTime?: string | null;
+  effectiveBusinessTime?: string | null;
+  originalFormationTime?: string | null;
+  effectiveFormationTime?: string | null;
   originalSourcePublishedAt?: string | null;
   effectiveSourcePublishedAt?: string | null;
   temporalCorrectionApplied?: boolean;
@@ -181,6 +206,7 @@ export interface EarningsExpectationComparison {
   comparisonAvailableAt?: string | null;
   comparisonAvailableBusinessCalendarDate?: string | null;
   availableAt?: EarningsExpectationAvailabilityResolution;
+  availabilityBounds?: CanonicalTemporalBounds;
   businessCalendarDate?: string | null;
   interpretationTimeZone?: string | null;
   availabilityStatus?: "resolved" | "uncertain";
@@ -244,8 +270,10 @@ export interface EarningsExpectationEventPayload {
   businessRootSnapshotId?: string;
   effectiveSnapshotId?: string;
   correctionChainSnapshotIds?: string[];
-  originalBusinessTime?: string;
-  effectiveBusinessTime?: string;
+  originalBusinessTime?: string | null;
+  effectiveBusinessTime?: string | null;
+  originalFormationTime?: string | null;
+  effectiveFormationTime?: string | null;
   originalSourcePublishedAt?: string | null;
   effectiveSourcePublishedAt?: string | null;
   temporalCorrectionApplied?: boolean;
@@ -285,6 +313,14 @@ export interface EarningsExpectationEventPayload {
   interpretationTimeZone?: string | null;
   availabilityStatus?: "resolved" | "uncertain";
   availabilityUncertaintyReason?: CanonicalTemporalUncertaintyReason;
+  availabilityBounds?: CanonicalTemporalBounds;
+  warningEpisodeKey?: string | null;
+  warningActivationEntityIds?: string[];
+  eventOccurredAt?: string | null;
+  eventBusinessDate?: string | null;
+  detectedAt?: string | null;
+  stateActivatedAt?: string | null;
+  recordedAt?: string | null;
   previousResolutionStatus?: PreviousBusinessNodeStatus;
   previousCandidateIds?: string[];
   previousCandidateEffectiveSnapshotIds?: string[];
@@ -294,7 +330,7 @@ export interface EarningsExpectationEventPayload {
   /** Legacy compatibility fields. New consumers must use businessRevisionDelta. */
   revisionDirection?: "up" | "down" | "unchanged" | null;
   revisionMagnitude?: number | null;
-  businessTimePrecision?: EarningsExpectationTimePrecision;
-  effectiveBusinessTimePrecision?: EarningsExpectationTimePrecision;
+  businessTimePrecision?: EarningsExpectationTimePrecision | null;
+  effectiveBusinessTimePrecision?: EarningsExpectationTimePrecision | null;
   businessOrderUncertain?: boolean;
 }

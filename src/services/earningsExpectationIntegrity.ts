@@ -8,7 +8,8 @@ import type {
   PreviousBusinessNodeStatus,
 } from "../types";
 import {
-  compareCanonicalBusinessTemporal,
+  compareAvailabilityResolution,
+  deriveAvailabilityBounds,
   isPreciseInstant,
   isCalendarDate,
   isUnzonedLocalDateTime,
@@ -34,8 +35,8 @@ export interface EarningsExpectationSelection {
   correctionChain: EarningsExpectationSnapshot[];
   businessOrderUncertain: boolean;
   businessOrderStatus: EarningsExpectationBusinessOrderStatus;
-  originalBusinessTime: BusinessTemporalValue;
-  effectiveBusinessTime: BusinessTemporalValue;
+  originalBusinessTime: BusinessTemporalValue | null;
+  effectiveBusinessTime: BusinessTemporalValue | null;
   originalSourcePublishedAt: BusinessTemporalValue | null;
   effectiveSourcePublishedAt: BusinessTemporalValue | null;
   correctionRecordedAt: string | null;
@@ -53,8 +54,8 @@ export interface EffectiveEarningsExpectationBusinessNode {
   businessRootSnapshot: EarningsExpectationSnapshot;
   effectiveSnapshot: EarningsExpectationSnapshot;
   correctionChain: EarningsExpectationSnapshot[];
-  originalBusinessTime: BusinessTemporalValue;
-  effectiveBusinessTime: BusinessTemporalValue;
+  originalBusinessTime: BusinessTemporalValue | null;
+  effectiveBusinessTime: BusinessTemporalValue | null;
   originalSourcePublishedAt: BusinessTemporalValue | null;
   effectiveSourcePublishedAt: BusinessTemporalValue | null;
   correctionRecordedAt: string | null;
@@ -127,34 +128,39 @@ export function getExpectationAvailability(snapshot: EarningsExpectationSnapshot
   const formation = getExpectationFormationTemporal(snapshot);
   if (snapshot.sourceCategory === "user_estimate") {
     return formation.status === "resolved" || formation.status === "date_only"
-      ? { status: "resolved", value: formation, decisiveSide: "formation" }
-      : { status: "uncertain", value: null, candidates: [formation], reason: formation.uncertaintyReason ?? "missing_time" };
+      ? { status: "resolved", value: formation, decisiveSide: "formation", bounds: formation.bounds }
+      : { status: "uncertain", value: null, candidates: [formation], reason: formation.uncertaintyReason ?? "missing_time", bounds: deriveAvailabilityBounds([formation]) };
   }
   const source = getExpectationSourcePublishedTemporal(snapshot);
-  if (!source) return { status: "uncertain", value: null, candidates: [formation], reason: "missing_time" };
+  if (!source) return { status: "uncertain", value: null, candidates: [formation], reason: "missing_time", bounds: deriveAvailabilityBounds([formation, missingCanonicalTemporal()]) };
   return laterCanonicalBusinessTemporal(formation, source);
 }
 
-export function getExpectationBusinessTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue {
+/** @deprecated Use getResolvedExpectationAvailableTime or getExpectationAvailability. */
+export function getExpectationBusinessTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue | null {
   void timeZone;
+  return getResolvedExpectationAvailableTime(snapshot);
+}
+
+export function getResolvedExpectationAvailableTime(snapshot: EarningsExpectationSnapshot): BusinessTemporalValue | null {
   const availableAt = getExpectationAvailability(snapshot);
-  const canonical = availableAt.status === "resolved" ? availableAt.value : getExpectationFormationTemporal(snapshot);
-  return canonicalToBusinessTemporal(canonical, snapshot.asOfDate);
+  return availableAt.status === "resolved" ? canonicalToBusinessTemporal(availableAt.value) : null;
 }
 
 export function getExpectationFormationTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue {
   void timeZone;
-  return canonicalToBusinessTemporal(getExpectationFormationTemporal(snapshot), snapshot.asOfDate);
+  return canonicalToBusinessTemporal(getExpectationFormationTemporal(snapshot))
+    ?? { value: snapshot.asOfDate, precision: "date", calendarDate: snapshot.asOfDate };
 }
 
 export function getExpectationSourcePublishedTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue | null {
   void timeZone;
   const source = getExpectationSourcePublishedTemporal(snapshot);
   if (!source || source.status === "invalid" || source.status === "unresolved_legacy" || !source.value || !source.businessCalendarDate) return null;
-  return canonicalToBusinessTemporal(source, source.businessCalendarDate);
+  return canonicalToBusinessTemporal(source);
 }
 
-export function getExpectationEventBusinessTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue {
+export function getExpectationEventBusinessTime(snapshot: EarningsExpectationSnapshot, timeZone?: string | null): BusinessTemporalValue | null {
   return getExpectationBusinessTime(snapshot, timeZone);
 }
 
@@ -456,7 +462,7 @@ export function selectEffectiveEarningsExpectations(snapshots: EarningsExpectati
     const selectedPeers = maximal.filter((node) => node.businessRootSnapshot.id !== selected.businessRootSnapshot.id);
     const businessOrderStatus: EarningsExpectationBusinessOrderStatus = selectedPeers.some((node) => compareNodeBusinessTime(node, selected).status === "equal")
       ? "equal"
-      : selectedPeers.length || selected.availableAt.status === "uncertain"
+      : selectedPeers.length
         ? "uncertain"
         : "confirmed";
     const previousResolution = resolveUniquePreviousBusinessNode(selected, group);
@@ -496,7 +502,6 @@ export function getExpectationBusinessOrderStatus(
   timeZone?: string | null,
 ): EarningsExpectationBusinessOrderStatus {
   void timeZone;
-  if (isExpectationBusinessTimeUnresolved(left) || isExpectationBusinessTimeUnresolved(right)) return "uncertain";
   const comparison = compareExpectationAvailability(left, right);
   if (comparison.status === "uncertain") return "uncertain";
   if (comparison.status === "equal") return "equal";
@@ -505,7 +510,6 @@ export function getExpectationBusinessOrderStatus(
 
 function isSameCalendarOrderUncertain(left: EarningsExpectationSnapshot, right: EarningsExpectationSnapshot, timeZone?: string | null) {
   void timeZone;
-  if (isExpectationBusinessTimeUnresolved(left) || isExpectationBusinessTimeUnresolved(right)) return true;
   return compareExpectationAvailability(left, right).uncertain;
 }
 
@@ -531,27 +535,42 @@ function temporalCorrectionFields(chain: EarningsExpectationSnapshot[]) {
 export function getExpectationCalendarDate(snapshot: EarningsExpectationSnapshot, timeZone?: string | null) {
   void timeZone;
   const availability = getExpectationAvailability(snapshot);
-  return availability.status === "resolved" ? availability.value.businessCalendarDate ?? snapshot.asOfDate : getExpectationFormationTemporal(snapshot).businessCalendarDate ?? snapshot.asOfDate;
+  return availability.status === "resolved"
+    ? availability.value.businessCalendarDate ?? snapshot.asOfDate
+    : availability.bounds.businessDateMax ?? getExpectationFormationTemporal(snapshot).businessCalendarDate ?? snapshot.asOfDate;
 }
 
-function canonicalToBusinessTemporal(value: CanonicalBusinessTemporal, fallbackDate: string): BusinessTemporalValue {
+function canonicalToBusinessTemporal(value: CanonicalBusinessTemporal): BusinessTemporalValue | null {
+  if (!value.value || !value.businessCalendarDate || !value.precision) return null;
   return {
-    value: value.value ?? fallbackDate,
-    precision: value.precision ?? "date",
-    calendarDate: value.businessCalendarDate ?? fallbackDate,
+    value: value.value,
+    precision: value.precision,
+    calendarDate: value.businessCalendarDate,
   };
 }
 
-function compareExpectationAvailability(left: EarningsExpectationSnapshot, right: EarningsExpectationSnapshot) {
+export function compareExpectationAvailability(left: EarningsExpectationSnapshot, right: EarningsExpectationSnapshot) {
   const leftAvailability = getExpectationAvailability(left);
   const rightAvailability = getExpectationAvailability(right);
-  if (leftAvailability.status === "uncertain" || rightAvailability.status === "uncertain") return { order: 0 as const, uncertain: true, status: "uncertain" as const, reason: "mixed_precision" as const };
-  return compareCanonicalBusinessTemporal(leftAvailability.value, rightAvailability.value);
+  return compareAvailabilityResolution(leftAvailability, rightAvailability);
 }
 
-function compareNodeBusinessTime(left: EffectiveEarningsExpectationBusinessNode, right: EffectiveEarningsExpectationBusinessNode) {
-  if (left.availableAt.status === "uncertain" || right.availableAt.status === "uncertain") return { order: 0 as const, uncertain: true, status: "uncertain" as const, reason: "mixed_precision" as const };
-  return compareCanonicalBusinessTemporal(left.availableAt.value, right.availableAt.value);
+export function compareNodeBusinessTime(left: EffectiveEarningsExpectationBusinessNode, right: EffectiveEarningsExpectationBusinessNode) {
+  return compareAvailabilityResolution(left.availableAt, right.availableAt);
+}
+
+function missingCanonicalTemporal(): CanonicalBusinessTemporal {
+  return {
+    value: null,
+    precision: null,
+    businessCalendarDate: null,
+    instant: null,
+    interpretationTimeZone: null,
+    resolution: null,
+    status: "uncertain",
+    uncertaintyReason: "missing_time",
+    bounds: { earliest: null, latest: null, businessDateMin: null, businessDateMax: null, bounded: false, uncertaintyReason: "missing_time" },
+  };
 }
 
 function nodeIdOrder(left: EffectiveEarningsExpectationBusinessNode, right: EffectiveEarningsExpectationBusinessNode) {

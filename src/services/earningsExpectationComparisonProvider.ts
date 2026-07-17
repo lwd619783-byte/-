@@ -16,16 +16,17 @@ import {
   deriveExpectationBusinessRevisionDelta,
   getExpectationAvailability,
   getExpectationBusinessTime,
+  getExpectationFormationTemporal,
   getExpectationGroupKey,
   isExpectationSourcePublishedAtUnresolved,
   selectEffectiveEarningsExpectations,
   type EarningsExpectationSelection,
 } from "./earningsExpectationIntegrity";
 import {
+  compareAvailabilityResolution,
   compareCanonicalBusinessTemporal,
   isCalendarDate,
   isPreciseInstant,
-  laterCanonicalBusinessTemporal,
   toCanonicalBusinessTemporal,
   resolveSafeWorkflowTimeZone,
 } from "../utils/dateTime";
@@ -102,7 +103,7 @@ export function compareEarningsExpectation(
     comparisonAvailableAt,
     comparisonAvailableBusinessCalendarDate: comparisonAvailability?.businessCalendarDate ?? null,
     availableAt: availability,
-    businessCalendarDate: availability.status === "resolved" ? availability.value.businessCalendarDate : null,
+    businessCalendarDate: availability.status === "resolved" ? availability.value.businessCalendarDate : availability.bounds.businessDateMax,
     interpretationTimeZone: availability.status === "resolved" ? availability.value.interpretationTimeZone : null,
     availabilityStatus: availability.status,
     availabilityUncertaintyReason: availability.status === "uncertain" ? availability.reason : null,
@@ -234,8 +235,10 @@ function comparisonBase(
     actualDisclosureTimingStatus: "unknown",
     performanceDisclosureTimingStatus: "unknown",
     performanceDisclosureUncertain: false,
-    originalBusinessTime: originalBusinessTime.value,
-    effectiveBusinessTime: effectiveBusinessTime.value,
+    originalBusinessTime: originalBusinessTime?.value ?? null,
+    effectiveBusinessTime: effectiveBusinessTime?.value ?? null,
+    originalFormationTime: getExpectationFormationTemporal(temporalEvidence?.businessRootSnapshot ?? snapshot).value ?? (temporalEvidence?.businessRootSnapshot ?? snapshot).asOfDate,
+    effectiveFormationTime: temporalEvidence?.formationTime.value ?? snapshot.formedAt ?? snapshot.asOfDate,
     originalSourcePublishedAt: temporalEvidence?.businessRootSnapshot.sourcePublishedAt ?? snapshot.sourcePublishedAt ?? null,
     effectiveSourcePublishedAt: temporalEvidence?.snapshot.sourcePublishedAt ?? snapshot.sourcePublishedAt ?? null,
     temporalCorrectionApplied: temporalEvidence?.temporalCorrectionApplied ?? false,
@@ -247,6 +250,7 @@ function comparisonBase(
     comparisonAvailableAt: null,
     comparisonAvailableBusinessCalendarDate: null,
     availableAt: temporalEvidence?.availableAt ?? getExpectationAvailability(snapshot),
+    availabilityBounds: (temporalEvidence?.availableAt ?? getExpectationAvailability(snapshot)).bounds,
     businessCalendarDate: temporalEvidence?.availableAt.status === "resolved" ? temporalEvidence.availableAt.value.businessCalendarDate : null,
     interpretationTimeZone: temporalEvidence?.availableAt.status === "resolved" ? temporalEvidence.availableAt.value.interpretationTimeZone : null,
     availabilityStatus: temporalEvidence?.availableAt.status ?? getExpectationAvailability(snapshot).status,
@@ -413,7 +417,6 @@ function snapshotAvailableAt(snapshot: EarningsExpectationSnapshot) {
 }
 
 function resolveComparisonAvailability(availability: EarningsExpectationAvailabilityResolution, actualDisclosureAt: string, actualBusinessCalendarDate: string | null, timeZone: string) {
-  if (availability.status === "uncertain") return null;
   const actualCanonical = toCanonicalBusinessTemporal({
     value: actualDisclosureAt,
     precision: isPreciseInstant(actualDisclosureAt) ? "datetime" : isCalendarDate(actualDisclosureAt) ? "date" : null,
@@ -421,10 +424,20 @@ function resolveComparisonAvailability(availability: EarningsExpectationAvailabi
     interpretationTimeZone: isPreciseInstant(actualDisclosureAt) && !actualBusinessCalendarDate ? timeZone : null,
     businessCalendarDate: actualBusinessCalendarDate ?? (isCalendarDate(actualDisclosureAt) ? actualDisclosureAt : null),
   });
-  const later = laterCanonicalBusinessTemporal(availability.value, actualCanonical);
-  return later.status === "resolved"
-    ? { occurredAt: later.value.value ?? later.value.businessCalendarDate, businessCalendarDate: later.value.businessCalendarDate }
-    : null;
+  const actualAvailability: EarningsExpectationAvailabilityResolution = {
+    status: "resolved",
+    value: actualCanonical,
+    decisiveSide: "source",
+    bounds: actualCanonical.bounds,
+  };
+  const relation = compareAvailabilityResolution(availability, actualAvailability);
+  if (relation.status === "before" || relation.status === "equal") {
+    return { occurredAt: actualCanonical.value ?? actualCanonical.businessCalendarDate, businessCalendarDate: actualCanonical.businessCalendarDate };
+  }
+  if (relation.status === "after" && availability.status === "resolved") {
+    return { occurredAt: availability.value.value ?? availability.value.businessCalendarDate, businessCalendarDate: availability.value.businessCalendarDate };
+  }
+  return null;
 }
 
 function metricKeys(metric: EarningsExpectationMetric, scope: EarningsExpectationPeriodScope) {

@@ -272,6 +272,40 @@ V1 新增稳定、幂等事件：
 
 `settings.revisionReminderThreshold` 默认 `0.1`。这是 10% 工作流提醒阈值，不是投资结论或行业标准。
 
+## 时间范围比较与警告生命周期
+
+Schema V2 的派生时间对象新增 `CanonicalTemporalBounds`。范围同时保存最早、最晚边界，可证明的最早/最晚业务日期、是否有界及结构化不确定原因。日期精度表示“该业务日期内的未知时点”，而不是午夜，也不是无限未知；`unresolved_legacy`、缺失时间或缺少原解释时区仍保持无可靠边界。
+
+`compareAvailabilityResolution` 统一用于当前有效预测、唯一前序、纠正链终点、排序、Comparison、ResearchEvent 与 ReviewTask 的业务关系判断：
+
+- 左侧最晚边界仍早于右侧最早边界时为 `before`；
+- 左侧最早边界仍晚于右侧最晚边界时为 `after`；
+- 只有双方都能证明为同一精确时刻时为 `equal`；
+- 同日日期范围、日期与 datetime 混合精度重叠、历史时区未知或时间缺失时为 `uncertain`，并保留 `overlapping_date_precision`、`mixed_precision_overlap`、`legacy_time_zone_unknown` 或 `missing_time` 等原因。
+
+因此，“具体时刻未知”不等于“完全不可排序”。例如 1 月 1 日内的不确定范围仍可证明早于 1 月 2 日的精确时刻；当前有效预测必须选择后者，前者可以成为唯一前序。只有范围真正重叠或无边界时，稳定 ID 才只用于展示顺序，不能替代金融先后关系，也不能产生方向性修订。
+
+不确定 `availableAt` 不再回退为 `formedAt` 标量。兼容接口 `getExpectationBusinessTime()` 在不确定时返回 `null`；payload 中 `effectiveBusinessTime=null`，同时以 `effectiveFormationTime` 单独保留形成证据，并完整保留 `availabilityBounds`、候选时间与不确定原因。UI 分栏展示形成时间、来源发布时间、可用时间/范围和可证明业务日期，不把形成时间包装成确定的投研可用时间。
+
+预期事件的时间职责明确分离：
+
+- `eventOccurredAt`：新增/修订使用已解析 `availableAt`，comparison 使用双方均可用后的确切时刻，correction 使用 `correctionRecordedAt`；无法证明时为 `null`；
+- `eventBusinessDate`：事件自身持久化或规范化的业务日期，只用于分组与显示；
+- `detectedAt` / `stateActivatedAt`：系统首次能证明当前 warning episode 成立的精确审计时刻，来自触发快照、纠正快照或决定性实际/披露事件，不使用页面加载当前时间；
+- `recordedAt`：相关快照进入系统的审计时间，不冒充业务发生时间。
+
+纠正事件始终保留精确 `correctionRecordedAt`；显示日期按显式工作流时区转换，不再使用字符串 `slice(0, 10)`。ReviewTask 先通过 `getReviewTaskBoundaryInstant()` 选择精确边界：warning 使用 `stateActivatedAt/detectedAt`，correction 使用 `correctionRecordedAt/eventOccurredAt`，comparison 使用比较首次可用时刻，added/revision 使用 `eventOccurredAt/publishedAt`。仅在没有精确时刻时才降级到业务日期，最后才使用审计回退。同日双方都有精确时刻时按瞬时值比较；只有日期精度时继续保守处理。
+
+每个警告事件携带稳定 `warningEpisodeKey`。该键由业务根、排序后的结构化 warning code、当前连续周期中从 false 变为 true 的激活实体，以及适用时的决定性实际/披露事件 ID 构成。中文文案、原因显示顺序、显示时区和无关纠正不参与身份：
+
+- 警告连续存在时沿用首次激活实体、事件 ID 和任务状态；
+- 纠正使对应 code 消失时，该 episode 结束；
+- 后续快照再次使 code 成立时，以新的激活实体生成新 episode、事件和任务，不继承旧 episode 的 dismissed/acknowledged 状态；
+- 决定性实际或披露事件变化形成新的证据缺口时，使用新的事件 ID 区分 episode；
+- 页面刷新和 LocalStorage 重载均从 append-only 快照、纠正链与实际事件确定性重算，不使用运行时当前时间补造历史。
+
+本轮继续使用 `schemaVersion=2`。新增范围与 episode 均可从既有 append-only 数据确定性派生，无需持久化新事实，因此不升级 Schema；V1→V2 幂等迁移、损坏数据恢复、原子导入及旧快照只读约束保持不变。
+
 ## 数据与安全边界
 
 - 不保存密钥、Cookie、登录信息或完整券商研报正文；

@@ -89,7 +89,7 @@ export function buildReviewTasks({
           event.parseStatus === "error" || event.parseStatus === "missing" ? "high" : "medium",
           "本地数据需要人工核验",
           qualityDescription(event),
-          event.eventDate ?? event.updatedAt,
+          reviewTaskEventDate(event),
         ));
       }
       const divergence = reliableCashFlowDivergence(event);
@@ -102,7 +102,7 @@ export function buildReviewTasks({
           "high",
           "累计经营现金流与累计归母净利润差异较大",
           `同一报告期累计口径下，两项已解析数值的相对差异约为 ${formatPercent(divergence)}。该提示仅用于口径核验，不自动解释为公司经营异常。`,
-          event.eventDate ?? event.updatedAt,
+          reviewTaskEventDate(event),
         ));
       }
     }
@@ -245,14 +245,35 @@ function expectationTaskDescription(event: ResearchEvent, threshold: number) {
   return `新增${category}快照，请核对报告期、期间口径、指标、币种、单位和来源。`;
 }
 
+export function getReviewTaskBoundaryInstant(event: ResearchEvent) {
+  const candidates = event.eventType === "earnings_expectation_data_warning"
+    ? [event.stateActivatedAt, event.detectedAt]
+    : event.eventType === "earnings_expectation_correction"
+      ? [event.expectation?.correctionRecordedAt, event.eventOccurredAt, event.publishedAt]
+      : event.eventType === "earnings_expectation_comparison_available"
+        ? [event.eventOccurredAt, event.expectation?.eventOccurredAt, event.publishedAt]
+        : event.eventType === "earnings_expectation_added" || event.eventType === "earnings_expectation_revision"
+          ? [event.eventOccurredAt, event.publishedAt]
+          : [event.publishedAt];
+  const precise = candidates.find((value): value is string => isPreciseInstant(value));
+  return precise ? new Date(Date.parse(precise)).toISOString() : null;
+}
+
 function eventTimestamp(event: ResearchEvent) {
-  if (event.expectation) return event.eventDate ?? event.publishedAt ?? event.updatedAt ?? "";
-  return event.publishedAt ?? event.eventDate ?? event.updatedAt ?? "";
+  return getReviewTaskBoundaryInstant(event)
+    ?? event.eventBusinessDate
+    ?? event.eventDate
+    ?? event.recordedAt
+    ?? event.updatedAt
+    ?? "";
 }
 
 function reviewTaskEventDate(event: ResearchEvent) {
-  if (event.expectation) return event.eventDate ?? event.publishedAt ?? event.updatedAt;
-  return event.publishedAt ?? event.eventDate ?? event.updatedAt;
+  return getReviewTaskBoundaryInstant(event)
+    ?? event.eventBusinessDate
+    ?? event.eventDate
+    ?? event.recordedAt
+    ?? event.updatedAt;
 }
 
 function latestEventDate(events: ResearchEvent[], timeZone: string) {
@@ -261,7 +282,16 @@ function latestEventDate(events: ResearchEvent[], timeZone: string) {
 }
 
 function eventAfterBoundary(event: ResearchEvent, boundary: string, timeZone: string) {
-  return compareTemporal(eventTimestamp(event), boundary, timeZone) > 0;
+  const eventInstant = getReviewTaskBoundaryInstant(event);
+  if (eventInstant && isPreciseInstant(boundary)) return Date.parse(eventInstant) > Date.parse(boundary);
+  const eventDate = eventInstant
+    ? event.eventType === "earnings_expectation_data_warning"
+      ? calendarDate(eventInstant, timeZone)
+      : event.eventBusinessDate ?? event.eventDate ?? calendarDate(eventInstant, timeZone)
+    : event.eventBusinessDate ?? event.eventDate;
+  const boundaryDate = calendarDate(boundary, timeZone);
+  if (eventDate && boundaryDate && eventDate !== boundaryDate) return eventDate > boundaryDate;
+  return false;
 }
 
 function compareTemporal(left: string, right: string, timeZone: string) {

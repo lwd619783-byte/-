@@ -60,7 +60,20 @@ describe("earnings expectation final invariant matrix", () => {
 
   it("keeps date-only business dates independent of every display zone", () => {
     const dated = snapshot("date-only", { asOfDate: "2026-07-15", formedAtCalendarDate: "2026-07-15" });
-    expect(ZONES.map((zone) => selectEffectiveEarningsExpectations([dated], zone)[0].availableAt)).toEqual(ZONES.map(() => ({ status: "resolved", value: expect.objectContaining({ businessCalendarDate: "2026-07-15", instant: null, status: "date_only" }), decisiveSide: "formation" })));
+    const resolutions = ZONES.map((zone) => selectEffectiveEarningsExpectations([dated], zone)[0].availableAt);
+    for (const resolution of resolutions) {
+      expect(resolution).toMatchObject({
+        status: "resolved",
+        value: { businessCalendarDate: "2026-07-15", instant: null, status: "date_only" },
+        decisiveSide: "formation",
+        bounds: {
+          businessDateMin: "2026-07-15",
+          businessDateMax: "2026-07-15",
+          earliest: { edge: "start", businessCalendarDate: "2026-07-15" },
+          latest: { edge: "end", businessCalendarDate: "2026-07-15" },
+        },
+      });
+    }
   });
 
   it("never reinterprets unresolved legacy wall clocks with a new workflow zone", () => {
@@ -138,7 +151,7 @@ describe("earnings expectation final invariant matrix", () => {
     }
   });
 
-  it("keeps correction and comparison eventOccurredAt dates stable across display zones", () => {
+  it("keeps correction and comparison exact occurrences stable while deriving correction display dates from the chosen zone", () => {
     const root = snapshot("root", { ...preciseFormation("2026-06-01T08:00:00.000Z", "2026-06-01"), createdAt: "2026-06-01T09:00:00.000Z" });
     const correction = snapshot("correction", { ...root, id: "correction", correctsSnapshotId: "root", correctionScope: "value", value: 105, createdAt: "2026-07-03T23:30:00.000Z" });
     const actual = confirmedDisclosure("actual", "2026-06-20T23:30:00.000Z");
@@ -147,10 +160,14 @@ describe("earnings expectation final invariant matrix", () => {
       const events = buildEarningsExpectationResearchEvents([root, correction], comparisons, [stock()], 0.1, zone);
       return events.filter((event) => event.eventType === "earnings_expectation_correction" || event.eventType === "earnings_expectation_comparison_available").map((event) => ({ id: event.id, eventDate: event.eventDate, publishedAt: event.publishedAt }));
     });
-    expect(baseline.every((value) => JSON.stringify(value) === JSON.stringify(baseline[0]))).toBe(true);
+    const eventIdentityAndOccurrence = baseline.map((events) => events.map(({ id, publishedAt }) => ({ id, publishedAt })));
+    expect(eventIdentityAndOccurrence.every((value) => JSON.stringify(value) === JSON.stringify(eventIdentityAndOccurrence[0]))).toBe(true);
     expect(baseline[0]).toEqual(expect.arrayContaining([
-      expect.objectContaining({ eventDate: "2026-07-03", publishedAt: "2026-07-03T23:30:00.000Z" }),
+      expect.objectContaining({ eventDate: "2026-07-04", publishedAt: "2026-07-03T23:30:00.000Z" }),
       expect.objectContaining({ eventDate: "2026-06-20", publishedAt: "2026-06-20T23:30:00.000Z" }),
+    ]));
+    expect(baseline[2]).toEqual(expect.arrayContaining([
+      expect.objectContaining({ eventDate: "2026-07-03", publishedAt: "2026-07-03T23:30:00.000Z" }),
     ]));
   });
 

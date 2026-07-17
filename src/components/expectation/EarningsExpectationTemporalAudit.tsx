@@ -34,7 +34,9 @@ export function EarningsExpectationTemporalAudit({ snapshot, selection, comparis
       <AuditField label="预测形成时间" value={formatTemporal(formation)} />
       <AuditField label="来源发布时间" value={source ? formatTemporal(source) : "缺失"} />
       <AuditField label="投研可用时间" value={formatAvailability(availability)} warning={availability.status === "uncertain"} />
-      <AuditField label="业务日期" value={availability.status === "resolved" ? availability.value.businessCalendarDate ?? "不确定" : "不确定"} warning={availability.status === "uncertain"} />
+      <AuditField label="可用时间范围" value={formatBounds(availability.bounds)} warning={availability.status === "uncertain"} />
+      <AuditField label="可证明业务日期" value={formatBusinessDateBounds(availability.bounds)} warning={!availability.bounds.bounded} />
+      <AuditField label="业务日期" value={availability.status === "resolved" ? availability.value.businessCalendarDate ?? "不确定" : availability.bounds.businessDateMin === availability.bounds.businessDateMax ? availability.bounds.businessDateMin ?? "不确定" : "不确定"} warning={availability.status === "uncertain"} />
       <AuditField label="记录解释时区" value={recordTimeZone ?? "日期精度 / 未记录"} />
       <AuditField label="当前界面显示时区" value={displayTimeZone} />
       <AuditField label="业务前序" value={previousStatusLabel(previousStatus)} warning={!['unique', 'none'].includes(previousStatus)} />
@@ -43,7 +45,7 @@ export function EarningsExpectationTemporalAudit({ snapshot, selection, comparis
       <AuditField label="审计录入时间" value={`${formatAuditInstant(snapshot.createdAt)} · ${auditStatus === "valid" ? "有效" : "异常"}`} warning={auditStatus === "invalid"} />
       <AuditField label="结构化核验代码" value={warningCodes.length ? warningCodes.join("、") : "无"} warning={warningCodes.length > 0} />
     </div>
-    {availability.status === "uncertain" ? <p role="status" className="mt-2 text-xs text-warning">可用时间不确定（{availability.reason}），不会据此证明事前有效、最新预测或方向性修订；请补充精确时间或原解释时区。</p> : null}
+    {availability.status === "uncertain" ? <p role="status" className="mt-2 text-xs text-warning">可用时间不确定（{availability.reason}），不会回填形成时间或据此证明事前有效。仅当两个候选范围完全分离时，才可用于证明业务节点前后；范围重叠时仍禁止方向性结论。</p> : null}
   </section>;
 }
 
@@ -55,6 +57,23 @@ function formatTemporal(value: ReturnType<typeof getExpectationFormationTemporal
 function formatAvailability(value: ReturnType<typeof getExpectationAvailability>) {
   if (value.status === "uncertain") return `不确定 · ${value.reason} · 候选 ${value.candidates.map((item) => item.value ?? item.businessCalendarDate ?? "缺失").join(" / ")}`;
   return `${value.value.instant ?? value.value.value ?? value.value.businessCalendarDate ?? "缺失"} · ${value.value.precision ?? "未知精度"} · ${value.decisiveSide}`;
+}
+
+function formatBounds(bounds: ReturnType<typeof getExpectationAvailability>["bounds"]) {
+  if (!bounds.bounded || !bounds.earliest || !bounds.latest) return `无可靠边界 · ${bounds.uncertaintyReason ?? "missing_time"}`;
+  return `${formatBoundary(bounds.earliest)} → ${formatBoundary(bounds.latest)}${bounds.uncertaintyReason ? ` · ${bounds.uncertaintyReason}` : ""}`;
+}
+
+function formatBoundary(boundary: ReturnType<typeof getExpectationAvailability>["bounds"]["earliest"] extends infer T ? Exclude<T, null> : never) {
+  if (boundary.edge === "instant") return boundary.instant ?? boundary.businessCalendarDate;
+  return `${boundary.businessCalendarDate} ${boundary.edge === "start" ? "日内起点" : "日内终点"}`;
+}
+
+function formatBusinessDateBounds(bounds: ReturnType<typeof getExpectationAvailability>["bounds"]) {
+  if (!bounds.bounded) return "不可排序";
+  return bounds.businessDateMin === bounds.businessDateMax
+    ? bounds.businessDateMin ?? "不确定"
+    : `${bounds.businessDateMin ?? "?"} 至 ${bounds.businessDateMax ?? "?"}`;
 }
 
 function previousStatusLabel(value: string) {
