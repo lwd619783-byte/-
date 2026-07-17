@@ -7,6 +7,10 @@ import {
   COMPANY_GUIDANCE_PROVIDER_VERSION,
   COMPANY_GUIDANCE_SCHEMA_VERSION,
   buildCompanyGuidanceArtifacts,
+  createWorkflowIndex,
+  validateBusinessRevisionGraph,
+  validateCompanyGuidanceDetail,
+  validateVersionGraph,
 } from "./company-guidance-expectations/core.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -14,13 +18,27 @@ const announcementSummaryPath = path.join(root, "src/data/real/a-share-announcem
 const announcementManifestPath = path.join(root, "public/data/a-share-announcements/manifest.generated.json");
 const summaryPath = path.join(root, "src/data/real/a-share-company-guidance-expectation-summaries.generated.json");
 const outputDir = path.join(root, "public/data/a-share-company-guidance-expectations");
+const workflowIndexName = "workflow-index.generated.json";
 
 export function generateCompanyGuidanceArtifacts({ dryRun = false } = {}) {
   const sourceSummary = readJson(announcementSummaryPath);
   const sourceManifest = readJson(announcementManifestPath);
   const details = sourceManifest.items.map((entry) => readJson(path.join(root, "public", entry.relativePath)));
-  const result = buildCompanyGuidanceArtifacts({ announcementDetails: details, sourceGeneratedAt: sourceSummary.generatedAt });
+  const previousDetails = sourceManifest.items.map((entry) => {
+    const file = path.join(outputDir, `${entry.stockId}.json`);
+    return fs.existsSync(file) ? readJson(file) : null;
+  }).filter(Boolean);
+  const result = buildCompanyGuidanceArtifacts({ announcementDetails: details, sourceGeneratedAt: sourceSummary.generatedAt, previousDetails });
   const renderedDetails = new Map(result.companies.map((company) => [company.stockId, renderJson(company)]));
+  const workflowIndex = createWorkflowIndex(result.companies, sourceSummary.generatedAt);
+  const renderedWorkflowIndex = renderJson(workflowIndex);
+  const workflowIndexChecksumSha256 = sha256(renderedWorkflowIndex);
+  result.summary.workflowIndex = {
+    relativePath: `data/a-share-company-guidance-expectations/${workflowIndexName}`,
+    byteSize: Buffer.byteLength(renderedWorkflowIndex),
+    checksumSha256: workflowIndexChecksumSha256,
+    currentSnapshotCount: workflowIndex.currentSnapshotCount,
+  };
   const manifest = {
     schemaVersion: COMPANY_GUIDANCE_SCHEMA_VERSION,
     providerId: COMPANY_GUIDANCE_PROVIDER_ID,
@@ -29,6 +47,10 @@ export function generateCompanyGuidanceArtifacts({ dryRun = false } = {}) {
     totalCompanies: result.companies.length,
     companiesWithSnapshots: result.audit.reliableCompanyCount,
     totalSnapshots: result.audit.reliableSnapshotCount,
+    totalHistoricalVersions: result.audit.historicalVersionCount,
+    workflowIndexRelativePath: result.summary.workflowIndex.relativePath,
+    workflowIndexByteSize: result.summary.workflowIndex.byteSize,
+    workflowIndexChecksumSha256,
     items: result.companies.map((company) => {
       const content = renderedDetails.get(company.stockId);
       return {
@@ -37,6 +59,7 @@ export function generateCompanyGuidanceArtifacts({ dryRun = false } = {}) {
         companyName: company.companyName,
         relativePath: `data/a-share-company-guidance-expectations/${company.stockId}.json`,
         snapshotCount: company.providerSnapshots.length,
+        historicalVersionCount: company.historicalProviderVersions.length,
         excludedAnnouncementCount: new Set(company.exclusions.map((record) => record.sourceAnnouncementId)).size,
         byteSize: Buffer.byteLength(content),
         checksumSha256: sha256(content),
@@ -46,12 +69,12 @@ export function generateCompanyGuidanceArtifacts({ dryRun = false } = {}) {
       };
     }),
   };
-  validateRendered(result, manifest, renderedDetails);
-  if (!dryRun) writeArtifacts(result.summary, manifest, renderedDetails);
-  return { ...result, manifest, dryRun };
+  validateRendered(result, manifest, renderedDetails, workflowIndex, renderedWorkflowIndex);
+  if (!dryRun) writeArtifacts(result.summary, manifest, renderedDetails, renderedWorkflowIndex);
+  return { ...result, manifest, workflowIndex, dryRun };
 }
 
-function writeArtifacts(summary, manifest, renderedDetails) {
+function writeArtifacts(summary, manifest, renderedDetails, renderedWorkflowIndex) {
   const stageDir = `${outputDir}.tmp-${process.pid}`;
   const backupDir = `${outputDir}.backup-${process.pid}`;
   fs.rmSync(stageDir, { recursive: true, force: true });
@@ -59,6 +82,7 @@ function writeArtifacts(summary, manifest, renderedDetails) {
   fs.mkdirSync(stageDir, { recursive: true });
   for (const [stockId, content] of renderedDetails) fs.writeFileSync(path.join(stageDir, `${stockId}.json`), content, "utf8");
   fs.writeFileSync(path.join(stageDir, "manifest.generated.json"), renderJson(manifest), "utf8");
+  fs.writeFileSync(path.join(stageDir, workflowIndexName), renderedWorkflowIndex, "utf8");
   const summaryTemp = `${summaryPath}.tmp-${process.pid}`;
   fs.writeFileSync(summaryTemp, renderJson(summary), "utf8");
   try {
@@ -74,11 +98,17 @@ function writeArtifacts(summary, manifest, renderedDetails) {
   }
 }
 
-function validateRendered(result, manifest, renderedDetails) {
+function validateRendered(result, manifest, renderedDetails, workflowIndex, renderedWorkflowIndex) {
   if (result.companies.length !== 56 || manifest.items.length !== 56) throw new Error(`expected 56 companies, got ${result.companies.length}`);
   if (result.audit.reliableSnapshotCount <= 0) throw new Error("no reliable company-guidance snapshots; refusing to generate example data");
   const ids = result.companies.flatMap((company) => company.providerSnapshots.map((record) => record.snapshot.id));
   if (new Set(ids).size !== ids.length) throw new Error("duplicate provider snapshot ids");
+  const allVersions = result.companies.flatMap((company) => [...company.providerSnapshots, ...company.historicalProviderVersions]);
+  const detailErrors = result.companies.flatMap((company) => validateCompanyGuidanceDetail(company).map((error) => `${company.stockId}:${error}`));
+  const graphErrors = [...validateVersionGraph(allVersions), ...validateBusinessRevisionGraph(result.companies.flatMap((company) => company.providerSnapshots))];
+  if (detailErrors.length || graphErrors.length) throw new Error(`deep provider validation failed: ${[...detailErrors, ...graphErrors].join("; ")}`);
+  if (workflowIndex.currentSnapshotCount !== ids.length || workflowIndex.records.length !== ids.length) throw new Error("workflow index count mismatch");
+  if (Buffer.byteLength(renderedWorkflowIndex) !== manifest.workflowIndexByteSize || sha256(renderedWorkflowIndex) !== manifest.workflowIndexChecksumSha256) throw new Error("workflow index checksum mismatch");
   for (const entry of manifest.items) {
     const content = renderedDetails.get(entry.stockId);
     if (!content || Buffer.byteLength(content) !== entry.byteSize || sha256(content) !== entry.checksumSha256) throw new Error(`manifest mismatch for ${entry.stockId}`);

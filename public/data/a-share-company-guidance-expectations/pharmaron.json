@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
-  "providerVersion": "1.0.0",
+  "providerVersion": "2.0.0",
   "generatedAt": "2026-07-11T07:31:40Z",
   "stockId": "pharmaron",
   "stockCode": "300759",
@@ -11,21 +11,11 @@
   "totalAnnouncementCount": 290,
   "targetAnnouncements": [
     {
-      "sourceAnnouncementId": "1224932217",
+      "sourceAnnouncementId": "1220690767",
       "stockId": "pharmaron",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceDate": "2026-01-13",
-      "reportPeriod": "2025-12-31",
-      "periodScope": "full_year",
-      "parseStatus": "parse_partial",
-      "isDuplicate": false
-    },
-    {
-      "sourceAnnouncementId": "1224176906",
-      "stockId": "pharmaron",
-      "sourceAnnouncementType": "earnings_preview",
-      "sourceDate": "2025-07-15",
-      "reportPeriod": "2025-06-30",
+      "sourceDate": "2024-07-22",
+      "reportPeriod": "2024-06-30",
       "periodScope": "half_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
@@ -41,48 +31,41 @@
       "isDuplicate": false
     },
     {
-      "sourceAnnouncementId": "1220690767",
+      "sourceAnnouncementId": "1224176906",
       "stockId": "pharmaron",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceDate": "2024-07-22",
-      "reportPeriod": "2024-06-30",
+      "sourceDate": "2025-07-15",
+      "reportPeriod": "2025-06-30",
       "periodScope": "half_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1224932217",
+      "stockId": "pharmaron",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2026-01-13",
+      "reportPeriod": "2025-12-31",
+      "periodScope": "full_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
     }
   ],
   "providerSnapshots": [],
+  "historicalProviderVersions": [],
   "exclusions": [
     {
       "stockId": "pharmaron",
       "companyName": "康龙化成",
-      "sourceAnnouncementId": "1224932217",
+      "sourceAnnouncementId": "1220690767",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceTitle": "2025年年度业绩预告",
-      "sourceDate": "2026-01-13",
-      "reportPeriod": "2025-12-31",
-      "periodScope": "full_year",
-      "metric": null,
-      "parseStatus": "parse_partial",
-      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224932217",
-      "candidateAnnouncementIds": [],
-      "reasons": [
-        "no_reliable_forecast_range",
-        "parse_status_parse_partial"
-      ]
-    },
-    {
-      "stockId": "pharmaron",
-      "companyName": "康龙化成",
-      "sourceAnnouncementId": "1224176906",
-      "sourceAnnouncementType": "earnings_preview",
-      "sourceTitle": "2025年半年度业绩预告",
-      "sourceDate": "2025-07-15",
-      "reportPeriod": "2025-06-30",
+      "sourceTitle": "2024年半年度业绩预告",
+      "sourceDate": "2024-07-22",
+      "reportPeriod": "2024-06-30",
       "periodScope": "half_year",
       "metric": null,
       "parseStatus": "parse_partial",
-      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224176906",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1220690767",
       "candidateAnnouncementIds": [],
       "reasons": [
         "no_reliable_forecast_range",
@@ -110,15 +93,33 @@
     {
       "stockId": "pharmaron",
       "companyName": "康龙化成",
-      "sourceAnnouncementId": "1220690767",
+      "sourceAnnouncementId": "1224176906",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceTitle": "2024年半年度业绩预告",
-      "sourceDate": "2024-07-22",
-      "reportPeriod": "2024-06-30",
+      "sourceTitle": "2025年半年度业绩预告",
+      "sourceDate": "2025-07-15",
+      "reportPeriod": "2025-06-30",
       "periodScope": "half_year",
       "metric": null,
       "parseStatus": "parse_partial",
-      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1220690767",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224176906",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
+    },
+    {
+      "stockId": "pharmaron",
+      "companyName": "康龙化成",
+      "sourceAnnouncementId": "1224932217",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2025年年度业绩预告",
+      "sourceDate": "2026-01-13",
+      "reportPeriod": "2025-12-31",
+      "periodScope": "full_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224932217",
       "candidateAnnouncementIds": [],
       "reasons": [
         "no_reliable_forecast_range",

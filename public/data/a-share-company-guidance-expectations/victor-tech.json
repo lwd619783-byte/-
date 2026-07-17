@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
-  "providerVersion": "1.0.0",
+  "providerVersion": "2.0.0",
   "generatedAt": "2026-07-11T07:31:40Z",
   "stockId": "victor-tech",
   "stockCode": "300476",
@@ -11,11 +11,11 @@
   "totalAnnouncementCount": 432,
   "targetAnnouncements": [
     {
-      "sourceAnnouncementId": "1224938441",
+      "sourceAnnouncementId": "1222388758",
       "stockId": "victor-tech",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceDate": "2026-01-16",
-      "reportPeriod": "2025-12-31",
+      "sourceDate": "2025-01-21",
+      "reportPeriod": "2024-12-31",
       "periodScope": "full_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
@@ -31,30 +31,31 @@
       "isDuplicate": false
     },
     {
-      "sourceAnnouncementId": "1222388758",
+      "sourceAnnouncementId": "1224938441",
       "stockId": "victor-tech",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceDate": "2025-01-21",
-      "reportPeriod": "2024-12-31",
+      "sourceDate": "2026-01-16",
+      "reportPeriod": "2025-12-31",
       "periodScope": "full_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
     }
   ],
   "providerSnapshots": [],
+  "historicalProviderVersions": [],
   "exclusions": [
     {
       "stockId": "victor-tech",
       "companyName": "胜宏科技",
-      "sourceAnnouncementId": "1224938441",
+      "sourceAnnouncementId": "1222388758",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceTitle": "2025年度业绩预告",
-      "sourceDate": "2026-01-16",
-      "reportPeriod": "2025-12-31",
+      "sourceTitle": "2024年度业绩预告",
+      "sourceDate": "2025-01-21",
+      "reportPeriod": "2024-12-31",
       "periodScope": "full_year",
       "metric": null,
       "parseStatus": "parse_partial",
-      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224938441",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222388758",
       "candidateAnnouncementIds": [],
       "reasons": [
         "no_reliable_forecast_range",
@@ -82,15 +83,15 @@
     {
       "stockId": "victor-tech",
       "companyName": "胜宏科技",
-      "sourceAnnouncementId": "1222388758",
+      "sourceAnnouncementId": "1224938441",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceTitle": "2024年度业绩预告",
-      "sourceDate": "2025-01-21",
-      "reportPeriod": "2024-12-31",
+      "sourceTitle": "2025年度业绩预告",
+      "sourceDate": "2026-01-16",
+      "reportPeriod": "2025-12-31",
       "periodScope": "full_year",
       "metric": null,
       "parseStatus": "parse_partial",
-      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222388758",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224938441",
       "candidateAnnouncementIds": [],
       "reasons": [
         "no_reliable_forecast_range",

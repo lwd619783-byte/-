@@ -28,7 +28,7 @@ interface StockDetailDrawerProps {
   earningsExpectationProviderSnapshotIds?: Set<string>;
   earningsExpectationDuplicateOfProviderByLocalId?: Map<string, string>;
   earningsExpectationProviderRecordBySnapshotId?: Map<string, EarningsExpectationProviderSnapshot>;
-  companyGuidanceLoadStatus?: "idle" | "loading" | "success" | "error";
+  companyGuidanceLoadStatus?: "idle" | "loading" | "success" | "partial" | "error";
   companyGuidanceLoadError?: string | null;
   earningsExpectationTimeZone?: string;
   onAddToWatchlist?: (stock: Stock) => void;

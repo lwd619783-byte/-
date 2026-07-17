@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
-  "providerVersion": "1.0.0",
+  "providerVersion": "2.0.0",
   "generatedAt": "2026-07-11T07:31:40Z",
   "sourceArtifact": "CNInfo A-share announcement Provider V1 committed artifacts",
   "sourceGeneratedAt": "2026-07-11T07:31:40Z",
@@ -22,6 +22,7 @@
     "reliableAnnouncementCount": 31,
     "reliableSnapshotCount": 56,
     "reliableCompanyCount": 15,
+    "historicalVersionCount": 0,
     "metricCounts": {
       "adjusted_net_profit": 21,
       "attributable_net_profit": 25,
@@ -46,6 +47,12 @@
     "duplicateAnnouncementCount": 0,
     "linkedRevisionSnapshotCount": 0,
     "unresolvedRevisionAnnouncementCount": 1
+  },
+  "workflowIndex": {
+    "relativePath": "data/a-share-company-guidance-expectations/workflow-index.generated.json",
+    "byteSize": 240228,
+    "checksumSha256": "809d6579fc53c2bd8705aa5911e55190499978ea6a23f7dba9517a510e420f99",
+    "currentSnapshotCount": 56
   },
   "items": {
     "asymchem": {

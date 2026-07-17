@@ -67,7 +67,8 @@ export function collectFinancialBundleMetrics(rootPath) {
   const companyGuidanceSummaryPath = path.join(rootPath, "src/data/real/a-share-company-guidance-expectation-summaries.generated.json");
   const companyGuidanceDetailDir = path.join(rootPath, "public/data/a-share-company-guidance-expectations");
   const companyGuidanceManifestPath = path.join(companyGuidanceDetailDir, "manifest.generated.json");
-  const companyGuidanceDetailFiles = fs.readdirSync(companyGuidanceDetailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json").map((name) => path.join(companyGuidanceDetailDir, name));
+  const companyGuidanceWorkflowPath = path.join(companyGuidanceDetailDir, "workflow-index.generated.json");
+  const companyGuidanceDetailFiles = fs.readdirSync(companyGuidanceDetailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json" && name !== "workflow-index.generated.json").map((name) => path.join(companyGuidanceDetailDir, name));
   const companyGuidanceDetailBytes = companyGuidanceDetailFiles.reduce((sum, file) => sum + fs.statSync(file).size, 0);
   return {
     initialJsBytes,
@@ -90,6 +91,8 @@ export function collectFinancialBundleMetrics(rootPath) {
     containsFullAnnouncementHistoryMarker: entryText.includes("announcementParsingResult"),
     companyGuidanceSummaryBytes: fs.statSync(companyGuidanceSummaryPath).size,
     companyGuidanceManifestBytes: fs.statSync(companyGuidanceManifestPath).size,
+    companyGuidanceWorkflowBytes: fs.statSync(companyGuidanceWorkflowPath).size,
+    companyGuidanceWorkflowChecksum: JSON.parse(fs.readFileSync(companyGuidanceManifestPath, "utf8")).workflowIndexChecksumSha256,
     companyGuidanceDetailFiles: companyGuidanceDetailFiles.length,
     companyGuidanceDetailBytes,
     averageCompanyGuidanceDetailBytes: Math.round(companyGuidanceDetailBytes / companyGuidanceDetailFiles.length),
@@ -112,6 +115,8 @@ export function checkFinancialBundle(rootPath) {
   if (metrics.announcementDetailFiles !== 56) errors.push(`expected 56 announcement detail files, found ${metrics.announcementDetailFiles}`);
   if (metrics.containsFullAnnouncementHistoryMarker) errors.push("initial JavaScript still contains full announcement-history markers");
   if (metrics.companyGuidanceSummaryBytes > 200_000) errors.push("company-guidance summary exceeds the 200 kB synchronous-data budget");
+  if (metrics.companyGuidanceWorkflowBytes > 500_000) errors.push("company-guidance workflow index exceeds the 500 kB lazy-data budget");
+  if (!/^[a-f0-9]{64}$/u.test(metrics.companyGuidanceWorkflowChecksum)) errors.push("company-guidance workflow index checksum missing");
   if (metrics.companyGuidanceDetailFiles !== 56) errors.push(`expected 56 company-guidance detail files, found ${metrics.companyGuidanceDetailFiles}`);
   if (metrics.containsFullCompanyGuidanceDetailMarker) errors.push("initial JavaScript still contains full company-guidance detail markers");
   return { errors, metrics };

@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
-  "providerVersion": "1.0.0",
+  "providerVersion": "2.0.0",
   "generatedAt": "2026-07-11T07:31:40Z",
   "stockId": "leisai",
   "stockCode": "002979",
@@ -11,16 +11,6 @@
   "totalAnnouncementCount": 291,
   "targetAnnouncements": [
     {
-      "sourceAnnouncementId": "1225404882",
-      "stockId": "leisai",
-      "sourceAnnouncementType": "earnings_preview_revision",
-      "sourceDate": "2026-07-03",
-      "reportPeriod": "2026-06-30",
-      "periodScope": "half_year",
-      "parseStatus": "parse_partial",
-      "isDuplicate": false
-    },
-    {
       "sourceAnnouncementId": "1225403602",
       "stockId": "leisai",
       "sourceAnnouncementType": "earnings_preview",
@@ -29,10 +19,39 @@
       "periodScope": "half_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1225404882",
+      "stockId": "leisai",
+      "sourceAnnouncementType": "earnings_preview_revision",
+      "sourceDate": "2026-07-03",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
     }
   ],
   "providerSnapshots": [],
+  "historicalProviderVersions": [],
   "exclusions": [
+    {
+      "stockId": "leisai",
+      "companyName": "雷赛智能",
+      "sourceAnnouncementId": "1225403602",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2026年半年度业绩预告",
+      "sourceDate": "2026-07-02",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225403602",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
+    },
     {
       "stockId": "leisai",
       "companyName": "雷赛智能",
@@ -50,24 +69,6 @@
       ],
       "reasons": [
         "no_reliable_revised_range",
-        "parse_status_parse_partial"
-      ]
-    },
-    {
-      "stockId": "leisai",
-      "companyName": "雷赛智能",
-      "sourceAnnouncementId": "1225403602",
-      "sourceAnnouncementType": "earnings_preview",
-      "sourceTitle": "2026年半年度业绩预告",
-      "sourceDate": "2026-07-02",
-      "reportPeriod": "2026-06-30",
-      "periodScope": "half_year",
-      "metric": null,
-      "parseStatus": "parse_partial",
-      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225403602",
-      "candidateAnnouncementIds": [],
-      "reasons": [
-        "no_reliable_forecast_range",
         "parse_status_parse_partial"
       ]
     }

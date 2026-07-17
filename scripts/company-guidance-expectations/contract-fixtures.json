@@ -1,0 +1,17 @@
+{
+  "validAnnouncementUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664",
+  "announcementId": "1222448664",
+  "invalidAnnouncementUrls": [
+    "https://www.cninfo.com.cn.evil.example/new/disclosure/detail?annoId=1222448664",
+    "http://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664",
+    "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1&annoId=2",
+    "https://www.cninfo.com.cn/new/disclosure/detail?annoId=abc"
+  ],
+  "validPdfUrl": "https://static.cninfo.com.cn/finalpage/2026-01-15/1222448664.PDF",
+  "invalidPdfUrls": [
+    "https://static.cninfo.com.cn.evil.example/finalpage/2026-01-15/1222448664.PDF",
+    "http://static.cninfo.com.cn/finalpage/2026-01-15/1222448664.PDF",
+    "https://static.cninfo.com.cn/finalpage/2026-01-15/999.PDF",
+    "https://static.cninfo.com.cn/finalpage/2026-01-15/1222448664.PDF?download=1"
+  ]
+}

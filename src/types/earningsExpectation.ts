@@ -163,6 +163,19 @@ export interface EarningsExpectationSnapshot {
   sourceAnnouncementType?: EarningsExpectationProviderSourceAnnouncementType;
   officialPdfUrl?: string;
   artifactChecksum?: string;
+  /** Stable identity for one provider evidence/business key across extraction versions. */
+  providerEvidenceIdentity?: string;
+  /** Immutable content-addressed provider version id. */
+  providerSnapshotVersionId?: string;
+  providerContentChecksum?: string;
+  providerParseRulesVersion?: string;
+  providerCorrectsVersionId?: string | null;
+  providerCorrectionType?: "initial" | "extraction_correction" | "source_correction";
+  providerCorrectedAt?: string | null;
+  providerCorrectionChangedFields?: string[];
+  isCurrentProviderVersion?: boolean;
+  /** Business disclosure revision link; intentionally separate from provider extraction correction. */
+  providerBusinessRevisionPredecessorSnapshotId?: string | null;
   analystCount: number | null;
   institutionCount: number | null;
   ingestionMethod: EarningsExpectationIngestionMethod;
@@ -305,6 +318,13 @@ export interface EarningsExpectationEventPayload {
   providerId?: string;
   providerVersion?: string;
   providerGeneratedAt?: string;
+  providerEvidenceIdentity?: string;
+  providerSnapshotVersionId?: string;
+  providerContentChecksum?: string;
+  providerCorrectsVersionId?: string | null;
+  providerCorrectionType?: "initial" | "extraction_correction" | "source_correction";
+  providerCorrectionChangedFields?: string[];
+  providerBusinessRevisionPredecessorSnapshotId?: string | null;
   sourceAnnouncementId?: string;
   sourceAnnouncementType?: EarningsExpectationProviderSourceAnnouncementType;
   officialPdfUrl?: string;
@@ -385,10 +405,21 @@ export interface EarningsExpectationProviderSnapshot {
   sourceDate: string;
   generatedAt: string;
   artifactChecksum: string;
+  providerEvidenceIdentity: string;
+  providerSnapshotVersionId: string;
+  providerContentChecksum: string;
+  providerParseRulesVersion: string;
+  providerCorrectsVersionId: string | null;
+  providerCorrectionType: "initial" | "extraction_correction" | "source_correction";
+  providerCorrectedAt: string | null;
+  providerCorrectionChangedFields: string[];
+  isCurrentVersion: boolean;
+  providerBusinessRevisionPredecessorSnapshotId: string | null;
   sourceParseStatus: "parse_success" | "parse_partial";
   sourceExtractionConfidence: "high" | "medium" | "low";
-  sourceTextEvidence: string;
-  originalUnitEvidence: string | null;
+  sourceTextEvidence?: string;
+  sourceTextEvidenceHash: string;
+  originalUnitEvidence?: string | null;
   correctionCandidateAnnouncementIds: string[];
   structuredWarnings: string[];
 }
@@ -417,7 +448,7 @@ export interface CompanyGuidanceExpectationWarning {
 }
 
 export interface CompanyGuidanceExpectationDetail {
-  schemaVersion: "1.0.0";
+  schemaVersion: "2.0.0";
   providerId: string;
   providerVersion: string;
   generatedAt: string;
@@ -428,6 +459,7 @@ export interface CompanyGuidanceExpectationDetail {
   status: CompanyGuidanceExpectationProviderStatus;
   totalAnnouncementCount: number;
   providerSnapshots: EarningsExpectationProviderSnapshot[];
+  historicalProviderVersions: EarningsExpectationProviderSnapshot[];
   exclusions: CompanyGuidanceExpectationExclusion[];
   warnings: CompanyGuidanceExpectationWarning[];
 }
@@ -438,6 +470,7 @@ export interface CompanyGuidanceExpectationManifestEntry {
   companyName: string;
   relativePath: string;
   snapshotCount: number;
+  historicalVersionCount: number;
   excludedAnnouncementCount: number;
   byteSize: number;
   checksumSha256: string;
@@ -447,13 +480,17 @@ export interface CompanyGuidanceExpectationManifestEntry {
 }
 
 export interface CompanyGuidanceExpectationManifest {
-  schemaVersion: "1.0.0";
+  schemaVersion: "2.0.0";
   providerId: string;
   providerVersion: string;
   generatedAt: string;
   totalCompanies: number;
   companiesWithSnapshots: number;
   totalSnapshots: number;
+  totalHistoricalVersions: number;
+  workflowIndexRelativePath: string;
+  workflowIndexByteSize: number;
+  workflowIndexChecksumSha256: string;
   items: CompanyGuidanceExpectationManifestEntry[];
 }
 
@@ -470,7 +507,7 @@ export interface CompanyGuidanceExpectationSummaryItem {
 }
 
 export interface CompanyGuidanceExpectationSummary {
-  schemaVersion: "1.0.0";
+  schemaVersion: "2.0.0";
   providerId: string;
   providerVersion: string;
   generatedAt: string;
@@ -478,7 +515,34 @@ export interface CompanyGuidanceExpectationSummary {
   sourceGeneratedAt: string;
   status: CompanyGuidanceExpectationProviderStatus;
   audit: Record<string, unknown>;
+  workflowIndex: {
+    relativePath: string;
+    byteSize: number;
+    checksumSha256: string;
+    currentSnapshotCount: number;
+  };
   items: Record<string, CompanyGuidanceExpectationSummaryItem>;
+}
+
+export type CompanyGuidanceExpectationLoadStatus = "idle" | "loading" | "success" | "partial" | "error";
+
+export interface CompanyGuidanceExpectationWorkflowIndex {
+  schemaVersion: "2.0.0";
+  providerId: string;
+  providerVersion: string;
+  generatedAt: string;
+  currentSnapshotCount: number;
+  records: EarningsExpectationProviderSnapshot[];
+  warnings: CompanyGuidanceExpectationWarning[];
+}
+
+export type ProviderEvidenceRelation = "exact_duplicate" | "metadata_difference" | "content_conflict" | "independent";
+
+export interface ProviderEvidenceRelationRecord {
+  localSnapshotId: string;
+  providerSnapshotId: string | null;
+  relation: ProviderEvidenceRelation;
+  conflictingFields: string[];
 }
 
 export interface AggregatedEarningsExpectationEvidence {
@@ -486,5 +550,6 @@ export interface AggregatedEarningsExpectationEvidence {
   comparisonSnapshots: EarningsExpectationSnapshot[];
   providerSnapshotIds: Set<string>;
   duplicateOfProviderByLocalId: Map<string, string>;
+  relationByLocalId: Map<string, ProviderEvidenceRelationRecord>;
   providerRecordBySnapshotId: Map<string, EarningsExpectationProviderSnapshot>;
 }

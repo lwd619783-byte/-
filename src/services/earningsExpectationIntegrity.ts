@@ -258,6 +258,10 @@ export function deriveExpectationBusinessRevisionDelta(
   },
 ): EarningsExpectationBusinessRevisionDelta | null {
   if (!previous || businessOrderStatus !== "confirmed" || (current.correctsSnapshotId && !identity)) return null;
+  if (current.ingestionMethod === "provider") {
+    if (current.providerCorrectsVersionId) return null;
+    if (current.sourceAnnouncementType !== "earnings_preview_revision" || current.providerBusinessRevisionPredecessorSnapshotId !== previous.id) return null;
+  }
   if (current.estimateShape !== previous.estimateShape || correctionBasisChanged(current, previous)) return null;
   const currentMidpoint = snapshotMidpoint(current);
   const previousMidpoint = snapshotMidpoint(previous);

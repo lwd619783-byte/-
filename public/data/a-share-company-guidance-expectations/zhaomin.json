@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
-  "providerVersion": "1.0.0",
+  "providerVersion": "2.0.0",
   "generatedAt": "2026-07-11T07:31:40Z",
   "stockId": "zhaomin",
   "stockCode": "301000",
@@ -11,16 +11,6 @@
   "totalAnnouncementCount": 329,
   "targetAnnouncements": [
     {
-      "sourceAnnouncementId": "1222342421",
-      "stockId": "zhaomin",
-      "sourceAnnouncementType": "earnings_preview",
-      "sourceDate": "2025-01-15",
-      "reportPeriod": "2024-12-31",
-      "periodScope": "full_year",
-      "parseStatus": "parse_partial",
-      "isDuplicate": false
-    },
-    {
       "sourceAnnouncementId": "1220691176",
       "stockId": "zhaomin",
       "sourceAnnouncementType": "earnings_preview",
@@ -29,28 +19,21 @@
       "periodScope": "half_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
-    }
-  ],
-  "providerSnapshots": [],
-  "exclusions": [
+    },
     {
-      "stockId": "zhaomin",
-      "companyName": "肇民科技",
       "sourceAnnouncementId": "1222342421",
+      "stockId": "zhaomin",
       "sourceAnnouncementType": "earnings_preview",
-      "sourceTitle": "2024年年度业绩预告",
       "sourceDate": "2025-01-15",
       "reportPeriod": "2024-12-31",
       "periodScope": "full_year",
-      "metric": null,
       "parseStatus": "parse_partial",
-      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222342421",
-      "candidateAnnouncementIds": [],
-      "reasons": [
-        "no_reliable_forecast_range",
-        "parse_status_parse_partial"
-      ]
-    },
+      "isDuplicate": false
+    }
+  ],
+  "providerSnapshots": [],
+  "historicalProviderVersions": [],
+  "exclusions": [
     {
       "stockId": "zhaomin",
       "companyName": "肇民科技",
@@ -63,6 +46,24 @@
       "metric": null,
       "parseStatus": "parse_partial",
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1220691176",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
+    },
+    {
+      "stockId": "zhaomin",
+      "companyName": "肇民科技",
+      "sourceAnnouncementId": "1222342421",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2024年年度业绩预告",
+      "sourceDate": "2025-01-15",
+      "reportPeriod": "2024-12-31",
+      "periodScope": "full_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222342421",
       "candidateAnnouncementIds": [],
       "reasons": [
         "no_reliable_forecast_range",

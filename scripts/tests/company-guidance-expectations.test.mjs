@@ -1,11 +1,19 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import {
   COMPANY_GUIDANCE_TIME_NOTE,
   buildCompanyGuidanceArtifacts,
+  parseOfficialCninfoAnnouncementUrl,
+  parseOfficialCninfoPdfUrl,
   periodScopeFor,
   stableProviderSnapshotId,
+  validateBusinessRevisionGraph,
+  validateVersionGraph,
 } from "../company-guidance-expectations/core.mjs";
+
+const CONTRACT_FIXTURES = JSON.parse(fs.readFileSync(new URL("../company-guidance-expectations/contract-fixtures.json", import.meta.url), "utf8"));
+const APP_SOURCE = fs.readFileSync(new URL("../../src/App.tsx", import.meta.url), "utf8");
 
 const GENERATED_AT = "2026-07-11T07:31:40Z";
 
@@ -88,10 +96,11 @@ test("rejects mismatched forecast period", () => {
   assert.ok(result.companies[0].exclusions[0].reasons.includes("forecast_period_mismatch"));
 });
 
-test("stable id uses only business identity fields", () => {
+test("evidence identity stays stable while immutable content version changes", () => {
   const first = snapshot(build([announcement()]));
   const second = snapshot(build([announcement({ title: "展示文案变化", sourceTextEvidence: "证据文案变化" })]));
-  assert.equal(first.id, second.id);
+  assert.equal(first.providerEvidenceIdentity, second.providerEvidenceIdentity);
+  assert.notEqual(first.id, second.id);
 });
 
 test("input order changes do not change provider ids", () => {
@@ -107,7 +116,8 @@ test("links a revision to one explicit compatible predecessor", () => {
   const revision = announcement({ id: "1002", date: "2026-01-02", category: "performance_forecast_revision", isCorrection: true, correctedAnnouncementId: "1001", event: { previousForecastAnnouncementId: "1001" } });
   const records = build([revision, original]).companies[0].providerSnapshots;
   const target = records.find((record) => record.sourceAnnouncementId === "1002");
-  assert.equal(target.snapshot.correctsSnapshotId, records.find((record) => record.sourceAnnouncementId === "1001").snapshot.id);
+  assert.equal(target.providerBusinessRevisionPredecessorSnapshotId, records.find((record) => record.sourceAnnouncementId === "1001").snapshot.id);
+  assert.equal(target.snapshot.correctsSnapshotId, null);
 });
 
 test("links multiple revisions as one deterministic linear chain", () => {
@@ -116,16 +126,16 @@ test("links multiple revisions as one deterministic linear chain", () => {
   const secondRevision = announcement({ id: "1003", date: "2026-01-03", category: "performance_forecast_revision", isCorrection: true, correctedAnnouncementId: "1002", event: { previousForecastAnnouncementId: "1002", lowerBound: 140, upperBound: 240 } });
   const records = build([secondRevision, original, firstRevision]).companies[0].providerSnapshots;
   const byAnnouncement = new Map(records.map((record) => [record.sourceAnnouncementId, record]));
-  assert.equal(byAnnouncement.get("1002").snapshot.correctsSnapshotId, byAnnouncement.get("1001").snapshot.id);
-  assert.equal(byAnnouncement.get("1003").snapshot.correctsSnapshotId, byAnnouncement.get("1002").snapshot.id);
-  assert.equal(new Set(records.map((record) => record.snapshot.correctsSnapshotId).filter(Boolean)).size, 2);
+  assert.equal(byAnnouncement.get("1002").providerBusinessRevisionPredecessorSnapshotId, byAnnouncement.get("1001").snapshot.id);
+  assert.equal(byAnnouncement.get("1003").providerBusinessRevisionPredecessorSnapshotId, byAnnouncement.get("1002").snapshot.id);
+  assert.equal(new Set(records.map((record) => record.providerBusinessRevisionPredecessorSnapshotId).filter(Boolean)).size, 2);
 });
 
 test("does not link a revision across metrics", () => {
   const original = announcement({ id: "1001", date: "2026-01-01" });
   const revision = announcement({ id: "1002", date: "2026-01-02", category: "performance_forecast_revision", isCorrection: true, correctedAnnouncementId: "1001", event: { profitMetric: "operatingRevenue", previousForecastAnnouncementId: "1001" } });
   const target = build([original, revision]).companies[0].providerSnapshots.find((record) => record.sourceAnnouncementId === "1002");
-  assert.equal(target.snapshot.correctsSnapshotId, null);
+  assert.equal(target.providerBusinessRevisionPredecessorSnapshotId, null);
   assert.ok(target.structuredWarnings.includes("revision_predecessor_missing"));
 });
 
@@ -133,7 +143,7 @@ test("does not link a revision across report periods", () => {
   const original = announcement({ id: "1001", date: "2026-01-01", reportPeriod: "2025-12-31" });
   const revision = announcement({ id: "1002", date: "2026-07-01", reportPeriod: "2026-06-30", category: "performance_forecast_revision", isCorrection: true, correctedAnnouncementId: "1001", event: { forecastPeriod: "2026-06-30", previousForecastAnnouncementId: "1001" } });
   const target = build([original, revision]).companies[0].providerSnapshots.find((record) => record.sourceAnnouncementId === "1002");
-  assert.equal(target.snapshot.correctsSnapshotId, null);
+  assert.equal(target.providerBusinessRevisionPredecessorSnapshotId, null);
 });
 
 test("a revision without a reliable new range becomes a warning only", () => {
@@ -166,6 +176,77 @@ test("stable id helper ignores current runtime and array index", () => {
   assert.equal(stableProviderSnapshotId(fields), stableProviderSnapshotId({ ...fields }));
 });
 
+test("no-op regeneration preserves version id and createdAt", () => {
+  const first = build([announcement()]);
+  const second = buildCompanyGuidanceArtifacts({ announcementDetails: [detail([announcement()])], sourceGeneratedAt: "2026-07-12T07:31:40Z", previousDetails: first.companies });
+  assert.equal(second.companies[0].providerSnapshots[0].snapshot.id, first.companies[0].providerSnapshots[0].snapshot.id);
+  assert.equal(second.companies[0].providerSnapshots[0].snapshot.createdAt, first.companies[0].providerSnapshots[0].snapshot.createdAt);
+  assert.equal(second.companies[0].historicalProviderVersions.length, 0);
+});
+
+test("content change appends an immutable extraction correction version", () => {
+  const first = build([announcement()]);
+  const changed = announcement({ event: { lowerBound: 120, upperBound: 220 } });
+  const second = buildCompanyGuidanceArtifacts({ announcementDetails: [detail([changed])], sourceGeneratedAt: "2026-07-12T07:31:40Z", previousDetails: first.companies });
+  const current = second.companies[0].providerSnapshots[0];
+  assert.equal(second.companies[0].historicalProviderVersions.length, 1);
+  assert.equal(current.providerCorrectsVersionId, first.companies[0].providerSnapshots[0].providerSnapshotVersionId);
+  assert.equal(current.providerCorrectionType, "extraction_correction");
+  assert.deepEqual(current.providerCorrectionChangedFields, ["lowerBound", "upperBound"]);
+  assert.equal(current.snapshot.correctsSnapshotId, null);
+});
+
+test("generation blocks silent removal of prior evidence", () => {
+  const first = build([announcement()]);
+  assert.throws(() => buildCompanyGuidanceArtifacts({ announcementDetails: [detail([])], sourceGeneratedAt: "2026-07-12T07:31:40Z", previousDetails: first.companies }), /evidence disappeared/u);
+});
+
+test("version graph rejects cross-evidence predecessors and cycles", () => {
+  const first = build([announcement({ id: "1001" }), announcement({ id: "1002" })]);
+  const records = first.companies[0].providerSnapshots.map((record) => structuredClone(record));
+  records[0].providerCorrectsVersionId = records[1].providerSnapshotVersionId;
+  assert.ok(validateVersionGraph(records).some((error) => error.startsWith("invalid_version_predecessor")));
+  records[1].providerEvidenceIdentity = records[0].providerEvidenceIdentity;
+  records[1].providerCorrectsVersionId = records[0].providerSnapshotVersionId;
+  assert.ok(validateVersionGraph(records).some((error) => error.startsWith("version_cycle")));
+});
+
+test("business revision graph rejects incompatible predecessors", () => {
+  const result = build([announcement({ id: "1001" }), announcement({ id: "1002", category: "performance_forecast_revision", date: "2026-01-16", event: { profitMetric: "operatingRevenue" } })]);
+  const records = result.companies[0].providerSnapshots;
+  records[1].providerBusinessRevisionPredecessorSnapshotId = records[0].snapshot.id;
+  assert.ok(validateBusinessRevisionGraph(records).some((error) => error.startsWith("incompatible_business_predecessor")));
+});
+
+test("strict CNInfo URL parsers reject lookalikes and non-canonical URLs", () => {
+  assert.equal(parseOfficialCninfoAnnouncementUrl(CONTRACT_FIXTURES.validAnnouncementUrl)?.announcementId, CONTRACT_FIXTURES.announcementId);
+  for (const url of CONTRACT_FIXTURES.invalidAnnouncementUrls) assert.equal(parseOfficialCninfoAnnouncementUrl(url), null);
+  assert.equal(parseOfficialCninfoPdfUrl(CONTRACT_FIXTURES.validPdfUrl, CONTRACT_FIXTURES.announcementId)?.announcementId, CONTRACT_FIXTURES.announcementId);
+  for (const url of CONTRACT_FIXTURES.invalidPdfUrls) assert.equal(parseOfficialCninfoPdfUrl(url, CONTRACT_FIXTURES.announcementId), null);
+});
+
+test("App global workflow loading is independent from navigation", () => {
+  assert.match(APP_SOURCE, /useEffect\(\(\) => \{[\s\S]*?companyGuidanceLoader\.loadWorkflow\(\)[\s\S]*?\}, \[companyGuidanceLoader, companyGuidanceRetryToken, dataMode\]\);/u);
+  assert.ok(APP_SOURCE.includes("setCompanyGuidanceWorkflowStatus(\"success\")"));
+  assert.ok(APP_SOURCE.includes("[companyGuidanceLoader, companyGuidanceRetryToken, dataMode]"));
+  assert.ok(APP_SOURCE.indexOf("companyGuidanceLoader.loadWorkflow()") < APP_SOURCE.indexOf("companyGuidanceLoader.loadMany(missingIds)"));
+  assert.ok(APP_SOURCE.includes("selectActiveCompanyGuidanceProviderRecords(dataMode, companyGuidanceWorkflowStatus, companyGuidanceWorkflow)"));
+});
+
+test("App mode and request-generation guards block stale Provider results", () => {
+  assert.ok(APP_SOURCE.includes('if (dataMode === "mock")'));
+  assert.ok(APP_SOURCE.includes("companyGuidanceRequestGeneration.current"));
+  assert.ok(APP_SOURCE.includes("generation !== companyGuidanceRequestGeneration.current"));
+  assert.ok(APP_SOURCE.includes("setCompanyGuidanceWorkflow(null)"));
+});
+
+test("App exposes isolated detail errors and explicit retry", () => {
+  assert.ok(APP_SOURCE.includes("companyGuidanceFailedStockIds.includes(stockId)"));
+  assert.ok(APP_SOURCE.includes("setCompanyGuidanceLoadStatus(result.status)"));
+  assert.ok(APP_SOURCE.includes("companyGuidanceLoader.clearCache()"));
+  assert.ok(APP_SOURCE.includes("providerDetailLoadError={companyGuidanceLoadError}"));
+});
+
 function build(announcements) {
   return buildCompanyGuidanceArtifacts({ announcementDetails: [detail(announcements)], sourceGeneratedAt: GENERATED_AT });
 }
@@ -178,6 +259,7 @@ function detail(announcements) {
 
 function announcement(overrides = {}) {
   const reportPeriod = overrides.reportPeriod ?? "2025-12-31";
+  const date = overrides.date ?? "2026-01-15";
   const eventOverrides = overrides.event ?? {};
   const events = overrides.events ?? [{
     forecastPeriod: reportPeriod,
@@ -194,10 +276,10 @@ function announcement(overrides = {}) {
     announcementId: overrides.id ?? "1001",
     title: overrides.title ?? "2025年度业绩预告",
     category: overrides.category ?? "performance_forecast",
-    announcementDate: overrides.date ?? "2026-01-15",
+    announcementDate: date,
     reportPeriod,
     officialUrl: `https://www.cninfo.com.cn/new/disclosure/detail?annoId=${overrides.id ?? "1001"}`,
-    pdfUrl: `https://static.cninfo.com.cn/finalpage/2026-01-15/${overrides.id ?? "1001"}.PDF`,
+    pdfUrl: `https://static.cninfo.com.cn/finalpage/${date}/${overrides.id ?? "1001"}.PDF`,
     parseStatus: overrides.parseStatus ?? "parse_success",
     isCancelled: false,
     isDuplicate: false,

@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
-  "providerVersion": "1.0.0",
+  "providerVersion": "2.0.0",
   "generatedAt": "2026-07-11T07:31:40Z",
   "stockId": "henghui",
   "stockCode": "300952",
@@ -11,6 +11,7 @@
   "totalAnnouncementCount": 404,
   "targetAnnouncements": [],
   "providerSnapshots": [],
+  "historicalProviderVersions": [],
   "exclusions": [],
   "warnings": [],
   "quality": {
