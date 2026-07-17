@@ -36,28 +36,29 @@ describe("earnings expectation UI and workflow linkage", () => {
   it("85 displays basis corrections without a misleading business revision rate", () => { const corrected = { ...snapshot(), id: "s-2", correctsSnapshotId: "s-1", correctionScope: "basis" as const, unit: "hundred_million_yuan" as const, value: 1 }; const html = centerHtml([snapshot(), corrected]); expect(html).toContain("口径纠正"); expect(html).toContain("数据更正"); expect(html).toContain("不跨口径计算差异"); });
   it("86 exposes disclosure timing separately from local parse success", () => { const html = centerHtml([snapshot()], [{ ...comparison(), actualDisclosureTimingStatus: "before", performanceDisclosureTimingStatus: "before" }]); expect(html).toContain("相对实际值披露：披露前"); expect(html).toContain("相对公司业绩信息披露：披露前"); expect(html).toContain("本地数值是否解析成功分别判断"); });
   it("91 keeps an acknowledged comparison task stable after reload and recalculation", () => { const item = watchItem(); const firstEvents = buildEarningsExpectationResearchEvents([snapshot()], [{ ...comparison(), calculatedAt: "2026-07-02T00:00:00.000Z" }], [stock()]); const first = buildReviewTasks({ watchItems: [item], events: firstEvents, chains: [], taskStates: [], now: new Date("2026-07-13") }).find((task) => task.ruleType === "earnings_expectation_comparison"); expect(first).toBeDefined(); const state = { taskId: first!.id, status: "acknowledged" as const, acknowledgedAt: "2026-07-03", dismissedAt: null, snoozedUntil: null, updatedAt: "2026-07-03" }; const reloadedEvents = buildEarningsExpectationResearchEvents([snapshot()], [{ ...comparison(), calculatedAt: "2026-07-10T00:00:00.000Z" }], [stock()]); const reloaded = buildReviewTasks({ watchItems: [item], events: reloadedEvents, chains: [], taskStates: [state], now: new Date("2026-07-13") }).find((task) => task.ruleType === "earnings_expectation_comparison"); expect(reloaded?.id).toBe(first?.id); expect(reloaded?.createdAt).toBe(first?.createdAt); expect(reloaded?.status).toBe("acknowledged"); });
-  it("shows a conservative same-day uncertainty notice and no directional wording", () => { const html = centerHtml([{ ...snapshot(), id: "a" }, { ...snapshot(), id: "z", value: 110 }]); expect(html).toContain("同日存在多条仅日期精度的预测"); expect(html).toContain("当前不生成正式预期差"); expect(html).not.toContain("业务预测较前值 +"); });
+  it("shows a conservative same-day predecessor warning and no directional revision wording", () => { const html = centerHtml([{ ...snapshot(), id: "a" }, { ...snapshot(), id: "z", value: 110 }]); expect(html).toContain("同日存在多条仅日期精度或混合精度的候选"); expect(html).toContain("无法计算上修或下修"); expect(html).not.toContain("业务预测较前值 +"); });
   it("does not fabricate midnight for a date-only business time", () => { const html = centerHtml([snapshot()]); expect(html).toContain("2026-06-01 (date)"); expect(html).not.toContain("2026-06-01T00:00"); });
   it("keeps the original source display name after identity normalization", () => { const value = { ...snapshot(), sourceCategory: "institution_single" as const, sourceName: " ABC　Securities ", sourceTitle: "盈利预测", sourceUrl: "https://example.com/report" }; expect(centerHtml([value])).toContain(" ABC　Securities "); });
   it("renders the injected Tokyo workflow day and time zone in the form", () => { const html = renderToStaticMarkup(<EarningsExpectationFormModal stocks={[stock()]} initialStockId="demo" timeZone="Asia/Tokyo" now={new Date("2026-07-13T15:30:00.000Z")} onClose={() => undefined} onSubmit={() => undefined} />); expect(html).toContain("Asia/Tokyo"); expect(html).toContain("2026-07-14"); });
   it("blocks DST gaps and overlaps before form submission", () => { expect(resolveFormationInput("2026-03-08T02:30", "America/New_York").error).toContain("不存在"); expect(resolveFormationInput("2026-11-01T01:30", "America/New_York").error).toContain("两个可能时刻"); expect(resolveFormationInput("2026-07-14T00:30", "Asia/Tokyo")).toMatchObject({ formedAt: "2026-07-13T15:30:00.000Z", precision: "datetime", error: null }); });
-  it("propagates uncertain business order through comparison, event, task and KPI inputs exactly once", () => {
+  it("propagates actual comparison and uncertain predecessor warning independently exactly once", () => {
     const values = [{ ...snapshot(), id: "a", value: 100 }, { ...snapshot(), id: "z", value: 110 }];
     const actual = { ...researchEvent("actual", "financial_update"), publishedAt: "2026-07-01", eventDate: "2026-07-01", metrics: [{ key: "operatingRevenue", label: "营业收入", value: 105, unit: "CNY" as const, periodBasis: "cumulative" as const, sourceAnnouncementId: null, sourceFinancialPeriod: "2026-06-30" }] };
     const comparisons = buildEarningsExpectationComparisons(values, [actual]);
     const events = buildEarningsExpectationResearchEvents(values, comparisons, [stock()]);
     const tasks = buildReviewTasks({ watchItems: [watchItem()], events, chains: [], taskStates: [], now: new Date("2026-07-13"), timeZone: "Asia/Shanghai" });
     expect(comparisons).toHaveLength(1);
-    expect(comparisons[0].comparabilityStatus).toBe("not_comparable");
-    expect(["above", "within", "below"]).not.toContain(comparisons[0].comparisonResult);
+    expect(comparisons[0]).toMatchObject({ comparabilityStatus: "comparable", comparisonResult: "below", businessOrderStatus: "uncertain" });
     expect(events.filter((event) => event.eventType === "earnings_expectation_data_warning")).toHaveLength(1);
-    expect(events.some((event) => event.eventType === "earnings_expectation_comparison_available" || event.eventType === "earnings_expectation_revision")).toBe(false);
+    expect(events.filter((event) => event.eventType === "earnings_expectation_comparison_available")).toHaveLength(1);
+    expect(events.some((event) => event.eventType === "earnings_expectation_revision")).toBe(false);
     expect(tasks.filter((task) => task.ruleType === "earnings_expectation_data_warning")).toHaveLength(1);
     expect(tasks.some((task) => task.ruleType === "earnings_expectation_revision_up" || task.ruleType === "earnings_expectation_revision_down")).toBe(false);
     const html = centerHtml(values, comparisons);
-    expect(html).toContain("当前不生成正式预期差");
+    expect(html).toContain("当前预测可以与实际值比较");
+    expect(html).toContain("无法计算上修或下修");
     expect(html).not.toContain("高于用户个人预测");
-    expect(html).not.toContain("低于用户个人预测");
+    expect(html).toContain("低于用户个人预测");
   });
   it("restores a formal comparison after exact formation times establish business order", () => {
     const values = [{ ...snapshot(), id: "a", value: 100, asOfDate: "2026-06-01", formedAt: "2026-06-01T07:00:00.000Z", formedAtPrecision: "datetime" as const }, { ...snapshot(), id: "z", value: 110, asOfDate: "2026-06-01", formedAt: "2026-06-01T08:00:00.000Z", formedAtPrecision: "datetime" as const }];

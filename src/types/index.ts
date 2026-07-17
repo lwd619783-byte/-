@@ -239,6 +239,7 @@ export type {
   CanonicalTemporalUncertaintyReason,
   EarningsExpectationAccountingBasis,
   EarningsExpectationBusinessOrderStatus,
+  EarningsExpectationBusinessOrderCandidate,
   EarningsExpectationBusinessRevisionDelta,
   EarningsExpectationAvailabilityResolution,
   EarningsExpectationComparabilityStatus,
@@ -265,6 +266,7 @@ export type {
   EarningsExpectationVerificationStatus,
   EarningsExpectationTimePrecision,
   EarningsExpectationWarningCode,
+  EarningsExpectationWarningFamily,
   PerformanceDisclosureEvidence,
   PreviousBusinessNodeStatus,
 } from "./earningsExpectation";

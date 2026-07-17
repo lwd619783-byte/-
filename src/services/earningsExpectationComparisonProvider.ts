@@ -111,12 +111,6 @@ export function compareEarningsExpectation(
     nonComparableReasonCodes: [...new Set(initialWarningCodes)],
     isExAnte: beforeAnyPerformanceDisclosure === true,
   };
-  if (businessOrderStatus === "uncertain") {
-    return notComparable(withWarningCode(base, "business_order_ambiguous"), ["同日存在多条仅日期精度的预测，无法确认业务先后顺序。当前不生成正式预期差，请补充精确形成时间。"], "业务顺序不确定，未执行数值比较");
-  }
-  if (businessOrderStatus === "equal") {
-    return notComparable(withWarningCode(base, "business_order_equal"), ["存在形成于同一精确时刻的独立预测，时间关系为 equal；稳定 ID 仅用于显示，不能据此认定业务先后。"], "独立预测形成时刻相同，未执行方向性或最新值比较");
-  }
   const structuralReasons = structuralComparabilityReasons(snapshot);
   if (structuralReasons.length) return notComparable(base, structuralReasons, "口径校验失败，未执行数值比较");
 

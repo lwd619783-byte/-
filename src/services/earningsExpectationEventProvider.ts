@@ -1,5 +1,6 @@
 import type {
   EarningsExpectationBusinessRevisionDelta,
+  EarningsExpectationBusinessOrderCandidate,
   EarningsExpectationComparison,
   EarningsExpectationCorrectionDelta,
   EarningsExpectationEventPayload,
@@ -19,6 +20,8 @@ import {
   resolveEffectiveBusinessHistory,
   resolveUniquePreviousBusinessNode,
   sortExpectationsByBusinessTime,
+  type EffectiveEarningsExpectationBusinessNode,
+  type PreviousBusinessNodeResolution,
 } from "./earningsExpectationIntegrity";
 import {
   compareCanonicalBusinessTemporal,
@@ -36,7 +39,6 @@ export function buildEarningsExpectationResearchEvents(
   timeZone = resolveSafeWorkflowTimeZone(),
 ): ResearchEvent[] {
   const events: ResearchEvent[] = [];
-  const comparisonSnapshotIds = new Set(comparisons.map((comparison) => comparison.snapshotId));
   const snapshotsById = new Map(snapshots.map((snapshot) => [snapshot.id, snapshot]));
   const businessNodes = resolveEffectiveBusinessHistory(snapshots, timeZone);
   const nodesByGroup = new Map<string, typeof businessNodes>();
@@ -45,8 +47,8 @@ export function buildEarningsExpectationResearchEvents(
     nodesByGroup.set(key, [...(nodesByGroup.get(key) ?? []), node]);
   }
   for (const group of nodesByGroup.values()) {
-    const groupHasComparison = group.some((node) => comparisonSnapshotIds.has(node.effectiveSnapshot.id));
-    const explicitWarningNode = [...group].reverse().find((node) => ["ambiguous", "equal_time", "unresolved"].includes(resolveUniquePreviousBusinessNode(node, group).status));
+    const currentWarningNode = group[group.length - 1];
+    const groupSnapshots = snapshots.filter((snapshot) => expectationGroupKey(snapshot) === expectationGroupKey(currentWarningNode.businessRootSnapshot));
     group.forEach((node) => {
       const stock = stocks.find((item) => item.id === node.businessRootSnapshot.stockId);
       if (!stock) return;
@@ -63,13 +65,14 @@ export function buildEarningsExpectationResearchEvents(
         },
       );
       events.push(snapshotEvent(stock, node.businessRootSnapshot, node.effectiveSnapshot, previousResolution.status === "unique", businessRevisionDelta, revisionReminderThreshold, timeZone, businessOrderStatus, node.correctionChain, previousResolution));
-      if (["ambiguous", "equal_time", "unresolved"].includes(previousResolution.status) && !groupHasComparison && explicitWarningNode?.businessRootSnapshot.id === node.businessRootSnapshot.id) {
+      if (["ambiguous", "equal_time", "unresolved"].includes(previousResolution.status) && currentWarningNode.businessRootSnapshot.id === node.businessRootSnapshot.id) {
         const reason = businessOrderStatus === "equal"
           ? "两条独立预测形成于同一精确时刻，稳定 ID 仅用于显示排序；不生成方向性业务修订。"
           : previousResolution.status === "unresolved"
             ? "历史时间缺少可恢复的原解释时区，无法证明唯一业务前序。"
             : "存在多个互相无法排序的最大前序，不生成方向性业务修订。";
-        events.push(warningEvent(stock, node.effectiveSnapshot, null, timeZone, businessOrderStatus, node.businessRootSnapshot, node.correctionChain, [reason], previousResolution.reasonCode ? [previousResolution.reasonCode] : ["business_order_ambiguous"]));
+        const currentComparison = comparisons.find((comparison) => comparison.snapshotId === node.effectiveSnapshot.id) ?? null;
+        events.push(businessOrderWarningEvent(stock, node, groupSnapshots, previousResolution, currentComparison, timeZone, businessOrderStatus, reason));
       }
     });
   }
@@ -243,6 +246,60 @@ function warningEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, compa
   };
 }
 
+function businessOrderWarningEvent(
+  stock: Stock,
+  node: EffectiveEarningsExpectationBusinessNode,
+  groupSnapshots: EarningsExpectationSnapshot[],
+  previousResolution: PreviousBusinessNodeResolution,
+  comparison: EarningsExpectationComparison | null,
+  timeZone: string,
+  businessOrderStatus: "confirmed" | "equal" | "uncertain",
+  reason: string,
+): ResearchEvent {
+  const warningCode = previousResolution.reasonCode ?? "business_order_ambiguous";
+  const episode = resolveBusinessOrderWarningEpisode(node, previousResolution, groupSnapshots, timeZone, warningCode);
+  const availability = node.availableAt;
+  const warningBusinessDate = availability.status === "resolved"
+    ? availability.value.businessCalendarDate
+    : availability.bounds.businessDateMax ?? getExpectationFormationTemporal(node.effectiveSnapshot).businessCalendarDate;
+  const candidates = businessOrderCandidates(previousResolution);
+  const reasons = [reason, `候选前序 ${candidates.length} 条；请补充精确形成时间或通过追加纠正快照人工确认前序。`];
+  return {
+    ...base(stock, node.effectiveSnapshot, timeZone, node.businessRootSnapshot),
+    id: `expectation-event:${node.businessRootSnapshot.id}:warning:business_order:${stableHash(episode.key)}`,
+    eventType: "earnings_expectation_data_warning",
+    eventDate: warningBusinessDate,
+    publishedAt: null,
+    eventOccurredAt: null,
+    eventBusinessDate: warningBusinessDate,
+    detectedAt: episode.stateActivatedAt,
+    stateActivatedAt: episode.stateActivatedAt,
+    recordedAt: node.effectiveSnapshot.createdAt,
+    warningEpisodeKey: episode.key,
+    title: `上一业务预测需要核验 · ${metricLabel(node.effectiveSnapshot.metric)}`,
+    summary: reasons.join("；"),
+    verificationStatus: "partial",
+    parseStatus: "not_applicable",
+    reviewStatus: "pending",
+    reviewReasons: reasons,
+    materiality: "medium",
+    expectation: {
+      ...payload(node.effectiveSnapshot, comparison, null, null, businessOrderStatus, timeZone, node.businessRootSnapshot, node.correctionChain, null, node.effectiveSnapshot.id, previousResolution),
+      warningFamily: "business_order",
+      businessOrderCandidates: candidates,
+      structuredWarningCodes: [warningCode],
+      nonComparableReasonCodes: [warningCode],
+      warningEpisodeKey: episode.key,
+      warningActivationEntityIds: episode.activationEntityIds,
+      eventOccurredAt: null,
+      eventBusinessDate: warningBusinessDate,
+      detectedAt: episode.stateActivatedAt,
+      stateActivatedAt: episode.stateActivatedAt,
+      recordedAt: node.effectiveSnapshot.createdAt,
+    },
+  };
+}
+
 function base(stock: Stock, snapshot: EarningsExpectationSnapshot, timeZone: string, _businessRootSnapshot: EarningsExpectationSnapshot = snapshot): ResearchEvent {
   const availability = getExpectationAvailability(snapshot);
   const formation = getExpectationFormationTemporal(snapshot);
@@ -385,6 +442,75 @@ interface WarningEpisodeResolution {
   stateActivatedAt: string | null;
 }
 
+interface BusinessOrderWarningEpisodeResolution extends WarningEpisodeResolution {
+  status: "active" | "resolved";
+  warningCode: EarningsExpectationWarningCode;
+  currentBusinessRootSnapshotId: string;
+  currentEffectiveSnapshotId: string;
+  candidateBusinessRootSnapshotIds: string[];
+  candidateEffectiveSnapshotIds: string[];
+}
+
+function resolveBusinessOrderWarningEpisode(
+  currentNode: EffectiveEarningsExpectationBusinessNode,
+  currentResolution: PreviousBusinessNodeResolution,
+  groupSnapshots: EarningsExpectationSnapshot[],
+  timeZone: string,
+  warningCode: EarningsExpectationWarningCode,
+): BusinessOrderWarningEpisodeResolution {
+  const orderedAuditChanges = [...groupSnapshots].sort((left, right) => Date.parse(left.createdAt) - Date.parse(right.createdAt) || left.id.localeCompare(right.id));
+  let wasActive = false;
+  let activationSnapshot: EarningsExpectationSnapshot | null = null;
+  let activationCandidateRootIds: string[] = [];
+  for (let index = 0; index < orderedAuditChanges.length; index += 1) {
+    const replaySnapshots = orderedAuditChanges.slice(0, index + 1);
+    const replayNodes = resolveEffectiveBusinessHistory(replaySnapshots, timeZone);
+    const replayCurrent = replayNodes.find((node) => node.businessRootSnapshot.id === currentNode.businessRootSnapshot.id);
+    const replayResolution = replayCurrent ? resolveUniquePreviousBusinessNode(replayCurrent, replayNodes) : null;
+    const isActive = replayResolution?.reasonCode === warningCode;
+    if (isActive && !wasActive) {
+      activationSnapshot = orderedAuditChanges[index];
+      activationCandidateRootIds = [...new Set(replayResolution.candidateNodes.map((node) => node.businessRootSnapshot.id))].sort();
+    }
+    wasActive = isActive;
+  }
+  const candidateBusinessRootSnapshotIds = [...new Set(currentResolution.candidateNodes.map((node) => node.businessRootSnapshot.id))].sort();
+  const candidateEffectiveSnapshotIds = [...new Set(currentResolution.candidateNodes.map((node) => node.effectiveSnapshot.id))].sort();
+  const fallbackActivation = currentNode.businessRootSnapshot;
+  const activation = activationSnapshot ?? fallbackActivation;
+  const activationEntityIds = [activation.id];
+  const key = [
+    "business_order",
+    warningCode,
+    currentNode.businessRootSnapshot.id,
+    activation.id,
+    ...(activationCandidateRootIds.length ? activationCandidateRootIds : candidateBusinessRootSnapshotIds),
+  ].join("|");
+  return {
+    key,
+    status: wasActive ? "active" : "resolved",
+    warningCode,
+    stateActivatedAt: isPreciseInstant(activation.createdAt) ? new Date(Date.parse(activation.createdAt)).toISOString() : null,
+    activationEntityIds,
+    currentBusinessRootSnapshotId: currentNode.businessRootSnapshot.id,
+    currentEffectiveSnapshotId: currentNode.effectiveSnapshot.id,
+    candidateBusinessRootSnapshotIds,
+    candidateEffectiveSnapshotIds,
+  };
+}
+
+function businessOrderCandidates(previousResolution: PreviousBusinessNodeResolution): EarningsExpectationBusinessOrderCandidate[] {
+  return [...previousResolution.candidateNodes]
+    .sort((left, right) => left.businessRootSnapshot.id.localeCompare(right.businessRootSnapshot.id))
+    .map((candidate) => ({
+      businessRootSnapshotId: candidate.businessRootSnapshot.id,
+      effectiveSnapshotId: candidate.effectiveSnapshot.id,
+      sourceName: candidate.effectiveSnapshot.sourceName,
+      formationTime: candidate.effectiveFormationTime,
+      availableAt: candidate.availableAt,
+    }));
+}
+
 function resolveWarningEpisode(
   businessRootSnapshot: EarningsExpectationSnapshot,
   correctionChain: EarningsExpectationSnapshot[],
@@ -428,8 +554,6 @@ function snapshotWarningCodeActive(code: EarningsExpectationWarningCode, snapsho
   if (code === "source_verification_pending") return snapshot.sourceVerificationStatus !== "verified";
   if (code === "source_time_unresolved") return snapshot.sourcePublishedAtResolution === "unresolved_legacy";
   if (code === "audit_time_invalid") return !isPreciseInstant(snapshot.createdAt);
-  if (code === "business_order_unresolved") return availability.status === "uncertain" && ["legacy_time_zone_unknown", "missing_time"].includes(availability.reason);
-  if (code === "business_order_ambiguous") return availability.status === "uncertain" && !["legacy_time_zone_unknown", "missing_time"].includes(availability.reason);
   return false;
 }
 
@@ -442,6 +566,9 @@ function dedupe(events: ResearchEvent[]) { return [...new Map(events.map((event)
 function warningCodesFor(snapshot: EarningsExpectationSnapshot, comparison: EarningsExpectationComparison | null): EarningsExpectationWarningCode[] {
   const codes = new Set<EarningsExpectationWarningCode>(comparison?.structuredWarningCodes ?? []);
   for (const code of comparison?.nonComparableReasonCodes ?? []) codes.add(code);
+  codes.delete("business_order_ambiguous");
+  codes.delete("business_order_equal");
+  codes.delete("business_order_unresolved");
   if (getExpectationAvailability(snapshot).status === "uncertain") codes.add("availability_uncertain");
   if (snapshot.sourceVerificationStatus !== "verified") codes.add("source_verification_pending");
   if (snapshot.sourcePublishedAtResolution === "unresolved_legacy") codes.add("source_time_unresolved");

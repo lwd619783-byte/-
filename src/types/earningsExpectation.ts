@@ -39,6 +39,14 @@ export type EarningsExpectationWarningCode =
   | "actual_value_unavailable"
   | "audit_time_invalid";
 
+export type EarningsExpectationWarningFamily =
+  | "availability"
+  | "business_order"
+  | "verification"
+  | "disclosure"
+  | "actual_value"
+  | "audit";
+
 export interface CanonicalBusinessTemporal {
   value: string | null;
   precision: EarningsExpectationTimePrecision | null;
@@ -316,6 +324,8 @@ export interface EarningsExpectationEventPayload {
   availabilityBounds?: CanonicalTemporalBounds;
   warningEpisodeKey?: string | null;
   warningActivationEntityIds?: string[];
+  warningFamily?: EarningsExpectationWarningFamily | null;
+  businessOrderCandidates?: EarningsExpectationBusinessOrderCandidate[];
   eventOccurredAt?: string | null;
   eventBusinessDate?: string | null;
   detectedAt?: string | null;
@@ -333,4 +343,12 @@ export interface EarningsExpectationEventPayload {
   businessTimePrecision?: EarningsExpectationTimePrecision | null;
   effectiveBusinessTimePrecision?: EarningsExpectationTimePrecision | null;
   businessOrderUncertain?: boolean;
+}
+
+export interface EarningsExpectationBusinessOrderCandidate {
+  businessRootSnapshotId: string;
+  effectiveSnapshotId: string;
+  sourceName: string;
+  formationTime: CanonicalBusinessTemporal;
+  availableAt: EarningsExpectationAvailabilityResolution;
 }

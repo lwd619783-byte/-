@@ -241,7 +241,20 @@ function expectationTaskDescription(event: ResearchEvent, threshold: number) {
   }
   if (event.eventType === "earnings_expectation_correction") return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}快照进行了数据或口径更正；原业务形成时间 ${event.expectation?.originalBusinessTime ?? "缺失"}，纠正记录时间 ${event.expectation?.correctionRecordedAt ?? event.publishedAt ?? "缺失"}，被更正记录 ${event.expectation?.correctionDelta?.correctionTargetId ?? event.expectation?.correctsSnapshotId ?? "缺失"}，当前纠正链终点 ${event.expectation?.effectiveSnapshotId ?? "缺失"}。更正差异不代表业务预测上调或下调，请核对变更字段。`;
   if (event.eventType === "earnings_expectation_comparison_available") return `${category}已与同报告期可靠实际值形成比较，请打开来源和计算详情完成复盘；不自动生成买卖建议。`;
-  if (event.eventType === "earnings_expectation_data_warning") return `报告期 ${event.reportPeriod ?? "暂缺"} 的${category}存在来源或可比性缺口，需要人工核验。${event.reviewReasons.join("；") || event.summary}`;
+  if (event.eventType === "earnings_expectation_data_warning") {
+    if (event.expectation?.warningFamily === "business_order") {
+      const candidates = event.expectation.businessOrderCandidates ?? [];
+      const candidateSummary = candidates.map((candidate) => {
+        const formedAt = candidate.formationTime.value ?? candidate.formationTime.businessCalendarDate ?? "形成时间缺失";
+        return `${candidate.sourceName || "来源缺失"}（${formedAt}）`;
+      }).join("、");
+      const auditIds = candidates.map((candidate) => `${candidate.businessRootSnapshotId}/${candidate.effectiveSnapshotId}`).join("、");
+      const canCompare = ["above", "within", "below"].includes(event.expectation.comparisonResult ?? "");
+      const comparisonText = canCompare ? "可以独立与可靠实际值比较" : "与实际值的比较结果需独立核验";
+      return `报告期 ${event.reportPeriod ?? "暂缺"} 的当前${category}${metric}预测${comparisonText}，但上一业务预测无法唯一确认，因此不计算上修或下修。前序状态：${event.expectation.previousResolutionStatus ?? "缺失"}；候选 ${candidates.length} 条：${candidateSummary || "候选详情缺失"}。请补充精确形成时间或追加纠正快照人工确认前序。审计标识：${auditIds || "缺失"}。`;
+    }
+    return `报告期 ${event.reportPeriod ?? "暂缺"} 的${category}存在来源或可比性缺口，需要人工核验。${event.reviewReasons.join("；") || event.summary}`;
+  }
   return `新增${category}快照，请核对报告期、期间口径、指标、币种、单位和来源。`;
 }
 
