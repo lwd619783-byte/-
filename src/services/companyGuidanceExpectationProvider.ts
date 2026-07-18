@@ -28,7 +28,7 @@ const METADATA_RELATION_FIELDS = ["sourceName", "sourceTitle", "notes", "created
 export const companyGuidanceExpectationSummary = summaryJson as CompanyGuidanceExpectationSummary;
 
 export class CompanyGuidanceExpectationLoadError extends Error {
-  constructor(message: string, public readonly code: "network" | "http" | "invalid_json" | "schema" | "identity" | "checksum" | "not_found" | "graph") {
+  constructor(message: string, public readonly code: "network" | "http" | "invalid_json" | "schema" | "identity" | "checksum" | "not_found" | "graph" | "stale") {
     super(message);
     this.name = "CompanyGuidanceExpectationLoadError";
   }
@@ -55,31 +55,49 @@ export function createCompanyGuidanceExpectationLoader(options: LoaderOptions = 
   const retries = Math.max(0, Math.min(options.retries ?? 1, 2));
   const cache = new Map<string, CompanyGuidanceExpectationDetail>();
   const inFlight = new Map<string, Promise<CompanyGuidanceExpectationDetail>>();
-  let manifestPromise: Promise<{ manifest: CompanyGuidanceExpectationManifest; entries: Map<string, CompanyGuidanceExpectationManifestEntry> }> | null = null;
-  let workflowPromise: Promise<CompanyGuidanceExpectationWorkflowIndex> | null = null;
+  let epoch = 0;
+  let manifestRequest: { epoch: number; promise: Promise<{ manifest: CompanyGuidanceExpectationManifest; entries: Map<string, CompanyGuidanceExpectationManifestEntry> }> } | null = null;
+  let workflowRequest: { epoch: number; promise: Promise<CompanyGuidanceExpectationWorkflowIndex> } | null = null;
 
   async function manifest() {
-    if (!manifestPromise) {
-      manifestPromise = fetchBytes(assetUrl(baseUrl, MANIFEST_PATH), retries, fetchImpl)
-        .then(({ bytes }) => validateManifest(parseJson(bytes, "Invalid company-guidance manifest JSON")))
-        .catch((error) => { manifestPromise = null; throw error; });
-    }
-    return manifestPromise;
+    const requestEpoch = epoch;
+    if (manifestRequest?.epoch === requestEpoch) return manifestRequest.promise;
+    let request!: Promise<{ manifest: CompanyGuidanceExpectationManifest; entries: Map<string, CompanyGuidanceExpectationManifestEntry> }>;
+    request = fetchBytes(assetUrl(baseUrl, MANIFEST_PATH), retries, fetchImpl)
+      .then(({ bytes }) => {
+        if (requestEpoch !== epoch) throw staleRequestError("manifest");
+        return validateManifest(parseJson(bytes, "Invalid company-guidance manifest JSON"));
+      })
+      .catch((error) => {
+        if (manifestRequest?.promise === request) manifestRequest = null;
+        throw error;
+      });
+    manifestRequest = { epoch: requestEpoch, promise: request };
+    return request;
   }
 
   function loadWorkflow(): Promise<CompanyGuidanceExpectationWorkflowIndex> {
-    if (!workflowPromise) {
-      workflowPromise = (async () => {
+    const requestEpoch = epoch;
+    if (workflowRequest?.epoch !== requestEpoch) {
+      let request!: Promise<CompanyGuidanceExpectationWorkflowIndex>;
+      request = (async () => {
         const { manifest: providerManifest } = await manifest();
         const { bytes } = await fetchBytes(assetUrl(baseUrl, providerManifest.workflowIndexRelativePath), retries, fetchImpl);
         await verifyArtifact(bytes, providerManifest.workflowIndexByteSize, providerManifest.workflowIndexChecksumSha256, "workflow index", cryptoImpl);
-        return validateWorkflowIndex(parseJson(bytes, "Invalid company-guidance workflow index JSON"), providerManifest, cryptoImpl);
-      })().catch((error) => { workflowPromise = null; throw error; });
+        const workflow = await validateWorkflowIndex(parseJson(bytes, "Invalid company-guidance workflow index JSON"), providerManifest, cryptoImpl);
+        if (requestEpoch !== epoch) throw staleRequestError("workflow index");
+        return workflow;
+      })().catch((error) => {
+        if (workflowRequest?.promise === request) workflowRequest = null;
+        throw error;
+      });
+      workflowRequest = { epoch: requestEpoch, promise: request };
     }
-    return workflowPromise;
+    return workflowRequest.promise;
   }
 
   function load(stockId: string): Promise<CompanyGuidanceExpectationDetail> {
+    const requestEpoch = epoch;
     const hit = cache.get(stockId);
     if (hit) return Promise.resolve(hit);
     const pending = inFlight.get(stockId);
@@ -91,11 +109,14 @@ export function createCompanyGuidanceExpectationLoader(options: LoaderOptions = 
       const { bytes } = await fetchBytes(assetUrl(baseUrl, entry.relativePath), retries, fetchImpl);
       await verifyArtifact(bytes, entry.byteSize, entry.checksumSha256, stockId, cryptoImpl);
       const detail = await validateDetail(parseJson(bytes, `Invalid company-guidance JSON for ${stockId}`), entry, cryptoImpl);
+      if (requestEpoch !== epoch) throw staleRequestError(`detail ${stockId}`);
       cache.set(stockId, detail);
       return detail;
-    })().finally(() => inFlight.delete(stockId));
-    inFlight.set(stockId, request);
-    return request;
+    })();
+    let guarded!: Promise<CompanyGuidanceExpectationDetail>;
+    guarded = request.finally(() => { if (inFlight.get(stockId) === guarded) inFlight.delete(stockId); });
+    inFlight.set(stockId, guarded);
+    return guarded;
   }
 
   async function loadMany(stockIds = Object.values(companyGuidanceExpectationSummary.items).filter((item) => item.snapshotCount > 0 || item.excludedAnnouncementCount > 0).map((item) => item.stockId)): Promise<CompanyGuidanceExpectationLoadManyResult> {
@@ -119,8 +140,8 @@ export function createCompanyGuidanceExpectationLoader(options: LoaderOptions = 
     loadMany,
     loadAll: loadMany,
     loadWorkflow,
-    clearCache() { cache.clear(); inFlight.clear(); manifestPromise = null; workflowPromise = null; },
-    cacheInfo() { return { results: cache.size, inFlight: inFlight.size, manifestLoaded: manifestPromise !== null, workflowLoaded: workflowPromise !== null }; },
+    clearCache() { epoch += 1; cache.clear(); inFlight.clear(); manifestRequest = null; workflowRequest = null; },
+    cacheInfo() { return { epoch, results: cache.size, inFlight: inFlight.size, manifestLoaded: manifestRequest?.epoch === epoch, workflowLoaded: workflowRequest?.epoch === epoch }; },
   };
 }
 
@@ -277,19 +298,29 @@ async function validateRecords(records: EarningsExpectationProviderSnapshot[], c
     if (record.providerEvidenceIdentity !== evidenceIdentity || snapshot.providerEvidenceIdentity !== evidenceIdentity) errors.push(`${record.sourceAnnouncementId}:evidence_identity`);
     if (!isSha(record.sourceTextEvidenceHash) || (record.sourceTextEvidence !== undefined && await sha256Text(record.sourceTextEvidence, cryptoImpl) !== record.sourceTextEvidenceHash)) errors.push(`${record.sourceAnnouncementId}:source_text_hash`);
     const checksum = await providerContentChecksum(record, cryptoImpl);
-    const versionId = `company-guidance-version-${checksum}`;
+    const versionId = await expectedProviderVersionId(record, checksum, cryptoImpl);
     if (record.providerContentChecksum !== checksum || snapshot.providerContentChecksum !== checksum || record.artifactChecksum !== checksum) errors.push(`${record.sourceAnnouncementId}:content_checksum`);
     if (record.providerSnapshotVersionId !== versionId || snapshot.providerSnapshotVersionId !== versionId || snapshot.id !== versionId) errors.push(`${record.sourceAnnouncementId}:version_identity`);
     if (record.providerParseRulesVersion !== PARSE_RULES_VERSION || snapshot.providerParseRulesVersion !== PARSE_RULES_VERSION || record.isCurrentVersion !== current || snapshot.isCurrentProviderVersion !== current) errors.push(`${record.sourceAnnouncementId}:version_contract`);
-    if (snapshot.correctsSnapshotId !== null || (record.providerCorrectsVersionId === null) !== (record.providerCorrectionType === "initial")) errors.push(`${record.sourceAnnouncementId}:correction_contract`);
+    const mirrorsMatch = snapshot.providerCorrectsVersionId === record.providerCorrectsVersionId
+      && snapshot.providerCorrectionType === record.providerCorrectionType
+      && snapshot.providerCorrectedAt === record.providerCorrectedAt
+      && canonicalJson(snapshot.providerCorrectionChangedFields) === canonicalJson(record.providerCorrectionChangedFields);
+    const initialContract = record.providerCorrectionType === "initial" && record.providerCorrectsVersionId === null && record.providerCorrectedAt === null && (record.providerCorrectionChangedFields ?? []).length === 0;
+    const correctionContract = record.providerCorrectionType === "extraction_correction" && typeof record.providerCorrectsVersionId === "string" && isPreciseInstant(record.providerCorrectedAt) && (record.providerCorrectionChangedFields ?? []).length > 0;
+    if (snapshot.correctsSnapshotId !== null || !mirrorsMatch || (!initialContract && !correctionContract)) errors.push(`${record.sourceAnnouncementId}:correction_contract`);
   }
   return errors;
 }
 
 function validateVersionGraph(records: EarningsExpectationProviderSnapshot[], allowExternalPredecessors = false) {
-  const errors: string[] = []; const byId = new Map<string, EarningsExpectationProviderSnapshot>(); const current = new Set<string>();
+  const errors: string[] = []; const byId = new Map<string, EarningsExpectationProviderSnapshot>(); const current = new Set<string>(); const successorByPredecessor = new Set<string>();
   for (const record of records) { if (byId.has(record.providerSnapshotVersionId)) errors.push(`graph_duplicate_version:${record.providerSnapshotVersionId}`); byId.set(record.providerSnapshotVersionId, record); if (record.isCurrentVersion) { if (current.has(record.providerEvidenceIdentity)) errors.push(`graph_multiple_current:${record.providerEvidenceIdentity}`); current.add(record.providerEvidenceIdentity); } }
-  for (const record of records) if (record.providerCorrectsVersionId && ((!allowExternalPredecessors && !byId.has(record.providerCorrectsVersionId)) || (byId.has(record.providerCorrectsVersionId) && byId.get(record.providerCorrectsVersionId)?.providerEvidenceIdentity !== record.providerEvidenceIdentity))) errors.push(`graph_invalid_version_predecessor:${record.providerSnapshotVersionId}`);
+  for (const record of records) if (record.providerCorrectsVersionId) {
+    if ((!allowExternalPredecessors && !byId.has(record.providerCorrectsVersionId)) || (byId.has(record.providerCorrectsVersionId) && byId.get(record.providerCorrectsVersionId)?.providerEvidenceIdentity !== record.providerEvidenceIdentity)) errors.push(`graph_invalid_version_predecessor:${record.providerSnapshotVersionId}`);
+    if (successorByPredecessor.has(record.providerCorrectsVersionId)) errors.push(`graph_multiple_version_successors:${record.providerCorrectsVersionId}`);
+    successorByPredecessor.add(record.providerCorrectsVersionId);
+  }
   for (const record of records) { const seen = new Set<string>(); let cursor: EarningsExpectationProviderSnapshot | undefined = record; while (cursor?.providerCorrectsVersionId) { if (seen.has(cursor.providerCorrectsVersionId)) { errors.push(`graph_version_cycle:${record.providerSnapshotVersionId}`); break; } seen.add(cursor.providerCorrectsVersionId); cursor = byId.get(cursor.providerCorrectsVersionId); } }
   return errors;
 }
@@ -309,12 +340,23 @@ async function providerContentChecksum(record: EarningsExpectationProviderSnapsh
   }), cryptoImpl);
 }
 
+async function expectedProviderVersionId(record: EarningsExpectationProviderSnapshot, checksum: string, cryptoImpl: Crypto) {
+  if (!record.providerCorrectsVersionId) return `company-guidance-version-${checksum}`;
+  const eventChecksum = await sha256Text(canonicalJson({
+    providerEvidenceIdentity: record.providerEvidenceIdentity,
+    providerCorrectsVersionId: record.providerCorrectsVersionId,
+    providerContentChecksum: checksum,
+  }), cryptoImpl);
+  return `company-guidance-version-${eventChecksum}`;
+}
+
 function parseJson(bytes: Uint8Array, message: string) { try { return JSON.parse(new TextDecoder().decode(bytes)) as unknown; } catch { throw new CompanyGuidanceExpectationLoadError(message, "invalid_json"); } }
 async function verifyArtifact(bytes: Uint8Array, byteSize: number, checksum: string, label: string, cryptoImpl: Crypto) { if (bytes.byteLength !== byteSize) throw new CompanyGuidanceExpectationLoadError(`Company-guidance byteSize mismatch for ${label}`, "checksum"); if (!cryptoImpl?.subtle) throw new CompanyGuidanceExpectationLoadError("Web Crypto is required for provider verification", "checksum"); if (await sha256(bytes, cryptoImpl) !== checksum) throw new CompanyGuidanceExpectationLoadError(`Company-guidance checksum mismatch for ${label}`, "checksum"); }
 async function fetchBytes(url: string, retries: number, fetchImpl: typeof fetch) { let last: unknown; for (let attempt = 0; attempt <= retries; attempt += 1) { try { const response = await fetchImpl(url, { headers: { Accept: "application/json" } }); if (!response.ok) { if (response.status >= 500 && attempt < retries) continue; throw new CompanyGuidanceExpectationLoadError(`HTTP ${response.status} for ${url}`, "http"); } return { bytes: new Uint8Array(await response.arrayBuffer()) }; } catch (error) { if (error instanceof CompanyGuidanceExpectationLoadError) throw error; last = error; if (attempt >= retries) break; } } throw new CompanyGuidanceExpectationLoadError(`Network error for ${url}: ${String(last)}`, "network"); }
 async function sha256(bytes: Uint8Array, cryptoImpl: Crypto) { const digest = await cryptoImpl.subtle.digest("SHA-256", bytes as BufferSource); return [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join(""); }
 async function sha256Text(value: string, cryptoImpl: Crypto) { return sha256(new TextEncoder().encode(value), cryptoImpl); }
 function normalizeLoadError(error: unknown) { return error instanceof CompanyGuidanceExpectationLoadError ? error : new CompanyGuidanceExpectationLoadError(String(error), "network"); }
+function staleRequestError(label: string) { return new CompanyGuidanceExpectationLoadError(`Ignored stale company-guidance ${label} request after clearCache`, "stale"); }
 function isObject(value: unknown): value is Record<string, unknown> { return typeof value === "object" && value !== null; }
 function isSha(value: unknown): value is string { return typeof value === "string" && /^[a-f0-9]{64}$/u.test(value); }
 function isPreciseInstant(value: unknown): value is string { return typeof value === "string" && /(?:Z|[+-]\d{2}:\d{2})$/u.test(value) && Number.isFinite(Date.parse(value)); }

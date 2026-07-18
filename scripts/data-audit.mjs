@@ -348,22 +348,29 @@ export function detectCompanyGuidanceArchitectureRisks(files, rootPath) {
   }
 
   const loaderPath = path.join(rootPath, "src/services/companyGuidanceExpectationProvider.ts");
+  const generatorPath = path.join(rootPath, "scripts/generate-company-guidance-expectations.mjs");
+  const validatorPath = path.join(rootPath, "scripts/validate-company-guidance-expectations.mjs");
   const storePath = path.join(rootPath, "src/services/earningsExpectationStore.ts");
   const appPath = path.join(rootPath, "src/App.tsx");
   const summaryPath = path.join(rootPath, "src/data/real/a-share-company-guidance-expectation-summaries.generated.json");
   const manifestPath = path.join(rootPath, "public/data/a-share-company-guidance-expectations/manifest.generated.json");
   const workflowPath = path.join(rootPath, "public/data/a-share-company-guidance-expectations/workflow-index.generated.json");
   const detailDir = path.dirname(manifestPath);
-  if ([loaderPath, storePath, appPath, summaryPath, manifestPath, workflowPath].some((file) => !fs.existsSync(file))) {
+  if ([loaderPath, generatorPath, validatorPath, storePath, appPath, summaryPath, manifestPath, workflowPath].some((file) => !fs.existsSync(file))) {
     add(findings, "P0", "company-guidance-architecture", "company-guidance-provider-files-missing", "Company guidance Provider production files or split artifacts are incomplete", registryIds, "Generate and commit the summary, manifest, details, loader and read-only Store guard");
     return findings;
   }
 
   const loader = fs.readFileSync(loaderPath, "utf8");
+  const generator = fs.readFileSync(generatorPath, "utf8");
+  const validator = fs.readFileSync(validatorPath, "utf8");
   const store = fs.readFileSync(storePath, "utf8");
   const app = fs.readFileSync(appPath, "utf8");
   if (!loader.includes("a-share-company-guidance-expectation-summaries.generated.json") || !loader.includes("manifest.generated.json") || !loader.includes("SAFE_DETAIL_PATH") || !loader.includes("inFlight") || !loader.includes("loadWorkflow") || !loader.includes("Promise.allSettled")) add(findings, "P0", "company-guidance-architecture", "company-guidance-loader-contract-missing", "Company guidance loader lacks workflow-index verification, detail allowlisting, all-settled isolation or in-flight deduplication", registryIds, "Verify the global workflow index and load per-company details with isolated failures", { file: path.relative(rootPath, loaderPath).replaceAll("\\", "/") });
   if (!loader.includes("parseOfficialCninfoAnnouncementUrl") || !loader.includes("content_conflict") || !loader.includes("providerCorrectsVersionId")) add(findings, "P0", "company-guidance-architecture", "company-guidance-evidence-contract-missing", "Provider strict URL, evidence relation or immutable version contracts are missing", registryIds, "Keep strict official URL parsing, four-way relations and provider version links in the shared loader", { file: path.relative(rootPath, loaderPath).replaceAll("\\", "/") });
+  if (!loader.includes("let epoch = 0") || !loader.includes("requestEpoch !== epoch") || !loader.includes("inFlight.get(stockId) === guarded") || !loader.includes("manifestRequest?.promise === request") || !loader.includes("workflowRequest?.promise === request")) add(findings, "P0", "company-guidance-architecture", "company-guidance-loader-epoch-guard-missing", "Company guidance loader lacks deterministic stale-request isolation after clearCache", registryIds, "Guard detail, manifest and workflow requests with epoch and Promise identity checks", { file: path.relative(rootPath, loaderPath).replaceAll("\\", "/") });
+  if (!generator.includes("readPreviousProviderDetails") || !generator.includes("existing provider manifest") || !generator.includes("writeArtifactsTransaction") || !generator.includes("ArtifactTransactionCleanupError") || !generator.includes("stagedValidation")) add(findings, "P0", "company-guidance-architecture", "company-guidance-generator-integrity-guard-missing", "Company guidance generator lacks previous-manifest fail-closed checks or recoverable staged activation", registryIds, "Read all prior details from the prior Provider manifest and activate detail/summary artifacts transactionally", { file: path.relative(rootPath, generatorPath).replaceAll("\\", "/") });
+  if (!validator.includes("unexpected provider json") || !validator.includes("duplicate manifest stockId") || !validator.includes("summary stockId missing") || !validator.includes("workflow index does not exactly mirror")) add(findings, "P0", "company-guidance-architecture", "company-guidance-offline-reverse-audit-missing", "Company guidance offline validator does not reverse-enumerate directory, identity and summary/workflow sets", registryIds, "Reject orphan JSON, duplicate manifest identities, summary set drift and workflow/detail drift", { file: path.relative(rootPath, validatorPath).replaceAll("\\", "/") });
   if (!app.includes("selectActiveCompanyGuidanceProviderRecords") || !app.includes('dataMode === "mock"') || !app.includes("companyGuidanceRequestGeneration") || !app.includes("loadWorkflow")) add(findings, "P0", "company-guidance-architecture", "company-guidance-global-mode-guard-missing", "App does not prove navigation-independent global Provider loading and mock/request-generation isolation", registryIds, "Load the verified workflow index independently of navigation and close Provider in mock mode", { file: path.relative(rootPath, appPath).replaceAll("\\", "/") });
   if (!store.includes('ingestionMethod === "provider"')) add(findings, "P0", "production-route", "company-guidance-provider-write-guard-missing", "User expectation Store does not explicitly reject Provider writes", registryIds, "Reject Provider snapshots before any LocalStorage mutation", { file: path.relative(rootPath, storePath).replaceAll("\\", "/") });
 

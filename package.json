@@ -23,7 +23,7 @@
     "test:announcements:a": "python -m unittest discover -s scripts/tests -p test_a_share_announcements.py",
     "data:fetch:expectations:company-guidance": "node scripts/generate-company-guidance-expectations.mjs",
     "data:validate:expectations:company-guidance": "node scripts/validate-company-guidance-expectations.mjs",
-    "test:expectations:company-guidance": "node --test scripts/tests/company-guidance-expectations.test.mjs && vitest run src/services/companyGuidanceExpectationProvider.test.ts src/components/expectation/CompanyGuidanceExpectationWorkflow.test.tsx",
+    "test:expectations:company-guidance": "node --test scripts/tests/company-guidance-expectations.test.mjs scripts/tests/company-guidance-integrity.node.mjs && vitest run src/services/companyGuidanceExpectationProvider.test.ts src/components/expectation/CompanyGuidanceExpectationWorkflow.test.tsx",
     "data:observe:providers": "python scripts/observe-providers.py --provider all",
     "data:observe:financials:a": "python scripts/observe-providers.py --provider financials",
     "data:observe:announcements:a": "python scripts/observe-providers.py --provider announcements",

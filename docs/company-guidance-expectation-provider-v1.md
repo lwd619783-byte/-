@@ -1,82 +1,109 @@
-# A股公司指引预期 Provider V2（V1 终局稳定化）
+# A股公司指引预期 Provider V2（合并前完整性契约）
 
 ## 一句话结论
 
-V2 不新增数据源或业务功能，而是把 V1 收口为可审计的全局工作流：Real/Mixed 模式先独立校验轻量 workflow index，Mock 模式严格关闭真实 Provider；公司明细继续懒加载且单家公司失败不拖垮其他公司；证据身份、内容版本、抽取纠错和业务修正公告分别建模。
+Provider V2 是一个只读、离线生成、默认失败关闭的公司指引证据层。Real/Mixed 模式先独立校验全局 workflow index，再按公司懒加载详情；Mock 模式严格隔离真实 Provider。生成器不会访问网络，也不会修改公告、财务源产物、默认 `data:refresh`、Provider Stability Gate 或 Developer Health Gate。
 
-输入仍只来自已提交的巨潮公告产物。生成过程不访问网络、不修改公告/财务源产物、不进入默认 `data:refresh`，也不代表机构一致预期已接入。
+## 数据范围与只读边界
 
-## 数据与边界
+- 只接受已提交巨潮公告产物中的 `performance_forecast` / `performance_forecast_revision`。
+- 只映射高置信、报告期明确、正式 URL 可核验的归母净利润、扣非净利润和营业收入区间。
+- `metadata_only`、低置信、区间不完整、非正式 URL、快报、定期报告、新闻、券商预测和用户推断不进入 Provider。
+- Provider 快照始终为 `ingestionMethod=provider`；Store API 拒绝写入或覆盖 LocalStorage 的人工、JSON、CSV 追加链。
+- 当前产品规则固定为 56 家股票池公司；真实源数据对应 15 家、56 条 current、0 条 historical。
 
-- 仅接收 `performance_forecast` / `performance_forecast_revision` 中已解析为高置信区间的归母净利润、扣非净利润和营业收入。
-- `metadata_only`、低置信、区间缺失、报告期不明、非官方 URL、快报、定期报告、新闻、券商预测和用户推断均不进入 Provider。
-- 当前提交产物覆盖 56 家 A 股公司状态；15 家、31 个公告形成 56 个当前快照；51 个目标公告被显式排除。
-- 公司内部形成时间未知：`formedAt=null`，`formationTimeBasis=public_disclosure_proxy`，公开日期只作为证据可用时间代理。
-- Provider 只读，Store API 拒绝 `ingestionMethod=provider`，不会写入或覆盖 LocalStorage 的 manual / JSON / CSV 追加链。
-
-## 全局工作流与失败边界
+## 全局工作流、模式与失败语义
 
 ```text
 manifest.generated.json
-  -> workflow-index.generated.json  # 全局当前版本、轻量、带 checksum
+  -> workflow-index.generated.json  # 全局 current、SHA-256、低于 500 KB
   -> Comparison / ResearchEvent / ReviewTask / KPI
 
-<stockId>.json                       # 原文、排除项、历史版本、完整警告
-  -> 个股抽屉或预期证据页按需加载
+<stockId>.json                       # 原文、排除项、current、historical、警告
+  -> 个股抽屉或预期证据中心按需加载
 ```
 
-- App 启动 Real/Mixed 后立即加载并深校验 workflow index，逻辑不依赖当前导航页或所选公司。
-- Mock 模式的 active Provider records 始终为空；旧请求通过 request generation guard 不能跨模式回写。
-- workflow index 字节数、SHA-256、schema、记录身份、内容 checksum、当前版本唯一性、版本图和业务修订图任何一项失败，正式 Provider 全局关闭；本地快照仍可工作。
-- 公司详情使用 `Promise.allSettled`；成功项缓存，失败项保留结构化公司 ID / 错误码并可重试，失败不缓存为成功。
-- 进入个股只加载该公司；进入预期证据/验证中心才批量加载有状态公司明细。全局事件、任务和 KPI 始终来自已验证 workflow index，而不是页面导航触发的详情集合。
+- App 启动 Real/Mixed 后立即校验 workflow，和当前导航页、选中公司无关。
+- Mock 模式 active Provider records 恒为空；App request generation 与 loader epoch 共同阻断跨模式、跨重试的旧结果。
+- workflow 校验失败时正式 Provider 全局关闭，本地快照仍可使用，不回退 mock 或半校验数据。
+- 公司详情使用 `Promise.allSettled`；单家公司失败保留 stockId、错误码和重试入口，不拖垮其他公司。
+- loader 的 detail、manifest、workflow 请求都捕获启动 epoch。`clearCache()` 递增 epoch；旧请求不得写回 cache，也不得清除新一代 Promise。`finally` 只删除仍指向自身的 in-flight 项。
 
-## 不可变证据与版本账本
+## 公司集合不可静默删除
 
-同一公告业务证据使用稳定身份：
+旧 Provider 目录不存在时允许首次生成。目录已经存在时，生成器必须：
+
+1. 独立读取旧 `manifest.generated.json`；
+2. 按旧 manifest 的 items 读取并深校验全部旧详情；
+3. 校验旧 summary、manifest、workflow、详情文件集合、字节数、SHA-256 和内部身份；
+4. 将旧 Provider stockId 集合与本次公告输入 stockId 集合比较；
+5. 任一旧 stockId 或旧 evidence 消失即失败。
+
+因此“删除公司 A、加入公司 B、总数仍为 56”不能绕过检查；只删除到 55 也会失败；只新增到 57 则由显式的 56 家产品规则拒绝。未来迁移必须另行设计可审计 migration/tombstone 机制，不提供宽松 CLI 绕过参数。
+
+## 内容 checksum 与版本事件身份
+
+稳定业务证据身份：
 
 ```text
 providerEvidenceIdentity = providerId + announcementId + stockId
                          + reportPeriod + periodScope + metric
 ```
 
-每次规范化内容使用 SHA-256 寻址：
+规范化财务内容：
 
 ```text
 providerContentChecksum = sha256(canonicalJson(
   evidenceIdentity + shape/value/range + currency/unit/accountingBasis
   + sourcePublishedAt + sourceTextEvidenceHash + parseRulesVersion
 ))
-providerSnapshotVersionId = "company-guidance-version-" + providerContentChecksum
 ```
 
-- 无内容变化的重复生成保持相同 version ID 和原 `createdAt`；`providerGeneratedAt` 可更新。
-- V1 同内容迁移只换算 V2 身份并保留原 `createdAt`，不会制造伪历史。
-- 同一 evidence identity 内容变化时，旧 current 追加到 `historicalProviderVersions`，新 current 通过 `providerCorrectsVersionId` 指向旧版本，并记录 `providerCorrectionType`、纠错时间和变更字段。
-- 旧证据在新输入中消失时生成器直接失败，禁止静默删除历史。
-- workflow index 只含 current；公司详情保存 current、历史版本、原文证据、排除项与完整警告。
+初始版本保留原 ID，避免现有 56 条产物无意义改号：
 
-## 两类“修正”严格分离
+```text
+initialVersionId = "company-guidance-version-" + providerContentChecksum
+```
 
-- Provider 抽取/来源纠错：`providerCorrectsVersionId`，产生 `earnings_expectation_correction`，明确“不表示业务上调或下调”。
-- 公司修正公告：`providerBusinessRevisionPredecessorSnapshotId`，仅在同公司、报告期、期间口径、指标、时间和唯一前序均兼容时连链。
-- 通用 `correctsSnapshotId` 只服务用户/本地数据纠正。Provider 快照必须保持 `correctsSnapshotId=null`，避免数据修复与业务修订混用。
-- 只有经过业务修正链确认的 Provider 修正公告才可产生 `businessRevisionDelta`；抽取纠错永远不产生方向。
+抽取纠错版本是“版本事件”，不能只按内容寻址：
 
-## 官方 URL 与本地证据关系
+```text
+correctionVersionId = "company-guidance-version-" + sha256(canonicalJson({
+  providerEvidenceIdentity,
+  providerCorrectsVersionId,
+  providerContentChecksum
+}))
+```
 
-官方公告只接受：HTTPS、精确主机 `www.cninfo.com.cn`、精确路径 `/new/disclosure/detail`、唯一数字 `annoId`，无凭据、端口、fragment 或额外 query。PDF 只接受 HTTPS、精确主机 `static.cninfo.com.cn`、`/finalpage/YYYY-MM-DD/<annoId>.PDF`，日期/ID 必须与记录一致。
+所以 A1→B→A2 中 A1 与 A2 可以具有相同 content checksum，但必须具有不同 version ID；B 指向 A1，A2 指向 B。历史仅按版本事件 ID 去重。no-op 重跑保留当前 version ID 和原 `createdAt`，不产生第四个版本。
 
-本地快照与 Provider 使用四类关系：
+Provider 抽取纠错使用 `providerCorrectsVersionId`；公司业务修正公告使用独立的 `providerBusinessRevisionPredecessorSnapshotId`；用户本地纠错使用 `correctsSnapshotId`。三条链不得混用，抽取纠错不产生业务上调/下调方向。
 
-- `exact_duplicate`：财务字段和审计元数据均相同；
-- `metadata_difference`：财务内容相同，只是来源名、标题、备注等元数据不同；
-- `content_conflict`：同一官方证据与业务身份，但区间、点值、口径、单位、币种或来源日期不同；
-- `independent`：不是同一严格官方证据。
+## 可恢复产物事务
 
-前三类本地记录都保留可见，但正式 Comparison 只使用 Provider。`content_conflict` 额外生成稳定的结构化 `data_warning` ResearchEvent；观察清单公司同步生成 ReviewTask，列出冲突字段与双方版本 ID。
+详情目录、manifest、workflow index 和 summary 作为一个事务发布：
 
-## 深校验与产物
+1. 所有新文件先写入同卷 staging root；
+2. staging 内运行正式离线深校验，包括 byte size、SHA-256、目录文件集合和图契约；
+3. 备份旧详情目录；
+4. 激活新详情目录；
+5. 备份旧 summary；
+6. 激活新 summary；
+7. 最后清理 backup 和 staging。
+
+替换始终先确保目标不存在，再使用 rename，避免依赖 Windows/Linux 对已存在目标的不一致覆盖语义。提交前任一步失败会删除已激活的新产物并逐字节恢复旧目录与旧 summary；原异常保持为主异常，回滚异常作为附加信息。若仅最终 backup 清理失败，正式新目录与新 summary 已保持内部一致，生成器抛出 `ArtifactTransactionCleanupError` 并列出待人工检查的清理路径。
+
+## 离线目录反向审计
+
+`validate-company-guidance-expectations.mjs` 反向枚举正式输出目录。允许的 JSON 集合必须精确等于：
+
+- manifest 声明的 56 个详情文件；
+- `manifest.generated.json`；
+- `workflow-index.generated.json`。
+
+孤儿/多余 JSON、重复 stockId、重复 stockCode、重复 relativePath、summary 缺项/多项、详情内部身份不一致都会失败。校验器同时验证 schema/provider/parser、严格巨潮 URL、时间和区间、内容 checksum、initial/correction 版本事件 ID、current 唯一性、版本图、业务修订图、workflow 与详情 current 的逐字段镜像，以及原文只保留在详情层。
+
+## 产物与命令
 
 ```text
 src/data/real/a-share-company-guidance-expectation-summaries.generated.json
@@ -86,25 +113,21 @@ public/data/a-share-company-guidance-expectations/
   <stockId>.json  # 56 个
 ```
 
-生成端与离线验证器共用 `scripts/company-guidance-expectations/core.mjs` 的单记录、版本图、业务修订图和详情校验。Runtime 镜像同一规范并对实际下载字节重新计算 SHA-256。校验覆盖 schema/provider/parser 版本、严格 URL、时间、区间、证据身份、内容 checksum、版本 ID、current 唯一性、前序存在性、循环、跨证据连链、业务前序兼容性、manifest/summary/workflow 计数、checksum 和孤儿记录。
-
-## 命令
-
 ```bash
 npm run data:fetch:expectations:company-guidance
 node scripts/generate-company-guidance-expectations.mjs --dry-run
 npm run data:validate:expectations:company-guidance
 npm run test:expectations:company-guidance
+npm run test:provider-observability
+npm run test
 npm run data:audit
 npm run build
+npm run ui:audit
 ```
 
-CI 继续离线运行专项测试、提交产物深校验、数据审计、全量测试与 bundle 门禁。默认刷新链、Provider Stability Gate、Developer Health Gate 和公告/财务源产物保持不变。
-
-## 已知限制与风险
+## 已知限制
 
 - 仍只覆盖当前 56 家股票池和已提交公告窗口，属于 partial coverage。
-- 51 条目标公告因正文解析或证据不足被排除；不 OCR、不降低置信度、不补 0。
-- 当前真实产物没有可可靠连链的公司修正区间，也没有历史内容版本；相关路径由离线固定测试覆盖。
+- 51 条目标公告因正文解析或证据不足被排除；不 OCR、不降置信度、不补 0。
+- 当前真实产物没有 historical 版本；A→B→A、事务故障和请求竞态由离线/运行时故障注入测试覆盖，不制造伪历史。
 - Provider 不包含机构一致预期、券商预测、估值、目标价、仓位或投资建议。
-- workflow index 校验失败会主动关闭正式 Provider，这是证据安全设计，不应回退 mock 或半验证数据。

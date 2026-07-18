@@ -62,9 +62,23 @@ describe("company guidance expectation workflow UI", () => {
     expect(html).toContain("min-w-0 space-y-4");
     expect(html).not.toContain("min-w-[");
   });
+
+  it("renders a fail-closed global workflow error with an explicit retry", () => {
+    const html = renderCenter({ providerLoadStatus: "error", providerLoadError: "workflow-failed", onRetryProvider: vi.fn() });
+    expect(html).toContain("workflow-failed");
+    expect(html).toContain("<button");
+    expect(html).toContain("Provider</button>");
+  });
+
+  it("renders an isolated company-detail failure while retaining successes and retry", () => {
+    const html = renderCenter({ providerDetailLoadStatus: "partial", providerDetailLoadError: "detail-failed", providerFailedStockIds: ["sample"], providerLoadedCompanyCount: 14, onRetryProvider: vi.fn() });
+    expect(html).toContain("detail-failed");
+    expect(html).toContain("14 / ");
+    expect(html).toContain("Provider</button>");
+  });
 });
 
-function renderCenter(options: { snapshots?: EarningsExpectationSnapshot[]; providerIds?: Set<string>; duplicateMap?: Map<string, string> } = {}) {
+function renderCenter(options: { snapshots?: EarningsExpectationSnapshot[]; providerIds?: Set<string>; duplicateMap?: Map<string, string>; providerLoadStatus?: "success" | "error"; providerLoadError?: string | null; providerDetailLoadStatus?: "success" | "partial"; providerDetailLoadError?: string | null; providerFailedStockIds?: string[]; providerLoadedCompanyCount?: number; onRetryProvider?: () => void } = {}) {
   const provider = record();
   const snapshots = options.snapshots ?? [provider.snapshot];
   return renderToStaticMarkup(<EarningsExpectationCenter
@@ -75,7 +89,13 @@ function renderCenter(options: { snapshots?: EarningsExpectationSnapshot[]; prov
     stocks={[stock]}
     industries={[industry]}
     watchItems={[]}
-    providerLoadStatus="success"
+    providerLoadStatus={options.providerLoadStatus ?? "success"}
+    providerLoadError={options.providerLoadError}
+    providerDetailLoadStatus={options.providerDetailLoadStatus}
+    providerDetailLoadError={options.providerDetailLoadError}
+    providerFailedStockIds={options.providerFailedStockIds}
+    providerLoadedCompanyCount={options.providerLoadedCompanyCount}
+    onRetryProvider={options.onRetryProvider}
     providerSummary={{ schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", sourceArtifact: "committed", sourceGeneratedAt: "2026-07-11T07:31:40Z", status: "generated_real", audit: {}, workflowIndex: { relativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", byteSize: 1, checksumSha256: "a".repeat(64), currentSnapshotCount: 1 }, items: {} }}
     providerSnapshotIds={options.providerIds ?? new Set(snapshots.filter((item) => item.ingestionMethod === "provider").map((item) => item.id))}
     duplicateOfProviderByLocalId={options.duplicateMap ?? new Map()}

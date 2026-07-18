@@ -62,6 +62,20 @@ export function stableProviderSnapshotVersionId(contentChecksum) {
   return `company-guidance-version-${contentChecksum}`;
 }
 
+export function stableProviderCorrectionVersionId({ providerEvidenceIdentity, providerCorrectsVersionId, providerContentChecksum }) {
+  if (!providerEvidenceIdentity || !providerCorrectsVersionId || !providerContentChecksum) throw new Error("correction version identity requires evidence, predecessor and content checksum");
+  return `company-guidance-version-${sha256(canonicalJson({ providerEvidenceIdentity, providerCorrectsVersionId, providerContentChecksum }))}`;
+}
+
+export function expectedProviderSnapshotVersionId(record) {
+  const predecessor = record?.providerCorrectsVersionId ?? record?.snapshot?.providerCorrectsVersionId ?? null;
+  const evidenceIdentity = record?.providerEvidenceIdentity ?? record?.snapshot?.providerEvidenceIdentity;
+  const contentChecksum = record?.providerContentChecksum ?? record?.snapshot?.providerContentChecksum;
+  return predecessor
+    ? stableProviderCorrectionVersionId({ providerEvidenceIdentity: evidenceIdentity, providerCorrectsVersionId: predecessor, providerContentChecksum: contentChecksum })
+    : stableProviderSnapshotVersionId(contentChecksum);
+}
+
 export function stableSourceArtifactChecksum(fields) {
   return sha256(canonicalJson(fields));
 }
@@ -90,6 +104,11 @@ export function computeProviderContentChecksum(record) {
 export function buildCompanyGuidanceArtifacts({ announcementDetails, sourceGeneratedAt, previousDetails = [] }) {
   if (!Array.isArray(announcementDetails) || !announcementDetails.length) throw new Error("announcementDetails must be a non-empty array");
   if (!isPreciseInstant(sourceGeneratedAt)) throw new Error("sourceGeneratedAt must be a precise instant");
+  const duplicateInputStockIds = duplicates(announcementDetails.map((detail) => detail?.stockId));
+  const duplicateInputStockCodes = duplicates(announcementDetails.map((detail) => detail?.stockCode));
+  if (duplicateInputStockIds.length || duplicateInputStockCodes.length) throw new Error(`duplicate announcement company identity: stockIds=${duplicateInputStockIds.join(",")} stockCodes=${duplicateInputStockCodes.join(",")}`);
+  const duplicatePreviousStockIds = duplicates((previousDetails ?? []).filter(Boolean).map((detail) => detail.stockId));
+  if (duplicatePreviousStockIds.length) throw new Error(`duplicate previous provider company identity: ${duplicatePreviousStockIds.join(",")}`);
   const previousByStock = new Map((previousDetails ?? []).filter(Boolean).map((detail) => [detail.stockId, detail]));
   const inputStockIds = new Set(announcementDetails.map((detail) => detail.stockId));
   const removedStocks = [...previousByStock.keys()].filter((stockId) => !inputStockIds.has(stockId));
@@ -265,6 +284,7 @@ function reconcileVersions(candidates, previousDetail, sourceGeneratedAt, stockI
     const previousChecksum = deriveContentChecksum(previous);
     if (previousChecksum === candidate.providerContentChecksum) {
       candidate.snapshot.createdAt = previous.snapshot.createdAt;
+      candidate.providerSnapshotVersionId = previous.providerSnapshotVersionId;
       candidate.providerCorrectsVersionId = previous.providerCorrectsVersionId ?? null;
       candidate.providerCorrectionType = previous.providerCorrectionType ?? "initial";
       candidate.providerCorrectedAt = previous.providerCorrectedAt ?? null;
@@ -279,6 +299,7 @@ function reconcileVersions(candidates, previousDetail, sourceGeneratedAt, stockI
     candidate.providerCorrectionType = "extraction_correction";
     candidate.providerCorrectedAt = sourceGeneratedAt;
     candidate.providerCorrectionChangedFields = changedContentFields(previousVersion, candidate);
+    candidate.providerSnapshotVersionId = expectedProviderSnapshotVersionId(candidate);
     syncVersionFields(candidate);
     current.push(candidate);
   }
@@ -291,11 +312,13 @@ function normalizePreviousVersion(record, isCurrentVersion) {
   copy.sourceTextEvidenceHash = copy.sourceTextEvidenceHash ?? sha256(copy.sourceTextEvidence ?? "");
   copy.providerParseRulesVersion = copy.providerParseRulesVersion ?? COMPANY_GUIDANCE_PARSE_RULES_VERSION;
   copy.providerContentChecksum = deriveContentChecksum(copy);
-  copy.providerSnapshotVersionId = stableProviderSnapshotVersionId(copy.providerContentChecksum);
   copy.providerCorrectsVersionId = copy.providerCorrectsVersionId ?? null;
   copy.providerCorrectionType = copy.providerCorrectionType ?? "initial";
   copy.providerCorrectedAt = copy.providerCorrectedAt ?? null;
   copy.providerCorrectionChangedFields = copy.providerCorrectionChangedFields ?? [];
+  const expectedVersionId = expectedProviderSnapshotVersionId(copy);
+  if (copy.providerSnapshotVersionId && copy.providerSnapshotVersionId !== expectedVersionId) throw new Error(`invalid previous provider version identity: ${copy.providerSnapshotVersionId}`);
+  copy.providerSnapshotVersionId = expectedVersionId;
   copy.isCurrentVersion = isCurrentVersion;
   copy.providerBusinessRevisionPredecessorSnapshotId = copy.providerBusinessRevisionPredecessorSnapshotId ?? null;
   copy.artifactChecksum = copy.providerContentChecksum;
@@ -306,6 +329,7 @@ function normalizePreviousVersion(record, isCurrentVersion) {
 }
 
 function syncVersionFields(record) {
+  record.snapshot.id = record.providerSnapshotVersionId;
   Object.assign(record.snapshot, {
     providerEvidenceIdentity: record.providerEvidenceIdentity, providerSnapshotVersionId: record.providerSnapshotVersionId,
     providerContentChecksum: record.providerContentChecksum, providerParseRulesVersion: record.providerParseRulesVersion,
@@ -361,12 +385,18 @@ export function validateProviderRecord(record, { stockId = record?.snapshot?.sto
   if (!/^[a-f0-9]{64}$/u.test(record.sourceTextEvidenceHash ?? "") || (record.sourceTextEvidence !== undefined && sha256(record.sourceTextEvidence) !== record.sourceTextEvidenceHash)) errors.push("source_text_hash");
   const checksum = computeProviderContentChecksum(record);
   if (record.providerContentChecksum !== checksum || snapshot.providerContentChecksum !== checksum || record.artifactChecksum !== checksum) errors.push("content_checksum");
-  const versionId = stableProviderSnapshotVersionId(checksum);
+  const versionId = expectedProviderSnapshotVersionId({ ...record, providerContentChecksum: checksum });
   if (record.providerSnapshotVersionId !== versionId || snapshot.providerSnapshotVersionId !== versionId || snapshot.id !== versionId) errors.push("version_identity");
   if (record.providerParseRulesVersion !== COMPANY_GUIDANCE_PARSE_RULES_VERSION || snapshot.providerParseRulesVersion !== COMPANY_GUIDANCE_PARSE_RULES_VERSION) errors.push("parse_rules_version");
   if (record.isCurrentVersion !== current || snapshot.isCurrentProviderVersion !== current) errors.push("current_version_flag");
   if (snapshot.correctsSnapshotId !== null) errors.push("correction_chain_conflation");
-  if ((record.providerCorrectsVersionId === null) !== (record.providerCorrectionType === "initial")) errors.push("provider_correction_contract");
+  const correctionMirrorsMatch = snapshot.providerCorrectsVersionId === record.providerCorrectsVersionId
+    && snapshot.providerCorrectionType === record.providerCorrectionType
+    && snapshot.providerCorrectedAt === record.providerCorrectedAt
+    && canonicalJson(snapshot.providerCorrectionChangedFields) === canonicalJson(record.providerCorrectionChangedFields);
+  const initialContract = record.providerCorrectionType === "initial" && record.providerCorrectsVersionId === null && record.providerCorrectedAt === null && (record.providerCorrectionChangedFields ?? []).length === 0;
+  const correctionContract = record.providerCorrectionType === "extraction_correction" && typeof record.providerCorrectsVersionId === "string" && isPreciseInstant(record.providerCorrectedAt) && (record.providerCorrectionChangedFields ?? []).length > 0;
+  if (!correctionMirrorsMatch || (!initialContract && !correctionContract)) errors.push("provider_correction_contract");
   return uniqueStrings(errors);
 }
 
@@ -374,6 +404,7 @@ export function validateVersionGraph(records) {
   const errors = [];
   const byId = new Map();
   const currentByEvidence = new Map();
+  const successorByPredecessor = new Map();
   for (const record of records) {
     if (byId.has(record.providerSnapshotVersionId)) errors.push(`duplicate_version:${record.providerSnapshotVersionId}`);
     byId.set(record.providerSnapshotVersionId, record);
@@ -382,7 +413,11 @@ export function validateVersionGraph(records) {
       currentByEvidence.set(record.providerEvidenceIdentity, record);
     }
   }
-  for (const record of records) if (record.providerCorrectsVersionId && (!byId.has(record.providerCorrectsVersionId) || byId.get(record.providerCorrectsVersionId).providerEvidenceIdentity !== record.providerEvidenceIdentity)) errors.push(`invalid_version_predecessor:${record.providerSnapshotVersionId}`);
+  for (const record of records) if (record.providerCorrectsVersionId) {
+    if (!byId.has(record.providerCorrectsVersionId) || byId.get(record.providerCorrectsVersionId).providerEvidenceIdentity !== record.providerEvidenceIdentity) errors.push(`invalid_version_predecessor:${record.providerSnapshotVersionId}`);
+    if (successorByPredecessor.has(record.providerCorrectsVersionId)) errors.push(`multiple_version_successors:${record.providerCorrectsVersionId}`);
+    successorByPredecessor.set(record.providerCorrectsVersionId, record.providerSnapshotVersionId);
+  }
   for (const record of records) {
     const seen = new Set(); let cursor = record;
     while (cursor?.providerCorrectsVersionId) { if (seen.has(cursor.providerCorrectsVersionId)) { errors.push(`version_cycle:${record.providerSnapshotVersionId}`); break; } seen.add(cursor.providerCorrectsVersionId); cursor = byId.get(cursor.providerCorrectsVersionId); }
@@ -442,6 +477,7 @@ function changedContentFields(previous, current) {
   return FINANCIAL_CONTENT_FIELDS.filter((field) => canonicalJson(left[field]) !== canonicalJson(right[field]));
 }
 function dedupeVersions(records) { return [...new Map(records.map((record) => [record.providerSnapshotVersionId, record])).values()]; }
+function duplicates(values) { const seen = new Set(); const repeated = new Set(); for (const value of values) { if (typeof value !== "string" || !value) continue; if (seen.has(value)) repeated.add(value); seen.add(value); } return [...repeated].sort(); }
 function exclusionRecord(detail, announcement, sourceAnnouncementType, reasons, metric = null) { return { stockId: detail.stockId, companyName: detail.companyName, sourceAnnouncementId: String(announcement.announcementId), sourceAnnouncementType, sourceTitle: announcement.title, sourceDate: announcement.announcementDate ?? null, reportPeriod: announcement.reportPeriod ?? null, periodScope: periodScopeFor(announcement.reportPeriod), metric, parseStatus: announcement.parseStatus ?? "unknown", officialSourceUrl: announcement.officialUrl ?? null, candidateAnnouncementIds: uniqueStrings([announcement.correctedAnnouncementId]), reasons: uniqueStrings(reasons) }; }
 function extractUnitEvidence(text) { if (typeof text !== "string") return null; return text.match(/(?:人民币)?(?:元|万元|百万元|亿元)/u)?.[0] ?? null; }
 function normalizeCny(value) { if (!Number.isFinite(value)) return null; const rounded = Math.round(value); return Math.abs(value - rounded) < 0.01 ? rounded : Number(value.toFixed(2)); }

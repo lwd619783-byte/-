@@ -156,6 +156,119 @@ describe("company guidance expectation provider V2", () => {
     expect(correction?.summary).toContain("不表示公司业务预测上调或下调");
     expect(events.some((event) => event.expectation?.businessRevisionDelta)).toBe(false);
   });
+
+  it("validates an A1-to-B-to-A2 correction chain with repeated content but distinct event ids", async () => {
+    const fixture = await correctionChainArtifacts();
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : String(url).includes("workflow-index") ? response(fixture.workflow) : response(fixture.detail)) as typeof fetch;
+    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const detail = await loader.load("sample");
+    const workflow = await loader.loadWorkflow();
+    const [a1, b] = detail.historicalProviderVersions;
+    const a2 = detail.providerSnapshots[0];
+    expect(a1.providerContentChecksum).toBe(a2.providerContentChecksum);
+    expect(new Set([a1.providerSnapshotVersionId, b.providerSnapshotVersionId, a2.providerSnapshotVersionId]).size).toBe(3);
+    expect(b.providerCorrectsVersionId).toBe(a1.providerSnapshotVersionId);
+    expect(a2.providerCorrectsVersionId).toBe(b.providerSnapshotVersionId);
+    expect(workflow.records[0].providerSnapshotVersionId).toBe(a2.providerSnapshotVersionId);
+  });
+
+  it("clearCache prevents a stale detail request from caching or deleting the new in-flight request", async () => {
+    const oldFixture = await artifacts();
+    const newFixture = await artifacts();
+    newFixture.detail.companyName = "New generation";
+    newFixture.manifest.items[0].companyName = "New generation";
+    await finalizeDetail(newFixture);
+    const oldDetail = deferred<Response>();
+    const newDetail = deferred<Response>();
+    let manifestCalls = 0; let detailCalls = 0;
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => {
+      const value = String(url);
+      if (value.includes("manifest")) return response((manifestCalls += 1) === 1 ? oldFixture.manifest : newFixture.manifest);
+      detailCalls += 1;
+      return detailCalls === 1 ? oldDetail.promise : newDetail.promise;
+    }) as typeof fetch;
+    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const first = loader.load("sample");
+    await waitFor(() => detailCalls === 1);
+    loader.clearCache();
+    const second = loader.load("sample");
+    await waitFor(() => detailCalls === 2);
+    oldDetail.resolve(response(oldFixture.detail));
+    await expect(first).rejects.toMatchObject({ code: "stale" });
+    expect(loader.cacheInfo()).toMatchObject({ epoch: 1, results: 0, inFlight: 1 });
+    newDetail.resolve(response(newFixture.detail));
+    await expect(second).resolves.toMatchObject({ companyName: "New generation" });
+    expect(loader.cacheInfo()).toMatchObject({ epoch: 1, results: 1, inFlight: 0 });
+    await expect(loader.load("sample")).resolves.toMatchObject({ companyName: "New generation" });
+    expect(detailCalls).toBe(2);
+  });
+
+  it("multiple retry generations commit only the latest detail result", async () => {
+    const fixture = await artifacts();
+    const requests = [deferred<Response>(), deferred<Response>(), deferred<Response>()];
+    let detailCalls = 0;
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => {
+      if (String(url).includes("manifest")) return response(fixture.manifest);
+      const request = requests[detailCalls]; detailCalls += 1; return request.promise;
+    }) as typeof fetch;
+    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const first = loader.load("sample"); const firstResult = first.then(() => null, (error) => error); await waitFor(() => detailCalls === 1);
+    loader.clearCache();
+    const second = loader.load("sample"); const secondResult = second.then(() => null, (error) => error); await waitFor(() => detailCalls === 2);
+    loader.clearCache();
+    const third = loader.load("sample"); await waitFor(() => detailCalls === 3);
+    requests[1].resolve(response(fixture.detail)); requests[0].resolve(response(fixture.detail));
+    await expect(firstResult).resolves.toMatchObject({ code: "stale" });
+    await expect(secondResult).resolves.toMatchObject({ code: "stale" });
+    expect(loader.cacheInfo()).toMatchObject({ epoch: 2, results: 0, inFlight: 1 });
+    requests[2].resolve(response(fixture.detail));
+    await expect(third).resolves.toMatchObject({ stockId: "sample" });
+    expect(loader.cacheInfo()).toMatchObject({ epoch: 2, results: 1, inFlight: 0 });
+  });
+
+  it("clearCache keeps the new manifest promise when the old manifest completes later", async () => {
+    const fixture = await artifacts();
+    const firstManifest = deferred<Response>(); const secondManifest = deferred<Response>();
+    let manifestCalls = 0;
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => {
+      const value = String(url);
+      if (value.includes("manifest")) return (manifestCalls += 1) === 1 ? firstManifest.promise : secondManifest.promise;
+      return response(fixture.workflow);
+    }) as typeof fetch;
+    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const first = loader.loadWorkflow();
+    await waitFor(() => manifestCalls === 1);
+    loader.clearCache();
+    const second = loader.loadWorkflow();
+    await waitFor(() => manifestCalls === 2);
+    firstManifest.resolve(response(fixture.manifest));
+    await expect(first).rejects.toMatchObject({ code: "stale" });
+    expect(loader.cacheInfo()).toMatchObject({ epoch: 1, manifestLoaded: true, workflowLoaded: true });
+    secondManifest.resolve(response(fixture.manifest));
+    await expect(second).resolves.toMatchObject({ currentSnapshotCount: 1 });
+  });
+
+  it("clearCache keeps the new workflow promise when the old workflow completes later", async () => {
+    const fixture = await artifacts();
+    const firstWorkflow = deferred<Response>(); const secondWorkflow = deferred<Response>();
+    let workflowCalls = 0;
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => {
+      const value = String(url);
+      if (value.includes("manifest")) return response(fixture.manifest);
+      return (workflowCalls += 1) === 1 ? firstWorkflow.promise : secondWorkflow.promise;
+    }) as typeof fetch;
+    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const first = loader.loadWorkflow();
+    await waitFor(() => workflowCalls === 1);
+    loader.clearCache();
+    const second = loader.loadWorkflow();
+    await waitFor(() => workflowCalls === 2);
+    firstWorkflow.resolve(response(fixture.workflow));
+    await expect(first).rejects.toMatchObject({ code: "stale" });
+    expect(loader.cacheInfo()).toMatchObject({ epoch: 1, workflowLoaded: true });
+    secondWorkflow.resolve(response(fixture.workflow));
+    await expect(second).resolves.toMatchObject({ currentSnapshotCount: 1 });
+  });
 });
 
 async function loaderFixture(options: { detailStockId?: string; manifestChecksum?: string; workflowChecksum?: string; workflowCurrent?: boolean } = {}) {
@@ -177,6 +290,47 @@ async function artifacts() {
   await finalizeDetail(fixture); await finalizeWorkflow(fixture);
   return fixture;
 }
+
+async function correctionChainArtifacts() {
+  const a1 = providerRecord();
+  setVersion(a1, { current: false, predecessor: null, checksum: CONTENT_HASH, versionId: VERSION_ID, correctedAt: null, changedFields: [] });
+  const b = structuredClone(a1);
+  b.snapshot.lowerBound = 120; b.snapshot.upperBound = 220;
+  const bChecksum = await providerChecksum(b);
+  const bVersionId = await correctionVersionId(EVIDENCE_ID, VERSION_ID, bChecksum);
+  setVersion(b, { current: false, predecessor: VERSION_ID, checksum: bChecksum, versionId: bVersionId, correctedAt: "2026-07-12T07:31:40Z", changedFields: ["lowerBound", "upperBound"] });
+  const a2 = structuredClone(a1);
+  const a2VersionId = await correctionVersionId(EVIDENCE_ID, bVersionId, CONTENT_HASH);
+  setVersion(a2, { current: true, predecessor: bVersionId, checksum: CONTENT_HASH, versionId: a2VersionId, correctedAt: "2026-07-13T07:31:40Z", changedFields: ["lowerBound", "upperBound"] });
+  const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "Sample Company", market: "A股", status: "generated_real", totalAnnouncementCount: 1, providerSnapshots: [a2], historicalProviderVersions: [a1, b], exclusions: [], warnings: [] };
+  const workflowRecord = structuredClone(a2); delete workflowRecord.sourceTextEvidence; delete workflowRecord.originalUnitEvidence;
+  const workflow: CompanyGuidanceExpectationWorkflowIndex = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", currentSnapshotCount: 1, records: [workflowRecord], warnings: [] };
+  const manifest: CompanyGuidanceExpectationManifest = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", totalCompanies: 1, companiesWithSnapshots: 1, totalSnapshots: 1, totalHistoricalVersions: 2, workflowIndexRelativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", workflowIndexByteSize: 0, workflowIndexChecksumSha256: "", items: [{ stockId: "sample", stockCode: "000001", companyName: "Sample Company", relativePath: "data/a-share-company-guidance-expectations/sample.json", snapshotCount: 1, historicalVersionCount: 2, excludedAnnouncementCount: 0, byteSize: 0, checksumSha256: "", latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: "generated_real" }] };
+  const fixture = { manifest, detail, workflow };
+  await finalizeDetail(fixture); await finalizeWorkflow(fixture);
+  return fixture;
+}
+
+function setVersion(record: EarningsExpectationProviderSnapshot, { current, predecessor, checksum, versionId, correctedAt, changedFields }: { current: boolean; predecessor: string | null; checksum: string; versionId: string; correctedAt: string | null; changedFields: string[] }) {
+  record.providerContentChecksum = checksum;
+  record.providerSnapshotVersionId = versionId;
+  record.providerCorrectsVersionId = predecessor;
+  record.providerCorrectionType = predecessor ? "extraction_correction" : "initial";
+  record.providerCorrectedAt = correctedAt;
+  record.providerCorrectionChangedFields = changedFields;
+  record.isCurrentVersion = current;
+  record.artifactChecksum = checksum;
+  Object.assign(record.snapshot, { id: versionId, providerContentChecksum: checksum, providerSnapshotVersionId: versionId, providerCorrectsVersionId: predecessor, providerCorrectionType: record.providerCorrectionType, providerCorrectedAt: correctedAt, providerCorrectionChangedFields: changedFields, isCurrentProviderVersion: current, artifactChecksum: checksum });
+}
+
+async function providerChecksum(record: EarningsExpectationProviderSnapshot) {
+  return sha256Hex(new TextEncoder().encode(canonicalJson({ providerEvidenceIdentity: record.providerEvidenceIdentity, estimateShape: record.snapshot.estimateShape, value: record.snapshot.value, lowerBound: record.snapshot.lowerBound, upperBound: record.snapshot.upperBound, currency: record.snapshot.currency, unit: record.snapshot.unit, accountingBasis: record.snapshot.accountingBasis, sourcePublishedAt: record.snapshot.sourcePublishedAt, sourceTextEvidenceHash: record.sourceTextEvidenceHash, providerParseRulesVersion: record.providerParseRulesVersion })));
+}
+async function correctionVersionId(providerEvidenceIdentity: string, providerCorrectsVersionId: string, providerContentChecksum: string) { return `company-guidance-version-${await sha256Hex(new TextEncoder().encode(canonicalJson({ providerEvidenceIdentity, providerCorrectsVersionId, providerContentChecksum })))}`; }
+function canonicalJson(value: unknown): string { if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`; if (value && typeof value === "object") { const object = value as Record<string, unknown>; return `{${Object.keys(object).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(object[key])}`).join(",")}}`; } return JSON.stringify(value); }
+
+function deferred<T>() { let resolve!: (value: T) => void; let reject!: (reason?: unknown) => void; const promise = new Promise<T>((resolvePromise, rejectPromise) => { resolve = resolvePromise; reject = rejectPromise; }); return { promise, resolve, reject }; }
+async function waitFor(predicate: () => boolean) { for (let attempt = 0; attempt < 100; attempt += 1) { if (predicate()) return; await new Promise((resolve) => setTimeout(resolve, 0)); } throw new Error("timed out waiting for deferred request"); }
 
 async function finalizeDetail(fixture: { manifest: CompanyGuidanceExpectationManifest; detail: CompanyGuidanceExpectationDetail }) { const bytes = new TextEncoder().encode(JSON.stringify(fixture.detail)); fixture.manifest.items[0].byteSize = bytes.byteLength; fixture.manifest.items[0].checksumSha256 = await sha256Hex(bytes); }
 async function finalizeWorkflow(fixture: { manifest: CompanyGuidanceExpectationManifest; workflow: CompanyGuidanceExpectationWorkflowIndex }) { const bytes = new TextEncoder().encode(JSON.stringify(fixture.workflow)); fixture.manifest.workflowIndexByteSize = bytes.byteLength; fixture.manifest.workflowIndexChecksumSha256 = await sha256Hex(bytes); }
