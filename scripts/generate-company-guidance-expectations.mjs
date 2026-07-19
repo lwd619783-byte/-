@@ -9,6 +9,7 @@ import {
   COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS,
   COMPANY_GUIDANCE_SUMMARY_ITEM_FIELDS,
   buildCompanyGuidanceArtifacts,
+  canonicalJson,
   createWorkflowIndex,
   deriveCompanyGuidanceManifestMetadata,
   deriveCompanyGuidanceSummaryItem,
@@ -17,6 +18,11 @@ import {
   validateVersionGraph,
 } from "./company-guidance-expectations/core.mjs";
 import { validateCommittedCompanyGuidanceArtifacts } from "./validate-company-guidance-expectations.mjs";
+import {
+  COMPANY_GUIDANCE_SOURCE_ARTIFACT,
+  deriveCompanyGuidanceSummaryAudit,
+  validateCompanyGuidanceSummaryAuditManifestProjection,
+} from "../src/services/companyGuidanceExpectationAudit.mjs";
 
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const workflowIndexName = "workflow-index.generated.json";
@@ -109,6 +115,7 @@ export function generateCompanyGuidanceArtifacts({ dryRun = false, rootPath = de
       renderedDetails,
       renderedWorkflowIndex,
       expectedCompanyCount,
+      sourceRootPath: rootPath,
       hooks: transactionHooks,
     });
   }
@@ -132,7 +139,7 @@ export function readPreviousProviderDetails(paths, requiredCompanyCount = expect
   return details;
 }
 
-export function writeArtifactsTransaction({ rootPath, outputDir, summaryPath, summary, manifest, renderedDetails, renderedWorkflowIndex, expectedCompanyCount: requiredCompanyCount = expectedCompanyCount, hooks = null }) {
+export function writeArtifactsTransaction({ rootPath, outputDir, summaryPath, summary, manifest, renderedDetails, renderedWorkflowIndex, expectedCompanyCount: requiredCompanyCount = expectedCompanyCount, sourceRootPath = rootPath, hooks = null }) {
   const transactionId = `${process.pid}-${Date.now()}-${crypto.randomBytes(6).toString("hex")}`;
   const stageRoot = path.join(path.dirname(outputDir), `.company-guidance-staging-${transactionId}`);
   const stageOutputDir = path.join(stageRoot, "public/data/a-share-company-guidance-expectations");
@@ -159,7 +166,7 @@ export function writeArtifactsTransaction({ rootPath, outputDir, summaryPath, su
     fs.writeFileSync(path.join(stageOutputDir, manifestName), renderJson(manifest), "utf8");
     fs.writeFileSync(path.join(stageOutputDir, workflowIndexName), renderedWorkflowIndex, "utf8");
     fs.writeFileSync(stageSummaryPath, renderJson(summary), "utf8");
-    const stagedValidation = validateCommittedCompanyGuidanceArtifacts(stageRoot, { expectedCompanyCount: requiredCompanyCount });
+    const stagedValidation = validateCommittedCompanyGuidanceArtifacts(stageRoot, { expectedCompanyCount: requiredCompanyCount, sourceRootPath });
     if (stagedValidation.errors.length) throw new Error(`staged provider artifacts are invalid: ${stagedValidation.errors.join("; ")}`);
     state.stagingCompleted = true;
 
@@ -234,6 +241,11 @@ function readAnnouncementDetails(sourceManifest, rootPath) {
 function validateRendered(result, manifest, renderedDetails, workflowIndex, renderedWorkflowIndex, requiredCompanyCount) {
   if (result.companies.length !== requiredCompanyCount || manifest.items.length !== requiredCompanyCount) throw new Error(`expected ${requiredCompanyCount} companies, got ${result.companies.length}`);
   if (result.audit.reliableSnapshotCount <= 0) throw new Error("no reliable company-guidance snapshots; refusing to generate example data");
+  if (result.summary.sourceArtifact !== COMPANY_GUIDANCE_SOURCE_ARTIFACT) throw new Error("summary sourceArtifact contract mismatch");
+  const derivedAudit = deriveCompanyGuidanceSummaryAudit(result.companies);
+  if (canonicalJson(result.audit) !== canonicalJson(derivedAudit) || canonicalJson(result.summary.audit) !== canonicalJson(derivedAudit)) throw new Error("summary audit does not exactly mirror detail records");
+  const auditProjectionErrors = validateCompanyGuidanceSummaryAuditManifestProjection(result.summary.audit, manifest);
+  if (auditProjectionErrors.length) throw new Error(`summary audit/manifest projection mismatch: ${auditProjectionErrors.join("; ")}`);
   const companyIds = result.companies.map((company) => company.stockId);
   const manifestIds = manifest.items.map((entry) => entry.stockId);
   const summaryIds = Object.keys(result.summary.items);

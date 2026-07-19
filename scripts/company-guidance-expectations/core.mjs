@@ -6,13 +6,27 @@ import {
   validateCompanyGuidanceDetailContract,
 } from "../../src/services/companyGuidanceExpectationSelection.mjs";
 import { isStrictPreciseInstant } from "../../src/utils/strictDateTime.mjs";
+import {
+  COMPANY_GUIDANCE_PARSE_RULES_VERSION as SHARED_PARSE_RULES_VERSION,
+  COMPANY_GUIDANCE_PROVIDER_ID as SHARED_PROVIDER_ID,
+  COMPANY_GUIDANCE_PROVIDER_VERSION as SHARED_PROVIDER_VERSION,
+  COMPANY_GUIDANCE_TIME_NOTE as SHARED_TIME_NOTE,
+  parseOfficialCninfoAnnouncementUrl,
+  parseOfficialCninfoPdfUrl,
+  providerContentChangedFields,
+  providerContentProjection as sharedProviderContentProjection,
+  validateCompanyGuidanceBusinessRevisionSemantics,
+  validateCompanyGuidanceCorrectionGraph,
+  validateCompanyGuidanceProviderRecordContract,
+} from "../../src/services/companyGuidanceExpectationRecordContract.mjs";
+import { COMPANY_GUIDANCE_SOURCE_ARTIFACT, deriveCompanyGuidanceSummaryAudit } from "../../src/services/companyGuidanceExpectationAudit.mjs";
 
 export const COMPANY_GUIDANCE_SCHEMA_VERSION = "2.0.0";
-export const COMPANY_GUIDANCE_PROVIDER_ID = "cninfo-company-guidance";
-export const COMPANY_GUIDANCE_PROVIDER_VERSION = "2.0.0";
-export const COMPANY_GUIDANCE_PARSE_RULES_VERSION = "1.0.0";
+export const COMPANY_GUIDANCE_PROVIDER_ID = SHARED_PROVIDER_ID;
+export const COMPANY_GUIDANCE_PROVIDER_VERSION = SHARED_PROVIDER_VERSION;
+export const COMPANY_GUIDANCE_PARSE_RULES_VERSION = SHARED_PARSE_RULES_VERSION;
 export const COMPANY_GUIDANCE_GENERATOR = "scripts/generate-company-guidance-expectations.mjs";
-export const COMPANY_GUIDANCE_TIME_NOTE = "公司内部形成时间未知，以公开披露时间作为可用时间";
+export const COMPANY_GUIDANCE_TIME_NOTE = SHARED_TIME_NOTE;
 
 const TARGET_CATEGORIES = new Set(["performance_forecast", "performance_forecast_revision"]);
 const METRIC_MAP = new Map([
@@ -20,10 +34,6 @@ const METRIC_MAP = new Map([
   ["netProfitExcludingNonRecurring", "adjusted_net_profit"],
   ["operatingRevenue", "revenue"],
 ]);
-const FINANCIAL_CONTENT_FIELDS = [
-  "estimateShape", "value", "lowerBound", "upperBound", "currency", "unit", "accountingBasis",
-  "sourcePublishedAt", "sourceTextEvidenceHash", "providerParseRulesVersion",
-];
 const COMPANY_GUIDANCE_DETAIL_BASE_PATH = "data/a-share-company-guidance-expectations";
 const SAFE_PROVIDER_STOCK_ID = /^[A-Za-z0-9_-]+$/u;
 export const COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS = Object.freeze([
@@ -44,27 +54,7 @@ export function periodScopeFor(reportPeriod) {
   return null;
 }
 
-export function parseOfficialCninfoAnnouncementUrl(value) {
-  try {
-    const url = new URL(value);
-    const entries = [...url.searchParams.entries()];
-    if (url.protocol !== "https:" || url.username || url.password || url.port || url.hash) return null;
-    if (url.hostname !== "www.cninfo.com.cn" || url.pathname !== "/new/disclosure/detail") return null;
-    if (entries.length !== 1 || entries[0][0] !== "annoId" || !/^\d+$/u.test(entries[0][1])) return null;
-    return { announcementId: entries[0][1], canonicalUrl: `https://www.cninfo.com.cn/new/disclosure/detail?annoId=${entries[0][1]}` };
-  } catch { return null; }
-}
-
-export function parseOfficialCninfoPdfUrl(value, expectedAnnouncementId = null) {
-  try {
-    const url = new URL(value);
-    if (url.protocol !== "https:" || url.username || url.password || url.port || url.search || url.hash) return null;
-    if (url.hostname !== "static.cninfo.com.cn") return null;
-    const match = url.pathname.match(/^\/finalpage\/(\d{4}-\d{2}-\d{2})\/(\d+)\.PDF$/u);
-    if (!match || (expectedAnnouncementId && match[2] !== expectedAnnouncementId)) return null;
-    return { sourceDate: match[1], announcementId: match[2], canonicalUrl: `https://static.cninfo.com.cn${url.pathname}` };
-  } catch { return null; }
-}
+export { parseOfficialCninfoAnnouncementUrl, parseOfficialCninfoPdfUrl };
 
 export function stableProviderEvidenceIdentity(fields) {
   return [COMPANY_GUIDANCE_PROVIDER_ID, String(fields.announcementId), fields.stockId, fields.reportPeriod, fields.periodScope, fields.metric].join("|");
@@ -98,20 +88,7 @@ export function stableSourceArtifactChecksum(fields) {
 }
 
 export function providerContentProjection(record) {
-  const snapshot = record.snapshot ?? record;
-  return {
-    providerEvidenceIdentity: record.providerEvidenceIdentity ?? snapshot.providerEvidenceIdentity,
-    estimateShape: snapshot.estimateShape,
-    value: snapshot.value,
-    lowerBound: snapshot.lowerBound,
-    upperBound: snapshot.upperBound,
-    currency: snapshot.currency,
-    unit: snapshot.unit,
-    accountingBasis: snapshot.accountingBasis,
-    sourcePublishedAt: snapshot.sourcePublishedAt,
-    sourceTextEvidenceHash: record.sourceTextEvidenceHash,
-    providerParseRulesVersion: record.providerParseRulesVersion ?? snapshot.providerParseRulesVersion,
-  };
+  return sharedProviderContentProjection(record);
 }
 
 export function computeProviderContentChecksum(record) {
@@ -174,41 +151,14 @@ export function buildCompanyGuidanceArtifacts({ announcementDetails, sourceGener
     if (validationErrors.length) throw new Error(`invalid generated company ${company.stockId}: ${validationErrors.join("; ")}`);
   }
 
-  const allExclusions = companies.flatMap((company) => company.exclusions);
-  const targetAnnouncements = companies.flatMap((company) => company.targetAnnouncements);
-  const targetDates = targetAnnouncements.map((record) => record.sourceDate).filter(Boolean).sort();
-  const audit = {
-    totalAnnouncementCount: companies.reduce((sum, company) => sum + company.totalAnnouncementCount, 0),
-    companyCount: companies.length,
-    targetCompanyCount: new Set(targetAnnouncements.map((record) => record.stockId)).size,
-    previewAnnouncementCount: targetAnnouncements.filter((record) => record.sourceAnnouncementType === "earnings_preview").length,
-    revisionAnnouncementCount: targetAnnouncements.filter((record) => record.sourceAnnouncementType === "earnings_preview_revision").length,
-    targetAnnouncementCount: targetAnnouncements.length,
-    targetWithReportPeriodCount: targetAnnouncements.filter((record) => record.reportPeriod).length,
-    targetWithRecognizedPeriodScopeCount: targetAnnouncements.filter((record) => record.periodScope).length,
-    parseStatusCounts: countBy(targetAnnouncements, (record) => record.parseStatus ?? "unknown"),
-    reliableAnnouncementCount: new Set(allRecords.map((record) => record.sourceAnnouncementId)).size,
-    reliableSnapshotCount: allRecords.length,
-    reliableCompanyCount: new Set(allRecords.map((record) => record.snapshot.stockId)).size,
-    historicalVersionCount: companies.reduce((sum, company) => sum + company.historicalProviderVersions.length, 0),
-    metricCounts: countBy(allRecords, (record) => record.snapshot.metric),
-    periodScopeCounts: countBy(allRecords, (record) => record.snapshot.periodScope),
-    excludedTargetAnnouncementCount: new Set(allExclusions.map((record) => record.sourceAnnouncementId)).size,
-    exclusionCount: allExclusions.length,
-    exclusionReasonCounts: countNested(allExclusions, (record) => record.reasons),
-    earliestSourceDate: targetDates[0] ?? null,
-    latestSourceDate: targetDates.at(-1) ?? null,
-    duplicateAnnouncementCount: targetAnnouncements.filter((record) => record.isDuplicate).length,
-    linkedRevisionSnapshotCount: allRecords.filter((record) => record.sourceAnnouncementType === "earnings_preview_revision" && record.providerBusinessRevisionPredecessorSnapshotId).length,
-    unresolvedRevisionAnnouncementCount: targetAnnouncements.filter((record) => record.sourceAnnouncementType === "earnings_preview_revision").filter((target) => !allRecords.some((record) => record.sourceAnnouncementId === target.sourceAnnouncementId && record.providerBusinessRevisionPredecessorSnapshotId)).length,
-  };
+  const audit = deriveCompanyGuidanceSummaryAudit(companies);
 
   const summary = {
     schemaVersion: COMPANY_GUIDANCE_SCHEMA_VERSION,
     providerId: COMPANY_GUIDANCE_PROVIDER_ID,
     providerVersion: COMPANY_GUIDANCE_PROVIDER_VERSION,
     generatedAt: sourceGeneratedAt,
-    sourceArtifact: "CNInfo A-share announcement Provider V1 committed artifacts",
+    sourceArtifact: COMPANY_GUIDANCE_SOURCE_ARTIFACT,
     sourceGeneratedAt,
     status: deriveCompanyGuidanceSummaryStatus(companies),
     audit,
@@ -260,6 +210,8 @@ function buildCompany(detail, sourceGeneratedAt, previousDetail) {
       if (!Number.isFinite(event.lowerBound) || !Number.isFinite(event.upperBound)) reasons.push("range_incomplete");
       if (Number.isFinite(event.lowerBound) && Number.isFinite(event.upperBound) && event.lowerBound > event.upperBound) reasons.push("range_order_invalid");
       if (event.extractionConfidence !== "high") reasons.push("field_confidence_not_high");
+      if (typeof event.sourceTextEvidence !== "string" || !event.sourceTextEvidence.trim()) reasons.push("source_text_evidence_missing");
+      else if (!extractUnitEvidence(event.sourceTextEvidence)) reasons.push("original_unit_evidence_missing");
       if (reasons.length) { exclusions.push(exclusionRecord(detail, announcement, sourceAnnouncementType, reasons, event.profitMetric ?? null)); continue; }
       candidates.push(buildCandidate({ detail, announcement, event, announcementId, sourceAnnouncementType, periodScope, metric, sourceGeneratedAt, officialSource, officialPdf }));
     }
@@ -283,7 +235,7 @@ function buildCandidate({ detail, announcement, event, announcementId, sourceAnn
   const upperBound = normalizeCny(event.upperBound);
   const providerEvidenceIdentity = stableProviderEvidenceIdentity({ announcementId, stockId: detail.stockId, reportPeriod: announcement.reportPeriod, periodScope, metric });
   const sourceTextEvidence = event.sourceTextEvidence;
-  const sourceTextEvidenceHash = sha256(typeof sourceTextEvidence === "string" ? sourceTextEvidence : "");
+  const sourceTextEvidenceHash = sha256(sourceTextEvidence);
   const shell = { providerEvidenceIdentity, snapshot: { estimateShape: "range", value: null, lowerBound, upperBound, currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourcePublishedAt: announcement.announcementDate }, sourceTextEvidenceHash, providerParseRulesVersion: COMPANY_GUIDANCE_PARSE_RULES_VERSION };
   const providerContentChecksum = computeProviderContentChecksum(shell);
   const providerSnapshotVersionId = stableProviderSnapshotVersionId(providerContentChecksum);
@@ -330,7 +282,7 @@ function reconcileVersions(candidates, previousDetail, sourceGeneratedAt, stockI
       candidate.providerSnapshotVersionId = previous.providerSnapshotVersionId;
       candidate.providerCorrectsVersionId = previous.providerCorrectsVersionId ?? null;
       candidate.providerCorrectionType = previous.providerCorrectionType ?? "initial";
-      candidate.providerCorrectedAt = previous.providerCorrectedAt ?? null;
+      candidate.providerCorrectedAt = candidate.providerCorrectionType === "extraction_correction" ? sourceGeneratedAt : null;
       candidate.providerCorrectionChangedFields = previous.providerCorrectionChangedFields ?? [];
       syncVersionFields(candidate);
       current.push(candidate);
@@ -409,37 +361,23 @@ function attachBusinessRevisionChains(allRecords, companies) {
   }
 }
 
-export function validateProviderRecord(record, { stockId = record?.snapshot?.stockId, current = true } = {}) {
-  const errors = [];
-  if (!record || typeof record !== "object" || !record.snapshot) return ["record_shape"];
+export function validateProviderRecord(record, {
+  stockId = record?.snapshot?.stockId,
+  companyName = record?.snapshot?.sourceName,
+  mode = "detail_current",
+  expectedGenerationEpoch = null,
+} = {}) {
+  const errors = validateCompanyGuidanceProviderRecordContract(record, { stockId, companyName, mode, expectedGenerationEpoch });
+  if (!record || typeof record !== "object" || !record.snapshot) return uniqueStrings(errors);
   const snapshot = record.snapshot;
-  const source = parseOfficialCninfoAnnouncementUrl(record.officialSourceUrl);
-  const pdf = parseOfficialCninfoPdfUrl(record.officialPdfUrl, record.sourceAnnouncementId);
-  if (!source || source.announcementId !== record.sourceAnnouncementId || source.canonicalUrl !== record.officialSourceUrl) errors.push("official_source_url");
-  if (!pdf || pdf.canonicalUrl !== record.officialPdfUrl || pdf.sourceDate !== record.sourceDate) errors.push("official_pdf_url");
-  if (snapshot.stockId !== stockId || snapshot.sourceUrl !== record.officialSourceUrl || snapshot.officialPdfUrl !== record.officialPdfUrl) errors.push("source_identity");
-  if (record.providerId !== COMPANY_GUIDANCE_PROVIDER_ID || record.providerVersion !== COMPANY_GUIDANCE_PROVIDER_VERSION) errors.push("provider_contract");
-  if (snapshot.ingestionMethod !== "provider" || snapshot.sourceCategory !== "company_guidance" || snapshot.sourceVerificationStatus !== "verified") errors.push("provider_boundary");
-  if (snapshot.formationTimeBasis !== "public_disclosure_proxy" || snapshot.formedAt !== null || snapshot.sourcePublishedAt !== record.sourceDate) errors.push("time_contract");
-  if (!isStrictPreciseInstant(snapshot.createdAt) || !isStrictPreciseInstant(record.generatedAt) || snapshot.asOfDate !== record.sourceDate || snapshot.sourcePublishedAtCalendarDate !== record.sourceDate) errors.push("instant_contract");
-  if (snapshot.estimateShape === "range" && (!Number.isFinite(snapshot.lowerBound) || !Number.isFinite(snapshot.upperBound) || snapshot.lowerBound > snapshot.upperBound || snapshot.value !== null)) errors.push("range_contract");
   const identity = stableProviderEvidenceIdentity({ announcementId: record.sourceAnnouncementId, stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric });
-  if (record.providerEvidenceIdentity !== identity || snapshot.providerEvidenceIdentity !== identity) errors.push("evidence_identity");
-  if (!/^[a-f0-9]{64}$/u.test(record.sourceTextEvidenceHash ?? "") || (record.sourceTextEvidence !== undefined && sha256(record.sourceTextEvidence) !== record.sourceTextEvidenceHash)) errors.push("source_text_hash");
+  if (record.providerEvidenceIdentity !== identity || snapshot.providerEvidenceIdentity !== identity) errors.push("provider_snapshot_mirror_contract");
+  if (mode !== "workflow_current" && sha256(record.sourceTextEvidence ?? "") !== record.sourceTextEvidenceHash) errors.push("provider_snapshot_evidence_contract");
   const checksum = computeProviderContentChecksum(record);
-  if (record.providerContentChecksum !== checksum || snapshot.providerContentChecksum !== checksum || record.artifactChecksum !== checksum) errors.push("content_checksum");
+  if (record.providerContentChecksum !== checksum || snapshot.providerContentChecksum !== checksum
+    || record.artifactChecksum !== checksum || snapshot.artifactChecksum !== checksum) errors.push("provider_snapshot_mirror_contract");
   const versionId = expectedProviderSnapshotVersionId({ ...record, providerContentChecksum: checksum });
-  if (record.providerSnapshotVersionId !== versionId || snapshot.providerSnapshotVersionId !== versionId || snapshot.id !== versionId) errors.push("version_identity");
-  if (record.providerParseRulesVersion !== COMPANY_GUIDANCE_PARSE_RULES_VERSION || snapshot.providerParseRulesVersion !== COMPANY_GUIDANCE_PARSE_RULES_VERSION) errors.push("parse_rules_version");
-  if (record.isCurrentVersion !== current || snapshot.isCurrentProviderVersion !== current) errors.push("current_version_flag");
-  if (snapshot.correctsSnapshotId !== null) errors.push("correction_chain_conflation");
-  const correctionMirrorsMatch = snapshot.providerCorrectsVersionId === record.providerCorrectsVersionId
-    && snapshot.providerCorrectionType === record.providerCorrectionType
-    && snapshot.providerCorrectedAt === record.providerCorrectedAt
-    && canonicalJson(snapshot.providerCorrectionChangedFields) === canonicalJson(record.providerCorrectionChangedFields);
-  const initialContract = record.providerCorrectionType === "initial" && record.providerCorrectsVersionId === null && record.providerCorrectedAt === null && (record.providerCorrectionChangedFields ?? []).length === 0;
-  const correctionContract = record.providerCorrectionType === "extraction_correction" && typeof record.providerCorrectsVersionId === "string" && isStrictPreciseInstant(record.providerCorrectedAt) && (record.providerCorrectionChangedFields ?? []).length > 0;
-  if (!correctionMirrorsMatch || (!initialContract && !correctionContract)) errors.push("provider_correction_contract");
+  if (record.providerSnapshotVersionId !== versionId || snapshot.providerSnapshotVersionId !== versionId || snapshot.id !== versionId) errors.push("provider_snapshot_mirror_contract");
   return uniqueStrings(errors);
 }
 
@@ -487,11 +425,13 @@ export function validateCompanyGuidanceDetail(detail, options = {}) {
   const errors = validateCompanyGuidanceDetailContract(detail, options);
   const current = Array.isArray(detail?.providerSnapshots) ? detail.providerSnapshots : [];
   const historical = Array.isArray(detail?.historicalProviderVersions) ? detail.historicalProviderVersions : [];
-  for (const record of current) errors.push(...validateProviderRecord(record, { stockId: detail?.stockId, current: true }).map((error) => `${record?.sourceAnnouncementId ?? "<invalid>"}:${error}`));
-  for (const record of historical) errors.push(...validateProviderRecord(record, { stockId: detail?.stockId, current: false }).map((error) => `${record?.sourceAnnouncementId ?? "<invalid>"}:${error}`));
+  for (const record of current) errors.push(...validateProviderRecord(record, { stockId: detail?.stockId, companyName: detail?.companyName, mode: "detail_current", expectedGenerationEpoch: detail?.generatedAt }).map((error) => `${record?.sourceAnnouncementId ?? "<invalid>"}:${error}`));
+  for (const record of historical) errors.push(...validateProviderRecord(record, { stockId: detail?.stockId, companyName: detail?.companyName, mode: "detail_historical", expectedGenerationEpoch: detail?.generatedAt }).map((error) => `${record?.sourceAnnouncementId ?? "<invalid>"}:${error}`));
   if ([...current, ...historical].every((record) => record && typeof record === "object" && record.snapshot)) {
     errors.push(...validateVersionGraph([...current, ...historical]));
+    errors.push(...validateCompanyGuidanceCorrectionGraph([...current, ...historical], { generationEpoch: detail?.generatedAt }));
     errors.push(...validateBusinessRevisionGraph(current));
+    errors.push(...validateCompanyGuidanceBusinessRevisionSemantics(current, detail?.warnings ?? []));
   }
   return uniqueStrings(errors);
 }
@@ -518,16 +458,13 @@ function deriveContentChecksum(record) {
   return computeProviderContentChecksum(normalized);
 }
 function changedContentFields(previous, current) {
-  const left = providerContentProjection(previous); const right = providerContentProjection(current);
-  return FINANCIAL_CONTENT_FIELDS.filter((field) => canonicalJson(left[field]) !== canonicalJson(right[field]));
+  return providerContentChangedFields(previous, current);
 }
 function dedupeVersions(records) { return [...new Map(records.map((record) => [record.providerSnapshotVersionId, record])).values()]; }
 function duplicates(values) { const seen = new Set(); const repeated = new Set(); for (const value of values) { if (typeof value !== "string" || !value) continue; if (seen.has(value)) repeated.add(value); seen.add(value); } return [...repeated].sort(); }
-function exclusionRecord(detail, announcement, sourceAnnouncementType, reasons, metric = null) { return { stockId: detail.stockId, companyName: detail.companyName, sourceAnnouncementId: String(announcement.announcementId), sourceAnnouncementType, sourceTitle: announcement.title, sourceDate: announcement.announcementDate ?? null, reportPeriod: announcement.reportPeriod ?? null, periodScope: periodScopeFor(announcement.reportPeriod), metric, parseStatus: announcement.parseStatus ?? "unknown", officialSourceUrl: announcement.officialUrl ?? null, candidateAnnouncementIds: uniqueStrings([announcement.correctedAnnouncementId]), reasons: uniqueStrings(reasons) }; }
+function exclusionRecord(detail, announcement, sourceAnnouncementType, reasons, metric = null) { const source = parseOfficialCninfoAnnouncementUrl(announcement.officialUrl); const announcementId = String(announcement.announcementId); return { stockId: detail.stockId, companyName: detail.companyName, sourceAnnouncementId: announcementId, sourceAnnouncementType, sourceTitle: announcement.title, sourceDate: announcement.announcementDate ?? null, reportPeriod: announcement.reportPeriod ?? null, periodScope: periodScopeFor(announcement.reportPeriod), metric, parseStatus: announcement.parseStatus ?? "unknown", officialSourceUrl: source?.announcementId === announcementId ? source.canonicalUrl : null, candidateAnnouncementIds: uniqueStrings([announcement.correctedAnnouncementId]), reasons: uniqueStrings(reasons) }; }
 function extractUnitEvidence(text) { if (typeof text !== "string") return null; return text.match(/(?:人民币)?(?:元|万元|百万元|亿元)/u)?.[0] ?? null; }
 function normalizeCny(value) { if (!Number.isFinite(value)) return null; const rounded = Math.round(value); return Math.abs(value - rounded) < 0.01 ? rounded : Number(value.toFixed(2)); }
-function countBy(values, keyFn) { return Object.fromEntries([...new Set(values.map(keyFn))].sort().map((key) => [key, values.filter((value) => keyFn(value) === key).length])); }
-function countNested(values, keyFn) { const keys = [...new Set(values.flatMap(keyFn))].sort(); return Object.fromEntries(keys.map((key) => [key, values.filter((value) => keyFn(value).includes(key)).length])); }
 function uniqueStrings(values) { return [...new Set(values.filter((value) => typeof value === "string" && value.trim()).map(String))].sort(); }
 export function canonicalJson(value) { if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`; if (value && typeof value === "object") return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`; return JSON.stringify(value); }
 export function sha256(value) { return crypto.createHash("sha256").update(value).digest("hex"); }

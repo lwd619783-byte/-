@@ -395,6 +395,15 @@ export type EarningsExpectationProviderSourceAnnouncementType = "earnings_previe
 export type CompanyGuidanceExpectationProviderStatus = "generated_real" | "partial" | "missing";
 export type CompanyGuidanceExpectationSourceParseStatus = "parse_success" | "parse_partial" | "metadata_only" | "parse_unavailable";
 export type CompanyGuidanceExpectationWarningCode = "revision_without_reliable_range" | "revision_predecessor_ambiguous" | "revision_predecessor_missing";
+export type CompanyGuidanceExpectationStructuredWarningCode = "revision_predecessor_ambiguous" | "revision_predecessor_missing";
+export type CompanyGuidanceExpectationMetric = Extract<EarningsExpectationMetric, "attributable_net_profit" | "adjusted_net_profit" | "revenue">;
+export type CompanyGuidanceExpectationPeriodScope = Extract<EarningsExpectationPeriodScope, "single_quarter" | "half_year" | "first_three_quarters" | "full_year">;
+export type CompanyGuidanceExpectationExclusionReason =
+  | "report_period_missing" | "period_scope_unclear" | "source_date_missing" | "official_source_invalid" | "cancelled_announcement"
+  | "duplicate_announcement" | "parsed_fields_unavailable" | "no_reliable_revised_range" | "no_reliable_forecast_range"
+  | "unsupported_metric" | "forecast_period_mismatch" | "range_incomplete" | "range_order_invalid" | "field_confidence_not_high"
+  | "source_text_evidence_missing" | "original_unit_evidence_missing"
+  | `parse_status_${CompanyGuidanceExpectationSourceParseStatus}`;
 
 export interface EarningsExpectationProviderSnapshot {
   providerId: string;
@@ -412,19 +421,26 @@ export interface EarningsExpectationProviderSnapshot {
   providerContentChecksum: string;
   providerParseRulesVersion: string;
   providerCorrectsVersionId: string | null;
-  providerCorrectionType: "initial" | "extraction_correction" | "source_correction";
+  providerCorrectionType: "initial" | "extraction_correction";
   providerCorrectedAt: string | null;
   providerCorrectionChangedFields: string[];
   isCurrentVersion: boolean;
   providerBusinessRevisionPredecessorSnapshotId: string | null;
   sourceParseStatus: "parse_success" | "parse_partial";
-  sourceExtractionConfidence: "high" | "medium" | "low";
+  sourceExtractionConfidence: "high";
   sourceTextEvidence?: string;
   sourceTextEvidenceHash: string;
   originalUnitEvidence?: string | null;
   correctionCandidateAnnouncementIds: string[];
-  structuredWarnings: string[];
+  structuredWarnings: CompanyGuidanceExpectationStructuredWarningCode[];
 }
+
+export type CompanyGuidanceExpectationDetailProviderRecord = EarningsExpectationProviderSnapshot & {
+  sourceTextEvidence: string;
+  originalUnitEvidence: string;
+};
+
+export type CompanyGuidanceExpectationWorkflowRecord = Omit<EarningsExpectationProviderSnapshot, "sourceTextEvidence" | "originalUnitEvidence">;
 
 export interface CompanyGuidanceExpectationExclusion {
   stockId: string;
@@ -439,7 +455,7 @@ export interface CompanyGuidanceExpectationExclusion {
   parseStatus: CompanyGuidanceExpectationSourceParseStatus;
   officialSourceUrl: string | null;
   candidateAnnouncementIds: string[];
-  reasons: string[];
+  reasons: CompanyGuidanceExpectationExclusionReason[];
 }
 
 export interface CompanyGuidanceExpectationWarning {
@@ -480,8 +496,8 @@ export interface CompanyGuidanceExpectationDetail {
   status: CompanyGuidanceExpectationProviderStatus;
   totalAnnouncementCount: number;
   targetAnnouncements: CompanyGuidanceExpectationTargetAnnouncement[];
-  providerSnapshots: EarningsExpectationProviderSnapshot[];
-  historicalProviderVersions: EarningsExpectationProviderSnapshot[];
+  providerSnapshots: CompanyGuidanceExpectationDetailProviderRecord[];
+  historicalProviderVersions: CompanyGuidanceExpectationDetailProviderRecord[];
   exclusions: CompanyGuidanceExpectationExclusion[];
   warnings: CompanyGuidanceExpectationWarning[];
   quality: CompanyGuidanceExpectationQuality;
@@ -534,10 +550,10 @@ export interface CompanyGuidanceExpectationSummary {
   providerId: string;
   providerVersion: string;
   generatedAt: string;
-  sourceArtifact: string;
+  sourceArtifact: "CNInfo A-share announcement Provider V1 committed artifacts";
   sourceGeneratedAt: string;
   status: CompanyGuidanceExpectationProviderStatus;
-  audit: Record<string, unknown>;
+  audit: CompanyGuidanceExpectationSummaryAudit;
   workflowIndex: {
     relativePath: string;
     byteSize: number;
@@ -555,8 +571,34 @@ export interface CompanyGuidanceExpectationWorkflowIndex {
   providerVersion: string;
   generatedAt: string;
   currentSnapshotCount: number;
-  records: EarningsExpectationProviderSnapshot[];
+  records: CompanyGuidanceExpectationWorkflowRecord[];
   warnings: CompanyGuidanceExpectationWarning[];
+}
+
+export interface CompanyGuidanceExpectationSummaryAudit {
+  totalAnnouncementCount: number;
+  companyCount: number;
+  targetCompanyCount: number;
+  previewAnnouncementCount: number;
+  revisionAnnouncementCount: number;
+  targetAnnouncementCount: number;
+  targetWithReportPeriodCount: number;
+  targetWithRecognizedPeriodScopeCount: number;
+  parseStatusCounts: Partial<Record<CompanyGuidanceExpectationSourceParseStatus, number>>;
+  reliableAnnouncementCount: number;
+  reliableSnapshotCount: number;
+  reliableCompanyCount: number;
+  historicalVersionCount: number;
+  metricCounts: Partial<Record<CompanyGuidanceExpectationMetric, number>>;
+  periodScopeCounts: Partial<Record<CompanyGuidanceExpectationPeriodScope, number>>;
+  excludedTargetAnnouncementCount: number;
+  exclusionCount: number;
+  exclusionReasonCounts: Partial<Record<CompanyGuidanceExpectationExclusionReason, number>>;
+  earliestSourceDate: string | null;
+  latestSourceDate: string | null;
+  duplicateAnnouncementCount: number;
+  linkedRevisionSnapshotCount: number;
+  unresolvedRevisionAnnouncementCount: number;
 }
 
 export type ProviderEvidenceRelation = "exact_duplicate" | "metadata_difference" | "content_conflict" | "independent";

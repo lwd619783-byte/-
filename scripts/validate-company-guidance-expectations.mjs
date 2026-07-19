@@ -15,9 +15,15 @@ import {
   deriveCompanyGuidanceSummaryStatus,
   validateBusinessRevisionGraph,
   validateCompanyGuidanceDetail,
+  validateProviderRecord,
   validateVersionGraph,
 } from "./company-guidance-expectations/core.mjs";
 import { isStrictPreciseInstant } from "../src/utils/strictDateTime.mjs";
+import {
+  COMPANY_GUIDANCE_SOURCE_ARTIFACT,
+  deriveCompanyGuidanceSummaryAudit,
+  validateCompanyGuidanceSummaryAudit,
+} from "../src/services/companyGuidanceExpectationAudit.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const EXPECTED_COMPANY_COUNT = 56;
@@ -25,8 +31,9 @@ const MANIFEST_NAME = "manifest.generated.json";
 const WORKFLOW_NAME = "workflow-index.generated.json";
 const WORKFLOW_RELATIVE_PATH = `data/a-share-company-guidance-expectations/${WORKFLOW_NAME}`;
 const SAFE_DETAIL_PATH = /^data\/a-share-company-guidance-expectations\/[A-Za-z0-9_-]+\.json$/u;
+const SAFE_ANNOUNCEMENT_DETAIL_PATH = /^data\/a-share-announcements\/[A-Za-z0-9_-]+\.json$/u;
 
-export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { expectedCompanyCount = EXPECTED_COMPANY_COUNT } = {}) {
+export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { expectedCompanyCount = EXPECTED_COMPANY_COUNT, sourceRootPath = rootPath } = {}) {
   const errors = [];
   const summaryPath = path.join(rootPath, "src/data/real/a-share-company-guidance-expectation-summaries.generated.json");
   const outputDir = path.join(rootPath, "public/data/a-share-company-guidance-expectations");
@@ -41,6 +48,10 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
     if (!isObject(artifact) || !isStrictPreciseInstant(artifact.generatedAt)) errors.push(`${label} generatedAt contract mismatch`);
   }
   if (!isStrictPreciseInstant(summary?.sourceGeneratedAt)) errors.push("summary sourceGeneratedAt contract mismatch");
+  if (summary?.sourceArtifact !== COMPANY_GUIDANCE_SOURCE_ARTIFACT) errors.push("summary sourceArtifact contract mismatch");
+  errors.push(...validateCompanyGuidanceSummaryAudit(summary?.audit));
+
+  const sourceReferences = loadAnnouncementSourceReferences(sourceRootPath, errors);
 
   const items = Array.isArray(manifest?.items) ? manifest.items : [];
   if (!Array.isArray(manifest?.items)) errors.push("manifest items must be an array");
@@ -78,6 +89,7 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
       errors.push(...projectionMismatchMessages("manifest", entry.stockId, entry, expectedManifestMetadata, COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS));
     } catch (error) { errors.push(`manifest metadata derivation failed: ${entry.stockId}: ${String(error)}`); }
     errors.push(...validateCompanyGuidanceDetail(detail, { expectedGenerationEpoch: manifest?.generatedAt }).map((error) => `${entry.stockId}:${error}`));
+    errors.push(...validateCandidateAnnouncementReferences(detail, sourceReferences));
     totalSnapshots += detail.providerSnapshots?.length ?? 0;
     totalHistoricalVersions += detail.historicalProviderVersions?.length ?? 0;
     records.push(...(detail.providerSnapshots ?? []));
@@ -123,7 +135,19 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
     const expectedWorkflow = createWorkflowIndex(details, manifest.generatedAt);
     if (canonicalJson(workflow) !== canonicalJson(expectedWorkflow)) errors.push("workflow index does not exactly mirror current detail records");
     if ((workflow.records ?? []).some((record) => Object.hasOwn(record, "sourceTextEvidence") || Object.hasOwn(record, "originalUnitEvidence"))) errors.push("workflow index contains raw evidence fields");
+    const companyNames = new Map(details.map((detail) => [detail.stockId, detail.companyName]));
+    for (const record of workflow.records ?? []) errors.push(...validateProviderRecord(record, {
+      mode: "workflow_current",
+      stockId: record?.snapshot?.stockId,
+      companyName: companyNames.get(record?.snapshot?.stockId) ?? null,
+      expectedGenerationEpoch: manifest.generatedAt,
+    }).map((error) => `workflow:${record?.sourceAnnouncementId ?? "<invalid>"}:${error}`));
   }
+
+  try {
+    const expectedAudit = deriveCompanyGuidanceSummaryAudit(details);
+    if (canonicalJson(summary?.audit) !== canonicalJson(expectedAudit)) errors.push("detail_audit_projection");
+  } catch (error) { errors.push(`summary audit derivation failed: ${String(error)}`); }
 
   const companiesWithSnapshots = details.filter((detail) => detail.providerSnapshots?.length > 0).length;
   if (totalSnapshots !== manifest?.totalSnapshots || totalSnapshots !== summary?.audit?.reliableSnapshotCount || totalSnapshots !== summary?.workflowIndex?.currentSnapshotCount) errors.push("total snapshot count mismatch");
@@ -148,6 +172,60 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
     workflowIndexBytes: Number.isInteger(manifest?.workflowIndexByteSize) ? manifest.workflowIndexByteSize : null,
     audit: summary?.audit,
   };
+}
+
+function loadAnnouncementSourceReferences(sourceRootPath, errors) {
+  const manifestPath = path.join(sourceRootPath, "public/data/a-share-announcements/manifest.generated.json");
+  const byStock = new Map();
+  const ownerByAnnouncementId = new Map();
+  const directReferencesBySourceId = new Map();
+  let sourceManifest;
+  try { sourceManifest = readJson(manifestPath); } catch (error) { errors.push(`announcement source manifest unreadable: ${error}`); return { byStock, ownerByAnnouncementId, directReferencesBySourceId }; }
+  if (!Array.isArray(sourceManifest?.items)) { errors.push("announcement source manifest items must be an array"); return { byStock, ownerByAnnouncementId, directReferencesBySourceId }; }
+  for (const entry of sourceManifest.items) {
+    if (!entry || typeof entry.stockId !== "string" || typeof entry.relativePath !== "string"
+      || !SAFE_ANNOUNCEMENT_DETAIL_PATH.test(entry.relativePath) || entry.relativePath.includes("..")
+      || !entry.relativePath.endsWith(`/${entry.stockId}.json`)) { errors.push("announcement source manifest entry invalid"); continue; }
+    let detail;
+    try { detail = readJson(path.join(sourceRootPath, "public", entry.relativePath)); } catch (error) { errors.push(`announcement source detail unreadable: ${entry.stockId}: ${error}`); continue; }
+    if (detail?.stockId !== entry.stockId || !Array.isArray(detail?.announcements)) { errors.push(`announcement source detail identity invalid: ${entry.stockId}`); continue; }
+    const ids = byStock.get(entry.stockId) ?? new Set();
+    for (const announcement of detail.announcements) {
+      const id = typeof announcement?.announcementId === "string" ? announcement.announcementId : null;
+      if (!id || !/^\d+$/u.test(id)) continue;
+      const previousOwner = ownerByAnnouncementId.get(id);
+      if (previousOwner && previousOwner !== entry.stockId) errors.push(`announcement source id has multiple company owners: ${id}`);
+      ownerByAnnouncementId.set(id, entry.stockId); ids.add(id);
+      const direct = new Set([announcement.correctedAnnouncementId,
+        ...(Array.isArray(announcement.performanceForecastEvents) ? announcement.performanceForecastEvents.map((event) => event?.previousForecastAnnouncementId) : [])]
+        .filter((candidate) => typeof candidate === "string" && /^\d+$/u.test(candidate)));
+      directReferencesBySourceId.set(id, direct);
+    }
+    byStock.set(entry.stockId, ids);
+  }
+  return { byStock, ownerByAnnouncementId, directReferencesBySourceId };
+}
+
+function validateCandidateAnnouncementReferences(detail, sourceReferences) {
+  const errors = [];
+  const sameCompanyIds = sourceReferences.byStock.get(detail.stockId) ?? new Set();
+  const records = [...(detail.providerSnapshots ?? []), ...(detail.historicalProviderVersions ?? [])];
+  const collections = [
+    ...(detail.exclusions ?? []).map((record) => ({ sourceId: record.sourceAnnouncementId, candidates: record.candidateAnnouncementIds })),
+    ...(detail.warnings ?? []).map((record) => ({ sourceId: record.sourceAnnouncementId, candidates: record.candidateAnnouncementIds })),
+    ...records.map((record) => ({ sourceId: record.sourceAnnouncementId, candidates: record.correctionCandidateAnnouncementIds })),
+  ];
+  for (const { sourceId, candidates } of collections) {
+    if (!Array.isArray(candidates) || candidates.length === 0) continue;
+    if (!sameCompanyIds.has(sourceId)) { errors.push(`${detail.stockId}:candidate source announcement not backed by same-company source artifact: ${sourceId}`); continue; }
+    const direct = sourceReferences.directReferencesBySourceId.get(sourceId) ?? new Set();
+    for (const candidateId of candidates ?? []) {
+      const owner = sourceReferences.ownerByAnnouncementId.get(candidateId);
+      if (owner && owner !== detail.stockId) errors.push(`${detail.stockId}:candidate announcement belongs to another company: ${sourceId}->${candidateId}`);
+      else if (!sameCompanyIds.has(candidateId) && !direct.has(candidateId)) errors.push(`${detail.stockId}:candidate announcement is not source-backed: ${sourceId}->${candidateId}`);
+    }
+  }
+  return errors;
 }
 
 function setDifferenceMessages(label, left, right) { return [...left].filter((value) => !right.has(value)).sort().map((value) => `${label}: ${value}`); }

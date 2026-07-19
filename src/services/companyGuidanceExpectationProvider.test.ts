@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import contractFixtures from "../../scripts/company-guidance-expectations/contract-fixtures.json";
-import type { CompanyGuidanceExpectationDetail, CompanyGuidanceExpectationManifest, CompanyGuidanceExpectationSummary, CompanyGuidanceExpectationWorkflowIndex, EarningsExpectationProviderSnapshot, EarningsExpectationSnapshot, ResearchEvent, Stock, WatchItem } from "../types";
+import type { CompanyGuidanceExpectationDetail, CompanyGuidanceExpectationDetailProviderRecord, CompanyGuidanceExpectationManifest, CompanyGuidanceExpectationSummary, CompanyGuidanceExpectationSummaryAudit, CompanyGuidanceExpectationWorkflowIndex, EarningsExpectationProviderSnapshot, EarningsExpectationSnapshot, ResearchEvent, Stock, WatchItem } from "../types";
 import { createEmptyEarningsExpectationEnvelope, EarningsExpectationRepository } from "./earningsExpectationRepository";
 import { EarningsExpectationStore } from "./earningsExpectationStore";
 import { CompanyGuidanceExpectationLoadError, aggregateEarningsExpectationEvidence, buildProviderContentConflictEvents, createCompanyGuidanceExpectationLoader, parseOfficialCninfoAnnouncementUrl, parseOfficialCninfoPdfUrl, selectActiveCompanyGuidanceProviderRecords, sourceAnnouncementId } from "./companyGuidanceExpectationProvider";
@@ -16,7 +16,7 @@ describe("company guidance expectation provider V2", () => {
 
   it("classifies exact duplicate, metadata difference, content conflict and independent", () => {
     const provider = providerRecord();
-    const exact = localSnapshot({ id: "exact", sourceName: provider.snapshot.sourceName, createdBy: provider.snapshot.createdBy });
+    const exact = localSnapshot({ id: "exact", sourceName: provider.snapshot.sourceName, createdBy: provider.snapshot.createdBy, notes: provider.snapshot.notes });
     const metadata = localSnapshot({ id: "metadata" });
     const conflict = localSnapshot({ id: "conflict", lowerBound: 101 });
     const independent = localSnapshot({ id: "independent", sourceUrl: "https://example.com/?annoId=1222448664" });
@@ -132,6 +132,79 @@ describe("company guidance expectation provider V2", () => {
     await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ code, message: expect.stringContaining(errorCode) });
   });
 
+  for (const [label, expectedError, mutate] of [
+    ["low extraction confidence", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.sourceExtractionConfidence = "low" as never; }],
+    ["point-shaped values", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { Object.assign(record.snapshot, { estimateShape: "point", value: 150, lowerBound: null, upperBound: null }); }],
+    ["USD currency", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.currency = "USD"; }],
+    ["million-yuan unit", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.unit = "million_yuan" as never; }],
+    ["IFRS accounting", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.accountingBasis = "IFRS" as never; }],
+    ["EPS metric", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.metric = "eps" as never; }],
+    ["operating-cash-flow metric", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.metric = "operating_cash_flow" as never; }],
+    ["Hong Kong market", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.market = "港股"; }],
+    ["snapshot providerId drift", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.providerId = "forged-provider"; }],
+    ["snapshot providerVersion drift", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.providerVersion = "9.9.9"; }],
+    ["published precision drift", "provider_snapshot_time_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.sourcePublishedAtPrecision = "datetime"; record.snapshot.sourcePublishedAtResolution = "absolute"; }],
+    ["formed precision drift", "provider_snapshot_time_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.formedAtPrecision = "datetime"; record.snapshot.formedAtResolution = "absolute"; }],
+    ["company sourceName drift", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.sourceName = "Forged Company"; }],
+    ["createdBy drift", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.createdBy = "forged-user"; }],
+    ["schemaVersion drift", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.schemaVersion = 1; }],
+    ["analystCount drift", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.analystCount = 1; }],
+    ["institutionCount drift", "provider_snapshot_product_contract", (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.snapshot.institutionCount = 1; }],
+  ] as const) it(`rejects recomputed Provider product attack: ${label}`, async () => {
+    const fixture = await artifacts();
+    mutate(fixture.detail.providerSnapshots[0]);
+    await recomputeProviderDerivations(fixture.detail.providerSnapshots[0]);
+    await finalizeDetail(fixture);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ message: expect.stringContaining(expectedError) });
+  });
+
+  it("rejects snapshot artifact checksum drift after all outer detail checksums are recomputed", async () => {
+    const fixture = await artifacts();
+    fixture.detail.providerSnapshots[0].snapshot.artifactChecksum = "f".repeat(64);
+    await finalizeDetail(fixture);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("provider_snapshot_mirror_contract") });
+  });
+
+  for (const [label, mutate] of [
+    ["deleted raw text with retained hash", async (record: CompanyGuidanceExpectationDetailProviderRecord) => { delete (record as Partial<CompanyGuidanceExpectationDetailProviderRecord>).sourceTextEvidence; }],
+    ["deleted raw text with arbitrary recomputed hash", async (record: CompanyGuidanceExpectationDetailProviderRecord) => { delete (record as Partial<CompanyGuidanceExpectationDetailProviderRecord>).sourceTextEvidence; record.sourceTextEvidenceHash = "a".repeat(64); await recomputeProviderDerivations(record); }],
+    ["raw text/hash mismatch", async (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.sourceTextEvidence = "forged evidence 万元"; }],
+    ["empty raw text", async (record: CompanyGuidanceExpectationDetailProviderRecord) => { record.sourceTextEvidence = ""; record.sourceTextEvidenceHash = await sha256Hex(new Uint8Array()); await recomputeProviderDerivations(record); }],
+  ] as const) it(`rejects detail evidence attack: ${label}`, async () => {
+    const fixture = await artifacts();
+    await mutate(fixture.detail.providerSnapshots[0]);
+    await finalizeDetail(fixture);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ message: expect.stringContaining("provider_snapshot_evidence_contract") });
+  });
+
+  it("rejects raw evidence injected into the workflow projection", async () => {
+    const fixture = await artifacts();
+    Object.assign(fixture.workflow.records[0], { sourceTextEvidence: "forged evidence 万元" });
+    await finalizeWorkflow(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.workflow)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).loadWorkflow()).rejects.toMatchObject({ message: expect.stringContaining("provider_snapshot_evidence_contract") });
+  });
+
+  it("rejects record/snapshot business-predecessor splits after detail and workflow checksums are recomputed", async () => {
+    const fakePredecessor = `company-guidance-version-${"f".repeat(64)}`;
+    const detailFixture = await artifacts();
+    detailFixture.detail.providerSnapshots[0].snapshot.providerBusinessRevisionPredecessorSnapshotId = fakePredecessor;
+    await finalizeDetail(detailFixture);
+    const detailFetch = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(detailFixture.manifest) : response(detailFixture.detail)) as typeof fetch;
+    await expect(providerLoader(detailFixture, detailFetch).load("sample")).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("provider_business_revision_mirror") });
+
+    const workflowFixture = await artifacts();
+    workflowFixture.workflow.records[0].snapshot.providerBusinessRevisionPredecessorSnapshotId = fakePredecessor;
+    await finalizeWorkflow(workflowFixture);
+    workflowFixture.summary = summaryFromManifest(workflowFixture.manifest);
+    const workflowFetch = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(workflowFixture.manifest) : response(workflowFixture.workflow)) as typeof fetch;
+    await expect(providerLoader(workflowFixture, workflowFetch).loadWorkflow()).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("provider_business_revision_mirror") });
+  });
+
   for (const [field, mutate, expectedCode] of [
     ["stockCode", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].stockCode = "000002"; }, "manifest_stockCode"],
     ["companyName", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].companyName = "Forged Company"; }, "manifest_companyName"],
@@ -191,7 +264,7 @@ describe("company guidance expectation provider V2", () => {
 
   it("runtime fails closed on a historical-only migration state", async () => {
     const fixture = await artifacts();
-    const historical = fixture.detail.providerSnapshots.pop() as EarningsExpectationProviderSnapshot;
+    const historical = fixture.detail.providerSnapshots.pop() as CompanyGuidanceExpectationDetailProviderRecord;
     historical.isCurrentVersion = false;
     historical.snapshot.isCurrentProviderVersion = false;
     fixture.detail.historicalProviderVersions.push(historical);
@@ -428,10 +501,10 @@ async function correctionChainArtifacts() {
   const a2VersionId = await correctionVersionId(EVIDENCE_ID, bVersionId, CONTENT_HASH);
   setVersion(a2, { current: true, predecessor: bVersionId, checksum: CONTENT_HASH, versionId: a2VersionId, correctedAt: "2026-07-13T07:31:40Z", changedFields: ["lowerBound", "upperBound"] });
   setGeneration(a2, "2026-07-13T07:31:40Z");
-  const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "Sample Company", market: "A股", status: "generated_real", totalAnnouncementCount: 1, targetAnnouncements: [targetAnnouncement()], providerSnapshots: [a2], historicalProviderVersions: [a1, b], exclusions: [], warnings: [], quality: detailQuality("2026-07-13T07:31:40Z", "generated_real") };
-  const workflowRecord = structuredClone(a2); delete workflowRecord.sourceTextEvidence; delete workflowRecord.originalUnitEvidence;
+  const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "样本公司", market: "A股", status: "generated_real", totalAnnouncementCount: 1, targetAnnouncements: [targetAnnouncement()], providerSnapshots: [a2], historicalProviderVersions: [a1, b], exclusions: [], warnings: [], quality: detailQuality("2026-07-13T07:31:40Z", "generated_real") };
+  const { sourceTextEvidence: _sourceTextEvidence, originalUnitEvidence: _originalUnitEvidence, ...workflowRecord } = structuredClone(a2);
   const workflow: CompanyGuidanceExpectationWorkflowIndex = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", currentSnapshotCount: 1, records: [workflowRecord], warnings: [] };
-  const manifest: CompanyGuidanceExpectationManifest = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", totalCompanies: 1, companiesWithSnapshots: 1, totalSnapshots: 1, totalHistoricalVersions: 2, workflowIndexRelativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", workflowIndexByteSize: 0, workflowIndexChecksumSha256: "", items: [{ stockId: "sample", stockCode: "000001", companyName: "Sample Company", relativePath: "data/a-share-company-guidance-expectations/sample.json", snapshotCount: 1, historicalVersionCount: 2, excludedAnnouncementCount: 0, byteSize: 0, checksumSha256: "", latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: "generated_real" }] };
+  const manifest: CompanyGuidanceExpectationManifest = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", totalCompanies: 1, companiesWithSnapshots: 1, totalSnapshots: 1, totalHistoricalVersions: 2, workflowIndexRelativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", workflowIndexByteSize: 0, workflowIndexChecksumSha256: "", items: [{ stockId: "sample", stockCode: "000001", companyName: "样本公司", relativePath: "data/a-share-company-guidance-expectations/sample.json", snapshotCount: 1, historicalVersionCount: 2, excludedAnnouncementCount: 0, byteSize: 0, checksumSha256: "", latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: "generated_real" }] };
   const fixture = { manifest, detail, workflow, summary: summaryFromManifest(manifest) };
   await finalizeDetail(fixture); await finalizeWorkflow(fixture);
   fixture.summary = summaryFromManifest(manifest);
@@ -454,6 +527,19 @@ function setGeneration(record: EarningsExpectationProviderSnapshot, generatedAt:
 async function providerChecksum(record: EarningsExpectationProviderSnapshot) {
   return sha256Hex(new TextEncoder().encode(canonicalJson({ providerEvidenceIdentity: record.providerEvidenceIdentity, estimateShape: record.snapshot.estimateShape, value: record.snapshot.value, lowerBound: record.snapshot.lowerBound, upperBound: record.snapshot.upperBound, currency: record.snapshot.currency, unit: record.snapshot.unit, accountingBasis: record.snapshot.accountingBasis, sourcePublishedAt: record.snapshot.sourcePublishedAt, sourceTextEvidenceHash: record.sourceTextEvidenceHash, providerParseRulesVersion: record.providerParseRulesVersion })));
 }
+async function recomputeProviderDerivations(record: CompanyGuidanceExpectationDetailProviderRecord) {
+  const evidenceIdentity = ["cninfo-company-guidance", record.sourceAnnouncementId, record.snapshot.stockId, record.snapshot.reportPeriod, record.snapshot.periodScope, record.snapshot.metric].join("|");
+  record.providerEvidenceIdentity = evidenceIdentity;
+  record.snapshot.providerEvidenceIdentity = evidenceIdentity;
+  const checksum = await providerChecksum(record);
+  const versionId = record.providerCorrectsVersionId
+    ? await correctionVersionId(evidenceIdentity, record.providerCorrectsVersionId, checksum)
+    : `company-guidance-version-${checksum}`;
+  record.providerContentChecksum = checksum;
+  record.providerSnapshotVersionId = versionId;
+  record.artifactChecksum = checksum;
+  Object.assign(record.snapshot, { id: versionId, providerContentChecksum: checksum, providerSnapshotVersionId: versionId, artifactChecksum: checksum });
+}
 async function correctionVersionId(providerEvidenceIdentity: string, providerCorrectsVersionId: string, providerContentChecksum: string) { return `company-guidance-version-${await sha256Hex(new TextEncoder().encode(canonicalJson({ providerEvidenceIdentity, providerCorrectsVersionId, providerContentChecksum })))}`; }
 function canonicalJson(value: unknown): string { if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`; if (value && typeof value === "object") { const object = value as Record<string, unknown>; return `{${Object.keys(object).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(object[key])}`).join(",")}}`; } return JSON.stringify(value); }
 
@@ -470,7 +556,7 @@ function summaryFromManifest(manifest: CompanyGuidanceExpectationManifest): Comp
   const status = statuses.includes("partial") ? "partial" : statuses.includes("generated_real") ? "generated_real" : "missing";
   return {
     schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: manifest.generatedAt,
-    sourceArtifact: "test fixture", sourceGeneratedAt: manifest.generatedAt, status, audit: {},
+    sourceArtifact: "CNInfo A-share announcement Provider V1 committed artifacts", sourceGeneratedAt: manifest.generatedAt, status, audit: auditFromManifest(manifest),
     workflowIndex: { relativePath: manifest.workflowIndexRelativePath, byteSize: manifest.workflowIndexByteSize, checksumSha256: manifest.workflowIndexChecksumSha256, currentSnapshotCount: manifest.totalSnapshots },
     items: Object.fromEntries(manifest.items.map((entry) => [entry.stockId, {
       stockId: entry.stockId, stockCode: entry.stockCode, companyName: entry.companyName, status: entry.status,
@@ -480,18 +566,49 @@ function summaryFromManifest(manifest: CompanyGuidanceExpectationManifest): Comp
   };
 }
 
-const TEXT_HASH = "7d4eff5587a1149c9a74dfcf1b4cb7adb9d621856b4de33013261ecb26e8e9fa";
-const CONTENT_HASH = "93bbee94649326af7ea3fa92f6eeb719e1a1c391e3586d786dce7a9907d5f2bd";
+function auditFromManifest(manifest: CompanyGuidanceExpectationManifest): CompanyGuidanceExpectationSummaryAudit {
+  const excluded = manifest.items.reduce((sum, entry) => sum + entry.excludedAnnouncementCount, 0);
+  const targets = manifest.totalSnapshots + excluded;
+  const sourceDates = manifest.items.map((entry) => entry.latestSourceDate).filter((value): value is string => value !== null).sort();
+  return {
+    totalAnnouncementCount: targets,
+    companyCount: manifest.totalCompanies,
+    targetCompanyCount: manifest.items.filter((entry) => entry.snapshotCount > 0 || entry.excludedAnnouncementCount > 0).length,
+    previewAnnouncementCount: targets,
+    revisionAnnouncementCount: 0,
+    targetAnnouncementCount: targets,
+    targetWithReportPeriodCount: manifest.totalSnapshots,
+    targetWithRecognizedPeriodScopeCount: manifest.totalSnapshots,
+    parseStatusCounts: targets ? { parse_success: targets } : {},
+    reliableAnnouncementCount: manifest.totalSnapshots,
+    reliableSnapshotCount: manifest.totalSnapshots,
+    reliableCompanyCount: manifest.companiesWithSnapshots,
+    historicalVersionCount: manifest.totalHistoricalVersions,
+    metricCounts: manifest.totalSnapshots ? { attributable_net_profit: manifest.totalSnapshots } : {},
+    periodScopeCounts: manifest.totalSnapshots ? { full_year: manifest.totalSnapshots } : {},
+    excludedTargetAnnouncementCount: excluded,
+    exclusionCount: excluded,
+    exclusionReasonCounts: excluded ? { no_reliable_forecast_range: excluded } : {},
+    earliestSourceDate: sourceDates[0] ?? null,
+    latestSourceDate: sourceDates[sourceDates.length - 1] ?? null,
+    duplicateAnnouncementCount: 0,
+    linkedRevisionSnapshotCount: 0,
+    unresolvedRevisionAnnouncementCount: 0,
+  };
+}
+
+const TEXT_HASH = "a4142cc018faf38144b9134453fa03ef903239958e7988bdc32686a63b2f2c42";
+const CONTENT_HASH = "2365860f063e68f4f5d38863a923c8d786e7aa20e87ddbbfb403718e29a9e009";
 const VERSION_ID = `company-guidance-version-${CONTENT_HASH}`;
 const EVIDENCE_ID = "cninfo-company-guidance|1222448664|sample|2025-12-31|full_year|attributable_net_profit";
 
-function providerRecord(): EarningsExpectationProviderSnapshot {
-  const snapshot = localSnapshot({ id: VERSION_ID, ingestionMethod: "provider", sourceName: "样本公司", createdBy: "cninfo-company-guidance", sourceVerificationStatus: "verified", formationTimeBasis: "public_disclosure_proxy", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", providerGeneratedAt: "2026-07-11T07:31:40Z", providerEvidenceIdentity: EVIDENCE_ID, providerSnapshotVersionId: VERSION_ID, providerContentChecksum: CONTENT_HASH, providerParseRulesVersion: "1.0.0", providerCorrectsVersionId: null, providerCorrectionType: "initial", providerCorrectedAt: null, providerCorrectionChangedFields: [], isCurrentProviderVersion: true, providerBusinessRevisionPredecessorSnapshotId: null, sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview", officialPdfUrl: "https://static.cninfo.com.cn/finalpage/2026-01-15/1222448664.PDF", artifactChecksum: CONTENT_HASH });
-  return { providerId: "cninfo-company-guidance", providerVersion: "2.0.0", snapshot, providerEvidenceIdentity: EVIDENCE_ID, providerSnapshotVersionId: VERSION_ID, providerContentChecksum: CONTENT_HASH, providerParseRulesVersion: "1.0.0", providerCorrectsVersionId: null, providerCorrectionType: "initial", providerCorrectedAt: null, providerCorrectionChangedFields: [], isCurrentVersion: true, providerBusinessRevisionPredecessorSnapshotId: null, sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview", officialSourceUrl: snapshot.sourceUrl as string, officialPdfUrl: snapshot.officialPdfUrl as string, sourceDate: "2026-01-15", generatedAt: "2026-07-11T07:31:40Z", artifactChecksum: CONTENT_HASH, sourceParseStatus: "parse_success", sourceExtractionConfidence: "high", sourceTextEvidence: "evidence-100-200", sourceTextEvidenceHash: TEXT_HASH, originalUnitEvidence: "万元", correctionCandidateAnnouncementIds: [], structuredWarnings: [] };
+function providerRecord(): CompanyGuidanceExpectationDetailProviderRecord {
+  const snapshot = localSnapshot({ id: VERSION_ID, ingestionMethod: "provider", sourceName: "样本公司", createdAt: "2026-07-11T07:31:40Z", createdBy: "cninfo-company-guidance", sourceVerificationStatus: "verified", formationTimeBasis: "public_disclosure_proxy", notes: "公司内部形成时间未知，以公开披露时间作为可用时间", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", providerGeneratedAt: "2026-07-11T07:31:40Z", providerEvidenceIdentity: EVIDENCE_ID, providerSnapshotVersionId: VERSION_ID, providerContentChecksum: CONTENT_HASH, providerParseRulesVersion: "1.0.0", providerCorrectsVersionId: null, providerCorrectionType: "initial", providerCorrectedAt: null, providerCorrectionChangedFields: [], isCurrentProviderVersion: true, providerBusinessRevisionPredecessorSnapshotId: null, sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview", officialPdfUrl: "https://static.cninfo.com.cn/finalpage/2026-01-15/1222448664.PDF", artifactChecksum: CONTENT_HASH });
+  return { providerId: "cninfo-company-guidance", providerVersion: "2.0.0", snapshot, providerEvidenceIdentity: EVIDENCE_ID, providerSnapshotVersionId: VERSION_ID, providerContentChecksum: CONTENT_HASH, providerParseRulesVersion: "1.0.0", providerCorrectsVersionId: null, providerCorrectionType: "initial", providerCorrectedAt: null, providerCorrectionChangedFields: [], isCurrentVersion: true, providerBusinessRevisionPredecessorSnapshotId: null, sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview", officialSourceUrl: snapshot.sourceUrl as string, officialPdfUrl: snapshot.officialPdfUrl as string, sourceDate: "2026-01-15", generatedAt: "2026-07-11T07:31:40Z", artifactChecksum: CONTENT_HASH, sourceParseStatus: "parse_success", sourceExtractionConfidence: "high", sourceTextEvidence: "evidence-100-200 万元", sourceTextEvidenceHash: TEXT_HASH, originalUnitEvidence: "万元", correctionCandidateAnnouncementIds: [], structuredWarnings: [] };
 }
-function workflowIndex(): CompanyGuidanceExpectationWorkflowIndex { const record = providerRecord(); delete record.sourceTextEvidence; delete record.originalUnitEvidence; return { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", currentSnapshotCount: 1, records: [record], warnings: [] }; }
+function workflowIndex(): CompanyGuidanceExpectationWorkflowIndex { const { sourceTextEvidence: _sourceTextEvidence, originalUnitEvidence: _originalUnitEvidence, ...record } = providerRecord(); return { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", currentSnapshotCount: 1, records: [record], warnings: [] }; }
 function targetAnnouncement() { return { sourceAnnouncementId: "1222448664", stockId: "sample", sourceAnnouncementType: "earnings_preview" as const, sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, parseStatus: "parse_success" as const, isDuplicate: false }; }
-function exclusionRecord() { return { stockId: "sample", companyName: "样本公司", sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview" as const, sourceTitle: "2025年度业绩预告", sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, metric: null, parseStatus: "parse_success" as const, officialSourceUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664", candidateAnnouncementIds: [], reasons: ["no_reliable_forecast_range"] }; }
+function exclusionRecord() { return { stockId: "sample", companyName: "样本公司", sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview" as const, sourceTitle: "2025年度业绩预告", sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, metric: null, parseStatus: "parse_success" as const, officialSourceUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664", candidateAnnouncementIds: [], reasons: ["no_reliable_forecast_range" as const] }; }
 function detailQuality(updatedAt: string, status: "generated_real" | "partial" | "missing") { return { source: "CNInfo" as const, sourceLayer: "company_guidance_expectations" as const, sourceUrl: "https://www.cninfo.com.cn/new/hisAnnouncement/query", updatedAt, status }; }
 function localSnapshot(overrides: Partial<EarningsExpectationSnapshot> = {}): EarningsExpectationSnapshot { return { id: "local-snapshot", stockId: "sample", market: "A股", reportPeriod: "2025-12-31", periodScope: "full_year", metric: "attributable_net_profit", estimateShape: "range", value: null, lowerBound: 100, upperBound: 200, currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "company_guidance", sourceName: "manual source", sourceTitle: "2025年度业绩预告", sourceUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664", sourcePublishedAt: "2026-01-15", sourcePublishedAtPrecision: "date", sourcePublishedAtResolution: "date", sourcePublishedAtTimeZone: null, sourcePublishedAtCalendarDate: "2026-01-15", asOfDate: "2026-01-15", formedAt: null, formedAtPrecision: "date", formedAtResolution: "date", formedAtTimeZone: null, formedAtCalendarDate: "2026-01-15", analystCount: null, institutionCount: null, ingestionMethod: "manual", createdAt: "2026-01-15T00:00:00Z", createdBy: "local-user", sourceVerificationStatus: "verified", notes: null, correctsSnapshotId: null, correctionScope: null, schemaVersion: 2, ...overrides }; }
 function providerStock() { return { id: "sample", name: "样本公司", code: "000001.SZ", market: "A股", industryId: "tech", segmentId: "segment", dataMode: "mixed" } as Stock; }

@@ -96,7 +96,7 @@ function renderCenter(options: { snapshots?: EarningsExpectationSnapshot[]; prov
     providerFailedStockIds={options.providerFailedStockIds}
     providerLoadedCompanyCount={options.providerLoadedCompanyCount}
     onRetryProvider={options.onRetryProvider}
-    providerSummary={{ schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", sourceArtifact: "committed", sourceGeneratedAt: "2026-07-11T07:31:40Z", status: "generated_real", audit: {}, workflowIndex: { relativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", byteSize: 1, checksumSha256: "a".repeat(64), currentSnapshotCount: 1 }, items: {} }}
+    providerSummary={{ schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", sourceArtifact: "CNInfo A-share announcement Provider V1 committed artifacts", sourceGeneratedAt: "2026-07-11T07:31:40Z", status: "generated_real", audit: {} as never, workflowIndex: { relativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", byteSize: 1, checksumSha256: "a".repeat(64), currentSnapshotCount: 1 }, items: {} }}
     providerSnapshotIds={options.providerIds ?? new Set(snapshots.filter((item) => item.ingestionMethod === "provider").map((item) => item.id))}
     duplicateOfProviderByLocalId={options.duplicateMap ?? new Map()}
     providerRecordBySnapshotId={new Map([[provider.snapshot.id, provider]])}

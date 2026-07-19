@@ -98,7 +98,7 @@ test("rejects mismatched forecast period", () => {
 
 test("evidence identity stays stable while immutable content version changes", () => {
   const first = snapshot(build([announcement()]));
-  const second = snapshot(build([announcement({ title: "展示文案变化", sourceTextEvidence: "证据文案变化" })]));
+  const second = snapshot(build([announcement({ title: "展示文案变化", sourceTextEvidence: "证据文案变化，单位万元" })]));
   assert.equal(first.providerEvidenceIdentity, second.providerEvidenceIdentity);
   assert.notEqual(first.id, second.id);
 });

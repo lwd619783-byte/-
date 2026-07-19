@@ -1,4 +1,5 @@
 import { isStrictCalendarDate, isStrictPreciseInstant } from "../utils/strictDateTime.mjs";
+import { parseOfficialCninfoAnnouncementUrl } from "./companyGuidanceExpectationRecordContract.mjs";
 
 const SCHEMA_VERSION = "2.0.0";
 const PROVIDER_ID = "cninfo-company-guidance";
@@ -15,6 +16,7 @@ const EXCLUSION_REASONS = new Set([
   "report_period_missing", "period_scope_unclear", "source_date_missing", "official_source_invalid", "cancelled_announcement",
   "duplicate_announcement", "parsed_fields_unavailable", "no_reliable_revised_range", "no_reliable_forecast_range",
   "unsupported_metric", "forecast_period_mismatch", "range_incomplete", "range_order_invalid", "field_confidence_not_high",
+  "source_text_evidence_missing", "original_unit_evidence_missing",
   ...[...PARSE_STATUSES].map((status) => `parse_status_${status}`),
 ]);
 const STATUS_VALUES = new Set(["generated_real", "partial", "missing"]);
@@ -170,11 +172,13 @@ function isValidTarget(target) {
 }
 
 function isValidExclusion(exclusion) {
+  const officialSource = exclusion?.officialSourceUrl === null ? null : parseOfficialCninfoAnnouncementUrl(exclusion?.officialSourceUrl);
   return isObject(exclusion) && nonEmptyString(exclusion.stockId) && nonEmptyString(exclusion.companyName) && validAnnouncementId(exclusion.sourceAnnouncementId)
     && SOURCE_TYPES.has(exclusion.sourceAnnouncementType) && nonEmptyString(exclusion.sourceTitle) && nullableCalendarDate(exclusion.sourceDate)
     && nullableCalendarDate(exclusion.reportPeriod) && validPeriodProjection(exclusion.reportPeriod, exclusion.periodScope)
     && (exclusion.metric === null || nonEmptyString(exclusion.metric)) && PARSE_STATUSES.has(exclusion.parseStatus)
-    && (exclusion.officialSourceUrl === null || nonEmptyString(exclusion.officialSourceUrl))
+    && (exclusion.officialSourceUrl === null ? exclusion.reasons?.includes("official_source_invalid")
+      : officialSource?.announcementId === exclusion.sourceAnnouncementId && officialSource.canonicalUrl === exclusion.officialSourceUrl)
     && uniqueStringArray(exclusion.candidateAnnouncementIds, true) && uniqueStringArray(exclusion.reasons, false)
     && exclusion.reasons.length > 0 && exclusion.reasons.every((reason) => EXCLUSION_REASONS.has(reason));
 }

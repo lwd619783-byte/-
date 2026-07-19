@@ -6,11 +6,19 @@ import os from "node:os";
 import path from "node:path";
 import {
   buildCompanyGuidanceArtifacts,
+  computeProviderContentChecksum,
   createWorkflowIndex,
   deriveCompanyGuidanceDetailStatus,
   deriveCompanyGuidanceManifestMetadata,
+  expectedProviderSnapshotVersionId,
+  stableProviderEvidenceIdentity,
   validateCompanyGuidanceDetail,
+  validateProviderRecord,
 } from "../company-guidance-expectations/core.mjs";
+import {
+  validateCompanyGuidanceCorrectionGraph,
+  validateCompanyGuidanceProviderRecordContract,
+} from "../../src/services/companyGuidanceExpectationRecordContract.mjs";
 import {
   classifyCompanyGuidanceDetailContractErrors,
   deriveCompanyGuidanceDetailStatus as deriveRuntimeCompanyGuidanceDetailStatus,
@@ -104,6 +112,7 @@ for (const [name, stage] of [
   ["new summary activation failure", ARTIFACT_TRANSACTION_STAGE.NEW_SUMMARY_ACTIVATION],
 ]) test(`artifact transaction rolls back byte-for-byte after ${name}`, () => withTempRoot((root) => {
   const bundle = bundleForOneCompany();
+  createSourceReferenceArtifacts(root, bundle);
   const paths = resolveCompanyGuidancePaths(root);
   fs.mkdirSync(paths.outputDir, { recursive: true });
   fs.mkdirSync(path.dirname(paths.summaryPath), { recursive: true });
@@ -119,6 +128,7 @@ for (const [name, stage] of [
 
 test("final backup cleanup failure keeps the committed artifacts internally consistent and reports cleanup paths", () => withTempRoot((root) => {
   const bundle = bundleForOneCompany();
+  createSourceReferenceArtifacts(root, bundle);
   const paths = resolveCompanyGuidancePaths(root);
   fs.mkdirSync(paths.outputDir, { recursive: true });
   fs.mkdirSync(path.dirname(paths.summaryPath), { recursive: true });
@@ -558,6 +568,98 @@ test("Node validator and browser-safe contract return the same relation decision
   assert.equal(classifyCompanyGuidanceDetailContractErrors(runtimeErrors), "identity");
 });
 
+test("Node and browser-safe Provider record contracts reject the same fully recomputed product attack", () => {
+  const detail = buildSingle([announcement()]).companies[0];
+  const record = structuredClone(detail.providerSnapshots[0]);
+  record.sourceExtractionConfidence = "low";
+  recomputeRecordDerivations(record);
+  const browserErrors = validateCompanyGuidanceProviderRecordContract(record, { mode: "detail_current", stockId: detail.stockId, companyName: detail.companyName, expectedGenerationEpoch: detail.generatedAt });
+  const nodeErrors = validateProviderRecord(record, { mode: "detail_current", stockId: detail.stockId, companyName: detail.companyName, expectedGenerationEpoch: detail.generatedAt });
+  assert.ok(browserErrors.includes("provider_snapshot_product_contract"), browserErrors.join("\n"));
+  assert.ok(nodeErrors.includes("provider_snapshot_product_contract"), nodeErrors.join("\n"));
+});
+
+for (const [label, mutate] of [
+  ["unrelated changed field", (record) => { setChangedFields(record, ["currency"]); }],
+  ["missing changed field", (record) => { setChangedFields(record, ["lowerBound"]); }],
+  ["extra changed field", (record) => { setChangedFields(record, ["lowerBound", "upperBound", "currency"]); }],
+  ["duplicate changed field", (record) => { setChangedFields(record, ["lowerBound", "upperBound", "upperBound"]); }],
+]) test(`correction graph rejects ${label}`, () => {
+  const { records, current } = extractionCorrectionGraph();
+  mutate(current);
+  assert.ok(validateCompanyGuidanceCorrectionGraph(records, { generationEpoch: current.generatedAt }).includes("provider_correction_changed_fields"));
+});
+
+for (const [label, mutate] of [
+  ["correctedAt before predecessor", (record) => { setCorrectedAt(record, "2026-07-10T07:31:40Z"); }],
+  ["correctedAt after release epoch", (record) => { setCorrectedAt(record, "2026-07-14T07:31:40Z"); record.generatedAt = "2026-07-14T07:31:40Z"; record.snapshot.providerGeneratedAt = record.generatedAt; }],
+  ["valid correctedAt unequal to record generatedAt", (record) => { setCorrectedAt(record, "2026-07-12T12:00:00Z"); }],
+]) test(`correction graph rejects ${label}`, () => {
+  const { records, current } = extractionCorrectionGraph();
+  mutate(current);
+  assert.ok(validateCompanyGuidanceCorrectionGraph(records, { generationEpoch: "2026-07-13T07:31:40Z" }).includes("provider_correction_chronology"));
+});
+
+test("record/snapshot correction timestamp split is rejected", () => {
+  const { current } = extractionCorrectionGraph();
+  current.snapshot.providerCorrectedAt = "2026-07-12T07:31:40Z";
+  assert.ok(validateProviderRecord(current, { mode: "detail_current", stockId: "company-00", companyName: "Company 0", expectedGenerationEpoch: current.generatedAt }).includes("provider_snapshot_mirror_contract"));
+});
+
+for (const [label, mutate] of [
+  ["record-only business predecessor", (record, first) => { record.providerBusinessRevisionPredecessorSnapshotId = first.snapshot.id; }],
+  ["snapshot-only business predecessor", (record, first) => { record.snapshot.providerBusinessRevisionPredecessorSnapshotId = first.snapshot.id; }],
+  ["different plausible business predecessors", (record, first) => { record.providerBusinessRevisionPredecessorSnapshotId = first.snapshot.id; }],
+]) test(`Provider mirror rejects ${label}`, () => {
+  const { target, first } = businessRevisionRecords();
+  mutate(target, first);
+  assert.ok(validateProviderRecord(target, { mode: "detail_current", stockId: "company-00", companyName: "Company 0", expectedGenerationEpoch: GENERATED_AT }).includes("provider_business_revision_mirror"));
+});
+
+for (const [label, mutate] of [
+  ["parseStatusCounts", (audit) => { audit.parseStatusCounts.parse_success += 1; }],
+  ["metricCounts", (audit) => { audit.metricCounts.attributable_net_profit += 1; }],
+  ["periodScopeCounts", (audit) => { audit.periodScopeCounts.full_year += 1; }],
+  ["exclusionReasonCounts", (audit) => { audit.exclusionReasonCounts.forged_reason = 1; }],
+  ["targetAnnouncementCount", (audit) => { audit.targetAnnouncementCount += 1; audit.previewAnnouncementCount += 1; audit.parseStatusCounts.parse_success += 1; }],
+  ["reliableAnnouncementCount", (audit) => { audit.reliableAnnouncementCount = 0; }],
+  ["linkedRevisionSnapshotCount", (audit) => { audit.linkedRevisionSnapshotCount = 1; }],
+  ["earliestSourceDate", (audit) => { audit.earliestSourceDate = "2025-01-01"; }],
+  ["latestSourceDate", (audit) => { audit.latestSourceDate = "2026-12-31"; }],
+]) test(`offline validator re-derives summary audit ${label}`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  mutate(summary.audit);
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("detail_audit_projection"), errors.join("\n"));
+}));
+
+test("offline validator rejects a cross-company candidate announcement reference", () => withTempRoot((root) => {
+  writeBundle(root, buildMixedProviderBundle(), 2);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.providerSnapshots[0].correctionCandidateAnnouncementIds = ["9000002"]; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 2 }).errors;
+  assert.ok(errors.some((error) => error.includes("candidate announcement belongs to another company")), errors.join("\n"));
+}));
+
+test("offline validator rejects unsupported structured warning code", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.providerSnapshots[0].structuredWarnings = ["forged_warning"]; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:9000001:provider_structured_warning_contract"), errors.join("\n"));
+}));
+
+for (const [label, mutate] of [
+  ["external exclusion URL", (exclusion) => { exclusion.officialSourceUrl = "https://example.com/announcement/9000001"; }],
+  ["null exclusion URL without reason", (exclusion) => { exclusion.officialSourceUrl = null; exclusion.reasons = exclusion.reasons.filter((reason) => reason !== "official_source_invalid"); }],
+]) test(`offline validator rejects ${label}`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([partialMetricAnnouncement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { mutate(detail.exclusions[0]); });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_exclusion_contract"), errors.join("\n"));
+}));
+
 function withGeneratorRoot(run) {
   return withTempRoot((root) => {
     createSourceArtifacts(root, 56);
@@ -609,7 +711,7 @@ function announcement({ lowerBound = 100, upperBound = 200 } = {}) {
     duplicateOf: null,
     isCorrection: false,
     correctedAnnouncementId: null,
-    performanceForecastEvents: [{ forecastPeriod: "2025-12-31", forecastType: "increase", profitMetric: "netProfitAttributableToParent", lowerBound, upperBound, extractionConfidence: "high", sourceTextEvidence: `forecast ${lowerBound}-${upperBound} yuan`, previousForecastAnnouncementId: null }],
+    performanceForecastEvents: [{ forecastPeriod: "2025-12-31", forecastType: "increase", profitMetric: "netProfitAttributableToParent", lowerBound, upperBound, extractionConfidence: "high", sourceTextEvidence: `预计区间${lowerBound}万元至${upperBound}万元`, previousForecastAnnouncementId: null }],
   };
 }
 
@@ -637,6 +739,58 @@ function partialMetricAnnouncement() {
 function buildSingle(announcements) { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, announcements)], sourceGeneratedAt: GENERATED_AT }); }
 function buildMixedProviderBundle() { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, [announcement()]), sourceDetail(1, [excludedAnnouncement()])], sourceGeneratedAt: GENERATED_AT }); }
 function buildStatusMatrixBundle() { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, [announcement()]), sourceDetail(1, [excludedAnnouncement()]), sourceDetail(2, [])], sourceGeneratedAt: GENERATED_AT }); }
+
+function extractionCorrectionGraph() {
+  const initial = buildSingle([announcement()]);
+  const correctedB = buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, [announcement({ lowerBound: 120, upperBound: 220 })])], sourceGeneratedAt: NEXT_GENERATED_AT, previousDetails: initial.companies });
+  const correctedA = buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, [announcement()])], sourceGeneratedAt: "2026-07-13T07:31:40Z", previousDetails: correctedB.companies });
+  const current = correctedA.companies[0].providerSnapshots[0];
+  return { current, records: [...correctedA.companies[0].providerSnapshots, ...correctedA.companies[0].historicalProviderVersions] };
+}
+
+function businessRevisionRecords() {
+  const original = announcement();
+  const firstRevision = {
+    ...announcement({ lowerBound: 120, upperBound: 220 }), announcementId: "9000002", category: "performance_forecast_revision",
+    officialUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=9000002", pdfUrl: "https://static.cninfo.com.cn/finalpage/2026-01-16/9000002.PDF",
+    announcementDate: "2026-01-16", isCorrection: true, correctedAnnouncementId: "9000001",
+  };
+  firstRevision.performanceForecastEvents[0].previousForecastAnnouncementId = "9000001";
+  const secondRevision = {
+    ...announcement({ lowerBound: 140, upperBound: 240 }), announcementId: "9000003", category: "performance_forecast_revision",
+    officialUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=9000003", pdfUrl: "https://static.cninfo.com.cn/finalpage/2026-01-17/9000003.PDF",
+    announcementDate: "2026-01-17", isCorrection: true, correctedAnnouncementId: "9000002",
+  };
+  secondRevision.performanceForecastEvents[0].previousForecastAnnouncementId = "9000002";
+  const records = buildSingle([original, firstRevision, secondRevision]).companies[0].providerSnapshots;
+  const byId = new Map(records.map((record) => [record.sourceAnnouncementId, record]));
+  return { first: byId.get("9000001"), target: byId.get("9000003") };
+}
+
+function recomputeRecordDerivations(record) {
+  const identity = stableProviderEvidenceIdentity({ announcementId: record.sourceAnnouncementId, stockId: record.snapshot.stockId, reportPeriod: record.snapshot.reportPeriod, periodScope: record.snapshot.periodScope, metric: record.snapshot.metric });
+  record.providerEvidenceIdentity = identity;
+  record.snapshot.providerEvidenceIdentity = identity;
+  const checksum = computeProviderContentChecksum(record);
+  record.providerContentChecksum = checksum;
+  record.snapshot.providerContentChecksum = checksum;
+  record.artifactChecksum = checksum;
+  record.snapshot.artifactChecksum = checksum;
+  const versionId = expectedProviderSnapshotVersionId(record);
+  record.providerSnapshotVersionId = versionId;
+  record.snapshot.providerSnapshotVersionId = versionId;
+  record.snapshot.id = versionId;
+}
+
+function setChangedFields(record, fields) {
+  record.providerCorrectionChangedFields = fields;
+  record.snapshot.providerCorrectionChangedFields = [...fields];
+}
+
+function setCorrectedAt(record, value) {
+  record.providerCorrectedAt = value;
+  record.snapshot.providerCorrectedAt = value;
+}
 
 function bundleForOneCompany() { return createBundle(buildSingle([announcement()])); }
 function createBundle(result) {
@@ -666,7 +820,29 @@ function createBundle(result) {
 }
 function writeBundle(root, result, companyCount) {
   const paths = resolveCompanyGuidancePaths(root);
-  writeArtifactsTransaction({ ...createBundle(result), rootPath: root, outputDir: paths.outputDir, summaryPath: paths.summaryPath, expectedCompanyCount: companyCount });
+  const bundle = createBundle(result);
+  createSourceReferenceArtifacts(root, bundle);
+  writeArtifactsTransaction({ ...bundle, rootPath: root, outputDir: paths.outputDir, summaryPath: paths.summaryPath, expectedCompanyCount: companyCount });
+}
+
+function createSourceReferenceArtifacts(root, bundle) {
+  const items = [];
+  for (const [stockId, content] of bundle.renderedDetails) {
+    const detail = JSON.parse(content);
+    const relativePath = `data/a-share-announcements/${stockId}.json`;
+    items.push({ stockId, stockCode: detail.stockCode, relativePath });
+    const candidateBySource = new Map();
+    for (const item of [...(detail.exclusions ?? []), ...(detail.warnings ?? [])]) candidateBySource.set(item.sourceAnnouncementId, item.candidateAnnouncementIds ?? []);
+    for (const item of [...(detail.providerSnapshots ?? []), ...(detail.historicalProviderVersions ?? [])]) candidateBySource.set(item.sourceAnnouncementId, [...new Set([...(candidateBySource.get(item.sourceAnnouncementId) ?? []), ...(item.correctionCandidateAnnouncementIds ?? [])])]);
+    const sourceIds = new Set([...(detail.targetAnnouncements ?? []).map((item) => item.sourceAnnouncementId), ...candidateBySource.keys(), ...[...candidateBySource.values()].flat()]);
+    const announcements = [...sourceIds].map((announcementId) => ({
+      announcementId,
+      correctedAnnouncementId: candidateBySource.get(announcementId)?.[0] ?? null,
+      performanceForecastEvents: [],
+    }));
+    writeJson(path.join(root, "public", relativePath), { stockId, stockCode: detail.stockCode, companyName: detail.companyName, announcements });
+  }
+  writeJson(sourceManifestPath(root), { items });
 }
 
 function mutateCommittedDetail(root, stockId, mutate) {
