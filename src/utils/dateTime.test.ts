@@ -19,6 +19,18 @@ import {
 } from "./dateTime";
 
 describe("workflow calendar date and IANA time-zone contract", () => {
+  it("rejects Date.parse-tolerated values that are not strict precise instants", () => {
+    expect(isPreciseInstant("2026-07-11T07:31Z")).toBe(true);
+    expect(isPreciseInstant("2026-07-11T07:31:40.123+08:00")).toBe(true);
+    for (const value of [
+      "2026-07-11Z",
+      "2026-07-11 07:31:40Z",
+      "2026-07-11T07:31:40",
+      "2026-02-30T07:31:40Z",
+      "2026-07-11T24:00:00Z",
+      "2026-07-11T07:31:40Zextra",
+    ]) expect(isPreciseInstant(value), value).toBe(false);
+  });
   it("maps Tokyo 00:30 to the new local calendar day before UTC crosses", () => {
     expect(getCalendarDateInTimeZone("2026-07-13T15:30:00.000Z", "Asia/Tokyo")).toBe("2026-07-14");
   });

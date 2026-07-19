@@ -29,6 +29,23 @@ manifest.generated.json
 - 公司详情使用 `Promise.allSettled`；单家公司失败保留 stockId、错误码和重试入口，不拖垮其他公司。
 - loader 的 detail、manifest、workflow 请求都捕获启动 epoch。`clearCache()` 递增 epoch；旧请求不得写回 cache，也不得清除新一代 Promise。`finally` 只删除仍指向自身的 in-flight 项。
 
+## 详情关系、状态与发布代际契约
+
+详情状态不能由数组是否非空直接决定。Node 生成/离线校验和浏览器 Loader 使用同一套浏览器安全关系契约，先验证集合成员和引用关系，再返回状态：
+
+- `targetAnnouncements` 的公告 ID 在公司内唯一，股票、类型、严格日历日期、报告期/期间口径、解析状态和重复标记必须有效；
+- current/historical snapshot 必须按公告 ID 回指 target，且股票、公告类型、来源日期、报告期、期间口径和解析状态逐字段一致；
+- exclusion 必须回指 target，公司身份和公告投影一致，原因码非空、受支持且去重；
+- warning 的来源公告必须属于本公司 target，候选公告 ID 必须是合法、去重的公告身份；
+- 每个 target 至少有 current、historical 或 exclusion 覆盖；孤儿、重复、投影错配、未覆盖 target 和 historical-only 迁移态均失败关闭；
+- 同一 target 可有多个 metric snapshot，也可在部分 metric 成功时同时保留 snapshot 与 exclusion，不按公告 ID 把合法多指标记录误判为重复。
+
+关系有效后，状态只有三种：无 target/记录为 `missing`；任一 target 未形成完整 current 或存在 exclusion 为 `partial`；所有 target 都有可靠 current 且无 exclusion 才是 `generated_real`。全局 summary 从公司状态聚合，因此“全部 target 被排除、current 为零”仍是 `partial`；正式产品是否允许零可靠快照由更高层 generation gate 单独拒绝。
+
+发布代际采用严格 ISO 精确时刻，不接受日期加 `Z`、空格分隔、无 offset、不存在的日期/时间或尾随字符。summary、manifest、workflow、detail 和 `quality.updatedAt` 必须属于同一发布 epoch；current record 的 `generatedAt` / `providerGeneratedAt` 也属于该 epoch。historical record 保留自身原始生成时刻，只要求其内部时刻严格且相互一致，不会被改写为本轮 epoch。
+
+主要可定位错误码包括 `detail_target_contract`、`detail_exclusion_contract`、`detail_warning_contract`、`detail_target_duplicate`、`detail_target_uncovered`、`detail_snapshot_orphan`、`detail_exclusion_orphan`、`detail_projection_mismatch`、`detail_historical_only`、`detail_generation_epoch` 和 `detail_quality_contract`。
+
 ## 公司集合不可静默删除
 
 旧 Provider 目录不存在时允许首次生成。目录已经存在时，生成器必须：

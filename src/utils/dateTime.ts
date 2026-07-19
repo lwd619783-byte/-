@@ -8,6 +8,7 @@ import type {
   EarningsExpectationSourceTimeResolution,
   EarningsExpectationTimePrecision,
 } from "../types/earningsExpectation";
+import { isStrictCalendarDate, parseStrictPreciseInstant } from "./strictDateTime.mjs";
 
 export type BusinessTimePrecision = "date" | "datetime";
 
@@ -65,8 +66,6 @@ export type ZonedLocalDateTimeResolution =
   | { status: "ambiguous"; candidates: Array<{ instant: string; offsetMinutes: number }> }
   | { status: "invalid"; reason: string };
 
-const CALENDAR_DATE = /^\d{4}-\d{2}-\d{2}$/;
-const PRECISE_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/;
 const LOCAL_DATE_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?$/;
 export const DEFAULT_WORKFLOW_TIME_ZONE = "Asia/Shanghai";
 
@@ -97,15 +96,11 @@ export function isValidTimeZone(value: unknown): value is string {
 }
 
 export function isCalendarDate(value: unknown): value is string {
-  if (typeof value !== "string" || !CALENDAR_DATE.test(value)) return false;
-  const parsed = new Date(`${value}T00:00:00.000Z`);
-  return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+  return isStrictCalendarDate(value);
 }
 
 export function parsePreciseInstant(value: unknown) {
-  if (typeof value !== "string" || !PRECISE_INSTANT.test(value)) return null;
-  const timestamp = Date.parse(value);
-  return Number.isNaN(timestamp) ? null : timestamp;
+  return parseStrictPreciseInstant(value);
 }
 
 export function isPreciseInstant(value: unknown): value is string {

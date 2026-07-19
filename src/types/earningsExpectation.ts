@@ -393,6 +393,8 @@ export interface EarningsExpectationBusinessOrderCandidate {
 
 export type EarningsExpectationProviderSourceAnnouncementType = "earnings_preview" | "earnings_preview_revision";
 export type CompanyGuidanceExpectationProviderStatus = "generated_real" | "partial" | "missing";
+export type CompanyGuidanceExpectationSourceParseStatus = "parse_success" | "parse_partial" | "metadata_only" | "parse_unavailable";
+export type CompanyGuidanceExpectationWarningCode = "revision_without_reliable_range" | "revision_predecessor_ambiguous" | "revision_predecessor_missing";
 
 export interface EarningsExpectationProviderSnapshot {
   providerId: string;
@@ -434,14 +436,14 @@ export interface CompanyGuidanceExpectationExclusion {
   reportPeriod: string | null;
   periodScope: EarningsExpectationPeriodScope | null;
   metric: string | null;
-  parseStatus: string;
+  parseStatus: CompanyGuidanceExpectationSourceParseStatus;
   officialSourceUrl: string | null;
   candidateAnnouncementIds: string[];
   reasons: string[];
 }
 
 export interface CompanyGuidanceExpectationWarning {
-  code: string;
+  code: CompanyGuidanceExpectationWarningCode;
   sourceAnnouncementId: string;
   candidateAnnouncementIds: string[];
   message: string;
@@ -454,7 +456,7 @@ export interface CompanyGuidanceExpectationTargetAnnouncement {
   sourceDate: string | null;
   reportPeriod: string | null;
   periodScope: EarningsExpectationPeriodScope | null;
-  parseStatus: string;
+  parseStatus: CompanyGuidanceExpectationSourceParseStatus;
   isDuplicate: boolean;
 }
 

@@ -9,8 +9,14 @@ import {
   createWorkflowIndex,
   deriveCompanyGuidanceDetailStatus,
   deriveCompanyGuidanceManifestMetadata,
+  validateCompanyGuidanceDetail,
 } from "../company-guidance-expectations/core.mjs";
-import { deriveCompanyGuidanceDetailStatus as deriveRuntimeCompanyGuidanceDetailStatus, selectDefaultCompanyGuidanceStockIds } from "../../src/services/companyGuidanceExpectationSelection.mjs";
+import {
+  classifyCompanyGuidanceDetailContractErrors,
+  deriveCompanyGuidanceDetailStatus as deriveRuntimeCompanyGuidanceDetailStatus,
+  selectDefaultCompanyGuidanceStockIds,
+  validateCompanyGuidanceDetailContract,
+} from "../../src/services/companyGuidanceExpectationSelection.mjs";
 import {
   ARTIFACT_TRANSACTION_STAGE,
   ArtifactTransactionCleanupError,
@@ -234,18 +240,19 @@ test("exclusion-only company stays in the default load set and corrupted summary
 }));
 
 test("Node and runtime detail status contracts agree on all four product states", () => {
-  for (const [providerSnapshots, exclusions, targetAnnouncements, expected] of [
-    [[{}], [], [{}], "generated_real"],
-    [[{}], [{}], [{}], "partial"],
-    [[], [{}], [{}], "partial"],
-    [[], [], [], "missing"],
+  for (const [detail, expected] of [
+    [buildSingle([announcement()]).companies[0], "generated_real"],
+    [buildSingle([partialMetricAnnouncement()]).companies[0], "partial"],
+    [buildSingle([excludedAnnouncement()]).companies[0], "partial"],
+    [buildSingle([]).companies[0], "missing"],
   ]) {
-    const detail = { providerSnapshots, exclusions, targetAnnouncements };
     assert.equal(deriveCompanyGuidanceDetailStatus(detail), expected);
     assert.equal(deriveRuntimeCompanyGuidanceDetailStatus(detail), expected);
   }
-  assert.throws(() => deriveCompanyGuidanceDetailStatus({ providerSnapshots: [], exclusions: [] }), /targetAnnouncements must be an array/u);
-  assert.throws(() => deriveRuntimeCompanyGuidanceDetailStatus({ providerSnapshots: [], exclusions: [] }), /targetAnnouncements must be an array/u);
+  const malformed = structuredClone(buildSingle([announcement()]).companies[0]);
+  malformed.targetAnnouncements.push({});
+  assert.throws(() => deriveCompanyGuidanceDetailStatus(malformed), /detail_target_contract/u);
+  assert.throws(() => deriveRuntimeCompanyGuidanceDetailStatus(malformed), /detail_target_contract/u);
 });
 
 test("offline validator rejects detail status drift with current snapshots and no exclusions", () => withTempRoot((root) => {
@@ -284,7 +291,7 @@ test("offline validator rejects quality updatedAt drift", () => withTempRoot((ro
 }));
 
 for (const [name, mutate, expectedCode] of [
-  ["generatedAt without an explicit offset", (detail) => { detail.generatedAt = "2026-07-11T07:31:40"; detail.quality.updatedAt = detail.generatedAt; }, "detail_generated_at"],
+  ["generatedAt without an explicit offset", (detail) => { detail.generatedAt = "2026-07-11T07:31:40"; detail.quality.updatedAt = detail.generatedAt; }, "detail_generation_epoch"],
   ["quality source drift", (detail) => { detail.quality.source = "Other"; }, "detail_quality_contract"],
   ["quality sourceLayer drift", (detail) => { detail.quality.sourceLayer = "other_layer"; }, "detail_quality_contract"],
 ]) test(`offline validator rejects ${name}`, () => withTempRoot((root) => {
@@ -309,6 +316,247 @@ test("offline validator rejects a jointly corrupted detail, manifest and summary
   assert.ok(errors.some((error) => error.startsWith("manifest derived field mismatch: company-00.status ")), errors.join("\n"));
   assert.ok(errors.some((error) => error.startsWith("summary derived field mismatch: company-00.status ")), errors.join("\n"));
 }));
+
+for (const [collection, expectedCode] of [["exclusions", "detail_exclusion_contract"], ["targetAnnouncements", "detail_target_contract"]]) {
+  test(`offline validator rejects an empty object injected into ${collection} after all status/checksum claims are updated`, () => withTempRoot((root) => {
+    writeBundle(root, buildSingle([announcement()]), 1);
+    const artifact = mutateCommittedDetail(root, "company-00", (detail) => {
+      detail[collection].push({});
+      if (collection === "targetAnnouncements") detail.totalAnnouncementCount += 1;
+      detail.status = "partial";
+      detail.quality.status = "partial";
+    });
+    artifact.manifest.items[0].status = "partial";
+    writeJson(artifact.manifestPath, artifact.manifest);
+    const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+    const summary = readJson(summaryPath);
+    summary.items["company-00"].status = "partial";
+    summary.status = "partial";
+    writeJson(summaryPath, summary);
+    const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+    assert.ok(errors.includes(`company-00:${expectedCode}`), errors.join("\n"));
+  }));
+}
+
+test("offline validator rejects a snapshot whose target announcement was removed", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.targetAnnouncements = []; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_snapshot_orphan"), errors.join("\n"));
+}));
+
+test("offline validator rejects deletion of a real partial-metric exclusion even after generated-real claims are synchronized", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([partialMetricAnnouncement()]), 1);
+  const artifact = mutateCommittedDetail(root, "company-00", (detail) => {
+    detail.exclusions = [];
+    detail.status = "generated_real";
+    detail.quality.status = "generated_real";
+  });
+  Object.assign(artifact.manifest.items[0], { status: "generated_real", excludedAnnouncementCount: 0 });
+  writeJson(artifact.manifestPath, artifact.manifest);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  Object.assign(summary.items["company-00"], { status: "generated_real", excludedAnnouncementCount: 0 });
+  summary.status = "generated_real";
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_status"), errors.join("\n"));
+}));
+
+test("offline validator rejects an orphan exclusion", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([partialMetricAnnouncement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { const orphan = structuredClone(detail.exclusions[0]); orphan.sourceAnnouncementId = "9999999"; detail.exclusions.push(orphan); });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_exclusion_orphan"), errors.join("\n"));
+}));
+
+test("offline validator rejects an orphan snapshot", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { const orphan = structuredClone(detail.providerSnapshots[0]); orphan.sourceAnnouncementId = "9999999"; orphan.snapshot.sourceAnnouncementId = "9999999"; detail.providerSnapshots.push(orphan); });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_snapshot_orphan"), errors.join("\n"));
+}));
+
+test("offline validator rejects duplicate target announcement IDs", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.targetAnnouncements.push(structuredClone(detail.targetAnnouncements[0])); detail.totalAnnouncementCount += 1; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_target_duplicate"), errors.join("\n"));
+}));
+
+for (const [field, mutate] of [
+  ["sourceAnnouncementId", (target) => { target.sourceAnnouncementId = ""; }],
+  ["sourceAnnouncementType", (target) => { target.sourceAnnouncementType = "unsupported"; }],
+  ["sourceDate", (target) => { target.sourceDate = "2026-02-30"; }],
+  ["reportPeriod", (target) => { target.reportPeriod = "2025-02-30"; }],
+  ["periodScope", (target) => { target.periodScope = "half_year"; }],
+  ["parseStatus", (target) => { target.parseStatus = "unknown"; }],
+  ["isDuplicate", (target) => { target.isDuplicate = "false"; }],
+]) test(`offline validator rejects invalid target ${field}`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => mutate(detail.targetAnnouncements[0]));
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_target_contract"), errors.join("\n"));
+}));
+
+for (const [label, build, mutate] of [
+  ["target", () => buildSingle([announcement()]), (detail) => { detail.targetAnnouncements[0].stockId = "other"; }],
+  ["exclusion", () => buildSingle([partialMetricAnnouncement()]), (detail) => { detail.exclusions[0].stockId = "other"; }],
+  ["snapshot", () => buildSingle([announcement()]), (detail) => { detail.providerSnapshots[0].snapshot.stockId = "other"; }],
+]) test(`offline validator rejects ${label} stockId projection mismatch`, () => withTempRoot((root) => {
+  writeBundle(root, build(), 1);
+  mutateCommittedDetail(root, "company-00", mutate);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_projection_mismatch"), errors.join("\n"));
+}));
+
+for (const [field, mutate] of [
+  ["companyName", (exclusion) => { exclusion.companyName = "Other Company"; }],
+  ["sourceAnnouncementType", (exclusion) => { exclusion.sourceAnnouncementType = "earnings_preview_revision"; }],
+  ["sourceDate", (exclusion) => { exclusion.sourceDate = "2026-01-16"; }],
+  ["reportPeriod", (exclusion) => { exclusion.reportPeriod = "2026-06-30"; exclusion.periodScope = "half_year"; }],
+  ["periodScope", (exclusion) => { exclusion.reportPeriod = "2026-06-30"; exclusion.periodScope = "half_year"; }],
+  ["parseStatus", (exclusion) => { exclusion.parseStatus = "parse_success"; }],
+]) test(`offline validator rejects exclusion/target ${field} mismatch`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([partialMetricAnnouncement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => mutate(detail.exclusions[0]));
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_projection_mismatch"), errors.join("\n"));
+}));
+
+for (const [field, mutate] of [
+  ["sourceAnnouncementType", (detail) => { detail.providerSnapshots[0].sourceAnnouncementType = "earnings_preview_revision"; }],
+  ["sourceDate", (detail) => { detail.providerSnapshots[0].sourceDate = "2026-01-16"; }],
+  ["reportPeriod", (detail) => { detail.providerSnapshots[0].snapshot.reportPeriod = "2026-06-30"; }],
+  ["periodScope", (detail) => { detail.providerSnapshots[0].snapshot.periodScope = "half_year"; }],
+]) test(`offline validator rejects snapshot/target ${field} mismatch`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", mutate);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_projection_mismatch"), errors.join("\n"));
+}));
+
+test("offline validator rejects detail companyName drift after detail checksum is recomputed", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.companyName = "Forged Company"; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("identity mismatch: company-00"), errors.join("\n"));
+}));
+
+test("offline validator rejects a non-canonical quality source URL", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.quality.sourceUrl = "https://www.cninfo.com.cn/new/hisAnnouncement/query?forged=1"; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_quality_contract"), errors.join("\n"));
+}));
+
+test("offline validator rejects individually valid but cross-generation detail, manifest, workflow and summary epochs", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  const artifact = mutateCommittedDetail(root, "company-00", (detail) => {
+    detail.generatedAt = "2026-07-12T07:31:40Z";
+    detail.quality.updatedAt = detail.generatedAt;
+    for (const record of detail.providerSnapshots) { record.generatedAt = detail.generatedAt; record.snapshot.providerGeneratedAt = detail.generatedAt; }
+  });
+  artifact.manifest.generatedAt = "2026-07-13T07:31:40Z";
+  const workflowPath = path.join(root, "public", artifact.manifest.workflowIndexRelativePath);
+  const workflow = readJson(workflowPath);
+  workflow.generatedAt = "2026-07-14T07:31:40Z";
+  for (const record of workflow.records) { record.generatedAt = workflow.generatedAt; record.snapshot.providerGeneratedAt = workflow.generatedAt; }
+  const workflowContent = renderJson(workflow);
+  fs.writeFileSync(workflowPath, workflowContent, "utf8");
+  artifact.manifest.workflowIndexByteSize = Buffer.byteLength(workflowContent);
+  artifact.manifest.workflowIndexChecksumSha256 = sha256(workflowContent);
+  writeJson(artifact.manifestPath, artifact.manifest);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  summary.generatedAt = "2026-07-15T07:31:40Z";
+  summary.sourceGeneratedAt = "2026-07-16T07:31:40Z";
+  summary.workflowIndex.byteSize = artifact.manifest.workflowIndexByteSize;
+  summary.workflowIndex.checksumSha256 = artifact.manifest.workflowIndexChecksumSha256;
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_generation_epoch"), errors.join("\n"));
+  assert.ok(errors.includes("workflow generation epoch mismatch"), errors.join("\n"));
+  assert.ok(errors.includes("summary global field mismatch: generatedAt"), errors.join("\n"));
+  assert.ok(errors.includes("summary global field mismatch: sourceGeneratedAt"), errors.join("\n"));
+}));
+
+for (const value of ["2026-07-11Z", "2026-07-11 07:31:40Z", "2026-07-11T07:31:40", "2026-02-30T07:31:40Z", "2026-07-11T24:00:00Z", "2026-07-11T07:31:40Zextra"]) {
+  test(`offline validator rejects loose precise-instant input ${value}`, () => withTempRoot((root) => {
+    writeBundle(root, buildSingle([announcement()]), 1);
+    mutateCommittedDetail(root, "company-00", (detail) => { detail.generatedAt = value; detail.quality.updatedAt = value; });
+    const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+    assert.ok(errors.includes("company-00:detail_generation_epoch"), errors.join("\n"));
+  }));
+}
+
+test("all-targets-excluded status remains partial even when the generation gate rejects zero reliable snapshots", () => {
+  const result = buildSingle([excludedAnnouncement()]);
+  assert.equal(result.companies[0].status, "partial");
+  assert.equal(result.summary.status, "partial");
+  assert.equal(result.companies[0].providerSnapshots.length, 0);
+});
+
+test("offline validator fails closed on a historical-only migration state", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  const artifact = mutateCommittedDetail(root, "company-00", (detail) => {
+    const historical = detail.providerSnapshots.pop();
+    historical.isCurrentVersion = false;
+    historical.snapshot.isCurrentProviderVersion = false;
+    detail.historicalProviderVersions.push(historical);
+    detail.status = "partial";
+    detail.quality.status = "partial";
+  });
+  Object.assign(artifact.manifest.items[0], { snapshotCount: 0, historicalVersionCount: 1, latestReportPeriod: null, latestSourceDate: null, status: "partial" });
+  artifact.manifest.totalSnapshots = 0;
+  artifact.manifest.totalHistoricalVersions = 1;
+  artifact.manifest.companiesWithSnapshots = 0;
+  writeJson(artifact.manifestPath, artifact.manifest);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  Object.assign(summary.items["company-00"], { snapshotCount: 0, latestReportPeriod: null, latestSourceDate: null, status: "partial" });
+  summary.status = "partial";
+  summary.audit.reliableSnapshotCount = 0;
+  summary.audit.reliableCompanyCount = 0;
+  summary.audit.historicalVersionCount = 1;
+  summary.workflowIndex.currentSnapshotCount = 0;
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_historical_only"), errors.join("\n"));
+}));
+
+for (const [label, mutate] of [
+  ["empty warning", (detail) => { detail.warnings.push({}); }],
+  ["cross-company warning", (detail) => { detail.warnings.push({ code: "revision_without_reliable_range", sourceAnnouncementId: "9999999", candidateAnnouncementIds: [], message: "invalid cross-company warning" }); }],
+]) test(`offline validator rejects ${label}`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", mutate);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_warning_contract"), errors.join("\n"));
+}));
+
+for (const [label, mutate] of [
+  ["duplicate exclusion reasons", (detail) => { detail.exclusions[0].reasons.push(detail.exclusions[0].reasons[0]); }],
+  ["invalid exclusion candidate id", (detail) => { detail.exclusions[0].candidateAnnouncementIds = ["not-an-id"]; }],
+]) test(`offline validator rejects ${label}`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([partialMetricAnnouncement()]), 1);
+  mutateCommittedDetail(root, "company-00", mutate);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_exclusion_contract"), errors.join("\n"));
+}));
+
+test("Node validator and browser-safe contract return the same relation decision and error category", () => {
+  const valid = buildSingle([announcement()]).companies[0];
+  assert.deepEqual(validateCompanyGuidanceDetailContract(valid, { expectedGenerationEpoch: GENERATED_AT }), []);
+  assert.deepEqual(validateCompanyGuidanceDetail(valid, { expectedGenerationEpoch: GENERATED_AT }), []);
+  const invalid = structuredClone(valid);
+  invalid.providerSnapshots[0].snapshot.stockId = "other";
+  const runtimeErrors = validateCompanyGuidanceDetailContract(invalid, { expectedGenerationEpoch: GENERATED_AT });
+  const nodeErrors = validateCompanyGuidanceDetail(invalid, { expectedGenerationEpoch: GENERATED_AT });
+  assert.ok(runtimeErrors.includes("detail_projection_mismatch"));
+  assert.ok(nodeErrors.includes("detail_projection_mismatch"));
+  assert.equal(classifyCompanyGuidanceDetailContractErrors(runtimeErrors), "identity");
+});
 
 function withGeneratorRoot(run) {
   return withTempRoot((root) => {
@@ -374,6 +622,16 @@ function excludedAnnouncement() {
     parseStatus: "parse_partial",
     performanceForecastEvents: [],
   };
+}
+
+function partialMetricAnnouncement() {
+  const value = announcement();
+  value.parseStatus = "parse_partial";
+  value.performanceForecastEvents.push({
+    forecastPeriod: "2025-12-31", forecastType: "increase", profitMetric: "operatingRevenue",
+    lowerBound: 300, upperBound: 400, extractionConfidence: "low", sourceTextEvidence: "revenue range requires review", previousForecastAnnouncementId: null,
+  });
+  return value;
 }
 
 function buildSingle(announcements) { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, announcements)], sourceGeneratedAt: GENERATED_AT }); }

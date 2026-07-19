@@ -1,5 +1,12 @@
 import summaryJson from "../data/real/a-share-company-guidance-expectation-summaries.generated.json";
-import { deriveCompanyGuidanceDetailStatus, selectDefaultCompanyGuidanceStockIds } from "./companyGuidanceExpectationSelection.mjs";
+import {
+  classifyCompanyGuidanceDetailContractErrors,
+  deriveCompanyGuidanceManifestMetadata,
+  deriveCompanyGuidanceSummaryStatusFromStatuses,
+  selectDefaultCompanyGuidanceStockIds,
+  validateCompanyGuidanceDetailContract,
+} from "./companyGuidanceExpectationSelection.mjs";
+import { isStrictCalendarDate, isStrictPreciseInstant } from "../utils/strictDateTime.mjs";
 import type {
   AggregatedEarningsExpectationEvidence,
   CompanyGuidanceExpectationDetail,
@@ -48,12 +55,13 @@ export interface CompanyGuidanceExpectationLoadManyResult {
   failures: CompanyGuidanceExpectationLoadFailure[];
 }
 
-interface LoaderOptions { fetchImpl?: typeof fetch; baseUrl?: string; cryptoImpl?: Crypto; retries?: number }
+interface LoaderOptions { fetchImpl?: typeof fetch; baseUrl?: string; cryptoImpl?: Crypto; retries?: number; summary?: CompanyGuidanceExpectationSummary }
 
 export function createCompanyGuidanceExpectationLoader(options: LoaderOptions = {}) {
   const fetchImpl = options.fetchImpl ?? globalThis.fetch;
   const baseUrl = options.baseUrl ?? import.meta.env.BASE_URL;
   const cryptoImpl = options.cryptoImpl ?? globalThis.crypto;
+  const runtimeSummary = options.summary ?? companyGuidanceExpectationSummary;
   const retries = Math.max(0, Math.min(options.retries ?? 1, 2));
   const cache = new Map<string, CompanyGuidanceExpectationDetail>();
   const inFlight = new Map<string, Promise<CompanyGuidanceExpectationDetail>>();
@@ -68,7 +76,7 @@ export function createCompanyGuidanceExpectationLoader(options: LoaderOptions = 
     request = fetchBytes(assetUrl(baseUrl, MANIFEST_PATH), retries, fetchImpl)
       .then(({ bytes }) => {
         if (requestEpoch !== epoch) throw staleRequestError("manifest");
-        return validateManifest(parseJson(bytes, "Invalid company-guidance manifest JSON"));
+        return validateManifest(parseJson(bytes, "Invalid company-guidance manifest JSON"), runtimeSummary);
       })
       .catch((error) => {
         if (manifestRequest?.promise === request) manifestRequest = null;
@@ -105,12 +113,12 @@ export function createCompanyGuidanceExpectationLoader(options: LoaderOptions = 
     const pending = inFlight.get(stockId);
     if (pending) return pending;
     const request = (async () => {
-      const { entries } = await manifest();
+      const { manifest: providerManifest, entries } = await manifest();
       const entry = entries.get(stockId);
       if (!entry) throw new CompanyGuidanceExpectationLoadError(`No company-guidance manifest entry for ${stockId}`, "not_found");
       const { bytes } = await fetchBytes(assetUrl(baseUrl, entry.relativePath), retries, fetchImpl);
       await verifyArtifact(bytes, entry.byteSize, entry.checksumSha256, stockId, cryptoImpl);
-      const detail = await validateDetail(parseJson(bytes, `Invalid company-guidance JSON for ${stockId}`), entry, cryptoImpl);
+      const detail = await validateDetail(parseJson(bytes, `Invalid company-guidance JSON for ${stockId}`), entry, providerManifest.generatedAt, cryptoImpl);
       if (requestEpoch !== epoch) throw staleRequestError(`detail ${stockId}`);
       cache.set(stockId, detail);
       return detail;
@@ -249,43 +257,74 @@ function providerEvidenceIdentityForSnapshot(snapshot: EarningsExpectationSnapsh
   return [PROVIDER_ID, announcementId, snapshot.stockId, snapshot.reportPeriod, snapshot.periodScope, snapshot.metric].join("|");
 }
 
-function validateManifest(value: unknown) {
-  if (!isObject(value) || value.schemaVersion !== SCHEMA_VERSION || value.providerId !== PROVIDER_ID || value.providerVersion !== PROVIDER_VERSION || !Array.isArray(value.items) || value.totalCompanies !== value.items.length) throw new CompanyGuidanceExpectationLoadError("Company-guidance manifest schema mismatch", "schema");
+function validateManifest(value: unknown, runtimeSummary: CompanyGuidanceExpectationSummary) {
+  if (!isObject(value) || value.schemaVersion !== SCHEMA_VERSION || value.providerId !== PROVIDER_ID || value.providerVersion !== PROVIDER_VERSION
+    || !isStrictPreciseInstant(value.generatedAt) || !Array.isArray(value.items) || value.totalCompanies !== value.items.length
+    || !isPositiveInteger(value.totalCompanies) || !isNonNegativeInteger(value.companiesWithSnapshots)
+    || !isNonNegativeInteger(value.totalSnapshots) || !isNonNegativeInteger(value.totalHistoricalVersions)) throw new CompanyGuidanceExpectationLoadError("Company-guidance manifest schema mismatch", "schema");
   const providerManifest = value as unknown as CompanyGuidanceExpectationManifest;
   if (providerManifest.workflowIndexRelativePath !== WORKFLOW_PATH || !Number.isInteger(providerManifest.workflowIndexByteSize) || providerManifest.workflowIndexByteSize <= 0 || !isSha(providerManifest.workflowIndexChecksumSha256)) throw new CompanyGuidanceExpectationLoadError("Invalid company-guidance workflow index manifest entry", "schema");
   const entries = new Map<string, CompanyGuidanceExpectationManifestEntry>();
   const codes = new Set<string>(); const paths = new Set<string>();
   for (const entry of providerManifest.items) {
-    if (!entry || !SAFE_DETAIL_PATH.test(entry.relativePath) || entry.relativePath.includes("..") || !entry.relativePath.endsWith(`/${entry.stockId}.json`)) throw new CompanyGuidanceExpectationLoadError("Unsafe company-guidance manifest path", "schema");
+    if (!entry || typeof entry.stockId !== "string" || typeof entry.stockCode !== "string" || typeof entry.companyName !== "string" || !SAFE_DETAIL_PATH.test(entry.relativePath) || entry.relativePath.includes("..") || !entry.relativePath.endsWith(`/${entry.stockId}.json`)) throw new CompanyGuidanceExpectationLoadError("Unsafe company-guidance manifest identity/path", "schema");
     if (entries.has(entry.stockId) || codes.has(entry.stockCode) || paths.has(entry.relativePath)) throw new CompanyGuidanceExpectationLoadError("Duplicate company-guidance manifest identity/path", "schema");
-    if (!Number.isInteger(entry.byteSize) || entry.byteSize <= 0 || !isSha(entry.checksumSha256) || !Number.isInteger(entry.historicalVersionCount) || entry.historicalVersionCount < 0) throw new CompanyGuidanceExpectationLoadError("Invalid company-guidance manifest checksum/count", "schema");
+    if (!Number.isInteger(entry.byteSize) || entry.byteSize <= 0 || !isSha(entry.checksumSha256)
+      || !Number.isInteger(entry.snapshotCount) || entry.snapshotCount < 0 || !Number.isInteger(entry.historicalVersionCount) || entry.historicalVersionCount < 0
+      || !Number.isInteger(entry.excludedAnnouncementCount) || entry.excludedAnnouncementCount < 0
+      || (entry.latestReportPeriod !== null && !isStrictCalendarDate(entry.latestReportPeriod))
+      || (entry.latestSourceDate !== null && !isStrictCalendarDate(entry.latestSourceDate))
+      || !["generated_real", "partial", "missing"].includes(entry.status)) throw new CompanyGuidanceExpectationLoadError("Invalid company-guidance manifest checksum/count/projection", "schema");
     entries.set(entry.stockId, entry); codes.add(entry.stockCode); paths.add(entry.relativePath);
   }
-  if (providerManifest.totalSnapshots !== providerManifest.items.reduce((sum, entry) => sum + entry.snapshotCount, 0) || providerManifest.totalHistoricalVersions !== providerManifest.items.reduce((sum, entry) => sum + entry.historicalVersionCount, 0)) throw new CompanyGuidanceExpectationLoadError("Company-guidance manifest aggregate mismatch", "identity");
+  if (providerManifest.totalSnapshots !== providerManifest.items.reduce((sum, entry) => sum + entry.snapshotCount, 0)
+    || providerManifest.totalHistoricalVersions !== providerManifest.items.reduce((sum, entry) => sum + entry.historicalVersionCount, 0)
+    || providerManifest.companiesWithSnapshots !== providerManifest.items.filter((entry) => entry.snapshotCount > 0).length) throw new CompanyGuidanceExpectationLoadError("Company-guidance manifest aggregate mismatch", "identity");
+  validateSummaryMirror(runtimeSummary, providerManifest);
   return { manifest: providerManifest, entries };
+}
+
+function validateSummaryMirror(summary: CompanyGuidanceExpectationSummary, manifest: CompanyGuidanceExpectationManifest) {
+  if (!isObject(summary) || summary.schemaVersion !== SCHEMA_VERSION || summary.providerId !== PROVIDER_ID || summary.providerVersion !== PROVIDER_VERSION
+    || !isStrictPreciseInstant(summary.generatedAt) || !isStrictPreciseInstant(summary.sourceGeneratedAt) || summary.generatedAt !== manifest.generatedAt
+    || summary.sourceGeneratedAt !== manifest.generatedAt || !isObject(summary.items) || !isObject(summary.workflowIndex)) throw new CompanyGuidanceExpectationLoadError("Company-guidance summary generation contract mismatch", "schema");
+  const summaryIds = Object.keys(summary.items).sort();
+  const manifestIds = manifest.items.map((entry) => entry.stockId).sort();
+  if (canonicalJson(summaryIds) !== canonicalJson(manifestIds)) throw new CompanyGuidanceExpectationLoadError("Company-guidance summary/manifest company set mismatch", "identity");
+  for (const entry of manifest.items) {
+    const item = summary.items[entry.stockId];
+    const expected = {
+      stockId: entry.stockId, stockCode: entry.stockCode, companyName: entry.companyName, status: entry.status,
+      snapshotCount: entry.snapshotCount, excludedAnnouncementCount: entry.excludedAnnouncementCount,
+      latestReportPeriod: entry.latestReportPeriod, latestSourceDate: entry.latestSourceDate, detailPath: entry.relativePath,
+    };
+    if (!item || Object.keys(expected).some((field) => !Object.is(item[field as keyof typeof item], expected[field as keyof typeof expected]))) throw new CompanyGuidanceExpectationLoadError(`Company-guidance summary projection mismatch for ${entry.stockId}`, "identity");
+  }
+  if (summary.status !== deriveCompanyGuidanceSummaryStatusFromStatuses(manifest.items.map((entry) => entry.status))
+    || summary.workflowIndex.relativePath !== manifest.workflowIndexRelativePath || summary.workflowIndex.byteSize !== manifest.workflowIndexByteSize
+    || summary.workflowIndex.checksumSha256 !== manifest.workflowIndexChecksumSha256 || summary.workflowIndex.currentSnapshotCount !== manifest.totalSnapshots) throw new CompanyGuidanceExpectationLoadError("Company-guidance summary global projection mismatch", "identity");
 }
 
 async function validateWorkflowIndex(value: unknown, providerManifest: CompanyGuidanceExpectationManifest, cryptoImpl: Crypto) {
   if (!isObject(value) || value.schemaVersion !== SCHEMA_VERSION || value.providerId !== PROVIDER_ID || value.providerVersion !== PROVIDER_VERSION || !Array.isArray(value.records) || !Array.isArray(value.warnings) || value.currentSnapshotCount !== value.records.length || value.currentSnapshotCount !== providerManifest.totalSnapshots) throw new CompanyGuidanceExpectationLoadError("Company-guidance workflow index schema/count mismatch", "schema");
   const workflow = value as unknown as CompanyGuidanceExpectationWorkflowIndex;
   const errors = await validateRecords(workflow.records, true, cryptoImpl);
+  if (!isStrictPreciseInstant(workflow.generatedAt) || workflow.generatedAt !== providerManifest.generatedAt
+    || workflow.records.some((record) => record.generatedAt !== workflow.generatedAt || record.snapshot?.providerGeneratedAt !== workflow.generatedAt)) errors.push("workflow_generation_epoch");
   errors.push(...validateVersionGraph(workflow.records, true), ...validateBusinessRevisionGraph(workflow.records));
   if (errors.length) throw new CompanyGuidanceExpectationLoadError(`Company-guidance workflow validation failed: ${errors.join("; ")}`, errors.some((error) => error.includes("graph")) ? "graph" : "identity");
   return workflow;
 }
 
-async function validateDetail(value: unknown, entry: CompanyGuidanceExpectationManifestEntry, cryptoImpl: Crypto) {
-  if (!isObject(value) || value.schemaVersion !== SCHEMA_VERSION || value.providerId !== PROVIDER_ID || value.providerVersion !== PROVIDER_VERSION || !Array.isArray(value.providerSnapshots) || !Array.isArray(value.historicalProviderVersions) || !Array.isArray(value.exclusions) || !Array.isArray(value.targetAnnouncements) || !Array.isArray(value.warnings) || !isObject(value.quality)) throw new CompanyGuidanceExpectationLoadError("Company-guidance detail schema mismatch", "schema");
-  const detail = value as unknown as CompanyGuidanceExpectationDetail;
-  if (detail.stockId !== entry.stockId || detail.stockCode !== entry.stockCode || detail.providerSnapshots.length !== entry.snapshotCount || detail.historicalProviderVersions.length !== entry.historicalVersionCount) throw new CompanyGuidanceExpectationLoadError("Company-guidance detail identity/count mismatch", "identity");
-  const expectedStatus = deriveCompanyGuidanceDetailStatus(detail);
-  const detailContractErrors: string[] = [];
-  if (detail.status !== expectedStatus) detailContractErrors.push("detail_status");
-  if (entry.status !== expectedStatus) detailContractErrors.push("manifest_status");
-  if (detail.quality.status !== expectedStatus) detailContractErrors.push("detail_quality_status");
-  if (!isPreciseInstant(detail.generatedAt)) detailContractErrors.push("detail_generated_at");
-  if (detail.quality.updatedAt !== detail.generatedAt || detail.quality.source !== "CNInfo" || detail.quality.sourceLayer !== "company_guidance_expectations") detailContractErrors.push("detail_quality_contract");
-  if (detailContractErrors.length) throw new CompanyGuidanceExpectationLoadError(`Company-guidance detail status/quality validation failed for ${entry.stockId}: ${detailContractErrors.join("; ")}`, detailContractErrors.some((error) => error === "detail_generated_at" || error === "detail_quality_contract") ? "schema" : "identity");
+async function validateDetail(value: unknown, entry: CompanyGuidanceExpectationManifestEntry, generationEpoch: string, cryptoImpl: Crypto) {
+  const detailContractErrors = validateCompanyGuidanceDetailContract(value, { expectedGenerationEpoch: generationEpoch });
+  if (detailContractErrors.length) throw new CompanyGuidanceExpectationLoadError(`Company-guidance detail contract validation failed for ${entry.stockId}: ${detailContractErrors.join("; ")}`, classifyCompanyGuidanceDetailContractErrors(detailContractErrors));
+  const detail = value as CompanyGuidanceExpectationDetail;
+  const expectedMetadata = deriveCompanyGuidanceManifestMetadata(detail);
+  const manifestProjectionErrors = ["stockId", "stockCode", "companyName", "relativePath", "status", "snapshotCount", "historicalVersionCount", "excludedAnnouncementCount", "latestReportPeriod", "latestSourceDate"]
+    .filter((field) => !Object.is(entry[field as keyof CompanyGuidanceExpectationManifestEntry], expectedMetadata[field as keyof typeof expectedMetadata]))
+    .map((field) => `manifest_${field}`);
+  if (manifestProjectionErrors.length) throw new CompanyGuidanceExpectationLoadError(`Company-guidance detail/manifest projection mismatch for ${entry.stockId}: ${manifestProjectionErrors.join("; ")}`, "identity");
   const errors = [...await validateRecords(detail.providerSnapshots, true, cryptoImpl, entry.stockId), ...await validateRecords(detail.historicalProviderVersions, false, cryptoImpl, entry.stockId)];
   errors.push(...validateVersionGraph([...detail.providerSnapshots, ...detail.historicalProviderVersions]), ...validateBusinessRevisionGraph(detail.providerSnapshots));
   if (errors.length) throw new CompanyGuidanceExpectationLoadError(`Company-guidance detail validation failed for ${entry.stockId}: ${errors.join("; ")}`, errors.some((error) => error.includes("graph")) ? "graph" : "identity");
@@ -295,6 +334,7 @@ async function validateDetail(value: unknown, entry: CompanyGuidanceExpectationM
 async function validateRecords(records: EarningsExpectationProviderSnapshot[], current: boolean, cryptoImpl: Crypto, stockId?: string) {
   const errors: string[] = [];
   for (const record of records) {
+    if (!isObject(record) || !isObject(record.snapshot)) { errors.push("<invalid>:record_shape"); continue; }
     const snapshot = record.snapshot;
     const source = parseOfficialCninfoAnnouncementUrl(record.officialSourceUrl);
     const pdf = parseOfficialCninfoPdfUrl(record.officialPdfUrl, record.sourceAnnouncementId);
@@ -302,7 +342,7 @@ async function validateRecords(records: EarningsExpectationProviderSnapshot[], c
     if ((stockId && snapshot.stockId !== stockId) || snapshot.sourceUrl !== record.officialSourceUrl || snapshot.officialPdfUrl !== record.officialPdfUrl) errors.push(`${record.sourceAnnouncementId}:source_identity`);
     if (record.providerId !== PROVIDER_ID || record.providerVersion !== PROVIDER_VERSION || snapshot.ingestionMethod !== "provider" || snapshot.sourceCategory !== "company_guidance" || snapshot.sourceVerificationStatus !== "verified") errors.push(`${record.sourceAnnouncementId}:provider_boundary`);
     if (snapshot.formationTimeBasis !== "public_disclosure_proxy" || snapshot.formedAt !== null || snapshot.sourcePublishedAt !== record.sourceDate) errors.push(`${record.sourceAnnouncementId}:time_contract`);
-    if (!isPreciseInstant(snapshot.createdAt) || !isPreciseInstant(record.generatedAt) || snapshot.asOfDate !== record.sourceDate || snapshot.sourcePublishedAtCalendarDate !== record.sourceDate) errors.push(`${record.sourceAnnouncementId}:instant_contract`);
+    if (!isStrictPreciseInstant(snapshot.createdAt) || !isStrictPreciseInstant(record.generatedAt) || snapshot.asOfDate !== record.sourceDate || snapshot.sourcePublishedAtCalendarDate !== record.sourceDate) errors.push(`${record.sourceAnnouncementId}:instant_contract`);
     if (snapshot.estimateShape === "range" && (!Number.isFinite(snapshot.lowerBound) || !Number.isFinite(snapshot.upperBound) || snapshot.lowerBound! > snapshot.upperBound! || snapshot.value !== null)) errors.push(`${record.sourceAnnouncementId}:range_contract`);
     const evidenceIdentity = providerEvidenceIdentityForSnapshot(snapshot, record.sourceAnnouncementId);
     if (record.providerEvidenceIdentity !== evidenceIdentity || snapshot.providerEvidenceIdentity !== evidenceIdentity) errors.push(`${record.sourceAnnouncementId}:evidence_identity`);
@@ -317,7 +357,7 @@ async function validateRecords(records: EarningsExpectationProviderSnapshot[], c
       && snapshot.providerCorrectedAt === record.providerCorrectedAt
       && canonicalJson(snapshot.providerCorrectionChangedFields) === canonicalJson(record.providerCorrectionChangedFields);
     const initialContract = record.providerCorrectionType === "initial" && record.providerCorrectsVersionId === null && record.providerCorrectedAt === null && (record.providerCorrectionChangedFields ?? []).length === 0;
-    const correctionContract = record.providerCorrectionType === "extraction_correction" && typeof record.providerCorrectsVersionId === "string" && isPreciseInstant(record.providerCorrectedAt) && (record.providerCorrectionChangedFields ?? []).length > 0;
+    const correctionContract = record.providerCorrectionType === "extraction_correction" && typeof record.providerCorrectsVersionId === "string" && isStrictPreciseInstant(record.providerCorrectedAt) && (record.providerCorrectionChangedFields ?? []).length > 0;
     if (snapshot.correctsSnapshotId !== null || !mirrorsMatch || (!initialContract && !correctionContract)) errors.push(`${record.sourceAnnouncementId}:correction_contract`);
   }
   return errors;
@@ -369,5 +409,6 @@ function normalizeLoadError(error: unknown) { return error instanceof CompanyGui
 function staleRequestError(label: string) { return new CompanyGuidanceExpectationLoadError(`Ignored stale company-guidance ${label} request after clearCache`, "stale"); }
 function isObject(value: unknown): value is Record<string, unknown> { return typeof value === "object" && value !== null; }
 function isSha(value: unknown): value is string { return typeof value === "string" && /^[a-f0-9]{64}$/u.test(value); }
-function isPreciseInstant(value: unknown): value is string { return typeof value === "string" && /(?:Z|[+-]\d{2}:\d{2})$/u.test(value) && Number.isFinite(Date.parse(value)); }
+function isNonNegativeInteger(value: unknown): value is number { return typeof value === "number" && Number.isInteger(value) && value >= 0; }
+function isPositiveInteger(value: unknown): value is number { return isNonNegativeInteger(value) && value > 0; }
 function canonicalJson(value: unknown): string { if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`; if (value && typeof value === "object") { const object = value as Record<string, unknown>; return `{${Object.keys(object).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(object[key])}`).join(",")}}`; } return JSON.stringify(value); }

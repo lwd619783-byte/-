@@ -17,6 +17,7 @@ import {
   validateCompanyGuidanceDetail,
   validateVersionGraph,
 } from "./company-guidance-expectations/core.mjs";
+import { isStrictPreciseInstant } from "../src/utils/strictDateTime.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const EXPECTED_COMPANY_COUNT = 56;
@@ -37,7 +38,9 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
     if (!isObject(artifact) || artifact.schemaVersion !== COMPANY_GUIDANCE_SCHEMA_VERSION) errors.push(`${label} schemaVersion mismatch`);
     if (!isObject(artifact) || artifact.providerId !== COMPANY_GUIDANCE_PROVIDER_ID) errors.push(`${label} providerId mismatch`);
     if (!isObject(artifact) || artifact.providerVersion !== COMPANY_GUIDANCE_PROVIDER_VERSION) errors.push(`${label} providerVersion mismatch`);
+    if (!isObject(artifact) || !isStrictPreciseInstant(artifact.generatedAt)) errors.push(`${label} generatedAt contract mismatch`);
   }
+  if (!isStrictPreciseInstant(summary?.sourceGeneratedAt)) errors.push("summary sourceGeneratedAt contract mismatch");
 
   const items = Array.isArray(manifest?.items) ? manifest.items : [];
   if (!Array.isArray(manifest?.items)) errors.push("manifest items must be an array");
@@ -74,7 +77,7 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
       const expectedManifestMetadata = deriveCompanyGuidanceManifestMetadata(detail);
       errors.push(...projectionMismatchMessages("manifest", entry.stockId, entry, expectedManifestMetadata, COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS));
     } catch (error) { errors.push(`manifest metadata derivation failed: ${entry.stockId}: ${String(error)}`); }
-    errors.push(...validateCompanyGuidanceDetail(detail).map((error) => `${entry.stockId}:${error}`));
+    errors.push(...validateCompanyGuidanceDetail(detail, { expectedGenerationEpoch: manifest?.generatedAt }).map((error) => `${entry.stockId}:${error}`));
     totalSnapshots += detail.providerSnapshots?.length ?? 0;
     totalHistoricalVersions += detail.historicalProviderVersions?.length ?? 0;
     records.push(...(detail.providerSnapshots ?? []));
@@ -116,6 +119,7 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
   if (workflow) {
     if (workflow.schemaVersion !== COMPANY_GUIDANCE_SCHEMA_VERSION || workflow.providerId !== COMPANY_GUIDANCE_PROVIDER_ID || workflow.providerVersion !== COMPANY_GUIDANCE_PROVIDER_VERSION) errors.push("workflow index contract mismatch");
     if (!Array.isArray(workflow.records) || workflow.currentSnapshotCount !== workflow.records.length || workflow.currentSnapshotCount !== totalSnapshots) errors.push("workflow index count mismatch");
+    if (!isStrictPreciseInstant(workflow.generatedAt) || workflow.generatedAt !== manifest.generatedAt) errors.push("workflow generation epoch mismatch");
     const expectedWorkflow = createWorkflowIndex(details, manifest.generatedAt);
     if (canonicalJson(workflow) !== canonicalJson(expectedWorkflow)) errors.push("workflow index does not exactly mirror current detail records");
     if ((workflow.records ?? []).some((record) => Object.hasOwn(record, "sourceTextEvidence") || Object.hasOwn(record, "originalUnitEvidence"))) errors.push("workflow index contains raw evidence fields");

@@ -1,4 +1,11 @@
 import crypto from "node:crypto";
+import {
+  deriveCompanyGuidanceDetailStatus as deriveValidatedDetailStatus,
+  deriveCompanyGuidanceManifestMetadata as deriveValidatedManifestMetadata,
+  deriveCompanyGuidanceSummaryStatusFromStatuses,
+  validateCompanyGuidanceDetailContract,
+} from "../../src/services/companyGuidanceExpectationSelection.mjs";
+import { isStrictPreciseInstant } from "../../src/utils/strictDateTime.mjs";
 
 export const COMPANY_GUIDANCE_SCHEMA_VERSION = "2.0.0";
 export const COMPANY_GUIDANCE_PROVIDER_ID = "cninfo-company-guidance";
@@ -117,27 +124,11 @@ export function companyGuidanceDetailRelativePath(stockId) {
 }
 
 export function deriveCompanyGuidanceDetailStatus(detail) {
-  const providerSnapshots = projectionArray(detail, "providerSnapshots");
-  const exclusions = projectionArray(detail, "exclusions");
-  const targetAnnouncements = projectionArray(detail, "targetAnnouncements");
-  if (providerSnapshots.length > 0) return exclusions.length > 0 ? "partial" : "generated_real";
-  return targetAnnouncements.length > 0 ? "partial" : "missing";
+  return deriveValidatedDetailStatus(detail);
 }
 
 export function deriveCompanyGuidanceManifestMetadata(detail) {
-  assertProjectionDetail(detail);
-  return {
-    stockId: detail.stockId,
-    stockCode: detail.stockCode,
-    companyName: detail.companyName,
-    relativePath: companyGuidanceDetailRelativePath(detail.stockId),
-    snapshotCount: detail.providerSnapshots.length,
-    historicalVersionCount: detail.historicalProviderVersions.length,
-    excludedAnnouncementCount: new Set(detail.exclusions.map((record) => record?.sourceAnnouncementId).filter((value) => typeof value === "string" && value.length > 0)).size,
-    latestReportPeriod: latestValidCalendarDate(detail.providerSnapshots.map((record) => record?.snapshot?.reportPeriod)),
-    latestSourceDate: latestValidCalendarDate(detail.providerSnapshots.map((record) => record?.sourceDate)),
-    status: deriveCompanyGuidanceDetailStatus(detail),
-  };
+  return deriveValidatedManifestMetadata(detail);
 }
 
 export function deriveCompanyGuidanceSummaryItem(detail) {
@@ -157,14 +148,12 @@ export function deriveCompanyGuidanceSummaryItem(detail) {
 
 export function deriveCompanyGuidanceSummaryStatus(details) {
   if (!Array.isArray(details)) throw new Error("company-guidance details must be an array");
-  const currentSnapshotCount = details.reduce((sum, detail) => sum + projectionArray(detail, "providerSnapshots").length, 0);
-  if (currentSnapshotCount === 0) return "missing";
-  return details.some((detail) => projectionArray(detail, "exclusions").length > 0) ? "partial" : "generated_real";
+  return deriveCompanyGuidanceSummaryStatusFromStatuses(details.map(deriveCompanyGuidanceDetailStatus));
 }
 
 export function buildCompanyGuidanceArtifacts({ announcementDetails, sourceGeneratedAt, previousDetails = [] }) {
   if (!Array.isArray(announcementDetails) || !announcementDetails.length) throw new Error("announcementDetails must be a non-empty array");
-  if (!isPreciseInstant(sourceGeneratedAt)) throw new Error("sourceGeneratedAt must be a precise instant");
+  if (!isStrictPreciseInstant(sourceGeneratedAt)) throw new Error("sourceGeneratedAt must be a precise instant");
   const duplicateInputStockIds = duplicates(announcementDetails.map((detail) => detail?.stockId));
   const duplicateInputStockCodes = duplicates(announcementDetails.map((detail) => detail?.stockCode));
   if (duplicateInputStockIds.length || duplicateInputStockCodes.length) throw new Error(`duplicate announcement company identity: stockIds=${duplicateInputStockIds.join(",")} stockCodes=${duplicateInputStockCodes.join(",")}`);
@@ -181,7 +170,7 @@ export function buildCompanyGuidanceArtifacts({ announcementDetails, sourceGener
   const allRecords = companies.flatMap((company) => company.providerSnapshots);
   attachBusinessRevisionChains(allRecords, companies);
   for (const company of companies) {
-    const validationErrors = validateCompanyGuidanceDetail(company);
+    const validationErrors = validateCompanyGuidanceDetail(company, { expectedGenerationEpoch: sourceGeneratedAt });
     if (validationErrors.length) throw new Error(`invalid generated company ${company.stockId}: ${validationErrors.join("; ")}`);
   }
 
@@ -277,7 +266,10 @@ function buildCompany(detail, sourceGeneratedAt, previousDetail) {
   }
 
   const { current, historical } = reconcileVersions(candidates, previousDetail, sourceGeneratedAt, detail.stockId);
-  const status = deriveCompanyGuidanceDetailStatus({ providerSnapshots: current, exclusions, targetAnnouncements });
+  const status = deriveCompanyGuidanceDetailStatus({
+    stockId: detail.stockId, companyName: detail.companyName, targetAnnouncements, providerSnapshots: current,
+    historicalProviderVersions: historical, exclusions, warnings,
+  });
   return {
     schemaVersion: COMPANY_GUIDANCE_SCHEMA_VERSION, providerId: COMPANY_GUIDANCE_PROVIDER_ID, providerVersion: COMPANY_GUIDANCE_PROVIDER_VERSION,
     generatedAt: sourceGeneratedAt, stockId: detail.stockId, stockCode: detail.stockCode, companyName: detail.companyName, market: "A股", status,
@@ -429,7 +421,7 @@ export function validateProviderRecord(record, { stockId = record?.snapshot?.sto
   if (record.providerId !== COMPANY_GUIDANCE_PROVIDER_ID || record.providerVersion !== COMPANY_GUIDANCE_PROVIDER_VERSION) errors.push("provider_contract");
   if (snapshot.ingestionMethod !== "provider" || snapshot.sourceCategory !== "company_guidance" || snapshot.sourceVerificationStatus !== "verified") errors.push("provider_boundary");
   if (snapshot.formationTimeBasis !== "public_disclosure_proxy" || snapshot.formedAt !== null || snapshot.sourcePublishedAt !== record.sourceDate) errors.push("time_contract");
-  if (!isPreciseInstant(snapshot.createdAt) || !isPreciseInstant(record.generatedAt) || snapshot.asOfDate !== record.sourceDate || snapshot.sourcePublishedAtCalendarDate !== record.sourceDate) errors.push("instant_contract");
+  if (!isStrictPreciseInstant(snapshot.createdAt) || !isStrictPreciseInstant(record.generatedAt) || snapshot.asOfDate !== record.sourceDate || snapshot.sourcePublishedAtCalendarDate !== record.sourceDate) errors.push("instant_contract");
   if (snapshot.estimateShape === "range" && (!Number.isFinite(snapshot.lowerBound) || !Number.isFinite(snapshot.upperBound) || snapshot.lowerBound > snapshot.upperBound || snapshot.value !== null)) errors.push("range_contract");
   const identity = stableProviderEvidenceIdentity({ announcementId: record.sourceAnnouncementId, stockId: snapshot.stockId, reportPeriod: snapshot.reportPeriod, periodScope: snapshot.periodScope, metric: snapshot.metric });
   if (record.providerEvidenceIdentity !== identity || snapshot.providerEvidenceIdentity !== identity) errors.push("evidence_identity");
@@ -446,7 +438,7 @@ export function validateProviderRecord(record, { stockId = record?.snapshot?.sto
     && snapshot.providerCorrectedAt === record.providerCorrectedAt
     && canonicalJson(snapshot.providerCorrectionChangedFields) === canonicalJson(record.providerCorrectionChangedFields);
   const initialContract = record.providerCorrectionType === "initial" && record.providerCorrectsVersionId === null && record.providerCorrectedAt === null && (record.providerCorrectionChangedFields ?? []).length === 0;
-  const correctionContract = record.providerCorrectionType === "extraction_correction" && typeof record.providerCorrectsVersionId === "string" && isPreciseInstant(record.providerCorrectedAt) && (record.providerCorrectionChangedFields ?? []).length > 0;
+  const correctionContract = record.providerCorrectionType === "extraction_correction" && typeof record.providerCorrectsVersionId === "string" && isStrictPreciseInstant(record.providerCorrectedAt) && (record.providerCorrectionChangedFields ?? []).length > 0;
   if (!correctionMirrorsMatch || (!initialContract && !correctionContract)) errors.push("provider_correction_contract");
   return uniqueStrings(errors);
 }
@@ -491,19 +483,16 @@ export function validateBusinessRevisionGraph(records) {
   return uniqueStrings(errors);
 }
 
-export function validateCompanyGuidanceDetail(detail) {
-  const errors = [];
-  if (!detail || detail.schemaVersion !== COMPANY_GUIDANCE_SCHEMA_VERSION || detail.providerId !== COMPANY_GUIDANCE_PROVIDER_ID || detail.providerVersion !== COMPANY_GUIDANCE_PROVIDER_VERSION) return ["detail_contract"];
-  if (!Array.isArray(detail.providerSnapshots) || !Array.isArray(detail.historicalProviderVersions) || !Array.isArray(detail.exclusions) || !Array.isArray(detail.targetAnnouncements) || !Array.isArray(detail.warnings)) return ["detail_arrays"];
-  const expectedStatus = deriveCompanyGuidanceDetailStatus(detail);
-  if (detail.status !== expectedStatus) errors.push("detail_status");
-  if (!isPreciseInstant(detail.generatedAt)) errors.push("detail_generated_at");
-  if (!detail.quality || typeof detail.quality !== "object" || detail.quality.source !== "CNInfo" || detail.quality.sourceLayer !== "company_guidance_expectations" || detail.quality.updatedAt !== detail.generatedAt) errors.push("detail_quality_contract");
-  else if (detail.quality.status !== expectedStatus) errors.push("detail_quality_status");
-  for (const record of detail.providerSnapshots) errors.push(...validateProviderRecord(record, { stockId: detail.stockId, current: true }).map((error) => `${record.sourceAnnouncementId}:${error}`));
-  for (const record of detail.historicalProviderVersions) errors.push(...validateProviderRecord(record, { stockId: detail.stockId, current: false }).map((error) => `${record.sourceAnnouncementId}:${error}`));
-  errors.push(...validateVersionGraph([...detail.providerSnapshots, ...detail.historicalProviderVersions]));
-  errors.push(...validateBusinessRevisionGraph(detail.providerSnapshots));
+export function validateCompanyGuidanceDetail(detail, options = {}) {
+  const errors = validateCompanyGuidanceDetailContract(detail, options);
+  const current = Array.isArray(detail?.providerSnapshots) ? detail.providerSnapshots : [];
+  const historical = Array.isArray(detail?.historicalProviderVersions) ? detail.historicalProviderVersions : [];
+  for (const record of current) errors.push(...validateProviderRecord(record, { stockId: detail?.stockId, current: true }).map((error) => `${record?.sourceAnnouncementId ?? "<invalid>"}:${error}`));
+  for (const record of historical) errors.push(...validateProviderRecord(record, { stockId: detail?.stockId, current: false }).map((error) => `${record?.sourceAnnouncementId ?? "<invalid>"}:${error}`));
+  if ([...current, ...historical].every((record) => record && typeof record === "object" && record.snapshot)) {
+    errors.push(...validateVersionGraph([...current, ...historical]));
+    errors.push(...validateBusinessRevisionGraph(current));
+  }
   return uniqueStrings(errors);
 }
 
@@ -542,8 +531,3 @@ function countNested(values, keyFn) { const keys = [...new Set(values.flatMap(ke
 function uniqueStrings(values) { return [...new Set(values.filter((value) => typeof value === "string" && value.trim()).map(String))].sort(); }
 export function canonicalJson(value) { if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`; if (value && typeof value === "object") return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`; return JSON.stringify(value); }
 export function sha256(value) { return crypto.createHash("sha256").update(value).digest("hex"); }
-function assertProjectionDetail(detail) { if (!detail || typeof detail !== "object") throw new Error("company-guidance detail must be an object"); projectionArray(detail, "providerSnapshots"); projectionArray(detail, "historicalProviderVersions"); projectionArray(detail, "exclusions"); }
-function projectionArray(detail, field) { if (!detail || !Array.isArray(detail[field])) throw new Error(`company-guidance detail ${String(detail?.stockId ?? "<invalid>")} ${field} must be an array`); return detail[field]; }
-function latestValidCalendarDate(values) { return values.filter(isValidCalendarDate).sort().at(-1) ?? null; }
-function isValidCalendarDate(value) { if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/u.test(value)) return false; const parsed = new Date(`${value}T00:00:00Z`); return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value; }
-function isPreciseInstant(value) { return typeof value === "string" && /(?:Z|[+-]\d{2}:\d{2})$/u.test(value) && Number.isFinite(Date.parse(value)); }

@@ -246,7 +246,7 @@ function validateRendered(result, manifest, renderedDetails, workflowIndex, rend
   const ids = result.companies.flatMap((company) => company.providerSnapshots.map((record) => record.snapshot.id));
   assertUnique(ids, "provider snapshot id");
   const allVersions = result.companies.flatMap((company) => [...company.providerSnapshots, ...company.historicalProviderVersions]);
-  const detailErrors = result.companies.flatMap((company) => validateCompanyGuidanceDetail(company).map((error) => `${company.stockId}:${error}`));
+  const detailErrors = result.companies.flatMap((company) => validateCompanyGuidanceDetail(company, { expectedGenerationEpoch: result.summary.generatedAt }).map((error) => `${company.stockId}:${error}`));
   const graphErrors = [...validateVersionGraph(allVersions), ...validateBusinessRevisionGraph(result.companies.flatMap((company) => company.providerSnapshots))];
   if (detailErrors.length || graphErrors.length) throw new Error(`deep provider validation failed: ${[...detailErrors, ...graphErrors].join("; ")}`);
   if (workflowIndex.currentSnapshotCount !== ids.length || workflowIndex.records.length !== ids.length) throw new Error("workflow index count mismatch");

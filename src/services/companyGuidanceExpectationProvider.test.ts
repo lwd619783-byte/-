@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import contractFixtures from "../../scripts/company-guidance-expectations/contract-fixtures.json";
-import type { CompanyGuidanceExpectationDetail, CompanyGuidanceExpectationManifest, CompanyGuidanceExpectationWorkflowIndex, EarningsExpectationProviderSnapshot, EarningsExpectationSnapshot, ResearchEvent, Stock, WatchItem } from "../types";
+import type { CompanyGuidanceExpectationDetail, CompanyGuidanceExpectationManifest, CompanyGuidanceExpectationSummary, CompanyGuidanceExpectationWorkflowIndex, EarningsExpectationProviderSnapshot, EarningsExpectationSnapshot, ResearchEvent, Stock, WatchItem } from "../types";
 import { createEmptyEarningsExpectationEnvelope, EarningsExpectationRepository } from "./earningsExpectationRepository";
 import { EarningsExpectationStore } from "./earningsExpectationStore";
 import { CompanyGuidanceExpectationLoadError, aggregateEarningsExpectationEvidence, buildProviderContentConflictEvents, createCompanyGuidanceExpectationLoader, parseOfficialCninfoAnnouncementUrl, parseOfficialCninfoPdfUrl, selectActiveCompanyGuidanceProviderRecords, sourceAnnouncementId } from "./companyGuidanceExpectationProvider";
@@ -66,7 +66,7 @@ describe("company guidance expectation provider V2", () => {
       if (String(url).includes("manifest")) return response(fixture.manifest);
       attempts += 1; return attempts === 1 ? new Response("unavailable", { status: 404 }) : response(fixture.detail);
     }) as typeof fetch;
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, fetchImpl);
     await expect(loader.load("sample")).rejects.toMatchObject({ code: "http" });
     await expect(loader.load("sample")).resolves.toMatchObject({ stockId: "sample" });
   });
@@ -75,15 +75,16 @@ describe("company guidance expectation provider V2", () => {
     const fixture = await artifacts();
     fixture.manifest.items.push({ ...fixture.manifest.items[0], stockId: "broken", stockCode: "000002", relativePath: "data/a-share-company-guidance-expectations/broken.json" });
     fixture.manifest.totalCompanies = 2; fixture.manifest.totalSnapshots = 2; fixture.manifest.companiesWithSnapshots = 2;
+    fixture.summary = summaryFromManifest(fixture.manifest);
     const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : String(url).includes("broken") ? new Response("bad", { status: 404 }) : response(fixture.detail)) as typeof fetch;
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, fetchImpl);
     const result = await loader.loadMany(["sample", "broken"]);
     expect(result.status).toBe("partial"); expect(Object.keys(result.successes)).toEqual(["sample"]); expect(result.failures[0]).toMatchObject({ stockId: "broken", code: "http" });
   });
 
   it("rejects unsafe manifest paths", async () => {
     const fixture = await artifacts(); fixture.manifest.items[0].relativePath = "data/a-share-company-guidance-expectations/../secret.json";
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl: vi.fn(async () => response(fixture.manifest)) as typeof fetch, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, vi.fn(async () => response(fixture.manifest)) as typeof fetch);
     await expect(loader.load("sample")).rejects.toBeInstanceOf(CompanyGuidanceExpectationLoadError);
   });
 
@@ -99,8 +100,9 @@ describe("company guidance expectation provider V2", () => {
     fixture.detail.status = "partial";
     fixture.detail.quality.status = "partial";
     fixture.manifest.items[0].status = "partial";
+    fixture.summary = summaryFromManifest(fixture.manifest);
     await finalizeDetail(fixture);
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl: vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch);
     await expect(loader.load("sample")).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("detail_status") });
   });
 
@@ -108,8 +110,111 @@ describe("company guidance expectation provider V2", () => {
     const fixture = await artifacts();
     fixture.detail.quality.updatedAt = "2026-07-12T07:31:40Z";
     await finalizeDetail(fixture);
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl: vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch);
     await expect(loader.load("sample")).rejects.toMatchObject({ code: "schema", message: expect.stringContaining("detail_quality_contract") });
+  });
+
+  for (const [label, mutate, code, errorCode] of [
+    ["empty target member", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.detail.targetAnnouncements.push({} as never); fixture.detail.totalAnnouncementCount += 1; }, "schema", "detail_target_contract"],
+    ["empty exclusion member", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.detail.exclusions.push({} as never); }, "schema", "detail_exclusion_contract"],
+    ["snapshot orphaned by target deletion", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.detail.targetAnnouncements = []; }, "identity", "detail_snapshot_orphan"],
+    ["duplicate target announcement", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.detail.targetAnnouncements.push(structuredClone(fixture.detail.targetAnnouncements[0])); fixture.detail.totalAnnouncementCount += 1; }, "schema", "detail_target_duplicate"],
+    ["snapshot stock projection drift", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.detail.providerSnapshots[0].snapshot.stockId = "other"; }, "identity", "detail_projection_mismatch"],
+    ["cross-company warning", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.detail.warnings.push({ code: "revision_without_reliable_range", sourceAnnouncementId: "9999999", candidateAnnouncementIds: [], message: "cross-company" }); }, "schema", "detail_warning_contract"],
+    ["quality source URL drift", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.detail.quality.sourceUrl += "?forged=1"; }, "schema", "detail_quality_contract"],
+    ["Date.parse-tolerated invalid epoch", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.detail.generatedAt = "2026-02-30T07:31:40Z"; fixture.detail.quality.updatedAt = fixture.detail.generatedAt; }, "schema", "detail_generation_epoch"],
+  ] as const) it(`runtime deep validation rejects ${label}`, async () => {
+    const fixture = await artifacts();
+    mutate(fixture);
+    await finalizeDetail(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ code, message: expect.stringContaining(errorCode) });
+  });
+
+  for (const [field, mutate, expectedCode] of [
+    ["stockCode", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].stockCode = "000002"; }, "manifest_stockCode"],
+    ["companyName", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].companyName = "Forged Company"; }, "manifest_companyName"],
+    ["status", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].status = "partial"; }, "manifest_status"],
+    ["snapshotCount", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].snapshotCount = 2; fixture.manifest.totalSnapshots = 2; }, "manifest_snapshotCount"],
+    ["historicalVersionCount", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].historicalVersionCount = 1; fixture.manifest.totalHistoricalVersions = 1; }, "manifest_historicalVersionCount"],
+    ["excludedAnnouncementCount", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].excludedAnnouncementCount = 1; }, "manifest_excludedAnnouncementCount"],
+    ["latestReportPeriod", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].latestReportPeriod = "2024-12-31"; }, "manifest_latestReportPeriod"],
+    ["latestSourceDate", (fixture: Awaited<ReturnType<typeof artifacts>>) => { fixture.manifest.items[0].latestSourceDate = "2026-01-14"; }, "manifest_latestSourceDate"],
+  ] as const) it(`runtime re-derives manifest ${field}`, async () => {
+    const fixture = await artifacts();
+    mutate(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ code: "identity", message: expect.stringContaining(expectedCode) });
+  });
+
+  it("runtime rejects a safe-looking summary projection that diverges from manifest", async () => {
+    const fixture = await artifacts();
+    fixture.summary.items.sample.companyName = "Forged Summary Company";
+    const fetchImpl = vi.fn(async () => response(fixture.manifest)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("summary projection mismatch") });
+  });
+
+  it("runtime rejects summary and manifest/detail cross-generation epochs even when each timestamp is individually valid", async () => {
+    const summaryFixture = await artifacts();
+    summaryFixture.summary.generatedAt = "2026-07-12T07:31:40Z";
+    summaryFixture.summary.sourceGeneratedAt = summaryFixture.summary.generatedAt;
+    await expect(providerLoader(summaryFixture, vi.fn(async () => response(summaryFixture.manifest)) as typeof fetch).load("sample")).rejects.toMatchObject({ code: "schema", message: expect.stringContaining("summary generation contract") });
+
+    const manifestFixture = await artifacts();
+    manifestFixture.manifest.generatedAt = "2026-07-12T07:31:40Z";
+    manifestFixture.summary = summaryFromManifest(manifestFixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(manifestFixture.manifest) : response(manifestFixture.detail)) as typeof fetch;
+    await expect(providerLoader(manifestFixture, fetchImpl).load("sample")).rejects.toMatchObject({ code: "schema", message: expect.stringContaining("detail_generation_epoch") });
+  });
+
+  it("runtime keeps all-targets-excluded semantics partial while allowing a higher-level generation gate to remain separate", async () => {
+    const fixture = await artifacts();
+    fixture.detail.providerSnapshots = [];
+    fixture.detail.exclusions = [exclusionRecord()];
+    fixture.detail.status = "partial";
+    fixture.detail.quality.status = "partial";
+    Object.assign(fixture.manifest.items[0], { snapshotCount: 0, excludedAnnouncementCount: 1, latestReportPeriod: null, latestSourceDate: null, status: "partial" });
+    fixture.manifest.totalSnapshots = 0;
+    fixture.manifest.companiesWithSnapshots = 0;
+    fixture.workflow.records = [];
+    fixture.workflow.currentSnapshotCount = 0;
+    await finalizeDetail(fixture); await finalizeWorkflow(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : String(url).includes("workflow-index") ? response(fixture.workflow) : response(fixture.detail)) as typeof fetch;
+    const loader = providerLoader(fixture, fetchImpl);
+    await expect(loader.load("sample")).resolves.toMatchObject({ status: "partial" });
+    await expect(loader.loadWorkflow()).resolves.toMatchObject({ currentSnapshotCount: 0 });
+    expect(fixture.summary.status).toBe("partial");
+  });
+
+  it("runtime fails closed on a historical-only migration state", async () => {
+    const fixture = await artifacts();
+    const historical = fixture.detail.providerSnapshots.pop() as EarningsExpectationProviderSnapshot;
+    historical.isCurrentVersion = false;
+    historical.snapshot.isCurrentProviderVersion = false;
+    fixture.detail.historicalProviderVersions.push(historical);
+    fixture.detail.status = "partial";
+    fixture.detail.quality.status = "partial";
+    Object.assign(fixture.manifest.items[0], { snapshotCount: 0, historicalVersionCount: 1, latestReportPeriod: null, latestSourceDate: null, status: "partial" });
+    fixture.manifest.totalSnapshots = 0;
+    fixture.manifest.totalHistoricalVersions = 1;
+    fixture.manifest.companiesWithSnapshots = 0;
+    await finalizeDetail(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("detail_historical_only") });
+  });
+
+  it("runtime rejects a workflow from a different valid generation epoch", async () => {
+    const fixture = await artifacts();
+    fixture.workflow.generatedAt = "2026-07-12T07:31:40Z";
+    for (const record of fixture.workflow.records) { record.generatedAt = fixture.workflow.generatedAt; record.snapshot.providerGeneratedAt = fixture.workflow.generatedAt; }
+    await finalizeWorkflow(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.workflow)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).loadWorkflow()).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("workflow_generation_epoch") });
   });
 
   it("rejects a workflow checksum or current-version mismatch and closes the global workflow", async () => {
@@ -178,7 +283,7 @@ describe("company guidance expectation provider V2", () => {
   it("validates an A1-to-B-to-A2 correction chain with repeated content but distinct event ids", async () => {
     const fixture = await correctionChainArtifacts();
     const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : String(url).includes("workflow-index") ? response(fixture.workflow) : response(fixture.detail)) as typeof fetch;
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, fetchImpl);
     const detail = await loader.load("sample");
     const workflow = await loader.loadWorkflow();
     const [a1, b] = detail.historicalProviderVersions;
@@ -193,8 +298,7 @@ describe("company guidance expectation provider V2", () => {
   it("clearCache prevents a stale detail request from caching or deleting the new in-flight request", async () => {
     const oldFixture = await artifacts();
     const newFixture = await artifacts();
-    newFixture.detail.companyName = "New generation";
-    newFixture.manifest.items[0].companyName = "New generation";
+    newFixture.detail.totalAnnouncementCount = 2;
     await finalizeDetail(newFixture);
     const oldDetail = deferred<Response>();
     const newDetail = deferred<Response>();
@@ -205,7 +309,7 @@ describe("company guidance expectation provider V2", () => {
       detailCalls += 1;
       return detailCalls === 1 ? oldDetail.promise : newDetail.promise;
     }) as typeof fetch;
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(oldFixture, fetchImpl);
     const first = loader.load("sample");
     await waitFor(() => detailCalls === 1);
     loader.clearCache();
@@ -215,9 +319,9 @@ describe("company guidance expectation provider V2", () => {
     await expect(first).rejects.toMatchObject({ code: "stale" });
     expect(loader.cacheInfo()).toMatchObject({ epoch: 1, results: 0, inFlight: 1 });
     newDetail.resolve(response(newFixture.detail));
-    await expect(second).resolves.toMatchObject({ companyName: "New generation" });
+    await expect(second).resolves.toMatchObject({ totalAnnouncementCount: 2 });
     expect(loader.cacheInfo()).toMatchObject({ epoch: 1, results: 1, inFlight: 0 });
-    await expect(loader.load("sample")).resolves.toMatchObject({ companyName: "New generation" });
+    await expect(loader.load("sample")).resolves.toMatchObject({ totalAnnouncementCount: 2 });
     expect(detailCalls).toBe(2);
   });
 
@@ -229,7 +333,7 @@ describe("company guidance expectation provider V2", () => {
       if (String(url).includes("manifest")) return response(fixture.manifest);
       const request = requests[detailCalls]; detailCalls += 1; return request.promise;
     }) as typeof fetch;
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, fetchImpl);
     const first = loader.load("sample"); const firstResult = first.then(() => null, (error) => error); await waitFor(() => detailCalls === 1);
     loader.clearCache();
     const second = loader.load("sample"); const secondResult = second.then(() => null, (error) => error); await waitFor(() => detailCalls === 2);
@@ -253,7 +357,7 @@ describe("company guidance expectation provider V2", () => {
       if (value.includes("manifest")) return (manifestCalls += 1) === 1 ? firstManifest.promise : secondManifest.promise;
       return response(fixture.workflow);
     }) as typeof fetch;
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, fetchImpl);
     const first = loader.loadWorkflow();
     await waitFor(() => manifestCalls === 1);
     loader.clearCache();
@@ -275,7 +379,7 @@ describe("company guidance expectation provider V2", () => {
       if (value.includes("manifest")) return response(fixture.manifest);
       return (workflowCalls += 1) === 1 ? firstWorkflow.promise : secondWorkflow.promise;
     }) as typeof fetch;
-    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    const loader = providerLoader(fixture, fetchImpl);
     const first = loader.loadWorkflow();
     await waitFor(() => workflowCalls === 1);
     loader.clearCache();
@@ -295,8 +399,9 @@ async function loaderFixture(options: { detailStockId?: string; manifestChecksum
   if (options.manifestChecksum) fixture.manifest.items[0].checksumSha256 = options.manifestChecksum;
   if (options.workflowCurrent === false) { fixture.workflow.records[0].isCurrentVersion = false; fixture.workflow.records[0].snapshot.isCurrentProviderVersion = false; await finalizeWorkflow(fixture); }
   if (options.workflowChecksum) fixture.manifest.workflowIndexChecksumSha256 = options.workflowChecksum;
+  fixture.summary = summaryFromManifest(fixture.manifest);
   const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : String(url).includes("workflow-index") ? response(fixture.workflow) : response(fixture.detail)) as typeof fetch;
-  return { ...fixture, loader: createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 }), fetchImpl };
+  return { ...fixture, loader: providerLoader(fixture, fetchImpl), fetchImpl };
 }
 
 async function artifacts() {
@@ -304,8 +409,9 @@ async function artifacts() {
   const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "样本公司", market: "A股", status: "generated_real", totalAnnouncementCount: 1, targetAnnouncements: [targetAnnouncement()], providerSnapshots: [record], historicalProviderVersions: [], exclusions: [], warnings: [], quality: detailQuality("2026-07-11T07:31:40Z", "generated_real") };
   const workflow = workflowIndex();
   const manifest: CompanyGuidanceExpectationManifest = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", totalCompanies: 1, companiesWithSnapshots: 1, totalSnapshots: 1, totalHistoricalVersions: 0, workflowIndexRelativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", workflowIndexByteSize: 0, workflowIndexChecksumSha256: "", items: [{ stockId: "sample", stockCode: "000001", companyName: "样本公司", relativePath: "data/a-share-company-guidance-expectations/sample.json", snapshotCount: 1, historicalVersionCount: 0, excludedAnnouncementCount: 0, byteSize: 0, checksumSha256: "", latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: "generated_real" }] };
-  const fixture = { manifest, detail, workflow };
+  const fixture = { manifest, detail, workflow, summary: summaryFromManifest(manifest) };
   await finalizeDetail(fixture); await finalizeWorkflow(fixture);
+  fixture.summary = summaryFromManifest(manifest);
   return fixture;
 }
 
@@ -317,15 +423,18 @@ async function correctionChainArtifacts() {
   const bChecksum = await providerChecksum(b);
   const bVersionId = await correctionVersionId(EVIDENCE_ID, VERSION_ID, bChecksum);
   setVersion(b, { current: false, predecessor: VERSION_ID, checksum: bChecksum, versionId: bVersionId, correctedAt: "2026-07-12T07:31:40Z", changedFields: ["lowerBound", "upperBound"] });
+  setGeneration(b, "2026-07-12T07:31:40Z");
   const a2 = structuredClone(a1);
   const a2VersionId = await correctionVersionId(EVIDENCE_ID, bVersionId, CONTENT_HASH);
   setVersion(a2, { current: true, predecessor: bVersionId, checksum: CONTENT_HASH, versionId: a2VersionId, correctedAt: "2026-07-13T07:31:40Z", changedFields: ["lowerBound", "upperBound"] });
+  setGeneration(a2, "2026-07-13T07:31:40Z");
   const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "Sample Company", market: "A股", status: "generated_real", totalAnnouncementCount: 1, targetAnnouncements: [targetAnnouncement()], providerSnapshots: [a2], historicalProviderVersions: [a1, b], exclusions: [], warnings: [], quality: detailQuality("2026-07-13T07:31:40Z", "generated_real") };
   const workflowRecord = structuredClone(a2); delete workflowRecord.sourceTextEvidence; delete workflowRecord.originalUnitEvidence;
   const workflow: CompanyGuidanceExpectationWorkflowIndex = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", currentSnapshotCount: 1, records: [workflowRecord], warnings: [] };
   const manifest: CompanyGuidanceExpectationManifest = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", totalCompanies: 1, companiesWithSnapshots: 1, totalSnapshots: 1, totalHistoricalVersions: 2, workflowIndexRelativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", workflowIndexByteSize: 0, workflowIndexChecksumSha256: "", items: [{ stockId: "sample", stockCode: "000001", companyName: "Sample Company", relativePath: "data/a-share-company-guidance-expectations/sample.json", snapshotCount: 1, historicalVersionCount: 2, excludedAnnouncementCount: 0, byteSize: 0, checksumSha256: "", latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: "generated_real" }] };
-  const fixture = { manifest, detail, workflow };
+  const fixture = { manifest, detail, workflow, summary: summaryFromManifest(manifest) };
   await finalizeDetail(fixture); await finalizeWorkflow(fixture);
+  fixture.summary = summaryFromManifest(manifest);
   return fixture;
 }
 
@@ -340,6 +449,7 @@ function setVersion(record: EarningsExpectationProviderSnapshot, { current, pred
   record.artifactChecksum = checksum;
   Object.assign(record.snapshot, { id: versionId, providerContentChecksum: checksum, providerSnapshotVersionId: versionId, providerCorrectsVersionId: predecessor, providerCorrectionType: record.providerCorrectionType, providerCorrectedAt: correctedAt, providerCorrectionChangedFields: changedFields, isCurrentProviderVersion: current, artifactChecksum: checksum });
 }
+function setGeneration(record: EarningsExpectationProviderSnapshot, generatedAt: string) { record.generatedAt = generatedAt; record.snapshot.createdAt = generatedAt; record.snapshot.providerGeneratedAt = generatedAt; }
 
 async function providerChecksum(record: EarningsExpectationProviderSnapshot) {
   return sha256Hex(new TextEncoder().encode(canonicalJson({ providerEvidenceIdentity: record.providerEvidenceIdentity, estimateShape: record.snapshot.estimateShape, value: record.snapshot.value, lowerBound: record.snapshot.lowerBound, upperBound: record.snapshot.upperBound, currency: record.snapshot.currency, unit: record.snapshot.unit, accountingBasis: record.snapshot.accountingBasis, sourcePublishedAt: record.snapshot.sourcePublishedAt, sourceTextEvidenceHash: record.sourceTextEvidenceHash, providerParseRulesVersion: record.providerParseRulesVersion })));
@@ -354,6 +464,21 @@ async function finalizeDetail(fixture: { manifest: CompanyGuidanceExpectationMan
 async function finalizeWorkflow(fixture: { manifest: CompanyGuidanceExpectationManifest; workflow: CompanyGuidanceExpectationWorkflowIndex }) { const bytes = new TextEncoder().encode(JSON.stringify(fixture.workflow)); fixture.manifest.workflowIndexByteSize = bytes.byteLength; fixture.manifest.workflowIndexChecksumSha256 = await sha256Hex(bytes); }
 function response(value: unknown) { return new Response(JSON.stringify(value), { status: 200, headers: { "Content-Type": "application/json" } }); }
 async function sha256Hex(bytes: Uint8Array) { const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes as BufferSource); return [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join(""); }
+function providerLoader(fixture: { summary: CompanyGuidanceExpectationSummary }, fetchImpl: typeof fetch) { return createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0, summary: fixture.summary }); }
+function summaryFromManifest(manifest: CompanyGuidanceExpectationManifest): CompanyGuidanceExpectationSummary {
+  const statuses = manifest.items.map((entry) => entry.status);
+  const status = statuses.includes("partial") ? "partial" : statuses.includes("generated_real") ? "generated_real" : "missing";
+  return {
+    schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: manifest.generatedAt,
+    sourceArtifact: "test fixture", sourceGeneratedAt: manifest.generatedAt, status, audit: {},
+    workflowIndex: { relativePath: manifest.workflowIndexRelativePath, byteSize: manifest.workflowIndexByteSize, checksumSha256: manifest.workflowIndexChecksumSha256, currentSnapshotCount: manifest.totalSnapshots },
+    items: Object.fromEntries(manifest.items.map((entry) => [entry.stockId, {
+      stockId: entry.stockId, stockCode: entry.stockCode, companyName: entry.companyName, status: entry.status,
+      snapshotCount: entry.snapshotCount, excludedAnnouncementCount: entry.excludedAnnouncementCount,
+      latestReportPeriod: entry.latestReportPeriod, latestSourceDate: entry.latestSourceDate, detailPath: entry.relativePath,
+    }])),
+  };
+}
 
 const TEXT_HASH = "7d4eff5587a1149c9a74dfcf1b4cb7adb9d621856b4de33013261ecb26e8e9fa";
 const CONTENT_HASH = "93bbee94649326af7ea3fa92f6eeb719e1a1c391e3586d786dce7a9907d5f2bd";
@@ -365,7 +490,8 @@ function providerRecord(): EarningsExpectationProviderSnapshot {
   return { providerId: "cninfo-company-guidance", providerVersion: "2.0.0", snapshot, providerEvidenceIdentity: EVIDENCE_ID, providerSnapshotVersionId: VERSION_ID, providerContentChecksum: CONTENT_HASH, providerParseRulesVersion: "1.0.0", providerCorrectsVersionId: null, providerCorrectionType: "initial", providerCorrectedAt: null, providerCorrectionChangedFields: [], isCurrentVersion: true, providerBusinessRevisionPredecessorSnapshotId: null, sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview", officialSourceUrl: snapshot.sourceUrl as string, officialPdfUrl: snapshot.officialPdfUrl as string, sourceDate: "2026-01-15", generatedAt: "2026-07-11T07:31:40Z", artifactChecksum: CONTENT_HASH, sourceParseStatus: "parse_success", sourceExtractionConfidence: "high", sourceTextEvidence: "evidence-100-200", sourceTextEvidenceHash: TEXT_HASH, originalUnitEvidence: "万元", correctionCandidateAnnouncementIds: [], structuredWarnings: [] };
 }
 function workflowIndex(): CompanyGuidanceExpectationWorkflowIndex { const record = providerRecord(); delete record.sourceTextEvidence; delete record.originalUnitEvidence; return { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", currentSnapshotCount: 1, records: [record], warnings: [] }; }
-function targetAnnouncement() { return { sourceAnnouncementId: "1222448664", stockId: "sample", sourceAnnouncementType: "earnings_preview" as const, sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, parseStatus: "parse_success", isDuplicate: false }; }
+function targetAnnouncement() { return { sourceAnnouncementId: "1222448664", stockId: "sample", sourceAnnouncementType: "earnings_preview" as const, sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, parseStatus: "parse_success" as const, isDuplicate: false }; }
+function exclusionRecord() { return { stockId: "sample", companyName: "样本公司", sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview" as const, sourceTitle: "2025年度业绩预告", sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, metric: null, parseStatus: "parse_success" as const, officialSourceUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664", candidateAnnouncementIds: [], reasons: ["no_reliable_forecast_range"] }; }
 function detailQuality(updatedAt: string, status: "generated_real" | "partial" | "missing") { return { source: "CNInfo" as const, sourceLayer: "company_guidance_expectations" as const, sourceUrl: "https://www.cninfo.com.cn/new/hisAnnouncement/query", updatedAt, status }; }
 function localSnapshot(overrides: Partial<EarningsExpectationSnapshot> = {}): EarningsExpectationSnapshot { return { id: "local-snapshot", stockId: "sample", market: "A股", reportPeriod: "2025-12-31", periodScope: "full_year", metric: "attributable_net_profit", estimateShape: "range", value: null, lowerBound: 100, upperBound: 200, currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "company_guidance", sourceName: "manual source", sourceTitle: "2025年度业绩预告", sourceUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664", sourcePublishedAt: "2026-01-15", sourcePublishedAtPrecision: "date", sourcePublishedAtResolution: "date", sourcePublishedAtTimeZone: null, sourcePublishedAtCalendarDate: "2026-01-15", asOfDate: "2026-01-15", formedAt: null, formedAtPrecision: "date", formedAtResolution: "date", formedAtTimeZone: null, formedAtCalendarDate: "2026-01-15", analystCount: null, institutionCount: null, ingestionMethod: "manual", createdAt: "2026-01-15T00:00:00Z", createdBy: "local-user", sourceVerificationStatus: "verified", notes: null, correctsSnapshotId: null, correctionScope: null, schemaVersion: 2, ...overrides }; }
 function providerStock() { return { id: "sample", name: "样本公司", code: "000001.SZ", market: "A股", industryId: "tech", segmentId: "segment", dataMode: "mixed" } as Stock; }
