@@ -6,8 +6,13 @@ import {
   COMPANY_GUIDANCE_PROVIDER_ID,
   COMPANY_GUIDANCE_PROVIDER_VERSION,
   COMPANY_GUIDANCE_SCHEMA_VERSION,
+  COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS,
+  COMPANY_GUIDANCE_SUMMARY_ITEM_FIELDS,
   canonicalJson,
   createWorkflowIndex,
+  deriveCompanyGuidanceManifestMetadata,
+  deriveCompanyGuidanceSummaryItem,
+  deriveCompanyGuidanceSummaryStatus,
   validateBusinessRevisionGraph,
   validateCompanyGuidanceDetail,
   validateVersionGraph,
@@ -65,7 +70,10 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
     if (bytes.byteLength !== entry.byteSize || sha256(bytes) !== entry.checksumSha256) errors.push(`checksum mismatch: ${entry.stockId}`);
     let detail; try { detail = JSON.parse(bytes.toString("utf8")); } catch { errors.push(`invalid json: ${entry.stockId}`); continue; }
     if (detail.stockId !== entry.stockId || detail.stockCode !== entry.stockCode || detail.companyName !== entry.companyName) errors.push(`identity mismatch: ${entry.stockId}`);
-    if (detail.providerSnapshots?.length !== entry.snapshotCount || detail.historicalProviderVersions?.length !== entry.historicalVersionCount) errors.push(`version count mismatch: ${entry.stockId}`);
+    try {
+      const expectedManifestMetadata = deriveCompanyGuidanceManifestMetadata(detail);
+      errors.push(...projectionMismatchMessages("manifest", entry.stockId, entry, expectedManifestMetadata, COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS));
+    } catch (error) { errors.push(`manifest metadata derivation failed: ${entry.stockId}: ${String(error)}`); }
     errors.push(...validateCompanyGuidanceDetail(detail).map((error) => `${entry.stockId}:${error}`));
     totalSnapshots += detail.providerSnapshots?.length ?? 0;
     totalHistoricalVersions += detail.historicalProviderVersions?.length ?? 0;
@@ -82,12 +90,18 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
 
   const summaryItems = isObject(summary?.items) ? summary.items : {};
   const summaryStockIds = new Set(Object.keys(summaryItems));
+  const detailStockIds = new Set(details.map((detail) => detail.stockId));
   errors.push(...setDifferenceMessages("summary stockId missing", manifestStockIds, summaryStockIds));
   errors.push(...setDifferenceMessages("summary stockId extra", summaryStockIds, manifestStockIds));
-  for (const entry of items) {
-    const item = summaryItems[entry.stockId];
+  errors.push(...setDifferenceMessages("summary detail stockId missing", detailStockIds, summaryStockIds));
+  errors.push(...setDifferenceMessages("summary detail stockId extra", summaryStockIds, detailStockIds));
+  for (const detail of details) {
+    const item = summaryItems[detail.stockId];
     if (!item) continue;
-    if (item.stockId !== entry.stockId || item.stockCode !== entry.stockCode || item.companyName !== entry.companyName || item.detailPath !== entry.relativePath || item.snapshotCount !== entry.snapshotCount) errors.push(`summary identity/count mismatch: ${entry.stockId}`);
+    try {
+      const expectedSummaryItem = deriveCompanyGuidanceSummaryItem(detail);
+      errors.push(...projectionMismatchMessages("summary", detail.stockId, item, expectedSummaryItem, COMPANY_GUIDANCE_SUMMARY_ITEM_FIELDS));
+    } catch (error) { errors.push(`summary metadata derivation failed: ${detail.stockId}: ${String(error)}`); }
   }
 
   errors.push(...validateVersionGraph(versions), ...validateBusinessRevisionGraph(records));
@@ -112,7 +126,13 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
   if (totalHistoricalVersions !== manifest?.totalHistoricalVersions || totalHistoricalVersions !== summary?.audit?.historicalVersionCount) errors.push("historical version count mismatch");
   if (companiesWithSnapshots !== manifest?.companiesWithSnapshots || companiesWithSnapshots !== summary?.audit?.reliableCompanyCount) errors.push("companies-with-snapshots count mismatch");
   if (summary?.audit?.companyCount !== items.length) errors.push("summary company count mismatch");
-  if (summary?.workflowIndex?.byteSize !== manifest?.workflowIndexByteSize || summary?.workflowIndex?.checksumSha256 !== manifest?.workflowIndexChecksumSha256) errors.push("summary workflow metadata mismatch");
+  if (summary?.generatedAt !== manifest?.generatedAt) errors.push("summary global field mismatch: generatedAt");
+  if (summary?.sourceGeneratedAt !== manifest?.generatedAt) errors.push("summary global field mismatch: sourceGeneratedAt");
+  if (summary?.workflowIndex?.relativePath !== manifest?.workflowIndexRelativePath) errors.push("summary global field mismatch: workflowIndex.relativePath");
+  if (summary?.workflowIndex?.byteSize !== manifest?.workflowIndexByteSize) errors.push("summary global field mismatch: workflowIndex.byteSize");
+  if (summary?.workflowIndex?.checksumSha256 !== manifest?.workflowIndexChecksumSha256) errors.push("summary global field mismatch: workflowIndex.checksumSha256");
+  if (summary?.workflowIndex?.currentSnapshotCount !== manifest?.totalSnapshots) errors.push("summary global field mismatch: workflowIndex.currentSnapshotCount");
+  try { if (summary?.status !== deriveCompanyGuidanceSummaryStatus(details)) errors.push("summary global field mismatch: status"); } catch (error) { errors.push(`summary status derivation failed: ${String(error)}`); }
   if (totalSnapshots <= 0) errors.push("no reliable provider snapshots");
 
   return {
@@ -127,6 +147,7 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
 }
 
 function setDifferenceMessages(label, left, right) { return [...left].filter((value) => !right.has(value)).sort().map((value) => `${label}: ${value}`); }
+function projectionMismatchMessages(label, stockId, actual, expected, fields) { return fields.filter((field) => !Object.is(actual?.[field], expected[field])).map((field) => `${label} derived field mismatch: ${stockId}.${field} expected=${JSON.stringify(expected[field])} actual=${JSON.stringify(actual?.[field])}`); }
 function readJson(file) { return JSON.parse(fs.readFileSync(file, "utf8")); }
 function sha256(value) { return crypto.createHash("sha256").update(value).digest("hex"); }
 function isObject(value) { return typeof value === "object" && value !== null && !Array.isArray(value); }

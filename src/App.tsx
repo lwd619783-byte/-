@@ -26,7 +26,7 @@ import { createBrowserEarningsExpectationRepository, createEmptyEarningsExpectat
 import { EarningsExpectationStore, type CreateEarningsExpectationSnapshotInput, type EarningsExpectationActionResult } from "./services/earningsExpectationStore";
 import { buildEarningsExpectationComparisons } from "./services/earningsExpectationComparisonProvider";
 import { buildEarningsExpectationResearchEvents } from "./services/earningsExpectationEventProvider";
-import { aggregateEarningsExpectationEvidence, buildProviderContentConflictEvents, companyGuidanceExpectationSummary, createCompanyGuidanceExpectationLoader, selectActiveCompanyGuidanceProviderRecords } from "./services/companyGuidanceExpectationProvider";
+import { aggregateEarningsExpectationEvidence, buildProviderContentConflictEvents, companyGuidanceExpectationSummary, createCompanyGuidanceExpectationLoader, selectActiveCompanyGuidanceProviderRecords, selectDefaultCompanyGuidanceStockIds } from "./services/companyGuidanceExpectationProvider";
 import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant } from "./utils/dateTime";
 import type { CompanyGuidanceExpectationDetail, CompanyGuidanceExpectationLoadStatus, CompanyGuidanceExpectationWorkflowIndex, DashboardDataMode, EarningsExpectationSnapshot, Stock, WatchItem } from "./types";
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
@@ -133,7 +133,7 @@ export default function App() {
     const requestedIds = activeSelectedStock?.market === "A股"
       ? [activeSelectedStock.id]
       : activeTab === "预期证据" || activeTab === "验证中心"
-        ? Object.values(companyGuidanceExpectationSummary.items).filter((item) => item.snapshotCount > 0 || item.excludedAnnouncementCount > 0).map((item) => item.stockId)
+        ? selectDefaultCompanyGuidanceStockIds(companyGuidanceExpectationSummary.items)
         : [];
     const missingIds = requestedIds.filter((stockId) => !companyGuidanceDetails[stockId] && !companyGuidanceFailedStockIds.includes(stockId));
     if (!missingIds.length) {

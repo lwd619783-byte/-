@@ -6,8 +6,12 @@ import {
   COMPANY_GUIDANCE_PROVIDER_ID,
   COMPANY_GUIDANCE_PROVIDER_VERSION,
   COMPANY_GUIDANCE_SCHEMA_VERSION,
+  COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS,
+  COMPANY_GUIDANCE_SUMMARY_ITEM_FIELDS,
   buildCompanyGuidanceArtifacts,
   createWorkflowIndex,
+  deriveCompanyGuidanceManifestMetadata,
+  deriveCompanyGuidanceSummaryItem,
   validateBusinessRevisionGraph,
   validateCompanyGuidanceDetail,
   validateVersionGraph,
@@ -77,19 +81,20 @@ export function generateCompanyGuidanceArtifacts({ dryRun = false, rootPath = de
     workflowIndexChecksumSha256,
     items: result.companies.map((company) => {
       const content = renderedDetails.get(company.stockId);
+      const metadata = deriveCompanyGuidanceManifestMetadata(company);
       return {
-        stockId: company.stockId,
-        stockCode: company.stockCode,
-        companyName: company.companyName,
-        relativePath: `data/a-share-company-guidance-expectations/${company.stockId}.json`,
-        snapshotCount: company.providerSnapshots.length,
-        historicalVersionCount: company.historicalProviderVersions.length,
-        excludedAnnouncementCount: new Set(company.exclusions.map((record) => record.sourceAnnouncementId)).size,
+        stockId: metadata.stockId,
+        stockCode: metadata.stockCode,
+        companyName: metadata.companyName,
+        relativePath: metadata.relativePath,
+        snapshotCount: metadata.snapshotCount,
+        historicalVersionCount: metadata.historicalVersionCount,
+        excludedAnnouncementCount: metadata.excludedAnnouncementCount,
         byteSize: Buffer.byteLength(content),
         checksumSha256: sha256(content),
-        latestReportPeriod: company.providerSnapshots.map((record) => record.snapshot.reportPeriod).sort().at(-1) ?? null,
-        latestSourceDate: company.providerSnapshots.map((record) => record.sourceDate).sort().at(-1) ?? null,
-        status: company.status,
+        latestReportPeriod: metadata.latestReportPeriod,
+        latestSourceDate: metadata.latestSourceDate,
+        status: metadata.status,
       };
     }),
   };
@@ -248,6 +253,10 @@ function validateRendered(result, manifest, renderedDetails, workflowIndex, rend
   if (Buffer.byteLength(renderedWorkflowIndex) !== manifest.workflowIndexByteSize || sha256(renderedWorkflowIndex) !== manifest.workflowIndexChecksumSha256) throw new Error("workflow index checksum mismatch");
   for (const entry of manifest.items) {
     assertProviderManifestEntry(entry);
+    const company = result.companies.find((candidate) => candidate.stockId === entry.stockId);
+    if (!company) throw new Error(`manifest detail missing for ${entry.stockId}`);
+    assertDerivedProjection("manifest", entry.stockId, entry, deriveCompanyGuidanceManifestMetadata(company), COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS);
+    assertDerivedProjection("summary", entry.stockId, result.summary.items[entry.stockId], deriveCompanyGuidanceSummaryItem(company), COMPANY_GUIDANCE_SUMMARY_ITEM_FIELDS);
     const content = renderedDetails.get(entry.stockId);
     if (!content || Buffer.byteLength(content) !== entry.byteSize || sha256(content) !== entry.checksumSha256) throw new Error(`manifest mismatch for ${entry.stockId}`);
   }
@@ -256,6 +265,7 @@ function validateRendered(result, manifest, renderedDetails, workflowIndex, rend
 function assertProviderManifestEntry(entry) {
   if (!entry || !SAFE_PROVIDER_DETAIL_PATH.test(entry.relativePath ?? "") || entry.relativePath.includes("..") || !entry.relativePath.endsWith(`/${entry.stockId}.json`)) throw new Error(`unsafe provider path for ${entry?.stockId ?? "unknown"}`);
 }
+function assertDerivedProjection(label, stockId, actual, expected, fields) { for (const field of fields) if (!Object.is(actual?.[field], expected[field])) throw new Error(`${label} derived field mismatch: ${stockId}.${field} expected=${JSON.stringify(expected[field])} actual=${JSON.stringify(actual?.[field])}`); }
 function assertUnique(values, label) { if (new Set(values).size !== values.length) throw new Error(`duplicate ${label}`); }
 function assertUniqueAndEqualSets(label, left, right) { assertUnique(left, `${label} left`); assertUnique(right, `${label} right`); const leftSet = new Set(left); const rightSet = new Set(right); const missing = [...leftSet].filter((item) => !rightSet.has(item)); const extra = [...rightSet].filter((item) => !leftSet.has(item)); if (missing.length || extra.length) throw new Error(`${label} mismatch: missing=${missing.join(",")} extra=${extra.join(",")}`); }
 function invokeTransactionHook(hooks, stage, state) { hooks?.beforeStage?.(stage, structuredClone(state)); }

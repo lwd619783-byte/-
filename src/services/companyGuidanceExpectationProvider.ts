@@ -1,4 +1,5 @@
 import summaryJson from "../data/real/a-share-company-guidance-expectation-summaries.generated.json";
+import { selectDefaultCompanyGuidanceStockIds } from "./companyGuidanceExpectationSelection.mjs";
 import type {
   AggregatedEarningsExpectationEvidence,
   CompanyGuidanceExpectationDetail,
@@ -26,6 +27,7 @@ const FINANCIAL_RELATION_FIELDS = ["estimateShape", "value", "lowerBound", "uppe
 const METADATA_RELATION_FIELDS = ["sourceName", "sourceTitle", "notes", "createdBy", "sourceVerificationStatus"] as const;
 
 export const companyGuidanceExpectationSummary = summaryJson as CompanyGuidanceExpectationSummary;
+export { selectDefaultCompanyGuidanceStockIds } from "./companyGuidanceExpectationSelection.mjs";
 
 export class CompanyGuidanceExpectationLoadError extends Error {
   constructor(message: string, public readonly code: "network" | "http" | "invalid_json" | "schema" | "identity" | "checksum" | "not_found" | "graph" | "stale") {
@@ -119,7 +121,7 @@ export function createCompanyGuidanceExpectationLoader(options: LoaderOptions = 
     return guarded;
   }
 
-  async function loadMany(stockIds = Object.values(companyGuidanceExpectationSummary.items).filter((item) => item.snapshotCount > 0 || item.excludedAnnouncementCount > 0).map((item) => item.stockId)): Promise<CompanyGuidanceExpectationLoadManyResult> {
+  async function loadMany(stockIds = selectDefaultCompanyGuidanceStockIds(companyGuidanceExpectationSummary.items)): Promise<CompanyGuidanceExpectationLoadManyResult> {
     const uniqueIds = [...new Set(stockIds)];
     const settled = await Promise.allSettled(uniqueIds.map((stockId) => load(stockId)));
     const successes: Record<string, CompanyGuidanceExpectationDetail> = {};

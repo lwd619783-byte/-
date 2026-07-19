@@ -7,7 +7,9 @@ import path from "node:path";
 import {
   buildCompanyGuidanceArtifacts,
   createWorkflowIndex,
+  deriveCompanyGuidanceManifestMetadata,
 } from "../company-guidance-expectations/core.mjs";
+import { selectDefaultCompanyGuidanceStockIds } from "../../src/services/companyGuidanceExpectationSelection.mjs";
 import {
   ARTIFACT_TRANSACTION_STAGE,
   ArtifactTransactionCleanupError,
@@ -156,6 +158,80 @@ test("offline validator rejects missing and extra summary items", () => withTemp
   assert.ok(errors.includes("summary stockId extra: ghost"));
 }));
 
+for (const [field, wrongValue] of [
+  ["status", "missing"],
+  ["excludedAnnouncementCount", 1],
+  ["latestReportPeriod", "2024-12-31"],
+  ["latestSourceDate", "2026-01-14"],
+  ["historicalVersionCount", 1],
+]) test(`offline validator rejects manifest ${field} drift from detail`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  const manifestPath = path.join(resolveCompanyGuidancePaths(root).outputDir, "manifest.generated.json");
+  const manifest = readJson(manifestPath);
+  manifest.items[0][field] = wrongValue;
+  writeJson(manifestPath, manifest);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.some((error) => error.startsWith(`manifest derived field mismatch: company-00.${field} `)), errors.join("\n"));
+}));
+
+for (const [field, wrongValue] of [
+  ["status", "missing"],
+  ["snapshotCount", 2],
+  ["latestReportPeriod", "2024-12-31"],
+  ["latestSourceDate", "2026-01-14"],
+  ["detailPath", "data/a-share-company-guidance-expectations/wrong-company.json"],
+]) test(`offline validator rejects summary ${field} drift from detail`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  summary.items["company-00"][field] = wrongValue;
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.some((error) => error.startsWith(`summary derived field mismatch: company-00.${field} `)), errors.join("\n"));
+}));
+
+for (const [field, wrongValue] of [
+  ["generatedAt", "2026-07-10T07:31:40Z"],
+  ["sourceGeneratedAt", "2026-07-10T07:31:40Z"],
+  ["status", "partial"],
+]) test(`offline validator rejects summary global ${field} drift`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  summary[field] = wrongValue;
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes(`summary global field mismatch: ${field}`), errors.join("\n"));
+}));
+
+for (const [field, mutate] of [
+  ["workflowIndex.checksumSha256", (summary) => { summary.workflowIndex.checksumSha256 = "0".repeat(64); }],
+  ["workflowIndex.byteSize", (summary) => { summary.workflowIndex.byteSize += 1; }],
+  ["workflowIndex.currentSnapshotCount", (summary) => { summary.workflowIndex.currentSnapshotCount += 1; }],
+]) test(`offline validator rejects summary global ${field} drift`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  mutate(summary);
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes(`summary global field mismatch: ${field}`), errors.join("\n"));
+}));
+
+test("exclusion-only company stays in the default load set and corrupted summary fails closed", () => withTempRoot((root) => {
+  const result = buildMixedProviderBundle();
+  assert.deepEqual(selectDefaultCompanyGuidanceStockIds(result.summary.items), ["company-00", "company-01"]);
+  assert.equal(result.summary.items["company-01"].snapshotCount, 0);
+  assert.equal(result.summary.items["company-01"].excludedAnnouncementCount, 1);
+  writeBundle(root, result, 2);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  summary.items["company-01"].excludedAnnouncementCount = 0;
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 2 }).errors;
+  assert.ok(errors.some((error) => error.startsWith("summary derived field mismatch: company-01.excludedAnnouncementCount ")), errors.join("\n"));
+}));
+
 function withGeneratorRoot(run) {
   return withTempRoot((root) => {
     createSourceArtifacts(root, 56);
@@ -211,7 +287,19 @@ function announcement({ lowerBound = 100, upperBound = 200 } = {}) {
   };
 }
 
+function excludedAnnouncement() {
+  return {
+    ...announcement(),
+    announcementId: "9000002",
+    officialUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=9000002",
+    pdfUrl: "https://static.cninfo.com.cn/finalpage/2026-01-15/9000002.PDF",
+    parseStatus: "parse_partial",
+    performanceForecastEvents: [],
+  };
+}
+
 function buildSingle(announcements) { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, announcements)], sourceGeneratedAt: GENERATED_AT }); }
+function buildMixedProviderBundle() { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, [announcement()]), sourceDetail(1, [excludedAnnouncement()])], sourceGeneratedAt: GENERATED_AT }); }
 
 function bundleForOneCompany() { return createBundle(buildSingle([announcement()])); }
 function createBundle(result) {
@@ -232,7 +320,8 @@ function createBundle(result) {
     workflowIndexChecksumSha256: sha256(renderedWorkflowIndex),
     items: result.companies.map((company) => {
       const content = renderedDetails.get(company.stockId);
-      return { stockId: company.stockId, stockCode: company.stockCode, companyName: company.companyName, relativePath: `data/a-share-company-guidance-expectations/${company.stockId}.json`, snapshotCount: company.providerSnapshots.length, historicalVersionCount: company.historicalProviderVersions.length, excludedAnnouncementCount: 0, byteSize: Buffer.byteLength(content), checksumSha256: sha256(content), latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: company.status };
+      const metadata = deriveCompanyGuidanceManifestMetadata(company);
+      return { stockId: metadata.stockId, stockCode: metadata.stockCode, companyName: metadata.companyName, relativePath: metadata.relativePath, snapshotCount: metadata.snapshotCount, historicalVersionCount: metadata.historicalVersionCount, excludedAnnouncementCount: metadata.excludedAnnouncementCount, byteSize: Buffer.byteLength(content), checksumSha256: sha256(content), latestReportPeriod: metadata.latestReportPeriod, latestSourceDate: metadata.latestSourceDate, status: metadata.status };
     }),
   };
   result.summary.workflowIndex = { relativePath: manifest.workflowIndexRelativePath, byteSize: manifest.workflowIndexByteSize, checksumSha256: manifest.workflowIndexChecksumSha256, currentSnapshotCount: workflow.currentSnapshotCount };

@@ -17,6 +17,16 @@ const FINANCIAL_CONTENT_FIELDS = [
   "estimateShape", "value", "lowerBound", "upperBound", "currency", "unit", "accountingBasis",
   "sourcePublishedAt", "sourceTextEvidenceHash", "providerParseRulesVersion",
 ];
+const COMPANY_GUIDANCE_DETAIL_BASE_PATH = "data/a-share-company-guidance-expectations";
+const SAFE_PROVIDER_STOCK_ID = /^[A-Za-z0-9_-]+$/u;
+export const COMPANY_GUIDANCE_MANIFEST_METADATA_FIELDS = Object.freeze([
+  "stockId", "stockCode", "companyName", "relativePath", "status", "snapshotCount", "historicalVersionCount",
+  "excludedAnnouncementCount", "latestReportPeriod", "latestSourceDate",
+]);
+export const COMPANY_GUIDANCE_SUMMARY_ITEM_FIELDS = Object.freeze([
+  "stockId", "stockCode", "companyName", "status", "snapshotCount", "excludedAnnouncementCount",
+  "latestReportPeriod", "latestSourceDate", "detailPath",
+]);
 
 export function periodScopeFor(reportPeriod) {
   if (typeof reportPeriod !== "string") return null;
@@ -101,6 +111,49 @@ export function computeProviderContentChecksum(record) {
   return sha256(canonicalJson(providerContentProjection(record)));
 }
 
+export function companyGuidanceDetailRelativePath(stockId) {
+  if (typeof stockId !== "string" || !SAFE_PROVIDER_STOCK_ID.test(stockId)) throw new Error(`unsafe company-guidance stockId: ${String(stockId)}`);
+  return `${COMPANY_GUIDANCE_DETAIL_BASE_PATH}/${stockId}.json`;
+}
+
+export function deriveCompanyGuidanceManifestMetadata(detail) {
+  assertProjectionDetail(detail);
+  return {
+    stockId: detail.stockId,
+    stockCode: detail.stockCode,
+    companyName: detail.companyName,
+    relativePath: companyGuidanceDetailRelativePath(detail.stockId),
+    snapshotCount: detail.providerSnapshots.length,
+    historicalVersionCount: detail.historicalProviderVersions.length,
+    excludedAnnouncementCount: new Set(detail.exclusions.map((record) => record?.sourceAnnouncementId).filter((value) => typeof value === "string" && value.length > 0)).size,
+    latestReportPeriod: latestValidCalendarDate(detail.providerSnapshots.map((record) => record?.snapshot?.reportPeriod)),
+    latestSourceDate: latestValidCalendarDate(detail.providerSnapshots.map((record) => record?.sourceDate)),
+    status: detail.status,
+  };
+}
+
+export function deriveCompanyGuidanceSummaryItem(detail) {
+  const metadata = deriveCompanyGuidanceManifestMetadata(detail);
+  return {
+    stockId: metadata.stockId,
+    stockCode: metadata.stockCode,
+    companyName: metadata.companyName,
+    status: metadata.status,
+    snapshotCount: metadata.snapshotCount,
+    excludedAnnouncementCount: metadata.excludedAnnouncementCount,
+    latestReportPeriod: metadata.latestReportPeriod,
+    latestSourceDate: metadata.latestSourceDate,
+    detailPath: metadata.relativePath,
+  };
+}
+
+export function deriveCompanyGuidanceSummaryStatus(details) {
+  if (!Array.isArray(details)) throw new Error("company-guidance details must be an array");
+  const currentSnapshotCount = details.reduce((sum, detail) => sum + projectionArray(detail, "providerSnapshots").length, 0);
+  if (currentSnapshotCount === 0) return "missing";
+  return details.some((detail) => projectionArray(detail, "exclusions").length > 0) ? "partial" : "generated_real";
+}
+
 export function buildCompanyGuidanceArtifacts({ announcementDetails, sourceGeneratedAt, previousDetails = [] }) {
   if (!Array.isArray(announcementDetails) || !announcementDetails.length) throw new Error("announcementDetails must be a non-empty array");
   if (!isPreciseInstant(sourceGeneratedAt)) throw new Error("sourceGeneratedAt must be a precise instant");
@@ -160,20 +213,10 @@ export function buildCompanyGuidanceArtifacts({ announcementDetails, sourceGener
     generatedAt: sourceGeneratedAt,
     sourceArtifact: "CNInfo A-share announcement Provider V1 committed artifacts",
     sourceGeneratedAt,
-    status: allRecords.length ? (allExclusions.length ? "partial" : "generated_real") : "missing",
+    status: deriveCompanyGuidanceSummaryStatus(companies),
     audit,
     workflowIndex: { relativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", byteSize: 0, checksumSha256: "", currentSnapshotCount: allRecords.length },
-    items: Object.fromEntries(companies.map((company) => [company.stockId, {
-      stockId: company.stockId,
-      stockCode: company.stockCode,
-      companyName: company.companyName,
-      status: company.status,
-      snapshotCount: company.providerSnapshots.length,
-      excludedAnnouncementCount: new Set(company.exclusions.map((record) => record.sourceAnnouncementId)).size,
-      latestReportPeriod: company.providerSnapshots.map((record) => record.snapshot.reportPeriod).sort().at(-1) ?? null,
-      latestSourceDate: company.providerSnapshots.map((record) => record.sourceDate).sort().at(-1) ?? null,
-      detailPath: `data/a-share-company-guidance-expectations/${company.stockId}.json`,
-    }])),
+    items: Object.fromEntries(companies.map((company) => [company.stockId, deriveCompanyGuidanceSummaryItem(company)])),
   };
   return { companies, summary, audit };
 }
@@ -486,4 +529,8 @@ function countNested(values, keyFn) { const keys = [...new Set(values.flatMap(ke
 function uniqueStrings(values) { return [...new Set(values.filter((value) => typeof value === "string" && value.trim()).map(String))].sort(); }
 export function canonicalJson(value) { if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`; if (value && typeof value === "object") return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`; return JSON.stringify(value); }
 export function sha256(value) { return crypto.createHash("sha256").update(value).digest("hex"); }
+function assertProjectionDetail(detail) { if (!detail || typeof detail !== "object") throw new Error("company-guidance detail must be an object"); projectionArray(detail, "providerSnapshots"); projectionArray(detail, "historicalProviderVersions"); projectionArray(detail, "exclusions"); }
+function projectionArray(detail, field) { if (!detail || !Array.isArray(detail[field])) throw new Error(`company-guidance detail ${String(detail?.stockId ?? "<invalid>")} ${field} must be an array`); return detail[field]; }
+function latestValidCalendarDate(values) { return values.filter(isValidCalendarDate).sort().at(-1) ?? null; }
+function isValidCalendarDate(value) { if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/u.test(value)) return false; const parsed = new Date(`${value}T00:00:00Z`); return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value; }
 function isPreciseInstant(value) { return typeof value === "string" && /(?:Z|[+-]\d{2}:\d{2})$/u.test(value) && Number.isFinite(Date.parse(value)); }
