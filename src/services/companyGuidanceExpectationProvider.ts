@@ -1,5 +1,5 @@
 import summaryJson from "../data/real/a-share-company-guidance-expectation-summaries.generated.json";
-import { selectDefaultCompanyGuidanceStockIds } from "./companyGuidanceExpectationSelection.mjs";
+import { deriveCompanyGuidanceDetailStatus, selectDefaultCompanyGuidanceStockIds } from "./companyGuidanceExpectationSelection.mjs";
 import type {
   AggregatedEarningsExpectationEvidence,
   CompanyGuidanceExpectationDetail,
@@ -275,9 +275,17 @@ async function validateWorkflowIndex(value: unknown, providerManifest: CompanyGu
 }
 
 async function validateDetail(value: unknown, entry: CompanyGuidanceExpectationManifestEntry, cryptoImpl: Crypto) {
-  if (!isObject(value) || value.schemaVersion !== SCHEMA_VERSION || value.providerId !== PROVIDER_ID || value.providerVersion !== PROVIDER_VERSION || !Array.isArray(value.providerSnapshots) || !Array.isArray(value.historicalProviderVersions) || !Array.isArray(value.exclusions) || !Array.isArray(value.warnings)) throw new CompanyGuidanceExpectationLoadError("Company-guidance detail schema mismatch", "schema");
+  if (!isObject(value) || value.schemaVersion !== SCHEMA_VERSION || value.providerId !== PROVIDER_ID || value.providerVersion !== PROVIDER_VERSION || !Array.isArray(value.providerSnapshots) || !Array.isArray(value.historicalProviderVersions) || !Array.isArray(value.exclusions) || !Array.isArray(value.targetAnnouncements) || !Array.isArray(value.warnings) || !isObject(value.quality)) throw new CompanyGuidanceExpectationLoadError("Company-guidance detail schema mismatch", "schema");
   const detail = value as unknown as CompanyGuidanceExpectationDetail;
   if (detail.stockId !== entry.stockId || detail.stockCode !== entry.stockCode || detail.providerSnapshots.length !== entry.snapshotCount || detail.historicalProviderVersions.length !== entry.historicalVersionCount) throw new CompanyGuidanceExpectationLoadError("Company-guidance detail identity/count mismatch", "identity");
+  const expectedStatus = deriveCompanyGuidanceDetailStatus(detail);
+  const detailContractErrors: string[] = [];
+  if (detail.status !== expectedStatus) detailContractErrors.push("detail_status");
+  if (entry.status !== expectedStatus) detailContractErrors.push("manifest_status");
+  if (detail.quality.status !== expectedStatus) detailContractErrors.push("detail_quality_status");
+  if (!isPreciseInstant(detail.generatedAt)) detailContractErrors.push("detail_generated_at");
+  if (detail.quality.updatedAt !== detail.generatedAt || detail.quality.source !== "CNInfo" || detail.quality.sourceLayer !== "company_guidance_expectations") detailContractErrors.push("detail_quality_contract");
+  if (detailContractErrors.length) throw new CompanyGuidanceExpectationLoadError(`Company-guidance detail status/quality validation failed for ${entry.stockId}: ${detailContractErrors.join("; ")}`, detailContractErrors.some((error) => error === "detail_generated_at" || error === "detail_quality_contract") ? "schema" : "identity");
   const errors = [...await validateRecords(detail.providerSnapshots, true, cryptoImpl, entry.stockId), ...await validateRecords(detail.historicalProviderVersions, false, cryptoImpl, entry.stockId)];
   errors.push(...validateVersionGraph([...detail.providerSnapshots, ...detail.historicalProviderVersions]), ...validateBusinessRevisionGraph(detail.providerSnapshots));
   if (errors.length) throw new CompanyGuidanceExpectationLoadError(`Company-guidance detail validation failed for ${entry.stockId}: ${errors.join("; ")}`, errors.some((error) => error.includes("graph")) ? "graph" : "identity");

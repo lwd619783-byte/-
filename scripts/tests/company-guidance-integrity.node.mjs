@@ -7,9 +7,10 @@ import path from "node:path";
 import {
   buildCompanyGuidanceArtifacts,
   createWorkflowIndex,
+  deriveCompanyGuidanceDetailStatus,
   deriveCompanyGuidanceManifestMetadata,
 } from "../company-guidance-expectations/core.mjs";
-import { selectDefaultCompanyGuidanceStockIds } from "../../src/services/companyGuidanceExpectationSelection.mjs";
+import { deriveCompanyGuidanceDetailStatus as deriveRuntimeCompanyGuidanceDetailStatus, selectDefaultCompanyGuidanceStockIds } from "../../src/services/companyGuidanceExpectationSelection.mjs";
 import {
   ARTIFACT_TRANSACTION_STAGE,
   ArtifactTransactionCleanupError,
@@ -232,6 +233,83 @@ test("exclusion-only company stays in the default load set and corrupted summary
   assert.ok(errors.some((error) => error.startsWith("summary derived field mismatch: company-01.excludedAnnouncementCount ")), errors.join("\n"));
 }));
 
+test("Node and runtime detail status contracts agree on all four product states", () => {
+  for (const [providerSnapshots, exclusions, targetAnnouncements, expected] of [
+    [[{}], [], [{}], "generated_real"],
+    [[{}], [{}], [{}], "partial"],
+    [[], [{}], [{}], "partial"],
+    [[], [], [], "missing"],
+  ]) {
+    const detail = { providerSnapshots, exclusions, targetAnnouncements };
+    assert.equal(deriveCompanyGuidanceDetailStatus(detail), expected);
+    assert.equal(deriveRuntimeCompanyGuidanceDetailStatus(detail), expected);
+  }
+  assert.throws(() => deriveCompanyGuidanceDetailStatus({ providerSnapshots: [], exclusions: [] }), /targetAnnouncements must be an array/u);
+  assert.throws(() => deriveRuntimeCompanyGuidanceDetailStatus({ providerSnapshots: [], exclusions: [] }), /targetAnnouncements must be an array/u);
+});
+
+test("offline validator rejects detail status drift with current snapshots and no exclusions", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.status = "partial"; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_status"), errors.join("\n"));
+}));
+
+test("offline validator rejects detail quality status drift", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.quality.status = "partial"; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_quality_status"), errors.join("\n"));
+}));
+
+test("offline validator rejects missing status when target announcements exist without current snapshots", () => withTempRoot((root) => {
+  writeBundle(root, buildStatusMatrixBundle(), 3);
+  mutateCommittedDetail(root, "company-01", (detail) => { detail.status = "missing"; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 3 }).errors;
+  assert.ok(errors.includes("company-01:detail_status"), errors.join("\n"));
+}));
+
+test("offline validator rejects partial status when neither current nor target announcements exist", () => withTempRoot((root) => {
+  writeBundle(root, buildStatusMatrixBundle(), 3);
+  mutateCommittedDetail(root, "company-02", (detail) => { detail.status = "partial"; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 3 }).errors;
+  assert.ok(errors.includes("company-02:detail_status"), errors.join("\n"));
+}));
+
+test("offline validator rejects quality updatedAt drift", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.quality.updatedAt = NEXT_GENERATED_AT; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_quality_contract"), errors.join("\n"));
+}));
+
+for (const [name, mutate, expectedCode] of [
+  ["generatedAt without an explicit offset", (detail) => { detail.generatedAt = "2026-07-11T07:31:40"; detail.quality.updatedAt = detail.generatedAt; }, "detail_generated_at"],
+  ["quality source drift", (detail) => { detail.quality.source = "Other"; }, "detail_quality_contract"],
+  ["quality sourceLayer drift", (detail) => { detail.quality.sourceLayer = "other_layer"; }, "detail_quality_contract"],
+]) test(`offline validator rejects ${name}`, () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", mutate);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes(`company-00:${expectedCode}`), errors.join("\n"));
+}));
+
+test("offline validator rejects a jointly corrupted detail, manifest and summary status", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  const artifact = mutateCommittedDetail(root, "company-00", (detail) => { detail.status = "partial"; detail.quality.status = "partial"; });
+  artifact.manifest.items[0].status = "partial";
+  writeJson(artifact.manifestPath, artifact.manifest);
+  const summaryPath = resolveCompanyGuidancePaths(root).summaryPath;
+  const summary = readJson(summaryPath);
+  summary.items["company-00"].status = "partial";
+  writeJson(summaryPath, summary);
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:detail_status"), errors.join("\n"));
+  assert.ok(errors.includes("company-00:detail_quality_status"), errors.join("\n"));
+  assert.ok(errors.some((error) => error.startsWith("manifest derived field mismatch: company-00.status ")), errors.join("\n"));
+  assert.ok(errors.some((error) => error.startsWith("summary derived field mismatch: company-00.status ")), errors.join("\n"));
+}));
+
 function withGeneratorRoot(run) {
   return withTempRoot((root) => {
     createSourceArtifacts(root, 56);
@@ -300,6 +378,7 @@ function excludedAnnouncement() {
 
 function buildSingle(announcements) { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, announcements)], sourceGeneratedAt: GENERATED_AT }); }
 function buildMixedProviderBundle() { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, [announcement()]), sourceDetail(1, [excludedAnnouncement()])], sourceGeneratedAt: GENERATED_AT }); }
+function buildStatusMatrixBundle() { return buildCompanyGuidanceArtifacts({ announcementDetails: [sourceDetail(0, [announcement()]), sourceDetail(1, [excludedAnnouncement()]), sourceDetail(2, [])], sourceGeneratedAt: GENERATED_AT }); }
 
 function bundleForOneCompany() { return createBundle(buildSingle([announcement()])); }
 function createBundle(result) {
@@ -330,6 +409,23 @@ function createBundle(result) {
 function writeBundle(root, result, companyCount) {
   const paths = resolveCompanyGuidancePaths(root);
   writeArtifactsTransaction({ ...createBundle(result), rootPath: root, outputDir: paths.outputDir, summaryPath: paths.summaryPath, expectedCompanyCount: companyCount });
+}
+
+function mutateCommittedDetail(root, stockId, mutate) {
+  const paths = resolveCompanyGuidancePaths(root);
+  const manifestPath = path.join(paths.outputDir, "manifest.generated.json");
+  const manifest = readJson(manifestPath);
+  const entry = manifest.items.find((item) => item.stockId === stockId);
+  assert.ok(entry, `manifest entry missing for ${stockId}`);
+  const detailPath = path.join(root, "public", entry.relativePath);
+  const detail = readJson(detailPath);
+  mutate(detail);
+  const content = renderJson(detail);
+  fs.writeFileSync(detailPath, content, "utf8");
+  entry.byteSize = Buffer.byteLength(content);
+  entry.checksumSha256 = sha256(content);
+  writeJson(manifestPath, manifest);
+  return { detail, detailPath, manifest, manifestPath };
 }
 
 function directoryDigest(directory) {

@@ -116,6 +116,14 @@ export function companyGuidanceDetailRelativePath(stockId) {
   return `${COMPANY_GUIDANCE_DETAIL_BASE_PATH}/${stockId}.json`;
 }
 
+export function deriveCompanyGuidanceDetailStatus(detail) {
+  const providerSnapshots = projectionArray(detail, "providerSnapshots");
+  const exclusions = projectionArray(detail, "exclusions");
+  const targetAnnouncements = projectionArray(detail, "targetAnnouncements");
+  if (providerSnapshots.length > 0) return exclusions.length > 0 ? "partial" : "generated_real";
+  return targetAnnouncements.length > 0 ? "partial" : "missing";
+}
+
 export function deriveCompanyGuidanceManifestMetadata(detail) {
   assertProjectionDetail(detail);
   return {
@@ -128,7 +136,7 @@ export function deriveCompanyGuidanceManifestMetadata(detail) {
     excludedAnnouncementCount: new Set(detail.exclusions.map((record) => record?.sourceAnnouncementId).filter((value) => typeof value === "string" && value.length > 0)).size,
     latestReportPeriod: latestValidCalendarDate(detail.providerSnapshots.map((record) => record?.snapshot?.reportPeriod)),
     latestSourceDate: latestValidCalendarDate(detail.providerSnapshots.map((record) => record?.sourceDate)),
-    status: detail.status,
+    status: deriveCompanyGuidanceDetailStatus(detail),
   };
 }
 
@@ -269,7 +277,7 @@ function buildCompany(detail, sourceGeneratedAt, previousDetail) {
   }
 
   const { current, historical } = reconcileVersions(candidates, previousDetail, sourceGeneratedAt, detail.stockId);
-  const status = current.length ? (exclusions.length ? "partial" : "generated_real") : targetAnnouncements.length ? "partial" : "missing";
+  const status = deriveCompanyGuidanceDetailStatus({ providerSnapshots: current, exclusions, targetAnnouncements });
   return {
     schemaVersion: COMPANY_GUIDANCE_SCHEMA_VERSION, providerId: COMPANY_GUIDANCE_PROVIDER_ID, providerVersion: COMPANY_GUIDANCE_PROVIDER_VERSION,
     generatedAt: sourceGeneratedAt, stockId: detail.stockId, stockCode: detail.stockCode, companyName: detail.companyName, market: "A股", status,
@@ -486,7 +494,12 @@ export function validateBusinessRevisionGraph(records) {
 export function validateCompanyGuidanceDetail(detail) {
   const errors = [];
   if (!detail || detail.schemaVersion !== COMPANY_GUIDANCE_SCHEMA_VERSION || detail.providerId !== COMPANY_GUIDANCE_PROVIDER_ID || detail.providerVersion !== COMPANY_GUIDANCE_PROVIDER_VERSION) return ["detail_contract"];
-  if (!Array.isArray(detail.providerSnapshots) || !Array.isArray(detail.historicalProviderVersions) || !Array.isArray(detail.exclusions) || !Array.isArray(detail.warnings)) return ["detail_arrays"];
+  if (!Array.isArray(detail.providerSnapshots) || !Array.isArray(detail.historicalProviderVersions) || !Array.isArray(detail.exclusions) || !Array.isArray(detail.targetAnnouncements) || !Array.isArray(detail.warnings)) return ["detail_arrays"];
+  const expectedStatus = deriveCompanyGuidanceDetailStatus(detail);
+  if (detail.status !== expectedStatus) errors.push("detail_status");
+  if (!isPreciseInstant(detail.generatedAt)) errors.push("detail_generated_at");
+  if (!detail.quality || typeof detail.quality !== "object" || detail.quality.source !== "CNInfo" || detail.quality.sourceLayer !== "company_guidance_expectations" || detail.quality.updatedAt !== detail.generatedAt) errors.push("detail_quality_contract");
+  else if (detail.quality.status !== expectedStatus) errors.push("detail_quality_status");
   for (const record of detail.providerSnapshots) errors.push(...validateProviderRecord(record, { stockId: detail.stockId, current: true }).map((error) => `${record.sourceAnnouncementId}:${error}`));
   for (const record of detail.historicalProviderVersions) errors.push(...validateProviderRecord(record, { stockId: detail.stockId, current: false }).map((error) => `${record.sourceAnnouncementId}:${error}`));
   errors.push(...validateVersionGraph([...detail.providerSnapshots, ...detail.historicalProviderVersions]));

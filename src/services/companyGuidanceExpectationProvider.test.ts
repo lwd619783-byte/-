@@ -94,6 +94,24 @@ describe("company guidance expectation provider V2", () => {
     await expect(identityFixture.loader.load("sample")).rejects.toMatchObject({ code: "identity" });
   });
 
+  it("rejects jointly corrupted detail and manifest statuses from the runtime load path", async () => {
+    const fixture = await artifacts();
+    fixture.detail.status = "partial";
+    fixture.detail.quality.status = "partial";
+    fixture.manifest.items[0].status = "partial";
+    await finalizeDetail(fixture);
+    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl: vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    await expect(loader.load("sample")).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("detail_status") });
+  });
+
+  it("rejects runtime detail quality timestamp drift with an explicit schema error", async () => {
+    const fixture = await artifacts();
+    fixture.detail.quality.updatedAt = "2026-07-12T07:31:40Z";
+    await finalizeDetail(fixture);
+    const loader = createCompanyGuidanceExpectationLoader({ fetchImpl: vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0 });
+    await expect(loader.load("sample")).rejects.toMatchObject({ code: "schema", message: expect.stringContaining("detail_quality_contract") });
+  });
+
   it("rejects a workflow checksum or current-version mismatch and closes the global workflow", async () => {
     const checksumFixture = await loaderFixture({ workflowChecksum: "0".repeat(64) });
     await expect(checksumFixture.loader.loadWorkflow()).rejects.toMatchObject({ code: "checksum" });
@@ -283,7 +301,7 @@ async function loaderFixture(options: { detailStockId?: string; manifestChecksum
 
 async function artifacts() {
   const record = providerRecord();
-  const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "样本公司", market: "A股", status: "generated_real", totalAnnouncementCount: 1, providerSnapshots: [record], historicalProviderVersions: [], exclusions: [], warnings: [] };
+  const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "样本公司", market: "A股", status: "generated_real", totalAnnouncementCount: 1, targetAnnouncements: [targetAnnouncement()], providerSnapshots: [record], historicalProviderVersions: [], exclusions: [], warnings: [], quality: detailQuality("2026-07-11T07:31:40Z", "generated_real") };
   const workflow = workflowIndex();
   const manifest: CompanyGuidanceExpectationManifest = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", totalCompanies: 1, companiesWithSnapshots: 1, totalSnapshots: 1, totalHistoricalVersions: 0, workflowIndexRelativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", workflowIndexByteSize: 0, workflowIndexChecksumSha256: "", items: [{ stockId: "sample", stockCode: "000001", companyName: "样本公司", relativePath: "data/a-share-company-guidance-expectations/sample.json", snapshotCount: 1, historicalVersionCount: 0, excludedAnnouncementCount: 0, byteSize: 0, checksumSha256: "", latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: "generated_real" }] };
   const fixture = { manifest, detail, workflow };
@@ -302,7 +320,7 @@ async function correctionChainArtifacts() {
   const a2 = structuredClone(a1);
   const a2VersionId = await correctionVersionId(EVIDENCE_ID, bVersionId, CONTENT_HASH);
   setVersion(a2, { current: true, predecessor: bVersionId, checksum: CONTENT_HASH, versionId: a2VersionId, correctedAt: "2026-07-13T07:31:40Z", changedFields: ["lowerBound", "upperBound"] });
-  const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "Sample Company", market: "A股", status: "generated_real", totalAnnouncementCount: 1, providerSnapshots: [a2], historicalProviderVersions: [a1, b], exclusions: [], warnings: [] };
+  const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "Sample Company", market: "A股", status: "generated_real", totalAnnouncementCount: 1, targetAnnouncements: [targetAnnouncement()], providerSnapshots: [a2], historicalProviderVersions: [a1, b], exclusions: [], warnings: [], quality: detailQuality("2026-07-13T07:31:40Z", "generated_real") };
   const workflowRecord = structuredClone(a2); delete workflowRecord.sourceTextEvidence; delete workflowRecord.originalUnitEvidence;
   const workflow: CompanyGuidanceExpectationWorkflowIndex = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", currentSnapshotCount: 1, records: [workflowRecord], warnings: [] };
   const manifest: CompanyGuidanceExpectationManifest = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", totalCompanies: 1, companiesWithSnapshots: 1, totalSnapshots: 1, totalHistoricalVersions: 2, workflowIndexRelativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", workflowIndexByteSize: 0, workflowIndexChecksumSha256: "", items: [{ stockId: "sample", stockCode: "000001", companyName: "Sample Company", relativePath: "data/a-share-company-guidance-expectations/sample.json", snapshotCount: 1, historicalVersionCount: 2, excludedAnnouncementCount: 0, byteSize: 0, checksumSha256: "", latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: "generated_real" }] };
@@ -347,6 +365,8 @@ function providerRecord(): EarningsExpectationProviderSnapshot {
   return { providerId: "cninfo-company-guidance", providerVersion: "2.0.0", snapshot, providerEvidenceIdentity: EVIDENCE_ID, providerSnapshotVersionId: VERSION_ID, providerContentChecksum: CONTENT_HASH, providerParseRulesVersion: "1.0.0", providerCorrectsVersionId: null, providerCorrectionType: "initial", providerCorrectedAt: null, providerCorrectionChangedFields: [], isCurrentVersion: true, providerBusinessRevisionPredecessorSnapshotId: null, sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview", officialSourceUrl: snapshot.sourceUrl as string, officialPdfUrl: snapshot.officialPdfUrl as string, sourceDate: "2026-01-15", generatedAt: "2026-07-11T07:31:40Z", artifactChecksum: CONTENT_HASH, sourceParseStatus: "parse_success", sourceExtractionConfidence: "high", sourceTextEvidence: "evidence-100-200", sourceTextEvidenceHash: TEXT_HASH, originalUnitEvidence: "万元", correctionCandidateAnnouncementIds: [], structuredWarnings: [] };
 }
 function workflowIndex(): CompanyGuidanceExpectationWorkflowIndex { const record = providerRecord(); delete record.sourceTextEvidence; delete record.originalUnitEvidence; return { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", currentSnapshotCount: 1, records: [record], warnings: [] }; }
+function targetAnnouncement() { return { sourceAnnouncementId: "1222448664", stockId: "sample", sourceAnnouncementType: "earnings_preview" as const, sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, parseStatus: "parse_success", isDuplicate: false }; }
+function detailQuality(updatedAt: string, status: "generated_real" | "partial" | "missing") { return { source: "CNInfo" as const, sourceLayer: "company_guidance_expectations" as const, sourceUrl: "https://www.cninfo.com.cn/new/hisAnnouncement/query", updatedAt, status }; }
 function localSnapshot(overrides: Partial<EarningsExpectationSnapshot> = {}): EarningsExpectationSnapshot { return { id: "local-snapshot", stockId: "sample", market: "A股", reportPeriod: "2025-12-31", periodScope: "full_year", metric: "attributable_net_profit", estimateShape: "range", value: null, lowerBound: 100, upperBound: 200, currency: "CNY", unit: "yuan", accountingBasis: "PRC_GAAP", sourceCategory: "company_guidance", sourceName: "manual source", sourceTitle: "2025年度业绩预告", sourceUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664", sourcePublishedAt: "2026-01-15", sourcePublishedAtPrecision: "date", sourcePublishedAtResolution: "date", sourcePublishedAtTimeZone: null, sourcePublishedAtCalendarDate: "2026-01-15", asOfDate: "2026-01-15", formedAt: null, formedAtPrecision: "date", formedAtResolution: "date", formedAtTimeZone: null, formedAtCalendarDate: "2026-01-15", analystCount: null, institutionCount: null, ingestionMethod: "manual", createdAt: "2026-01-15T00:00:00Z", createdBy: "local-user", sourceVerificationStatus: "verified", notes: null, correctsSnapshotId: null, correctionScope: null, schemaVersion: 2, ...overrides }; }
 function providerStock() { return { id: "sample", name: "样本公司", code: "000001.SZ", market: "A股", industryId: "tech", segmentId: "segment", dataMode: "mixed" } as Stock; }
 function providerWatchItem(): WatchItem { return { id: "watch-provider", stockId: "sample", createdAt: "2025-01-01", updatedAt: "2025-01-01", status: "观察", priority: "high", tags: [], reason: "跟踪公司指引", thesis: "验证官方披露", validationCriteria: [], riskCriteria: [], nextReviewAt: null, lastReviewedAt: null, archivedAt: null, source: "user", schemaVersion: 2 }; }

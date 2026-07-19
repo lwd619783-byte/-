@@ -447,6 +447,25 @@ export interface CompanyGuidanceExpectationWarning {
   message: string;
 }
 
+export interface CompanyGuidanceExpectationTargetAnnouncement {
+  sourceAnnouncementId: string;
+  stockId: string;
+  sourceAnnouncementType: EarningsExpectationProviderSourceAnnouncementType;
+  sourceDate: string | null;
+  reportPeriod: string | null;
+  periodScope: EarningsExpectationPeriodScope | null;
+  parseStatus: string;
+  isDuplicate: boolean;
+}
+
+export interface CompanyGuidanceExpectationQuality {
+  source: "CNInfo";
+  sourceLayer: "company_guidance_expectations";
+  sourceUrl: string;
+  updatedAt: string;
+  status: CompanyGuidanceExpectationProviderStatus;
+}
+
 export interface CompanyGuidanceExpectationDetail {
   schemaVersion: "2.0.0";
   providerId: string;
@@ -458,10 +477,12 @@ export interface CompanyGuidanceExpectationDetail {
   market: "A股";
   status: CompanyGuidanceExpectationProviderStatus;
   totalAnnouncementCount: number;
+  targetAnnouncements: CompanyGuidanceExpectationTargetAnnouncement[];
   providerSnapshots: EarningsExpectationProviderSnapshot[];
   historicalProviderVersions: EarningsExpectationProviderSnapshot[];
   exclusions: CompanyGuidanceExpectationExclusion[];
   warnings: CompanyGuidanceExpectationWarning[];
+  quality: CompanyGuidanceExpectationQuality;
 }
 
 export interface CompanyGuidanceExpectationManifestEntry {
