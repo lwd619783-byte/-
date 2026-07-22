@@ -16,6 +16,7 @@ import {
   validateProviderRecord,
 } from "../company-guidance-expectations/core.mjs";
 import {
+  classifyCompanyGuidanceProviderRecordErrors,
   validateCompanyGuidanceCorrectionGraph,
   validateCompanyGuidanceProviderRecordContract,
 } from "../../src/services/companyGuidanceExpectationRecordContract.mjs";
@@ -578,6 +579,67 @@ test("Node and browser-safe Provider record contracts reject the same fully reco
   assert.ok(browserErrors.includes("provider_snapshot_product_contract"), browserErrors.join("\n"));
   assert.ok(nodeErrors.includes("provider_snapshot_product_contract"), nodeErrors.join("\n"));
 });
+
+test("Node and browser-safe contracts reject future createdAt in all Provider record modes with the same graph classification", () => {
+  const detail = buildSingle([announcement()]).companies[0];
+  for (const mode of ["detail_current", "detail_historical", "workflow_current"]) {
+    const record = structuredClone(detail.providerSnapshots[0]);
+    record.snapshot.createdAt = "2030-01-01T00:00:00Z";
+    if (mode === "detail_historical") {
+      record.isCurrentVersion = false;
+      record.snapshot.isCurrentProviderVersion = false;
+    }
+    if (mode === "workflow_current") {
+      delete record.sourceTextEvidence;
+      delete record.originalUnitEvidence;
+    }
+    const options = { mode, stockId: detail.stockId, companyName: detail.companyName, expectedGenerationEpoch: detail.generatedAt };
+    const browserErrors = validateCompanyGuidanceProviderRecordContract(record, options);
+    const nodeErrors = validateProviderRecord(record, options);
+    assert.ok(browserErrors.includes("provider_snapshot_creation_chronology"), `${mode}: ${browserErrors.join("\n")}`);
+    assert.ok(nodeErrors.includes("provider_snapshot_creation_chronology"), `${mode}: ${nodeErrors.join("\n")}`);
+    assert.equal(classifyCompanyGuidanceProviderRecordErrors(browserErrors), "graph");
+    assert.equal(classifyCompanyGuidanceProviderRecordErrors(nodeErrors), "graph");
+  }
+});
+
+test("shared record contract rejects an invalid initial predecessor even when correction-relative chronology still looks valid", () => {
+  const { records } = extractionCorrectionGraph();
+  const predecessor = records.find((record) => record.providerCorrectionType === "initial");
+  assert.ok(predecessor);
+  predecessor.snapshot.createdAt = NEXT_GENERATED_AT;
+  assert.deepEqual(validateCompanyGuidanceCorrectionGraph(records, { generationEpoch: "2026-07-13T07:31:40Z" }), []);
+  const errors = validateProviderRecord(predecessor, {
+    mode: "detail_historical",
+    stockId: "company-00",
+    companyName: "Company 0",
+    expectedGenerationEpoch: "2026-07-13T07:31:40Z",
+  });
+  assert.ok(errors.includes("provider_snapshot_creation_chronology"), errors.join("\n"));
+});
+
+test("offline validator rejects a re-signed detail current initial record created after generatedAt", () => withTempRoot((root) => {
+  writeBundle(root, buildSingle([announcement()]), 1);
+  mutateCommittedDetail(root, "company-00", (detail) => { detail.providerSnapshots[0].snapshot.createdAt = "2030-01-01T00:00:00Z"; });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:9000001:provider_snapshot_creation_chronology"), errors.join("\n"));
+}));
+
+test("offline validator rejects a historical initial version with createdAt after its own generatedAt", () => withTempRoot((root) => {
+  const initial = buildSingle([announcement()]);
+  const corrected = buildCompanyGuidanceArtifacts({
+    announcementDetails: [sourceDetail(0, [announcement({ lowerBound: 120, upperBound: 220 })])],
+    sourceGeneratedAt: NEXT_GENERATED_AT,
+    previousDetails: initial.companies,
+  });
+  writeBundle(root, corrected, 1);
+  mutateCommittedDetail(root, "company-00", (detail) => {
+    const predecessor = detail.historicalProviderVersions.find((record) => record.providerCorrectionType === "initial");
+    predecessor.snapshot.createdAt = NEXT_GENERATED_AT;
+  });
+  const errors = validateCommittedCompanyGuidanceArtifacts(root, { expectedCompanyCount: 1 }).errors;
+  assert.ok(errors.includes("company-00:9000001:provider_snapshot_creation_chronology"), errors.join("\n"));
+}));
 
 for (const [label, mutate] of [
   ["unrelated changed field", (record) => { setChangedFields(record, ["currency"]); }],

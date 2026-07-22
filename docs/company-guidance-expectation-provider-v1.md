@@ -50,7 +50,9 @@ manifest.generated.json
 
 detail current、detail historical 与 workflow current 共用同一个浏览器安全 record validator。每条 record/snapshot 必须同时满足：Provider ID/版本/解析规则、evidence/version/content/artifact 身份逐层镜像；市场固定为 A 股；指标仅限归母净利润、扣非净利润和营业收入；数值固定为 CNY/yuan/PRC_GAAP 的有限区间且不生成中点；来源必须是与公告 ID、PDF 日期一致的规范巨潮 URL；来源公司名、披露日和 date 精度字段必须相互一致；入库方式、验证状态、schema、createdBy、分析师/机构计数和本地纠错字段均固定为本 Provider 的产品值。
 
-公开披露代理时间解释使用唯一常量，`formedAt` 保持 null，披露与形成精度均为 date，不接受仅“类型合法”但偏离 Provider 固定值的记录。主要错误码为 `provider_snapshot_product_contract`、`provider_snapshot_mirror_contract`、`provider_snapshot_time_contract` 和 `provider_business_revision_mirror`。
+所有三种 record mode 还共享同一条 version event 创建时间因果契约：`snapshot.providerGeneratedAt === record.generatedAt`，且用严格 ISO 精确时刻解析后的毫秒值验证 `snapshot.createdAt <= record.generatedAt`。`snapshot.createdAt` 表示该 version event 首次形成时间；initial 即使没有 `providerCorrectedAt` 也不能声明晚于自身发布 epoch 的创建时间。historical record 保留原始 createdAt/generatedAt，但仍必须保持自身因果顺序；workflow current 即使没有加载 historical predecessor，也必须能独立拒绝未来 createdAt。违反顺序返回 `provider_snapshot_creation_chronology`，并归入 graph/chronology 错误类别。
+
+公开披露代理时间解释使用唯一常量，`formedAt` 保持 null，披露与形成精度均为 date，不接受仅“类型合法”但偏离 Provider 固定值的记录。主要错误码为 `provider_snapshot_product_contract`、`provider_snapshot_mirror_contract`、`provider_snapshot_time_contract`、`provider_snapshot_creation_chronology` 和 `provider_business_revision_mirror`。
 
 detail current/historical 必须保留非空 `sourceTextEvidence`、匹配的 SHA-256 和能在原文中找到的 `originalUnitEvidence`；缺原文或单位证据的候选在生成阶段显式排除。workflow current 必须删除原文和单位字段，仅保留原文 hash，其余产品契约不降级。排除项的非空 URL 必须是对应公告的规范巨潮 URL，null 必须伴随 `official_source_invalid`；候选公告引用由正式公告产物反查同公司归属，跨公司引用失败关闭；structured warning 只能使用受支持且与业务修订图一致的去重代码。
 

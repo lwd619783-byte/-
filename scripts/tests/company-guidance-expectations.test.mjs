@@ -10,6 +10,7 @@ import {
   periodScopeFor,
   stableProviderSnapshotId,
   validateBusinessRevisionGraph,
+  validateProviderRecord,
   validateVersionGraph,
 } from "../company-guidance-expectations/core.mjs";
 
@@ -185,6 +186,10 @@ test("no-op regeneration preserves version id and createdAt", () => {
   assert.equal(second.companies[0].providerSnapshots[0].generatedAt, "2026-07-12T07:31:40Z");
   assert.equal(second.companies[0].providerSnapshots[0].snapshot.providerGeneratedAt, "2026-07-12T07:31:40Z");
   assert.equal(second.companies[0].historicalProviderVersions.length, 0);
+  assert.deepEqual(validateProviderRecord(second.companies[0].providerSnapshots[0], {
+    mode: "detail_current",
+    expectedGenerationEpoch: "2026-07-12T07:31:40Z",
+  }), []);
 });
 
 test("A1-to-B-to-A2 correction keeps immutable correction time and proof across repeated no-op releases", () => {
@@ -223,6 +228,10 @@ test("A1-to-B-to-A2 correction keeps immutable correction time and proof across 
   assert.equal(current.snapshot.providerGeneratedAt, "2026-07-15T07:31:40Z");
   assert.equal(noOpOne.companies[0].historicalProviderVersions.length, 2);
   assert.equal(noOpTwo.companies[0].historicalProviderVersions.length, 2);
+  assert.deepEqual(validateProviderRecord(current, {
+    mode: "detail_current",
+    expectedGenerationEpoch: "2026-07-15T07:31:40Z",
+  }), []);
   const workflow = createWorkflowIndex(noOpTwo.companies, noOpTwo.summary.generatedAt);
   assert.equal(workflow.correctionProofs.length, 1);
   assert.equal(workflow.correctionProofs[0].currentProviderSnapshotVersionId, current.providerSnapshotVersionId);

@@ -83,6 +83,41 @@ test("committed-artifact check rejects a fully re-signed Provider sourceTextEvid
   assertCheckFails(root);
 }));
 
+test("committed-artifact check rejects a jointly re-signed future createdAt attack", () => withCommittedRoot((root) => {
+  const manifestPath = providerManifestPath(root);
+  const manifest = readJson(manifestPath);
+  const entry = manifest.items.find((item) => item.snapshotCount > 0);
+  const detailPath = path.join(root, "public", ...entry.relativePath.split("/"));
+  const detail = readJson(detailPath);
+  const detailRecord = detail.providerSnapshots.find((record) => record.providerCorrectionType === "initial");
+  detailRecord.snapshot.createdAt = "2030-01-01T00:00:00Z";
+  writeProviderDetailAndManifest(detailPath, detail, entry, manifestPath, manifest);
+
+  const workflowPath = path.join(root, "public/data/a-share-company-guidance-expectations/workflow-index.generated.json");
+  const workflow = readJson(workflowPath);
+  const workflowRecord = workflow.records.find((record) => record.providerSnapshotVersionId === detailRecord.providerSnapshotVersionId);
+  workflowRecord.snapshot.createdAt = detailRecord.snapshot.createdAt;
+  const workflowBytes = Buffer.from(renderJson(workflow));
+  fs.writeFileSync(workflowPath, workflowBytes);
+  manifest.workflowIndexByteSize = workflowBytes.byteLength;
+  manifest.workflowIndexChecksumSha256 = sha256(workflowBytes);
+  writeJson(manifestPath, manifest);
+
+  const summaryPath = path.join(root, "src/data/real/a-share-company-guidance-expectation-summaries.generated.json");
+  const summary = readJson(summaryPath);
+  summary.workflowIndex.byteSize = manifest.workflowIndexByteSize;
+  summary.workflowIndex.checksumSha256 = manifest.workflowIndexChecksumSha256;
+  writeJson(summaryPath, summary);
+
+  let failure = "";
+  try {
+    const result = checkCommittedCompanyGuidanceArtifacts({ rootPath: root });
+    failure = JSON.stringify(result.mismatches);
+    assert.equal(result.status, "failed");
+  } catch (error) { failure = String(error); }
+  assert.match(failure, /provider_snapshot_creation_chronology/u);
+}));
+
 test("committed-artifact check rejects a re-signed Provider originalUnitEvidence deletion", () => withCommittedRoot((root) => {
   const manifest = readJson(providerManifestPath(root));
   const entry = manifest.items.find((item) => item.snapshotCount > 0);

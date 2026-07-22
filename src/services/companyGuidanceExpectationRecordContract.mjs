@@ -159,6 +159,8 @@ export function validateCompanyGuidanceProviderRecordContract(record, {
 
   const dateFieldsMatch = snapshot.sourcePublishedAt === record.sourceDate && snapshot.sourcePublishedAtCalendarDate === record.sourceDate
     && snapshot.asOfDate === record.sourceDate && snapshot.formedAtCalendarDate === record.sourceDate;
+  const recordGeneratedTime = parseStrictPreciseInstant(record.generatedAt);
+  const snapshotCreatedTime = parseStrictPreciseInstant(snapshot.createdAt);
   const preciseTimes = isStrictPreciseInstant(record.generatedAt) && isStrictPreciseInstant(snapshot.createdAt)
     && isStrictPreciseInstant(snapshot.providerGeneratedAt) && snapshot.providerGeneratedAt === record.generatedAt;
   const epochRelation = expectedGenerationEpoch === null || (isStrictPreciseInstant(expectedGenerationEpoch)
@@ -167,6 +169,9 @@ export function validateCompanyGuidanceProviderRecordContract(record, {
     || snapshot.sourcePublishedAtPrecision !== "date" || snapshot.sourcePublishedAtResolution !== "date" || snapshot.sourcePublishedAtTimeZone !== null
     || snapshot.formedAt !== null || snapshot.formedAtPrecision !== "date" || snapshot.formedAtResolution !== "date" || snapshot.formedAtTimeZone !== null
     || snapshot.formationTimeBasis !== "public_disclosure_proxy" || snapshot.notes !== COMPANY_GUIDANCE_TIME_NOTE) add(errors, "provider_snapshot_time_contract");
+  if (recordGeneratedTime !== null && snapshotCreatedTime !== null && snapshotCreatedTime > recordGeneratedTime) {
+    add(errors, "provider_snapshot_creation_chronology");
+  }
 
   const correctionFields = record.providerCorrectionChangedFields;
   if (record.providerCorrectionType === "initial") {
@@ -219,9 +224,9 @@ export function validateCompanyGuidanceCorrectionGraph(records, { generationEpoc
     const correctedTime = parseStrictPreciseInstant(record.providerCorrectedAt);
     const recordTime = parseStrictPreciseInstant(record.generatedAt);
     const predecessorCreatedTime = parseStrictPreciseInstant(predecessor.snapshot?.createdAt);
-    const snapshotCreatedTime = parseStrictPreciseInstant(record.snapshot.createdAt);
-    if (correctedTime === null || recordTime === null || predecessorCreatedTime === null || snapshotCreatedTime === null
-      || correctedTime !== snapshotCreatedTime || predecessorCreatedTime > correctedTime || snapshotCreatedTime > recordTime
+    const correctionCreatedTime = parseStrictPreciseInstant(record.snapshot.createdAt);
+    if (correctedTime === null || recordTime === null || predecessorCreatedTime === null || correctionCreatedTime === null
+      || correctedTime !== correctionCreatedTime || predecessorCreatedTime > correctedTime
       || (releaseTime !== null && recordTime > releaseTime)) add(errors, "provider_correction_chronology");
   }
   return errors;
@@ -268,7 +273,7 @@ export function validateCompanyGuidanceBusinessRevisionSemantics(records, warnin
 }
 
 export function classifyCompanyGuidanceProviderRecordErrors(errors) {
-  if (errors.some((error) => ["provider_correction_graph", "provider_correction_changed_fields", "provider_correction_chronology"].includes(error) || error.startsWith("provider_correction_proof_"))) return "graph";
+  if (errors.some((error) => ["provider_snapshot_creation_chronology", "provider_correction_graph", "provider_correction_changed_fields", "provider_correction_chronology"].includes(error) || error.startsWith("provider_correction_proof_"))) return "graph";
   if (errors.some((error) => ["provider_snapshot_mirror_contract", "provider_business_revision_mirror"].includes(error))) return "identity";
   return "schema";
 }

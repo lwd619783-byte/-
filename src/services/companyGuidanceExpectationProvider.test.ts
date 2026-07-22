@@ -280,6 +280,44 @@ describe("company guidance expectation provider V2", () => {
     await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({ code: "identity", message: expect.stringContaining("detail_historical_only") });
   });
 
+  it("rejects a re-signed detail current initial record created after its release epoch", async () => {
+    const fixture = await artifacts();
+    fixture.detail.providerSnapshots[0].snapshot.createdAt = "2030-01-01T00:00:00Z";
+    await finalizeDetail(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({
+      code: "graph",
+      message: expect.stringContaining("provider_snapshot_creation_chronology"),
+    });
+  });
+
+  it("rejects a re-signed workflow current initial record created after its release epoch", async () => {
+    const fixture = await artifacts();
+    fixture.workflow.records[0].snapshot.createdAt = "2030-01-01T00:00:00Z";
+    await finalizeWorkflow(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.workflow)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).loadWorkflow()).rejects.toMatchObject({
+      code: "graph",
+      message: expect.stringContaining("provider_snapshot_creation_chronology"),
+    });
+  });
+
+  it("rejects a historical initial predecessor whose relative correction order looks valid but its own creation chronology is invalid", async () => {
+    const fixture = await correctionChainArtifacts();
+    const predecessor = fixture.detail.historicalProviderVersions.find((record) => record.providerCorrectionType === "initial");
+    expect(predecessor).toBeDefined();
+    predecessor!.snapshot.createdAt = "2026-07-12T07:31:40Z";
+    await finalizeDetail(fixture);
+    fixture.summary = summaryFromManifest(fixture.manifest);
+    const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.detail)) as typeof fetch;
+    await expect(providerLoader(fixture, fetchImpl).load("sample")).rejects.toMatchObject({
+      code: "graph",
+      message: expect.stringContaining("provider_snapshot_creation_chronology"),
+    });
+  });
+
   it("runtime rejects a workflow from a different valid generation epoch", async () => {
     const fixture = await artifacts();
     fixture.workflow.generatedAt = "2026-07-12T07:31:40Z";
