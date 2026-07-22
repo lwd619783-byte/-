@@ -59,6 +59,9 @@ jobs:
       - name: Validate committed company-guidance expectation artifacts
         run: npm run data:validate:expectations:company-guidance
 
+      - name: Test institution-consensus source probe offline
+        run: npm run test:expectations:institution-consensus-probe
+
       - name: Test provider observability offline
         run: npm run test:provider-observability
 
