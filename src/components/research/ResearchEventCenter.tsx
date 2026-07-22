@@ -140,11 +140,13 @@ function EventCard({ event, stock, watchItem, tasks, onOpenStock, onStartReview 
             <span className="font-medium text-textStrong">{event.stockName} · {event.stockCode}</span>
             <span className="rounded border border-borderSoft px-2 py-1">{eventTypeLabel(event.eventType)}</span>
             <ResearchEventStatusBadge event={event} />
+            {event.expectation?.ingestionMethod === "provider" ? <span className="rounded border border-cyan/30 bg-cyan/5 px-2 py-1 text-cyan">公司官方指引 · Provider 只读</span> : null}
             {watchItem ? <span className="rounded border border-cyan/30 bg-cyan/5 px-2 py-1 text-cyan">观察状态：{watchItem.status} · 待复盘 {pendingTaskCount}</span> : null}
           </div>
           <p className="mt-2 text-sm font-semibold text-textStrong">{event.title}</p>
           <p className="mt-1 text-xs text-textMuted">公告 / 事件日期：{event.eventDate ?? "缺失"} · 报告期：{event.reportPeriod ?? "缺失"}</p>
           {event.expectation ? <p className="mt-1 text-xs text-textMuted">原记录时间：{event.expectation.originalBusinessTime ?? "缺失"}（{event.expectation.businessTimePrecision ?? "date"}） · 当前有效时间：{event.expectation.effectiveBusinessTime ?? event.expectation.originalBusinessTime ?? "缺失"}（{event.expectation.effectiveBusinessTimePrecision ?? event.expectation.businessTimePrecision ?? "date"}）{event.expectation.temporalCorrectionApplied ? ` · 时间字段已纠正：${event.expectation.correctedTemporalFields?.join("、") || "待核验"}` : ""}{event.expectation.correctionRecordedAt ? ` · 纠正记录时间：${event.expectation.correctionRecordedAt}` : ""}{event.expectation.businessOrderStatus === "uncertain" ? " · 业务顺序不确定" : event.expectation.businessOrderStatus === "equal" ? " · 精确时刻相同，不代表先后" : ""}</p> : null}
+          {event.expectation?.ingestionMethod === "provider" ? <p className="mt-1 text-xs text-cyan">巨潮官方公告 · Provider {event.expectation.providerVersion ?? "-"} · 更新 {event.expectation.providerGeneratedAt ?? "-"} · 公告 ID {event.expectation.sourceAnnouncementId ?? "-"} · 公司内部形成时间未知，以公开披露时间作为可用时间</p> : null}
           {event.eventType === "earnings_expectation_correction" && event.expectation ? <p className="mt-1 text-xs text-warning">被纠正快照：{event.expectation.correctionDelta?.correctionTargetId ?? event.expectation.correctsSnapshotId ?? "缺失"} · 当前纠正链终点：{event.expectation.effectiveSnapshotId ?? "缺失"} · 变化字段：{event.expectation.correctionDelta?.changedFields.join("、") || "待核验"}</p> : null}
           <TextClamp lines={3} title={event.summary} className="mt-2 text-sm leading-6 text-textMuted">{event.summary}</TextClamp>
           {event.metrics.some((metric) => metric.value !== null) ? (

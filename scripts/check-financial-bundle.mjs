@@ -33,6 +33,18 @@ export function scanAnnouncementBundleSource(rootPath) {
   return findings;
 }
 
+export function scanCompanyGuidanceBundleSource(rootPath) {
+  const findings = [];
+  const sourceRoot = path.join(rootPath, "src");
+  for (const file of walk(sourceRoot).filter((item) => /\.(?:ts|tsx|js|jsx)$/.test(item) && !/\.(?:test|spec)\./.test(item))) {
+    const relative = path.relative(rootPath, file).replaceAll("\\", "/");
+    const text = fs.readFileSync(file, "utf8");
+    if (/import\s+[^;]+from\s+["'][^"']*public\/data\/a-share-company-guidance-expectations/.test(text)) findings.push(`${relative}: statically imports a full company-guidance detail file`);
+    if (/from\s+["'][^"']*a-share-company-guidance-expectations\/[^"']+\.json["']/.test(text)) findings.push(`${relative}: statically imports the per-company guidance directory`);
+  }
+  return findings;
+}
+
 export function collectFinancialBundleMetrics(rootPath) {
   const distPath = path.join(rootPath, "dist");
   const indexHtml = fs.readFileSync(path.join(distPath, "index.html"), "utf8");
@@ -52,6 +64,12 @@ export function collectFinancialBundleMetrics(rootPath) {
   const announcementManifestPath = path.join(announcementDetailDir, "manifest.generated.json");
   const announcementDetailFiles = fs.readdirSync(announcementDetailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json").map((name) => path.join(announcementDetailDir, name));
   const announcementDetailBytes = announcementDetailFiles.reduce((sum, file) => sum + fs.statSync(file).size, 0);
+  const companyGuidanceSummaryPath = path.join(rootPath, "src/data/real/a-share-company-guidance-expectation-summaries.generated.json");
+  const companyGuidanceDetailDir = path.join(rootPath, "public/data/a-share-company-guidance-expectations");
+  const companyGuidanceManifestPath = path.join(companyGuidanceDetailDir, "manifest.generated.json");
+  const companyGuidanceWorkflowPath = path.join(companyGuidanceDetailDir, "workflow-index.generated.json");
+  const companyGuidanceDetailFiles = fs.readdirSync(companyGuidanceDetailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json" && name !== "workflow-index.generated.json").map((name) => path.join(companyGuidanceDetailDir, name));
+  const companyGuidanceDetailBytes = companyGuidanceDetailFiles.reduce((sum, file) => sum + fs.statSync(file).size, 0);
   return {
     initialJsBytes,
     initialGzipBytes,
@@ -71,11 +89,19 @@ export function collectFinancialBundleMetrics(rootPath) {
     announcementDetailBytes,
     averageAnnouncementDetailBytes: Math.round(announcementDetailBytes / announcementDetailFiles.length),
     containsFullAnnouncementHistoryMarker: entryText.includes("announcementParsingResult"),
+    companyGuidanceSummaryBytes: fs.statSync(companyGuidanceSummaryPath).size,
+    companyGuidanceManifestBytes: fs.statSync(companyGuidanceManifestPath).size,
+    companyGuidanceWorkflowBytes: fs.statSync(companyGuidanceWorkflowPath).size,
+    companyGuidanceWorkflowChecksum: JSON.parse(fs.readFileSync(companyGuidanceManifestPath, "utf8")).workflowIndexChecksumSha256,
+    companyGuidanceDetailFiles: companyGuidanceDetailFiles.length,
+    companyGuidanceDetailBytes,
+    averageCompanyGuidanceDetailBytes: Math.round(companyGuidanceDetailBytes / companyGuidanceDetailFiles.length),
+    containsFullCompanyGuidanceDetailMarker: entryText.includes("originalUnitEvidence"),
   };
 }
 
 export function checkFinancialBundle(rootPath) {
-  const errors = [...scanFinancialBundleSource(rootPath), ...scanAnnouncementBundleSource(rootPath)];
+  const errors = [...scanFinancialBundleSource(rootPath), ...scanAnnouncementBundleSource(rootPath), ...scanCompanyGuidanceBundleSource(rootPath)];
   const legacy = path.join(rootPath, "src/data/real/a-share-financials.generated.json");
   if (fs.existsSync(legacy)) errors.push("legacy monolithic financial JSON still exists");
   const metrics = collectFinancialBundleMetrics(rootPath);
@@ -88,6 +114,11 @@ export function checkFinancialBundle(rootPath) {
   if (metrics.announcementSummaryBytes > 1_000_000) errors.push("announcement summary exceeds the 1 MB synchronous-data budget");
   if (metrics.announcementDetailFiles !== 56) errors.push(`expected 56 announcement detail files, found ${metrics.announcementDetailFiles}`);
   if (metrics.containsFullAnnouncementHistoryMarker) errors.push("initial JavaScript still contains full announcement-history markers");
+  if (metrics.companyGuidanceSummaryBytes > 200_000) errors.push("company-guidance summary exceeds the 200 kB synchronous-data budget");
+  if (metrics.companyGuidanceWorkflowBytes > 500_000) errors.push("company-guidance workflow index exceeds the 500 kB lazy-data budget");
+  if (!/^[a-f0-9]{64}$/u.test(metrics.companyGuidanceWorkflowChecksum)) errors.push("company-guidance workflow index checksum missing");
+  if (metrics.companyGuidanceDetailFiles !== 56) errors.push(`expected 56 company-guidance detail files, found ${metrics.companyGuidanceDetailFiles}`);
+  if (metrics.containsFullCompanyGuidanceDetailMarker) errors.push("initial JavaScript still contains full company-guidance detail markers");
   return { errors, metrics };
 }
 

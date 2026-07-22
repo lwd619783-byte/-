@@ -86,6 +86,10 @@ export function buildEarningsExpectationResearchEvents(
     const correctionDelta = deriveExpectationCorrectionDelta(correction, correction.correctsSnapshotId ? snapshotsById.get(correction.correctsSnapshotId) : undefined);
     events.push(correctionEvent(stock, correction, correctionDelta, timeZone, root, terminal, resolved.chain));
   }
+  for (const correction of sortExpectationsByBusinessTime(snapshots.filter((snapshot) => Boolean(snapshot.providerCorrectsVersionId)), timeZone)) {
+    const stock = stocks.find((item) => item.id === correction.stockId);
+    if (stock) events.push(providerCorrectionEvent(stock, correction, timeZone));
+  }
 
   const nodeByEffectiveId = new Map(businessNodes.map((node) => [node.effectiveSnapshot.id, node]));
   for (const comparison of comparisons) {
@@ -180,6 +184,29 @@ function correctionEvent(
     reviewReasons: reasons,
     materiality: "medium",
     expectation: payload(snapshot, null, correctionDelta, null, "confirmed", timeZone, businessRootSnapshot, correctionChain, correctionRecordedAt, effectiveSnapshot.id),
+  };
+}
+
+function providerCorrectionEvent(stock: Stock, snapshot: EarningsExpectationSnapshot, timeZone: string): ResearchEvent {
+  const correctionRecordedAt = snapshot.providerCorrectedAt ?? snapshot.createdAt;
+  const correctionDisplayDate = getCalendarDateInTimeZone(correctionRecordedAt, timeZone);
+  const changedFields = snapshot.providerCorrectionChangedFields ?? [];
+  return {
+    ...base(stock, snapshot, timeZone, snapshot),
+    id: `expectation-event:${snapshot.providerEvidenceIdentity}:${snapshot.providerSnapshotVersionId}:provider-correction`,
+    eventType: "earnings_expectation_correction",
+    eventDate: correctionDisplayDate,
+    publishedAt: correctionRecordedAt,
+    eventOccurredAt: correctionRecordedAt,
+    eventBusinessDate: correctionDisplayDate,
+    recordedAt: snapshot.createdAt,
+    title: `公司指引 Provider 抽取纠错 · ${metricLabel(snapshot.metric)}`,
+    summary: `Provider 内容版本已追加纠正；变更字段：${changedFields.length ? changedFields.join("、") : "未记录"}。该事件只表示证据抽取或来源数据修复，不表示公司业务预测上调或下调。`,
+    verificationStatus: "verified",
+    reviewStatus: "pending",
+    reviewReasons: changedFields.length ? [`复核 Provider 纠错字段：${changedFields.join("、")}`] : ["复核 Provider 内容版本纠错"],
+    materiality: "medium",
+    expectation: payload(snapshot, null, null, null, "confirmed", timeZone, snapshot, [snapshot], correctionRecordedAt),
   };
 }
 
@@ -327,12 +354,12 @@ function base(stock: Stock, snapshot: EarningsExpectationSnapshot, timeZone: str
     sourceType: "earnings_expectation",
     sourceName: snapshot.sourceName || sourceCategoryLabel(snapshot.sourceCategory),
     sourceUrl: snapshot.sourceUrl,
-    pdfUrl: null,
+    pdfUrl: snapshot.officialPdfUrl ?? null,
     verificationStatus: "partial",
-    parseStatus: "not_applicable",
+    parseStatus: snapshot.ingestionMethod === "provider" ? "parse_success" : "not_applicable",
     materiality: "medium",
     metrics: [],
-    relatedAnnouncementIds: [],
+    relatedAnnouncementIds: snapshot.sourceAnnouncementId ? [snapshot.sourceAnnouncementId] : [],
     relatedFinancialPeriod: snapshot.reportPeriod,
     reviewStatus: "not_required",
     reviewReasons: [],
@@ -385,6 +412,20 @@ function payload(
     correctionRecordedAt,
     sourceCategory: snapshot.sourceCategory,
     sourceName: snapshot.sourceName,
+    ingestionMethod: snapshot.ingestionMethod,
+    providerId: snapshot.providerId,
+    providerVersion: snapshot.providerVersion,
+    providerGeneratedAt: snapshot.providerGeneratedAt,
+    providerEvidenceIdentity: snapshot.providerEvidenceIdentity,
+    providerSnapshotVersionId: snapshot.providerSnapshotVersionId,
+    providerContentChecksum: snapshot.providerContentChecksum,
+    providerCorrectsVersionId: snapshot.providerCorrectsVersionId,
+    providerCorrectionType: snapshot.providerCorrectionType,
+    providerCorrectionChangedFields: snapshot.providerCorrectionChangedFields,
+    providerBusinessRevisionPredecessorSnapshotId: snapshot.providerBusinessRevisionPredecessorSnapshotId,
+    sourceAnnouncementId: snapshot.sourceAnnouncementId,
+    sourceAnnouncementType: snapshot.sourceAnnouncementType,
+    officialPdfUrl: snapshot.officialPdfUrl,
     reportPeriod: snapshot.reportPeriod,
     metric: snapshot.metric,
     expectedValue: snapshot.value,

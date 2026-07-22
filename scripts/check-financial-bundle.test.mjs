@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { scanAnnouncementBundleSource, scanFinancialBundleSource } from "./check-financial-bundle.mjs";
+import { scanAnnouncementBundleSource, scanCompanyGuidanceBundleSource, scanFinancialBundleSource } from "./check-financial-bundle.mjs";
 
 const roots = [];
 afterEach(() => roots.splice(0).forEach((root) => fs.rmSync(root, { recursive: true, force: true })));
@@ -33,5 +33,15 @@ describe("announcement bundle source gate", () => {
 
   it("allows the small synchronous announcement summary import", () => {
     expect(scanAnnouncementBundleSource(fixture('import data from "./data/a-share-announcement-summaries.generated.json";'))).toEqual([]);
+  });
+});
+
+describe("company guidance bundle source gate", () => {
+  it("detects a per-company Provider detail static import", () => {
+    expect(scanCompanyGuidanceBundleSource(fixture('import data from "../public/data/a-share-company-guidance-expectations/demo.json";')).length).toBeGreaterThan(0);
+  });
+
+  it("allows the small synchronous Provider summary import", () => {
+    expect(scanCompanyGuidanceBundleSource(fixture('import data from "./data/a-share-company-guidance-expectation-summaries.generated.json";'))).toEqual([]);
   });
 });

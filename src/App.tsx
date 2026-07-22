@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, LineChart, Plus, ScrollText, RefreshCw, type LucideIcon } from "lucide-react";
 import { Header } from "./components/layout/Header";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
@@ -26,8 +26,9 @@ import { createBrowserEarningsExpectationRepository, createEmptyEarningsExpectat
 import { EarningsExpectationStore, type CreateEarningsExpectationSnapshotInput, type EarningsExpectationActionResult } from "./services/earningsExpectationStore";
 import { buildEarningsExpectationComparisons } from "./services/earningsExpectationComparisonProvider";
 import { buildEarningsExpectationResearchEvents } from "./services/earningsExpectationEventProvider";
+import { aggregateEarningsExpectationEvidence, buildProviderContentConflictEvents, companyGuidanceExpectationSummary, createCompanyGuidanceExpectationLoader, selectActiveCompanyGuidanceProviderRecords, selectDefaultCompanyGuidanceStockIds } from "./services/companyGuidanceExpectationProvider";
 import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant } from "./utils/dateTime";
-import type { DashboardDataMode, EarningsExpectationSnapshot, Stock, WatchItem } from "./types";
+import type { CompanyGuidanceExpectationDetail, CompanyGuidanceExpectationLoadStatus, CompanyGuidanceExpectationWorkflowIndex, DashboardDataMode, EarningsExpectationSnapshot, Stock, WatchItem } from "./types";
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
 import { formatPercent } from "./utils/normalize";
 
@@ -65,11 +66,24 @@ export default function App() {
   const [expectationCorruptedRaw, setExpectationCorruptedRaw] = useState<string | null>(initialExpectationLoad.corruptedRaw);
   const [expectationForm, setExpectationForm] = useState<{ stockId?: string; correctionId?: string } | null>(null);
   const [expectationImportOpen, setExpectationImportOpen] = useState(false);
+  const companyGuidanceLoader = useMemo(() => createCompanyGuidanceExpectationLoader(), []);
+  const companyGuidanceRequestGeneration = useRef(0);
+  const [companyGuidanceWorkflow, setCompanyGuidanceWorkflow] = useState<CompanyGuidanceExpectationWorkflowIndex | null>(null);
+  const [companyGuidanceWorkflowStatus, setCompanyGuidanceWorkflowStatus] = useState<CompanyGuidanceExpectationLoadStatus>("idle");
+  const [companyGuidanceWorkflowError, setCompanyGuidanceWorkflowError] = useState<string | null>(null);
+  const [companyGuidanceDetails, setCompanyGuidanceDetails] = useState<Record<string, CompanyGuidanceExpectationDetail>>({});
+  const [companyGuidanceLoadStatus, setCompanyGuidanceLoadStatus] = useState<CompanyGuidanceExpectationLoadStatus>("idle");
+  const [companyGuidanceLoadError, setCompanyGuidanceLoadError] = useState<string | null>(null);
+  const [companyGuidanceFailedStockIds, setCompanyGuidanceFailedStockIds] = useState<string[]>([]);
+  const [companyGuidanceRetryToken, setCompanyGuidanceRetryToken] = useState(0);
   const dataset = useMemo(() => buildDashboardDataset(dataMode), [dataMode]);
+  const providerRecords = useMemo(() => selectActiveCompanyGuidanceProviderRecords(dataMode, companyGuidanceWorkflowStatus, companyGuidanceWorkflow), [companyGuidanceWorkflow, companyGuidanceWorkflowStatus, dataMode]);
+  const aggregatedExpectationEvidence = useMemo(() => aggregateEarningsExpectationEvidence({ providerSnapshots: providerRecords, localSnapshots: expectationData.snapshots }), [expectationData.snapshots, providerRecords]);
   const baseResearchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
-  const expectationComparisons = useMemo(() => buildEarningsExpectationComparisons(expectationData.snapshots, baseResearchSnapshot.events, expectationData.settings), [baseResearchSnapshot.events, expectationData.settings, expectationData.snapshots]);
-  const expectationEvents = useMemo(() => buildEarningsExpectationResearchEvents(expectationData.snapshots, expectationComparisons, dataset.stocks, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone), [dataset.stocks, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationData.snapshots]);
-  const researchSnapshot = useMemo(() => ({ ...baseResearchSnapshot, events: sortResearchEvents(deduplicateResearchEvents([...baseResearchSnapshot.events, ...expectationEvents]), expectationData.settings.timeZone) }), [baseResearchSnapshot, expectationData.settings.timeZone, expectationEvents]);
+  const expectationComparisons = useMemo(() => buildEarningsExpectationComparisons(aggregatedExpectationEvidence.comparisonSnapshots, baseResearchSnapshot.events, expectationData.settings), [aggregatedExpectationEvidence.comparisonSnapshots, baseResearchSnapshot.events, expectationData.settings]);
+  const expectationEvents = useMemo(() => buildEarningsExpectationResearchEvents(aggregatedExpectationEvidence.comparisonSnapshots, expectationComparisons, dataset.stocks, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone), [aggregatedExpectationEvidence.comparisonSnapshots, dataset.stocks, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone]);
+  const providerConflictEvents = useMemo(() => buildProviderContentConflictEvents(aggregatedExpectationEvidence, expectationData.snapshots, dataset.stocks), [aggregatedExpectationEvidence, dataset.stocks, expectationData.snapshots]);
+  const researchSnapshot = useMemo(() => ({ ...baseResearchSnapshot, events: sortResearchEvents(deduplicateResearchEvents([...baseResearchSnapshot.events, ...expectationEvents, ...providerConflictEvents]), expectationData.settings.timeZone) }), [baseResearchSnapshot, expectationData.settings.timeZone, expectationEvents, providerConflictEvents]);
   const reviewTasks = useMemo(() => buildReviewTasks({
     watchItems: watchlistData.watchItems,
     events: researchSnapshot.events,
@@ -83,6 +97,65 @@ export default function App() {
   const expectationExportJson = useMemo(() => expectationRepository.export(expectationData), [expectationData, expectationRepository]);
   const expectationExportCsv = useMemo(() => exportEarningsExpectationCsv(expectationData.snapshots), [expectationData.snapshots]);
   const activeSelectedStock = selectedStock ? dataset.stocks.find((stock) => stock.id === selectedStock.id) ?? null : null;
+
+  useEffect(() => {
+    const generation = ++companyGuidanceRequestGeneration.current;
+    if (dataMode === "mock") {
+      setCompanyGuidanceWorkflow(null);
+      setCompanyGuidanceWorkflowStatus("idle");
+      setCompanyGuidanceWorkflowError(null);
+      setCompanyGuidanceDetails({});
+      setCompanyGuidanceLoadStatus("idle");
+      setCompanyGuidanceLoadError(null);
+      setCompanyGuidanceFailedStockIds([]);
+      return;
+    }
+    setCompanyGuidanceWorkflow(null);
+    setCompanyGuidanceWorkflowStatus("loading");
+    setCompanyGuidanceWorkflowError(null);
+    companyGuidanceLoader.loadWorkflow()
+      .then((workflow) => {
+        if (generation !== companyGuidanceRequestGeneration.current) return;
+        setCompanyGuidanceWorkflow(workflow);
+        setCompanyGuidanceWorkflowStatus("success");
+      })
+      .catch((error) => {
+        if (generation !== companyGuidanceRequestGeneration.current) return;
+        setCompanyGuidanceWorkflow(null);
+        setCompanyGuidanceWorkflowStatus("error");
+        setCompanyGuidanceWorkflowError(error instanceof Error ? error.message : String(error));
+      });
+  }, [companyGuidanceLoader, companyGuidanceRetryToken, dataMode]);
+
+  useEffect(() => {
+    if (dataMode === "mock") return;
+    const generation = companyGuidanceRequestGeneration.current;
+    const requestedIds = activeSelectedStock?.market === "A股"
+      ? [activeSelectedStock.id]
+      : activeTab === "预期证据" || activeTab === "验证中心"
+        ? selectDefaultCompanyGuidanceStockIds(companyGuidanceExpectationSummary.items)
+        : [];
+    const missingIds = requestedIds.filter((stockId) => !companyGuidanceDetails[stockId] && !companyGuidanceFailedStockIds.includes(stockId));
+    if (!missingIds.length) {
+      if (requestedIds.length && !companyGuidanceFailedStockIds.some((stockId) => requestedIds.includes(stockId))) setCompanyGuidanceLoadStatus("success");
+      return;
+    }
+    setCompanyGuidanceLoadStatus("loading");
+    setCompanyGuidanceLoadError(null);
+    companyGuidanceLoader.loadMany(missingIds).then((result) => {
+      if (generation !== companyGuidanceRequestGeneration.current) return;
+      if (Object.keys(result.successes).length) setCompanyGuidanceDetails((current) => ({ ...current, ...result.successes }));
+      setCompanyGuidanceLoadStatus(result.status);
+      setCompanyGuidanceFailedStockIds(result.failures.map((failure) => failure.stockId));
+      setCompanyGuidanceLoadError(result.failures.length ? result.failures.map((failure) => `${failure.stockId} [${failure.code}] ${failure.message}`).join("；") : null);
+    });
+  }, [activeSelectedStock?.id, activeSelectedStock?.market, activeTab, companyGuidanceDetails, companyGuidanceFailedStockIds, companyGuidanceLoader, companyGuidanceRetryToken, dataMode]);
+
+  const retryCompanyGuidance = () => {
+    companyGuidanceLoader.clearCache();
+    setCompanyGuidanceFailedStockIds([]);
+    setCompanyGuidanceRetryToken((value) => value + 1);
+  };
 
   const dashboardStats = useMemo(() => {
     const quoteCoverage = dataset.realManifest.coverage?.quotes;
@@ -129,7 +202,7 @@ export default function App() {
     const expectationRevisionUp = latestExpectationRevisions.filter((event) => event.expectation?.businessOrderStatus === "confirmed" && event.expectation.businessRevisionDelta?.direction === "up" && Math.abs(event.expectation.businessRevisionDelta.relativeDelta) >= expectationData.settings.revisionReminderThreshold).length;
     const expectationRevisionDown = latestExpectationRevisions.filter((event) => event.expectation?.businessOrderStatus === "confirmed" && event.expectation.businessRevisionDelta?.direction === "down" && Math.abs(event.expectation.businessRevisionDelta.relativeDelta) >= expectationData.settings.revisionReminderThreshold).length;
     const reviewableExpectationActuals = expectationComparisons.filter((comparison) => comparison.comparabilityStatus === "comparable").length;
-    const pendingExpectationSources = expectationData.snapshots.filter((snapshot) => snapshot.sourceVerificationStatus !== "verified").length;
+    const pendingExpectationSources = aggregatedExpectationEvidence.snapshots.filter((snapshot) => snapshot.sourceVerificationStatus !== "verified").length;
 
     return {
       stocksWithReal,
@@ -158,7 +231,7 @@ export default function App() {
       reviewableExpectationActuals,
       pendingExpectationSources,
     };
-  }, [dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationData.snapshots, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
+  }, [aggregatedExpectationEvidence.snapshots, dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
 
   const applyAction = (result: WatchlistActionResult, successMessage: string) => {
     if (result.ok) {
@@ -216,6 +289,10 @@ export default function App() {
         sidebar={<Sidebar tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />}
         main={
           <section className="min-w-0 space-y-4">
+          <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引 Provider 状态">
+            <div className="min-w-0 text-xs"><span className="font-semibold text-textStrong">公司指引 Provider</span><span className="ml-2 text-textMuted">{dataMode === "mock" ? "Mock 模式已严格隔离真实 Provider" : companyGuidanceWorkflowStatus === "loading" ? "全局索引校验中" : companyGuidanceWorkflowStatus === "success" ? `已验证 ${providerRecords.length} 条当前版本，导航切换不改变工作流` : companyGuidanceWorkflowStatus === "error" ? "全局索引失败，正式 Provider 已关闭" : "等待加载"}</span></div>
+            {companyGuidanceWorkflowError ? <div className="flex min-w-0 items-center gap-2"><span role="alert" className="max-w-xl truncate text-xs text-warning" title={companyGuidanceWorkflowError}>{companyGuidanceWorkflowError}</span><button type="button" onClick={retryCompanyGuidance} className="rounded border border-warning/50 px-2 py-1 text-xs text-warning">重试</button></div> : null}
+          </DashboardCard>
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
               <div className="min-w-0">
@@ -385,7 +462,7 @@ export default function App() {
           )}
           {activeTab === "预期证据" && (
             <EarningsExpectationCenter
-              snapshots={expectationData.snapshots}
+              snapshots={aggregatedExpectationEvidence.snapshots}
               comparisons={expectationComparisons}
               researchEvents={expectationEvents}
               importHistory={expectationData.importHistory}
@@ -393,9 +470,23 @@ export default function App() {
               industries={dataset.industries}
               watchItems={watchlistData.watchItems}
               storageError={expectationStorageError}
+              providerLoadStatus={companyGuidanceWorkflowStatus}
+              providerLoadError={companyGuidanceWorkflowError}
+              providerDetailLoadStatus={companyGuidanceLoadStatus}
+              providerDetailLoadError={companyGuidanceLoadError}
+              providerFailedStockIds={companyGuidanceFailedStockIds}
+              providerLoadedCompanyCount={Object.keys(companyGuidanceDetails).length}
+              onRetryProvider={retryCompanyGuidance}
+              providerSummary={companyGuidanceExpectationSummary}
+              providerSnapshotIds={aggregatedExpectationEvidence.providerSnapshotIds}
+              duplicateOfProviderByLocalId={aggregatedExpectationEvidence.duplicateOfProviderByLocalId}
+              providerRelationByLocalId={aggregatedExpectationEvidence.relationByLocalId}
+              providerRecordBySnapshotId={aggregatedExpectationEvidence.providerRecordBySnapshotId}
+              providerExclusions={Object.values(companyGuidanceDetails).flatMap((detail) => detail.exclusions)}
+              providerWarnings={Object.values(companyGuidanceDetails).flatMap((detail) => detail.warnings)}
               timeZone={expectationData.settings.timeZone}
               onAdd={() => setExpectationForm({})}
-              onCorrect={(snapshot) => setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id })}
+              onCorrect={(snapshot) => { if (!aggregatedExpectationEvidence.providerSnapshotIds.has(snapshot.id)) setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id }); }}
               onImport={() => setExpectationImportOpen(true)}
               onOpenStock={setSelectedStock}
             />
@@ -424,7 +515,12 @@ export default function App() {
         reviewEntries={watchlistData.reviewEntries}
         reviewTasks={reviewTasks}
         researchEvents={researchSnapshot.events}
-        earningsExpectationSnapshots={expectationData.snapshots}
+        earningsExpectationSnapshots={aggregatedExpectationEvidence.snapshots}
+        earningsExpectationProviderSnapshotIds={aggregatedExpectationEvidence.providerSnapshotIds}
+        earningsExpectationDuplicateOfProviderByLocalId={aggregatedExpectationEvidence.duplicateOfProviderByLocalId}
+        earningsExpectationProviderRecordBySnapshotId={aggregatedExpectationEvidence.providerRecordBySnapshotId}
+        companyGuidanceLoadStatus={companyGuidanceLoadStatus}
+        companyGuidanceLoadError={companyGuidanceLoadError}
         earningsExpectationTimeZone={expectationData.settings.timeZone}
         onAddToWatchlist={(stock) => setWatchForm({ stockId: stock.id })}
         onEditWatchItem={(item) => setWatchForm({ itemId: item.id })}
@@ -432,7 +528,7 @@ export default function App() {
         onCorrectReview={(entry) => { setReviewItemId(entry.watchItemId); setCorrectionReviewId(entry.id); }}
         onRestoreWatchItem={restoreWatchItem}
         onAddEarningsExpectation={(stock) => setExpectationForm({ stockId: stock.id })}
-        onCorrectEarningsExpectation={(snapshot) => setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id })}
+        onCorrectEarningsExpectation={(snapshot) => { if (!aggregatedExpectationEvidence.providerSnapshotIds.has(snapshot.id)) setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id }); }}
         onClose={() => setSelectedStock(null)}
         onOpenStock={setSelectedStock}
       />

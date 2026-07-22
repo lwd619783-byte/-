@@ -239,7 +239,10 @@ function expectationTaskDescription(event: ResearchEvent, threshold: number) {
     const revision = event.expectation?.businessRevisionDelta;
     return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}预测，相对上一业务根快照 ${revision?.previousBusinessRootSnapshotId ?? "基准缺失"} 的当前有效终点 ${revision?.previousEffectiveSnapshotId ?? "基准缺失"}，修订幅度达到 ${(threshold * 100).toFixed(0)}% 工作流提醒阈值；当前有效快照为 ${revision?.currentSnapshotId ?? event.expectation?.effectiveSnapshotId ?? "缺失"}。该阈值不是投资结论或行业标准，请核对来源和口径。`;
   }
-  if (event.eventType === "earnings_expectation_correction") return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}快照进行了数据或口径更正；原业务形成时间 ${event.expectation?.originalBusinessTime ?? "缺失"}，纠正记录时间 ${event.expectation?.correctionRecordedAt ?? event.publishedAt ?? "缺失"}，被更正记录 ${event.expectation?.correctionDelta?.correctionTargetId ?? event.expectation?.correctsSnapshotId ?? "缺失"}，当前纠正链终点 ${event.expectation?.effectiveSnapshotId ?? "缺失"}。更正差异不代表业务预测上调或下调，请核对变更字段。`;
+  if (event.eventType === "earnings_expectation_correction") {
+    if (event.expectation?.providerCorrectsVersionId) return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric} Provider 内容版本进行了抽取或来源纠错；前一版本 ${event.expectation.providerCorrectsVersionId}，当前版本 ${event.expectation.providerSnapshotVersionId ?? "缺失"}，变更字段 ${event.expectation.providerCorrectionChangedFields?.join("、") || "未记录"}。该纠错不代表业务预测上调或下调。`;
+    return `${source}对报告期 ${event.reportPeriod ?? "暂缺"} 的${metric}快照进行了数据或口径更正；原业务形成时间 ${event.expectation?.originalBusinessTime ?? "缺失"}，纠正记录时间 ${event.expectation?.correctionRecordedAt ?? event.publishedAt ?? "缺失"}，被更正记录 ${event.expectation?.correctionDelta?.correctionTargetId ?? event.expectation?.correctsSnapshotId ?? "缺失"}，当前纠正链终点 ${event.expectation?.effectiveSnapshotId ?? "缺失"}。更正差异不代表业务预测上调或下调，请核对变更字段。`;
+  }
   if (event.eventType === "earnings_expectation_comparison_available") return `${category}已与同报告期可靠实际值形成比较，请打开来源和计算详情完成复盘；不自动生成买卖建议。`;
   if (event.eventType === "earnings_expectation_data_warning") {
     if (event.expectation?.warningFamily === "business_order") {

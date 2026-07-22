@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "2.0.0",
+  "providerId": "cninfo-company-guidance",
+  "providerVersion": "2.0.0",
+  "generatedAt": "2026-07-11T07:31:40Z",
+  "stockId": "tieliu",
+  "stockCode": "603926",
+  "companyName": "铁流股份",
+  "market": "A股",
+  "status": "missing",
+  "totalAnnouncementCount": 212,
+  "targetAnnouncements": [],
+  "providerSnapshots": [],
+  "historicalProviderVersions": [],
+  "exclusions": [],
+  "warnings": [],
+  "quality": {
+    "source": "CNInfo",
+    "sourceLayer": "company_guidance_expectations",
+    "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+    "updatedAt": "2026-07-11T07:31:40Z",
+    "status": "missing"
+  }
+}
