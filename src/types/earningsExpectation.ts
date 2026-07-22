@@ -442,6 +442,29 @@ export type CompanyGuidanceExpectationDetailProviderRecord = EarningsExpectation
 
 export type CompanyGuidanceExpectationWorkflowRecord = Omit<EarningsExpectationProviderSnapshot, "sourceTextEvidence" | "originalUnitEvidence">;
 
+export interface CompanyGuidanceExpectationCorrectionContentProjection {
+  providerEvidenceIdentity: string;
+  estimateShape: EarningsExpectationShape;
+  value: number | null;
+  lowerBound: number | null;
+  upperBound: number | null;
+  currency: string;
+  unit: string;
+  accountingBasis: string;
+  sourcePublishedAt: string;
+  sourceTextEvidenceHash: string;
+  providerParseRulesVersion: string;
+}
+
+export interface CompanyGuidanceExpectationCorrectionProof {
+  currentProviderSnapshotVersionId: string;
+  predecessorProviderSnapshotVersionId: string;
+  predecessorProviderCorrectsVersionId: string | null;
+  providerEvidenceIdentity: string;
+  predecessorProviderContentChecksum: string;
+  predecessorContentProjection: CompanyGuidanceExpectationCorrectionContentProjection;
+}
+
 export interface CompanyGuidanceExpectationExclusion {
   stockId: string;
   companyName: string;
@@ -572,6 +595,7 @@ export interface CompanyGuidanceExpectationWorkflowIndex {
   generatedAt: string;
   currentSnapshotCount: number;
   records: CompanyGuidanceExpectationWorkflowRecord[];
+  correctionProofs: CompanyGuidanceExpectationCorrectionProof[];
   warnings: CompanyGuidanceExpectationWarning[];
 }
 

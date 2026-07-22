@@ -353,6 +353,43 @@ describe("company guidance expectation provider V2", () => {
     expect(events.some((event) => event.expectation?.businessRevisionDelta)).toBe(false);
   });
 
+  it("keeps Provider correction event time and dismissed ReviewTask stable across no-op release epochs", () => {
+    const snapshot = providerRecord().snapshot;
+    snapshot.id = `company-guidance-version-${"2".repeat(64)}`;
+    snapshot.providerSnapshotVersionId = snapshot.id;
+    snapshot.providerCorrectsVersionId = `company-guidance-version-${"1".repeat(64)}`;
+    snapshot.providerCorrectionType = "extraction_correction";
+    snapshot.createdAt = "2026-07-12T07:31:40Z";
+    snapshot.providerCorrectedAt = snapshot.createdAt;
+    snapshot.providerGeneratedAt = "2026-07-13T07:31:40Z";
+    snapshot.providerCorrectionChangedFields = ["lowerBound"];
+    const refreshed = { ...snapshot, providerGeneratedAt: "2026-07-15T07:31:40Z" };
+    const firstCorrection = buildEarningsExpectationResearchEvents([snapshot], [], [providerStock()])
+      .find((event) => event.eventType === "earnings_expectation_correction");
+    const refreshedCorrection = buildEarningsExpectationResearchEvents([refreshed], [], [providerStock()])
+      .find((event) => event.eventType === "earnings_expectation_correction");
+    expect(firstCorrection).toBeDefined();
+    expect(refreshedCorrection).toMatchObject({
+      id: firstCorrection?.id,
+      eventDate: firstCorrection?.eventDate,
+      publishedAt: firstCorrection?.publishedAt,
+      eventOccurredAt: firstCorrection?.eventOccurredAt,
+      eventBusinessDate: firstCorrection?.eventBusinessDate,
+    });
+    const firstTasks = buildReviewTasks({ watchItems: [providerWatchItem()], events: [firstCorrection!], chains: [], taskStates: [] });
+    const firstTask = firstTasks.find((task) => task.ruleType === "earnings_expectation_correction");
+    expect(firstTask).toBeDefined();
+    const refreshedTasks = buildReviewTasks({
+      watchItems: [providerWatchItem()],
+      events: [refreshedCorrection!, refreshedCorrection!],
+      chains: [],
+      taskStates: [{ taskId: firstTask!.id, status: "dismissed", acknowledgedAt: null, dismissedAt: "2026-07-13T08:00:00Z", snoozedUntil: null, updatedAt: "2026-07-13T08:00:00Z" }],
+    });
+    const correctionTasks = refreshedTasks.filter((task) => task.ruleType === "earnings_expectation_correction");
+    expect(correctionTasks).toHaveLength(1);
+    expect(correctionTasks[0]).toMatchObject({ id: firstTask!.id, status: "dismissed", dismissedAt: "2026-07-13T08:00:00Z" });
+  });
+
   it("validates an A1-to-B-to-A2 correction chain with repeated content but distinct event ids", async () => {
     const fixture = await correctionChainArtifacts();
     const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : String(url).includes("workflow-index") ? response(fixture.workflow) : response(fixture.detail)) as typeof fetch;
@@ -366,6 +403,53 @@ describe("company guidance expectation provider V2", () => {
     expect(b.providerCorrectsVersionId).toBe(a1.providerSnapshotVersionId);
     expect(a2.providerCorrectsVersionId).toBe(b.providerSnapshotVersionId);
     expect(workflow.records[0].providerSnapshotVersionId).toBe(a2.providerSnapshotVersionId);
+  });
+
+  it.each([
+    ["predecessor with initial type", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      const record = fixture.workflow.records[0]; record.providerCorrectionType = "initial"; record.snapshot.providerCorrectionType = "initial";
+    }],
+    ["extraction correction without predecessor", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      const record = fixture.workflow.records[0]; record.providerCorrectsVersionId = null; record.snapshot.providerCorrectsVersionId = null;
+    }],
+    ["empty changedFields", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      const record = fixture.workflow.records[0]; record.providerCorrectionChangedFields = []; record.snapshot.providerCorrectionChangedFields = [];
+    }],
+    ["duplicate changedFields", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      const record = fixture.workflow.records[0]; record.providerCorrectionChangedFields = ["lowerBound", "lowerBound"]; record.snapshot.providerCorrectionChangedFields = ["lowerBound", "lowerBound"];
+    }],
+    ["non-content changedField", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      const record = fixture.workflow.records[0]; record.providerCorrectionChangedFields = ["sourceTitle"]; record.snapshot.providerCorrectionChangedFields = ["sourceTitle"];
+    }],
+    ["null correctedAt", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      const record = fixture.workflow.records[0]; record.providerCorrectedAt = null; record.snapshot.providerCorrectedAt = null;
+    }],
+    ["correctedAt differs from createdAt", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      const record = fixture.workflow.records[0]; record.providerCorrectedAt = "2026-07-14T07:31:40Z"; record.snapshot.providerCorrectedAt = record.providerCorrectedAt;
+    }],
+    ["record/snapshot correction metadata split", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      fixture.workflow.records[0].snapshot.providerCorrectionChangedFields = ["upperBound"];
+    }],
+  ])("workflow rejects local correction shape attack: %s", async (_label, mutate) => {
+    const fixture = await correctionChainArtifacts();
+    mutate(fixture);
+    await expectRejectedWorkflowFixture(fixture);
+  });
+
+  it.each([
+    ["forged changedFields", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => {
+      const record = fixture.workflow.records[0]; record.providerCorrectionChangedFields = ["sourcePublishedAt"]; record.snapshot.providerCorrectionChangedFields = ["sourcePublishedAt"];
+    }],
+    ["modified predecessor projection", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => { const projection = fixture.workflow.correctionProofs[0].predecessorContentProjection; projection.lowerBound = (projection.lowerBound ?? 0) + 1; }],
+    ["modified predecessor checksum", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => { fixture.workflow.correctionProofs[0].predecessorProviderContentChecksum = "0".repeat(64); }],
+    ["different evidence identity", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => { fixture.workflow.correctionProofs[0].providerEvidenceIdentity = `${EVIDENCE_ID}:other`; }],
+    ["missing proof", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => { fixture.workflow.correctionProofs = []; }],
+    ["duplicate proof", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => { fixture.workflow.correctionProofs.push(structuredClone(fixture.workflow.correctionProofs[0])); }],
+    ["raw evidence injected into proof", (fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) => { Object.assign(fixture.workflow.correctionProofs[0].predecessorContentProjection, { sourceTextEvidence: "forged raw evidence" }); }],
+  ])("workflow rejects re-signed correction proof attack: %s", async (_label, mutate) => {
+    const fixture = await correctionChainArtifacts();
+    mutate(fixture);
+    await expectRejectedWorkflowFixture(fixture);
   });
 
   it("clearCache prevents a stale detail request from caching or deleting the new in-flight request", async () => {
@@ -503,7 +587,18 @@ async function correctionChainArtifacts() {
   setGeneration(a2, "2026-07-13T07:31:40Z");
   const detail: CompanyGuidanceExpectationDetail = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", stockId: "sample", stockCode: "000001", companyName: "样本公司", market: "A股", status: "generated_real", totalAnnouncementCount: 1, targetAnnouncements: [targetAnnouncement()], providerSnapshots: [a2], historicalProviderVersions: [a1, b], exclusions: [], warnings: [], quality: detailQuality("2026-07-13T07:31:40Z", "generated_real") };
   const { sourceTextEvidence: _sourceTextEvidence, originalUnitEvidence: _originalUnitEvidence, ...workflowRecord } = structuredClone(a2);
-  const workflow: CompanyGuidanceExpectationWorkflowIndex = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", currentSnapshotCount: 1, records: [workflowRecord], warnings: [] };
+  const workflow: CompanyGuidanceExpectationWorkflowIndex = {
+    schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", currentSnapshotCount: 1, records: [workflowRecord],
+    correctionProofs: [{
+      currentProviderSnapshotVersionId: a2.providerSnapshotVersionId,
+      predecessorProviderSnapshotVersionId: b.providerSnapshotVersionId,
+      predecessorProviderCorrectsVersionId: b.providerCorrectsVersionId,
+      providerEvidenceIdentity: a2.providerEvidenceIdentity,
+      predecessorProviderContentChecksum: b.providerContentChecksum,
+      predecessorContentProjection: providerProjection(b),
+    }],
+    warnings: [],
+  };
   const manifest: CompanyGuidanceExpectationManifest = { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-13T07:31:40Z", totalCompanies: 1, companiesWithSnapshots: 1, totalSnapshots: 1, totalHistoricalVersions: 2, workflowIndexRelativePath: "data/a-share-company-guidance-expectations/workflow-index.generated.json", workflowIndexByteSize: 0, workflowIndexChecksumSha256: "", items: [{ stockId: "sample", stockCode: "000001", companyName: "样本公司", relativePath: "data/a-share-company-guidance-expectations/sample.json", snapshotCount: 1, historicalVersionCount: 2, excludedAnnouncementCount: 0, byteSize: 0, checksumSha256: "", latestReportPeriod: "2025-12-31", latestSourceDate: "2026-01-15", status: "generated_real" }] };
   const fixture = { manifest, detail, workflow, summary: summaryFromManifest(manifest) };
   await finalizeDetail(fixture); await finalizeWorkflow(fixture);
@@ -548,6 +643,12 @@ async function waitFor(predicate: () => boolean) { for (let attempt = 0; attempt
 
 async function finalizeDetail(fixture: { manifest: CompanyGuidanceExpectationManifest; detail: CompanyGuidanceExpectationDetail }) { const bytes = new TextEncoder().encode(JSON.stringify(fixture.detail)); fixture.manifest.items[0].byteSize = bytes.byteLength; fixture.manifest.items[0].checksumSha256 = await sha256Hex(bytes); }
 async function finalizeWorkflow(fixture: { manifest: CompanyGuidanceExpectationManifest; workflow: CompanyGuidanceExpectationWorkflowIndex }) { const bytes = new TextEncoder().encode(JSON.stringify(fixture.workflow)); fixture.manifest.workflowIndexByteSize = bytes.byteLength; fixture.manifest.workflowIndexChecksumSha256 = await sha256Hex(bytes); }
+async function expectRejectedWorkflowFixture(fixture: Awaited<ReturnType<typeof correctionChainArtifacts>>) {
+  await finalizeWorkflow(fixture);
+  fixture.summary = summaryFromManifest(fixture.manifest);
+  const fetchImpl = vi.fn(async (url: RequestInfo | URL) => String(url).includes("manifest") ? response(fixture.manifest) : response(fixture.workflow)) as typeof fetch;
+  await expect(providerLoader(fixture, fetchImpl).loadWorkflow()).rejects.toMatchObject({ code: expect.stringMatching(/graph|identity|schema/u) });
+}
 function response(value: unknown) { return new Response(JSON.stringify(value), { status: 200, headers: { "Content-Type": "application/json" } }); }
 async function sha256Hex(bytes: Uint8Array) { const digest = await globalThis.crypto.subtle.digest("SHA-256", bytes as BufferSource); return [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2, "0")).join(""); }
 function providerLoader(fixture: { summary: CompanyGuidanceExpectationSummary }, fetchImpl: typeof fetch) { return createCompanyGuidanceExpectationLoader({ fetchImpl, baseUrl: "/", cryptoImpl: globalThis.crypto, retries: 0, summary: fixture.summary }); }
@@ -606,7 +707,23 @@ function providerRecord(): CompanyGuidanceExpectationDetailProviderRecord {
   const snapshot = localSnapshot({ id: VERSION_ID, ingestionMethod: "provider", sourceName: "样本公司", createdAt: "2026-07-11T07:31:40Z", createdBy: "cninfo-company-guidance", sourceVerificationStatus: "verified", formationTimeBasis: "public_disclosure_proxy", notes: "公司内部形成时间未知，以公开披露时间作为可用时间", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", providerGeneratedAt: "2026-07-11T07:31:40Z", providerEvidenceIdentity: EVIDENCE_ID, providerSnapshotVersionId: VERSION_ID, providerContentChecksum: CONTENT_HASH, providerParseRulesVersion: "1.0.0", providerCorrectsVersionId: null, providerCorrectionType: "initial", providerCorrectedAt: null, providerCorrectionChangedFields: [], isCurrentProviderVersion: true, providerBusinessRevisionPredecessorSnapshotId: null, sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview", officialPdfUrl: "https://static.cninfo.com.cn/finalpage/2026-01-15/1222448664.PDF", artifactChecksum: CONTENT_HASH });
   return { providerId: "cninfo-company-guidance", providerVersion: "2.0.0", snapshot, providerEvidenceIdentity: EVIDENCE_ID, providerSnapshotVersionId: VERSION_ID, providerContentChecksum: CONTENT_HASH, providerParseRulesVersion: "1.0.0", providerCorrectsVersionId: null, providerCorrectionType: "initial", providerCorrectedAt: null, providerCorrectionChangedFields: [], isCurrentVersion: true, providerBusinessRevisionPredecessorSnapshotId: null, sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview", officialSourceUrl: snapshot.sourceUrl as string, officialPdfUrl: snapshot.officialPdfUrl as string, sourceDate: "2026-01-15", generatedAt: "2026-07-11T07:31:40Z", artifactChecksum: CONTENT_HASH, sourceParseStatus: "parse_success", sourceExtractionConfidence: "high", sourceTextEvidence: "evidence-100-200 万元", sourceTextEvidenceHash: TEXT_HASH, originalUnitEvidence: "万元", correctionCandidateAnnouncementIds: [], structuredWarnings: [] };
 }
-function workflowIndex(): CompanyGuidanceExpectationWorkflowIndex { const { sourceTextEvidence: _sourceTextEvidence, originalUnitEvidence: _originalUnitEvidence, ...record } = providerRecord(); return { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", currentSnapshotCount: 1, records: [record], warnings: [] }; }
+function workflowIndex(): CompanyGuidanceExpectationWorkflowIndex { const { sourceTextEvidence: _sourceTextEvidence, originalUnitEvidence: _originalUnitEvidence, ...record } = providerRecord(); return { schemaVersion: "2.0.0", providerId: "cninfo-company-guidance", providerVersion: "2.0.0", generatedAt: "2026-07-11T07:31:40Z", currentSnapshotCount: 1, records: [record], correctionProofs: [], warnings: [] }; }
+
+function providerProjection(record: EarningsExpectationProviderSnapshot) {
+  return {
+    providerEvidenceIdentity: record.providerEvidenceIdentity,
+    estimateShape: record.snapshot.estimateShape,
+    value: record.snapshot.value,
+    lowerBound: record.snapshot.lowerBound,
+    upperBound: record.snapshot.upperBound,
+    currency: record.snapshot.currency,
+    unit: record.snapshot.unit,
+    accountingBasis: record.snapshot.accountingBasis,
+    sourcePublishedAt: record.snapshot.sourcePublishedAt as string,
+    sourceTextEvidenceHash: record.sourceTextEvidenceHash,
+    providerParseRulesVersion: record.providerParseRulesVersion,
+  };
+}
 function targetAnnouncement() { return { sourceAnnouncementId: "1222448664", stockId: "sample", sourceAnnouncementType: "earnings_preview" as const, sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, parseStatus: "parse_success" as const, isDuplicate: false }; }
 function exclusionRecord() { return { stockId: "sample", companyName: "样本公司", sourceAnnouncementId: "1222448664", sourceAnnouncementType: "earnings_preview" as const, sourceTitle: "2025年度业绩预告", sourceDate: "2026-01-15", reportPeriod: "2025-12-31", periodScope: "full_year" as const, metric: null, parseStatus: "parse_success" as const, officialSourceUrl: "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222448664", candidateAnnouncementIds: [], reasons: ["no_reliable_forecast_range" as const] }; }
 function detailQuality(updatedAt: string, status: "generated_real" | "partial" | "missing") { return { source: "CNInfo" as const, sourceLayer: "company_guidance_expectations" as const, sourceUrl: "https://www.cninfo.com.cn/new/hisAnnouncement/query", updatedAt, status }; }

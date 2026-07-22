@@ -4710,6 +4710,7 @@
       "structuredWarnings": []
     }
   ],
+  "correctionProofs": [],
   "warnings": [
     {
       "code": "revision_without_reliable_range",

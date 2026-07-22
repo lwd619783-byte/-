@@ -15,6 +15,7 @@ import {
   deriveCompanyGuidanceSummaryStatus,
   validateBusinessRevisionGraph,
   validateCompanyGuidanceDetail,
+  validateCompanyGuidanceWorkflowCorrectionProofs,
   validateProviderRecord,
   validateVersionGraph,
 } from "./company-guidance-expectations/core.mjs";
@@ -130,11 +131,12 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
   }
   if (workflow) {
     if (workflow.schemaVersion !== COMPANY_GUIDANCE_SCHEMA_VERSION || workflow.providerId !== COMPANY_GUIDANCE_PROVIDER_ID || workflow.providerVersion !== COMPANY_GUIDANCE_PROVIDER_VERSION) errors.push("workflow index contract mismatch");
-    if (!Array.isArray(workflow.records) || workflow.currentSnapshotCount !== workflow.records.length || workflow.currentSnapshotCount !== totalSnapshots) errors.push("workflow index count mismatch");
+    if (!Array.isArray(workflow.records) || !Array.isArray(workflow.correctionProofs) || workflow.currentSnapshotCount !== workflow.records.length || workflow.currentSnapshotCount !== totalSnapshots) errors.push("workflow index count mismatch");
     if (!isStrictPreciseInstant(workflow.generatedAt) || workflow.generatedAt !== manifest.generatedAt) errors.push("workflow generation epoch mismatch");
     const expectedWorkflow = createWorkflowIndex(details, manifest.generatedAt);
     if (canonicalJson(workflow) !== canonicalJson(expectedWorkflow)) errors.push("workflow index does not exactly mirror current detail records");
     if ((workflow.records ?? []).some((record) => Object.hasOwn(record, "sourceTextEvidence") || Object.hasOwn(record, "originalUnitEvidence"))) errors.push("workflow index contains raw evidence fields");
+    errors.push(...validateCompanyGuidanceWorkflowCorrectionProofs(workflow.records ?? [], workflow.correctionProofs ?? []));
     const companyNames = new Map(details.map((detail) => [detail.stockId, detail.companyName]));
     for (const record of workflow.records ?? []) errors.push(...validateProviderRecord(record, {
       mode: "workflow_current",
@@ -156,6 +158,7 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
   if (summary?.audit?.companyCount !== items.length) errors.push("summary company count mismatch");
   if (summary?.generatedAt !== manifest?.generatedAt) errors.push("summary global field mismatch: generatedAt");
   if (summary?.sourceGeneratedAt !== manifest?.generatedAt) errors.push("summary global field mismatch: sourceGeneratedAt");
+  if (summary?.sourceGeneratedAt !== sourceReferences.sourceGeneratedAt) errors.push("announcement/provider release epoch mismatch");
   if (summary?.workflowIndex?.relativePath !== manifest?.workflowIndexRelativePath) errors.push("summary global field mismatch: workflowIndex.relativePath");
   if (summary?.workflowIndex?.byteSize !== manifest?.workflowIndexByteSize) errors.push("summary global field mismatch: workflowIndex.byteSize");
   if (summary?.workflowIndex?.checksumSha256 !== manifest?.workflowIndexChecksumSha256) errors.push("summary global field mismatch: workflowIndex.checksumSha256");
@@ -175,13 +178,17 @@ export function validateCommittedCompanyGuidanceArtifacts(rootPath = root, { exp
 }
 
 function loadAnnouncementSourceReferences(sourceRootPath, errors) {
+  const summaryPath = path.join(sourceRootPath, "src/data/real/a-share-announcement-summaries.generated.json");
   const manifestPath = path.join(sourceRootPath, "public/data/a-share-announcements/manifest.generated.json");
   const byStock = new Map();
   const ownerByAnnouncementId = new Map();
   const directReferencesBySourceId = new Map();
-  let sourceManifest;
-  try { sourceManifest = readJson(manifestPath); } catch (error) { errors.push(`announcement source manifest unreadable: ${error}`); return { byStock, ownerByAnnouncementId, directReferencesBySourceId }; }
-  if (!Array.isArray(sourceManifest?.items)) { errors.push("announcement source manifest items must be an array"); return { byStock, ownerByAnnouncementId, directReferencesBySourceId }; }
+  let sourceSummary; let sourceManifest;
+  try { sourceSummary = readJson(summaryPath); } catch (error) { errors.push(`announcement source summary unreadable: ${error}`); return { byStock, ownerByAnnouncementId, directReferencesBySourceId, sourceGeneratedAt: null }; }
+  try { sourceManifest = readJson(manifestPath); } catch (error) { errors.push(`announcement source manifest unreadable: ${error}`); return { byStock, ownerByAnnouncementId, directReferencesBySourceId, sourceGeneratedAt: sourceSummary?.generatedAt ?? null }; }
+  const sourceGeneratedAt = sourceSummary?.generatedAt ?? null;
+  if (!isStrictPreciseInstant(sourceGeneratedAt) || sourceManifest?.generatedAt !== sourceGeneratedAt) errors.push("announcement source release epoch mismatch");
+  if (!Array.isArray(sourceManifest?.items)) { errors.push("announcement source manifest items must be an array"); return { byStock, ownerByAnnouncementId, directReferencesBySourceId, sourceGeneratedAt }; }
   for (const entry of sourceManifest.items) {
     if (!entry || typeof entry.stockId !== "string" || typeof entry.relativePath !== "string"
       || !SAFE_ANNOUNCEMENT_DETAIL_PATH.test(entry.relativePath) || entry.relativePath.includes("..")
@@ -189,6 +196,7 @@ function loadAnnouncementSourceReferences(sourceRootPath, errors) {
     let detail;
     try { detail = readJson(path.join(sourceRootPath, "public", entry.relativePath)); } catch (error) { errors.push(`announcement source detail unreadable: ${entry.stockId}: ${error}`); continue; }
     if (detail?.stockId !== entry.stockId || !Array.isArray(detail?.announcements)) { errors.push(`announcement source detail identity invalid: ${entry.stockId}`); continue; }
+    if (detail.generatedAt !== sourceGeneratedAt) errors.push(`announcement source detail release epoch mismatch: ${entry.stockId}`);
     const ids = byStock.get(entry.stockId) ?? new Set();
     for (const announcement of detail.announcements) {
       const id = typeof announcement?.announcementId === "string" ? announcement.announcementId : null;
@@ -203,7 +211,7 @@ function loadAnnouncementSourceReferences(sourceRootPath, errors) {
     }
     byStock.set(entry.stockId, ids);
   }
-  return { byStock, ownerByAnnouncementId, directReferencesBySourceId };
+  return { byStock, ownerByAnnouncementId, directReferencesBySourceId, sourceGeneratedAt };
 }
 
 function validateCandidateAnnouncementReferences(detail, sourceReferences) {

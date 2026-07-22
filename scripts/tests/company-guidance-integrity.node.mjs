@@ -593,11 +593,23 @@ for (const [label, mutate] of [
 for (const [label, mutate] of [
   ["correctedAt before predecessor", (record) => { setCorrectedAt(record, "2026-07-10T07:31:40Z"); }],
   ["correctedAt after release epoch", (record) => { setCorrectedAt(record, "2026-07-14T07:31:40Z"); record.generatedAt = "2026-07-14T07:31:40Z"; record.snapshot.providerGeneratedAt = record.generatedAt; }],
-  ["valid correctedAt unequal to record generatedAt", (record) => { setCorrectedAt(record, "2026-07-12T12:00:00Z"); }],
+  ["correctedAt unequal to immutable snapshot.createdAt", (record) => { setCorrectedAt(record, "2026-07-12T12:00:00Z"); }],
 ]) test(`correction graph rejects ${label}`, () => {
   const { records, current } = extractionCorrectionGraph();
   mutate(current);
   assert.ok(validateCompanyGuidanceCorrectionGraph(records, { generationEpoch: "2026-07-13T07:31:40Z" }).includes("provider_correction_chronology"));
+});
+
+test("correction graph accepts immutable correctedAt before a later no-op release epoch", () => {
+  const { records, current } = extractionCorrectionGraph();
+  const immutableCreatedAt = current.snapshot.createdAt;
+  const immutableCorrectedAt = current.providerCorrectedAt;
+  current.generatedAt = "2026-07-14T07:31:40Z";
+  current.snapshot.providerGeneratedAt = current.generatedAt;
+  assert.equal(current.snapshot.createdAt, immutableCreatedAt);
+  assert.equal(current.providerCorrectedAt, immutableCorrectedAt);
+  assert.deepEqual(validateCompanyGuidanceCorrectionGraph(records, { generationEpoch: current.generatedAt }), []);
+  assert.deepEqual(validateProviderRecord(current, { mode: "detail_current", stockId: "company-00", companyName: "Company 0", expectedGenerationEpoch: current.generatedAt }), []);
 });
 
 test("record/snapshot correction timestamp split is rejected", () => {
@@ -685,7 +697,7 @@ function createSourceArtifacts(root, count) {
     items.push(entry);
     writeJson(path.join(root, "public", entry.relativePath), sourceDetail(index, index === 0 ? [announcement()] : []));
   }
-  writeJson(manifestFile, { items });
+  writeJson(manifestFile, { generatedAt: GENERATED_AT, items });
 }
 
 function sourceEntry(index) {
@@ -694,7 +706,7 @@ function sourceEntry(index) {
 }
 function sourceManifestPath(root) { return path.join(root, "public/data/a-share-announcements/manifest.generated.json"); }
 function sourceManifest(root) { return readJson(sourceManifestPath(root)); }
-function sourceDetail(index, announcements) { return { stockId: `company-${String(index).padStart(2, "0")}`, stockCode: String(index).padStart(6, "0"), companyName: `Company ${index}`, announcements }; }
+function sourceDetail(index, announcements) { return { generatedAt: GENERATED_AT, stockId: `company-${String(index).padStart(2, "0")}`, stockCode: String(index).padStart(6, "0"), companyName: `Company ${index}`, announcements }; }
 
 function announcement({ lowerBound = 100, upperBound = 200 } = {}) {
   return {
@@ -826,6 +838,7 @@ function writeBundle(root, result, companyCount) {
 }
 
 function createSourceReferenceArtifacts(root, bundle) {
+  const sourceGeneratedAt = bundle.summary.generatedAt;
   const items = [];
   for (const [stockId, content] of bundle.renderedDetails) {
     const detail = JSON.parse(content);
@@ -840,9 +853,10 @@ function createSourceReferenceArtifacts(root, bundle) {
       correctedAnnouncementId: candidateBySource.get(announcementId)?.[0] ?? null,
       performanceForecastEvents: [],
     }));
-    writeJson(path.join(root, "public", relativePath), { stockId, stockCode: detail.stockCode, companyName: detail.companyName, announcements });
+    writeJson(path.join(root, "public", relativePath), { generatedAt: sourceGeneratedAt, stockId, stockCode: detail.stockCode, companyName: detail.companyName, announcements });
   }
-  writeJson(sourceManifestPath(root), { items });
+  writeJson(path.join(root, "src/data/real/a-share-announcement-summaries.generated.json"), { generatedAt: sourceGeneratedAt });
+  writeJson(sourceManifestPath(root), { generatedAt: sourceGeneratedAt, items });
 }
 
 function mutateCommittedDetail(root, stockId, mutate) {

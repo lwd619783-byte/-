@@ -23,6 +23,7 @@ import {
   deriveCompanyGuidanceSummaryAudit,
   validateCompanyGuidanceSummaryAuditManifestProjection,
 } from "../src/services/companyGuidanceExpectationAudit.mjs";
+import { isStrictPreciseInstant } from "../src/utils/strictDateTime.mjs";
 
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const workflowIndexName = "workflow-index.generated.json";
@@ -56,12 +57,13 @@ export function resolveCompanyGuidancePaths(rootPath = defaultRoot) {
   };
 }
 
-export function generateCompanyGuidanceArtifacts({ dryRun = false, rootPath = defaultRoot, transactionHooks = null } = {}) {
+export function renderCompanyGuidanceArtifacts({ rootPath = defaultRoot, validatePreviousArtifacts = true } = {}) {
   const paths = resolveCompanyGuidancePaths(rootPath);
   const sourceSummary = readJson(paths.announcementSummaryPath, "announcement summary");
   const sourceManifest = readJson(paths.announcementManifestPath, "announcement manifest");
   const details = readAnnouncementDetails(sourceManifest, rootPath);
-  const previousDetails = readPreviousProviderDetails(paths, expectedCompanyCount);
+  assertAnnouncementReleaseEpoch(sourceSummary, sourceManifest, details);
+  const previousDetails = readPreviousProviderDetails(paths, expectedCompanyCount, { validateCommitted: validatePreviousArtifacts });
   const result = buildCompanyGuidanceArtifacts({ announcementDetails: details, sourceGeneratedAt: sourceSummary.generatedAt, previousDetails });
   const renderedDetails = new Map(result.companies.map((company) => [company.stockId, renderJson(company)]));
   const workflowIndex = createWorkflowIndex(result.companies, sourceSummary.generatedAt);
@@ -105,28 +107,88 @@ export function generateCompanyGuidanceArtifacts({ dryRun = false, rootPath = de
     }),
   };
   validateRendered(result, manifest, renderedDetails, workflowIndex, renderedWorkflowIndex, expectedCompanyCount);
+  const renderedManifest = renderJson(manifest);
+  const renderedSummary = renderJson(result.summary);
+  const artifacts = new Map([
+    ...[...renderedDetails].map(([stockId, content]) => [`public/data/a-share-company-guidance-expectations/${stockId}.json`, Buffer.from(content, "utf8")]),
+    [`public/data/a-share-company-guidance-expectations/${manifestName}`, Buffer.from(renderedManifest, "utf8")],
+    [`public/data/a-share-company-guidance-expectations/${workflowIndexName}`, Buffer.from(renderedWorkflowIndex, "utf8")],
+    ["src/data/real/a-share-company-guidance-expectation-summaries.generated.json", Buffer.from(renderedSummary, "utf8")],
+  ].sort(([left], [right]) => left.localeCompare(right)));
+  return { ...result, manifest, workflowIndex, renderedDetails, renderedWorkflowIndex, renderedManifest, renderedSummary, artifacts, sourceSummary, sourceManifest };
+}
+
+export function generateCompanyGuidanceArtifacts({ dryRun = false, rootPath = defaultRoot, transactionHooks = null } = {}) {
+  const rendered = renderCompanyGuidanceArtifacts({ rootPath });
+  const paths = resolveCompanyGuidancePaths(rootPath);
   if (!dryRun) {
     writeArtifactsTransaction({
       rootPath,
       outputDir: paths.outputDir,
       summaryPath: paths.summaryPath,
-      summary: result.summary,
-      manifest,
-      renderedDetails,
-      renderedWorkflowIndex,
+      summary: rendered.summary,
+      manifest: rendered.manifest,
+      renderedDetails: rendered.renderedDetails,
+      renderedWorkflowIndex: rendered.renderedWorkflowIndex,
       expectedCompanyCount,
       sourceRootPath: rootPath,
       hooks: transactionHooks,
     });
   }
-  return { ...result, manifest, workflowIndex, dryRun };
+  return { ...rendered, dryRun };
 }
 
-export function readPreviousProviderDetails(paths, requiredCompanyCount = expectedCompanyCount) {
+export function checkCommittedCompanyGuidanceArtifacts({ rootPath = defaultRoot } = {}) {
+  const paths = resolveCompanyGuidancePaths(rootPath);
+  const fileSetMismatches = compareArtifactFileSet(rootPath, paths);
+  const blockingInputMissing = fileSetMismatches.some((mismatch) => mismatch.mismatchTypes.includes("missing_file")
+    && mismatch.path !== "src/data/real/a-share-company-guidance-expectation-summaries.generated.json"
+    && !mismatch.path.endsWith(`/${workflowIndexName}`));
+  if (blockingInputMissing) return { status: "failed", checked: false, mismatches: fileSetMismatches };
+  const committedValidation = validateCommittedCompanyGuidanceArtifacts(rootPath, { expectedCompanyCount });
+  const rendered = renderCompanyGuidanceArtifacts({ rootPath, validatePreviousArtifacts: false });
+  const mismatches = [
+    ...fileSetMismatches.filter((mismatch) => mismatch.mismatchTypes.includes("extra_or_orphan_file")),
+    ...committedValidation.errors.map(validationMismatch),
+    ...releaseEpochMismatches(rendered, rootPath),
+    ...compareCommittedArtifactBytes(rendered.artifacts, rootPath),
+  ];
+  return {
+    status: mismatches.length ? "failed" : "passed",
+    checked: true,
+    sourceGeneratedAt: rendered.sourceSummary.generatedAt,
+    expectedFileCount: rendered.artifacts.size,
+    mismatches,
+    audit: rendered.audit,
+  };
+}
+
+function validationMismatch(message) {
+  const pathHint = message.startsWith("summary") || message.includes("summary ")
+    ? "src/data/real/a-share-company-guidance-expectation-summaries.generated.json"
+    : message.startsWith("manifest")
+      ? `public/data/a-share-company-guidance-expectations/${manifestName}`
+      : message.startsWith("workflow") || message.includes("workflow ")
+        ? `public/data/a-share-company-guidance-expectations/${workflowIndexName}`
+        : "public/data/a-share-company-guidance-expectations";
+  return {
+    path: pathHint,
+    mismatchTypes: ["committed_validation_error"],
+    expectedByteSize: null,
+    actualByteSize: null,
+    expectedSha256: null,
+    actualSha256: null,
+    firstDifference: message,
+  };
+}
+
+export function readPreviousProviderDetails(paths, requiredCompanyCount = expectedCompanyCount, { validateCommitted = true } = {}) {
   if (!fs.existsSync(paths.outputDir)) return [];
   if (!fs.statSync(paths.outputDir).isDirectory()) throw new Error(`existing provider output is not a directory: ${paths.outputDir}`);
-  const validation = validateCommittedCompanyGuidanceArtifacts(paths.rootPath, { expectedCompanyCount: requiredCompanyCount });
-  if (validation.errors.length) throw new Error(`existing provider artifacts are invalid: ${validation.errors.join("; ")}`);
+  if (validateCommitted) {
+    const validation = validateCommittedCompanyGuidanceArtifacts(paths.rootPath, { expectedCompanyCount: requiredCompanyCount });
+    if (validation.errors.length) throw new Error(`existing provider artifacts are invalid: ${validation.errors.join("; ")}`);
+  }
   const manifest = readJson(path.join(paths.outputDir, manifestName), "existing provider manifest");
   const details = manifest.items.map((entry) => {
     assertProviderManifestEntry(entry);
@@ -238,6 +300,146 @@ function readAnnouncementDetails(sourceManifest, rootPath) {
   });
 }
 
+function assertAnnouncementReleaseEpoch(sourceSummary, sourceManifest, details) {
+  const epoch = sourceSummary?.generatedAt;
+  if (!isStrictPreciseInstant(epoch)) throw new Error("announcement summary generatedAt must be a precise instant");
+  if (sourceManifest?.generatedAt !== epoch) throw new Error(`announcement source release epoch mismatch: summary=${String(epoch)} manifest=${String(sourceManifest?.generatedAt)}`);
+  const drifted = details.filter((detail) => detail?.generatedAt !== epoch).map((detail) => `${detail?.stockId ?? "<invalid>"}:${String(detail?.generatedAt)}`);
+  if (drifted.length) throw new Error(`announcement detail release epoch mismatch: expected=${epoch} actual=${drifted.join(",")}`);
+}
+
+function compareArtifactFileSet(rootPath, paths) {
+  const sourceManifest = readJson(paths.announcementManifestPath, "announcement manifest");
+  const expected = new Set([
+    manifestName,
+    workflowIndexName,
+    ...(sourceManifest.items ?? []).map((entry) => `${entry.stockId}.json`),
+  ]);
+  const actual = fs.existsSync(paths.outputDir) && fs.statSync(paths.outputDir).isDirectory()
+    ? new Set(fs.readdirSync(paths.outputDir, { withFileTypes: true }).filter((entry) => entry.isFile() && entry.name.endsWith(".json")).map((entry) => entry.name))
+    : new Set();
+  const mismatches = [];
+  for (const name of [...expected].sort()) if (!actual.has(name)) mismatches.push(fileSetMismatch(
+    `public/data/a-share-company-guidance-expectations/${name}`,
+    "missing_file",
+    null,
+  ));
+  for (const name of [...actual].sort()) if (!expected.has(name)) mismatches.push(fileSetMismatch(
+    `public/data/a-share-company-guidance-expectations/${name}`,
+    "extra_or_orphan_file",
+    fs.readFileSync(path.join(paths.outputDir, name)),
+  ));
+  if (!fs.existsSync(paths.summaryPath)) mismatches.push(fileSetMismatch("src/data/real/a-share-company-guidance-expectation-summaries.generated.json", "missing_file", null));
+  return mismatches;
+}
+
+function fileSetMismatch(relativePath, mismatchType, actualBytes) {
+  return {
+    path: relativePath,
+    mismatchTypes: [mismatchType],
+    expectedByteSize: null,
+    actualByteSize: actualBytes?.byteLength ?? null,
+    expectedSha256: null,
+    actualSha256: actualBytes ? sha256(actualBytes) : null,
+    firstDifference: null,
+  };
+}
+
+function compareCommittedArtifactBytes(expectedArtifacts, rootPath) {
+  const mismatches = [];
+  for (const [relativePath, expectedBytes] of expectedArtifacts) {
+    const file = path.join(rootPath, ...relativePath.split("/"));
+    if (!fs.existsSync(file)) {
+      mismatches.push({
+        path: relativePath,
+        mismatchTypes: ["missing_file"],
+        expectedByteSize: expectedBytes.byteLength,
+        actualByteSize: null,
+        expectedSha256: sha256(expectedBytes),
+        actualSha256: null,
+        firstDifference: null,
+      });
+      continue;
+    }
+    const actualBytes = fs.readFileSync(file);
+    if (expectedBytes.equals(actualBytes)) continue;
+    const mismatchTypes = ["content_mismatch"];
+    if (expectedBytes.byteLength !== actualBytes.byteLength) mismatchTypes.unshift("byte_mismatch");
+    if (sha256(expectedBytes) !== sha256(actualBytes)) mismatchTypes.unshift("checksum_mismatch");
+    mismatches.push({
+      path: relativePath,
+      mismatchTypes,
+      expectedByteSize: expectedBytes.byteLength,
+      actualByteSize: actualBytes.byteLength,
+      expectedSha256: sha256(expectedBytes),
+      actualSha256: sha256(actualBytes),
+      firstDifference: firstJsonDifferenceFromBytes(expectedBytes, actualBytes),
+    });
+  }
+  return mismatches;
+}
+
+function releaseEpochMismatches(rendered, rootPath) {
+  const expected = rendered.sourceSummary.generatedAt;
+  const checks = [
+    ["src/data/real/a-share-company-guidance-expectation-summaries.generated.json", "generatedAt", rendered.summary.generatedAt],
+    ["src/data/real/a-share-company-guidance-expectation-summaries.generated.json", "sourceGeneratedAt", rendered.summary.sourceGeneratedAt],
+    [`public/data/a-share-company-guidance-expectations/${manifestName}`, "generatedAt", rendered.manifest.generatedAt],
+    [`public/data/a-share-company-guidance-expectations/${workflowIndexName}`, "generatedAt", rendered.workflowIndex.generatedAt],
+  ];
+  return checks.flatMap(([relativePath, field, expectedRendered]) => {
+    let actual = null;
+    try { actual = readJson(path.join(rootPath, ...relativePath.split("/")), relativePath)?.[field]; } catch { return []; }
+    return actual === expected && expectedRendered === expected ? [] : [{
+      path: relativePath,
+      mismatchTypes: ["release_epoch_mismatch"],
+      field,
+      expected,
+      actual,
+      expectedByteSize: null,
+      actualByteSize: null,
+      expectedSha256: null,
+      actualSha256: null,
+      firstDifference: `${field}: expected=${JSON.stringify(expected)} actual=${JSON.stringify(actual)}`,
+    }];
+  });
+}
+
+function firstJsonDifferenceFromBytes(expectedBytes, actualBytes) {
+  try { return firstJsonDifference(JSON.parse(expectedBytes.toString("utf8")), JSON.parse(actualBytes.toString("utf8"))); }
+  catch { return "json_parse_mismatch"; }
+}
+
+function firstJsonDifference(expected, actual, location = "$") {
+  if (Object.is(expected, actual)) return null;
+  if (Array.isArray(expected) || Array.isArray(actual)) {
+    if (!Array.isArray(expected) || !Array.isArray(actual)) return `${location}: type expected=${typeName(expected)} actual=${typeName(actual)}`;
+    if (expected.length !== actual.length) return `${location}.length: expected=${expected.length} actual=${actual.length}`;
+    for (let index = 0; index < expected.length; index += 1) {
+      const difference = firstJsonDifference(expected[index], actual[index], `${location}[${index}]`);
+      if (difference) return difference;
+    }
+    return `${location}: content differs`;
+  }
+  if (expected && typeof expected === "object" || actual && typeof actual === "object") {
+    if (!expected || !actual || typeof expected !== "object" || typeof actual !== "object") return `${location}: type expected=${typeName(expected)} actual=${typeName(actual)}`;
+    const expectedKeys = Object.keys(expected).sort();
+    const actualKeys = Object.keys(actual).sort();
+    const missing = expectedKeys.find((key) => !Object.hasOwn(actual, key));
+    if (missing) return `${location}.${missing}: missing`;
+    const extra = actualKeys.find((key) => !Object.hasOwn(expected, key));
+    if (extra) return `${location}.${extra}: extra`;
+    for (const key of expectedKeys) {
+      const difference = firstJsonDifference(expected[key], actual[key], `${location}.${key}`);
+      if (difference) return difference;
+    }
+    return `${location}: content differs`;
+  }
+  return `${location}: expected=${JSON.stringify(expected)} actual=${JSON.stringify(actual)}`;
+}
+
+function typeName(value) { return Array.isArray(value) ? "array" : value === null ? "null" : typeof value; }
+
 function validateRendered(result, manifest, renderedDetails, workflowIndex, renderedWorkflowIndex, requiredCompanyCount) {
   if (result.companies.length !== requiredCompanyCount || manifest.items.length !== requiredCompanyCount) throw new Error(`expected ${requiredCompanyCount} companies, got ${result.companies.length}`);
   if (result.audit.reliableSnapshotCount <= 0) throw new Error("no reliable company-guidance snapshots; refusing to generate example data");
@@ -288,6 +490,20 @@ function renderJson(value) { return `${JSON.stringify(value, null, 2)}\n`; }
 function sha256(value) { return crypto.createHash("sha256").update(value).digest("hex"); }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
-  const result = generateCompanyGuidanceArtifacts({ dryRun: process.argv.includes("--dry-run") });
-  console.log(JSON.stringify({ status: "passed", dryRun: result.dryRun, audit: result.audit }, null, 2));
+  const dryRun = process.argv.includes("--dry-run");
+  const check = process.argv.includes("--check");
+  if (dryRun && check) throw new Error("--dry-run and --check are mutually exclusive");
+  if (check) {
+    const result = checkCommittedCompanyGuidanceArtifacts();
+    console.log(JSON.stringify({ mode: "check_committed_artifacts_read_only", ...result }, null, 2));
+    if (result.status !== "passed") process.exitCode = 1;
+  } else {
+    const result = generateCompanyGuidanceArtifacts({ dryRun });
+    console.log(JSON.stringify({
+      status: "passed",
+      mode: dryRun ? "dry_run_generate_and_validate_only_no_committed_comparison" : "generate_and_publish",
+      dryRun: result.dryRun,
+      audit: result.audit,
+    }, null, 2));
+  }
 }

@@ -9,6 +9,10 @@ export const COMPANY_GUIDANCE_CONTENT_FIELDS = Object.freeze([
   "estimateShape", "value", "lowerBound", "upperBound", "currency", "unit", "accountingBasis",
   "sourcePublishedAt", "sourceTextEvidenceHash", "providerParseRulesVersion",
 ]);
+export const COMPANY_GUIDANCE_CORRECTION_PROJECTION_FIELDS = Object.freeze([
+  "providerEvidenceIdentity",
+  ...COMPANY_GUIDANCE_CONTENT_FIELDS,
+]);
 
 const METRICS = new Set(["attributable_net_profit", "adjusted_net_profit", "revenue"]);
 const SOURCE_TYPES = new Set(["earnings_preview", "earnings_preview_revision"]);
@@ -64,6 +68,46 @@ export function providerContentChangedFields(previous, current) {
   const left = providerContentProjection(previous);
   const right = providerContentProjection(current);
   return COMPANY_GUIDANCE_CONTENT_FIELDS.filter((field) => canonicalJson(left[field]) !== canonicalJson(right[field]));
+}
+
+export function validateCompanyGuidanceWorkflowCorrectionProofShape(records, proofs) {
+  const errors = [];
+  if (!Array.isArray(records) || !Array.isArray(proofs)) return ["provider_correction_proof_shape"];
+  const byCurrentId = new Map(records.filter(isObject).map((record) => [record.providerSnapshotVersionId, record]));
+  const proofCounts = new Map();
+  for (const proof of proofs) {
+    if (!isObject(proof)) { add(errors, "provider_correction_proof_shape"); continue; }
+    if (containsForbiddenEvidenceKey(proof)) add(errors, "provider_correction_proof_raw_evidence");
+    if (!hasExactKeys(proof, [
+      "currentProviderSnapshotVersionId", "predecessorProviderSnapshotVersionId", "predecessorProviderCorrectsVersionId",
+      "providerEvidenceIdentity", "predecessorProviderContentChecksum", "predecessorContentProjection",
+    ]) || !VERSION_ID.test(proof.currentProviderSnapshotVersionId ?? "")
+      || !VERSION_ID.test(proof.predecessorProviderSnapshotVersionId ?? "")
+      || (proof.predecessorProviderCorrectsVersionId !== null && !VERSION_ID.test(proof.predecessorProviderCorrectsVersionId ?? ""))
+      || typeof proof.providerEvidenceIdentity !== "string" || !proof.providerEvidenceIdentity
+      || !SHA256.test(proof.predecessorProviderContentChecksum ?? "")
+      || !isObject(proof.predecessorContentProjection)
+      || !hasExactKeys(proof.predecessorContentProjection, COMPANY_GUIDANCE_CORRECTION_PROJECTION_FIELDS)) {
+      add(errors, "provider_correction_proof_shape");
+      continue;
+    }
+    proofCounts.set(proof.currentProviderSnapshotVersionId, (proofCounts.get(proof.currentProviderSnapshotVersionId) ?? 0) + 1);
+    const current = byCurrentId.get(proof.currentProviderSnapshotVersionId);
+    if (!current) { add(errors, "provider_correction_proof_orphan"); continue; }
+    if (current.providerCorrectionType !== "extraction_correction") add(errors, "provider_correction_proof_initial");
+    if (current.providerCorrectsVersionId !== proof.predecessorProviderSnapshotVersionId) add(errors, "provider_correction_proof_predecessor");
+    if (current.providerEvidenceIdentity !== proof.providerEvidenceIdentity
+      || proof.predecessorContentProjection.providerEvidenceIdentity !== proof.providerEvidenceIdentity) add(errors, "provider_correction_proof_evidence_identity");
+    const expectedFields = providerContentChangedFields(proof.predecessorContentProjection, current);
+    if (canonicalJson(expectedFields) !== canonicalJson(current.providerCorrectionChangedFields)) add(errors, "provider_correction_proof_changed_fields");
+  }
+  for (const record of records.filter(isObject)) {
+    const count = proofCounts.get(record.providerSnapshotVersionId) ?? 0;
+    if (record.providerCorrectionType === "extraction_correction" && count === 0) add(errors, "provider_correction_proof_missing");
+    if (count > 1) add(errors, "provider_correction_proof_duplicate");
+    if (record.providerCorrectionType === "initial" && count > 0) add(errors, "provider_correction_proof_initial");
+  }
+  return errors;
 }
 
 export function validateCompanyGuidanceProviderRecordContract(record, {
@@ -124,6 +168,20 @@ export function validateCompanyGuidanceProviderRecordContract(record, {
     || snapshot.formedAt !== null || snapshot.formedAtPrecision !== "date" || snapshot.formedAtResolution !== "date" || snapshot.formedAtTimeZone !== null
     || snapshot.formationTimeBasis !== "public_disclosure_proxy" || snapshot.notes !== COMPANY_GUIDANCE_TIME_NOTE) add(errors, "provider_snapshot_time_contract");
 
+  const correctionFields = record.providerCorrectionChangedFields;
+  if (record.providerCorrectionType === "initial") {
+    if (record.providerCorrectsVersionId !== null || record.providerCorrectedAt !== null
+      || !Array.isArray(correctionFields) || correctionFields.length !== 0) add(errors, "provider_correction_changed_fields");
+  } else if (record.providerCorrectionType !== "extraction_correction"
+    || !VERSION_ID.test(record.providerCorrectsVersionId ?? "")
+    || !isStrictPreciseInstant(record.providerCorrectedAt)
+    || record.providerCorrectedAt !== snapshot.createdAt
+    || parseStrictPreciseInstant(record.providerCorrectedAt) > parseStrictPreciseInstant(record.generatedAt)
+    || !uniqueStrings(correctionFields) || correctionFields.length === 0
+    || correctionFields.some((field) => !COMPANY_GUIDANCE_CONTENT_FIELDS.includes(field))) {
+    add(errors, "provider_correction_changed_fields");
+  }
+
   if (!SHA256.test(record.sourceTextEvidenceHash ?? "")) add(errors, "provider_snapshot_evidence_contract");
   if (mode === "workflow_current") {
     if (Object.hasOwn(record, "sourceTextEvidence") || Object.hasOwn(record, ORIGINAL_UNIT_EVIDENCE_FIELD)) add(errors, "provider_snapshot_evidence_contract");
@@ -160,9 +218,11 @@ export function validateCompanyGuidanceCorrectionGraph(records, { generationEpoc
       || canonicalJson(fields) !== canonicalJson(expectedFields)) add(errors, "provider_correction_changed_fields");
     const correctedTime = parseStrictPreciseInstant(record.providerCorrectedAt);
     const recordTime = parseStrictPreciseInstant(record.generatedAt);
-    const predecessorTimes = [parseStrictPreciseInstant(predecessor.generatedAt), parseStrictPreciseInstant(predecessor.snapshot?.createdAt)].filter(Number.isFinite);
-    if (correctedTime === null || recordTime === null || record.providerCorrectedAt !== record.generatedAt
-      || predecessorTimes.some((time) => correctedTime < time) || (releaseTime !== null && correctedTime > releaseTime)) add(errors, "provider_correction_chronology");
+    const predecessorCreatedTime = parseStrictPreciseInstant(predecessor.snapshot?.createdAt);
+    const snapshotCreatedTime = parseStrictPreciseInstant(record.snapshot.createdAt);
+    if (correctedTime === null || recordTime === null || predecessorCreatedTime === null || snapshotCreatedTime === null
+      || correctedTime !== snapshotCreatedTime || predecessorCreatedTime > correctedTime || snapshotCreatedTime > recordTime
+      || (releaseTime !== null && recordTime > releaseTime)) add(errors, "provider_correction_chronology");
   }
   return errors;
 }
@@ -208,7 +268,7 @@ export function validateCompanyGuidanceBusinessRevisionSemantics(records, warnin
 }
 
 export function classifyCompanyGuidanceProviderRecordErrors(errors) {
-  if (errors.some((error) => ["provider_correction_graph", "provider_correction_changed_fields", "provider_correction_chronology"].includes(error))) return "graph";
+  if (errors.some((error) => ["provider_correction_graph", "provider_correction_changed_fields", "provider_correction_chronology"].includes(error) || error.startsWith("provider_correction_proof_"))) return "graph";
   if (errors.some((error) => ["provider_snapshot_mirror_contract", "provider_business_revision_mirror"].includes(error))) return "identity";
   return "schema";
 }
@@ -217,5 +277,11 @@ function uniqueAnnouncementIds(value) { return Array.isArray(value) && value.eve
 function uniqueSupportedWarnings(value) { return Array.isArray(value) && value.every((item) => typeof item === "string" && STRUCTURED_WARNING_CODES.has(item)) && new Set(value).size === value.length; }
 function uniqueStrings(value) { return Array.isArray(value) && value.every((item) => typeof item === "string" && item.trim()) && new Set(value).size === value.length; }
 function isObject(value) { return typeof value === "object" && value !== null && !Array.isArray(value); }
+function hasExactKeys(value, expectedKeys) { return canonicalJson(Object.keys(value).sort()) === canonicalJson([...expectedKeys].sort()); }
+function containsForbiddenEvidenceKey(value) {
+  if (Array.isArray(value)) return value.some(containsForbiddenEvidenceKey);
+  if (!isObject(value)) return false;
+  return Object.keys(value).some((key) => key === "sourceTextEvidence" || key === ORIGINAL_UNIT_EVIDENCE_FIELD || containsForbiddenEvidenceKey(value[key]));
+}
 function canonicalJson(value) { if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`; if (value && typeof value === "object") return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`; return JSON.stringify(value); }
 function add(errors, error) { if (!errors.includes(error)) errors.push(error); }

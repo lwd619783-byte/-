@@ -4,6 +4,7 @@ import fs from "node:fs";
 import {
   COMPANY_GUIDANCE_TIME_NOTE,
   buildCompanyGuidanceArtifacts,
+  createWorkflowIndex,
   parseOfficialCninfoAnnouncementUrl,
   parseOfficialCninfoPdfUrl,
   periodScopeFor,
@@ -181,7 +182,51 @@ test("no-op regeneration preserves version id and createdAt", () => {
   const second = buildCompanyGuidanceArtifacts({ announcementDetails: [detail([announcement()])], sourceGeneratedAt: "2026-07-12T07:31:40Z", previousDetails: first.companies });
   assert.equal(second.companies[0].providerSnapshots[0].snapshot.id, first.companies[0].providerSnapshots[0].snapshot.id);
   assert.equal(second.companies[0].providerSnapshots[0].snapshot.createdAt, first.companies[0].providerSnapshots[0].snapshot.createdAt);
+  assert.equal(second.companies[0].providerSnapshots[0].generatedAt, "2026-07-12T07:31:40Z");
+  assert.equal(second.companies[0].providerSnapshots[0].snapshot.providerGeneratedAt, "2026-07-12T07:31:40Z");
   assert.equal(second.companies[0].historicalProviderVersions.length, 0);
+});
+
+test("A1-to-B-to-A2 correction keeps immutable correction time and proof across repeated no-op releases", () => {
+  const a1 = build([announcement()]);
+  const b = buildCompanyGuidanceArtifacts({
+    announcementDetails: [detail([announcement({ event: { lowerBound: 120, upperBound: 220 } })])],
+    sourceGeneratedAt: "2026-07-12T07:31:40Z",
+    previousDetails: a1.companies,
+  });
+  const a2 = buildCompanyGuidanceArtifacts({
+    announcementDetails: [detail([announcement()])],
+    sourceGeneratedAt: "2026-07-13T07:31:40Z",
+    previousDetails: b.companies,
+  });
+  const immutable = a2.companies[0].providerSnapshots[0];
+  const noOpOne = buildCompanyGuidanceArtifacts({
+    announcementDetails: [detail([announcement()])],
+    sourceGeneratedAt: "2026-07-14T07:31:40Z",
+    previousDetails: a2.companies,
+  });
+  const noOpTwo = buildCompanyGuidanceArtifacts({
+    announcementDetails: [detail([announcement()])],
+    sourceGeneratedAt: "2026-07-15T07:31:40Z",
+    previousDetails: noOpOne.companies,
+  });
+  for (const refreshed of [noOpOne.companies[0].providerSnapshots[0], noOpTwo.companies[0].providerSnapshots[0]]) {
+    assert.equal(refreshed.providerSnapshotVersionId, immutable.providerSnapshotVersionId);
+    assert.equal(refreshed.providerContentChecksum, immutable.providerContentChecksum);
+    assert.equal(refreshed.providerCorrectsVersionId, immutable.providerCorrectsVersionId);
+    assert.deepEqual(refreshed.providerCorrectionChangedFields, immutable.providerCorrectionChangedFields);
+    assert.equal(refreshed.snapshot.createdAt, immutable.snapshot.createdAt);
+    assert.equal(refreshed.providerCorrectedAt, immutable.providerCorrectedAt);
+  }
+  const current = noOpTwo.companies[0].providerSnapshots[0];
+  assert.equal(current.generatedAt, "2026-07-15T07:31:40Z");
+  assert.equal(current.snapshot.providerGeneratedAt, "2026-07-15T07:31:40Z");
+  assert.equal(noOpOne.companies[0].historicalProviderVersions.length, 2);
+  assert.equal(noOpTwo.companies[0].historicalProviderVersions.length, 2);
+  const workflow = createWorkflowIndex(noOpTwo.companies, noOpTwo.summary.generatedAt);
+  assert.equal(workflow.correctionProofs.length, 1);
+  assert.equal(workflow.correctionProofs[0].currentProviderSnapshotVersionId, current.providerSnapshotVersionId);
+  assert.equal(workflow.correctionProofs[0].predecessorProviderSnapshotVersionId, b.companies[0].providerSnapshots[0].providerSnapshotVersionId);
 });
 
 test("content change appends an immutable extraction correction version", () => {

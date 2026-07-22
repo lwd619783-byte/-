@@ -18,6 +18,7 @@ import {
   validateCompanyGuidanceBusinessRevisionSemantics,
   validateCompanyGuidanceCorrectionGraph,
   validateCompanyGuidanceProviderRecordContract,
+  validateCompanyGuidanceWorkflowCorrectionProofShape,
 } from "../../src/services/companyGuidanceExpectationRecordContract.mjs";
 import { COMPANY_GUIDANCE_SOURCE_ARTIFACT, deriveCompanyGuidanceSummaryAudit } from "../../src/services/companyGuidanceExpectationAudit.mjs";
 
@@ -282,7 +283,7 @@ function reconcileVersions(candidates, previousDetail, sourceGeneratedAt, stockI
       candidate.providerSnapshotVersionId = previous.providerSnapshotVersionId;
       candidate.providerCorrectsVersionId = previous.providerCorrectsVersionId ?? null;
       candidate.providerCorrectionType = previous.providerCorrectionType ?? "initial";
-      candidate.providerCorrectedAt = candidate.providerCorrectionType === "extraction_correction" ? sourceGeneratedAt : null;
+      candidate.providerCorrectedAt = previous.providerCorrectedAt ?? null;
       candidate.providerCorrectionChangedFields = previous.providerCorrectionChangedFields ?? [];
       syncVersionFields(candidate);
       current.push(candidate);
@@ -443,11 +444,58 @@ export function createWorkflowIndex(companies, generatedAt) {
     delete copy.originalUnitEvidence;
     return copy;
   }).sort((a, b) => a.snapshot.id.localeCompare(b.snapshot.id));
+  const correctionProofs = companies.flatMap((company) => {
+    const versions = new Map([...company.providerSnapshots, ...company.historicalProviderVersions]
+      .map((record) => [record.providerSnapshotVersionId, record]));
+    return company.providerSnapshots
+      .filter((record) => record.providerCorrectionType === "extraction_correction")
+      .map((record) => {
+        const predecessor = versions.get(record.providerCorrectsVersionId);
+        if (!predecessor) throw new Error(`workflow correction predecessor missing: ${record.providerSnapshotVersionId}`);
+        return createCompanyGuidanceCorrectionProof(record, predecessor);
+      });
+  }).sort((left, right) => left.currentProviderSnapshotVersionId.localeCompare(right.currentProviderSnapshotVersionId));
+  const proofErrors = validateCompanyGuidanceWorkflowCorrectionProofs(records, correctionProofs);
+  if (proofErrors.length) throw new Error(`workflow correction proof invalid: ${proofErrors.join("; ")}`);
   return {
     schemaVersion: COMPANY_GUIDANCE_SCHEMA_VERSION, providerId: COMPANY_GUIDANCE_PROVIDER_ID, providerVersion: COMPANY_GUIDANCE_PROVIDER_VERSION,
-    generatedAt, currentSnapshotCount: records.length, records,
+    generatedAt, currentSnapshotCount: records.length, records, correctionProofs,
     warnings: companies.flatMap((company) => company.warnings.map((warning) => ({ ...warning, stockId: company.stockId }))),
   };
+}
+
+export function createCompanyGuidanceCorrectionProof(current, predecessor) {
+  if (current.providerCorrectionType !== "extraction_correction"
+    || current.providerCorrectsVersionId !== predecessor.providerSnapshotVersionId
+    || current.providerEvidenceIdentity !== predecessor.providerEvidenceIdentity) throw new Error("invalid correction proof inputs");
+  const predecessorContentProjection = providerContentProjection(predecessor);
+  const predecessorProviderContentChecksum = computeProviderContentChecksum(predecessorContentProjection);
+  if (predecessorProviderContentChecksum !== predecessor.providerContentChecksum) throw new Error(`invalid correction predecessor checksum: ${predecessor.providerSnapshotVersionId}`);
+  return {
+    currentProviderSnapshotVersionId: current.providerSnapshotVersionId,
+    predecessorProviderSnapshotVersionId: predecessor.providerSnapshotVersionId,
+    predecessorProviderCorrectsVersionId: predecessor.providerCorrectsVersionId,
+    providerEvidenceIdentity: current.providerEvidenceIdentity,
+    predecessorProviderContentChecksum,
+    predecessorContentProjection,
+  };
+}
+
+export function validateCompanyGuidanceWorkflowCorrectionProofs(records, proofs) {
+  const errors = [...validateCompanyGuidanceWorkflowCorrectionProofShape(records, proofs)];
+  if (!Array.isArray(proofs)) return errors;
+  for (const proof of proofs) {
+    if (!proof || typeof proof !== "object" || !proof.predecessorContentProjection) continue;
+    const projectionChecksum = computeProviderContentChecksum(proof.predecessorContentProjection);
+    if (projectionChecksum !== proof.predecessorProviderContentChecksum) errors.push("provider_correction_proof_checksum");
+    const predecessorVersionId = expectedProviderSnapshotVersionId({
+      providerEvidenceIdentity: proof.providerEvidenceIdentity,
+      providerCorrectsVersionId: proof.predecessorProviderCorrectsVersionId,
+      providerContentChecksum: projectionChecksum,
+    });
+    if (predecessorVersionId !== proof.predecessorProviderSnapshotVersionId) errors.push("provider_correction_proof_predecessor_version");
+  }
+  return uniqueStrings(errors);
 }
 
 function deriveEvidenceIdentity(record) {

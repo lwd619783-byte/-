@@ -16,6 +16,7 @@ import {
   validateCompanyGuidanceBusinessRevisionSemantics,
   validateCompanyGuidanceCorrectionGraph,
   validateCompanyGuidanceProviderRecordContract,
+  validateCompanyGuidanceWorkflowCorrectionProofShape,
 } from "./companyGuidanceExpectationRecordContract.mjs";
 import {
   COMPANY_GUIDANCE_SOURCE_ARTIFACT,
@@ -25,6 +26,7 @@ import { isStrictCalendarDate, isStrictPreciseInstant } from "../utils/strictDat
 import type {
   AggregatedEarningsExpectationEvidence,
   CompanyGuidanceExpectationDetail,
+  CompanyGuidanceExpectationCorrectionProof,
   CompanyGuidanceExpectationLoadStatus,
   CompanyGuidanceExpectationManifest,
   CompanyGuidanceExpectationManifestEntry,
@@ -308,16 +310,34 @@ function validateSummaryMirror(summary: CompanyGuidanceExpectationSummary, manif
 }
 
 async function validateWorkflowIndex(value: unknown, providerManifest: CompanyGuidanceExpectationManifest, cryptoImpl: Crypto) {
-  if (!isObject(value) || value.schemaVersion !== SCHEMA_VERSION || value.providerId !== PROVIDER_ID || value.providerVersion !== PROVIDER_VERSION || !Array.isArray(value.records) || !Array.isArray(value.warnings) || value.currentSnapshotCount !== value.records.length || value.currentSnapshotCount !== providerManifest.totalSnapshots) throw new CompanyGuidanceExpectationLoadError("Company-guidance workflow index schema/count mismatch", "schema");
+  if (!isObject(value) || value.schemaVersion !== SCHEMA_VERSION || value.providerId !== PROVIDER_ID || value.providerVersion !== PROVIDER_VERSION || !Array.isArray(value.records) || !Array.isArray(value.correctionProofs) || !Array.isArray(value.warnings) || value.currentSnapshotCount !== value.records.length || value.currentSnapshotCount !== providerManifest.totalSnapshots) throw new CompanyGuidanceExpectationLoadError("Company-guidance workflow index schema/count mismatch", "schema");
   const workflow = value as unknown as CompanyGuidanceExpectationWorkflowIndex;
   const companyNames = new Map(providerManifest.items.map((entry) => [entry.stockId, entry.companyName]));
   const errors = await validateRecords(workflow.records, "workflow_current", cryptoImpl, undefined, companyNames, providerManifest.generatedAt);
   if (!isStrictPreciseInstant(workflow.generatedAt) || workflow.generatedAt !== providerManifest.generatedAt
     || workflow.records.some((record) => record.generatedAt !== workflow.generatedAt || record.snapshot?.providerGeneratedAt !== workflow.generatedAt)) errors.push("workflow_generation_epoch");
+  errors.push(...await validateWorkflowCorrectionProofs(workflow.records, workflow.correctionProofs, cryptoImpl));
   errors.push(...validateWorkflowWarnings(workflow.warnings), ...validateVersionGraph(workflow.records, true),
     ...validateBusinessRevisionGraph(workflow.records), ...validateCompanyGuidanceBusinessRevisionSemantics(workflow.records, workflow.warnings));
   if (errors.length) throw new CompanyGuidanceExpectationLoadError(`Company-guidance workflow validation failed: ${errors.join("; ")}`, classifyRuntimeRecordErrors(errors));
   return workflow;
+}
+
+async function validateWorkflowCorrectionProofs(records: EarningsExpectationProviderSnapshot[], proofs: CompanyGuidanceExpectationCorrectionProof[], cryptoImpl: Crypto) {
+  const errors = [...validateCompanyGuidanceWorkflowCorrectionProofShape(records, proofs)];
+  for (const proof of proofs) {
+    if (!isObject(proof) || !isObject(proof.predecessorContentProjection)) continue;
+    const checksum = await sha256Text(canonicalJson(proof.predecessorContentProjection), cryptoImpl);
+    if (checksum !== proof.predecessorProviderContentChecksum) errors.push("provider_correction_proof_checksum");
+    const predecessorVersionId = await providerVersionId(
+      proof.providerEvidenceIdentity,
+      proof.predecessorProviderCorrectsVersionId,
+      checksum,
+      cryptoImpl,
+    );
+    if (predecessorVersionId !== proof.predecessorProviderSnapshotVersionId) errors.push("provider_correction_proof_predecessor_version");
+  }
+  return [...new Set(errors)];
 }
 
 async function validateDetail(value: unknown, entry: CompanyGuidanceExpectationManifestEntry, generationEpoch: string, cryptoImpl: Crypto) {
@@ -408,10 +428,14 @@ async function providerContentChecksum(record: EarningsExpectationProviderSnapsh
 }
 
 async function expectedProviderVersionId(record: EarningsExpectationProviderSnapshot, checksum: string, cryptoImpl: Crypto) {
-  if (!record.providerCorrectsVersionId) return `company-guidance-version-${checksum}`;
+  return providerVersionId(record.providerEvidenceIdentity, record.providerCorrectsVersionId, checksum, cryptoImpl);
+}
+
+async function providerVersionId(providerEvidenceIdentity: string, providerCorrectsVersionId: string | null, checksum: string, cryptoImpl: Crypto) {
+  if (!providerCorrectsVersionId) return `company-guidance-version-${checksum}`;
   const eventChecksum = await sha256Text(canonicalJson({
-    providerEvidenceIdentity: record.providerEvidenceIdentity,
-    providerCorrectsVersionId: record.providerCorrectsVersionId,
+    providerEvidenceIdentity,
+    providerCorrectsVersionId,
     providerContentChecksum: checksum,
   }), cryptoImpl);
   return `company-guidance-version-${eventChecksum}`;

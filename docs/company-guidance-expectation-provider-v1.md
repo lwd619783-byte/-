@@ -42,7 +42,7 @@ manifest.generated.json
 
 关系有效后，状态只有三种：无 target/记录为 `missing`；任一 target 未形成完整 current 或存在 exclusion 为 `partial`；所有 target 都有可靠 current 且无 exclusion 才是 `generated_real`。全局 summary 从公司状态聚合，因此“全部 target 被排除、current 为零”仍是 `partial`；正式产品是否允许零可靠快照由更高层 generation gate 单独拒绝。
 
-发布代际采用严格 ISO 精确时刻，不接受日期加 `Z`、空格分隔、无 offset、不存在的日期/时间或尾随字符。summary、manifest、workflow、detail 和 `quality.updatedAt` 必须属于同一发布 epoch；current record 的 `generatedAt` / `providerGeneratedAt` 也属于该 epoch。historical record 保留自身原始生成时刻，只要求其内部时刻严格且相互一致，不会被改写为本轮 epoch。
+发布代际采用严格 ISO 精确时刻，不接受日期加 `Z`、空格分隔、无 offset、不存在的日期/时间或尾随字符。公告 summary、公告 manifest、公告详情、Company Guidance summary 的 `sourceGeneratedAt` / `generatedAt`、manifest、workflow、detail 和 `quality.updatedAt` 必须属于同一上游发布 epoch。current record 的 `generatedAt` / `providerGeneratedAt` 表示当前产物发布 epoch，no-op 刷新时允许更新；`snapshot.createdAt` 表示该 version event 首次形成时刻，version ID 未变化时不得更新。historical record 保留自身原始 `snapshot.createdAt`、`providerCorrectedAt` 和发布时刻，不会被改写为本轮 epoch。
 
 主要可定位错误码包括 `detail_target_contract`、`detail_exclusion_contract`、`detail_warning_contract`、`detail_target_duplicate`、`detail_target_uncovered`、`detail_snapshot_orphan`、`detail_exclusion_orphan`、`detail_projection_mismatch`、`detail_historical_only`、`detail_generation_epoch` 和 `detail_quality_contract`。
 
@@ -100,9 +100,11 @@ correctionVersionId = "company-guidance-version-" + sha256(canonicalJson({
 }))
 ```
 
-所以 A1→B→A2 中 A1 与 A2 可以具有相同 content checksum，但必须具有不同 version ID；B 指向 A1，A2 指向 B。历史仅按版本事件 ID 去重。no-op 重跑保留当前 version ID 和原 `createdAt`，不产生第四个版本。
+所以 A1→B→A2 中 A1 与 A2 可以具有相同 content checksum，但必须具有不同 version ID；B 指向 A1，A2 指向 B。历史仅按版本事件 ID 去重。no-op 重跑保留当前 version ID、原 `snapshot.createdAt`、`providerCorrectedAt`、predecessor 和 changedFields，不产生第四个版本；只更新 current 的 `record.generatedAt` / `snapshot.providerGeneratedAt` 及产物发布 epoch。
 
-对每条 extraction correction，校验器从完整 current + historical 图重新取得 predecessor，重新计算规范内容差异并要求 `providerCorrectionChangedFields` 精确相等；多报、漏报、重复或非内容字段均失败。`providerCorrectedAt` 必须是严格时刻、等于该 current record 的 `generatedAt`、不早于 predecessor 且不晚于发布 epoch。纠错字段及业务前序在 record/snapshot 两层必须完全镜像，下游不再有第二套未经验证的链值。no-op 重跑不新增 version event；若当前纠错记录进入新发布 epoch，仅同步其发布态纠错时间镜像，不改变 version ID 或原 `createdAt`。
+对每条 extraction correction，`providerCorrectedAt` 表示该 version event 首次形成时刻，必须是严格时刻并等于同一版本不可变的 `snapshot.createdAt`；它不得在 no-op 发布中更新。chronology 必须满足 predecessor `snapshot.createdAt <= providerCorrectedAt === current snapshot.createdAt <= record.generatedAt <= 当前发布 epoch`。校验器从完整 current + historical 图重新取得 predecessor，重新计算规范内容差异并要求 `providerCorrectionChangedFields` 精确相等；多报、漏报、重复或非内容字段均失败。initial 必须严格使用 null predecessor/null correctedAt/空 changedFields；extraction correction 必须使用合法 predecessor、非空去重内容字段和两层完全镜像的纠错元数据。
+
+workflow 只携带 current，因此每个 current extraction correction 还必须有且只有一个无原文 `correctionProof`。proof 包含 current/predecessor version ID、predecessor 自身的 predecessor ID、evidence identity、predecessor content checksum，以及只含规范内容字段的 predecessor projection。运行时先执行本地 correction shape contract，再重算 projection checksum、predecessor version ID 和精确 changedFields；proof 缺失、重复、孤立、指向 initial、身份错配、投影或 checksum 被改写、注入 `sourceTextEvidence` / `originalUnitEvidence` 均令 workflow 全局失败关闭。离线 validator 进一步要求 proof 与详情中的真实 predecessor 完全一致。A1→B→A2 的 A2 proof 必须指向 B。
 
 Provider 抽取纠错使用 `providerCorrectsVersionId`；公司业务修正公告使用独立的 `providerBusinessRevisionPredecessorSnapshotId`；用户本地纠错使用 `correctsSnapshotId`。三条链不得混用，抽取纠错不产生业务上调/下调方向。
 
@@ -145,6 +147,7 @@ public/data/a-share-company-guidance-expectations/
 ```bash
 npm run data:fetch:expectations:company-guidance
 node scripts/generate-company-guidance-expectations.mjs --dry-run
+node scripts/generate-company-guidance-expectations.mjs --check
 npm run data:validate:expectations:company-guidance
 npm run test:expectations:company-guidance
 npm run test:provider-observability
@@ -153,6 +156,8 @@ npm run data:audit
 npm run build
 npm run ui:audit
 ```
+
+`--dry-run` 只执行正式构建与内部验证，不比较已提交文件。`--check` 使用同一个只读渲染路径，从已提交公告 summary/manifest/56 个详情和已有 Provider 历史重建 56 个详情、manifest、workflow、summary，再按固定 JSON 缩进、排序、换行、byteSize 与 SHA-256 逐字节比较；同时反向检查 missing/extra/orphan JSON 和五个发布代际字段。任何差异非零退出并报告路径、差异类型、expected/actual 字节数与 SHA-256，以及可用时的首个 JSON 字段差异。该模式不写 staging、正式目录、summary 或临时仓库文件，CI 使用它阻止“公告已更新但 Company Guidance 未刷新”。
 
 ## 已知限制
 

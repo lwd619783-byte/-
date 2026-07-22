@@ -279,6 +279,8 @@ export type {
   CompanyGuidanceExpectationDetail,
   CompanyGuidanceExpectationDetailProviderRecord,
   CompanyGuidanceExpectationWorkflowRecord,
+  CompanyGuidanceExpectationCorrectionContentProjection,
+  CompanyGuidanceExpectationCorrectionProof,
   CompanyGuidanceExpectationManifestEntry,
   CompanyGuidanceExpectationManifest,
   CompanyGuidanceExpectationSummaryItem,

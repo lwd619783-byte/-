@@ -53,8 +53,8 @@ jobs:
       - name: Test company-guidance expectation provider offline
         run: npm run test:expectations:company-guidance
 
-      - name: Prove company-guidance generation is deterministic
-        run: node scripts/generate-company-guidance-expectations.mjs --dry-run
+      - name: Check committed company-guidance artifacts against announcement source
+        run: node scripts/generate-company-guidance-expectations.mjs --check
 
       - name: Validate committed company-guidance expectation artifacts
         run: npm run data:validate:expectations:company-guidance
