@@ -1,0 +1,116 @@
+{
+  "eastmoneyAggregate": {
+    "version": "fixture",
+    "result": {
+      "pages": 1,
+      "count": 1,
+      "data": [
+        {
+          "SECURITY_CODE": "600000",
+          "SECURITY_NAME_ABBR": "示例公司",
+          "RATING_ORG_NUM": 3,
+          "YEAR1": 2025,
+          "YEAR_MARK1": "A",
+          "EPS1": "2.00",
+          "YEAR2": 2026,
+          "YEAR_MARK2": "E",
+          "EPS2": "2.50",
+          "YEAR3": 2027,
+          "YEAR_MARK3": "E",
+          "EPS3": "3.00"
+        }
+      ]
+    },
+    "success": true,
+    "message": "ok",
+    "code": 0
+  },
+  "eastmoneyReports": {
+    "hits": 4,
+    "size": 4,
+    "TotalPage": 1,
+    "pageNo": 1,
+    "currentYear": 2026,
+    "data": [
+      {
+        "stockCode": "600000",
+        "orgSName": "甲证券",
+        "publishDate": "2026-01-31 00:00:00.000",
+        "infoCode": "REPORT-A1",
+        "researcher": "甲分析师",
+        "predictThisYearEps": "2.20",
+        "predictNextYearEps": "2.80",
+        "predictNextTwoYearEps": "3.20",
+        "predictLastYearEps": "2.00"
+      },
+      {
+        "stockCode": "600000",
+        "orgSName": "甲证券",
+        "publishDate": "2026-07-01 00:00:00.000",
+        "infoCode": "REPORT-A2",
+        "researcher": "甲分析师",
+        "predictThisYearEps": "2.40",
+        "predictNextYearEps": "2.90",
+        "predictNextTwoYearEps": "3.30",
+        "predictLastYearEps": "2.00"
+      },
+      {
+        "stockCode": "600000",
+        "orgSName": "乙证券",
+        "publishDate": "2026-06-15 00:00:00.000",
+        "infoCode": "REPORT-B1",
+        "researcher": "乙分析师",
+        "predictThisYearEps": "2.50",
+        "predictNextYearEps": "3.00",
+        "predictNextTwoYearEps": "3.40",
+        "predictLastYearEps": "2.00"
+      },
+      {
+        "stockCode": "600000",
+        "orgSName": "丙证券",
+        "publishDate": "2026-06-10 00:00:00.000",
+        "infoCode": "REPORT-C1",
+        "researcher": "丙分析师",
+        "predictThisYearEps": "2.60",
+        "predictNextYearEps": "3.10",
+        "predictNextTwoYearEps": "3.50",
+        "predictLastYearEps": "2.00"
+      }
+    ]
+  },
+  "thsStructured": {
+    "availability": "available",
+    "stockCode": "600000",
+    "companyName": "示例公司",
+    "statement": {
+      "asOfDate": "2026-07-22",
+      "windowText": "6个月以内",
+      "institutionCount": 3,
+      "companyName": "示例公司",
+      "forecastYear": 2026,
+      "displayEps": "2.50",
+      "displayNetProfitYi": "25.00"
+    },
+    "aggregateTables": [
+      [
+        ["年度", "预测机构数", "最小值", "均值", "最大值", "行业平均数"],
+        ["2026", "3", "2.40", "2.50", "2.60", "1.00"],
+        ["2027", "3", "2.90", "3.00", "3.10", "1.20"],
+        ["2028", "3", "3.30", "3.40", "3.50", "1.40"]
+      ],
+      [
+        ["年度", "预测机构数", "最小值", "均值", "最大值", "行业平均数"],
+        ["2026", "3", "24.00", "25.00", "26.00", "10.00"],
+        ["2027", "3", "29.00", "30.00", "31.00", "12.00"],
+        ["2028", "3", "33.00", "34.00", "35.00", "14.00"]
+      ]
+    ],
+    "detailRows": [
+      ["机构名称", "研究员", "预测年报每股收益（元）", "预测年报净利润（元）", "报告日期"],
+      ["2026预测", "2027预测", "2028预测", "2026预测", "2027预测", "2028预测"],
+      ["甲证券", "甲分析师", "2.40", "2.90", "3.30", "24.00亿", "29.00亿", "33.00亿", "2026-07-01"],
+      ["乙证券", "乙分析师", "2.50", "3.00", "3.40", "25.00亿", "30.00亿", "34.00亿", "2026-06-15"],
+      ["丙证券", "丙分析师", "2.60", "3.10", "3.50", "26.00亿", "31.00亿", "35.00亿", "2026-06-10"]
+    ]
+  }
+}

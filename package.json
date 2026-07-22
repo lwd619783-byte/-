@@ -30,6 +30,8 @@
     "data:health:providers": "python scripts/provider-health.py",
     "data:refresh:eligibility": "python scripts/provider-health.py --strict-exit",
     "test:provider-observability": "python -m unittest discover -s scripts/tests -p test_provider_observability.py",
+    "data:probe:expectations:institution-consensus": "python scripts/probe-a-share-institution-consensus.py",
+    "test:expectations:institution-consensus-probe": "python -m unittest discover -s scripts/tests -p test_a_share_institution_consensus_probe.py",
     "data:fetch:hk": "npm run data:universe && python scripts/fetch-hk-stock-data.py",
     "data:fetch:macro": "python scripts/fetch-macro-data.py",
     "data:validate": "npm run data:universe && python scripts/validate-a-stock-data.py",
