@@ -25,13 +25,14 @@
     "message": "ok",
     "code": 0
   },
-  "eastmoneyReports": {
-    "hits": 4,
-    "size": 4,
-    "TotalPage": 1,
-    "pageNo": 1,
-    "currentYear": 2026,
-    "data": [
+  "eastmoneyReportPages": [
+    {
+      "hits": 4,
+      "size": 2,
+      "TotalPage": 2,
+      "pageNo": 1,
+      "currentYear": 2026,
+      "data": [
       {
         "stockCode": "600000",
         "orgSName": "甲证券",
@@ -53,7 +54,16 @@
         "predictNextYearEps": "2.90",
         "predictNextTwoYearEps": "3.30",
         "predictLastYearEps": "2.00"
-      },
+      }
+      ]
+    },
+    {
+      "hits": 4,
+      "size": 2,
+      "TotalPage": 2,
+      "pageNo": 2,
+      "currentYear": 2026,
+      "data": [
       {
         "stockCode": "600000",
         "orgSName": "乙证券",
@@ -76,8 +86,9 @@
         "predictNextTwoYearEps": "3.50",
         "predictLastYearEps": "2.00"
       }
-    ]
-  },
+      ]
+    }
+  ],
   "thsStructured": {
     "availability": "available",
     "stockCode": "600000",

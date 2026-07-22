@@ -146,6 +146,19 @@
 
 稳定性观测：本轮全部 HTTP 200、无重试、未遇到 429/验证码；但一次成功只证明当次可访问。聚合与报告列表集合不闭合属于结构性阻断，不能被“HTTP 成功”掩盖。
 
+#### 东方财富 report-list 分页完整性补充契约
+
+2026-07-22 远端独立审查仅回放既有 gitignored 原始缓存，没有重跑或替换第 3.2 节实测数字。缓存证明 report-list 的实际分页字段位于响应顶层：`hits` 为总记录数，`TotalPage` 为总页数，`pageNo` 为当前页，`size` 为当前页实际记录数，`data` 为记录数组，`currentYear` 为相对 EPS 字段的年度锚点。合法空结果为 `hits=0`、`size=0`、`TotalPage=0`、`pageNo=1`、`data=[]`。
+
+source-probe 现按以下规则验证完整性：
+
+- 第一页必须同时给出全部分页元数据；用请求 `pageSize=100` 和 `hits` 独立反算 `TotalPage`，不得把第一页默认为全集。
+- 有后续页时按 `pageNo=2...TotalPage` 串行获取；每页继续使用 HTTPS、固定 UA、timeout、最多 2 次有限重试、拒绝重定向、无 Cookie/Authorization 和串行 delay。
+- 安全上限为 20 页、2,000 条；任一上限被触发即失败关闭，不保留截断集合继续计算。
+- 跨页强制核对 `hits`、`TotalPage`、`currentYear`、页码、股票代码、字段集合、每页实际条数和稳定 `infoCode`；拒绝重复页面、重复 report ID、空中间页、分页元数据变化和 schema 漂移。
+- 完成态明确输出 `paginationStatus`、`expectedPageCount`、`fetchedPageCount`、`expectedRecordCount`、`fetchedRecordCount`、`requestedPageSize`、`pageRecordCounts` 与 `complete=true`。空结果使用 `complete_empty`；请求或结构异常使用结构化失败及 `complete=false`。
+- 只有 `complete=true` 且最终记录数等于 `hits` 时，集合才能进入机构去重和重算。分页无法证明时，部分记录不包装成可用明细，也不写原始分页文件以外的正式产物。
+
 ### 3.4 同花顺公开源契约
 
 公开回溯页：`https://basic.10jqka.com.cn/{code}/worth.html`
@@ -240,8 +253,10 @@
 - 最优身份是上游稳定 `institutionId`；没有稳定 ID 的源不通过正式准入。
 - 显示名保留原文；身份名只做 NFKC、首尾空白去除、连续/全角空白压缩和英文大小写折叠。
 - 不把“中信”“中信证券”“中信证券股份有限公司”模糊合并；别名映射必须是独立、版本化、人工审计表。
-- 同一机构、同一股票、同一年度、同一指标在窗口内只取报告日期最新记录；同日用稳定 report ID 决胜。
-- 同日多条且无稳定 report ID，整个机构-指标单元失败关闭，不能任意取数组最后一条。
+- 同一机构、同一股票、同一年度、同一指标在窗口内只取严格有效日历日期最新的记录。
+- 同日只有一条时可保留；同日多条时，每条都必须有非空且唯一的稳定 report ID，但 report ID 只证明身份，不能按字符串大小推断业务先后。
+- 同日缺 report ID、重复 ID 内容冲突、ID 不唯一均失败关闭；即使存在多个不同稳定 ID，只要上游没有明确 revision/sequence/current 语义，仍标记 `ambiguous` 并失败关闭，不能依赖数组或页面顺序任选一条。
+- 同花顺可见明细没有稳定 report ID：不同日期仍可用于公开页面集合探测，同机构同日多条则失败；所有同花顺结果保留 `missing_stable_report_id` 和不得通过正式 Provider 准入的状态。
 
 ### 6.3 统计量、舍入和单位
 
@@ -261,6 +276,8 @@
 - 排除后 `N < 3` 时状态为 `insufficient_institutions`，不降低阈值。
 
 ## 7. 时间与历史语义
+
+source-probe CLI 的默认 `--as-of` 不在模块导入时冻结，也不使用宿主机 `date.today()`。参数缺省时，`main()` 通过标准库 `zoneinfo.ZoneInfo("Asia/Shanghai")` 取得上海当前日历日；用户显式传入严格 `YYYY-MM-DD` 时以显式值为准。测试时可注入 timezone-aware clock，因此 UTC/上海跨日边界不依赖 Windows、Linux 或容器本地时区。六个月窗口继续按日历月回退，目标月缺少同日时取月末，并覆盖闰年、月末和跨年。
 
 必须分别保存：
 
@@ -358,12 +375,14 @@ src/data/real/a-share-institution-consensus-summaries.generated.json
 
 ## 11. Source-probe 工具与离线测试
 
-新增内容：
+当前内容：
 
 - `scripts/probe-a-share-institution-consensus.py`：只做公开源契约探测，不生成 Provider 产物；
-- `scripts/a_share_institution_consensus_probe/core.py`：字段解析、单位归一、去重、统计、THS 最小表格抽取和失败关闭契约；
+- `scripts/a_share_institution_consensus_probe/core.py`：字段解析、单位归一、确定性去重、东财分页、HTTP 安全、上海业务日期、统计、THS 最小表格抽取和失败关闭契约；
 - `scripts/tests/fixtures/a-share-institution-consensus-probe.minimal.json`：最小化、脱敏、结构化、无研报正文 fixture；
-- `scripts/tests/test_a_share_institution_consensus_probe.py`：离线测试缺失、非有限数、单位、统计、同机构去重、身份错配、字段缺失、THS 完整/截断/no_forecast 和结构漂移。
+- `scripts/tests/test_a_share_institution_consensus_probe.py`：65 项纯离线测试，覆盖单/多页、分页中断与漂移、重复页面/报告、同日歧义、上海时区/月末/闰年、HTTP retry/redirect/timeout/header/cache 边界，以及 THS 完整/截断/no_forecast、年度顺序和表结构漂移。
+
+THS 年份映射不再对年度集合排序后按固定偏移猜测。解析器保留 EPS 聚合表的出现顺序，要求净利润聚合表年度集合与顺序完全一致，要求第二层明细表头严格等于同一年度序列的 EPS 段与净利润段，并按实际年度数量校验每行列数。年度缺失、过多、顺序错位、表头或列数变化全部失败关闭；净利润字段继续明确命名为 `netProfitYuanUnqualified`，不升级为归母净利润。
 
 安全边界：
 
@@ -373,6 +392,8 @@ src/data/real/a-share-institution-consensus-summaries.generated.json
 - 原始缓存必须位于 gitignored `data-cache/`；
 - 输出明确 `probeOnly=true`、`providerArtifactsProduced=false`；
 - 正式提交只含结构化 fixture，不含真实完整响应和报告正文。
+
+本次确定性修复不改变 `NO_GO`：东方财富和同花顺仍不能作为正式自动一致预期事实源，自动一致预期注册状态继续是 `not_implemented`，当前正式自动一致预期记录仍为 **0**，Prompt 2 仍不允许执行。
 
 ## 12. 下一阶段允许实施的精确范围
 

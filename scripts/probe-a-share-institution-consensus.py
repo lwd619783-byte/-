@@ -4,103 +4,50 @@ import argparse
 import json
 import sys
 import time
-from datetime import date
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode
-
-import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from a_share_institution_consensus_probe.core import (
     PROBE_SCHEMA_VERSION,
+    USER_AGENT,
+    PaginationContractError,
     ProbeContractError,
+    collect_eastmoney_report_pages,
     compare_rounding,
     extract_ths_contract,
+    fetch_public,
+    json_payload,
     normalize_ths_contract,
     parse_eastmoney_aggregate,
     parse_eastmoney_reports,
-    validate_probe_date,
+    resolve_probe_date,
+    subtract_six_calendar_months,
+    validate_cache_root,
 )
 
-USER_AGENT = "investment-research-dashboard-consensus-contract-probe/1.0 (+public-source-audit; no-cookie)"
 DEFAULT_CODES = ["601138", "002463", "300502", "688165", "603259", "605288", "603286"]
 DEFAULT_CACHE = ROOT / "data-cache" / "a-share-institution-consensus-probe"
+EASTMONEY_REPORT_PAGE_SIZE = 100
 
 
-def options() -> argparse.Namespace:
+def options(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Probe public A-share institution-consensus source contracts without producing provider data")
     parser.add_argument("--codes", nargs="+", default=DEFAULT_CODES)
-    parser.add_argument("--as-of", default=date.today().isoformat())
+    parser.add_argument("--as-of", default=None)
     parser.add_argument("--timeout", type=float, default=15.0)
     parser.add_argument("--retries", type=int, default=1)
     parser.add_argument("--delay", type=float, default=0.6)
     parser.add_argument("--cache-dir", type=Path, default=DEFAULT_CACHE)
-    return parser.parse_args()
-
-
-def subtract_six_calendar_months(value: str) -> str:
-    parsed = date.fromisoformat(validate_probe_date(value))
-    year, month = parsed.year, parsed.month - 6
-    if month <= 0:
-        year -= 1
-        month += 12
-    month_days = [31, 29 if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0) else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    return date(year, month, min(parsed.day, month_days[month - 1])).isoformat()
+    return parser.parse_args(argv)
 
 
 def load_universe() -> dict[str, dict[str, Any]]:
     payload = json.loads((ROOT / "src/data/real/stock-universe.generated.json").read_text(encoding="utf-8"))
     return {item["code"]: item for item in payload["items"] if item.get("market") == "A股"}
-
-
-def fetch_public(url: str, *, timeout: float, retries: int, accept: str) -> tuple[bytes, dict[str, Any]]:
-    if not url.startswith("https://"):
-        raise ProbeContractError(f"only HTTPS public sources are allowed: {url}")
-    retries = max(0, min(retries, 2))
-    started = time.monotonic()
-    failures: list[str] = []
-    for attempt in range(retries + 1):
-        try:
-            response = requests.get(
-                url,
-                headers={"User-Agent": USER_AGENT, "Accept": accept},
-                timeout=timeout,
-                allow_redirects=False,
-            )
-            if response.is_redirect or response.is_permanent_redirect:
-                raise ProbeContractError(f"redirect refused: HTTP {response.status_code} -> {response.headers.get('Location', '')}")
-            if response.status_code == 429 or response.status_code >= 500:
-                failures.append(f"HTTP {response.status_code}")
-                if attempt < retries:
-                    time.sleep(0.5 * (attempt + 1))
-                    continue
-            if response.status_code != 200:
-                raise ProbeContractError(f"HTTP {response.status_code}")
-            return response.content, {
-                "httpStatus": response.status_code,
-                "contentType": response.headers.get("Content-Type"),
-                "byteSize": len(response.content),
-                "attempts": attempt + 1,
-                "durationSeconds": round(time.monotonic() - started, 3),
-                "finalUrl": response.url,
-                "failures": failures,
-            }
-        except (requests.Timeout, requests.ConnectionError) as exc:
-            failures.append(type(exc).__name__)
-            if attempt >= retries:
-                raise ProbeContractError(f"network failure after {attempt + 1} attempts: {type(exc).__name__}") from exc
-            time.sleep(0.5 * (attempt + 1))
-    raise ProbeContractError("public fetch exhausted without a response")
-
-
-def json_payload(content: bytes, label: str) -> Any:
-    try:
-        return json.loads(content.decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise ProbeContractError(f"{label} did not return valid UTF-8 JSON") from exc
 
 
 def write_cache(path: Path, content: bytes) -> None:
@@ -120,21 +67,19 @@ def probe_one(code: str, company: dict[str, Any], as_of: str, args: argparse.Nam
         "filter": f'(SECURITY_CODE="{code}")',
     }
     report_params = {
-        "industryCode": "*", "pageSize": "100", "industry": "*", "rating": "", "ratingChange": "",
-        "beginTime": start, "endTime": as_of, "pageNo": "1", "fields": "", "qType": "0", "orgCode": "", "code": code, "rcode": "",
+        "industryCode": "*", "pageSize": str(EASTMONEY_REPORT_PAGE_SIZE), "industry": "*", "rating": "", "ratingChange": "",
+        "beginTime": start, "endTime": as_of, "fields": "", "qType": "0", "orgCode": "", "code": code, "rcode": "",
     }
-    urls = {
-        "eastmoneyAggregate": "https://datacenter-web.eastmoney.com/api/data/v1/get?" + urlencode(aggregate_params),
-        "eastmoneyReports": "https://reportapi.eastmoney.com/report/list?" + urlencode(report_params),
-        "ths": f"https://basic.10jqka.com.cn/{code}/worth.html",
-    }
+    aggregate_url = "https://datacenter-web.eastmoney.com/api/data/v1/get?" + urlencode(aggregate_params)
+    ths_url = f"https://basic.10jqka.com.cn/{code}/worth.html"
     output: dict[str, Any] = {
         "stock": {key: company[key] for key in ("id", "name", "code", "exchange", "standardSymbol")},
         "window": {"startInclusive": start, "endInclusive": as_of, "semantics": "six calendar months, page statement independently checked"},
-        "sourcePages": {"eastmoney": f"https://data.eastmoney.com/report/{code}.html", "ths": urls["ths"]},
+        "sourcePages": {"eastmoney": f"https://data.eastmoney.com/report/{code}.html", "ths": ths_url},
         "sources": {},
     }
-    for source_name, url in urls.items():
+
+    for source_name, url in (("eastmoneyAggregate", aggregate_url), ("ths", ths_url)):
         time.sleep(max(0.0, args.delay))
         suffix = "html" if source_name == "ths" else "json"
         try:
@@ -142,14 +87,48 @@ def probe_one(code: str, company: dict[str, Any], as_of: str, args: argparse.Nam
             write_cache(cache_root / "raw" / f"{code}-{source_name}.{suffix}", content)
             if source_name == "eastmoneyAggregate":
                 normalized = parse_eastmoney_aggregate(json_payload(content, source_name), code)
-            elif source_name == "eastmoneyReports":
-                normalized = parse_eastmoney_reports(json_payload(content, source_name), code)
             else:
                 html = content.decode("gbk", errors="replace")
                 normalized = normalize_ths_contract(extract_ths_contract(html, code), code)
             output["sources"][source_name] = {"status": "success", "transport": transport, "normalized": normalized}
         except Exception as exc:
             output["sources"][source_name] = {"status": "failed", "errorType": type(exc).__name__, "message": str(exc)}
+
+    time.sleep(max(0.0, args.delay))
+
+    def fetch_report_page(page_no: int) -> tuple[Any, dict[str, Any], bytes]:
+        page_params = {**report_params, "pageNo": str(page_no)}
+        url = "https://reportapi.eastmoney.com/report/list?" + urlencode(page_params)
+        content, transport = fetch_public(url, timeout=args.timeout, retries=args.retries, accept="application/json")
+        return json_payload(content, f"eastmoneyReports page {page_no}"), transport, content
+
+    try:
+        combined_reports, report_pages = collect_eastmoney_report_pages(
+            fetch_report_page,
+            expected_code=code,
+            requested_page_size=EASTMONEY_REPORT_PAGE_SIZE,
+            delay=args.delay,
+        )
+        for page in report_pages:
+            write_cache(cache_root / "raw" / f"{code}-eastmoneyReports-page-{page['pageNo']}.json", page["rawContent"])
+        normalized = parse_eastmoney_reports(combined_reports, code)
+        output["sources"]["eastmoneyReports"] = {
+            "status": "success",
+            "transport": {
+                "pageCount": len(report_pages),
+                "pages": [{"pageNo": page["pageNo"], **page["transport"]} for page in report_pages],
+            },
+            "normalized": normalized,
+        }
+    except PaginationContractError as exc:
+        output["sources"]["eastmoneyReports"] = {
+            "status": "failed",
+            "errorType": type(exc).__name__,
+            "message": str(exc),
+            "pagination": exc.details,
+        }
+    except Exception as exc:
+        output["sources"]["eastmoneyReports"] = {"status": "failed", "errorType": type(exc).__name__, "message": str(exc)}
     aggregate = output["sources"].get("eastmoneyAggregate", {}).get("normalized", {})
     reports = output["sources"].get("eastmoneyReports", {}).get("normalized", {})
     ths = output["sources"].get("ths", {}).get("normalized", {})
@@ -170,16 +149,20 @@ def probe_one(code: str, company: dict[str, Any], as_of: str, args: argparse.Nam
 
 def main() -> int:
     args = options()
-    as_of = validate_probe_date(args.as_of)
+    try:
+        as_of = resolve_probe_date(args.as_of)
+    except ProbeContractError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
     universe = load_universe()
     unknown = sorted(set(args.codes) - set(universe))
     if unknown:
         print(f"codes are outside the committed A-share universe: {', '.join(unknown)}", file=sys.stderr)
         return 2
-    cache_root = args.cache_dir.resolve()
-    allowed_root = (ROOT / "data-cache").resolve()
-    if cache_root != allowed_root and allowed_root not in cache_root.parents:
-        print("cache directory must stay under gitignored data-cache/", file=sys.stderr)
+    try:
+        cache_root = validate_cache_root(args.cache_dir, ROOT / "data-cache")
+    except ProbeContractError as exc:
+        print(str(exc), file=sys.stderr)
         return 2
     result = {
         "schemaVersion": PROBE_SCHEMA_VERSION,

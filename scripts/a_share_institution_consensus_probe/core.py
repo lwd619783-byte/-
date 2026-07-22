@@ -1,26 +1,368 @@
 from __future__ import annotations
 
 import math
+import json
 import re
 import statistics
+import time
 import unicodedata
 from collections import Counter
-from datetime import date
+from collections.abc import Callable
+from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
 from html.parser import HTMLParser
+from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
+from zoneinfo import ZoneInfo
 
-PROBE_SCHEMA_VERSION = "1.0.0"
+import requests
+
+PROBE_SCHEMA_VERSION = "1.1.0"
 MISSING_TEXT = {"", "-", "--", "null", "none", "nan", "false"}
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+USER_AGENT = "investment-research-dashboard-consensus-contract-probe/1.0 (+public-source-audit; no-cookie)"
+SHANGHAI_TIME_ZONE = ZoneInfo("Asia/Shanghai")
+MAX_EASTMONEY_REPORT_PAGES = 20
+MAX_EASTMONEY_REPORT_RECORDS = 2_000
+MAX_THS_FORECAST_YEARS = 5
+REDIRECT_STATUSES = {301, 302, 303, 307, 308}
 
 
 class ProbeContractError(ValueError):
     """The public response did not satisfy the minimum probe contract."""
 
 
+class PaginationContractError(ProbeContractError):
+    """Eastmoney pagination was not proven complete."""
+
+    def __init__(self, message: str, details: dict[str, Any] | None = None) -> None:
+        super().__init__(message)
+        self.details = details or {
+            "paginationStatus": "failed",
+            "complete": False,
+        }
+
+
 def normalize_identity(value: str) -> str:
     return re.sub(r"\s+", " ", unicodedata.normalize("NFKC", value).strip()).casefold()
+
+
+def validate_probe_date(value: str) -> str:
+    if not isinstance(value, str) or not DATE.fullmatch(value):
+        raise ProbeContractError(f"invalid probe date: {value}")
+    try:
+        date.fromisoformat(value)
+    except ValueError:
+        raise ProbeContractError(f"invalid probe date: {value}") from None
+    return value
+
+
+def shanghai_calendar_date(clock: Callable[[ZoneInfo], datetime] | None = None) -> str:
+    current = datetime.now(SHANGHAI_TIME_ZONE) if clock is None else clock(SHANGHAI_TIME_ZONE)
+    if not isinstance(current, datetime) or current.tzinfo is None:
+        raise ProbeContractError("probe clock must return a timezone-aware datetime")
+    return current.astimezone(SHANGHAI_TIME_ZONE).date().isoformat()
+
+
+def resolve_probe_date(value: str | None, clock: Callable[[ZoneInfo], datetime] | None = None) -> str:
+    return validate_probe_date(value) if value is not None else shanghai_calendar_date(clock)
+
+
+def subtract_six_calendar_months(value: str) -> str:
+    parsed = date.fromisoformat(validate_probe_date(value))
+    year, month = parsed.year, parsed.month - 6
+    if month <= 0:
+        year -= 1
+        month += 12
+    month_days = [31, 29 if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0) else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    return date(year, month, min(parsed.day, month_days[month - 1])).isoformat()
+
+
+def validate_cache_root(cache_dir: Path, allowed_root: Path) -> Path:
+    candidate = cache_dir.resolve()
+    allowed = allowed_root.resolve()
+    if candidate != allowed and allowed not in candidate.parents:
+        raise ProbeContractError("cache directory must stay under gitignored data-cache/")
+    return candidate
+
+
+def fetch_public(
+    url: str,
+    *,
+    timeout: float,
+    retries: int,
+    accept: str,
+    get: Callable[..., Any] = requests.get,
+    sleeper: Callable[[float], None] = time.sleep,
+    monotonic: Callable[[], float] = time.monotonic,
+) -> tuple[bytes, dict[str, Any]]:
+    parsed_url = urlparse(url)
+    if parsed_url.scheme != "https" or not parsed_url.netloc:
+        raise ProbeContractError(f"only HTTPS public sources are allowed: {url}")
+    if not isinstance(retries, int):
+        raise ProbeContractError("retries must be an integer")
+    maximum_retries = max(0, min(retries, 2))
+    if not isinstance(timeout, (int, float)) or isinstance(timeout, bool) or not math.isfinite(float(timeout)) or timeout <= 0:
+        raise ProbeContractError("timeout must be a positive finite number")
+    if not isinstance(accept, str) or not accept.strip():
+        raise ProbeContractError("Accept header is required")
+    started = monotonic()
+    failures: list[str] = []
+    for attempt in range(maximum_retries + 1):
+        try:
+            response = get(
+                url,
+                headers={"User-Agent": USER_AGENT, "Accept": accept},
+                timeout=timeout,
+                allow_redirects=False,
+            )
+            status_code = getattr(response, "status_code", None)
+            if status_code in REDIRECT_STATUSES or bool(getattr(response, "is_redirect", False)) or bool(getattr(response, "is_permanent_redirect", False)):
+                location = getattr(response, "headers", {}).get("Location", "")
+                raise ProbeContractError(f"redirect refused: HTTP {status_code} -> {location}")
+            if status_code == 429 or (isinstance(status_code, int) and status_code >= 500):
+                failures.append(f"HTTP {status_code}")
+                if attempt < maximum_retries:
+                    sleeper(0.5 * (attempt + 1))
+                    continue
+            if status_code != 200:
+                raise ProbeContractError(f"HTTP {status_code}")
+            final_url = str(getattr(response, "url", url))
+            if urlparse(final_url).scheme != "https":
+                raise ProbeContractError(f"non-HTTPS final URL refused: {final_url}")
+            content = bytes(getattr(response, "content", b""))
+            headers = getattr(response, "headers", {})
+            return content, {
+                "httpStatus": status_code,
+                "contentType": headers.get("Content-Type"),
+                "byteSize": len(content),
+                "attempts": attempt + 1,
+                "durationSeconds": round(monotonic() - started, 3),
+                "finalUrl": final_url,
+                "failures": failures,
+            }
+        except (requests.Timeout, requests.ConnectionError) as exc:
+            failures.append(type(exc).__name__)
+            if attempt >= maximum_retries:
+                raise ProbeContractError(f"network failure after {attempt + 1} attempts: {type(exc).__name__}") from exc
+            sleeper(0.5 * (attempt + 1))
+    raise ProbeContractError("public fetch exhausted without a response")
+
+
+def json_payload(content: bytes, label: str) -> Any:
+    try:
+        return json.loads(content.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ProbeContractError(f"{label} did not return valid UTF-8 JSON") from exc
+
+
+def _strict_int(value: Any, label: str, minimum: int = 0) -> int:
+    if not isinstance(value, int) or isinstance(value, bool) or value < minimum:
+        raise PaginationContractError(f"Eastmoney {label} is invalid")
+    return value
+
+
+def _pagination_details(
+    *,
+    status: str,
+    expected_pages: int | None,
+    fetched_pages: int,
+    expected_records: int | None,
+    fetched_records: int,
+    page_size: int,
+) -> dict[str, Any]:
+    return {
+        "paginationStatus": status,
+        "expectedPageCount": expected_pages,
+        "fetchedPageCount": fetched_pages,
+        "expectedRecordCount": expected_records,
+        "fetchedRecordCount": fetched_records,
+        "requestedPageSize": page_size,
+        "complete": status in {"complete", "complete_empty"},
+    }
+
+
+def _validate_eastmoney_report_page(
+    payload: Any,
+    *,
+    expected_code: str,
+    expected_page_no: int,
+    requested_page_size: int,
+) -> dict[str, Any]:
+    if not isinstance(payload, dict):
+        raise PaginationContractError("Eastmoney report-list page is not an object")
+    required = {"hits", "size", "TotalPage", "pageNo", "currentYear", "data"}
+    missing = sorted(required - set(payload))
+    if missing:
+        raise PaginationContractError(f"Eastmoney pagination metadata is missing: {', '.join(missing)}")
+    hits = _strict_int(payload["hits"], "hits")
+    page_record_count = _strict_int(payload["size"], "size")
+    total_pages = _strict_int(payload["TotalPage"], "TotalPage")
+    page_no = _strict_int(payload["pageNo"], "pageNo", 1)
+    current_year = _strict_int(payload["currentYear"], "currentYear", 2000)
+    if current_year > 2100:
+        raise PaginationContractError("Eastmoney currentYear is invalid")
+    if page_no != expected_page_no:
+        raise PaginationContractError(f"Eastmoney page number mismatch: expected {expected_page_no}, got {page_no}")
+    rows = payload["data"]
+    if not isinstance(rows, list):
+        raise PaginationContractError("Eastmoney report-list data is missing")
+    if page_record_count != len(rows):
+        raise PaginationContractError("Eastmoney page size does not equal its data length")
+    if hits == 0:
+        if expected_page_no != 1 or total_pages != 0 or page_record_count != 0 or rows:
+            raise PaginationContractError("Eastmoney empty-result pagination is inconsistent")
+        return {
+            "hits": hits,
+            "pageRecordCount": page_record_count,
+            "totalPages": total_pages,
+            "pageNo": page_no,
+            "currentYear": current_year,
+            "rows": rows,
+            "rowSchema": None,
+        }
+    calculated_pages = math.ceil(hits / requested_page_size)
+    if total_pages != calculated_pages or total_pages < 1:
+        raise PaginationContractError("Eastmoney TotalPage does not match hits and requested pageSize")
+    expected_records_on_page = requested_page_size if page_no < total_pages else hits - requested_page_size * (total_pages - 1)
+    if page_record_count != expected_records_on_page or not rows:
+        raise PaginationContractError("Eastmoney page record count is inconsistent with pagination metadata")
+    row_schema: tuple[str, ...] | None = None
+    for row in rows:
+        if not isinstance(row, dict):
+            raise PaginationContractError("Eastmoney report-list row is not an object")
+        if str(row.get("stockCode", "")) != expected_code:
+            raise PaginationContractError("Eastmoney report-list stock identity mismatch")
+        report_id = str(row.get("infoCode") or "").strip()
+        if not report_id:
+            raise PaginationContractError("Eastmoney report-list stable report ID is missing")
+        keys = tuple(sorted(row))
+        if row_schema is None:
+            row_schema = keys
+        elif keys != row_schema:
+            raise PaginationContractError("Eastmoney report-list schema drifted within a page")
+    return {
+        "hits": hits,
+        "pageRecordCount": page_record_count,
+        "totalPages": total_pages,
+        "pageNo": page_no,
+        "currentYear": current_year,
+        "rows": rows,
+        "rowSchema": row_schema,
+    }
+
+
+def collect_eastmoney_report_pages(
+    fetch_page: Callable[[int], tuple[Any, dict[str, Any], bytes]],
+    *,
+    expected_code: str,
+    requested_page_size: int = 100,
+    max_pages: int = MAX_EASTMONEY_REPORT_PAGES,
+    max_records: int = MAX_EASTMONEY_REPORT_RECORDS,
+    delay: float = 0.0,
+    sleeper: Callable[[float], None] = time.sleep,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    if not isinstance(requested_page_size, int) or isinstance(requested_page_size, bool) or requested_page_size < 1:
+        raise PaginationContractError("Eastmoney requested pageSize is invalid")
+    if max_pages < 1 or max_records < 1:
+        raise PaginationContractError("Eastmoney pagination safety limits are invalid")
+    pages: list[dict[str, Any]] = []
+    all_rows: list[dict[str, Any]] = []
+    page_fingerprints: set[str] = set()
+    report_ids: set[str] = set()
+    expected_total_pages: int | None = None
+    expected_hits: int | None = None
+    expected_current_year: int | None = None
+    expected_schema: tuple[str, ...] | None = None
+
+    def fail(message: str) -> PaginationContractError:
+        return PaginationContractError(
+            message,
+            _pagination_details(
+                status="failed",
+                expected_pages=expected_total_pages,
+                fetched_pages=len(pages),
+                expected_records=expected_hits,
+                fetched_records=len(all_rows),
+                page_size=requested_page_size,
+            ),
+        )
+
+    page_no = 1
+    while True:
+        if page_no > 1:
+            sleeper(max(0.0, delay))
+        try:
+            payload, transport, raw_content = fetch_page(page_no)
+            page = _validate_eastmoney_report_page(
+                payload,
+                expected_code=expected_code,
+                expected_page_no=page_no,
+                requested_page_size=requested_page_size,
+            )
+        except PaginationContractError as exc:
+            if exc.details.get("fetchedPageCount") is not None:
+                raise
+            raise fail(str(exc)) from exc
+        except Exception as exc:
+            raise fail(f"Eastmoney page {page_no} fetch failed: {type(exc).__name__}: {exc}") from exc
+
+        if page_no == 1:
+            expected_total_pages = page["totalPages"]
+            expected_hits = page["hits"]
+            expected_current_year = page["currentYear"]
+            expected_schema = page["rowSchema"]
+            if expected_total_pages > max_pages:
+                raise fail(f"Eastmoney TotalPage exceeds safety limit {max_pages}")
+            if expected_hits > max_records:
+                raise fail(f"Eastmoney hits exceeds safety limit {max_records}")
+        else:
+            if page["totalPages"] != expected_total_pages:
+                raise fail("Eastmoney TotalPage changed across pages")
+            if page["hits"] != expected_hits:
+                raise fail("Eastmoney hits changed across pages")
+            if page["currentYear"] != expected_current_year:
+                raise fail("Eastmoney currentYear changed across pages")
+            if page["rowSchema"] != expected_schema:
+                raise fail("Eastmoney report-list schema drifted across pages")
+
+        fingerprint = json.dumps(page["rows"], ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        if fingerprint in page_fingerprints:
+            raise fail("Eastmoney returned a duplicate page")
+        page_fingerprints.add(fingerprint)
+        for row in page["rows"]:
+            report_id = str(row["infoCode"]).strip()
+            if report_id in report_ids:
+                raise fail(f"Eastmoney duplicate report ID across pagination: {report_id}")
+            report_ids.add(report_id)
+        all_rows.extend(page["rows"])
+        pages.append({"pageNo": page_no, "recordCount": page["pageRecordCount"], "transport": transport, "rawContent": raw_content})
+
+        if expected_total_pages == 0 or page_no == expected_total_pages:
+            break
+        page_no += 1
+
+    if expected_hits is None or expected_total_pages is None or expected_current_year is None:
+        raise fail("Eastmoney pagination metadata was not established")
+    if len(all_rows) != expected_hits:
+        raise fail("Eastmoney fetched record count does not equal declared hits")
+    status = "complete_empty" if expected_hits == 0 else "complete"
+    combined = {
+        "stockCode": expected_code,
+        "currentYear": expected_current_year,
+        "data": all_rows,
+        "pageRecordCounts": [{"pageNo": page["pageNo"], "recordCount": page["recordCount"]} for page in pages],
+        **_pagination_details(
+            status=status,
+            expected_pages=expected_total_pages,
+            fetched_pages=len(pages),
+            expected_records=expected_hits,
+            fetched_records=len(all_rows),
+            page_size=requested_page_size,
+        ),
+    }
+    return combined, pages
 
 
 def parse_number(value: Any) -> float | None:
@@ -86,16 +428,37 @@ def calculate_statistics(values: list[float]) -> dict[str, float | int | None]:
 
 
 def latest_by_institution(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    selected: dict[str, dict[str, Any]] = {}
+    grouped: dict[str, list[dict[str, Any]]] = {}
     for record in records:
         key = normalize_identity(str(record.get("institution", "")))
         if not key:
             raise ProbeContractError("institution name is required")
-        current = selected.get(key)
-        order = (str(record.get("reportDate", "")), str(record.get("reportId", "")))
-        if current is None or order > (str(current.get("reportDate", "")), str(current.get("reportId", ""))):
-            selected[key] = record
-    return sorted(selected.values(), key=lambda item: (normalize_identity(item["institution"]), item["reportDate"], item.get("reportId", "")))
+        report_date = str(record.get("reportDate", ""))
+        validate_probe_date(report_date)
+        grouped.setdefault(key, []).append(record)
+    selected: list[dict[str, Any]] = []
+    for key, institution_records in grouped.items():
+        by_date: dict[str, list[dict[str, Any]]] = {}
+        for record in institution_records:
+            by_date.setdefault(str(record["reportDate"]), []).append(record)
+        for report_date, same_day in by_date.items():
+            if len(same_day) == 1:
+                continue
+            report_ids = [str(record.get("reportId") or "").strip() for record in same_day]
+            if any(not report_id for report_id in report_ids):
+                raise ProbeContractError(f"same-institution same-day reports lack stable report IDs: {key} {report_date}")
+            if len(set(report_ids)) != len(report_ids):
+                by_id: dict[str, list[str]] = {}
+                for report_id, record in zip(report_ids, same_day, strict=True):
+                    canonical = json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+                    by_id.setdefault(report_id, []).append(canonical)
+                if any(len(set(contents)) > 1 for contents in by_id.values()):
+                    raise ProbeContractError(f"duplicate report ID has conflicting content: {key} {report_date}")
+                raise ProbeContractError(f"same-institution same-day report IDs are not unique: {key} {report_date}")
+            raise ProbeContractError(f"same-institution same-day reports are ambiguous without upstream ordering semantics: {key} {report_date}")
+        latest_date = max(by_date)
+        selected.append(by_date[latest_date][0])
+    return sorted(selected, key=lambda item: (normalize_identity(item["institution"]), item["reportDate"]))
 
 
 def parse_eastmoney_aggregate(payload: Any, expected_code: str) -> dict[str, Any]:
@@ -141,8 +504,16 @@ def parse_eastmoney_aggregate(payload: Any, expected_code: str) -> dict[str, Any
 
 
 def parse_eastmoney_reports(payload: Any, expected_code: str) -> dict[str, Any]:
-    if not isinstance(payload, dict) or not isinstance(payload.get("data"), list):
+    if not isinstance(payload, dict) or payload.get("complete") is not True or payload.get("paginationStatus") not in {"complete", "complete_empty"}:
+        raise ProbeContractError("Eastmoney report-list pagination is not proven complete")
+    if not isinstance(payload.get("data"), list):
         raise ProbeContractError("Eastmoney report-list data is missing")
+    expected_record_count = payload.get("expectedRecordCount")
+    fetched_record_count = payload.get("fetchedRecordCount")
+    if not isinstance(expected_record_count, int) or isinstance(expected_record_count, bool) or expected_record_count < 0:
+        raise ProbeContractError("Eastmoney expectedRecordCount is invalid")
+    if fetched_record_count != expected_record_count or len(payload["data"]) != expected_record_count:
+        raise ProbeContractError("Eastmoney report-list pagination counts are inconsistent")
     current_year = payload.get("currentYear")
     if not isinstance(current_year, int) or current_year < 2000 or current_year > 2100:
         raise ProbeContractError("Eastmoney report-list currentYear is invalid")
@@ -154,8 +525,9 @@ def parse_eastmoney_reports(payload: Any, expected_code: str) -> dict[str, Any]:
         analyst = str(row.get("researcher") or "").strip()
         report_id = str(row.get("infoCode") or "").strip()
         published = str(row.get("publishDate") or "")[:10]
-        if not institution or not analyst or not report_id or not DATE.fullmatch(published):
+        if not institution or not analyst or not report_id:
             raise ProbeContractError("Eastmoney report-list required metadata is missing")
+        validate_probe_date(published)
         eps = {
             str(current_year - 1): parse_number(row.get("predictLastYearEps")),
             str(current_year): parse_number(row.get("predictThisYearEps")),
@@ -182,6 +554,14 @@ def parse_eastmoney_reports(payload: Any, expected_code: str) -> dict[str, Any]:
         "availability": "available" if records else "no_reports",
         "stockCode": expected_code,
         "currentYear": current_year,
+        "paginationStatus": payload["paginationStatus"],
+        "expectedPageCount": payload.get("expectedPageCount"),
+        "fetchedPageCount": payload.get("fetchedPageCount"),
+        "expectedRecordCount": expected_record_count,
+        "fetchedRecordCount": fetched_record_count,
+        "requestedPageSize": payload.get("requestedPageSize"),
+        "pageRecordCounts": payload.get("pageRecordCounts"),
+        "complete": True,
         "reportCount": len(records),
         "distinctInstitutionCount": len(latest),
         "institutionsWithDuplicateReports": sorted(key for key, count in duplicates.items() if count > 1),
@@ -313,26 +693,45 @@ def normalize_ths_contract(contract: Any, expected_code: str) -> dict[str, Any]:
         raise ProbeContractError("THS structured contract is incomplete")
     if statement.get("companyName") != contract.get("companyName") or not DATE.fullmatch(str(statement.get("asOfDate", ""))):
         raise ProbeContractError("THS statement identity/date mismatch")
+    validate_probe_date(str(statement["asOfDate"]))
     institution_count = statement.get("institutionCount")
     forecast_year = statement.get("forecastYear")
     if not isinstance(institution_count, int) or institution_count < 0 or not isinstance(forecast_year, int):
         raise ProbeContractError("THS statement count/year is invalid")
-    eps_aggregates = _aggregate_rows(tables[0], "CNY/share")
-    profit_aggregates = _aggregate_rows(tables[1], "CNY 100m", amount=True)
-    years = sorted(set(eps_aggregates) | set(profit_aggregates))
+    eps_aggregates, eps_years = _aggregate_rows(tables[0], "CNY/share")
+    profit_aggregates, profit_years = _aggregate_rows(tables[1], "CNY 100m", amount=True)
+    if eps_years != profit_years:
+        raise ProbeContractError("THS EPS and net-profit aggregate year order differs")
+    years = eps_years
+    if str(forecast_year) not in years:
+        raise ProbeContractError("THS statement forecast year is absent from aggregate tables")
+    if any(not isinstance(row, list) for row in rows):
+        raise ProbeContractError("THS detail table contains a non-row value")
+    normalized_rows = [[_clean_text(str(cell)) for cell in row] for row in rows]
+    if len(normalized_rows) < 3:
+        raise ProbeContractError("THS detail table is incomplete")
+    expected_primary_header = ["机构名称", "研究员", "预测年报每股收益(元)", "预测年报净利润(元)", "报告日期"]
+    if normalized_rows[0] != expected_primary_header:
+        raise ProbeContractError("THS detail primary header changed")
+    expected_year_header = [f"{year}预测" for year in years] * 2
+    if normalized_rows[1] != expected_year_header:
+        raise ProbeContractError("THS detail year columns do not match aggregate year order")
+    expected_detail_width = 2 + len(years) * 2 + 1
     details = []
-    for row in rows:
-        if not isinstance(row, list) or len(row) < 9 or not DATE.fullmatch(str(row[-1])):
-            continue
-        institution, analyst = str(row[0]).strip(), str(row[1]).strip()
+    for row in normalized_rows[2:]:
+        if len(row) != expected_detail_width:
+            raise ProbeContractError("THS detail column count changed")
+        validate_probe_date(row[-1])
+        institution, analyst = row[0], row[1]
         if not institution or not analyst:
             raise ProbeContractError("THS detail institution/analyst is missing")
-        eps_by_year = {str(year): parse_number(row[2 + index]) if 2 + index < len(row) - 1 else None for index, year in enumerate(years[:3])}
-        profit_by_year = {str(year): parse_amount_to_yuan(row[5 + index]) if 5 + index < len(row) - 1 else None for index, year in enumerate(years[:3])}
+        eps_by_year = {year: parse_number(row[2 + index]) for index, year in enumerate(years)}
+        profit_start = 2 + len(years)
+        profit_by_year = {year: parse_amount_to_yuan(row[profit_start + index]) for index, year in enumerate(years)}
         details.append({"institution": institution, "analyst": analyst, "reportDate": row[-1], "epsByYear": eps_by_year, "netProfitYuanUnqualifiedByYear": profit_by_year})
     if not details and institution_count > 0:
         raise ProbeContractError("THS institution details are missing")
-    latest = latest_by_institution([{**row, "reportId": ""} for row in details])
+    latest = latest_by_institution([{**row, "reportId": None} for row in details])
     duplicate_counts = Counter(normalize_identity(row["institution"]) for row in details)
     stats_by_year: dict[str, dict[str, Any]] = {}
     for year in years:
@@ -359,6 +758,8 @@ def normalize_ths_contract(contract: Any, expected_code: str) -> dict[str, Any]:
         "visibleDetailCount": len(details),
         "visibleDistinctInstitutionCount": len(latest),
         "detailCompleteness": "complete" if details_complete else "truncated_or_filtered",
+        "upstreamReportIdentityStatus": "missing_stable_report_id",
+        "providerAdmissionEligible": False,
         "institutionsWithDuplicateReports": sorted(key for key, count in duplicate_counts.items() if count > 1),
         "aggregates": {"eps": eps_aggregates, "netProfitYuanUnqualified": profit_aggregates},
         "display": {"eps": eps_display, "netProfitYuanUnqualified": profit_display},
@@ -371,28 +772,43 @@ def normalize_ths_contract(contract: Any, expected_code: str) -> dict[str, Any]:
     }
 
 
-def _aggregate_rows(table: Any, raw_unit: str, amount: bool = False) -> dict[str, dict[str, Any]]:
-    if not isinstance(table, list):
+def _aggregate_rows(table: Any, raw_unit: str, amount: bool = False) -> tuple[dict[str, dict[str, Any]], list[str]]:
+    if not isinstance(table, list) or len(table) < 2:
         raise ProbeContractError("THS aggregate table is invalid")
+    if any(not isinstance(row, list) for row in table):
+        raise ProbeContractError("THS aggregate table contains a non-row value")
+    normalized = [[_clean_text(str(cell)) for cell in row] for row in table]
+    expected_header = ["年度", "预测机构数", "最小值", "均值", "最大值", "行业平均数"]
+    if not normalized or normalized[0] != expected_header:
+        raise ProbeContractError("THS aggregate table header changed")
     output: dict[str, dict[str, Any]] = {}
-    for row in table:
-        if not isinstance(row, list) or len(row) < 5 or not re.fullmatch(r"\d{4}", str(row[0])):
-            continue
+    years: list[str] = []
+    for row in normalized[1:]:
+        if len(row) != len(expected_header) or not re.fullmatch(r"\d{4}", row[0]):
+            raise ProbeContractError("THS aggregate row structure changed")
+        year = row[0]
+        if year in output:
+            raise ProbeContractError("THS aggregate table contains a duplicate year")
         try:
             count = int(str(row[1]))
         except ValueError:
             raise ProbeContractError("THS aggregate institution count is invalid") from None
+        if count < 0:
+            raise ProbeContractError("THS aggregate institution count is invalid")
         convert = (lambda value: parse_amount_to_yuan(value, "亿元")) if amount else parse_number
-        output[str(row[0])] = {
+        output[year] = {
             "institutionCount": count,
             "minimum": convert(row[2]),
             "mean": convert(row[3]),
             "maximum": convert(row[4]),
             "rawUnit": raw_unit,
         }
+        years.append(year)
     if not output:
         raise ProbeContractError("THS aggregate table has no forecast rows")
-    return output
+    if len(years) > MAX_THS_FORECAST_YEARS:
+        raise ProbeContractError("THS aggregate table exceeds the forecast-year safety limit")
+    return output, years
 
 
 def compare_rounding(aggregate: dict[str, Any], detail_statistics: dict[str, Any], digits: int) -> bool | None:
@@ -401,10 +817,3 @@ def compare_rounding(aggregate: dict[str, Any], detail_statistics: dict[str, Any
     if aggregate_mean is None or detail_mean is None:
         return None
     return round(float(aggregate_mean), digits) == round(float(detail_mean), digits)
-
-
-def validate_probe_date(value: str) -> str:
-    if not DATE.fullmatch(value):
-        raise ProbeContractError(f"invalid probe date: {value}")
-    date.fromisoformat(value)
-    return value
