@@ -15,13 +15,14 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from provider_observability import SCHEMA_VERSION
+from provider_observability import GATE_SCHEMA_VERSION, SCHEMA_VERSION
 from provider_observability.core import (
-    BLOCKING_FAILURES, DirtyWorktreeError, announcement_diff, append_resolution, append_run, atomic_write,
+    BLOCKING_FAILURES, DirtyWorktreeError, announcement_diff, append_resolution, append_run, atomic_write, audit_observation_ledger,
     classify_failure, contains_sensitive, dirty_paths, evaluate, file_digest, financial_diff, json_bytes,
     load_resolutions, load_runs, make_resolution, observation_eligibility, percentile, redact,
     stable, summarize_provider, tree_digest, validate_config, validate_run,
 )
+from provider_observability.provenance import cohort_id, valid_provenance
 from provider_observability.production import (
     validate_announcement_production, validate_default_refresh, validate_financial_production, validate_production,
 )
@@ -31,7 +32,7 @@ HASH = "0" * 64
 
 
 def config(**updates):
-    value = {"schemaVersion": SCHEMA_VERSION, "timezone": "Asia/Shanghai", "minimumDistinctDays": 5, "minimumRunsPerProvider": 10, "minimumSuccessfulDaysPerProvider": 5, "minimumCompleteSuccessRate": .9, "minimumTotalSuccessRate": .95, "expectedCompanies": 56, "requireLatestSuccess": True, "providers": PROVIDERS}
+    value = {"schemaVersion": GATE_SCHEMA_VERSION, "timezone": "Asia/Shanghai", "minimumDistinctDays": 5, "minimumRunsPerProvider": 10, "minimumSuccessfulDaysPerProvider": 5, "minimumCompleteSuccessRate": .9, "minimumTotalSuccessRate": .95, "expectedCompanies": 56, "requireLatestSuccess": True, "providers": PROVIDERS}
     value.update(updates); return value
 
 
@@ -43,10 +44,29 @@ def failure(category, message="failure"):
     return {"category": category, "message": message, "resolved": False}
 
 
-def run(provider="a-share-financials", index=0, status="success", failures=None, coverage=56, rate=1, eligible=True, same_day=False):
+def provenance(**updates):
+    value = {
+        "sourceCommitSha": "a" * 40,
+        "observationToolVersion": "2.0.0",
+        "observationToolChecksum": "1" * 64,
+        "providerCodeChecksum": "2" * 64,
+        "fetchScriptChecksum": "3" * 64,
+        "validatorChecksum": "4" * 64,
+        "stockUniverseChecksum": "5" * 64,
+        "stockUniverseIdentityCount": 56,
+        "gateConfigChecksum": "6" * 64,
+        "productionBaselineChecksum": "7" * 64,
+        "dependencyFingerprint": "8" * 64,
+    }
+    value.update(updates)
+    value["provenanceCohortId"] = cohort_id(value) if "unavailable" not in value.values() else "unavailable"
+    return value
+
+
+def run(provider="a-share-financials", index=0, status="success", failures=None, coverage=56, rate=1, eligible=True, same_day=False, provenance_value=None):
     start = datetime(2026, 7, 1, tzinfo=timezone.utc) + timedelta(days=0 if same_day else index // 2, minutes=index)
     domain = "financials" if provider == "a-share-financials" else "announcements"
-    return {"schemaVersion": SCHEMA_VERSION, "runId": f"run-{provider}-{index}", "providerId": provider, "providerVersion": "v1", "domain": domain, "startedAt": start.isoformat().replace("+00:00", "Z"), "endedAt": (start + timedelta(seconds=2)).isoformat().replace("+00:00", "Z"), "timezone": "Asia/Shanghai", "durationSeconds": 2 + index, "platform": "test", "pythonVersion": "3.13", "nodeVersion": "v22", "command": ["python", "fixture"], "status": status, "exitCode": 0 if status != "failed" else 1, "metrics": {"companyCoverage": coverage, "expectedCompanies": 56, "structuralValidationRate": rate, "eligibleSample": eligible, "cacheMode": "isolated", "retryCount": None, "timeoutCount": 0, "rateLimitCount": 0, "httpStatusCounts": {}, "success": coverage, "partial": 0, "error": 0, "detailFiles": coverage, "manifestChecksum": HASH, "artifactChecksum": HASH}, "difference": {"baseline": True}, "failures": failures or [], "validation": {"passed": rate == 1}, "atomicity": {"productionUnchanged": True, "beforeChecksum": HASH, "afterChecksum": HASH}, "worktree": {"unchanged": True}, "messages": [], "artifacts": {"generatedRoot": f"artifacts/run-{provider}-{index}/generated"}}
+    return {"schemaVersion": SCHEMA_VERSION, "runId": f"run-{provider}-{index}", "providerId": provider, "providerVersion": "v1", "domain": domain, "startedAt": start.isoformat().replace("+00:00", "Z"), "endedAt": (start + timedelta(seconds=2)).isoformat().replace("+00:00", "Z"), "timezone": "Asia/Shanghai", "durationSeconds": 2 + index, "platform": "test", "pythonVersion": "3.13", "nodeVersion": "v22", "command": ["python", "fixture"], "status": status, "exitCode": 0 if status != "failed" else 1, "metrics": {"companyCoverage": coverage, "expectedCompanies": 56, "structuralValidationRate": rate, "eligibleSample": eligible, "cacheMode": "isolated", "retryCount": None, "timeoutCount": 0, "rateLimitCount": 0, "httpStatusCounts": {}, "success": coverage, "partial": 0, "error": 0, "detailFiles": coverage, "manifestChecksum": HASH, "artifactChecksum": HASH}, "difference": {"baseline": True}, "failures": failures or [], "validation": {"passed": rate == 1}, "atomicity": {"productionUnchanged": True, "beforeChecksum": HASH, "afterChecksum": HASH}, "worktree": {"unchanged": True}, "messages": [], "artifacts": {"generatedRoot": f"artifacts/run-{provider}-{index}/generated"}, "provenance": provenance_value or provenance()}
 
 
 def ann(announcement_id, date_value, **updates):
@@ -212,6 +232,16 @@ class ResolutionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp); item = self.failed_run(); append_run(root, item); resolution = make_resolution(PROVIDERS[0], item["runId"], 0, "schema_drift", "verified", "evidence", "tester", "missing-replacement")
             with self.assertRaises(ValueError): append_resolution(root, resolution)
+    def test_cross_provider_replacement_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); item = self.failed_run(); replacement = run(PROVIDERS[1], 1); append_run(root, item); append_run(root, replacement)
+            resolution = make_resolution(PROVIDERS[0], item["runId"], 0, "schema_drift", "verified", "evidence", "tester", replacement["runId"])
+            with self.assertRaises(ValueError): append_resolution(root, resolution)
+    def test_cross_cohort_replacement_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); item = self.failed_run(); replacement = run(PROVIDERS[0], 1, provenance_value=provenance(providerCodeChecksum="9" * 64)); append_run(root, item); append_run(root, replacement)
+            resolution = make_resolution(PROVIDERS[0], item["runId"], 0, "schema_drift", "verified", "evidence", "tester", replacement["runId"])
+            with self.assertRaises(ValueError): append_resolution(root, resolution)
 
 
 class ProductionGateTests(unittest.TestCase):
@@ -244,6 +274,38 @@ class EligibilityTests(unittest.TestCase):
         with self.assertRaises(Exception): validate_config(config(timezone="Mars/Olympus"))
     def test_76_threshold_not_weakened(self):
         actual = json.loads((ROOT / "config/provider-stability-gate-v1.json").read_text(encoding="utf-8")); self.assertEqual((actual["minimumDistinctDays"], actual["minimumRunsPerProvider"], actual["minimumCompleteSuccessRate"], actual["minimumTotalSuccessRate"]), (5, 10, .9, .95))
+    def test_legacy_run_excluded(self):
+        legacy = run(); legacy["schemaVersion"] = "1.0.0"; legacy.pop("provenance")
+        summary = evaluate([legacy], config(), production(), current_provenance={provider: provenance() for provider in PROVIDERS})
+        self.assertEqual((summary["providers"][PROVIDERS[0]]["totalRuns"], summary["providers"][PROVIDERS[0]]["cohortAudit"]["legacyRuns"]), (0, 1))
+    def test_current_compatible_cohort_included(self):
+        summary = evaluate([run(PROVIDERS[0]), run(PROVIDERS[1])], config(), production(), current_provenance={provider: provenance() for provider in PROVIDERS})
+        self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["currentEligibleRuns"], 1)
+    def test_each_provenance_drift_excluded(self):
+        fields = {
+            "observationToolChecksum": "9" * 64,
+            "providerCodeChecksum": "9" * 64,
+            "fetchScriptChecksum": "9" * 64,
+            "validatorChecksum": "9" * 64,
+            "stockUniverseChecksum": "9" * 64,
+            "stockUniverseIdentityCount": 55,
+            "gateConfigChecksum": "9" * 64,
+            "productionBaselineChecksum": "9" * 64,
+            "dependencyFingerprint": "9" * 64,
+        }
+        targets = {provider: provenance() for provider in PROVIDERS}
+        for field, value in fields.items():
+            with self.subTest(field=field):
+                item = run(PROVIDERS[0], provenance_value=provenance(**{field: value}))
+                summary = evaluate([item], config(), production(), current_provenance=targets)
+                self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["incompatibleRuns"], 1)
+    def test_source_commit_unavailable_excluded(self):
+        item = run(PROVIDERS[0], provenance_value=provenance(sourceCommitSha="unavailable"))
+        summary = evaluate([item], config(), production(), current_provenance={provider: provenance() for provider in PROVIDERS})
+        self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["incompatibleRuns"], 1)
+    def test_current_provenance_failure_blocks(self):
+        summary = evaluate([], config(), production(), current_provenance={}, current_provenance_failures={PROVIDERS[0]: ["source commit SHA is unavailable"]})
+        self.assertEqual((summary["status"], summary["blockingFailures"]), ("blocked", ["provenance_unavailable"]))
 
 
 class WorktreeTests(unittest.TestCase):
@@ -254,6 +316,7 @@ class WorktreeTests(unittest.TestCase):
     def test_80_dirty_debug_ineligible(self): self.assertFalse(observation_eligibility(" M file.py\n", True))
     def test_81_preflight_before_observe_contract(self):
         source = (ROOT / "scripts/observe-providers.py").read_text(encoding="utf-8"); self.assertLess(source.index("observation_eligibility(git_status()"), source.index("codes = [observe"))
+    def test_agents_untracked_file_allowed(self): self.assertTrue(observation_eligibility("?? AGENTS.md\n", False))
 
 
 class SchemaTests(unittest.TestCase):
@@ -275,6 +338,22 @@ class SchemaTests(unittest.TestCase):
         value = run(); value["startedAt"] = "not-a-date"; self.assertTrue(list(self.validator.iter_errors(value)))
     def test_86_additional_top_field_rejected(self):
         value = run(); value["extra"] = 1; self.assertTrue(list(self.validator.iter_errors(value)))
+    def test_absolute_command_path_rejected(self):
+        value = run(); value["command"] = ["python", "D:\\repo\\scripts\\fetch.py"]
+        with self.assertRaises(ValueError): validate_run(value)
+    def test_v2_provenance_is_complete(self): self.assertTrue(valid_provenance(provenance()))
+
+
+class LedgerEvidenceTests(unittest.TestCase):
+    def test_artifact_checksum_mismatch_detected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); item = run()
+            generated = root / item["artifacts"]["generatedRoot"]; detail = generated / "a-share-financials"; detail.mkdir(parents=True)
+            (generated / "a-share-financial-summaries.generated.json").write_text("{}\n", encoding="utf-8")
+            (detail / "manifest.generated.json").write_text("{}\n", encoding="utf-8")
+            append_run(root, item)
+            audit = audit_observation_ledger(root, load_runs(root))
+            self.assertIn(item["runId"], audit["invalidRunIds"])
 
 
 class ContractTests(unittest.TestCase):

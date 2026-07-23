@@ -9,9 +9,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from provider_observability.core import (
-    append_resolution, atomic_write, evaluate, json_bytes, load_json, load_resolutions, load_runs, make_resolution,
+    append_resolution, atomic_write, audit_observation_ledger, evaluate, json_bytes, load_json, load_resolutions, load_runs, make_resolution,
 )
 from provider_observability.production import validate_production
+from provider_observability.provenance import build_current_provenance
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,8 +44,18 @@ def main() -> int:
     try:
         if options.resolve: resolve_failure(options, runs)
         production = validate_production(ROOT)
+        config = load_json(ROOT / "config/provider-stability-gate-v1.json")
+        current, provenance_failures = build_current_provenance(ROOT, config["providers"])
         resolutions = load_resolutions(options.observations_dir)
-        summary = evaluate(runs, load_json(ROOT / "config/provider-stability-gate-v1.json"), production, resolutions)
+        summary = evaluate(
+            runs,
+            config,
+            production,
+            resolutions,
+            current_provenance=current,
+            current_provenance_failures=provenance_failures,
+            ledger_audit=audit_observation_ledger(options.observations_dir, runs),
+        )
         atomic_write(options.observations_dir / "provider-health-summary.json", json_bytes(summary))
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return summary["exitCode"] if options.strict_exit else 0

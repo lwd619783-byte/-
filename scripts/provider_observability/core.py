@@ -13,7 +13,8 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from . import ELIGIBILITY_STATUSES, RUN_STATUSES, SCHEMA_VERSION
+from . import ELIGIBILITY_STATUSES, GATE_SCHEMA_VERSION, LEGACY_SCHEMA_VERSIONS, RUN_STATUSES, SCHEMA_VERSION
+from .provenance import COHORT_FIELDS, UNAVAILABLE, valid_provenance
 
 SENSITIVE_KEY = re.compile(r"cookie|authorization|oauth|token|session|password|secret", re.I)
 SENSITIVE_QUERY = re.compile(r"([?&](?:access_token|token|session|auth|key)=)[^&#\s]+", re.I)
@@ -22,12 +23,13 @@ FAILURE_CATEGORIES = {
     "network_transient", "provider_unavailable", "timeout", "rate_limited", "authentication_unexpected",
     "schema_drift", "empty_response", "coverage_drop", "unexpected_removal", "unverifiable_removal",
     "window_anomaly", "data_value_drift", "manifest_mismatch", "checksum_mismatch", "atomicity_failure",
-    "validation_failure", "audit_failure", "default_refresh_violation", "filesystem_failure", "timezone_failure", "unknown",
+    "validation_failure", "audit_failure", "default_refresh_violation", "filesystem_failure", "timezone_failure",
+    "provenance_unavailable", "unknown",
 }
 BLOCKING_FAILURES = {
     "schema_drift", "unexpected_removal", "unverifiable_removal", "window_anomaly", "data_value_drift",
     "manifest_mismatch", "checksum_mismatch", "atomicity_failure", "validation_failure", "audit_failure",
-    "default_refresh_violation", "coverage_drop", "authentication_unexpected",
+    "default_refresh_violation", "coverage_drop", "authentication_unexpected", "provenance_unavailable",
 }
 TRANSIENT_FAILURES = {"network_transient", "provider_unavailable", "timeout", "rate_limited"}
 VOLATILE_KEYS = {"fetchedAt", "generatedAt", "lastSuccessfulFetchAt", "updatedAt"}
@@ -64,7 +66,7 @@ def validate_run(record: dict[str, Any]) -> None:
     required = {"schemaVersion", "runId", "providerId", "providerVersion", "domain", "startedAt", "endedAt", "timezone", "durationSeconds", "status", "exitCode", "metrics", "difference", "failures", "validation", "atomicity", "worktree", "artifacts"}
     missing = sorted(required - record.keys())
     if missing: raise ValueError(f"missing run fields: {', '.join(missing)}")
-    if record["schemaVersion"] != SCHEMA_VERSION: raise ValueError("schemaVersion mismatch")
+    if record["schemaVersion"] not in LEGACY_SCHEMA_VERSIONS | {SCHEMA_VERSION}: raise ValueError("schemaVersion mismatch")
     if record["providerId"] not in {"a-share-financials", "a-share-announcements"}: raise ValueError("invalid providerId")
     if record["domain"] not in {"financials", "announcements"}: raise ValueError("invalid domain")
     if record["status"] not in RUN_STATUSES: raise ValueError("invalid run status")
@@ -74,11 +76,20 @@ def validate_run(record: dict[str, Any]) -> None:
         datetime.fromisoformat(str(record[field]).replace("Z", "+00:00"))
     for failure in record["failures"]:
         if failure.get("category") not in FAILURE_CATEGORIES or not isinstance(failure.get("resolved", False), bool): raise ValueError("invalid failure")
+    if record["schemaVersion"] == SCHEMA_VERSION:
+        provenance = record.get("provenance")
+        required_provenance = {"sourceCommitSha", "observationToolVersion", "observationToolChecksum", *COHORT_FIELDS, "provenanceCohortId"}
+        if not isinstance(provenance, dict) or required_provenance - provenance.keys(): raise ValueError("missing V2 provenance")
+        if not isinstance(record.get("metrics", {}).get("eligibleSample"), bool): raise ValueError("eligibleSample is required")
+        atomicity = record.get("atomicity", {})
+        if not all(isinstance(atomicity.get(field), str) and re.fullmatch(r"[a-f0-9]{64}", atomicity[field]) for field in ("beforeChecksum", "afterChecksum")): raise ValueError("invalid atomicity checksums")
+        if any(re.match(r"^[A-Za-z]:[\\/]", str(item)) or str(item).startswith(("/", "\\")) for item in record.get("command", [])): raise ValueError("absolute command path is forbidden")
     if contains_sensitive(record): raise ValueError("sensitive field detected")
 
 
 def append_run(root: Path, record: dict[str, Any]) -> None:
     validate_run(record)
+    if record["schemaVersion"] != SCHEMA_VERSION: raise ValueError("only V2 runs may be appended")
     run_path = root / "runs" / f"{record['runId']}.json"
     if run_path.exists(): raise ValueError(f"duplicate runId: {record['runId']}")
     atomic_write(run_path, json_bytes(record))
@@ -112,7 +123,14 @@ def append_resolution(root: Path, resolution: dict[str, Any], runs: list[dict[st
     failure = run["failures"][index]
     if resolution["providerId"] != run["providerId"] or resolution["category"] != failure.get("category"): raise ValueError("resolution category/provider mismatch")
     if not str(resolution["reason"]).strip() or not str(resolution["evidence"]).strip(): raise ValueError("resolution reason and evidence are required")
-    if resolution.get("replacementRunId") and not any(item.get("runId") == resolution["replacementRunId"] for item in runs): raise ValueError("resolution references unknown replacement run")
+    if resolution.get("replacementRunId"):
+        replacement = next((item for item in runs if item.get("runId") == resolution["replacementRunId"]), None)
+        if not replacement: raise ValueError("resolution references unknown replacement run")
+        source_cohort = run.get("provenance", {}).get("provenanceCohortId")
+        replacement_cohort = replacement.get("provenance", {}).get("provenanceCohortId")
+        if replacement.get("providerId") != run.get("providerId"): raise ValueError("replacement run provider mismatch")
+        if run.get("schemaVersion") != SCHEMA_VERSION or replacement.get("schemaVersion") != SCHEMA_VERSION or source_cohort in {None, UNAVAILABLE} or replacement_cohort != source_cohort:
+            raise ValueError("replacement run must use the same V2 provenance cohort")
     clean = redact(resolution)
     if contains_sensitive(clean): raise ValueError("sensitive resolution content")
     payload = existing + [clean]
@@ -155,8 +173,9 @@ def dirty_paths(status_text: str) -> list[str]:
     return [line[3:] if len(line) > 3 else line for line in status_text.splitlines() if line.strip()]
 
 
-def observation_eligibility(status_text: str, allow_dirty_debug: bool) -> bool:
-    paths = dirty_paths(status_text)
+def observation_eligibility(status_text: str, allow_dirty_debug: bool, allowed_paths: set[str] | None = None) -> bool:
+    allowed_paths = {"AGENTS.md"} if allowed_paths is None else allowed_paths
+    paths = [path for path in dirty_paths(status_text) if path.replace("\\", "/") not in allowed_paths]
     if paths and not allow_dirty_debug: raise DirtyWorktreeError(paths)
     return not allow_dirty_debug
 
@@ -254,6 +273,66 @@ def tree_digest(paths: list[Path], relative_to: Path) -> str:
     return digest.hexdigest()
 
 
+def audit_observation_ledger(root: Path, runs: list[dict[str, Any]]) -> dict[str, Any]:
+    issues: list[dict[str, str]] = []
+    invalid_run_ids: set[str] = set()
+    ledger_path = root / "provider-health-ledger.jsonl"
+    ledger_rows: list[dict[str, Any]] = []
+    if ledger_path.exists():
+        try:
+            ledger_rows = [json.loads(line) for line in ledger_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        except (OSError, json.JSONDecodeError) as exc:
+            issues.append({"runId": "*", "category": "ledger_invalid", "message": str(exc)})
+    elif runs:
+        issues.append({"runId": "*", "category": "ledger_missing", "message": "provider-health-ledger.jsonl is missing"})
+
+    ledger_by_id = {row.get("runId"): row for row in ledger_rows}
+    if len(ledger_by_id) != len(ledger_rows):
+        issues.append({"runId": "*", "category": "ledger_duplicate", "message": "duplicate runId in ledger"})
+    run_ids = {run.get("runId") for run in runs}
+    for run in runs:
+        run_id = str(run.get("runId"))
+        if ledger_by_id.get(run_id) != run:
+            issues.append({"runId": run_id, "category": "ledger_mismatch", "message": "run file and ledger row differ"})
+            invalid_run_ids.add(run_id)
+        generated_relative = run.get("artifacts", {}).get("generatedRoot")
+        if not isinstance(generated_relative, str):
+            issues.append({"runId": run_id, "category": "artifact_path_missing", "message": "generatedRoot is missing"})
+            invalid_run_ids.add(run_id)
+            continue
+        generated_root = (root / generated_relative).resolve()
+        observation_root = root.resolve()
+        if observation_root != generated_root and observation_root not in generated_root.parents:
+            issues.append({"runId": run_id, "category": "artifact_path_escape", "message": "generatedRoot escapes observation root"})
+            invalid_run_ids.add(run_id)
+            continue
+        try:
+            actual_artifact = tree_digest([generated_root], generated_root)
+            expected_artifact = run.get("metrics", {}).get("artifactChecksum")
+            if actual_artifact != expected_artifact:
+                issues.append({"runId": run_id, "category": "artifact_checksum_mismatch", "message": "isolated artifact checksum differs from run record"})
+                invalid_run_ids.add(run_id)
+            detail_name = "a-share-financials" if run.get("providerId") == "a-share-financials" else "a-share-announcements"
+            manifest_path = generated_root / detail_name / "manifest.generated.json"
+            actual_manifest = file_digest(manifest_path)
+            expected_manifest = run.get("metrics", {}).get("manifestChecksum")
+            if actual_manifest != expected_manifest:
+                issues.append({"runId": run_id, "category": "manifest_checksum_mismatch", "message": "isolated manifest checksum differs from run record"})
+                invalid_run_ids.add(run_id)
+        except (OSError, ValueError) as exc:
+            issues.append({"runId": run_id, "category": "artifact_unreadable", "message": str(exc)})
+            invalid_run_ids.add(run_id)
+    for run_id in sorted(set(ledger_by_id) - run_ids):
+        issues.append({"runId": str(run_id), "category": "orphan_ledger_row", "message": "ledger row has no run file"})
+    return {
+        "runFileCount": len(runs),
+        "ledgerRowCount": len(ledger_rows),
+        "issueCount": len(issues),
+        "issues": issues,
+        "invalidRunIds": sorted(invalid_run_ids),
+    }
+
+
 def percentile(values: list[float], ratio: float) -> float | None:
     if not values: return None
     ordered = sorted(values); index = max(0, min(len(ordered) - 1, int((len(ordered) - 1) * ratio + 0.999999)))
@@ -293,11 +372,11 @@ def summarize_provider(runs: list[dict[str, Any]], timezone_name: str, resolutio
         streak += 1
     failures = Counter(row["category"] for row in effective)
     total = len(runs)
-    return {"totalRuns": total, "runs": total, "completeSuccessRuns": len(complete), "usableRuns": len(usable), "failedRuns": sum(run.get("status") == "failed" for run in runs), "distinctDays": len(days), "successfulDays": len(success_days), "completeSuccessRate": len(complete) / total if total else 0, "totalSuccessRate": len(usable) / total if total else 0, "expectedWindowExpiryCount": sum(run.get("metrics", {}).get("expectedWindowExpiryCount", 0) or 0 for run in runs), "unexpectedRemovalCount": sum(run.get("metrics", {}).get("unexpectedRemovalCount", 0) or 0 for run in runs), "unverifiableRemovalCount": sum(run.get("metrics", {}).get("unverifiableRemovalCount", 0) or 0 for run in runs), "latestWindowShiftDays": runs[-1].get("metrics", {}).get("windowShiftDays") if runs else None, "p50DurationSeconds": percentile(durations, .5), "p95DurationSeconds": percentile(durations, .95), "successStreak": streak, "latestStatus": runs[-1]["status"] if runs else None, "failureCounts": dict(sorted(failures.items()))}
+    return {"totalRuns": total, "runs": total, "successRuns": sum(run.get("status") == "success" for run in runs), "partialRuns": sum(run.get("status") == "partial" for run in runs), "failedRuns": sum(run.get("status") == "failed" for run in runs), "completeSuccessRuns": len(complete), "usableRuns": len(usable), "distinctDays": len(days), "successfulDays": len(success_days), "completeSuccessRate": len(complete) / total if total else 0, "totalSuccessRate": len(usable) / total if total else 0, "expectedWindowExpiryCount": sum(run.get("metrics", {}).get("expectedWindowExpiryCount", 0) or 0 for run in runs), "unexpectedRemovalCount": sum(run.get("metrics", {}).get("unexpectedRemovalCount", 0) or 0 for run in runs), "unverifiableRemovalCount": sum(run.get("metrics", {}).get("unverifiableRemovalCount", 0) or 0 for run in runs), "latestWindowShiftDays": runs[-1].get("metrics", {}).get("windowShiftDays") if runs else None, "p50DurationSeconds": percentile(durations, .5), "p95DurationSeconds": percentile(durations, .95), "successStreak": streak, "latestStatus": runs[-1]["status"] if runs else None, "failureCounts": dict(sorted(failures.items()))}
 
 
 def validate_config(config: dict[str, Any]) -> None:
-    if config.get("schemaVersion") != SCHEMA_VERSION: raise ValueError("config schemaVersion mismatch")
+    if config.get("schemaVersion") != GATE_SCHEMA_VERSION: raise ValueError("config schemaVersion mismatch")
     if not config.get("providers") or len(set(config["providers"])) != len(config["providers"]): raise ValueError("providers must be unique")
     ZoneInfo(config["timezone"])
     for key in ("minimumDistinctDays", "minimumRunsPerProvider", "minimumSuccessfulDaysPerProvider", "expectedCompanies"):
@@ -306,14 +385,100 @@ def validate_config(config: dict[str, Any]) -> None:
         if not isinstance(config.get(key), (int, float)) or not 0 <= config[key] <= 1: raise ValueError(f"invalid {key}")
 
 
-def evaluate(runs: list[dict[str, Any]], config: dict[str, Any], production_validation: dict[str, Any] | None = None, resolutions: list[dict[str, Any]] | None = None, production_valid: bool | None = None, audit_errors: int = 0) -> dict[str, Any]:
-    validate_config(config); resolutions = resolutions or []
-    eligible_runs = [run for run in runs if run.get("metrics", {}).get("eligibleSample", True)]
-    grouped = {provider: [run for run in eligible_runs if run.get("providerId") == provider] for provider in config["providers"]}
-    providers = {provider: summarize_provider(items, config["timezone"], resolutions) for provider, items in grouped.items()}
+def _current_targets(runs: list[dict[str, Any]], provider_ids: list[str], supplied: dict[str, dict[str, Any]] | None) -> dict[str, dict[str, Any]]:
+    if supplied is not None:
+        return supplied
+    targets: dict[str, dict[str, Any]] = {}
+    for provider_id in provider_ids:
+        candidates = [run.get("provenance") for run in runs if run.get("providerId") == provider_id and valid_provenance(run.get("provenance"))]
+        if candidates:
+            targets[provider_id] = candidates[-1]
+    return targets
+
+
+def _compatible_resolutions(resolutions: list[dict[str, Any]], runs: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
+    by_id = {run.get("runId"): run for run in runs}
+    compatible: list[dict[str, Any]] = []
+    rejected: list[str] = []
+    for resolution in resolutions:
+        run = by_id.get(resolution.get("runId"))
+        if not run:
+            rejected.append(str(resolution.get("resolutionId")))
+            continue
+        replacement_id = resolution.get("replacementRunId")
+        if replacement_id:
+            replacement = by_id.get(replacement_id)
+            cohort = run.get("provenance", {}).get("provenanceCohortId")
+            if not replacement or replacement.get("providerId") != run.get("providerId") or cohort in {None, UNAVAILABLE} or replacement.get("provenance", {}).get("provenanceCohortId") != cohort:
+                rejected.append(str(resolution.get("resolutionId")))
+                continue
+        compatible.append(resolution)
+    return compatible, rejected
+
+
+def evaluate(
+    runs: list[dict[str, Any]],
+    config: dict[str, Any],
+    production_validation: dict[str, Any] | None = None,
+    resolutions: list[dict[str, Any]] | None = None,
+    production_valid: bool | None = None,
+    audit_errors: int = 0,
+    current_provenance: dict[str, dict[str, Any]] | None = None,
+    current_provenance_failures: dict[str, list[str]] | None = None,
+    ledger_audit: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    validate_config(config); resolutions = resolutions or []; current_provenance_failures = current_provenance_failures or {}
+    targets = _current_targets(runs, config["providers"], current_provenance)
+    invalid_run_ids = set((ledger_audit or {}).get("invalidRunIds", []))
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    inventory: dict[str, dict[str, Any]] = {}
+    evidence_integrity_blocked = False
+    for provider_id in config["providers"]:
+        target = targets.get(provider_id)
+        target_cohort = target.get("provenanceCohortId") if valid_provenance(target) else None
+        buckets = {"current": [], "legacy": [], "incompatible": [], "debug": []}
+        for run in [item for item in runs if item.get("providerId") == provider_id]:
+            if run.get("metrics", {}).get("eligibleSample") is False:
+                buckets["debug"].append(run)
+            elif run.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS:
+                buckets["legacy"].append(run)
+            elif run.get("schemaVersion") != SCHEMA_VERSION or not valid_provenance(run.get("provenance")):
+                buckets["incompatible"].append(run)
+            elif run.get("runId") in invalid_run_ids:
+                buckets["incompatible"].append(run)
+                if run.get("provenance", {}).get("provenanceCohortId") == target_cohort:
+                    evidence_integrity_blocked = True
+            elif not target_cohort or run.get("provenance", {}).get("provenanceCohortId") != target_cohort or run.get("provenance", {}).get("stockUniverseIdentityCount") != config["expectedCompanies"]:
+                buckets["incompatible"].append(run)
+            else:
+                buckets["current"].append(run)
+        grouped[provider_id] = buckets["current"]
+        inventory[provider_id] = {
+            "currentEligibleRuns": len(buckets["current"]),
+            "legacyRuns": len(buckets["legacy"]),
+            "incompatibleRuns": len(buckets["incompatible"]),
+            "debugRuns": len(buckets["debug"]),
+            "currentCohortId": target_cohort,
+            "legacyRunIds": [run.get("runId") for run in buckets["legacy"]],
+            "incompatibleRunIds": [run.get("runId") for run in buckets["incompatible"]],
+            "debugRunIds": [run.get("runId") for run in buckets["debug"]],
+        }
+    eligible_runs = [run for provider_runs in grouped.values() for run in provider_runs]
+    compatible_resolutions, rejected_resolutions = _compatible_resolutions(resolutions, eligible_runs)
+    providers = {
+        provider: {
+            **summarize_provider(items, config["timezone"], compatible_resolutions),
+            "cohortAudit": inventory[provider],
+        }
+        for provider, items in grouped.items()
+    }
     all_days = {datetime.fromisoformat(run["startedAt"].replace("Z", "+00:00")).astimezone(ZoneInfo(config["timezone"])).date().isoformat() for run in eligible_runs}
-    effective = effective_failure_rows(eligible_runs, resolutions)
+    effective = effective_failure_rows(eligible_runs, compatible_resolutions)
     blocking = sorted({row["category"] for row in effective if not row["effectiveResolved"] and row["category"] in BLOCKING_FAILURES})
+    if evidence_integrity_blocked and "checksum_mismatch" not in blocking:
+        blocking.append("checksum_mismatch")
+    if current_provenance_failures and "provenance_unavailable" not in blocking:
+        blocking.append("provenance_unavailable")
     if production_validation is None:
         valid = True if production_valid is None else production_valid
         production_validation = {"passed": valid and audit_errors == 0, "financials": {"passed": valid, "errorCount": int(not valid), "errors": []}, "announcements": {"passed": valid, "errorCount": int(not valid), "errors": []}, "dataAudit": {"passed": audit_errors == 0, "exitCode": int(bool(audit_errors)), "p0": audit_errors, "errors": audit_errors}, "defaultRefresh": {"passed": True, "unqualifiedProvidersIncluded": []}}
@@ -329,4 +494,23 @@ def evaluate(runs: list[dict[str, Any]], config: dict[str, Any], production_vali
     else: status = "disqualified"
     assert status in ELIGIBILITY_STATUSES
     exit_code = 0 if status == "qualified" else 2 if status in {"insufficient_observation_window", "observing"} else 3 if status == "conditionally_qualified" else 1
-    return {"schemaVersion": SCHEMA_VERSION, "status": status, "exitCode": exit_code, "observationDays": len(all_days), "providers": providers, "blockingFailures": blocking, "productionValidation": production_validation, "resolutions": resolutions, "historicalFailures": effective}
+    return {
+        "schemaVersion": SCHEMA_VERSION,
+        "gateConfigSchemaVersion": GATE_SCHEMA_VERSION,
+        "status": status,
+        "exitCode": exit_code,
+        "observationDays": len(all_days),
+        "providers": providers,
+        "blockingFailures": sorted(blocking),
+        "productionValidation": production_validation,
+        "currentProvenance": targets,
+        "currentProvenanceFailures": current_provenance_failures,
+        "ledgerAudit": ledger_audit,
+        "resolutionAudit": {
+            "compatibleCount": len(compatible_resolutions),
+            "rejectedCount": len(rejected_resolutions),
+            "rejectedResolutionIds": rejected_resolutions,
+        },
+        "resolutions": resolutions,
+        "historicalFailures": effective,
+    }

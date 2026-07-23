@@ -21,10 +21,11 @@ from a_share_financials.artifacts import MANIFEST_FILENAME, validate_split_artif
 from a_share_financials.core import PROVIDER_VERSION as FINANCIAL_VERSION
 from provider_observability import SCHEMA_VERSION
 from provider_observability.core import (
-    announcement_diff, append_run, atomic_write, classify_failure, evaluate, financial_diff,
+    announcement_diff, append_run, atomic_write, audit_observation_ledger, classify_failure, evaluate, financial_diff,
     DirtyWorktreeError, file_digest, json_bytes, load_json, load_resolutions, load_runs, observation_eligibility, redact, tree_digest,
 )
 from provider_observability.production import validate_production
+from provider_observability.provenance import build_current_provenance, build_provenance
 
 DEFAULT_ROOT = ROOT / ".provider-observations"
 PRODUCTION_PATHS = [
@@ -59,8 +60,14 @@ def detail_documents(detail_dir: Path, id_key: str) -> dict[str, dict[str, Any]]
     return output
 
 
-def prior_observation(observation_root: Path, provider_id: str) -> tuple[dict[str, Any] | None, Path | None]:
-    candidates = [run for run in load_runs(observation_root) if run.get("providerId") == provider_id and run.get("status") in {"success", "partial"}]
+def prior_observation(observation_root: Path, provider_id: str, provenance_cohort_id: str) -> tuple[dict[str, Any] | None, Path | None]:
+    candidates = [
+        run for run in load_runs(observation_root)
+        if run.get("providerId") == provider_id
+        and run.get("status") in {"success", "partial"}
+        and run.get("metrics", {}).get("eligibleSample") is True
+        and run.get("provenance", {}).get("provenanceCohortId") == provenance_cohort_id
+    ]
     if not candidates: return None, None
     value = candidates[-1].get("artifacts", {}).get("generatedRoot")
     return candidates[-1], observation_root / value if value else None
@@ -69,6 +76,8 @@ def prior_observation(observation_root: Path, provider_id: str) -> tuple[dict[st
 def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, explicit_id: str | None, eligible_sample: bool = True) -> int:
     provider_id = "a-share-financials" if kind == "financials" else "a-share-announcements"
     provider_version = FINANCIAL_VERSION if kind == "financials" else ANNOUNCEMENT_VERSION
+    provenance, provenance_errors = build_provenance(ROOT, provider_id)
+    eligible_sample = eligible_sample and not provenance_errors
     run_id = explicit_id or f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}-{provider_id}-{uuid.uuid4().hex[:8]}"
     artifact_root = observation_root / "artifacts" / run_id
     generated_root = artifact_root / "generated"
@@ -79,20 +88,26 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
     started_at = datetime.now(timezone.utc).replace(microsecond=0)
     started = time.monotonic()
     command = [sys.executable, str(ROOT / "scripts" / f"fetch-a-share-{kind}.py"), "--output-root", str(generated_root), "--cache-dir", str(cache_root)]
+    recorded_command = ["python", f"scripts/fetch-a-share-{kind}.py", "--output-root", f"artifacts/{run_id}/generated", "--cache-dir", f"cache/{provider_id}"]
     if no_cache: command.append("--no-cache")
-    if kind == "financials": command += ["--timeout", str(timeout)]
+    if no_cache: recorded_command.append("--no-cache")
+    if kind == "financials":
+        command += ["--timeout", str(timeout)]
+        recorded_command += ["--timeout", str(timeout)]
     process = subprocess.run(command, cwd=ROOT, text=True, encoding="utf-8", errors="replace", capture_output=True)
     duration = round(time.monotonic() - started, 3)
     ended_at = datetime.now(timezone.utc).replace(microsecond=0)
     failures: list[dict[str, Any]] = []
     messages = []
+    if provenance_errors:
+        failures.append({"category": "provenance_unavailable", "message": "; ".join(provenance_errors), "resolved": False})
     if process.returncode:
         message = (process.stderr or process.stdout or "provider command failed")[-2000:]
         failures.append({"category": classify_failure(message), "message": redact(message), "resolved": False})
         messages.append(redact(message))
     metrics: dict[str, Any] = {"expectedCompanies": 56, "companyCoverage": 0, "structuralValidationRate": 0, "eligibleSample": eligible_sample, "cacheMode": "bypass" if no_cache else "isolated", "retryCount": None, "timeoutCount": int(any(f["category"] == "timeout" for f in failures)), "rateLimitCount": int(any(f["category"] == "rate_limited" for f in failures)), "httpStatusCounts": {}}
     difference: dict[str, Any] = {"baseline": True}
-    previous_run, previous = prior_observation(observation_root, provider_id)
+    previous_run, previous = prior_observation(observation_root, provider_id, provenance.get("provenanceCohortId"))
     try:
         if kind == "financials":
             summary_path = generated_root / "a-share-financial-summaries.generated.json"
@@ -145,11 +160,11 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
         "schemaVersion": SCHEMA_VERSION, "runId": run_id, "providerId": provider_id, "providerVersion": provider_version,
         "domain": kind, "startedAt": started_at.isoformat().replace("+00:00", "Z"), "endedAt": ended_at.isoformat().replace("+00:00", "Z"),
         "timezone": "Asia/Shanghai", "durationSeconds": duration, "platform": platform.platform(), "pythonVersion": platform.python_version(),
-        "nodeVersion": subprocess.run(["node", "--version"], text=True, capture_output=True).stdout.strip(), "command": [Path(command[0]).name, *[str(x) for x in command[1:]]],
+        "nodeVersion": subprocess.run(["node", "--version"], text=True, capture_output=True).stdout.strip(), "command": recorded_command,
         "status": status, "exitCode": process.returncode, "metrics": metrics, "difference": difference, "failures": failures,
         "validation": {"passed": metrics["structuralValidationRate"] == 1}, "atomicity": {"productionUnchanged": production_unchanged, "beforeChecksum": before_digest, "afterChecksum": after_digest},
         "worktree": {"unchanged": worktree_unchanged}, "messages": messages,
-        "artifacts": {"generatedRoot": generated_root.relative_to(observation_root).as_posix()},
+        "artifacts": {"generatedRoot": generated_root.relative_to(observation_root).as_posix()}, "provenance": provenance,
     })
     append_run(observation_root, record)
     refresh_summary(observation_root)
@@ -159,7 +174,17 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
 
 def refresh_summary(observation_root: Path) -> dict[str, Any]:
     config = load_json(ROOT / "config/provider-stability-gate-v1.json")
-    summary = evaluate(load_runs(observation_root), config, validate_production(ROOT), load_resolutions(observation_root))
+    runs = load_runs(observation_root)
+    current, provenance_failures = build_current_provenance(ROOT, config["providers"])
+    summary = evaluate(
+        runs,
+        config,
+        validate_production(ROOT),
+        load_resolutions(observation_root),
+        current_provenance=current,
+        current_provenance_failures=provenance_failures,
+        ledger_audit=audit_observation_ledger(observation_root, runs),
+    )
     summary["generatedAt"] = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     atomic_write(observation_root / "provider-health-summary.json", json_bytes(summary))
     return summary
