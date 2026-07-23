@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import hashlib
+import hmac
 import json
+import re
 import subprocess
 from pathlib import Path
 from typing import Any
 
 OBSERVATION_TOOL_VERSION = "2.0.0"
 UNAVAILABLE = "unavailable"
+LOWER_HEX_40 = re.compile(r"^[0-9a-f]{40}$")
+LOWER_HEX_64 = re.compile(r"^[0-9a-f]{64}$")
 
 PROVIDER_FILES = {
     "a-share-financials": [
@@ -205,19 +209,23 @@ def build_current_provenance(root: Path, provider_ids: list[str]) -> tuple[dict[
 def valid_provenance(value: Any) -> bool:
     if not isinstance(value, dict):
         return False
-    if set(COHORT_FIELDS) - value.keys():
+    required_fields = set(COHORT_FIELDS) | {"sourceCommitSha", "provenanceCohortId"}
+    if required_fields - value.keys():
         return False
-    if value.get("sourceCommitSha") == UNAVAILABLE or value.get("provenanceCohortId") == UNAVAILABLE:
+    if value.get("observationToolVersion") != OBSERVATION_TOOL_VERSION:
         return False
-    if not isinstance(value.get("sourceCommitSha"), str) or len(value["sourceCommitSha"]) != 40:
+    if not isinstance(value.get("sourceCommitSha"), str) or not LOWER_HEX_40.fullmatch(value["sourceCommitSha"]):
         return False
-    if value.get("stockUniverseIdentityCount", 0) <= 0:
+    identity_count = value.get("stockUniverseIdentityCount")
+    if isinstance(identity_count, bool) or not isinstance(identity_count, int) or identity_count <= 0:
         return False
     checksum_fields = [field for field in COHORT_FIELDS if field.endswith("Checksum") or field == "dependencyFingerprint"]
     checksum_fields.append("provenanceCohortId")
-    return all(
-        isinstance(value.get(field), str)
-        and len(value[field]) == 64
-        and all(char in "0123456789abcdef" for char in value[field])
+    if any(
+        not isinstance(value.get(field), str)
+        or value[field] == UNAVAILABLE
+        or not LOWER_HEX_64.fullmatch(value[field])
         for field in checksum_fields
-    )
+    ):
+        return False
+    return hmac.compare_digest(value["provenanceCohortId"], cohort_id(value))

@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from provider_observability import GATE_SCHEMA_VERSION, SCHEMA_VERSION
 from provider_observability.core import (
     BLOCKING_FAILURES, DirtyWorktreeError, announcement_diff, append_resolution, append_run, atomic_write, audit_observation_ledger,
+    audit_resolution_ledger,
     classify_failure, contains_sensitive, dirty_paths, evaluate, file_digest, financial_diff, json_bytes,
     load_resolutions, load_runs, make_resolution, observation_eligibility, percentile, redact,
     stable, summarize_provider, tree_digest, validate_config, validate_run,
@@ -75,6 +76,28 @@ def ann(announcement_id, date_value, **updates):
 
 
 def details(*items): return {"stock": {"announcements": list(items)}}
+
+
+def materialize_observation(root: Path, item: dict) -> None:
+    generated = root / item["artifacts"]["generatedRoot"]
+    detail_name = "a-share-financials" if item["providerId"] == "a-share-financials" else "a-share-announcements"
+    summary_name = "a-share-financial-summaries.generated.json" if item["providerId"] == "a-share-financials" else "a-share-announcement-summaries.generated.json"
+    detail = generated / detail_name
+    detail.mkdir(parents=True, exist_ok=True)
+    (generated / summary_name).write_text("{}\n", encoding="utf-8")
+    manifest = detail / "manifest.generated.json"
+    manifest.write_text("{}\n", encoding="utf-8")
+    item["metrics"]["manifestChecksum"] = file_digest(manifest)
+    item["metrics"]["artifactChecksum"] = tree_digest([generated], generated)
+
+
+def write_observation_ledger(root: Path, items: list[dict]) -> None:
+    (root / "runs").mkdir(parents=True, exist_ok=True)
+    for item in items:
+        (root / "runs" / f"{item['runId']}.json").write_bytes(json_bytes(item))
+    (root / "provider-health-ledger.jsonl").write_bytes(
+        b"".join(json.dumps(item, ensure_ascii=False, sort_keys=True).encode("utf-8") + b"\n" for item in items)
+    )
 
 
 class LedgerTests(unittest.TestCase):
@@ -354,6 +377,306 @@ class LedgerEvidenceTests(unittest.TestCase):
             append_run(root, item)
             audit = audit_observation_ledger(root, load_runs(root))
             self.assertIn(item["runId"], audit["invalidRunIds"])
+
+
+class ProvenanceIntegrityTests(unittest.TestCase):
+    def assert_tampered_invalid(self, field, value):
+        candidate = provenance()
+        stored_cohort_id = candidate["provenanceCohortId"]
+        candidate[field] = value
+        self.assertEqual(candidate["provenanceCohortId"], stored_cohort_id)
+        self.assertFalse(valid_provenance(candidate))
+
+    def test_tampered_cohort_id_rejected(self):
+        self.assert_tampered_invalid("providerCodeChecksum", "9" * 64)
+
+    def test_tampered_validator_checksum_rejected(self):
+        self.assert_tampered_invalid("validatorChecksum", "9" * 64)
+
+    def test_tampered_stock_universe_checksum_rejected(self):
+        self.assert_tampered_invalid("stockUniverseChecksum", "9" * 64)
+
+    def test_non_hex_source_commit_rejected(self):
+        self.assertFalse(valid_provenance(provenance(sourceCommitSha="z" * 40)))
+
+    def test_boolean_identity_count_rejected(self):
+        self.assertFalse(valid_provenance(provenance(stockUniverseIdentityCount=True)))
+
+    def test_incompatible_observation_tool_version_rejected(self):
+        self.assertFalse(valid_provenance(provenance(observationToolVersion="1.0.0")))
+
+    def test_recomputed_provenance_passes(self):
+        candidate = provenance(providerCodeChecksum="9" * 64)
+        self.assertEqual(candidate["provenanceCohortId"], cohort_id(candidate))
+        self.assertTrue(valid_provenance(candidate))
+
+    def test_damaged_current_provenance_blocks_gate(self):
+        target = provenance()
+        damaged = copy.deepcopy(target)
+        damaged["providerCodeChecksum"] = "9" * 64
+        summary = evaluate(
+            [run(PROVIDERS[0], provenance_value=damaged)],
+            config(),
+            production(),
+            current_provenance={provider: target for provider in PROVIDERS},
+        )
+        self.assertEqual(summary["status"], "blocked")
+        self.assertIn("checksum_mismatch", summary["blockingFailures"])
+
+
+class ReadTimeRunLedgerIntegrityTests(unittest.TestCase):
+    def audit(self, item):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        materialize_observation(root, item)
+        write_observation_ledger(root, [item])
+        return audit_observation_ledger(root, load_runs(root))
+
+    def test_same_invalid_v2_in_run_file_and_ledger_detected(self):
+        item = run()
+        item["status"] = "forged"
+        audit = self.audit(item)
+        self.assertIn(item["runId"], audit["invalidV2RunIds"])
+        self.assertTrue(audit["v2IntegrityFailure"])
+
+    def test_absolute_command_path_invalid_at_read_time(self):
+        item = run()
+        item["command"] = ["python", "D:\\repo\\scripts\\fetch.py"]
+        self.assertIn(item["runId"], self.audit(item)["invalidV2RunIds"])
+
+    def test_sensitive_v2_run_invalid_at_read_time(self):
+        item = run()
+        item["messages"] = ["https://example.test/?token=raw-secret"]
+        self.assertIn(item["runId"], self.audit(item)["invalidV2RunIds"])
+
+    def test_bad_atomicity_checksum_invalid_at_read_time(self):
+        item = run()
+        item["atomicity"]["beforeChecksum"] = "BAD"
+        self.assertIn(item["runId"], self.audit(item)["invalidV2RunIds"])
+
+    def test_missing_provenance_invalid_at_read_time(self):
+        item = run()
+        item.pop("provenance")
+        self.assertIn(item["runId"], self.audit(item)["invalidV2RunIds"])
+
+    def test_damaged_failed_run_cannot_improve_denominator(self):
+        target = provenance()
+        items = [run(provider, index, provenance_value=copy.deepcopy(target)) for provider in PROVIDERS for index in range(10)]
+        damaged = run(PROVIDERS[0], 99, status="failed", provenance_value=copy.deepcopy(target))
+        damaged["provenance"]["validatorChecksum"] = "9" * 64
+        items.append(damaged)
+        summary = evaluate(
+            items,
+            config(),
+            production(),
+            current_provenance={provider: target for provider in PROVIDERS},
+        )
+        self.assertEqual(summary["status"], "blocked")
+
+    def test_valid_legacy_run_remains_legacy(self):
+        item = run()
+        item["schemaVersion"] = "1.0.0"
+        item.pop("provenance")
+        audit = self.audit(item)
+        summary = evaluate(
+            [item],
+            config(),
+            production(),
+            current_provenance={provider: provenance() for provider in PROVIDERS},
+            ledger_audit=audit,
+        )
+        self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["legacyRuns"], 1)
+        self.assertNotEqual(summary["status"], "blocked")
+
+    def test_legacy_checksum_mismatch_is_non_blocking(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            item = run()
+            item["schemaVersion"] = "1.0.0"
+            item.pop("provenance")
+            materialize_observation(root, item)
+            generated = root / item["artifacts"]["generatedRoot"]
+            (generated / "a-share-financial-summaries.generated.json").write_text('{"tampered":true}\n', encoding="utf-8")
+            write_observation_ledger(root, [item])
+            audit = audit_observation_ledger(root, load_runs(root))
+            summary = evaluate(
+                [item],
+                config(),
+                production(),
+                current_provenance={provider: provenance() for provider in PROVIDERS},
+                ledger_audit=audit,
+            )
+            self.assertFalse(audit["v2IntegrityFailure"])
+            self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["legacyRuns"], 1)
+            self.assertNotEqual(summary["status"], "blocked")
+
+
+class ReadTimeResolutionIntegrityTests(unittest.TestCase):
+    def source(self):
+        return run(failures=[failure("schema_drift")])
+
+    def resolution(self, source, **updates):
+        value = make_resolution(PROVIDERS[0], source["runId"], 0, "schema_drift", "verified", "official evidence", "tester")
+        value.update(updates)
+        return value
+
+    def assert_forged_blocked(self, source, resolution, runs=None, ledger_audit=None):
+        summary = evaluate(
+            runs or [source],
+            config(),
+            production(),
+            [resolution],
+            ledger_audit=ledger_audit,
+        )
+        self.assertEqual(summary["status"], "blocked")
+        self.assertIn(resolution.get("resolutionId", ""), summary["resolutionAudit"]["rejectedResolutionIds"])
+        source_rows = [row for row in summary["historicalFailures"] if row["runId"] == source["runId"]]
+        if source_rows:
+            self.assertFalse(source_rows[0]["effectiveResolved"])
+        return summary
+
+    def test_forged_resolution_read_path_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, providerId=PROVIDERS[1]))
+
+    def test_forged_resolution_category_mismatch_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, category="timeout"))
+
+    def test_forged_resolution_failure_index_out_of_range_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, failureIndex=1))
+
+    def test_forged_resolution_boolean_failure_index_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, failureIndex=True))
+
+    def test_forged_resolution_reason_missing_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, reason=""))
+
+    def test_forged_resolution_evidence_missing_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, evidence=""))
+
+    def test_forged_resolution_resolved_by_missing_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, resolvedBy=""))
+
+    def test_forged_resolution_schema_version_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, schemaVersion="1.0.0"))
+
+    def test_forged_resolution_naive_time_blocked(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, resolvedAt="2026-07-23T12:00:00"))
+
+    def test_duplicate_resolution_id_blocks(self):
+        source = self.source()
+        resolution = self.resolution(source)
+        summary = evaluate([source], config(), production(), [resolution, copy.deepcopy(resolution)])
+        self.assertEqual(summary["status"], "blocked")
+        self.assertIn("resolution_integrity_failure", summary["blockingFailures"])
+
+    def test_conflicting_resolutions_for_one_failure_block(self):
+        source = self.source()
+        first = self.resolution(source)
+        second = self.resolution(source)
+        summary = evaluate([source], config(), production(), [first, second])
+        self.assertEqual(summary["status"], "blocked")
+        self.assertTrue(any(issue["category"] == "resolution_conflict" for issue in summary["resolutionAudit"]["issues"]))
+
+    def test_sensitive_resolution_blocks(self):
+        source = self.source()
+        self.assert_forged_blocked(source, self.resolution(source, evidence="https://example.test/?token=raw"))
+
+    def test_non_object_resolution_blocks(self):
+        source = self.source()
+        audit = audit_resolution_ledger([["forged"]], [source])
+        self.assertTrue(audit["integrityFailure"])
+
+    def test_cross_provider_replacement_blocked_at_read_time(self):
+        source = self.source()
+        replacement = run(PROVIDERS[1], 1)
+        resolution = self.resolution(source, replacementRunId=replacement["runId"])
+        self.assert_forged_blocked(source, resolution, [source, replacement])
+
+    def test_cross_cohort_replacement_blocked_at_read_time(self):
+        source = self.source()
+        replacement = run(PROVIDERS[0], 1, provenance_value=provenance(providerCodeChecksum="9" * 64))
+        resolution = self.resolution(source, replacementRunId=replacement["runId"])
+        self.assert_forged_blocked(source, resolution, [source, replacement])
+
+    def test_legacy_replacement_blocked_at_read_time(self):
+        source = self.source()
+        replacement = run(PROVIDERS[0], 1)
+        replacement["schemaVersion"] = "1.0.0"
+        replacement.pop("provenance")
+        resolution = self.resolution(source, replacementRunId=replacement["runId"])
+        self.assert_forged_blocked(source, resolution, [source, replacement])
+
+    def test_debug_replacement_blocked_at_read_time(self):
+        source = self.source()
+        replacement = run(PROVIDERS[0], 1, eligible=False)
+        resolution = self.resolution(source, replacementRunId=replacement["runId"])
+        self.assert_forged_blocked(source, resolution, [source, replacement])
+
+    def test_earlier_replacement_blocked_at_read_time(self):
+        source = run(PROVIDERS[0], 2, failures=[failure("schema_drift")])
+        replacement = run(PROVIDERS[0], 1)
+        resolution = self.resolution(source, replacementRunId=replacement["runId"])
+        self.assert_forged_blocked(source, resolution, [source, replacement])
+
+    def test_failed_replacement_blocked_at_read_time(self):
+        source = self.source()
+        replacement = run(PROVIDERS[0], 1, status="failed")
+        resolution = self.resolution(source, replacementRunId=replacement["runId"])
+        self.assert_forged_blocked(source, resolution, [source, replacement])
+
+    def test_invalid_replacement_ledger_evidence_blocked(self):
+        source = self.source()
+        replacement = run(PROVIDERS[0], 1)
+        resolution = self.resolution(source, replacementRunId=replacement["runId"])
+        ledger_audit = {
+            "invalidRunIds": [replacement["runId"]],
+            "invalidV2RunIds": [replacement["runId"]],
+            "v2IntegrityFailure": True,
+        }
+        self.assert_forged_blocked(source, resolution, [source, replacement], ledger_audit)
+
+    def test_valid_replacement_resolution_behavior_preserved(self):
+        source = self.source()
+        replacement = run(PROVIDERS[0], 1)
+        resolution = self.resolution(source, replacementRunId=replacement["runId"])
+        summary = evaluate([source, replacement], config(), production(), [resolution])
+        self.assertNotEqual(summary["status"], "blocked")
+        self.assertEqual(summary["resolutionAudit"]["compatibleCount"], 1)
+        self.assertTrue(next(row for row in summary["historicalFailures"] if row["runId"] == source["runId"])["effectiveResolved"])
+
+
+class ExactAgentsWorktreeTests(unittest.TestCase):
+    def test_exact_untracked_root_agents_allowed(self):
+        self.assertTrue(observation_eligibility("?? AGENTS.md\n", False))
+
+    def test_tracked_agents_rejected(self):
+        with self.assertRaises(DirtyWorktreeError):
+            observation_eligibility(" M AGENTS.md\n", False)
+
+    def test_staged_agents_rejected(self):
+        with self.assertRaises(DirtyWorktreeError):
+            observation_eligibility("M  AGENTS.md\n", False)
+
+    def test_nested_agents_rejected(self):
+        with self.assertRaises(DirtyWorktreeError):
+            observation_eligibility("?? subdir/AGENTS.md\n", False)
+
+    def test_other_untracked_file_rejected(self):
+        with self.assertRaises(DirtyWorktreeError):
+            observation_eligibility("?? other.txt\n", False)
+
+    def test_allow_dirty_debug_still_ineligible(self):
+        self.assertFalse(observation_eligibility(" M AGENTS.md\n", True))
 
 
 class ContractTests(unittest.TestCase):
