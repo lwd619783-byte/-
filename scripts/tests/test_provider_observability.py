@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import importlib.util
 import json
 import shutil
 import sys
@@ -8,6 +9,7 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 from jsonschema import Draft202012Validator, FormatChecker
@@ -23,7 +25,9 @@ from provider_observability.core import (
     load_resolutions, load_runs, make_resolution, observation_eligibility, percentile, redact,
     stable, summarize_provider, tree_digest, validate_config, validate_run,
 )
-from provider_observability.provenance import cohort_id, valid_provenance
+from provider_observability.provenance import (
+    UNAVAILABLE, cohort_id, recordable_provenance, unavailable_provenance, valid_provenance,
+)
 from provider_observability.production import (
     validate_announcement_production, validate_default_refresh, validate_financial_production, validate_production,
 )
@@ -68,6 +72,19 @@ def run(provider="a-share-financials", index=0, status="success", failures=None,
     start = datetime(2026, 7, 1, tzinfo=timezone.utc) + timedelta(days=0 if same_day else index // 2, minutes=index)
     domain = "financials" if provider == "a-share-financials" else "announcements"
     return {"schemaVersion": SCHEMA_VERSION, "runId": f"run-{provider}-{index}", "providerId": provider, "providerVersion": "v1", "domain": domain, "startedAt": start.isoformat().replace("+00:00", "Z"), "endedAt": (start + timedelta(seconds=2)).isoformat().replace("+00:00", "Z"), "timezone": "Asia/Shanghai", "durationSeconds": 2 + index, "platform": "test", "pythonVersion": "3.13", "nodeVersion": "v22", "command": ["python", "fixture"], "status": status, "exitCode": 0 if status != "failed" else 1, "metrics": {"companyCoverage": coverage, "expectedCompanies": 56, "structuralValidationRate": rate, "eligibleSample": eligible, "cacheMode": "isolated", "retryCount": None, "timeoutCount": 0, "rateLimitCount": 0, "httpStatusCounts": {}, "success": coverage, "partial": 0, "error": 0, "detailFiles": coverage, "manifestChecksum": HASH, "artifactChecksum": HASH}, "difference": {"baseline": True}, "failures": failures or [], "validation": {"passed": rate == 1}, "atomicity": {"productionUnchanged": True, "beforeChecksum": HASH, "afterChecksum": HASH}, "worktree": {"unchanged": True}, "messages": [], "artifacts": {"generatedRoot": f"artifacts/run-{provider}-{index}/generated"}, "provenance": provenance_value or provenance()}
+
+
+def unavailable_run(provider="a-share-financials", index=0, **updates):
+    value = run(
+        provider,
+        index,
+        status="partial",
+        failures=[failure("provenance_unavailable", "source commit SHA is unavailable")],
+        eligible=False,
+        provenance_value=provenance(sourceCommitSha=UNAVAILABLE),
+    )
+    value.update(updates)
+    return value
 
 
 def ann(announcement_id, date_value, **updates):
@@ -422,6 +439,229 @@ class ProvenanceIntegrityTests(unittest.TestCase):
         )
         self.assertEqual(summary["status"], "blocked")
         self.assertIn("checksum_mismatch", summary["blockingFailures"])
+
+
+class RecordableProvenanceTests(unittest.TestCase):
+    def test_recordable_complete_provenance_passes_both_contracts(self):
+        candidate = provenance()
+        self.assertTrue(valid_provenance(candidate))
+        self.assertTrue(recordable_provenance(candidate))
+        self.assertFalse(unavailable_provenance(candidate))
+
+    def test_recordable_source_sha_unavailable(self):
+        candidate = provenance(sourceCommitSha=UNAVAILABLE)
+        self.assertFalse(valid_provenance(candidate))
+        self.assertTrue(recordable_provenance(candidate))
+        self.assertTrue(unavailable_provenance(candidate))
+
+    def test_recordable_checksum_unavailable_requires_unavailable_cohort(self):
+        candidate = provenance(providerCodeChecksum=UNAVAILABLE)
+        self.assertEqual(candidate["provenanceCohortId"], UNAVAILABLE)
+        self.assertFalse(valid_provenance(candidate))
+        self.assertTrue(recordable_provenance(candidate))
+
+    def test_recordable_zero_count_only_when_stock_identity_unavailable(self):
+        candidate = provenance(stockUniverseChecksum=UNAVAILABLE, stockUniverseIdentityCount=0)
+        self.assertTrue(recordable_provenance(candidate))
+        self.assertFalse(recordable_provenance(provenance(stockUniverseIdentityCount=0)))
+        self.assertTrue(recordable_provenance(provenance(stockUniverseChecksum=UNAVAILABLE)))
+
+    def test_recordable_rejects_boolean_negative_and_non_integer_counts(self):
+        for value in (True, -1, 1.5):
+            with self.subTest(value=value):
+                self.assertFalse(recordable_provenance(provenance(stockUniverseIdentityCount=value)))
+
+    def test_recordable_rejects_arbitrary_non_hex_component(self):
+        self.assertFalse(recordable_provenance(provenance(sourceCommitSha="not-unavailable")))
+        self.assertFalse(recordable_provenance(provenance(validatorChecksum="g" * 64)))
+
+    def test_recordable_rejects_partial_unavailable_with_sha_cohort(self):
+        candidate = provenance(fetchScriptChecksum=UNAVAILABLE)
+        candidate["provenanceCohortId"] = "9" * 64
+        self.assertFalse(recordable_provenance(candidate))
+
+    def test_recordable_rejects_complete_components_with_unavailable_cohort(self):
+        candidate = provenance()
+        candidate["provenanceCohortId"] = UNAVAILABLE
+        self.assertFalse(recordable_provenance(candidate))
+
+
+class ProvenanceUnavailableRunTests(unittest.TestCase):
+    def test_validate_recordable_unavailable_run(self):
+        validate_run(unavailable_run())
+
+    def test_append_recordable_unavailable_writes_run_and_ledger(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            item = unavailable_run()
+            append_run(root, item)
+            self.assertEqual(load_runs(root), [item])
+            ledger = [json.loads(line) for line in (root / "provider-health-ledger.jsonl").read_text(encoding="utf-8").splitlines()]
+            self.assertEqual(ledger, [item])
+
+    def test_audit_recordable_unavailable_is_not_invalid_v2(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            item = unavailable_run()
+            materialize_observation(root, item)
+            write_observation_ledger(root, [item])
+            audit = audit_observation_ledger(root, load_runs(root))
+            self.assertNotIn(item["runId"], audit["invalidV2RunIds"])
+            self.assertFalse(audit["v2IntegrityFailure"])
+
+    def test_evaluate_excludes_unavailable_from_all_denominators(self):
+        item = unavailable_run()
+        summary = evaluate(
+            [item],
+            config(),
+            production(),
+            current_provenance={provider: provenance() for provider in PROVIDERS},
+        )
+        provider = summary["providers"][PROVIDERS[0]]
+        self.assertEqual((provider["totalRuns"], provider["distinctDays"], summary["observationDays"]), (0, 0, 0))
+        self.assertEqual((provider["completeSuccessRate"], provider["totalSuccessRate"], provider["latestStatus"]), (0, 0, None))
+        self.assertEqual(provider["cohortAudit"]["provenanceUnavailableRuns"], 1)
+        self.assertEqual(provider["cohortAudit"]["incompatibleRuns"], 0)
+        self.assertNotIn("provenance_unavailable", summary["blockingFailures"])
+
+    def test_unavailable_provenance_with_eligible_sample_rejected(self):
+        item = unavailable_run()
+        item["metrics"]["eligibleSample"] = True
+        with self.assertRaisesRegex(ValueError, "must be ineligible"):
+            validate_run(item)
+
+    def test_unavailable_provenance_with_success_status_rejected(self):
+        item = unavailable_run(status="success")
+        with self.assertRaisesRegex(ValueError, "cannot be successful"):
+            validate_run(item)
+
+    def test_unavailable_provenance_without_failure_rejected(self):
+        item = unavailable_run(failures=[])
+        with self.assertRaisesRegex(ValueError, "requires an unresolved"):
+            validate_run(item)
+
+    def test_unavailable_provenance_with_empty_failure_message_rejected(self):
+        item = unavailable_run(failures=[failure("provenance_unavailable", "")])
+        with self.assertRaisesRegex(ValueError, "requires an unresolved"):
+            validate_run(item)
+
+    def test_unavailable_provenance_with_resolved_failure_rejected(self):
+        item = unavailable_run()
+        item["failures"][0]["resolved"] = True
+        with self.assertRaisesRegex(ValueError, "requires an unresolved"):
+            validate_run(item)
+
+    def test_schema_accepts_structured_unavailable_basic_union(self):
+        schema = json.loads((ROOT / "config/provider-observation-run.schema.json").read_text(encoding="utf-8"))
+        validator = Draft202012Validator(schema, format_checker=FormatChecker())
+        self.assertEqual(list(validator.iter_errors(unavailable_run())), [])
+
+
+class ObserverProvenanceRetentionTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        script = ROOT / "scripts/observe-providers.py"
+        spec = importlib.util.spec_from_file_location("observe_providers_retention_test", script)
+        if spec is None or spec.loader is None:
+            raise RuntimeError("cannot load observe-providers.py")
+        cls.observer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.observer)
+
+    def observe_with_unavailable_provenance(self, provider_returncode=0):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        observation_root = Path(temporary.name)
+        calls = []
+
+        def fake_run(command, *args, **kwargs):
+            calls.append(command)
+            if command[:2] == ["node", "--version"]:
+                return SimpleNamespace(returncode=0, stdout="v22.15.0\n", stderr="")
+            generated = Path(command[command.index("--output-root") + 1])
+            detail = generated / "a-share-financials"
+            detail.mkdir(parents=True, exist_ok=True)
+            (generated / "a-share-financial-summaries.generated.json").write_text('{"items":{}}\n', encoding="utf-8")
+            (detail / "manifest.generated.json").write_text(
+                json.dumps({"total": 56, "success": 56, "partial": 0, "error": 0}) + "\n",
+                encoding="utf-8",
+            )
+            return SimpleNamespace(
+                returncode=provider_returncode,
+                stdout="",
+                stderr="provider timed out" if provider_returncode else "",
+            )
+
+        candidate = provenance(sourceCommitSha=UNAVAILABLE)
+        with (
+            patch.object(self.observer, "build_provenance", return_value=(candidate, ["source commit SHA is unavailable"])),
+            patch.object(self.observer, "subprocess") as subprocess_mock,
+            patch.object(self.observer, "validate_split_artifacts", return_value=[]),
+            patch.object(self.observer, "git_status", return_value="?? AGENTS.md\n"),
+            patch.object(self.observer, "refresh_summary", return_value={}) as refresh,
+            patch("builtins.print"),
+        ):
+            subprocess_mock.run.side_effect = fake_run
+            code = self.observer.observe(
+                "financials",
+                observation_root,
+                False,
+                20,
+                f"retention-{provider_returncode}",
+            )
+        return observation_root, code, calls, refresh
+
+    def test_observe_persists_provenance_failure_and_refreshes_summary(self):
+        root, code, calls, refresh = self.observe_with_unavailable_provenance()
+        runs = load_runs(root)
+        self.assertEqual(code, 1)
+        self.assertEqual(len(runs), 1)
+        self.assertTrue(any("fetch-a-share-financials.py" in str(part) for part in calls[0]))
+        self.assertEqual(runs[0]["status"], "partial")
+        self.assertFalse(runs[0]["metrics"]["eligibleSample"])
+        self.assertEqual([item["category"] for item in runs[0]["failures"]], ["provenance_unavailable"])
+        self.assertTrue((root / "provider-health-ledger.jsonl").exists())
+        refresh.assert_called_once_with(root)
+
+    def test_observe_persisted_run_audits_and_remains_excluded(self):
+        root, _, _, _ = self.observe_with_unavailable_provenance()
+        runs = load_runs(root)
+        audit = audit_observation_ledger(root, runs)
+        summary = evaluate(
+            runs,
+            config(),
+            production(),
+            current_provenance={provider: provenance() for provider in PROVIDERS},
+            ledger_audit=audit,
+        )
+        self.assertEqual(audit["invalidV2RunIds"], [])
+        self.assertFalse(audit["v2IntegrityFailure"])
+        self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["provenanceUnavailableRuns"], 1)
+        self.assertEqual(summary["providers"][PROVIDERS[0]]["totalRuns"], 0)
+        self.assertEqual(summary["observationDays"], 0)
+
+    def test_observe_provider_failure_preserves_both_failure_categories(self):
+        root, code, _, _ = self.observe_with_unavailable_provenance(provider_returncode=1)
+        categories = {item["category"] for item in load_runs(root)[0]["failures"]}
+        self.assertEqual(code, 1)
+        self.assertEqual(categories, {"provenance_unavailable", "timeout"})
+
+
+class ProvenanceRecoveryTests(unittest.TestCase):
+    def test_recovery_keeps_unavailable_history_outside_denominator(self):
+        unavailable = unavailable_run(PROVIDERS[0], 0)
+        current = run(PROVIDERS[0], 2)
+        peer = run(PROVIDERS[1], 2)
+        summary = evaluate(
+            [unavailable, current, peer],
+            config(),
+            production(),
+            current_provenance={provider: provenance() for provider in PROVIDERS},
+        )
+        provider = summary["providers"][PROVIDERS[0]]
+        self.assertEqual(provider["cohortAudit"]["provenanceUnavailableRuns"], 1)
+        self.assertEqual(provider["cohortAudit"]["currentEligibleRuns"], 1)
+        self.assertEqual((provider["totalRuns"], provider["distinctDays"]), (1, 1))
+        self.assertNotIn("provenance_unavailable", summary["blockingFailures"])
 
 
 class ReadTimeRunLedgerIntegrityTests(unittest.TestCase):

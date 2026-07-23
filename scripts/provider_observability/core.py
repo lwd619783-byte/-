@@ -16,7 +16,7 @@ from zoneinfo import ZoneInfo
 from jsonschema import Draft202012Validator, FormatChecker
 
 from . import ELIGIBILITY_STATUSES, GATE_SCHEMA_VERSION, LEGACY_SCHEMA_VERSIONS, RUN_STATUSES, SCHEMA_VERSION
-from .provenance import COHORT_FIELDS, valid_provenance
+from .provenance import COHORT_FIELDS, recordable_provenance, unavailable_provenance, valid_provenance
 
 SENSITIVE_KEY = re.compile(r"cookie|authorization|oauth|token|session|password|secret", re.I)
 SENSITIVE_QUERY = re.compile(r"([?&](?:access_token|token|session|auth|key)=)[^&#\s]+", re.I)
@@ -122,8 +122,22 @@ def validate_run(record: dict[str, Any]) -> None:
         provenance = record.get("provenance")
         required_provenance = {"sourceCommitSha", "observationToolVersion", "observationToolChecksum", *COHORT_FIELDS, "provenanceCohortId"}
         if not isinstance(provenance, dict) or required_provenance - provenance.keys(): raise ValueError("missing V2 provenance")
-        if not valid_provenance(provenance): raise ValueError("invalid V2 provenance")
         if not isinstance(record.get("metrics", {}).get("eligibleSample"), bool): raise ValueError("eligibleSample is required")
+        if not recordable_provenance(provenance): raise ValueError("invalid V2 provenance")
+        if unavailable_provenance(provenance):
+            provenance_failures = [
+                failure for failure in record["failures"]
+                if failure.get("category") == "provenance_unavailable"
+                and failure.get("resolved") is False
+                and isinstance(failure.get("message"), str)
+                and failure["message"].strip()
+            ]
+            if record["metrics"]["eligibleSample"] is not False:
+                raise ValueError("unavailable provenance must be ineligible")
+            if record["status"] == "success":
+                raise ValueError("unavailable provenance cannot be successful")
+            if not provenance_failures:
+                raise ValueError("unavailable provenance requires an unresolved provenance_unavailable failure")
         atomicity = record.get("atomicity", {})
         if not all(isinstance(atomicity.get(field), str) and re.fullmatch(r"[a-f0-9]{64}", atomicity[field]) for field in ("beforeChecksum", "afterChecksum")): raise ValueError("invalid atomicity checksums")
         if any(re.match(r"^[A-Za-z]:[\\/]", str(item)) or str(item).startswith(("/", "\\")) for item in record.get("command", [])): raise ValueError("absolute command path is forbidden")
@@ -683,18 +697,28 @@ def evaluate(
     for provider_id in config["providers"]:
         target = targets.get(provider_id)
         target_cohort = target.get("provenanceCohortId") if valid_provenance(target) else None
-        buckets = {"current": [], "legacy": [], "incompatible": [], "debug": []}
+        buckets = {"current": [], "legacy": [], "incompatible": [], "debug": [], "provenanceUnavailable": []}
         for run in [item for item in runs if item.get("providerId") == provider_id]:
             if run.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS:
                 buckets["legacy"].append(run)
             elif (
                 run.get("schemaVersion") != SCHEMA_VERSION
-                or not valid_provenance(run.get("provenance"))
                 or run.get("runId") in invalid_v2_run_ids
             ):
                 buckets["incompatible"].append(run)
                 evidence_integrity_blocked = True
             elif run.get("runId") in invalid_run_ids:
+                buckets["incompatible"].append(run)
+                evidence_integrity_blocked = True
+            elif unavailable_provenance(run.get("provenance")):
+                try:
+                    validate_run(run)
+                except (TypeError, ValueError, KeyError):
+                    buckets["incompatible"].append(run)
+                    evidence_integrity_blocked = True
+                else:
+                    buckets["provenanceUnavailable"].append(run)
+            elif not valid_provenance(run.get("provenance")):
                 buckets["incompatible"].append(run)
                 evidence_integrity_blocked = True
             elif run.get("metrics", {}).get("eligibleSample") is False:
@@ -709,10 +733,12 @@ def evaluate(
             "legacyRuns": len(buckets["legacy"]),
             "incompatibleRuns": len(buckets["incompatible"]),
             "debugRuns": len(buckets["debug"]),
+            "provenanceUnavailableRuns": len(buckets["provenanceUnavailable"]),
             "currentCohortId": target_cohort,
             "legacyRunIds": [run.get("runId") for run in buckets["legacy"]],
             "incompatibleRunIds": [run.get("runId") for run in buckets["incompatible"]],
             "debugRunIds": [run.get("runId") for run in buckets["debug"]],
+            "provenanceUnavailableRunIds": [run.get("runId") for run in buckets["provenanceUnavailable"]],
         }
     eligible_runs = [run for provider_runs in grouped.values() for run in provider_runs]
     eligible_run_ids = {run["runId"] for run in eligible_runs}

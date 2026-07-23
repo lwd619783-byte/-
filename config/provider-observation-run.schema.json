@@ -26,18 +26,18 @@
       "additionalProperties": false,
       "required": ["sourceCommitSha", "observationToolVersion", "observationToolChecksum", "providerCodeChecksum", "fetchScriptChecksum", "validatorChecksum", "stockUniverseChecksum", "stockUniverseIdentityCount", "gateConfigChecksum", "productionBaselineChecksum", "dependencyFingerprint", "provenanceCohortId"],
       "properties": {
-        "sourceCommitSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "sourceCommitSha": {"type": "string", "pattern": "^(?:[a-f0-9]{40}|unavailable)$"},
         "observationToolVersion": {"const": "2.0.0"},
-        "observationToolChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "providerCodeChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "fetchScriptChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "validatorChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "stockUniverseChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "stockUniverseIdentityCount": {"type": "integer", "minimum": 1},
-        "gateConfigChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "productionBaselineChecksum": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "dependencyFingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "provenanceCohortId": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        "observationToolChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "providerCodeChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "fetchScriptChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "validatorChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "stockUniverseChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "stockUniverseIdentityCount": {"type": "integer", "minimum": 0},
+        "gateConfigChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "productionBaselineChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "dependencyFingerprint": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "provenanceCohortId": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"}
       }
     },
     "metrics": {

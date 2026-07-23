@@ -88,6 +88,10 @@ COHORT_FIELDS = (
     "productionBaselineChecksum",
     "dependencyFingerprint",
 )
+REQUIRED_PROVENANCE_FIELDS = set(COHORT_FIELDS) | {"sourceCommitSha", "provenanceCohortId"}
+CHECKSUM_FIELDS = tuple(
+    field for field in COHORT_FIELDS if field.endswith("Checksum") or field == "dependencyFingerprint"
+)
 
 
 def canonical_bytes(value: Any) -> bytes:
@@ -209,8 +213,7 @@ def build_current_provenance(root: Path, provider_ids: list[str]) -> tuple[dict[
 def valid_provenance(value: Any) -> bool:
     if not isinstance(value, dict):
         return False
-    required_fields = set(COHORT_FIELDS) | {"sourceCommitSha", "provenanceCohortId"}
-    if required_fields - value.keys():
+    if REQUIRED_PROVENANCE_FIELDS - value.keys():
         return False
     if value.get("observationToolVersion") != OBSERVATION_TOOL_VERSION:
         return False
@@ -219,8 +222,7 @@ def valid_provenance(value: Any) -> bool:
     identity_count = value.get("stockUniverseIdentityCount")
     if isinstance(identity_count, bool) or not isinstance(identity_count, int) or identity_count <= 0:
         return False
-    checksum_fields = [field for field in COHORT_FIELDS if field.endswith("Checksum") or field == "dependencyFingerprint"]
-    checksum_fields.append("provenanceCohortId")
+    checksum_fields = [*CHECKSUM_FIELDS, "provenanceCohortId"]
     if any(
         not isinstance(value.get(field), str)
         or value[field] == UNAVAILABLE
@@ -229,3 +231,44 @@ def valid_provenance(value: Any) -> bool:
     ):
         return False
     return hmac.compare_digest(value["provenanceCohortId"], cohort_id(value))
+
+
+def recordable_provenance(value: Any) -> bool:
+    """Accept either complete V2 provenance or a structured unavailable snapshot."""
+    if valid_provenance(value):
+        return True
+    if not isinstance(value, dict) or set(value) != REQUIRED_PROVENANCE_FIELDS:
+        return False
+    if value.get("observationToolVersion") != OBSERVATION_TOOL_VERSION:
+        return False
+
+    source_sha = value.get("sourceCommitSha")
+    if not isinstance(source_sha, str) or (
+        source_sha != UNAVAILABLE and not LOWER_HEX_40.fullmatch(source_sha)
+    ):
+        return False
+    for field in CHECKSUM_FIELDS:
+        checksum = value.get(field)
+        if not isinstance(checksum, str) or (
+            checksum != UNAVAILABLE and not LOWER_HEX_64.fullmatch(checksum)
+        ):
+            return False
+
+    identity_count = value.get("stockUniverseIdentityCount")
+    if isinstance(identity_count, bool) or not isinstance(identity_count, int) or identity_count < 0:
+        return False
+    stock_universe_unavailable = value["stockUniverseChecksum"] == UNAVAILABLE
+    if identity_count == 0 and not stock_universe_unavailable:
+        return False
+
+    component_unavailable = source_sha == UNAVAILABLE or any(
+        value[field] == UNAVAILABLE for field in CHECKSUM_FIELDS
+    )
+    cohort = value.get("provenanceCohortId")
+    if component_unavailable:
+        return cohort == UNAVAILABLE
+    return False
+
+
+def unavailable_provenance(value: Any) -> bool:
+    return recordable_provenance(value) and not valid_provenance(value)

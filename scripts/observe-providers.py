@@ -25,7 +25,7 @@ from provider_observability.core import (
     DirtyWorktreeError, file_digest, json_bytes, load_json, load_resolutions, load_runs, observation_eligibility, redact, tree_digest,
 )
 from provider_observability.production import validate_production
-from provider_observability.provenance import build_current_provenance, build_provenance
+from provider_observability.provenance import build_current_provenance, build_provenance, recordable_provenance
 
 DEFAULT_ROOT = ROOT / ".provider-observations"
 PRODUCTION_PATHS = [
@@ -77,6 +77,8 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
     provider_id = "a-share-financials" if kind == "financials" else "a-share-announcements"
     provider_version = FINANCIAL_VERSION if kind == "financials" else ANNOUNCEMENT_VERSION
     provenance, provenance_errors = build_provenance(ROOT, provider_id)
+    if provenance_errors and not recordable_provenance(provenance):
+        raise ValueError("provenance acquisition failure did not produce recordable V2 evidence")
     eligible_sample = eligible_sample and not provenance_errors
     run_id = explicit_id or f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}-{provider_id}-{uuid.uuid4().hex[:8]}"
     artifact_root = observation_root / "artifacts" / run_id
