@@ -38,6 +38,19 @@ from provider_observability.provenance import (
 from provider_observability.production import (
     validate_announcement_production, validate_default_refresh, validate_financial_production, validate_production,
 )
+from provider_observability.root_state import (
+    FRESH_V2,
+    LEGACY_V1_MIGRATED,
+    build_root_state,
+    initial_evidence_checksum,
+    initial_evidence_records,
+    legacy_anchor_config_checksum,
+    load_root_state,
+    prepare_root_for_observation,
+    root_state_path,
+    validate_root_state,
+    write_root_state,
+)
 
 PROVIDERS = ["a-share-financials", "a-share-announcements"]
 HASH = "0" * 64
@@ -612,6 +625,12 @@ class ObserverProvenanceRetentionTests(unittest.TestCase):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
         observation_root = Path(temporary.name)
+        write_root_state(
+            observation_root,
+            build_root_state(FRESH_V2, []),
+            atomic_write,
+            json_bytes,
+        )
         calls = []
 
         def fake_run(command, *args, **kwargs):
@@ -1121,6 +1140,430 @@ class LegacyAnchorAndDowngradeTests(unittest.TestCase):
             ),
             (1, 1, 1, 1, 1),
         )
+
+
+class ObservationRootStateTests(unittest.TestCase):
+    def temporary_root(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        return Path(temporary.name)
+
+    def persist_state(self, root, state):
+        write_root_state(root, state, atomic_write, json_bytes)
+        return state
+
+    def materialize_items(self, root, items):
+        for item in items:
+            materialize_observation(root, item)
+        write_observation_ledger(root, items)
+        return load_runs(root)
+
+    def legacy_candidate(self):
+        root = self.temporary_root()
+        legacy = legacy_run(PROVIDERS[0], 20, "root-state-legacy")
+        current = run(PROVIDERS[1], 22)
+        runs = self.materialize_items(root, [legacy, current])
+        anchors = anchors_for(legacy)
+        audit = audit_observation_ledger(root, runs, anchors)
+        self.assertTrue(audit["rootStateMigrationPending"])
+        return root, runs, anchors
+
+    def migrate(self):
+        root, runs, anchors = self.legacy_candidate()
+        state = prepare_root_for_observation(root, runs, audit_observation_ledger(root, runs, anchors), atomic_write, json_bytes)
+        return root, runs, anchors, state
+
+    def test_fresh_root_first_observation(self):
+        root = self.temporary_root()
+        script = ROOT / "scripts/observe-providers.py"
+        spec = importlib.util.spec_from_file_location("observe_providers_root_state_test", script)
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader)
+        observer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(observer)
+
+        def assert_initialized(*_args, **_kwargs):
+            state = load_root_state(root)
+            self.assertEqual(state["mode"], FRESH_V2)
+            self.assertFalse((root / "artifacts").exists())
+            self.assertFalse((root / "cache").exists())
+            return 0
+
+        options = SimpleNamespace(
+            provider="financials",
+            observations_dir=root,
+            no_cache=False,
+            timeout=20,
+            run_id=None,
+            allow_dirty_debug=False,
+        )
+        with (
+            patch.object(observer, "args", return_value=options),
+            patch.object(observer, "DEFAULT_ROOT", root),
+            patch.object(observer, "git_status", return_value="?? AGENTS.md\n"),
+            patch.object(observer, "observe", side_effect=assert_initialized) as observe_mock,
+        ):
+            self.assertEqual(observer.main(), 0)
+        observe_mock.assert_called_once()
+
+    def test_fresh_v2_does_not_require_legacy_anchors(self):
+        root = self.temporary_root()
+        self.persist_state(root, build_root_state(FRESH_V2, []))
+        item = run()
+        runs = self.materialize_items(root, [item])
+        audit = audit_observation_ledger(root, runs, {"missing-anchor": {"providerId": PROVIDERS[0]}})
+        self.assertFalse(audit["legacyIntegrityFailure"])
+        self.assertEqual(audit["missingLegacyAnchorRunIds"], [])
+
+    def test_fresh_first_v2_health_is_normal_no_go(self):
+        root = self.temporary_root()
+        self.persist_state(root, build_root_state(FRESH_V2, []))
+        item = run(PROVIDERS[0], 0)
+        runs = self.materialize_items(root, [item])
+        audit = audit_observation_ledger(root, runs, {})
+        summary = evaluate(
+            runs,
+            config(),
+            production(),
+            current_provenance={provider: provenance() for provider in PROVIDERS},
+            ledger_audit=audit,
+        )
+        self.assertEqual(summary["status"], "insufficient_observation_window")
+        self.assertNotIn("legacy_integrity_failure", summary["blockingFailures"])
+
+    def test_fresh_financial_and_announcement_runs_are_counted(self):
+        root = self.temporary_root()
+        self.persist_state(root, build_root_state(FRESH_V2, []))
+        items = [run(PROVIDERS[0], 0), run(PROVIDERS[1], 0)]
+        runs = self.materialize_items(root, items)
+        audit = audit_observation_ledger(root, runs, {})
+        summary = evaluate(
+            runs,
+            config(),
+            production(),
+            current_provenance={provider: provenance() for provider in PROVIDERS},
+            ledger_audit=audit,
+        )
+        self.assertEqual([summary["providers"][provider]["totalRuns"] for provider in PROVIDERS], [1, 1])
+
+    def test_legacy_root_migration(self):
+        root, runs, anchors, state = self.migrate()
+        audit = audit_observation_ledger(root, runs, anchors)
+        self.assertEqual(state["mode"], LEGACY_V1_MIGRATED)
+        self.assertEqual(audit["rootStateMode"], LEGACY_V1_MIGRATED)
+        self.assertFalse(audit["evidenceIntegrityFailure"])
+
+    def test_health_read_migration_candidate_does_not_write_state(self):
+        root, runs, anchors = self.legacy_candidate()
+        audit = audit_observation_ledger(root, runs, anchors)
+        self.assertEqual(audit["rootStateMode"], "legacy_v1_migration_pending")
+        self.assertFalse(root_state_path(root).exists())
+
+    def test_legacy_observation_migrates_before_provider_call(self):
+        root, _, anchors = self.legacy_candidate()
+        script = ROOT / "scripts/observe-providers.py"
+        spec = importlib.util.spec_from_file_location("observe_providers_legacy_root_state_test", script)
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader)
+        observer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(observer)
+
+        def audit_with_test_anchors(value_root, value_runs):
+            return audit_observation_ledger(value_root, value_runs, anchors)
+
+        def assert_migrated(*_args, **_kwargs):
+            state = load_root_state(root)
+            self.assertEqual(state["mode"], LEGACY_V1_MIGRATED)
+            self.assertEqual(len(state["initialEvidenceRunIds"]), 2)
+            return 0
+
+        options = SimpleNamespace(
+            provider="financials",
+            observations_dir=root,
+            no_cache=False,
+            timeout=20,
+            run_id=None,
+            allow_dirty_debug=False,
+        )
+        with (
+            patch.object(observer, "args", return_value=options),
+            patch.object(observer, "DEFAULT_ROOT", root),
+            patch.object(observer, "git_status", return_value="?? AGENTS.md\n"),
+            patch.object(observer, "audit_observation_ledger", side_effect=audit_with_test_anchors),
+            patch.object(observer, "observe", side_effect=assert_migrated) as observe_mock,
+        ):
+            self.assertEqual(observer.main(), 0)
+        observe_mock.assert_called_once()
+
+    def test_nonempty_unidentified_root_blocked(self):
+        root = self.temporary_root()
+        item = run()
+        runs = self.materialize_items(root, [item])
+        audit = audit_observation_ledger(root, runs, {})
+        summary = evaluate(runs, config(), production(), ledger_audit=audit)
+        self.assertEqual(audit["rootStateMode"], "unidentified")
+        self.assertIn("root_state_integrity_failure", summary["blockingFailures"])
+
+    def test_initial_evidence_deletion_blocked(self):
+        root, runs, anchors, _ = self.migrate()
+        deleted = runs[-1]["runId"]
+        (root / "runs" / f"{deleted}.json").unlink()
+        remaining = [item for item in runs if item["runId"] != deleted]
+        write_observation_ledger(root, remaining)
+        audit = audit_observation_ledger(root, load_runs(root), anchors)
+        self.assertEqual(audit["missingInitialEvidenceRunIds"], [deleted])
+        self.assertTrue(audit["rootStateIntegrityFailure"])
+
+    def test_empty_root_is_explicit_initialization_candidate(self):
+        root = self.temporary_root()
+        audit = audit_observation_ledger(root, [])
+        self.assertEqual(audit["rootStateMode"], "empty")
+        self.assertFalse(audit["evidenceIntegrityFailure"])
+
+    def test_empty_root_initializes_fresh_state_atomically(self):
+        root = self.temporary_root()
+        audit = audit_observation_ledger(root, [])
+        state = prepare_root_for_observation(root, [], audit, atomic_write, json_bytes)
+        self.assertEqual(state["mode"], FRESH_V2)
+        self.assertEqual(load_root_state(root), state)
+
+    def test_existing_fresh_state_is_idempotent(self):
+        root = self.temporary_root()
+        expected = self.persist_state(root, build_root_state(FRESH_V2, []))
+        audit = audit_observation_ledger(root, [])
+        actual = prepare_root_for_observation(root, [], audit, atomic_write, json_bytes)
+        self.assertEqual(actual, expected)
+
+    def test_root_state_write_refuses_overwrite(self):
+        root = self.temporary_root()
+        state = self.persist_state(root, build_root_state(FRESH_V2, []))
+        with self.assertRaisesRegex(ValueError, "already exists"):
+            write_root_state(root, state, atomic_write, json_bytes)
+
+    def test_root_state_rejects_extra_field(self):
+        state = build_root_state(FRESH_V2, [])
+        state["path"] = "cache"
+        with self.assertRaisesRegex(ValueError, "Additional properties"):
+            validate_root_state(state)
+
+    def test_root_state_rejects_invalid_schema_version(self):
+        state = build_root_state(FRESH_V2, [])
+        state["schemaVersion"] = "2.0.0"
+        with self.assertRaises(ValueError):
+            validate_root_state(state)
+
+    def test_root_state_rejects_invalid_uuid(self):
+        state = build_root_state(FRESH_V2, [])
+        state["ledgerId"] = "not-a-uuid"
+        with self.assertRaises(ValueError):
+            validate_root_state(state)
+
+    def test_root_state_rejects_noncanonical_uuid(self):
+        state = build_root_state(FRESH_V2, [])
+        state["ledgerId"] = state["ledgerId"].upper()
+        with self.assertRaisesRegex(ValueError, "canonical lowercase UUID"):
+            validate_root_state(state)
+
+    def test_root_state_rejects_noncanonical_time(self):
+        state = build_root_state(FRESH_V2, [])
+        state["initializedAt"] = "2026-07-26T20:00:00+08:00"
+        with self.assertRaisesRegex(ValueError, "canonical UTC"):
+            validate_root_state(state)
+
+    def test_root_state_rejects_unknown_mode(self):
+        state = build_root_state(FRESH_V2, [])
+        state["mode"] = "unknown"
+        with self.assertRaises(ValueError):
+            validate_root_state(state)
+
+    def test_root_state_rejects_anchor_checksum_mismatch(self):
+        state = build_root_state(FRESH_V2, [])
+        state["legacyAnchorConfigChecksum"] = "f" * 64
+        with self.assertRaisesRegex(ValueError, "anchor config checksum mismatch"):
+            validate_root_state(state)
+
+    def test_root_state_anchor_checksum_is_canonical_config_digest(self):
+        state = build_root_state(FRESH_V2, [])
+        self.assertEqual(state["legacyAnchorConfigChecksum"], legacy_anchor_config_checksum())
+
+    def test_root_state_rejects_unsorted_initial_ids(self):
+        state = build_root_state(LEGACY_V1_MIGRATED, [run(index=2), run(index=0)])
+        state["initialEvidenceRunIds"] = list(reversed(state["initialEvidenceRunIds"]))
+        with self.assertRaisesRegex(ValueError, "non-unique|sorted and unique"):
+            validate_root_state(state)
+
+    def test_root_state_rejects_duplicate_initial_ids(self):
+        state = build_root_state(LEGACY_V1_MIGRATED, [run()])
+        state["initialEvidenceRunIds"].append(state["initialEvidenceRunIds"][0])
+        with self.assertRaisesRegex(ValueError, "non-unique|sorted and unique"):
+            validate_root_state(state)
+
+    def test_root_state_rejects_initial_identity_disagreement(self):
+        state = build_root_state(LEGACY_V1_MIGRATED, [run()])
+        state["initialEvidenceRunIds"] = ["different-run"]
+        with self.assertRaisesRegex(ValueError, "identities disagree"):
+            validate_root_state(state)
+
+    def test_root_state_rejects_invalid_initial_digest(self):
+        state = build_root_state(LEGACY_V1_MIGRATED, [run()])
+        state["initialEvidenceRecords"][0]["canonicalRecordSha256"] = "BAD"
+        with self.assertRaises(ValueError):
+            validate_root_state(state)
+
+    def test_root_state_rejects_initial_checksum_mismatch(self):
+        state = build_root_state(LEGACY_V1_MIGRATED, [run()])
+        state["initialEvidenceChecksum"] = "f" * 64
+        with self.assertRaisesRegex(ValueError, "initial evidence checksum mismatch"):
+            validate_root_state(state)
+
+    def test_fresh_mode_rejects_declared_initial_evidence(self):
+        state = build_root_state(LEGACY_V1_MIGRATED, [run()])
+        state["mode"] = FRESH_V2
+        with self.assertRaisesRegex(ValueError, "fresh root state"):
+            validate_root_state(state)
+
+    def test_legacy_mode_requires_initial_evidence(self):
+        state = build_root_state(FRESH_V2, [])
+        state["mode"] = LEGACY_V1_MIGRATED
+        with self.assertRaisesRegex(ValueError, "legacy root state requires"):
+            validate_root_state(state)
+
+    def test_unreadable_root_state_blocks(self):
+        root = self.temporary_root()
+        root_state_path(root).write_text("{", encoding="utf-8")
+        audit = audit_observation_ledger(root, [])
+        self.assertEqual(audit["rootStateMode"], "invalid")
+        self.assertTrue(audit["rootStateIntegrityFailure"])
+
+    def test_fresh_root_with_legacy_run_blocks(self):
+        root = self.temporary_root()
+        self.persist_state(root, build_root_state(FRESH_V2, []))
+        item = legacy_run(run_id="legacy-in-fresh-root")
+        runs = self.materialize_items(root, [item])
+        audit = audit_observation_ledger(root, runs, anchors_for(item))
+        self.assertTrue(audit["rootStateIntegrityFailure"])
+        self.assertEqual(audit["rootStateIssues"][0]["category"], "fresh_root_contains_legacy_evidence")
+
+    def test_fresh_root_with_legacy_ledger_only_blocks(self):
+        root = self.temporary_root()
+        self.persist_state(root, build_root_state(FRESH_V2, []))
+        item = legacy_run(run_id="legacy-ledger-in-fresh-root")
+        write_observation_ledger(root, [item])
+        (root / "runs" / f"{item['runId']}.json").unlink()
+        audit = audit_observation_ledger(root, [], anchors_for(item))
+        self.assertTrue(audit["rootStateIntegrityFailure"])
+
+    def test_initial_evidence_run_modification_blocks(self):
+        root, runs, anchors, _ = self.migrate()
+        changed = copy.deepcopy(runs[-1])
+        changed["durationSeconds"] += 1
+        (root / "runs" / f"{changed['runId']}.json").write_bytes(json_bytes(changed))
+        audit = audit_observation_ledger(root, load_runs(root), anchors)
+        self.assertEqual(audit["modifiedInitialEvidenceRunIds"], [changed["runId"]])
+
+    def test_initial_evidence_ledger_modification_blocks(self):
+        root, runs, anchors, _ = self.migrate()
+        changed = copy.deepcopy(runs[-1])
+        changed["durationSeconds"] += 1
+        write_observation_ledger(root, [runs[0], changed])
+        audit = audit_observation_ledger(root, load_runs(root), anchors)
+        self.assertEqual(audit["modifiedInitialEvidenceRunIds"], [changed["runId"]])
+
+    def test_appended_v2_evidence_does_not_change_initial_digest(self):
+        root, runs, anchors, state = self.migrate()
+        appended = run(PROVIDERS[0], 30)
+        materialize_observation(root, appended)
+        append_run(root, appended)
+        audit = audit_observation_ledger(root, load_runs(root), anchors)
+        self.assertFalse(audit["rootStateIntegrityFailure"])
+        self.assertEqual(load_root_state(root)["initialEvidenceChecksum"], state["initialEvidenceChecksum"])
+
+    def test_legacy_migration_captures_all_existing_runs(self):
+        _, runs, _, state = self.migrate()
+        self.assertEqual(state["initialEvidenceRunIds"], sorted(item["runId"] for item in runs))
+
+    def test_initial_records_are_sorted_and_unique(self):
+        records = initial_evidence_records([run(index=4), run(index=0), run(index=2)])
+        self.assertEqual([item["runId"] for item in records], sorted(item["runId"] for item in records))
+        self.assertEqual(len(records), len({item["runId"] for item in records}))
+
+    def test_initial_digest_binds_full_canonical_object(self):
+        item = run()
+        before = initial_evidence_records([item])
+        item["durationSeconds"] += 1
+        after = initial_evidence_records([item])
+        self.assertNotEqual(before[0]["canonicalRecordSha256"], after[0]["canonicalRecordSha256"])
+
+    def test_initial_set_checksum_binds_sorted_records(self):
+        records = initial_evidence_records([run(index=2), run(index=0)])
+        self.assertEqual(initial_evidence_checksum(records), build_root_state(LEGACY_V1_MIGRATED, [run(index=2), run(index=0)])["initialEvidenceChecksum"])
+
+    def test_stateless_v2_only_root_is_not_auto_fresh(self):
+        root = self.temporary_root()
+        runs = self.materialize_items(root, [run()])
+        audit = audit_observation_ledger(root, runs, {})
+        self.assertEqual(audit["rootStateMode"], "unidentified")
+        self.assertTrue(audit["rootStateIntegrityFailure"])
+
+    def test_residual_summary_root_is_not_auto_fresh(self):
+        root = self.temporary_root()
+        (root / "provider-health-summary.json").write_text("{}\n", encoding="utf-8")
+        audit = audit_observation_ledger(root, [])
+        self.assertEqual(audit["rootStateMode"], "unidentified")
+
+    def test_residual_cache_root_is_not_auto_fresh(self):
+        root = self.temporary_root()
+        (root / "cache").mkdir()
+        audit = audit_observation_ledger(root, [])
+        self.assertEqual(audit["rootStateMode"], "unidentified")
+
+    def test_prepare_refuses_integrity_failure(self):
+        root = self.temporary_root()
+        with self.assertRaisesRegex(ValueError, "integrity failure"):
+            prepare_root_for_observation(
+                root,
+                [],
+                {"rootStateIntegrityFailure": True, "evidenceIntegrityFailure": True},
+                atomic_write,
+                json_bytes,
+            )
+
+    def test_root_state_has_only_nonsecret_nonpath_fields(self):
+        state = build_root_state(FRESH_V2, [])
+        self.assertEqual(
+            set(state),
+            {
+                "schemaVersion",
+                "ledgerId",
+                "mode",
+                "initializedAt",
+                "legacyAnchorConfigChecksum",
+                "initialEvidenceRunIds",
+                "initialEvidenceRecords",
+                "initialEvidenceChecksum",
+            },
+        )
+        self.assertFalse(contains_sensitive(state))
+
+    def test_observation_tool_checksum_tracks_static_root_contract_only(self):
+        source = (ROOT / "scripts/provider_observability/provenance.py").read_text(encoding="utf-8")
+        self.assertIn('"scripts/provider_observability/root_state.py"', source)
+        self.assertIn('"config/provider-observation-root.schema.json"', source)
+        self.assertNotIn('".provider-observations/provider-observation-root.json"', source)
+
+    def test_root_state_failure_blocks_gate(self):
+        summary = evaluate(
+            [],
+            config(),
+            production(),
+            ledger_audit={
+                "rootStateIntegrityFailure": True,
+                "v2IntegrityFailure": False,
+                "legacyIntegrityFailure": False,
+            },
+        )
+        self.assertEqual(summary["status"], "blocked")
+        self.assertIn("root_state_integrity_failure", summary["blockingFailures"])
 
 
 class ReadTimeResolutionIntegrityTests(unittest.TestCase):

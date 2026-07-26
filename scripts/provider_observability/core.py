@@ -16,8 +16,9 @@ from zoneinfo import ZoneInfo
 from jsonschema import Draft202012Validator, FormatChecker
 
 from . import ELIGIBILITY_STATUSES, GATE_SCHEMA_VERSION, LEGACY_SCHEMA_VERSIONS, RUN_STATUSES, SCHEMA_VERSION
-from .legacy import LEGACY_RUN_SCHEMA_VERSION, load_legacy_anchors, looks_like_schema_downgrade, validate_legacy_run
+from .legacy import LEGACY_RUN_SCHEMA_VERSION, canonical_record_sha256, load_legacy_anchors, looks_like_schema_downgrade, validate_legacy_run
 from .provenance import COHORT_FIELDS, recordable_provenance, unavailable_provenance, valid_provenance
+from .root_state import FRESH_V2, LEGACY_V1_MIGRATED, load_root_state, root_is_truly_empty
 
 SENSITIVE_KEY = re.compile(r"cookie|authorization|oauth|token|session|password|secret", re.I)
 SENSITIVE_QUERY = re.compile(r"([?&](?:access_token|token|session|auth|key)=)[^&#\s]+", re.I)
@@ -487,6 +488,8 @@ def audit_observation_ledger(
     ledger_path = root / "provider-health-ledger.jsonl"
     ledger_rows: list[dict[str, Any]] = []
     anchor_config_failure = False
+    root_state: dict[str, Any] | None = None
+    root_state_load_error: str | None = None
 
     if legacy_anchors is None:
         try:
@@ -499,6 +502,10 @@ def audit_observation_ledger(
                 "category": "legacy_anchor_config_invalid",
                 "message": str(exc),
             })
+    try:
+        root_state = load_root_state(root)
+    except ValueError as exc:
+        root_state_load_error = str(exc)
 
     def identity(value: Any, fallback: str) -> str:
         if isinstance(value, dict) and isinstance(value.get("runId"), str):
@@ -600,7 +607,9 @@ def audit_observation_ledger(
             add_issue(run, run_id, "ledger_mismatch", "run file and ledger row differ")
 
     has_historical_evidence = bool(runs or ledger_rows)
-    if has_historical_evidence:
+    declared_root_mode = root_state.get("mode") if root_state else None
+    requires_legacy_anchors = has_historical_evidence and declared_root_mode != FRESH_V2
+    if requires_legacy_anchors:
         for run_id, anchor in legacy_anchors.items():
             run_matches = run_rows_by_id.get(run_id, [])
             ledger_matches = ledger_rows_by_id.get(run_id, [])
@@ -690,6 +699,89 @@ def audit_observation_ledger(
         | unknown_legacy_run_ids
         | schema_downgrade_run_ids
     )
+    root_state_mode = "invalid" if root_state_load_error else declared_root_mode
+    root_state_integrity_failure = bool(root_state_load_error)
+    root_state_migration_pending = False
+    missing_initial_evidence_run_ids: set[str] = set()
+    modified_initial_evidence_run_ids: set[str] = set()
+    root_state_issues: list[dict[str, str]] = []
+
+    def add_root_state_issue(category: str, message: str, run_id: str = "root-state") -> None:
+        nonlocal root_state_integrity_failure
+        issue = {"runId": run_id, "category": category, "message": message}
+        root_state_issues.append(issue)
+        issues.append(issue)
+        root_state_integrity_failure = True
+
+    if root_state_load_error:
+        add_root_state_issue("root_state_invalid", root_state_load_error)
+    elif root_state is None:
+        if not has_historical_evidence and root_is_truly_empty(root):
+            root_state_mode = "empty"
+        elif (
+            bool(legacy_anchors)
+            and set(legacy_anchors) == trusted_legacy_run_ids
+            and not v2_integrity_failure
+            and not legacy_integrity_failure
+        ):
+            root_state_mode = "legacy_v1_migration_pending"
+            root_state_migration_pending = True
+        else:
+            root_state_mode = "unidentified"
+            add_root_state_issue(
+                "nonempty_unidentified_root",
+                "nonempty observation root has no trusted root state or complete legacy anchor set",
+            )
+    elif declared_root_mode == FRESH_V2:
+        legacy_evidence_ids = {
+            run_id
+            for run_id, rows in run_rows_by_id.items()
+            if any(
+                isinstance(row, dict) and row.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS
+                for row in rows
+            )
+        } | {
+            run_id
+            for run_id, rows in ledger_rows_by_id.items()
+            if any(
+                isinstance(row, dict) and row.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS
+                for row in rows
+            )
+        }
+        if legacy_evidence_ids:
+            add_root_state_issue(
+                "fresh_root_contains_legacy_evidence",
+                "fresh_v2 observation root cannot contain V1 evidence",
+            )
+    elif declared_root_mode == LEGACY_V1_MIGRATED:
+        for record in root_state["initialEvidenceRecords"]:
+            run_id = record["runId"]
+            run_matches = run_rows_by_id.get(run_id, [])
+            ledger_matches = ledger_rows_by_id.get(run_id, [])
+            if len(run_matches) != 1 or len(ledger_matches) != 1:
+                missing_initial_evidence_run_ids.add(run_id)
+                continue
+            if (
+                run_matches[0] != ledger_matches[0]
+                or canonical_record_sha256(run_matches[0]) != record["canonicalRecordSha256"]
+            ):
+                modified_initial_evidence_run_ids.add(run_id)
+        if missing_initial_evidence_run_ids:
+            add_root_state_issue(
+                "initial_evidence_deleted",
+                "one or more migration-time evidence records are missing",
+            )
+        if modified_initial_evidence_run_ids:
+            add_root_state_issue(
+                "initial_evidence_modified",
+                "one or more migration-time evidence records changed",
+            )
+
+    evidence_integrity_failure = (
+        v2_integrity_failure
+        or legacy_integrity_failure
+        or root_state_integrity_failure
+    )
     return {
         "runFileCount": len(runs),
         "ledgerRowCount": len(ledger_rows),
@@ -709,7 +801,15 @@ def audit_observation_ledger(
         ),
         "v2IntegrityFailure": v2_integrity_failure,
         "legacyIntegrityFailure": legacy_integrity_failure,
-        "evidenceIntegrityFailure": v2_integrity_failure or legacy_integrity_failure,
+        "rootState": root_state,
+        "rootStateMode": root_state_mode,
+        "rootStateMigrationPending": root_state_migration_pending,
+        "rootStateIssueCount": len(root_state_issues),
+        "rootStateIssues": root_state_issues,
+        "rootStateIntegrityFailure": root_state_integrity_failure,
+        "missingInitialEvidenceRunIds": sorted(missing_initial_evidence_run_ids),
+        "modifiedInitialEvidenceRunIds": sorted(modified_initial_evidence_run_ids),
+        "evidenceIntegrityFailure": evidence_integrity_failure,
     }
 
 
@@ -811,6 +911,7 @@ def evaluate(
     inventory: dict[str, dict[str, Any]] = {}
     v2_integrity_blocked = bool((ledger_audit or {}).get("v2IntegrityFailure"))
     legacy_integrity_blocked = bool((ledger_audit or {}).get("legacyIntegrityFailure"))
+    root_state_integrity_blocked = bool((ledger_audit or {}).get("rootStateIntegrityFailure"))
     for provider_id in config["providers"]:
         target = targets.get(provider_id)
         target_cohort = target.get("provenanceCohortId") if valid_provenance(target) else None
@@ -884,6 +985,8 @@ def evaluate(
         blocking.append("checksum_mismatch")
     if legacy_integrity_blocked and "legacy_integrity_failure" not in blocking:
         blocking.append("legacy_integrity_failure")
+    if root_state_integrity_blocked and "root_state_integrity_failure" not in blocking:
+        blocking.append("root_state_integrity_failure")
     if resolution_audit["integrityFailure"] and "resolution_integrity_failure" not in blocking:
         blocking.append("resolution_integrity_failure")
     if current_provenance_failures and "provenance_unavailable" not in blocking:

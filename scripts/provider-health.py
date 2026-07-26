@@ -47,6 +47,7 @@ def main() -> int:
         config = load_json(ROOT / "config/provider-stability-gate-v1.json")
         current, provenance_failures = build_current_provenance(ROOT, config["providers"])
         resolutions = load_resolutions(options.observations_dir)
+        ledger_audit = audit_observation_ledger(options.observations_dir, runs)
         summary = evaluate(
             runs,
             config,
@@ -54,9 +55,10 @@ def main() -> int:
             resolutions,
             current_provenance=current,
             current_provenance_failures=provenance_failures,
-            ledger_audit=audit_observation_ledger(options.observations_dir, runs),
+            ledger_audit=ledger_audit,
         )
-        atomic_write(options.observations_dir / "provider-health-summary.json", json_bytes(summary))
+        if ledger_audit["rootStateMode"] != "empty":
+            atomic_write(options.observations_dir / "provider-health-summary.json", json_bytes(summary))
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         return summary["exitCode"] if options.strict_exit else 0
     except (ValueError, OSError, json.JSONDecodeError) as exc:

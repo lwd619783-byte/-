@@ -26,6 +26,7 @@ from provider_observability.core import (
 )
 from provider_observability.production import validate_production
 from provider_observability.provenance import build_current_provenance, build_provenance, recordable_provenance
+from provider_observability.root_state import load_root_state, prepare_root_for_observation
 
 DEFAULT_ROOT = ROOT / ".provider-observations"
 PRODUCTION_PATHS = [
@@ -74,17 +75,19 @@ def prior_observation(observation_root: Path, provider_id: str, provenance_cohor
 
 
 def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, explicit_id: str | None, eligible_sample: bool = True) -> int:
+    if load_root_state(observation_root) is None:
+        raise ValueError("observation root state must be initialized before provider execution")
     provider_id = "a-share-financials" if kind == "financials" else "a-share-announcements"
     provider_version = FINANCIAL_VERSION if kind == "financials" else ANNOUNCEMENT_VERSION
-    provenance, provenance_errors = build_provenance(ROOT, provider_id)
-    if provenance_errors and not recordable_provenance(provenance):
-        raise ValueError("provenance acquisition failure did not produce recordable V2 evidence")
-    eligible_sample = eligible_sample and not provenance_errors
     run_id = explicit_id or f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}-{provider_id}-{uuid.uuid4().hex[:8]}"
     artifact_root = observation_root / "artifacts" / run_id
     generated_root = artifact_root / "generated"
     cache_root = observation_root / "cache" / provider_id
     generated_root.mkdir(parents=True, exist_ok=False)
+    provenance, provenance_errors = build_provenance(ROOT, provider_id)
+    if provenance_errors and not recordable_provenance(provenance):
+        raise ValueError("provenance acquisition failure did not produce recordable V2 evidence")
+    eligible_sample = eligible_sample and not provenance_errors
     before_digest = tree_digest(PRODUCTION_PATHS, ROOT)
     before_status = git_status()
     started_at = datetime.now(timezone.utc).replace(microsecond=0)
@@ -202,6 +205,21 @@ def main() -> int:
     except DirtyWorktreeError as exc:
         print(json.dumps({"status": "preflight_failed", "reason": "dirty_worktree", "dirtyFiles": exc.paths}, ensure_ascii=False, indent=2), file=sys.stderr)
         return 5
+    runs = load_runs(root)
+    try:
+        prepare_root_for_observation(
+            root,
+            runs,
+            audit_observation_ledger(root, runs),
+            atomic_write,
+            json_bytes,
+        )
+        prepared_audit = audit_observation_ledger(root, runs)
+        if prepared_audit["evidenceIntegrityFailure"]:
+            raise ValueError("observation root integrity failure after root state initialization")
+    except (ValueError, OSError, json.JSONDecodeError) as exc:
+        print(json.dumps({"status": "preflight_failed", "reason": "observation_root_integrity", "message": str(exc)}, ensure_ascii=False, indent=2), file=sys.stderr)
+        return 6
     kinds = ("financials", "announcements") if options.provider == "all" else (options.provider,)
     codes = [observe(kind, root, options.no_cache, options.timeout, options.run_id if len(kinds) == 1 else None, eligible_sample=eligible_sample) for kind in kinds]
     return max(codes)
