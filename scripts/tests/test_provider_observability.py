@@ -25,6 +25,13 @@ from provider_observability.core import (
     load_resolutions, load_runs, make_resolution, observation_eligibility, percentile, redact,
     stable, summarize_provider, tree_digest, validate_config, validate_run,
 )
+from provider_observability.legacy import (
+    EXPECTED_LEGACY_PROVIDERS,
+    canonical_record_sha256,
+    load_legacy_anchors,
+    validate_legacy_anchor_config,
+    validate_legacy_run,
+)
 from provider_observability.provenance import (
     UNAVAILABLE, cohort_id, recordable_provenance, unavailable_provenance, valid_provenance,
 )
@@ -85,6 +92,35 @@ def unavailable_run(provider="a-share-financials", index=0, **updates):
     )
     value.update(updates)
     return value
+
+
+def legacy_run(provider="a-share-financials", index=0, run_id=None):
+    value = run(provider, index)
+    value["schemaVersion"] = "1.0.0"
+    if run_id is not None:
+        value["runId"] = run_id
+    value.pop("provenance")
+    value["metrics"].pop("eligibleSample")
+    value["atomicity"].pop("beforeChecksum")
+    value["atomicity"].pop("afterChecksum")
+    value["command"] = ["python", "D:\\historical-observation\\fixture.py"]
+    return value
+
+
+def anchors_for(*records):
+    document = {
+        "schemaVersion": "1.0.0",
+        "records": [
+            {
+                "runId": record["runId"],
+                "providerId": record["providerId"],
+                "startedAt": record["startedAt"],
+                "canonicalRecordSha256": canonical_record_sha256(record),
+            }
+            for record in records
+        ],
+    }
+    return validate_legacy_anchor_config(document)
 
 
 def ann(announcement_id, date_value, **updates):
@@ -315,8 +351,13 @@ class EligibilityTests(unittest.TestCase):
     def test_76_threshold_not_weakened(self):
         actual = json.loads((ROOT / "config/provider-stability-gate-v1.json").read_text(encoding="utf-8")); self.assertEqual((actual["minimumDistinctDays"], actual["minimumRunsPerProvider"], actual["minimumCompleteSuccessRate"], actual["minimumTotalSuccessRate"]), (5, 10, .9, .95))
     def test_legacy_run_excluded(self):
-        legacy = run(); legacy["schemaVersion"] = "1.0.0"; legacy.pop("provenance")
-        summary = evaluate([legacy], config(), production(), current_provenance={provider: provenance() for provider in PROVIDERS})
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); legacy = legacy_run()
+            materialize_observation(root, legacy)
+            anchors = anchors_for(legacy)
+            write_observation_ledger(root, [legacy])
+            audit = audit_observation_ledger(root, load_runs(root), anchors)
+        summary = evaluate([legacy], config(), production(), current_provenance={provider: provenance() for provider in PROVIDERS}, ledger_audit=audit)
         self.assertEqual((summary["providers"][PROVIDERS[0]]["totalRuns"], summary["providers"][PROVIDERS[0]]["cohortAudit"]["legacyRuns"]), (0, 1))
     def test_current_compatible_cohort_included(self):
         summary = evaluate([run(PROVIDERS[0]), run(PROVIDERS[1])], config(), production(), current_provenance={provider: provenance() for provider in PROVIDERS})
@@ -665,13 +706,13 @@ class ProvenanceRecoveryTests(unittest.TestCase):
 
 
 class ReadTimeRunLedgerIntegrityTests(unittest.TestCase):
-    def audit(self, item):
+    def audit(self, item, legacy_anchors=None):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
         root = Path(temporary.name)
         materialize_observation(root, item)
         write_observation_ledger(root, [item])
-        return audit_observation_ledger(root, load_runs(root))
+        return audit_observation_ledger(root, load_runs(root), {} if legacy_anchors is None else legacy_anchors)
 
     def test_same_invalid_v2_in_run_file_and_ledger_detected(self):
         item = run()
@@ -715,10 +756,14 @@ class ReadTimeRunLedgerIntegrityTests(unittest.TestCase):
         self.assertEqual(summary["status"], "blocked")
 
     def test_valid_legacy_run_remains_legacy(self):
-        item = run()
-        item["schemaVersion"] = "1.0.0"
-        item.pop("provenance")
-        audit = self.audit(item)
+        item = legacy_run()
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        materialize_observation(root, item)
+        anchors = anchors_for(item)
+        write_observation_ledger(root, [item])
+        audit = audit_observation_ledger(root, load_runs(root), anchors)
         summary = evaluate(
             [item],
             config(),
@@ -732,14 +777,13 @@ class ReadTimeRunLedgerIntegrityTests(unittest.TestCase):
     def test_legacy_checksum_mismatch_is_non_blocking(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            item = run()
-            item["schemaVersion"] = "1.0.0"
-            item.pop("provenance")
+            item = legacy_run()
             materialize_observation(root, item)
+            anchors = anchors_for(item)
             generated = root / item["artifacts"]["generatedRoot"]
             (generated / "a-share-financial-summaries.generated.json").write_text('{"tampered":true}\n', encoding="utf-8")
             write_observation_ledger(root, [item])
-            audit = audit_observation_ledger(root, load_runs(root))
+            audit = audit_observation_ledger(root, load_runs(root), anchors)
             summary = evaluate(
                 [item],
                 config(),
@@ -750,6 +794,333 @@ class ReadTimeRunLedgerIntegrityTests(unittest.TestCase):
             self.assertFalse(audit["v2IntegrityFailure"])
             self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["legacyRuns"], 1)
             self.assertNotEqual(summary["status"], "blocked")
+
+
+class LegacyAnchorAndDowngradeTests(unittest.TestCase):
+    def audit_items(self, items, legacy_anchors):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        for item in items:
+            materialize_observation(root, item)
+        write_observation_ledger(root, items)
+        loaded = load_runs(root)
+        return root, loaded, audit_observation_ledger(root, loaded, legacy_anchors)
+
+    def summary(self, runs, audit):
+        return evaluate(
+            runs,
+            config(),
+            production(),
+            current_provenance={provider: provenance() for provider in PROVIDERS},
+            ledger_audit=audit,
+        )
+
+    def assert_legacy_blocked(self, runs, audit):
+        summary = self.summary(runs, audit)
+        self.assertEqual(summary["status"], "blocked")
+        self.assertIn("legacy_integrity_failure", summary["blockingFailures"])
+        return summary
+
+    # Anchored Legacy: 1-8
+    def test_anchored_legacy_config_unique(self):
+        anchors = load_legacy_anchors()
+        self.assertEqual(set(anchors), set(EXPECTED_LEGACY_PROVIDERS))
+        self.assertEqual(
+            {run_id: anchor["providerId"] for run_id, anchor in anchors.items()},
+            EXPECTED_LEGACY_PROVIDERS,
+        )
+
+    def test_canonical_digest_ignores_json_key_order_and_layout(self):
+        item = legacy_run()
+        reordered = {key: item[key] for key in reversed(list(item))}
+        reparsed = json.loads(json.dumps(reordered, ensure_ascii=False, indent=4))
+        self.assertEqual(canonical_record_sha256(item), canonical_record_sha256(reparsed))
+
+    def test_exact_anchor_enters_trusted_legacy(self):
+        item = legacy_run()
+        root, runs, _ = self.audit_items([item], {})
+        anchors = anchors_for(runs[0])
+        audit = audit_observation_ledger(root, runs, anchors)
+        summary = self.summary(runs, audit)
+        self.assertEqual(audit["trustedLegacyRunIds"], [item["runId"]])
+        self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["trustedLegacyRuns"], 1)
+        self.assertNotEqual(summary["status"], "blocked")
+
+    def test_anchor_provider_mismatch_rejected(self):
+        item = legacy_run()
+        anchors = anchors_for(item)
+        item["providerId"] = PROVIDERS[1]
+        item["domain"] = "announcements"
+        with self.assertRaisesRegex(ValueError, "providerId mismatch"):
+            validate_legacy_run(item, anchors)
+
+    def test_anchor_started_at_mismatch_rejected(self):
+        item = legacy_run()
+        anchors = anchors_for(item)
+        item["startedAt"] = "2026-07-02T00:00:00Z"
+        with self.assertRaisesRegex(ValueError, "startedAt mismatch"):
+            validate_legacy_run(item, anchors)
+
+    def test_anchor_digest_mismatch_rejected(self):
+        item = legacy_run()
+        anchors = anchors_for(item)
+        item["durationSeconds"] += 1
+        with self.assertRaisesRegex(ValueError, "canonicalRecordSha256 mismatch"):
+            validate_legacy_run(item, anchors)
+
+    def test_duplicate_anchor_run_id_rejected(self):
+        item = legacy_run()
+        anchor = {
+            "runId": item["runId"],
+            "providerId": item["providerId"],
+            "startedAt": item["startedAt"],
+            "canonicalRecordSha256": canonical_record_sha256(item),
+        }
+        with self.assertRaisesRegex(ValueError, "duplicate legacy anchor"):
+            validate_legacy_anchor_config({"schemaVersion": "1.0.0", "records": [anchor, copy.deepcopy(anchor)]})
+
+    def test_invalid_anchor_sha256_rejected(self):
+        item = legacy_run()
+        anchor = {
+            "runId": item["runId"],
+            "providerId": item["providerId"],
+            "startedAt": item["startedAt"],
+            "canonicalRecordSha256": "BAD",
+        }
+        with self.assertRaisesRegex(ValueError, "digest is invalid"):
+            validate_legacy_anchor_config({"schemaVersion": "1.0.0", "records": [anchor]})
+
+    # Schema Downgrade: 9-16
+    def test_schema_downgrade_only_version_blocked(self):
+        item = run()
+        item["schemaVersion"] = "1.0.0"
+        _, runs, audit = self.audit_items([item], {})
+        self.assertIn(item["runId"], audit["schemaDowngradeRunIds"])
+        self.assert_legacy_blocked(runs, audit)
+
+    def test_schema_downgrade_without_provenance_blocked(self):
+        item = run()
+        item["schemaVersion"] = "1.0.0"
+        item.pop("provenance")
+        _, runs, audit = self.audit_items([item], {})
+        self.assertIn(item["runId"], audit["schemaDowngradeRunIds"])
+        self.assert_legacy_blocked(runs, audit)
+
+    def test_schema_downgrade_without_eligible_sample_blocked(self):
+        item = run()
+        item["schemaVersion"] = "1.0.0"
+        item["metrics"].pop("eligibleSample")
+        _, runs, audit = self.audit_items([item], {})
+        self.assertIn(item["runId"], audit["schemaDowngradeRunIds"])
+        self.assert_legacy_blocked(runs, audit)
+
+    def test_failed_current_schema_downgrade_cannot_improve_qualified_denominator(self):
+        items = [run(provider, index) for provider in PROVIDERS for index in range(10)]
+        downgraded = run(PROVIDERS[0], 99, status="failed", failures=[failure("schema_drift")])
+        downgraded["schemaVersion"] = "1.0.0"
+        items.append(downgraded)
+        _, runs, audit = self.audit_items(items, {})
+        summary = self.assert_legacy_blocked(runs, audit)
+        self.assertEqual(summary["providers"][PROVIDERS[0]]["totalRuns"], 10)
+        self.assertIn(downgraded["runId"], summary["providers"][PROVIDERS[0]]["cohortAudit"]["incompatibleRunIds"])
+
+    def test_schema_downgrade_spoofing_anchor_run_id_blocked(self):
+        anchored = legacy_run(run_id="synthetic-legacy")
+        anchors = anchors_for(anchored)
+        forged = legacy_run(run_id=anchored["runId"])
+        forged["durationSeconds"] += 1
+        _, runs, audit = self.audit_items([forged], anchors)
+        self.assertIn(forged["runId"], audit["invalidLegacyRunIds"])
+        self.assert_legacy_blocked(runs, audit)
+
+    def test_schema_downgrade_spoofing_anchor_provider_or_started_at_blocked(self):
+        for field in ("providerId", "startedAt"):
+            with self.subTest(field=field):
+                anchored = legacy_run(run_id=f"synthetic-legacy-{field}")
+                anchors = anchors_for(anchored)
+                forged = copy.deepcopy(anchored)
+                if field == "providerId":
+                    forged["providerId"] = PROVIDERS[1]
+                    forged["domain"] = "announcements"
+                else:
+                    forged["startedAt"] = "2026-07-02T00:00:00Z"
+                    forged["endedAt"] = "2026-07-02T00:00:02Z"
+                _, runs, audit = self.audit_items([forged], anchors)
+                self.assertIn(forged["runId"], audit["invalidLegacyRunIds"])
+                self.assert_legacy_blocked(runs, audit)
+
+    def test_unknown_new_v1_run_blocked(self):
+        item = legacy_run(run_id="unknown-new-v1")
+        _, runs, audit = self.audit_items([item], {})
+        self.assertEqual(audit["unknownLegacyRunIds"], [item["runId"]])
+        self.assert_legacy_blocked(runs, audit)
+
+    def test_non_anchor_v1_not_counted_as_legacy_runs(self):
+        item = legacy_run(run_id="non-anchor-v1")
+        _, runs, audit = self.audit_items([item], {})
+        summary = self.assert_legacy_blocked(runs, audit)
+        cohort = summary["providers"][PROVIDERS[0]]["cohortAudit"]
+        self.assertEqual((cohort["trustedLegacyRuns"], cohort["legacyRuns"], cohort["incompatibleRuns"]), (0, 0, 1))
+
+    # Ledger truncation: 17-22
+    def prepared_established_ledger(self):
+        legacy_financial = legacy_run(PROVIDERS[0], 20, "synthetic-legacy-financial")
+        legacy_announcement = legacy_run(PROVIDERS[1], 21, "synthetic-legacy-announcement")
+        current = run(PROVIDERS[0], 22)
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        for item in (legacy_financial, legacy_announcement, current):
+            materialize_observation(root, item)
+        anchors = anchors_for(legacy_financial, legacy_announcement)
+        write_observation_ledger(root, [legacy_financial, legacy_announcement, current])
+        return root, legacy_financial, legacy_announcement, current, anchors
+
+    def test_missing_one_anchored_legacy_after_double_deletion_blocked(self):
+        root, first, second, current, anchors = self.prepared_established_ledger()
+        (root / "runs" / f"{first['runId']}.json").unlink()
+        write_observation_ledger(root, [second, current])
+        runs = load_runs(root)
+        audit = audit_observation_ledger(root, runs, anchors)
+        self.assertEqual(audit["missingLegacyAnchorRunIds"], [first["runId"]])
+        self.assert_legacy_blocked(runs, audit)
+
+    def test_ledger_double_deletion_detected(self):
+        root, first, second, current, anchors = self.prepared_established_ledger()
+        (root / "runs" / f"{first['runId']}.json").unlink()
+        (root / "runs" / f"{second['runId']}.json").unlink()
+        write_observation_ledger(root, [current])
+        runs = load_runs(root)
+        audit = audit_observation_ledger(root, runs, anchors)
+        self.assertEqual(set(audit["missingLegacyAnchorRunIds"]), {first["runId"], second["runId"]})
+        self.assert_legacy_blocked(runs, audit)
+
+    def test_empty_observation_root_compatible(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            audit = audit_observation_ledger(root, load_runs(root))
+        self.assertFalse(audit["evidenceIntegrityFailure"])
+        self.assertEqual(audit["missingLegacyAnchorRunIds"], [])
+
+    def test_empty_root_remains_insufficient_observation_window(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            runs = load_runs(root)
+            audit = audit_observation_ledger(root, runs)
+        summary = self.summary(runs, audit)
+        self.assertEqual((summary["status"], summary["observationDays"]), ("insufficient_observation_window", 0))
+
+    def test_run_file_without_ledger_blocked(self):
+        item = legacy_run(run_id="run-without-ledger")
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        materialize_observation(root, item)
+        anchors = anchors_for(item)
+        write_observation_ledger(root, [item])
+        (root / "provider-health-ledger.jsonl").unlink()
+        runs = load_runs(root)
+        audit = audit_observation_ledger(root, runs, anchors)
+        self.assert_legacy_blocked(runs, audit)
+
+    def test_ledger_without_run_file_blocked(self):
+        item = legacy_run(run_id="ledger-without-run")
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        materialize_observation(root, item)
+        anchors = anchors_for(item)
+        write_observation_ledger(root, [item])
+        (root / "runs" / f"{item['runId']}.json").unlink()
+        runs = load_runs(root)
+        audit = audit_observation_ledger(root, runs, anchors)
+        self.assert_legacy_blocked(runs, audit)
+
+    # Historical compatibility: 23-27
+    def legacy_artifact_mismatch(self):
+        item = legacy_run(run_id="legacy-artifact-mismatch")
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        materialize_observation(root, item)
+        anchors = anchors_for(item)
+        write_observation_ledger(root, [item])
+        generated = root / item["artifacts"]["generatedRoot"]
+        (generated / "a-share-financial-summaries.generated.json").write_text('{"tampered":true}\n', encoding="utf-8")
+        runs = load_runs(root)
+        return runs, audit_observation_ledger(root, runs, anchors)
+
+    def test_anchored_legacy_artifact_manifest_mismatch_remains_legacy_issue(self):
+        runs, audit = self.legacy_artifact_mismatch()
+        self.assertGreater(audit["legacyValidationIssueCount"], 0)
+        self.assertTrue(any(issue["category"] == "artifact_checksum_mismatch" for issue in audit["issues"]))
+        self.assertEqual(audit["trustedLegacyRunIds"], [runs[0]["runId"]])
+
+    def test_anchored_legacy_mismatch_not_v2_integrity_failure(self):
+        runs, audit = self.legacy_artifact_mismatch()
+        summary = self.summary(runs, audit)
+        self.assertFalse(audit["v2IntegrityFailure"])
+        self.assertFalse(audit["legacyIntegrityFailure"])
+        self.assertNotEqual(summary["status"], "blocked")
+
+    def test_anchored_legacy_excluded_from_current_denominator(self):
+        item = legacy_run(run_id="legacy-denominator")
+        _, runs, _ = self.audit_items([item], {})
+        anchors = anchors_for(runs[0])
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        materialize_observation(root, item)
+        write_observation_ledger(root, [item])
+        audit = audit_observation_ledger(root, load_runs(root), anchors)
+        summary = self.summary([item], audit)
+        provider = summary["providers"][PROVIDERS[0]]
+        self.assertEqual((provider["totalRuns"], provider["cohortAudit"]["trustedLegacyRuns"]), (0, 1))
+
+    def test_anchored_legacy_does_not_change_current_cohort_id(self):
+        item = legacy_run(run_id="legacy-cohort")
+        root, runs, _ = self.audit_items([item], {})
+        anchors = anchors_for(runs[0])
+        audit = audit_observation_ledger(root, runs, anchors)
+        summary = self.summary(runs, audit)
+        self.assertEqual(summary["providers"][PROVIDERS[0]]["cohortAudit"]["currentCohortId"], provenance()["provenanceCohortId"])
+
+    def test_inventory_current_legacy_incompatible_debug_unavailable(self):
+        target = provenance()
+        current = run(PROVIDERS[0], 0, provenance_value=copy.deepcopy(target))
+        incompatible = run(PROVIDERS[0], 1, provenance_value=provenance(providerCodeChecksum="9" * 64))
+        debug = run(PROVIDERS[0], 2, eligible=False, provenance_value=copy.deepcopy(target))
+        unavailable = unavailable_run(PROVIDERS[0], 3)
+        legacy = legacy_run(PROVIDERS[0], 4, "legacy-inventory")
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        items = [current, incompatible, debug, unavailable, legacy]
+        for item in items:
+            materialize_observation(root, item)
+        anchors = anchors_for(legacy)
+        write_observation_ledger(root, items)
+        runs = load_runs(root)
+        audit = audit_observation_ledger(root, runs, anchors)
+        summary = evaluate(
+            runs,
+            config(),
+            production(),
+            current_provenance={provider: copy.deepcopy(target) for provider in PROVIDERS},
+            ledger_audit=audit,
+        )
+        cohort = summary["providers"][PROVIDERS[0]]["cohortAudit"]
+        self.assertEqual(
+            (
+                cohort["currentEligibleRuns"],
+                cohort["trustedLegacyRuns"],
+                cohort["incompatibleRuns"],
+                cohort["debugRuns"],
+                cohort["provenanceUnavailableRuns"],
+            ),
+            (1, 1, 1, 1, 1),
+        )
 
 
 class ReadTimeResolutionIntegrityTests(unittest.TestCase):

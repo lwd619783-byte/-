@@ -16,6 +16,7 @@ from zoneinfo import ZoneInfo
 from jsonschema import Draft202012Validator, FormatChecker
 
 from . import ELIGIBILITY_STATUSES, GATE_SCHEMA_VERSION, LEGACY_SCHEMA_VERSIONS, RUN_STATUSES, SCHEMA_VERSION
+from .legacy import LEGACY_RUN_SCHEMA_VERSION, load_legacy_anchors, looks_like_schema_downgrade, validate_legacy_run
 from .provenance import COHORT_FIELDS, recordable_provenance, unavailable_provenance, valid_provenance
 
 SENSITIVE_KEY = re.compile(r"cookie|authorization|oauth|token|session|password|secret", re.I)
@@ -466,20 +467,52 @@ def tree_digest(paths: list[Path], relative_to: Path) -> str:
     return digest.hexdigest()
 
 
-def audit_observation_ledger(root: Path, runs: list[dict[str, Any]]) -> dict[str, Any]:
+def audit_observation_ledger(
+    root: Path,
+    runs: list[dict[str, Any]],
+    legacy_anchors: dict[str, dict[str, str]] | None = None,
+) -> dict[str, Any]:
     issues: list[dict[str, str]] = []
     invalid_run_ids: set[str] = set()
     invalid_v2_run_ids: set[str] = set()
     invalid_legacy_run_ids: set[str] = set()
+    unknown_legacy_run_ids: set[str] = set()
+    schema_downgrade_run_ids: set[str] = set()
+    missing_legacy_anchor_run_ids: set[str] = set()
+    trusted_legacy_run_ids: set[str] = set()
     unclassifiable_run_ids: set[str] = set()
     validated_run_ids: set[str] = set()
+    validated_run_legacy_ids: set[str] = set()
+    validated_ledger_legacy_ids: set[str] = set()
     ledger_path = root / "provider-health-ledger.jsonl"
     ledger_rows: list[dict[str, Any]] = []
+    anchor_config_failure = False
+
+    if legacy_anchors is None:
+        try:
+            legacy_anchors = load_legacy_anchors()
+        except ValueError as exc:
+            legacy_anchors = {}
+            anchor_config_failure = True
+            issues.append({
+                "runId": "legacy-anchor-config",
+                "category": "legacy_anchor_config_invalid",
+                "message": str(exc),
+            })
 
     def identity(value: Any, fallback: str) -> str:
         if isinstance(value, dict) and isinstance(value.get("runId"), str):
             return value["runId"]
         return fallback
+
+    def classify_legacy_invalid(value: Any, run_id: str) -> None:
+        invalid_run_ids.add(run_id)
+        if looks_like_schema_downgrade(value):
+            schema_downgrade_run_ids.add(run_id)
+        if run_id in legacy_anchors:
+            invalid_legacy_run_ids.add(run_id)
+        else:
+            unknown_legacy_run_ids.add(run_id)
 
     def classify_invalid(value: Any, run_id: str) -> None:
         invalid_run_ids.add(run_id)
@@ -487,13 +520,14 @@ def audit_observation_ledger(root: Path, runs: list[dict[str, Any]]) -> dict[str
         if schema_version == SCHEMA_VERSION:
             invalid_v2_run_ids.add(run_id)
         elif schema_version in LEGACY_SCHEMA_VERSIONS:
-            invalid_legacy_run_ids.add(run_id)
+            classify_legacy_invalid(value, run_id)
         else:
             unclassifiable_run_ids.add(run_id)
 
-    def add_issue(value: Any, run_id: str, category: str, message: str) -> None:
+    def add_issue(value: Any, run_id: str, category: str, message: str, *, invalidate: bool = True) -> None:
         issues.append({"runId": run_id, "category": category, "message": message})
-        classify_invalid(value, run_id)
+        if invalidate:
+            classify_invalid(value, run_id)
 
     if ledger_path.exists():
         try:
@@ -523,6 +557,12 @@ def audit_observation_ledger(root: Path, runs: list[dict[str, Any]]) -> dict[str
         try:
             validate_run(run)
             validated_run_ids.add(run_id)
+            if run.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS:
+                try:
+                    validate_legacy_run(run, legacy_anchors)
+                    validated_run_legacy_ids.add(run_id)
+                except (TypeError, ValueError, KeyError) as exc:
+                    add_issue(run, run_id, "legacy_run_validation_error", str(exc))
         except (TypeError, ValueError, KeyError) as exc:
             add_issue(run, run_id, "run_validation_error", str(exc))
 
@@ -532,6 +572,12 @@ def audit_observation_ledger(root: Path, runs: list[dict[str, Any]]) -> dict[str
         ledger_rows_by_id.setdefault(run_id, []).append(row)
         try:
             validate_run(row)
+            if row.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS:
+                try:
+                    validate_legacy_run(row, legacy_anchors)
+                    validated_ledger_legacy_ids.add(run_id)
+                except (TypeError, ValueError, KeyError) as exc:
+                    add_issue(row, run_id, "legacy_ledger_validation_error", str(exc))
         except (TypeError, ValueError, KeyError) as exc:
             add_issue(row, run_id, "ledger_row_validation_error", str(exc))
 
@@ -552,6 +598,37 @@ def audit_observation_ledger(root: Path, runs: list[dict[str, Any]]) -> dict[str
         ledger_matches = ledger_rows_by_id.get(run_id, [])
         if len(ledger_matches) != 1 or ledger_matches[0] != run:
             add_issue(run, run_id, "ledger_mismatch", "run file and ledger row differ")
+
+    has_historical_evidence = bool(runs or ledger_rows)
+    if has_historical_evidence:
+        for run_id, anchor in legacy_anchors.items():
+            run_matches = run_rows_by_id.get(run_id, [])
+            ledger_matches = ledger_rows_by_id.get(run_id, [])
+            if len(run_matches) != 1 or len(ledger_matches) != 1:
+                missing_legacy_anchor_run_ids.add(run_id)
+                add_issue(
+                    {"schemaVersion": LEGACY_RUN_SCHEMA_VERSION, **anchor},
+                    run_id,
+                    "legacy_anchor_missing",
+                    "anchored legacy run must exist exactly once in run files and ledger",
+                )
+
+    for run_id in legacy_anchors:
+        run_matches = run_rows_by_id.get(run_id, [])
+        ledger_matches = ledger_rows_by_id.get(run_id, [])
+        if (
+            len(run_matches) == 1
+            and len(ledger_matches) == 1
+            and ledger_matches[0] == run_matches[0]
+            and run_id in validated_run_ids
+            and run_id in validated_run_legacy_ids
+            and run_id in validated_ledger_legacy_ids
+            and run_id not in invalid_run_ids
+        ):
+            trusted_legacy_run_ids.add(run_id)
+
+    for index, run in enumerate(runs):
+        run_id = identity(run, f"invalid-run-{index}")
         if run_id not in validated_run_ids:
             continue
         generated_relative = run.get("artifacts", {}).get("generatedRoot")
@@ -567,20 +644,52 @@ def audit_observation_ledger(root: Path, runs: list[dict[str, Any]]) -> dict[str
             actual_artifact = tree_digest([generated_root], generated_root)
             expected_artifact = run.get("metrics", {}).get("artifactChecksum")
             if actual_artifact != expected_artifact:
-                add_issue(run, run_id, "artifact_checksum_mismatch", "isolated artifact checksum differs from run record")
+                add_issue(
+                    run,
+                    run_id,
+                    "artifact_checksum_mismatch",
+                    "isolated artifact checksum differs from run record",
+                    invalidate=run_id not in trusted_legacy_run_ids,
+                )
             detail_name = "a-share-financials" if run.get("providerId") == "a-share-financials" else "a-share-announcements"
             manifest_path = generated_root / detail_name / "manifest.generated.json"
             actual_manifest = file_digest(manifest_path)
             expected_manifest = run.get("metrics", {}).get("manifestChecksum")
             if actual_manifest != expected_manifest:
-                add_issue(run, run_id, "manifest_checksum_mismatch", "isolated manifest checksum differs from run record")
+                add_issue(
+                    run,
+                    run_id,
+                    "manifest_checksum_mismatch",
+                    "isolated manifest checksum differs from run record",
+                    invalidate=run_id not in trusted_legacy_run_ids,
+                )
         except (OSError, ValueError) as exc:
-            add_issue(run, run_id, "artifact_unreadable", str(exc))
+            add_issue(
+                run,
+                run_id,
+                "artifact_unreadable",
+                str(exc),
+                invalidate=run_id not in trusted_legacy_run_ids,
+            )
     for run_id in sorted(set(ledger_rows_by_id) - run_ids):
         for row in ledger_rows_by_id[run_id]:
             add_issue(row, run_id, "orphan_ledger_row", "ledger row has no run file")
 
     v2_integrity_failure = bool(invalid_v2_run_ids or unclassifiable_run_ids)
+    legacy_integrity_failure = bool(
+        anchor_config_failure
+        or invalid_legacy_run_ids
+        or unknown_legacy_run_ids
+        or schema_downgrade_run_ids
+        or missing_legacy_anchor_run_ids
+    )
+    legacy_issue_run_ids = (
+        set(legacy_anchors)
+        | trusted_legacy_run_ids
+        | invalid_legacy_run_ids
+        | unknown_legacy_run_ids
+        | schema_downgrade_run_ids
+    )
     return {
         "runFileCount": len(runs),
         "ledgerRowCount": len(ledger_rows),
@@ -588,13 +697,19 @@ def audit_observation_ledger(root: Path, runs: list[dict[str, Any]]) -> dict[str
         "issues": issues,
         "invalidRunIds": sorted(invalid_run_ids),
         "invalidV2RunIds": sorted(invalid_v2_run_ids),
+        "trustedLegacyRunIds": sorted(trusted_legacy_run_ids),
         "invalidLegacyRunIds": sorted(invalid_legacy_run_ids),
+        "unknownLegacyRunIds": sorted(unknown_legacy_run_ids),
+        "schemaDowngradeRunIds": sorted(schema_downgrade_run_ids),
+        "missingLegacyAnchorRunIds": sorted(missing_legacy_anchor_run_ids),
         "unclassifiableRunIds": sorted(unclassifiable_run_ids),
         "runValidationIssueCount": sum(issue["category"] == "run_validation_error" for issue in issues),
         "legacyValidationIssueCount": sum(
-            issue["runId"] in invalid_legacy_run_ids for issue in issues
+            issue["runId"] in legacy_issue_run_ids for issue in issues
         ),
         "v2IntegrityFailure": v2_integrity_failure,
+        "legacyIntegrityFailure": legacy_integrity_failure,
+        "evidenceIntegrityFailure": v2_integrity_failure or legacy_integrity_failure,
     }
 
 
@@ -691,36 +806,42 @@ def evaluate(
     targets = _current_targets(runs, config["providers"], current_provenance)
     invalid_run_ids = set((ledger_audit or {}).get("invalidRunIds", []))
     invalid_v2_run_ids = set((ledger_audit or {}).get("invalidV2RunIds", []))
+    trusted_legacy_run_ids = set((ledger_audit or {}).get("trustedLegacyRunIds", []))
     grouped: dict[str, list[dict[str, Any]]] = {}
     inventory: dict[str, dict[str, Any]] = {}
-    evidence_integrity_blocked = bool((ledger_audit or {}).get("v2IntegrityFailure"))
+    v2_integrity_blocked = bool((ledger_audit or {}).get("v2IntegrityFailure"))
+    legacy_integrity_blocked = bool((ledger_audit or {}).get("legacyIntegrityFailure"))
     for provider_id in config["providers"]:
         target = targets.get(provider_id)
         target_cohort = target.get("provenanceCohortId") if valid_provenance(target) else None
         buckets = {"current": [], "legacy": [], "incompatible": [], "debug": [], "provenanceUnavailable": []}
         for run in [item for item in runs if item.get("providerId") == provider_id]:
             if run.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS:
-                buckets["legacy"].append(run)
+                if run.get("runId") in trusted_legacy_run_ids and run.get("runId") not in invalid_run_ids:
+                    buckets["legacy"].append(run)
+                else:
+                    buckets["incompatible"].append(run)
+                    legacy_integrity_blocked = True
             elif (
                 run.get("schemaVersion") != SCHEMA_VERSION
                 or run.get("runId") in invalid_v2_run_ids
             ):
                 buckets["incompatible"].append(run)
-                evidence_integrity_blocked = True
+                v2_integrity_blocked = True
             elif run.get("runId") in invalid_run_ids:
                 buckets["incompatible"].append(run)
-                evidence_integrity_blocked = True
+                v2_integrity_blocked = True
             elif unavailable_provenance(run.get("provenance")):
                 try:
                     validate_run(run)
                 except (TypeError, ValueError, KeyError):
                     buckets["incompatible"].append(run)
-                    evidence_integrity_blocked = True
+                    v2_integrity_blocked = True
                 else:
                     buckets["provenanceUnavailable"].append(run)
             elif not valid_provenance(run.get("provenance")):
                 buckets["incompatible"].append(run)
-                evidence_integrity_blocked = True
+                v2_integrity_blocked = True
             elif run.get("metrics", {}).get("eligibleSample") is False:
                 buckets["debug"].append(run)
             elif not target_cohort or run.get("provenance", {}).get("provenanceCohortId") != target_cohort or run.get("provenance", {}).get("stockUniverseIdentityCount") != config["expectedCompanies"]:
@@ -730,6 +851,7 @@ def evaluate(
         grouped[provider_id] = buckets["current"]
         inventory[provider_id] = {
             "currentEligibleRuns": len(buckets["current"]),
+            "trustedLegacyRuns": len(buckets["legacy"]),
             "legacyRuns": len(buckets["legacy"]),
             "incompatibleRuns": len(buckets["incompatible"]),
             "debugRuns": len(buckets["debug"]),
@@ -758,8 +880,10 @@ def evaluate(
     all_days = {datetime.fromisoformat(run["startedAt"].replace("Z", "+00:00")).astimezone(ZoneInfo(config["timezone"])).date().isoformat() for run in eligible_runs}
     effective = effective_failure_rows(eligible_runs, compatible_resolutions)
     blocking = sorted({row["category"] for row in effective if not row["effectiveResolved"] and row["category"] in BLOCKING_FAILURES})
-    if evidence_integrity_blocked and "checksum_mismatch" not in blocking:
+    if v2_integrity_blocked and "checksum_mismatch" not in blocking:
         blocking.append("checksum_mismatch")
+    if legacy_integrity_blocked and "legacy_integrity_failure" not in blocking:
+        blocking.append("legacy_integrity_failure")
     if resolution_audit["integrityFailure"] and "resolution_integrity_failure" not in blocking:
         blocking.append("resolution_integrity_failure")
     if current_provenance_failures and "provenance_unavailable" not in blocking:

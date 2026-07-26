@@ -62,9 +62,11 @@ OBSERVATION_TOOL_FILES = [
     "scripts/provider-health.py",
     "scripts/provider_observability/__init__.py",
     "scripts/provider_observability/core.py",
+    "scripts/provider_observability/legacy.py",
     "scripts/provider_observability/production.py",
     "scripts/provider_observability/provenance.py",
     "scripts/data-audit.mjs",
+    "config/provider-observation-legacy-v1-anchors.json",
     "config/provider-observation-run.schema.json",
     "package.json",
 ]
