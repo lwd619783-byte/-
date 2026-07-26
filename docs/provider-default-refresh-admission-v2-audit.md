@@ -2,7 +2,7 @@
 
 ## 1. 一句话结论
 
-`a-share-financials` 与 `a-share-announcements` 的独立结论均为 **NO_GO**。provenance recordability 回归修复后的唯一一次真实隔离运行中，两家 Provider 均成功、56/56 覆盖、结构校验通过、生产数据未变化；但新的 V2 provenance cohort 各只有 1 次运行、1 个 Asia/Shanghai 自然日，未达到 5 个自然日、每家 10 次运行、5 个成功日的硬门槛。此前两代 V2 因 observation tool checksum 变化转为 incompatible；旧 V1 记录缺少准入所需 provenance，且其隔离产物重算 checksum 与账本记录不一致，只能作为 legacy 证据保留。
+`a-share-financials` 与 `a-share-announcements` 的独立结论均为 **NO_GO**。legacy 身份锚定修复后的唯一一次真实隔离运行中，两家 Provider 均成功、56/56 覆盖、结构校验通过、生产数据未变化；但新的 V2 provenance cohort 各只有 1 次运行、1 个 Asia/Shanghai 自然日，未达到 5 个自然日、每家 10 次运行、5 个成功日的硬门槛。此前三代 V2 因 observation tool checksum 变化转为 incompatible；两条旧 V1 只有完整对象与 committed canonical digest 精确匹配时才是 trusted legacy，不能再依赖记录自报的 `schemaVersion`。
 
 本结论不改变默认刷新：即使未来 Gate 达标，也必须另开独立任务审查默认刷新接入。
 
@@ -13,7 +13,8 @@
 - V2 provenance 代码提交：`cca33f62f19eb83c24a9d0747a73813b790ac7c1`
 - 账本完整性修复提交：`68ff5d54bf092d546c88f3ebf489ac9139b373f0`
 - provenance 保留修复提交：`0aaa64488be6ab03fe12277842b60c6e21be3539`
-- 新真实观察日期：2026-07-23（Asia/Shanghai）
+- schema downgrade / legacy anchoring 修复提交：`0578c0f8e6426deffd20d029c0fa5ea1a1708d7e`
+- 新真实观察日期：2026-07-26（Asia/Shanghai）
 - 观察时间记录使用 UTC 精确时刻，跨日统计统一转换到 `Asia/Shanghai`。
 - 本地既存 `AGENTS.md` 始终保持未跟踪，未修改、未暂存、未提交。
 
@@ -57,7 +58,7 @@ V2 没有降低或改写这些数值；Gate 配置仍使用 `schemaVersion=1.0.0
 - 每条 run 引用的 `artifacts/<run-id>/generated/`
 - 两家 Provider 的隔离 cache
 
-共读取 8 个 run 文件和 8 条 ledger 记录；runId 无重复、无 orphan ledger row、无缺失 ledger row。运行文件与 JSONL 对应行逐对象一致。所有本地观察内容仍由 `.gitignore` 排除。
+共读取 10 个 run 文件和 10 条 ledger 记录；runId 无重复、无 orphan ledger row、无缺失 ledger row。运行文件与 JSONL 对应行逐对象一致。所有本地观察内容仍由 `.gitignore` 排除。
 
 ## 6. 原始账本重算结果
 
@@ -69,6 +70,15 @@ V2 没有降低或改写这些数值；Gate 配置仍使用 `schemaVersion=1.0.0
 | announcements | `20260712T035326Z-a-share-announcements-10d36e4e` | `90494cb5…ffe4` | `8c1339dc…dae` | `eb5ec25b…eda` | `d11a9f5…011` |
 
 旧记录还缺少 `beforeChecksum`、`afterChecksum` 和 `eligibleSample` 的显式值，并在 `command` 中保存本机绝对路径。这些问题不篡改旧账本、不反向补值，只决定其不能进入 V2 准入 cohort。
+
+本轮新增 `config/provider-observation-legacy-v1-anchors.json`。它只提交稳定身份和解析后完整 JSON 对象的 canonical SHA-256，不提交旧 run 原文、绝对路径或响应内容：
+
+| Provider | runId | startedAt | canonicalRecordSha256 |
+|---|---|---|---|
+| a-share-financials | `20260712T035210Z-a-share-financials-7a8b6917` | `2026-07-12T03:52:11Z` | `5605d582105da19e7de99c2dc82b521c3fc126bab0e44052435158a57dd738ac` |
+| a-share-announcements | `20260712T035326Z-a-share-announcements-10d36e4e` | `2026-07-12T03:53:26Z` | `bb202daab9afb2ef5bd2a3e89e5d3ffad86794f1ea8f3e4c1a2316d8a270ef3d` |
+
+`validate_legacy_run()` 同时核对 schema、runId、Provider、startedAt、canonical digest、run/ledger 对象一致性、两侧唯一性和敏感信息。只有全部匹配才进入 `trustedLegacyRunIds`；已知 runId 但身份、摘要、重复或两侧状态不符进入 `invalidLegacyRunIds`；非 anchor 的新 V1 进入 `unknownLegacyRunIds`；仍带 V2 provenance、eligible 或 before/after 特征的自报 V1 另列入 `schemaDowngradeRunIds`。后三类均触发 `legacy_integrity_failure` 并使 Gate fail-closed。
 
 ## 7. V2 provenance 契约
 
@@ -102,17 +112,17 @@ V2 没有降低或改写这些数值；Gate 配置仍使用 `schemaVersion=1.0.0
 健康汇总把证据分成：
 
 - current compatible eligible cohort；
-- legacy V1；
+- trusted legacy V1；
 - incompatible V2；
 - explicit debug/ineligible。
 - structured provenance-unavailable ineligible。
 
-只有与当前代码、抓取器、validator、股票池、Gate、生产基线、依赖和观察工具完全一致的 V2 cohort 才进入统计。不同 cohort 不混算；财务与公告不混算；debug 和 provenance-unavailable 均不混算。旧 V1 与此前两代 V2 均未删除或改写；旧 V2 因 `observationToolChecksum` 属于旧实现而自动转入 incompatible：
+只有与当前代码、抓取器、validator、股票池、Gate、生产基线、依赖和观察工具完全一致的 V2 cohort 才进入统计。不同 cohort 不混算；财务与公告不混算；debug 和 provenance-unavailable 均不混算。旧 V1 与此前三代 V2 均未删除或改写；旧 V2 因 `observationToolChecksum` 属于旧实现而自动转入 incompatible：
 
-- 财务：`20260723T044630Z-a-share-financials-4e41a061`、`20260723T100643Z-a-share-financials-18164538`
-- 公告：`20260723T044634Z-a-share-announcements-b75efa09`、`20260723T100647Z-a-share-announcements-2533e149`
+- 财务：`20260723T044630Z-a-share-financials-4e41a061`、`20260723T100643Z-a-share-financials-18164538`、`20260723T130244Z-a-share-financials-ff9b2a32`
+- 公告：`20260723T044634Z-a-share-announcements-b75efa09`、`20260723T100647Z-a-share-announcements-2533e149`、`20260723T130247Z-a-share-announcements-c0891e61`
 
-旧 V1 仍可读取和审计，但只进入 `legacyRuns`；其历史 checksum 差异继续展示，但不阻断新的 current cohort。
+两条精确锚定的旧 V1 仍可读取和审计，只进入 `trustedLegacyRuns`（兼容别名 `legacyRuns`）；其 4 条历史 artifact/manifest checksum issue 继续计入 `legacyValidationIssueCount`，但不触发 V2 或 legacy integrity failure，也不阻断新的 current cohort。
 
 ## 9. Resolution Ledger 审计
 
@@ -134,15 +144,17 @@ V2 新增以下硬约束：
 - V2 run/ledger 不一致、无效 schema/provenance、产物或 manifest checksum 不一致、路径越界、缺失产物、orphan、重复 ID，或无法安全分类的损坏记录，都会使 evidence integrity fail-closed；损坏失败样本不能通过“退出分母”提升资格。
 - 旧 V1 checksum 差异仍作为 `legacyValidationIssueCount=4` 展示，既不伪装为 current，也不因历史格式问题阻断新的 V2 cohort。
 - `AGENTS.md` 工作树例外收紧为唯一精确原始 porcelain 行 `?? AGENTS.md`；tracked、staged、renamed、deleted、nested 或其他未跟踪文件均拒绝。`--allow-dirty-debug` 仍只产生 ineligible sample。
+- V1 身份不能由自报 `schemaVersion=1.0.0` 决定；正常或失败 V2 只改版本、删除 provenance、删除 eligible，或冒用真实 legacy runId/provider/startedAt，只要完整对象 digest 不匹配 anchor 就会 blocked，不能通过退出失败率分母获得资格。
+- 一旦 observation root 含任一历史 run，两个 committed anchor 都必须在 run 文件集合和 ledger 中各出现一次。成对删除一条或两条、仅保留 run、仅保留 ledger 都视为历史截断并 blocked；真正不存在或 runs/ledger 均为空的新环境不报完整性损坏，只返回观察窗口不足。
 
 ## 10. 财务 Provider 独立统计
 
-当前 cohort：`51f076b34814c6b8544e3d520030594a4ea5ce18575bef82c9d634a24a8725a9`
+当前 cohort：`15190d59d05f46e1137e3ee509288bf9369e1b417991c73c2a14c0e090ea608d`
 
 | 指标 | 结果 |
 |---|---:|
 | current eligible runs | 1 |
-| legacy / incompatible / debug / provenance unavailable | 1 / 2 / 0 / 0 |
+| trusted legacy / incompatible / debug / provenance unavailable | 1 / 3 / 0 / 0 |
 | 不同自然日 / 成功日 | 1 / 1 |
 | success / partial / failed runs | 1 / 0 / 0 |
 | complete / total success rate | 100% / 100% |
@@ -150,29 +162,29 @@ V2 新增以下硬约束：
 | 公司覆盖 | 56/56 |
 | 结构校验率 | 100% |
 | 未解决失败 | 0 |
-| 时长 | 1.314 秒 |
+| 时长 | 1.162 秒 |
 
 旧 V1 成功结果不再计入上述分子或分母。
 
 ## 11. 公告 Provider 独立统计
 
-当前 cohort：`e91f35bbc842a12d25daf0a6ebac1271c6fdd1fdb0f9b5055f3ec252d54dffb7`
+当前 cohort：`c062e93cff0b56f9d7c893ff02820364cff8d3cb10c8440f4d30d97e58188f49`
 
 | 指标 | 结果 |
 |---|---:|
 | current eligible runs | 1 |
-| legacy / incompatible / debug / provenance unavailable | 1 / 2 / 0 / 0 |
+| trusted legacy / incompatible / debug / provenance unavailable | 1 / 3 / 0 / 0 |
 | 不同自然日 / 成功日 | 1 / 1 |
 | success / partial / failed runs | 1 / 0 / 0 |
 | complete / total success rate | 100% / 100% |
 | 最新 run | success |
 | 公司覆盖 | 56/56 |
 | 公司层 success / partial / error | 26 / 30 / 0 |
-| 公告总数 | 15,670 |
-| 最新公告日 | 2026-07-23 |
+| 公告总数 | 15,652 |
+| 最新公告日 | 2026-07-25 |
 | 结构校验率 | 100% |
 | 未解决失败 | 0 |
-| 时长 | 1.730 秒 |
+| 时长 | 302.038 秒 |
 
 公司层 `partial` 表示部分 PDF 正文解析不完整；本轮 56 家均有真实状态、artifact validator 通过且无 run-level failure，因此 run 状态为 success。该语义未被用来放宽准入天数或运行数。
 
@@ -188,10 +200,10 @@ npm run data:observe:providers
 
 新 run：
 
-- 财务：`20260723T130244Z-a-share-financials-ff9b2a32`
-- 公告：`20260723T130247Z-a-share-announcements-c0891e61`
-- 两条 `sourceCommitSha`：`0aaa64488be6ab03fe12277842b60c6e21be3539`
-- 两条 `observationToolChecksum`：`7eb4847c48f41100b96da0ccf7f729dc69d053e858fed85e2ac4e90f9cc7e6dc`
+- 财务：`20260726T111809Z-a-share-financials-7847e016`
+- 公告：`20260726T111812Z-a-share-announcements-49e125e2`
+- 两条 `sourceCommitSha`：`0578c0f8e6426deffd20d029c0fa5ea1a1708d7e`
+- 两条 `observationToolChecksum`：`cf771bfbcb6ea63a0cbf43ff0b12d1f0a002a1a7ed41de5f5d0bfb22158c1aaa`
 - 两条均 `eligibleSample=true`、`status=success`、`exitCode=0`
 - 未重试观察任务，没有人工修改 run、ledger、summary 或隔离产物。
 
@@ -212,7 +224,7 @@ afterChecksum  = af8b9d0ee07f3f4b1ca9c830545e67cb80f50b621c632b6d5b8d3c68c74096d
 
 已满足：最新成功、56/56、结构 100%、两个成功率 100%、未解决失败 0、生产 validator 通过、生产未变化、V2 provenance 完整。
 
-未满足：仅 1/5 个自然日、1/10 次运行、1/5 个成功日。至少还缺 4 个不同自然日、9 次 current-cohort 运行、4 个成功日。假设 cohort 不变、后续样本真实独立且门槛全部持续通过，最早可在 2026-07-27（Asia/Shanghai）重新评估。
+未满足：仅 1/5 个自然日、1/10 次运行、1/5 个成功日。至少还缺 4 个不同自然日、9 次 current-cohort 运行、4 个成功日。假设 cohort 不变、后续样本真实独立且门槛全部持续通过，最早可在 2026-07-30（Asia/Shanghai）重新评估。
 
 `GO_WITH_LIMITS` 不适用：它不能掩盖观察窗口和运行数不足。
 
@@ -222,7 +234,7 @@ afterChecksum  = af8b9d0ee07f3f4b1ca9c830545e67cb80f50b621c632b6d5b8d3c68c74096d
 
 已满足：最新成功、56/56、结构 100%、两个成功率 100%、未解决失败 0、生产 validator 通过、生产未变化、V2 provenance 完整。
 
-未满足：仅 1/5 个自然日、1/10 次运行、1/5 个成功日。至少还缺 4 个不同自然日、9 次 current-cohort 运行、4 个成功日。假设 cohort 不变、后续样本真实独立且门槛全部持续通过，最早可在 2026-07-27（Asia/Shanghai）重新评估。
+未满足：仅 1/5 个自然日、1/10 次运行、1/5 个成功日。至少还缺 4 个不同自然日、9 次 current-cohort 运行、4 个成功日。假设 cohort 不变、后续样本真实独立且门槛全部持续通过，最早可在 2026-07-30（Asia/Shanghai）重新评估。
 
 `GO_WITH_LIMITS` 不适用：正文解析 partial 的产品限制可以继续披露，但不能替代跨日稳定性样本。
 
@@ -238,7 +250,7 @@ npm run data:refresh:eligibility
 
 下一轮只应继续积累同一 current provenance cohort 的真实隔离样本，并在每次运行后执行 health 与 strict eligibility：
 
-1. 至少覆盖 2026-07-24、25、26、27 四个新增 Asia/Shanghai 自然日；
+1. 至少覆盖 2026-07-27、28、29、30 四个新增 Asia/Shanghai 自然日；
 2. 每家再积累至少 9 次运行，且至少 4 个新增成功日；
 3. 每次运行前仅允许精确原始 porcelain 行 `?? AGENTS.md`，其他工作树变化必须拒绝或显式作为 debug 排除；
 4. 如代码、validator、股票池、Gate、依赖或生产基线改变，自动形成新 cohort，旧 V2 run 转为 incompatible，不得混算；
@@ -261,7 +273,7 @@ npm run data:refresh:eligibility
 
 最终验收结果：
 
-- `npm run test:provider-observability`：168/168 通过；
+- `npm run test:provider-observability`：195/195 通过，其中新增 27 个 anchored legacy、schema downgrade、账本截断和历史兼容场景；
 - `npm run test:financials:a`：18/18 通过；
 - `npm run data:validate:financials:a`：passed，56/56，56 success、0 partial、0 error；
 - `npm run test:announcements:a`：26/26 通过；
@@ -270,12 +282,12 @@ npm run data:refresh:eligibility
 - `node scripts/generate-company-guidance-expectations.mjs --check`：passed，59 个 committed artifacts 逐字节一致，mismatches=0；
 - `npm run data:validate:expectations:company-guidance`：passed，56 家状态文件、56 个快照、15 家有快照；
 - `npm run test:expectations:institution-consensus-probe`：65/65 通过；
-- `npm run data:health:providers`：生产校验通过，两家 inventory 均为 current / legacy / incompatible / debug / provenance unavailable = 1 / 1 / 2 / 0 / 0，current cohort 各 1 run / 1 day / 1 successful day；
+- `npm run data:health:providers`：生产校验通过，两家 inventory 均为 current / trusted legacy / incompatible / debug / provenance unavailable = 1 / 1 / 3 / 0 / 0，current cohort 各 1 run / 1 day / 1 successful day；trusted / unknown / invalid / downgrade / missing legacy = 2 / 0 / 0 / 0 / 0；
 - `npm run data:refresh:eligibility`：预期非零，npm=1、Gate=2，`insufficient_observation_window`；
 - `npm run data:audit`：P0=0、errors=0、warnings=24、exit=0；
 - `npm run test`：30 个测试文件、498/498 通过；
 - `npm run build`：通过；bundle budget 通过；Vite 既有大 chunk warning 未升级为错误；
 - `git diff --check`：通过；
-- 开始与结束 `env:check` 及 JSON 均为 40 PASS / 6 WARN / 0 FAIL / 4 SKIP。
+- 开始与结束 `env:check` 及 JSON 均为 38 PASS / 8 WARN / 0 FAIL / 4 SKIP。
 
 env WARN 均为既有环境/工作流提示；本轮没有新增 FAIL。两条新 run 的正式生产树 before/after checksum 均为 `af8b9d0ee07f3f4b1ca9c830545e67cb80f50b621c632b6d5b8d3c68c74096d0`。正式财务、公告、公司指引产物、App、registry、默认刷新、Provider runtime 和 Stability Gate 配置相对基线均无差异；`.provider-observations/` 仍被 Git 忽略，`AGENTS.md` 仍未跟踪。自动机构一致预期继续 `not_implemented`，正式自动记录为 0，既有 NO_GO 不变。
