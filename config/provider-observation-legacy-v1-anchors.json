@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "records": [
+    {
+      "runId": "20260712T035210Z-a-share-financials-7a8b6917",
+      "providerId": "a-share-financials",
+      "startedAt": "2026-07-12T03:52:11Z",
+      "canonicalRecordSha256": "5605d582105da19e7de99c2dc82b521c3fc126bab0e44052435158a57dd738ac"
+    },
+    {
+      "runId": "20260712T035326Z-a-share-announcements-10d36e4e",
+      "providerId": "a-share-announcements",
+      "startedAt": "2026-07-12T03:53:26Z",
+      "canonicalRecordSha256": "bb202daab9afb2ef5bd2a3e89e5d3ffad86794f1ea8f3e4c1a2316d8a270ef3d"
+    }
+  ]
+}

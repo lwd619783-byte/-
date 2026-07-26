@@ -396,13 +396,18 @@ export function detectProviderObservabilityRisks(rootPath) {
   const runnerPath = path.join(rootPath, "scripts/observe-providers.py");
   const healthPath = path.join(rootPath, "scripts/provider-health.py");
   const corePath = path.join(rootPath, "scripts/provider_observability/core.py");
+  const legacyPath = path.join(rootPath, "scripts/provider_observability/legacy.py");
+  const provenancePath = path.join(rootPath, "scripts/provider_observability/provenance.py");
+  const rootStatePath = path.join(rootPath, "scripts/provider_observability/root_state.py");
   const productionPath = path.join(rootPath, "scripts/provider_observability/production.py");
+  const legacyAnchorPath = path.join(rootPath, "config/provider-observation-legacy-v1-anchors.json");
+  const rootStateSchemaPath = path.join(rootPath, "config/provider-observation-root.schema.json");
   const schemaPath = path.join(rootPath, "config/provider-observation-run.schema.json");
   const testPath = path.join(rootPath, "scripts/tests/test_provider_observability.py");
   const packagePath = path.join(rootPath, "package.json");
   const ignorePath = path.join(rootPath, ".gitignore");
   const ciPath = path.join(rootPath, ".github/workflows/ci.yml");
-  if ([configPath, runnerPath, healthPath, corePath, productionPath, schemaPath, testPath].some((file) => !fs.existsSync(file))) {
+  if ([configPath, runnerPath, healthPath, corePath, legacyPath, provenancePath, rootStatePath, productionPath, legacyAnchorPath, rootStateSchemaPath, schemaPath, testPath].some((file) => !fs.existsSync(file))) {
     add(findings, "P0", "provider-observability", "provider-observability-files-missing", "Provider stability gate files are incomplete", ["a-share-financials", "announcements"], "Add the config, isolated runner, health evaluator and offline tests");
     return findings;
   }
@@ -411,6 +416,37 @@ export function detectProviderObservabilityRisks(rootPath) {
     if (config.schemaVersion !== "1.0.0" || config.minimumDistinctDays < 5 || config.minimumRunsPerProvider < 10 || config.minimumSuccessfulDaysPerProvider < 5 || config.expectedCompanies !== 56) add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config weakens the V1 minimum window", ["a-share-financials", "announcements"], "Restore the documented minimum observation thresholds");
   } catch {
     add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config is invalid JSON", ["a-share-financials", "announcements"], "Commit valid UTF-8 JSON config");
+  }
+  try {
+    const anchors = JSON.parse(fs.readFileSync(legacyAnchorPath, "utf8"));
+    const expectedProviders = new Map([
+      ["20260712T035210Z-a-share-financials-7a8b6917", "a-share-financials"],
+      ["20260712T035326Z-a-share-announcements-10d36e4e", "a-share-announcements"],
+    ]);
+    const records = anchors.records;
+    const ids = Array.isArray(records) ? records.map((record) => record?.runId) : [];
+    const validRecords = Array.isArray(records)
+      && records.length === 2
+      && new Set(ids).size === 2
+      && ids.every((runId) => expectedProviders.has(runId))
+      && records.every((record) => (
+        record
+        && Object.keys(record).sort().join(",") === "canonicalRecordSha256,providerId,runId,startedAt"
+        && expectedProviders.get(record.runId) === record.providerId
+        && typeof record.startedAt === "string"
+        && Number.isFinite(Date.parse(record.startedAt))
+        && typeof record.canonicalRecordSha256 === "string"
+        && /^[0-9a-f]{64}$/.test(record.canonicalRecordSha256)
+      ));
+    if (
+      anchors.schemaVersion !== "1.0.0"
+      || Object.keys(anchors).sort().join(",") !== "records,schemaVersion"
+      || !validRecords
+    ) {
+      add(findings, "P0", "provider-observability", "provider-legacy-anchor-config-invalid", "Provider legacy V1 anchor config is not the strict two-record committed identity set", ["a-share-financials", "announcements"], "Restore the two unique run identities, matching providers/timestamps and lowercase canonical SHA-256 digests");
+    }
+  } catch {
+    add(findings, "P0", "provider-observability", "provider-legacy-anchor-config-invalid", "Provider legacy V1 anchor config is invalid JSON", ["a-share-financials", "announcements"], "Commit the strict two-record legacy identity anchor config");
   }
   const packageJson = JSON.parse(fs.readFileSync(packagePath, "utf8"));
   const scripts = packageJson.scripts ?? {};
@@ -423,24 +459,103 @@ export function detectProviderObservabilityRisks(rootPath) {
   if (!runner.includes("--output-root") || !runner.includes("productionUnchanged") || !runner.includes("redact")) add(findings, "P0", "provider-observability", "provider-observation-isolation-missing", "Observation runner lacks isolated output, production checksum, or redaction", ["a-share-financials", "announcements"], "Write only under the ignored observation root and verify production remains unchanged");
   if (!runner.includes("observation_eligibility(git_status()") || !runner.includes("preflight_failed")) add(findings, "P0", "provider-observability", "provider-observation-dirty-preflight-missing", "Default provider observation does not reject a dirty worktree before network execution", ["a-share-financials", "announcements"], "Run the clean-worktree preflight before calling either provider");
   const core = fs.readFileSync(corePath, "utf8");
+  const legacy = fs.readFileSync(legacyPath, "utf8");
+  const provenance = fs.readFileSync(provenancePath, "utf8");
+  const rootState = fs.readFileSync(rootStatePath, "utf8");
   if (!core.includes("expectedExpired") || !core.includes("unexpectedRemoved") || !core.includes("unverifiableRemoved") || !core.includes("windowShiftDays")) add(findings, "P0", "provider-observability", "announcement-window-diff-incomplete", "Announcement diff does not distinguish expiry, overlap removal and unverifiable removal", ["announcements"], "Classify removals against the previous/current window overlap");
   if (!core.includes("def tree_digest(paths: list[Path], relative_to: Path)") || !core.includes("PurePosixPath") || !core.includes("path.relative_to(root)")) add(findings, "P0", "provider-observability", "artifact-checksum-unstable", "Artifact checksum is not rooted in stable logical relative paths", ["a-share-financials", "announcements"], "Hash normalized relative paths and raw bytes, never absolute run directories");
   if (!core.includes('"data_value_drift"') || !core.match(/BLOCKING_FAILURES\s*=\s*\{[\s\S]*?"data_value_drift"/)) add(findings, "P0", "provider-observability", "financial-drift-not-blocking", "Same-period financial data drift is not a blocking failure", ["a-share-financials"], "Keep data_value_drift blocking until explicitly resolved");
   if (!core.includes("completeSuccessRate") || !core.includes("totalSuccessRate") || !core.includes("completeSuccessRuns") || !core.includes("usableRuns")) add(findings, "P0", "provider-observability", "provider-success-rates-aliased", "Complete and total success rates are not independently derived", ["a-share-financials", "announcements"], "Compute complete success from success runs and total success from usable success/partial runs");
   if (!core.includes("append_resolution") || !core.includes("provider-health-resolutions.jsonl") || !fs.readFileSync(healthPath, "utf8").includes("--resolve")) add(findings, "P0", "provider-observability", "provider-resolution-ledger-missing", "Controlled append-only failure resolution is missing", ["a-share-financials", "announcements"], "Resolve referenced failures through the separate resolution ledger CLI");
+  if (!runner.includes("build_provenance") || !core.includes("trustedLegacyRuns") || !core.includes("incompatibleRuns") || !provenance.includes("stockUniverseChecksum") || !provenance.includes("provenanceCohortId")) add(findings, "P0", "provider-observability", "provider-provenance-cohort-missing", "Provider observation V2 lacks deterministic provenance cohorts or trusted legacy separation", ["a-share-financials", "announcements"], "Fingerprint provider code, validators, stock identities, gate, dependencies and production baseline; count only the current compatible cohort");
+  if (!provenance.includes('hmac.compare_digest(value["provenanceCohortId"], cohort_id(value))') || !provenance.includes('LOWER_HEX_40 = re.compile(r"^[0-9a-f]{40}$")') || !provenance.includes('LOWER_HEX_64 = re.compile(r"^[0-9a-f]{64}$")')) add(findings, "P0", "provider-observability", "provider-provenance-self-proof-missing", "Provider provenance does not recompute its cohort identity or strictly validate lowercase source/checksum hashes", ["a-share-financials", "announcements"], "Recompute the cohort from COHORT_FIELDS and require strict lowercase SHA-40/SHA-256 formats");
+  if (!provenance.includes("def recordable_provenance(") || !provenance.includes("def unavailable_provenance(") || !provenance.includes("component_unavailable") || !provenance.includes("return cohort == UNAVAILABLE")) add(findings, "P0", "provider-observability", "provider-provenance-retention-contract-missing", "Provider provenance acquisition failures are not represented by a strict recordable-unavailable V2 contract", ["a-share-financials", "announcements"], "Keep complete provenance strict while permitting only structured unavailable evidence with an unavailable cohort");
+  if (!core.includes("unavailable provenance must be ineligible") || !core.includes("unavailable provenance cannot be successful") || !core.includes("requires an unresolved provenance_unavailable failure") || !core.includes('"provenanceUnavailableRuns"') || !core.includes('"provenanceUnavailableRunIds"')) add(findings, "P0", "provider-observability", "provider-provenance-retention-enforcement-missing", "Provider run validation or evaluation does not bind unavailable provenance to ineligible failed evidence and a separate inventory", ["a-share-financials", "announcements"], "Persist unavailable provenance only as ineligible non-success evidence and exclude it from all eligibility denominators");
+  if (!runner.includes("recordable_provenance(provenance)") || runner.indexOf("append_run(observation_root, record)") < runner.indexOf("provenance_errors")) add(findings, "P0", "provider-observability", "provider-observation-provenance-retention-missing", "Observation runner does not preserve structured provenance acquisition failures through append_run", ["a-share-financials", "announcements"], "Run the provider, bind provenance_unavailable, append the ineligible run and refresh the summary");
+  if (!core.includes("def audit_observation_ledger(") || !core.includes("validate_run(run)") || !core.includes('"invalidV2RunIds"') || !core.includes('"v2IntegrityFailure"') || !core.includes('v2_integrity_blocked = bool((ledger_audit or {}).get("v2IntegrityFailure"))')) add(findings, "P0", "provider-observability", "provider-run-ledger-read-validation-missing", "Provider run files and JSONL rows are not fully revalidated at read time with fail-closed V2 integrity semantics", ["a-share-financials", "announcements"], "Run full run validation during ledger audit and block on invalid or unclassifiable V2 evidence");
+  if (
+    !legacy.includes("def validate_legacy_anchor_config(")
+    || !legacy.includes("duplicate legacy anchor runId")
+    || !legacy.includes("LOWER_HEX_64.fullmatch(digest)")
+    || !legacy.includes("sha256_bytes(canonical_bytes(record))")
+    || !legacy.includes("hmac.compare_digest(actual_digest, anchor[\"canonicalRecordSha256\"])")
+    || !core.includes("validate_legacy_run(run, legacy_anchors)")
+    || !core.includes("validate_legacy_run(row, legacy_anchors)")
+  ) add(findings, "P0", "provider-observability", "provider-legacy-anchor-validation-missing", "Provider legacy identity is not bound to a strict committed canonical-object anchor", ["a-share-financials", "announcements"], "Validate unique strict anchors and require runId, provider, startedAt and canonical object SHA-256 equality for both run and ledger objects");
+  if (
+    !core.includes('"trustedLegacyRunIds"')
+    || !core.includes('"unknownLegacyRunIds"')
+    || !core.includes('"schemaDowngradeRunIds"')
+    || !core.includes("run.get(\"runId\") in trusted_legacy_run_ids")
+    || !core.includes('"legacy_integrity_failure"')
+    || !core.includes('"evidenceIntegrityFailure"')
+  ) add(findings, "P0", "provider-observability", "provider-legacy-fail-closed-missing", "Unknown, invalid or schema-downgraded V1 evidence can bypass trusted legacy classification or Gate blocking", ["a-share-financials", "announcements"], "Classify only anchored objects as trusted legacy and block every unknown, invalid or downgraded V1 record");
+  if (
+    !core.includes("requires_legacy_anchors = has_historical_evidence and declared_root_mode != FRESH_V2")
+    || !core.includes('"legacy_anchor_missing"')
+    || !core.includes('"missingLegacyAnchorRunIds"')
+    || !core.includes('"initial_evidence_deleted"')
+    || !core.includes('"nonempty_unidentified_root"')
+    || !rootState.includes("def prepare_root_for_observation(")
+    || !rootState.includes("initial_evidence_records(runs)")
+    || !rootState.includes("canonical_record_sha256(run)")
+    || !runner.includes("prepare_root_for_observation(")
+    || runner.indexOf("prepare_root_for_observation(") > runner.indexOf("codes = [observe(")
+    || runner.indexOf("if load_root_state(observation_root) is None:") > runner.indexOf("generated_root.mkdir(")
+    || runner.indexOf("generated_root.mkdir(") > runner.indexOf("provenance, provenance_errors = build_provenance(")
+    || runner.indexOf("provenance, provenance_errors = build_provenance(") > runner.indexOf("process = subprocess.run(")
+  ) add(findings, "P0", "provider-observability", "provider-root-state-integrity-missing", "Provider observation root does not distinguish fresh V2 initialization from anchored legacy migration or fail closed on initial-evidence deletion", ["a-share-financials", "announcements"], "Persist and validate a strict root state before provider execution; migrate only the complete anchored legacy ledger");
+  if (
+    !provenance.includes('"scripts/provider_observability/legacy.py"')
+    || !provenance.includes('"config/provider-observation-legacy-v1-anchors.json"')
+    || !provenance.includes('"scripts/provider_observability/root_state.py"')
+    || !provenance.includes('"config/provider-observation-root.schema.json"')
+    || !provenance.includes('"scripts/tests/test_provider_observability.py"')
+    || provenance.includes('".provider-observations/provider-observation-root.json"')
+  ) add(findings, "P0", "provider-observability", "provider-legacy-anchor-checksum-missing", "Legacy anchor policy is excluded from the observation tool checksum", ["a-share-financials", "announcements"], "Include the validator and committed anchor config in the observation tool checksum");
+  if (!core.includes("def validate_resolution(") || !core.includes("def audit_resolution_ledger(") || !core.includes('audit["validResolutions"]') || !core.includes('"resolution_integrity_failure"') || !core.includes('"resolution_conflict"')) add(findings, "P0", "provider-observability", "provider-resolution-read-validation-missing", "Provider resolution ledger rows are not fully revalidated before failures are marked resolved", ["a-share-financials", "announcements"], "Audit every resolution identity, reference, timestamp, replacement and conflict; pass only validated rows to resolved-key logic");
+  if (!core.includes('disallowed_lines = [line for line in raw_lines if line != "?? AGENTS.md"]')) add(findings, "P0", "provider-observability", "provider-agents-exception-too-broad", "Provider observation worktree preflight does not limit the AGENTS.md exception to the exact untracked root porcelain row", ["a-share-financials", "announcements"], "Permit only the exact raw porcelain line ?? AGENTS.md and reject tracked, staged or nested variants");
   const production = fs.readFileSync(productionPath, "utf8");
   const health = fs.readFileSync(healthPath, "utf8");
   if (!production.includes("validate_split_artifacts") || !production.includes("validate_artifacts") || !production.includes('scripts/data-audit.mjs') || !production.includes("validate_default_refresh") || !health.includes("validate_production(ROOT)")) add(findings, "P0", "provider-observability", "provider-production-gate-hardcoded", "Provider health does not perform real offline production validation", ["a-share-financials", "announcements"], "Reuse committed artifact validators and structured data audit output");
   try {
+    const rootSchema = JSON.parse(fs.readFileSync(rootStateSchemaPath, "utf8"));
+    const rootRequired = new Set(rootSchema.required ?? []);
+    const requiredRootFields = ["schemaVersion", "ledgerId", "mode", "initializedAt", "legacyAnchorConfigChecksum", "initialEvidenceRunIds", "initialEvidenceRecords", "initialEvidenceChecksum"];
+    if (
+      rootSchema.additionalProperties !== false
+      || rootSchema.properties?.schemaVersion?.const !== "1.0.0"
+      || requiredRootFields.some((field) => !rootRequired.has(field))
+      || !rootSchema.properties?.mode?.enum?.includes("fresh_v2")
+      || !rootSchema.properties?.mode?.enum?.includes("legacy_v1_migrated")
+    ) add(findings, "P0", "provider-observability", "provider-root-state-schema-incomplete", "Provider observation root state schema is not strict or does not encode both origin modes", ["a-share-financials", "announcements"], "Require the exact root identity, mode, anchor checksum and initial-evidence digest fields with no additional properties");
+  } catch {
+    add(findings, "P0", "provider-observability", "provider-root-state-schema-incomplete", "Provider observation root state schema is invalid JSON", ["a-share-financials", "announcements"], "Commit a strict Draft 2020-12 root-state schema");
+  }
+  try {
     const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
     const required = new Set(schema.required ?? []);
-    if (schema.additionalProperties !== false || ["metrics", "difference", "failures", "validation", "atomicity", "worktree", "artifacts"].some((field) => !required.has(field)) || !schema.properties?.failures?.items?.properties?.category?.enum) add(findings, "P0", "provider-observability", "provider-observation-schema-incomplete", "Provider observation JSON Schema lacks core constraints", ["a-share-financials", "announcements"], "Constrain all core objects, dates, metrics and failure categories");
+    if (schema.properties?.schemaVersion?.const !== "2.0.0" || schema.additionalProperties !== false || ["metrics", "difference", "failures", "validation", "atomicity", "worktree", "artifacts", "provenance"].some((field) => !required.has(field)) || !schema.properties?.failures?.items?.properties?.category?.enum) add(findings, "P0", "provider-observability", "provider-observation-schema-incomplete", "Provider observation JSON Schema lacks V2 provenance or core constraints", ["a-share-financials", "announcements"], "Constrain V2 provenance, core objects, dates, metrics and failure categories");
+    const provenanceSchema = schema.properties?.provenance?.properties ?? {};
+    const hashFields = ["sourceCommitSha", "observationToolChecksum", "providerCodeChecksum", "fetchScriptChecksum", "validatorChecksum", "stockUniverseChecksum", "gateConfigChecksum", "productionBaselineChecksum", "dependencyFingerprint", "provenanceCohortId"];
+    if (hashFields.some((field) => !provenanceSchema[field]?.pattern?.includes("unavailable")) || provenanceSchema.stockUniverseIdentityCount?.minimum !== 0) add(findings, "P0", "provider-observability", "provider-observation-unavailable-schema-missing", "Provider observation schema cannot represent the structured unavailable provenance union", ["a-share-financials", "announcements"], "Allow exact unavailable hash sentinels and zero stock identity count at schema level; enforce cross-field invariants in Python");
   } catch {
     add(findings, "P0", "provider-observability", "provider-observation-schema-incomplete", "Provider observation JSON Schema is invalid", ["a-share-financials", "announcements"], "Commit valid Draft 2020-12 JSON Schema");
   }
   const test = fs.readFileSync(testPath, "utf8");
-  if (!test.includes("first_day_insufficient") || !test.includes("sensitive_detected") || !test.includes("default_refresh_unchanged") || !test.includes("expected_expiry") || !test.includes("resolution_unblocks_failure")) add(findings, "P0", "provider-observability", "provider-observability-negative-tests-missing", "Provider observability lacks mandatory window, secret, refresh or resolution tests", ["a-share-financials", "announcements"], "Restore the mandatory offline negative tests");
-  if (!fs.existsSync(ciPath) || !fs.readFileSync(ciPath, "utf8").includes("test:provider-observability")) add(findings, "P0", "ci", "provider-observability-ci-missing", "CI does not run offline provider observability tests", ["a-share-financials", "announcements"], "Run test:provider-observability without live network access");
+  if (!test.includes("first_day_insufficient") || !test.includes("sensitive_detected") || !test.includes("default_refresh_unchanged") || !test.includes("expected_expiry") || !test.includes("resolution_unblocks_failure") || !test.includes("legacy_run_excluded") || !test.includes("cross_cohort_replacement_rejected") || !test.includes("test_tampered_cohort_id_rejected") || !test.includes("test_forged_resolution_read_path_blocked") || !test.includes("test_tracked_agents_rejected") || !test.includes("test_same_invalid_v2_in_run_file_and_ledger_detected") || !test.includes("test_invalid_replacement_ledger_evidence_blocked")) add(findings, "P0", "provider-observability", "provider-observability-negative-tests-missing", "Provider observability lacks mandatory window, secret, refresh, tampered-cohort, forged-resolution, ledger-integrity or exact-worktree tests", ["a-share-financials", "announcements"], "Restore the mandatory offline negative tests for provenance, ledgers, replacement evidence and AGENTS.md status");
+  if (!test.includes("test_recordable_source_sha_unavailable") || !test.includes("test_append_recordable_unavailable_writes_run_and_ledger") || !test.includes("test_audit_recordable_unavailable_is_not_invalid_v2") || !test.includes("test_observe_persists_provenance_failure_and_refreshes_summary") || !test.includes("test_observe_provider_failure_preserves_both_failure_categories") || !test.includes("test_recovery_keeps_unavailable_history_outside_denominator")) add(findings, "P0", "provider-observability", "provider-provenance-retention-tests-missing", "Provider observability lacks mandatory recordable, persistence, exclusion, dual-failure or recovery tests", ["a-share-financials", "announcements"], "Restore offline tests proving structured unavailable evidence persists without entering eligibility denominators");
+  if (!test.includes("test_fresh_root_first_observation") || !test.includes("test_fresh_v2_does_not_require_legacy_anchors") || !test.includes("test_legacy_root_migration") || !test.includes("test_nonempty_unidentified_root_blocked") || !test.includes("test_initial_evidence_deletion_blocked")) add(findings, "P0", "provider-observability", "provider-root-state-tests-missing", "Provider observability lacks mandatory fresh-root, legacy-migration, unidentified-root or initial-evidence deletion tests", ["a-share-financials", "announcements"], "Restore the mandatory offline root-origin and migration integrity tests");
+  if (
+    !test.includes("test_anchored_legacy_config_unique")
+    || !test.includes("test_schema_downgrade_only_version_blocked")
+    || !test.includes("test_unknown_new_v1_run_blocked")
+    || !test.includes("test_ledger_double_deletion_detected")
+    || !test.includes("test_empty_observation_root_compatible")
+    || !test.includes("test_inventory_current_legacy_incompatible_debug_unavailable")
+  ) add(findings, "P0", "provider-observability", "provider-legacy-integrity-tests-missing", "Provider observability lacks mandatory anchor, schema-downgrade, truncation, empty-root or cohort inventory tests", ["a-share-financials", "announcements"], "Restore the offline tests that exercise the real anchor validator and fail-closed ledger audit");
+  const ci = fs.existsSync(ciPath) ? fs.readFileSync(ciPath, "utf8") : "";
+  if (!ci.includes("test:provider-observability") || ci.includes("data:observe:providers") || !test.includes("load_legacy_anchors()")) add(findings, "P0", "ci", "provider-observability-ci-missing", "CI does not run the offline provider observability and committed legacy-anchor contract", ["a-share-financials", "announcements"], "Run test:provider-observability without live network access and parse the committed legacy anchor config");
   return findings;
 }
 

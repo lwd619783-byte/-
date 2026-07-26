@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "provider-observation-run.schema.json",
-  "title": "Provider observation run V1",
+  "title": "Provider observation run V2",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "runId", "providerId", "providerVersion", "domain", "startedAt", "endedAt", "timezone", "durationSeconds", "status", "exitCode", "metrics", "difference", "failures", "validation", "atomicity", "worktree", "artifacts"],
+  "required": ["schemaVersion", "runId", "providerId", "providerVersion", "domain", "startedAt", "endedAt", "timezone", "durationSeconds", "status", "exitCode", "metrics", "difference", "failures", "validation", "atomicity", "worktree", "artifacts", "provenance"],
   "properties": {
-    "schemaVersion": {"const": "1.0.0"},
+    "schemaVersion": {"const": "2.0.0"},
     "runId": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
     "providerId": {"enum": ["a-share-financials", "a-share-announcements"]},
     "providerVersion": {"type": "string", "minLength": 1},
@@ -21,6 +21,25 @@
     "command": {"type": "array", "items": {"type": "string"}},
     "status": {"enum": ["success", "partial", "failed"]},
     "exitCode": {"type": "integer"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceCommitSha", "observationToolVersion", "observationToolChecksum", "providerCodeChecksum", "fetchScriptChecksum", "validatorChecksum", "stockUniverseChecksum", "stockUniverseIdentityCount", "gateConfigChecksum", "productionBaselineChecksum", "dependencyFingerprint", "provenanceCohortId"],
+      "properties": {
+        "sourceCommitSha": {"type": "string", "pattern": "^(?:[a-f0-9]{40}|unavailable)$"},
+        "observationToolVersion": {"const": "2.0.0"},
+        "observationToolChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "providerCodeChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "fetchScriptChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "validatorChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "stockUniverseChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "stockUniverseIdentityCount": {"type": "integer", "minimum": 0},
+        "gateConfigChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "productionBaselineChecksum": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "dependencyFingerprint": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"},
+        "provenanceCohortId": {"type": "string", "pattern": "^(?:[a-f0-9]{64}|unavailable)$"}
+      }
+    },
     "metrics": {
       "type": "object",
       "required": ["expectedCompanies", "companyCoverage", "structuralValidationRate", "eligibleSample", "cacheMode", "timeoutCount", "rateLimitCount", "httpStatusCounts"],
@@ -58,7 +77,7 @@
         "additionalProperties": false,
         "required": ["category", "message", "resolved"],
         "properties": {
-          "category": {"enum": ["network_transient", "provider_unavailable", "timeout", "rate_limited", "authentication_unexpected", "schema_drift", "empty_response", "coverage_drop", "unexpected_removal", "unverifiable_removal", "window_anomaly", "data_value_drift", "manifest_mismatch", "checksum_mismatch", "atomicity_failure", "validation_failure", "audit_failure", "default_refresh_violation", "filesystem_failure", "timezone_failure", "unknown"]},
+          "category": {"enum": ["network_transient", "provider_unavailable", "timeout", "rate_limited", "authentication_unexpected", "schema_drift", "empty_response", "coverage_drop", "unexpected_removal", "unverifiable_removal", "window_anomaly", "data_value_drift", "manifest_mismatch", "checksum_mismatch", "atomicity_failure", "validation_failure", "audit_failure", "default_refresh_violation", "filesystem_failure", "timezone_failure", "provenance_unavailable", "unknown"]},
           "message": {"type": "string"},
           "resolved": {"type": "boolean"}
         }

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/provider-observation-root.schema.json",
+  "title": "Provider observation root state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "ledgerId",
+    "mode",
+    "initializedAt",
+    "legacyAnchorConfigChecksum",
+    "initialEvidenceRunIds",
+    "initialEvidenceRecords",
+    "initialEvidenceChecksum"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "ledgerId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "mode": {
+      "enum": [
+        "fresh_v2",
+        "legacy_v1_migrated"
+      ]
+    },
+    "initializedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "legacyAnchorConfigChecksum": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "initialEvidenceRunIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9._-]+$"
+      }
+    },
+    "initialEvidenceRecords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "runId",
+          "canonicalRecordSha256"
+        ],
+        "properties": {
+          "runId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]+$"
+          },
+          "canonicalRecordSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "initialEvidenceChecksum": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

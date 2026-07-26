@@ -13,7 +13,12 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from . import ELIGIBILITY_STATUSES, RUN_STATUSES, SCHEMA_VERSION
+from jsonschema import Draft202012Validator, FormatChecker
+
+from . import ELIGIBILITY_STATUSES, GATE_SCHEMA_VERSION, LEGACY_SCHEMA_VERSIONS, RUN_STATUSES, SCHEMA_VERSION
+from .legacy import LEGACY_RUN_SCHEMA_VERSION, canonical_record_sha256, load_legacy_anchors, looks_like_schema_downgrade, validate_legacy_run
+from .provenance import COHORT_FIELDS, recordable_provenance, unavailable_provenance, valid_provenance
+from .root_state import FRESH_V2, LEGACY_V1_MIGRATED, load_root_state, root_is_truly_empty
 
 SENSITIVE_KEY = re.compile(r"cookie|authorization|oauth|token|session|password|secret", re.I)
 SENSITIVE_QUERY = re.compile(r"([?&](?:access_token|token|session|auth|key)=)[^&#\s]+", re.I)
@@ -22,16 +27,26 @@ FAILURE_CATEGORIES = {
     "network_transient", "provider_unavailable", "timeout", "rate_limited", "authentication_unexpected",
     "schema_drift", "empty_response", "coverage_drop", "unexpected_removal", "unverifiable_removal",
     "window_anomaly", "data_value_drift", "manifest_mismatch", "checksum_mismatch", "atomicity_failure",
-    "validation_failure", "audit_failure", "default_refresh_violation", "filesystem_failure", "timezone_failure", "unknown",
+    "validation_failure", "audit_failure", "default_refresh_violation", "filesystem_failure", "timezone_failure",
+    "provenance_unavailable", "unknown",
 }
 BLOCKING_FAILURES = {
     "schema_drift", "unexpected_removal", "unverifiable_removal", "window_anomaly", "data_value_drift",
     "manifest_mismatch", "checksum_mismatch", "atomicity_failure", "validation_failure", "audit_failure",
-    "default_refresh_violation", "coverage_drop", "authentication_unexpected",
+    "default_refresh_violation", "coverage_drop", "authentication_unexpected", "provenance_unavailable",
 }
 TRANSIENT_FAILURES = {"network_transient", "provider_unavailable", "timeout", "rate_limited"}
 VOLATILE_KEYS = {"fetchedAt", "generatedAt", "lastSuccessfulFetchAt", "updatedAt"}
 RESOLUTION_FILENAME = "provider-health-resolutions.jsonl"
+PROVIDER_DOMAINS = {
+    "a-share-financials": "financials",
+    "a-share-announcements": "announcements",
+}
+RUN_SCHEMA_PATH = Path(__file__).resolve().parents[2] / "config/provider-observation-run.schema.json"
+RUN_SCHEMA_VALIDATOR = Draft202012Validator(
+    json.loads(RUN_SCHEMA_PATH.read_text(encoding="utf-8")),
+    format_checker=FormatChecker(),
+)
 
 
 class DirtyWorktreeError(ValueError):
@@ -60,25 +75,80 @@ def load_json(path: Path, fallback: Any = None) -> Any:
     return json.loads(path.read_text(encoding="utf-8"), parse_constant=lambda value: (_ for _ in ()).throw(ValueError(value)))
 
 
+def _aware_datetime(value: Any, field: str) -> datetime:
+    if not isinstance(value, str):
+        raise ValueError(f"invalid {field}")
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"invalid {field}") from exc
+    if parsed.utcoffset() is None:
+        raise ValueError(f"{field} must be timezone-aware")
+    return parsed
+
+
 def validate_run(record: dict[str, Any]) -> None:
+    if not isinstance(record, dict):
+        raise ValueError("run must be an object")
     required = {"schemaVersion", "runId", "providerId", "providerVersion", "domain", "startedAt", "endedAt", "timezone", "durationSeconds", "status", "exitCode", "metrics", "difference", "failures", "validation", "atomicity", "worktree", "artifacts"}
     missing = sorted(required - record.keys())
     if missing: raise ValueError(f"missing run fields: {', '.join(missing)}")
-    if record["schemaVersion"] != SCHEMA_VERSION: raise ValueError("schemaVersion mismatch")
-    if record["providerId"] not in {"a-share-financials", "a-share-announcements"}: raise ValueError("invalid providerId")
-    if record["domain"] not in {"financials", "announcements"}: raise ValueError("invalid domain")
+    if record["schemaVersion"] not in LEGACY_SCHEMA_VERSIONS | {SCHEMA_VERSION}: raise ValueError("schemaVersion mismatch")
+    if record["providerId"] not in PROVIDER_DOMAINS: raise ValueError("invalid providerId")
+    if record["domain"] != PROVIDER_DOMAINS[record["providerId"]]: raise ValueError("provider/domain mismatch")
     if record["status"] not in RUN_STATUSES: raise ValueError("invalid run status")
     if not re.fullmatch(r"[A-Za-z0-9._-]+", str(record["runId"])): raise ValueError("unsafe runId")
-    if not isinstance(record["durationSeconds"], (int, float)) or record["durationSeconds"] < 0: raise ValueError("invalid durationSeconds")
-    for field in ("startedAt", "endedAt"):
-        datetime.fromisoformat(str(record[field]).replace("Z", "+00:00"))
+    if not isinstance(record["providerVersion"], str) or not record["providerVersion"]: raise ValueError("invalid providerVersion")
+    if record["timezone"] != "Asia/Shanghai": raise ValueError("invalid timezone")
+    duration = record["durationSeconds"]
+    if isinstance(duration, bool) or not isinstance(duration, (int, float)) or not math.isfinite(float(duration)) or duration < 0: raise ValueError("invalid durationSeconds")
+    started_at = _aware_datetime(record["startedAt"], "startedAt")
+    ended_at = _aware_datetime(record["endedAt"], "endedAt")
+    if ended_at < started_at: raise ValueError("endedAt precedes startedAt")
+    if not isinstance(record["exitCode"], int) or isinstance(record["exitCode"], bool): raise ValueError("invalid exitCode")
+    if not isinstance(record["failures"], list): raise ValueError("failures must be an array")
     for failure in record["failures"]:
-        if failure.get("category") not in FAILURE_CATEGORIES or not isinstance(failure.get("resolved", False), bool): raise ValueError("invalid failure")
+        if (
+            not isinstance(failure, dict)
+            or failure.get("category") not in FAILURE_CATEGORIES
+            or not isinstance(failure.get("message"), str)
+            or not isinstance(failure.get("resolved"), bool)
+        ):
+            raise ValueError("invalid failure")
+    if record["schemaVersion"] == SCHEMA_VERSION:
+        schema_errors = sorted(RUN_SCHEMA_VALIDATOR.iter_errors(record), key=lambda error: list(error.absolute_path))
+        if schema_errors:
+            first = schema_errors[0]
+            location = ".".join(str(part) for part in first.absolute_path) or "$"
+            raise ValueError(f"V2 schema validation failed at {location}: {first.message}")
+        provenance = record.get("provenance")
+        required_provenance = {"sourceCommitSha", "observationToolVersion", "observationToolChecksum", *COHORT_FIELDS, "provenanceCohortId"}
+        if not isinstance(provenance, dict) or required_provenance - provenance.keys(): raise ValueError("missing V2 provenance")
+        if not isinstance(record.get("metrics", {}).get("eligibleSample"), bool): raise ValueError("eligibleSample is required")
+        if not recordable_provenance(provenance): raise ValueError("invalid V2 provenance")
+        if unavailable_provenance(provenance):
+            provenance_failures = [
+                failure for failure in record["failures"]
+                if failure.get("category") == "provenance_unavailable"
+                and failure.get("resolved") is False
+                and isinstance(failure.get("message"), str)
+                and failure["message"].strip()
+            ]
+            if record["metrics"]["eligibleSample"] is not False:
+                raise ValueError("unavailable provenance must be ineligible")
+            if record["status"] == "success":
+                raise ValueError("unavailable provenance cannot be successful")
+            if not provenance_failures:
+                raise ValueError("unavailable provenance requires an unresolved provenance_unavailable failure")
+        atomicity = record.get("atomicity", {})
+        if not all(isinstance(atomicity.get(field), str) and re.fullmatch(r"[a-f0-9]{64}", atomicity[field]) for field in ("beforeChecksum", "afterChecksum")): raise ValueError("invalid atomicity checksums")
+        if any(re.match(r"^[A-Za-z]:[\\/]", str(item)) or str(item).startswith(("/", "\\")) for item in record.get("command", [])): raise ValueError("absolute command path is forbidden")
     if contains_sensitive(record): raise ValueError("sensitive field detected")
 
 
 def append_run(root: Path, record: dict[str, Any]) -> None:
     validate_run(record)
+    if record["schemaVersion"] != SCHEMA_VERSION: raise ValueError("only V2 runs may be appended")
     run_path = root / "runs" / f"{record['runId']}.json"
     if run_path.exists(): raise ValueError(f"duplicate runId: {record['runId']}")
     atomic_write(run_path, json_bytes(record))
@@ -88,33 +158,176 @@ def append_run(root: Path, record: dict[str, Any]) -> None:
 
 
 def load_runs(root: Path) -> list[dict[str, Any]]:
-    runs = [load_json(path) for path in sorted((root / "runs").glob("*.json"))] if (root / "runs").exists() else []
+    runs: list[dict[str, Any]] = []
+    if (root / "runs").exists():
+        for path in sorted((root / "runs").glob("*.json")):
+            try:
+                value = load_json(path)
+                if not isinstance(value, dict):
+                    raise ValueError("run file must contain an object")
+                runs.append(value)
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
+                runs.append({
+                    "runId": f"invalid-run-file-{path.stem}",
+                    "_sourceFile": path.name,
+                    "_loadError": str(exc),
+                })
     return sorted(runs, key=lambda item: (item.get("startedAt", ""), item.get("runId", "")))
 
 
 def load_resolutions(root: Path) -> list[dict[str, Any]]:
     path = root / RESOLUTION_FILENAME
     if not path.exists(): return []
-    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    resolutions: list[dict[str, Any]] = []
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError as exc:
+        return [{"resolutionId": "invalid-resolution-ledger", "_loadError": str(exc)}]
+    for line_number, line in enumerate(lines, start=1):
+        if not line.strip():
+            continue
+        try:
+            value = json.loads(line)
+            if not isinstance(value, dict):
+                raise ValueError("resolution row must contain an object")
+            resolutions.append(value)
+        except (ValueError, json.JSONDecodeError) as exc:
+            resolutions.append({
+                "resolutionId": f"invalid-resolution-line-{line_number}",
+                "_lineNumber": line_number,
+                "_loadError": str(exc),
+            })
+    return resolutions
+
+
+def validate_resolution(
+    resolution: dict[str, Any],
+    runs: list[dict[str, Any]],
+    invalid_run_ids: set[str] | None = None,
+) -> None:
+    if not isinstance(resolution, dict):
+        raise ValueError("resolution must be an object")
+    required = {"schemaVersion", "resolutionId", "providerId", "runId", "failureIndex", "category", "resolvedAt", "reason", "evidence", "resolvedBy"}
+    missing = sorted(required - resolution.keys())
+    if missing: raise ValueError(f"resolution missing required fields: {', '.join(missing)}")
+    if resolution["schemaVersion"] != SCHEMA_VERSION: raise ValueError("resolution schemaVersion mismatch")
+    if not isinstance(resolution["resolutionId"], str) or not re.fullmatch(r"[A-Za-z0-9._-]+", resolution["resolutionId"]): raise ValueError("invalid resolutionId")
+    if resolution["providerId"] not in PROVIDER_DOMAINS: raise ValueError("invalid resolution providerId")
+    _aware_datetime(resolution["resolvedAt"], "resolvedAt")
+    for field in ("reason", "evidence", "resolvedBy"):
+        if not isinstance(resolution[field], str) or not resolution[field].strip():
+            raise ValueError(f"resolution {field} is required")
+    if contains_sensitive(resolution): raise ValueError("sensitive resolution content")
+
+    by_id = {run.get("runId"): run for run in runs if isinstance(run, dict)}
+    source = by_id.get(resolution["runId"])
+    if not source: raise ValueError("resolution references unknown run")
+    validate_run(source)
+    if invalid_run_ids and source.get("runId") in invalid_run_ids:
+        raise ValueError("resolution references an invalid run")
+    index = resolution["failureIndex"]
+    if isinstance(index, bool) or not isinstance(index, int) or index < 0 or index >= len(source.get("failures", [])):
+        raise ValueError("resolution references unknown failure")
+    source_failure = source["failures"][index]
+    if resolution["providerId"] != source["providerId"] or resolution["category"] != source_failure.get("category"):
+        raise ValueError("resolution category/provider mismatch")
+
+    replacement_id = resolution.get("replacementRunId")
+    if not replacement_id:
+        return
+    if not isinstance(replacement_id, str) or not re.fullmatch(r"[A-Za-z0-9._-]+", replacement_id):
+        raise ValueError("invalid replacementRunId")
+    replacement = by_id.get(replacement_id)
+    if not replacement: raise ValueError("resolution references unknown replacement run")
+    validate_run(replacement)
+    if invalid_run_ids and replacement_id in invalid_run_ids:
+        raise ValueError("replacement run is invalid")
+    if source.get("schemaVersion") != SCHEMA_VERSION or replacement.get("schemaVersion") != SCHEMA_VERSION:
+        raise ValueError("replacement resolution requires V2 runs")
+    if replacement.get("providerId") != source.get("providerId"):
+        raise ValueError("replacement run provider mismatch")
+    source_provenance = source.get("provenance")
+    replacement_provenance = replacement.get("provenance")
+    if (
+        not valid_provenance(source_provenance)
+        or not valid_provenance(replacement_provenance)
+        or replacement_provenance["provenanceCohortId"] != source_provenance["provenanceCohortId"]
+    ):
+        raise ValueError("replacement run must use the same valid V2 provenance cohort")
+    if _aware_datetime(replacement["startedAt"], "replacement.startedAt") <= _aware_datetime(source["startedAt"], "source.startedAt"):
+        raise ValueError("replacement run must be strictly later")
+    replacement_failures = [
+        {**failure, "runId": replacement_id, "failureIndex": index, "effectiveResolved": False}
+        for index, failure in enumerate(replacement.get("failures", []))
+    ]
+    if (
+        replacement.get("status") != "success"
+        or replacement.get("metrics", {}).get("eligibleSample") is not True
+        or replacement.get("validation", {}).get("passed") is not True
+        or replacement.get("exitCode") != 0
+        or not usable_run(replacement, replacement_failures)
+    ):
+        raise ValueError("replacement run must be eligible, complete, and usable")
+
+
+def audit_resolution_ledger(
+    resolutions: list[dict[str, Any]],
+    runs: list[dict[str, Any]],
+    invalid_run_ids: set[str] | None = None,
+) -> dict[str, Any]:
+    issues: list[dict[str, Any]] = []
+    invalid_indexes: set[int] = set()
+    identities: dict[str, list[int]] = {}
+    failure_keys: dict[tuple[str, int], list[int]] = {}
+    for index, resolution in enumerate(resolutions):
+        resolution_id = str(resolution.get("resolutionId", f"invalid-resolution-{index}")) if isinstance(resolution, dict) else f"invalid-resolution-{index}"
+        identities.setdefault(resolution_id, []).append(index)
+        try:
+            validate_resolution(resolution, runs, invalid_run_ids)
+        except (TypeError, ValueError, KeyError) as exc:
+            invalid_indexes.add(index)
+            issues.append({"resolutionId": resolution_id, "category": "resolution_invalid", "message": str(exc)})
+            continue
+        failure_keys.setdefault((resolution["runId"], resolution["failureIndex"]), []).append(index)
+    for resolution_id, indexes in identities.items():
+        if len(indexes) > 1:
+            invalid_indexes.update(indexes)
+            issues.append({"resolutionId": resolution_id, "category": "resolution_duplicate", "message": "duplicate resolutionId"})
+    for (run_id, failure_index), indexes in failure_keys.items():
+        if len(indexes) > 1:
+            invalid_indexes.update(indexes)
+            issues.append({
+                "resolutionId": "*",
+                "category": "resolution_conflict",
+                "message": f"multiple resolutions target {run_id} failure {failure_index}",
+            })
+    valid_resolutions = [resolution for index, resolution in enumerate(resolutions) if index not in invalid_indexes]
+    rejected_ids = list(dict.fromkeys(
+        str(resolution.get("resolutionId", f"invalid-resolution-{index}"))
+        if isinstance(resolution, dict)
+        else f"invalid-resolution-{index}"
+        for index, resolution in enumerate(resolutions)
+        if index in invalid_indexes
+    ))
+    return {
+        "rowCount": len(resolutions),
+        "compatibleCount": len(valid_resolutions),
+        "rejectedCount": len(invalid_indexes),
+        "rejectedResolutionIds": rejected_ids,
+        "issueCount": len(issues),
+        "issues": issues,
+        "integrityFailure": bool(issues),
+        "validResolutions": valid_resolutions,
+    }
 
 
 def append_resolution(root: Path, resolution: dict[str, Any], runs: list[dict[str, Any]] | None = None) -> None:
     runs = runs if runs is not None else load_runs(root)
-    required = {"schemaVersion", "resolutionId", "providerId", "runId", "failureIndex", "category", "resolvedAt", "reason", "evidence", "resolvedBy"}
-    if required - resolution.keys(): raise ValueError("resolution missing required fields")
-    if resolution["schemaVersion"] != SCHEMA_VERSION or not re.fullmatch(r"[A-Za-z0-9._-]+", str(resolution["resolutionId"])): raise ValueError("invalid resolution identity")
     existing = load_resolutions(root)
-    if any(item["resolutionId"] == resolution["resolutionId"] for item in existing): raise ValueError("duplicate resolutionId")
-    run = next((item for item in runs if item.get("runId") == resolution["runId"]), None)
-    if not run: raise ValueError("resolution references unknown run")
-    index = resolution["failureIndex"]
-    if not isinstance(index, int) or index < 0 or index >= len(run.get("failures", [])): raise ValueError("resolution references unknown failure")
-    failure = run["failures"][index]
-    if resolution["providerId"] != run["providerId"] or resolution["category"] != failure.get("category"): raise ValueError("resolution category/provider mismatch")
-    if not str(resolution["reason"]).strip() or not str(resolution["evidence"]).strip(): raise ValueError("resolution reason and evidence are required")
-    if resolution.get("replacementRunId") and not any(item.get("runId") == resolution["replacementRunId"] for item in runs): raise ValueError("resolution references unknown replacement run")
     clean = redact(resolution)
-    if contains_sensitive(clean): raise ValueError("sensitive resolution content")
+    audit = audit_resolution_ledger(existing + [clean], runs)
+    if audit["integrityFailure"]:
+        raise ValueError(audit["issues"][-1]["message"])
     payload = existing + [clean]
     atomic_write(root / RESOLUTION_FILENAME, b"".join(json.dumps(item, ensure_ascii=False, sort_keys=True, allow_nan=False).encode("utf-8") + b"\n" for item in payload))
 
@@ -156,8 +369,9 @@ def dirty_paths(status_text: str) -> list[str]:
 
 
 def observation_eligibility(status_text: str, allow_dirty_debug: bool) -> bool:
-    paths = dirty_paths(status_text)
-    if paths and not allow_dirty_debug: raise DirtyWorktreeError(paths)
+    raw_lines = [line for line in status_text.splitlines() if line.strip()]
+    disallowed_lines = [line for line in raw_lines if line != "?? AGENTS.md"]
+    if disallowed_lines and not allow_dirty_debug: raise DirtyWorktreeError(disallowed_lines)
     return not allow_dirty_debug
 
 
@@ -254,6 +468,351 @@ def tree_digest(paths: list[Path], relative_to: Path) -> str:
     return digest.hexdigest()
 
 
+def audit_observation_ledger(
+    root: Path,
+    runs: list[dict[str, Any]],
+    legacy_anchors: dict[str, dict[str, str]] | None = None,
+) -> dict[str, Any]:
+    issues: list[dict[str, str]] = []
+    invalid_run_ids: set[str] = set()
+    invalid_v2_run_ids: set[str] = set()
+    invalid_legacy_run_ids: set[str] = set()
+    unknown_legacy_run_ids: set[str] = set()
+    schema_downgrade_run_ids: set[str] = set()
+    missing_legacy_anchor_run_ids: set[str] = set()
+    trusted_legacy_run_ids: set[str] = set()
+    unclassifiable_run_ids: set[str] = set()
+    validated_run_ids: set[str] = set()
+    validated_run_legacy_ids: set[str] = set()
+    validated_ledger_legacy_ids: set[str] = set()
+    ledger_path = root / "provider-health-ledger.jsonl"
+    ledger_rows: list[dict[str, Any]] = []
+    anchor_config_failure = False
+    root_state: dict[str, Any] | None = None
+    root_state_load_error: str | None = None
+
+    if legacy_anchors is None:
+        try:
+            legacy_anchors = load_legacy_anchors()
+        except ValueError as exc:
+            legacy_anchors = {}
+            anchor_config_failure = True
+            issues.append({
+                "runId": "legacy-anchor-config",
+                "category": "legacy_anchor_config_invalid",
+                "message": str(exc),
+            })
+    try:
+        root_state = load_root_state(root)
+    except ValueError as exc:
+        root_state_load_error = str(exc)
+
+    def identity(value: Any, fallback: str) -> str:
+        if isinstance(value, dict) and isinstance(value.get("runId"), str):
+            return value["runId"]
+        return fallback
+
+    def classify_legacy_invalid(value: Any, run_id: str) -> None:
+        invalid_run_ids.add(run_id)
+        if looks_like_schema_downgrade(value):
+            schema_downgrade_run_ids.add(run_id)
+        if run_id in legacy_anchors:
+            invalid_legacy_run_ids.add(run_id)
+        else:
+            unknown_legacy_run_ids.add(run_id)
+
+    def classify_invalid(value: Any, run_id: str) -> None:
+        invalid_run_ids.add(run_id)
+        schema_version = value.get("schemaVersion") if isinstance(value, dict) else None
+        if schema_version == SCHEMA_VERSION:
+            invalid_v2_run_ids.add(run_id)
+        elif schema_version in LEGACY_SCHEMA_VERSIONS:
+            classify_legacy_invalid(value, run_id)
+        else:
+            unclassifiable_run_ids.add(run_id)
+
+    def add_issue(value: Any, run_id: str, category: str, message: str, *, invalidate: bool = True) -> None:
+        issues.append({"runId": run_id, "category": category, "message": message})
+        if invalidate:
+            classify_invalid(value, run_id)
+
+    if ledger_path.exists():
+        try:
+            ledger_lines = ledger_path.read_text(encoding="utf-8").splitlines()
+            for line_number, line in enumerate(ledger_lines, start=1):
+                if not line.strip():
+                    continue
+                try:
+                    row = json.loads(line)
+                    if not isinstance(row, dict):
+                        raise ValueError("ledger row must contain an object")
+                    ledger_rows.append(row)
+                except (ValueError, json.JSONDecodeError) as exc:
+                    run_id = f"invalid-ledger-line-{line_number}"
+                    add_issue(None, run_id, "ledger_invalid", str(exc))
+        except OSError as exc:
+            add_issue(None, "invalid-ledger-file", "ledger_invalid", str(exc))
+    elif runs:
+        for index, run in enumerate(runs):
+            run_id = identity(run, f"invalid-run-{index}")
+            add_issue(run, run_id, "ledger_missing", "provider-health-ledger.jsonl is missing")
+
+    run_rows_by_id: dict[str, list[dict[str, Any]]] = {}
+    for index, run in enumerate(runs):
+        run_id = identity(run, f"invalid-run-{index}")
+        run_rows_by_id.setdefault(run_id, []).append(run)
+        try:
+            validate_run(run)
+            validated_run_ids.add(run_id)
+            if run.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS:
+                try:
+                    validate_legacy_run(run, legacy_anchors)
+                    validated_run_legacy_ids.add(run_id)
+                except (TypeError, ValueError, KeyError) as exc:
+                    add_issue(run, run_id, "legacy_run_validation_error", str(exc))
+        except (TypeError, ValueError, KeyError) as exc:
+            add_issue(run, run_id, "run_validation_error", str(exc))
+
+    ledger_rows_by_id: dict[str, list[dict[str, Any]]] = {}
+    for index, row in enumerate(ledger_rows):
+        run_id = identity(row, f"invalid-ledger-row-{index}")
+        ledger_rows_by_id.setdefault(run_id, []).append(row)
+        try:
+            validate_run(row)
+            if row.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS:
+                try:
+                    validate_legacy_run(row, legacy_anchors)
+                    validated_ledger_legacy_ids.add(run_id)
+                except (TypeError, ValueError, KeyError) as exc:
+                    add_issue(row, run_id, "legacy_ledger_validation_error", str(exc))
+        except (TypeError, ValueError, KeyError) as exc:
+            add_issue(row, run_id, "ledger_row_validation_error", str(exc))
+
+    for run_id, rows in run_rows_by_id.items():
+        if len(rows) > 1:
+            for row in rows:
+                classify_invalid(row, run_id)
+            issues.append({"runId": run_id, "category": "run_duplicate", "message": "duplicate runId in run files"})
+    for run_id, rows in ledger_rows_by_id.items():
+        if len(rows) > 1:
+            for row in rows:
+                classify_invalid(row, run_id)
+            issues.append({"runId": run_id, "category": "ledger_duplicate", "message": "duplicate runId in ledger"})
+
+    run_ids = set(run_rows_by_id)
+    for index, run in enumerate(runs):
+        run_id = identity(run, f"invalid-run-{index}")
+        ledger_matches = ledger_rows_by_id.get(run_id, [])
+        if len(ledger_matches) != 1 or ledger_matches[0] != run:
+            add_issue(run, run_id, "ledger_mismatch", "run file and ledger row differ")
+
+    has_historical_evidence = bool(runs or ledger_rows)
+    declared_root_mode = root_state.get("mode") if root_state else None
+    requires_legacy_anchors = has_historical_evidence and declared_root_mode != FRESH_V2
+    if requires_legacy_anchors:
+        for run_id, anchor in legacy_anchors.items():
+            run_matches = run_rows_by_id.get(run_id, [])
+            ledger_matches = ledger_rows_by_id.get(run_id, [])
+            if len(run_matches) != 1 or len(ledger_matches) != 1:
+                missing_legacy_anchor_run_ids.add(run_id)
+                add_issue(
+                    {"schemaVersion": LEGACY_RUN_SCHEMA_VERSION, **anchor},
+                    run_id,
+                    "legacy_anchor_missing",
+                    "anchored legacy run must exist exactly once in run files and ledger",
+                )
+
+    for run_id in legacy_anchors:
+        run_matches = run_rows_by_id.get(run_id, [])
+        ledger_matches = ledger_rows_by_id.get(run_id, [])
+        if (
+            len(run_matches) == 1
+            and len(ledger_matches) == 1
+            and ledger_matches[0] == run_matches[0]
+            and run_id in validated_run_ids
+            and run_id in validated_run_legacy_ids
+            and run_id in validated_ledger_legacy_ids
+            and run_id not in invalid_run_ids
+        ):
+            trusted_legacy_run_ids.add(run_id)
+
+    for index, run in enumerate(runs):
+        run_id = identity(run, f"invalid-run-{index}")
+        if run_id not in validated_run_ids:
+            continue
+        generated_relative = run.get("artifacts", {}).get("generatedRoot")
+        if not isinstance(generated_relative, str):
+            add_issue(run, run_id, "artifact_path_missing", "generatedRoot is missing")
+            continue
+        generated_root = (root / generated_relative).resolve()
+        observation_root = root.resolve()
+        if observation_root != generated_root and observation_root not in generated_root.parents:
+            add_issue(run, run_id, "artifact_path_escape", "generatedRoot escapes observation root")
+            continue
+        try:
+            actual_artifact = tree_digest([generated_root], generated_root)
+            expected_artifact = run.get("metrics", {}).get("artifactChecksum")
+            if actual_artifact != expected_artifact:
+                add_issue(
+                    run,
+                    run_id,
+                    "artifact_checksum_mismatch",
+                    "isolated artifact checksum differs from run record",
+                    invalidate=run_id not in trusted_legacy_run_ids,
+                )
+            detail_name = "a-share-financials" if run.get("providerId") == "a-share-financials" else "a-share-announcements"
+            manifest_path = generated_root / detail_name / "manifest.generated.json"
+            actual_manifest = file_digest(manifest_path)
+            expected_manifest = run.get("metrics", {}).get("manifestChecksum")
+            if actual_manifest != expected_manifest:
+                add_issue(
+                    run,
+                    run_id,
+                    "manifest_checksum_mismatch",
+                    "isolated manifest checksum differs from run record",
+                    invalidate=run_id not in trusted_legacy_run_ids,
+                )
+        except (OSError, ValueError) as exc:
+            add_issue(
+                run,
+                run_id,
+                "artifact_unreadable",
+                str(exc),
+                invalidate=run_id not in trusted_legacy_run_ids,
+            )
+    for run_id in sorted(set(ledger_rows_by_id) - run_ids):
+        for row in ledger_rows_by_id[run_id]:
+            add_issue(row, run_id, "orphan_ledger_row", "ledger row has no run file")
+
+    v2_integrity_failure = bool(invalid_v2_run_ids or unclassifiable_run_ids)
+    legacy_integrity_failure = bool(
+        anchor_config_failure
+        or invalid_legacy_run_ids
+        or unknown_legacy_run_ids
+        or schema_downgrade_run_ids
+        or missing_legacy_anchor_run_ids
+    )
+    legacy_issue_run_ids = (
+        set(legacy_anchors)
+        | trusted_legacy_run_ids
+        | invalid_legacy_run_ids
+        | unknown_legacy_run_ids
+        | schema_downgrade_run_ids
+    )
+    root_state_mode = "invalid" if root_state_load_error else declared_root_mode
+    root_state_integrity_failure = bool(root_state_load_error)
+    root_state_migration_pending = False
+    missing_initial_evidence_run_ids: set[str] = set()
+    modified_initial_evidence_run_ids: set[str] = set()
+    root_state_issues: list[dict[str, str]] = []
+
+    def add_root_state_issue(category: str, message: str, run_id: str = "root-state") -> None:
+        nonlocal root_state_integrity_failure
+        issue = {"runId": run_id, "category": category, "message": message}
+        root_state_issues.append(issue)
+        issues.append(issue)
+        root_state_integrity_failure = True
+
+    if root_state_load_error:
+        add_root_state_issue("root_state_invalid", root_state_load_error)
+    elif root_state is None:
+        if not has_historical_evidence and root_is_truly_empty(root):
+            root_state_mode = "empty"
+        elif (
+            bool(legacy_anchors)
+            and set(legacy_anchors) == trusted_legacy_run_ids
+            and not v2_integrity_failure
+            and not legacy_integrity_failure
+        ):
+            root_state_mode = "legacy_v1_migration_pending"
+            root_state_migration_pending = True
+        else:
+            root_state_mode = "unidentified"
+            add_root_state_issue(
+                "nonempty_unidentified_root",
+                "nonempty observation root has no trusted root state or complete legacy anchor set",
+            )
+    elif declared_root_mode == FRESH_V2:
+        legacy_evidence_ids = {
+            run_id
+            for run_id, rows in run_rows_by_id.items()
+            if any(
+                isinstance(row, dict) and row.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS
+                for row in rows
+            )
+        } | {
+            run_id
+            for run_id, rows in ledger_rows_by_id.items()
+            if any(
+                isinstance(row, dict) and row.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS
+                for row in rows
+            )
+        }
+        if legacy_evidence_ids:
+            add_root_state_issue(
+                "fresh_root_contains_legacy_evidence",
+                "fresh_v2 observation root cannot contain V1 evidence",
+            )
+    elif declared_root_mode == LEGACY_V1_MIGRATED:
+        for record in root_state["initialEvidenceRecords"]:
+            run_id = record["runId"]
+            run_matches = run_rows_by_id.get(run_id, [])
+            ledger_matches = ledger_rows_by_id.get(run_id, [])
+            if len(run_matches) != 1 or len(ledger_matches) != 1:
+                missing_initial_evidence_run_ids.add(run_id)
+                continue
+            if (
+                run_matches[0] != ledger_matches[0]
+                or canonical_record_sha256(run_matches[0]) != record["canonicalRecordSha256"]
+            ):
+                modified_initial_evidence_run_ids.add(run_id)
+        if missing_initial_evidence_run_ids:
+            add_root_state_issue(
+                "initial_evidence_deleted",
+                "one or more migration-time evidence records are missing",
+            )
+        if modified_initial_evidence_run_ids:
+            add_root_state_issue(
+                "initial_evidence_modified",
+                "one or more migration-time evidence records changed",
+            )
+
+    evidence_integrity_failure = (
+        v2_integrity_failure
+        or legacy_integrity_failure
+        or root_state_integrity_failure
+    )
+    return {
+        "runFileCount": len(runs),
+        "ledgerRowCount": len(ledger_rows),
+        "issueCount": len(issues),
+        "issues": issues,
+        "invalidRunIds": sorted(invalid_run_ids),
+        "invalidV2RunIds": sorted(invalid_v2_run_ids),
+        "trustedLegacyRunIds": sorted(trusted_legacy_run_ids),
+        "invalidLegacyRunIds": sorted(invalid_legacy_run_ids),
+        "unknownLegacyRunIds": sorted(unknown_legacy_run_ids),
+        "schemaDowngradeRunIds": sorted(schema_downgrade_run_ids),
+        "missingLegacyAnchorRunIds": sorted(missing_legacy_anchor_run_ids),
+        "unclassifiableRunIds": sorted(unclassifiable_run_ids),
+        "runValidationIssueCount": sum(issue["category"] == "run_validation_error" for issue in issues),
+        "legacyValidationIssueCount": sum(
+            issue["runId"] in legacy_issue_run_ids for issue in issues
+        ),
+        "v2IntegrityFailure": v2_integrity_failure,
+        "legacyIntegrityFailure": legacy_integrity_failure,
+        "rootState": root_state,
+        "rootStateMode": root_state_mode,
+        "rootStateMigrationPending": root_state_migration_pending,
+        "rootStateIssueCount": len(root_state_issues),
+        "rootStateIssues": root_state_issues,
+        "rootStateIntegrityFailure": root_state_integrity_failure,
+        "missingInitialEvidenceRunIds": sorted(missing_initial_evidence_run_ids),
+        "modifiedInitialEvidenceRunIds": sorted(modified_initial_evidence_run_ids),
+        "evidenceIntegrityFailure": evidence_integrity_failure,
+    }
+
+
 def percentile(values: list[float], ratio: float) -> float | None:
     if not values: return None
     ordered = sorted(values); index = max(0, min(len(ordered) - 1, int((len(ordered) - 1) * ratio + 0.999999)))
@@ -293,11 +852,11 @@ def summarize_provider(runs: list[dict[str, Any]], timezone_name: str, resolutio
         streak += 1
     failures = Counter(row["category"] for row in effective)
     total = len(runs)
-    return {"totalRuns": total, "runs": total, "completeSuccessRuns": len(complete), "usableRuns": len(usable), "failedRuns": sum(run.get("status") == "failed" for run in runs), "distinctDays": len(days), "successfulDays": len(success_days), "completeSuccessRate": len(complete) / total if total else 0, "totalSuccessRate": len(usable) / total if total else 0, "expectedWindowExpiryCount": sum(run.get("metrics", {}).get("expectedWindowExpiryCount", 0) or 0 for run in runs), "unexpectedRemovalCount": sum(run.get("metrics", {}).get("unexpectedRemovalCount", 0) or 0 for run in runs), "unverifiableRemovalCount": sum(run.get("metrics", {}).get("unverifiableRemovalCount", 0) or 0 for run in runs), "latestWindowShiftDays": runs[-1].get("metrics", {}).get("windowShiftDays") if runs else None, "p50DurationSeconds": percentile(durations, .5), "p95DurationSeconds": percentile(durations, .95), "successStreak": streak, "latestStatus": runs[-1]["status"] if runs else None, "failureCounts": dict(sorted(failures.items()))}
+    return {"totalRuns": total, "runs": total, "successRuns": sum(run.get("status") == "success" for run in runs), "partialRuns": sum(run.get("status") == "partial" for run in runs), "failedRuns": sum(run.get("status") == "failed" for run in runs), "completeSuccessRuns": len(complete), "usableRuns": len(usable), "distinctDays": len(days), "successfulDays": len(success_days), "completeSuccessRate": len(complete) / total if total else 0, "totalSuccessRate": len(usable) / total if total else 0, "expectedWindowExpiryCount": sum(run.get("metrics", {}).get("expectedWindowExpiryCount", 0) or 0 for run in runs), "unexpectedRemovalCount": sum(run.get("metrics", {}).get("unexpectedRemovalCount", 0) or 0 for run in runs), "unverifiableRemovalCount": sum(run.get("metrics", {}).get("unverifiableRemovalCount", 0) or 0 for run in runs), "latestWindowShiftDays": runs[-1].get("metrics", {}).get("windowShiftDays") if runs else None, "p50DurationSeconds": percentile(durations, .5), "p95DurationSeconds": percentile(durations, .95), "successStreak": streak, "latestStatus": runs[-1]["status"] if runs else None, "failureCounts": dict(sorted(failures.items()))}
 
 
 def validate_config(config: dict[str, Any]) -> None:
-    if config.get("schemaVersion") != SCHEMA_VERSION: raise ValueError("config schemaVersion mismatch")
+    if config.get("schemaVersion") != GATE_SCHEMA_VERSION: raise ValueError("config schemaVersion mismatch")
     if not config.get("providers") or len(set(config["providers"])) != len(config["providers"]): raise ValueError("providers must be unique")
     ZoneInfo(config["timezone"])
     for key in ("minimumDistinctDays", "minimumRunsPerProvider", "minimumSuccessfulDaysPerProvider", "expectedCompanies"):
@@ -306,14 +865,132 @@ def validate_config(config: dict[str, Any]) -> None:
         if not isinstance(config.get(key), (int, float)) or not 0 <= config[key] <= 1: raise ValueError(f"invalid {key}")
 
 
-def evaluate(runs: list[dict[str, Any]], config: dict[str, Any], production_validation: dict[str, Any] | None = None, resolutions: list[dict[str, Any]] | None = None, production_valid: bool | None = None, audit_errors: int = 0) -> dict[str, Any]:
-    validate_config(config); resolutions = resolutions or []
-    eligible_runs = [run for run in runs if run.get("metrics", {}).get("eligibleSample", True)]
-    grouped = {provider: [run for run in eligible_runs if run.get("providerId") == provider] for provider in config["providers"]}
-    providers = {provider: summarize_provider(items, config["timezone"], resolutions) for provider, items in grouped.items()}
+def _current_targets(runs: list[dict[str, Any]], provider_ids: list[str], supplied: dict[str, dict[str, Any]] | None) -> dict[str, dict[str, Any]]:
+    if supplied is not None:
+        return supplied
+    targets: dict[str, dict[str, Any]] = {}
+    for provider_id in provider_ids:
+        candidates = [run.get("provenance") for run in runs if run.get("providerId") == provider_id and valid_provenance(run.get("provenance"))]
+        if candidates:
+            targets[provider_id] = candidates[-1]
+    return targets
+
+
+def _compatible_resolutions(
+    resolutions: list[dict[str, Any]],
+    runs: list[dict[str, Any]],
+    eligible_run_ids: set[str],
+    invalid_run_ids: set[str],
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    audit = audit_resolution_ledger(resolutions, runs, invalid_run_ids)
+    compatible = [
+        resolution
+        for resolution in audit["validResolutions"]
+        if resolution["runId"] in eligible_run_ids
+    ]
+    return compatible, audit
+
+
+def evaluate(
+    runs: list[dict[str, Any]],
+    config: dict[str, Any],
+    production_validation: dict[str, Any] | None = None,
+    resolutions: list[dict[str, Any]] | None = None,
+    production_valid: bool | None = None,
+    audit_errors: int = 0,
+    current_provenance: dict[str, dict[str, Any]] | None = None,
+    current_provenance_failures: dict[str, list[str]] | None = None,
+    ledger_audit: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    validate_config(config); resolutions = resolutions or []; current_provenance_failures = current_provenance_failures or {}
+    targets = _current_targets(runs, config["providers"], current_provenance)
+    invalid_run_ids = set((ledger_audit or {}).get("invalidRunIds", []))
+    invalid_v2_run_ids = set((ledger_audit or {}).get("invalidV2RunIds", []))
+    trusted_legacy_run_ids = set((ledger_audit or {}).get("trustedLegacyRunIds", []))
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    inventory: dict[str, dict[str, Any]] = {}
+    v2_integrity_blocked = bool((ledger_audit or {}).get("v2IntegrityFailure"))
+    legacy_integrity_blocked = bool((ledger_audit or {}).get("legacyIntegrityFailure"))
+    root_state_integrity_blocked = bool((ledger_audit or {}).get("rootStateIntegrityFailure"))
+    for provider_id in config["providers"]:
+        target = targets.get(provider_id)
+        target_cohort = target.get("provenanceCohortId") if valid_provenance(target) else None
+        buckets = {"current": [], "legacy": [], "incompatible": [], "debug": [], "provenanceUnavailable": []}
+        for run in [item for item in runs if item.get("providerId") == provider_id]:
+            if run.get("schemaVersion") in LEGACY_SCHEMA_VERSIONS:
+                if run.get("runId") in trusted_legacy_run_ids and run.get("runId") not in invalid_run_ids:
+                    buckets["legacy"].append(run)
+                else:
+                    buckets["incompatible"].append(run)
+                    legacy_integrity_blocked = True
+            elif (
+                run.get("schemaVersion") != SCHEMA_VERSION
+                or run.get("runId") in invalid_v2_run_ids
+            ):
+                buckets["incompatible"].append(run)
+                v2_integrity_blocked = True
+            elif run.get("runId") in invalid_run_ids:
+                buckets["incompatible"].append(run)
+                v2_integrity_blocked = True
+            elif unavailable_provenance(run.get("provenance")):
+                try:
+                    validate_run(run)
+                except (TypeError, ValueError, KeyError):
+                    buckets["incompatible"].append(run)
+                    v2_integrity_blocked = True
+                else:
+                    buckets["provenanceUnavailable"].append(run)
+            elif not valid_provenance(run.get("provenance")):
+                buckets["incompatible"].append(run)
+                v2_integrity_blocked = True
+            elif run.get("metrics", {}).get("eligibleSample") is False:
+                buckets["debug"].append(run)
+            elif not target_cohort or run.get("provenance", {}).get("provenanceCohortId") != target_cohort or run.get("provenance", {}).get("stockUniverseIdentityCount") != config["expectedCompanies"]:
+                buckets["incompatible"].append(run)
+            else:
+                buckets["current"].append(run)
+        grouped[provider_id] = buckets["current"]
+        inventory[provider_id] = {
+            "currentEligibleRuns": len(buckets["current"]),
+            "trustedLegacyRuns": len(buckets["legacy"]),
+            "legacyRuns": len(buckets["legacy"]),
+            "incompatibleRuns": len(buckets["incompatible"]),
+            "debugRuns": len(buckets["debug"]),
+            "provenanceUnavailableRuns": len(buckets["provenanceUnavailable"]),
+            "currentCohortId": target_cohort,
+            "legacyRunIds": [run.get("runId") for run in buckets["legacy"]],
+            "incompatibleRunIds": [run.get("runId") for run in buckets["incompatible"]],
+            "debugRunIds": [run.get("runId") for run in buckets["debug"]],
+            "provenanceUnavailableRunIds": [run.get("runId") for run in buckets["provenanceUnavailable"]],
+        }
+    eligible_runs = [run for provider_runs in grouped.values() for run in provider_runs]
+    eligible_run_ids = {run["runId"] for run in eligible_runs}
+    compatible_resolutions, resolution_audit = _compatible_resolutions(
+        resolutions,
+        runs,
+        eligible_run_ids,
+        invalid_run_ids,
+    )
+    providers = {
+        provider: {
+            **summarize_provider(items, config["timezone"], compatible_resolutions),
+            "cohortAudit": inventory[provider],
+        }
+        for provider, items in grouped.items()
+    }
     all_days = {datetime.fromisoformat(run["startedAt"].replace("Z", "+00:00")).astimezone(ZoneInfo(config["timezone"])).date().isoformat() for run in eligible_runs}
-    effective = effective_failure_rows(eligible_runs, resolutions)
+    effective = effective_failure_rows(eligible_runs, compatible_resolutions)
     blocking = sorted({row["category"] for row in effective if not row["effectiveResolved"] and row["category"] in BLOCKING_FAILURES})
+    if v2_integrity_blocked and "checksum_mismatch" not in blocking:
+        blocking.append("checksum_mismatch")
+    if legacy_integrity_blocked and "legacy_integrity_failure" not in blocking:
+        blocking.append("legacy_integrity_failure")
+    if root_state_integrity_blocked and "root_state_integrity_failure" not in blocking:
+        blocking.append("root_state_integrity_failure")
+    if resolution_audit["integrityFailure"] and "resolution_integrity_failure" not in blocking:
+        blocking.append("resolution_integrity_failure")
+    if current_provenance_failures and "provenance_unavailable" not in blocking:
+        blocking.append("provenance_unavailable")
     if production_validation is None:
         valid = True if production_valid is None else production_valid
         production_validation = {"passed": valid and audit_errors == 0, "financials": {"passed": valid, "errorCount": int(not valid), "errors": []}, "announcements": {"passed": valid, "errorCount": int(not valid), "errors": []}, "dataAudit": {"passed": audit_errors == 0, "exitCode": int(bool(audit_errors)), "p0": audit_errors, "errors": audit_errors}, "defaultRefresh": {"passed": True, "unqualifiedProvidersIncluded": []}}
@@ -329,4 +1006,27 @@ def evaluate(runs: list[dict[str, Any]], config: dict[str, Any], production_vali
     else: status = "disqualified"
     assert status in ELIGIBILITY_STATUSES
     exit_code = 0 if status == "qualified" else 2 if status in {"insufficient_observation_window", "observing"} else 3 if status == "conditionally_qualified" else 1
-    return {"schemaVersion": SCHEMA_VERSION, "status": status, "exitCode": exit_code, "observationDays": len(all_days), "providers": providers, "blockingFailures": blocking, "productionValidation": production_validation, "resolutions": resolutions, "historicalFailures": effective}
+    return {
+        "schemaVersion": SCHEMA_VERSION,
+        "gateConfigSchemaVersion": GATE_SCHEMA_VERSION,
+        "status": status,
+        "exitCode": exit_code,
+        "observationDays": len(all_days),
+        "providers": providers,
+        "blockingFailures": sorted(blocking),
+        "productionValidation": production_validation,
+        "currentProvenance": targets,
+        "currentProvenanceFailures": current_provenance_failures,
+        "ledgerAudit": ledger_audit,
+        "resolutionAudit": {
+            "compatibleCount": len(compatible_resolutions),
+            "validCount": len(resolution_audit["validResolutions"]),
+            "rejectedCount": resolution_audit["rejectedCount"],
+            "rejectedResolutionIds": resolution_audit["rejectedResolutionIds"],
+            "issueCount": resolution_audit["issueCount"],
+            "issues": resolution_audit["issues"],
+            "integrityFailure": resolution_audit["integrityFailure"],
+        },
+        "resolutions": resolutions,
+        "historicalFailures": effective,
+    }
