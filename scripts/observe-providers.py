@@ -21,7 +21,7 @@ from a_share_financials.artifacts import MANIFEST_FILENAME, validate_split_artif
 from a_share_financials.core import PROVIDER_VERSION as FINANCIAL_VERSION
 from provider_observability import SCHEMA_VERSION
 from provider_observability.core import (
-    announcement_diff, append_run, atomic_write, audit_observation_ledger, classify_failure, evaluate, financial_diff,
+    announcement_diff, append_run, atomic_write, audit_observation_ledger, classify_failure, derive_announcement_query_window, evaluate, financial_diff,
     DirtyWorktreeError, file_digest, json_bytes, load_json, load_resolutions, load_runs, observation_eligibility, redact, tree_digest,
 )
 from provider_observability.production import validate_production
@@ -139,13 +139,34 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
             previous_detail_dir = previous / "a-share-announcements" if previous else None
             previous_details = detail_documents(previous_detail_dir, "stockId") if previous_detail_dir else None
             previous_manifest = load_json(previous_detail_dir / MANIFEST_FILENAME, {}) if previous_detail_dir else {}
-            difference = announcement_diff(details, previous_details, manifest.get("dateRange"), previous_manifest.get("dateRange"))
+            query_window_errors: list[str] = []
+            try:
+                current_query_window = derive_announcement_query_window(details, expected)
+            except ValueError as exc:
+                current_query_window = None
+                query_window_errors.append(f"current: {exc}")
+            try:
+                previous_query_window = derive_announcement_query_window(previous_details, expected) if previous_details is not None else None
+            except ValueError as exc:
+                previous_query_window = None
+                query_window_errors.append(f"previous: {exc}")
+            difference = announcement_diff(
+                details,
+                previous_details,
+                current_query_window,
+                previous_query_window,
+                current_actual_data_extent=manifest.get("dateRange"),
+                previous_actual_data_extent=previous_manifest.get("dateRange"),
+            )
+            if query_window_errors:
+                difference["queryWindowErrors"] = query_window_errors
             if difference.get("unexpectedRemoved"):
                 failures.append({"category": "unexpected_removal", "message": f"overlap-window announcement removals: {difference['unexpectedRemoved']}", "resolved": False})
             if difference.get("unverifiableRemoved"):
                 failures.append({"category": "unverifiable_removal", "message": f"unverifiable announcement removals: {difference['unverifiableRemoved']}", "resolved": False})
-            if difference.get("windowRisks"):
-                failures.append({"category": "window_anomaly", "message": ", ".join(difference["windowRisks"]), "resolved": False})
+            window_failures = [*difference.get("windowRisks", []), *query_window_errors]
+            if window_failures:
+                failures.append({"category": "window_anomaly", "message": ", ".join(window_failures), "resolved": False})
             categories = Counter(item.get("category") for detail in details.values() for item in detail.get("announcements", []))
             metrics.update({"companyCoverage": manifest.get("totalCompanies", 0), "success": manifest.get("success", 0), "partial": manifest.get("partial", 0), "error": manifest.get("error", 0), "totalAnnouncements": manifest.get("totalAnnouncements", 0), "latestAnnouncementDate": (manifest.get("dateRange") or {}).get("end"), "categoryCounts": dict(sorted(categories.items())), "structuralValidationRate": 1 if not errors else 0, "detailFiles": len(details), "manifestChecksum": file_digest(detail_dir / MANIFEST_FILENAME), "artifactChecksum": tree_digest([summary_path, detail_dir], generated_root), "expectedWindowExpiryCount": difference.get("expectedExpired", 0), "unexpectedRemovalCount": difference.get("unexpectedRemoved", 0), "unverifiableRemovalCount": difference.get("unverifiableRemoved", 0), "windowShiftDays": difference.get("windowShiftDays")})
         for error in errors:

@@ -21,7 +21,7 @@ from provider_observability import GATE_SCHEMA_VERSION, SCHEMA_VERSION
 from provider_observability.core import (
     BLOCKING_FAILURES, DirtyWorktreeError, announcement_diff, append_resolution, append_run, atomic_write, audit_observation_ledger,
     audit_resolution_ledger,
-    classify_failure, contains_sensitive, dirty_paths, evaluate, file_digest, financial_diff, json_bytes,
+    classify_failure, contains_sensitive, derive_announcement_query_window, dirty_paths, evaluate, file_digest, financial_diff, json_bytes,
     load_resolutions, load_runs, make_resolution, observation_eligibility, percentile, redact,
     stable, summarize_provider, tree_digest, validate_config, validate_run,
 )
@@ -228,6 +228,116 @@ class WindowDifferenceTests(unittest.TestCase):
     def test_26_addition_normal(self): self.assertEqual(announcement_diff(details(ann("new", "2026-07-12")), {}, self.current_window, self.previous_window)["added"], 1)
     def test_27_modified_title(self): self.assertEqual(announcement_diff(details(ann("x", "2025-01-01", title="new")), details(ann("x", "2025-01-01")), self.current_window, self.previous_window)["modifiedIds"], ["x"])
     def test_28_modified_url(self): self.assertEqual(announcement_diff(details(ann("x", "2025-01-01", officialUrl="https://www.cninfo.com.cn/new")), details(ann("x", "2025-01-01")), self.current_window, self.previous_window)["modified"], 1)
+
+
+class AnnouncementQueryWindowTests(unittest.TestCase):
+    expected = {"stock-a", "stock-b"}
+    previous_window = {"start": "2024-07-27", "end": "2026-07-26"}
+    current_window = {"start": "2024-07-29", "end": "2026-07-28"}
+
+    def company_details(self, window, announcements=None):
+        return {
+            company_id: {
+                "stockId": company_id,
+                "dateRange": copy.deepcopy(window),
+                "announcements": list((announcements or {}).get(company_id, [])),
+            }
+            for company_id in sorted(self.expected)
+        }
+
+    def test_query_window_derived_from_detail_date_range(self):
+        self.assertEqual(
+            derive_announcement_query_window(self.company_details(self.current_window), self.expected),
+            self.current_window,
+        )
+
+    def test_sparse_data_extent_does_not_shorten_query_window(self):
+        diff = announcement_diff(
+            self.company_details(self.current_window),
+            self.company_details(self.previous_window),
+            self.current_window,
+            self.previous_window,
+            current_actual_data_extent={"start": "2024-08-02", "end": "2026-07-28"},
+            previous_actual_data_extent={"start": "2024-07-27", "end": "2026-07-25"},
+        )
+        self.assertNotIn("current_window_shortened", diff["windowRisks"])
+
+    def test_manifest_data_extent_is_not_used_as_query_window(self):
+        current_details = self.company_details(self.current_window)
+        previous_details = self.company_details(self.previous_window)
+        current_query = derive_announcement_query_window(current_details, self.expected)
+        previous_query = derive_announcement_query_window(previous_details, self.expected)
+        diff = announcement_diff(
+            current_details,
+            previous_details,
+            current_query,
+            previous_query,
+            current_actual_data_extent={"start": "2025-01-01", "end": "2026-01-01"},
+            previous_actual_data_extent={"start": "2024-07-27", "end": "2026-07-25"},
+        )
+        self.assertEqual(diff["currentWindowStart"], "2024-07-29")
+        self.assertEqual(diff["currentActualDataExtent"]["start"], "2025-01-01")
+        self.assertNotIn("current_window_shortened", diff["windowRisks"])
+
+    def test_expected_expiry_uses_requested_window(self):
+        previous = self.company_details(self.previous_window, {"stock-a": [ann("expired", "2024-07-27")]})
+        diff = announcement_diff(self.company_details(self.current_window), previous, self.current_window, self.previous_window)
+        self.assertEqual(diff["expectedExpiredIds"], ["expired"])
+        self.assertFalse(diff["unexpectedRemoved"] or diff["unverifiableRemoved"])
+
+    def test_overlap_removal_still_blocks_with_requested_window(self):
+        shortened = {"start": "2024-07-29", "end": "2026-07-25"}
+        previous = self.company_details(self.previous_window, {"stock-a": [ann("overlap", "2025-01-01")]})
+        diff = announcement_diff(self.company_details(shortened), previous, shortened, self.previous_window)
+        self.assertIn("current_window_shortened", diff["windowRisks"])
+        self.assertEqual(diff["unexpectedRemovedIds"], ["overlap"])
+
+    def test_missing_detail_query_window_blocks(self):
+        missing = self.company_details(self.current_window)
+        del missing["stock-b"]["dateRange"]
+        with self.assertRaisesRegex(ValueError, "missing for company"):
+            derive_announcement_query_window(missing, self.expected)
+
+    def test_missing_expected_company_blocks(self):
+        missing = self.company_details(self.current_window)
+        del missing["stock-b"]
+        with self.assertRaisesRegex(ValueError, "missing expected companies"):
+            derive_announcement_query_window(missing, self.expected)
+
+    def test_invalid_detail_query_window_blocks(self):
+        invalid = self.company_details(self.current_window)
+        invalid["stock-a"]["dateRange"] = {"start": "2024-7-29", "end": "2026-07-28"}
+        with self.assertRaisesRegex(ValueError, "invalid"):
+            derive_announcement_query_window(invalid, self.expected)
+
+    def test_inconsistent_company_query_windows_block(self):
+        inconsistent = self.company_details(self.current_window)
+        inconsistent["stock-b"]["dateRange"]["start"] = "2024-07-30"
+        with self.assertRaisesRegex(ValueError, "inconsistent"):
+            derive_announcement_query_window(inconsistent, self.expected)
+
+    def test_backward_requested_window_blocks(self):
+        backward = {"start": "2024-07-29", "end": "2026-07-25"}
+        diff = announcement_diff(self.company_details(backward), self.company_details(self.previous_window), backward, self.previous_window)
+        self.assertIn("window_end_moved_backward", diff["windowRisks"])
+
+    def test_genuinely_shortened_requested_window_blocks(self):
+        shortened = {"start": "2024-08-29", "end": "2026-07-28"}
+        diff = announcement_diff(self.company_details(shortened), self.company_details(self.previous_window), shortened, self.previous_window)
+        self.assertIn("current_window_shortened", diff["windowRisks"])
+
+    def test_historical_partial_run_remains_immutable(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "historical-partial.json"
+            path.write_bytes(b'{"runId":"historical-partial","status":"partial"}\n')
+            before_bytes, before_digest = path.read_bytes(), file_digest(path)
+            current = self.company_details(self.current_window)
+            previous = self.company_details(self.previous_window, {"stock-a": [ann("expired", "2024-07-27")]})
+            current_query = derive_announcement_query_window(current, self.expected)
+            previous_query = derive_announcement_query_window(previous, self.expected)
+            announcement_diff(current, previous, current_query, previous_query)
+            self.assertEqual(path.read_bytes(), before_bytes)
+            self.assertEqual(file_digest(path), before_digest)
 
 
 class ChecksumTests(unittest.TestCase):
@@ -704,6 +814,120 @@ class ObserverProvenanceRetentionTests(unittest.TestCase):
         categories = {item["category"] for item in load_runs(root)[0]["failures"]}
         self.assertEqual(code, 1)
         self.assertEqual(categories, {"provenance_unavailable", "timeout"})
+
+
+class AnnouncementObserverQueryWindowTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        script = ROOT / "scripts/observe-providers.py"
+        spec = importlib.util.spec_from_file_location("observe_providers_query_window_test", script)
+        if spec is None or spec.loader is None:
+            raise RuntimeError("cannot load observe-providers.py")
+        cls.observer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.observer)
+
+    @staticmethod
+    def write_announcement_artifacts(root, company_ids, query_window, actual_extent, announcements=None):
+        detail_dir = root / "a-share-announcements"
+        detail_dir.mkdir(parents=True, exist_ok=True)
+        announcements = announcements or {}
+        total = 0
+        for company_id in company_ids:
+            items = list(announcements.get(company_id, []))
+            total += len(items)
+            (detail_dir / f"{company_id}.json").write_text(
+                json.dumps(
+                    {
+                        "stockId": company_id,
+                        "dateRange": query_window,
+                        "announcements": items,
+                    },
+                    ensure_ascii=False,
+                ) + "\n",
+                encoding="utf-8",
+            )
+        (detail_dir / "manifest.generated.json").write_text(
+            json.dumps(
+                {
+                    "totalCompanies": len(company_ids),
+                    "success": len(company_ids),
+                    "partial": 0,
+                    "error": 0,
+                    "totalAnnouncements": total,
+                    "dateRange": actual_extent,
+                }
+            ) + "\n",
+            encoding="utf-8",
+        )
+        (root / "a-share-announcement-summaries.generated.json").write_text("{}\n", encoding="utf-8")
+
+    def run_observer(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        observation_root = Path(temporary.name)
+        write_root_state(
+            observation_root,
+            build_root_state(FRESH_V2, []),
+            atomic_write,
+            json_bytes,
+        )
+        universe = self.observer.load_json(ROOT / "src/data/real/stock-universe.generated.json")["items"]
+        company_ids = sorted(item["id"] for item in universe if item.get("market") == "A股")
+        previous_window = {"start": "2024-07-27", "end": "2026-07-26"}
+        current_window = {"start": "2024-07-29", "end": "2026-07-28"}
+        previous_root = observation_root / "artifacts/previous/generated"
+        self.write_announcement_artifacts(
+            previous_root,
+            company_ids,
+            previous_window,
+            {"start": "2024-07-27", "end": "2026-07-25"},
+            {company_ids[0]: [ann("expired", "2024-07-27")]},
+        )
+
+        def fake_run(command, *args, **kwargs):
+            if command[:2] == ["node", "--version"]:
+                return SimpleNamespace(returncode=0, stdout="v22.15.0\n", stderr="")
+            generated = Path(command[command.index("--output-root") + 1])
+            self.write_announcement_artifacts(
+                generated,
+                company_ids,
+                current_window,
+                {"start": "2024-08-02", "end": "2026-07-28"},
+            )
+            return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+        with (
+            patch.object(self.observer, "build_provenance", return_value=(provenance(), [])),
+            patch.object(self.observer, "subprocess") as subprocess_mock,
+            patch.object(self.observer, "validate_artifacts", return_value=[]),
+            patch.object(self.observer, "git_status", return_value="?? AGENTS.md\n"),
+            patch.object(self.observer, "prior_observation", return_value=({"runId": "previous"}, previous_root)),
+            patch.object(self.observer, "refresh_summary", return_value={}),
+            patch("builtins.print"),
+        ):
+            subprocess_mock.run.side_effect = fake_run
+            code = self.observer.observe(
+                "announcements",
+                observation_root,
+                False,
+                20,
+                "query-window-current",
+            )
+        self.assertEqual(code, 0)
+        return load_runs(observation_root)[0]
+
+    def test_observer_passes_detail_query_windows_to_announcement_diff(self):
+        difference = self.run_observer()["difference"]
+        self.assertEqual(difference["previousQueryWindow"], {"start": "2024-07-27", "end": "2026-07-26"})
+        self.assertEqual(difference["currentQueryWindow"], {"start": "2024-07-29", "end": "2026-07-28"})
+        self.assertEqual(difference["expectedExpiredIds"], ["expired"])
+
+    def test_observer_records_data_extent_separately(self):
+        difference = self.run_observer()["difference"]
+        self.assertEqual(difference["queryWindowSource"], "detail.dateRange")
+        self.assertEqual(difference["previousActualDataExtent"], {"start": "2024-07-27", "end": "2026-07-25"})
+        self.assertEqual(difference["currentActualDataExtent"], {"start": "2024-08-02", "end": "2026-07-28"})
+        self.assertNotIn("current_window_shortened", difference["windowRisks"])
 
 
 class ProvenanceRecoveryTests(unittest.TestCase):

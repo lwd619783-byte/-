@@ -459,6 +459,20 @@ export function detectProviderObservabilityRisks(rootPath) {
   if (!runner.includes("--output-root") || !runner.includes("productionUnchanged") || !runner.includes("redact")) add(findings, "P0", "provider-observability", "provider-observation-isolation-missing", "Observation runner lacks isolated output, production checksum, or redaction", ["a-share-financials", "announcements"], "Write only under the ignored observation root and verify production remains unchanged");
   if (!runner.includes("observation_eligibility(git_status()") || !runner.includes("preflight_failed")) add(findings, "P0", "provider-observability", "provider-observation-dirty-preflight-missing", "Default provider observation does not reject a dirty worktree before network execution", ["a-share-financials", "announcements"], "Run the clean-worktree preflight before calling either provider");
   const core = fs.readFileSync(corePath, "utf8");
+  if (/announcement_diff\(\s*details\s*,\s*previous_details\s*,\s*manifest\.get\(["']dateRange["']\)/s.test(runner)) add(findings, "P0", "provider-observability", "announcement-manifest-extent-used-as-query-window", "Announcement observation passes manifest data extent as the requested query window", ["announcements"], "Derive both requested windows strictly from company detail dateRange fields");
+  if (
+    !runner.includes("derive_announcement_query_window(details, expected)")
+    || !runner.includes("derive_announcement_query_window(previous_details, expected)")
+    || !runner.includes("current_actual_data_extent=manifest.get(\"dateRange\")")
+    || !runner.includes("previous_actual_data_extent=previous_manifest.get(\"dateRange\")")
+  ) add(findings, "P0", "provider-observability", "announcement-detail-query-window-source-missing", "Announcement observation does not keep detail query windows separate from manifest data extents", ["announcements"], "Extract requested windows from detail documents and record manifest ranges only as diagnostic data extents");
+  if (
+    !core.includes("def derive_announcement_query_window(")
+    || !core.includes("announcement query window missing expected companies")
+    || !core.includes("announcement query window invalid for company")
+    || !core.includes("announcement query windows are inconsistent across companies")
+    || !runner.includes('failures.append({"category": "window_anomaly"')
+  ) add(findings, "P0", "provider-observability", "announcement-query-window-fail-closed-missing", "Missing, invalid or inconsistent company query windows do not fail closed", ["announcements"], "Validate every expected company detail with one strict ISO range and retain a blocking window_anomaly on failure");
   const legacy = fs.readFileSync(legacyPath, "utf8");
   const provenance = fs.readFileSync(provenancePath, "utf8");
   const rootState = fs.readFileSync(rootStatePath, "utf8");
@@ -543,6 +557,22 @@ export function detectProviderObservabilityRisks(rootPath) {
     add(findings, "P0", "provider-observability", "provider-observation-schema-incomplete", "Provider observation JSON Schema is invalid", ["a-share-financials", "announcements"], "Commit valid Draft 2020-12 JSON Schema");
   }
   const test = fs.readFileSync(testPath, "utf8");
+  const queryWindowTests = [
+    "test_query_window_derived_from_detail_date_range",
+    "test_sparse_data_extent_does_not_shorten_query_window",
+    "test_manifest_data_extent_is_not_used_as_query_window",
+    "test_expected_expiry_uses_requested_window",
+    "test_overlap_removal_still_blocks_with_requested_window",
+    "test_missing_detail_query_window_blocks",
+    "test_invalid_detail_query_window_blocks",
+    "test_inconsistent_company_query_windows_block",
+    "test_backward_requested_window_blocks",
+    "test_genuinely_shortened_requested_window_blocks",
+    "test_observer_passes_detail_query_windows_to_announcement_diff",
+    "test_observer_records_data_extent_separately",
+    "test_historical_partial_run_remains_immutable",
+  ];
+  if (queryWindowTests.some((name) => !test.includes(name))) add(findings, "P0", "provider-observability", "announcement-query-window-regressions-missing", "Provider observability lacks mandatory requested-window, sparse-extent, fail-closed, observer-path or immutability tests", ["announcements"], "Restore real helper, diff and observer-path tests without relying on local observation artifacts");
   if (!test.includes("first_day_insufficient") || !test.includes("sensitive_detected") || !test.includes("default_refresh_unchanged") || !test.includes("expected_expiry") || !test.includes("resolution_unblocks_failure") || !test.includes("legacy_run_excluded") || !test.includes("cross_cohort_replacement_rejected") || !test.includes("test_tampered_cohort_id_rejected") || !test.includes("test_forged_resolution_read_path_blocked") || !test.includes("test_tracked_agents_rejected") || !test.includes("test_same_invalid_v2_in_run_file_and_ledger_detected") || !test.includes("test_invalid_replacement_ledger_evidence_blocked")) add(findings, "P0", "provider-observability", "provider-observability-negative-tests-missing", "Provider observability lacks mandatory window, secret, refresh, tampered-cohort, forged-resolution, ledger-integrity or exact-worktree tests", ["a-share-financials", "announcements"], "Restore the mandatory offline negative tests for provenance, ledgers, replacement evidence and AGENTS.md status");
   if (!test.includes("test_recordable_source_sha_unavailable") || !test.includes("test_append_recordable_unavailable_writes_run_and_ledger") || !test.includes("test_audit_recordable_unavailable_is_not_invalid_v2") || !test.includes("test_observe_persists_provenance_failure_and_refreshes_summary") || !test.includes("test_observe_provider_failure_preserves_both_failure_categories") || !test.includes("test_recovery_keeps_unavailable_history_outside_denominator")) add(findings, "P0", "provider-observability", "provider-provenance-retention-tests-missing", "Provider observability lacks mandatory recordable, persistence, exclusion, dual-failure or recovery tests", ["a-share-financials", "announcements"], "Restore offline tests proving structured unavailable evidence persists without entering eligibility denominators");
   if (!test.includes("test_fresh_root_first_observation") || !test.includes("test_fresh_v2_does_not_require_legacy_anchors") || !test.includes("test_legacy_root_migration") || !test.includes("test_nonempty_unidentified_root_blocked") || !test.includes("test_initial_evidence_deletion_blocked")) add(findings, "P0", "provider-observability", "provider-root-state-tests-missing", "Provider observability lacks mandatory fresh-root, legacy-migration, unidentified-root or initial-evidence deletion tests", ["a-share-financials", "announcements"], "Restore the mandatory offline root-origin and migration integrity tests");

@@ -410,12 +410,78 @@ def financial_diff(current: dict[str, Any], previous: dict[str, Any] | None, cur
 
 
 def _parse_date(value: Any) -> date | None:
-    try: return date.fromisoformat(str(value))
+    if not isinstance(value, str) or re.fullmatch(r"\d{4}-\d{2}-\d{2}", value) is None:
+        return None
+    try:
+        parsed = date.fromisoformat(value)
     except (TypeError, ValueError): return None
+    return parsed if parsed.isoformat() == value else None
 
 
-def announcement_diff(current_details: dict[str, dict[str, Any]], previous_details: dict[str, dict[str, Any]] | None, current_window: dict[str, Any] | None = None, previous_window: dict[str, Any] | None = None) -> dict[str, Any]:
-    base = {"baseline": previous_details is None, "added": 0, "modified": 0, "expectedExpired": 0, "unexpectedRemoved": 0, "unverifiableRemoved": 0, "addedIds": [], "modifiedIds": [], "expectedExpiredIds": [], "unexpectedRemovedIds": [], "unverifiableRemovedIds": [], "currentWindowStart": (current_window or {}).get("start"), "currentWindowEnd": (current_window or {}).get("end"), "previousWindowStart": (previous_window or {}).get("start"), "previousWindowEnd": (previous_window or {}).get("end"), "overlapStart": None, "overlapEnd": None, "windowShiftDays": None, "windowRisks": []}
+def derive_announcement_query_window(
+    details: dict[str, dict[str, Any]],
+    expected_company_ids: set[str],
+) -> dict[str, str]:
+    if not isinstance(details, dict):
+        raise ValueError("announcement detail documents must be an object")
+    expected = {str(company_id) for company_id in expected_company_ids}
+    if not expected:
+        raise ValueError("announcement query window requires expected companies")
+    missing = sorted(expected - set(details))
+    if missing:
+        raise ValueError(f"announcement query window missing expected companies: {', '.join(missing)}")
+    windows: set[tuple[str, str]] = set()
+    for company_id in sorted(expected):
+        value = details[company_id].get("dateRange")
+        if not isinstance(value, dict):
+            raise ValueError(f"announcement query window missing for company: {company_id}")
+        start, end = value.get("start"), value.get("end")
+        parsed_start, parsed_end = _parse_date(start), _parse_date(end)
+        if parsed_start is None or parsed_end is None or parsed_start > parsed_end:
+            raise ValueError(f"announcement query window invalid for company: {company_id}")
+        windows.add((start, end))
+    if len(windows) != 1:
+        raise ValueError("announcement query windows are inconsistent across companies")
+    start, end = next(iter(windows))
+    return {"start": start, "end": end}
+
+
+def announcement_diff(
+    current_details: dict[str, dict[str, Any]],
+    previous_details: dict[str, dict[str, Any]] | None,
+    current_window: dict[str, Any] | None = None,
+    previous_window: dict[str, Any] | None = None,
+    *,
+    current_actual_data_extent: dict[str, Any] | None = None,
+    previous_actual_data_extent: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    base = {
+        "baseline": previous_details is None,
+        "queryWindowSource": "detail.dateRange",
+        "currentQueryWindow": current_window,
+        "previousQueryWindow": previous_window,
+        "currentActualDataExtent": current_actual_data_extent,
+        "previousActualDataExtent": previous_actual_data_extent,
+        "added": 0,
+        "modified": 0,
+        "expectedExpired": 0,
+        "unexpectedRemoved": 0,
+        "unverifiableRemoved": 0,
+        "addedIds": [],
+        "modifiedIds": [],
+        "expectedExpiredIds": [],
+        "unexpectedRemovedIds": [],
+        "unverifiableRemovedIds": [],
+        "currentWindowStart": (current_window or {}).get("start"),
+        "currentWindowEnd": (current_window or {}).get("end"),
+        "previousWindowStart": (previous_window or {}).get("start"),
+        "previousWindowEnd": (previous_window or {}).get("end"),
+        "overlapStart": None,
+        "overlapEnd": None,
+        "overlap": None,
+        "windowShiftDays": None,
+        "windowRisks": [],
+    }
     if previous_details is None: return base
     def index(details: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
         return {str(item["announcementId"]): item for detail in details.values() for item in detail.get("announcements", []) if item.get("announcementId")}
@@ -433,6 +499,7 @@ def announcement_diff(current_details: dict[str, dict[str, Any]], previous_detai
         base["windowShiftDays"] = (cs - ps).days
         overlap_start, overlap_end = max(cs, ps), min(ce, pe)
         base["overlapStart"], base["overlapEnd"] = overlap_start.isoformat(), overlap_end.isoformat()
+        base["overlap"] = {"start": base["overlapStart"], "end": base["overlapEnd"]} if overlap_start <= overlap_end else None
         if cs < ps: risks.append("window_start_moved_backward")
         if ce < pe: risks.append("window_end_moved_backward")
         if (ce - cs).days < (pe - ps).days: risks.append("current_window_shortened")
@@ -440,7 +507,7 @@ def announcement_diff(current_details: dict[str, dict[str, Any]], previous_detai
     expected: list[str] = []; unexpected: list[str] = []; unverifiable: list[str] = []
     for item_id in removed:
         item_date = _parse_date(before_index[item_id].get("announcementDate"))
-        if not valid or risks or item_date is None:
+        if not valid or item_date is None:
             unverifiable.append(item_id)
         elif ps <= item_date <= pe and item_date < cs:
             expected.append(item_id)
