@@ -92,8 +92,9 @@
 
 | 能力 | 状态 | 优先级 | 当前结论 / 下一步 |
 | --- | --- | ---: | --- |
-| Macro / Market Regime Metric Registry V1 | CONTRACT V1 | P0 | 已固化原始指标、native frequency、source/release/revision/stale contract；下一步数学定义与 Provider Probe |
-| 牛熊温度计 / Market Regime Engine | CONTRACT V1 | P0 | 已恢复 5 个基础模块 + 政策/盈利/结构泡沫 overlay；最终评分、归一化、权重仍需历史回测 |
+| Macro / Market Regime Metric Registry V1 | CONTRACT V1 | P0 | 原始指标、native frequency、source/release/revision/stale contract 已固化 |
+| 牛熊温度计数学定义 / Normalization V1 | CONTRACT V1 | P0 | 巴菲特、PE、社融、供给压力、缺失数据与 policy cap 已冻结为回测基线；下一步历史数据集设计 |
+| 牛熊温度计 / Market Regime Engine | CONTRACT V1 | P0 | 已恢复 5 个基础模块 + 政策/盈利/结构泡沫 overlay；生产权重仍需历史回测 admission |
 | Valuation Center | NOT STARTED | P0 | Stage 4.2 |
 | Portfolio / Account / Position / Transaction | NOT STARTED | P0 | Stage 4.2 |
 | Research Thesis ↔ Position Mapping | NOT STARTED | P0 | Stage 4.2 |
@@ -104,25 +105,24 @@
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.5 |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6，建立在可信数据与云端数据之上 |
 
-### Stage 4.1 Metric Source 状态摘要
+### Stage 4.1 Metric Source / Formula 状态摘要
 
 | 指标 | 当前状态 | 说明 |
 | --- | --- | --- |
-| 融资余额 | SOURCE_READY | 交易所日频，模型周度聚合 |
-| 权益 ETF 净流入 | PROBE_REQUIRED | 不得以 ETF 成交额冒充净申赎 |
-| 北向资金 | SOURCE_READY | HKEX Stock Connect 日频统计 |
-| A 股成交额 | SOURCE_READY | 交易所日频，需沪深北统一口径 |
-| 新增投资者 | PROBE_REQUIRED | 中国结算历史官方口径明确，当前自动化月度入口待验证 |
-| 市场 PE 百分位 | PROBE_REQUIRED | 中证估值快照存在，历史自动化序列待验证 |
-| 中国版巴菲特指标 | DEFINITION_REQUIRED | GDP 源已验证，分子/TTM 口径需冻结 |
-| IPO / 再融资 | SOURCE_READY / FIELD PROBE | 证监会月报为优先官方源 |
-| 减持 / 回购 | PROBE_REQUIRED | 需基于实际执行金额建立事件聚合 Provider |
-| M2 | SOURCE_READY | 人民银行月度 |
-| 社融 | DEFINITION_REQUIRED | 人民银行月度，stock/flow/credit impulse 公式待回测 |
-| 工业企业利润 | SOURCE_READY | 统计局月度，1 月免报 |
-| 上市公司盈利扩散 | NOT_READY | 当前 56 公司 Provider 不代表全 A 市场 |
-| 政策周期修正 | DERIVED_TBD | 官方政策事件驱动，必须有 cap / decay |
-| 结构性泡沫温度 | DERIVED_TBD | 需可复现横截面公式 |
+| 融资余额 | FORMULA READY / SOURCE_READY | 融资余额÷A股流通市值，70%水平分位+30%20日动量 |
+| 权益 ETF 净流入 | FORMULA CANDIDATE / PROBE_REQUIRED | 20日净申赎÷期初权益ETF AUM；不得以成交额替代 |
+| 北向资金 | FORMULA CANDIDATE / SOURCE_READY | 优先20日净流入÷A股流通市值；需锁定HKEX现行字段语义 |
+| A 股成交额 | FORMULA READY / SOURCE_READY | 5日平均成交额÷A股流通市值，75%水平+25%动量 |
+| 新增投资者 | FORMULA CANDIDATE / PROBE_REQUIRED | 月新增投资者÷上月末投资者总数 |
+| 市场 PE 百分位 | FORMULA READY / SOURCE PROBE | V1 主锚定沪深300 TTM PE，10年 point-in-time 分位 |
+| 中国版巴菲特指标 | FORMULA READY | 全部A股总市值÷TTM名义GDP，10年 point-in-time 分位 |
+| 股票供给压力 | FORMULA READY / SOURCE PARTIAL | (IPO+再融资+实际减持-符合口径实际回购)3个月滚动÷A股总市值 |
+| M2 | FORMULA READY / SOURCE_READY | M2同比70% + 3个月增速加速度30% |
+| 社融 | FORMULA READY / SOURCE_READY | 社融存量同比70% + 3个月加速度30%；Credit Impulse 为挑战模型 |
+| 工业企业利润 | CLASSIFIER CANDIDATE / SOURCE_READY | 单月利润同比优先于仅使用累计同比 |
+| 上市公司盈利扩散 | NOT_READY | 当前56公司Provider不足以代表全A |
+| 政策周期修正 | ARCHITECTURE READY | 总温度修正上限 ±5；事件分类与衰减规则待单独合同 |
+| 结构性泡沫温度 | ARCHITECTURE READY | 独立0–100输出，V1不直接修改大盘温度 |
 
 ## 9. 明确延后 / 不应误做的事项
 
@@ -133,7 +133,7 @@
 | A 股财务/公告直接加入默认 refresh | DEFERRED UNTIL ADMISSION | Stability Gate 尚未达标 |
 | OCR 全量公告 | DEFERRED | 不是当前最优先能力，且不能牺牲证据可靠性 |
 | 一次性重构整个 `App.tsx` | DEFERRED | 应在新增 Stage 4 Feature 时渐进拆分 |
-| 未回测即输出正式牛熊温度 | DEFERRED / FORBIDDEN | 旧权重只是 seed；必须完成定义、历史回测和公式版本锁定 |
+| 未回测即输出正式牛熊温度 | DEFERRED / FORBIDDEN | 旧权重只是 seed；必须完成历史数据集、point-in-time 回测和公式版本 admission |
 
 ## 10. Stage 状态
 
@@ -156,19 +156,25 @@
 - [x] native-frequency-aware refresh contract
 - [x] release / stale / revision 基础语义
 - [x] 第一轮官方数据源审计
+- [x] 冻结 V1 数学定义：融资、成交、沪深300 PE、巴菲特指标、净供给、M2、社融
+- [x] point-in-time percentile normalization baseline
+- [x] missing-data / historical-era reweight 规则
+- [x] policy correction ±5 cap
+- [x] Profit Cycle 与 Structural Bubble 独立 overlay 架构
+- [x] 预声明 Candidate A–D，避免无约束过拟合
 
 下一步：
 
-- [ ] 冻结尚未明确的指标数学定义（社融、巴菲特指标、PE 基准等）
+- [ ] Historical Data Availability & Backtest Dataset Design V1
+- [ ] 确认各指标最早可靠历史日期与定义断点
 - [ ] 为 PROBE_REQUIRED 指标执行 Source Probe
-- [ ] 设计每个指标的 normalization candidate
-- [ ] 设计模块内权重与 missing-data rebalance 规则
-- [ ] 建立历史数据 / release-vintage 回测数据集
-- [ ] 2005–present 回测与参数选择
+- [ ] 设计 point-in-time vintage 数据存储 / manifest
+- [ ] 构建 2005–present 回测数据集
+- [ ] 执行 Candidate A–D 回测与参数选择
 - [ ] 公式版本锁定后才进入 Provider / Engine / UI 实现
 
-当前 Stage 4.1 的核心文档：
+当前 Stage 4.1 核心文档：
 
 - `docs/market-regime/metric-registry-v1.md`
 - `docs/market-regime/source-audit-v1.md`
-
+- `docs/market-regime/formula-normalization-v1.md`
