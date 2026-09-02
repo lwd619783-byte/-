@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, LineChart, Plus, ScrollText, RefreshCw, type LucideIcon } from "lucide-react";
+import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, House, LineChart, Plus, ScrollText, RefreshCw, type LucideIcon } from "lucide-react";
 import { Header } from "./components/layout/Header";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { RightRail } from "./components/layout/RightRail";
@@ -15,6 +15,7 @@ import { ResearchEventCenter } from "./components/research/ResearchEventCenter";
 import { EarningsExpectationCenter } from "./components/expectation/EarningsExpectationCenter";
 import { EarningsExpectationFormModal } from "./components/expectation/EarningsExpectationFormModal";
 import { EarningsExpectationImportModal } from "./components/expectation/EarningsExpectationImportModal";
+import { HomePage, type ResearchDestination } from "./components/home/HomePage";
 import { dataSourceNote, macroIndicators } from "./data/macroData";
 import { watchlistSamples } from "./data/watchlist";
 import { buildDashboardDataset } from "./services/dataProvider";
@@ -32,9 +33,10 @@ import type { CompanyGuidanceExpectationDetail, CompanyGuidanceExpectationLoadSt
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
 import { formatPercent } from "./utils/normalize";
 
-type MainTab = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心" | "预期证据";
+type MainTab = "首页" | ResearchDestination;
 
 const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
+  { id: "首页", icon: House },
   { id: "宏观", icon: LineChart },
   { id: "行业", icon: Building2 },
   { id: "个股池", icon: BarChart3 },
@@ -44,7 +46,7 @@ const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<MainTab>("行业");
+  const [activeTab, setActiveTab] = useState<MainTab>("首页");
   const [globalSearch, setGlobalSearch] = useState("");
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [dataMode, setDataMode] = useState<DashboardDataMode>("mixed");
@@ -155,6 +157,11 @@ export default function App() {
     companyGuidanceLoader.clearCache();
     setCompanyGuidanceFailedStockIds([]);
     setCompanyGuidanceRetryToken((value) => value + 1);
+  };
+
+  const navigateToTab = (tab: MainTab) => {
+    setActiveTab(tab);
+    window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
   };
 
   const dashboardStats = useMemo(() => {
@@ -273,7 +280,27 @@ export default function App() {
   };
 
   return (
-    <div className="terminal-grid min-h-screen bg-bg text-text">
+    <div className={`${activeTab === "首页" ? "home-root" : "terminal-grid"} min-h-screen bg-bg text-text`}>
+      {activeTab === "首页" ? (
+        <HomePage
+          dataMode={dataMode}
+          modeLabel={dataset.modeLabel}
+          updatedAt={dataset.dataUpdatedAt}
+          sourceNote={dataMode === "mock" ? dataSourceNote : dataset.dataSourceNote}
+          coverageSummary={dataset.coverageSummary}
+          industriesCount={dataset.industries.length}
+          stocksCount={dataset.stocks.length}
+          activeWatchCount={watchlistData.watchItems.filter((item) => !item.archivedAt).length}
+          expectationCount={aggregatedExpectationEvidence.snapshots.length}
+          macroCount={macroIndicators.length}
+          stats={dashboardStats}
+          focusStocks={dashboardStats.focusStocks}
+          onDataModeChange={setDataMode}
+          onNavigate={navigateToTab}
+          onOpenStock={setSelectedStock}
+        />
+      ) : (
+        <>
       <Header
         search={globalSearch}
         onSearchChange={setGlobalSearch}
@@ -286,7 +313,7 @@ export default function App() {
       />
 
       <DashboardLayout
-        sidebar={<Sidebar tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />}
+        sidebar={<Sidebar tabs={tabs} activeTab={activeTab} onChange={navigateToTab} />}
         main={
           <section className="min-w-0 space-y-4">
           <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引 Provider 状态">
@@ -506,6 +533,8 @@ export default function App() {
           />
         }
       />
+        </>
+      )}
 
       <StockDetailDrawer
         stock={activeSelectedStock}
