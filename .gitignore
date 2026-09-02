@@ -3,6 +3,17 @@ dist/
 data-cache/
 .provider-observations/
 .ssh-private/
+.worktrees/
+
+# Market Regime research outputs remain outside the frontend bundle.
+research-data/market-regime/raw/
+research-data/market-regime/extracted/
+research-data/market-regime/vintages/
+research-data/market-regime/manifests/
+research-data/market-regime/features/
+research-data/market-regime/backtests/
+research-data/market-regime/live-probe/
+research-data/market-regime/catalog/*.generated.json
 
 .env
 .env.local

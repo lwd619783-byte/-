@@ -65,6 +65,12 @@ jobs:
       - name: Test provider observability offline
         run: npm run test:provider-observability
 
+      - name: Test Market Regime observation catalog offline
+        run: npm run test:market-regime:catalog
+
+      - name: Build and validate deterministic Market Regime sample catalog
+        run: npm run data:build:market-regime:catalog && npm run data:validate:market-regime:catalog
+
       - name: Run data authenticity audit
         run: npm run data:audit
 
