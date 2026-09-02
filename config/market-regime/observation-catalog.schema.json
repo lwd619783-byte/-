@@ -1,0 +1,384 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:investment-research-dashboard:market-regime:observation-catalog:v1",
+  "title": "Market Regime Point-in-Time Observation Catalog V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "catalogVersion",
+    "generatedAt",
+    "sourceDefinitions",
+    "artifacts",
+    "observations",
+    "marketScopeVersions",
+    "exchangeMarketObservations",
+    "providerSlots",
+    "manifest"
+  ],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "catalogVersion": {"type": "string", "minLength": 1},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "sourceDefinitions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/sourceDefinitionVersion"}
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/rawSourceArtifact"}
+    },
+    "observations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/metricObservationVintage"}
+    },
+    "marketScopeVersions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/marketScopeVersion"}
+    },
+    "exchangeMarketObservations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/exchangeMarketObservation"}
+    },
+    "providerSlots": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/providerSlot"}
+    },
+    "manifest": {"$ref": "#/$defs/observationCatalogManifest"}
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "nullableDateTime": {
+      "oneOf": [
+        {"type": "string", "format": "date-time"},
+        {"type": "null"}
+      ]
+    },
+    "releaseConfidenceClass": {
+      "enum": [
+        "EXACT_TIMESTAMP",
+        "DATE_ONLY_SAFE",
+        "SCHEDULE_INFERRED",
+        "LATEST_REVISED_PROXY",
+        "BACKCAST_RELEASED_LATER",
+        "STRUCTURALLY_UNAVAILABLE"
+      ]
+    },
+    "sourceDefinitionVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceDefinitionId",
+        "sourceId",
+        "metricId",
+        "version",
+        "effectiveFrom",
+        "effectiveTo",
+        "definitionSummary",
+        "unit",
+        "nativeFrequency",
+        "releaseSemantics",
+        "revisionPolicy",
+        "sourceUrlPattern",
+        "createdAt"
+      ],
+      "properties": {
+        "sourceDefinitionId": {"$ref": "#/$defs/identifier"},
+        "sourceId": {"$ref": "#/$defs/identifier"},
+        "metricId": {"$ref": "#/$defs/identifier"},
+        "version": {"type": "string", "minLength": 1},
+        "effectiveFrom": {"type": "string", "format": "date"},
+        "effectiveTo": {
+          "oneOf": [
+            {"type": "string", "format": "date"},
+            {"type": "null"}
+          ]
+        },
+        "definitionSummary": {"type": "string", "minLength": 1},
+        "unit": {"type": "string", "minLength": 1},
+        "nativeFrequency": {"type": "string", "minLength": 1},
+        "releaseSemantics": {"type": "string", "minLength": 1},
+        "revisionPolicy": {"type": "string", "minLength": 1},
+        "sourceUrlPattern": {"type": "string", "minLength": 1},
+        "createdAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "rawSourceArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifactId",
+        "sourceId",
+        "sourceUrl",
+        "publicationDateTime",
+        "fetchedAt",
+        "contentType",
+        "fileName",
+        "sha256",
+        "byteSize",
+        "httpStatus",
+        "releaseConfidenceClass",
+        "artifactRole",
+        "localPath",
+        "parseStatus",
+        "error"
+      ],
+      "properties": {
+        "artifactId": {"$ref": "#/$defs/identifier"},
+        "sourceId": {"$ref": "#/$defs/identifier"},
+        "sourceUrl": {"type": "string", "format": "uri"},
+        "publicationDateTime": {"$ref": "#/$defs/nullableDateTime"},
+        "fetchedAt": {"type": "string", "format": "date-time"},
+        "contentType": {"type": "string", "minLength": 1},
+        "fileName": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "byteSize": {"type": "integer", "minimum": 0},
+        "httpStatus": {"type": "integer", "minimum": 200, "maximum": 299},
+        "releaseConfidenceClass": {"$ref": "#/$defs/releaseConfidenceClass"},
+        "artifactRole": {"enum": ["RAW_SOURCE", "TEST_FIXTURE_EXCERPT"]},
+        "localPath": {
+          "type": "string",
+          "minLength": 1,
+          "not": {"pattern": "(^[A-Za-z]:[\\\\/])|(^/)|(\\.\\.)"}
+        },
+        "parseStatus": {
+          "enum": ["INDEXED", "PARSED", "FIELD_SCHEMA_PROBE_REQUIRED", "FAILED"]
+        },
+        "error": {"type": ["string", "null"]}
+      }
+    },
+    "metricObservationVintage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observationId",
+        "metricId",
+        "valueDate",
+        "releaseDateTime",
+        "releaseAvailableAt",
+        "fetchedAt",
+        "value",
+        "unit",
+        "sourceId",
+        "sourceDefinitionId",
+        "revisionSequence",
+        "supersedesObservationId",
+        "releaseConfidenceClass",
+        "qualityStatus",
+        "rawArtifactId",
+        "transformVersion",
+        "metadata"
+      ],
+      "properties": {
+        "observationId": {"$ref": "#/$defs/identifier"},
+        "metricId": {"$ref": "#/$defs/identifier"},
+        "valueDate": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}(?:-\\d{2})?$"
+        },
+        "releaseDateTime": {"$ref": "#/$defs/nullableDateTime"},
+        "releaseAvailableAt": {"type": "string", "format": "date-time"},
+        "fetchedAt": {"type": "string", "format": "date-time"},
+        "value": {"type": ["number", "null"]},
+        "unit": {"type": "string", "minLength": 1},
+        "sourceId": {"$ref": "#/$defs/identifier"},
+        "sourceDefinitionId": {"$ref": "#/$defs/identifier"},
+        "revisionSequence": {"type": "integer", "minimum": 0},
+        "supersedesObservationId": {
+          "oneOf": [
+            {"$ref": "#/$defs/identifier"},
+            {"type": "null"}
+          ]
+        },
+        "releaseConfidenceClass": {"$ref": "#/$defs/releaseConfidenceClass"},
+        "qualityStatus": {
+          "enum": [
+            "VERIFIED",
+            "PROVISIONAL",
+            "REVISED",
+            "BACKCAST",
+            "MISSING",
+            "STRUCTURALLY_UNAVAILABLE",
+            "REJECTED"
+          ]
+        },
+        "rawArtifactId": {"$ref": "#/$defs/identifier"},
+        "transformVersion": {"type": "string", "minLength": 1},
+        "metadata": {"type": "object"}
+      }
+    },
+    "observationCatalogManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalogVersion",
+        "generatedAt",
+        "metricIds",
+        "sourceDefinitionIds",
+        "observationCount",
+        "artifactCount",
+        "minValueDate",
+        "maxValueDate",
+        "minReleaseAvailableAt",
+        "maxReleaseAvailableAt",
+        "validationStatus",
+        "validationErrors",
+        "contentHashes"
+      ],
+      "properties": {
+        "catalogVersion": {"type": "string", "minLength": 1},
+        "generatedAt": {"type": "string", "format": "date-time"},
+        "metricIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/identifier"}},
+        "sourceDefinitionIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/identifier"}},
+        "observationCount": {"type": "integer", "minimum": 0},
+        "artifactCount": {"type": "integer", "minimum": 0},
+        "minValueDate": {"type": ["string", "null"]},
+        "maxValueDate": {"type": ["string", "null"]},
+        "minReleaseAvailableAt": {"type": ["string", "null"]},
+        "maxReleaseAvailableAt": {"type": ["string", "null"]},
+        "validationStatus": {"enum": ["PASS", "FAIL"]},
+        "validationErrors": {"type": "array", "items": {"type": "string"}},
+        "contentHashes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceDefinitionsSha256",
+            "artifactsSha256",
+            "observationsSha256",
+            "catalogContentSha256"
+          ],
+          "properties": {
+            "sourceDefinitionsSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "artifactsSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "observationsSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "catalogContentSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        }
+      }
+    },
+    "marketScopeVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "marketScopeVersionId",
+        "effectiveFrom",
+        "effectiveTo",
+        "exchanges",
+        "definitionSummary",
+        "createdAt"
+      ],
+      "properties": {
+        "marketScopeVersionId": {"$ref": "#/$defs/identifier"},
+        "effectiveFrom": {"type": "string", "format": "date"},
+        "effectiveTo": {"type": ["string", "null"], "format": "date"},
+        "exchanges": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["SSE", "SZSE", "BSE"]}
+        },
+        "definitionSummary": {"type": "string", "minLength": 1},
+        "createdAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "exchangeMarketObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observationId",
+        "exchange",
+        "tradeDate",
+        "totalMarketCap",
+        "negotiableMarketCap",
+        "turnoverValue",
+        "currency",
+        "sourceDefinitionId",
+        "releaseAvailableAt",
+        "qualityStatus"
+      ],
+      "properties": {
+        "observationId": {"$ref": "#/$defs/identifier"},
+        "exchange": {"enum": ["SSE", "SZSE", "BSE"]},
+        "tradeDate": {"type": "string", "format": "date"},
+        "totalMarketCap": {"type": ["number", "null"], "minimum": 0},
+        "negotiableMarketCap": {"type": ["number", "null"], "minimum": 0},
+        "turnoverValue": {"type": ["number", "null"], "minimum": 0},
+        "currency": {"const": "CNY"},
+        "sourceDefinitionId": {"$ref": "#/$defs/identifier"},
+        "releaseAvailableAt": {"type": ["string", "null"], "format": "date-time"},
+        "qualityStatus": {"enum": ["VERIFIED", "PROVISIONAL", "STRUCTURALLY_UNAVAILABLE"]}
+      }
+    },
+    "providerSlot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "providerId",
+        "metricId",
+        "status",
+        "sourceId",
+        "evidenceSummary",
+        "admissionRule",
+        "updatedAt"
+      ],
+      "properties": {
+        "providerId": {"$ref": "#/$defs/identifier"},
+        "metricId": {"$ref": "#/$defs/identifier"},
+        "status": {"enum": ["PASS", "PARTIAL", "NO_GO", "NOT_ATTEMPTED"]},
+        "sourceId": {"type": ["string", "null"]},
+        "evidenceSummary": {"type": "string", "minLength": 1},
+        "admissionRule": {"type": "string", "minLength": 1},
+        "updatedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "weeklyBacktestClock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["weekId", "timezone", "weekday", "cutoff", "runCutoff", "calendarVersion"],
+      "properties": {
+        "weekId": {"type": "string", "format": "date"},
+        "timezone": {"const": "Asia/Shanghai"},
+        "weekday": {"const": "Monday"},
+        "cutoff": {"const": "08:00"},
+        "runCutoff": {"type": "string", "format": "date-time"},
+        "latestEligibleTradingDate": {"type": ["string", "null"], "format": "date"},
+        "calendarVersion": {"const": "weekly-monday-0800-asia-shanghai-v1"}
+      }
+    },
+    "backtestInputManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifestId",
+        "weekId",
+        "runCutoff",
+        "formulaVersion",
+        "metricObservationIds",
+        "moduleAvailability",
+        "baseWeightCoverage",
+        "metricCoverage",
+        "qualityTierCounts",
+        "createdAt"
+      ],
+      "properties": {
+        "manifestId": {"$ref": "#/$defs/identifier"},
+        "weekId": {"type": "string", "format": "date"},
+        "runCutoff": {"type": "string", "format": "date-time"},
+        "formulaVersion": {"type": "string", "minLength": 1},
+        "metricObservationIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "moduleAvailability": {"type": "object", "additionalProperties": {"type": "string"}},
+        "baseWeightCoverage": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "metricCoverage": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "qualityTierCounts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "createdAt": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}
