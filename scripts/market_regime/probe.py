@@ -32,6 +32,8 @@ def _save_resource(
     repo_root: Path,
     source_id: str,
     publication_datetime: str | None,
+    publication_date: str | None,
+    release_available_at: str,
     release_confidence_class: str,
     parse_status: str,
 ) -> dict[str, Any]:
@@ -41,6 +43,8 @@ def _save_resource(
         source_id=source_id,
         local_path=_relative_to_repo(target, repo_root),
         publication_datetime=publication_datetime,
+        publication_date=publication_date,
+        release_available_at=release_available_at,
         release_confidence_class=release_confidence_class,
         parse_status=parse_status,
     )
@@ -75,6 +79,8 @@ def _probe_pboc_pages(
                 repo_root=repo_root,
                 source_id=parsed["sourceId"],
                 publication_datetime=parsed["publicationDateTime"],
+                publication_date=parsed["publicationDate"],
+                release_available_at=parsed["releaseAvailableAt"],
                 release_confidence_class=parsed["releaseConfidenceClass"],
                 parse_status=ParseStatus.PARSED.value,
             )
@@ -119,6 +125,8 @@ def _probe_csrc_reports(
                 repo_root=repo_root,
                 source_id=report["sourceId"],
                 publication_datetime=report["publicationDateTime"],
+                publication_date=report["publicationDate"],
+                release_available_at=report["releaseAvailableAt"],
                 release_confidence_class=report["releaseConfidenceClass"],
                 parse_status=ParseStatus.INDEXED.value,
             )
@@ -133,6 +141,8 @@ def _probe_csrc_reports(
                 repo_root=repo_root,
                 source_id=report["sourceId"],
                 publication_datetime=report["publicationDateTime"],
+                publication_date=report["publicationDate"],
+                release_available_at=report["releaseAvailableAt"],
                 release_confidence_class=report["releaseConfidenceClass"],
                 parse_status=ParseStatus.FIELD_SCHEMA_PROBE_REQUIRED.value,
             )

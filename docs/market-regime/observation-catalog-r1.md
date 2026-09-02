@@ -33,6 +33,10 @@ BacktestInputManifest schema
 - `RAW_SOURCE`：live probe 实际下载的官方原始响应；
 - `TEST_FIXTURE_EXCERPT`：仅供离线 parser/validator 使用的受控摘录，绝不能冒充完整原始证据。
 
+每个 artifact 自己保存 `publicationDateTime`、`publicationDate` 与 `releaseAvailableAt`。observation 必须与所引用 artifact 的 source、confidence class 和同一官方 release event 完全一致；只把 observation 的时间改晚而继续引用旧 artifact 会 fail closed。
+
+`SourceDefinitionVersion.effectiveFrom/effectiveTo` 只表示该统计定义适用的 `valueDate` / statistical period 范围；`createdAt` 才是定义记录建档时间，PIT 可见性则只由 artifact/observation 的 `releaseAvailableAt` 控制。月度统计期按完整自然月与该范围比较。
+
 ## 3. 时间语义
 
 基线时钟冻结为：
@@ -51,7 +55,7 @@ cutoff = 08:00
 observation.releaseAvailableAt <= weeklyCutoff
 ```
 
-另外，`LATEST_REVISED_PROXY` 与 `STRUCTURALLY_UNAVAILABLE` 在 strict 模式下直接排除。`BACKCAST_RELEASED_LATER` 仍按它真正的 `releaseAvailableAt` 判断；早期 `valueDate` 不会获得提前可见性。
+另外，`SCHEDULE_INFERRED`、`LATEST_REVISED_PROXY` 与 `STRUCTURALLY_UNAVAILABLE` 在 strict 模式下直接排除。`strict=false` 时，前两者可按 `releaseAvailableAt` 进入 sensitivity research。`BACKCAST_RELEASED_LATER` 仍按它真正的 artifact release event 判断；早期 `valueDate` 不会获得提前可见性。
 
 只有官方发布日期、没有准确时间时：
 
@@ -83,7 +87,9 @@ research-data/market-regime/catalog/observation-catalog.sample.v1.json
 
 - definition / artifact / observation ID 唯一；
 - observation 的 metric、unit、source 与 definition 一致；
+- observation 的 valueDate 必须落在 definition 的 statistical effective period 内；
 - observation → artifact 引用完整；
+- observation 与 artifact 的 source、release confidence、publication/release availability 必须指向同一 release event；
 - RFC 3339 时间含时区，且 `fetchedAt >= releaseAvailableAt >= releaseDateTime`；
 - `valueDate` 不晚于对外可见时间；
 - `DATE_ONLY_SAFE` 必须使用次日 00:00 上海时间；

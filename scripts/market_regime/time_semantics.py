@@ -9,6 +9,7 @@ from .models import ReleaseConfidenceClass
 
 SHANGHAI = ZoneInfo("Asia/Shanghai")
 STRICTLY_INELIGIBLE_CLASSES = {
+    ReleaseConfidenceClass.SCHEDULE_INFERRED.value,
     ReleaseConfidenceClass.LATEST_REVISED_PROXY.value,
     ReleaseConfidenceClass.STRUCTURALLY_UNAVAILABLE.value,
 }

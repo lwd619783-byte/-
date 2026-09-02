@@ -8,11 +8,13 @@ from pathlib import Path
 
 from scripts.market_regime.catalog import build_catalog, load_json, render_catalog
 from scripts.market_regime.collectors import (
+    DownloadedResource,
+    artifact_from_download,
     parse_csrc_report_page,
     parse_pboc_afre_stock_page,
     parse_pboc_m2_page,
 )
-from scripts.market_regime.hashing import canonical_sha256
+from scripts.market_regime.hashing import canonical_sha256, sha256_bytes
 from scripts.market_regime.market_adapters import (
     market_scope_exchanges,
     structurally_unavailable_exchange_observation,
@@ -83,6 +85,25 @@ class CollectorFixtureTests(unittest.TestCase):
         self.assertEqual(parsed["releaseConfidenceClass"], "DATE_ONLY_SAFE")
         self.assertTrue(parsed["xlsUrl"].endswith(".xls"))
 
+    def test_downloaded_artifact_keeps_its_own_release_event(self) -> None:
+        artifact = artifact_from_download(
+            DownloadedResource(
+                url="https://example.invalid/controlled-test-fixture.html",
+                status=200,
+                content_type="text/html",
+                fetched_at="2026-09-02T00:00:00Z",
+                body=b"controlled fixture",
+            ),
+            source_id="CONTROLLED_TEST_SOURCE",
+            local_path="synthetic-fixtures/controlled-test-fixture.html",
+            publication_datetime="2026-08-31T10:00:00+08:00",
+            publication_date="2026-08-31",
+            release_available_at="2026-08-31T10:00:00+08:00",
+            release_confidence_class="EXACT_TIMESTAMP",
+        )
+        self.assertEqual(artifact["publicationDate"], "2026-08-31")
+        self.assertEqual(artifact["releaseAvailableAt"], "2026-08-31T10:00:00+08:00")
+
 
 class PointInTimeClockTests(unittest.TestCase):
     cutoff = "2026-09-07T08:00:00+08:00"
@@ -125,6 +146,16 @@ class PointInTimeClockTests(unittest.TestCase):
         self.assertFalse(is_observation_eligible(revised, self.cutoff))
         self.assertTrue(is_observation_eligible(revised, self.cutoff, strict=False))
 
+    def test_schedule_inferred_is_rejected_from_strict_pit(self) -> None:
+        inferred = self.observation("2026-09-06T23:59:00+08:00", "SCHEDULE_INFERRED")
+        self.assertFalse(is_observation_eligible(inferred, self.cutoff, strict=True))
+
+    def test_schedule_inferred_is_allowed_for_sensitivity_after_release(self) -> None:
+        inferred = self.observation("2026-09-06T23:59:00+08:00", "SCHEDULE_INFERRED")
+        future = self.observation("2026-09-07T08:01:00+08:00", "SCHEDULE_INFERRED")
+        self.assertTrue(is_observation_eligible(inferred, self.cutoff, strict=False))
+        self.assertFalse(is_observation_eligible(future, self.cutoff, strict=False))
+
     def test_date_only_safe_is_next_day_midnight(self) -> None:
         self.assertEqual(date_only_safe_available_at("2026-09-06"), "2026-09-07T00:00:00+08:00")
 
@@ -160,6 +191,9 @@ class CatalogValidationTests(unittest.TestCase):
         self.assertIn("backtestInputManifest", schema["$defs"])
         self.assertIn("sourceDefinitionVersion", schema["$defs"])
         self.assertIn("metricObservationVintage", schema["$defs"])
+        artifact_required = schema["$defs"]["rawSourceArtifact"]["required"]
+        self.assertIn("publicationDate", artifact_required)
+        self.assertIn("releaseAvailableAt", artifact_required)
 
     def test_sample_catalog_and_artifact_hashes_pass(self) -> None:
         catalog = built_catalog()
@@ -254,6 +288,72 @@ class CatalogValidationTests(unittest.TestCase):
         errors = build_catalog(source)["manifest"]["validationErrors"]
         self.assertTrue(any("sourceDefinitionId 不存在" in error for error in errors))
 
+    def test_2005_observation_cannot_use_2018_definition(self) -> None:
+        source = seed_payload()
+        observation = next(
+            item for item in source["observations"]
+            if item["observationId"] == "m2-balance-2005-11-v0"
+        )
+        observation["sourceDefinitionId"] = "pbc-m2-balance-2018-v3"
+        errors = build_catalog(source)["manifest"]["validationErrors"]
+        self.assertTrue(any("统计期有效范围" in error for error in errors))
+
+    def test_afre_backcast_definition_covers_value_period_but_not_release_time(self) -> None:
+        source = seed_payload()
+        definition = next(
+            item for item in source["sourceDefinitions"]
+            if item["sourceDefinitionId"] == "pbc-afre-stock-balance-2015-v1"
+        )
+        observation = next(
+            item for item in source["observations"]
+            if item["observationId"] == "afre-stock-balance-2014-12-backcast-v0"
+        )
+        self.assertEqual(definition["effectiveFrom"], "2002-01-01")
+        self.assertEqual(observation["valueDate"], "2014-12")
+        self.assertEqual(observation["releaseAvailableAt"], "2015-02-10T16:31:12+08:00")
+        self.assertEqual(build_catalog(source)["manifest"]["validationErrors"], [])
+
+    def test_observation_artifact_source_mismatch_fails(self) -> None:
+        source = seed_payload()
+        source["artifacts"][0]["sourceId"] = "OTHER_OFFICIAL_SOURCE"
+        errors = build_catalog(source)["manifest"]["validationErrors"]
+        self.assertTrue(any("sourceId 与 raw artifact 不一致" in error for error in errors))
+
+    def test_observation_artifact_confidence_mismatch_fails(self) -> None:
+        source = seed_payload()
+        source["observations"][0]["releaseConfidenceClass"] = "SCHEDULE_INFERRED"
+        errors = build_catalog(source)["manifest"]["validationErrors"]
+        self.assertTrue(any("releaseConfidenceClass 与 raw artifact 不一致" in error for error in errors))
+
+    def test_exact_timestamp_release_mismatch_fails(self) -> None:
+        source = seed_payload()
+        observation = source["observations"][0]
+        observation["releaseDateTime"] = "2005-12-13T10:00:00+08:00"
+        observation["releaseAvailableAt"] = "2005-12-13T10:00:00+08:00"
+        errors = build_catalog(source)["manifest"]["validationErrors"]
+        self.assertTrue(any("releaseDateTime 与 raw artifact" in error for error in errors))
+        self.assertTrue(any("releaseAvailableAt 与 raw artifact" in error for error in errors))
+
+    def test_date_only_observation_must_share_artifact_release_event(self) -> None:
+        source = seed_payload()
+        artifact = source["artifacts"][0]
+        artifact.update({
+            "publicationDateTime": None,
+            "publicationDate": "2005-12-12",
+            "releaseAvailableAt": "2005-12-13T00:00:00+08:00",
+            "releaseConfidenceClass": "DATE_ONLY_SAFE",
+        })
+        for observation in source["observations"][:2]:
+            observation.update({
+                "releaseDateTime": None,
+                "releaseAvailableAt": "2005-12-14T00:00:00+08:00",
+                "releaseConfidenceClass": "DATE_ONLY_SAFE",
+            })
+            observation["metadata"]["publicationDate"] = "2005-12-13"
+        errors = build_catalog(source)["manifest"]["validationErrors"]
+        self.assertTrue(any("releaseAvailableAt 与 raw artifact" in error for error in errors))
+        self.assertTrue(any("metadata.publicationDate 与 raw artifact" in error for error in errors))
+
     def test_broken_revision_chain_fails(self) -> None:
         source = seed_payload()
         source["observations"][0]["supersedesObservationId"] = "missing-observation"
@@ -274,7 +374,7 @@ class CatalogValidationTests(unittest.TestCase):
         errors = build_catalog(source)["manifest"]["validationErrors"]
         self.assertTrue(any("revision 链存在环" in error for error in errors))
 
-    def test_valid_revision_keeps_prior_vintage(self) -> None:
+    def test_later_revision_reusing_earlier_artifact_fails(self) -> None:
         source = seed_payload()
         original = next(
             item for item in source["observations"]
@@ -290,8 +390,68 @@ class CatalogValidationTests(unittest.TestCase):
             "qualityStatus": "REVISED",
         })
         source["observations"].append(revision)
+        errors = build_catalog(source)["manifest"]["validationErrors"]
+        self.assertTrue(any("releaseDateTime 与 raw artifact" in error for error in errors))
+        self.assertTrue(any("releaseAvailableAt 与 raw artifact" in error for error in errors))
+
+    def test_later_revision_with_matching_new_artifact_passes(self) -> None:
+        source = seed_payload()
+        original = next(
+            item for item in source["observations"]
+            if item["observationId"] == "m2-balance-2015-01-v0"
+        )
+        old_artifact = next(
+            item for item in source["artifacts"]
+            if item["artifactId"] == original["rawArtifactId"]
+        )
+        fixture_bytes = (
+            "CONTROLLED TEST FIXTURE: 2015-03-01T10:00:00+08:00 "
+            "M2 2015-01 revised value 124.28"
+        ).encode("utf-8")
+        fixture_path = "synthetic-fixtures/pboc-m2-2015-revision.html"
+        revision_artifact = copy.deepcopy(old_artifact)
+        revision_artifact.update({
+            "artifactId": "fixture-pboc-m2-2015-revision",
+            "sourceUrl": "https://example.invalid/controlled-test-fixture/pboc-m2-2015-revision.html",
+            "publicationDateTime": "2015-03-01T10:00:00+08:00",
+            "publicationDate": "2015-03-01",
+            "releaseAvailableAt": "2015-03-01T10:00:00+08:00",
+            "fileName": "pboc-m2-2015-revision.html",
+            "sha256": sha256_bytes(fixture_bytes),
+            "byteSize": len(fixture_bytes),
+            "localPath": fixture_path,
+        })
+        source["artifacts"].append(revision_artifact)
+        revision = copy.deepcopy(original)
+        revision.update({
+            "observationId": "m2-balance-2015-01-v1",
+            "releaseDateTime": "2015-03-01T10:00:00+08:00",
+            "releaseAvailableAt": "2015-03-01T10:00:00+08:00",
+            "value": 124.28,
+            "revisionSequence": 1,
+            "supersedesObservationId": original["observationId"],
+            "qualityStatus": "REVISED",
+            "rawArtifactId": revision_artifact["artifactId"],
+        })
+        source["observations"].append(revision)
         catalog = build_catalog(source)
         self.assertEqual(catalog["manifest"]["validationStatus"], "PASS")
+
+        with tempfile.TemporaryDirectory() as temporary:
+            artifact_root = Path(temporary)
+            for artifact in catalog["artifacts"]:
+                target = artifact_root / artifact["localPath"]
+                target.parent.mkdir(parents=True, exist_ok=True)
+                if artifact["localPath"] == fixture_path:
+                    target.write_bytes(fixture_bytes)
+                else:
+                    target.write_bytes((ROOT / artifact["localPath"]).read_bytes())
+            errors = validate_catalog(
+                catalog,
+                artifact_root=artifact_root,
+                verify_artifacts=True,
+            )
+        self.assertEqual(errors, [])
         ids = {item["observationId"] for item in catalog["observations"]}
         self.assertIn("m2-balance-2015-01-v0", ids)
         self.assertIn("m2-balance-2015-01-v1", ids)

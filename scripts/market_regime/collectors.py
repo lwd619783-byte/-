@@ -293,6 +293,8 @@ def artifact_from_download(
     source_id: str,
     local_path: str,
     publication_datetime: str | None,
+    publication_date: str | None,
+    release_available_at: str,
     release_confidence_class: str,
     parse_status: str = ParseStatus.INDEXED.value,
 ) -> dict[str, Any]:
@@ -304,6 +306,8 @@ def artifact_from_download(
         "sourceId": source_id,
         "sourceUrl": resource.url,
         "publicationDateTime": publication_datetime,
+        "publicationDate": publication_date,
+        "releaseAvailableAt": release_available_at,
         "fetchedAt": resource.fetched_at,
         "contentType": content_type,
         "fileName": file_name,

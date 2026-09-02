@@ -38,6 +38,8 @@ class SourceStatus(StrEnum):
 
 
 class SourceDefinitionVersion(TypedDict):
+    """effectiveFrom/effectiveTo 是统计期适用范围，不是发布或建档时间。"""
+
     sourceDefinitionId: str
     sourceId: str
     metricId: str
@@ -58,6 +60,8 @@ class RawSourceArtifact(TypedDict):
     sourceId: str
     sourceUrl: str
     publicationDateTime: str | None
+    publicationDate: str | None
+    releaseAvailableAt: str
     fetchedAt: str
     contentType: str
     fileName: str

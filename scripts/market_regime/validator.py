@@ -48,18 +48,23 @@ def _parse_date(value: Any, field: str, errors: list[str]) -> date | None:
         return None
 
 
-def _value_date_end(value: Any, field: str, errors: list[str]) -> date | None:
+def _value_date_bounds(
+    value: Any,
+    field: str,
+    errors: list[str],
+) -> tuple[date, date] | None:
     if not isinstance(value, str):
         errors.append(f"{field} 必须是 YYYY-MM 或 YYYY-MM-DD")
         return None
     if re.fullmatch(r"\d{4}-\d{2}", value):
         year, month = map(int, value.split("-"))
         try:
-            return date(year, month, monthrange(year, month)[1])
+            return date(year, month, 1), date(year, month, monthrange(year, month)[1])
         except ValueError:
             errors.append(f"{field} 不是合法月份: {value}")
             return None
-    return _parse_date(value, field, errors)
+    parsed = _parse_date(value, field, errors)
+    return (parsed, parsed) if parsed is not None else None
 
 
 def _aware(value: Any, field: str, errors: list[str]) -> datetime | None:
@@ -148,8 +153,8 @@ def _validate_artifacts(
     verify_artifacts: bool,
 ) -> dict[str, dict[str, Any]]:
     required = {
-        "artifactId", "sourceId", "sourceUrl", "publicationDateTime", "fetchedAt",
-        "contentType", "fileName", "sha256", "byteSize", "httpStatus",
+        "artifactId", "sourceId", "sourceUrl", "publicationDateTime", "publicationDate",
+        "releaseAvailableAt", "fetchedAt", "contentType", "fileName", "sha256", "byteSize", "httpStatus",
         "releaseConfidenceClass", "artifactRole", "localPath", "parseStatus", "error",
     }
     _duplicates(artifacts, "artifactId", "artifactId", errors)
@@ -165,10 +170,21 @@ def _validate_artifacts(
         for field in ("sourceId", "sourceUrl", "contentType", "fileName"):
             if not isinstance(item.get(field), str) or not item[field].strip():
                 errors.append(f"{label}.{field} 不能为空")
-        publication = item.get("publicationDateTime")
-        if publication is not None:
-            _aware(publication, f"{label}.publicationDateTime", errors)
-        _aware(item.get("fetchedAt"), f"{label}.fetchedAt", errors)
+        publication_raw = item.get("publicationDateTime")
+        publication = (
+            _aware(publication_raw, f"{label}.publicationDateTime", errors)
+            if publication_raw is not None
+            else None
+        )
+        publication_date_raw = item.get("publicationDate")
+        publication_date = (
+            _parse_date(publication_date_raw, f"{label}.publicationDate", errors)
+            if publication_date_raw is not None
+            else None
+        )
+        available_raw = item.get("releaseAvailableAt")
+        available = _aware(available_raw, f"{label}.releaseAvailableAt", errors)
+        fetched = _aware(item.get("fetchedAt"), f"{label}.fetchedAt", errors)
         if not isinstance(item.get("sha256"), str) or not SHA256_RE.fullmatch(item["sha256"]):
             errors.append(f"{label}.sha256 必须是小写 SHA-256")
         if not isinstance(item.get("byteSize"), int) or isinstance(item.get("byteSize"), bool) or item.get("byteSize", -1) < 0:
@@ -178,8 +194,37 @@ def _validate_artifacts(
             errors.append(f"{label}.httpStatus 必须是整数")
         elif not 200 <= status < 300:
             errors.append(f"{label} 不是成功下载；失败抓取不得进入 artifact catalog")
-        if item.get("releaseConfidenceClass") not in RELEASE_CLASSES:
+        confidence = item.get("releaseConfidenceClass")
+        if confidence not in RELEASE_CLASSES:
             errors.append(f"{label}.releaseConfidenceClass 非法")
+        if publication and publication_date and publication.date() != publication_date:
+            errors.append(f"{label}.publicationDate 与 publicationDateTime 日期不一致")
+        if confidence == ReleaseConfidenceClass.EXACT_TIMESTAMP.value:
+            if publication is None:
+                errors.append(f"{label} EXACT_TIMESTAMP 必须提供 publicationDateTime")
+            elif available_raw != publication_raw:
+                errors.append(f"{label} EXACT_TIMESTAMP 的 releaseAvailableAt 必须等于 publicationDateTime")
+        elif confidence == ReleaseConfidenceClass.DATE_ONLY_SAFE.value:
+            if publication is not None:
+                errors.append(f"{label} DATE_ONLY_SAFE 的 publicationDateTime 必须为 null")
+            if publication_date is None:
+                errors.append(f"{label} DATE_ONLY_SAFE 必须提供 publicationDate")
+            else:
+                expected = date_only_safe_available_at(str(publication_date_raw))
+                if available_raw != expected:
+                    errors.append(f"{label} DATE_ONLY_SAFE 必须使用发布日次日 00:00 Asia/Shanghai")
+        elif confidence == ReleaseConfidenceClass.BACKCAST_RELEASED_LATER.value:
+            if publication is not None:
+                if available_raw != publication_raw:
+                    errors.append(f"{label} BACKCAST_RELEASED_LATER 必须使用实际 backcast publication timestamp")
+            elif publication_date is not None:
+                expected = date_only_safe_available_at(str(publication_date_raw))
+                if available_raw != expected:
+                    errors.append(f"{label} BACKCAST_RELEASED_LATER 日期级发布必须使用次日安全时间")
+            else:
+                errors.append(f"{label} BACKCAST_RELEASED_LATER 缺少实际发布日期证据")
+        if fetched and available and fetched < available:
+            errors.append(f"{label}.fetchedAt 早于 releaseAvailableAt")
         if item.get("artifactRole") not in {"RAW_SOURCE", "TEST_FIXTURE_EXCERPT"}:
             errors.append(f"{label}.artifactRole 非法")
         if item.get("parseStatus") not in PARSE_STATUSES:
@@ -247,7 +292,7 @@ def _validate_observations(
         confidence = item.get("releaseConfidenceClass")
         if confidence not in RELEASE_CLASSES:
             errors.append(f"{label}.releaseConfidenceClass 非法")
-        value_date = _value_date_end(item.get("valueDate"), f"{label}.valueDate", errors)
+        value_period = _value_date_bounds(item.get("valueDate"), f"{label}.valueDate", errors)
         available = _aware(item.get("releaseAvailableAt"), f"{label}.releaseAvailableAt", errors)
         fetched = _aware(item.get("fetchedAt"), f"{label}.fetchedAt", errors)
         publication = item.get("releaseDateTime")
@@ -272,7 +317,7 @@ def _validate_observations(
             errors.append(f"{label}.releaseAvailableAt 早于 releaseDateTime")
         if fetched and available and fetched < available:
             errors.append(f"{label}.fetchedAt 早于 releaseAvailableAt")
-        if value_date and available and value_date > available.date():
+        if value_period and available and value_period[1] > available.date():
             errors.append(f"{label}.valueDate 晚于 releaseAvailableAt，时间语义倒置")
         sequence = item.get("revisionSequence")
         if not isinstance(sequence, int) or isinstance(sequence, bool) or sequence < 0:
@@ -292,11 +337,49 @@ def _validate_observations(
                 errors.append(f"{label} metricId 与 source definition 不一致")
             if definition.get("unit") != item.get("unit"):
                 errors.append(f"{label} unit 与 source definition 不一致")
+            if value_period is not None:
+                try:
+                    definition_start = date.fromisoformat(str(definition.get("effectiveFrom")))
+                    definition_end = (
+                        date.fromisoformat(str(definition["effectiveTo"]))
+                        if definition.get("effectiveTo") is not None
+                        else None
+                    )
+                except ValueError:
+                    # definition 自身的格式错误已由 _validate_source_definitions 报告。
+                    pass
+                else:
+                    period_start, period_end = value_period
+                    if period_start < definition_start or (
+                        definition_end is not None and period_end > definition_end
+                    ):
+                        errors.append(
+                            f"{label}.valueDate 不在 source definition 的统计期有效范围内"
+                        )
         artifact = artifacts.get(str(item.get("rawArtifactId")))
         if artifact is None:
             errors.append(f"{label}.rawArtifactId 不存在")
-        elif artifact.get("sourceId") != item.get("sourceId"):
-            errors.append(f"{label} sourceId 与 raw artifact 不一致")
+        else:
+            if artifact.get("sourceId") != item.get("sourceId"):
+                errors.append(f"{label} sourceId 与 raw artifact 不一致")
+            if artifact.get("releaseConfidenceClass") != confidence:
+                errors.append(f"{label}.releaseConfidenceClass 与 raw artifact 不一致")
+            if artifact.get("publicationDateTime") != publication:
+                errors.append(f"{label}.releaseDateTime 与 raw artifact publicationDateTime 不一致")
+            if artifact.get("releaseAvailableAt") != item.get("releaseAvailableAt"):
+                errors.append(f"{label}.releaseAvailableAt 与 raw artifact 不一致")
+            if confidence == ReleaseConfidenceClass.DATE_ONLY_SAFE.value:
+                if artifact.get("publicationDate") != metadata.get("publicationDate"):
+                    errors.append(f"{label}.metadata.publicationDate 与 raw artifact 不一致")
+            try:
+                artifact_fetched = parse_aware_datetime(
+                    artifact["fetchedAt"], "artifact.fetchedAt"
+                )
+                if fetched and fetched < artifact_fetched:
+                    errors.append(f"{label}.fetchedAt 早于 raw artifact fetchedAt")
+            except (KeyError, ValueError):
+                # artifact 自身的时间错误已由 _validate_artifacts 报告。
+                pass
 
     for identity, item in index.items():
         supersedes = item.get("supersedesObservationId")

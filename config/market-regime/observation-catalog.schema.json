@@ -90,8 +90,13 @@
         "sourceId": {"$ref": "#/$defs/identifier"},
         "metricId": {"$ref": "#/$defs/identifier"},
         "version": {"type": "string", "minLength": 1},
-        "effectiveFrom": {"type": "string", "format": "date"},
+        "effectiveFrom": {
+          "type": "string",
+          "format": "date",
+          "description": "该统计定义适用的首个 valueDate/statistical period，不是发布时间或建档时间。"
+        },
         "effectiveTo": {
+          "description": "该统计定义适用的最后 valueDate/statistical period；null 表示开放结束区间。",
           "oneOf": [
             {"type": "string", "format": "date"},
             {"type": "null"}
@@ -103,7 +108,11 @@
         "releaseSemantics": {"type": "string", "minLength": 1},
         "revisionPolicy": {"type": "string", "minLength": 1},
         "sourceUrlPattern": {"type": "string", "minLength": 1},
-        "createdAt": {"type": "string", "format": "date-time"}
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "定义记录的建档时间；不控制历史 PIT 可见性。"
+        }
       }
     },
     "rawSourceArtifact": {
@@ -114,6 +123,8 @@
         "sourceId",
         "sourceUrl",
         "publicationDateTime",
+        "publicationDate",
+        "releaseAvailableAt",
         "fetchedAt",
         "contentType",
         "fileName",
@@ -131,6 +142,13 @@
         "sourceId": {"$ref": "#/$defs/identifier"},
         "sourceUrl": {"type": "string", "format": "uri"},
         "publicationDateTime": {"$ref": "#/$defs/nullableDateTime"},
+        "publicationDate": {
+          "oneOf": [
+            {"type": "string", "format": "date"},
+            {"type": "null"}
+          ]
+        },
+        "releaseAvailableAt": {"type": "string", "format": "date-time"},
         "fetchedAt": {"type": "string", "format": "date-time"},
         "contentType": {"type": "string", "minLength": 1},
         "fileName": {"type": "string", "minLength": 1},
