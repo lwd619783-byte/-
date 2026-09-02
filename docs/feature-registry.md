@@ -7,6 +7,7 @@
 
 - `DONE`：功能和当前范围内验证已完成，可继续使用。
 - `DONE / NOT ADMITTED`：实现已完成，但尚未满足生产准入条件。
+- `CONTRACT V1`：研究 / 数据合同已经正式固化，但尚未进入 Provider / 评分 / UI 生产实现。
 - `PARTIAL`：已有可用能力，但覆盖、数据源或工作流明显不完整。
 - `PROBE ONLY`：只完成可行性 / 数据源探测，不能生产正式结果。
 - `NOT STARTED`：尚未形成正式实现。
@@ -17,7 +18,7 @@
 | 能力 | 状态 | 当前实现 | 主要缺口 / 下一步 |
 | --- | --- | --- | --- |
 | 研究终端 UI | DONE | 暗色终端、KPI、Card、Chart、Table、Filter、响应式 | 后续仅随新 Feature 演进 |
-| 宏观看板 | PARTIAL | `MacroTab`、宏观静态/生成数据 | 建正式 Macro Metric Registry、频率/发布时间/修订/stale 体系 |
+| 宏观看板 | PARTIAL | `MacroTab`、宏观静态/生成数据 | 接入 Stage 4.1 Metric Registry、频率/发布时间/修订/stale 体系 |
 | 行业研究 | PARTIAL | 行业、细分行业、产业链、机器人专题 | 建行业指标库、行业 Provider、景气评分 |
 | 个股池 | DONE | A/H 股研究池、筛选、排序、详情 | 后续扩 stock universe 与估值维度 |
 | 个股详情 | DONE | 行情、财务、公告、研究事件、预期等聚合 | 后续加入估值、持仓、研究 thesis |
@@ -33,7 +34,7 @@
 | A 股 Price History | DONE MVP | 真实历史价格 | 增加更长周期与 corporate action 规则 |
 | 港股 Quote | DONE MVP | yfinance，当前少量研究池 | 扩覆盖、稳定性与正式 Provider contract |
 | 港股 Price History | DONE MVP | 60 日历史 MVP | 扩展历史与数据治理 |
-| 宏观数据 | PARTIAL | `data:fetch:macro` + `macroData.ts` | V2 数据字典、官方源、频率、revision |
+| 宏观数据 | PARTIAL | `data:fetch:macro` + `macroData.ts` | 按 Stage 4.1 Registry 重构官方源、native frequency、revision 与 release semantics |
 
 ## 3. A 股财务与公告
 
@@ -89,10 +90,10 @@
 
 ## 8. Stage 4 核心新增 Domain
 
-| 能力 | 状态 | 优先级 | 建议建设顺序 |
+| 能力 | 状态 | 优先级 | 当前结论 / 下一步 |
 | --- | --- | ---: | --- |
-| Macro Metric Registry V2 | NOT STARTED | P0 | Stage 4.1 第一项 |
-| 牛熊温度计 / Market Regime Engine | NOT STARTED | P0 | Stage 4.1 |
+| Macro / Market Regime Metric Registry V1 | CONTRACT V1 | P0 | 已固化原始指标、native frequency、source/release/revision/stale contract；下一步数学定义与 Provider Probe |
+| 牛熊温度计 / Market Regime Engine | CONTRACT V1 | P0 | 已恢复 5 个基础模块 + 政策/盈利/结构泡沫 overlay；最终评分、归一化、权重仍需历史回测 |
 | Valuation Center | NOT STARTED | P0 | Stage 4.2 |
 | Portfolio / Account / Position / Transaction | NOT STARTED | P0 | Stage 4.2 |
 | Research Thesis ↔ Position Mapping | NOT STARTED | P0 | Stage 4.2 |
@@ -103,6 +104,26 @@
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.5 |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6，建立在可信数据与云端数据之上 |
 
+### Stage 4.1 Metric Source 状态摘要
+
+| 指标 | 当前状态 | 说明 |
+| --- | --- | --- |
+| 融资余额 | SOURCE_READY | 交易所日频，模型周度聚合 |
+| 权益 ETF 净流入 | PROBE_REQUIRED | 不得以 ETF 成交额冒充净申赎 |
+| 北向资金 | SOURCE_READY | HKEX Stock Connect 日频统计 |
+| A 股成交额 | SOURCE_READY | 交易所日频，需沪深北统一口径 |
+| 新增投资者 | PROBE_REQUIRED | 中国结算历史官方口径明确，当前自动化月度入口待验证 |
+| 市场 PE 百分位 | PROBE_REQUIRED | 中证估值快照存在，历史自动化序列待验证 |
+| 中国版巴菲特指标 | DEFINITION_REQUIRED | GDP 源已验证，分子/TTM 口径需冻结 |
+| IPO / 再融资 | SOURCE_READY / FIELD PROBE | 证监会月报为优先官方源 |
+| 减持 / 回购 | PROBE_REQUIRED | 需基于实际执行金额建立事件聚合 Provider |
+| M2 | SOURCE_READY | 人民银行月度 |
+| 社融 | DEFINITION_REQUIRED | 人民银行月度，stock/flow/credit impulse 公式待回测 |
+| 工业企业利润 | SOURCE_READY | 统计局月度，1 月免报 |
+| 上市公司盈利扩散 | NOT_READY | 当前 56 公司 Provider 不代表全 A 市场 |
+| 政策周期修正 | DERIVED_TBD | 官方政策事件驱动，必须有 cap / decay |
+| 结构性泡沫温度 | DERIVED_TBD | 需可复现横截面公式 |
+
 ## 9. 明确延后 / 不应误做的事项
 
 | 事项 | 状态 | 原因 |
@@ -112,18 +133,42 @@
 | A 股财务/公告直接加入默认 refresh | DEFERRED UNTIL ADMISSION | Stability Gate 尚未达标 |
 | OCR 全量公告 | DEFERRED | 不是当前最优先能力，且不能牺牲证据可靠性 |
 | 一次性重构整个 `App.tsx` | DEFERRED | 应在新增 Stage 4 Feature 时渐进拆分 |
+| 未回测即输出正式牛熊温度 | DEFERRED / FORBIDDEN | 旧权重只是 seed；必须完成定义、历史回测和公式版本锁定 |
 
-## 10. Stage 4.0 基线结论
+## 10. Stage 状态
 
-Stage 4.0 不增加业务功能，目标是统一“文档里的项目”和“代码里的项目”。完成标准：
+### Stage 4.0 — PASS
 
 - [x] 总建设方案存在并以当前代码为基线
 - [x] 当前架构文档存在
 - [x] Feature Registry 存在
+- [x] README 已更新为当前项目入口
 - [x] 已完成 / Partial / Not Started / NO_GO 边界明确
 - [x] Stage 4.1–4.6 主路线明确
-- [ ] README 更新为当前项目入口
-- [ ] 独立审查本分支与 `main` 的文档差异
-- [ ] 审查通过后再决定是否创建 PR
+- [x] 文档分支与 `main` 已独立比较，未发现业务代码变更
 
-下一业务阶段：**Stage 4.1 — Macro Metric Registry V2 + 牛熊温度计 / Market Regime Engine**。
+### Stage 4.1 — IN PROGRESS
+
+已完成：
+
+- [x] 找回并核对原牛熊温度计云端规则 / 模型 / 数据源资料
+- [x] Market Regime Metric Registry V1
+- [x] native-frequency-aware refresh contract
+- [x] release / stale / revision 基础语义
+- [x] 第一轮官方数据源审计
+
+下一步：
+
+- [ ] 冻结尚未明确的指标数学定义（社融、巴菲特指标、PE 基准等）
+- [ ] 为 PROBE_REQUIRED 指标执行 Source Probe
+- [ ] 设计每个指标的 normalization candidate
+- [ ] 设计模块内权重与 missing-data rebalance 规则
+- [ ] 建立历史数据 / release-vintage 回测数据集
+- [ ] 2005–present 回测与参数选择
+- [ ] 公式版本锁定后才进入 Provider / Engine / UI 实现
+
+当前 Stage 4.1 的核心文档：
+
+- `docs/market-regime/metric-registry-v1.md`
+- `docs/market-regime/source-audit-v1.md`
+
