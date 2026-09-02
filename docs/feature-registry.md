@@ -93,7 +93,8 @@
 | 能力 | 状态 | 优先级 | 当前结论 / 下一步 |
 | --- | --- | ---: | --- |
 | Macro / Market Regime Metric Registry V1 | CONTRACT V1 | P0 | 原始指标、native frequency、source/release/revision/stale contract 已固化 |
-| 牛熊温度计数学定义 / Normalization V1 | CONTRACT V1 | P0 | 巴菲特、PE、社融、供给压力、缺失数据与 policy cap 已冻结为回测基线；下一步历史数据集设计 |
+| 牛熊温度计数学定义 / Normalization V1 | CONTRACT V1 | P0 | 巴菲特、PE、社融、供给压力、缺失数据与 policy cap 已冻结为回测基线 |
+| Historical PIT Backtest Dataset Design V1 | CONTRACT V1 | P0 | 周一08:00决策时钟、release vintage、coverage era、质量分层、immutable manifest 已冻结；下一步执行 P0 Source Probe |
 | 牛熊温度计 / Market Regime Engine | CONTRACT V1 | P0 | 已恢复 5 个基础模块 + 政策/盈利/结构泡沫 overlay；生产权重仍需历史回测 admission |
 | Valuation Center | NOT STARTED | P0 | Stage 4.2 |
 | Portfolio / Account / Position / Transaction | NOT STARTED | P0 | Stage 4.2 |
@@ -109,19 +110,19 @@
 
 | 指标 | 当前状态 | 说明 |
 | --- | --- | --- |
-| 融资余额 | FORMULA READY / SOURCE_READY | 融资余额÷A股流通市值，70%水平分位+30%20日动量 |
-| 权益 ETF 净流入 | FORMULA CANDIDATE / PROBE_REQUIRED | 20日净申赎÷期初权益ETF AUM；不得以成交额替代 |
-| 北向资金 | FORMULA CANDIDATE / SOURCE_READY | 优先20日净流入÷A股流通市值；需锁定HKEX现行字段语义 |
-| A 股成交额 | FORMULA READY / SOURCE_READY | 5日平均成交额÷A股流通市值，75%水平+25%动量 |
-| 新增投资者 | FORMULA CANDIDATE / PROBE_REQUIRED | 月新增投资者÷上月末投资者总数 |
-| 市场 PE 百分位 | FORMULA READY / SOURCE PROBE | V1 主锚定沪深300 TTM PE，10年 point-in-time 分位 |
-| 中国版巴菲特指标 | FORMULA READY | 全部A股总市值÷TTM名义GDP，10年 point-in-time 分位 |
-| 股票供给压力 | FORMULA READY / SOURCE PARTIAL | (IPO+再融资+实际减持-符合口径实际回购)3个月滚动÷A股总市值 |
-| M2 | FORMULA READY / SOURCE_READY | M2同比70% + 3个月增速加速度30% |
-| 社融 | FORMULA READY / SOURCE_READY | 社融存量同比70% + 3个月加速度30%；Credit Impulse 为挑战模型 |
-| 工业企业利润 | CLASSIFIER CANDIDATE / SOURCE_READY | 单月利润同比优先于仅使用累计同比 |
+| 融资余额 | FORMULA READY / SOURCE_READY | 融资余额÷A股流通市值，70%水平分位+30%20日动量；严格历史从2010启动期开始 |
+| 权益 ETF 净流入 | FORMULA CANDIDATE / PROBE_REQUIRED | 20日净申赎÷期初权益ETF AUM；ETF虽自2005存在，但净申赎历史不得用成交额替代 |
+| 北向资金 | FORMULA CANDIDATE / SOURCE_READY | 2014-11-17起沪股通；2016-12-05起沪深两通道；scope break 必须版本化 |
+| A 股成交额 | FORMULA READY / SOURCE_READY | 5日平均成交额÷A股流通市值；沪深口径需统一，2021-11-15后加入北交所新 scope |
+| 新增投资者 | FORMULA CANDIDATE / PROBE_REQUIRED | 2014一码通存在语义断点；V1目标从2015可比口径开始，不拼接旧“新增股票账户” |
+| 市场 PE 百分位 | FORMULA READY / SOURCE PROBE BLOCKER | V1主锚沪深300 TTM PE；指数2005已发布，但连续官方历史估值序列仍需 Source Probe |
+| 中国版巴菲特指标 | FORMULA READY / SOURCE EXTRACTION PENDING | 全部A股总市值÷TTM名义GDP；GDP revision 与北交所 scope 必须版本化 |
+| 股票供给压力 | FORMULA READY / SOURCE PARTIAL | IPO/再融资目标2005起；减持建议2017可比起点；回购建议2019可比起点 |
+| M2 | FORMULA READY / SOURCE_READY | M2同比70% + 3个月增速加速度30%；2011/2018统计定义断点需保留 |
+| 社融 | FORMULA READY / SOURCE_READY | 社融存量信号严格PIT自2015-02-10历史存量回溯正式发布后启用；不能让2008回测偷看后发 backcast |
+| 工业企业利润 | CLASSIFIER CANDIDATE / SOURCE_READY | 2005–2010按旧全国口径较低频使用；2011后全国月度、1月免报 |
 | 上市公司盈利扩散 | NOT_READY | 当前56公司Provider不足以代表全A |
-| 政策周期修正 | ARCHITECTURE READY | 总温度修正上限 ±5；事件分类与衰减规则待单独合同 |
+| 政策周期修正 | ARCHITECTURE READY | 总温度修正上限 ±5；初始 strict backtest 可先禁用，再独立建设历史政策事件集 |
 | 结构性泡沫温度 | ARCHITECTURE READY | 独立0–100输出，V1不直接修改大盘温度 |
 
 ## 9. 明确延后 / 不应误做的事项
@@ -162,14 +163,23 @@
 - [x] policy correction ±5 cap
 - [x] Profit Cycle 与 Structural Bubble 独立 overlay 架构
 - [x] 预声明 Candidate A–D，避免无约束过拟合
+- [x] Historical Data Availability & Backtest Dataset Design V1
+- [x] 确认主要指标结构性起点和定义断点
+- [x] 冻结 Monday 08:00 Asia/Shanghai point-in-time 决策时钟
+- [x] 定义 release-time confidence / PIT quality tier
+- [x] 定义 2005–present coverage eras 与可比性标签
+- [x] 定义 SourceDefinitionVersion / ObservationVintage / Weekly Manifest / Feature Matrix 数据结构
 
 下一步：
 
-- [ ] Historical Data Availability & Backtest Dataset Design V1
-- [ ] 确认各指标最早可靠历史日期与定义断点
-- [ ] 为 PROBE_REQUIRED 指标执行 Source Probe
-- [ ] 设计 point-in-time vintage 数据存储 / manifest
-- [ ] 构建 2005–present 回测数据集
+- [ ] P0 Source Probe：沪深300历史 TTM PE
+- [ ] P0 Source Probe：沪深北统一口径成交额 / 总市值 / 流通市值
+- [ ] P0 Source Probe：证监会月报 IPO / 再融资字段及历史附件
+- [ ] P0 Source Probe：M2 历史 vintage / comparable-growth 提取
+- [ ] P0 Source Probe：社融存量 2015 之后原始发布频率 / vintage 演化
+- [ ] P1 Source Probe：新增投资者、实际减持、实际回购、ETF净申赎
+- [ ] 构建 point-in-time observation catalog
+- [ ] 构建 2005–present weekly immutable manifests
 - [ ] 执行 Candidate A–D 回测与参数选择
 - [ ] 公式版本锁定后才进入 Provider / Engine / UI 实现
 
@@ -178,3 +188,4 @@
 - `docs/market-regime/metric-registry-v1.md`
 - `docs/market-regime/source-audit-v1.md`
 - `docs/market-regime/formula-normalization-v1.md`
+- `docs/market-regime/backtest-dataset-design-v1.md`
