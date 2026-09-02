@@ -1,7 +1,7 @@
 # 投资研究看板 Feature Registry
 
-> 基线日期：2026-09-02  
-> 代码基线：`main` @ `8a1d4c110b5eb8a248701be6cd84470d1fa0d7f7`
+> 基线日期：2026-09-03  
+> 代码基线：`main` @ `00a26181482627e053f3e5a5c89188b3a722e1d9`
 
 状态定义：
 
@@ -94,7 +94,8 @@
 | --- | --- | ---: | --- |
 | Macro / Market Regime Metric Registry V1 | CONTRACT V1 | P0 | 原始指标、native frequency、source/release/revision/stale contract 已固化 |
 | 牛熊温度计数学定义 / Normalization V1 | CONTRACT V1 | P0 | 巴菲特、PE、社融、供给压力、缺失数据与 policy cap 已冻结为回测基线 |
-| Historical PIT Backtest Dataset Design V1 | CONTRACT V1 | P0 | 周一08:00决策时钟、release vintage、coverage era、质量分层、immutable manifest 已冻结；下一步执行 P0 Source Probe |
+| Historical PIT Backtest Dataset Design V1 | CONTRACT V1 | P0 | 周一08:00决策时钟、release vintage、coverage era、质量分层、immutable manifest 已冻结；R1 observation catalog skeleton 已落地 |
+| Historical Observation Catalog R1 | DONE | P0 | PR #13 已合并；strict PIT、provenance、统计口径版本、离线 validator/test 已通过；下一步 R2 扩展真实历史 vintage 数据集 |
 | 牛熊温度计 / Market Regime Engine | CONTRACT V1 | P0 | 已恢复 5 个基础模块 + 政策/盈利/结构泡沫 overlay；生产权重仍需历史回测 admission |
 | Valuation Center | NOT STARTED | P0 | Stage 4.2 |
 | Portfolio / Account / Position / Transaction | NOT STARTED | P0 | Stage 4.2 |
@@ -113,13 +114,13 @@
 | 融资余额 | FORMULA READY / SOURCE_READY | 融资余额÷A股流通市值，70%水平分位+30%20日动量；严格历史从2010启动期开始 |
 | 权益 ETF 净流入 | FORMULA CANDIDATE / PROBE_REQUIRED | 20日净申赎÷期初权益ETF AUM；ETF虽自2005存在，但净申赎历史不得用成交额替代 |
 | 北向资金 | FORMULA CANDIDATE / SOURCE_READY | 2014-11-17起沪股通；2016-12-05起沪深两通道；scope break 必须版本化 |
-| A 股成交额 | FORMULA READY / SOURCE_READY | 5日平均成交额÷A股流通市值；沪深口径需统一，2021-11-15后加入北交所新 scope |
+| A 股成交额 | FORMULA READY / SOURCE PARTIAL | 公式已冻结；沪深北统一历史日频口径仍待 R2/R3 source contract 完成 |
 | 新增投资者 | FORMULA CANDIDATE / PROBE_REQUIRED | 2014一码通存在语义断点；V1目标从2015可比口径开始，不拼接旧“新增股票账户” |
-| 市场 PE 百分位 | FORMULA READY / SOURCE PROBE BLOCKER | V1主锚沪深300 TTM PE；指数2005已发布，但连续官方历史估值序列仍需 Source Probe |
+| 市场 PE 百分位 | FORMULA READY / NO_GO | V1主锚沪深300 TTM PE；官方连续可自动化历史估值序列仍未证明，严格 PIT Provider 保持 NO_GO |
 | 中国版巴菲特指标 | FORMULA READY / SOURCE EXTRACTION PENDING | 全部A股总市值÷TTM名义GDP；GDP revision 与北交所 scope 必须版本化 |
-| 股票供给压力 | FORMULA READY / SOURCE PARTIAL | IPO/再融资目标2005起；减持建议2017可比起点；回购建议2019可比起点 |
-| M2 | FORMULA READY / SOURCE_READY | M2同比70% + 3个月增速加速度30%；2011/2018统计定义断点需保留 |
-| 社融 | FORMULA READY / SOURCE_READY | 社融存量信号严格PIT自2015-02-10历史存量回溯正式发布后启用；不能让2008回测偷看后发 backcast |
+| 股票供给压力 | FORMULA READY / SOURCE PARTIAL | IPO/再融资官方月报 source family 已证明；老 XLS 字段解析仍待完成；减持/回购后续独立建设 |
+| M2 | FORMULA READY / SOURCE_READY | R1 已验证 2005/2015/2024 官方发布样本；R2 扩展完整历史 vintage 索引与 comparable-growth 提取 |
+| 社融 | FORMULA READY / SOURCE PARTIAL | backcast PIT 规则已验证；R2 需枚举 2015 后 first-release vintage 与统计口径演化 |
 | 工业企业利润 | CLASSIFIER CANDIDATE / SOURCE_READY | 2005–2010按旧全国口径较低频使用；2011后全国月度、1月免报 |
 | 上市公司盈利扩散 | NOT_READY | 当前56公司Provider不足以代表全A |
 | 政策周期修正 | ARCHITECTURE READY | 总温度修正上限 ±5；初始 strict backtest 可先禁用，再独立建设历史政策事件集 |
@@ -169,16 +170,16 @@
 - [x] 定义 release-time confidence / PIT quality tier
 - [x] 定义 2005–present coverage eras 与可比性标签
 - [x] 定义 SourceDefinitionVersion / ObservationVintage / Weekly Manifest / Feature Matrix 数据结构
+- [x] P0 Source Probe Pack V1：M2 PASS；AFRE/全市场统计/CSRC 月报 PARTIAL；CSI300 历史 TTM PE NO_GO
+- [x] Task 4.1-R1 Historical Observation Catalog Skeleton：PR #13 合并，strict PIT / provenance / source-definition guards 完成
 
 下一步：
 
-- [ ] P0 Source Probe：沪深300历史 TTM PE
-- [ ] P0 Source Probe：沪深北统一口径成交额 / 总市值 / 流通市值
-- [ ] P0 Source Probe：证监会月报 IPO / 再融资字段及历史附件
-- [ ] P0 Source Probe：M2 历史 vintage / comparable-growth 提取
-- [ ] P0 Source Probe：社融存量 2015 之后原始发布频率 / vintage 演化
+- [ ] Task 4.1-R2：扩展 M2 2005–present 官方历史 release/vintage 目录
+- [ ] Task 4.1-R2：扩展社融存量 2015–present first-release vintage 与定义版本
+- [ ] Task 4.1-R2：枚举证监会证券市场月报历史索引并完成 IPO/再融资 XLS 字段 schema probe
+- [ ] Task 4.1-R2：继续验证沪深北统一口径成交额 / 总市值 / 流通市值历史 adapter
 - [ ] P1 Source Probe：新增投资者、实际减持、实际回购、ETF净申赎
-- [ ] 构建 point-in-time observation catalog
 - [ ] 构建 2005–present weekly immutable manifests
 - [ ] 执行 Candidate A–D 回测与参数选择
 - [ ] 公式版本锁定后才进入 Provider / Engine / UI 实现
@@ -189,3 +190,5 @@
 - `docs/market-regime/source-audit-v1.md`
 - `docs/market-regime/formula-normalization-v1.md`
 - `docs/market-regime/backtest-dataset-design-v1.md`
+- `docs/market-regime/p0-source-probe-v1.md`
+- `docs/market-regime/observation-catalog-r1.md`（已随 PR #13 合入 `main`）
