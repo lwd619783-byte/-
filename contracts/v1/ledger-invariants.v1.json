@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "ledger-invariants.v1",
+  "moneySemantics": {
+    "cashFlow": {
+      "ruleZh": "CashFlow.amount 使用账户视角的有符号金额：流入该账户为正，流出该账户为负。",
+      "examples": {
+        "external_contribution": "+1250 CNY",
+        "external_withdrawal": "-500 CNY",
+        "salary": "+10000 CNY",
+        "dividend": "+120 CNY",
+        "fee": "-5 CNY",
+        "insurance_premium": "-1000 CNY"
+      }
+    },
+    "transaction": {
+      "ruleZh": "Transaction 中 quantity/price/grossAmount/fees/netAmount 使用非负绝对值，方向由 side 表示，不通过负数表达买卖方向。"
+    },
+    "dca": {
+      "ruleZh": "plannedAmount/executedAmount/pendingAmount 必须为非负金额。"
+    }
+  },
+  "internalTransfer": {
+    "ruleZh": "内部转账必须记录为同一 pairedTransferId 下的两条 CashFlow：转出账户为负、转入账户为正。相同币种且无单独费用时，两条金额绝对值应相等、合计为 0。",
+    "mustNotCountAsExternalContribution": true,
+    "feesMustBeSeparateCashFlow": true
+  },
+  "transactionRules": [
+    "正式 Transaction 必须至少有 quantity、grossAmount、netAmount 之一",
+    "candidate/warning 状态不得参与正式成本和收益计算",
+    "计划买入、allocation proposal、Research Thesis 不得生成 Transaction",
+    "重复截图或重复导入通过 fingerprint/idempotency 检测后不得生成第二笔正式交易"
+  ],
+  "positionRules": [
+    "V1 长期账户按 long-only 设计，正式 PositionSnapshot.quantity 不得为负",
+    "PositionSnapshot 是状态核对数据，不替代 Transaction Ledger",
+    "交易流水与持仓快照不一致时生成 reconciliation warning，不允许静默改交易历史"
+  ],
+  "dcaRules": [
+    "DcaPlan 必须至少绑定 assetId 或 primaryCategory 之一",
+    "constraint 必须有 effectiveFrom；规则变化新增 revision，不改写旧周期",
+    "pendingAmount 可以滚动，但不能自动计入下一周 external contribution",
+    "DcaExecution 只有在真实成交或用户确认的实际申购后才能标记 completed"
+  ],
+  "assetImportRules": [
+    "AssetImport Candidate.payload 必须按 candidateType 再次校验对应正式对象合同",
+    "transaction -> Transaction",
+    "cash_flow -> CashFlow",
+    "position_snapshot -> PositionSnapshot",
+    "dca_execution -> DcaExecution",
+    "account -> Account",
+    "asset -> Asset",
+    "无法解析实体或无法核对金额时只能 warn/needs_resolution，不得强制 pass"
+  ],
+  "performanceExclusions": [
+    "candidate 数据不得进入收益计算",
+    "内部转账不得算作外部新增本金",
+    "allocation proposal 不得算作资产事实",
+    "未定义完整 Performance Methodology 前，不得在正式 UI 宣称 XIRR/TWR/年化收益为 admitted 指标"
+  ]
+}
