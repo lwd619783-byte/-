@@ -1,70 +1,87 @@
 # 投资研究看板
 
-面向 A 股 / 港股的个人投研工作台。项目已经从早期的 Mock Dashboard 演进为包含真实数据 Provider、证据工作流、研究事件、复盘任务和数据真实性治理的研究系统。
+面向 A 股 / 港股的个人投资研究系统。项目已经从早期 Mock Dashboard 演进为包含真实数据 Provider、证据工作流、研究事件、复盘任务、时间语义和数据真实性治理的研究工作台；长期产品方向已经进一步冻结为：
 
-当前目标不是单纯展示行情，而是逐步形成：
+**Personal Investment Research & Asset OS（个人投资研究与资产操作系统）**。
 
-`宏观 / 行业 / 个股研究 → 真实数据 → 预期证据 → ResearchEvent → 验证与复盘 → 估值 → Portfolio`
+长期目标不是单纯展示行情，而是形成：
 
-> 当前代码基线：`main` @ `8a1d4c110b5eb8a248701be6cd84470d1fa0d7f7`（2026-07-29）。  
-> Stage 4 总路线见 `docs/investment-dashboard-master-plan-2026-09.md`。
+`宏观 / Market Regime → 行业 → Thesis → 个股验证 → 真实数据与证据 → 投资表达 → Portfolio / DCA → 事件验证 → 复盘`
+
+> Agent / Codex 开发入口：先读根目录 [`AGENTS.md`](AGENTS.md)，再按任务类型读取相关事实源。  
+> README 是稳定导航页，不使用某个固定 `main` SHA 充当长期“当前状态”。当前实现以代码、测试和 [`docs/feature-registry.md`](docs/feature-registry.md) 为准。
+
+## 当前阶段
+
+仓库同时包含两类内容，必须区分：
+
+1. **当前已经实现的研究看板与数据治理能力**：行情、财务 / 公告 Provider、预期证据、ResearchEvent、Watchlist Review、Provider Stability、Market Regime/PIT 基础等；
+2. **已经冻结、按阶段进入实现的 V2 Research & Asset OS 设计和合同**：Research Bridge / MCP、ChatGPT 研究入库、行业研究 taxonomy、资产 / Portfolio / DCA、Local-first、备份恢复和机器可读合同。
+
+2026-09-05 V2 合同终局审计已经 **PASS FOR PHASE 1 IMPLEMENTATION**。这表示第一阶段基础设施可以按冻结合同进入实现，**不表示所有 V2 功能已经实现，也不表示所有能力都获得 Production Admission**。
+
+## Source of Truth
+
+### 当前产品与 V2 架构决策
+
+- [`docs/investment-dashboard-v2-research-os-and-bridge-design.md`](docs/investment-dashboard-v2-research-os-and-bridge-design.md)：Top-down Research OS 与 Research Bridge / MCP 设计基线
+- [`docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md`](docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md)：ChatGPT 研究入库、资产管理与 DCA 补充设计
+- [`docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md`](docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md)：已冻结用户决策、Local-first 与备份恢复边界
+- [`docs/investment-dashboard-v2-final-contract-audit-v1.md`](docs/investment-dashboard-v2-final-contract-audit-v1.md)：V2 合同终局审计与 Phase 1 实现准入范围
+
+### 机器可读合同
+
+- [`contracts/v1/README.md`](contracts/v1/README.md)：合同目录说明、版本规则和当前实现准入
+- `contracts/v1/*.json`：Research Bridge、行业研究、资产账本、导入、权限、恢复和测试场景的 V1 合同
+
+Phase 1 实现必须以当前 `contracts/v1` 为合同边界。若真实场景无法表达，应先修改合同并重新审计，不在业务代码中私自建立第二套字段语义。
+
+### 当前实现状态
+
+- [`docs/feature-registry.md`](docs/feature-registry.md)：功能状态登记
+- [`docs/architecture.md`](docs/architecture.md)：已实现系统的架构快照与现有边界
+- 当前代码与测试：判断某项能力是否真的存在的最终实现证据
+
+### 历史路线与审计基线
+
+- [`docs/investment-dashboard-master-plan-2026-09.md`](docs/investment-dashboard-master-plan-2026-09.md)：Stage 4 历史建设基线，保留用于实施历史和审计参考；当前 V2 产品 / 架构决策以更新的 V2 freeze / audit 文档为准
+
+历史文档中的固定 SHA 表示其记录时点，不代表当前 `main`。
 
 ## 当前主功能
 
-前端目前有 6 个主入口：
+当前研究看板主要包含：
 
-- 宏观
-- 行业
-- 个股池
-- 观察清单
-- 验证中心
-- 预期证据
-
-已经建设的核心能力包括：
-
-- A 股 / 港股行情与价格历史 MVP
+- 宏观研究
+- 行业 / 产业链研究
+- 个股池与个股详情
+- 观察清单与 Review Workflow
+- ResearchEvent / Earnings Verification
+- 业绩预期证据中心
+- A 股 / 港股行情与价格历史
 - A 股财务 Provider V1
 - A 股公告 Provider V1
 - Company Guidance Expectation Provider V2
-- Earnings Expectation Evidence Layer V1 / Schema V2
-- ResearchEvent + Earnings Verification V1
-- Watchlist Review Workflow V2
 - Data Source Registry + Data Audit
 - Provider Observation + Stability Gate
+- Market Regime / PIT observation catalog 基础
 - Developer Health Gate + GitHub Actions + Bundle Gate
 
-详细状态见：`docs/feature-registry.md`。
+详细状态与是否已生产准入，以 `docs/feature-registry.md`、相关 Provider admission 文档和实际代码为准。
 
 ## 重要生产边界
 
-### A 股财务与公告 Provider
+### Provider 实现不等于生产准入
 
-财务和公告 Provider 本身已经实现并通过专项校验，但截至当前代码基线仍未满足跨日 Stability Gate 的正式生产准入条件。
-
-因此：
-
-- 财务 Provider：`DONE / NOT ADMITTED`
-- 公告 Provider：`DONE / NOT ADMITTED`
-- 两者都不能因为“代码已经存在”就直接加入默认 `data:refresh`
-
-截至 2026-07-29 的新 provenance cohort 每个 Provider 只有 1 个 eligible run、1 个 distinct day、1 个 successful day，Gate 仍为 `insufficient_observation_window / NO_GO`。
+A 股财务和公告 Provider 已有独立实现，但只有通过对应 Stability / Admission Gate 后才能进入默认正式刷新路径。不得因为代码、测试或生成 artifact 已存在就自动视为 Production Admitted。
 
 ### 自动机构一致预期
 
-只完成公开数据源 Source Probe，正式 Provider **未实现**。
+机构一致预期的数据源与正式 Provider 必须满足既有 evidence / temporal / provenance 合同。不能用不完整机构明细拼装“伪一致预期”；缺失能力保持显式 `not_implemented` / NO_GO，直到正式实现和验证完成。
 
-当前状态必须继续保持 `not_implemented / NO_GO`，禁止用不完整机构明细拼装“伪一致预期”。
+### 用户数据与 V2 Local-first
 
-### 用户数据
-
-Watchlist 和 Earnings Expectation 等用户工作流当前主要保存在浏览器 LocalStorage：
-
-- 无账号体系
-- 无云同步
-- 无跨设备同步
-- 无多用户协作
-
-云端持久化属于 Stage 4.3。
+现有 Watchlist / Expectation 等工作流仍以当前代码的实际持久化方式为准。V2 已冻结 Local-first、资产账本、Research Bridge 和备份恢复合同，但这些设计只有在对应 Phase 1 任务实现后才成为运行能力。
 
 ## 技术栈
 
@@ -82,41 +99,32 @@ Watchlist 和 Earnings Expectation 等用户工作流当前主要保存在浏览
 
 ```text
 src/
-  components/
-    common/          通用研究终端组件
-    dashboard/       宏观看板
-    industry/        行业 / 产业链
-    stock/           股票池 / 个股详情
-    watchlist/       观察清单 / Review Workflow
-    research/        ResearchEvent / Earnings Verification
-    expectation/     业绩预期证据工作流
-    layout/          页面布局
-  data/              研究数据、Data Source Registry、同步生成数据
-  services/          Provider / loader / evidence / event / task / repository
-  types/             数据模型
-  utils/             时间、标准化、筛选等纯逻辑
-public/data/          按公司 lazy-load 的重数据详情
-scripts/              抓取、生成、验证、审计、健康、Provider Observation
-config/               Stability Gate / Observation Schema
-docs/                 设计、审计、Provider 与项目基线文档
+  components/         当前研究终端与 feature UI
+  data/               研究数据、Data Source Registry、生成数据
+  services/           Provider / loader / evidence / event / repository
+  types/              数据模型
+  utils/              时间、标准化、筛选等纯逻辑
+public/data/           按公司 lazy-load 的重数据详情
+scripts/               抓取、生成、验证、审计、健康、Provider Observation
+config/                Stability Gate / Market Regime / Observation Schema
+contracts/v1/          V2 Phase 1 机器可读合同
+docs/                  架构、V2 设计、Provider、审计与历史基线
 ```
 
-系统架构详见：`docs/architecture.md`。
+## 数据真实性原则
 
-## 数据模式
+新增数据能力默认遵循：
 
-Header 可切换：
+1. Provider 事实、用户判断、AI 研究和派生结果保持来源分离；
+2. Real 模式不得用 mock 静默补真实字段；
+3. 缺失值不得无理由转换为 `0`；
+4. `partial`、`stale`、`not_implemented`、`conflicted` 等状态显式传播；
+5. 重要生成数据具备 schema / identity / checksum / validation；
+6. 事后数据不得污染事前预期、历史研究和 PIT 回测；
+7. 未通过生产准入的 Provider 不进入默认正式刷新；
+8. 需要 revision / append-only 的研究、证据、账本和审计历史不得被静默覆盖。
 
-- `Mock Data`
-- `Mixed Data`
-- `Real Data`
-
-核心原则：
-
-- 真实模式下不得用 mock 静默补真实字段；
-- 缺失值不得转换为 0；
-- `partial`、`stale`、`not_implemented`、`conflicted` 等状态必须显式传播；
-- 重数据采用 summary + manifest + per-company detail，避免完整历史进入初始 bundle。
+完整跨任务不变量见 `AGENTS.md`。
 
 ## 常用开发命令
 
@@ -145,16 +153,6 @@ npm run --silent env:check:json
 npm run test
 npm run data:audit
 npm run build
-```
-
-## Provider 与数据命令
-
-基础行情 / 港股 / 宏观：
-
-```bash
-npm run data:fetch
-npm run data:validate
-npm run data:refresh
 ```
 
 A 股财务：
@@ -190,89 +188,18 @@ npm run data:refresh:eligibility
 npm run test:provider-observability
 ```
 
-注意：`data:observe:providers` 会执行真实 Provider 观测；普通 CI 和代码审查不应以实时网络访问代替离线验证。
+`data:observe:providers` 会访问真实 Provider。普通 CI、代码审查和不相关任务不应以实时网络访问代替离线、可重复验证。
 
-## 数据真实性原则
+## 开发与审查原则
 
-新增数据能力时应遵循：
-
-1. 先在 `src/data/data-source-registry.ts` 登记能力与状态；
-2. 明确 Provider、来源、生成器、刷新方式、coverage、fallback 和 known limitations；
-3. 真实数据只通过 service / Provider 层进入 UI，组件不直接绑定外部源；
-4. 缺失 / 失败 / 未实现显式建模；
-5. 重要生成数据具备 schema / identity / checksum / validation；
-6. 事后数据不能污染事前预期和研究判断；
-7. 未通过生产准入的 Provider 不进入默认刷新。
-
-## Stage 4 路线
-
-### Stage 4.0 — Project Baseline Reset
-
-- 更新总建设方案
-- 更新 Architecture
-- 建 Feature Registry
-- 更新 README
-
-### Stage 4.1 — Macro Metric Registry V2 + 牛熊温度计
-
-建立每项宏观 / 市场指标的：
-
-- source
-- nativeFrequency
-- release calendar / release lag
-- observation date / effective date
-- revision policy
-- stale threshold
-- normalization
-- weight
-
-在此基础上建设可解释、可回测、可审计的 Market Regime / 牛熊温度计。
-
-### Stage 4.2 — Valuation + Portfolio
-
-建立：
-
-- 估值中心
-- Account / Portfolio / Position / Transaction
-- Target Allocation / Rebalance Task
-- Research Thesis ↔ Position
-
-### Stage 4.3 — Cloud Persistence
-
-建立 Auth、Supabase / PostgreSQL、LocalStorage Migration 和跨设备同步。
-
-### Stage 4.4 — Industry Data Platform
-
-建设行业指标 Registry、供需 / 价格 / 库存 / 产能 / 开工率等 Provider 与景气评分。
-
-### Stage 4.5 — 港股完整研究链
-
-补齐财务、公告、指引、预期和 ResearchEvent。
-
-### Stage 4.6 — Research Copilot / 自动复盘
-
-建立在可信数据、稳定工作流和云端持久化之上。
-
-## 核心项目文档
-
-- `docs/investment-dashboard-master-plan-2026-09.md`：总建设方案与路线图
-- `docs/architecture.md`：当前真实架构与边界
-- `docs/feature-registry.md`：功能状态总登记表
-- `docs/data-audit-v1.md`：数据真实性审计
-- `docs/provider-stability-gate-v1.md`：Provider 稳定性准入
-- `docs/earnings-expectation-evidence-v1.md`：业绩预期证据层
-- `docs/watchlist-review-workflow-v2.md`：观察清单与复盘
-- `docs/research-event-center-v1.md`：研究事件与验证中心
-
-## 开发原则
-
-后续新增功能默认遵循：
-
-- 先数据合同 / domain model，后 UI；
-- 先可靠性，后覆盖率；
+- 先合同 / domain model，后 UI；
+- 先可靠性与时间语义，后覆盖率；
 - 不伪造缺失数据；
 - 不把“已实现”误写为“已生产准入”；
-- 每个 Stage 使用独立功能分支；
-- 功能分支先推远端，不直接创建 PR；
-- 基于远端分支与 `main` 做独立审查；
-- 审查通过后再创建 PR / CI / 合并。
+- 每个任务使用独立功能分支；
+- 功能分支先普通 push，不在独立审查前创建 PR；
+- 基于远端分支与 `main` 的真实差异做独立审查；
+- 审查通过后再进入 PR / CI / 合并；
+- 验证按改动风险选择，不要求所有任务无差别执行全套检查。
+
+Coding Agent 的具体工作方式、文档路由、永久不变量和 Git 边界统一见根目录 `AGENTS.md`。
