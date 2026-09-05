@@ -9,13 +9,13 @@ describe("company guidance expectation workflow UI", () => {
   it("shows the official company-guidance provider status", () => {
     const html = renderCenter();
     expect(html).toContain("公司官方指引 · 巨潮官方公告");
-    expect(html).toContain("不写入用户 LocalStorage");
+    expect(html).toContain("不写入用户本地存储");
   });
 
   it("labels generated snapshots as read-only official guidance", () => {
     const html = renderCenter();
     expect(html).toContain("公司官方指引");
-    expect(html).toContain("Provider 只读");
+    expect(html).toContain("数据提供方只读");
   });
 
   it("does not render a correction button for a provider snapshot", () => {
@@ -30,7 +30,7 @@ describe("company guidance expectation workflow UI", () => {
   it("marks retained local evidence that duplicates the official provider", () => {
     const provider = record();
     const local = snapshot({ id: "local-duplicate", ingestionMethod: "manual" });
-    expect(renderCenter({ snapshots: [provider.snapshot, local], duplicateMap: new Map([[local.id, provider.snapshot.id]]) })).toContain("与官方 Provider 记录重复");
+    expect(renderCenter({ snapshots: [provider.snapshot, local], duplicateMap: new Map([[local.id, provider.snapshot.id]]) })).toContain("与官方数据记录重复");
   });
 
   it("shows the public-disclosure proxy time warning", () => {
@@ -46,7 +46,7 @@ describe("company guidance expectation workflow UI", () => {
   it("shows provider version and official links in stock detail", () => {
     const provider = record();
     const html = renderToStaticMarkup(<StockEarningsExpectationPanel stock={stock} snapshots={[provider.snapshot]} financialData={null} announcementData={null} financialLoadStatus="idle" announcementLoadStatus="idle" providerLoadStatus="success" providerSnapshotIds={new Set([provider.snapshot.id])} providerRecordBySnapshotId={new Map([[provider.snapshot.id, provider]])} />);
-    expect(html).toContain("Provider 2.0.0");
+    expect(html).toContain("数据版本 2.0.0");
     expect(html).toContain(`href="${provider.officialSourceUrl.replace(/&/g, "&amp;")}"`);
     expect(html).toContain(`href="${provider.officialPdfUrl}"`);
   });
@@ -67,14 +67,14 @@ describe("company guidance expectation workflow UI", () => {
     const html = renderCenter({ providerLoadStatus: "error", providerLoadError: "workflow-failed", onRetryProvider: vi.fn() });
     expect(html).toContain("workflow-failed");
     expect(html).toContain("<button");
-    expect(html).toContain("Provider</button>");
+    expect(html).toContain("重试数据加载</button>");
   });
 
   it("renders an isolated company-detail failure while retaining successes and retry", () => {
     const html = renderCenter({ providerDetailLoadStatus: "partial", providerDetailLoadError: "detail-failed", providerFailedStockIds: ["sample"], providerLoadedCompanyCount: 14, onRetryProvider: vi.fn() });
     expect(html).toContain("detail-failed");
     expect(html).toContain("14 / ");
-    expect(html).toContain("Provider</button>");
+    expect(html).toContain("重试数据加载</button>");
   });
 });
 

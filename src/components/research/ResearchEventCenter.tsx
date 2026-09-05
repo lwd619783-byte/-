@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { AlertTriangle, CalendarDays, CheckSquare, ExternalLink, FileCheck2, Link2 } from "lucide-react";
 import type { EarningsVerificationChain, EarningsVerificationStage, Industry, ResearchEvent, ResearchEventSnapshot, ResearchEventType, ReviewTask, Stock, WatchItem } from "../../types";
 import { eventTypeLabel, stageLabel } from "../../services/researchEventProvider";
+import { statusDisplayLabel } from "../../utils/displayLabels";
 import { formatFinancialAmount } from "../../utils/financialDisplay";
 import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant, resolveTimeZone } from "../../utils/dateTime";
 import { DashboardCard, EmptyState, KpiCard, SectionHeader, TextClamp } from "../common/terminal";
@@ -56,7 +57,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
     <section className="space-y-4" aria-label="投研事件与业绩验证中心">
       <DashboardCard className="p-5">
         <SectionHeader
-          eyebrow="Research Verification"
+          eyebrow="研究验证"
           title="投研事件与业绩验证中心"
           description="把已提交的真实公告与财务摘要统一为可追溯事件；全量历史和差异明细在打开个股后按需加载。"
         />
@@ -67,7 +68,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
         <KpiCard label="最近 7 天事件" value={recentCount} delta="真实摘要" description="按公告日期或财务更新时间统计" tone="info" icon={<CalendarDays className="h-4 w-4" />} />
         <KpiCard label="待复盘公司" value={pendingCompanies} delta="需人工判断" description="至少有一项待复盘或数据缺口" tone={pendingCompanies ? "warning" : "positive"} icon={<CheckSquare className="h-4 w-4" />} />
         <KpiCard label="业绩验证事件" value={performanceCount} delta="预告 / 快报 / 报告" description="不与机构一致预期进行比较" tone="positive" icon={<FileCheck2 className="h-4 w-4" />} />
-        <KpiCard label="数据核验" value={queue.length} delta="部分解析或缺失" description="保留 metadata_only、stale 与 error" tone={queue.length ? "warning" : "positive"} icon={<AlertTriangle className="h-4 w-4" />} />
+        <KpiCard label="数据核验" value={queue.length} delta="部分解析或缺失" description="保留仅元数据、过期与错误状态" tone={queue.length ? "warning" : "positive"} icon={<AlertTriangle className="h-4 w-4" />} />
       </section>
 
       <DashboardCard className="p-4">
@@ -76,7 +77,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
           <Filter label="行业" value={industry} onChange={setIndustry} options={[{ value: "all", label: "全部行业" }, ...industries.map((item) => ({ value: item.id, label: item.name }))]} />
           <Filter label="事件类型" value={eventType} onChange={(value) => setEventType(value as ResearchEventType | "all")} options={[{ value: "all", label: "全部事件" }, ...(["earnings_preview", "earnings_preview_revision", "earnings_flash", "periodic_report", "financial_update", "announcement", "data_warning", "earnings_expectation_added", "earnings_expectation_correction", "earnings_expectation_revision", "earnings_expectation_comparison_available", "earnings_expectation_data_warning"] as ResearchEventType[]).map((value) => ({ value, label: eventTypeLabel(value) }))]} />
           <Filter label="日期" value={dateWindow} onChange={(value) => setDateWindow(value as DateWindow)} options={[{ value: "7", label: "最近 7 天" }, { value: "30", label: "最近 30 天" }, { value: "all", label: "全部日期" }]} />
-          <Filter label="解析 / 数据状态" value={parseStatus} onChange={setParseStatus} options={[{ value: "all", label: "全部状态" }, { value: "parse_success", label: "parse_success" }, { value: "parse_partial", label: "parse_partial" }, { value: "metadata_only", label: "metadata_only" }, { value: "stale", label: "stale" }, { value: "missing", label: "missing" }, { value: "error", label: "error" }]} />
+          <Filter label="解析 / 数据状态" value={parseStatus} onChange={setParseStatus} options={[{ value: "all", label: "全部状态" }, ...["parse_success", "parse_partial", "metadata_only", "stale", "missing", "error"].map((value) => ({ value, label: statusDisplayLabel(value) }))]} />
           <label className="flex min-w-0 flex-col gap-1 text-xs text-textMuted">
             复盘状态
             <button type="button" aria-pressed={reviewOnly} onClick={() => setReviewOnly((value) => !value)} className={`h-10 rounded-md border px-3 text-left text-sm ${reviewOnly ? "border-warning/60 bg-warning/10 text-warning" : "border-borderSoft bg-bg2/80 text-textStrong"}`}>
@@ -140,13 +141,13 @@ function EventCard({ event, stock, watchItem, tasks, onOpenStock, onStartReview 
             <span className="font-medium text-textStrong">{event.stockName} · {event.stockCode}</span>
             <span className="rounded border border-borderSoft px-2 py-1">{eventTypeLabel(event.eventType)}</span>
             <ResearchEventStatusBadge event={event} />
-            {event.expectation?.ingestionMethod === "provider" ? <span className="rounded border border-cyan/30 bg-cyan/5 px-2 py-1 text-cyan">公司官方指引 · Provider 只读</span> : null}
+            {event.expectation?.ingestionMethod === "provider" ? <span className="rounded border border-cyan/30 bg-cyan/5 px-2 py-1 text-cyan">公司官方指引 · 数据提供方只读</span> : null}
             {watchItem ? <span className="rounded border border-cyan/30 bg-cyan/5 px-2 py-1 text-cyan">观察状态：{watchItem.status} · 待复盘 {pendingTaskCount}</span> : null}
           </div>
           <p className="mt-2 text-sm font-semibold text-textStrong">{event.title}</p>
           <p className="mt-1 text-xs text-textMuted">公告 / 事件日期：{event.eventDate ?? "缺失"} · 报告期：{event.reportPeriod ?? "缺失"}</p>
           {event.expectation ? <p className="mt-1 text-xs text-textMuted">原记录时间：{event.expectation.originalBusinessTime ?? "缺失"}（{event.expectation.businessTimePrecision ?? "date"}） · 当前有效时间：{event.expectation.effectiveBusinessTime ?? event.expectation.originalBusinessTime ?? "缺失"}（{event.expectation.effectiveBusinessTimePrecision ?? event.expectation.businessTimePrecision ?? "date"}）{event.expectation.temporalCorrectionApplied ? ` · 时间字段已纠正：${event.expectation.correctedTemporalFields?.join("、") || "待核验"}` : ""}{event.expectation.correctionRecordedAt ? ` · 纠正记录时间：${event.expectation.correctionRecordedAt}` : ""}{event.expectation.businessOrderStatus === "uncertain" ? " · 业务顺序不确定" : event.expectation.businessOrderStatus === "equal" ? " · 精确时刻相同，不代表先后" : ""}</p> : null}
-          {event.expectation?.ingestionMethod === "provider" ? <p className="mt-1 text-xs text-cyan">巨潮官方公告 · Provider {event.expectation.providerVersion ?? "-"} · 更新 {event.expectation.providerGeneratedAt ?? "-"} · 公告 ID {event.expectation.sourceAnnouncementId ?? "-"} · 公司内部形成时间未知，以公开披露时间作为可用时间</p> : null}
+          {event.expectation?.ingestionMethod === "provider" ? <p className="mt-1 text-xs text-cyan">巨潮官方公告 · 数据版本 {event.expectation.providerVersion ?? "-"} · 更新 {event.expectation.providerGeneratedAt ?? "-"} · 公告标识 {event.expectation.sourceAnnouncementId ?? "-"} · 公司内部形成时间未知，以公开披露时间作为可用时间</p> : null}
           {event.eventType === "earnings_expectation_correction" && event.expectation ? <p className="mt-1 text-xs text-warning">被纠正快照：{event.expectation.correctionDelta?.correctionTargetId ?? event.expectation.correctsSnapshotId ?? "缺失"} · 当前纠正链终点：{event.expectation.effectiveSnapshotId ?? "缺失"} · 变化字段：{event.expectation.correctionDelta?.changedFields.join("、") || "待核验"}</p> : null}
           <TextClamp lines={3} title={event.summary} className="mt-2 text-sm leading-6 text-textMuted">{event.summary}</TextClamp>
           {event.metrics.some((metric) => metric.value !== null) ? (
@@ -171,7 +172,7 @@ function EventCard({ event, stock, watchItem, tasks, onOpenStock, onStartReview 
 
 export function ResearchEventStatusBadge({ event }: { event: ResearchEvent }) {
   const warning = event.reviewStatus === "pending" || ["metadata_only", "parse_partial", "parse_unavailable", "missing", "stale", "error"].includes(event.parseStatus);
-  return <span className={`rounded border px-2 py-1 text-xs ${warning ? "border-warning/35 bg-warning/10 text-warning" : "border-success/30 bg-success/10 text-success"}`}>{event.parseStatus} / {event.verificationStatus}</span>;
+  return <span className={`rounded border px-2 py-1 text-xs ${warning ? "border-warning/35 bg-warning/10 text-warning" : "border-success/30 bg-success/10 text-success"}`}>{statusDisplayLabel(event.parseStatus)} / {statusDisplayLabel(event.verificationStatus)}</span>;
 }
 
 function VerificationChainCard({ chain, stock, onOpenStock }: { chain: EarningsVerificationChain; stock?: Stock; onOpenStock: (stock: Stock) => void }) {

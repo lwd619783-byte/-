@@ -35,7 +35,7 @@ const event = {
 } as ResearchEvent;
 
 describe("ResearchEventCenter", () => {
-  it("renders KPI, recent events, verification chain, and raw parse states", () => {
+  it("renders KPI, recent events, verification chain, and localized parse states", () => {
     const partialEvent: ResearchEvent = {
       ...event,
       id: "announcement:demo:2",
@@ -70,8 +70,9 @@ describe("ResearchEventCenter", () => {
     expect(html).toContain("投研事件与业绩验证中心");
     expect(html).toContain("最近 7 天事件");
     expect(html).toContain("2026 年半年度业绩预告");
-    expect(html).toContain("metadata_only / metadata_only");
-    expect(html).toContain("parse_partial / partial");
+    expect(html).toContain("仅元数据 / 仅元数据");
+    expect(html).toContain("部分解析 / 部分可用");
+    expect(html).not.toContain("metadata_only / metadata_only");
     expect(html).toContain("缺少阶段");
   });
 

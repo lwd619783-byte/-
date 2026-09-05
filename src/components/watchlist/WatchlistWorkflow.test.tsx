@@ -37,7 +37,8 @@ describe("watchlist workflow UI", () => {
 
   it("renders the complete review form with core fields and linked ResearchEvent", () => {
     const html = renderToStaticMarkup(<ReviewFormModal watchItem={watchItem} events={[event]} tasks={[task]} onClose={() => undefined} onSubmit={() => undefined} />);
-    for (const copy of ["本次触发原因", "关联 ResearchEvent", "当前投资假设", "本次新证据", "更新后的投资假设", "下一次复盘日期", "提交复盘", "业绩预告"]) expect(html).toContain(copy);
+    for (const copy of ["本次触发原因", "关联研究事件", "当前投资假设", "本次新证据", "更新后的投资假设", "下一次复盘日期", "提交复盘", "业绩预告"]) expect(html).toContain(copy);
+    expect(html).toContain("仅元数据");
   });
 
   it("renders append-only timeline snapshots, evidence source and correction entry action", () => {

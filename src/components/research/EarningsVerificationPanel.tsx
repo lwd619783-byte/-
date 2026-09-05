@@ -2,6 +2,7 @@ import { AlertTriangle, ExternalLink } from "lucide-react";
 import type { AShareAnnouncementData, AShareFinancialData, EarningsVerificationChain, FinancialReport, ResearchEvent, Stock } from "../../types";
 import { buildEarningsVerificationChains, buildResearchEventsForStock, eventTypeLabel } from "../../services/researchEventProvider";
 import { financialStatusLabel, formatFinancialAmount, formatFinancialChangeMetric } from "../../utils/financialDisplay";
+import { statusDisplayLabel } from "../../utils/displayLabels";
 
 interface EarningsVerificationPanelProps {
   stock: Stock;
@@ -39,8 +40,8 @@ export function buildEarningsVerificationView(
   const loadWarnings = [
     financialLoadStatus === "loading" ? "正在加载完整财务文件" : null,
     announcementLoadStatus === "loading" ? "正在加载完整公告文件" : null,
-    financialLoadStatus === "error" ? "财务详情加载失败，未使用 mock 数据" : null,
-    announcementLoadStatus === "error" ? "公告详情加载失败，未使用 mock 数据" : null,
+    financialLoadStatus === "error" ? "财务详情加载失败，未使用模拟数据" : null,
+    announcementLoadStatus === "error" ? "公告详情加载失败，未使用模拟数据" : null,
   ].filter((item): item is string => Boolean(item));
   return { latestReportPeriod, latestReport, chain, events, loadWarnings };
 }
@@ -48,7 +49,7 @@ export function buildEarningsVerificationView(
 export function EarningsVerificationPanel(props: EarningsVerificationPanelProps) {
   const view = buildEarningsVerificationView(props.stock, props.financialData, props.announcementData, props.financialLoadStatus, props.announcementLoadStatus);
   const summary = props.stock.aShareFinancialSummary;
-  if (props.stock.dataMode === "mock") return <p className="text-sm text-textMuted">Mock 模式不生成业绩验证结论；切换至 Real 或 Mixed 查看真实披露。</p>;
+  if (props.stock.dataMode === "mock") return <p className="text-sm text-textMuted">模拟数据模式不生成业绩验证结论；切换至真实数据或混合数据查看真实披露。</p>;
   if (props.stock.market !== "A股") return <p className="text-sm text-textMuted">当前市场的财务与公告验证链尚未接入。</p>;
   if (!summary && !view.latestReport) return <p className="text-sm text-warning">未找到真实财务摘要，无法建立业绩验证链。</p>;
 
@@ -129,7 +130,7 @@ export function EarningsVerificationPanel(props: EarningsVerificationPanelProps)
         <div className="rounded-lg border border-borderSoft bg-bg2/60 p-4">
           <h4 className="text-sm font-semibold text-textStrong">解析与人工核验状态</h4>
           <div className="mt-3 space-y-2">
-            {performanceEvents.length ? performanceEvents.map((event) => <div key={event.id} className="rounded border border-borderSoft bg-surface/60 p-2 text-xs"><p className="text-textStrong">{eventTypeLabel(event.eventType)} · {event.eventDate ?? "日期缺失"}</p><p className="mt-1 text-textMuted">{event.parseStatus} / {event.verificationStatus}{event.isRestated ? " · 修正或重述" : ""}</p>{event.reviewReasons.length ? <p className="mt-1 text-warning">{event.reviewReasons.join("；")}</p> : null}</div>) : <p className="text-sm text-textMuted">未发现业绩公告。</p>}
+            {performanceEvents.length ? performanceEvents.map((event) => <div key={event.id} className="rounded border border-borderSoft bg-surface/60 p-2 text-xs"><p className="text-textStrong">{eventTypeLabel(event.eventType)} · {event.eventDate ?? "日期缺失"}</p><p className="mt-1 text-textMuted">{statusDisplayLabel(event.parseStatus)} / {statusDisplayLabel(event.verificationStatus)}{event.isRestated ? " · 修正或重述" : ""}</p>{event.reviewReasons.length ? <p className="mt-1 text-warning">{event.reviewReasons.join("；")}</p> : null}</div>) : <p className="text-sm text-textMuted">未发现业绩公告。</p>}
           </div>
         </div>
         <div className="rounded-lg border border-borderSoft bg-bg2/60 p-4">

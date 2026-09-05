@@ -3,6 +3,7 @@ import type { Stock } from "../../types";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import type { Industry } from "../../types";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
+import { statusDisplayLabel } from "../../utils/displayLabels";
 import { DataQualityBadge, GlassCard, MetricCard, OverflowTooltip, Sparkline, TextClamp, metricTone } from "../common/terminal";
 
 interface StockCardProps {
@@ -84,12 +85,12 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
       <div className="mt-3 rounded-md border border-borderSoft bg-surface/70 p-2 text-xs text-textMuted">
         <p className="flex min-w-0 gap-1">
           <span className="shrink-0">来源：</span>
-          <OverflowTooltip title={stock.dataQuality?.map((item) => item.source).filter(Boolean).join(" / ") || "mock"}>
-            {stock.dataQuality?.map((item) => item.source).filter(Boolean).join(" / ") || "mock"}
+          <OverflowTooltip title={stock.dataQuality?.map((item) => item.source).filter(Boolean).join(" / ") || "模拟数据"}>
+            {stock.dataQuality?.map((item) => item.source).filter(Boolean).join(" / ") || "模拟数据"}
           </OverflowTooltip>
         </p>
-        <p className="break-words" title={stock.dataQuality?.map((item) => item.status).join(" / ") || "mock"}>
-          状态：{stock.dataQuality?.map((item) => item.status).join(" / ") || "mock"}
+        <p className="break-words" title={stock.dataQuality?.map((item) => statusDisplayLabel(item.status)).join(" / ") || "模拟数据"}>
+          状态：{stock.dataQuality?.map((item) => statusDisplayLabel(item.status)).join(" / ") || "模拟数据"}
         </p>
         <p className="break-words" title={stock.quote?.updatedAt ?? stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? "数据暂缺"}>
           更新：{stock.quote?.updatedAt ?? stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? "数据暂缺"}
