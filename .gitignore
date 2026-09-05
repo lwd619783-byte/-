@@ -5,6 +5,11 @@ data-cache/
 .ssh-private/
 .worktrees/
 
+# Managed third-party Codex Skills are installed locally by agent:skills:setup.
+# The project-owned coordinator remains tracked.
+.agents/skills/redesign-existing-projects/
+.agents/skills/impeccable/
+
 # Market Regime research outputs remain outside the frontend bundle.
 research-data/market-regime/raw/
 research-data/market-regime/extracted/
