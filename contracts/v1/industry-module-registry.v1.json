@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "industry-module-registry.v1",
+  "modules": [
+    { "moduleId": "M0", "canonicalNameZh": "研究边界与投资假设", "historicalAliases": ["研究边界与投资假设"] },
+    { "moduleId": "M1", "canonicalNameZh": "行业认知", "historicalAliases": ["行业认知"] },
+    { "moduleId": "M2", "canonicalNameZh": "宏观政策与产业地位", "historicalAliases": ["宏观政策与产业地位"] },
+    { "moduleId": "M3", "canonicalNameZh": "需求侧分析", "historicalAliases": ["需求侧分析"] },
+    { "moduleId": "M4", "canonicalNameZh": "供给侧分析", "historicalAliases": ["供给侧分析"] },
+    { "moduleId": "M5", "canonicalNameZh": "生产 / 技术路径与关键瓶颈", "historicalAliases": ["技术路线与关键瓶颈"] },
+    { "moduleId": "M6", "canonicalNameZh": "生命周期与周期位置", "historicalAliases": ["生命周期与周期位置"] },
+    { "moduleId": "M7", "canonicalNameZh": "产业链结构与利润池", "historicalAliases": ["产业链结构与利润池"] },
+    { "moduleId": "M8", "canonicalNameZh": "竞争格局与护城河", "historicalAliases": ["竞争格局与护城河"] },
+    { "moduleId": "M9", "canonicalNameZh": "商业经济模型、财务与关键指标", "historicalAliases": ["财务模型与关键指标"] },
+    { "moduleId": "M10", "canonicalNameZh": "投资表达与标的映射", "historicalAliases": ["A 股公司映射与标的池"] },
+    { "moduleId": "M11", "canonicalNameZh": "估值、预期差与投资结论", "historicalAliases": ["估值、预期差与投资结论"] },
+    { "moduleId": "M12", "canonicalNameZh": "催化剂、风险与证伪条件", "historicalAliases": ["催化剂、风险与证伪条件"] },
+    { "moduleId": "M13", "canonicalNameZh": "持续跟踪计划", "historicalAliases": ["持续跟踪计划"] }
+  ],
+  "invariants": [
+    "每个 IndustryResearchProfile 必须恰好包含 M0-M13 各一次",
+    "模块名称必须从本 Registry 读取，不能由 AI 自由改名",
+    "行业专属内容使用 IndustryExtension，不新增 M14/M15",
+    "empty 与 not_applicable 模块前端默认收起但不得从档案中删除"
+  ]
+}
