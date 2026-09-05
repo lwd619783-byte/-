@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "permissions.v1",
+  "roles": {
+    "AI_RESEARCHER": {
+      "descriptionZh": "网页端 ChatGPT / 研究型 AI 的默认角色。可以读取研究和资产摘要、生成研究推送预览、准备资产导入，但不能绕过用户确认修改正式状态。",
+      "allow": [
+        "research.read",
+        "macro.read",
+        "industry.read",
+        "instrument.read",
+        "workflow.read",
+        "assets.read",
+        "transactions.read",
+        "cashflow.read",
+        "dca.read",
+        "performance.read",
+        "contribution.prepare",
+        "contribution.get_plan",
+        "contribution.cancel",
+        "asset_import.prepare",
+        "legacy_asset_import.prepare",
+        "backup.status.read",
+        "backup.list.read",
+        "backup.verify.read",
+        "restore.prepare"
+      ],
+      "confirmedOnly": [
+        "contribution.commit",
+        "asset_import.commit",
+        "legacy_asset_import.commit",
+        "transaction.manual_create",
+        "cashflow.manual_create",
+        "dca_execution.commit",
+        "workflow.state.write",
+        "watchlist.write",
+        "restore.commit",
+        "backup.run_now"
+      ],
+      "deny": [
+        "provider.write",
+        "provider.override",
+        "provider.publish",
+        "registry.production_admit",
+        "admin.*",
+        "auth.*",
+        "secret.*",
+        "schema.migrate",
+        "sql.execute",
+        "database.write_raw",
+        "database.delete_raw",
+        "git.push_main",
+        "broker.credential.read",
+        "broker.order.create",
+        "portfolio.transaction.execute",
+        "trade.execute",
+        "backup.delete",
+        "audit.delete",
+        "history.hard_delete"
+      ]
+    },
+    "LOCAL_SYSTEM": {
+      "descriptionZh": "本机确定性服务角色，用于定时备份、校验、计算和数据管道。它不是 AI 角色，权限由本机配置文件控制。",
+      "allow": [
+        "backup.run_scheduled",
+        "backup.encrypt",
+        "backup.upload",
+        "backup.verify",
+        "provider.read",
+        "derived_signal.compute",
+        "audit.append"
+      ],
+      "deny": [
+        "trade.execute",
+        "broker.order.create"
+      ]
+    }
+  },
+  "confirmationPolicy": {
+    "level0": {
+      "nameZh": "只读",
+      "requiresUserConfirmation": false
+    },
+    "level1": {
+      "nameZh": "生成预览/候选",
+      "requiresUserConfirmation": false,
+      "mustNotChangeOfficialState": true
+    },
+    "level2": {
+      "nameZh": "正式研究或账本写入",
+      "requiresUserConfirmation": true,
+      "requiresAuditEvent": true,
+      "requiresIdempotencyKey": true
+    },
+    "level3": {
+      "nameZh": "永久禁止 AI 执行",
+      "requiresUserConfirmation": true,
+      "aiExecutionAllowed": false
+    }
+  },
+  "separationRules": [
+    "research.read 不自动授予 assets.read",
+    "assets.read 不自动授予 transactions.read 或 cashflow.read",
+    "任何 AI 生成内容不得直接写入 Provider Facts",
+    "任何已确认研究写入必须经过 Contribution Plan",
+    "任何截图或历史文件导入必须先 prepare 再 commit",
+    "任何 restore.commit 必须先创建当前数据库的 pre_restore 备份",
+    "备份密钥、Access Token、Refresh Token 不得出现在 MCP 返回内容或审计日志中"
+  ]
+}
