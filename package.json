@@ -42,7 +42,9 @@
     "data:validate:a-stock": "npm run data:universe && python scripts/validate-a-stock-data.py",
     "data:audit": "node scripts/data-audit.mjs",
     "data:refresh": "npm run data:universe && npm run data:fetch:a-stock && npm run data:fetch:hk && npm run data:fetch:macro && npm run data:validate:a-stock",
-    "ui:audit": "node scripts/ui-audit.mjs"
+    "ui:audit": "node scripts/ui-audit.mjs",
+    "agent:skills:setup": "node scripts/setup-codex-ui-skills.mjs",
+    "agent:skills:check": "node scripts/setup-codex-ui-skills.mjs --check"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

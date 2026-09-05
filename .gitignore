@@ -5,6 +5,11 @@ data-cache/
 .ssh-private/
 .worktrees/
 
+# Managed third-party Codex Skills are installed locally by agent:skills:setup.
+# The project-owned coordinator remains tracked.
+.agents/skills/redesign-existing-projects/
+.agents/skills/impeccable/
+
 # Market Regime research outputs remain outside the frontend bundle.
 research-data/market-regime/raw/
 research-data/market-regime/extracted/
@@ -14,6 +19,41 @@ research-data/market-regime/features/
 research-data/market-regime/backtests/
 research-data/market-regime/live-probe/
 research-data/market-regime/catalog/*.generated.json
+
+# Impeccable local runtime state. Shared design/config artifacts remain trackable.
+.impeccable/config.local.json
+.impeccable/hook.cache.json
+.impeccable/hook.pending.json
+.impeccable/*.png
+.impeccable/review/
+.impeccable/questions/
+.impeccable/live/server.json
+.impeccable/live/roots.json
+.impeccable/live/app-root.json
+.impeccable/live/inject-journal.json
+.impeccable/live/sessions/
+.impeccable/live/previews/
+.impeccable/live/annotations/
+.impeccable/live/artifacts/
+.impeccable/live/accept-receipts/
+.impeccable/live/locks/
+.impeccable/live/cache/
+.impeccable/live/manual-edit-apply-transaction.json
+.impeccable/live/manual-edit-events.jsonl
+.impeccable/live/manual-edit-evidence/
+.impeccable/live/pending-manual-edits.json
+.impeccable/live/deferred-svelte-component-accepts.json
+.impeccable-live.json
+.impeccable-live/
+app/.impeccable-live/
+src/.impeccable-live/
+node_modules/.impeccable-live/
+src/lib/impeccable/ImpeccableLiveRoot.svelte
+src/lib/impeccable/__runtime.js
+src/lib/impeccable/[0-9a-f]*/
+plugins/impeccable-live.client.ts
+app/plugins/impeccable-live.client.ts
+src/plugins/impeccable-live.client.ts
 
 .env
 .env.local
