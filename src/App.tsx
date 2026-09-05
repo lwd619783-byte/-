@@ -316,15 +316,15 @@ export default function App() {
         sidebar={<Sidebar tabs={tabs} activeTab={activeTab} onChange={navigateToTab} />}
         main={
           <section className="min-w-0 space-y-4">
-          <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引 Provider 状态">
-            <div className="min-w-0 text-xs"><span className="font-semibold text-textStrong">公司指引 Provider</span><span className="ml-2 text-textMuted">{dataMode === "mock" ? "Mock 模式已严格隔离真实 Provider" : companyGuidanceWorkflowStatus === "loading" ? "全局索引校验中" : companyGuidanceWorkflowStatus === "success" ? `已验证 ${providerRecords.length} 条当前版本，导航切换不改变工作流` : companyGuidanceWorkflowStatus === "error" ? "全局索引失败，正式 Provider 已关闭" : "等待加载"}</span></div>
+          <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引数据状态">
+            <div className="min-w-0 text-xs"><span className="font-semibold text-textStrong">公司指引数据</span><span className="ml-2 text-textMuted">{dataMode === "mock" ? "模拟数据模式已严格隔离真实数据提供方" : companyGuidanceWorkflowStatus === "loading" ? "全局索引校验中" : companyGuidanceWorkflowStatus === "success" ? `已验证 ${providerRecords.length} 条当前版本，导航切换不改变工作流` : companyGuidanceWorkflowStatus === "error" ? "全局索引失败，正式数据提供方已关闭" : "等待加载"}</span></div>
             {companyGuidanceWorkflowError ? <div className="flex min-w-0 items-center gap-2"><span role="alert" className="max-w-xl truncate text-xs text-warning" title={companyGuidanceWorkflowError}>{companyGuidanceWorkflowError}</span><button type="button" onClick={retryCompanyGuidance} className="rounded border border-warning/50 px-2 py-1 text-xs text-warning">重试</button></div> : null}
           </DashboardCard>
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
               <div className="min-w-0">
                 <SectionHeader
-                  eyebrow="Research Command Center"
+                  eyebrow="研究指挥台"
                   title="事件验证、风险核验与核心资产跟踪"
                   description="优先展示真实公告和财务数据触发的投研动作；数据健康与缺失覆盖保留为底层证据状态。"
                 />
@@ -369,7 +369,7 @@ export default function App() {
             <KpiCard
               label="新事件提醒"
               value={dashboardStats.newEventReminder}
-              delta="ResearchEvent"
+              delta="研究事件"
               description="上次复盘后新增真实事件"
               tone="info"
               icon={<FileCheck2 className="h-4 w-4" />}
@@ -523,7 +523,6 @@ export default function App() {
         rightRail={
           <RightRail
             mode={dataset.mode}
-            modeLabel={dataset.modeLabel}
             coverageSummary={dataset.coverageSummary}
             highRisk={dashboardStats.highRisk}
             missingFields={dashboardStats.missingFields}

@@ -28,12 +28,14 @@ const defaultStats = {
 function renderHome({
   dataMode = "mixed",
   modeLabel = "Mixed Data",
+  sourceNote = "数据源：A Stock Data（AKShare、Tencent quote/kline）；当前为 Mixed Data。",
   onDataModeChange = vi.fn(),
   onNavigate = vi.fn(),
   onOpenStock = vi.fn(),
 }: {
   dataMode?: DashboardDataMode;
   modeLabel?: string;
+  sourceNote?: string;
   onDataModeChange?: (mode: DashboardDataMode) => void;
   onNavigate?: Parameters<typeof HomePage>[0]["onNavigate"];
   onOpenStock?: Parameters<typeof HomePage>[0]["onOpenStock"];
@@ -43,7 +45,7 @@ function renderHome({
       dataMode={dataMode}
       modeLabel={modeLabel}
       updatedAt="2026-07-05T17:40:20+08:00"
-      sourceNote="缺失字段明确展示。"
+      sourceNote={sourceNote}
       coverageSummary="A股覆盖 56/56"
       industriesCount={4}
       stocksCount={59}
@@ -95,7 +97,7 @@ describe("HomePage", () => {
   });
 
   it("明确展示 A 股行情覆盖口径和中文核心区域", () => {
-    renderHome();
+    const { container } = renderHome();
 
     expect(screen.getAllByText("投研系统").length).toBeGreaterThanOrEqual(2);
     expect(screen.getByText("全球资产研究中枢")).toBeTruthy();
@@ -105,6 +107,8 @@ describe("HomePage", () => {
     expect(screen.getAllByText("系统脉冲").length).toBeGreaterThan(0);
     expect(screen.getAllByText("重点资产").length).toBeGreaterThan(0);
     expect(screen.queryByRole("button", { name: "投资研究看板首页" })).toBeNull();
+    expect(container.textContent).toContain("数据源：A 股数据");
+    expect(container.textContent).not.toContain("A Stock Data");
   });
 
   it("触发核心导航、数据模式切换和重点资产回调", () => {

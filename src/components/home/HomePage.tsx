@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import type { DashboardDataMode, Stock } from "../../types";
 import { formatPercent } from "../../utils/normalize";
+import { dataModeDisplayLabel, localizeDataSourceNote } from "../../utils/displayLabels";
 
 export type ResearchDestination = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心" | "预期证据";
 
@@ -83,8 +84,8 @@ export function HomePage({
   onOpenStock,
 }: HomePageProps) {
   const heroRef = useRef<HTMLElement>(null);
-  const displayModeLabel = localizeModeLabel(modeLabel);
-  const localizedSourceNote = localizeHomeText(sourceNote);
+  const displayModeLabel = dataModeDisplayLabel(modeLabel);
+  const localizedSourceNote = localizeDataSourceNote(sourceNote);
 
   useEffect(() => {
     const revealItems = [...document.querySelectorAll<HTMLElement>("[data-home-reveal]")];
@@ -349,17 +350,4 @@ function PulseMetric({ label, value, meta, tone = "default" }: { label: string; 
 function priceTone(value: number | null | undefined) {
   if (value === null || value === undefined || value === 0) return "text-textMuted";
   return value > 0 ? "text-rise" : "text-fall";
-}
-
-function localizeModeLabel(modeLabel: string) {
-  if (modeLabel === "Real Data") return "真实数据";
-  if (modeLabel === "Mixed Data") return "混合数据";
-  return "模拟数据";
-}
-
-function localizeHomeText(value: string) {
-  return value
-    .split("Real Data").join("真实数据")
-    .split("Mixed Data").join("混合数据")
-    .split("Mock Data").join("模拟数据");
 }

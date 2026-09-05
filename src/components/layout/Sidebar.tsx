@@ -14,7 +14,7 @@ export function Sidebar<TabId extends string>({
     <DashboardCard className="p-3">
       <div className="mb-3 hidden border-b border-borderSoft pb-3 lg:block">
         <p className="text-sm font-semibold text-textStrong">投资研究看板</p>
-        <p className="mt-1 text-xs text-textMuted">Investment Research Dashboard</p>
+        <p className="mt-1 text-xs text-textMuted">投资研究工作台</p>
       </div>
       <nav className="scrollbar-thin flex gap-2 overflow-x-auto lg:grid lg:overflow-visible">
         {tabs.map((tab) => {

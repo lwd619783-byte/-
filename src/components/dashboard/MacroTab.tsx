@@ -78,7 +78,7 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
   return (
     <section className="space-y-5">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan/80">Macro dashboard</p>
+        <p className="text-xs font-semibold tracking-[0.2em] text-cyan/80">宏观研究看板</p>
         <h2 className="mt-2 text-2xl font-semibold text-textStrong">宏观数据观察台</h2>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-textMuted">
           按投研主题组织宏观指标：上方看分类摘要，中间查看当前分类完整指标，雷达图独立解释方向，底部保留全量明细用于对账。

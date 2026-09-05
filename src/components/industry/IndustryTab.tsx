@@ -30,7 +30,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
   }, [activeIndustryId, activeSegmentId, industries]);
 
   if (!activeIndustry) {
-    return <EmptyState title="暂无行业数据" description="请先在 src/data/industries.ts 中新增行业与细分板块。" />;
+    return <EmptyState title="暂无行业数据" description="请先补充行业与细分板块数据。" />;
   }
 
   const segmentStocks =
@@ -81,7 +81,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
 
         <DashboardCard className="p-4">
           <SectionHeader
-            eyebrow="Segment Analysis"
+            eyebrow="细分板块分析"
             title="细分板块"
             description="按产业链细分查看逻辑、关键变量、真实行情覆盖和龙头公司对比。"
             action={<Layers3 className="h-5 w-5 text-cyan" />}
@@ -115,7 +115,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock }: I
         </DashboardCard>
 
         {visibleSegmentStocks.length === 0 ? (
-          <EmptyState title="没有匹配个股" description="调整搜索词，或在 src/data/stocks.ts 中为该细分板块补充个股。" />
+          <EmptyState title="没有匹配个股" description="请调整搜索词，或为该细分板块补充个股数据。" />
         ) : isRobotics ? (
           <div className="space-y-4">
             <RoboticsStockSection stocks={visibleSegmentStocks} industries={industries} onOpenStock={onOpenStock} />
@@ -256,7 +256,7 @@ function PrivateCompanySection() {
     <DashboardCard className="p-4">
       <div className="mb-4">
         <h3 className="text-lg font-semibold text-textStrong">未上市公司 / 待上市公司</h3>
-        <p className="mt-1 text-sm text-textMuted">未上市公司不进入行情 merge，只作为产业链跟踪线索展示。</p>
+        <p className="mt-1 text-sm text-textMuted">未上市公司不参与行情合并，只作为产业链跟踪线索展示。</p>
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
         {roboticsPrivateCompanies.map((company) => (

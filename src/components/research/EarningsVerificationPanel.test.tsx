@@ -33,11 +33,11 @@ describe("EarningsVerificationPanel", () => {
   it("keeps the latest period, missing values, loading errors, and evidence status explicit", () => {
     const view = buildEarningsVerificationView(stock, null, null, "error", "error");
     expect(view.latestReportPeriod).toBe("2026-03-31");
-    expect(view.loadWarnings.join(" ")).toContain("未使用 mock 数据");
+    expect(view.loadWarnings.join(" ")).toContain("未使用模拟数据");
     const html = renderToStaticMarkup(<EarningsVerificationPanel stock={stock} financialData={null} announcementData={null} financialLoadStatus="error" announcementLoadStatus="error" />);
     expect(html).toContain("预告 → 修正 → 快报 → 正式报告");
     expect(html).toContain("暂未获取");
-    expect(html).toContain("未使用 mock 数据");
+    expect(html).toContain("未使用模拟数据");
     expect(html).not.toContain("超机构预期");
   });
 });

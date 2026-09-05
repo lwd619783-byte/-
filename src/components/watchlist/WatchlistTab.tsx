@@ -80,7 +80,7 @@ export function WatchlistTab(props: WatchlistTabProps) {
         <KpiCard label="正在观察" value={active.length} delta="用户数据" description="示例模板不计入" tone="info" />
         <KpiCard label="待复盘" value={new Set(pendingTasks.map((task) => task.watchItemId)).size} delta="任务视图" description="不会自动改变用户判断" tone={pendingTasks.length ? "warning" : "positive"} />
         <KpiCard label="已逾期" value={overdueIds.size} delta="复盘日期" description="仅生成提醒" tone={overdueIds.size ? "warning" : "positive"} />
-        <KpiCard label="新事件提醒" value={newEventIds.size} delta="ResearchEvent" description="上次复盘后真实事件" tone="info" />
+        <KpiCard label="新事件提醒" value={newEventIds.size} delta="研究事件" description="上次复盘后真实事件" tone="info" />
         <KpiCard label="已归档" value={archivedCount} delta="可恢复" description="历史复盘仍保留" tone="positive" />
       </section>
 

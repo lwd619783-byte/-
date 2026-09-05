@@ -7,6 +7,7 @@ import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancial
 import { displayFinancialField, financialStatusLabel, financialUnavailableLabel, formatFinancialAmount, formatFinancialChangeMetric, formatFinancialRatio } from "../../utils/financialDisplay";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
+import { statusDisplayLabel } from "../../utils/displayLabels";
 import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp, metricTone } from "../common/terminal";
 import { CompanyRelationGraph } from "./CompanyRelationGraph";
 import { IndustryChainMap } from "./IndustryChainMap";
@@ -687,7 +688,7 @@ export function canApplyAnnouncementLoad(requestStockId: string | null, currentS
 
 function AnnouncementPanel({ stock, detail, loadStatus }: { stock: Stock; detail: AShareAnnouncementData | null; loadStatus: "idle" | "loading" | "success" | "error" }) {
   if (stock.dataMode === "mock") {
-    return <ArticleList rows={(stock.announcements?.announcements ?? []).slice(0, 5).map((item) => ({ title: item.title, meta: [item.date, item.type, "Mock 示例"].filter(Boolean).join(" · "), url: item.url }))} />;
+    return <ArticleList rows={(stock.announcements?.announcements ?? []).slice(0, 5).map((item) => ({ title: item.title, meta: [item.date, item.type, "模拟示例"].filter(Boolean).join(" · "), url: item.url }))} />;
   }
   if (stock.market === "港股") return <p className="text-sm text-textMuted">港股公告数据暂未接入</p>;
   const summary = stock.aShareAnnouncementSummary;
@@ -700,7 +701,7 @@ function AnnouncementPanel({ stock, detail, loadStatus }: { stock: Stock; detail
     <div className="space-y-3">
       <Grid rows={[["最新公告", summary.latestAnnouncementDate ?? "当前范围内暂无公告"], ["公告数量", String(summary.announcementCount)], ["数据状态", statusLabel], ["完整数据", loadLabel]]} />
       {latestPerformance ? <PerformanceAnnouncementCard item={latestPerformance} /> : <p className="rounded-md border border-borderSoft bg-surface/60 p-3 text-sm text-textMuted">当前范围内未发现业绩预告或业绩快报；这不代表业绩无变化。</p>}
-      <ArticleList rows={rows.map((item) => ({ title: item.title, meta: [item.announcementDate, announcementCategoryLabel(item.category), item.parseStatus].filter(Boolean).join(" · "), url: item.officialUrl ?? item.pdfUrl }))} />
+      <ArticleList rows={rows.map((item) => ({ title: item.title, meta: [item.announcementDate, announcementCategoryLabel(item.category), statusDisplayLabel(item.parseStatus)].filter(Boolean).join(" · "), url: item.officialUrl ?? item.pdfUrl }))} />
     </div>
   );
 }
@@ -734,7 +735,7 @@ function buildFinancialRows(stock: Stock, detail: AShareFinancialData | null, lo
   if (stock.dataMode === "mock") {
     return [
       ["营业收入", stock.financial.revenue], ["归母净利润", stock.financial.netProfit], ["毛利率", stock.financial.grossMargin],
-      ["净利率", stock.financial.netMargin], ["经营现金流", stock.financial.operatingCashFlow], ["数据状态", "Mock 示例数据"],
+      ["净利率", stock.financial.netMargin], ["经营现金流", stock.financial.operatingCashFlow], ["数据状态", "模拟示例数据"],
     ];
   }
   if (stock.market === "港股") return [["财务状态", "港股财务数据暂未接入"]];
