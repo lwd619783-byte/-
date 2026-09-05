@@ -13,9 +13,11 @@ Do not install broad skill packs by default. Every always-available repo skill s
 The project-specific coordinator is:
 
 - `investment-dashboard-ui-workflow`
-  - maintained in this repository;
+  - maintained and tracked in this repository;
   - automatically relevant for substantive frontend design / redesign / polish work;
   - coordinates project constraints with the external skills below.
+
+The root `PRODUCT.md` is a compact Impeccable compatibility bridge containing durable product truth. It is not a second roadmap or contract source; its precedence is explicitly subordinate to `AGENTS.md`, the current V2 freeze / audit documents and `contracts/v1`.
 
 ## 2. Managed external UI skills
 
@@ -65,9 +67,9 @@ Preferred commands:
 - `impeccable adapt`
 - `impeccable harden`
 
-Do not run `impeccable init` automatically. This repository already has mature product, architecture and contract sources. Creating a new `PRODUCT.md` or replacing design-governance files is a separate governance task that requires explicit authorization and review.
+The repository already supplies `PRODUCT.md`, so Impeccable should not need to bootstrap product truth before ordinary UI work. Do not run `impeccable init` automatically. Creating or materially rewriting `PRODUCT.md`, `DESIGN.md` or other design-governance files is a separate governance task that requires explicit authorization and review.
 
-Impeccable can install a Codex project hook. Hook trust is a local Codex decision and must not be silently assumed. The skill remains usable without treating unapproved hooks as active.
+Impeccable supports project hook manifests, but the managed bootstrap intentionally uses `--no-hooks`. Third-party hooks are **not part of the default project baseline**. Enabling an Impeccable hook later requires a separate explicit review of the hook definition and its side effects.
 
 ## 3. Installation and verification
 
@@ -78,9 +80,18 @@ npm run agent:skills:setup
 npm run agent:skills:check
 ```
 
-The setup command installs project-local copies under `.agents/skills/` using pinned versions/sources where supported. Project scope is intentional so the same workflow travels with the repository instead of depending on a developer's global Codex configuration.
+The setup command installs project-local copies under `.agents/skills/` using pinned versions/sources where supported. Project scope is intentional so Codex can discover the same workflow without depending on a developer's global configuration.
 
-After an Impeccable install or update, restart / reload Codex so it rediscovers skills. If using the Impeccable Codex hook, inspect `/hooks` and approve it explicitly when prompted.
+The two managed third-party skill directories are intentionally gitignored:
+
+- `.agents/skills/redesign-existing-projects/`
+- `.agents/skills/impeccable/`
+
+This keeps the worktree clean after setup while the tracked project-owned coordinator remains versioned. Fresh clones therefore run setup once before using the external skills. Day-to-day tasks run `agent:skills:check`; they do not reinstall or update skills automatically.
+
+Impeccable 4.0.1 requires Node `>=22.18.0`; the bootstrap checks this before attempting the Impeccable install.
+
+After an install, restart / reload Codex so it rediscovers skills.
 
 ## 4. Invocation order for frontend work
 
@@ -120,8 +131,8 @@ Do not auto-update these skills on every install.
 An external skill upgrade is an instruction-set change. Before changing the pinned source/version:
 
 1. review the upstream changelog / diff;
-2. identify new mandatory, blocking or confirmation-seeking instructions;
-3. check for conflicts with `AGENTS.md`, current stack and dashboard information density;
+2. identify new mandatory, blocking, hook-related or confirmation-seeking instructions;
+3. check for conflicts with `AGENTS.md`, `PRODUCT.md`, the current stack and dashboard information density;
 4. update this registry and setup script together;
 5. run a representative frontend task or read-only audit to confirm behavior;
 6. merge the upgrade through the normal feature-branch / independent-review flow.
