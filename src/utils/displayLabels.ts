@@ -21,11 +21,12 @@ export function statusDisplayLabel(value: string) {
     real: "真实数据", static_reference: "静态参考", mock: "模拟数据", placeholder: "占位数据",
     supported: "已支持", realish: "真实数据", unsupported_market: "当前市场不支持",
     parse_success: "解析成功", parse_partial: "部分解析", metadata_only: "仅元数据",
-    parse_unavailable: "无法解析", not_applicable: "不适用", verified: "已核验", unverified: "无法核验",
+    parse_unavailable: "无法解析", not_applicable: "不适用", verified: "已核验", unverified: "未核验",
     pending: "待核验", invalid: "无效", success: "成功", empty: "空数据", idle: "未开始",
     loading: "加载中", failed: "失败", date: "日期", datetime: "精确时间",
     exact_duplicate: "完全重复", metadata_difference: "元数据不同", content_conflict: "内容冲突", independent: "独立记录",
     "Provider 只读": "数据提供方只读", "与官方 Provider 记录重复": "与官方数据记录重复",
-    absolute: "绝对时间", calendar_date: "日历日期", source_calendar_date: "来源日历日期",
+    absolute: "绝对时间", workflow_time_zone: "工作流时区", unresolved_legacy: "旧记录时区未解析",
+    calendar_date: "日历日期", source_calendar_date: "来源日历日期",
   } as Record<string, string>)[value] ?? value;
 }
