@@ -5,7 +5,6 @@ import { DashboardCard, StatusBadge } from "../common/terminal";
 
 export function RightRail({
   mode,
-  modeLabel,
   coverageSummary,
   highRisk,
   missingFields,
@@ -14,7 +13,6 @@ export function RightRail({
   onOpenStock,
 }: {
   mode: "mock" | "real" | "mixed";
-  modeLabel: string;
   coverageSummary: string;
   highRisk: number;
   missingFields: number;
@@ -26,7 +24,7 @@ export function RightRail({
 
   return (
     <aside className="right-rail-stack space-y-3">
-      <InfoPanel title="数据控制台" subtitle="DATA CONSOLE">
+      <InfoPanel title="数据控制台" subtitle="数据概览">
         <div className="flex flex-wrap gap-2">
           <StatusBadge status={modeStatus} />
           <StatusBadge status="unsupported_market" />
@@ -36,14 +34,14 @@ export function RightRail({
         </p>
       </InfoPanel>
 
-      <InfoPanel title="风险雷达" subtitle="RISK RADAR">
+      <InfoPanel title="风险雷达" subtitle="风险概览">
         <div className="grid grid-cols-2 gap-2">
           <RailKpi label="高风险" value={highRisk} tone="warning" />
           <RailKpi label="缺失字段" value={missingFields} tone="warning" />
         </div>
       </InfoPanel>
 
-      <InfoPanel title="重点资产" subtitle="FOCUS ASSETS">
+      <InfoPanel title="重点资产" subtitle="资产跟踪">
         <div className="space-y-2">
           {focusStocks.map((stock) => {
             const pct = stock.quote?.pctChange;
@@ -68,7 +66,7 @@ export function RightRail({
         </div>
       </InfoPanel>
 
-      <InfoPanel title="缺失数据监控" subtitle="MISSING WATCH">
+      <InfoPanel title="缺失数据监控" subtitle="缺口监控">
         <div className="space-y-1 text-sm text-textMuted">
           {missingStocks.length === 0 ? <p className="text-sm text-textMuted">暂无缺失字段。</p> : null}
           {missingStocks.map((stock) => (

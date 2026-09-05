@@ -1,6 +1,7 @@
 import { Search, ShieldAlert } from "lucide-react";
 import type { DashboardDataMode } from "../../types";
 import { StatusBadge } from "../common/terminal";
+import { dataModeDisplayLabel, localizeDataSourceNote } from "../../utils/displayLabels";
 
 interface HeaderProps {
   search: string;
@@ -25,6 +26,8 @@ export function Header({
 }: HeaderProps) {
   const tradeDate = updatedAt?.slice(0, 10) || new Date().toISOString().slice(0, 10);
   const modeStatus = dataMode === "mock" ? "mock" : modeLabel === "Real Data" ? "real" : "stale";
+  const displayModeLabel = dataModeDisplayLabel(modeLabel);
+  const displaySourceNote = localizeDataSourceNote(sourceNote);
   const coverageBadges = (coverageSummary ?? "")
     .split(/[；;，,]/)
     .map((item) => item.trim())
@@ -72,18 +75,18 @@ export function Header({
                 value={dataMode}
                 onChange={(event) => onDataModeChange(event.target.value as DashboardDataMode)}
               >
-                <option value="mock">Mock Data</option>
-                <option value="mixed">Mixed Data</option>
-                <option value="real">Real Data</option>
+                <option value="mock">模拟数据</option>
+                <option value="mixed">混合数据</option>
+                <option value="real">真实数据</option>
               </select>
             </label>
-            <div className="rounded-md border border-borderSoft bg-surface/70 px-3 py-2 text-xs text-textMuted">{modeLabel}</div>
+            <div className="rounded-md border border-borderSoft bg-surface/70 px-3 py-2 text-xs text-textMuted">{displayModeLabel}</div>
           </div>
         </div>
         <div className="flex items-start gap-2 rounded-md border border-warning/25 bg-warning/10 px-3 py-2 text-sm text-amber-100">
           <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0" />
           <span className="min-w-0 break-words">
-            当前模式：{modeLabel}。{sourceNote} 本页面仅用于内部研究，不构成投资建议，missing / stale / unsupported 字段会明确显示。
+            当前模式：{displayModeLabel}。{displaySourceNote} 本页面仅用于内部研究，不构成投资建议；缺失、过期或不支持的字段会明确显示。
           </span>
         </div>
       </div>
