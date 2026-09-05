@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "contract-test-cases.v1",
+  "cases": [
+    {
+      "id": "R-001",
+      "nameZh": "行业研究允许部分模块为空",
+      "expected": "pass",
+      "rules": [
+        "14 个模块槽位始终存在于行业研究模型中",
+        "empty/not_applicable 模块允许无 summary",
+        "前端默认收起，不生成填充文本"
+      ]
+    },
+    {
+      "id": "R-002",
+      "nameZh": "行业专属扩展不破坏 14 模块骨架",
+      "expected": "pass",
+      "rules": [
+        "焦煤可增加进口、库存、铁水等 extension",
+        "创新药可增加临床、监管、BD 等 extension",
+        "extension 不替代 M0-M13 taxonomy"
+      ]
+    },
+    {
+      "id": "R-003",
+      "nameZh": "一次研究拆分多个模块",
+      "expected": "pass",
+      "rules": [
+        "ContributionBundle 可同时包含 M2/M3/M4/M11/M12 等内容",
+        "ContributionPlan 必须列出所有目标 mutation",
+        "用户只确认整个 Plan 一次"
+      ]
+    },
+    {
+      "id": "R-004",
+      "nameZh": "研究提交遇到旧版本冲突",
+      "expected": "conflict_fail_closed",
+      "rules": [
+        "expectedVersion 与当前版本不一致时不得自动覆盖",
+        "必须重新读取后重新 prepare"
+      ]
+    },
+    {
+      "id": "R-005",
+      "nameZh": "同一次确认重复提交",
+      "expected": "idempotent",
+      "rules": [
+        "相同 idempotencyKey 不生成重复 Thesis/Evidence/Task",
+        "返回原提交结果或明确 already_committed"
+      ]
+    },
+    {
+      "id": "R-006",
+      "nameZh": "聊天全文归档不等于研究事实",
+      "expected": "pass",
+      "rules": [
+        "Markdown 归档通过 contributionId 建立引用",
+        "Markdown 不直接驱动正式 Market Regime 或资产计算",
+        "历史 Markdown 不能自动覆盖当前 Thesis"
+      ]
+    },
+    {
+      "id": "A-001",
+      "nameZh": "长期账户历史从 2026-08-14 开始",
+      "expected": "pass",
+      "rules": [
+        "Legacy import baselineDate=2026-08-14",
+        "更早数据无可信证据时不得反推",
+        "后续可信旧记录用 historical_import 补录"
+      ]
+    },
+    {
+      "id": "A-002",
+      "nameZh": "截图金额识别错误不能直接入账",
+      "expected": "needs_review",
+      "rules": [
+        "截图解析先成为 candidate",
+        "金额与账户总额无法 reconcile 时返回 warning",
+        "没有用户确认不得 commit"
+      ]
+    },
+    {
+      "id": "A-003",
+      "nameZh": "重复截图不能生成重复交易",
+      "expected": "skip_duplicate",
+      "rules": [
+        "使用 source evidence / fingerprint / 日期金额标的组合检测重复",
+        "重复候选在 preview 中标为 SKIP"
+      ]
+    },
+    {
+      "id": "A-004",
+      "nameZh": "内部转账不算新增投入",
+      "expected": "pass",
+      "rules": [
+        "两个账户间移动资金使用 internal_transfer",
+        "建议 pairedTransferId 配对",
+        "组合累计净投入不得把内部转账再次计入"
+      ]
+    },
+    {
+      "id": "A-005",
+      "nameZh": "定投限购发生变化",
+      "expected": "pass",
+      "rules": [
+        "限购作为有 effectiveFrom/effectiveTo 的 constraint revision",
+        "新限购不得改写旧周执行记录",
+        "pendingAmount 可滚动但不挤占下一周新增预算"
+      ]
+    },
+    {
+      "id": "A-006",
+      "nameZh": "计划买入和实际买入严格分开",
+      "expected": "pass",
+      "rules": [
+        "allocation proposal 不产生 Transaction",
+        "只有已发生且经确认的成交才能进入交易账本"
+      ]
+    },
+    {
+      "id": "A-007",
+      "nameZh": "主分类与多标签并存",
+      "expected": "pass",
+      "rules": [
+        "黄金 ETF 可主分类纯黄金并带防御/通胀标签",
+        "黄金股 ETF 可主分类行业网格并带黄金/资源标签",
+        "用户排序不改 Provider 原始分类"
+      ]
+    },
+    {
+      "id": "A-008",
+      "nameZh": "全资产模型兼容非证券资产",
+      "expected": "pass",
+      "rules": [
+        "Account 支持 bank/cash/physical_asset/insurance/crypto",
+        "Asset 支持 deposit/physical_gold/insurance/crypto",
+        "V1 不要求立刻导入这些数据"
+      ]
+    },
+    {
+      "id": "P-001",
+      "nameZh": "收益率口径不能混淆",
+      "expected": "pass",
+      "rules": [
+        "Cost-basis P&L、XIRR、TWR 分开计算和展示",
+        "Annualized 指标必须注明起止期和计算方法",
+        "当前 schema 先保留数据事实，绩效公式在独立计算合同冻结后实现"
+      ]
+    },
+    {
+      "id": "B-001",
+      "nameZh": "备份必须在 ChatGPT 不在线时继续执行",
+      "expected": "pass",
+      "rules": [
+        "定时备份由 LOCAL_SYSTEM 执行",
+        "MCP 不是调度器",
+        "AI 无权读取加密密钥"
+      ]
+    },
+    {
+      "id": "B-002",
+      "nameZh": "只有一个云端副本不算完整容灾",
+      "expected": "warning",
+      "rules": [
+        "BackupManifest 可记录多个 remoteCopies",
+        "推荐至少两个独立远端目标",
+        "任一目标失败应显示 partial 而不是 verified"
+      ]
+    },
+    {
+      "id": "B-003",
+      "nameZh": "坏备份不能用于恢复",
+      "expected": "blocked",
+      "rules": [
+        "checksumValid/decryptable/schemaCompatible/stagingOpenable 任一关键检查失败则禁止 restore.commit"
+      ]
+    },
+    {
+      "id": "B-004",
+      "nameZh": "恢复前先备份当前数据库",
+      "expected": "pass",
+      "rules": [
+        "RestorePlan.currentDatabaseBackupRequired 必须为 true",
+        "pre_restore 备份失败时正式恢复不得继续"
+      ]
+    },
+    {
+      "id": "S-001",
+      "nameZh": "AI 永远不能执行真实交易",
+      "expected": "blocked",
+      "rules": [
+        "trade.execute / broker.order.create 必须在 AI deny list",
+        "即使用户授权 Research Bridge 也不暴露这些 MCP Tool"
+      ]
+    },
+    {
+      "id": "S-002",
+      "nameZh": "研究权限不自动暴露全部资产",
+      "expected": "pass",
+      "rules": [
+        "research.read 与 assets.read / transactions.read / cashflow.read 独立授权"
+      ]
+    }
+  ]
+}
