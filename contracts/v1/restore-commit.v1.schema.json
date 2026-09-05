@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/v1/restore-commit.v1.schema.json",
+  "title": "Restore Commit Request V1",
+  "type": "object",
+  "required": ["schemaVersion", "restorePlanId", "backupId", "planDigest", "preRestoreBackupId", "idempotencyKey", "userApprovalRef"],
+  "properties": {
+    "schemaVersion": { "const": "restore-commit-request.v1" },
+    "restorePlanId": { "type": "string", "minLength": 1 },
+    "backupId": { "type": "string", "minLength": 1 },
+    "planDigest": { "type": "string", "minLength": 1 },
+    "preRestoreBackupId": { "type": "string", "minLength": 1 },
+    "idempotencyKey": { "type": "string", "minLength": 1 },
+    "userApprovalRef": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false,
+  "$comment": "只有 RestorePlan 的所有关键检查通过、pre_restore 备份已验证成功，且用户明确确认后，才允许执行 restore.commit。"
+}

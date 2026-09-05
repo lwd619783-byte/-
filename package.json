@@ -32,13 +32,19 @@
     "test:provider-observability": "python -m unittest discover -s scripts/tests -p test_provider_observability.py",
     "data:probe:expectations:institution-consensus": "python scripts/probe-a-share-institution-consensus.py",
     "test:expectations:institution-consensus-probe": "python -m unittest discover -s scripts/tests -p test_a_share_institution_consensus_probe.py",
+    "data:probe:market-regime:p0": "python -m scripts.market_regime.cli probe --plan config/market-regime/p0-live-probe-plan.v1.json --output-root research-data/market-regime/live-probe",
+    "data:build:market-regime:catalog": "python -m scripts.market_regime.cli build --input research-data/market-regime/source-catalog/catalog-seed.sample.v1.json --output research-data/market-regime/catalog/observation-catalog.sample.v1.json",
+    "data:validate:market-regime:catalog": "python -m scripts.market_regime.cli validate --catalog research-data/market-regime/catalog/observation-catalog.sample.v1.json --verify-artifacts",
+    "test:market-regime:catalog": "python -m unittest discover -s scripts/tests -p test_market_regime_catalog.py",
     "data:fetch:hk": "npm run data:universe && python scripts/fetch-hk-stock-data.py",
     "data:fetch:macro": "python scripts/fetch-macro-data.py",
     "data:validate": "npm run data:universe && python scripts/validate-a-stock-data.py",
     "data:validate:a-stock": "npm run data:universe && python scripts/validate-a-stock-data.py",
     "data:audit": "node scripts/data-audit.mjs",
     "data:refresh": "npm run data:universe && npm run data:fetch:a-stock && npm run data:fetch:hk && npm run data:fetch:macro && npm run data:validate:a-stock",
-    "ui:audit": "node scripts/ui-audit.mjs"
+    "ui:audit": "node scripts/ui-audit.mjs",
+    "agent:skills:setup": "node scripts/setup-codex-ui-skills.mjs",
+    "agent:skills:check": "node scripts/setup-codex-ui-skills.mjs --check"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/v1/asset-import.v1.schema.json",
+  "title": "Recurring Asset Import Contracts V1",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/AssetImportBundle" },
+    { "$ref": "#/$defs/AssetImportPlan" },
+    { "$ref": "#/$defs/AssetImportCommitRequest" }
+  ],
+  "$defs": {
+    "Money": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "minLength": 3 }
+      },
+      "additionalProperties": false
+    },
+    "Candidate": {
+      "type": "object",
+      "required": ["candidateId", "candidateType", "confidence", "payload"],
+      "properties": {
+        "candidateId": { "type": "string", "minLength": 1 },
+        "candidateType": {
+          "type": "string",
+          "enum": ["transaction", "cash_flow", "position_snapshot", "dca_execution", "account", "asset"]
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "payload": { "type": "object" },
+        "sourceEvidenceRefs": { "type": "array", "items": { "type": "string" } },
+        "fingerprint": { "type": "string" },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "AssetImportBundle": {
+      "type": "object",
+      "required": ["schemaVersion", "importId", "asOf", "sourceType", "candidates"],
+      "properties": {
+        "schemaVersion": { "const": "asset-import-bundle.v1" },
+        "importId": { "type": "string", "minLength": 1 },
+        "asOf": { "type": "string", "format": "date-time" },
+        "sourceType": { "type": "string", "enum": ["chatgpt_screenshot_parse", "manual_entry", "file_import"] },
+        "sourceEvidenceRefs": { "type": "array", "items": { "type": "string" } },
+        "candidates": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/Candidate" } },
+        "declaredExternalContribution": { "$ref": "#/$defs/Money" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "PlanItem": {
+      "type": "object",
+      "required": ["candidateId", "decision", "summary"],
+      "properties": {
+        "candidateId": { "type": "string", "minLength": 1 },
+        "decision": { "type": "string", "enum": ["pass", "warn", "skip_duplicate", "needs_resolution", "blocked"] },
+        "resolvedEntityId": { "type": "string" },
+        "summary": { "type": "string", "minLength": 1 },
+        "reconciliationDelta": { "$ref": "#/$defs/Money" },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "AssetImportPlan": {
+      "type": "object",
+      "required": ["schemaVersion", "planId", "importId", "planDigest", "status", "items"],
+      "properties": {
+        "schemaVersion": { "const": "asset-import-plan.v1" },
+        "planId": { "type": "string", "minLength": 1 },
+        "importId": { "type": "string", "minLength": 1 },
+        "planDigest": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["ready", "needs_review", "blocked", "committed", "cancelled"] },
+        "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/PlanItem" } },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "externalContribution": { "$ref": "#/$defs/Money" },
+            "transactionCount": { "type": "integer", "minimum": 0 },
+            "cashFlowCount": { "type": "integer", "minimum": 0 },
+            "positionCount": { "type": "integer", "minimum": 0 },
+            "dcaExecutionCount": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "AssetImportCommitRequest": {
+      "type": "object",
+      "required": ["schemaVersion", "planId", "planDigest", "idempotencyKey", "userApprovalRef"],
+      "properties": {
+        "schemaVersion": { "const": "asset-import-commit-request.v1" },
+        "planId": { "type": "string", "minLength": 1 },
+        "planDigest": { "type": "string", "minLength": 1 },
+        "idempotencyKey": { "type": "string", "minLength": 1 },
+        "userApprovalRef": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

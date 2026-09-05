@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0.0",
+  "pbocM2Pages": [
+    {
+      "sampleId": "m2-2005-11",
+      "pageUrl": "https://wuhan.pbc.gov.cn/diaochatongjisi/116219/116227/2839790/index.html"
+    },
+    {
+      "sampleId": "m2-2015-01",
+      "pageUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2810678/index.html"
+    },
+    {
+      "sampleId": "m2-2024-07",
+      "pageUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/8980a8a6f1414f649d3443cc09352c2b/index.html"
+    }
+  ],
+  "pbocAfreStockPages": [
+    {
+      "sampleId": "afre-stock-2014-backcast",
+      "pageUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2810586/index.html",
+      "releaseConfidenceClassOverride": "BACKCAST_RELEASED_LATER"
+    }
+  ],
+  "csrcMonthlyReports": [
+    {
+      "sampleId": "csrc-2005-12",
+      "reportPeriod": "2005-12",
+      "publicationDate": "2006-01-11",
+      "pageUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004336/content.shtml"
+    },
+    {
+      "sampleId": "csrc-2010-12",
+      "reportPeriod": "2010-12",
+      "publicationDate": "2011-01-26",
+      "pageUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004263/content.shtml"
+    },
+    {
+      "sampleId": "csrc-2015-12",
+      "reportPeriod": "2015-12",
+      "publicationDate": "2016-01-21",
+      "pageUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004214/content.shtml"
+    },
+    {
+      "sampleId": "csrc-2026-07",
+      "reportPeriod": "2026-07",
+      "publicationDate": "2026-08-03",
+      "pageUrl": "https://www.csrc.gov.cn/csrc/c100120/c7651197/content.shtml"
+    }
+  ]
+}

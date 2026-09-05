@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0.0",
+  "observedAt": "2026-09-02T10:29:57Z",
+  "scope": "Task 4.1-R1 small official-source live probe",
+  "sourceStatus": {
+    "PBC_M2": "PASS",
+    "PBC_AFRE_STOCK": "PARTIAL",
+    "CSRC_MONTHLY_REPORTS": "PARTIAL",
+    "SSE_SZSE_BSE_MARKET_STATS": "PARTIAL",
+    "CSI300_HISTORICAL_TTM_PE": "NO_GO"
+  },
+  "pbocM2Samples": [
+    {
+      "valueDate": "2005-11",
+      "publicationDateTime": "2005-12-12T14:59:00+08:00",
+      "sourceUrl": "https://wuhan.pbc.gov.cn/diaochatongjisi/116219/116227/2839790/index.html",
+      "m2Balance": 29.24,
+      "m2BalanceUnit": "万亿元",
+      "m2YoY": 18.3
+    },
+    {
+      "valueDate": "2015-01",
+      "publicationDateTime": "2015-02-13T16:58:58+08:00",
+      "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2810678/index.html",
+      "m2Balance": 124.27,
+      "m2BalanceUnit": "万亿元",
+      "m2YoY": 10.8
+    },
+    {
+      "valueDate": "2024-07",
+      "publicationDateTime": "2024-08-13T17:01:00+08:00",
+      "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/8980a8a6f1414f649d3443cc09352c2b/index.html",
+      "m2Balance": 303.31,
+      "m2BalanceUnit": "万亿元",
+      "m2YoY": 6.3
+    }
+  ],
+  "pbocAfreStockSamples": [
+    {
+      "valueDate": "2014-12",
+      "publicationDateTime": "2015-02-10T16:31:12+08:00",
+      "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+      "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2810586/index.html",
+      "afreStock": 122.86,
+      "afreStockUnit": "万亿元",
+      "afreStockYoY": 14.3
+    }
+  ],
+  "csrcMonthlyReportArtifacts": [
+    {
+      "reportPeriod": "2005-12",
+      "publicationDate": "2006-01-11",
+      "releaseAvailableAt": "2006-01-12T00:00:00+08:00",
+      "pageUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004336/content.shtml",
+      "attachmentUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004336/1004336/files/2005年12月统计数据.xls",
+      "fileName": "2005年12月统计数据.xls",
+      "contentType": "application/vnd.ms-excel",
+      "byteSize": 34304,
+      "sha256": "a884e180f1079223d670fadc50dea4965b96ecd26af0384e5af8552f10471a3a",
+      "parseStatus": "FIELD_SCHEMA_PROBE_REQUIRED"
+    },
+    {
+      "reportPeriod": "2010-12",
+      "publicationDate": "2011-01-26",
+      "releaseAvailableAt": "2011-01-27T00:00:00+08:00",
+      "pageUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004263/content.shtml",
+      "attachmentUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004263/1004263/files/2010年12月统计数据.xls",
+      "fileName": "2010年12月统计数据.xls",
+      "contentType": "application/vnd.ms-excel",
+      "byteSize": 45568,
+      "sha256": "d6f039d1a120ef9d8b9656661a65529feba72ee10f10f20cb733b19ed8cd6222",
+      "parseStatus": "FIELD_SCHEMA_PROBE_REQUIRED"
+    },
+    {
+      "reportPeriod": "2015-12",
+      "publicationDate": "2016-01-21",
+      "releaseAvailableAt": "2016-01-22T00:00:00+08:00",
+      "pageUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004214/content.shtml",
+      "attachmentUrl": "https://www.csrc.gov.cn/csrc/c105936/c1004214/1004214/files/1614600411736_90460.xls",
+      "fileName": "1614600411736_90460.xls",
+      "contentType": "application/vnd.ms-excel",
+      "byteSize": 101888,
+      "sha256": "ca46a1d8f7aa417c499324f01f664ba09fb57e2cdd97ec30983414f9708f7240",
+      "parseStatus": "FIELD_SCHEMA_PROBE_REQUIRED"
+    },
+    {
+      "reportPeriod": "2026-07",
+      "publicationDate": "2026-08-03",
+      "releaseAvailableAt": "2026-08-04T00:00:00+08:00",
+      "pageUrl": "https://www.csrc.gov.cn/csrc/c100120/c7651197/content.shtml",
+      "attachmentUrl": "https://www.csrc.gov.cn/csrc/c100120/c7651197/7651197/files/2026年7月统计数据.docx",
+      "fileName": "2026年7月统计数据.docx",
+      "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "byteSize": 147456,
+      "sha256": "8835a9b984803593ef05126c95a5cd78249f4d4809cb6ba84dcd313d73947a06",
+      "parseStatus": "FIELD_SCHEMA_PROBE_REQUIRED"
+    }
+  ],
+  "probeCounts": {
+    "pbocM2": {"expected": 3, "succeeded": 3},
+    "pbocAfreStock": {"expected": 1, "succeeded": 1},
+    "csrcMonthlyReports": {"expected": 4, "succeeded": 4},
+    "failed": 0
+  },
+  "notes": [
+    "本文件是一次 live probe 的紧凑证据摘要；原始下载位于被 Git 忽略的 live-probe/raw 目录。",
+    "CSRC 老 XLS 未进行 IPO/再融资字段级解释，附件保留为 FIELD_SCHEMA_PROBE_REQUIRED。",
+    "AFRE 的完整月度 first-release vintage 枚举尚未完成，因此保持 PARTIAL。",
+    "未探测到满足合同的 CSI 300 官方历史 TTM PE 连续序列，因此保持 NO_GO。"
+  ]
+}
