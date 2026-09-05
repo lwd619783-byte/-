@@ -4,11 +4,13 @@
   "title": "Investment Research & Asset OS Contracts V1",
   "type": "object",
   "oneOf": [
+    { "$ref": "#/$defs/IndustryResearchProfile" },
     { "$ref": "#/$defs/IndustryResearchModule" },
     { "$ref": "#/$defs/IndustryExtension" },
     { "$ref": "#/$defs/ContributionBundle" },
     { "$ref": "#/$defs/ContributionPlan" },
     { "$ref": "#/$defs/ContributionCommitRequest" },
+    { "$ref": "#/$defs/ConversationArchiveManifest" },
     { "$ref": "#/$defs/Account" },
     { "$ref": "#/$defs/Asset" },
     { "$ref": "#/$defs/Transaction" },
@@ -16,28 +18,25 @@
     { "$ref": "#/$defs/PositionSnapshot" },
     { "$ref": "#/$defs/DcaPlan" },
     { "$ref": "#/$defs/DcaExecution" },
+    { "$ref": "#/$defs/PerformanceSnapshot" },
     { "$ref": "#/$defs/LegacyAssetImport" },
     { "$ref": "#/$defs/BackupManifest" },
     { "$ref": "#/$defs/RestorePlan" },
     { "$ref": "#/$defs/BridgeAuditEvent" }
   ],
   "$defs": {
-    "NonEmptyString": {
-      "type": "string",
-      "minLength": 1
-    },
-    "IsoDate": {
-      "type": "string",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
-    },
-    "IsoDateTime": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "Confidence": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 1
+    "NonEmptyString": { "type": "string", "minLength": 1 },
+    "IsoDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "IsoDateTime": { "type": "string", "format": "date-time" },
+    "Confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "Money": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "minLength": 3, "maxLength": 8 }
+      },
+      "additionalProperties": false
     },
     "EntityRef": {
       "type": "object",
@@ -64,21 +63,28 @@
         "title": { "type": "string" },
         "asOf": { "$ref": "#/$defs/IsoDateTime" },
         "sourceUrl": { "type": "string" },
-        "quality": {
-          "type": "string",
-          "enum": ["verified", "candidate", "partial", "stale", "unknown"]
-        }
+        "quality": { "type": "string", "enum": ["verified", "candidate", "partial", "stale", "unknown"] }
       },
       "additionalProperties": false
     },
-    "Money": {
+    "IndustryResearchProfile": {
       "type": "object",
-      "required": ["amount", "currency"],
+      "required": ["schemaVersion", "industryId", "modules", "revision"],
       "properties": {
-        "amount": { "type": "number" },
-        "currency": { "type": "string", "minLength": 3, "maxLength": 8 }
+        "schemaVersion": { "const": "industry-research-profile.v1" },
+        "industryId": { "$ref": "#/$defs/NonEmptyString" },
+        "modules": {
+          "type": "array",
+          "minItems": 14,
+          "maxItems": 14,
+          "items": { "$ref": "#/$defs/IndustryResearchModule" }
+        },
+        "extensionIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "asOf": { "$ref": "#/$defs/IsoDateTime" },
+        "revision": { "type": "integer", "minimum": 1 }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "$comment": "实现层还必须额外校验 modules 中 M0-M13 各出现且只出现一次；JSON Schema 本身不承担跨数组元素唯一枚举覆盖检查。"
     },
     "IndustryResearchModule": {
       "type": "object",
@@ -86,49 +92,18 @@
       "properties": {
         "schemaVersion": { "const": "industry-research-module.v1" },
         "industryId": { "$ref": "#/$defs/NonEmptyString" },
-        "moduleId": {
-          "type": "string",
-          "enum": ["M0", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13"]
-        },
+        "moduleId": { "type": "string", "enum": ["M0", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13"] },
         "canonicalName": { "$ref": "#/$defs/NonEmptyString" },
-        "historicalAliases": {
-          "type": "array",
-          "items": { "type": "string" },
-          "uniqueItems": true
-        },
-        "depth": {
-          "type": "string",
-          "enum": ["deep", "standard", "light", "not_applicable", "empty"]
-        },
-        "status": {
-          "type": "string",
-          "enum": ["active", "stale", "needs_review", "archived"]
-        },
+        "historicalAliases": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "depth": { "type": "string", "enum": ["deep", "standard", "light", "not_applicable", "empty"] },
+        "status": { "type": "string", "enum": ["active", "stale", "needs_review", "archived"] },
         "summary": { "type": "string" },
-        "thesisPoints": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "keyMetrics": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/EntityRef" }
-        },
-        "evidenceRefs": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/EvidenceRef" }
-        },
-        "catalysts": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "risks": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "invalidationConditions": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
+        "thesisPoints": { "type": "array", "items": { "type": "string" } },
+        "keyMetrics": { "type": "array", "items": { "$ref": "#/$defs/EntityRef" } },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/EvidenceRef" } },
+        "catalysts": { "type": "array", "items": { "type": "string" } },
+        "risks": { "type": "array", "items": { "type": "string" } },
+        "invalidationConditions": { "type": "array", "items": { "type": "string" } },
         "asOf": { "$ref": "#/$defs/IsoDateTime" },
         "updatedAt": { "$ref": "#/$defs/IsoDateTime" },
         "revision": { "type": "integer", "minimum": 1 }
@@ -146,10 +121,7 @@
         "title": { "$ref": "#/$defs/NonEmptyString" },
         "payloadSchemaVersion": { "$ref": "#/$defs/NonEmptyString" },
         "payload": { "type": "object" },
-        "evidenceRefs": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/EvidenceRef" }
-        },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/EvidenceRef" } },
         "asOf": { "$ref": "#/$defs/IsoDateTime" }
       },
       "additionalProperties": false
@@ -160,50 +132,26 @@
       "properties": {
         "schemaVersion": { "const": "contribution-bundle.v1" },
         "contributionId": { "$ref": "#/$defs/NonEmptyString" },
-        "subjectType": {
-          "type": "string",
-          "enum": ["macro", "industry", "theme", "instrument", "company", "portfolio", "cross_domain"]
-        },
+        "subjectType": { "type": "string", "enum": ["macro", "industry", "theme", "instrument", "company", "portfolio", "cross_domain"] },
         "subjectId": { "type": "string" },
-        "subjectCandidates": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/EntityRef" }
-        },
+        "subjectCandidates": { "type": "array", "items": { "$ref": "#/$defs/EntityRef" } },
         "asOf": { "$ref": "#/$defs/IsoDateTime" },
         "researchQuestion": { "$ref": "#/$defs/NonEmptyString" },
         "executiveConclusion": { "$ref": "#/$defs/NonEmptyString" },
-        "stance": {
-          "type": "string",
-          "enum": ["bullish", "neutral", "bearish", "watch", "mixed", "not_applicable"]
-        },
+        "stance": { "type": "string", "enum": ["bullish", "neutral", "bearish", "watch", "mixed", "not_applicable"] },
         "confidence": { "$ref": "#/$defs/Confidence" },
-        "macroDrivers": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "industryDrivers": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
+        "macroDrivers": { "type": "array", "items": { "type": "string" } },
+        "industryDrivers": { "type": "array", "items": { "type": "string" } },
         "industryModules": {
           "type": "array",
           "items": {
             "type": "object",
             "required": ["moduleId", "content"],
             "properties": {
-              "moduleId": {
-                "type": "string",
-                "enum": ["M0", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13"]
-              },
-              "depth": {
-                "type": "string",
-                "enum": ["deep", "standard", "light"]
-              },
+              "moduleId": { "type": "string", "enum": ["M0", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13"] },
+              "depth": { "type": "string", "enum": ["deep", "standard", "light"] },
               "content": { "$ref": "#/$defs/NonEmptyString" },
-              "evidenceRefs": {
-                "type": "array",
-                "items": { "$ref": "#/$defs/EvidenceRef" }
-              }
+              "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/EvidenceRef" } }
             },
             "additionalProperties": false
           }
@@ -230,17 +178,12 @@
       "required": ["mutationId", "action", "entityType", "riskLevel", "summary"],
       "properties": {
         "mutationId": { "$ref": "#/$defs/NonEmptyString" },
-        "action": {
-          "type": "string",
-          "enum": ["create", "append", "propose_update", "update", "skip", "needs_resolution"]
-        },
+        "action": { "type": "string", "enum": ["create", "append", "propose_update", "update", "skip", "needs_resolution"] },
         "entityType": { "$ref": "#/$defs/NonEmptyString" },
         "entityId": { "type": "string" },
-        "riskLevel": {
-          "type": "string",
-          "enum": ["draft", "confirmed_research_state", "confirmed_ledger_write", "blocked"]
-        },
+        "riskLevel": { "type": "string", "enum": ["draft", "confirmed_research_state", "confirmed_ledger_write", "blocked"] },
         "summary": { "$ref": "#/$defs/NonEmptyString" },
+        "businessDiff": { "type": "string" },
         "beforeVersion": { "type": "integer", "minimum": 0 },
         "expectedVersion": { "type": "integer", "minimum": 0 },
         "warnings": { "type": "array", "items": { "type": "string" } }
@@ -257,15 +200,8 @@
         "planDigest": { "$ref": "#/$defs/NonEmptyString" },
         "createdAt": { "$ref": "#/$defs/IsoDateTime" },
         "expiresAt": { "$ref": "#/$defs/IsoDateTime" },
-        "status": {
-          "type": "string",
-          "enum": ["ready", "needs_resolution", "conflicted", "blocked", "committed", "cancelled", "expired"]
-        },
-        "mutations": {
-          "type": "array",
-          "minItems": 1,
-          "items": { "$ref": "#/$defs/PlanMutation" }
-        },
+        "status": { "type": "string", "enum": ["ready", "needs_resolution", "conflicted", "blocked", "committed", "cancelled", "expired"] },
+        "mutations": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/PlanMutation" } },
         "warnings": { "type": "array", "items": { "type": "string" } }
       },
       "additionalProperties": false
@@ -295,16 +231,28 @@
       },
       "additionalProperties": false
     },
+    "ConversationArchiveManifest": {
+      "type": "object",
+      "required": ["schemaVersion", "archiveId", "contributionId", "filePath", "sha256", "createdAt"],
+      "properties": {
+        "schemaVersion": { "const": "conversation-archive-manifest.v1" },
+        "archiveId": { "$ref": "#/$defs/NonEmptyString" },
+        "contributionId": { "$ref": "#/$defs/NonEmptyString" },
+        "conversationId": { "type": "string" },
+        "filePath": { "$ref": "#/$defs/NonEmptyString" },
+        "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+        "asOf": { "$ref": "#/$defs/IsoDateTime" },
+        "createdAt": { "$ref": "#/$defs/IsoDateTime" }
+      },
+      "additionalProperties": false
+    },
     "Account": {
       "type": "object",
       "required": ["schemaVersion", "accountId", "accountType", "name", "baseCurrency", "status"],
       "properties": {
         "schemaVersion": { "const": "account.v1" },
         "accountId": { "$ref": "#/$defs/NonEmptyString" },
-        "accountType": {
-          "type": "string",
-          "enum": ["brokerage", "fund", "bank", "cash", "physical_asset", "insurance", "crypto", "other"]
-        },
+        "accountType": { "type": "string", "enum": ["brokerage", "fund", "bank", "cash", "physical_asset", "insurance", "crypto", "other"] },
         "name": { "$ref": "#/$defs/NonEmptyString" },
         "provider": { "type": "string" },
         "baseCurrency": { "$ref": "#/$defs/NonEmptyString" },
@@ -320,18 +268,11 @@
         "schemaVersion": { "const": "asset.v1" },
         "assetId": { "$ref": "#/$defs/NonEmptyString" },
         "instrumentId": { "type": "string" },
-        "assetType": {
-          "type": "string",
-          "enum": ["stock", "etf", "fund", "cash", "deposit", "physical_gold", "insurance", "crypto", "commodity_proxy", "other"]
-        },
+        "assetType": { "type": "string", "enum": ["stock", "etf", "fund", "cash", "deposit", "physical_gold", "insurance", "crypto", "commodity_proxy", "other"] },
         "name": { "$ref": "#/$defs/NonEmptyString" },
         "primaryCategory": { "$ref": "#/$defs/NonEmptyString" },
         "strategyBucket": { "type": "string" },
-        "tags": {
-          "type": "array",
-          "items": { "type": "string" },
-          "uniqueItems": true
-        },
+        "tags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
         "displayOrder": { "type": "integer" },
         "userOverrides": { "type": "object" }
       },
@@ -357,6 +298,11 @@
         "sourceEvidenceRef": { "$ref": "#/$defs/EvidenceRef" },
         "reconciliationStatus": { "type": "string", "enum": ["confirmed", "candidate", "warning", "unreconciled"] }
       },
+      "anyOf": [
+        { "required": ["quantity"] },
+        { "required": ["grossAmount"] },
+        { "required": ["netAmount"] }
+      ],
       "additionalProperties": false
     },
     "CashFlow": {
@@ -367,10 +313,7 @@
         "cashFlowId": { "$ref": "#/$defs/NonEmptyString" },
         "accountId": { "$ref": "#/$defs/NonEmptyString" },
         "date": { "$ref": "#/$defs/IsoDate" },
-        "type": {
-          "type": "string",
-          "enum": ["external_contribution", "external_withdrawal", "internal_transfer", "dividend", "interest", "fee", "salary", "insurance_premium", "other"]
-        },
+        "type": { "type": "string", "enum": ["external_contribution", "external_withdrawal", "internal_transfer", "dividend", "interest", "fee", "salary", "insurance_premium", "other"] },
         "amount": { "$ref": "#/$defs/Money" },
         "pairedTransferId": { "type": "string" },
         "sourceEvidenceRef": { "$ref": "#/$defs/EvidenceRef" },
@@ -446,6 +389,29 @@
       },
       "additionalProperties": false
     },
+    "PerformanceSnapshot": {
+      "type": "object",
+      "required": ["schemaVersion", "snapshotId", "scopeId", "asOf", "inceptionDate", "measurementDays", "methodologyVersion"],
+      "properties": {
+        "schemaVersion": { "const": "performance-snapshot.v1" },
+        "snapshotId": { "$ref": "#/$defs/NonEmptyString" },
+        "scopeId": { "$ref": "#/$defs/NonEmptyString" },
+        "asOf": { "$ref": "#/$defs/IsoDate" },
+        "inceptionDate": { "$ref": "#/$defs/IsoDate" },
+        "measurementDays": { "type": "integer", "minimum": 0 },
+        "costBasisPnl": { "$ref": "#/$defs/Money" },
+        "costBasisReturn": { "type": "number" },
+        "xirr": { "type": "number" },
+        "twr": { "type": "number" },
+        "annualizedSinceInception": { "type": "number" },
+        "benchmarkId": { "type": "string" },
+        "benchmarkReturn": { "type": "number" },
+        "methodologyVersion": { "$ref": "#/$defs/NonEmptyString" },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false,
+      "$comment": "V1 只冻结输出口径字段。XIRR/TWR 具体算法、现金流时点与年化规则必须在独立 performance methodology 合同中再次冻结后才能生产实现。"
+    },
     "LegacyAssetImport": {
       "type": "object",
       "required": ["schemaVersion", "importId", "sourceType", "baselineDate", "status", "candidateCounts"],
@@ -469,6 +435,7 @@
           },
           "additionalProperties": false
         },
+        "candidateRefs": { "type": "array", "items": { "$ref": "#/$defs/EntityRef" } },
         "warnings": { "type": "array", "items": { "type": "string" } },
         "userApprovalRef": { "type": "string" }
       },
@@ -527,7 +494,7 @@
     },
     "RestorePlan": {
       "type": "object",
-      "required": ["schemaVersion", "restorePlanId", "backupId", "createdAt", "status", "checks"],
+      "required": ["schemaVersion", "restorePlanId", "backupId", "createdAt", "status", "checks", "currentDatabaseBackupRequired"],
       "properties": {
         "schemaVersion": { "const": "restore-plan.v1" },
         "restorePlanId": { "$ref": "#/$defs/NonEmptyString" },
