@@ -67,6 +67,8 @@ runNpx(
     'skills@1.5.23',
     'add',
     'https://github.com/Leonxlnx/taste-skill/tree/ccbc15639c97057cbfcf32ecebc38ef716e4bb37/skills/redesign-skill',
+    '--skill',
+    'redesign-existing-projects',
     '--agent',
     'codex',
     '--copy',
