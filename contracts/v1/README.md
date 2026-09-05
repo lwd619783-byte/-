@@ -2,7 +2,7 @@
 
 > 状态：CONTRACT V1 FROZEN / PHASE 1 IMPLEMENTATION ADMITTED
 >
-> 本目录不是业务代码，而是 Research Bridge、投研看板、资产账本和备份服务在 Phase 1 实现中共同遵守的数据标准。终局合同审计见 `docs/investment-dashboard-v2-final-contract-audit-v1.md`。
+> 本目录不是业务代码，而是 Research Bridge、投研看板、资产账本和备份服务在 Phase 1 实现中共同遵守的数据标准。终局合同审计见 [`docs/investment-dashboard-v2-final-contract-audit-v1.md`](../../docs/investment-dashboard-v2-final-contract-audit-v1.md)。
 
 ## 为什么先做合同
 
