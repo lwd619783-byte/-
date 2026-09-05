@@ -8,7 +8,8 @@
 
 `宏观 / Market Regime → 行业 → Thesis → 个股验证 → 真实数据与证据 → 投资表达 → Portfolio / DCA → 事件验证 → 复盘`
 
-> Agent / Codex 开发入口：先读根目录 [`AGENTS.md`](AGENTS.md)，再按任务类型读取相关事实源。  
+> Agent / Codex 开发入口：先读根目录 [`AGENTS.md`](AGENTS.md)，再按任务类型读取相关事实源和 Skill。  
+> Skill Registry：[`docs/agent-skills.md`](docs/agent-skills.md)。Repo-local Skill 位于 `.agents/skills/`。  
 > README 是稳定导航页，不使用某个固定 `main` SHA 充当长期“当前状态”。当前实现以代码、测试和 [`docs/feature-registry.md`](docs/feature-registry.md) 为准。
 
 ## 当前阶段
@@ -35,6 +36,14 @@
 - `contracts/v1/*.json`：Research Bridge、行业研究、资产账本、导入、权限、恢复和测试场景的 V1 合同
 
 Phase 1 实现必须以当前 `contracts/v1` 为合同边界。若真实场景无法表达，应先修改合同并重新审计，不在业务代码中私自建立第二套字段语义。
+
+### Agent / Skill 治理
+
+- [`AGENTS.md`](AGENTS.md)：项目级 Agent 路由、hard invariants、Skill 调用规则和 Git 边界
+- [`docs/agent-skills.md`](docs/agent-skills.md)：受管理的外部 Skill、固定版本、调用顺序与升级规则
+- `.agents/skills/investment-dashboard-ui-workflow/SKILL.md`：本项目 UI 工作流协调 Skill
+
+外部 Skill 不自动跟随 upstream 更新。Skill 升级会改变 Coding Agent 的 instruction set，因此需要按普通治理变更审计后再合入。
 
 ### 当前实现状态
 
@@ -98,6 +107,7 @@ A 股财务和公告 Provider 已有独立实现，但只有通过对应 Stabili
 ## 目录结构
 
 ```text
+.agents/skills/        Repo-local Coding Agent Skills
 src/
   components/         当前研究终端与 feature UI
   data/               研究数据、Data Source Registry、生成数据
@@ -105,10 +115,10 @@ src/
   types/              数据模型
   utils/              时间、标准化、筛选等纯逻辑
 public/data/           按公司 lazy-load 的重数据详情
-scripts/               抓取、生成、验证、审计、健康、Provider Observation
+scripts/               抓取、生成、验证、审计、健康、Provider Observation、Skill bootstrap
 config/                Stability Gate / Market Regime / Observation Schema
 contracts/v1/          V2 Phase 1 机器可读合同
-docs/                  架构、V2 设计、Provider、审计与历史基线
+docs/                  架构、V2 设计、Skill Registry、Provider、审计与历史基线
 ```
 
 ## 数据真实性原则
@@ -146,6 +156,15 @@ npm run dev
 npm run env:check
 npm run --silent env:check:json
 ```
+
+Codex Skill 检查 / 初次配置：
+
+```bash
+npm run agent:skills:check
+npm run agent:skills:setup
+```
+
+`agent:skills:setup` 用固定来源 / 版本安装项目管理的 Taste redesign 与 Impeccable Skill；日常任务不应重复运行。详细调用和升级规则见 `docs/agent-skills.md`。
 
 基础测试与构建：
 
@@ -202,4 +221,4 @@ npm run test:provider-observability
 - 审查通过后再进入 PR / CI / 合并；
 - 验证按改动风险选择，不要求所有任务无差别执行全套检查。
 
-Coding Agent 的具体工作方式、文档路由、永久不变量和 Git 边界统一见根目录 `AGENTS.md`。
+Coding Agent 的具体工作方式、文档路由、Skill 调用、永久不变量和 Git 边界统一见根目录 `AGENTS.md`。
