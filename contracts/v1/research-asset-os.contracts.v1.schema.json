@@ -1,0 +1,577 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/v1/research-asset-os.contracts.v1.schema.json",
+  "title": "Investment Research & Asset OS Contracts V1",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/IndustryResearchModule" },
+    { "$ref": "#/$defs/IndustryExtension" },
+    { "$ref": "#/$defs/ContributionBundle" },
+    { "$ref": "#/$defs/ContributionPlan" },
+    { "$ref": "#/$defs/ContributionCommitRequest" },
+    { "$ref": "#/$defs/Account" },
+    { "$ref": "#/$defs/Asset" },
+    { "$ref": "#/$defs/Transaction" },
+    { "$ref": "#/$defs/CashFlow" },
+    { "$ref": "#/$defs/PositionSnapshot" },
+    { "$ref": "#/$defs/DcaPlan" },
+    { "$ref": "#/$defs/DcaExecution" },
+    { "$ref": "#/$defs/LegacyAssetImport" },
+    { "$ref": "#/$defs/BackupManifest" },
+    { "$ref": "#/$defs/RestorePlan" },
+    { "$ref": "#/$defs/BridgeAuditEvent" }
+  ],
+  "$defs": {
+    "NonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "IsoDate": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "IsoDateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "EntityRef": {
+      "type": "object",
+      "required": ["entityType", "entityId"],
+      "properties": {
+        "entityType": {
+          "type": "string",
+          "enum": ["macro", "industry", "theme", "instrument", "company", "account", "asset", "thesis", "workflow"]
+        },
+        "entityId": { "$ref": "#/$defs/NonEmptyString" },
+        "displayName": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "EvidenceRef": {
+      "type": "object",
+      "required": ["refType", "refId"],
+      "properties": {
+        "refType": {
+          "type": "string",
+          "enum": ["provider_fact", "web_source", "document", "conversation_archive", "screenshot", "research_note", "manual_input"]
+        },
+        "refId": { "$ref": "#/$defs/NonEmptyString" },
+        "title": { "type": "string" },
+        "asOf": { "$ref": "#/$defs/IsoDateTime" },
+        "sourceUrl": { "type": "string" },
+        "quality": {
+          "type": "string",
+          "enum": ["verified", "candidate", "partial", "stale", "unknown"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Money": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "number" },
+        "currency": { "type": "string", "minLength": 3, "maxLength": 8 }
+      },
+      "additionalProperties": false
+    },
+    "IndustryResearchModule": {
+      "type": "object",
+      "required": ["schemaVersion", "industryId", "moduleId", "canonicalName", "depth", "status", "revision"],
+      "properties": {
+        "schemaVersion": { "const": "industry-research-module.v1" },
+        "industryId": { "$ref": "#/$defs/NonEmptyString" },
+        "moduleId": {
+          "type": "string",
+          "enum": ["M0", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13"]
+        },
+        "canonicalName": { "$ref": "#/$defs/NonEmptyString" },
+        "historicalAliases": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "depth": {
+          "type": "string",
+          "enum": ["deep", "standard", "light", "not_applicable", "empty"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "stale", "needs_review", "archived"]
+        },
+        "summary": { "type": "string" },
+        "thesisPoints": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "keyMetrics": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/EntityRef" }
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/EvidenceRef" }
+        },
+        "catalysts": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "risks": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "invalidationConditions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "asOf": { "$ref": "#/$defs/IsoDateTime" },
+        "updatedAt": { "$ref": "#/$defs/IsoDateTime" },
+        "revision": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "IndustryExtension": {
+      "type": "object",
+      "required": ["schemaVersion", "extensionId", "industryId", "extensionType", "title", "payloadSchemaVersion", "payload"],
+      "properties": {
+        "schemaVersion": { "const": "industry-extension.v1" },
+        "extensionId": { "$ref": "#/$defs/NonEmptyString" },
+        "industryId": { "$ref": "#/$defs/NonEmptyString" },
+        "extensionType": { "$ref": "#/$defs/NonEmptyString" },
+        "title": { "$ref": "#/$defs/NonEmptyString" },
+        "payloadSchemaVersion": { "$ref": "#/$defs/NonEmptyString" },
+        "payload": { "type": "object" },
+        "evidenceRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/EvidenceRef" }
+        },
+        "asOf": { "$ref": "#/$defs/IsoDateTime" }
+      },
+      "additionalProperties": false
+    },
+    "ContributionBundle": {
+      "type": "object",
+      "required": ["schemaVersion", "contributionId", "subjectType", "asOf", "researchQuestion", "executiveConclusion", "authorType", "sourceClient"],
+      "properties": {
+        "schemaVersion": { "const": "contribution-bundle.v1" },
+        "contributionId": { "$ref": "#/$defs/NonEmptyString" },
+        "subjectType": {
+          "type": "string",
+          "enum": ["macro", "industry", "theme", "instrument", "company", "portfolio", "cross_domain"]
+        },
+        "subjectId": { "type": "string" },
+        "subjectCandidates": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/EntityRef" }
+        },
+        "asOf": { "$ref": "#/$defs/IsoDateTime" },
+        "researchQuestion": { "$ref": "#/$defs/NonEmptyString" },
+        "executiveConclusion": { "$ref": "#/$defs/NonEmptyString" },
+        "stance": {
+          "type": "string",
+          "enum": ["bullish", "neutral", "bearish", "watch", "mixed", "not_applicable"]
+        },
+        "confidence": { "$ref": "#/$defs/Confidence" },
+        "macroDrivers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "industryDrivers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "industryModules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["moduleId", "content"],
+            "properties": {
+              "moduleId": {
+                "type": "string",
+                "enum": ["M0", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12", "M13"]
+              },
+              "depth": {
+                "type": "string",
+                "enum": ["deep", "standard", "light"]
+              },
+              "content": { "$ref": "#/$defs/NonEmptyString" },
+              "evidenceRefs": {
+                "type": "array",
+                "items": { "$ref": "#/$defs/EvidenceRef" }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "thesisPoints": { "type": "array", "items": { "type": "string" } },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/EvidenceRef" } },
+        "catalysts": { "type": "array", "items": { "type": "string" } },
+        "risks": { "type": "array", "items": { "type": "string" } },
+        "invalidationConditions": { "type": "array", "items": { "type": "string" } },
+        "instrumentMappings": { "type": "array", "items": { "$ref": "#/$defs/EntityRef" } },
+        "companyValidationPoints": { "type": "array", "items": { "type": "string" } },
+        "openQuestions": { "type": "array", "items": { "type": "string" } },
+        "followUpTasks": { "type": "array", "items": { "type": "string" } },
+        "sourceConversationRef": { "type": "string" },
+        "sourceArchivePath": { "type": "string" },
+        "sourceDigest": { "type": "string" },
+        "authorType": { "const": "ai" },
+        "sourceClient": { "$ref": "#/$defs/NonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "PlanMutation": {
+      "type": "object",
+      "required": ["mutationId", "action", "entityType", "riskLevel", "summary"],
+      "properties": {
+        "mutationId": { "$ref": "#/$defs/NonEmptyString" },
+        "action": {
+          "type": "string",
+          "enum": ["create", "append", "propose_update", "update", "skip", "needs_resolution"]
+        },
+        "entityType": { "$ref": "#/$defs/NonEmptyString" },
+        "entityId": { "type": "string" },
+        "riskLevel": {
+          "type": "string",
+          "enum": ["draft", "confirmed_research_state", "confirmed_ledger_write", "blocked"]
+        },
+        "summary": { "$ref": "#/$defs/NonEmptyString" },
+        "beforeVersion": { "type": "integer", "minimum": 0 },
+        "expectedVersion": { "type": "integer", "minimum": 0 },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "ContributionPlan": {
+      "type": "object",
+      "required": ["schemaVersion", "planId", "contributionId", "planDigest", "createdAt", "status", "mutations"],
+      "properties": {
+        "schemaVersion": { "const": "contribution-plan.v1" },
+        "planId": { "$ref": "#/$defs/NonEmptyString" },
+        "contributionId": { "$ref": "#/$defs/NonEmptyString" },
+        "planDigest": { "$ref": "#/$defs/NonEmptyString" },
+        "createdAt": { "$ref": "#/$defs/IsoDateTime" },
+        "expiresAt": { "$ref": "#/$defs/IsoDateTime" },
+        "status": {
+          "type": "string",
+          "enum": ["ready", "needs_resolution", "conflicted", "blocked", "committed", "cancelled", "expired"]
+        },
+        "mutations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/PlanMutation" }
+        },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "ContributionCommitRequest": {
+      "type": "object",
+      "required": ["schemaVersion", "planId", "planDigest", "idempotencyKey", "userApprovalRef"],
+      "properties": {
+        "schemaVersion": { "const": "contribution-commit-request.v1" },
+        "planId": { "$ref": "#/$defs/NonEmptyString" },
+        "planDigest": { "$ref": "#/$defs/NonEmptyString" },
+        "idempotencyKey": { "$ref": "#/$defs/NonEmptyString" },
+        "userApprovalRef": { "$ref": "#/$defs/NonEmptyString" },
+        "expectedVersions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["entityType", "entityId", "version"],
+            "properties": {
+              "entityType": { "$ref": "#/$defs/NonEmptyString" },
+              "entityId": { "$ref": "#/$defs/NonEmptyString" },
+              "version": { "type": "integer", "minimum": 0 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Account": {
+      "type": "object",
+      "required": ["schemaVersion", "accountId", "accountType", "name", "baseCurrency", "status"],
+      "properties": {
+        "schemaVersion": { "const": "account.v1" },
+        "accountId": { "$ref": "#/$defs/NonEmptyString" },
+        "accountType": {
+          "type": "string",
+          "enum": ["brokerage", "fund", "bank", "cash", "physical_asset", "insurance", "crypto", "other"]
+        },
+        "name": { "$ref": "#/$defs/NonEmptyString" },
+        "provider": { "type": "string" },
+        "baseCurrency": { "$ref": "#/$defs/NonEmptyString" },
+        "status": { "type": "string", "enum": ["active", "inactive", "archived"] },
+        "displayOrder": { "type": "integer" }
+      },
+      "additionalProperties": false
+    },
+    "Asset": {
+      "type": "object",
+      "required": ["schemaVersion", "assetId", "assetType", "name", "primaryCategory", "tags", "displayOrder"],
+      "properties": {
+        "schemaVersion": { "const": "asset.v1" },
+        "assetId": { "$ref": "#/$defs/NonEmptyString" },
+        "instrumentId": { "type": "string" },
+        "assetType": {
+          "type": "string",
+          "enum": ["stock", "etf", "fund", "cash", "deposit", "physical_gold", "insurance", "crypto", "commodity_proxy", "other"]
+        },
+        "name": { "$ref": "#/$defs/NonEmptyString" },
+        "primaryCategory": { "$ref": "#/$defs/NonEmptyString" },
+        "strategyBucket": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "displayOrder": { "type": "integer" },
+        "userOverrides": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "Transaction": {
+      "type": "object",
+      "required": ["schemaVersion", "transactionId", "accountId", "assetId", "tradeDate", "side", "source", "reconciliationStatus"],
+      "properties": {
+        "schemaVersion": { "const": "transaction.v1" },
+        "transactionId": { "$ref": "#/$defs/NonEmptyString" },
+        "accountId": { "$ref": "#/$defs/NonEmptyString" },
+        "assetId": { "$ref": "#/$defs/NonEmptyString" },
+        "tradeDate": { "$ref": "#/$defs/IsoDate" },
+        "settleDate": { "$ref": "#/$defs/IsoDate" },
+        "side": { "type": "string", "enum": ["buy", "sell", "subscribe", "redeem", "acquire", "dispose", "adjustment"] },
+        "quantity": { "type": "number" },
+        "price": { "$ref": "#/$defs/Money" },
+        "grossAmount": { "$ref": "#/$defs/Money" },
+        "fees": { "$ref": "#/$defs/Money" },
+        "netAmount": { "$ref": "#/$defs/Money" },
+        "source": { "type": "string", "enum": ["confirmed_screenshot", "manual", "legacy_import", "provider_import"] },
+        "sourceEvidenceRef": { "$ref": "#/$defs/EvidenceRef" },
+        "reconciliationStatus": { "type": "string", "enum": ["confirmed", "candidate", "warning", "unreconciled"] }
+      },
+      "additionalProperties": false
+    },
+    "CashFlow": {
+      "type": "object",
+      "required": ["schemaVersion", "cashFlowId", "accountId", "date", "type", "amount"],
+      "properties": {
+        "schemaVersion": { "const": "cash-flow.v1" },
+        "cashFlowId": { "$ref": "#/$defs/NonEmptyString" },
+        "accountId": { "$ref": "#/$defs/NonEmptyString" },
+        "date": { "$ref": "#/$defs/IsoDate" },
+        "type": {
+          "type": "string",
+          "enum": ["external_contribution", "external_withdrawal", "internal_transfer", "dividend", "interest", "fee", "salary", "insurance_premium", "other"]
+        },
+        "amount": { "$ref": "#/$defs/Money" },
+        "pairedTransferId": { "type": "string" },
+        "sourceEvidenceRef": { "$ref": "#/$defs/EvidenceRef" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "PositionSnapshot": {
+      "type": "object",
+      "required": ["schemaVersion", "snapshotId", "snapshotDate", "accountId", "assetId", "quantity", "marketValue", "source"],
+      "properties": {
+        "schemaVersion": { "const": "position-snapshot.v1" },
+        "snapshotId": { "$ref": "#/$defs/NonEmptyString" },
+        "snapshotDate": { "$ref": "#/$defs/IsoDate" },
+        "accountId": { "$ref": "#/$defs/NonEmptyString" },
+        "assetId": { "$ref": "#/$defs/NonEmptyString" },
+        "quantity": { "type": "number" },
+        "marketValue": { "$ref": "#/$defs/Money" },
+        "costBasis": { "$ref": "#/$defs/Money" },
+        "unrealizedPnl": { "$ref": "#/$defs/Money" },
+        "source": { "type": "string", "enum": ["confirmed_screenshot", "manual", "legacy_import", "calculated"] }
+      },
+      "additionalProperties": false
+    },
+    "DcaPlan": {
+      "type": "object",
+      "required": ["schemaVersion", "planId", "name", "frequency", "status", "activeFrom"],
+      "properties": {
+        "schemaVersion": { "const": "dca-plan.v1" },
+        "planId": { "$ref": "#/$defs/NonEmptyString" },
+        "name": { "$ref": "#/$defs/NonEmptyString" },
+        "assetId": { "type": "string" },
+        "primaryCategory": { "type": "string" },
+        "frequency": { "type": "string", "enum": ["weekly", "monthly", "custom"] },
+        "plannedAmount": { "$ref": "#/$defs/Money" },
+        "status": { "type": "string", "enum": ["active", "paused", "archived"] },
+        "priority": { "type": "integer" },
+        "activeFrom": { "$ref": "#/$defs/IsoDate" },
+        "activeTo": { "$ref": "#/$defs/IsoDate" },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["constraintType", "effectiveFrom"],
+            "properties": {
+              "constraintType": { "$ref": "#/$defs/NonEmptyString" },
+              "value": {},
+              "effectiveFrom": { "$ref": "#/$defs/IsoDate" },
+              "effectiveTo": { "$ref": "#/$defs/IsoDate" },
+              "source": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "DcaExecution": {
+      "type": "object",
+      "required": ["schemaVersion", "executionId", "planId", "period", "plannedAmount", "executedAmount", "pendingAmount", "status"],
+      "properties": {
+        "schemaVersion": { "const": "dca-execution.v1" },
+        "executionId": { "$ref": "#/$defs/NonEmptyString" },
+        "planId": { "$ref": "#/$defs/NonEmptyString" },
+        "period": { "$ref": "#/$defs/NonEmptyString" },
+        "plannedAmount": { "$ref": "#/$defs/Money" },
+        "executedAmount": { "$ref": "#/$defs/Money" },
+        "pendingAmount": { "$ref": "#/$defs/Money" },
+        "rolloverFromExecutionId": { "type": "string" },
+        "transactionIds": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["planned", "partial", "completed", "deferred", "cancelled"] },
+        "exceptionReason": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "LegacyAssetImport": {
+      "type": "object",
+      "required": ["schemaVersion", "importId", "sourceType", "baselineDate", "status", "candidateCounts"],
+      "properties": {
+        "schemaVersion": { "const": "legacy-asset-import.v1" },
+        "importId": { "$ref": "#/$defs/NonEmptyString" },
+        "sourceType": { "type": "string", "enum": ["chatgpt_library_workbook", "chatgpt_library_document", "manual_archive"] },
+        "sourceRefs": { "type": "array", "items": { "$ref": "#/$defs/EvidenceRef" } },
+        "baselineDate": { "$ref": "#/$defs/IsoDate" },
+        "status": { "type": "string", "enum": ["prepared", "needs_review", "ready_to_commit", "committed", "cancelled"] },
+        "candidateCounts": {
+          "type": "object",
+          "required": ["accounts", "assets", "transactions", "cashFlows", "positions", "dcaExecutions"],
+          "properties": {
+            "accounts": { "type": "integer", "minimum": 0 },
+            "assets": { "type": "integer", "minimum": 0 },
+            "transactions": { "type": "integer", "minimum": 0 },
+            "cashFlows": { "type": "integer", "minimum": 0 },
+            "positions": { "type": "integer", "minimum": 0 },
+            "dcaExecutions": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "userApprovalRef": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "BackupManifest": {
+      "type": "object",
+      "required": ["schemaVersion", "backupId", "createdAt", "backupType", "databaseSchemaVersion", "objects", "encryption", "status"],
+      "properties": {
+        "schemaVersion": { "const": "backup-manifest.v1" },
+        "backupId": { "$ref": "#/$defs/NonEmptyString" },
+        "createdAt": { "$ref": "#/$defs/IsoDateTime" },
+        "backupType": { "type": "string", "enum": ["full", "incremental", "pre_restore", "manual"] },
+        "databaseSchemaVersion": { "$ref": "#/$defs/NonEmptyString" },
+        "objects": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["logicalName", "encryptedFileName", "sha256", "sizeBytes"],
+            "properties": {
+              "logicalName": { "$ref": "#/$defs/NonEmptyString" },
+              "encryptedFileName": { "$ref": "#/$defs/NonEmptyString" },
+              "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+              "sizeBytes": { "type": "integer", "minimum": 0 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "encryption": {
+          "type": "object",
+          "required": ["algorithm", "keyRef"],
+          "properties": {
+            "algorithm": { "$ref": "#/$defs/NonEmptyString" },
+            "keyRef": { "$ref": "#/$defs/NonEmptyString" }
+          },
+          "additionalProperties": false
+        },
+        "remoteCopies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["provider", "status"],
+            "properties": {
+              "provider": { "$ref": "#/$defs/NonEmptyString" },
+              "remoteObjectRef": { "type": "string" },
+              "status": { "type": "string", "enum": ["pending", "uploaded", "verified", "failed"] },
+              "verifiedAt": { "$ref": "#/$defs/IsoDateTime" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "status": { "type": "string", "enum": ["created", "encrypted", "uploaded", "verified", "partial", "failed"] }
+      },
+      "additionalProperties": false
+    },
+    "RestorePlan": {
+      "type": "object",
+      "required": ["schemaVersion", "restorePlanId", "backupId", "createdAt", "status", "checks"],
+      "properties": {
+        "schemaVersion": { "const": "restore-plan.v1" },
+        "restorePlanId": { "$ref": "#/$defs/NonEmptyString" },
+        "backupId": { "$ref": "#/$defs/NonEmptyString" },
+        "createdAt": { "$ref": "#/$defs/IsoDateTime" },
+        "status": { "type": "string", "enum": ["ready", "blocked", "needs_review", "committed", "cancelled"] },
+        "checks": {
+          "type": "object",
+          "required": ["checksumValid", "decryptable", "schemaCompatible", "stagingOpenable"],
+          "properties": {
+            "checksumValid": { "type": "boolean" },
+            "decryptable": { "type": "boolean" },
+            "schemaCompatible": { "type": "boolean" },
+            "stagingOpenable": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        "currentDatabaseBackupRequired": { "type": "boolean", "const": true },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "userApprovalRef": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "BridgeAuditEvent": {
+      "type": "object",
+      "required": ["schemaVersion", "requestId", "timestamp", "actor", "client", "operation", "success"],
+      "properties": {
+        "schemaVersion": { "const": "bridge-audit-event.v1" },
+        "requestId": { "$ref": "#/$defs/NonEmptyString" },
+        "timestamp": { "$ref": "#/$defs/IsoDateTime" },
+        "actor": { "$ref": "#/$defs/NonEmptyString" },
+        "actorType": { "type": "string", "enum": ["user", "ai", "system"] },
+        "client": { "$ref": "#/$defs/NonEmptyString" },
+        "operation": { "$ref": "#/$defs/NonEmptyString" },
+        "entity": { "$ref": "#/$defs/EntityRef" },
+        "scope": { "type": "string" },
+        "confirmationState": { "type": "string", "enum": ["not_required", "prepared", "approved", "rejected"] },
+        "beforeVersion": { "type": "integer", "minimum": 0 },
+        "afterVersion": { "type": "integer", "minimum": 0 },
+        "idempotencyKey": { "type": "string" },
+        "success": { "type": "boolean" },
+        "errorCode": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
