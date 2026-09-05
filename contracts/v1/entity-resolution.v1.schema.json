@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/v1/entity-resolution.v1.schema.json",
+  "title": "Entity Registry & Resolution Contracts V1",
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/$defs/RegistryEntry" },
+    { "$ref": "#/$defs/ResolutionRequest" },
+    { "$ref": "#/$defs/ResolutionResult" }
+  ],
+  "$defs": {
+    "RegistryEntry": {
+      "type": "object",
+      "required": ["schemaVersion", "entityId", "entityType", "canonicalName", "aliases", "status"],
+      "properties": {
+        "schemaVersion": { "const": "entity-registry-entry.v1" },
+        "entityId": { "type": "string", "minLength": 1 },
+        "entityType": {
+          "type": "string",
+          "enum": ["industry", "theme", "instrument", "company", "macro_metric", "account", "asset"]
+        },
+        "canonicalName": { "type": "string", "minLength": 1 },
+        "aliases": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "market": { "type": "string" },
+        "exchange": { "type": "string" },
+        "ticker": { "type": "string" },
+        "providerIdentifiers": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "parentEntityId": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "candidate", "merged", "archived"] },
+        "mergedIntoEntityId": { "type": "string" },
+        "userConfirmed": { "type": "boolean" },
+        "revision": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "ResolutionRequest": {
+      "type": "object",
+      "required": ["schemaVersion", "requestId", "rawName", "expectedEntityTypes"],
+      "properties": {
+        "schemaVersion": { "const": "entity-resolution-request.v1" },
+        "requestId": { "type": "string", "minLength": 1 },
+        "rawName": { "type": "string", "minLength": 1 },
+        "expectedEntityTypes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "enum": ["industry", "theme", "instrument", "company", "macro_metric", "account", "asset"] }
+        },
+        "marketHint": { "type": "string" },
+        "exchangeHint": { "type": "string" },
+        "tickerHint": { "type": "string" },
+        "contextText": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "ResolutionCandidate": {
+      "type": "object",
+      "required": ["entityId", "canonicalName", "entityType", "confidence", "matchReasons"],
+      "properties": {
+        "entityId": { "type": "string", "minLength": 1 },
+        "canonicalName": { "type": "string", "minLength": 1 },
+        "entityType": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "matchReasons": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "ResolutionResult": {
+      "type": "object",
+      "required": ["schemaVersion", "requestId", "status", "candidates", "allowAutoCreate"],
+      "properties": {
+        "schemaVersion": { "const": "entity-resolution-result.v1" },
+        "requestId": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["resolved", "needs_user_confirmation", "not_found", "conflicted"] },
+        "resolvedEntityId": { "type": "string", "minLength": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "candidates": { "type": "array", "items": { "$ref": "#/$defs/ResolutionCandidate" } },
+        "allowAutoCreate": { "const": false },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "resolved" } } },
+          "then": { "required": ["resolvedEntityId", "confidence"] }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}
