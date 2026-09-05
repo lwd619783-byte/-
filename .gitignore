@@ -15,6 +15,19 @@ research-data/market-regime/backtests/
 research-data/market-regime/live-probe/
 research-data/market-regime/catalog/*.generated.json
 
+# Impeccable local runtime state. Shared design/config artifacts remain trackable.
+.impeccable/config.local.json
+.impeccable/hook.cache.json
+.impeccable/hook.pending.json
+.impeccable/*.png
+.impeccable/review/
+.impeccable/questions/
+.impeccable/live/server.json
+.impeccable/live/sessions/
+.impeccable/live/previews/
+.impeccable/live/annotations/
+.impeccable/live/cache/
+
 .env
 .env.local
 .env.*.local
