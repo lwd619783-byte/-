@@ -1,8 +1,8 @@
 # 投资研究看板 V2 · 机器可读合同 V1
 
-> 状态：CONTRACT DESIGN ONLY / NO PRODUCTION IMPLEMENTATION
+> 状态：CONTRACT V1 FROZEN / PHASE 1 IMPLEMENTATION ADMITTED
 >
-> 这一目录不是业务代码，而是未来 Research Bridge、投研看板、资产账本和备份服务共同遵守的数据标准。
+> 本目录不是业务代码，而是 Research Bridge、投研看板、资产账本和备份服务在 Phase 1 实现中共同遵守的数据标准。终局合同审计见 `docs/investment-dashboard-v2-final-contract-audit-v1.md`。
 
 ## 为什么先做合同
 
@@ -27,7 +27,7 @@
 - `permissions.v1.json`
   - ChatGPT / Research Bridge 的权限边界
 - `contract-test-cases.v1.json`
-  - 后续实现时必须通过的关键业务测试场景
+  - 实现时必须通过的关键业务测试场景
 
 ## 设计原则
 
@@ -51,11 +51,16 @@ V1 合同使用稳定字符串标识，例如：
 
 后续如发生不兼容修改，新增 V2，不直接破坏 V1 历史数据。
 
-## 当前阶段禁止事项
+## 当前实现准入
 
-本目录落地后仍然不代表允许开始 Production 实现。下一步还需要：
+2026-09-05 的终局合同审计已经 **PASS FOR PHASE 1 IMPLEMENTATION**。Phase 1 可以按审计列明范围实现合同校验、本地数据库基础、Research Bridge contribution 流程、资产 / DCA 基础、导入、审计和本地备份 / 恢复骨架。
 
-1. 对 Schema 做独立终局审计；
-2. 核对所有关键场景是否能表达；
-3. 冻结字段语义与错误处理；
-4. 审计 PASS 后才允许 Codex 实现本地数据库、Research Bridge 和 UI。
+这不是全量 Production Admission。以下边界继续有效：
+
+- XIRR / TWR / 年化收益正式值仍需后续验证；
+- AI 真实交易继续 HARD DENY；
+- 未完成 Probe 的网盘 Provider 不得作为正式生产能力上线；
+- 未完成安全审计的公网 MCP 入口不得正式暴露；
+- 长期账户正式迁移仍需要用户确认。
+
+实现过程中如果发现合同无法表达真实场景，应先修改合同并重新审计，再修改业务代码；不得在业务代码中私自增加另一套字段语义或例外规则。
