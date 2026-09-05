@@ -1,8 +1,10 @@
 # 投资研究看板架构基线
 
+> 文档状态：CURRENT IMPLEMENTATION SNAPSHOT / NOT CURRENT PRODUCT ROADMAP  
 > 基线日期：2026-09-02  
 > 代码基线：`main` @ `8a1d4c110b5eb8a248701be6cd84470d1fa0d7f7`  
-> 本文描述“当前真实架构”，不是未来理想架构。未来规划见 `docs/investment-dashboard-master-plan-2026-09.md`。
+> 本文描述该代码基线下的已实现架构与技术边界；固定 SHA 是历史快照，不代表当前 `main`。当前实现状态还应核对 `docs/feature-registry.md`、当前代码和测试。  
+> 当前 V2 产品与目标架构决策见 `docs/investment-dashboard-v2-research-os-and-bridge-design.md`、`docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md`、`docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md` 与 `docs/investment-dashboard-v2-final-contract-audit-v1.md`。`docs/investment-dashboard-master-plan-2026-09.md` 保留为 Stage 4 历史建设基线，不再是当前 V2 最高级路线图。
 
 ## 1. 系统定位
 
@@ -236,7 +238,7 @@ Watchlist V2 已从静态清单升级为研究工作流：
 
 继续增加牛熊温度计、估值、Portfolio 后会进一步放大耦合。
 
-Stage 4 应逐步转为：
+该架构快照当时建议逐步转为：
 
 `App Shell → Feature/Page module → Domain service/store`
 
@@ -283,9 +285,9 @@ Stage 4 应逐步转为：
 
 这是从“研究工作台”升级成“投研操作系统”的核心缺口。
 
-## 8. 推荐目标架构
+## 8. 原 Stage 4 目标架构记录
 
-Stage 4 后的目标结构建议逐步演化为：
+以下结构是本架构快照形成时的演进建议，保留用于理解现有代码的重构方向；当前 V2 产品和目标架构决策以本文顶部列出的 V2 freeze / audit 文档为准。
 
 ```text
 src/
@@ -306,7 +308,7 @@ src/
   components/          # 真正跨 feature 的通用 UI
 ```
 
-不要求一次性重构。原则是：每新增一个 Stage 4 功能，就尽量避免继续扩张 `App.tsx`。
+不要求一次性重构。原则是：新增功能时尽量避免继续扩张 `App.tsx`，具体目标结构以当前已冻结架构和任务范围为准。
 
 ## 9. 架构原则
 
