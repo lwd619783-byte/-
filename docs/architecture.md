@@ -76,7 +76,7 @@
 - `Mixed Data`
 - `Real Data`
 
-原则：真实模式下缺失数据必须显式显示缺失 / partial / stale / not_implemented 等状态，禁止把缺失值偷偷替换成 mock 或 0。
+Real Data 模式把缺失、`partial`、`stale`、`not_implemented` 等作为显式状态；以 mock 或 `0` 静默替代真实缺失属于合同不允许的语义。跨任务数据不变量以根 `AGENTS.md` 和对应 Contracts 为准。
 
 ### 4.2 轻数据与重数据拆分
 
@@ -185,11 +185,7 @@ ResearchEvent 用于连接：
 
 验证中心承担“事前判断与事后事实”的对账，而不是只展示最新财报。
 
-核心原则：
-
-- 只有可靠的事前证据才能产生正式比较；
-- 数据发布时间、形成时间、披露时间与审计时间不能混用；
-- 缺失证据不能输出“超预期 / 不及预期”的伪结论。
+当前比较语义要求可靠的事前证据，并区分数据发布时间、形成时间、披露时间与审计时间；缺失事前证据时不产生“超预期 / 不及预期”的正式比较。
 
 ### 6.3 Earnings Expectation Evidence
 
@@ -267,7 +263,7 @@ Watchlist V2 已从静态清单升级为研究工作流：
 - staleAfter
 - normalization
 
-因此牛熊温度计必须先建立 Metric Registry，而不能直接在 UI 中堆一批指标。
+在这个架构快照中，牛熊温度计进入实现前需要先建立 Metric Registry，而不是直接在 UI 中堆指标；当前任务仍应核对更新的 V2 freeze / audit 决策。
 
 ### 7.4 缺估值与 Portfolio Domain
 
@@ -308,19 +304,14 @@ src/
   components/          # 真正跨 feature 的通用 UI
 ```
 
-不要求一次性重构。原则是：新增功能时尽量避免继续扩张 `App.tsx`，具体目标结构以当前已冻结架构和任务范围为准。
+该快照的演进方向是避免 `App.tsx` 继续扩张，并逐步形成 feature / domain 边界；不要求为了匹配目录草案一次性重构，具体目标结构以当前冻结架构和任务范围为准。
 
-## 9. 架构原则
+## 9. 架构约束摘要
 
-后续开发必须继续遵循：
+跨任务的数据真实性、PIT、审计、权限、Production Admission 与 Git 不变量统一由根 `AGENTS.md` 和对应 Contracts 维护，本架构快照不再重复一套 Agent 指令。与当前实现结构直接相关的约束包括：
 
-1. **事实与判断分离**：Provider 数据、用户判断、推导结果必须有明确来源。
-2. **缺失不是 0**：缺失 / 不适用 / 未实现必须显式建模。
-3. **时间语义优先**：禁止使用事后数据污染事前判断。
-4. **Provider fail closed**：来源或 schema 不可靠时宁可不生产结果。
-5. **重数据 lazy load**：避免全量历史进入 initial bundle。
-6. **用户历史 append-only**：Review、Expectation correction 等保留可审计历史。
-7. **研究结论可追溯**：未来 Valuation / Portfolio 也必须能追到证据与时间。
-8. **新自动化必须可降级**：自动 Provider / AI 分析失败不能破坏已有手工工作流。
-9. **先 contract 后 UI**：牛熊温度计、行业指标、Portfolio 等先定义模型和数据合同，再做页面。
-10. **Stage 验收以可验证状态为准**：不能因为“代码写了”就把能力标记为生产完成。
+1. **Provider fail closed**：adapter / artifact 的来源、identity 或 schema 不可靠时不生产看似有效的正式结果。
+2. **重数据 lazy load**：继续使用 `summary → manifest → per-company detail`，避免全量历史进入 initial bundle。
+3. **自动化可降级**：Provider / AI 自动能力失败时保留既有手工研究工作流的可用性。
+4. **控制 App 耦合**：新增功能优先形成 feature / domain 边界，避免继续把 orchestration 和业务状态堆入 `App.tsx`。
+5. **结构性新域先表达模型**：Market Regime、Valuation、Portfolio 等新域在接入复杂 UI 前先形成可验证的数据 / domain contract。

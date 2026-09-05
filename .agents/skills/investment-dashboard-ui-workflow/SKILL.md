@@ -1,90 +1,49 @@
 ---
 name: investment-dashboard-ui-workflow
-description: Project-specific frontend workflow for the investment research dashboard. Use for creating, redesigning, polishing, auditing, or visually refactoring dashboard pages/components where UI quality matters. Coordinates the project's design constraints with Taste Skill and Impeccable when installed.
+description: Project-specific UI coordinator for substantive investment-dashboard creation, redesign, polish, responsiveness and visual-quality work. Routes to Taste or Impeccable when those Skills materially help.
 ---
 
 # Investment Dashboard UI Workflow
 
-Use this skill for substantive UI work in this repository. It is the project-specific coordinator; external design skills are advisory layers and may not override the user's current instructions, root `AGENTS.md`, product contracts, business behavior, accessibility, or data semantics.
+Use this Skill as the project-level coordinator for substantive UI work. Project data / business semantics remain defined by root `AGENTS.md`, current product sources and contracts; this Skill only adds UI-specific context and routing.
 
-## Read first
+## Context
 
-1. Read the root `AGENTS.md` UI / skill policy.
-2. Read `docs/agent-skills.md` for managed external skill versions and invocation rules.
-3. Read the target feature code plus the smallest relevant design / architecture documents.
-4. Preserve existing product behavior unless the current task explicitly changes it.
+Read:
 
-## Project design baseline
+- root `AGENTS.md`;
+- `docs/agent-skills.md`;
+- the target feature code and the smallest relevant product / architecture context.
 
-Treat this product as a dense personal investment research terminal, not a marketing site.
+## Design baseline
 
-Default qualities:
-- dark, technical, research-terminal identity;
-- high information density with strong hierarchy rather than decorative whitespace;
-- clear distinction between facts, status, warnings, evidence and user judgments;
-- desktop-first efficiency while retaining narrow-screen usability;
-- restrained motion that improves orientation or feedback;
-- charts, tables, filters and research content remain legible before visual novelty;
-- visual polish must not hide missing / partial / stale / conflicted states.
+Treat the product as a dense personal investment research terminal, not a marketing site.
 
-User-supplied visual references and explicit task-specific art direction take precedence over these defaults where they do not violate product invariants.
+- Dark, technical research-terminal identity.
+- High information density with strong hierarchy rather than decorative whitespace.
+- Facts, status, warnings, evidence and user judgments remain visually distinguishable.
+- Desktop research efficiency with usable narrow-screen behavior.
+- Motion is restrained and should improve orientation or feedback.
+- Charts, tables, filters and research content take priority over visual novelty.
 
-## External skill routing
+Task-specific visual references may define the art direction while the project's business and data semantics remain intact.
 
-### Existing dashboard redesign or substantial visual upgrade
+## External Skill routing
 
-If installed, use `redesign-existing-projects` from Taste Skill as the first external design pass.
+- **Major existing-Dashboard redesign:** use Taste `redesign-existing-projects` when installed and useful for diagnosis / redesign direction.
+- **Critique, accessibility, responsive behavior, edge states or polish:** use the relevant Impeccable mode when installed and useful.
+- Taste `design-taste-frontend` / `gpt-taste` are not default Dashboard Skills; use them only for briefs that actually match those variants.
+- Small CSS, copy, spacing or isolated component fixes do not require both external Skills.
+- Do not automatically run `impeccable init`; replacing `PRODUCT.md` / `DESIGN.md` is a separate governance change.
+- The existing React / Vite / Tailwind stack is the baseline. A UI Skill recommendation alone is not a reason to add dependencies.
 
-Purpose:
-- scan the existing stack and design patterns;
-- identify generic AI-looking patterns and weak hierarchy;
-- propose targeted improvements without framework migration or functionality rewrite.
+## UI-specific verification
 
-Do not automatically substitute Taste's general `design-taste-frontend` or `gpt-taste` for dashboard work. Those variants are for different visual contexts and may over-prioritize landing-page composition or aggressive motion.
+For a substantive UI change, verify the changed surface rather than relying only on source inspection:
 
-### UI critique, audit, polish, accessibility or finishing pass
+- relevant component / integration checks and `npm run ui:audit` when applicable;
+- responsive and interaction / edge states for affected layouts;
+- rendered visual result when browser or screenshot tooling is available;
+- continued representation of research density, status and provenance concepts after visual refactoring.
 
-If installed, use `impeccable` after the implementation direction is understood.
-
-Preferred modes by intent:
-- audit / technical quality: `impeccable audit`;
-- UX and hierarchy review: `impeccable critique`;
-- final refinement: `impeccable polish`;
-- responsive behavior: `impeccable adapt`;
-- robustness / edge states: `impeccable harden`;
-- motion only when explicitly useful: `impeccable animate`.
-
-Do not run `impeccable init` automatically in this mature repository. The project already has durable product and architecture sources. Only create or replace `PRODUCT.md` / `DESIGN.md` when the current task explicitly authorizes that governance change.
-
-### When to use both
-
-For a major existing-page redesign:
-1. establish current product behavior and constraints;
-2. run the Taste redesign pass for visual direction and targeted changes;
-3. implement with the existing React / Vite / Tailwind stack unless the task requires otherwise;
-4. run Impeccable critique / audit / polish as a second-pass quality gate;
-5. visually verify the rendered result when browser or screenshot tooling is available.
-
-For a small CSS fix, copy tweak, spacing bug, or isolated component defect, do not invoke two heavyweight skills merely because they exist. Use the minimum skill set that materially improves the result.
-
-## Conflict rules
-
-- User instructions for the current task outrank style preferences in an external skill.
-- Root `AGENTS.md` hard invariants and frozen product / data contracts remain binding unless the task explicitly changes those governance sources.
-- Existing framework, dependencies and design behavior are evidence, not disposable defaults.
-- A skill must not invent financial data, replace missing states with fabricated content, or change data semantics for visual completeness.
-- A skill must not force a new UI library, animation library, font package or design system merely because it recommends one. New dependencies require a task-level justification and normal validation.
-- A skill must not remove dense information, tables, controls or status details solely to make the interface look more like a marketing page.
-- If a skill instruction would cause work to stop, request unnecessary confirmation, or materially diverge from the user's task, identify the exact skill and conflicting instruction in the delivery report and follow the higher-priority project instruction.
-
-## UI validation
-
-Choose validation proportional to the change:
-- run relevant component / integration tests;
-- run `npm run ui:audit` when its checks cover the changed surface;
-- run typecheck / build when the UI change can affect compilation or bundling;
-- inspect responsive states and interaction states for substantive layout changes;
-- visually inspect the rendered page when browser tooling is available;
-- confirm no data/status semantics were lost during visual refactoring.
-
-The goal is not maximum decoration. The goal is a more intentional, legible, efficient and distinctive research interface without breaking research workflows.
+The goal is a more intentional, legible and efficient research interface, not maximum decoration.
