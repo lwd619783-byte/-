@@ -6,9 +6,9 @@
 
 | 顺序 | 实现与验证门槛 | 独立审查 / 合入门槛 | 当前状态与停止点 |
 | --- | --- | --- | --- |
-| 独立 P0 可信展示纠偏 V1 | 移除条数评分和方向结论；source identity、quality status、value coverage、data time / freshness 分离；固定时钟边界及组件交互测试；环境检查、tests、data audit、build、UI 静态审计和浏览器验证，逐项记录限制 | 普通 push 后独立远端审查最终 HEAD；审查通过并获授权后才创建 PR，检查该 HEAD 的 CI，再决定合入 | 已修复，待独立远端复审；本任务停在功能分支，不代表生产上线 |
-| Phase 1A — Local Core Foundation | 按[实施基线](investment-dashboard-v2-phase-1a-local-core-foundation.md)落实合同校验、SQLite、Entity Registry / Resolver、append-only Audit、Repository / Domain 基础；通过专项与原有门禁 | 独立审查权限、事务、时间、历史与 bundle 边界；获授权后 PR / 精确 HEAD CI / 合入 | 本轮未实施。P0 审查合入后，另行授权开工；合入后才进入 1B |
-| Phase 1B — Long-term Account & DCA Core | 按 1A 的下一阶段范围和冻结合同实现账户、资产、流水、持仓、DCA；真实迁移遵守 prepare / preview / confirm | 独立审查账本、幂等、审计与用户确认；获授权后 PR / 精确 HEAD CI / 合入 | 本轮未实施；完成后停止，后续域另行定范围 |
+| 独立 P0 可信展示纠偏 V1 | 移除条数评分和方向结论；source identity、quality status、value coverage、data time / freshness 分离；固定时钟边界及组件交互测试；环境检查、tests、data audit、build、UI 静态审计和浏览器验证，逐项记录限制 | 普通 push 后独立远端审查最终 HEAD；审查通过并获授权后才创建 PR，检查该 HEAD 的 CI，再决定合入 | 已合并并通过 main CI；本次核对 main 快照为 `285ff87e8d109730956517edcaeadec501d79f4c` |
+| Phase 1A — Local Core Foundation | 按[实施基线](investment-dashboard-v2-phase-1a-local-core-foundation.md)落实合同校验、SQLite、Entity Registry / Resolver、append-only Audit、Repository / Domain 基础；通过专项与原有门禁 | 独立审查权限、事务、时间、历史与 bundle 边界；获授权后 PR / 精确 HEAD CI / 合入 | 实施完成，待独立远端终局审查；[验证记录](investment-dashboard-v2-phase-1a-implementation-validation.md)列明测试、合同接口限制和本机环境问题；未创建 PR、未合并，合入后才进入 1B |
+| Phase 1B — Long-term Account & DCA Core | 按 1A 的下一阶段范围和冻结合同实现账户、资产、流水、持仓、DCA；真实迁移遵守 prepare / preview / confirm | 独立审查账本、幂等、审计与用户确认；获授权后 PR / 精确 HEAD CI / 合入 | 未实施；完成后停止，后续域另行定范围 |
 
 验证失败或工具阻塞须标明原因与受影响验收项；安全改动可推送待审查，但不得称验收通过。测试通过、独立审查、合入与生产准入是不同状态，任何一步不自动授权下一步。
 

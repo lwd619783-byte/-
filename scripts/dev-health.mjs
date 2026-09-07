@@ -4,6 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { localCoreHealth } from "./local-core-health.mjs";
 
 const TOOL = "investment-research-dashboard-dev-health";
 const VERSION = 1;
@@ -558,7 +559,7 @@ function checkGitAndSecurity(reporter, tools) {
     const sensitive = files.filter((name) => {
       const lower = name.toLowerCase();
       if (lower === ".env.example") return false;
-      return lower === ".env" || lower.startsWith(".env.") || /\.(?:pem|key|pfx|p12)$/.test(lower) || lower.startsWith(".ssh-private/");
+      return lower === ".env" || lower.startsWith(".env.") || /\.(?:pem|key|pfx|p12|sqlite(?:-shm|-wal|-journal)?|db(?:-shm|-wal|-journal)?)$/.test(lower) || lower.startsWith(".ssh-private/") || lower.startsWith(".local-data/");
     });
     const generated = files.filter((name) => /^(?:dist|node_modules|data-cache|\.provider-observations)\//.test(name) || /\.log$/i.test(name));
     reporter.add("security.tracked-sensitive", "git", sensitive.length ? "FAIL" : "PASS",
@@ -965,6 +966,9 @@ function main() {
 
     const tools = checkEnvironment(reporter, ci);
     reporter.guard("dependencies.unexpected", "dependencies", () => checkProjectFilesAndDependencies(reporter, tools));
+    reporter.guard("local-core.unexpected", "dependencies", () => {
+      for (const check of localCoreHealth(root)) reporter.add(check.id, "dependencies", check.status, check.message);
+    });
     reporter.guard("git.unexpected", "git", () => checkGitAndSecurity(reporter, tools));
     reporter.guard("gh.unexpected", "git", () => checkGitHubCli(reporter, tools));
     reporter.guard("scripts.unexpected", "scripts", () => checkScriptsAndCi(reporter, ci));
