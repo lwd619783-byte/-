@@ -8,8 +8,9 @@
 | --- | --- | --- | --- |
 | 独立 P0 可信展示纠偏 V1 | 移除条数评分和方向结论；source identity、quality status、value coverage、data time / freshness 分离；固定时钟边界及组件交互测试；环境检查、tests、data audit、build、UI 静态审计和浏览器验证，逐项记录限制 | 普通 push 后独立远端审查最终 HEAD；审查通过并获授权后才创建 PR，检查该 HEAD 的 CI，再决定合入 | 已合并并通过 main CI；本次核对 main 快照为 `285ff87e8d109730956517edcaeadec501d79f4c` |
 | Phase 1A — Local Core Foundation | 按[实施基线](investment-dashboard-v2-phase-1a-local-core-foundation.md)落实合同校验、SQLite、Entity Registry / Resolver、append-only Audit、Repository / Domain 基础；通过专项与原有门禁 | 独立审查权限、事务、时间、历史与 bundle 边界；获授权后 PR / 精确 HEAD CI / 合入 | **CLOSED / MERGED / MAIN CI PASS**；合并快照 `41b3caa5e063805ec0ca42efc9c74ea17491ffc4`，对应 [main CI 34115340100](https://github.com/lwd619783-byte/-/actions/runs/34115340100) 已核对 completed/success；旧实施验证记录保留原时点结论 |
-| Phase 1A.5 — Agent Skills Consolidation | 正式 [Skill Registry / Router](agent-skills.md)、固定上游审计、项目 Domain / Local Core / minimalism Skills、只读 check 和隔离 fixture 验证；Impeccable facade / vendor、LICENSE、副本写入三项修复已获用户确认独立复审通过 | 已授权创建 PR → 等待 PR CI 全部通过 → 合并 main → 核验 main SHA 与 main CI；关闭前不进入 Phase 1B | **INDEPENDENT REVIEW PASS / READY FOR PR**（PR 前登记节点）；独立复审对应 `e0bb08808d309b4c0eb8384bc03427abc810fd1c`。[验证记录](phase-1a5-agent-skills-validation.md)区分独立复审、PR CI 和 main CI，合并后的结果以对应 PR / Actions 记录为准 |
-| Phase 1B — Long-term Account & DCA Core | 后续获明确授权才按冻结合同实现账户、资产、流水、持仓、DCA；persistence 必须复用现有 Phase 1A Local Core；真实迁移遵守 prepare / preview / confirm | 独立审查账本、幂等、审计与用户确认；获授权后 PR / 精确 HEAD CI / 合入 | **NOT STARTED**；1A.5 完成不自动授权开工 |
+| Phase 1A.5 — Agent Skills Consolidation | 正式 [Skill Registry / Router](agent-skills.md)、固定上游审计、项目 Domain / Local Core / minimalism Skills、只读 check 和隔离 fixture 验证 | 已完成审查与合入；历史[验证记录](phase-1a5-agent-skills-validation.md)保留原时点结论 | **CLOSED / MERGED / MAIN CI PASS**（本轮用户提供的关闭状态）；本轮 fetch 核对合并快照 `87d33595a49dc99463333ad4637b44b7e33f68a9`，没有重新运行或宣称本合同分支 CI 通过 |
+| Phase 1B — Long-term Account & DCA Core | 既有实现位于 `feat/v2-phase-1b-long-term-account-dca-core`，HEAD `d1e343ce4334dc068287815f06e9d085f66de900`；本合同分支不包含该业务实现 | implementation reviewed; blocked pending contract clarification；合同独立审计、合入后才另行授权消费和完成实现 | **IMPLEMENTED PARTIALLY / BLOCKED / IMPLEMENTATION REVIEW PASS**（本轮用户提供的独立实现审查状态）；CB-1 / CB-2 / CB-3 继续阻塞，不能因静态合同测试解除 |
+| Phase 1B Contract Clarification V1 | 仅补 HistoricalAssetImport、账户总额 Observation/Reconciliation、DCA 显式周期时间及静态合同验证；[合同澄清](investment-dashboard-v2-phase-1b-contract-clarification-v1.md) | 普通 push 后停止，等待独立合同审计；本任务不创建 PR，不合并 main，不回到 implementation branch | **READY FOR INDEPENDENT CONTRACT AUDIT**；不回写历史审计结论 |
 
 验证失败或工具阻塞须标明原因与受影响验收项；安全改动可推送待审查，但不得称验收通过。测试通过、独立审查、合入与生产准入是不同状态，任何一步不自动授权下一步。
 
@@ -17,7 +18,7 @@
 
 - 后续研究入库、行业 / Wiki、多 Agent 成果共用统一实体、版本、审计与 **prepare-plan-confirm-commit**，不建立平行系统。
 - Phase 1A 已落实 **provider identifier 精确匹配**与 **resolver 合同输入**的内部 seam；后续继续复用当前代码与[实施验证中的合同边界](investment-dashboard-v2-phase-1a-implementation-validation.md)，不擅改 `contracts/v1`。
-- 当前 Phase 1A.5 只做 Skill 治理 / 工具链；不升级既有 Taste / Impeccable，不改 P0 页面、SQLite / Entity / Audit / transaction 语义，不新增业务 migration，不开发资产 / DCA、Research Bridge、Wiki、Agent runtime、备份或远程入口，不刷新真实 generated 数据。
+- 当前工作仅为 Phase 1B 合同澄清；不升级 Skills，不修改业务实现或 migration，不开发 UI、Provider、MCP、cloud、broker、backup 或 performance，不读取或刷新真实用户数据。
 - [Local-first 冻结决定](investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md)覆盖旧云端业务数据库假设；[Master Plan](investment-dashboard-master-plan-2026-09.md)中的 Stage 4 顺序保留为历史基线。当前执行顺序以本索引为准，业务语义与准入仍由冻结合同和专项审计决定。
 
 ## P0 展示口径与待办

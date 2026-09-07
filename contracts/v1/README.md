@@ -4,6 +4,8 @@
 >
 > 本目录不是业务代码，而是 Research Bridge、投研看板、资产账本和备份服务在 Phase 1 实现中共同遵守的数据标准。终局合同审计见 [`docs/investment-dashboard-v2-final-contract-audit-v1.md`](../../docs/investment-dashboard-v2-final-contract-audit-v1.md)。
 
+> 2026-09-07 增量：[Phase 1B Contract Clarification V1](../../docs/investment-dashboard-v2-phase-1b-contract-clarification-v1.md) 为 **READY FOR INDEPENDENT CONTRACT AUDIT**。历史审计不覆盖本次增量；Phase 1B implementation 继续 blocked，须独立合同审计及合入后再获授权消费新语义。
+
 ## 为什么先做合同
 
 我们希望以后网页端 ChatGPT、看板前端、本地数据库、备份程序使用同一套“说法”。
@@ -22,12 +24,17 @@
   - 账户、资产、交易、现金流、持仓快照
   - 定投计划与定投执行
   - 历史资产迁移
+  - HistoricalAssetImport：baseline 前可信事实的 workflow metadata，复用既有导入对象和 ledger
   - 备份清单与恢复计划
   - Research Bridge 审计记录
 - `permissions.v1.json`
   - ChatGPT / Research Bridge 的权限边界
 - `contract-test-cases.v1.json`
   - 实现时必须通过的关键业务测试场景
+- `asset-import.v1.schema.json`
+  - 导入 Bundle / Plan / CommitRequest；可选 AccountValueObservation 和结构化账户总额核对输出
+- `ledger-invariants.v1.json`
+  - 账本不变量，以及 historical import、账户总额核对、DCA 周期时间选择的提交前校验要求
 
 ## 设计原则
 
@@ -50,6 +57,8 @@ V1 合同使用稳定字符串标识，例如：
 - `backup-manifest.v1`
 
 后续如发生不兼容修改，新增 V2，不直接破坏 V1 历史数据。
+
+本次保留全部 27 个旧 wire version，新增 `historical-asset-import.v1`。DcaExecution 的 `periodStart`/`periodEnd` 可成对缺失，`period` 始终是展示标签。旧 payload schema-valid 不代表满足新提交的证据/日期/revision 条件；registry 只做 schema 与单 payload 日期顺序校验，跨对象核对仍是后续实施义务。`executedAmount` 与交易金额的固定等式尚未冻结。
 
 ## 当前实现准入
 

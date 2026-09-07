@@ -19,6 +19,7 @@
         "contribution.cancel",
         "asset_import.prepare",
         "legacy_asset_import.prepare",
+        "historical_asset_import.prepare",
         "backup.status.read",
         "backup.list.read",
         "backup.verify.read",
@@ -28,6 +29,7 @@
         "contribution.commit",
         "asset_import.commit",
         "legacy_asset_import.commit",
+        "historical_asset_import.commit",
         "transaction.manual_create",
         "cashflow.manual_create",
         "dca_execution.commit",
@@ -103,6 +105,7 @@
     "任何 AI 生成内容不得直接写入 Provider Facts",
     "任何已确认研究写入必须经过 Contribution Plan",
     "任何截图或历史文件导入必须先 prepare 再 commit",
+    "historical_asset_import.prepare 适用 level1，不改正式状态；historical_asset_import.commit 与 legacy_asset_import.commit 同属 level2，复用 AssetImportPlan/CommitRequest，绑定 planDigest、用户确认、幂等、Audit 与原子提交",
     "任何 restore.commit 必须先创建当前数据库的 pre_restore 备份",
     "备份密钥、Access Token、Refresh Token 不得出现在 MCP 返回内容或审计日志中"
   ]

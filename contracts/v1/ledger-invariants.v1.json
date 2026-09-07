@@ -51,6 +51,67 @@
     "asset -> Asset",
     "无法解析实体或无法核对金额时只能 warn/needs_resolution，不得强制 pass"
   ],
+  "historicalAssetImport": {
+    "baselineDate": "2026-08-14",
+    "workflowSchemaVersion": "historical-asset-import.v1",
+    "prepareOperation": "historical_asset_import.prepare",
+    "commitOperation": "historical_asset_import.commit",
+    "requiresVerifiedEvidence": true,
+    "allowsModelBackfill": false,
+    "rules": [
+      "HistoricalAssetImport 仅为 workflow metadata，复用同 importId 的 AssetImportBundle、AssetImportPlan 和 AssetImportCommitRequest，不建立第二套 Transaction/CashFlow/Position/DCA 或 ledger",
+      "baseline 始终为 2026-08-14；historical_import 只补录严格早于 baseline 的可信事实，baseline 当日及以后仍走既有导入路径，不能混包绕过边界",
+      "Transaction.tradeDate、CashFlow.date、PositionSnapshot.snapshotDate 及 DCA 的 dated linked transactions 或无 dated links 时的完整显式 period 必须证明在 baseline 前；Account/Asset 只作这些历史事实的身份依赖，不单独充当有日期的历史事实",
+      "sourceRefs 必须非空；prepare 必须解析来源并验证可信证据支持候选事实，无可信证据 blocked，不得模型反推；仅未完成验证可保留 needs_review 预览，不能 ready_to_commit",
+      "ready_to_commit/committed 的每个 sourceRef 必须 quality=verified；quality 字符串本身不构成可信证明，正式 commit 必须重新验证引用可解析、证据内容及其与各候选的关联，未知/失效/冲突证据 fail closed",
+      "candidateCounts 必须按同 bundle 的 candidateType 精确统计；candidateRefs 如提供须可解析到该包相关实体，不使用它代替 Candidate 的 candidateId 或日期事实",
+      "planDigest 必须绑定 historical operation、完整 metadata、bundle、source evidence 身份及验证版本/摘要、候选映射和最终 plan；任何变化要求重新 prepare 和确认，不能将 historical plan 作为普通 legacy/asset import 提交",
+      "正式 commit 必须 ready 且无任何 warning，使用 AssetImportCommitRequest 的 planDigest/idempotencyKey/userApprovalRef，批准必须绑定同一 plan 与 operation；prepared/needs_review 不构成批准",
+      "正式 ledger、confirmed operation、historical committed marker 和 Audit 同一原子事务提交；失败整体回滚，相同 idempotencyKey 相同已批准请求返回原结果，不能重复写入或重复 Audit",
+      "Audit.operation=historical_asset_import.commit，保留 importId 与 plan 的可追溯关系及批准/幂等信息；metadata 的 committed userApprovalRef 必须与 commit request/confirmed operation 一致",
+      "Transaction/PositionSnapshot 在历史档案导入中沿用 source=legacy_import；Transaction/CashFlow 可用现有 sourceEvidenceRef，DcaExecution/PositionSnapshot 通过候选证据、plan、confirmed operation、Audit 关联。历史补录与 baseline migration 的差别保留在 workflow provenance，不新增正式 source 字段或 enum",
+      "补录时间与事实日期分离，保留来源可得时间与 append-only 历史；历史导入不得回写当时未知的研究/PIT 结论"
+    ]
+  },
+  "accountValueReconciliation": {
+    "scope": "full_account_snapshot",
+    "positionSource": "same_bundle_only",
+    "matchKeys": ["accountId", "snapshotDate"],
+    "deltaFormula": "candidatePositionTotal - observedTotal",
+    "warningBlocksCommit": true,
+    "rules": [
+      "AccountValueObservation 是 reconciliation evidence，不是正式 Transaction/CashFlow，不增加净投入，不把账户总额塞入 PositionSnapshot、notes 或 declaredExternalContribution",
+      "full_account_snapshot 声称该 bundle 内相同 accountId/snapshotDate 的 PositionSnapshot candidates 覆盖完整当期账户；sourceEvidenceRefs 必须解析并支持这一完整性声明，缺失现金或其他持仓组成也属于 incomplete",
+      "只合计同 bundle 且通过正式 PositionSnapshot schema/实体校验的对应 marketValue；不得使用旧 ledger snapshot 补缺失候选，不得用 external contribution 替代总资产，不默认缺失金额为 0",
+      "每个 accountId/snapshotDate 的 Observation 必须唯一；重复/冲突 Observation 或重复/冲突持仓资产候选只能 warn，不能挑一个或重复计数。被识别为既有记录的同包快照仍可核对其事实，但绝不从 ledger 追加快照",
+      "Plan 必须逐一对应 bundle 的 Observation 输出 accountValueReconciliations；无 Observation 的 screenshot financial candidates 无法证明账户总额，必须 warning/needs_review；缺字段不能因数组 optional 被解释为校验成功",
+      "observedTotal 与所有参与 marketValue 必须同币种，不隐式换汇。金额使用精确十进制核对，不以 epsilon/四舍五入消除差异",
+      "候选完整且币种一致时输出 candidatePositionTotal 与 reconciliationDelta，delta=candidatePositionTotal-observedTotal；完全一致且证据可核验才 pass，pass 必须有同币种 total 和零 delta",
+      "金额 mismatch 必须输出明确非零 delta 与 warning；incomplete 或 currency conflict 返回 warn 和具体 warnings，无法构成完整可比合计时不输出 candidatePositionTotal/reconciliationDelta，不把缺失强行记为 0",
+      "任何 reconciliation warn 或其他 item/plan warning 必须使 plan needs_review/blocked，不得 ready 或 commit；account-value pass 只通过本项核对，不替代其余 ledger validation、确认、幂等、Audit 和 atomic commit",
+      "planDigest 必须绑定 observations、完整候选集、证据及其验证状态/摘要和 reconciliation 输出；commit 重新验证，不能提交被替换、删项或 stale 的核对结果"
+    ]
+  },
+  "dcaTemporalBinding": {
+    "periodSemantics": "display_label_only",
+    "periodFieldsMustBePaired": true,
+    "periodOrder": "periodStart <= periodEnd",
+    "transactionDatePriority": "tradeDate",
+    "undatedCommitRequiresExplicitPeriod": true,
+    "crossRevisionPolicy": "fail_closed",
+    "defaultLatestRevision": false,
+    "executedAmountTransactionFormula": "not_frozen",
+    "rules": [
+      "period 永远只是展示标签；不得解析 2026-W36、第36周、9月第一周、Synthetic cycle 或任何自由文本选择日期或 revision",
+      "periodStart/periodEnd 可同时缺失以保持旧 V1 payload schema-valid；提供时必须成对、为有效 IsoDate 且 periodStart <= periodEnd，区间包含两个端点；registry payload invariant 必须拒绝倒序",
+      "有非空 transactionIds 时必须解析所有 linked transactions；未知引用或缺少有效 tradeDate 不得忽略并回退显式 period。所有 linked tradeDate 必须各自唯一映射到同一 DcaPlan revision",
+      "有 dated linked transactions 时 tradeDate 是最强事实；若也提供 periodStart/periodEnd，每个 tradeDate 必须在区间内，冲突 fail closed；标签本身和无成交的区间部分不覆盖真实 tradeDate 的 revision 选择",
+      "transactionIds 缺失或空数组时，正式 DcaExecution commit 必须有显式 periodStart/periodEnd，整个闭区间必须唯一包含于一个 revision 有效区间；缺日期、区间空档、多解或跨 revision boundary 返回 blocked/needs_review，不默认 latest revision",
+      "revision 采用当前计划的 activeFrom/activeTo 与有序 revision 历史判定：activeFrom 包含当日，activeTo 如存在包含当日，但后一 revision.activeFrom 起只适用后一 revision；前一 revision 不能延伸覆盖后一生效日，同日起始冲突或覆盖缺口 fail closed",
+      "Constraint.effectiveFrom/effectiveTo 保留各自历史事实，不能用本轮 execution 时间绑定重写 constraint 或旧周期执行；新的 revision 只作用未来，不用当前 constraint 替换历史 constraint",
+      "pending rollover 不计 external contribution；本轮不定义 purchase_limit 算法、plannedAmount+rollover 预算公式，也不定义 executedAmount 与 Transaction.grossAmount/netAmount/fees-inclusive 的固定等式；严格金额 reconciliation 须另行冻结"
+    ]
+  },
   "performanceExclusions": [
     "candidate 数据不得进入收益计算",
     "内部转账不得算作外部新增本金",

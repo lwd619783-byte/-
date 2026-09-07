@@ -20,6 +20,7 @@
     { "$ref": "#/$defs/DcaExecution" },
     { "$ref": "#/$defs/PerformanceSnapshot" },
     { "$ref": "#/$defs/LegacyAssetImport" },
+    { "$ref": "#/$defs/HistoricalAssetImport" },
     { "$ref": "#/$defs/BackupManifest" },
     { "$ref": "#/$defs/RestorePlan" },
     { "$ref": "#/$defs/BridgeAuditEvent" }
@@ -378,7 +379,9 @@
         "schemaVersion": { "const": "dca-execution.v1" },
         "executionId": { "$ref": "#/$defs/NonEmptyString" },
         "planId": { "$ref": "#/$defs/NonEmptyString" },
-        "period": { "$ref": "#/$defs/NonEmptyString" },
+        "period": { "$ref": "#/$defs/NonEmptyString", "description": "Display label only; never parse this field to select dates or a DCA revision." },
+        "periodStart": { "$ref": "#/$defs/IsoDate", "type": "string", "format": "date" },
+        "periodEnd": { "$ref": "#/$defs/IsoDate", "type": "string", "format": "date" },
         "plannedAmount": { "$ref": "#/$defs/Money" },
         "executedAmount": { "$ref": "#/$defs/Money" },
         "pendingAmount": { "$ref": "#/$defs/Money" },
@@ -387,6 +390,8 @@
         "status": { "type": "string", "enum": ["planned", "partial", "completed", "deferred", "cancelled"] },
         "exceptionReason": { "type": "string" }
       },
+      "dependentRequired": { "periodStart": ["periodEnd"], "periodEnd": ["periodStart"] },
+      "$comment": "Contract validator must enforce periodStart <= periodEnd when present. Official commit must additionally enforce ledger-invariants.v1 dcaTemporalBinding; schema validity alone does not authorize commit. executedAmount has no frozen equality with Transaction grossAmount/netAmount/fees-inclusive amounts.",
       "additionalProperties": false
     },
     "PerformanceSnapshot": {
@@ -440,6 +445,39 @@
         "userApprovalRef": { "type": "string" }
       },
       "additionalProperties": false
+    },
+    "HistoricalAssetImport": {
+      "type": "object",
+      "required": ["schemaVersion", "importId", "sourceType", "sourceRefs", "baselineDate", "status", "candidateCounts"],
+      "properties": {
+        "schemaVersion": { "const": "historical-asset-import.v1" },
+        "importId": { "$ref": "#/$defs/NonEmptyString" },
+        "sourceType": { "$ref": "#/$defs/LegacyAssetImport/properties/sourceType" },
+        "sourceRefs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/EvidenceRef" } },
+        "baselineDate": { "const": "2026-08-14" },
+        "status": { "type": "string", "enum": ["prepared", "needs_review", "ready_to_commit", "committed", "cancelled"] },
+        "candidateCounts": { "$ref": "#/$defs/LegacyAssetImport/properties/candidateCounts" },
+        "candidateRefs": { "$ref": "#/$defs/LegacyAssetImport/properties/candidateRefs" },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "userApprovalRef": { "$ref": "#/$defs/NonEmptyString" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "enum": ["ready_to_commit", "committed"] } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "sourceRefs": { "type": "array", "items": { "type": "object", "required": ["quality"], "properties": { "quality": { "const": "verified" } } } },
+              "warnings": { "type": "array", "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "committed" } }, "required": ["status"] },
+          "then": { "required": ["userApprovalRef"] }
+        }
+      ],
+      "additionalProperties": false,
+      "$comment": "Workflow metadata for evidenced facts strictly before baseline, not a parallel ledger. Pair with the same importId AssetImportBundle and reuse AssetImportPlan/CommitRequest. A quality label alone is not evidence verification; prepare/commit must resolve and verify sources and enforce ledger-invariants.v1 historicalAssetImport. Historical operation, metadata, source evidence and confirmed plan digest preserve provenance without extending ledger source enums."
     },
     "BackupManifest": {
       "type": "object",

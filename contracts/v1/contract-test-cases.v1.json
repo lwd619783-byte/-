@@ -66,7 +66,12 @@
       "rules": [
         "Legacy import baselineDate=2026-08-14",
         "更早数据无可信证据时不得反推",
-        "后续可信旧记录用 historical_import 补录"
+        "后续可信旧记录用 historical_import 补录",
+        "HistoricalAssetImport(historical-asset-import.v1) baselineDate 固定 2026-08-14；仅允许严格早于 baseline 的事实，不改变正式 baseline",
+        "baseline 前无可信证据 blocked；verified evidence 支持候选后可 historical_asset_import.prepare，不能以 AI 标注 quality=verified 代替来源验证",
+        "metadata 与 AssetImportBundle 同 importId；复用 Plan/CommitRequest，counts 必须匹配，planDigest 绑定 metadata/operation/evidence，准备不改正式账本",
+        "historical_asset_import.commit 须用户确认、planDigest、idempotencyKey、userApprovalRef、Audit 和 atomic commit；证据失效或警告拒绝提交，重试不重复记账",
+        "沿用正式对象 legacy_import provenance；由 metadata/plan/confirmed operation/Audit/source evidence 区分历史补录，不增第二套 ledger，不反推历史"
       ]
     },
     {
@@ -76,7 +81,13 @@
       "rules": [
         "截图解析先成为 candidate",
         "金额与账户总额无法 reconcile 时返回 warning",
-        "没有用户确认不得 commit"
+        "没有用户确认不得 commit",
+        "AccountValueObservation scope=full_account_snapshot，用结构化 totalMarketValue 与 sourceEvidenceRefs 表达账户总额证据，不是 ledger CashFlow/Transaction",
+        "只核对同 bundle、同 accountId/snapshotDate 的完整 PositionSnapshot candidates.marketValue 合计，不静默补旧 snapshot，不使用 external contribution 代替账户总额",
+        "来源必须支持完整当期快照声明；缺 Observation、缺持仓、缺现金、无法验证完整性或币种冲突均 warn/needs_review，不因相加碰巧相等而 pass",
+        "Plan.accountValueReconciliations 结构化输出 observedTotal/candidatePositionTotal/reconciliationDelta/status/warnings，delta=候选持仓合计-观察总额；mismatch 给出非零 delta",
+        "incomplete/currency conflict 不伪造 total 或 delta；重复/冲突 Observation 或持仓候选不能重复计数/择一通过",
+        "完整且同币种精确一致才 pass；任何 warning 不可 commit，用户确认不能越过 warning，核对结果和证据变更须重新 prepare"
       ]
     },
     {
@@ -105,7 +116,14 @@
       "rules": [
         "限购作为有 effectiveFrom/effectiveTo 的 constraint revision",
         "新限购不得改写旧周执行记录",
-        "pendingAmount 可滚动但不挤占下一周新增预算"
+        "pendingAmount 可滚动但不挤占下一周新增预算",
+        "period 仅展示，禁止解析 2026-W36/第36周/9月第一周/Synthetic cycle 或其他自由文本",
+        "periodStart/periodEnd 是正式周期日期，必须成对且 start <= end；旧 payload 无两字段仍 schema-valid，但 schema-valid 不等于可正式提交",
+        "所有 dated linked transactions 必须唯一映射到同一 revision；显式 period 如存在必须包含每个 tradeDate，冲突 fail closed；未知 transactionId 不回退 period",
+        "无 dated transactionIds（缺失/空数组）的正式 commit 必须有显式 period，整个区间唯一落入一个 revision；缺日期、空档、歧义、横跨 revision boundary 均 blocked/needs_review，不默认 latest",
+        "新 revision 生效日起应用新 revision，旧 revision 不再覆盖该日；Constraint effectiveFrom/effectiveTo 和旧执行历史保持不变",
+        "pending rollover 不计 external contribution；保留原预算独立意图但不冻结 plannedAmount+rollover 公式或 purchase_limit 算法",
+        "executedAmount 与 Transaction grossAmount/netAmount/fees-inclusive 均没有 V1 固定等式，严格金额 reconciliation 另行冻结"
       ]
     },
     {
