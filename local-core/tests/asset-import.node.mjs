@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { AssetImportService } from '../../.local-core-build/domain/asset-import-service.js';
 import { contracts } from './fixtures.mjs';
-import { account, asset, transaction, cashFlow, position, candidate, bundle, commitRequest, operator, approval, money, legacy, evidence, reason, context, now } from './asset-fixtures.mjs';
+import { account, asset, transaction, cashFlow, position, dcaPlan, execution, candidate, bundle, commitRequest, operator, approval, money, legacy, evidence, reason, context, now } from './asset-fixtures.mjs';
 
 test('prepare dispatches every candidate payload through its formal V1 schema, including duplicates', t => {
   const { imports, ledger } = context(t);
@@ -182,4 +182,39 @@ test('legacy baseline/count/provenance invariants reject; earlier data cannot be
   assert.equal(verified.items[0].decision, 'blocked'); assert(verified.items[0].warnings.includes('CONTRACT_GAP'));
   reason('IMPORT_NOT_READY', () => imports.commit(commitRequest(verified), operator));
   assert.deepEqual(ledger.transactions(), []);
+});
+
+for (const period of ['Synthetic historical cycle', '2026-08-14', '2026-09-01']) test(`legacy undated DCA rejects without guessing period: ${period}`, t => {
+  const { service, imports, ledger, audit } = context(t);
+  service.saveDcaPlan(dcaPlan(), 0, approval('plan'));
+  for (const ids of [undefined, []]) {
+    const value = execution({ period });
+    if (ids === undefined) delete value.transactionIds; else value.transactionIds = ids;
+    const metadata = legacy({ candidateCounts: { ...legacy().candidateCounts, transactions: 0, dcaExecutions: 1 } });
+    const plan = imports.prepareLegacy(metadata, bundle([candidate(value, 'dca_execution')], { sourceType: 'file_import' }));
+    assert.equal(plan.status, 'blocked'); assert(plan.items[0].warnings.includes('CONTRACT_GAP'));
+    reason('IMPORT_NOT_READY', () => imports.commit(commitRequest(plan), operator));
+  }
+  assert.deepEqual(ledger.dcaExecutions(), []); assert.deepEqual(audit.listByRequest('fixture-import-commit'), []);
+});
+test('legacy dated DCA at baseline remains legal without a netAmount assumption', t => {
+  const { service, imports, ledger } = context(t);
+  service.saveDcaPlan(dcaPlan(), 0, approval('plan'));
+  const trade = transaction({ source: 'legacy_import', sourceEvidenceRef: evidence }); delete trade.netAmount;
+  const value = execution({ executedAmount: money(137) });
+  const plan = imports.prepareLegacy(legacy({ candidateCounts: { ...legacy().candidateCounts, dcaExecutions: 1 } }), bundle([
+    candidate(value, 'dca_execution', { candidateId: 'execution' }), candidate(trade, 'transaction', { candidateId: 'trade' }),
+  ], { sourceType: 'file_import' }));
+  assert.equal(plan.status, 'ready'); imports.commit(commitRequest(plan), operator);
+  assert.equal(ledger.transactions()[0].tradeDate, '2026-08-14');
+  assert.equal(ledger.dcaExecutions()[0].execution.executedAmount.amount, 137);
+});
+test('legacy DCA cannot turn unresolved transaction IDs into temporal evidence', t => {
+  const { service, imports, ledger } = context(t);
+  service.saveDcaPlan(dcaPlan(), 0, approval('plan'));
+  const metadata = legacy({ candidateCounts: { ...legacy().candidateCounts, transactions: 0, dcaExecutions: 1 } });
+  const plan = imports.prepareLegacy(metadata, bundle([candidate(execution({ transactionIds: ['unknown'] }), 'dca_execution')], { sourceType: 'file_import' }));
+  assert.equal(plan.items[0].decision, 'needs_resolution');
+  reason('IMPORT_NOT_READY', () => imports.commit(commitRequest(plan), operator));
+  assert.deepEqual(ledger.dcaExecutions(), []);
 });

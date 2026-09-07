@@ -1,13 +1,12 @@
 import type { ContractRegistry, LocalDatabase, TransactionRepositories } from '../ports/index.js';
 import type { AssetCandidate, AssetImportBundle, AssetImportCommitRequest, AssetImportPlan, CandidatePayloads, Confirmation, ImportPlanItem, LegacyAssetImport, MutationResult, StoredImportPlan } from './asset-types.js';
 import { candidateVersions, recordId } from './asset-types.js';
-import { amountSum, amountsEqual, checked, digest, externalContributions, readAssetState, validateRecord, validateTransferPairs } from './asset-invariants.js';
+import { amountSum, amountsEqual, checked, digest, externalContributions, ledgerBaselineDate as baselineDate, readAssetState, validateRecord, validateTransferPairs } from './asset-invariants.js';
 import { addToState, appendRecord, authorizeRecord, confirmedMutation, duplicateKeys, factDigest, officialRecords, registerRecord, requireConfirmation } from './asset-service.js';
 import type { ValidatedRecord } from './asset-service.js';
 import { canonicalJson } from './canonical-json.js';
 import { fail, LocalCoreError } from './errors.js';
 
-const baselineDate = '2026-08-14';
 const order = { account: 0, asset: 1, transaction: 2, cash_flow: 3, position_snapshot: 4, dca_execution: 5 };
 const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 interface Planned { stored: StoredImportPlan; records: { candidate: AssetCandidate; record: ValidatedRecord }[] }
@@ -55,6 +54,7 @@ export class AssetImportService {
         if (legacy) {
           if (!legacy.sourceRefs?.length || legacy.sourceRefs.some(ref => ref.quality !== 'verified')) fail('RECONCILIATION_REQUIRED', 'Legacy import requires verified source references.');
           if (('source' in value && value.source !== 'legacy_import') || bundle.sourceType !== 'file_import') fail('LEDGER_INVALID', 'Legacy records must retain legacy provenance and file-import routing.');
+          if (value.schemaVersion === 'dca-execution.v1' && !value.transactionIds?.length) fail('CONTRACT_GAP', 'Legacy DCA history needs dated transaction references; V1 period cannot prove that execution occurred on or after the baseline.');
         } else if ('source' in value && value.source === 'legacy_import') fail('LEDGER_INVALID', 'Legacy records require legacy prepare.');
         if (bundle.sourceType === 'chatgpt_screenshot_parse') {
           if (!bundle.sourceEvidenceRefs?.length && !candidate.sourceEvidenceRefs?.length) fail('RECONCILIATION_REQUIRED', 'Screenshot candidates require source evidence.');

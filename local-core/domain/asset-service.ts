@@ -91,6 +91,7 @@ export class AssetService {
   constructor(private readonly database: LocalDatabase, private readonly contracts: ContractRegistry, private readonly now: () => string = () => new Date().toISOString()) {}
   private create(type: CandidateType, input: unknown, confirmation: Confirmation, operation: string, allowPositionWarning = false): MutationResult {
     const value = checked<CandidatePayloads[CandidateType]>(this.contracts, candidateVersions[type], input);
+    if (value.schemaVersion === 'position-snapshot.v1' && ['confirmed_screenshot', 'legacy_import'].includes(value.source)) fail('LEDGER_INVALID', 'Screenshot and legacy positions require their import prepare/plan/commit flow.');
     const c = requireConfirmation(confirmation);
     return this.database.transaction(repositories => confirmedMutation(repositories, operation, c, value, () => {
       const state = readAssetState(repositories.ledger);

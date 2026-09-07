@@ -6,6 +6,12 @@ import { canonicalJson } from './canonical-json.js';
 import { fail } from './errors.js';
 import { V1EntityResolver } from './resolver.js';
 
+export const ledgerBaselineDate = '2026-08-14';
+export function requireLedgerBaseline(value: CandidatePayloads[CandidateType]): void {
+  const date = 'tradeDate' in value ? value.tradeDate : 'date' in value ? value.date : 'snapshotDate' in value ? value.snapshotDate : undefined;
+  if (date && date < ledgerBaselineDate) fail('CONTRACT_GAP', 'Formal history before 2026-08-14 requires a frozen historical_import contract.');
+}
+
 export const digest = (value: unknown): string => createHash('sha256').update(canonicalJson(value), 'utf8').digest('hex');
 export function checked<T>(contracts: ContractRegistry, version: string, value: unknown): T {
   const copy = JSON.parse(canonicalJson(value)) as T;
@@ -140,6 +146,7 @@ export function validateExecution(execution: DcaExecution, state: AssetState): n
   const ids = execution.transactionIds ?? [];
   if (new Set(ids).size !== ids.length) fail('LEDGER_INVALID', 'DCA transaction links must be unique.');
   const linked = ids.map(id => state.transactions.find(v => v.transactionId === id) ?? fail('RECORD_NOT_FOUND', 'DCA transaction reference is unresolved.'));
+  linked.forEach(requireLedgerBaseline);
   if (state.executions.some(v => v.execution.transactionIds?.some(id => ids.includes(id)))) fail('LEDGER_INVALID', 'A transaction cannot fund multiple DCA executions.');
   let revision: DcaRevision | undefined;
   if (linked.length) {
@@ -150,7 +157,8 @@ export function validateExecution(execution: DcaExecution, state: AssetState): n
     revision = selected[0];
     if (!revision || selected.some(r => r?.revision !== revision?.revision)) fail('RECONCILIATION_REQUIRED', 'DCA transactions do not identify one effective plan revision.');
     if (linked.some(t => !inflowSides.includes(t.side) || (revision!.plan.assetId ? t.assetId !== revision!.plan.assetId : requireAsset(state, t.assetId).primaryCategory !== revision!.plan.primaryCategory))) fail('RECONCILIATION_REQUIRED', 'DCA transaction asset or direction does not match the plan.');
-    if (linked.some(t => !t.netAmount || t.netAmount.currency !== execution.executedAmount.currency) || !amountsEqual(linked.map(t => t.netAmount!.amount), [execution.executedAmount.amount])) fail('RECONCILIATION_REQUIRED', 'DCA actual amount cannot reconcile to its linked transaction net amounts.');
+    // V1 does not define executedAmount as gross, net or fees-inclusive.
+    // Linked transactions establish identity, direction and time, not an amount equation.
   } else {
     // period is a NonEmptyString, not a frozen date grammar. Do not silently
     // select latest rules for an undated execution after a revision.
@@ -166,6 +174,7 @@ export function validateExecution(execution: DcaExecution, state: AssetState): n
   return revision.revision;
 }
 export function validateRecord(type: CandidateType, value: CandidatePayloads[CandidateType], state: AssetState, entities: EntityRepository, contracts: ContractRegistry): { warnings: string[]; entityId?: string; revision?: number } {
+  requireLedgerBaseline(value);
   let warnings: string[] = [], entityId: string | undefined, revision: number | undefined;
   switch (type) {
     case 'account': break;

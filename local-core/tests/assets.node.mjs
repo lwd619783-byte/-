@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { AssetService } from '../../.local-core-build/domain/asset-service.js';
-import { amountsEqual, amountSum } from '../../.local-core-build/domain/asset-invariants.js';
+import { amountsEqual, amountSum, readAssetState, validateExecution } from '../../.local-core-build/domain/asset-invariants.js';
 import { contracts } from './fixtures.mjs';
 import { account, asset, transaction, cashFlow, position, dcaPlan, execution, money, approval, reason, context, now } from './asset-fixtures.mjs';
 
@@ -198,4 +198,96 @@ test('DCA unconfirmed/nonactual completion rejects; confirmed actual subscriptio
   service.commitDcaExecution(actual, approval('confirmed-actual'));
   assert.equal(ledger.dcaExecutions()[0].execution.status, 'completed');
   assert.deepEqual(ledger.transactions(), []); assert.deepEqual(ledger.cashFlows(), []);
+});
+
+for (const kind of ['transaction', 'cashflow', 'manual-position', 'calculated-position']) test(`CB-1: direct ${kind} before baseline rejects without official effects`, t => {
+  const { service, ledger, audit } = context(t);
+  const c = approval('pre-baseline');
+  reason('CONTRACT_GAP', () => {
+    if (kind === 'transaction') return service.createTransaction(transaction({ tradeDate: '2026-08-13' }), c);
+    if (kind === 'cashflow') return service.createCashFlows([cashFlow({ date: '2026-08-13' })], c);
+    return service.createPosition(position({ snapshotDate: '2026-08-13', source: kind === 'manual-position' ? 'manual' : 'calculated' }), c);
+  });
+  assert.deepEqual(ledger.transactions(), []); assert.deepEqual(ledger.cashFlows(), []); assert.deepEqual(ledger.positions(), []);
+  assert.equal(ledger.operation(c.idempotencyKey), undefined); assert.deepEqual(audit.listByRequest(c.idempotencyKey), []);
+});
+test('baseline-day direct facts remain legal, including manual and calculated positions', t => {
+  const { service, ledger } = context(t);
+  service.createTransaction(transaction(), approval('baseline-trade'));
+  service.createCashFlows([cashFlow()], approval('baseline-flow'));
+  for (const source of ['manual', 'calculated']) service.createPosition(position({ snapshotId: source, source }), approval(source));
+  assert.equal(ledger.transactions()[0].tradeDate, '2026-08-14');
+  assert.equal(ledger.cashFlows()[0].date, '2026-08-14');
+  assert(ledger.positions().every(v => v.snapshotDate === '2026-08-14'));
+});
+test('one pre-baseline cash flow prevents the entire mixed-date batch from committing', t => {
+  const { service, ledger, audit } = context(t);
+  reason('CONTRACT_GAP', () => service.createCashFlows([cashFlow(), cashFlow({ cashFlowId: 'early', date: '2026-08-13' })], approval()));
+  assert.deepEqual(ledger.cashFlows(), []); assert.deepEqual(audit.listByRequest(approval().idempotencyKey), []);
+});
+for (const source of ['confirmed_screenshot', 'legacy_import']) test(`direct Position ${source} requires import workflow`, t => {
+  const { service, ledger } = context(t);
+  reason('LEDGER_INVALID', () => service.createPosition(position({ source }), approval()));
+  assert.deepEqual(ledger.positions(), []); assert.equal(ledger.operation(approval().idempotencyKey), undefined);
+});
+for (const source of ['confirmed_screenshot', 'legacy_import', 'provider_import']) test(`direct Transaction ${source} remains prohibited`, t => {
+  const { service, ledger } = context(t);
+  reason('LEDGER_INVALID', () => service.createTransaction(transaction({ source }), approval()));
+  assert.deepEqual(ledger.transactions(), []);
+});
+for (const shape of ['quantity-only', 'gross-only', 'quantity-gross', 'with-net']) test(`DCA accepts ${shape} links without inventing an executedAmount equation`, t => {
+  const { service, ledger, audit } = context(t);
+  service.saveDcaPlan(dcaPlan(), 0, approval('plan'));
+  const trade = transaction();
+  if (shape !== 'with-net') delete trade.netAmount;
+  if (shape === 'quantity-only') for (const key of ['price', 'grossAmount', 'fees']) delete trade[key];
+  if (shape === 'gross-only') for (const key of ['quantity', 'price', 'fees']) delete trade[key];
+  service.createTransaction(trade, approval('trade'));
+  const actual = execution({ executedAmount: money(137), pendingAmount: money(0), status: 'completed' });
+  const receipt = service.commitDcaExecution(actual, approval('actual'));
+  assert.deepEqual(service.commitDcaExecution(actual, approval('actual')), receipt);
+  assert.equal(ledger.dcaExecutions()[0].execution.executedAmount.amount, 137);
+  assert.deepEqual(ledger.transactions()[0], trade);
+  assert.equal(audit.listByRequest('actual').length, 1);
+});
+for (const problem of ['asset', 'category', 'direction', 'revision', 'missing-link', 'duplicate-link']) test(`DCA still rejects wrong ${problem}`, t => {
+  const { service, ledger } = context(t);
+  const plan = dcaPlan();
+  const trade = transaction();
+  const actual = execution();
+  if (problem === 'asset') { service.createAsset(asset({ assetId: 'other' }), approval('other')); trade.assetId = 'other'; }
+  if (problem === 'category') { delete plan.assetId; plan.primaryCategory = 'Unmatched synthetic category'; }
+  if (problem === 'direction') { trade.side = 'sell'; trade.netAmount = money(99); }
+  if (problem === 'revision') plan.activeFrom = '2026-08-15';
+  if (problem === 'missing-link') actual.transactionIds = ['missing'];
+  if (problem === 'duplicate-link') actual.transactionIds.push(actual.transactionIds[0]);
+  service.saveDcaPlan(plan, 0, approval('plan')); service.createTransaction(trade, approval('trade'));
+  const code = problem === 'missing-link' ? 'RECORD_NOT_FOUND' : problem === 'duplicate-link' ? 'LEDGER_INVALID' : 'RECONCILIATION_REQUIRED';
+  reason(code, () => service.commitDcaExecution(actual, approval('actual')));
+  assert.deepEqual(ledger.dcaExecutions(), []);
+});
+test('a transaction cannot be reused by a second DCA execution', t => {
+  const { service, ledger } = context(t);
+  service.saveDcaPlan(dcaPlan(), 0, approval('plan')); service.createTransaction(transaction(), approval('trade'));
+  service.commitDcaExecution(execution(), approval('first'));
+  reason('LEDGER_INVALID', () => service.commitDcaExecution(execution({ executionId: 'second', period: 'Other cycle' }), approval('second')));
+  assert.equal(ledger.dcaExecutions().length, 1);
+});
+test('DCA cannot use an existing pre-baseline transaction to evade the historical boundary', t => {
+  const { service, ledger } = context(t);
+  service.saveDcaPlan(dcaPlan(), 0, approval('plan'));
+  const state = readAssetState(ledger);
+  state.transactions.push(transaction({ tradeDate: '2026-08-13' })); // synthetic old-state fixture; never written to DB
+  reason('CONTRACT_GAP', () => validateExecution(execution(), state));
+});
+test('DCA links across revisions still reject and date-looking period cannot bypass CB-3', t => {
+  const store = context(t), { service, ledger } = store;
+  service.saveDcaPlan(dcaPlan(), 0, approval('plan'));
+  service.createTransaction(transaction(), approval('old-trade'));
+  service.saveDcaPlan(dcaPlan({ activeFrom: '2026-09-08', constraints: [] }), 1, approval('revision'));
+  const later = new AssetService(store.database, contracts, () => '2026-09-09T12:00:00Z');
+  later.createTransaction(transaction({ transactionId: 'new-trade', tradeDate: '2026-09-09' }), approval('new-trade'));
+  reason('RECONCILIATION_REQUIRED', () => later.commitDcaExecution(execution({ transactionIds: ['fixture-transaction', 'new-trade'] }), approval('cross-revision')));
+  reason('CONTRACT_GAP', () => later.commitDcaExecution(execution({ transactionIds: [], period: '2026-09-09' }), approval('undated')));
+  assert.deepEqual(ledger.dcaExecutions(), []);
 });
