@@ -1,3 +1,6 @@
+import { QuoteTrust, QuoteTrustSummary } from "../common/QuoteTrust";
+import { describeDataTime } from "../../utils/dataTrustDisplay";
+import { useDisplayNow } from "../../hooks/useDisplayNow";
 import { useEffect, useRef } from "react";
 import {
   ArrowDown,
@@ -27,7 +30,7 @@ interface HomeStats {
   verificationChains: number;
   todayReview: number;
   overdueReview: number;
-  quoteCoverageReal: number;
+  quoteStatusRealCovered: number;
   quoteCoverageTotal: number;
   pendingExpectationSources: number;
 }
@@ -45,6 +48,8 @@ interface HomePageProps {
   macroCount: number;
   stats: HomeStats;
   focusStocks: Stock[];
+  quoteStocks: Stock[];
+  now?: Date;
   onDataModeChange: (mode: DashboardDataMode) => void;
   onNavigate: (destination: ResearchDestination) => void;
   onOpenStock: (stock: Stock) => void;
@@ -58,7 +63,7 @@ const MODULES: Array<{
   description: string;
   tone: "cyan" | "blue" | "violet";
 }> = [
-  { id: "宏观", icon: Globe2, index: "01", label: "宏观雷达", description: "政策、流动性与跨市场变量", tone: "cyan" },
+  { id: "宏观", icon: Globe2, index: "01", label: "宏观观测", description: "政策、流动性与跨市场变量", tone: "cyan" },
   { id: "行业", icon: Building2, index: "02", label: "产业图谱", description: "行业景气、驱动与产业链结构", tone: "blue" },
   { id: "个股池", icon: BarChart3, index: "03", label: "资产核心池", description: "A 股与港股标的、财务与风险跟踪", tone: "violet" },
   { id: "观察清单", icon: Binoculars, index: "04", label: "观察工作流", description: "观察项、复盘任务与历史留痕", tone: "cyan" },
@@ -79,10 +84,13 @@ export function HomePage({
   macroCount,
   stats,
   focusStocks,
+  quoteStocks,
+  now,
   onDataModeChange,
   onNavigate,
   onOpenStock,
 }: HomePageProps) {
+  const displayNow = useDisplayNow(now);
   const heroRef = useRef<HTMLElement>(null);
   const displayModeLabel = dataModeDisplayLabel(modeLabel);
   const localizedSourceNote = localizeDataSourceNote(sourceNote);
@@ -205,7 +213,7 @@ export function HomePage({
               <strong className="mt-1 text-2xl font-medium tracking-tight text-textStrong tabular-nums">{stocksCount}</strong>
               <span className="text-[10px] tracking-[0.18em] text-textWeak">跟踪资产</span>
             </div>
-            <OrbitLabel className="label-macro" eyebrow="宏观" value={`${macroCount} 项信号`} />
+            <OrbitLabel className="label-macro" eyebrow="宏观" value={`${macroCount} 项观测`} />
             <OrbitLabel className="label-industry" eyebrow="行业" value={`${industriesCount} 个图谱`} />
             <OrbitLabel className="label-evidence" eyebrow="证据" value={`${stats.verificationChains} 条链路`} />
             <div className="home-axis home-axis-x" aria-hidden="true" />
@@ -213,11 +221,11 @@ export function HomePage({
           </div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 z-30 border-y border-white/[0.07] bg-black/25 backdrop-blur-xl">
+        <div className="relative z-30 border-y border-white/[0.07] bg-black/25 backdrop-blur-xl">
           <div className="mx-auto grid max-w-[1560px] gap-px px-5 sm:grid-cols-3 sm:px-8 lg:grid-cols-[1.1fr_1fr_1.4fr_auto] lg:px-12">
             <HeroSignal label="数据模式" value={displayModeLabel} />
-            <HeroSignal label="A 股行情覆盖" value={`${stats.quoteCoverageReal} / ${stats.quoteCoverageTotal}`} />
-            <HeroSignal label="最近数据更新" value={updatedAt || "暂无更新时间"} />
+            <HeroSignal label="A 股行情覆盖（质量状态 real 且有价格）" value={`${stats.quoteStatusRealCovered} / ${stats.quoteCoverageTotal}`} />
+            <HeroSignal label="数据包更新记录" value={describeDataTime(dataMode === "mock" ? undefined : updatedAt, "package_updated", displayNow).text} />
             <button type="button" className="home-scroll-cue hidden items-center gap-3 px-5 text-[10px] tracking-[0.2em] text-textMuted lg:flex" onClick={scrollToResearch}>
               向下探索 <ArrowDown className="h-3.5 w-3.5" />
             </button>
@@ -226,6 +234,7 @@ export function HomePage({
       </section>
 
       <main className="relative z-10 bg-[#050913]">
+        <div className="mx-auto max-w-[1480px] px-5 pt-5 sm:px-8 lg:px-12"><QuoteTrustSummary stocks={quoteStocks} now={displayNow} /></div>
         <section id="research-grid" className="mx-auto max-w-[1480px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
           <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end" data-home-reveal>
             <div>
@@ -295,6 +304,7 @@ export function HomePage({
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-medium text-textStrong">{stock.name}</span>
                       <span className="mt-1 block truncate text-[11px] uppercase tracking-[0.1em] text-textWeak">{stock.market} / {stock.code}</span>
+                      <QuoteTrust quote={stock.quote} now={displayNow} />
                     </span>
                     <span className={`text-sm font-medium tabular-nums ${priceTone(stock.quote?.pctChange)}`}>{formatPercent(stock.quote?.pctChange)}</span>
                     <ArrowUpRight className="h-4 w-4 text-textWeak" />
@@ -330,7 +340,7 @@ function HeroSignal({ label, value }: { label: string; value: string }) {
   return (
     <div className="border-white/[0.07] py-3.5 sm:border-r sm:px-5 first:pl-0">
       <span className="block text-[9px] font-semibold uppercase tracking-[0.2em] text-textWeak">{label}</span>
-      <strong className="mt-1 block truncate text-[11px] font-medium text-textStrong tabular-nums" title={value}>{value}</strong>
+      <strong className="mt-1 block break-words text-[11px] font-medium text-textStrong tabular-nums" title={value}>{value}</strong>
     </div>
   );
 }

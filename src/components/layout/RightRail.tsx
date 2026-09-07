@@ -1,3 +1,5 @@
+import { QuoteTrust } from "../common/QuoteTrust";
+import { dataModeDisplayLabel } from "../../utils/displayLabels";
 import type { Stock } from "../../types";
 import type { ReactNode } from "react";
 import { formatPercent } from "../../utils/normalize";
@@ -20,13 +22,13 @@ export function RightRail({
   missingStocks: Stock[];
   onOpenStock: (stock: Stock) => void;
 }) {
-  const modeStatus = mode === "mock" ? "mock" : mode === "real" ? "real" : "stale";
+  const modeStatus = mode === "mock" ? "mock" : mode === "real" ? "real" : "partial";
 
   return (
     <aside className="right-rail-stack space-y-3">
       <InfoPanel title="数据控制台" subtitle="数据概览">
         <div className="flex flex-wrap gap-2">
-          <StatusBadge status={modeStatus} />
+          <StatusBadge status={modeStatus} label={`数据模式：${dataModeDisplayLabel(mode)}`} />
           <StatusBadge status="unsupported_market" />
         </div>
         <p className="mt-3 line-clamp-4 text-sm leading-6 text-textMuted" title={coverageSummary}>
@@ -58,6 +60,7 @@ export function RightRail({
                   <span className="block truncate text-xs text-textMuted">
                     {stock.market} · {stock.code}
                   </span>
+                  <QuoteTrust quote={stock.quote} />
                 </span>
                 <span className={`shrink-0 text-sm tabular-nums ${toneForPct(pct)}`}>{formatPercent(pct)}</span>
               </button>

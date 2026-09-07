@@ -1,3 +1,6 @@
+import { isRecentlyUpdated } from "../../utils/dataQuality";
+import { useDisplayNow } from "../../hooks/useDisplayNow";
+import { QuoteTrust } from "../common/QuoteTrust";
 import { useMemo, useState } from "react";
 import { LayoutGrid, Table2 } from "lucide-react";
 import type { Industry, Market, RiskLevel, Stock } from "../../types";
@@ -31,10 +34,11 @@ interface StockPoolProps {
   onOpenStock: (stock: Stock) => void;
 }
 
-type QualityFilter = "全部" | "真实数据" | "缺失项" | "暂不支持" | "最近更新";
+type QualityFilter = "全部" | "行情状态为真实" | "缺失项" | "暂不支持" | "行情采集24小时内";
 type SortMode = "默认" | "覆盖率高到低" | "覆盖率低到高" | "涨跌幅" | "市值" | "PE";
 
 export function StockPool({ stocks, industries, globalSearch, onOpenStock }: StockPoolProps) {
+  const displayNow = useDisplayNow();
   const [filters, setFilters] = useState<StockFilters>({ ...defaultStockFilters, search: globalSearch });
   const [view, setView] = useState<"table" | "cards">("table");
   const [qualityFilter, setQualityFilter] = useState<QualityFilter>("全部");
@@ -44,10 +48,10 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
   const visibleStocks = useMemo(() => {
     const basic = filterStocks(stocks, mergedFilters, industries);
     const filtered = basic.filter((stock) => {
-      if (qualityFilter === "真实数据") return stock.dataQuality?.some((item) => item.status === "real" || item.status === "stale");
+      if (qualityFilter === "行情状态为真实") return stock.quote?.quality?.status === "real";
       if (qualityFilter === "缺失项") return (stock.missingFields?.length ?? 0) > 0;
       if (qualityFilter === "暂不支持") return stock.dataQuality?.some((item) => item.status === "unsupported_market");
-      if (qualityFilter === "最近更新") return Boolean(stock.isRecentlyUpdated);
+      if (qualityFilter === "行情采集24小时内") return isRecentlyUpdated(stock.quote?.updatedAt, displayNow);
       return true;
     });
     if (sortMode === "覆盖率高到低") return [...filtered].sort((a, b) => (b.dataCoverage ?? -1) - (a.dataCoverage ?? -1));
@@ -56,7 +60,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
     if (sortMode === "市值") return [...filtered].sort((a, b) => (b.quote?.marketCap ?? -Infinity) - (a.quote?.marketCap ?? -Infinity));
     if (sortMode === "PE") return [...filtered].sort((a, b) => (a.quote?.peTtm ?? a.quote?.pe ?? Infinity) - (b.quote?.peTtm ?? b.quote?.pe ?? Infinity));
     return filtered;
-  }, [stocks, mergedFilters, industries, qualityFilter, sortMode]);
+  }, [stocks, mergedFilters, industries, qualityFilter, sortMode, displayNow]);
 
   const segmentOptions = getSegmentsByIndustry(industries, filters.industryId);
 
@@ -116,7 +120,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
           ))}
         </FilterSelect>
         <FilterSelect label="数据质量" value={qualityFilter} onChange={(value) => setQualityFilter(value as QualityFilter)}>
-          {["全部", "真实数据", "缺失项", "暂不支持", "最近更新"].map((item) => (
+          {["全部", "行情状态为真实", "缺失项", "暂不支持", "行情采集24小时内"].map((item) => (
             <option key={item} value={item}>
               {item}
             </option>
@@ -152,8 +156,8 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
           <DataTable className="hidden lg:block" minWidth="1180px">
             <thead className="sticky top-0 bg-bg2 text-xs text-textMuted">
               <tr>
-                {["股票", "代码", "市场", "行业", "细分板块", "最新价", "涨跌幅", "市值", "PE", "覆盖率", "缺失", "风险", "核心看点"].map((header) => (
-                  <th key={header} className={`px-3 py-3 font-medium ${["最新价", "涨跌幅", "市值", "PE", "覆盖率", "缺失"].includes(header) ? "text-right" : ""}`}>
+                {["股票", "代码", "市场", "行业", "细分板块", "快照价格", "涨跌幅", "市值", "PE", "覆盖率", "缺失", "风险", "核心看点"].map((header) => (
+                  <th key={header} className={`px-3 py-3 font-medium ${["快照价格", "涨跌幅", "市值", "PE", "覆盖率", "缺失"].includes(header) ? "text-right" : ""}`}>
                     {header}
                   </th>
                 ))}
@@ -166,6 +170,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
                     <button className="max-w-full truncate font-medium text-cyan hover:underline" onClick={() => onOpenStock(stock)} title={stock.name}>
                       {stock.name}
                     </button>
+                    <QuoteTrust quote={stock.quote} now={displayNow} />
                   </td>
                   <td className="px-3 py-3 text-textMuted">{stock.code}</td>
                   <td className="px-3 py-3 text-textMuted">{stock.market}</td>

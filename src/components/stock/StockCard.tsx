@@ -1,3 +1,4 @@
+import { QuoteTrust } from "../common/QuoteTrust";
 import { ChevronRight } from "lucide-react";
 import type { Stock } from "../../types";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
@@ -31,7 +32,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
         </div>
       </div>
       <div className="mt-3 grid min-w-0 grid-cols-1 gap-2 text-sm sm:grid-cols-3">
-        <MetricCard label="最新价" value={numberToDisplay(stock.quote?.latestPrice)} />
+        <MetricCard label="快照价格" value={numberToDisplay(stock.quote?.latestPrice)} />
         <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={metricTone(stock.quote?.pctChange)} />
         <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />
       </div>
@@ -92,9 +93,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
         <p className="break-words" title={stock.dataQuality?.map((item) => statusDisplayLabel(item.status)).join(" / ") || "模拟数据"}>
           状态：{stock.dataQuality?.map((item) => statusDisplayLabel(item.status)).join(" / ") || "模拟数据"}
         </p>
-        <p className="break-words" title={stock.quote?.updatedAt ?? stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? "数据暂缺"}>
-          更新：{stock.quote?.updatedAt ?? stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? "数据暂缺"}
-        </p>
+        <QuoteTrust quote={stock.quote} />
         <p>
           缺失字段：
           <span className={(stock.missingFields?.length ?? 0) > 0 ? "text-warning" : "text-success"}>{stock.missingFields?.length ?? 0}</span>

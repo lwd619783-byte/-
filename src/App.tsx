@@ -1,3 +1,5 @@
+import { QuoteTrustSummary } from "./components/common/QuoteTrust";
+import { summarizeQuotes } from "./utils/dataTrustDisplay";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, House, LineChart, Plus, ScrollText, RefreshCw, type LucideIcon } from "lucide-react";
 import { Header } from "./components/layout/Header";
@@ -16,7 +18,7 @@ import { EarningsExpectationCenter } from "./components/expectation/EarningsExpe
 import { EarningsExpectationFormModal } from "./components/expectation/EarningsExpectationFormModal";
 import { EarningsExpectationImportModal } from "./components/expectation/EarningsExpectationImportModal";
 import { HomePage, type ResearchDestination } from "./components/home/HomePage";
-import { dataSourceNote, macroIndicators } from "./data/macroData";
+import { dataSourceNote, dataUpdatedAt, macroIndicators } from "./data/macroData";
 import { watchlistSamples } from "./data/watchlist";
 import { buildDashboardDataset } from "./services/dataProvider";
 import { buildResearchEventSnapshot, deduplicateResearchEvents, sortResearchEvents } from "./services/researchEventProvider";
@@ -165,33 +167,25 @@ export default function App() {
   };
 
   const dashboardStats = useMemo(() => {
-    const quoteCoverage = dataset.realManifest.coverage?.quotes;
-    const hkQuoteCoverage = dataset.realManifest.coverage?.hkQuotes;
-    const hkRealCount = hkQuoteCoverage?.real ?? 0;
-    const hkQuoteTotal = hkQuoteCoverage?.total ?? quoteCoverage?.unsupportedTotal ?? dataset.realManifest.universe?.markets?.["港股"];
     const stocksWithReal = dataset.stocks.filter((stock) =>
       stock.dataQuality?.some((item) => item.status === "real" || item.status === "partial" || item.status === "stale"),
     ).length;
     const missingFields = dataset.stocks.reduce((sum, stock) => sum + (stock.missingFields?.length ?? 0), 0);
     const pctValues = dataset.stocks
       .map((stock) => stock.quote?.pctChange)
-      .filter((value): value is number => typeof value === "number");
+      .filter((value): value is number => typeof value === "number" && Number.isFinite(value));
     const averagePct = pctValues.length ? pctValues.reduce((sum, value) => sum + value, 0) / pctValues.length : null;
-    const recentlyUpdated = dataset.stocks.filter((stock) => stock.isRecentlyUpdated).length;
     const highRisk = dataset.stocks.filter((stock) => stock.riskLevel === "高").length;
     const segments = dataset.industries.reduce((sum, industry) => sum + industry.segments.length, 0);
     const focusStocks = [...dataset.stocks]
       .sort((a, b) => Math.abs(b.quote?.pctChange ?? 0) - Math.abs(a.quote?.pctChange ?? 0))
       .slice(0, 4);
     const missingStocks = dataset.stocks.filter((stock) => (stock.missingFields?.length ?? 0) > 0).slice(0, 6);
-    const quoteCoverageReal = quoteCoverage?.real ?? stocksWithReal;
-    const quoteCoverageTotal = quoteCoverage?.total ?? dataset.stocks.filter((stock) => stock.market === "A股").length;
-    const hkCoverageSummary =
-      hkQuoteCoverage
-        ? `港股行情 ${hkQuoteCoverage.real}/${hkQuoteCoverage.total}`
-        : hkQuoteTotal === undefined
-          ? "港股暂未接入"
-          : `港股 ${hkRealCount}/${hkQuoteTotal} 暂未接入`;
+    const aShareQuotes = summarizeQuotes(dataset.stocks.filter((stock) => stock.market === "A股").map((stock) => stock.quote));
+    const quoteStatusRealCovered = aShareQuotes.statusRealCovered;
+    const quoteCoverageTotal = aShareQuotes.total;
+    const hkQuotes = summarizeQuotes(dataset.stocks.filter((stock) => stock.market === "港股").map((stock) => stock.quote));
+    const hkCoverageSummary = `港股行情质量状态 real 且有价格 ${hkQuotes.statusRealCovered}/${hkQuotes.total}`;
     const cutoff = shiftCalendarDate(getCalendarToday(new Date(), expectationData.settings.timeZone), -6);
     const recentEvents = researchSnapshot.events.filter((event) => event.eventType !== "data_warning" && eventCalendarDate(event, expectationData.settings.timeZone) >= cutoff).length;
     const pendingReviewCompanies = new Set(researchSnapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
@@ -215,12 +209,12 @@ export default function App() {
       stocksWithReal,
       missingFields,
       averagePct,
-      recentlyUpdated,
+      pctSampleCount: pctValues.length,
       highRisk,
       segments,
       focusStocks,
       missingStocks,
-      quoteCoverageReal,
+      quoteStatusRealCovered,
       quoteCoverageTotal,
       hkCoverageSummary,
       recentEvents,
@@ -292,9 +286,10 @@ export default function App() {
           stocksCount={dataset.stocks.length}
           activeWatchCount={watchlistData.watchItems.filter((item) => !item.archivedAt).length}
           expectationCount={aggregatedExpectationEvidence.snapshots.length}
-          macroCount={macroIndicators.length}
+          macroCount={macroIndicators.reduce((sum, indicator) => sum + indicator.metrics.length, 0)}
           stats={dashboardStats}
           focusStocks={dashboardStats.focusStocks}
+          quoteStocks={dataset.stocks}
           onDataModeChange={setDataMode}
           onNavigate={navigateToTab}
           onOpenStock={setSelectedStock}
@@ -397,16 +392,18 @@ export default function App() {
 
           <DashboardCard className="p-3">
             <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-4" aria-label="数据健康信息">
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">真实行情覆盖：<strong className="text-textStrong">{dashboardStats.quoteCoverageReal}/{dashboardStats.quoteCoverageTotal}</strong></span>
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">平均涨跌幅：<strong className="text-textStrong">{formatPercent(dashboardStats.averagePct)}</strong></span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">A股行情质量状态 real 且有价格：<strong className="text-textStrong">{dashboardStats.quoteStatusRealCovered}/{dashboardStats.quoteCoverageTotal}</strong></span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">已载入快照平均涨跌幅：<strong className="text-textStrong">{formatPercent(dashboardStats.averagePct)}</strong>（有值 {dashboardStats.pctSampleCount}/{dataset.stocks.length}）</span>
               <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">缺失字段：<strong className="text-warning">{dashboardStats.missingFields}</strong></span>
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">最近更新样本：<strong className="text-textStrong">{dashboardStats.recentlyUpdated}</strong> · {dashboardStats.hkCoverageSummary}</span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">{dashboardStats.hkCoverageSummary}</span>
             </div>
           </DashboardCard>
 
+          <QuoteTrustSummary stocks={dataset.stocks} />
+
           {workflowMessage ? <div role="status" className="rounded-md border border-success/35 bg-success/10 px-3 py-2 text-sm text-success">{workflowMessage}</div> : null}
 
-          {activeTab === "宏观" && <MacroTab indicators={macroIndicators} />}
+          {activeTab === "宏观" && <MacroTab indicators={macroIndicators} generatedAt={dataUpdatedAt} />}
           {activeTab === "行业" && (
             <IndustryTab
               industries={dataset.industries}
