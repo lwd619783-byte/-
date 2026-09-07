@@ -50,7 +50,8 @@
     "test:contracts": "node scripts/run-local-core.mjs test-contracts",
     "local:db:init": "node scripts/run-local-core.mjs init",
     "contracts:validate": "node scripts/run-local-core.mjs contracts",
-    "test:local-core": "node scripts/run-local-core.mjs test-local-core"
+    "test:local-core": "node scripts/run-local-core.mjs test-local-core",
+    "test:assets": "node scripts/run-local-core.mjs test-assets"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

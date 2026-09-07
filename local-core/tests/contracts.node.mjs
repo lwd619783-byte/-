@@ -57,9 +57,11 @@ for (const [name, corrupt] of Object.entries(corruptions)) test(`registry reject
   const docs = loadContractDocuments(); corrupt(docs);
   expectCode('CONTRACT_INVALID', () => new V1ContractRegistry(docs));
 });
-test('all 21 whole Phase 1 business cases remain declared; no fake domain execution', () => {
+test('Phase 1B case availability distinguishes executable, partial and future work; no cached PASS', () => {
   assert.equal(contracts.declaredCases.length, 21);
-  assert(contracts.declaredCases.every((item) => item.status === 'declared / not-yet-executable'));
+  assert.deepEqual(contracts.declaredCases.filter(v => v.status === 'executable').map(v => v.id), ['A-003', 'A-004', 'A-006', 'A-007', 'A-008']);
+  assert.deepEqual(contracts.declaredCases.filter(v => v.status === 'partially executable / contract blocker').map(v => v.id), ['A-001', 'A-002', 'A-005']);
+  assert.equal(contracts.declaredCases.find(v => v.id === 'P-001').status, 'declared / not-yet-executable');
 });
 test('entity types and statuses exactly match frozen contract', () => {
   const definitions = loadContractDocuments()['entity-resolution.v1.schema.json'].$defs;

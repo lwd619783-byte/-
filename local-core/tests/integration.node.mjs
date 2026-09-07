@@ -18,7 +18,7 @@ test('CLI init/verify uses explicit temp path, redacted output, nonzero fail-clo
   for (const command of ['init', 'init', 'verify']) {
     const result = run(command, '--db', filename);
     assert.equal(result.status, 0, result.stderr);
-    assert.equal(JSON.parse(result.stdout).schemaVersion, 1);
+    assert.equal(JSON.parse(result.stdout).schemaVersion, 2);
     assert(!result.stdout.includes(directory));
     assert(!existsSync(sentinel));
   }
