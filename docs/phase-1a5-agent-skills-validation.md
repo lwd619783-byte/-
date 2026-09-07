@@ -1,6 +1,8 @@
 # Phase 1A.5 — Agent Skills Consolidation 验证记录
 
-状态：**IMPLEMENTED / PENDING INDEPENDENT RE-REVIEW**。未创建 PR，未合并 main，未进入 Phase 1B。本记录说明本分支的实现与本机验证，不代表独立远端复审或该分支 CI 通过。
+PR 前登记状态：**INDEPENDENT REVIEW PASS / READY FOR PR**。用户已确认 `e0bb08808d309b4c0eb8384bc03427abc810fd1c` 的独立复审通过，并授权创建 PR、等待 PR CI 全部通过后合并、核验 main SHA 和 main CI。此次登记仅修改状态文档，不改变已审查实现。
+
+独立复审通过不等于 PR CI 通过；合并不等于 main CI 通过。PR / Actions 中的精确 SHA 与实际结果决定后续状态，只有达到 **CLOSED / MERGED / MAIN CI PASS** 才能关闭 Phase 1A.5。Phase 1A 保持 CLOSED / MERGED / MAIN CI PASS，Phase 1B 仍为 NOT STARTED；本次交付不开展 Phase 1B。
 
 ## R1：独立远端审查三项修复 · 2026-09-07
 
