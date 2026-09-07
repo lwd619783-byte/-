@@ -85,6 +85,7 @@ describe("dashboard data provider", () => {
     const stock = dataset.stocks.find((item) => item.id === "sugon");
 
     expect(dataset.modeLabel).toBe("Mixed Data");
+    expect(dataset.dataUpdatedAt).toBe(generated.manifest.updatedAt);
     expect(stock?.quote?.latestPrice).toBe(88.12);
     expect(stock?.valuation.pe).toBe("48.2");
     expect(stock?.leaderPosition).toContain("国产服务器");
@@ -112,13 +113,15 @@ describe("quote source isolation", () => {
     input.quotes = {};
     input.manifest.updatedAt = null;
     const dataset = buildDashboardDataset("real", input);
-    expect(dataset.coverageSummary).toContain("A股行情真实来源且有价格 0/");
+    expect(dataset.coverageSummary).toContain("A股行情质量状态 real 且有价格 0/");
     expect(dataset.dataUpdatedAt).toBe("");
     expect(dataset.modeLabel).not.toBe("Mock Data");
     expect(dataset.stocks.find((stock) => stock.id === "sugon")?.isRecentlyUpdated).toBe(false);
   });
   it("keeps mock mode quote coverage independent of generated real manifests", () => {
     const dataset = buildDashboardDataset("mock", generated);
-    expect(dataset.coverageSummary).toContain("A股行情真实来源且有价格 0/");
+    expect(dataset.dataUpdatedAt).toBe("");
+    expect(dataset.stocks.every((stock) => !stock.quote?.updatedAt)).toBe(true);
+    expect(dataset.coverageSummary).toContain("A股行情质量状态 real 且有价格 0/");
   });
 });

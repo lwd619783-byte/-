@@ -3,6 +3,8 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HomePage } from "./HomePage";
+import { buildDashboardDataset } from "../../services/dataProvider";
+import type { GeneratedRealDataBundle } from "../../types";
 import type { DashboardDataMode, Stock } from "../../types";
 
 const focusStock = {
@@ -20,7 +22,7 @@ const defaultStats = {
   verificationChains: 9,
   todayReview: 1,
   overdueReview: 0,
-  quoteCoverageReal: 56,
+  quoteStatusRealCovered: 56,
   quoteCoverageTotal: 56,
   pendingExpectationSources: 1,
 };
@@ -28,11 +30,17 @@ const defaultStats = {
 function renderHome({
   dataMode = "mixed",
   modeLabel = "Mixed Data",
+  updatedAt = "2026-09-06T10:00:00+08:00",
+  quoteStocks = [focusStock],
+  focusStocks = [focusStock],
   sourceNote = "数据源：A Stock Data（AKShare、Tencent quote/kline）；当前为 Mixed Data。",
   onDataModeChange = vi.fn(),
   onNavigate = vi.fn(),
   onOpenStock = vi.fn(),
 }: {
+  updatedAt?: string;
+  quoteStocks?: Stock[];
+  focusStocks?: Stock[];
   dataMode?: DashboardDataMode;
   modeLabel?: string;
   sourceNote?: string;
@@ -45,7 +53,7 @@ function renderHome({
       now={new Date("2026-09-07T12:00:00+08:00")}
       dataMode={dataMode}
       modeLabel={modeLabel}
-      updatedAt="2026-07-05T17:40:20+08:00"
+      updatedAt={updatedAt}
       sourceNote={sourceNote}
       coverageSummary="A股覆盖 56/56"
       industriesCount={4}
@@ -54,8 +62,8 @@ function renderHome({
       expectationCount={3}
       macroCount={8}
       stats={defaultStats}
-      focusStocks={[focusStock]}
-      quoteStocks={[focusStock]}
+      focusStocks={focusStocks}
+      quoteStocks={quoteStocks}
       onDataModeChange={onDataModeChange}
       onNavigate={onNavigate}
       onOpenStock={onOpenStock}
@@ -103,7 +111,7 @@ describe("HomePage", () => {
 
     expect(screen.getAllByText("投研系统").length).toBeGreaterThanOrEqual(2);
     expect(screen.getByText("全球资产研究中枢")).toBeTruthy();
-    expect(screen.getByText("A 股行情覆盖（真实来源且有价格）")).toBeTruthy();
+    expect(screen.getByText("A 股行情覆盖（质量状态 real 且有价格）")).toBeTruthy();
     expect(screen.getByText("56 / 56")).toBeTruthy();
     expect(screen.getByText("研究工作台")).toBeTruthy();
     expect(screen.getAllByText("系统脉冲").length).toBeGreaterThan(0);
@@ -113,7 +121,10 @@ describe("HomePage", () => {
     expect(container.textContent).not.toContain("A Stock Data");
     expect(container.textContent).toContain("采集时间：2026-07-05T17:40:20+08:00");
     expect(container.textContent).toContain("超过 24 小时");
-    expect(container.textContent).toContain("行情来源：fixture quote source · 真实数据");
+    expect(container.textContent).toContain("行情来源：fixture quote source");
+    expect(container.textContent).toContain("质量状态：真实数据");
+    expect(container.textContent).toContain("数据包更新时间：2026-09-06T10:00:00+08:00");
+    expect(container.textContent).not.toContain("数据包采集时间");
     expect(container.textContent).toContain("24 小时内 0/1");
     expect(container.textContent).not.toContain("最近数据更新");
   });
@@ -154,4 +165,21 @@ describe("HomePage", () => {
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: "auto" });
     expect(scrollIntoView).not.toHaveBeenCalledWith({ behavior: "smooth" });
   });
+  it("keeps a real manifest out of the Mock home and missing quote-time summary", () => {
+    const realTimestamp = "2026-08-01T10:00:00+08:00";
+    const dataset = buildDashboardDataset("mock", { manifest: { updatedAt: realTimestamp, status: "mixed", sourceSummary: [], errors: [] }, profiles: {}, quotes: {}, aShareFinancialSummaries: {}, priceHistory: {}, research: {}, aShareAnnouncementSummaries: {}, signals: {}, sectorMembership: {} } satisfies GeneratedRealDataBundle);
+    expect(dataset.dataUpdatedAt).toBe("");
+    const { container } = renderHome({ dataMode: "mock", modeLabel: dataset.modeLabel, updatedAt: dataset.dataUpdatedAt, quoteStocks: dataset.stocks, focusStocks: dataset.stocks.slice(0, 1) });
+    expect(container.textContent).toContain("数据包更新时间：未知");
+    expect(container.textContent).not.toContain(realTimestamp);
+    const summary = screen.getByLabelText("行情覆盖与时效汇总").textContent;
+    expect(summary).toContain(`缺失 ${dataset.stocks.length}/${dataset.stocks.length}`);
+    expect(summary).toContain(`价格覆盖 0/${dataset.stocks.length}`);
+  });
+  it("also suppresses an accidentally supplied package timestamp in Mock mode", () => {
+    const { container } = renderHome({ dataMode: "mock", updatedAt: "2026-08-01T10:00:00+08:00", quoteStocks: [], focusStocks: [] });
+    expect(container.textContent).toContain("数据包更新时间：未知");
+    expect(container.textContent).not.toContain("2026-08-01T10:00:00+08:00");
+  });
+
 });

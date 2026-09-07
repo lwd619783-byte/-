@@ -48,9 +48,18 @@ describe("MacroTab trustworthy observations", () => {
     expect(screen.getByText(/该分类暂未接入可用指标/)).toBeTruthy();
   });
 
-  it("preserves real source on missing values and never invents source from another row", () => {
+  it("preserves real quality status on missing values and never invents source from another row", () => {
     const rows = buildMacroIndicatorRows([indicator([{ label: "GDP", value: "X", note: "", status: "real" }])]);
     expect(rows[0]).toMatchObject({ value: null, status: "real", source: undefined, timeKind: "unknown" });
     expect(buildMacroIndicatorRows([indicator([{ label: "新房价格同比", value: "97.9", note: "" }])])[0].unit).toBeUndefined();
   });
+});
+
+
+it("shows unknown macro source alongside real quality without inferring provenance", () => {
+  const { container } = render(<MacroTab indicators={[indicator([{ label: "GDP", value: "42", note: "", status: "real" }])]} now={now} />);
+  expect(screen.getByText("来源：未知", { exact: true })).toBeTruthy();
+  expect(container.textContent).toContain("质量状态：真实数据");
+  expect(within(screen.getByRole("table")).getByRole("columnheader", { name: "质量状态" })).toBeTruthy();
+  expect(container.textContent).not.toMatch(/真实来源|来源标记真实|unrelated real source/);
 });

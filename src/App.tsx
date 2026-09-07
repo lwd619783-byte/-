@@ -182,10 +182,10 @@ export default function App() {
       .slice(0, 4);
     const missingStocks = dataset.stocks.filter((stock) => (stock.missingFields?.length ?? 0) > 0).slice(0, 6);
     const aShareQuotes = summarizeQuotes(dataset.stocks.filter((stock) => stock.market === "A股").map((stock) => stock.quote));
-    const quoteCoverageReal = aShareQuotes.realCovered;
+    const quoteStatusRealCovered = aShareQuotes.statusRealCovered;
     const quoteCoverageTotal = aShareQuotes.total;
     const hkQuotes = summarizeQuotes(dataset.stocks.filter((stock) => stock.market === "港股").map((stock) => stock.quote));
-    const hkCoverageSummary = `港股行情真实来源且有价格 ${hkQuotes.realCovered}/${hkQuotes.total}`;
+    const hkCoverageSummary = `港股行情质量状态 real 且有价格 ${hkQuotes.statusRealCovered}/${hkQuotes.total}`;
     const cutoff = shiftCalendarDate(getCalendarToday(new Date(), expectationData.settings.timeZone), -6);
     const recentEvents = researchSnapshot.events.filter((event) => event.eventType !== "data_warning" && eventCalendarDate(event, expectationData.settings.timeZone) >= cutoff).length;
     const pendingReviewCompanies = new Set(researchSnapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
@@ -214,7 +214,7 @@ export default function App() {
       segments,
       focusStocks,
       missingStocks,
-      quoteCoverageReal,
+      quoteStatusRealCovered,
       quoteCoverageTotal,
       hkCoverageSummary,
       recentEvents,
@@ -392,7 +392,7 @@ export default function App() {
 
           <DashboardCard className="p-3">
             <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-4" aria-label="数据健康信息">
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">A股行情真实来源且有价格：<strong className="text-textStrong">{dashboardStats.quoteCoverageReal}/{dashboardStats.quoteCoverageTotal}</strong></span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">A股行情质量状态 real 且有价格：<strong className="text-textStrong">{dashboardStats.quoteStatusRealCovered}/{dashboardStats.quoteCoverageTotal}</strong></span>
               <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">已载入快照平均涨跌幅：<strong className="text-textStrong">{formatPercent(dashboardStats.averagePct)}</strong>（有值 {dashboardStats.pctSampleCount}/{dataset.stocks.length}）</span>
               <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">缺失字段：<strong className="text-warning">{dashboardStats.missingFields}</strong></span>
               <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">{dashboardStats.hkCoverageSummary}</span>

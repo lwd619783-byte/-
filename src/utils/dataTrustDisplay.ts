@@ -2,10 +2,10 @@ import type { DataQualityMeta, StockQuote } from "../types";
 import { getCalendarDateInTimeZone, isCalendarDate, parsePreciseInstant } from "./dateTime";
 import { statusDisplayLabel } from "./displayLabels";
 
-export type DisplayTimeKind = "collected" | "generated" | "observation" | "publication" | "period" | "unknown";
+export type DisplayTimeKind = "collected" | "package_updated" | "generated" | "observation" | "publication" | "period" | "unknown";
 export type DisplayTimeState = "recent" | "older" | "date_only" | "period" | "missing" | "invalid" | "future" | "unknown";
 const timeLabels: Record<DisplayTimeKind, string> = {
-  collected: "采集时间", generated: "文件生成时间", observation: "观测日期",
+  collected: "行情采集时间", package_updated: "数据包更新时间", generated: "文件生成时间", observation: "观测日期",
   publication: "发布时间", period: "报告期", unknown: "来源日期（语义待核验）",
 };
 
@@ -72,8 +72,9 @@ export function describeQuote(quote?: StockQuote, now = new Date()) {
   // Both committed A/HK quote generators use the collection run time for updatedAt.
   // Do not substitute another module's quality.updatedAt or the manifest timestamp.
   return {
-    source: `行情来源：${quote?.quality?.source || "未知"} · ${statusDisplayLabel(quote?.quality?.status ?? "unknown")}`,
-    coverage: quoteHasValue(quote) ? "价格已覆盖" : "价格缺失",
+    source: `行情来源：${quote?.quality?.source?.trim() || "未知"}`,
+    quality: `质量状态：${statusDisplayLabel(quote?.quality?.status ?? "unknown")}`,
+    coverage: quoteHasValue(quote) ? "价格：已覆盖" : "价格：缺失",
     time: describeDataTime(quote?.updatedAt, "collected", now),
   };
 }
@@ -81,16 +82,16 @@ export function describeQuote(quote?: StockQuote, now = new Date()) {
 export function summarizeQuotes(quotes: Array<StockQuote | undefined>, now = new Date()) {
   const total = quotes.length;
   const covered = quotes.filter(quoteHasValue).length;
-  const real = quotes.filter((q) => q?.quality?.status === "real").length;
-  const realCovered = quotes.filter((q) => q?.quality?.status === "real" && quoteHasValue(q)).length;
+  const statusReal = quotes.filter((q) => q?.quality?.status === "real").length;
+  const statusRealCovered = quotes.filter((q) => q?.quality?.status === "real" && quoteHasValue(q)).length;
   const times = summarizeDataTimes(quotes.map((quote) => ({ value: quote?.updatedAt, kind: "collected" })), now);
-  return { total, covered, real, realCovered, times,
-    text: `价格覆盖 ${covered}/${total}；来源标记真实 ${real}/${total}；采集时间：24 小时内 ${times.recent}/${total}，超过 24 小时 ${times.older}/${total}，缺失 ${times.missing}/${total}，异常 ${times.invalid + times.future}/${total}，仅日期或未知 ${times.dateOnly + times.unknown}/${total}；市场观测时间未知，时效待核验。`,
+  return { total, covered, statusReal, statusRealCovered, times,
+    text: `价格覆盖 ${covered}/${total}；质量状态：${summarizeQualityStatuses(quotes.map((quote) => quote?.quality?.status))}；采集时间：24 小时内 ${times.recent}/${total}，超过 24 小时 ${times.older}/${total}，缺失 ${times.missing}/${total}，异常 ${times.invalid + times.future}/${total}，仅日期或未知 ${times.dateOnly + times.unknown}/${total}；市场观测时间未知，时效待核验。`,
   };
 }
 
-export function summarizeSourceStatuses(statuses: Array<DataQualityMeta["status"] | undefined>) {
+export function summarizeQualityStatuses(statuses: Array<DataQualityMeta["status"] | undefined>) {
   const counts = new Map<string, number>();
   for (const status of statuses) counts.set(status ?? "unknown", (counts.get(status ?? "unknown") ?? 0) + 1);
-  return [...counts].map(([status, count]) => `${statusDisplayLabel(status)} ${count}/${statuses.length}`).join("；") || "来源未知（无条目）";
+  return [...counts].map(([status, count]) => `${statusDisplayLabel(status)} ${count}/${statuses.length}`).join("；") || "未知（无条目）";
 }

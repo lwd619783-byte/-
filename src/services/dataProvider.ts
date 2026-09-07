@@ -12,7 +12,7 @@ export function buildDashboardDataset(mode: DashboardDataMode, realData: Generat
   const hasMockFallback = stocks.some((stock) => (stock.missingFields?.length ?? 0) > 0) || !hasReal;
   const aShareQuotes = summarizeQuotes(stocks.filter((stock) => stock.market === "A股").map((stock) => stock.quote));
   const hkQuotes = summarizeQuotes(stocks.filter((stock) => stock.market === "港股").map((stock) => stock.quote));
-  const coverageSummary = `A股行情真实来源且有价格 ${aShareQuotes.realCovered}/${aShareQuotes.total}；港股行情真实来源且有价格 ${hkQuotes.realCovered}/${hkQuotes.total}；覆盖不代表时效；港股财务暂未接入`;
+  const coverageSummary = `A股行情质量状态 real 且有价格 ${aShareQuotes.statusRealCovered}/${aShareQuotes.total}；港股行情质量状态 real 且有价格 ${hkQuotes.statusRealCovered}/${hkQuotes.total}；覆盖不代表时效；港股财务暂未接入`;
 
   const modeLabel =
     mode === "mock" ? "Mock Data" : hasReal && !hasMockFallback && mode === "real" ? "Real Data" : "Mixed Data";
@@ -24,7 +24,7 @@ export function buildDashboardDataset(mode: DashboardDataMode, realData: Generat
     modeLabel,
     coverageSummary,
     realManifest: realData.manifest,
-    dataUpdatedAt: realData.manifest.updatedAt ?? "",
+    dataUpdatedAt: mode === "mock" ? "" : realData.manifest.updatedAt ?? "",
     dataSourceNote:
       mode === "mock"
         ? mock.dataSourceNote

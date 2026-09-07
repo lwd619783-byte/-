@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { StockQuote } from "../types";
-import { describeDataTime, describeQuote, summarizeDataTimes, summarizeQuotes, summarizeSourceStatuses } from "./dataTrustDisplay";
+import { describeDataTime, describeQuote, summarizeDataTimes, summarizeQuotes, summarizeQualityStatuses } from "./dataTrustDisplay";
 import { isRecentlyUpdated } from "./dataQuality";
 
 const now = new Date("2026-09-07T12:00:00+08:00");
@@ -42,24 +42,24 @@ describe("data trust presentation", () => {
     expect(describeDataTime(value, "period", now).state).toBe("future");
   });
 
-  it("preserves real source facts and historic values as time passes", () => {
+  it("preserves source identity and quality status and historic values as time passes", () => {
     const q = quote("2026-07-05T12:00:00+08:00");
-    expect(describeQuote(q, now)).toMatchObject({ source: "行情来源：fixture source · 真实数据", coverage: "价格已覆盖", time: { state: "older" } });
+    expect(describeQuote(q, now)).toMatchObject({ source: "行情来源：fixture source", quality: "质量状态：真实数据", coverage: "价格：已覆盖", time: { state: "older" } });
     expect(q.latestPrice).toBe(12);
     expect(q.quality.status).toBe("real");
   });
 
-  it("counts missing and mixed records in the full denominator, independent of source status", () => {
+  it("counts missing and mixed records in the full denominator, independent of quality status", () => {
     const quotes = [quote(now.toISOString()), quote("2026-07-01T00:00:00Z", "stale"), undefined, quote("bad", "partial"), quote(undefined, "conflicted"), { ...quote(now.toISOString()), latestPrice: null }];
     const summary = summarizeQuotes(quotes, now);
-    expect(summary).toMatchObject({ total: 6, covered: 4, real: 2, realCovered: 1, times: { recent: 2, older: 1, missing: 2, invalid: 1 } });
+    expect(summary).toMatchObject({ total: 6, covered: 4, statusReal: 2, statusRealCovered: 1, times: { recent: 2, older: 1, missing: 2, invalid: 1 } });
     expect(summary.text).toContain("24 小时内 2/6");
-    expect(summarizeSourceStatuses(["real", "partial", "conflicted", undefined])).toBe("真实数据 1/4；部分可用 1/4；冲突 1/4；未知 1/4");
+    expect(summarizeQualityStatuses(["real", "partial", "conflicted", undefined])).toBe("真实数据 1/4；部分可用 1/4；冲突 1/4；未知 1/4");
   });
 
   it("handles empty and entirely missing datasets without a fresh/real aggregate", () => {
-    expect(summarizeQuotes([], now)).toMatchObject({ total: 0, covered: 0, real: 0, times: { recent: 0 } });
-    expect(summarizeQuotes([undefined, undefined], now)).toMatchObject({ total: 2, covered: 0, real: 0, times: { missing: 2, recent: 0 } });
+    expect(summarizeQuotes([], now)).toMatchObject({ total: 0, covered: 0, statusReal: 0, times: { recent: 0 } });
+    expect(summarizeQuotes([undefined, undefined], now)).toMatchObject({ total: 2, covered: 0, statusReal: 0, times: { missing: 2, recent: 0 } });
     expect(summarizeDataTimes([{ kind: "period", value: "2026-Q1" }, { kind: "collected", value: now.toISOString() }, { kind: "observation", value: "2026-09-06" }], now)).toMatchObject({ total: 3, period: 1, recent: 1, dateOnly: 1 });
   });
 
@@ -69,4 +69,22 @@ describe("data trust presentation", () => {
     expect(describeDataTime(now.toISOString(), "collected", new Date("invalid")).state).toBe("unknown");
     expect(describeDataTime(now.toISOString(), "unknown", now).state).toBe("unknown");
   });
+});
+
+
+it.each(["partial", "stale", "real"] as const)("keeps %s quality separate from source identity and value coverage", (status) => {
+  const q = { ...quote("2026-07-01T00:00:00Z", status), latestPrice: 42, pctChange: null, quality: { status, source: status === "real" ? "" : "yfinance" } };
+  const summary = summarizeQuotes([q, undefined], now);
+  expect(summary).toMatchObject({ total: 2, covered: 1, statusReal: status === "real" ? 1 : 0, statusRealCovered: status === "real" ? 1 : 0 });
+  expect(summary.text).toContain("未知 1/2");
+  expect(summary.text).not.toMatch(/真实来源|来源不真实/);
+  expect(describeQuote(q, now).source).toBe(`行情来源：${status === "real" ? "未知" : "yfinance"}`);
+  expect(q.latestPrice).toBe(42);
+});
+
+it("labels package updatedAt without applying the quote collection window", () => {
+  const display = describeDataTime("2026-09-07T11:00:00+08:00", "package_updated", now);
+  expect(display.text).toContain("数据包更新时间：2026-09-07T11:00:00+08:00");
+  expect(display.text).toContain("已过 1 小时");
+  expect(display.text).not.toMatch(/24 小时|采集时间|市场观测时间|交易日/);
 });

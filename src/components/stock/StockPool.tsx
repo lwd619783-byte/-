@@ -34,7 +34,7 @@ interface StockPoolProps {
   onOpenStock: (stock: Stock) => void;
 }
 
-type QualityFilter = "全部" | "行情来源真实" | "缺失项" | "暂不支持" | "行情采集24小时内";
+type QualityFilter = "全部" | "行情状态为真实" | "缺失项" | "暂不支持" | "行情采集24小时内";
 type SortMode = "默认" | "覆盖率高到低" | "覆盖率低到高" | "涨跌幅" | "市值" | "PE";
 
 export function StockPool({ stocks, industries, globalSearch, onOpenStock }: StockPoolProps) {
@@ -48,7 +48,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
   const visibleStocks = useMemo(() => {
     const basic = filterStocks(stocks, mergedFilters, industries);
     const filtered = basic.filter((stock) => {
-      if (qualityFilter === "行情来源真实") return stock.quote?.quality?.status === "real";
+      if (qualityFilter === "行情状态为真实") return stock.quote?.quality?.status === "real";
       if (qualityFilter === "缺失项") return (stock.missingFields?.length ?? 0) > 0;
       if (qualityFilter === "暂不支持") return stock.dataQuality?.some((item) => item.status === "unsupported_market");
       if (qualityFilter === "行情采集24小时内") return isRecentlyUpdated(stock.quote?.updatedAt, displayNow);
@@ -120,7 +120,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
           ))}
         </FilterSelect>
         <FilterSelect label="数据质量" value={qualityFilter} onChange={(value) => setQualityFilter(value as QualityFilter)}>
-          {["全部", "行情来源真实", "缺失项", "暂不支持", "行情采集24小时内"].map((item) => (
+          {["全部", "行情状态为真实", "缺失项", "暂不支持", "行情采集24小时内"].map((item) => (
             <option key={item} value={item}>
               {item}
             </option>

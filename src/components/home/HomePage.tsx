@@ -30,7 +30,7 @@ interface HomeStats {
   verificationChains: number;
   todayReview: number;
   overdueReview: number;
-  quoteCoverageReal: number;
+  quoteStatusRealCovered: number;
   quoteCoverageTotal: number;
   pendingExpectationSources: number;
 }
@@ -224,8 +224,8 @@ export function HomePage({
         <div className="relative z-30 border-y border-white/[0.07] bg-black/25 backdrop-blur-xl">
           <div className="mx-auto grid max-w-[1560px] gap-px px-5 sm:grid-cols-3 sm:px-8 lg:grid-cols-[1.1fr_1fr_1.4fr_auto] lg:px-12">
             <HeroSignal label="数据模式" value={displayModeLabel} />
-            <HeroSignal label="A 股行情覆盖（真实来源且有价格）" value={`${stats.quoteCoverageReal} / ${stats.quoteCoverageTotal}`} />
-            <HeroSignal label="数据包采集时间" value={describeDataTime(updatedAt, "collected", displayNow).text} />
+            <HeroSignal label="A 股行情覆盖（质量状态 real 且有价格）" value={`${stats.quoteStatusRealCovered} / ${stats.quoteCoverageTotal}`} />
+            <HeroSignal label="数据包更新记录" value={describeDataTime(dataMode === "mock" ? undefined : updatedAt, "package_updated", displayNow).text} />
             <button type="button" className="home-scroll-cue hidden items-center gap-3 px-5 text-[10px] tracking-[0.2em] text-textMuted lg:flex" onClick={scrollToResearch}>
               向下探索 <ArrowDown className="h-3.5 w-3.5" />
             </button>

@@ -26,7 +26,7 @@ describe("visible quote trust", () => {
   it("shows unknown source/time for empty quotes", () => {
     const { container } = render(<QuoteTrust now={now} />);
     expect(container.textContent).toContain("行情来源：未知");
-    expect(container.textContent).toContain("价格缺失");
+    expect(container.textContent).toContain("价格：缺失");
     expect(container.textContent).toContain("时间缺失");
   });
   it("re-evaluates the runtime clock while the page remains open", () => {
@@ -37,4 +37,22 @@ describe("visible quote trust", () => {
     expect(container.textContent).toContain("超过 24 小时");
     expect(container.textContent).toContain("真实数据");
   });
+});
+
+
+it.each([
+  ["partial", "yfinance", "部分可用"],
+  ["stale", "yfinance", "过期"],
+  ["real", "", "真实数据"],
+] as const)("renders %s quality independently of provider identity", (status, source, label) => {
+  const q = { ...quote, latestPrice: 42, pctChange: null, quality: { status, source } };
+  const { container } = render(<><QuoteTrust quote={q} now={now} /><QuoteTrustSummary stocks={[{ quote: q }, {}] as Stock[]} now={now} /></>);
+  expect(screen.getByText(`行情来源：${source || "未知"}`, { exact: true })).toBeTruthy();
+  expect(container.textContent).toContain(`质量状态：${label}`);
+  expect(container.textContent).toContain("价格：已覆盖");
+  expect(container.textContent).toContain("价格覆盖 1/2");
+  expect(container.textContent).toContain(`${label} 1/2`);
+  expect(container.textContent).toContain("未知 1/2");
+  expect(container.textContent).toContain("行情采集时间：2026-07-01T00:00:00Z");
+  expect(container.textContent).not.toMatch(/真实来源|来源不真实|yfinance ·/);
 });

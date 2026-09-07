@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { BarChart3, Radar } from "lucide-react";
 import { useDisplayNow } from "../../hooks/useDisplayNow";
-import { describeDataTime, summarizeDataTimes, summarizeSourceStatuses, type DisplayTimeKind } from "../../utils/dataTrustDisplay";
+import { describeDataTime, summarizeDataTimes, summarizeQualityStatuses, type DisplayTimeKind } from "../../utils/dataTrustDisplay";
 import type { DataSourceStatus, MacroIndicator } from "../../types";
 import { DashboardCard, StatusBadge } from "../common/terminal";
 
@@ -51,7 +51,7 @@ export function MacroTab({ indicators, generatedAt, now }: { indicators: MacroIn
   const selectedGroup = groups.find((group) => group.key === selectedGroupKey) ?? groups[0];
   const totalMetricCount = rows.length;
   const coveredCount = rows.filter((row) => row.value !== null).length;
-  const realMetricCount = rows.filter((row) => row.status === "real").length;
+  const statusRealMetricCount = rows.filter((row) => row.status === "real").length;
   const times = summarizeDataTimes(rows.map((row) => ({ value: row.date, kind: row.timeKind })), displayNow);
 
   return (
@@ -66,7 +66,7 @@ export function MacroTab({ indicators, generatedAt, now }: { indicators: MacroIn
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <MacroKpiCard label="数值覆盖" value={`${coveredCount}/${totalMetricCount}`} hint="按展示条目统计，重复指标未去重；仅表示有值，不表示经济强弱" />
-        <MacroKpiCard label="来源标记真实" value={`${realMetricCount}/${totalMetricCount}`} hint={summarizeSourceStatuses(rows.map((row) => row.status))} />
+        <MacroKpiCard label="质量状态 real" value={`${statusRealMetricCount}/${totalMetricCount}`} hint={summarizeQualityStatuses(rows.map((row) => row.status))} />
         <MacroKpiCard label="数值缺失" value={`${totalMetricCount - coveredCount}/${totalMetricCount}`} hint="缺失保留为空，不以零或示例补齐" />
         <MacroKpiCard label="时间语义" value="时效待核验" hint={`报告期 ${times.period}；仅日期 ${times.dateOnly}；精确时间 ${times.recent + times.older}；缺失 ${times.missing}；异常 ${times.invalid + times.future}；未知 ${times.unknown}。分母 ${times.total}，逐项核验。`} />
 
@@ -142,7 +142,7 @@ function MacroSummaryCard({ group, selected, onSelect, now }: { group: MacroGrou
         <span className="text-xs text-textMuted">{group.rows.length} 项观测</span>
       </div>
 
-      <p className="mt-2 text-xs leading-5 text-textMuted">来源：{summarizeSourceStatuses(group.rows.map((row) => row.status))}；时效待核验</p>
+      <p className="mt-2 text-xs leading-5 text-textMuted">质量状态：{summarizeQualityStatuses(group.rows.map((row) => row.status))}；时效待核验</p>
       {visibleRows.length > 0 ? (
         <div className="mt-4 space-y-2">
           {visibleRows.map((row) => (
@@ -175,7 +175,7 @@ function SelectedMacroGroup({ group, now }: { group: MacroGroup; now: Date }) {
           </div>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-textMuted">{group.subtitle}</p>
         </div>
-        <p className="text-xs leading-5 text-textMuted">来源：{summarizeSourceStatuses(group.rows.map((row) => row.status))}</p>
+        <p className="text-xs leading-5 text-textMuted">质量状态：{summarizeQualityStatuses(group.rows.map((row) => row.status))}</p>
       </div>
 
       {group.rows.length > 0 ? (
@@ -198,7 +198,7 @@ function MacroMetricBlock({ row, now }: { row: MacroIndicatorRow; now: Date }) {
     <div className="min-w-0 rounded-lg border border-borderSoft bg-bg2/60 p-4">
       <div className="flex items-start justify-between gap-3">
         <p className="min-w-0 whitespace-normal text-sm font-medium leading-5 text-textStrong">{row.label}</p>
-        <StatusBadge status={row.status} />
+        <span className="text-xs text-textMuted">质量状态：<StatusBadge status={row.status} /></span>
       </div>
       <p className="mt-3 whitespace-normal break-words font-mono text-2xl font-semibold leading-8 text-textStrong">
         {displayValue(row.value)}
@@ -224,7 +224,7 @@ function MacroDetailTable({ rows, now }: { rows: MacroIndicatorRow[]; now: Date 
         <table className="min-w-[1080px] w-full border-separate border-spacing-0 text-left text-sm">
           <thead className="sticky top-0 z-10 bg-bg1/95 text-xs uppercase tracking-[0.12em] text-textWeak">
             <tr>
-              {["分类", "指标名称", "观测值", "单位", "时间与时效", "来源", "来源状态", "原始字段 key"].map((header) => (
+              {["分类", "指标名称", "观测值", "单位", "时间与时效", "来源", "质量状态", "原始字段 key"].map((header) => (
                 <th key={header} className="border-b border-borderSoft px-4 py-3 font-medium">{header}</th>
               ))}
             </tr>
@@ -240,7 +240,7 @@ function MacroDetailTable({ rows, now }: { rows: MacroIndicatorRow[]; now: Date 
                 <td className="border-b border-borderSoft px-4 py-3 align-top text-textMuted">{describeDataTime(row.date, row.timeKind, now).text}</td>
                 <td className="max-w-[240px] whitespace-normal break-words border-b border-borderSoft px-4 py-3 align-top text-textMuted">{row.sourceDisplayName}</td>
                 <td className="border-b border-borderSoft px-4 py-3 align-top">
-                  <StatusBadge status={row.status} />
+                  <span className="text-xs text-textMuted">质量状态：<StatusBadge status={row.status} /></span>
                 </td>
                 <td className="max-w-[260px] whitespace-normal break-words border-b border-borderSoft px-4 py-3 align-top font-mono text-xs text-textWeak" title={row.source || row.rawKey}>
                   {row.rawKey}
@@ -306,7 +306,7 @@ function extractUnit(value?: string): string | undefined {
 }
 
 function sourceDisplayName(source?: string) {
-  if (!source) return "待接入";
+  if (!source?.trim()) return "未知";
   if (/macro_china_gdp|macro_china_cpi|macro_china_ppi|macro_china_pmi|macro_china_non_man_pmi|macro_china_gyzjz|macro_china_consumer_goods_retail/.test(source)) {
     return "国家统计局 / AKShare";
   }

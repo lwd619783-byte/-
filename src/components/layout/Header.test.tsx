@@ -25,7 +25,7 @@ function renderHeader(overrides: Partial<Parameters<typeof Header>[0]> = {}) {
 describe("Header 中文展示", () => {
   it("缺失时间不会回退到今天或被称为交易日", () => {
     const { container } = renderHeader({ updatedAt: "" });
-    expect(container.textContent).toContain("采集时间：未知");
+    expect(container.textContent).toContain("数据包更新时间：未知");
     expect(container.textContent).toContain("时间缺失");
     expect(container.textContent).not.toContain("交易日：");
   });
@@ -53,4 +53,16 @@ describe("Header 中文展示", () => {
     fireEvent.change(screen.getByRole("combobox", { name: "数据模式" }), { target: { value: "real" } });
     expect(onDataModeChange).toHaveBeenCalledWith("real");
   });
+});
+
+
+it("does not display a real package timestamp in Mock mode", () => {
+  const { container } = renderHeader({ dataMode: "mock", modeLabel: "Mock Data" });
+  expect(container.textContent).toContain("数据包更新时间：未知");
+  expect(container.textContent).not.toContain("2026-07-05T17:40:20+08:00");
+});
+it("labels a non-Mock manifest as package update without quote freshness claims", () => {
+  const { container } = renderHeader();
+  expect(container.textContent).toContain("数据包更新时间：2026-07-05T17:40:20+08:00");
+  expect(container.textContent).not.toMatch(/数据包采集时间|24 小时|交易日：/);
 });

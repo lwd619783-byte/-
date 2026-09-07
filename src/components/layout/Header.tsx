@@ -26,7 +26,7 @@ export function Header({
   coverageSummary,
   onDataModeChange,
 }: HeaderProps) {
-  const time = describeDataTime(updatedAt, "collected", useDisplayNow());
+  const time = describeDataTime(dataMode === "mock" ? undefined : updatedAt, "package_updated", useDisplayNow());
   const modeStatus = dataMode === "mock" ? "mock" : modeLabel === "Real Data" ? "real" : "partial";
   const displayModeLabel = dataModeDisplayLabel(modeLabel);
   const displaySourceNote = localizeDataSourceNote(sourceNote);
@@ -48,7 +48,7 @@ export function Header({
               面向行业比较、核心资产跟踪、风险核验和研究线索沉淀的内部投研终端。
             </p>
             <p className="mt-1 break-words text-xs text-textWeak">
-              数据包{time.text}。采集时间不代表交易日。
+              {time.text}。数据包更新不代表所有模块同时更新或市场观测时间。
             </p>
             {coverageBadges.length > 0 ? (
               <div className="mt-2 flex flex-wrap gap-1.5">
