@@ -1,3 +1,4 @@
+import { QuoteTrust } from "../common/QuoteTrust";
 import { AlertTriangle, BarChart3, Binoculars, BookOpen, CheckCircle2, LineChart as LineChartIcon, Target, X } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -217,8 +218,9 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
 
           <Section title="数据验证：行情、财务、估值与 F10" icon={<LineChartIcon className="h-4 w-4" />}>
             <div className="space-y-4">
+              <QuoteTrust quote={stock.quote} />
               <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-                <MetricCard label="最新价" value={numberToDisplay(stock.quote?.latestPrice)} />
+                <MetricCard label="快照价格" value={numberToDisplay(stock.quote?.latestPrice)} />
                 <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={metricTone(stock.quote?.pctChange)} />
                 <MetricCard label="成交额" value={formatYi(stock.quote?.amount)} />
                 <MetricCard label="换手率" value={formatPercent(stock.quote?.turnover)} />
@@ -311,7 +313,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                     rows={[
                       ["来源", stock.dataQuality?.map((item) => item.source).join(" / ") || "mock"],
                       ["状态", stock.dataQuality?.map((item) => item.status).join(" / ") || "mock"],
-                      ["更新时间", stock.dataQuality?.find((item) => item.updatedAt)?.updatedAt ?? EMPTY],
+                      ["行情采集时间", stock.quote?.updatedAt ?? EMPTY],
                       ["缺失字段数", String(stock.missingFields?.length ?? 0)],
                       ["财务更新时间", stock.aShareFinancialSummary?.fetchedAt ?? (stock.market === "港股" && stock.dataMode !== "mock" ? "港股财务数据暂未接入" : EMPTY)],
                       ["源分层", stock.dataQuality?.map((item) => item.sourceLayer).filter(Boolean).join(" / ") || EMPTY],
@@ -365,11 +367,12 @@ function ResearchHeader({
         </button>
       </div>
 
+      <QuoteTrust quote={stock.quote} />
       <div className="mt-4 rounded-lg border border-cyan/30 bg-cyan/10 p-4">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">Research Positioning</p>
         <p className="mt-2 text-base leading-7 text-textStrong">{positioning}</p>
         <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-textMuted">
-          <span>最新价 {numberToDisplay(stock.quote?.latestPrice)}</span>
+          <span>快照价格 {numberToDisplay(stock.quote?.latestPrice)}</span>
           <PriceChange value={stock.quote?.pctChange} />
           <span>覆盖率 {typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : EMPTY}</span>
           <span>风险等级 {stock.riskLevel}</span>

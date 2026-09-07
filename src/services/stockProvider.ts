@@ -3,7 +3,7 @@ import { countMissingFields, isRecentlyUpdated, mergeQuality } from "../utils/da
 import { formatFinancialChangeMetric, resolveFinancialDisplayValue } from "../utils/financialDisplay";
 import { formatNumber, formatPercent, formatYi } from "../utils/normalize";
 
-export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDataBundle, mode: DashboardDataMode) {
+export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDataBundle, mode: DashboardDataMode, now = new Date()) {
   const useReal = mode !== "mock";
   return stocks.map((stock) => {
     const profile = real.profiles[stock.id];
@@ -83,7 +83,7 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       dataQuality,
       missingFields,
       dataCoverage,
-      isRecentlyUpdated: dataQuality.some((item) => isRecentlyUpdated(item.updatedAt)),
+      isRecentlyUpdated: isRecentlyUpdated(quote?.updatedAt, now),
       financial: {
         revenue: resolveFinancialDisplayValue({ mode, realValue: latestSingle?.operatingRevenue, status: financialStatus, mockValue: stock.financial.revenue, formatter: amountInYi }),
         netProfit: resolveFinancialDisplayValue({ mode, realValue: latestSingle?.netProfitAttributableToParent, status: financialStatus, mockValue: stock.financial.netProfit, formatter: amountInYi }),

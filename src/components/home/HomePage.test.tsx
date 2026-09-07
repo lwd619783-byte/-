@@ -10,7 +10,7 @@ const focusStock = {
   name: "测试资产",
   code: "000001",
   market: "A股",
-  quote: { pctChange: 0.012 },
+  quote: { pctChange: 0.012, latestPrice: 42, updatedAt: "2026-07-05T17:40:20+08:00", quality: { status: "real", source: "fixture quote source" } },
 } as Stock;
 
 const defaultStats = {
@@ -42,6 +42,7 @@ function renderHome({
 } = {}) {
   return render(
     <HomePage
+      now={new Date("2026-09-07T12:00:00+08:00")}
       dataMode={dataMode}
       modeLabel={modeLabel}
       updatedAt="2026-07-05T17:40:20+08:00"
@@ -54,6 +55,7 @@ function renderHome({
       macroCount={8}
       stats={defaultStats}
       focusStocks={[focusStock]}
+      quoteStocks={[focusStock]}
       onDataModeChange={onDataModeChange}
       onNavigate={onNavigate}
       onOpenStock={onOpenStock}
@@ -101,7 +103,7 @@ describe("HomePage", () => {
 
     expect(screen.getAllByText("投研系统").length).toBeGreaterThanOrEqual(2);
     expect(screen.getByText("全球资产研究中枢")).toBeTruthy();
-    expect(screen.getByText("A 股行情覆盖")).toBeTruthy();
+    expect(screen.getByText("A 股行情覆盖（真实来源且有价格）")).toBeTruthy();
     expect(screen.getByText("56 / 56")).toBeTruthy();
     expect(screen.getByText("研究工作台")).toBeTruthy();
     expect(screen.getAllByText("系统脉冲").length).toBeGreaterThan(0);
@@ -109,6 +111,11 @@ describe("HomePage", () => {
     expect(screen.queryByRole("button", { name: "投资研究看板首页" })).toBeNull();
     expect(container.textContent).toContain("数据源：A 股数据");
     expect(container.textContent).not.toContain("A Stock Data");
+    expect(container.textContent).toContain("采集时间：2026-07-05T17:40:20+08:00");
+    expect(container.textContent).toContain("超过 24 小时");
+    expect(container.textContent).toContain("行情来源：fixture quote source · 真实数据");
+    expect(container.textContent).toContain("24 小时内 0/1");
+    expect(container.textContent).not.toContain("最近数据更新");
   });
 
   it("触发核心导航、数据模式切换和重点资产回调", () => {

@@ -1,3 +1,4 @@
+import { QuoteTrust } from "../common/QuoteTrust";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
@@ -168,7 +169,7 @@ function RoboticsStockRow({ stock, industries, onOpenStock }: { stock: Stock; in
 
       <div className="min-w-0 rounded-lg border border-borderSoft bg-bg2/60 p-3 xl:text-right">
         <div className="grid grid-cols-2 gap-2 text-left xl:grid-cols-1 xl:text-right">
-          <QuoteField label="最新价" value={numberToDisplay(stock.quote?.latestPrice)} />
+          <QuoteField label="快照价格" value={numberToDisplay(stock.quote?.latestPrice)} />
           <div>
             <p className="text-xs leading-4 text-textMuted">涨跌幅</p>
             <div className="mt-1 text-sm font-semibold tabular-nums"><PriceChange value={stock.quote?.pctChange} /></div>
@@ -176,6 +177,7 @@ function RoboticsStockRow({ stock, industries, onOpenStock }: { stock: Stock; in
           <QuoteField label="总市值" value={formatYi(stock.quote?.marketCap)} />
           <QuoteField label="PE / PB" value={`${numberToDisplay(stock.quote?.peTtm ?? stock.quote?.pe)} / ${numberToDisplay(stock.quote?.pb)}`} />
         </div>
+        <QuoteTrust quote={stock.quote} />
         <button
           type="button"
           className="mt-4 inline-flex h-9 items-center justify-center rounded-md border border-borderGlow/60 px-3 text-sm font-medium text-textStrong transition hover:border-cyan hover:text-cyan focus:outline-none focus:ring-2 focus:ring-cyan/30"

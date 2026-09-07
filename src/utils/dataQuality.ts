@@ -1,3 +1,4 @@
+import { parsePreciseInstant } from "./dateTime";
 import type { DataQualityMeta } from "../types/dataSource";
 
 export function isMissingValue(value: unknown) {
@@ -20,9 +21,9 @@ export function dataModeLabel(quality: DataQualityMeta[]) {
 
 export function isRecentlyUpdated(updatedAt: string | null | undefined, now = new Date(), thresholdHours = 24) {
   if (!updatedAt) return false;
-  const date = new Date(updatedAt);
-  if (Number.isNaN(date.getTime())) return false;
-  const diffHours = (now.getTime() - date.getTime()) / 36e5;
+  const instant = parsePreciseInstant(updatedAt);
+  if (instant === null || !Number.isFinite(now.getTime())) return false;
+  const diffHours = (now.getTime() - instant) / 36e5;
   return diffHours >= 0 && diffHours <= thresholdHours;
 }
 

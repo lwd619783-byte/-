@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
-import { Activity, ArrowDownRight, ArrowUpRight, BarChart3, Minus, Radar } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { BarChart3, Radar } from "lucide-react";
+import { useDisplayNow } from "../../hooks/useDisplayNow";
+import { describeDataTime, summarizeDataTimes, summarizeSourceStatuses, type DisplayTimeKind } from "../../utils/dataTrustDisplay";
 import type { DataSourceStatus, MacroIndicator } from "../../types";
-import { ChartPanel, DashboardCard, StatusBadge } from "../common/terminal";
+import { DashboardCard, StatusBadge } from "../common/terminal";
 
-type MacroRowStatus = "real" | "pending" | "missing" | "stale";
+type MacroRowStatus = DataSourceStatus | "unknown";
 
 type MacroIndicatorRow = {
   key: string;
@@ -13,6 +14,7 @@ type MacroIndicatorRow = {
   value: string | number | null;
   unit?: string;
   date?: string;
+  timeKind: DisplayTimeKind;
   source?: string;
   sourceDisplayName: string;
   status: MacroRowStatus;
@@ -27,13 +29,6 @@ type MacroGroup = {
   rows: MacroIndicatorRow[];
 };
 
-const trendIcon = {
-  上行: ArrowUpRight,
-  下行: ArrowDownRight,
-  震荡: Minus,
-  待验证: Radar,
-};
-
 const macroGroups: Array<Omit<MacroGroup, "rows">> = [
   { key: "增长与价格", title: "增长与价格", subtitle: "GDP、PMI、CPI、PPI、工业和消费数据" },
   { key: "流动性", title: "流动性", subtitle: "资金价格、市场杠杆和银行间流动性" },
@@ -46,21 +41,8 @@ const macroGroups: Array<Omit<MacroGroup, "rows">> = [
   { key: "风险因子", title: "风险因子", subtitle: "通胀、汇率、信用和市场拥挤度" },
 ];
 
-const statusLabel: Record<MacroRowStatus, string> = {
-  real: "真实",
-  pending: "待验证",
-  missing: "缺失",
-  stale: "过期",
-};
-
-const statusBadgeStatus: Record<MacroRowStatus, DataSourceStatus> = {
-  real: "real",
-  pending: "mock",
-  missing: "missing",
-  stale: "stale",
-};
-
-export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
+export function MacroTab({ indicators, generatedAt, now }: { indicators: MacroIndicator[]; generatedAt?: string; now?: Date }) {
+  const displayNow = useDisplayNow(now);
   const rows = useMemo(() => buildMacroIndicatorRows(indicators), [indicators]);
   const groups = useMemo(() => buildMacroGroups(rows), [rows]);
   const firstActiveGroup = groups.find((group) => group.rows.length > 0)?.key ?? groups[0]?.key ?? "增长与价格";
@@ -68,12 +50,9 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
 
   const selectedGroup = groups.find((group) => group.key === selectedGroupKey) ?? groups[0];
   const totalMetricCount = rows.length;
+  const coveredCount = rows.filter((row) => row.value !== null).length;
   const realMetricCount = rows.filter((row) => row.status === "real").length;
-  const missingMetricCount = rows.filter((row) => row.status === "missing").length;
-  const sourceCount = new Set(rows.map((row) => row.sourceDisplayName).filter(Boolean)).size;
-  const latestUpdate = latestDateLabel(rows);
-  const radarRows = buildRadarRows(rows);
-  const chartData = radarRows.map((row) => ({ name: row.dimension, value: row.score }));
+  const times = summarizeDataTimes(rows.map((row) => ({ value: row.date, kind: row.timeKind })), displayNow);
 
   return (
     <section className="space-y-5">
@@ -81,16 +60,19 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
         <p className="text-xs font-semibold tracking-[0.2em] text-cyan/80">宏观研究看板</p>
         <h2 className="mt-2 text-2xl font-semibold text-textStrong">宏观数据观察台</h2>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-textMuted">
-          按投研主题组织宏观指标：上方看分类摘要，中间查看当前分类完整指标，雷达图独立解释方向，底部保留全量明细用于对账。
+          按分类浏览指标观测与原始值，底部保留全量明细用于对账。正式方向模型尚未接入，数据覆盖数量不代表经济强弱。
         </p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <MacroKpiCard label="真实指标覆盖" value={`${realMetricCount}/${totalMetricCount}`} hint="已从生成数据中读取的真实宏观指标" status="real" />
-        <MacroKpiCard label="缺失 / 待补项" value={`${missingMetricCount}`} hint="保留待接入状态，不用示例数替代" status={missingMetricCount > 0 ? "missing" : "real"} />
-        <MacroKpiCard label="最近更新" value={latestUpdate} hint="取已接入指标中的最新数据日期" status="stale" />
-        <MacroKpiCard label="可读来源" value={`${sourceCount}`} hint="主界面展示机构名称，原始接口留在明细表" status="real" />
+        <MacroKpiCard label="数值覆盖" value={`${coveredCount}/${totalMetricCount}`} hint="按展示条目统计，重复指标未去重；仅表示有值，不表示经济强弱" />
+        <MacroKpiCard label="来源标记真实" value={`${realMetricCount}/${totalMetricCount}`} hint={summarizeSourceStatuses(rows.map((row) => row.status))} />
+        <MacroKpiCard label="数值缺失" value={`${totalMetricCount - coveredCount}/${totalMetricCount}`} hint="缺失保留为空，不以零或示例补齐" />
+        <MacroKpiCard label="时间语义" value="时效待核验" hint={`报告期 ${times.period}；仅日期 ${times.dateOnly}；精确时间 ${times.recent + times.older}；缺失 ${times.missing}；异常 ${times.invalid + times.future}；未知 ${times.unknown}。分母 ${times.total}，逐项核验。`} />
+
       </div>
+
+      <p className="break-words text-xs leading-5 text-textMuted">{describeDataTime(generatedAt, "generated", displayNow).text}。文件生成不代表全部指标已更新。</p>
 
       <section className="space-y-3">
         <SectionTitle title="宏观分类摘要" description="每张卡片只展示核心摘要；点击卡片后，下方显示该分类完整指标。" />
@@ -99,6 +81,7 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
             <MacroSummaryCard
               key={group.key}
               group={group}
+              now={displayNow}
               selected={group.key === selectedGroup?.key}
               onSelect={() => setSelectedGroupKey(group.key)}
             />
@@ -106,45 +89,14 @@ export function MacroTab({ indicators }: { indicators: MacroIndicator[] }) {
         </div>
       </section>
 
-      {selectedGroup ? <SelectedMacroGroup group={selectedGroup} /> : null}
+      {selectedGroup ? <SelectedMacroGroup group={selectedGroup} now={displayNow} /> : null}
 
-      <ChartPanel
-        title="宏观观察雷达"
-        description="独立展示宏观方向判断，避免挤压分类卡片；底层指标仍以明细表为准。"
-        legend={<span className="inline-flex items-center gap-2 text-xs text-textMuted"><Activity className="h-4 w-4 text-cyan" />真实指标 {realMetricCount} 项</span>}
-      >
-        <div className="grid gap-5 xl:grid-cols-[minmax(0,0.9fr)_minmax(340px,1.1fr)]">
-          <div className="h-[280px] min-w-0">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} layout="vertical" margin={{ left: 8, right: 18 }}>
-                <CartesianGrid stroke="rgba(148,163,184,0.12)" strokeDasharray="3 3" horizontal={false} />
-                <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 12, fill: "#94A3B8" }} />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 12, fill: "#94A3B8" }} width={70} />
-                <Tooltip contentStyle={{ background: "#0F172A", border: "1px solid #334155", color: "#E5E7EB" }} labelStyle={{ color: "#E5E7EB" }} />
-                <Bar dataKey="value" fill="#22D3EE" radius={[0, 4, 4, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+      <DashboardCard className="p-5">
+        <h3 className="text-base font-semibold text-textStrong">宏观指标观测 · 模型尚未接入</h3>
+        <p className="mt-2 text-sm leading-6 text-textMuted">当前展示仅为原始指标观测，不输出方向分或当前宏观结论。方法说明：方向判断还需验证指标口径、发布时间、修订记录与正式模型。</p>
+      </DashboardCard>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {radarRows.map((row) => (
-              <div key={row.dimension} className="rounded-lg border border-borderSoft bg-bg2/60 p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-textStrong">{row.dimension}</p>
-                    <p className="mt-1 text-xs text-textMuted">{row.direction}</p>
-                  </div>
-                  <span className="font-mono text-2xl font-semibold text-cyan">{row.score}</span>
-                </div>
-                <p className="mt-3 text-xs leading-5 text-textMuted">驱动指标：{row.drivers}</p>
-                <p className="mt-2 text-[11px] text-textWeak">更新：{row.updatedAt || "待接入"}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </ChartPanel>
-
-      <MacroDetailTable rows={rows} />
+      <MacroDetailTable rows={rows} now={displayNow} />
     </section>
   );
 }
@@ -158,12 +110,11 @@ function SectionTitle({ title, description }: { title: string; description: stri
   );
 }
 
-function MacroKpiCard({ label, value, hint, status }: { label: string; value: string; hint: string; status: DataSourceStatus }) {
+function MacroKpiCard({ label, value, hint }: { label: string; value: string; hint: string }) {
   return (
     <DashboardCard className="min-w-0 p-4">
       <div className="flex items-start justify-between gap-3">
         <p className="text-xs font-medium text-textMuted">{label}</p>
-        <StatusBadge status={status} />
       </div>
       <p className="mt-3 break-words font-mono text-2xl font-semibold text-textStrong">{value}</p>
       <p className="mt-2 text-xs leading-5 text-textMuted">{hint}</p>
@@ -171,14 +122,14 @@ function MacroKpiCard({ label, value, hint, status }: { label: string; value: st
   );
 }
 
-function MacroSummaryCard({ group, selected, onSelect }: { group: MacroGroup; selected: boolean; onSelect: () => void }) {
+function MacroSummaryCard({ group, selected, onSelect, now }: { group: MacroGroup; selected: boolean; onSelect: () => void; now: Date }) {
   const visibleRows = group.rows.slice(0, 3);
-  const groupStatus = group.rows.some((row) => row.status === "real") ? "real" : group.rows.length > 0 ? "stale" : "missing";
 
   return (
     <button
       type="button"
       onClick={onSelect}
+      aria-pressed={selected}
       className={`min-w-0 rounded-xl border p-4 text-left transition ${
         selected ? "border-cyan/55 bg-cyan/10 shadow-[0_0_0_1px_rgba(34,211,238,0.14)]" : "border-borderSoft bg-bg2/60 hover:border-cyan/35 hover:bg-bg2"
       }`}
@@ -188,15 +139,17 @@ function MacroSummaryCard({ group, selected, onSelect }: { group: MacroGroup; se
           <h4 className="whitespace-normal text-lg font-semibold leading-7 text-textStrong">{group.title}</h4>
           <p className="mt-1 text-xs leading-5 text-textMuted">{group.subtitle}</p>
         </div>
-        <StatusBadge status={groupStatus} label={group.rows.length ? `${group.rows.length}项` : "待接入"} />
+        <span className="text-xs text-textMuted">{group.rows.length} 项观测</span>
       </div>
 
+      <p className="mt-2 text-xs leading-5 text-textMuted">来源：{summarizeSourceStatuses(group.rows.map((row) => row.status))}；时效待核验</p>
       {visibleRows.length > 0 ? (
         <div className="mt-4 space-y-2">
           {visibleRows.map((row) => (
-            <div key={row.key} className="flex items-center justify-between gap-3 rounded-md bg-bg1/60 px-3 py-2">
+            <div key={row.key} className="min-w-0 rounded-md bg-bg1/60 px-3 py-2">
               <span className="min-w-0 text-sm text-textMuted">{row.label}</span>
-              <span className="shrink-0 font-mono text-sm font-semibold text-textStrong">{displayValue(row.value)}</span>
+              <span className="ml-2 break-words font-mono text-sm font-semibold text-textStrong">{displayValue(row.value)}</span>
+              <span className="mt-1 block break-words text-xs leading-5 text-textMuted">{describeDataTime(row.date, row.timeKind, now).text}</span>
             </div>
           ))}
         </div>
@@ -207,7 +160,7 @@ function MacroSummaryCard({ group, selected, onSelect }: { group: MacroGroup; se
   );
 }
 
-function SelectedMacroGroup({ group }: { group: MacroGroup }) {
+function SelectedMacroGroup({ group, now }: { group: MacroGroup; now: Date }) {
   const Icon = group.rows.length > 0 ? BarChart3 : Radar;
 
   return (
@@ -222,13 +175,13 @@ function SelectedMacroGroup({ group }: { group: MacroGroup }) {
           </div>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-textMuted">{group.subtitle}</p>
         </div>
-        <StatusBadge status={group.rows.some((row) => row.status === "real") ? "real" : "missing"} label={`${group.rows.length} 项指标`} />
+        <p className="text-xs leading-5 text-textMuted">来源：{summarizeSourceStatuses(group.rows.map((row) => row.status))}</p>
       </div>
 
       {group.rows.length > 0 ? (
-        <div className="mt-4 grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+        <div className="mt-4 grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(220px, 100%), 1fr))" }}>
           {group.rows.map((row) => (
-            <MacroMetricBlock key={row.key} row={row} />
+            <MacroMetricBlock key={row.key} row={row} now={now} />
           ))}
         </div>
       ) : (
@@ -240,26 +193,27 @@ function SelectedMacroGroup({ group }: { group: MacroGroup }) {
   );
 }
 
-function MacroMetricBlock({ row }: { row: MacroIndicatorRow }) {
+function MacroMetricBlock({ row, now }: { row: MacroIndicatorRow; now: Date }) {
   return (
     <div className="min-w-0 rounded-lg border border-borderSoft bg-bg2/60 p-4">
       <div className="flex items-start justify-between gap-3">
         <p className="min-w-0 whitespace-normal text-sm font-medium leading-5 text-textStrong">{row.label}</p>
-        <StatusBadge status={statusBadgeStatus[row.status]} label={statusLabel[row.status]} />
+        <StatusBadge status={row.status} />
       </div>
       <p className="mt-3 whitespace-normal break-words font-mono text-2xl font-semibold leading-8 text-textStrong">
         {displayValue(row.value)}
-        {row.unit ? <span className="ml-1 text-sm font-normal text-textMuted">{row.unit}</span> : null}
+
       </p>
       <div className="mt-3 space-y-1 text-xs leading-5 text-textMuted">
-        <p>日期：{row.date || "待接入"}</p>
+        <p className="break-words">{describeDataTime(row.date, row.timeKind, now).text}</p>
         <p title={row.source || row.sourceDisplayName}>来源：{row.sourceDisplayName}</p>
+        {row.description ? <p className="break-words">原始说明：{row.description}</p> : null}
       </div>
     </div>
   );
 }
 
-function MacroDetailTable({ rows }: { rows: MacroIndicatorRow[] }) {
+function MacroDetailTable({ rows, now }: { rows: MacroIndicatorRow[]; now: Date }) {
   return (
     <DashboardCard className="min-w-0 p-0">
       <div className="border-b border-borderSoft p-4">
@@ -270,22 +224,23 @@ function MacroDetailTable({ rows }: { rows: MacroIndicatorRow[] }) {
         <table className="min-w-[1080px] w-full border-separate border-spacing-0 text-left text-sm">
           <thead className="sticky top-0 z-10 bg-bg1/95 text-xs uppercase tracking-[0.12em] text-textWeak">
             <tr>
-              {["分类", "指标名称", "当前值", "单位", "日期", "来源", "状态", "原始字段 key"].map((header) => (
+              {["分类", "指标名称", "观测值", "单位", "时间与时效", "来源", "来源状态", "原始字段 key"].map((header) => (
                 <th key={header} className="border-b border-borderSoft px-4 py-3 font-medium">{header}</th>
               ))}
             </tr>
           </thead>
           <tbody>
+            {rows.length === 0 ? <tr><td colSpan={8} className="p-4 text-textMuted">暂无宏观指标；模型尚未接入。</td></tr> : null}
             {rows.map((row) => (
               <tr key={row.key} className="transition hover:bg-cyan/5">
                 <td className="border-b border-borderSoft px-4 py-3 align-top text-textMuted">{row.category}</td>
                 <td className="border-b border-borderSoft px-4 py-3 align-top font-medium text-textStrong">{row.label}</td>
                 <td className="border-b border-borderSoft px-4 py-3 align-top font-mono text-textStrong">{displayValue(row.value)}</td>
-                <td className="border-b border-borderSoft px-4 py-3 align-top text-textMuted">{row.unit || "-"}</td>
-                <td className="border-b border-borderSoft px-4 py-3 align-top text-textMuted">{row.date || "待接入"}</td>
+                <td className="border-b border-borderSoft px-4 py-3 align-top text-textMuted">{row.unit || "未知"}</td>
+                <td className="border-b border-borderSoft px-4 py-3 align-top text-textMuted">{describeDataTime(row.date, row.timeKind, now).text}</td>
                 <td className="max-w-[240px] whitespace-normal break-words border-b border-borderSoft px-4 py-3 align-top text-textMuted">{row.sourceDisplayName}</td>
                 <td className="border-b border-borderSoft px-4 py-3 align-top">
-                  <StatusBadge status={statusBadgeStatus[row.status]} label={statusLabel[row.status]} />
+                  <StatusBadge status={row.status} />
                 </td>
                 <td className="max-w-[260px] whitespace-normal break-words border-b border-borderSoft px-4 py-3 align-top font-mono text-xs text-textWeak" title={row.source || row.rawKey}>
                   {row.rawKey}
@@ -303,16 +258,17 @@ export function buildMacroIndicatorRows(indicators: MacroIndicator[]): MacroIndi
   return indicators.flatMap((indicator) =>
     indicator.metrics.map((metric, index) => {
       const value = normalizeValue(metric.value);
-      const status = normalizeStatus(metric.status, value);
-      const rawSource = metric.source || indicator.dataQuality?.find((item) => item.status === "real")?.source;
+      const status = metric.status ?? "unknown";
+      const rawSource = metric.source;
 
       return {
         key: `${indicator.id}-${index}-${slug(metric.label)}`,
         label: metric.label || "未命名指标",
         category: mapMacroCategory(indicator, metric.label),
         value,
-        unit: inferUnit(metric.label, metric.value),
+        unit: extractUnit(metric.value),
         date: metric.updatedAt || extractDate(metric.note),
+        timeKind: macroTimeKind(metric),
         source: rawSource,
         sourceDisplayName: sourceDisplayName(rawSource),
         status,
@@ -330,45 +286,6 @@ function buildMacroGroups(rows: MacroIndicatorRow[]): MacroGroup[] {
   }));
 }
 
-function buildRadarRows(rows: MacroIndicatorRow[]) {
-  const pick = (category: string) => rows.filter((row) => row.category === category && row.status === "real");
-  const growthRows = pick("增长与价格");
-  const liquidityRows = [...pick("流动性"), ...pick("信用与社融")];
-  const policyRows = pick("政策与利率");
-  const riskRows = [...pick("汇率与外部环境"), ...pick("风险因子")];
-
-  return [
-    {
-      dimension: "增长",
-      score: scoreFromRows(growthRows, 58),
-      direction: growthRows.length ? "偏利好" : "待验证",
-      drivers: summarizeLabels(growthRows, "GDP同比、制造业PMI、非制造业PMI"),
-      updatedAt: latestDateLabel(growthRows),
-    },
-    {
-      dimension: "流动性",
-      score: scoreFromRows(liquidityRows, 66),
-      direction: liquidityRows.length ? "偏宽松" : "待验证",
-      drivers: summarizeLabels(liquidityRows, "M2同比、LPR、SHIBOR"),
-      updatedAt: latestDateLabel(liquidityRows),
-    },
-    {
-      dimension: "政策",
-      score: scoreFromRows(policyRows, 64),
-      direction: policyRows.length ? "中性偏积极" : "待验证",
-      drivers: summarizeLabels(policyRows, "LPR、存准率、政策利率"),
-      updatedAt: latestDateLabel(policyRows),
-    },
-    {
-      dimension: "风险",
-      score: scoreFromRows(riskRows, 52),
-      direction: riskRows.length ? "中性" : "待扩展",
-      drivers: summarizeLabels(riskRows, "价格波动、汇率、数据缺失"),
-      updatedAt: latestDateLabel(riskRows),
-    },
-  ];
-}
-
 function mapMacroCategory(indicator: MacroIndicator, label: string): string {
   const text = `${indicator.name} ${indicator.category} ${label}`;
   if (/GDP|PMI|CPI|PPI|工业|社零|消费|价格/.test(text)) return "增长与价格";
@@ -383,14 +300,9 @@ function mapMacroCategory(indicator: MacroIndicator, label: string): string {
   return indicator.category || "风险因子";
 }
 
-function inferUnit(label: string, value?: string): string | undefined {
-  const text = `${label} ${value ?? ""}`;
-  if (/%/.test(text) || /同比|LPR|SHIBOR|利率|CPI|PPI/.test(text)) return "%";
-  if (/万亿/.test(text)) return "万亿";
-  if (/亿/.test(text)) return "亿";
-  if (/PMI|指数/.test(text)) return "指数";
-  if (/汇率|中间价/.test(text)) return "人民币";
-  return undefined;
+function extractUnit(value?: string): string | undefined {
+  // Only units present in the raw value; a label such as 同比 does not prove percent units.
+  return value?.match(/亿美元|万亿|亿元|亿|%/)?.[0];
 }
 
 function sourceDisplayName(source?: string) {
@@ -418,15 +330,8 @@ function sourceDisplayName(source?: string) {
 
 function normalizeValue(value?: string): string | number | null {
   const trimmed = value?.trim();
-  if (!trimmed || trimmed === "X" || trimmed.includes("待") || trimmed.includes("暂缺")) return null;
+  if (!trimmed || ["X", "N/A", "NaN", "数据暂缺", "暂未获取", "暂无", "待接入"].includes(trimmed)) return null;
   return trimmed;
-}
-
-function normalizeStatus(status: DataSourceStatus | undefined, value: string | number | null): MacroRowStatus {
-  if (value === null || status === "missing" || status === "error") return "missing";
-  if (status === "real") return "real";
-  if (status === "stale") return "stale";
-  return "pending";
 }
 
 function displayValue(value: string | number | null) {
@@ -438,37 +343,14 @@ function extractDate(note?: string): string | undefined {
   return match?.[1]?.trim();
 }
 
-function latestDateLabel(rows: MacroIndicatorRow[]) {
-  const datedRows = rows
-    .map((row) => ({ label: row.date, time: row.date ? toSortableTime(row.date) : 0 }))
-    .filter((item): item is { label: string; time: number } => Boolean(item.label));
-  datedRows.sort((a, b) => b.time - a.time);
-  return datedRows[0]?.label ?? "待接入";
-}
-
-function toSortableTime(label: string) {
-  const isoMatch = label.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
-  if (isoMatch) return Date.UTC(Number(isoMatch[1]), Number(isoMatch[2]) - 1, Number(isoMatch[3]));
-
-  const monthMatch = label.match(/(\d{4})年(\d{1,2})月/);
-  if (monthMatch) return Date.UTC(Number(monthMatch[1]), Number(monthMatch[2]) - 1, 1);
-
-  const quarterMatch = label.match(/(\d{4})年第(\d)季度/);
-  if (quarterMatch) return Date.UTC(Number(quarterMatch[1]), Number(quarterMatch[2]) * 3 - 1, 1);
-
-  return 0;
-}
-
-function scoreFromRows(rows: MacroIndicatorRow[], fallback: number) {
-  if (!rows.length) return fallback;
-  return Math.min(88, Math.max(42, fallback + Math.min(rows.length * 3, 18)));
-}
-
-function summarizeLabels(rows: MacroIndicatorRow[], fallback: string) {
-  if (!rows.length) return fallback;
-  return rows.slice(0, 3).map((row) => row.label).join("、");
-}
-
 function slug(text: string) {
   return text.replace(/[^\da-zA-Z\u4e00-\u9fa5]+/g, "-").replace(/^-|-$/g, "");
+}
+
+/** Only script-proven labels distinguish publication / period. Generic 日期 is ambiguous. */
+function macroTimeKind(metric: MacroIndicator["metrics"][number]): DisplayTimeKind {
+  if (/(?:月份|报告期)[：:]/.test(metric.note)) return "period";
+  if (/公布[：:]/.test(metric.note)) return "publication";
+  if (/macro_china_(?:shibor_all|rmb|market_margin_sh\/sz|lpr)$/.test(metric.source ?? "")) return "observation";
+  return "unknown";
 }

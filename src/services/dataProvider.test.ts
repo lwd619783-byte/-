@@ -104,3 +104,21 @@ describe("dashboard data provider", () => {
     expect(mockStock?.financial.revenue).not.toBe("数据获取失败");
   });
 });
+
+
+describe("quote source isolation", () => {
+  it("never counts a real profile as a real quote or replaces a missing time", () => {
+    const input = structuredClone(generated);
+    input.quotes = {};
+    input.manifest.updatedAt = null;
+    const dataset = buildDashboardDataset("real", input);
+    expect(dataset.coverageSummary).toContain("A股行情真实来源且有价格 0/");
+    expect(dataset.dataUpdatedAt).toBe("");
+    expect(dataset.modeLabel).not.toBe("Mock Data");
+    expect(dataset.stocks.find((stock) => stock.id === "sugon")?.isRecentlyUpdated).toBe(false);
+  });
+  it("keeps mock mode quote coverage independent of generated real manifests", () => {
+    const dataset = buildDashboardDataset("mock", generated);
+    expect(dataset.coverageSummary).toContain("A股行情真实来源且有价格 0/");
+  });
+});

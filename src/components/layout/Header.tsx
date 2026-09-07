@@ -1,3 +1,5 @@
+import { describeDataTime } from "../../utils/dataTrustDisplay";
+import { useDisplayNow } from "../../hooks/useDisplayNow";
 import { Search, ShieldAlert } from "lucide-react";
 import type { DashboardDataMode } from "../../types";
 import { StatusBadge } from "../common/terminal";
@@ -24,8 +26,8 @@ export function Header({
   coverageSummary,
   onDataModeChange,
 }: HeaderProps) {
-  const tradeDate = updatedAt?.slice(0, 10) || new Date().toISOString().slice(0, 10);
-  const modeStatus = dataMode === "mock" ? "mock" : modeLabel === "Real Data" ? "real" : "stale";
+  const time = describeDataTime(updatedAt, "collected", useDisplayNow());
+  const modeStatus = dataMode === "mock" ? "mock" : modeLabel === "Real Data" ? "real" : "partial";
   const displayModeLabel = dataModeDisplayLabel(modeLabel);
   const displaySourceNote = localizeDataSourceNote(sourceNote);
   const coverageBadges = (coverageSummary ?? "")
@@ -40,13 +42,13 @@ export function Header({
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-2xl font-semibold tracking-wide text-textStrong">投资研究看板</h1>
-              <StatusBadge status={modeStatus} />
+              <StatusBadge status={modeStatus} label={`数据模式：${dataModeDisplayLabel(modeLabel)}`} />
             </div>
             <p className="mt-1 text-sm leading-6 text-textMuted">
               面向行业比较、核心资产跟踪、风险核验和研究线索沉淀的内部投研终端。
             </p>
-            <p className="mt-1 truncate text-xs text-textWeak" title={`交易日：${tradeDate} · 更新时间：${updatedAt}`}>
-              交易日：{tradeDate} · 更新时间：{updatedAt}
+            <p className="mt-1 break-words text-xs text-textWeak">
+              数据包{time.text}。采集时间不代表交易日。
             </p>
             {coverageBadges.length > 0 ? (
               <div className="mt-2 flex flex-wrap gap-1.5">

@@ -23,6 +23,12 @@ function renderHeader(overrides: Partial<Parameters<typeof Header>[0]> = {}) {
 }
 
 describe("Header 中文展示", () => {
+  it("缺失时间不会回退到今天或被称为交易日", () => {
+    const { container } = renderHeader({ updatedAt: "" });
+    expect(container.textContent).toContain("采集时间：未知");
+    expect(container.textContent).toContain("时间缺失");
+    expect(container.textContent).not.toContain("交易日：");
+  });
   it.each([
     ["mock", "Mock Data", "模拟数据"],
     ["mixed", "Mixed Data", "混合数据"],
