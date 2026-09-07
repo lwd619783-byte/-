@@ -5,6 +5,18 @@ data-cache/
 .ssh-private/
 .worktrees/
 
+# Local Core runtime data and Node-only compilation output; no database fixtures.
+.local-data/
+.local-core-build/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite-journal
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+
 # Managed third-party Codex Skills are installed locally by agent:skills:setup.
 # The project-owned coordinator remains tracked.
 .agents/skills/redesign-existing-projects/

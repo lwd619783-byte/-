@@ -35,6 +35,18 @@ jobs:
       - name: Install JavaScript dependencies
         run: npm ci
 
+      - name: Typecheck Node-only Local Core
+        run: npm run local:typecheck
+
+      - name: Compile frozen V1 contracts and check registry invariants
+        run: npm run contracts:validate
+
+      - name: Test V1 contracts offline
+        run: npm run test:contracts
+
+      - name: Test Local Core with isolated temporary databases
+        run: npm run test:local-core
+
       - name: Install minimal provider-test dependencies
         run: python -m pip install -r requirements-financial-test.txt -r requirements-announcement-provider.txt -r requirements-provider-observability-test.txt
 

@@ -7,7 +7,7 @@
     "dev": "vite",
     "env:check": "node scripts/dev-health.mjs",
     "env:check:json": "node scripts/dev-health.mjs --json",
-    "build": "tsc -b && vite build && node scripts/check-financial-bundle.mjs",
+    "build": "tsc -b && npm run local:typecheck && vite build && node scripts/check-financial-bundle.mjs",
     "build:check": "node scripts/check-financial-bundle.mjs",
     "preview": "vite preview",
     "test": "vitest run --exclude scripts/tests/company-guidance-expectations.test.mjs",
@@ -44,10 +44,19 @@
     "data:refresh": "npm run data:universe && npm run data:fetch:a-stock && npm run data:fetch:hk && npm run data:fetch:macro && npm run data:validate:a-stock",
     "ui:audit": "node scripts/ui-audit.mjs",
     "agent:skills:setup": "node scripts/setup-codex-ui-skills.mjs",
-    "agent:skills:check": "node scripts/setup-codex-ui-skills.mjs --check"
+    "agent:skills:check": "node scripts/setup-codex-ui-skills.mjs --check",
+    "local:typecheck": "tsc -p tsconfig.local-core.json --noEmit",
+    "local:db:verify": "node scripts/run-local-core.mjs verify",
+    "test:contracts": "node scripts/run-local-core.mjs test-contracts",
+    "local:db:init": "node scripts/run-local-core.mjs init",
+    "contracts:validate": "node scripts/run-local-core.mjs contracts",
+    "test:local-core": "node scripts/run-local-core.mjs test-local-core"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "better-sqlite3": "13.0.3",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -56,6 +65,8 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
+    "@types/better-sqlite3": "9.6.0",
+    "@types/node": "22.20.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
@@ -65,5 +76,8 @@
     "typescript": "^5.6.3",
     "vite": "^6.0.1",
     "vitest": "^2.1.6"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
