@@ -1,8 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
-import { readFileSync } from 'node:fs';
-import { spawnSync } from 'node:child_process';
 import Database from 'better-sqlite3';
 import { openLocalDatabase } from '../../.local-core-build/db/connection.js';
 import { loadMigrations, defineMigration, migrateDatabase, verifyDatabase } from '../../.local-core-build/db/migrations.js';
@@ -13,11 +11,11 @@ import { account, asset, transaction, position, dcaPlan, execution, cashFlow, ap
 import { historicalContext, accountContext } from './import-alignment-fixtures.mjs';
 import { confirmedMutation, authorizeRecord } from '../../.local-core-build/domain/asset-service.js';
 
-test('001 matches immutable baseline; 002 upgrades an actual Phase 1A database without data loss', () => {
+test('001 checksum matches immutable Phase 1A baseline; 002 upgrades an actual Phase 1A database without data loss', () => {
   const migrations = loadMigrations();
-  assert.equal(migrations[0].checksum, '339bbd8b1cadb8196fb1b4ac9ab2a48d7fbb48c7452dcea89a3320c34166f1ef');
-  const baseline = spawnSync('git', ['show', '87d33595a49dc99463333ad4637b44b7e33f68a9:local-core/db/migrations/001-local-core.sql'], { encoding: 'utf8', windowsHide: true });
-  assert.equal(baseline.status, 0); assert.equal(readFileSync('local-core/db/migrations/001-local-core.sql', 'utf8').replaceAll('\r\n', '\n'), baseline.stdout);
+  assert.equal(migrations[0]?.version, 1);
+  assert.equal(migrations[0]?.name, '001-local-core');
+  assert.equal(migrations[0]?.checksum, '339bbd8b1cadb8196fb1b4ac9ab2a48d7fbb48c7452dcea89a3320c34166f1ef');
   const db = new Database(':memory:');
   try {
     db.pragma('foreign_keys=ON'); migrateDatabase(db, migrations.slice(0, 1));
