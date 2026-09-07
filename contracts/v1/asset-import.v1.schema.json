@@ -18,6 +18,50 @@
       },
       "additionalProperties": false
     },
+    "AccountValueObservation": {
+      "type": "object",
+      "required": ["accountId", "snapshotDate", "scope", "totalMarketValue", "sourceEvidenceRefs"],
+      "properties": {
+        "accountId": { "type": "string", "minLength": 1 },
+        "snapshotDate": { "type": "string", "format": "date" },
+        "scope": { "type": "string", "enum": ["full_account_snapshot"] },
+        "totalMarketValue": { "$ref": "#/$defs/Money" },
+        "sourceEvidenceRefs": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": false,
+      "$comment": "Reconciliation evidence only. scope asserts a complete account snapshot in this bundle; evidence must support completeness of the matching PositionSnapshot candidates, including cash if included in the observed total. Never substitute old ledger snapshots or external contribution. See ledger-invariants.v1 accountValueReconciliation."
+    },
+    "AccountValueReconciliation": {
+      "type": "object",
+      "required": ["accountId", "snapshotDate", "observedTotal", "status"],
+      "properties": {
+        "accountId": { "type": "string", "minLength": 1 },
+        "snapshotDate": { "type": "string", "format": "date" },
+        "observedTotal": { "$ref": "#/$defs/Money" },
+        "candidatePositionTotal": { "$ref": "#/$defs/Money" },
+        "reconciliationDelta": { "$ref": "#/$defs/Money" },
+        "status": { "type": "string", "enum": ["pass", "warn"] },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "pass" } }, "required": ["status"] },
+          "then": {
+            "required": ["candidatePositionTotal", "reconciliationDelta"],
+            "properties": {
+              "reconciliationDelta": { "type": "object", "properties": { "amount": { "const": 0 } } },
+              "warnings": { "type": "array", "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "warn" } }, "required": ["status"] },
+          "then": { "required": ["warnings"], "properties": { "warnings": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } } } }
+        }
+      ],
+      "additionalProperties": false,
+      "$comment": "Delta = candidatePositionTotal - observedTotal in the same currency. Missing/incomplete/currency-conflicted totals must not be fabricated as zero. Cross-object completeness, exact decimal equality and propagation of warn to non-committable plan require the import validator."
+    },
     "Candidate": {
       "type": "object",
       "required": ["candidateId", "candidateType", "confidence", "payload"],
@@ -46,6 +90,7 @@
         "sourceEvidenceRefs": { "type": "array", "items": { "type": "string" } },
         "candidates": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/Candidate" } },
         "declaredExternalContribution": { "$ref": "#/$defs/Money" },
+        "accountValueObservations": { "type": "array", "items": { "$ref": "#/$defs/AccountValueObservation" } },
         "notes": { "type": "string" }
       },
       "additionalProperties": false
@@ -73,6 +118,7 @@
         "planDigest": { "type": "string", "minLength": 1 },
         "status": { "type": "string", "enum": ["ready", "needs_review", "blocked", "committed", "cancelled"] },
         "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/PlanItem" } },
+        "accountValueReconciliations": { "type": "array", "items": { "$ref": "#/$defs/AccountValueReconciliation" } },
         "summary": {
           "type": "object",
           "properties": {

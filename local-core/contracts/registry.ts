@@ -25,7 +25,27 @@ function overlaps(left: string, right: string): boolean {
     (left.endsWith('.*') && right.startsWith(left.slice(0, -1))) ||
     (right.endsWith('.*') && left.startsWith(right.slice(0, -1)));
 }
+// Existing V1 identities plus the additive clarification; never infer identity from a renamed definition.
+const versionIdentities: Record<string, Record<string, string>> = {
+  'asset-import.v1.schema.json': { AssetImportBundle: 'asset-import-bundle.v1', AssetImportPlan: 'asset-import-plan.v1', AssetImportCommitRequest: 'asset-import-commit-request.v1' },
+  'bridge-envelope.v1.schema.json': { '': 'research-bridge.v1' },
+  'entity-resolution.v1.schema.json': { RegistryEntry: 'entity-registry-entry.v1', ResolutionRequest: 'entity-resolution-request.v1', ResolutionResult: 'entity-resolution-result.v1' },
+  'research-asset-os.contracts.v1.schema.json': {
+    IndustryResearchProfile: 'industry-research-profile.v1', IndustryResearchModule: 'industry-research-module.v1', IndustryExtension: 'industry-extension.v1',
+    ContributionBundle: 'contribution-bundle.v1', ContributionPlan: 'contribution-plan.v1', ContributionCommitRequest: 'contribution-commit-request.v1',
+    ConversationArchiveManifest: 'conversation-archive-manifest.v1', Account: 'account.v1', Asset: 'asset.v1', Transaction: 'transaction.v1', CashFlow: 'cash-flow.v1',
+    PositionSnapshot: 'position-snapshot.v1', DcaPlan: 'dca-plan.v1', DcaExecution: 'dca-execution.v1', PerformanceSnapshot: 'performance-snapshot.v1',
+    LegacyAssetImport: 'legacy-asset-import.v1', HistoricalAssetImport: 'historical-asset-import.v1', BackupManifest: 'backup-manifest.v1', RestorePlan: 'restore-plan.v1', BridgeAuditEvent: 'bridge-audit-event.v1',
+  },
+  'restore-commit.v1.schema.json': { '': 'restore-commit-request.v1' },
+};
 export function validateStaticInvariants(documents: ContractDocuments): void {
+  for (const [filename, identities] of Object.entries(versionIdentities)) {
+    for (const [name, version] of Object.entries(identities)) {
+      const definition = name ? documents[filename]?.$defs?.[name] : documents[filename];
+      invariant((definition?.properties?.schemaVersion?.const ?? definition?.properties?.contractVersion?.const) === version, 'Frozen V1 identity changed or missing.');
+    }
+  }
   const modules = documents['industry-module-registry.v1.json'];
   invariant(modules?.schemaVersion === 'industry-module-registry.v1', 'Frozen module registry version required.');
   invariant(Array.isArray(modules.modules) && modules.modules.length === 14, 'M0-M13 must occur exactly once.');
@@ -40,6 +60,33 @@ export function validateStaticInvariants(documents: ContractDocuments): void {
   invariant(ai && [ai.allow, ai.confirmedOnly, ai.deny].every((items) => Array.isArray(items) && items.every((item: unknown) => typeof item === 'string')), 'AI permission lists required.');
   invariant(['trade.execute', 'broker.order.create', 'sql.execute', 'database.write_raw', 'database.delete_raw', 'history.hard_delete', 'audit.delete', 'schema.migrate', 'secret.*'].every((op) => ai.deny.includes(op)), 'AI hard-deny operations must remain denied.');
   invariant(!ai.deny.some((deny: string) => [...ai.allow, ...ai.confirmedOnly].some((allow: string) => overlaps(deny, allow))), 'AI hard-deny overlaps allowed permissions.');
+  invariant(ai.allow.includes('historical_asset_import.prepare') && ai.confirmedOnly.includes('historical_asset_import.commit'), 'Historical workflow permissions required.');
+  invariant(!ai.allow.some((op: string) => overlaps(op, 'historical_asset_import.commit')), 'Historical commit cannot bypass confirmation.');
+  invariant(permissions.confirmationPolicy?.level1?.mustNotChangeOfficialState === true &&
+    ['requiresUserConfirmation', 'requiresAuditEvent', 'requiresIdempotencyKey'].every((key) => permissions.confirmationPolicy?.level2?.[key] === true), 'Confirmed import must retain confirmation, audit and idempotency.');
+  const ledger = documents['ledger-invariants.v1.json'];
+  invariant(ledger?.schemaVersion === 'ledger-invariants.v1', 'Frozen ledger invariant version required.');
+  const definitions = documents['research-asset-os.contracts.v1.schema.json']?.$defs;
+  const historical = definitions?.HistoricalAssetImport;
+  invariant(historical?.properties?.baselineDate?.const === '2026-08-14' && ledger.historicalAssetImport?.baselineDate === '2026-08-14', 'Historical baseline must remain fixed.');
+  invariant(historical?.required?.includes('sourceRefs') && historical.properties.sourceRefs.minItems === 1 &&
+    ledger.historicalAssetImport?.requiresVerifiedEvidence === true && ledger.historicalAssetImport?.allowsModelBackfill === false, 'Historical evidence requirement must remain fail closed.');
+  invariant(ledger.historicalAssetImport?.workflowSchemaVersion === 'historical-asset-import.v1' &&
+    ledger.historicalAssetImport?.prepareOperation === 'historical_asset_import.prepare' && ledger.historicalAssetImport?.commitOperation === 'historical_asset_import.commit', 'Historical workflow identity must match permissions.');
+  const observation = documents['asset-import.v1.schema.json']?.$defs?.AccountValueObservation;
+  invariant(JSON.stringify(observation?.properties?.scope?.enum) === JSON.stringify(['full_account_snapshot']) &&
+    ledger.accountValueReconciliation?.scope === 'full_account_snapshot' && ledger.accountValueReconciliation?.positionSource === 'same_bundle_only' &&
+    ledger.accountValueReconciliation?.warningBlocksCommit === true && ledger.accountValueReconciliation?.deltaFormula === 'candidatePositionTotal - observedTotal', 'Account-value reconciliation boundaries required.');
+  const execution = definitions?.DcaExecution;
+  invariant(JSON.stringify(execution?.dependentRequired?.periodStart) === JSON.stringify(['periodEnd']) &&
+    JSON.stringify(execution?.dependentRequired?.periodEnd) === JSON.stringify(['periodStart']), 'DCA period dates must be paired.');
+  invariant(['periodStart', 'periodEnd'].every((key) => execution?.properties?.[key]?.$ref === '#/$defs/IsoDate' &&
+    execution.properties[key].format === 'date' && !execution.required.includes(key)), 'DCA period dates must remain optional valid IsoDate fields.');
+  invariant(execution?.properties?.period?.$ref === '#/$defs/NonEmptyString' && !execution.properties.period.pattern && !execution.properties.period.format &&
+    ledger.dcaTemporalBinding?.periodSemantics === 'display_label_only' && ledger.dcaTemporalBinding?.periodFieldsMustBePaired === true &&
+    ledger.dcaTemporalBinding?.periodOrder === 'periodStart <= periodEnd' && ledger.dcaTemporalBinding?.transactionDatePriority === 'tradeDate' &&
+    ledger.dcaTemporalBinding?.undatedCommitRequiresExplicitPeriod === true && ledger.dcaTemporalBinding?.crossRevisionPolicy === 'fail_closed' &&
+    ledger.dcaTemporalBinding?.defaultLatestRevision === false && ledger.dcaTemporalBinding?.executedAmountTransactionFormula === 'not_frozen', 'DCA temporal selection cannot infer dates, latest revision or an amount formula.');
   const cases = documents['contract-test-cases.v1.json'];
   invariant(cases?.schemaVersion === 'contract-test-cases.v1' && Array.isArray(cases.cases), 'Frozen test registry required.');
   const caseIds = cases.cases.map((item: { id?: unknown }) => item.id);
@@ -103,5 +150,13 @@ export class V1ContractRegistry implements ContractRegistry {
   validate(version: string, value: unknown): void {
     const validator = this.#validators.get(version);
     if (!validator || !validator(value)) fail('CONTRACT_INVALID', 'Payload does not satisfy the requested frozen V1 contract.');
+    // Schema cannot compare two fields. This is payload-only contract validation,
+    // not ledger revision selection or commit admission; legacy undated payloads remain valid.
+    if (version === 'dca-execution.v1') {
+      const execution = value as { periodStart?: string; periodEnd?: string };
+      if (execution.periodStart !== undefined && execution.periodEnd !== undefined) {
+        invariant(execution.periodStart <= execution.periodEnd, 'DCA periodStart must not exceed periodEnd.');
+      }
+    }
   }
 }
