@@ -8,7 +8,7 @@
 
 `宏观 / Market Regime → 行业 → Thesis → 个股验证 → 真实数据与证据 → 投资表达 → Portfolio / DCA → 事件验证 → 复盘`
 
-> Coding Agent 项目入口：[`AGENTS.md`](AGENTS.md)。UI Skill 注册与版本：[`docs/agent-skills.md`](docs/agent-skills.md)。  
+> Coding Agent 项目入口：[`AGENTS.md`](AGENTS.md)。Skill 路由、注册与固定版本：[`docs/agent-skills.md`](docs/agent-skills.md)。
 > README 只做稳定导航；当前实现以代码、测试和 [`docs/feature-registry.md`](docs/feature-registry.md) 为准。
 
 ## 当前阶段
@@ -40,10 +40,10 @@
 - [`docs/architecture.md`](docs/architecture.md)：已实现架构快照与现有技术边界
 - 当前代码和测试：判断某项能力是否真实存在的实现证据
 
-### Agent / UI Skill
+### Agent Skills
 
 - [`AGENTS.md`](AGENTS.md)：项目事实源路由、hard invariants 与 Git 边界
-- [`docs/agent-skills.md`](docs/agent-skills.md)：项目管理的外部 Skill、固定版本、安装与升级规则
+- [`docs/agent-skills.md`](docs/agent-skills.md)：UI / Domain / Local Core / minimalism 与工程图 / 研究图路由，外部 Skill 固定版本、审计、安装与升级规则
 - `.agents/skills/investment-dashboard-ui-workflow/SKILL.md`：重大 Dashboard UI 工作的项目级协调入口
 
 ### 历史基线

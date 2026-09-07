@@ -5,6 +5,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { localCoreHealth } from "./local-core-health.mjs";
+import { skillHealth } from "./setup-codex-skills.mjs";
 
 const TOOL = "investment-research-dashboard-dev-health";
 const VERSION = 1;
@@ -968,6 +969,9 @@ function main() {
     reporter.guard("dependencies.unexpected", "dependencies", () => checkProjectFilesAndDependencies(reporter, tools));
     reporter.guard("local-core.unexpected", "dependencies", () => {
       for (const check of localCoreHealth(root)) reporter.add(check.id, "dependencies", check.status, check.message);
+    });
+    reporter.guard("agent-skills.unexpected", "dependencies", () => {
+      for (const check of skillHealth(root)) reporter.add(check.id, "dependencies", check.status, check.message);
     });
     reporter.guard("git.unexpected", "git", () => checkGitAndSecurity(reporter, tools));
     reporter.guard("gh.unexpected", "git", () => checkGitHubCli(reporter, tools));

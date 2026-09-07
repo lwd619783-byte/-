@@ -7,16 +7,17 @@
 | 顺序 | 实现与验证门槛 | 独立审查 / 合入门槛 | 当前状态与停止点 |
 | --- | --- | --- | --- |
 | 独立 P0 可信展示纠偏 V1 | 移除条数评分和方向结论；source identity、quality status、value coverage、data time / freshness 分离；固定时钟边界及组件交互测试；环境检查、tests、data audit、build、UI 静态审计和浏览器验证，逐项记录限制 | 普通 push 后独立远端审查最终 HEAD；审查通过并获授权后才创建 PR，检查该 HEAD 的 CI，再决定合入 | 已合并并通过 main CI；本次核对 main 快照为 `285ff87e8d109730956517edcaeadec501d79f4c` |
-| Phase 1A — Local Core Foundation | 按[实施基线](investment-dashboard-v2-phase-1a-local-core-foundation.md)落实合同校验、SQLite、Entity Registry / Resolver、append-only Audit、Repository / Domain 基础；通过专项与原有门禁 | 独立审查权限、事务、时间、历史与 bundle 边界；获授权后 PR / 精确 HEAD CI / 合入 | 实施完成，待独立远端终局审查；[验证记录](investment-dashboard-v2-phase-1a-implementation-validation.md)列明测试、合同接口限制和本机环境问题；未创建 PR、未合并，合入后才进入 1B |
-| Phase 1B — Long-term Account & DCA Core | 按 1A 的下一阶段范围和冻结合同实现账户、资产、流水、持仓、DCA；真实迁移遵守 prepare / preview / confirm | 独立审查账本、幂等、审计与用户确认；获授权后 PR / 精确 HEAD CI / 合入 | 未实施；完成后停止，后续域另行定范围 |
+| Phase 1A — Local Core Foundation | 按[实施基线](investment-dashboard-v2-phase-1a-local-core-foundation.md)落实合同校验、SQLite、Entity Registry / Resolver、append-only Audit、Repository / Domain 基础；通过专项与原有门禁 | 独立审查权限、事务、时间、历史与 bundle 边界；获授权后 PR / 精确 HEAD CI / 合入 | **CLOSED / MERGED / MAIN CI PASS**；合并快照 `41b3caa5e063805ec0ca42efc9c74ea17491ffc4`，对应 [main CI 34115340100](https://github.com/lwd619783-byte/-/actions/runs/34115340100) 已核对 completed/success；旧实施验证记录保留原时点结论 |
+| Phase 1A.5 — Agent Skills Consolidation | 正式 [Skill Registry / Router](agent-skills.md)、固定上游审计、项目 Domain / Local Core / minimalism Skills、只读 check 和隔离 fixture 验证 | 普通 push 后独立远端终局审查；本任务不创建 PR、不合并 main | **IMPLEMENTED / PENDING INDEPENDENT REVIEW**；[验证记录](phase-1a5-agent-skills-validation.md)保留实际退出码、既有测试扫描问题和环境限制；停止在功能分支 |
+| Phase 1B — Long-term Account & DCA Core | 后续获明确授权才按冻结合同实现账户、资产、流水、持仓、DCA；persistence 必须复用现有 Phase 1A Local Core；真实迁移遵守 prepare / preview / confirm | 独立审查账本、幂等、审计与用户确认；获授权后 PR / 精确 HEAD CI / 合入 | **NOT STARTED**；1A.5 完成不自动授权开工 |
 
 验证失败或工具阻塞须标明原因与受影响验收项；安全改动可推送待审查，但不得称验收通过。测试通过、独立审查、合入与生产准入是不同状态，任何一步不自动授权下一步。
 
 ## 后续共用边界
 
 - 后续研究入库、行业 / Wiki、多 Agent 成果共用统一实体、版本、审计与 **prepare-plan-confirm-commit**，不建立平行系统。
-- Phase 1A 开工时核对 **provider identifier 精确匹配**与 **resolver 合同输入**的衔接；本轮仅登记，不擅改 `contracts/v1`。
-- 本轮不安装 / 升级 Skill，不做 `App.tsx` 大重构、首页视觉重做、SQLite、资产 / DCA、Research Bridge、Wiki、Agent 调度、备份或远程入口，不刷新真实 generated 数据、不扩行情覆盖。
+- Phase 1A 已落实 **provider identifier 精确匹配**与 **resolver 合同输入**的内部 seam；后续继续复用当前代码与[实施验证中的合同边界](investment-dashboard-v2-phase-1a-implementation-validation.md)，不擅改 `contracts/v1`。
+- 当前 Phase 1A.5 只做 Skill 治理 / 工具链；不升级既有 Taste / Impeccable，不改 P0 页面、SQLite / Entity / Audit / transaction 语义，不新增业务 migration，不开发资产 / DCA、Research Bridge、Wiki、Agent runtime、备份或远程入口，不刷新真实 generated 数据。
 - [Local-first 冻结决定](investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md)覆盖旧云端业务数据库假设；[Master Plan](investment-dashboard-master-plan-2026-09.md)中的 Stage 4 顺序保留为历史基线。当前执行顺序以本索引为准，业务语义与准入仍由冻结合同和专项审计决定。
 
 ## P0 展示口径与待办
