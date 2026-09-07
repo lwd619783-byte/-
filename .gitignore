@@ -18,9 +18,11 @@ data-cache/
 *.db-journal
 
 # Managed third-party Codex Skills are installed locally by agent:skills:setup.
-# The project-owned coordinator remains tracked.
+# All project-owned workflow Skills remain tracked.
 .agents/skills/redesign-existing-projects/
-.agents/skills/impeccable/
+.agents/vendor/impeccable/
+.agents/skills/archify/
+.agents/skills/diagram-design/
 
 # Market Regime research outputs remain outside the frontend bundle.
 research-data/market-regime/raw/
