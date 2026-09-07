@@ -7,6 +7,16 @@ export const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const skillDirectory = '.agents/skills';
 const hashPattern = /^[a-f0-9]{64}$/;
 
+// Only Impeccable needs a facade: keep its broad upstream entrypoint outside
+// Codex's .agents/skills discovery tree. Other managed Skills stay in place.
+export function skillRelativePath(name, external = null) {
+  const expected = external && name === 'impeccable' ? '.agents/vendor/impeccable' : `${skillDirectory}/${name}`;
+  if (external && (external.installPath ?? `${skillDirectory}/${name}`) !== expected) {
+    throw new Error(`Invalid managed installation path: ${name}`);
+  }
+  return expected;
+}
+
 function relativePath(value) {
   if (typeof value !== 'string' || !value || value.includes('\\') || value.includes(':')
     || value.split('/').some((part) => !part || part === '.' || part === '..')) {
@@ -41,6 +51,7 @@ export function validateRegistry(registry) {
     throw new Error('Duplicate or invalid managed Skill name.');
   }
   for (const skill of registry.externalSkills) {
+    skillRelativePath(skill.name, skill);
     if (!/^[\w.-]+\/[\w.-]+$/.test(skill.repository) || !/^[a-f0-9]{40}$/.test(skill.commit)) {
       throw new Error(`Immutable source pin required: ${skill.name}`);
     }
@@ -82,8 +93,8 @@ function listFiles(root, relative) {
   });
 }
 
-function checkEntrypoint(root, name) {
-  const content = fs.readFileSync(safePath(root, `${skillDirectory}/${name}/SKILL.md`), 'utf8');
+function checkEntrypoint(root, name, relative) {
+  const content = fs.readFileSync(safePath(root, `${relative}/SKILL.md`), 'utf8');
   const frontmatter = content.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/)?.[1];
   if (!frontmatter || !new RegExp(`^name: ${name}$`, 'm').test(frontmatter.replace(/\r/g, ''))
     || !/^description:\s*\S/m.test(frontmatter)) throw new Error(`Invalid frontmatter: ${name}`);
@@ -91,23 +102,27 @@ function checkEntrypoint(root, name) {
 
 export function inspectSkill(root, name, external = null, platform = `${process.platform}-${process.arch}`) {
   try {
-    const directory = safePath(root, `${skillDirectory}/${name}`);
+    const relative = skillRelativePath(name, external);
+    if (relative !== `${skillDirectory}/${name}` && fs.existsSync(safePath(root, `${skillDirectory}/${name}`))) {
+      throw new Error(`Discoverable upstream copy refused: ${name}; inspect and explicitly relocate the verified legacy copy.`);
+    }
+    const directory = safePath(root, relative);
     if (!fs.existsSync(directory)) return { name, external: Boolean(external), status: 'MISSING', message: 'Project-local copy missing.' };
-    checkEntrypoint(root, name);
+    checkEntrypoint(root, name, relative);
     if (external) {
-      const files = listFiles(root, `${skillDirectory}/${name}`).map((file) => file.slice(`${skillDirectory}/${name}/`.length));
+      const files = listFiles(root, relative).map((file) => file.slice(`${relative}/`.length));
       const binaryFiles = Object.values(external.binaries ?? {});
       const allowed = new Set([...Object.keys(external.files), ...binaryFiles.map((binary) => binary.file)]);
       const unexpected = files.filter((file) => !allowed.has(file));
       if (unexpected.length) throw new Error(`Unmanaged files: ${unexpected.join(', ')}`);
       for (const [file, expected] of Object.entries(external.files)) {
-        const actual = digest(fs.readFileSync(safePath(root, `${skillDirectory}/${name}/${file}`)));
+        const actual = digest(fs.readFileSync(safePath(root, `${relative}/${file}`)));
         if (actual !== expected) throw new Error(`Content drift: ${file}`);
       }
       if (external.binaries && !external.binaries[platform]) throw new Error(`Engine platform not supported: ${platform}`);
       for (const binary of binaryFiles) {
         if (binary !== external.binaries[platform] && !files.includes(binary.file)) continue;
-        if (digest(fs.readFileSync(safePath(root, `${skillDirectory}/${name}/${binary.file}`)), true) !== binary.sha256) {
+        if (digest(fs.readFileSync(safePath(root, `${relative}/${binary.file}`)), true) !== binary.sha256) {
           throw new Error(`Engine content drift: ${binary.file}`);
         }
       }
@@ -124,7 +139,10 @@ export function checkSkills(root = projectRoot, registry = loadRegistry(root)) {
     ...registry.projectSkills.map((name) => inspectSkill(root, name)),
     ...registry.externalSkills.map((skill) => inspectSkill(root, skill.name, skill)),
   ];
-  const managed = new Set(checks.map((check) => check.name));
+  const managed = new Set([
+    ...registry.projectSkills,
+    ...registry.externalSkills.filter((skill) => skillRelativePath(skill.name, skill) === `${skillDirectory}/${skill.name}`).map((skill) => skill.name),
+  ]);
   const directory = safePath(root, skillDirectory);
   if (fs.existsSync(directory)) {
     for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -208,7 +226,7 @@ export async function setupSkills(root = projectRoot, registry = loadRegistry(ro
       entries.push({ ...binary, binary: true });
     }
     log(`FETCH ${skill.name}: ${skill.commit}, ${entries.length} allowlisted files.`);
-    // Verify the whole download before creating a discoverable Skill directory.
+    // Verify the whole download before creating its managed directory.
     // Bounded batches also settle failures before returning to the caller.
     const verified = [];
     for (let offset = 0; offset < entries.length; offset += 6) {
@@ -223,11 +241,12 @@ export async function setupSkills(root = projectRoot, registry = loadRegistry(ro
       if (failure) throw failure.reason;
       verified.push(...batch.map((result) => result.value));
     }
-    fs.mkdirSync(safePath(root, skillDirectory), { recursive: true });
-    const destination = safePath(root, `${skillDirectory}/${skill.name}`);
+    const relative = skillRelativePath(skill.name, skill);
+    const destination = safePath(root, relative);
+    fs.mkdirSync(path.dirname(destination), { recursive: true });
     fs.mkdirSync(destination); // Exclusive: never replace even an empty existing copy.
     for (const entry of verified) {
-      const target = safePath(root, `${skillDirectory}/${skill.name}/${entry.file}`);
+      const target = safePath(root, `${relative}/${entry.file}`);
       fs.mkdirSync(path.dirname(target), { recursive: true });
       fs.writeFileSync(target, entry.content, { flag: 'wx', mode: entry.binary ? 0o755 : 0o644 });
     }

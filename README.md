@@ -44,7 +44,7 @@
 
 - [`AGENTS.md`](AGENTS.md)：项目事实源路由、hard invariants 与 Git 边界
 - [`docs/agent-skills.md`](docs/agent-skills.md)：UI / Domain / Local Core / minimalism 与工程图 / 研究图路由，外部 Skill 固定版本、审计、安装与升级规则
-- `.agents/skills/investment-dashboard-ui-workflow/SKILL.md`：重大 Dashboard UI 工作的项目级协调入口
+- `.agents/skills/investment-dashboard-ui-workflow/SKILL.md`：重大 Dashboard UI 协调入口；按需路由到 tracked Impeccable facade，上游实现隔离于 `.agents/vendor/impeccable/`
 
 ### 历史基线
 

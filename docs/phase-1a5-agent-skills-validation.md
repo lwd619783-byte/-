@@ -1,6 +1,64 @@
 # Phase 1A.5 — Agent Skills Consolidation 验证记录
 
-状态：**IMPLEMENTED / PENDING INDEPENDENT REVIEW**。未创建 PR，未合并 main，未进入 Phase 1B。本记录说明本分支的实现与本机验证，不代表独立远端审查或该分支 CI 通过。
+状态：**IMPLEMENTED / PENDING INDEPENDENT RE-REVIEW**。未创建 PR，未合并 main，未进入 Phase 1B。本记录说明本分支的实现与本机验证，不代表独立远端复审或该分支 CI 通过。
+
+## R1：独立远端审查三项修复 · 2026-09-07
+
+修复起点为已审查 HEAD `21593651c2c8fd3e22da292784828dfa9624dc6f`，继续使用 `chore/phase-1a5-agent-skills-consolidation`。开始时工作区干净，fetch 成功，本地 / 远端功能分支相同，origin/main 仍为 `41b3caa5e063805ec0ca42efc9c74ea17491ffc4`。此前审查状态为 **IMPLEMENTED / INDEPENDENT REVIEW CHANGES REQUIRED**；本轮仅处理下面三项，不改历史或进入下一阶段。
+
+| 审查发现 | 修复与证据 |
+| --- | --- |
+| Impeccable broad frontmatter 与 UI coordinator 竞争发现入口 | 新增 tracked `investment-dashboard-impeccable-workflow`，description 明确仅在 UI workflow 已选中时用于重大 UI 收尾，排除普通 copy / spacing / 小 CSS。原版移至 `.agents/vendor/impeccable`；root → UI workflow → facade → pinned implementation。旧 `.agents/skills/impeccable` 已不存在，残留该目录时 check/setup/runtime 均拒绝 |
+| Taste / Impeccable local copy 缺少 LICENSE | 从原有 immutable commits 取得原始 LICENSE bytes，通过既有 extraSources 纳入 lock。Taste 1,065 bytes / SHA-256 `4575a543ab88dad12ccea7d97e563d0bce5b448b06072e65d3264497dad326df`；Impeccable 10,766 bytes / `02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812`。local copy 实际存在且 digest 通过 |
+| Archify examples 默认写回 immutable copy | 从 wrapper allowlist 删除 examples；实际 CLI 退出 1，调用前后 Archify / Impeccable copy 的文件 digest 和 mtime 未变。其他安全入口保持原集合，不放开 preview / visual-check / brands capture / demo / migrate / updater |
+
+迁移不是自动修复或 force overwrite：先用 `2159365` 的旧 lock 校验既有 copy / engine 和未知文件，核对源与不存在的目标都在本项目，然后普通 Move-Item 移动 Impeccable，仅 exclusive create 两份原始 LICENSE。迁移前后 Taste 原有 1 文件、Impeccable 原有 57 文件（56 源文件 + Windows engine）逐 byte 相同。四个 upstream commits、既有 references / engine digest 均未变化；当前共有 353 个锁定文本文件。新 checkout 直接使用同一 setup 下载完整清单；旧 copy 缺失许可证仍 fail closed，不隐式修补。
+
+### R1 实际验证
+
+| 命令 / 检查 | 退出码 | 实际结果 |
+| --- | ---: | --- |
+| `npm run agent:skills:setup` | 0 | 明确迁移与补齐许可证后，四个正确 external copy 全部 SKIP；5 个 project + 4 个 external 全部 PASS |
+| `npm run agent:skills:check` | 0 | 9 项全部 PASS，含 vendor、LICENSE、原 engine 和禁止旧发现入口 |
+| `npm run env:check` | 0 | 48 PASS / 10 WARN / 0 FAIL / 4 SKIP |
+| `npm run --silent env:check:json` | 0 | JSON 可解析；48 PASS / 10 WARN / 0 FAIL / 4 SKIP |
+| `npx --no-install vitest run scripts/setup-codex-skills.test.mjs` | 0 | 24/24；增加 facade Git tracking / discovery / 窄 description、vendor 安装、extraSources LICENSE、digest engine、禁止命令、缺失 / 漂移 / 未知文件 / 链接 / 旧入口拒绝 |
+| `npm test` | 1 | 101 suites / 1,661 tests 通过；仅两个旧 ignored nested worktree 的 company-guidance-expectations Node test 被默认 Vitest 扫描，仍报 No test suite found |
+| `npm test -- --exclude 'data-cache/**'` | 0 | 当前分支 39 suites / 597 tests 通过；未修改默认测试配置或已有 nested worktree |
+| `npm run data:audit` | 0 | 301 scanned / 29 registry / errors=0 / P0=0 / warnings=24；历史报告仅产生时间、扫描量和旧行号差异，核对后恢复原始 bytes；真实数据未刷新 |
+| `npm run build` | 0 | typecheck / 原 bundle budget 通过；2,291 graph modules / 1 chunk / 0 forbidden；既有 Vite 大 chunk warning 保留 |
+| `git diff --check` 与 `git diff --cached --check` | 0 | 无 whitespace errors；LF→CRLF 提示不作为失败 |
+| `python -X utf8 <skill-creator>/scripts/quick_validate.py .agents/skills/investment-dashboard-impeccable-workflow` | 0 | 新 facade 校验通过 |
+| `python -X utf8 <skill-creator>/scripts/quick_validate.py .agents/skills/investment-dashboard-ui-workflow` | 0 | 修改后的 coordinator 校验通过 |
+| `node scripts/run-codex-skill.mjs archify doctor` | 0 | runtime 文件齐全；未启动所列可选服务 |
+| `node scripts/run-codex-skill.mjs archify check-update` | 0 | silent / disabled |
+| `node scripts/run-codex-skill.mjs archify examples` | 1（预期） | wrapper 拒绝；未运行上游 examples |
+| `node scripts/run-codex-skill.mjs impeccable engine-probe` | 0 | vendor Windows x64 digest-verified engine 0.1.0 |
+| `node scripts/run-codex-skill.mjs impeccable context` | 0 | facade 的实际 context 入口可运行，输出引用 vendor 路径，无缺失 runtime；随后只读 check 仍为 9 PASS |
+| `node scripts/run-codex-skill.mjs impeccable <init / hooks / mcp / plugin / live / update / install / config>`，分别执行 | 各 1（预期） | wrapper 全部拒绝；没有注册或启动对应能力 |
+| vendor runtime path / 原始副本 snapshot 对比 | 0 | 命令仅指向 `.agents/vendor/impeccable/scripts/bin/windows-x64/impeccable.exe`；旧发现目录不存在；拒绝命令前后副本 digest / mtime 相同 |
+
+### R1 静态路由回归
+
+| 场景 | 最终路由 | 结果 |
+| --- | --- | --- |
+| 重大 Dashboard redesign | project UI workflow → 可选 Taste / project Impeccable facade → pinned vendor | MATCH |
+| 小 copy / spacing | 原任务直接处理，不自动进入 Impeccable | MATCH |
+| SQLite / migration | Local Core workflow | MATCH |
+| Provider / PIT | Domain workflow，保留 production admission 边界 | MATCH |
+| 工程架构图 | Archify | MATCH |
+| 研究图 | Diagram Design | MATCH |
+| 明确最小安全重构 | project minimalism | MATCH |
+
+上表逐项核对 root Router、各 project Skill 入口和 Registry；fixture 另检查 facade 已进入 Git index 且 description 包含 coordinator 前置与小改排除。没有搭建真实模型自动触发 E2E，也不保证客户端缓存已即时刷新；如旧 metadata 仍显示，需要重新发现 / reload，不恢复原版发现入口。
+
+R1 的 Skill 项均 PASS，没有新增 Skill warning。10 个环境 warnings 包括既有多安装路径、未固定 Python 依赖、pip check、ignore 诊断、旧 metadata、公告 partial、legacy artifacts，以及验证时尚未提交的工作区。未更改环境、默认 CI / tests、warning 阈值或业务数据以消除它们。engine 仅实测 Windows x64，其他平台未运行。仅新增一个共享路径函数让 setup/check/runtime/health 共用 vendor 位置，没有重新安排其他外部 Skills，没有新增 npm dependency 或全局配置写入。
+
+综合自审以这三项修复为范围：保留 supply-chain pin 和 upstream bytes，许可证随副本保存，facade 不增加与 coordinator 并列的普通 UI 路由，runtime 无 PATH/home/launcher fallback，examples 不再执行。本轮未改 contracts/v1、Local Core migration / Entity / Audit / transaction / PIT / Provider / admission、业务页面、真实 generated 数据、package-lock 或 `.github`；未运行 hooks / MCP / plugin / background service。
+
+## 初次实现记录（2159365 的历史证据）
+
+以下保留初次实现的测试与自审原记录。其“八个入口”“四个项目 Skill”、Impeccable 直接发现路径及原自审判断仅代表当时实现，独立审查发现的不足由上方 R1 修复记录纠正；不能继续作为当前已通过终局审查的依据。
 
 ## 基线与范围
 

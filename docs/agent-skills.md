@@ -8,13 +8,13 @@ Codex 先发现 name / description，命中后才读完整 `SKILL.md`，引用�
 
 | 场景 / 交付物 | 主要入口 | 可选补充与排除 |
 | --- | --- | --- |
-| A：重构现有 Dashboard 页面 | `investment-dashboard-ui-workflow` | 重大 redesign 才 Taste；收尾可 Impeccable；纯 UI 不读 Domain / Local Core |
+| A：重构现有 Dashboard 页面 | `investment-dashboard-ui-workflow` | 重大 redesign 才 Taste；重大 UI 收尾按需项目 Impeccable facade；纯 UI 不读 Domain / Local Core |
 | B：审计 SQLite migration 和 transaction | `investment-dashboard-local-core-workflow` | 不读 Taste / Diagram Design；合同语义也受影响才补 Domain |
 | C：新增 A 股 Provider | `investment-dashboard-domain-workflow` | discovery != production admission；不安装 public-apis |
 | D：画 Local Core → Repository → Audit 数据流架构 | `archify` | 读取真实目标代码；不选 Diagram Design，不因画图自动加载持久化实现 workflow |
 | E：画 AI CAPEX → 光通信 → 存储 → 上游设备投资逻辑图 | `diagram-design` | 区分研究事实 / 假设、日期和来源；不选 Archify |
 | F：重复 helper 最小安全重构 | `investment-dashboard-code-minimalism` | conservative / lite；不删除 contracts / Audit / PIT / tests 保障 |
-| G：小幅文案或 spacing | 不要求外部 Skill | 不因可用而额外设计、审计或画图 |
+| G：小幅文案、spacing 或小 CSS 修改 | 不要求外部 Skill | 不自动进入 Impeccable facade；不额外设计、审计或画图 |
 
 工程真实性 / 系统架构选 Archify；研究表达 / 编辑型图表选 Diagram Design。状态机、workflow、Entity、Audit 等共同词按交付物和实际改动层判断，默认不同时运行两个图表 Skill。只有任务确实跨层才补读另一个项目 workflow。普通 coding task 不无条件触发 minimalism 或外部 Skill。
 
@@ -26,7 +26,8 @@ Skill 是 workflow。项目 hard invariants、冻结合同、数据真实性、P
 
 | 名称 | 职责 | 不触发场景 |
 | --- | --- | --- |
-| `investment-dashboard-ui-workflow` | 重大 Dashboard UI 协调，按需 Taste / Impeccable | 非 UI；小幅改字 / spacing 不要求外部 Skill |
+| `investment-dashboard-ui-workflow` | 重大 Dashboard UI 协调，按需 Taste / 项目 Impeccable facade | 非 UI；小幅改字 / spacing 不要求外部 Skill |
+| `investment-dashboard-impeccable-workflow` | UI workflow 已选择 Impeccable 后，重大 UI 的 critique / accessibility / responsive / edge-state / polish 收尾 | 无 coordinator 路由；普通 copy / spacing / 小 CSS 不自行触发 |
 | `investment-dashboard-domain-workflow` | Provider / PIT / Entity / Resolver / Evidence / Research Event / Thesis / ingestion / expectations / admission 的最小上下文 | 纯 UI、纯持久化机制、仅画图 |
 | `investment-dashboard-local-core-workflow` | 复用 Phase 1A 的 SQLite、migration、Entity / Audit Repository、transaction、CLI、local-first / Node-only boundary | UI、研究表达；不包含 Phase 1B 业务 |
 | `investment-dashboard-code-minimalism` | 当前明确任务内的保守去重 / 最小实现 | 普通 coding task；无跨任务持续模式 |
@@ -35,7 +36,9 @@ Skill 是 workflow。项目 hard invariants、冻结合同、数据真实性、P
 
 ## 3. Managed external Skills 与 immutable pins
 
-只安装单个 Skill 的明确文件清单，不安装整个 repository / pack / plugin。copy 在项目 `.agents/skills/` 内并被 gitignore；源文件保持原内容。机器可读 allowlist、逐文件 SHA-256 和平台 engine digest 在 [`config/agent-skills.lock.json`](../config/agent-skills.lock.json)。这是工具供应链清单，不是业务 contract。
+只安装单个 Skill 的明确文件清单，不安装整个 repository / pack / plugin。Taste、Archify、Diagram Design 的 copy 保留在 `.agents/skills/`；Impeccable 原版安装于 `.agents/vendor/impeccable`，不在 Codex 的 `.agents/skills` 发现树内。四份 copy 均 gitignore，上游 bytes 保持不变；项目 facade 单独 tracked。机器可读 allowlist、逐文件 SHA-256 和平台 engine digest 在 [`config/agent-skills.lock.json`](../config/agent-skills.lock.json)。这是工具供应链清单，不是业务 contract。
+
+四个外部实现均随 project-local copy 保留原始 LICENSE。Taste / Impeccable 的 LICENSE 通过现有 `extraSources` 从各自同一固定 commit 的 repository root 获取，正文不改写，check / health 校验 digest。Taste LICENSE SHA-256 为 `4575a543ab88dad12ccea7d97e563d0bce5b448b06072e65d3264497dad326df`；Impeccable 为 `02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812`。
 
 | Skill | Upstream / 精确路径 | Immutable commit | License / 版本 |
 | --- | --- | --- | --- |
@@ -50,7 +53,9 @@ Impeccable engine 使用 `engine-v0.1.0` 的平台文件并另锁定 SHA-256，�
 
 ### UI：Taste / Impeccable
 
-从项目 UI workflow 开始。Taste 仅用于现有页面或大型组件的重大 redesign；Impeccable 用于 critique、audit、accessibility、responsive、edge state、polish、adapt、harden。两者不自动串行执行，通用 Taste 变体不进 managed set。
+入口顺序固定为 root Router → `investment-dashboard-ui-workflow` → 按需 `investment-dashboard-impeccable-workflow` → pinned vendor implementation。原版宽泛 frontmatter 不参与项目普通任务的 Skill 发现，项目 facade 的 description 明确前置 coordinator 判断，并排除普通 copy / spacing / 小 CSS 修改。原版 SKILL.md、references、commit 和 engine 不改写、不升级；只在 facade 内按需读取，所有 runtime 命令仍经过项目 wrapper。
+
+Taste 仅用于现有页面或大型组件的重大 redesign；facade 仅用于重大 UI 的 critique、accessibility、responsive、edge state、polish 等收尾。两者不自动串行执行，通用 Taste 变体不进 managed set。
 
 保留 `--no-hooks` 方针；本版 setup 不执行 installer，也不调用 hook 注册。禁止自动 `impeccable init`、PRODUCT / DESIGN 初始化或替换、Agent 配置修改、pin 快捷 Skill、MCP、plugin、live/background service。上游 launcher 可下载到用户目录，项目不得直接调用它；使用已校验的局部 engine：
 
@@ -58,7 +63,7 @@ Impeccable engine 使用 `engine-v0.1.0` 的平台文件并另锁定 SHA-256，�
 node scripts/run-codex-skill.mjs impeccable context
 ```
 
-入口仅允许 context / detect 与版本帮助命令，设置 `IMPECCABLE_NO_UPDATE_CHECK=1`、`IMPECCABLE_NO_TELEMETRY=1`、`DO_NOT_TRACK=1`，不改全局环境。其他命令的实际副作用需要后续任务审计；Skill 不授权增加 UI library / framework 或重建治理事实源。
+入口仅允许 context / detect / engine-probe 与版本帮助命令，先验证 vendor 的 LICENSE / source / engine digest；发现旧 `.agents/skills/impeccable` 残留、缺失、漂移或未知文件即拒绝运行，不 fallback 到 PATH、home cache 或 launcher。设置 `IMPECCABLE_NO_UPDATE_CHECK=1`、`IMPECCABLE_NO_TELEMETRY=1`、`DO_NOT_TRACK=1`，不改全局环境。其他命令的实际副作用需要后续任务审计；Skill 不授权增加 UI library / framework 或重建治理事实源。
 
 ### Archify：工程架构与数据流
 
@@ -74,6 +79,8 @@ node scripts/run-codex-skill.mjs archify check-update
 ```
 
 Before / Delta / After 使用上游 compare 模式，先按 CLI 帮助核对参数。`check-update` 仅运行上游支持的 disabled 分支：`ARCHIFY_UPDATE_CHECK_DISABLED=1`，返回 silent/disabled，先于缓存和网络动作。不要直接运行 updater / ack。默认不启用 preview、remote brand capture、自动打开浏览器 / packaged visual-check、demo 或初始化。视觉验收使用当前已授权的浏览器工具并如实记录未测项；命令行通过不代表视觉通过。
+
+允许的命令仅为 doctor / guide / validate / render / deliver / compare / inspect / check / disabled check-update。`examples` 的上游默认行为会重写 Skill 自身的 `examples/*.html`，已从项目 allowlist 删除；不增加绕行 wrapper，不修改 upstream bytes。目标产物不得指定到 immutable managed copy 内。
 
 模板含 Google Fonts，HTML 不能因此被称为完全无网络。离线交付在输出 artifact 使用可用本地字体 / fallback 并披露差异；不修改 pin 内模板、不替换 Dashboard 字体、不添加字体依赖。
 
@@ -130,10 +137,12 @@ npm run --silent env:check:json
 
 - 显式 setup 只下载 missing copy 的 fixed commit + digest 清单。Node 内置 fetch，无新 npm dependency、不执行远端代码；六文件一批，限制 HTTPS host、大小、超时、跳转，校验后才创建 Skill 目录。仅临时网络错误 / 429 / 5xx 最多尝试三次；404、禁止 host、内容不匹配不重试。
 - 正确 copy 原样 SKIP。既有缺文件、hash 漂移、未知额外文件 / 不受管理目录均非零退出，不覆盖、不删除、不自行恢复。下载/hash 失败不产生新 Skill；磁盘写入中失败则保留不完整目录并报错，下次 preflight 拒绝，先人工核验再明确恢复。
-- `--check` 不联网、不下载、不运行 Skill、不写 cache/config/lock；检查八个入口、external allowlist / digest、local engine 与 project scope。symlink / junction 被拒绝，防止跟随到全局目录。文本仅归一 CRLF/LF，二进制逐 byte 校验。
+- `--check` 不联网、不下载、不运行 Skill、不写 cache/config/lock；检查五个项目入口、四个 external implementation（含非 discoverable vendor）、LICENSE / allowlist / digest、local engine 与 project scope。旧 discoverable Impeccable copy、symlink / junction 均被拒绝。文本仅归一 CRLF/LF，二进制逐 byte 校验。
 - env / JSON health 复用只读逻辑。缺第三方 copy 为 WARN，损坏 copy / 缺项目 Skill 为 FAIL；独立 `agent:skills:check` 对任何 missing 仍退出 1，不降低旧健康门禁。
 - CI 保持原配置；新 fixture tests 随现有 Vitest 执行，不要求外部 Skill 安装，不增加 GitHub 在线下载门禁。
 - 不操作用户全局 Skill / Codex config / 其他项目。新 Skill 未出现在客户端列表时再 reload；不宣称当前会话已重新发现所有新内容。
+
+从已审查 `2159365` 迁移时，setup 不擅自修补旧 copy：先按该提交的旧 lock 校验既有文件 / engine，核对源和目标都在本项目且目标不存在，再显式将 Impeccable 原样移至 vendor；从同一 upstream commit 获取并校验 LICENSE，仅以 exclusive create 补入 Taste / Impeccable。任何既有漂移、额外文件或许可证冲突都先停止。本轮在用户明确授权下完成这次局部迁移，随后运行正常 setup/check；新 checkout 则由正常 setup 直接安装完整副本，不新增迁移框架。
 
 ## 7. 升级与 deferred 清单
 

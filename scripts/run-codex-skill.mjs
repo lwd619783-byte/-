@@ -1,14 +1,15 @@
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { inspectSkill, loadRegistry, projectRoot, safePath } from './setup-codex-skills.mjs';
+import { inspectSkill, loadRegistry, projectRoot, safePath, skillRelativePath } from './setup-codex-skills.mjs';
 
 export function skillCommand(name, args, root = projectRoot, registry = loadRegistry(root)) {
   const skill = registry.externalSkills.find((entry) => entry.name === name);
   if (!skill) throw new Error('Unsupported managed runtime.');
   const check = inspectSkill(root, name, skill);
   if (check.status !== 'PASS') throw new Error(`${name}: ${check.message}`);
-  const base = safePath(root, `.agents/skills/${name}`);
+  const relative = skillRelativePath(name, skill);
+  const base = safePath(root, relative);
   const env = {
     ...process.env,
     ARCHIFY_UPDATE_CHECK_DISABLED: '1',
@@ -20,9 +21,9 @@ export function skillCommand(name, args, root = projectRoot, registry = loadRegi
     IMPECCABLE_SKILL_DIR: base,
   };
   if (name === 'archify') {
-    const allowed = new Set(['doctor', 'guide', 'examples', 'validate', 'render', 'deliver', 'compare', 'inspect', 'check', 'check-update']);
+    const allowed = new Set(['doctor', 'guide', 'validate', 'render', 'deliver', 'compare', 'inspect', 'check', 'check-update']);
     if (!allowed.has(args[0]) || args.some((arg) => arg === '--open' || arg.startsWith('--open='))) {
-      throw new Error('Archify project mode excludes preview, browser/background processes, remote brand capture and initialization.');
+      throw new Error('Archify project mode excludes examples rewriting the managed copy, preview, browser/background processes, remote brand capture and initialization.');
     }
     if (args[0] === 'check-update') {
       if (args.length !== 1) throw new Error('Disabled update checker takes no arguments.');
@@ -36,7 +37,7 @@ export function skillCommand(name, args, root = projectRoot, registry = loadRegi
     }
     // Direct verified engine; never fall back to PATH, a user cache or a downloader.
     const binary = skill.binaries[`${process.platform}-${process.arch}`];
-    return { command: safePath(root, `.agents/skills/${name}/${binary.file}`), args, env };
+    return { command: safePath(root, `${relative}/${binary.file}`), args, env };
   }
   throw new Error('This Skill is instruction-only in the project.');
 }

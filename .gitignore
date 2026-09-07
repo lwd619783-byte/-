@@ -20,7 +20,7 @@ data-cache/
 # Managed third-party Codex Skills are installed locally by agent:skills:setup.
 # All project-owned workflow Skills remain tracked.
 .agents/skills/redesign-existing-projects/
-.agents/skills/impeccable/
+.agents/vendor/impeccable/
 .agents/skills/archify/
 .agents/skills/diagram-design/
 

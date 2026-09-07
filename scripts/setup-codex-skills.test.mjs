@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { checkSkills, digest, downloadFile, loadRegistry, safePath, setupSkills, skillHealth, validateRegistry } from './setup-codex-skills.mjs';
+import { checkSkills, digest, downloadFile, loadRegistry, projectRoot, safePath, setupSkills, skillHealth, validateRegistry } from './setup-codex-skills.mjs';
 import { skillCommand } from './run-codex-skill.mjs';
 
 let root;
@@ -18,6 +18,26 @@ function write(relative, content) {
   return target;
 }
 function installed() { write('.agents/skills/archify/SKILL.md', body); }
+function impeccableFixture() {
+  const source = Buffer.from(body.toString().replace('name: archify', 'name: impeccable'));
+  const license = Buffer.from('Upstream license fixture\n'), engine = Buffer.from('inert engine fixture');
+  const skill = {
+    name: 'impeccable', installPath: '.agents/vendor/impeccable', repository: 'example/fixture',
+    commit: 'b'.repeat(40), sourceRoot: 'skill', engineVersion: '0.1.0',
+    files: { 'SKILL.md': digest(source), LICENSE: digest(license) }, extraSources: { LICENSE: 'LICENSE' },
+    binaries: { [`${process.platform}-${process.arch}`]: {
+      file: 'scripts/engine-fixture', sha256: digest(engine, true),
+      url: 'https://github.com/example/fixture/releases/download/engine-v0.1.0/engine-fixture',
+    } },
+  };
+  registry.externalSkills = [skill];
+  const facade = 'investment-dashboard-impeccable-workflow';
+  registry.projectSkills.push(facade);
+  write(`.agents/skills/${facade}/SKILL.md`, projectBody.replace('project-fixture', facade));
+  write('config/agent-skills.lock.json', JSON.stringify(registry));
+  const download = vi.fn(async (url, binary) => binary ? engine : url.endsWith('/LICENSE') ? license : source);
+  return { skill, source, license, engine, download };
+}
 function snapshot(directory = root) {
   return fs.readdirSync(directory, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name)).flatMap((entry) => {
     const target = path.join(directory, entry.name);
@@ -36,6 +56,7 @@ beforeEach(() => {
 });
 afterEach(() => {
   vi.unstubAllGlobals();
+  vi.unstubAllEnvs();
   // Only remove the unique temp directory created by this test.
   const relative = path.relative(fs.realpathSync(os.tmpdir()), fs.realpathSync(root));
   if (relative.startsWith('..') || path.isAbsolute(relative) || !relative.startsWith('agent-skills-test-')) throw new Error('Unsafe fixture cleanup.');
@@ -158,15 +179,97 @@ describe('managed Skill supply chain and project boundaries', () => {
     expect(command.env.IMPECCABLE_NO_UPDATE_CHECK).toBe('1');
     expect(command.env.IMPECCABLE_NO_TELEMETRY).toBe('1');
     expect(process.env.ARCHIFY_UPDATE_CHECK_DISABLED).toBe(original);
-    for (const args of [['preview'], ['brands', 'capture'], ['deliver', '--open'], ['check-update', '--ack', 'x']]) {
+    for (const args of [['examples'], ['preview'], ['visual-check'], ['brands', 'capture'], ['demo'], ['migrate'], ['updater'], ['deliver', '--open'], ['check-update', '--ack', 'x']]) {
       expect(() => skillCommand('archify', args, root, registry)).toThrow();
+    }
+    for (const name of ['doctor', 'guide', 'validate', 'render', 'deliver', 'compare', 'inspect', 'check']) {
+      expect(skillCommand('archify', [name], root, registry).args.at(-1)).toBe(name);
     }
     expect(snapshot()).toEqual(before);
   });
+  it('installs licensed upstream Impeccable outside discovery through the existing download pipeline', async () => {
+    const { skill, license, download } = impeccableFixture();
+    await setupSkills(root, registry, download, () => {});
+    expect(fs.existsSync(path.join(root, '.agents/skills/impeccable'))).toBe(false);
+    expect(fs.readFileSync(path.join(root, skill.installPath, 'LICENSE'))).toEqual(license);
+    expect(download).toHaveBeenCalledWith(`https://raw.githubusercontent.com/example/fixture/${skill.commit}/LICENSE`, false);
+    expect(checkSkills(root, registry).every(check => check.status === 'PASS')).toBe(true);
+    const before = snapshot();
+    await setupSkills(root, registry, vi.fn(() => { throw new Error('Unexpected download'); }), () => {});
+    expect(snapshot()).toEqual(before);
+    skill.installPath = '.agents/skills/impeccable';
+    expect(() => validateRegistry(registry)).toThrow('installation path');
+  });
+  it('selects only the verified vendor engine and rejects unsafe Impeccable commands', async () => {
+    const { skill, download } = impeccableFixture();
+    await setupSkills(root, registry, download, () => {});
+    vi.stubEnv('IMPECCABLE_BIN', path.join(root, 'untrusted-engine'));
+    const before = snapshot();
+    const command = skillCommand('impeccable', ['engine-probe'], root, registry);
+    expect(command.command).toBe(path.join(root, skill.installPath, 'scripts/engine-fixture'));
+    expect(command.env.IMPECCABLE_SKILL_DIR).toBe(path.join(root, skill.installPath));
+    expect(command.env.IMPECCABLE_NO_UPDATE_CHECK).toBe('1');
+    expect(command.env.IMPECCABLE_NO_TELEMETRY).toBe('1');
+    for (const verb of ['install', 'init', 'hooks', 'mcp', 'plugin', 'live', 'update', 'config', 'pin']) {
+      expect(() => skillCommand('impeccable', [verb], root, registry)).toThrow('excluded');
+    }
+    expect(snapshot()).toEqual(before);
+  });
+  it.each([
+    ['missing license', 'LICENSE', null],
+    ['license drift', 'LICENSE', 'changed'],
+    ['source drift', 'SKILL.md', 'changed'],
+    ['missing engine', 'scripts/engine-fixture', null],
+    ['engine drift', 'scripts/engine-fixture', 'changed'],
+    ['unknown file', 'hooks.json', '{}'],
+  ])('fails closed on vendor %s without repair or fallback', async (_label, file, content) => {
+    const { skill, download } = impeccableFixture();
+    await setupSkills(root, registry, download, () => {});
+    if (content === null) fs.unlinkSync(path.join(root, skill.installPath, file));
+    else write(`${skill.installPath}/${file}`, content);
+    const before = snapshot();
+    expect(skillHealth(root).at(-1).status).toBe('FAIL');
+    expect(() => skillCommand('impeccable', ['context'], root, registry)).toThrow();
+    await expect(setupSkills(root, registry, vi.fn())).rejects.toThrow('preflight');
+    expect(snapshot()).toEqual(before);
+  });
+  it('refuses missing vendors, discoverable legacy copies and vendor directory links', async () => {
+    const { skill, source } = impeccableFixture();
+    expect(checkSkills(root, registry).at(-1).status).toBe('MISSING');
+    expect(() => skillCommand('impeccable', ['context'], root, registry)).toThrow('missing');
+    const legacy = write('.agents/skills/impeccable/SKILL.md', source);
+    const before = snapshot();
+    await expect(setupSkills(root, registry, vi.fn())).rejects.toThrow('preflight');
+    expect(() => skillCommand('impeccable', ['context'], root, registry)).toThrow('Discoverable');
+    expect(snapshot()).toEqual(before);
+    fs.unlinkSync(legacy);
+    fs.rmdirSync(path.dirname(legacy));
+    const outside = write('outside/SKILL.md', source);
+    fs.mkdirSync(path.join(root, '.agents/vendor'));
+    fs.symlinkSync(path.dirname(outside), path.join(root, skill.installPath), process.platform === 'win32' ? 'junction' : 'dir');
+    expect(() => skillCommand('impeccable', ['context'], root, registry)).toThrow('Linked path');
+    fs.unlinkSync(path.join(root, skill.installPath));
+  });
+  it('keeps a tracked discoverable facade with a coordinator-only description', () => {
+    const facade = 'investment-dashboard-impeccable-workflow';
+    const relative = `.agents/skills/${facade}/SKILL.md`;
+    expect(loadRegistry().projectSkills).toContain(facade);
+    expect(execFileSync('git', ['ls-files', '--error-unmatch', relative], { cwd: projectRoot, encoding: 'utf8' }).trim()).toBe(relative);
+    const content = fs.readFileSync(path.join(projectRoot, relative), 'utf8');
+    const description = content.match(/^description: (.+)$/m)?.[1];
+    expect(description).toMatch(/only after investment-dashboard-ui-workflow/i);
+    expect(description).toMatch(/Never self-trigger for ordinary copy, spacing or small CSS edits/);
+    expect(description).toMatch(/No automatic init, hooks, MCP, live, update, global configuration writes or dependency installation/);
+  });
   it('validates the checked-in pin manifest without needing installed external Skills', () => {
     const real = loadRegistry();
-    expect(real.projectSkills).toHaveLength(4);
+    expect(real.projectSkills).toHaveLength(5);
     expect(real.externalSkills.map((skill) => skill.name)).toEqual(['redesign-existing-projects', 'impeccable', 'archify', 'diagram-design']);
     for (const skill of real.externalSkills) expect(skill.commit).toMatch(/^[a-f0-9]{40}$/);
+    for (const name of ['redesign-existing-projects', 'impeccable']) {
+      const skill = real.externalSkills.find(entry => entry.name === name);
+      expect(skill.extraSources.LICENSE).toBe('LICENSE');
+      expect(skill.files.LICENSE).toMatch(/^[a-f0-9]{64}$/);
+    }
   });
 });

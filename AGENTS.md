@@ -89,7 +89,7 @@
 
 | 当前任务 | 入口 `.agents/skills/<name>/SKILL.md` |
 | --- | --- |
-| 重大 Dashboard UI 创建、redesign、响应式、视觉质量 | `investment-dashboard-ui-workflow`；重大现有页面 redesign 才按需 Taste `redesign-existing-projects`，质量收尾按需 `impeccable` |
+| 重大 Dashboard UI 创建、redesign、响应式、视觉质量 | `investment-dashboard-ui-workflow`；重大现有页面 redesign 才按需 Taste `redesign-existing-projects`，由 UI workflow 判断需要后才进入 `investment-dashboard-impeccable-workflow` facade |
 | 工程架构、source-grounded system map、跨模块数据流、Before / Delta / After | `archify` |
 | 产业链、投资逻辑、宏观传导、商业模式、研究流程、报告图表 | `diagram-design` |
 | Provider / PIT / Entity / Evidence / Research OS 领域语义 | `investment-dashboard-domain-workflow` |
@@ -99,7 +99,9 @@
 
 以交付物和实际改动层选择路由，不凭单个关键词叠加。工程图选 Archify，研究表达选 Diagram Design，默认不同时运行；纯持久化审计选 Local Core，只有领域合同也受影响才补 Domain。普通 coding task 不自动加载图表或 minimalism Skills。
 
-外部 Skill 调用前只读取 `docs/agent-skills.md` 的对应使用边界。Archify / Impeccable 的 shell 命令通过 `scripts/run-codex-skill.mjs`，禁用更新检查与 telemetry；禁止直接启动 updater、自动下载 launcher、hooks、MCP 或 background service。Diagram Design 使用包内默认样式，仅作用于输出图表；不执行 first-run / profile 的全局读写，不改变 PRODUCT / DESIGN 或 Dashboard 设计系统。
+Impeccable 原版只存于非 Skill 发现目录 `.agents/vendor/impeccable`；`.agents/skills/` 中的项目 facade 仅接受 UI workflow 对重大 UI 质量收尾的路由，普通 copy / spacing / 小 CSS 修改不能自行触发。不得恢复原版的 discoverable 入口。
+
+外部 Skill 调用前只读取 `docs/agent-skills.md` 的对应使用边界。Archify / Impeccable 的 shell 命令通过 `scripts/run-codex-skill.mjs`，禁用更新检查与 telemetry；禁止直接启动 updater、自动下载 launcher、hooks、MCP 或 background service。Archify `examples` 会写回 managed copy，项目入口禁止执行。Diagram Design 使用包内默认样式，仅作用于输出图表；不执行 first-run / profile 的全局读写，不改变 PRODUCT / DESIGN 或 Dashboard 设计系统。
 
 来源、immutable pin、安装、升级和审计统一登记于 `docs/agent-skills.md`。Skill 是 workflow，不是事实源；project hard invariants 与冻结合同优先于外部 Skill，当前任务明确指令优先于非 hard Skill 建议。Skill recommendation 不自动授权 dependency、framework、hook、MCP、外部服务或治理文件改动。
 
