@@ -1,5 +1,5 @@
 import type { ContractRegistry, LocalDatabase, TransactionRepositories } from '../ports/index.js';
-import type { Account, Asset, AssetCandidate, AuthorizedAppend, CandidatePayloads, CandidateType, CashFlow, Confirmation, DcaExecution, DcaPlan, MutationResult, PositionSnapshot, Transaction } from './asset-types.js';
+import type { Account, Asset, AssetCandidate, AuthorizedAppend, CandidatePayloads, CandidateType, CashFlow, Confirmation, DcaExecution, DcaPlan, ImportProvenance, MutationResult, PositionSnapshot, Transaction } from './asset-types.js';
 import { candidateVersions, recordId } from './asset-types.js';
 import { checked, digest, externalContributions, positionWarnings, readAssetState, resolveAsset, validateDcaPlan, validateRecord, validateTransferPairs } from './asset-invariants.js';
 import type { AssetState } from './asset-invariants.js';
@@ -14,7 +14,7 @@ export function requireConfirmation(value: Confirmation): Confirmation {
 // Shared domain orchestration inside the existing synchronous transaction. The
 // preparation callback is read-only and supplies the exact audited mutation set.
 export function confirmedMutation(repositories: TransactionRepositories, operation: string, confirmation: Confirmation, request: unknown,
-  prepare: () => { result: MutationResult; appends: AuthorizedAppend[]; write: () => void }): MutationResult {
+  prepare: () => { result: MutationResult; appends: AuthorizedAppend[]; write: () => void; importProvenance?: ImportProvenance }): MutationResult {
   const c = requireConfirmation(confirmation);
   const requestDigest = digest({ operation, request, confirmation: c });
   const previous = repositories.ledger.operation(c.idempotencyKey);
@@ -22,11 +22,11 @@ export function confirmedMutation(repositories: TransactionRepositories, operati
     if (previous.requestDigest !== requestDigest) fail('IDEMPOTENCY_CONFLICT', 'Idempotency key was already bound to different approved content.');
     return previous.result;
   }
-  const { result, appends, write } = prepare();
+  const { result, appends, write, importProvenance } = prepare();
   const audit = repositories.audit.append({ schemaVersion: 'bridge-audit-event.v1', requestId: c.idempotencyKey, timestamp: new Date().toISOString(),
     actor: c.actor, actorType: 'user', client: c.client, operation, confirmationState: 'approved', scope: c.userApprovalRef,
-    idempotencyKey: c.idempotencyKey, success: true });
-  repositories.ledger.appendOperation({ operation, confirmation: c, requestDigest, auditEventId: audit.eventId, result, appends });
+    idempotencyKey: c.idempotencyKey, success: true, ...(importProvenance ? { entity: { entityType: 'workflow' as const, entityId: importProvenance.importId } } : {}) });
+  repositories.ledger.appendOperation({ operation, confirmation: c, requestDigest, auditEventId: audit.eventId, result, appends, ...(importProvenance ? { importProvenance } : {}) });
   write();
   return result;
 }
@@ -140,7 +140,7 @@ export class AssetService {
       if (previous) {
         if (plan.activeFrom <= previous.plan.activeFrom || plan.activeFrom <= this.now().slice(0, 10)) fail('LEDGER_INVALID', 'New DCA revision must begin in the future and after the previous revision.');
         if (plan.constraints?.some(v => v.effectiveFrom < plan.activeFrom && !previous.plan.constraints?.some(old => canonicalJson(old) === canonicalJson(v)))) fail('LEDGER_INVALID', 'Changed constraints cannot change earlier cycles; unchanged historical constraints may be retained.');
-        const priorDates = state.executions.filter(v => v.execution.planId === plan.planId).flatMap(v => v.execution.transactionIds ?? []).map(id => state.transactions.find(t => t.transactionId === id)!.tradeDate);
+        const priorDates = state.executions.filter(v => v.execution.planId === plan.planId).flatMap(({ execution: e }) => e.transactionIds?.length ? e.transactionIds.map(id => state.transactions.find(t => t.transactionId === id)!.tradeDate) : [e.periodEnd ?? fail('RECONCILIATION_REQUIRED', 'An old undated execution prevents proving revision safety.')]);
         if (priorDates.some(date => date >= plan.activeFrom)) fail('LEDGER_INVALID', 'Revision would change an already recorded execution interval.');
       }
       return { result: { recordIds: [plan.planId], warnings: [] }, appends: [{ version: plan.schemaVersion, id: plan.planId, payloadDigest: digest(plan), revision: expectedRevision + 1 }], write: () => repositories.ledger.appendDcaRevision({ plan, revision: expectedRevision + 1 }, c.idempotencyKey) };

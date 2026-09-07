@@ -10,6 +10,7 @@ export interface AssetReads {
   dcaExecutions(): StoredExecution[];
   operation(key: string): ConfirmedOperation | undefined;
   importPlan(id: string): StoredImportPlan | undefined;
+  latestImportPlanId(importId: string): string | undefined;
   fingerprint(key: string): ImportFingerprint | undefined;
 }
 // Internal Node port; never exposed to AI / browser. Only scoped to the existing

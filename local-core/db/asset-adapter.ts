@@ -67,8 +67,20 @@ export class SqliteAssetRepository implements AssetRepository {
       if (!row) return undefined;
       const value = this.decode<ConfirmedOperation>(row);
       if (value.confirmation.idempotencyKey !== key || value.operation !== row.operation || value.confirmation.userApprovalRef !== row.approval_ref || value.requestDigest !== row.request_digest || value.auditEventId !== row.audit_event_id) fail('DATABASE_INTEGRITY_FAILED', 'Operation receipt metadata mismatch.');
+      this.validateImportProvenance(value);
       return value;
     });
+  }
+  private validateImportProvenance(value: ConfirmedOperation): void {
+    const p = value.importProvenance;
+    if (value.operation === 'historical_asset_import.commit' && !p?.historical) fail('APPROVAL_REQUIRED', 'Historical operation requires committed provenance.');
+    if (!p) return;
+    const plan = this.importPlan(p.planId);
+    if (!plan || plan.bundle.importId !== p.importId || plan.plan.planDigest !== p.planDigest || plan.operation !== value.operation) fail('APPROVAL_REQUIRED', 'Import provenance must bind the prepared operation.');
+    if (p.historical) {
+      this.#contracts.validate('historical-asset-import.v1', p.historical);
+      if (value.operation !== 'historical_asset_import.commit' || canonicalJson(p.historical) !== canonicalJson({ ...plan.historical, status: 'committed', userApprovalRef: value.confirmation.userApprovalRef })) fail('APPROVAL_REQUIRED', 'Historical metadata, request approval and operation must agree.');
+    }
   }
   importPlan(id: string): StoredImportPlan | undefined {
     return this.read(() => {
@@ -78,9 +90,13 @@ export class SqliteAssetRepository implements AssetRepository {
       this.#contracts.validate('asset-import-bundle.v1', value.bundle);
       this.#contracts.validate('asset-import-plan.v1', value.plan);
       if (value.legacy) this.#contracts.validate('legacy-asset-import.v1', value.legacy);
+      if (value.historical) this.#contracts.validate('historical-asset-import.v1', value.historical);
       if (value.plan.planId !== id || value.bundle.importId !== row.import_id || value.plan.planDigest !== row.plan_digest || value.stateDigest !== row.state_digest) fail('DATABASE_INTEGRITY_FAILED', 'Import plan metadata mismatch.');
       return value;
     });
+  }
+  latestImportPlanId(importId: string): string | undefined {
+    return this.read(() => (this.#db.prepare('SELECT plan_id FROM import_plans WHERE import_id=? ORDER BY rowid DESC LIMIT 1').get(importId) as { plan_id: string } | undefined)?.plan_id);
   }
   fingerprint(key: string): ImportFingerprint | undefined {
     return this.read(() => {
@@ -133,6 +149,7 @@ export class SqliteAssetRepository implements AssetRepository {
   }
   appendOperation(value: ConfirmedOperation): void {
     this.#atomic(() => {
+      this.validateImportProvenance(value);
       const payload = canonicalJson(value);
       const c = value.confirmation;
       if (![c.actor, c.client, c.userApprovalRef, c.idempotencyKey].every(v => typeof v === 'string' && v.trim())) fail('APPROVAL_REQUIRED', 'Nonempty user confirmation is required.');
@@ -150,6 +167,7 @@ export class SqliteAssetRepository implements AssetRepository {
       this.#contracts.validate('asset-import-bundle.v1', value.bundle);
       this.#contracts.validate('asset-import-plan.v1', value.plan);
       if (value.legacy) this.#contracts.validate('legacy-asset-import.v1', value.legacy);
+      if (value.historical) this.#contracts.validate('historical-asset-import.v1', value.historical);
       const previous = this.importPlan(value.plan.planId);
       if (previous) {
         if (canonicalJson(previous) !== payload) fail('IMPORT_PLAN_STALE', 'Immutable plan ID cannot be reused for changed content.');

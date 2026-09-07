@@ -41,6 +41,7 @@ export interface DcaPlan {
 }
 export interface DcaExecution {
   schemaVersion: 'dca-execution.v1'; executionId: string; planId: string; period: string;
+  periodStart?: string; periodEnd?: string;
   plannedAmount: Money; executedAmount: Money; pendingAmount: Money; rolloverFromExecutionId?: string;
   transactionIds?: string[]; status: 'planned' | 'partial' | 'completed' | 'deferred' | 'cancelled'; exceptionReason?: string;
 }
@@ -54,6 +55,16 @@ export interface LegacyAssetImport {
   candidateRefs?: { entityType: string; entityId: string; displayName?: string }[]; warnings?: string[]; userApprovalRef?: string;
 }
 export interface CandidatePayloads { account: Account; asset: Asset; transaction: Transaction; cash_flow: CashFlow; position_snapshot: PositionSnapshot; dca_execution: DcaExecution }
+export interface HistoricalAssetImport extends Omit<LegacyAssetImport, 'schemaVersion' | 'sourceRefs'> {
+  schemaVersion: 'historical-asset-import.v1'; sourceRefs: EvidenceRef[];
+}
+export interface AccountValueObservation {
+  accountId: string; snapshotDate: string; scope: 'full_account_snapshot'; totalMarketValue: Money; sourceEvidenceRefs: string[];
+}
+export interface AccountValueReconciliation {
+  accountId: string; snapshotDate: string; observedTotal: Money; candidatePositionTotal?: Money;
+  reconciliationDelta?: Money; status: 'pass' | 'warn'; warnings?: string[];
+}
 export type CandidateType = keyof CandidatePayloads;
 export interface AssetCandidate {
   candidateId: string; candidateType: CandidateType; confidence: number; payload: Record<string, unknown>;
@@ -63,6 +74,7 @@ export interface AssetImportBundle {
   schemaVersion: 'asset-import-bundle.v1'; importId: string; asOf: string;
   sourceType: 'chatgpt_screenshot_parse' | 'manual_entry' | 'file_import'; sourceEvidenceRefs?: string[];
   candidates: AssetCandidate[]; declaredExternalContribution?: Money; notes?: string;
+  accountValueObservations?: AccountValueObservation[];
 }
 export interface ImportPlanItem {
   candidateId: string; decision: 'pass' | 'warn' | 'skip_duplicate' | 'needs_resolution' | 'blocked'; summary: string;
@@ -73,6 +85,7 @@ export interface AssetImportPlan {
   status: 'ready' | 'needs_review' | 'blocked' | 'committed' | 'cancelled'; items: ImportPlanItem[];
   summary?: { externalContribution?: Money; transactionCount?: number; cashFlowCount?: number; positionCount?: number; dcaExecutionCount?: number };
   warnings?: string[];
+  accountValueReconciliations?: AccountValueReconciliation[];
 }
 export interface AssetImportCommitRequest {
   schemaVersion: 'asset-import-commit-request.v1'; planId: string; planDigest: string; idempotencyKey: string; userApprovalRef: string;
@@ -80,8 +93,25 @@ export interface AssetImportCommitRequest {
 export interface Confirmation { userApprovalRef: string; idempotencyKey: string; actor: string; client: string }
 export interface MutationResult { recordIds: string[]; warnings: string[] }
 export interface AuthorizedAppend { version: string; id: string; payloadDigest: string; revision?: number }
-export interface ConfirmedOperation { operation: string; confirmation: Confirmation; requestDigest: string; auditEventId: string; result: MutationResult; appends: AuthorizedAppend[] }
-export interface StoredImportPlan { bundle: AssetImportBundle; plan: AssetImportPlan; stateDigest: string; legacy?: LegacyAssetImport }
+export interface ImportProvenance { importId: string; planId: string; planDigest: string; historical?: HistoricalAssetImport }
+export interface ConfirmedOperation { operation: string; confirmation: Confirmation; requestDigest: string; auditEventId: string; result: MutationResult; appends: AuthorizedAppend[]; importProvenance?: ImportProvenance }
+export interface StoredImportPlan { bundle: AssetImportBundle; plan: AssetImportPlan; stateDigest: string; legacy?: LegacyAssetImport; historical?: HistoricalAssetImport; operation?: ImportOperation; evidence?: EvidenceSnapshot[]; supersedes?: string }
+export type ImportOperation = 'asset_import.commit' | 'legacy_asset_import.commit' | 'historical_asset_import.commit';
+// Internal trusted evidence seam, never accepted inside a V1 candidate/bundle.
+// The local source owner verifies provenance. The service additionally parses
+// structured archive content and compares its exact assertions and digests.
+export interface EvidenceAssertions {
+  candidates: { candidateId: string; candidateType: CandidateType; payload: Record<string, unknown> }[];
+  accountSnapshots: { observation: AccountValueObservation; positions: PositionSnapshot[]; complete: boolean }[];
+}
+export interface ResolvedImportEvidence {
+  refId: string; refType: EvidenceRef['refType']; content: string; assertions: EvidenceAssertions;
+  verification: { status: 'verified' | 'pending' | 'rejected'; version: string; contentDigest: string; assertionsDigest: string };
+}
+export interface EvidenceSnapshot extends Omit<ResolvedImportEvidence, 'content'> { contentDigest: string; usable: boolean }
+export interface ImportApproval {
+  userApprovalRef: string; operation: ImportOperation; planId: string; planDigest: string; actor: string; client: string;
+}
 export interface ImportFingerprint { key: string; factDigest: string; recordId: string; operationKey: string }
 
 export const candidateVersions: Record<CandidateType, string> = {

@@ -9,7 +9,7 @@ import { V1EntityResolver } from './resolver.js';
 export const ledgerBaselineDate = '2026-08-14';
 export function requireLedgerBaseline(value: CandidatePayloads[CandidateType]): void {
   const date = 'tradeDate' in value ? value.tradeDate : 'date' in value ? value.date : 'snapshotDate' in value ? value.snapshotDate : undefined;
-  if (date && date < ledgerBaselineDate) fail('CONTRACT_GAP', 'Formal history before 2026-08-14 requires a frozen historical_import contract.');
+  if (date && date < ledgerBaselineDate) fail('CONTRACT_GAP', 'Formal history before 2026-08-14 requires historical_asset_import.prepare/commit.');
 }
 
 export const digest = (value: unknown): string => createHash('sha256').update(canonicalJson(value), 'utf8').digest('hex');
@@ -40,7 +40,7 @@ export function amountSum(values: number[]): number {
   const negative = d.units < 0n;
   const digits = (negative ? -d.units : d.units).toString().padStart(d.scale + 1, '0');
   const value = Number(`${negative ? '-' : ''}${d.scale ? `${digits.slice(0, -d.scale)}.${digits.slice(-d.scale)}` : digits}`);
-  if (!Number.isFinite(value)) fail('RECONCILIATION_REQUIRED', 'Summary amount is not representable.');
+  if (!Number.isFinite(value) || sum([decimal(value), { ...d, units: -d.units }]).units !== 0n) fail('RECONCILIATION_REQUIRED', 'Exact summary amount is not representable as V1 Money.');
   return value;
 }
 function productEquals(a: number, b: number, total: number): boolean {
@@ -134,11 +134,27 @@ export function validateDcaPlan(plan: DcaPlan, state: AssetState): void {
     if (constraint.effectiveTo && constraint.effectiveTo < constraint.effectiveFrom) fail('LEDGER_INVALID', 'Constraint effective interval is invalid.');
   }
 }
-export function validateExecution(execution: DcaExecution, state: AssetState): number {
+export function executionDates(execution: DcaExecution, state: AssetState): string[] {
+  const valid = (date: unknown): date is string => typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(Date.parse(date)) && new Date(date).toISOString().slice(0, 10) === date;
+  const { periodStart: start, periodEnd: end } = execution;
+  if ((start !== undefined || end !== undefined) && (!valid(start) || !valid(end) || start > end)) fail('RECONCILIATION_REQUIRED', 'DCA requires a valid ordered explicit date pair.');
+  const ids = execution.transactionIds ?? [];
+  if (ids.length) return ids.map(id => {
+    const matches = state.transactions.filter(t => t.transactionId === id);
+    if (matches.length !== 1) fail('RECORD_NOT_FOUND', 'Every DCA transaction ID must resolve uniquely.');
+    const date = matches[0]!.tradeDate;
+    if (!valid(date)) fail('RECONCILIATION_REQUIRED', 'Every linked transaction requires a usable tradeDate.');
+    if (start && end && (date < start || date > end)) fail('RECONCILIATION_REQUIRED', 'Linked tradeDate is outside the explicit period.');
+    return date;
+  });
+  if (!start || !end) fail('RECONCILIATION_REQUIRED', 'Unlinked DCA execution requires periodStart and periodEnd; period is display only.');
+  return [start, end];
+}
+export function validateExecution(execution: DcaExecution, state: AssetState, historical = false): number {
   const amounts = [execution.plannedAmount, execution.executedAmount, execution.pendingAmount];
   amounts.forEach(v => nonnegative(v.amount));
   if (!sameCurrency(amounts)) fail('RECONCILIATION_REQUIRED', 'DCA currencies conflict.');
-  const revisions = state.revisions.filter(v => v.plan.planId === execution.planId);
+  const revisions = state.revisions.filter(v => v.plan.planId === execution.planId).sort((a, b) => a.revision - b.revision);
   if (!revisions.length) fail('RECORD_NOT_FOUND', 'DCA plan does not exist.');
   if (execution.status === 'completed' && (execution.executedAmount.amount <= 0 || execution.pendingAmount.amount !== 0)) fail('LEDGER_INVALID', 'Completed execution requires an actual positive subscription and no pending amount.');
   if (['planned', 'deferred', 'cancelled'].includes(execution.status) && execution.executedAmount.amount !== 0) fail('LEDGER_INVALID', 'Unexecuted status cannot claim a fill.');
@@ -146,25 +162,23 @@ export function validateExecution(execution: DcaExecution, state: AssetState): n
   const ids = execution.transactionIds ?? [];
   if (new Set(ids).size !== ids.length) fail('LEDGER_INVALID', 'DCA transaction links must be unique.');
   const linked = ids.map(id => state.transactions.find(v => v.transactionId === id) ?? fail('RECORD_NOT_FOUND', 'DCA transaction reference is unresolved.'));
-  linked.forEach(requireLedgerBaseline);
+  const dates = executionDates(execution, state);
+  if (historical ? dates.some(d => d >= ledgerBaselineDate) : dates.some(d => d < ledgerBaselineDate)) fail('CONTRACT_GAP', 'DCA dates must belong entirely to the selected import boundary.');
   if (state.executions.some(v => v.execution.transactionIds?.some(id => ids.includes(id)))) fail('LEDGER_INVALID', 'A transaction cannot fund multiple DCA executions.');
-  let revision: DcaRevision | undefined;
-  if (linked.length) {
-    const selected = linked.map(t => {
-      const applicable = revisions.filter(r => r.plan.activeFrom <= t.tradeDate).at(-1);
-      return applicable && (!applicable.plan.activeTo || t.tradeDate <= applicable.plan.activeTo) ? applicable : undefined;
-    });
-    revision = selected[0];
-    if (!revision || selected.some(r => r?.revision !== revision?.revision)) fail('RECONCILIATION_REQUIRED', 'DCA transactions do not identify one effective plan revision.');
-    if (linked.some(t => !inflowSides.includes(t.side) || (revision!.plan.assetId ? t.assetId !== revision!.plan.assetId : requireAsset(state, t.assetId).primaryCategory !== revision!.plan.primaryCategory))) fail('RECONCILIATION_REQUIRED', 'DCA transaction asset or direction does not match the plan.');
-    // V1 does not define executedAmount as gross, net or fees-inclusive.
-    // Linked transactions establish identity, direction and time, not an amount equation.
-  } else {
-    // period is a NonEmptyString, not a frozen date grammar. Do not silently
-    // select latest rules for an undated execution after a revision.
-    if (revisions.length !== 1) fail('CONTRACT_GAP', 'V1 undated DCA execution cannot select an effective revision after a rule change.');
-    revision = revisions[0]!;
+  for (let i = 0; i < revisions.length; i++) {
+    const r = revisions[i]!, previous = revisions[i - 1];
+    const validDate = (d: string) => /^\d{4}-\d{2}-\d{2}$/.test(d) && Number.isFinite(Date.parse(d)) && new Date(d).toISOString().slice(0, 10) === d;
+    if (!Number.isSafeInteger(r.revision) || r.revision !== i + 1 || !validDate(r.plan.activeFrom) || (r.plan.activeTo !== undefined && (!validDate(r.plan.activeTo) || r.plan.activeTo < r.plan.activeFrom)) || (previous && (r.revision !== previous.revision + 1 || r.plan.activeFrom <= previous.plan.activeFrom))) fail('RECONCILIATION_REQUIRED', 'DCA revision history is ambiguous or invalid.');
   }
+  const selected = dates.map(date => {
+    // A later activeFrom always supersedes the earlier inclusive activeTo.
+    const r = revisions.filter(v => v.plan.activeFrom <= date).at(-1);
+    return r && (!r.plan.activeTo || date <= r.plan.activeTo) ? r : undefined;
+  });
+  const revision = selected[0];
+  if (!revision || selected.some(r => r?.revision !== revision.revision)) fail('RECONCILIATION_REQUIRED', 'DCA dates do not identify one effective revision interval.');
+  if (linked.some(t => !inflowSides.includes(t.side) || (revision.plan.assetId ? t.assetId !== revision.plan.assetId : requireAsset(state, t.assetId).primaryCategory !== revision.plan.primaryCategory))) fail('RECONCILIATION_REQUIRED', 'DCA transaction asset or direction does not match the plan.');
+  // No executedAmount equation with grossAmount/netAmount/fees is frozen.
   if (execution.rolloverFromExecutionId) {
     const old = state.executions.find(v => v.execution.executionId === execution.rolloverFromExecutionId)?.execution;
     if (!old || old.planId !== execution.planId || old.pendingAmount.amount <= 0 || old.pendingAmount.currency !== execution.pendingAmount.currency || old.period === execution.period || state.executions.some(v => v.execution.rolloverFromExecutionId === old.executionId)) fail('RECONCILIATION_REQUIRED', 'Rollover must refer to one prior pending execution of the same plan and currency.');
@@ -173,8 +187,8 @@ export function validateExecution(execution: DcaExecution, state: AssetState): n
   }
   return revision.revision;
 }
-export function validateRecord(type: CandidateType, value: CandidatePayloads[CandidateType], state: AssetState, entities: EntityRepository, contracts: ContractRegistry): { warnings: string[]; entityId?: string; revision?: number } {
-  requireLedgerBaseline(value);
+export function validateRecord(type: CandidateType, value: CandidatePayloads[CandidateType], state: AssetState, entities: EntityRepository, contracts: ContractRegistry, historical = false): { warnings: string[]; entityId?: string; revision?: number } {
+  if (!historical) requireLedgerBaseline(value);
   let warnings: string[] = [], entityId: string | undefined, revision: number | undefined;
   switch (type) {
     case 'account': break;
@@ -188,7 +202,7 @@ export function validateRecord(type: CandidateType, value: CandidatePayloads[Can
       const p = value as PositionSnapshot; requireAccount(state, p.accountId); entityId = resolveAsset(requireAsset(state, p.assetId), entities, contracts);
       warnings = positionWarnings(p, state.transactions); break;
     }
-    case 'dca_execution': revision = validateExecution(value as DcaExecution, state); break;
+    case 'dca_execution': revision = validateExecution(value as DcaExecution, state, historical); break;
   }
   return { warnings, ...(entityId ? { entityId } : {}), ...(revision ? { revision } : {}) };
 }

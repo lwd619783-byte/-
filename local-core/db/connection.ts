@@ -84,7 +84,7 @@ export function openLocalDatabase(options: OpenDatabaseOptions, contracts: Contr
     accounts: () => ledger.accounts(), assets: () => ledger.assets(), transactions: () => ledger.transactions(),
     cashFlows: () => ledger.cashFlows(), positions: () => ledger.positions(), dcaRevisions: () => ledger.dcaRevisions(),
     dcaExecutions: () => ledger.dcaExecutions(), operation: key => ledger.operation(key),
-    importPlan: id => ledger.importPlan(id), fingerprint: key => ledger.fingerprint(key),
+    importPlan: id => ledger.importPlan(id), latestImportPlanId: id => ledger.latestImportPlanId(id), fingerprint: key => ledger.fingerprint(key),
   };
   const database: LocalDatabase = {
     transaction<T>(work: (repositories: TransactionRepositories) => T extends PromiseLike<unknown> ? never : T): T {
@@ -112,6 +112,7 @@ export function openLocalDatabase(options: OpenDatabaseOptions, contracts: Contr
         dcaExecutions: () => { checkActive(); return ledger.dcaExecutions(); },
         operation: key => { checkActive(); return ledger.operation(key); },
         importPlan: id => { checkActive(); return ledger.importPlan(id); },
+        latestImportPlanId: id => { checkActive(); return ledger.latestImportPlanId(id); },
         fingerprint: key => { checkActive(); return ledger.fingerprint(key); },
         createAccount: (...args) => { checkActive(); ledger.createAccount(...args); },
         createAsset: (...args) => { checkActive(); ledger.createAsset(...args); },

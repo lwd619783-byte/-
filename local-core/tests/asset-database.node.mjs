@@ -10,6 +10,8 @@ import { AssetService } from '../../.local-core-build/domain/asset-service.js';
 import { AssetImportService } from '../../.local-core-build/domain/asset-import-service.js';
 import { contracts, tempDirectory } from './fixtures.mjs';
 import { account, asset, transaction, position, dcaPlan, execution, cashFlow, approval, bundle, candidate, commitRequest, operator, reason, now } from './asset-fixtures.mjs';
+import { historicalContext, accountContext } from './import-alignment-fixtures.mjs';
+import { confirmedMutation, authorizeRecord } from '../../.local-core-build/domain/asset-service.js';
 
 test('001 matches immutable baseline; 002 upgrades an actual Phase 1A database without data loss', () => {
   const migrations = loadMigrations();
@@ -91,4 +93,57 @@ test('two connections cannot commit a stale plan or double-write an idempotency 
     reason('IMPORT_PLAN_STALE', () => first.commit(commitRequest(stale, { idempotencyKey: 'second' }), operator));
     assert.deepEqual(a.ledger.cashFlows(), []);
   } finally { a.database.close(); b.database.close(); }
+});
+
+for (const historical of [true, false]) test(`file reopen preserves ${historical ? 'Historical metadata/evidence/receipt' : 'AccountValue Observation/Reconciliation'} canonical fields`, t => {
+  const fixture = historical ? historicalContext(t) : accountContext(t);
+  const filename = path.join(tempDirectory(t), 'alignment-synthetic.sqlite');
+  const open = () => openLocalDatabase({ filename, purpose: 'test', mode: 'initialize' }, contracts);
+  let store = open();
+  const service = new AssetService(store.database, contracts, now);
+  service.createAccount(account(), approval('account')); service.createAsset(asset(), approval('asset'));
+  if (!historical) service.createTransaction(transaction(), approval('transaction'));
+  let imports = new AssetImportService(store.database, contracts, now, fixture.trust);
+  const plan = historical ? imports.prepareHistorical(fixture.metadata, fixture.b) : imports.prepare(fixture.b);
+  assert.equal(plan.status, 'ready');
+  const request = fixture.approve(plan, historical ? 'historical_asset_import.commit' : 'asset_import.commit');
+  const before = store.ledger.importPlan(plan.planId);
+  store.database.close(); store = open();
+  try {
+    imports = new AssetImportService(store.database, contracts, now, fixture.trust);
+    assert.deepEqual(store.ledger.importPlan(plan.planId), before);
+    const result = historical ? imports.commitHistorical(request, operator) : imports.commit(request, operator);
+    const receipt = store.ledger.operation(request.idempotencyKey);
+    store.database.close(); store = open();
+    // Successful retries use the persisted approved receipt, even without a
+    // source host after reopening; no new write or verification is attempted.
+    imports = new AssetImportService(store.database, contracts, now);
+    assert.deepEqual(historical ? imports.commitHistorical(request, operator) : imports.commit(request, operator), result);
+    assert.deepEqual(store.ledger.operation(request.idempotencyKey), receipt);
+    assert.equal(store.audit.listByRequest(request.idempotencyKey).length, 1);
+    assert.equal(store.database.verify().integrity, 'ok');
+  } finally { store.database.close(); }
+});
+
+test('old undated canonical DCA payload remains readable; new official commit requires dates', t => {
+  const filename = path.join(tempDirectory(t), 'old-wire-synthetic.sqlite');
+  let store = openLocalDatabase({ filename, purpose: 'test', mode: 'initialize' }, contracts);
+  const service = new AssetService(store.database, contracts, now);
+  service.createAccount(account(), approval('account')); service.createAsset(asset(), approval('asset')); service.saveDcaPlan(dcaPlan(), 0, approval('plan'));
+  const old = execution({ transactionIds: [] });
+  contracts.validate('dca-execution.v1', old);
+  // Trusted persistence fixture representing a pre-clarification receipt;
+  // deliberately does not exercise current service admission.
+  store.database.transaction(r => confirmedMutation(r, 'dca_execution.commit', approval('old-writer'), old, () => ({
+    result: { recordIds: [old.executionId], warnings: [] }, appends: [authorizeRecord({ type: 'dca_execution', value: old, revision: 1 })],
+    write: () => r.ledger.appendDcaExecution({ execution: old, planRevision: 1 }, 'old-writer'),
+  })));
+  service.commitDcaExecution(execution({ executionId: 'dated', transactionIds: [], periodStart: '2026-08-14', periodEnd: '2026-08-20' }), approval('dated'));
+  store.database.close(); store = openLocalDatabase({ filename, purpose: 'test', mode: 'readwrite' }, contracts);
+  try {
+    assert.deepEqual(store.ledger.dcaExecutions().find(v => v.execution.executionId === old.executionId).execution, old);
+    assert.equal(store.ledger.dcaExecutions().find(v => v.execution.executionId === 'dated').execution.periodEnd, '2026-08-20');
+    reason('RECONCILIATION_REQUIRED', () => new AssetService(store.database, contracts, now).commitDcaExecution({ ...old, executionId: 'new-undated' }, approval('new-undated')));
+    assert.equal(store.ledger.dcaExecutions().length, 2);
+  } finally { store.database.close(); }
 });

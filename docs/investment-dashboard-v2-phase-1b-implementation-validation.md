@@ -147,3 +147,7 @@ Git 交付采用普通 commit / push；最终 local HEAD、remote SHA、ahead/be
 - `local-core/tests/database.node.mjs`、`local-core/tests/audit.node.mjs`、`local-core/tests/integration.node.mjs`：schema 2 的当前预期，保留专门的 001 历史测试。
 - `scripts/run-local-core.mjs`、`package.json`：专项接入既有 test:local-core，并新增 test:assets；无 dependency 变动。
 - `docs/development-execution-plan-2026-09-07.md`：当前关闭状态与 Phase 1B BLOCKED 状态。
+
+## 2026-09-08 后续实现对齐记录
+
+以上保持原实现时点的验证及合同阻塞结论。本轮用户已授权消费合入 `de77ad872` 的合同；新增实现、可执行业务测试、当前限制与 Git 边界见[implementation alignment 验证](investment-dashboard-v2-phase-1b-implementation-alignment-validation.md)。旧 `d1e343ce` 的历史状态不回写为本轮结果。

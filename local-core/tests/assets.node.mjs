@@ -164,12 +164,12 @@ test('A-005 supported path: future revision pins dated execution, preserves old 
   assert.deepEqual(service.externalContributions(), []); assert.deepEqual(ledger.cashFlows(), []);
   reason('LEDGER_INVALID', () => service.saveDcaPlan(dcaPlan({ activeFrom: '2026-08-20' }), 2, approval('backdate')));
 });
-test('DCA undated execution after revision explicitly rejects contract gap', t => {
+test('DCA undated execution after revision requires explicit dates', t => {
   const { service, ledger } = context(t);
   service.saveDcaPlan(dcaPlan(), 0, approval('dca'));
   service.saveDcaPlan(dcaPlan({ activeFrom: '2026-09-08', constraints: [] }), 1, approval('revision'));
   const undated = execution({ status: 'completed', executedAmount: money(200), pendingAmount: money(0), transactionIds: [] });
-  reason('CONTRACT_GAP', () => service.commitDcaExecution(undated, approval('execution')));
+  reason('RECONCILIATION_REQUIRED', () => service.commitDcaExecution(undated, approval('execution')));
   assert.deepEqual(ledger.dcaExecutions(), []);
 });
 test('revision retains unchanged historical constraints but rejects retroactive constraint edits', t => {
@@ -190,7 +190,7 @@ test('cashflow and DCA plan writes also reject missing approval before an offici
 test('DCA unconfirmed/nonactual completion rejects; confirmed actual subscription can complete without creating a Transaction', t => {
   const { service, ledger } = context(t);
   service.saveDcaPlan(dcaPlan(), 0, approval('dca'));
-  const actual = execution({ status: 'completed', executedAmount: money(200), pendingAmount: money(0), transactionIds: [] });
+  const actual = execution({ status: 'completed', executedAmount: money(200), pendingAmount: money(0), transactionIds: [], periodStart: '2026-08-14', periodEnd: '2026-08-20' });
   reason('APPROVAL_REQUIRED', () => service.commitDcaExecution(actual, { ...approval(), userApprovalRef: '' }));
   reason('LEDGER_INVALID', () => service.commitDcaExecution({ ...actual, executedAmount: money(0) }, approval()));
   reason('LEDGER_INVALID', () => service.commitDcaExecution({ ...actual, status: 'planned' }, approval()));
@@ -288,6 +288,6 @@ test('DCA links across revisions still reject and date-looking period cannot byp
   const later = new AssetService(store.database, contracts, () => '2026-09-09T12:00:00Z');
   later.createTransaction(transaction({ transactionId: 'new-trade', tradeDate: '2026-09-09' }), approval('new-trade'));
   reason('RECONCILIATION_REQUIRED', () => later.commitDcaExecution(execution({ transactionIds: ['fixture-transaction', 'new-trade'] }), approval('cross-revision')));
-  reason('CONTRACT_GAP', () => later.commitDcaExecution(execution({ transactionIds: [], period: '2026-09-09' }), approval('undated')));
+  reason('RECONCILIATION_REQUIRED', () => later.commitDcaExecution(execution({ transactionIds: [], period: '2026-09-09' }), approval('undated')));
   assert.deepEqual(ledger.dcaExecutions(), []);
 });

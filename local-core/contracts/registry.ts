@@ -100,7 +100,7 @@ export class V1ContractRegistry implements ContractRegistry {
   readonly versions: readonly string[];
   readonly schemaCount: number;
   readonly definitionCount: number;
-  readonly declaredCases: readonly { id: string; status: 'declared / not-yet-executable' | 'executable' | 'partially executable / contract blocker' }[];
+  readonly declaredCases: readonly { id: string; status: 'declared / not-yet-executable' | 'executable' }[];
   readonly #validators = new Map<string, ValidateFunction>();
   constructor(documents = loadContractDocuments()) {
     try {
@@ -138,11 +138,10 @@ export class V1ContractRegistry implements ContractRegistry {
       this.definitionCount = definitions;
       this.versions = Object.freeze([...this.#validators.keys()].sort());
       // This records test availability, never a cached PASS. The asset domain
-      // suites execute in test:local-core. Missing wire semantics stay partial;
+      // suites execute in test:local-core; CB-1/2/3 now have business tests;
       // performance and future MCP/restore cases remain declared.
       this.declaredCases = Object.freeze(documents['contract-test-cases.v1.json']!.cases.map((item: { id: string }) => ({ id: item.id,
-        status: ['A-003', 'A-004', 'A-006', 'A-007', 'A-008'].includes(item.id) ? 'executable' as const :
-          ['A-001', 'A-002', 'A-005'].includes(item.id) ? 'partially executable / contract blocker' as const : 'declared / not-yet-executable' as const })));
+        status: ['A-001', 'A-002', 'A-003', 'A-004', 'A-005', 'A-006', 'A-007', 'A-008'].includes(item.id) ? 'executable' as const : 'declared / not-yet-executable' as const })));
     } catch {
       fail('CONTRACT_INVALID', 'V1 schema compilation or static invariant failed.');
     }

@@ -46,11 +46,11 @@ test('declared external contribution excludes transfer and compares currency/amo
   const currency = imports.prepare(bundle([candidate(cashFlow(), 'cash_flow')], { declaredExternalContribution: money(100, 'USD') }));
   assert.equal(currency.status, 'needs_review');
 });
-test('new screenshot financial candidates cannot bypass the unresolved account-total contract boundary', t => {
+test('screenshot financial candidates without account-value evidence cannot commit', t => {
   const { imports, ledger } = context(t);
   const screenshot = { refType: 'screenshot', refId: 'synthetic-screenshot', quality: 'verified' };
   const plan = imports.prepare(bundle([candidate(transaction({ source: 'confirmed_screenshot', sourceEvidenceRef: screenshot }))], { sourceType: 'chatgpt_screenshot_parse', sourceEvidenceRefs: ['synthetic-screenshot'] }));
-  assert.equal(plan.items[0].decision, 'warn'); assert(plan.items[0].warnings.includes('ACCOUNT_TOTAL_CONTRACT_GAP'));
+  assert.equal(plan.status, 'needs_review'); assert(plan.warnings.includes('SCREENSHOT_ACCOUNT_VALUE_OBSERVATION_MISSING'));
   reason('IMPORT_NOT_READY', () => imports.commit(commitRequest(plan), operator));
   assert.deepEqual(ledger.transactions(), []);
 });
