@@ -16,9 +16,12 @@
 仓库同时包含：
 
 1. **已经实现的研究看板与数据治理能力**：行情、财务 / 公告 Provider、预期证据、ResearchEvent、Watchlist Review、Provider Stability、Market Regime / PIT 基础等；
-2. **已经冻结并按阶段实现的 V2 Research & Asset OS 设计与合同**：Research Bridge / MCP、ChatGPT 研究入库、行业研究 taxonomy、资产 / Portfolio / DCA、Local-first、备份恢复和机器可读合同。
+2. **已经冻结的 V2 Research & Asset OS 设计与合同**：Research Bridge / MCP、ChatGPT 研究入库、行业研究 taxonomy、资产 / Portfolio / DCA、Local-first、备份恢复和机器可读合同；
+3. **Phase 1B 已实现的 Node-only Local Core**：单用户 Local-first SQLite、Entity Registry / Resolver、append-only Audit、Account / Asset ledger、Transaction / CashFlow / PositionSnapshot、DCA revisions / executions，以及受确认、幂等和证据约束的导入核心。
 
 2026-09-05 V2 合同终局审计为 **PASS FOR PHASE 1 IMPLEMENTATION**。它只授权审计中明确列出的第一阶段实现范围，不表示所有 V2 功能已经实现或获得 Production Admission。
+
+Phase 1B 已通过 [PR #24](https://github.com/lwd619783-byte/-/pull/24) 合入并通过 main CI。该关闭状态只覆盖 Local Core，不表示 Portfolio Exposure / UI、Research Bridge、cloud business database、可信来源 adapter、OCR 或真实账户迁移已经实现。
 
 ## Source of Truth
 
@@ -28,6 +31,7 @@
 - [`docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md`](docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md)：ChatGPT 入库、资产管理与 DCA 补充设计
 - [`docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md`](docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md)：冻结决策、Local-first 与备份恢复边界
 - [`docs/investment-dashboard-v2-final-contract-audit-v1.md`](docs/investment-dashboard-v2-final-contract-audit-v1.md)：终局审计与 Phase 1 准入范围
+- [`docs/investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md`](docs/investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)：Phase 1B 后 CURRENT 开发顺序与 Stage 4 重叠判断
 
 ### 机器可读合同
 
@@ -65,6 +69,7 @@
 - Data Source Registry + Data Audit
 - Provider Observation + Stability Gate
 - Market Regime / PIT observation catalog 基础
+- Local-first SQLite Local Core：Entity / Audit、Account / Asset ledger、DCA 与 trusted-import seam
 - Developer Health Gate + GitHub Actions + Bundle Gate
 
 详细功能状态和 Production Admission 以 `docs/feature-registry.md`、对应 Provider admission 文档和实际代码为准。
@@ -75,7 +80,7 @@
 
 **自动机构一致预期仍受 evidence / temporal / provenance 合同约束。** 当前缺失的正式能力保持 `not_implemented` / NO_GO，不能用不完整机构明细拼装“伪一致预期”。
 
-**现有用户工作流与 V2 Local-first 要区分。** Watchlist / Expectation 等功能按当前代码的真实持久化方式运行；V2 Local-first、资产账本、Research Bridge 与备份恢复只有在对应 Phase 1 实现完成后才成为运行能力。
+**浏览器工作流与 Node-only Local Core 要区分。** Watchlist / Expectation 等浏览器功能仍按当前代码使用 LocalStorage；Phase 1B 的资产账本运行在单用户 Local-first SQLite Local Core 中，前端没有直接接入该数据库。Research Bridge、备份恢复正式流程与真实账户迁移仍须各自实现和准入；cloud business database 与跨设备同步不是当前 Local-first freeze 下的默认建设方向。
 
 跨任务的数据真实性、PIT、权限、历史完整性和 AI 写入边界统一见 `AGENTS.md` 与对应 Contracts，本 README 不重复维护。
 
@@ -87,6 +92,8 @@
 - Tailwind CSS 3
 - Recharts
 - Vitest
+- SQLite / better-sqlite3（Node-only Local Core）
+- Ajv（V1 contract validation）
 - Python / Node 数据脚本
 - GitHub Actions
 - Vercel SPA
@@ -105,6 +112,7 @@ public/data/           按公司 lazy-load 的重数据详情
 scripts/               抓取、生成、验证、审计、健康、Provider Observation、Skill bootstrap
 config/                Stability Gate / Market Regime / Observation Schema
 contracts/v1/          V2 Phase 1 机器可读合同
+local-core/             Node-only Local-first SQLite、Domain、Ports 与测试
 docs/                  架构、V2 设计、Skill Registry、Provider、审计与历史基线
 ```
 
