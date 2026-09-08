@@ -80,6 +80,12 @@ jobs:
       - name: Test Market Regime observation catalog offline
         run: npm run test:market-regime:catalog
 
+      - name: Test Market Regime historical dataset offline
+        run: npm run test:market-regime:historical
+
+      - name: Test Market Regime PBC historical dataset offline
+        run: npm run test:market-regime:pbc
+
       - name: Build and validate deterministic Market Regime sample catalog
         run: npm run data:build:market-regime:catalog && npm run data:validate:market-regime:catalog
 
