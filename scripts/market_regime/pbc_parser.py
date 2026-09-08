@@ -1,7 +1,7 @@
-"""PBC prose extraction only; release identity/admission belongs to the dataset builder.
+"""PBC prose and scoped AFRE tables; release admission belongs to the builder.
 
 Offsets address the UTF-8 encoding of the supplied, unmodified HTML. Unsupported
-tables, images and ambiguous prose stay blockers, never inferred numeric rows.
+table shapes, attachments, images and ambiguous prose remain explicit blockers.
 """
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from urllib.parse import urlsplit
 
 from .time_semantics import date_only_safe_available_at
 
-PARSER_VERSION = "pbc-prose-r2b-v1.0.0"
+PARSER_VERSION = "pbc-prose-r2b-v1.1.0"
 M2_SOURCE = "PBOC_M2_OFFICIAL_RELEASE"
 AFRE_SOURCE = "PBOC_AFRE_STOCK_OFFICIAL_RELEASE"
 NUMBER = r"[+-]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?"
@@ -189,6 +189,155 @@ def definition_era(source_id: str, period: str) -> str:
     return "AFRE_2023_01"
 
 
+class _TableStructure(HTMLParser):
+    """Read physical cells without flattening nested layout tables or merged cells."""
+    def __init__(self, html: str):
+        super().__init__(convert_charrefs=False)
+        self.html, self.stack, self.tables = html, [], []
+        self.starts = [0] + [m.end() for m in re.finditer("\n", html)]
+        self.feed(html)
+
+    def _position(self):
+        line, col = self.getpos()
+        return self.starts[line - 1] + col
+
+    def handle_starttag(self, tag, attrs):
+        pos = self._position()
+        if tag == "table":
+            self.stack.append({"start": pos, "rows": [], "row": None, "cell": None, "merged": False})
+        elif self.stack:
+            table = self.stack[-1]
+            if tag == "tr":
+                table["row"] = {"start": pos, "cells": []}
+            elif tag in ("td", "th") and table["row"] is not None:
+                table["cell"] = pos
+                if any(key in ("rowspan", "colspan") and value != "1" for key, value in attrs):
+                    table["merged"] = True
+
+    def handle_endtag(self, tag):
+        if not self.stack:
+            return
+        table = self.stack[-1]
+        end = self.html.find(">", self._position()) + 1
+        if tag in ("td", "th") and table["cell"] is not None and table["row"] is not None:
+            raw = self.html[table["cell"]:end]
+            table["row"]["cells"].append(re.sub(r"\s+", "", _MappedText(raw).text))
+            table["cell"] = None
+        elif tag == "tr" and table["row"] is not None:
+            table["row"]["end"] = end
+            table["rows"].append(table["row"])
+            table["row"] = None
+        elif tag == "table":
+            table["end"] = end
+            self.tables.append(self.stack.pop())
+
+
+def _raw_locator(html: str, start: int, end: int) -> dict[str, Any]:
+    raw = html[start:end]
+    return {"byteOffset": len(html[:start].encode("utf-8")),
+            "byteLength": len(raw.encode("utf-8")), "text": raw}
+
+
+def _afre_historical_tables(html, report_period, notes):
+    rows, current, blockers = [], [], []
+    # Admission is additionally source/event-bound in the dataset. This parser
+    # requires the explicit scope-change paragraph, not a distant keyword match.
+    scope_tokens = {
+        "2018-07": ("2018年7月起", "存款类金融机构资产支持证券", "贷款核销", "纳入"),
+        "2018-09": ("2018年9月起", "地方政府专项债券", "纳入"),
+        "2019-09": ("2019年9月起", "交易所企业资产支持证券", "纳入", "2017年以来可比口径"),
+        "2019-12": ("2019年12月起", "国债", "地方政府一般债券", "追溯到2017年1月份"),
+    }
+    if report_period not in scope_tokens:
+        return rows, current, blockers
+    scopes = [note for note in notes if all(t in note["text"] for t in scope_tokens[report_period])]
+    if not scopes:
+        return rows, current, [f"AFRE_BACKCAST_SCOPE_EVIDENCE_MISSING:{report_period}"]
+    scope = max(scopes, key=lambda n: n["locator"]["byteLength"])
+    if report_period == "2019-12":
+        links = [m for m in re.finditer(r'<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>.*?</a>', html, re.I | re.S)
+                 if re.search(r"\.(?:xls|xlsx|pdf)(?:$|[?#])", m.group(1), re.I)
+                 and "社会融资规模存量" in _MappedText(m.group()).text]
+        return rows, current, [f"AFRE_BACKCAST_ATTACHMENT_UNSUPPORTED:{report_period}:{m.group(1)}" for m in links] or [f"AFRE_BACKCAST_TABLE_MISSING:{report_period}"]
+    paragraphs = list(re.finditer(r"<p\b[^>]*>.*?</p>", html, re.I | re.S))
+    found = False
+    for table in _TableStructure(html).tables:
+        prior = [p for p in paragraphs if p.end() <= table["start"] and _MappedText(p.group()).text.strip()]
+        if not prior:
+            continue
+        caption = prior[-1]
+        caption_text = re.sub(r"\s+", "", _MappedText(caption.group()).text)
+        if not (caption_text.startswith(("表1：", "表2：")) and "2017年以来" in caption_text
+                and "社会融资规模" in caption_text and "完善后" in caption_text):
+            continue
+        found = True
+        if table["merged"]:
+            blockers.append(f"AFRE_BACKCAST_MERGED_CELLS_UNSUPPORTED:{report_period}")
+            continue
+        basis = [n for n in notes if "可比" in n["text"] and ("2017年以来" in n["text"] or "文内同比" in n["text"])]
+        basis_locator = _raw_locator(html, caption.start(), caption.end()) if "可比" in caption_text else (basis[0]["locator"] if basis else None)
+        if basis_locator is None:
+            blockers.append(f"AFRE_BACKCAST_COMPARABILITY_MISSING:{report_period}")
+            continue
+        headers, header_start, previous = None, None, None
+        for tr in table["rows"]:
+            cells = tr["cells"]
+            if not cells:
+                continue
+            label = cells[0]
+            if label == "月份":
+                headers, header_start, previous = [], tr["start"], None
+                for cell in cells[1:]:
+                    match = re.fullmatch(r"(20\d{2})年(\d{1,2})月", cell)
+                    headers.append(f"{match.group(1)}-{int(match.group(2)):02d}" if match and 1 <= int(match.group(2)) <= 12 else None)
+                if any(c and p is None for c, p in zip(cells[1:], headers)) or len(set(p for p in headers if p)) != len([p for p in headers if p]):
+                    blockers.append(f"AFRE_BACKCAST_PERIOD_HEADER_INVALID:{report_period}")
+                    headers = None
+                continue
+            balance = label == "存量（亿元）"
+            yoy = label == "存量增速（%）" or (label == "同比增速（%）" and previous == "存量（亿元）")
+            previous = label
+            if not (balance or yoy):
+                continue  # Component YoY must never be mistaken for aggregate YoY.
+            if headers is None or len(cells) != len(headers) + 1:
+                blockers.append(f"AFRE_BACKCAST_TABLE_SHAPE_INVALID:{report_period}")
+                continue
+            for period, raw_value in zip(headers, cells[1:]):
+                if period is None and not raw_value:
+                    continue
+                if period is None or period < "2017-01" or period > report_period:
+                    blockers.append(f"AFRE_BACKCAST_PERIOD_OUTSIDE_SCOPE:{period}")
+                    continue
+                if not re.fullmatch(NUMBER, raw_value) or "," in raw_value:
+                    blockers.append(f"AFRE_BACKCAST_NUMERIC_UNSUPPORTED:{period}")
+                    continue
+                locator = _raw_locator(html, header_start, tr["end"])
+                field = "存量" if balance else "存量增速" if label.startswith("存量增速") else "同比增速"
+                unit = "亿元" if balance else "%"
+                if any(token not in locator["text"] for token in (field, unit, raw_value)):
+                    blockers.append(f"AFRE_BACKCAST_RAW_LOCATOR_UNSUPPORTED:{period}")
+                    continue
+                value = Decimal(raw_value)
+                multiplier = Decimal("0.0001") if balance else Decimal(1)
+                era = "AFRE_" + report_period.replace("-", "_") + "_BACKCAST"
+                row = {"valueDate": period, "metricId": "MACRO_AFRE_STOCK_" + ("BALANCE" if balance else "YOY"),
+                       "value": float(value * multiplier), "originalValue": float(value), "originalUnit": unit,
+                       "rawUnit": unit, "rawFieldName": field, "rawValueText": raw_value,
+                       "unit": "万亿元" if balance else "%", "conversionRule": "YI_YUAN_TO_WAN_YI_YUAN" if balance else "IDENTITY",
+                       "conversionMultiplier": float(multiplier), "locator": locator, "originalText": _MappedText(locator["text"]).text,
+                       "reportedComparableBasis": True, "comparabilityEvidence": basis_locator,
+                       "scopeEvidence": scope["locator"], "definitionEra": era, "method": era,
+                       "temporalRole": "BACKCAST", "periodSemantics": "MONTH", "qualityStatus": "BACKCAST"}
+                if period == report_period:
+                    row.update(temporalRole="CURRENT_TABLE", qualityStatus="PROVISIONAL")
+                    current.append(row)
+                else:
+                    rows.append(row)
+    if not found:
+        blockers.append(f"AFRE_BACKCAST_TABLE_MISSING:{report_period}")
+    return rows, current, blockers
+
+
 def parse_pbc_release(html: str, source_url: str, *, source_id: str,
                       expected_period: str | None = None) -> dict[str, Any]:
     host = urlsplit(source_url).hostname or ""
@@ -343,6 +492,11 @@ def parse_pbc_release(html: str, source_url: str, *, source_id: str,
             if any(Decimal(str(row["value"])) != claimed for row in current_yoy):
                 rows = [row for row in rows if row not in current_yoy]
                 blockers.append(f"CURRENT_METHOD_YOY_CONFLICT:{report_period}")
+    table_current_rows = []
+    if source_id == AFRE_SOURCE:
+        historical, table_current_rows, table_blockers = _afre_historical_tables(html, report_period, notes)
+        rows.extend(historical)
+        blockers.extend(table_blockers)
     # Multiple prose claims for one cell are evidence of ambiguity, even if encountered later.
     groups: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
     for row in rows:
@@ -356,5 +510,5 @@ def parse_pbc_release(html: str, source_url: str, *, source_id: str,
     return {"sourceId": source_id, "sourceUrl": source_url, "parserVersion": PARSER_VERSION,
             "title": title, "valueDate": report_period, **publication,
             "rows": sorted(accepted, key=lambda row: (row["valueDate"], row["metricId"])),
-            "alternativeMethodRows": alternatives, "definitionNotes": notes,
+            "alternativeMethodRows": alternatives, "tableCurrentRows": table_current_rows, "definitionNotes": notes,
             "blockers": sorted(set(blockers))}

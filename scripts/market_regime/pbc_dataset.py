@@ -22,6 +22,14 @@ from .time_semantics import parse_aware_datetime
 M2 = 'PBOC_M2_OFFICIAL_RELEASE'
 AFRE = 'PBOC_AFRE_STOCK_OFFICIAL_RELEASE'
 
+# Audited original scope-change releases, not arbitrary later historical tables.
+# Each method has independent period-applicable definitions in the PBC plan.
+AFRE_BACKCAST_RELEASES = {
+    'AFRE_2018_07_BACKCAST': ('2018-07', '2018-08-13T19:25:12+08:00', '2017-01', '2018-06'),
+    'AFRE_2018_09_BACKCAST': ('2018-09', '2018-10-17T16:00:01+08:00', '2017-01', '2018-08'),
+    'AFRE_2019_09_BACKCAST': ('2019-09', '2019-10-15T16:30:02+08:00', '2017-01', '2019-08'),
+}
+
 
 def locator(aid, body, text):
     raw = text.encode('utf-8')
@@ -88,7 +96,7 @@ def initial_release_proof(parsed, row, links):
     return result
 
 
-def resolve_definition(definitions, row):
+def resolve_definition(definitions, row, parsed=None):
     """Select a frozen era, including separately scoped later backcast methods."""
     metric, period = row['metricId'], row['valueDate']
     if metric.startswith('MACRO_M2'):
@@ -105,9 +113,20 @@ def resolve_definition(definitions, row):
         era = ('2015-v1' if period < '2018-07' else '2018-07-v2' if period < '2018-09'
                else '2018-09-v3' if period < '2019-09' else '2019-09-v4' if period < '2019-12' else '2019-12-v5' if period<'2023-01' else '2023-01-v6')
         identity = f'pbc-afre-stock-{family}-{era}'
-        # A later scope on an earlier period must have its own audited definition.
+        # Only the audited event, literal scope evidence and applicable period
+        # may use a separate backcast method. Never reuse the valueDate's era.
         if row['temporalRole'] == 'BACKCAST' and period >= '2015-01':
-            return None
+            scope = AFRE_BACKCAST_RELEASES.get(row['method'])
+            if not scope or not parsed or not row.get('scopeEvidence'):
+                return None
+            report_period, clock, start, end = scope
+            identity = f'pbc-afre-stock-{family}-{report_period}-backcast-v1'
+            definition = next((d for d in definitions if d['sourceDefinitionId']==identity), None)
+            if (not definition or parsed['valueDate']!=report_period or parsed['releaseAvailableAt']!=clock
+                    or parsed['sourceUrl']!=definition['sourceUrlPattern'] or not start <= period <= end
+                    or definition['effectiveFrom'][:7]!=start or definition['effectiveTo'][:7]!=end):
+                return None
+            return definition
     return next((d for d in definitions if d['sourceDefinitionId'] == identity), None)
 
 
@@ -194,7 +213,8 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
                 releaseConfidenceClass='BACKCAST_RELEASED_LATER' if kind == 'BACKCAST' else parsed['releaseConfidenceClass'],
                 releaseKind=kind, coveredPeriods=[period], attachmentArtifactIds=[], attachmentEvidence=[],
                 firstReleaseEvidenceArtifactIds=sorted({l['artifactId'] for l in first}),
-                firstReleaseEvidence=first, revisionEvidence=[], indexEvidence=links)
+                firstReleaseEvidence=first,
+                revisionEvidence=[], indexEvidence=links)
             eid = release_identity(e)
             a = {k: v for k, v in evidence[r['attemptId']].items() if k != 'evidenceRole'}
             a.update({k: e[k] for k in ('publicationDateTime','publicationDate','releaseAvailableAt','releaseConfidenceClass')})
@@ -203,6 +223,9 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
             aid = a['artifactId']
             e.update(releaseEventId=eid, landingArtifactId=aid,
                      publicationEvidence=parser_locator(aid, parsed['publicationEvidenceLocator']))
+            if kind == 'BACKCAST':
+                e['revisionEvidence'] = list({canonical_sha256(row['scopeEvidence']):
+                    parser_locator(aid,row['scopeEvidence']) for row in rows if row.get('scopeEvidence')}.values())
             # Date-only evidence can be stored before its safe boundary, but cannot
             # be made into an R1 artifact by altering acquisition time.
             if parse_aware_datetime(a['fetchedAt']) < parse_aware_datetime(e['releaseAvailableAt']):
@@ -219,7 +242,7 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
             payload['artifactBindings'].append(dict(artifactId=aid, releaseEventId=eid, completeResponse=True,
                 contentValidation='VALIDATED', contentEvidence=locator(aid, body, content)))
             for row in rows:
-                d = resolve_definition(definitions, row)
+                d = resolve_definition(definitions, row, parsed)
                 if not d:
                     diagnostics.append(dict(url=r['finalUrl'], sourceId=r['sourceId'], period=period,
                                             metricId=row['metricId'], reason='DEFINITION_UNRESOLVED'))
@@ -272,7 +295,16 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
             representatives[1]['event']['releaseKind']=='BACKCAST' and
             representatives[1]['row']['definitionEra']=='M2_2018_BACKCAST' and
             representatives[0]['event']['releaseAvailableAt'] < representatives[1]['event']['releaseAvailableAt'])
-        conflict = len(distinct) > 1 and not authorized_backcast
+        afre_chain = (key[0]==AFRE and (
+            representatives[0]['event']['releaseKind']=='FIRST_RELEASE' or
+            (representatives[0]['event']['releaseKind']=='BACKCAST' and
+             representatives[0]['row']['method'] in AFRE_BACKCAST_RELEASES)) and all(
+            i['event']['releaseKind']=='BACKCAST' and i['row']['method'] in AFRE_BACKCAST_RELEASES
+            for i in representatives[1:]) and all(
+            a['event']['releaseAvailableAt'] < b['event']['releaseAvailableAt']
+            and a['definition']['sourceDefinitionId'] != b['definition']['sourceDefinitionId']
+            for a,b in zip(representatives,representatives[1:])))
+        conflict = len(distinct) > 1 and not (authorized_backcast or afre_chain)
         if conflict:
             affected = [c['cellId'] for c in grid if (c['sourceId'],c['metricId'],c['period']) == key]
             payload['conflicts'].append(dict(conflictId='conflict-'+canonical_sha256(key), cellIds=affected,
@@ -280,11 +312,19 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
                 evidence=[i['extraction']['locator'] for i in items], resolutionReleaseEventId=None,
                 reasonCode='UNRESOLVED_RELEASE_CONFLICT', handlingBasis='No proved authoritative replacement; retain every candidate, exclude strict values'))
         previous = None
+        sequence = 0
+        baseline_proved = any(i['event']['releaseKind']=='FIRST_RELEASE' and i['representable']
+            and (key[1]!='MACRO_AFRE_STOCK_YOY' or i['row']['reportedComparableBasis']) for i in representatives)
         for n, item in enumerate(items):
             e,a,x,d,row = (item[k] for k in ('event','artifact','extraction','definition','row'))
             # Mere same-value republication does not create a fake revision chain.
             basis_ok = row['metricId']!='MACRO_AFRE_STOCK_YOY' or row['reportedComparableBasis']
             keep = not conflict and item in representatives and basis_ok and item['representable']
+            if (key[0]==AFRE and key[2]>='2015-01' and e['releaseKind']=='BACKCAST'
+                    and not baseline_proved):
+                keep = False
+                diagnostics.append(dict(url=e['landingUrl'],sourceId=AFRE,period=key[2],metricId=key[1],
+                    reason='AFRE_BACKCAST_FIRST_RELEASE_LINEAGE_GAP'))
             if keep:
                 oid = 'obs-pbc-' + canonical_sha256([e['releaseEventId'], row['metricId'], d['sourceDefinitionId']])
                 x['observationId'] = oid
@@ -293,7 +333,7 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
                 seed['observations'].append(dict(observationId=oid, metricId=row['metricId'], valueDate=x['period'],
                     releaseDateTime=e['publicationDateTime'], releaseAvailableAt=e['releaseAvailableAt'], fetchedAt=a['fetchedAt'],
                     value=x['rawValue'] * x['unitConversion']['factor'], unit=d['unit'], sourceId=e['sourceId'],
-                    sourceDefinitionId=d['sourceDefinitionId'], revisionSequence=1 if previous else 0,
+                    sourceDefinitionId=d['sourceDefinitionId'], revisionSequence=sequence,
                     supersedesObservationId=previous['observationId'] if previous else None,
                     releaseConfidenceClass=e['releaseConfidenceClass'], qualityStatus=row['qualityStatus'],
                     rawArtifactId=a['artifactId'], transformVersion=PARSER_VERSION,
@@ -301,6 +341,7 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
                         reportedComparableBasis=x['reportedComparableBasis'], definitionNotes=item['parsed']['definitionNotes'],
                         releaseKind=e['releaseKind'], nativeFrequency=d['nativeFrequency'])))
                 previous = x
+                sequence += 1
             payload['fieldExtractions'].append(x)
     events = {e['releaseEventId']: e for e in payload['releaseEvents']}
     obs = {o['observationId']: o for o in seed['observations']}
@@ -315,6 +356,10 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
         if candidates and not matches:
             status, reason = 'FIELD_MISSING', 'FIELD_OR_DEFINITION_UNRESOLVED'
         if matches and c['metricId']=='MACRO_AFRE_STOCK_YOY' and not any(x['reportedComparableBasis'] for x in matches):
+            status, reason = 'DEFINITION_UNRESOLVED','COMPARABLE_STOCK_YOY_BASIS_UNPROVEN'
+        initial_matches = [x for x in matches if events[x['releaseEventId']]['releaseKind']=='FIRST_RELEASE']
+        if (not admitted and c['metricId']=='MACRO_AFRE_STOCK_YOY' and initial_matches
+                and not any(x['reportedComparableBasis'] for x in initial_matches)):
             status, reason = 'DEFINITION_UNRESOLVED','COMPARABLE_STOCK_YOY_BASIS_UNPROVEN'
         issues = [d for d in diagnostics if d['sourceId']==c['sourceId'] and d.get('period')==c['period'] and d.get('metricId')==c['metricId']]
         if not admitted and any(d['reason']=='DEFINITION_UNRESOLVED' for d in issues):

@@ -81,7 +81,86 @@ class PbcHistoricalParserTests(unittest.TestCase):
                 self.assertEqual(values(result), {(period, "MACRO_AFRE_STOCK_BALANCE"): balance, (period, "MACRO_AFRE_STOCK_YOY"): yoy})
                 self.assertTrue(all(row["definitionEra"] == era and row["temporalRole"] == "CURRENT" for row in result["rows"]))
                 self.assertTrue(result["definitionNotes"])
-                self.assertEqual(result["blockers"], [])
+                self.assertEqual(result["blockers"], [f"AFRE_BACKCAST_TABLE_MISSING:{period}"])
+
+    def test_afre_2_full_historical_tables_and_literal_locators(self):
+        provenance = json.loads((FIXTURES / "pbc-r2b-afre-tables-fixtures.provenance.json").read_text(encoding="utf-8"))
+        expected = {"2018-07": (36, "2018-06", 177.3872, 12.5),
+                    "2018-09": (40, "2018-08", 182.8692, 13.4),
+                    "2019-09": (64, "2019-08", 183.2379, 13.5)}
+        for metadata in provenance:
+            raw = (FIXTURES / metadata["fixture"]).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), metadata["fixtureSha256"])
+            self.assertEqual(metadata["artifactRole"], "TEST_FIXTURE_EXCERPT")
+            result = parse_pbc_release(raw.decode(), metadata["sourceUrl"], source_id=AFRE_SOURCE)
+            self.assertEqual(result["publicationDateTime"], metadata["publicationDateTime"])
+            period = result["valueDate"]
+            if period not in expected:
+                continue
+            count, last, balance, yoy = expected[period]
+            historical = [r for r in result["rows"] if r["temporalRole"] == "BACKCAST"]
+            self.assertEqual(len(historical), count)
+            self.assertEqual(min(r["valueDate"] for r in historical), "2017-01")
+            self.assertEqual(max(r["valueDate"] for r in historical), last)
+            self.assertEqual(values(result)[("2017-12", "MACRO_AFRE_STOCK_BALANCE")], balance)
+            self.assertEqual(values(result)[("2017-12", "MACRO_AFRE_STOCK_YOY")], yoy)
+            for row in historical:
+                self.assertEqual(row["definitionEra"], "AFRE_" + period.replace("-", "_") + "_BACKCAST")
+                self.assertTrue(row["reportedComparableBasis"])
+                for locator in (row["locator"], row["scopeEvidence"], row["comparabilityEvidence"]):
+                    self.assertEqual(raw[locator["byteOffset"]:locator["byteOffset"] + locator["byteLength"]].decode(), locator["text"])
+                self.assertTrue(all(token in row["locator"]["text"] for token in (row["rawFieldName"], row["rawValueText"], row["rawUnit"])))
+            self.assertEqual(result["blockers"], [])
+
+    def test_afre_2_current_table_precision_is_separate_from_first_release_prose(self):
+        result = parse((FIXTURES / "pbc-r2b-afre-2018-07-tables.html").read_text(encoding="utf-8"), AFRE_SOURCE)
+        self.assertEqual(values(result)[("2018-07", "MACRO_AFRE_STOCK_BALANCE")], 187.45)
+        self.assertEqual({r["metricId"]: r["value"] for r in result["tableCurrentRows"]},
+                         {"MACRO_AFRE_STOCK_BALANCE": 187.4504, "MACRO_AFRE_STOCK_YOY": 10.3})
+        self.assertTrue(all(r["temporalRole"] == "CURRENT_TABLE" for r in result["tableCurrentRows"]))
+
+    def test_afre_2_component_yoy_does_not_replace_aggregate(self):
+        html = (FIXTURES / "pbc-r2b-afre-2019-09-tables.html").read_text(encoding="utf-8")
+        changed = html.replace(">19.9</p>", ">999.9</p>")
+        result = parse(changed, AFRE_SOURCE)
+        self.assertEqual(values(result)[("2017-01", "MACRO_AFRE_STOCK_YOY")], 14.9)
+        self.assertFalse(any(r["value"] == 999.9 for r in result["rows"]))
+
+    def test_afre_2_merged_cells_are_not_positionally_guessed(self):
+        html = (FIXTURES / "pbc-r2b-afre-2018-07-tables.html").read_text(encoding="utf-8")
+        result = parse(html.replace('<td>', '<td colspan="2">'), AFRE_SOURCE)
+        self.assertFalse(any(r["temporalRole"] == "BACKCAST" for r in result["rows"]))
+        self.assertIn("AFRE_BACKCAST_MERGED_CELLS_UNSUPPORTED:2018-07", result["blockers"])
+
+    def test_afre_2_invalid_and_future_table_months_fail_closed(self):
+        html = (FIXTURES / "pbc-r2b-afre-2018-07-tables.html").read_text(encoding="utf-8")
+        for bad, reason in (("2017年13月", "AFRE_BACKCAST_PERIOD_HEADER_INVALID:2018-07"),
+                            ("2019年1月", "AFRE_BACKCAST_PERIOD_OUTSIDE_SCOPE:2019-01")):
+            result = parse(html.replace("2017年1月", bad), AFRE_SOURCE)
+            self.assertNotIn(("2017-01", "MACRO_AFRE_STOCK_BALANCE"), values(result))
+            self.assertFalse(any(r["valueDate"] > "2018-07" for r in result["rows"]))
+            self.assertIn(reason, result["blockers"])
+
+    def test_afre_2_missing_numeric_table_cell_never_becomes_zero(self):
+        html = (FIXTURES / "pbc-r2b-afre-2018-07-tables.html").read_text(encoding="utf-8")
+        for invalid in ("—", "", "1,613,437"):
+            result = parse(html.replace("1613437", invalid), AFRE_SOURCE)
+            self.assertNotIn(("2017-01", "MACRO_AFRE_STOCK_BALANCE"), values(result))
+            self.assertIn("AFRE_BACKCAST_NUMERIC_UNSUPPORTED:2017-01", result["blockers"])
+
+    def test_afre_2_scope_change_note_is_required_even_with_table(self):
+        html = (FIXTURES / "pbc-r2b-afre-2018-07-tables.html").read_text(encoding="utf-8")
+        result = parse(html.replace("2018年7月起", "不明时期起"), AFRE_SOURCE)
+        self.assertFalse(any(r["temporalRole"] == "BACKCAST" for r in result["rows"]))
+        self.assertIn("AFRE_BACKCAST_SCOPE_EVIDENCE_MISSING:2018-07", result["blockers"])
+
+    def test_afre_2_attachment_only_scope_change_keeps_explicit_blockers(self):
+        result = parse((FIXTURES / "pbc-r2b-afre-2019-12-attachments.html").read_text(encoding="utf-8"), AFRE_SOURCE)
+        self.assertEqual(result["releaseAvailableAt"], "2020-01-16T15:00:30+08:00")
+        self.assertEqual(len(result["rows"]), 2)
+        self.assertTrue(all(r["temporalRole"] == "CURRENT" for r in result["rows"]))
+        self.assertEqual(len(result["blockers"]), 2)
+        self.assertTrue(all(b.startswith("AFRE_BACKCAST_ATTACHMENT_UNSUPPORTED:2019-12:") for b in result["blockers"]))
 
     def test_m2_1_r1_cross_era_fixtures_and_literal_locators(self):
         for filename, period, balance, yoy, era in (
