@@ -1,13 +1,14 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-07 P0 可信展示纠偏 V1：已实现，待独立审查/合入。当前执行顺序与停止点见[开发执行索引](development-execution-plan-2026-09-07.md)。本条不修改下方历史基线，不表示生产上线或 Phase 1A 完成。
+> 2026-09-08 CURRENT：Phase 1B 已经由 PR #24 合入并通过 main CI；当前实现顺序见[开发执行索引](development-execution-plan-2026-09-07.md)与[Phase 1B 后路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)。历史实施 / 审计文档仍保留其记录时点状态。
 
-> 基线日期：2026-09-03  
-> 代码基线：`main` @ `00a26181482627e053f3e5a5c89188b3a722e1d9`
+> 基线日期：2026-09-08
+> 代码基线：`main` @ `2230265e727f0f2787de9e82d509f0c1d3a6230a`
 
 状态定义：
 
 - `DONE`：功能和当前范围内验证已完成，可继续使用。
+- `DONE V1 / LOCAL CORE`：V1 Node-only 核心与当前范围验证已完成；不表示浏览器 UI、远程入口、真实 adapter / migration 或 Production Admission 已完成。
 - `DONE / NOT ADMITTED`：实现已完成，但尚未满足生产准入条件。
 - `CONTRACT V1`：研究 / 数据合同已经正式固化，但尚未进入 Provider / 评分 / UI 生产实现。
 - `PARTIAL`：已有可用能力，但覆盖、数据源或工作流明显不完整。
@@ -99,15 +100,20 @@
 | Historical PIT Backtest Dataset Design V1 | CONTRACT V1 | P0 | 周一08:00决策时钟、release vintage、coverage era、质量分层、immutable manifest 已冻结；R1 observation catalog skeleton 已落地 |
 | Historical Observation Catalog R1 | DONE | P0 | PR #13 已合并；strict PIT、provenance、统计口径版本、离线 validator/test 已通过；下一步 R2 扩展真实历史 vintage 数据集 |
 | 牛熊温度计 / Market Regime Engine | CONTRACT V1 | P0 | 已恢复 5 个基础模块 + 政策/盈利/结构泡沫 overlay；生产权重仍需历史回测 admission |
-| Valuation Center | NOT STARTED | P0 | Stage 4.2 |
-| Portfolio / Account / Position / Transaction | NOT STARTED | P0 | Stage 4.2 |
-| Research Thesis ↔ Position Mapping | NOT STARTED | P0 | Stage 4.2 |
-| Cloud Persistence / Auth | NOT STARTED | P0 | Stage 4.3 |
-| LocalStorage → Cloud Migration | NOT STARTED | P0 | Stage 4.3 |
-| Industry Metric Registry / Provider | NOT STARTED | P1 | Stage 4.4 |
-| Industry Prosperity Score | NOT STARTED | P1 | Stage 4.4 |
-| Full HK Research Chain | NOT STARTED | P1 | Stage 4.5 |
-| Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6，建立在可信数据与云端数据之上 |
+| Asset / Account Local Core | DONE V1 / LOCAL CORE | P0 | Phase 1B：Account、Asset、Transaction、CashFlow、PositionSnapshot、DCA Plan revision / Execution、rollover、append-only SQLite、confirmation、idempotency、Audit、HistoricalAssetImport、账户总额 reconciliation 与 DCA temporal binding；不是完整 Portfolio |
+| Trusted Asset Import Core | DONE V1 / LOCAL CORE | P0 | ImportTrust seam、evidence validation、prepare/plan/confirm/commit、approval binding、幂等与原子写入已实现 |
+| Trusted source adapter / OCR / confirmation UI / real historical migration | NOT STARTED | P0 | 当前只有 fail-closed core seam 与 synthetic/temp 验证；没有真实来源接入、截图解析、浏览器确认流程或真实账户迁移 |
+| Portfolio aggregate / Exposure / read model / UI | NOT STARTED | P0 | Stage 4.4；复用 Phase 1B Local Core，补组合聚合、macro / industry exposure 与浏览器读模型，不重建账本 |
+| Research Thesis ↔ Position Mapping | NOT STARTED | P0 | Stage 4.4 |
+| Target Allocation / Rebalance Task / Performance Attribution | NOT STARTED | P0 | Stage 4.4；XIRR / TWR 等仍需独立 methodology / admission |
+| Research Bridge / controlled remote access | NOT STARTED | P0 | Stage 4.5；须复用 Domain API、最小权限、确认与 Audit，不暴露 raw DB |
+| Cloud business database / cross-device sync | DEFERRED | P0 | 当前 Local-first freeze 已覆盖旧 Cloud Store 假设；若未来改变方向须重新冻结 scope，不是现行 Stage 4 默认任务；Research Bridge 自身的 Auth / scope 仍属于 Stage 4.5 缺口 |
+| Browser LocalStorage workflow migration | NOT STARTED | P0 | Watchlist / Expectation 仍使用 LocalStorage；迁往 Local Core 或其他目标尚无冻结实施范围，不得写成已迁移 |
+| Valuation Center | NOT STARTED | P1 | 当前 V2 路线列入 Stage 4.6+ Advanced Valuation |
+| Industry Metric Registry / Provider | NOT STARTED | P1 | Stage 4.2 |
+| Industry Prosperity Score | NOT STARTED | P1 | Stage 4.2 |
+| Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
+| Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |
 
 ### Stage 4.1 Metric Source / Formula 状态摘要
 
@@ -177,6 +183,7 @@
 
 下一步：
 
+- [ ] **冻结的下一实际开发任务：STAGE 4.1 — HISTORICAL OBSERVATION CATALOG R2 / PIT DATASET EXPANSION**
 - [ ] Task 4.1-R2：扩展 M2 2005–present 官方历史 release/vintage 目录
 - [ ] Task 4.1-R2：扩展社融存量 2015–present first-release vintage 与定义版本
 - [ ] Task 4.1-R2：枚举证监会证券市场月报历史索引并完成 IPO/再融资 XLS 字段 schema probe
