@@ -38,11 +38,14 @@ def official(url):
 
 
 class Collector:
-    def __init__(self, repo, *, interval=1.05, timeout=25, budget=1200):
+    def __init__(self, repo, *, interval=1.05, timeout=25, budget=1200, raw_directory=RAW):
         if interval < 1 or not 1 <= timeout <= 60 or not 1 <= budget <= 3000:
             raise ValueError("BOUNDED_REQUEST_POLICY_REQUIRED")
         self.repo = Path(repo).resolve()
-        self.root = self.repo / RAW
+        self.raw_directory = raw_directory
+        self.root = (self.repo / raw_directory).resolve()
+        if not self.root.is_relative_to((self.repo / "research-data/market-regime/raw").resolve()):
+            raise ValueError("RAW_PATH_ESCAPE")
         self.root.mkdir(parents=True, exist_ok=True)
         self.journal = self.root / "retrieval-journal.jsonl"
         self.rows = [json.loads(x) for x in self.journal.read_text(encoding="utf-8").splitlines()] if self.journal.exists() else []
@@ -67,13 +70,15 @@ class Collector:
             raise ValueError("RAW_BYTES_MISMATCH")
         return body
 
-    def fetch(self, url, role, *, refresh=False):
+    def fetch(self, url, role, *, refresh=False, form_data=None):
         discovered = official(url)
         p = urlsplit(discovered)
+        if form_data is not None and p.path != "/getSearch":
+            raise ValueError("ONLY_READ_ONLY_TITLE_SEARCH_FORM_SUPPORTED")
         request_url = urlunsplit(("https", p.netloc, p.path, p.query, ""))
         if not refresh:
             for old in reversed(self.rows):
-                if old["requestUrl"] == request_url and old["outcome"] == "SUCCESS":
+                if old["requestUrl"] == request_url and old.get("requestForm") == form_data and old["outcome"] == "SUCCESS":
                     try:
                         self.bytes(old)
                     except (OSError, ValueError):
@@ -89,6 +94,10 @@ class Collector:
                        requestUrl=request_url, discoveredUrl=discovered, finalUrl=None, role=role, attemptedAt=ts,
                        httpStatus=None, contentType=None, storedBytes=None, outcome="TRANSPORT_ERROR",
                        blocker=None, redirects=[], acquisitionAttemptId=None, verifiedAt=None)
+            if form_data is not None:
+                row.update(requestMethod="POST", requestForm=form_data)
+            if self.raw_directory != RAW:
+                row["physicalRequests"] = 0
             try:
                 current = request_url
                 for _ in range(6):
@@ -96,13 +105,17 @@ class Collector:
                         raise ValueError("REQUEST_BUDGET_EXHAUSTED")
                     time.sleep(max(0, self.interval - (time.monotonic() - self.last)))
                     self.count += 1
+                    if "physicalRequests" in row:
+                        row["physicalRequests"] += 1
                     self.last = time.monotonic()
-                    response = self.session.get(current, headers={"User-Agent": "Mozilla/5.0 (compatible; CSRCInventoryProbe/1.0)", "Accept": "*/*"},
-                                                timeout=self.timeout, allow_redirects=False)
+                    options = dict(headers={"User-Agent": "Mozilla/5.0 (compatible; CSRCInventoryProbe/1.0)", "Accept": "*/*"},
+                                   timeout=self.timeout, allow_redirects=False)
+                    response = (self.session.get(current, **options) if form_data is None else
+                                self.session.post(current, data=form_data, **options))
                     # Preserve every physical response, including redirect/error bodies.
                     body = response.content
                     digest = hashlib.sha256(body).hexdigest()
-                    local = f"{RAW}/sha256/{digest}.bin"
+                    local = f"{self.raw_directory}/sha256/{digest}.bin"
                     atomic_write_bytes(self.repo / local, body)
                     stored = dict(localPath=local, sha256=digest, byteSize=len(body))
                     row.update(finalUrl=official(response.url), httpStatus=response.status_code,
@@ -110,6 +123,8 @@ class Collector:
                     if response.is_redirect:
                         row["redirects"].append(dict(url=current, httpStatus=response.status_code, storedBytes=stored,
                                                      location=response.headers["Location"]))
+                        if form_data is not None:
+                            raise ValueError("FORM_REDIRECT_REQUIRES_NEW_DISCOVERY")
                         current = official(urljoin(current, response.headers["Location"]))
                         continue
                     row["outcome"] = "SUCCESS" if 200 <= response.status_code < 300 and body else "HTTP_ERROR"
