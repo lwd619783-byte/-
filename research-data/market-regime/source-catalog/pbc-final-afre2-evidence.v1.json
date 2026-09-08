@@ -1,0 +1,834 @@
+{
+  "datasetContentSha256": "fdc9da9a871818a19438843191cc1205a705255038dfb32b979202183081f1e3",
+  "reviewedHead": "66c77bcd83b1df3d13e37e20c0ca62d3e84eafba",
+  "status": "PARTIAL",
+  "addedDefinitions": 0,
+  "addedReleaseEvents": 0,
+  "addedFieldExtractions": 0,
+  "addedObservations": [
+    {
+      "fetchedAt": "2026-09-08T11:06:03.827377Z",
+      "metadata": {
+        "definitionNotes": [
+          {
+            "locator": {
+              "byteLength": 86,
+              "byteOffset": 21943,
+              "text": "初步统计，9月末社会融资规模存量为197.3万亿元，同比增长10.6%。"
+            },
+            "text": "初步统计，9月末社会融资规模存量为197.3万亿元，同比增长10.6%。"
+          },
+          {
+            "locator": {
+              "byteLength": 213,
+              "byteOffset": 23628,
+              "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+            },
+            "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+          },
+          {
+            "locator": {
+              "byteLength": 280,
+              "byteOffset": 23863,
+              "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。"
+            },
+            "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。"
+          },
+          {
+            "locator": {
+              "byteLength": 149,
+              "byteOffset": 24270,
+              "text": "为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。"
+            },
+            "text": "为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。"
+          },
+          {
+            "locator": {
+              "byteLength": 104,
+              "byteOffset": 24441,
+              "text": "2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>\n              "
+            },
+            "text": "2017年以来各月社会融资规模存量余额和可比口径同比增速如下："
+          },
+          {
+            "locator": {
+              "byteLength": 177,
+              "byteOffset": 24576,
+              "text": "表1：2017年以来各月完善后的社会融资规模存量余额</p>\n              <table align=\"center\" border=\"1\" cellspacing=\"0\">\n               <tbody> \n                "
+            },
+            "text": "表1：2017年以来各月完善后的社会融资规模存量余额"
+          },
+          {
+            "locator": {
+              "byteLength": 204,
+              "byteOffset": 31947,
+              "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）</p>\n               <table align=\"center\" border=\"1\" cellspacing=\"0\">\n                <tbody> \n                 "
+            },
+            "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）"
+          },
+          {
+            "locator": {
+              "byteLength": 220,
+              "byteOffset": 23625,
+              "text": "<p>注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。</p>"
+            },
+            "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+          },
+          {
+            "locator": {
+              "byteLength": 563,
+              "byteOffset": 23860,
+              "text": "<p>注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。今年8月份以来，地方政府专项债券发行进度加快，对银行贷款、企业债券等有明显的接替效应。为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。</p>"
+            },
+            "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。今年8月份以来，地方政府专项债券发行进度加快，对银行贷款、企业债券等有明显的接替效应。为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。"
+          }
+        ],
+        "nativeFrequency": "MONTHLY",
+        "publicationDate": "2018-10-17",
+        "releaseKind": "BACKCAST",
+        "reportedComparableBasis": true,
+        "title": "2018年9月末社会融资规模存量统计数据报告"
+      },
+      "metricId": "MACRO_AFRE_STOCK_YOY",
+      "observationId": "obs-pbc-36d19bcc758c086dad60388557a4b1a25d9190c174bc2445c9334fe1eb0a49d6",
+      "qualityStatus": "BACKCAST",
+      "rawArtifactId": "artifact-r2-a242d748d8af6a348fdbaf4ea5220b3285fd1f376d1220763425b43635d22dd1",
+      "releaseAvailableAt": "2018-10-17T16:00:01+08:00",
+      "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+      "releaseDateTime": "2018-10-17T16:00:01+08:00",
+      "revisionSequence": 1,
+      "sourceDefinitionId": "pbc-afre-stock-yoy-2018-09-backcast-v1",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "supersedesObservationId": "obs-pbc-e319ad9d2df66b04b2b87af6efba886300d389cd66958764ca32af7d2ebd3886",
+      "transformVersion": "pbc-prose-r2b-v1.1.0",
+      "unit": "%",
+      "value": 14.8,
+      "valueDate": "2017-02"
+    },
+    {
+      "fetchedAt": "2026-09-08T11:06:04.928254Z",
+      "metadata": {
+        "definitionNotes": [
+          {
+            "locator": {
+              "byteLength": 87,
+              "byteOffset": 21931,
+              "text": "初步统计，9月末社会融资规模存量为219.04万亿元，同比增长10.8%。"
+            },
+            "text": "初步统计，9月末社会融资规模存量为219.04万亿元，同比增长10.8%。"
+          },
+          {
+            "locator": {
+              "byteLength": 224,
+              "byteOffset": 23619,
+              "text": "注2：2019年9月起，人民银行进一步完善“社会融资规模”中的“企业债券”统计，将“交易所企业资产支持证券”纳入“企业债券”指标，2017年以来可比口径数据见表1。"
+            },
+            "text": "注2：2019年9月起，人民银行进一步完善“社会融资规模”中的“企业债券”统计，将“交易所企业资产支持证券”纳入“企业债券”指标，2017年以来可比口径数据见表1。"
+          },
+          {
+            "locator": {
+              "byteLength": 254,
+              "byteOffset": 23865,
+              "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下单独列示，2017年以来时序数据见表2。"
+            },
+            "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下单独列示，2017年以来时序数据见表2。"
+          },
+          {
+            "locator": {
+              "byteLength": 175,
+              "byteOffset": 24141,
+              "text": "注4：2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计,地方政府专项债券按照债权债务在托管机构登记日统计。"
+            },
+            "text": "注4：2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计,地方政府专项债券按照债权债务在托管机构登记日统计。"
+          },
+          {
+            "locator": {
+              "byteLength": 43,
+              "byteOffset": 24338,
+              "text": "注5：文内同比数据为可比口径。"
+            },
+            "text": "注5：文内同比数据为可比口径。"
+          },
+          {
+            "locator": {
+              "byteLength": 261,
+              "byteOffset": 24453,
+              "text": "表1：2017年以来各月完善后社会融资规模和企业债券存量和增速数据如下：</p>\n              <table border=\"1\" bordercolor=\"#000000\" cellspacing=\"0\" style=\"border-collapse: collapse;width: 750px\">\n               <tbody> \n                "
+            },
+            "text": "表1：2017年以来各月完善后社会融资规模和企业债券存量和增速数据如下："
+          },
+          {
+            "locator": {
+              "byteLength": 231,
+              "byteOffset": 23616,
+              "text": "<p>注2：2019年9月起，人民银行进一步完善“社会融资规模”中的“企业债券”统计，将“交易所企业资产支持证券”纳入“企业债券”指标，2017年以来可比口径数据见表1。</p>"
+            },
+            "text": "注2：2019年9月起，人民银行进一步完善“社会融资规模”中的“企业债券”统计，将“交易所企业资产支持证券”纳入“企业债券”指标，2017年以来可比口径数据见表1。"
+          },
+          {
+            "locator": {
+              "byteLength": 261,
+              "byteOffset": 23862,
+              "text": "<p>注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下单独列示，2017年以来时序数据见表2。</p>"
+            },
+            "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下单独列示，2017年以来时序数据见表2。"
+          },
+          {
+            "locator": {
+              "byteLength": 182,
+              "byteOffset": 24138,
+              "text": "<p>注4：2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计,地方政府专项债券按照债权债务在托管机构登记日统计。</p>"
+            },
+            "text": "注4：2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计,地方政府专项债券按照债权债务在托管机构登记日统计。"
+          },
+          {
+            "locator": {
+              "byteLength": 50,
+              "byteOffset": 24335,
+              "text": "<p>注5：文内同比数据为可比口径。</p>"
+            },
+            "text": "注5：文内同比数据为可比口径。"
+          }
+        ],
+        "nativeFrequency": "MONTHLY",
+        "publicationDate": "2019-10-15",
+        "releaseKind": "BACKCAST",
+        "reportedComparableBasis": true,
+        "title": "2019年9月社会融资规模存量统计数据报告"
+      },
+      "metricId": "MACRO_AFRE_STOCK_YOY",
+      "observationId": "obs-pbc-cd7e325d050ca4227c600cb55be747c499391012ccb3d7b2d592f97d9886594a",
+      "qualityStatus": "BACKCAST",
+      "rawArtifactId": "artifact-r2-3b81edd2fd5b1c5f8320257739ef929eeef06296c9b1c9bc8477c487aee311f3",
+      "releaseAvailableAt": "2019-10-15T16:30:02+08:00",
+      "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+      "releaseDateTime": "2019-10-15T16:30:02+08:00",
+      "revisionSequence": 2,
+      "sourceDefinitionId": "pbc-afre-stock-yoy-2019-09-backcast-v1",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "supersedesObservationId": "obs-pbc-36d19bcc758c086dad60388557a4b1a25d9190c174bc2445c9334fe1eb0a49d6",
+      "transformVersion": "pbc-prose-r2b-v1.1.0",
+      "unit": "%",
+      "value": 14.8,
+      "valueDate": "2017-02"
+    },
+    {
+      "fetchedAt": "2026-09-08T11:06:10.429780Z",
+      "metadata": {
+        "definitionNotes": [
+          {
+            "locator": {
+              "byteLength": 87,
+              "byteOffset": 21943,
+              "text": "初步统计，7月末社会融资规模存量为187.45万亿元，同比增长10.3%。"
+            },
+            "text": "初步统计，7月末社会融资规模存量为187.45万亿元，同比增长10.3%。"
+          },
+          {
+            "locator": {
+              "byteLength": 213,
+              "byteOffset": 23573,
+              "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+            },
+            "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+          },
+          {
+            "locator": {
+              "byteLength": 116,
+              "byteOffset": 23786,
+              "text": "完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>\n              "
+            },
+            "text": "完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下："
+          },
+          {
+            "locator": {
+              "byteLength": 177,
+              "byteOffset": 23933,
+              "text": "表1：2017年以来各月完善后的社会融资规模存量余额</p>\n              <table align=\"center\" border=\"1\" cellspacing=\"0\">\n               <tbody> \n                "
+            },
+            "text": "表1：2017年以来各月完善后的社会融资规模存量余额"
+          },
+          {
+            "locator": {
+              "byteLength": 204,
+              "byteOffset": 33063,
+              "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）</p>\n               <table align=\"center\" border=\"1\" cellspacing=\"0\">\n                <tbody> \n                 "
+            },
+            "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）"
+          },
+          {
+            "locator": {
+              "byteLength": 317,
+              "byteOffset": 23570,
+              "text": "<p>注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>"
+            },
+            "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下："
+          }
+        ],
+        "nativeFrequency": "MONTHLY",
+        "publicationDate": "2018-08-13",
+        "releaseKind": "BACKCAST",
+        "reportedComparableBasis": true,
+        "title": "2018年7月末社会融资规模存量统计数据报告"
+      },
+      "metricId": "MACRO_AFRE_STOCK_YOY",
+      "observationId": "obs-pbc-e319ad9d2df66b04b2b87af6efba886300d389cd66958764ca32af7d2ebd3886",
+      "qualityStatus": "BACKCAST",
+      "rawArtifactId": "artifact-r2-ca3a05ffc0ad74e95916b9bebc31a0a48a4cc1c61865f3fb89adecb9d8bd7d99",
+      "releaseAvailableAt": "2018-08-13T19:25:12+08:00",
+      "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+      "releaseDateTime": "2018-08-13T19:25:12+08:00",
+      "revisionSequence": 0,
+      "sourceDefinitionId": "pbc-afre-stock-yoy-2018-07-backcast-v1",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "supersedesObservationId": null,
+      "transformVersion": "pbc-prose-r2b-v1.1.0",
+      "unit": "%",
+      "value": 13.2,
+      "valueDate": "2017-02"
+    }
+  ],
+  "preservedObservations": 891,
+  "metricCounts": {
+    "MACRO_M2_BALANCE": {
+      "availableCount": 256,
+      "backcastCount": 0,
+      "notYetReleasedCount": 0,
+      "provenFirstReleaseCount": 256,
+      "structuralCount": 0,
+      "targetCount": 260,
+      "unresolvedCount": 4,
+      "vintageCount": 256
+    },
+    "MACRO_M2_YOY": {
+      "availableCount": 256,
+      "backcastCount": 1,
+      "notYetReleasedCount": 0,
+      "provenFirstReleaseCount": 256,
+      "structuralCount": 0,
+      "targetCount": 260,
+      "unresolvedCount": 4,
+      "vintageCount": 257
+    },
+    "MACRO_AFRE_STOCK_BALANCE": {
+      "availableCount": 129,
+      "backcastCount": 32,
+      "notYetReleasedCount": 0,
+      "provenFirstReleaseCount": 129,
+      "structuralCount": 0,
+      "targetCount": 140,
+      "unresolvedCount": 11,
+      "vintageCount": 199
+    },
+    "MACRO_AFRE_STOCK_YOY": {
+      "availableCount": 111,
+      "backcastCount": 32,
+      "notYetReleasedCount": 0,
+      "provenFirstReleaseCount": 110,
+      "structuralCount": 0,
+      "targetCount": 140,
+      "unresolvedCount": 29,
+      "vintageCount": 180
+    }
+  },
+  "cutoffVerification": {
+    "status": "PASS",
+    "checks": [
+      {
+        "cutoff": "2018-08-13T19:25:11+08:00",
+        "selectedObservation": null
+      },
+      {
+        "cutoff": "2018-08-13T19:25:12+08:00",
+        "selectedObservation": {
+          "observationId": "obs-pbc-e319ad9d2df66b04b2b87af6efba886300d389cd66958764ca32af7d2ebd3886",
+          "metricId": "MACRO_AFRE_STOCK_YOY",
+          "valueDate": "2017-02",
+          "releaseDateTime": "2018-08-13T19:25:12+08:00",
+          "releaseAvailableAt": "2018-08-13T19:25:12+08:00",
+          "fetchedAt": "2026-09-08T11:06:10.429780Z",
+          "value": 13.2,
+          "unit": "%",
+          "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+          "sourceDefinitionId": "pbc-afre-stock-yoy-2018-07-backcast-v1",
+          "revisionSequence": 0,
+          "supersedesObservationId": null,
+          "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+          "qualityStatus": "BACKCAST",
+          "rawArtifactId": "artifact-r2-ca3a05ffc0ad74e95916b9bebc31a0a48a4cc1c61865f3fb89adecb9d8bd7d99",
+          "transformVersion": "pbc-prose-r2b-v1.1.0",
+          "metadata": {
+            "publicationDate": "2018-08-13",
+            "title": "2018年7月末社会融资规模存量统计数据报告",
+            "reportedComparableBasis": true,
+            "definitionNotes": [
+              {
+                "text": "初步统计，7月末社会融资规模存量为187.45万亿元，同比增长10.3%。",
+                "locator": {
+                  "byteOffset": 21943,
+                  "byteLength": 87,
+                  "text": "初步统计，7月末社会融资规模存量为187.45万亿元，同比增长10.3%。"
+                }
+              },
+              {
+                "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。",
+                "locator": {
+                  "byteOffset": 23573,
+                  "byteLength": 213,
+                  "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+                }
+              },
+              {
+                "text": "完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：",
+                "locator": {
+                  "byteOffset": 23786,
+                  "byteLength": 116,
+                  "text": "完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>\n              "
+                }
+              },
+              {
+                "text": "表1：2017年以来各月完善后的社会融资规模存量余额",
+                "locator": {
+                  "byteOffset": 23933,
+                  "byteLength": 177,
+                  "text": "表1：2017年以来各月完善后的社会融资规模存量余额</p>\n              <table align=\"center\" border=\"1\" cellspacing=\"0\">\n               <tbody> \n                "
+                }
+              },
+              {
+                "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）",
+                "locator": {
+                  "byteOffset": 33063,
+                  "byteLength": 204,
+                  "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）</p>\n               <table align=\"center\" border=\"1\" cellspacing=\"0\">\n                <tbody> \n                 "
+                }
+              },
+              {
+                "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：",
+                "locator": {
+                  "byteOffset": 23570,
+                  "byteLength": 317,
+                  "text": "<p>注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>"
+                }
+              }
+            ],
+            "releaseKind": "BACKCAST",
+            "nativeFrequency": "MONTHLY"
+          }
+        }
+      },
+      {
+        "cutoff": "2018-10-17T16:00:00+08:00",
+        "selectedObservation": {
+          "observationId": "obs-pbc-e319ad9d2df66b04b2b87af6efba886300d389cd66958764ca32af7d2ebd3886",
+          "metricId": "MACRO_AFRE_STOCK_YOY",
+          "valueDate": "2017-02",
+          "releaseDateTime": "2018-08-13T19:25:12+08:00",
+          "releaseAvailableAt": "2018-08-13T19:25:12+08:00",
+          "fetchedAt": "2026-09-08T11:06:10.429780Z",
+          "value": 13.2,
+          "unit": "%",
+          "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+          "sourceDefinitionId": "pbc-afre-stock-yoy-2018-07-backcast-v1",
+          "revisionSequence": 0,
+          "supersedesObservationId": null,
+          "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+          "qualityStatus": "BACKCAST",
+          "rawArtifactId": "artifact-r2-ca3a05ffc0ad74e95916b9bebc31a0a48a4cc1c61865f3fb89adecb9d8bd7d99",
+          "transformVersion": "pbc-prose-r2b-v1.1.0",
+          "metadata": {
+            "publicationDate": "2018-08-13",
+            "title": "2018年7月末社会融资规模存量统计数据报告",
+            "reportedComparableBasis": true,
+            "definitionNotes": [
+              {
+                "text": "初步统计，7月末社会融资规模存量为187.45万亿元，同比增长10.3%。",
+                "locator": {
+                  "byteOffset": 21943,
+                  "byteLength": 87,
+                  "text": "初步统计，7月末社会融资规模存量为187.45万亿元，同比增长10.3%。"
+                }
+              },
+              {
+                "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。",
+                "locator": {
+                  "byteOffset": 23573,
+                  "byteLength": 213,
+                  "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+                }
+              },
+              {
+                "text": "完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：",
+                "locator": {
+                  "byteOffset": 23786,
+                  "byteLength": 116,
+                  "text": "完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>\n              "
+                }
+              },
+              {
+                "text": "表1：2017年以来各月完善后的社会融资规模存量余额",
+                "locator": {
+                  "byteOffset": 23933,
+                  "byteLength": 177,
+                  "text": "表1：2017年以来各月完善后的社会融资规模存量余额</p>\n              <table align=\"center\" border=\"1\" cellspacing=\"0\">\n               <tbody> \n                "
+                }
+              },
+              {
+                "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）",
+                "locator": {
+                  "byteOffset": 33063,
+                  "byteLength": 204,
+                  "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）</p>\n               <table align=\"center\" border=\"1\" cellspacing=\"0\">\n                <tbody> \n                 "
+                }
+              },
+              {
+                "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：",
+                "locator": {
+                  "byteOffset": 23570,
+                  "byteLength": 317,
+                  "text": "<p>注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。完善后，2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>"
+                }
+              }
+            ],
+            "releaseKind": "BACKCAST",
+            "nativeFrequency": "MONTHLY"
+          }
+        }
+      },
+      {
+        "cutoff": "2018-10-17T16:00:01+08:00",
+        "selectedObservation": {
+          "observationId": "obs-pbc-36d19bcc758c086dad60388557a4b1a25d9190c174bc2445c9334fe1eb0a49d6",
+          "metricId": "MACRO_AFRE_STOCK_YOY",
+          "valueDate": "2017-02",
+          "releaseDateTime": "2018-10-17T16:00:01+08:00",
+          "releaseAvailableAt": "2018-10-17T16:00:01+08:00",
+          "fetchedAt": "2026-09-08T11:06:03.827377Z",
+          "value": 14.8,
+          "unit": "%",
+          "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+          "sourceDefinitionId": "pbc-afre-stock-yoy-2018-09-backcast-v1",
+          "revisionSequence": 1,
+          "supersedesObservationId": "obs-pbc-e319ad9d2df66b04b2b87af6efba886300d389cd66958764ca32af7d2ebd3886",
+          "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+          "qualityStatus": "BACKCAST",
+          "rawArtifactId": "artifact-r2-a242d748d8af6a348fdbaf4ea5220b3285fd1f376d1220763425b43635d22dd1",
+          "transformVersion": "pbc-prose-r2b-v1.1.0",
+          "metadata": {
+            "publicationDate": "2018-10-17",
+            "title": "2018年9月末社会融资规模存量统计数据报告",
+            "reportedComparableBasis": true,
+            "definitionNotes": [
+              {
+                "text": "初步统计，9月末社会融资规模存量为197.3万亿元，同比增长10.6%。",
+                "locator": {
+                  "byteOffset": 21943,
+                  "byteLength": 86,
+                  "text": "初步统计，9月末社会融资规模存量为197.3万亿元，同比增长10.6%。"
+                }
+              },
+              {
+                "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。",
+                "locator": {
+                  "byteOffset": 23628,
+                  "byteLength": 213,
+                  "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+                }
+              },
+              {
+                "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。",
+                "locator": {
+                  "byteOffset": 23863,
+                  "byteLength": 280,
+                  "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。"
+                }
+              },
+              {
+                "text": "为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。",
+                "locator": {
+                  "byteOffset": 24270,
+                  "byteLength": 149,
+                  "text": "为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。"
+                }
+              },
+              {
+                "text": "2017年以来各月社会融资规模存量余额和可比口径同比增速如下：",
+                "locator": {
+                  "byteOffset": 24441,
+                  "byteLength": 104,
+                  "text": "2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>\n              "
+                }
+              },
+              {
+                "text": "表1：2017年以来各月完善后的社会融资规模存量余额",
+                "locator": {
+                  "byteOffset": 24576,
+                  "byteLength": 177,
+                  "text": "表1：2017年以来各月完善后的社会融资规模存量余额</p>\n              <table align=\"center\" border=\"1\" cellspacing=\"0\">\n               <tbody> \n                "
+                }
+              },
+              {
+                "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）",
+                "locator": {
+                  "byteOffset": 31947,
+                  "byteLength": 204,
+                  "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）</p>\n               <table align=\"center\" border=\"1\" cellspacing=\"0\">\n                <tbody> \n                 "
+                }
+              },
+              {
+                "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。",
+                "locator": {
+                  "byteOffset": 23625,
+                  "byteLength": 220,
+                  "text": "<p>注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。</p>"
+                }
+              },
+              {
+                "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。今年8月份以来，地方政府专项债券发行进度加快，对银行贷款、企业债券等有明显的接替效应。为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。",
+                "locator": {
+                  "byteOffset": 23860,
+                  "byteLength": 563,
+                  "text": "<p>注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。今年8月份以来，地方政府专项债券发行进度加快，对银行贷款、企业债券等有明显的接替效应。为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。</p>"
+                }
+              }
+            ],
+            "releaseKind": "BACKCAST",
+            "nativeFrequency": "MONTHLY"
+          }
+        }
+      },
+      {
+        "cutoff": "2019-10-15T16:30:01+08:00",
+        "selectedObservation": {
+          "observationId": "obs-pbc-36d19bcc758c086dad60388557a4b1a25d9190c174bc2445c9334fe1eb0a49d6",
+          "metricId": "MACRO_AFRE_STOCK_YOY",
+          "valueDate": "2017-02",
+          "releaseDateTime": "2018-10-17T16:00:01+08:00",
+          "releaseAvailableAt": "2018-10-17T16:00:01+08:00",
+          "fetchedAt": "2026-09-08T11:06:03.827377Z",
+          "value": 14.8,
+          "unit": "%",
+          "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+          "sourceDefinitionId": "pbc-afre-stock-yoy-2018-09-backcast-v1",
+          "revisionSequence": 1,
+          "supersedesObservationId": "obs-pbc-e319ad9d2df66b04b2b87af6efba886300d389cd66958764ca32af7d2ebd3886",
+          "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+          "qualityStatus": "BACKCAST",
+          "rawArtifactId": "artifact-r2-a242d748d8af6a348fdbaf4ea5220b3285fd1f376d1220763425b43635d22dd1",
+          "transformVersion": "pbc-prose-r2b-v1.1.0",
+          "metadata": {
+            "publicationDate": "2018-10-17",
+            "title": "2018年9月末社会融资规模存量统计数据报告",
+            "reportedComparableBasis": true,
+            "definitionNotes": [
+              {
+                "text": "初步统计，9月末社会融资规模存量为197.3万亿元，同比增长10.6%。",
+                "locator": {
+                  "byteOffset": 21943,
+                  "byteLength": 86,
+                  "text": "初步统计，9月末社会融资规模存量为197.3万亿元，同比增长10.6%。"
+                }
+              },
+              {
+                "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。",
+                "locator": {
+                  "byteOffset": 23628,
+                  "byteLength": 213,
+                  "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。"
+                }
+              },
+              {
+                "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。",
+                "locator": {
+                  "byteOffset": 23863,
+                  "byteLength": 280,
+                  "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。"
+                }
+              },
+              {
+                "text": "为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。",
+                "locator": {
+                  "byteOffset": 24270,
+                  "byteLength": 149,
+                  "text": "为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。"
+                }
+              },
+              {
+                "text": "2017年以来各月社会融资规模存量余额和可比口径同比增速如下：",
+                "locator": {
+                  "byteOffset": 24441,
+                  "byteLength": 104,
+                  "text": "2017年以来各月社会融资规模存量余额和可比口径同比增速如下：</p>\n              "
+                }
+              },
+              {
+                "text": "表1：2017年以来各月完善后的社会融资规模存量余额",
+                "locator": {
+                  "byteOffset": 24576,
+                  "byteLength": 177,
+                  "text": "表1：2017年以来各月完善后的社会融资规模存量余额</p>\n              <table align=\"center\" border=\"1\" cellspacing=\"0\">\n               <tbody> \n                "
+                }
+              },
+              {
+                "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）",
+                "locator": {
+                  "byteOffset": 31947,
+                  "byteLength": 204,
+                  "text": "表2：2017年以来各月完善后的社会融资规模存量同比增速（可比口径）</p>\n               <table align=\"center\" border=\"1\" cellspacing=\"0\">\n                <tbody> \n                 "
+                }
+              },
+              {
+                "text": "注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。",
+                "locator": {
+                  "byteOffset": 23625,
+                  "byteLength": 220,
+                  "text": "<p>注2：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下反映。</p>"
+                }
+              },
+              {
+                "text": "注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。今年8月份以来，地方政府专项债券发行进度加快，对银行贷款、企业债券等有明显的接替效应。为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。",
+                "locator": {
+                  "byteOffset": 23860,
+                  "byteLength": 563,
+                  "text": "<p>注3：关于将地方政府专项债券纳入社会融资规模统计的说明：地方政府专项债券是指地方政府为有一定收益的公益性项目发行的、约定一定期限内以公益性项目对应的政府性基金或专项收入还本付息的政府债券。今年8月份以来，地方政府专项债券发行进度加快，对银行贷款、企业债券等有明显的接替效应。为将该接替效应返还到社会融资规模中，2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计。</p>"
+                }
+              }
+            ],
+            "releaseKind": "BACKCAST",
+            "nativeFrequency": "MONTHLY"
+          }
+        }
+      },
+      {
+        "cutoff": "2019-10-15T16:30:02+08:00",
+        "selectedObservation": {
+          "observationId": "obs-pbc-cd7e325d050ca4227c600cb55be747c499391012ccb3d7b2d592f97d9886594a",
+          "metricId": "MACRO_AFRE_STOCK_YOY",
+          "valueDate": "2017-02",
+          "releaseDateTime": "2019-10-15T16:30:02+08:00",
+          "releaseAvailableAt": "2019-10-15T16:30:02+08:00",
+          "fetchedAt": "2026-09-08T11:06:04.928254Z",
+          "value": 14.8,
+          "unit": "%",
+          "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+          "sourceDefinitionId": "pbc-afre-stock-yoy-2019-09-backcast-v1",
+          "revisionSequence": 2,
+          "supersedesObservationId": "obs-pbc-36d19bcc758c086dad60388557a4b1a25d9190c174bc2445c9334fe1eb0a49d6",
+          "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+          "qualityStatus": "BACKCAST",
+          "rawArtifactId": "artifact-r2-3b81edd2fd5b1c5f8320257739ef929eeef06296c9b1c9bc8477c487aee311f3",
+          "transformVersion": "pbc-prose-r2b-v1.1.0",
+          "metadata": {
+            "publicationDate": "2019-10-15",
+            "title": "2019年9月社会融资规模存量统计数据报告",
+            "reportedComparableBasis": true,
+            "definitionNotes": [
+              {
+                "text": "初步统计，9月末社会融资规模存量为219.04万亿元，同比增长10.8%。",
+                "locator": {
+                  "byteOffset": 21931,
+                  "byteLength": 87,
+                  "text": "初步统计，9月末社会融资规模存量为219.04万亿元，同比增长10.8%。"
+                }
+              },
+              {
+                "text": "注2：2019年9月起，人民银行进一步完善“社会融资规模”中的“企业债券”统计，将“交易所企业资产支持证券”纳入“企业债券”指标，2017年以来可比口径数据见表1。",
+                "locator": {
+                  "byteOffset": 23619,
+                  "byteLength": 224,
+                  "text": "注2：2019年9月起，人民银行进一步完善“社会融资规模”中的“企业债券”统计，将“交易所企业资产支持证券”纳入“企业债券”指标，2017年以来可比口径数据见表1。"
+                }
+              },
+              {
+                "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下单独列示，2017年以来时序数据见表2。",
+                "locator": {
+                  "byteOffset": 23865,
+                  "byteLength": 254,
+                  "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下单独列示，2017年以来时序数据见表2。"
+                }
+              },
+              {
+                "text": "注4：2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计,地方政府专项债券按照债权债务在托管机构登记日统计。",
+                "locator": {
+                  "byteOffset": 24141,
+                  "byteLength": 175,
+                  "text": "注4：2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计,地方政府专项债券按照债权债务在托管机构登记日统计。"
+                }
+              },
+              {
+                "text": "注5：文内同比数据为可比口径。",
+                "locator": {
+                  "byteOffset": 24338,
+                  "byteLength": 43,
+                  "text": "注5：文内同比数据为可比口径。"
+                }
+              },
+              {
+                "text": "表1：2017年以来各月完善后社会融资规模和企业债券存量和增速数据如下：",
+                "locator": {
+                  "byteOffset": 24453,
+                  "byteLength": 261,
+                  "text": "表1：2017年以来各月完善后社会融资规模和企业债券存量和增速数据如下：</p>\n              <table border=\"1\" bordercolor=\"#000000\" cellspacing=\"0\" style=\"border-collapse: collapse;width: 750px\">\n               <tbody> \n                "
+                }
+              },
+              {
+                "text": "注2：2019年9月起，人民银行进一步完善“社会融资规模”中的“企业债券”统计，将“交易所企业资产支持证券”纳入“企业债券”指标，2017年以来可比口径数据见表1。",
+                "locator": {
+                  "byteOffset": 23616,
+                  "byteLength": 231,
+                  "text": "<p>注2：2019年9月起，人民银行进一步完善“社会融资规模”中的“企业债券”统计，将“交易所企业资产支持证券”纳入“企业债券”指标，2017年以来可比口径数据见表1。</p>"
+                }
+              },
+              {
+                "text": "注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下单独列示，2017年以来时序数据见表2。",
+                "locator": {
+                  "byteOffset": 23862,
+                  "byteLength": 261,
+                  "text": "<p>注3：2018年7月起，人民银行完善社会融资规模统计方法，将“存款类金融机构资产支持证券”和“贷款核销”纳入社会融资规模统计，在“其他融资”项下单独列示，2017年以来时序数据见表2。</p>"
+                }
+              },
+              {
+                "text": "注4：2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计,地方政府专项债券按照债权债务在托管机构登记日统计。",
+                "locator": {
+                  "byteOffset": 24138,
+                  "byteLength": 182,
+                  "text": "<p>注4：2018年9月起，人民银行将“地方政府专项债券”纳入社会融资规模统计,地方政府专项债券按照债权债务在托管机构登记日统计。</p>"
+                }
+              },
+              {
+                "text": "注5：文内同比数据为可比口径。",
+                "locator": {
+                  "byteOffset": 24335,
+                  "byteLength": 50,
+                  "text": "<p>注5：文内同比数据为可比口径。</p>"
+                }
+              }
+            ],
+            "releaseKind": "BACKCAST",
+            "nativeFrequency": "MONTHLY"
+          }
+        }
+      }
+    ]
+  },
+  "firstReleaseGap": {
+    "period": "2017-02",
+    "metricId": "MACRO_AFRE_STOCK_YOY",
+    "provenFirstRelease": false,
+    "availableTier": "C-tier BACKCAST",
+    "reason": "Original stock-YoY comparable basis remains unproved; later official backcasts are independently admissible."
+  },
+  "remainingBlockers": [
+    {
+      "period": "2019-12",
+      "reason": "AFRE_BACKCAST_ATTACHMENT_UNSUPPORTED:2019-12:/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/2020011614581297750.xls",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/index.html"
+    },
+    {
+      "period": "2019-12",
+      "reason": "AFRE_BACKCAST_ATTACHMENT_UNSUPPORTED:2019-12:/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/2020011614581918343.xls",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/index.html"
+    }
+  ]
+}

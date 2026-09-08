@@ -1,0 +1,1556 @@
+[
+  {
+    "schemaVersion": "1.1.0",
+    "planName": "pbc-historical-vintage",
+    "planVersion": "1.1.0",
+    "planId": "pbc-historical-vintage:v1.1.0:b6712fe87477b5d59b38a58dc83188023eb672623ca92ec6e87e9bd57d825c46",
+    "purpose": "HISTORICAL",
+    "datasetAsOf": "2026-09-07T08:00:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "decisionClock": "MONDAY_0800",
+    "sources": [
+      {
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "officialRoots": [
+          "https://www.pbc.gov.cn/",
+          "https://wuhan.pbc.gov.cn/",
+          "https://xining.pbc.gov.cn/",
+          "https://nanjing.pbc.gov.cn/",
+          "https://wzdig.pbc.gov.cn/"
+        ],
+        "indexUrls": [
+          "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html",
+          "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/index.html"
+        ],
+        "firstReleaseRule": "Original contemporaneous statistical bulletin title and official publication clock, independently matched to a retained one-link dated archive entry with the same title/date; no revision/correction/repost/history title. Crawled-first, sequence zero, URL dates and modern tables do not prove FIRST_RELEASE. Prior-year AFRE is BACKCAST; unresolved duplicates/conflicts excluded. Legacy bulletin titles include documented monetary-credit/macro-control and RMB loan reports; visible archive title whitespace is normalized, while the evidence locator preserves original bytes.",
+        "pagination": {
+          "startPage": 1,
+          "endPage": 56,
+          "pageTargets": [
+            {
+              "pageNumber": 1,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">1</font> /38"
+            },
+            {
+              "pageNumber": 2,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-2.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">2</font> /38"
+            },
+            {
+              "pageNumber": 3,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-3.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">3</font> /38"
+            },
+            {
+              "pageNumber": 4,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-4.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">4</font> /38"
+            },
+            {
+              "pageNumber": 5,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-5.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">5</font> /38"
+            },
+            {
+              "pageNumber": 6,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-6.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">6</font> /38"
+            },
+            {
+              "pageNumber": 7,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-7.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">7</font> /38"
+            },
+            {
+              "pageNumber": 8,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-8.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">8</font> /38"
+            },
+            {
+              "pageNumber": 9,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-9.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">9</font> /38"
+            },
+            {
+              "pageNumber": 10,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-10.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">10</font> /38"
+            },
+            {
+              "pageNumber": 11,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-11.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">11</font> /38"
+            },
+            {
+              "pageNumber": 12,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-12.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">12</font> /38"
+            },
+            {
+              "pageNumber": 13,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-13.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">13</font> /38"
+            },
+            {
+              "pageNumber": 14,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-14.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">14</font> /38"
+            },
+            {
+              "pageNumber": 15,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-15.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">15</font> /38"
+            },
+            {
+              "pageNumber": 16,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-16.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">16</font> /38"
+            },
+            {
+              "pageNumber": 17,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-17.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">17</font> /38"
+            },
+            {
+              "pageNumber": 18,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-18.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /38"
+            },
+            {
+              "pageNumber": 19,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-19.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">19</font> /38"
+            },
+            {
+              "pageNumber": 20,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-20.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">20</font> /38"
+            },
+            {
+              "pageNumber": 21,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-21.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">21</font> /38"
+            },
+            {
+              "pageNumber": 22,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-22.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">22</font> /38"
+            },
+            {
+              "pageNumber": 23,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-23.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">23</font> /38"
+            },
+            {
+              "pageNumber": 24,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-24.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">24</font> /38"
+            },
+            {
+              "pageNumber": 25,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-25.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">25</font> /38"
+            },
+            {
+              "pageNumber": 26,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-26.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">26</font> /38"
+            },
+            {
+              "pageNumber": 27,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-27.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">27</font> /38"
+            },
+            {
+              "pageNumber": 28,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-28.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">28</font> /38"
+            },
+            {
+              "pageNumber": 29,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-29.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">29</font> /38"
+            },
+            {
+              "pageNumber": 30,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-30.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">30</font> /38"
+            },
+            {
+              "pageNumber": 31,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-31.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">31</font> /38"
+            },
+            {
+              "pageNumber": 32,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-32.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">32</font> /38"
+            },
+            {
+              "pageNumber": 33,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-33.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">33</font> /38"
+            },
+            {
+              "pageNumber": 34,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-34.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">34</font> /38"
+            },
+            {
+              "pageNumber": 35,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-35.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">35</font> /38"
+            },
+            {
+              "pageNumber": 36,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-36.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">36</font> /38"
+            },
+            {
+              "pageNumber": 37,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-37.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">37</font> /38"
+            },
+            {
+              "pageNumber": 38,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-38.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">38</font> /38"
+            },
+            {
+              "pageNumber": 39,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/index.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">1</font> /18"
+            },
+            {
+              "pageNumber": 40,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-2.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">2</font> /18"
+            },
+            {
+              "pageNumber": 41,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-3.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">3</font> /18"
+            },
+            {
+              "pageNumber": 42,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-4.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">4</font> /18"
+            },
+            {
+              "pageNumber": 43,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-5.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">5</font> /18"
+            },
+            {
+              "pageNumber": 44,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-6.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">6</font> /18"
+            },
+            {
+              "pageNumber": 45,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-7.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">7</font> /18"
+            },
+            {
+              "pageNumber": 46,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-8.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">8</font> /18"
+            },
+            {
+              "pageNumber": 47,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-9.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">9</font> /18"
+            },
+            {
+              "pageNumber": 48,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-10.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">10</font> /18"
+            },
+            {
+              "pageNumber": 49,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-11.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">11</font> /18"
+            },
+            {
+              "pageNumber": 50,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-12.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">12</font> /18"
+            },
+            {
+              "pageNumber": 51,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-13.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">13</font> /18"
+            },
+            {
+              "pageNumber": 52,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-14.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">14</font> /18"
+            },
+            {
+              "pageNumber": 53,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-15.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">15</font> /18"
+            },
+            {
+              "pageNumber": 54,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-16.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">16</font> /18"
+            },
+            {
+              "pageNumber": 55,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-17.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">17</font> /18"
+            },
+            {
+              "pageNumber": 56,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-18.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /18"
+            }
+          ],
+          "revisionPageTargets": [
+            {
+              "pageNumber": 1,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">1</font> /38"
+            },
+            {
+              "pageNumber": 2,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-2.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">2</font> /38"
+            },
+            {
+              "pageNumber": 3,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-3.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">3</font> /38"
+            },
+            {
+              "pageNumber": 4,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-4.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">4</font> /38"
+            },
+            {
+              "pageNumber": 5,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-5.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">5</font> /38"
+            },
+            {
+              "pageNumber": 6,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-6.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">6</font> /38"
+            },
+            {
+              "pageNumber": 7,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-7.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">7</font> /38"
+            },
+            {
+              "pageNumber": 8,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-8.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">8</font> /38"
+            },
+            {
+              "pageNumber": 9,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-9.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">9</font> /38"
+            },
+            {
+              "pageNumber": 10,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-10.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">10</font> /38"
+            },
+            {
+              "pageNumber": 11,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-11.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">11</font> /38"
+            },
+            {
+              "pageNumber": 12,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-12.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">12</font> /38"
+            },
+            {
+              "pageNumber": 13,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-13.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">13</font> /38"
+            },
+            {
+              "pageNumber": 14,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-14.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">14</font> /38"
+            },
+            {
+              "pageNumber": 15,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-15.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">15</font> /38"
+            },
+            {
+              "pageNumber": 16,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-16.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">16</font> /38"
+            },
+            {
+              "pageNumber": 17,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-17.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">17</font> /38"
+            },
+            {
+              "pageNumber": 18,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-18.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /38"
+            },
+            {
+              "pageNumber": 19,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-19.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">19</font> /38"
+            },
+            {
+              "pageNumber": 20,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-20.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">20</font> /38"
+            },
+            {
+              "pageNumber": 21,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-21.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">21</font> /38"
+            },
+            {
+              "pageNumber": 22,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-22.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">22</font> /38"
+            },
+            {
+              "pageNumber": 23,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-23.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">23</font> /38"
+            },
+            {
+              "pageNumber": 24,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-24.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">24</font> /38"
+            },
+            {
+              "pageNumber": 25,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-25.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">25</font> /38"
+            },
+            {
+              "pageNumber": 26,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-26.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">26</font> /38"
+            },
+            {
+              "pageNumber": 27,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-27.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">27</font> /38"
+            },
+            {
+              "pageNumber": 28,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-28.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">28</font> /38"
+            },
+            {
+              "pageNumber": 29,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-29.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">29</font> /38"
+            },
+            {
+              "pageNumber": 30,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-30.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">30</font> /38"
+            },
+            {
+              "pageNumber": 31,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-31.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">31</font> /38"
+            },
+            {
+              "pageNumber": 32,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-32.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">32</font> /38"
+            },
+            {
+              "pageNumber": 33,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-33.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">33</font> /38"
+            },
+            {
+              "pageNumber": 34,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-34.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">34</font> /38"
+            },
+            {
+              "pageNumber": 35,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-35.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">35</font> /38"
+            },
+            {
+              "pageNumber": 36,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-36.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">36</font> /38"
+            },
+            {
+              "pageNumber": 37,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-37.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">37</font> /38"
+            },
+            {
+              "pageNumber": 38,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-38.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">38</font> /38"
+            },
+            {
+              "pageNumber": 39,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/index.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">1</font> /18"
+            },
+            {
+              "pageNumber": 40,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-2.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">2</font> /18"
+            },
+            {
+              "pageNumber": 41,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-3.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">3</font> /18"
+            },
+            {
+              "pageNumber": 42,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-4.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">4</font> /18"
+            },
+            {
+              "pageNumber": 43,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-5.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">5</font> /18"
+            },
+            {
+              "pageNumber": 44,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-6.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">6</font> /18"
+            },
+            {
+              "pageNumber": 45,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-7.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">7</font> /18"
+            },
+            {
+              "pageNumber": 46,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-8.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">8</font> /18"
+            },
+            {
+              "pageNumber": 47,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-9.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">9</font> /18"
+            },
+            {
+              "pageNumber": 48,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-10.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">10</font> /18"
+            },
+            {
+              "pageNumber": 49,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-11.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">11</font> /18"
+            },
+            {
+              "pageNumber": 50,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-12.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">12</font> /18"
+            },
+            {
+              "pageNumber": 51,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-13.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">13</font> /18"
+            },
+            {
+              "pageNumber": 52,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-14.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">14</font> /18"
+            },
+            {
+              "pageNumber": 53,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-15.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">15</font> /18"
+            },
+            {
+              "pageNumber": 54,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-16.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">16</font> /18"
+            },
+            {
+              "pageNumber": 55,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-17.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">17</font> /18"
+            },
+            {
+              "pageNumber": 56,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-18.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /18"
+            }
+          ],
+          "stopRule": {
+            "pageNumber": 56,
+            "kind": "LAST_PAGE_MARKER",
+            "markerText": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /18"
+          },
+          "revisionStopRule": {
+            "pageNumber": 56,
+            "kind": "LAST_PAGE_MARKER",
+            "markerText": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /18"
+          },
+          "candidateUrlPattern": "/diaochatongjisi/116219/(?:116225|116227)/[^/]+/index\\.html$",
+          "enumerationRule": "OFFICIAL_LINKS_ONLY",
+          "requestLimit": 900,
+          "timeoutSeconds": 20,
+          "stopCondition": "Enumerate only literal official next-page links: data interpretation 38 pages and survey analysis 18 pages, frozen discovery 2026-09-08. Ordinals concatenate two archives. JS pagination and cross-era mixed pages do not prove the R2-A href chain; inventory/revision remain PARTIAL even if all 56 responses are saved. Minimum 1.1 seconds between physical requests, at most one retry (no retry on 403/404/content challenge), verified hash/size/path resume. Full table archives are supplemental unresolved evidence, not a complete revision scan."
+        }
+      },
+      {
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "officialRoots": [
+          "https://www.pbc.gov.cn/",
+          "https://wuhan.pbc.gov.cn/",
+          "https://xining.pbc.gov.cn/",
+          "https://nanjing.pbc.gov.cn/",
+          "https://wzdig.pbc.gov.cn/"
+        ],
+        "indexUrls": [
+          "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html",
+          "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/index.html"
+        ],
+        "firstReleaseRule": "Original contemporaneous statistical bulletin title and official publication clock, independently matched to a retained one-link dated archive entry with the same title/date; no revision/correction/repost/history title. Crawled-first, sequence zero, URL dates and modern tables do not prove FIRST_RELEASE. Prior-year AFRE is BACKCAST; unresolved duplicates/conflicts excluded. Legacy bulletin titles include documented monetary-credit/macro-control and RMB loan reports; visible archive title whitespace is normalized, while the evidence locator preserves original bytes.",
+        "pagination": {
+          "startPage": 1,
+          "endPage": 56,
+          "pageTargets": [
+            {
+              "pageNumber": 1,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">1</font> /38"
+            },
+            {
+              "pageNumber": 2,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-2.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">2</font> /38"
+            },
+            {
+              "pageNumber": 3,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-3.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">3</font> /38"
+            },
+            {
+              "pageNumber": 4,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-4.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">4</font> /38"
+            },
+            {
+              "pageNumber": 5,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-5.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">5</font> /38"
+            },
+            {
+              "pageNumber": 6,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-6.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">6</font> /38"
+            },
+            {
+              "pageNumber": 7,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-7.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">7</font> /38"
+            },
+            {
+              "pageNumber": 8,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-8.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">8</font> /38"
+            },
+            {
+              "pageNumber": 9,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-9.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">9</font> /38"
+            },
+            {
+              "pageNumber": 10,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-10.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">10</font> /38"
+            },
+            {
+              "pageNumber": 11,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-11.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">11</font> /38"
+            },
+            {
+              "pageNumber": 12,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-12.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">12</font> /38"
+            },
+            {
+              "pageNumber": 13,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-13.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">13</font> /38"
+            },
+            {
+              "pageNumber": 14,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-14.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">14</font> /38"
+            },
+            {
+              "pageNumber": 15,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-15.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">15</font> /38"
+            },
+            {
+              "pageNumber": 16,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-16.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">16</font> /38"
+            },
+            {
+              "pageNumber": 17,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-17.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">17</font> /38"
+            },
+            {
+              "pageNumber": 18,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-18.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /38"
+            },
+            {
+              "pageNumber": 19,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-19.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">19</font> /38"
+            },
+            {
+              "pageNumber": 20,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-20.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">20</font> /38"
+            },
+            {
+              "pageNumber": 21,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-21.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">21</font> /38"
+            },
+            {
+              "pageNumber": 22,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-22.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">22</font> /38"
+            },
+            {
+              "pageNumber": 23,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-23.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">23</font> /38"
+            },
+            {
+              "pageNumber": 24,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-24.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">24</font> /38"
+            },
+            {
+              "pageNumber": 25,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-25.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">25</font> /38"
+            },
+            {
+              "pageNumber": 26,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-26.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">26</font> /38"
+            },
+            {
+              "pageNumber": 27,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-27.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">27</font> /38"
+            },
+            {
+              "pageNumber": 28,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-28.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">28</font> /38"
+            },
+            {
+              "pageNumber": 29,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-29.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">29</font> /38"
+            },
+            {
+              "pageNumber": 30,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-30.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">30</font> /38"
+            },
+            {
+              "pageNumber": 31,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-31.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">31</font> /38"
+            },
+            {
+              "pageNumber": 32,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-32.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">32</font> /38"
+            },
+            {
+              "pageNumber": 33,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-33.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">33</font> /38"
+            },
+            {
+              "pageNumber": 34,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-34.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">34</font> /38"
+            },
+            {
+              "pageNumber": 35,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-35.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">35</font> /38"
+            },
+            {
+              "pageNumber": 36,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-36.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">36</font> /38"
+            },
+            {
+              "pageNumber": 37,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-37.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">37</font> /38"
+            },
+            {
+              "pageNumber": 38,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-38.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">38</font> /38"
+            },
+            {
+              "pageNumber": 39,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/index.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">1</font> /18"
+            },
+            {
+              "pageNumber": 40,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-2.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">2</font> /18"
+            },
+            {
+              "pageNumber": 41,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-3.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">3</font> /18"
+            },
+            {
+              "pageNumber": 42,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-4.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">4</font> /18"
+            },
+            {
+              "pageNumber": 43,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-5.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">5</font> /18"
+            },
+            {
+              "pageNumber": 44,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-6.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">6</font> /18"
+            },
+            {
+              "pageNumber": 45,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-7.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">7</font> /18"
+            },
+            {
+              "pageNumber": 46,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-8.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">8</font> /18"
+            },
+            {
+              "pageNumber": 47,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-9.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">9</font> /18"
+            },
+            {
+              "pageNumber": 48,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-10.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">10</font> /18"
+            },
+            {
+              "pageNumber": 49,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-11.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">11</font> /18"
+            },
+            {
+              "pageNumber": 50,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-12.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">12</font> /18"
+            },
+            {
+              "pageNumber": 51,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-13.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">13</font> /18"
+            },
+            {
+              "pageNumber": 52,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-14.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">14</font> /18"
+            },
+            {
+              "pageNumber": 53,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-15.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">15</font> /18"
+            },
+            {
+              "pageNumber": 54,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-16.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">16</font> /18"
+            },
+            {
+              "pageNumber": 55,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-17.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">17</font> /18"
+            },
+            {
+              "pageNumber": 56,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-18.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /18"
+            }
+          ],
+          "revisionPageTargets": [
+            {
+              "pageNumber": 1,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">1</font> /38"
+            },
+            {
+              "pageNumber": 2,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-2.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">2</font> /38"
+            },
+            {
+              "pageNumber": 3,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-3.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">3</font> /38"
+            },
+            {
+              "pageNumber": 4,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-4.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">4</font> /38"
+            },
+            {
+              "pageNumber": 5,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-5.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">5</font> /38"
+            },
+            {
+              "pageNumber": 6,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-6.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">6</font> /38"
+            },
+            {
+              "pageNumber": 7,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-7.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">7</font> /38"
+            },
+            {
+              "pageNumber": 8,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-8.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">8</font> /38"
+            },
+            {
+              "pageNumber": 9,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-9.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">9</font> /38"
+            },
+            {
+              "pageNumber": 10,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-10.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">10</font> /38"
+            },
+            {
+              "pageNumber": 11,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-11.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">11</font> /38"
+            },
+            {
+              "pageNumber": 12,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-12.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">12</font> /38"
+            },
+            {
+              "pageNumber": 13,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-13.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">13</font> /38"
+            },
+            {
+              "pageNumber": 14,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-14.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">14</font> /38"
+            },
+            {
+              "pageNumber": 15,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-15.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">15</font> /38"
+            },
+            {
+              "pageNumber": 16,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-16.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">16</font> /38"
+            },
+            {
+              "pageNumber": 17,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-17.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">17</font> /38"
+            },
+            {
+              "pageNumber": 18,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-18.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /38"
+            },
+            {
+              "pageNumber": 19,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-19.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">19</font> /38"
+            },
+            {
+              "pageNumber": 20,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-20.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">20</font> /38"
+            },
+            {
+              "pageNumber": 21,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-21.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">21</font> /38"
+            },
+            {
+              "pageNumber": 22,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-22.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">22</font> /38"
+            },
+            {
+              "pageNumber": 23,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-23.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">23</font> /38"
+            },
+            {
+              "pageNumber": 24,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-24.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">24</font> /38"
+            },
+            {
+              "pageNumber": 25,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-25.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">25</font> /38"
+            },
+            {
+              "pageNumber": 26,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-26.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">26</font> /38"
+            },
+            {
+              "pageNumber": 27,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-27.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">27</font> /38"
+            },
+            {
+              "pageNumber": 28,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-28.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">28</font> /38"
+            },
+            {
+              "pageNumber": 29,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-29.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">29</font> /38"
+            },
+            {
+              "pageNumber": 30,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-30.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">30</font> /38"
+            },
+            {
+              "pageNumber": 31,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-31.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">31</font> /38"
+            },
+            {
+              "pageNumber": 32,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-32.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">32</font> /38"
+            },
+            {
+              "pageNumber": 33,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-33.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">33</font> /38"
+            },
+            {
+              "pageNumber": 34,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-34.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">34</font> /38"
+            },
+            {
+              "pageNumber": 35,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-35.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">35</font> /38"
+            },
+            {
+              "pageNumber": 36,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-36.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">36</font> /38"
+            },
+            {
+              "pageNumber": 37,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-37.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">37</font> /38"
+            },
+            {
+              "pageNumber": 38,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-38.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">38</font> /38"
+            },
+            {
+              "pageNumber": 39,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/index.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">1</font> /18"
+            },
+            {
+              "pageNumber": 40,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-2.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">2</font> /18"
+            },
+            {
+              "pageNumber": 41,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-3.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">3</font> /18"
+            },
+            {
+              "pageNumber": 42,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-4.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">4</font> /18"
+            },
+            {
+              "pageNumber": 43,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-5.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">5</font> /18"
+            },
+            {
+              "pageNumber": 44,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-6.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">6</font> /18"
+            },
+            {
+              "pageNumber": 45,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-7.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">7</font> /18"
+            },
+            {
+              "pageNumber": 46,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-8.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">8</font> /18"
+            },
+            {
+              "pageNumber": 47,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-9.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">9</font> /18"
+            },
+            {
+              "pageNumber": 48,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-10.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">10</font> /18"
+            },
+            {
+              "pageNumber": 49,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-11.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">11</font> /18"
+            },
+            {
+              "pageNumber": 50,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-12.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">12</font> /18"
+            },
+            {
+              "pageNumber": 51,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-13.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">13</font> /18"
+            },
+            {
+              "pageNumber": 52,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-14.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">14</font> /18"
+            },
+            {
+              "pageNumber": 53,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-15.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">15</font> /18"
+            },
+            {
+              "pageNumber": 54,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-16.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">16</font> /18"
+            },
+            {
+              "pageNumber": 55,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-17.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">17</font> /18"
+            },
+            {
+              "pageNumber": 56,
+              "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116227/11874-18.html",
+              "pageMarker": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /18"
+            }
+          ],
+          "stopRule": {
+            "pageNumber": 56,
+            "kind": "LAST_PAGE_MARKER",
+            "markerText": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /18"
+          },
+          "revisionStopRule": {
+            "pageNumber": 56,
+            "kind": "LAST_PAGE_MARKER",
+            "markerText": "当前页: <font color=\"red\" style=\"font-family:雅黑,宋体\">18</font> /18"
+          },
+          "candidateUrlPattern": "/diaochatongjisi/116219/(?:116225|116227)/[^/]+/index\\.html$",
+          "enumerationRule": "OFFICIAL_LINKS_ONLY",
+          "requestLimit": 900,
+          "timeoutSeconds": 20,
+          "stopCondition": "Enumerate only literal official next-page links: data interpretation 38 pages and survey analysis 18 pages, frozen discovery 2026-09-08. Ordinals concatenate two archives. JS pagination and cross-era mixed pages do not prove the R2-A href chain; inventory/revision remain PARTIAL even if all 56 responses are saved. Minimum 1.1 seconds between physical requests, at most one retry (no retry on 403/404/content challenge), verified hash/size/path resume. Full table archives are supplemental unresolved evidence, not a complete revision scan."
+        }
+      }
+    ],
+    "targetWindows": [
+      {
+        "windowId": "pbc-m2-balance-pre-2011-v1-main",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "metricId": "MACRO_M2_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2005-01",
+        "end": "2011-09",
+        "scopeVersion": "pbc-national-pbc-m2-balance-pre-2011-v1",
+        "nativeFrequencyEra": "MONTHLY",
+        "sourceDefinitionIds": [
+          "pbc-m2-balance-pre-2011-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-m2-yoy-pre-2011-v1-main",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "metricId": "MACRO_M2_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2005-01",
+        "end": "2011-09",
+        "scopeVersion": "pbc-national-pbc-m2-yoy-pre-2011-v1",
+        "nativeFrequencyEra": "MONTHLY",
+        "sourceDefinitionIds": [
+          "pbc-m2-yoy-pre-2011-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-m2-balance-2011-v2-main",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "metricId": "MACRO_M2_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2011-10",
+        "end": "2017-12",
+        "scopeVersion": "pbc-national-pbc-m2-balance-2011-v2",
+        "nativeFrequencyEra": "MONTHLY",
+        "sourceDefinitionIds": [
+          "pbc-m2-balance-2011-v2",
+          "pbc-m2-balance-2018-backcast-2017-12-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-m2-yoy-2011-v2-main",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "metricId": "MACRO_M2_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2011-10",
+        "end": "2017-12",
+        "scopeVersion": "pbc-national-pbc-m2-yoy-2011-v2",
+        "nativeFrequencyEra": "MONTHLY",
+        "sourceDefinitionIds": [
+          "pbc-m2-yoy-2011-v2",
+          "pbc-m2-yoy-2018-backcast-2017-12-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-m2-balance-2018-v3-main",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "metricId": "MACRO_M2_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2018-01",
+        "end": "2022-11",
+        "scopeVersion": "pbc-national-pbc-m2-balance-2018-v3",
+        "nativeFrequencyEra": "MONTHLY",
+        "sourceDefinitionIds": [
+          "pbc-m2-balance-2018-v3"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-m2-yoy-2018-v3-main",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "metricId": "MACRO_M2_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2018-01",
+        "end": "2022-11",
+        "scopeVersion": "pbc-national-pbc-m2-yoy-2018-v3",
+        "nativeFrequencyEra": "MONTHLY",
+        "sourceDefinitionIds": [
+          "pbc-m2-yoy-2018-v3"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-balance-2015-v1-backcast-search",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2002-01",
+        "end": "2014-12",
+        "scopeVersion": "pbc-national-pbc-afre-stock-balance-2015-v1",
+        "nativeFrequencyEra": "QUARTERLY_TRANSITION (backcast discovery grid; no monthly publication claim)",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-balance-2015-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-balance-2015-v1-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2015-01",
+        "end": "2018-06",
+        "scopeVersion": "pbc-national-pbc-afre-stock-balance-2015-v1",
+        "nativeFrequencyEra": "QUARTERLY_TRANSITION",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-balance-2015-v1",
+          "pbc-afre-stock-balance-2018-07-backcast-v1",
+          "pbc-afre-stock-balance-2018-09-backcast-v1",
+          "pbc-afre-stock-balance-2019-09-backcast-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-yoy-2015-v1-backcast-search",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2002-01",
+        "end": "2014-12",
+        "scopeVersion": "pbc-national-pbc-afre-stock-yoy-2015-v1",
+        "nativeFrequencyEra": "QUARTERLY_TRANSITION (backcast discovery grid; no monthly publication claim)",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-yoy-2015-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-yoy-2015-v1-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2015-01",
+        "end": "2018-06",
+        "scopeVersion": "pbc-national-pbc-afre-stock-yoy-2015-v1",
+        "nativeFrequencyEra": "QUARTERLY_TRANSITION",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-yoy-2015-v1",
+          "pbc-afre-stock-yoy-2018-07-backcast-v1",
+          "pbc-afre-stock-yoy-2018-09-backcast-v1",
+          "pbc-afre-stock-yoy-2019-09-backcast-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-balance-2018-07-v2-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2018-07",
+        "end": "2018-08",
+        "scopeVersion": "pbc-national-pbc-afre-stock-balance-2018-07-v2",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-balance-2018-07-v2",
+          "pbc-afre-stock-balance-2018-09-backcast-v1",
+          "pbc-afre-stock-balance-2019-09-backcast-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-balance-2018-09-v3-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2018-09",
+        "end": "2019-08",
+        "scopeVersion": "pbc-national-pbc-afre-stock-balance-2018-09-v3",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-balance-2018-09-v3",
+          "pbc-afre-stock-balance-2019-09-backcast-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-balance-2019-09-v4-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2019-09",
+        "end": "2019-11",
+        "scopeVersion": "pbc-national-pbc-afre-stock-balance-2019-09-v4",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-balance-2019-09-v4"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-balance-2019-12-v5-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2019-12",
+        "end": "2022-12",
+        "scopeVersion": "pbc-national-pbc-afre-stock-balance-2019-12-v5",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-balance-2019-12-v5"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-yoy-2018-07-v2-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2018-07",
+        "end": "2018-08",
+        "scopeVersion": "pbc-national-pbc-afre-stock-yoy-2018-07-v2",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-yoy-2018-07-v2",
+          "pbc-afre-stock-yoy-2018-09-backcast-v1",
+          "pbc-afre-stock-yoy-2019-09-backcast-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-yoy-2018-09-v3-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2018-09",
+        "end": "2019-08",
+        "scopeVersion": "pbc-national-pbc-afre-stock-yoy-2018-09-v3",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-yoy-2018-09-v3",
+          "pbc-afre-stock-yoy-2019-09-backcast-v1"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-yoy-2019-09-v4-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2019-09",
+        "end": "2019-11",
+        "scopeVersion": "pbc-national-pbc-afre-stock-yoy-2019-09-v4",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-yoy-2019-09-v4"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-yoy-2019-12-v5-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2019-12",
+        "end": "2022-12",
+        "scopeVersion": "pbc-national-pbc-afre-stock-yoy-2019-12-v5",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-yoy-2019-12-v5"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-m2-balance-2022-12-v4-main",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "metricId": "MACRO_M2_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2022-12",
+        "end": "2026-08",
+        "scopeVersion": "pbc-national-pbc-m2-balance-2022-12-v4",
+        "nativeFrequencyEra": "MONTHLY",
+        "sourceDefinitionIds": [
+          "pbc-m2-balance-2022-12-v4"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-m2-yoy-2022-12-v4-main",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "metricId": "MACRO_M2_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2022-12",
+        "end": "2026-08",
+        "scopeVersion": "pbc-national-pbc-m2-yoy-2022-12-v4",
+        "nativeFrequencyEra": "MONTHLY",
+        "sourceDefinitionIds": [
+          "pbc-m2-yoy-2022-12-v4"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-balance-2023-01-v6-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2023-01",
+        "end": "2026-08",
+        "scopeVersion": "pbc-national-pbc-afre-stock-balance-2023-01-v6",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-balance-2023-01-v6"
+        ],
+        "calendar": null
+      },
+      {
+        "windowId": "pbc-afre-stock-yoy-2023-01-v6-main",
+        "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "start": "2023-01",
+        "end": "2026-08",
+        "scopeVersion": "pbc-national-pbc-afre-stock-yoy-2023-01-v6",
+        "nativeFrequencyEra": "MONTHLY_TARGET_CADENCE_EVIDENCE_REQUIRED",
+        "sourceDefinitionIds": [
+          "pbc-afre-stock-yoy-2023-01-v6"
+        ],
+        "calendar": null
+      }
+    ]
+  }
+]

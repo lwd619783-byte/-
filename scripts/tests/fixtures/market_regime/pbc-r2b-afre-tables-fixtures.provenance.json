@@ -1,0 +1,120 @@
+[
+  {
+    "fixture": "pbc-r2b-afre-2018-09-tables.html",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/031b9fe3f0e84f10ab01c564d8c8b43b/index.html",
+    "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+    "title": "2018年9月末社会融资规模存量统计数据报告",
+    "publicationDateTime": "2018-10-17T16:00:01+08:00",
+    "retrievedAt": "2026-09-08T11:06:03.827377Z",
+    "rawSourceSha256": "fcf16f0a1411be33c3945bed10978cbf7667167b49efc7de3400eeed4b8b117f",
+    "rawSourceByteSize": 39496,
+    "fixtureSha256": "131505af453cd49301bae6ebbef2c0ede5b84552b35de673ab8fdd2576e28af4",
+    "extraction": "Existing controlled prose excerpt plus verbatim original HTML table/caption or attachment-link spans. No numeric edits. TEST_FIXTURE_EXCERPT only; excluded from live coverage. Fixture line endings normalized to LF and trailing line whitespace removed; source offsets address the original RAW_SOURCE.",
+    "addedRawSpans": [
+      {
+        "byteOffset": 24545,
+        "byteLength": 7284
+      },
+      {
+        "byteOffset": 31916,
+        "byteLength": 3131
+      }
+    ]
+  },
+  {
+    "fixture": "pbc-r2b-afre-2019-09-tables.html",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1cd1f9ef49a44b02ab96992fe75f9758/index.html",
+    "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+    "title": "2019年9月社会融资规模存量统计数据报告",
+    "publicationDateTime": "2019-10-15T16:30:02+08:00",
+    "retrievedAt": "2026-09-08T11:06:04.928254Z",
+    "rawSourceSha256": "e330d6ad85b341711f54783cce35d3b81cf6c431a0dff22f54f3c5a10ce48cda",
+    "rawSourceByteSize": 62574,
+    "fixtureSha256": "a60d39ed54eb1bb0d5b6c073a4cd26a516a9a9e617278d5696d9113eabc7684d",
+    "extraction": "Existing controlled prose excerpt plus verbatim original HTML table/caption or attachment-link spans. No numeric edits. TEST_FIXTURE_EXCERPT only; excluded from live coverage. Fixture line endings normalized to LF and trailing line whitespace removed; source offsets address the original RAW_SOURCE.",
+    "addedRawSpans": [
+      {
+        "byteOffset": 24422,
+        "byteLength": 16730
+      },
+      {
+        "byteOffset": 41237,
+        "byteLength": 16811
+      }
+    ]
+  },
+  {
+    "fixture": "pbc-r2b-afre-2018-07-tables.html",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/352836472d1a48c19be8b9d19f2d9473/index.html",
+    "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+    "title": "2018年7月末社会融资规模存量统计数据报告",
+    "publicationDateTime": "2018-08-13T19:25:12+08:00",
+    "retrievedAt": "2026-09-08T11:06:10.429780Z",
+    "rawSourceSha256": "d3d5c94849269c4bdd0133cedb049c4f20b3f87c45d36bc72219e655d46aa31a",
+    "rawSourceByteSize": 42122,
+    "fixtureSha256": "516de37151b16af7f0cf2b5a40f05fcc98b19d1bb0fca8504c193709f670d73c",
+    "extraction": "Existing controlled prose excerpt plus verbatim original HTML table/caption or attachment-link spans. No numeric edits. TEST_FIXTURE_EXCERPT only; excluded from live coverage. Fixture line endings normalized to LF and trailing line whitespace removed; source offsets address the original RAW_SOURCE.",
+    "addedRawSpans": [
+      {
+        "byteOffset": 23902,
+        "byteLength": 8949
+      },
+      {
+        "byteOffset": 33032,
+        "byteLength": 4641
+      }
+    ]
+  },
+  {
+    "fixture": "pbc-r2b-afre-2019-12-attachments.html",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/index.html",
+    "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+    "title": "2019年社会融资规模存量统计数据报告",
+    "publicationDateTime": "2020-01-16T15:00:30+08:00",
+    "retrievedAt": "2026-09-08T11:06:11.530140Z",
+    "rawSourceSha256": "fa17793ffda74ae22137eee46666ac6505a920f98aa4d73ded9c8c9150423804",
+    "rawSourceByteSize": 29459,
+    "fixtureSha256": "a34b86d2651bb2d0718561fd62dfa545518d8828ee91422beef3165207aaefe5",
+    "extraction": "Existing controlled prose excerpt plus verbatim original HTML table/caption or attachment-link spans. No numeric edits. TEST_FIXTURE_EXCERPT only; excluded from live coverage. Fixture line endings normalized to LF and trailing line whitespace removed; source offsets address the original RAW_SOURCE.",
+    "addedRawSpans": [
+      {
+        "byteOffset": 24639,
+        "byteLength": 186
+      },
+      {
+        "byteOffset": 24840,
+        "byteLength": 186
+      }
+    ]
+  },
+  {
+    "fixture": "pbc-r2b-afre-2017-12-original.html",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2acc176e18964f72b9884a4ad2460fd1/index.html",
+    "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+    "title": "2017年社会融资规模存量统计数据报告",
+    "publicationDateTime": "2018-01-12T16:00:00+08:00",
+    "rawSourceSha256": "0b9141350c71c7845c2809afed75c10a026757c345be6cbb1ea483d5a2accbc1",
+    "rawSourceByteSize": 28636,
+    "fixtureSha256": "4ab9ec1d4a2a5c0af59555daf7f7ee20d504b984c1c516ee92aae75a5693e581",
+    "extraction": "Verbatim original HTML aggregate stock prose and relevant notes; title/publication copied. Controlled excerpt only, excluded from live coverage. Fixture line endings normalized to LF and trailing line whitespace removed; source offsets address the original RAW_SOURCE.",
+    "addedRawSpans": [
+      {
+        "byteOffset": 21912,
+        "byteLength": 600
+      },
+      {
+        "byteOffset": 23724,
+        "byteLength": 458
+      },
+      {
+        "byteOffset": 24197,
+        "byteLength": 81
+      }
+    ]
+  }
+]

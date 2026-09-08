@@ -1,0 +1,1040 @@
+{
+  "base": "4920e38830cfde887dab39e64673e7f30857e331",
+  "reviewedHead": "2ffab00c81013febaa788492ba892cbda848917f",
+  "planId": "pbc-historical-vintage:v1.1.0:b6712fe87477b5d59b38a58dc83188023eb672623ca92ec6e87e9bd57d825c46",
+  "datasetVersion": "pbc-historical-v1-5f36a8f6604deb47a22d6efbdf0b277d251ce458d7f3a6325445680d32a3252a",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "generatedAt": "2026-09-08T12:20:59Z",
+  "datasetContentSha256": "de42c2bcf35dcaef845d1526517c60ace2e0ce9a7c333a0dd52820ddfd567fc0",
+  "catalogContentSha256": "28a465098bd76f4227bbee969dd1e26cde9bee765d4b8c144bcf05aac831b5b9",
+  "sealedOutput": "research-data/market-regime/vintages/pbc-r2b-afre2-v1",
+  "priorSealedOutput": "research-data/market-regime/vintages/pbc-r2b-v1-review",
+  "newNetworkRequests": 0,
+  "inputSnapshots": {
+    "retrieval-journal.jsonl": {
+      "path": "research-data/market-regime/vintages/pbc-r2b-v1-review/snapshot-retrieval-journal.jsonl",
+      "sha256": "4628ffbcc09a45f8948331f0a9b4a71dc2788ed27df1e6e54f0619d854b3f390",
+      "byteSize": 1381955
+    },
+    "discovery.json": {
+      "path": "research-data/market-regime/vintages/pbc-r2b-v1-review/snapshot-discovery.json",
+      "sha256": "e3b9bd7f5faf4a37a2bb05b19c6cb66667ab86684ba04ce7d64907d84b8dd3f5",
+      "byteSize": 983724
+    },
+    "table-discovery.json": {
+      "path": "research-data/market-regime/vintages/pbc-r2b-v1-review/snapshot-table-discovery.json",
+      "sha256": "a61055c596aee26ca6412f717c9aaec629f7505001acdb45c5dbca1eedd34dea",
+      "byteSize": 96287
+    },
+    "gap-discovery.json": {
+      "path": "research-data/market-regime/vintages/pbc-r2b-v1-review/snapshot-gap-discovery.json",
+      "sha256": "a9d5de395a8b53d0d4c2e9e8437014b379d3bf9e7e88f8c8881581b23b8a82d9",
+      "byteSize": 22778
+    }
+  },
+  "admissionStatus": "PARTIAL",
+  "buildValidationStatus": "PASS",
+  "delta": {
+    "definitions": 6,
+    "physicalScopeChangeReleases": 3,
+    "periodSectionReleaseEvents": 70,
+    "fieldExtractions": 140,
+    "admittedVintages": 137,
+    "evidenceOnlyVintages": 3,
+    "periodCoverageChange": 0,
+    "firstReleaseCoverageChange": 0
+  },
+  "totals": {
+    "observationsBefore": 754,
+    "observationsAfter": 891,
+    "extractionsBefore": 813,
+    "extractionsAfter": 953,
+    "eventsBefore": 412,
+    "eventsAfter": 482,
+    "conflicts": 0
+  },
+  "preservedOriginalObservationFields": [
+    "value",
+    "valueDate",
+    "releaseAvailableAt",
+    "sourceDefinitionId",
+    "revisionSequence",
+    "supersedesObservationId",
+    "rawArtifactId"
+  ],
+  "preservedCoverageFields": [
+    "status",
+    "reasonCode",
+    "firstRelease"
+  ],
+  "coverageCellsCompared": 1112,
+  "releases": [
+    {
+      "releaseAvailableAt": "2018-08-13T19:25:12+08:00",
+      "admittedVintages": 35,
+      "byMetric": {
+        "MACRO_AFRE_STOCK_BALANCE": 18,
+        "MACRO_AFRE_STOCK_YOY": 17
+      },
+      "definitionIds": [
+        "pbc-afre-stock-balance-2018-07-backcast-v1",
+        "pbc-afre-stock-yoy-2018-07-backcast-v1"
+      ],
+      "periodStart": "2017-01",
+      "periodEnd": "2018-06"
+    },
+    {
+      "releaseAvailableAt": "2018-10-17T16:00:01+08:00",
+      "admittedVintages": 39,
+      "byMetric": {
+        "MACRO_AFRE_STOCK_YOY": 19,
+        "MACRO_AFRE_STOCK_BALANCE": 20
+      },
+      "definitionIds": [
+        "pbc-afre-stock-balance-2018-09-backcast-v1",
+        "pbc-afre-stock-yoy-2018-09-backcast-v1"
+      ],
+      "periodStart": "2017-01",
+      "periodEnd": "2018-08"
+    },
+    {
+      "releaseAvailableAt": "2019-10-15T16:30:02+08:00",
+      "admittedVintages": 63,
+      "byMetric": {
+        "MACRO_AFRE_STOCK_YOY": 31,
+        "MACRO_AFRE_STOCK_BALANCE": 32
+      },
+      "definitionIds": [
+        "pbc-afre-stock-balance-2019-09-backcast-v1",
+        "pbc-afre-stock-yoy-2019-09-backcast-v1"
+      ],
+      "periodStart": "2017-01",
+      "periodEnd": "2019-08"
+    }
+  ],
+  "sourceCoverage": {
+    "PBOC_AFRE_STOCK_OFFICIAL_RELEASE": [
+      {
+        "counts": {
+          "availableCount": 1,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 0,
+          "structuralCount": 0,
+          "targetCount": 156,
+          "unresolvedCount": 155,
+          "vintageCount": 1
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2015-v1-backcast-search"
+      },
+      {
+        "counts": {
+          "availableCount": 1,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 0,
+          "structuralCount": 0,
+          "targetCount": 156,
+          "unresolvedCount": 155,
+          "vintageCount": 1
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2015-v1-backcast-search"
+      },
+      {
+        "counts": {
+          "availableCount": 12,
+          "backcastCount": 12,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 12,
+          "structuralCount": 0,
+          "targetCount": 12,
+          "unresolvedCount": 0,
+          "vintageCount": 24
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2018-09-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 12,
+          "backcastCount": 12,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 12,
+          "structuralCount": 0,
+          "targetCount": 12,
+          "unresolvedCount": 0,
+          "vintageCount": 24
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2018-09-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 2,
+          "backcastCount": 2,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 2,
+          "structuralCount": 0,
+          "targetCount": 2,
+          "unresolvedCount": 0,
+          "vintageCount": 6
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2018-07-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 2,
+          "backcastCount": 2,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 2,
+          "structuralCount": 0,
+          "targetCount": 2,
+          "unresolvedCount": 0,
+          "vintageCount": 6
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2018-07-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 24,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 24,
+          "structuralCount": 0,
+          "targetCount": 44,
+          "unresolvedCount": 20,
+          "vintageCount": 24
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2023-01-v6-main"
+      },
+      {
+        "counts": {
+          "availableCount": 3,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 3,
+          "structuralCount": 0,
+          "targetCount": 3,
+          "unresolvedCount": 0,
+          "vintageCount": 3
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2019-09-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 3,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 3,
+          "structuralCount": 0,
+          "targetCount": 3,
+          "unresolvedCount": 0,
+          "vintageCount": 3
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2019-09-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 32,
+          "backcastCount": 17,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 32,
+          "structuralCount": 0,
+          "targetCount": 42,
+          "unresolvedCount": 10,
+          "vintageCount": 83
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2015-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 33,
+          "backcastCount": 18,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 33,
+          "structuralCount": 0,
+          "targetCount": 42,
+          "unresolvedCount": 9,
+          "vintageCount": 87
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2015-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 37,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 37,
+          "structuralCount": 0,
+          "targetCount": 37,
+          "unresolvedCount": 0,
+          "vintageCount": 37
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2019-12-v5-main"
+      },
+      {
+        "counts": {
+          "availableCount": 37,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 37,
+          "structuralCount": 0,
+          "targetCount": 37,
+          "unresolvedCount": 0,
+          "vintageCount": 37
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2019-12-v5-main"
+      },
+      {
+        "counts": {
+          "availableCount": 42,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 42,
+          "structuralCount": 0,
+          "targetCount": 44,
+          "unresolvedCount": 2,
+          "vintageCount": 42
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2023-01-v6-main"
+      }
+    ],
+    "PBOC_M2_OFFICIAL_RELEASE": [
+      {
+        "counts": {
+          "availableCount": 43,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 43,
+          "structuralCount": 0,
+          "targetCount": 45,
+          "unresolvedCount": 2,
+          "vintageCount": 43
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2022-12-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 43,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 43,
+          "structuralCount": 0,
+          "targetCount": 45,
+          "unresolvedCount": 2,
+          "vintageCount": 43
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2022-12-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 59,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 59,
+          "structuralCount": 0,
+          "targetCount": 59,
+          "unresolvedCount": 0,
+          "vintageCount": 59
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2018-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 59,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 59,
+          "structuralCount": 0,
+          "targetCount": 59,
+          "unresolvedCount": 0,
+          "vintageCount": 59
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2018-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 75,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 75,
+          "structuralCount": 0,
+          "targetCount": 75,
+          "unresolvedCount": 0,
+          "vintageCount": 75
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2011-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 75,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 75,
+          "structuralCount": 0,
+          "targetCount": 75,
+          "unresolvedCount": 0,
+          "vintageCount": 76
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2011-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 79,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 79,
+          "structuralCount": 0,
+          "targetCount": 81,
+          "unresolvedCount": 2,
+          "vintageCount": 79
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-pre-2011-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 79,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 79,
+          "structuralCount": 0,
+          "targetCount": 81,
+          "unresolvedCount": 2,
+          "vintageCount": 79
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-pre-2011-v1-main"
+      }
+    ]
+  },
+  "sourceCoverageBefore": {
+    "PBOC_AFRE_STOCK_OFFICIAL_RELEASE": [
+      {
+        "counts": {
+          "availableCount": 1,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 0,
+          "structuralCount": 0,
+          "targetCount": 156,
+          "unresolvedCount": 155,
+          "vintageCount": 1
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2015-v1-backcast-search"
+      },
+      {
+        "counts": {
+          "availableCount": 1,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 0,
+          "structuralCount": 0,
+          "targetCount": 156,
+          "unresolvedCount": 155,
+          "vintageCount": 1
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2015-v1-backcast-search"
+      },
+      {
+        "counts": {
+          "availableCount": 12,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 12,
+          "structuralCount": 0,
+          "targetCount": 12,
+          "unresolvedCount": 0,
+          "vintageCount": 12
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2018-09-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 12,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 12,
+          "structuralCount": 0,
+          "targetCount": 12,
+          "unresolvedCount": 0,
+          "vintageCount": 12
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2018-09-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 2,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 2,
+          "structuralCount": 0,
+          "targetCount": 2,
+          "unresolvedCount": 0,
+          "vintageCount": 2
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2018-07-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 2,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 2,
+          "structuralCount": 0,
+          "targetCount": 2,
+          "unresolvedCount": 0,
+          "vintageCount": 2
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2018-07-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 24,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 24,
+          "structuralCount": 0,
+          "targetCount": 44,
+          "unresolvedCount": 20,
+          "vintageCount": 24
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2023-01-v6-main"
+      },
+      {
+        "counts": {
+          "availableCount": 3,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 3,
+          "structuralCount": 0,
+          "targetCount": 3,
+          "unresolvedCount": 0,
+          "vintageCount": 3
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2019-09-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 3,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 3,
+          "structuralCount": 0,
+          "targetCount": 3,
+          "unresolvedCount": 0,
+          "vintageCount": 3
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2019-09-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 32,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 32,
+          "structuralCount": 0,
+          "targetCount": 42,
+          "unresolvedCount": 10,
+          "vintageCount": 32
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2015-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 33,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 33,
+          "structuralCount": 0,
+          "targetCount": 42,
+          "unresolvedCount": 9,
+          "vintageCount": 33
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2015-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 37,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 37,
+          "structuralCount": 0,
+          "targetCount": 37,
+          "unresolvedCount": 0,
+          "vintageCount": 37
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2019-12-v5-main"
+      },
+      {
+        "counts": {
+          "availableCount": 37,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 37,
+          "structuralCount": 0,
+          "targetCount": 37,
+          "unresolvedCount": 0,
+          "vintageCount": 37
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2019-12-v5-main"
+      },
+      {
+        "counts": {
+          "availableCount": 42,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 42,
+          "structuralCount": 0,
+          "targetCount": 44,
+          "unresolvedCount": 2,
+          "vintageCount": 42
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2023-01-v6-main"
+      }
+    ],
+    "PBOC_M2_OFFICIAL_RELEASE": [
+      {
+        "counts": {
+          "availableCount": 43,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 43,
+          "structuralCount": 0,
+          "targetCount": 45,
+          "unresolvedCount": 2,
+          "vintageCount": 43
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2022-12-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 43,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 43,
+          "structuralCount": 0,
+          "targetCount": 45,
+          "unresolvedCount": 2,
+          "vintageCount": 43
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2022-12-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 59,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 59,
+          "structuralCount": 0,
+          "targetCount": 59,
+          "unresolvedCount": 0,
+          "vintageCount": 59
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2018-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 59,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 59,
+          "structuralCount": 0,
+          "targetCount": 59,
+          "unresolvedCount": 0,
+          "vintageCount": 59
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2018-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 75,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 75,
+          "structuralCount": 0,
+          "targetCount": 75,
+          "unresolvedCount": 0,
+          "vintageCount": 75
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2011-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 75,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 75,
+          "structuralCount": 0,
+          "targetCount": 75,
+          "unresolvedCount": 0,
+          "vintageCount": 76
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2011-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 79,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 79,
+          "structuralCount": 0,
+          "targetCount": 81,
+          "unresolvedCount": 2,
+          "vintageCount": 79
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-pre-2011-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 79,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 79,
+          "structuralCount": 0,
+          "targetCount": 81,
+          "unresolvedCount": 2,
+          "vintageCount": 79
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-pre-2011-v1-main"
+      }
+    ]
+  },
+  "lineageGaps": [
+    {
+      "metricId": "MACRO_AFRE_STOCK_YOY",
+      "period": "2017-02",
+      "reason": "AFRE_BACKCAST_FIRST_RELEASE_LINEAGE_GAP",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/352836472d1a48c19be8b9d19f2d9473/index.html"
+    },
+    {
+      "metricId": "MACRO_AFRE_STOCK_YOY",
+      "period": "2017-02",
+      "reason": "AFRE_BACKCAST_FIRST_RELEASE_LINEAGE_GAP",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/031b9fe3f0e84f10ab01c564d8c8b43b/index.html"
+    },
+    {
+      "metricId": "MACRO_AFRE_STOCK_YOY",
+      "period": "2017-02",
+      "reason": "AFRE_BACKCAST_FIRST_RELEASE_LINEAGE_GAP",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1cd1f9ef49a44b02ab96992fe75f9758/index.html"
+    }
+  ],
+  "attachmentBlockers": [
+    {
+      "period": "2019-12",
+      "reason": "AFRE_BACKCAST_ATTACHMENT_UNSUPPORTED:2019-12:/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/2020011614581297750.xls",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/index.html",
+      "acquisitionStatus": "NOT_REQUESTED_IN_THIS_REPAIR",
+      "note": "Retained official landing href; attachment bytes/field locators not proved, no numeric admission."
+    },
+    {
+      "period": "2019-12",
+      "reason": "AFRE_BACKCAST_ATTACHMENT_UNSUPPORTED:2019-12:/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/2020011614581918343.xls",
+      "sourceId": "PBOC_AFRE_STOCK_OFFICIAL_RELEASE",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4e41ac139d6b4e18b28488005f5fce7b/index.html",
+      "acquisitionStatus": "NOT_REQUESTED_IN_THIS_REPAIR",
+      "note": "Retained official landing href; attachment bytes/field locators not proved, no numeric admission."
+    }
+  ],
+  "archivedRawCutoffVerification": {
+    "status": "PASS",
+    "selector": "unchanged R2-A select_vintage",
+    "valueDate": "2017-12",
+    "checks": [
+      {
+        "cutoff": "2018-01-12T15:59:59+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": null,
+        "revisionSequence": null,
+        "observationId": null
+      },
+      {
+        "cutoff": "2018-01-12T15:59:59+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": null,
+        "revisionSequence": null,
+        "observationId": null
+      },
+      {
+        "cutoff": "2018-01-12T16:00:00+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": 174.64,
+        "revisionSequence": 0,
+        "observationId": "obs-pbc-36635364634a71c45ae54d2737fedff056e13f8a31402bbc132f54bc314f525e"
+      },
+      {
+        "cutoff": "2018-01-12T16:00:00+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": 12.0,
+        "revisionSequence": 0,
+        "observationId": "obs-pbc-096f471bedb66aaa86664a901bf12f3f56ed7bd9031862e0cffabfa81518b6c8"
+      },
+      {
+        "cutoff": "2018-08-13T19:25:11+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": 174.64,
+        "revisionSequence": 0,
+        "observationId": "obs-pbc-36635364634a71c45ae54d2737fedff056e13f8a31402bbc132f54bc314f525e"
+      },
+      {
+        "cutoff": "2018-08-13T19:25:11+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": 12.0,
+        "revisionSequence": 0,
+        "observationId": "obs-pbc-096f471bedb66aaa86664a901bf12f3f56ed7bd9031862e0cffabfa81518b6c8"
+      },
+      {
+        "cutoff": "2018-08-13T19:25:12+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": 177.3872,
+        "revisionSequence": 1,
+        "observationId": "obs-pbc-358e646bb5a204564775a2a186da4d68e3c3198832ae28172ee840baf8a9a569"
+      },
+      {
+        "cutoff": "2018-08-13T19:25:12+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": 12.5,
+        "revisionSequence": 1,
+        "observationId": "obs-pbc-beb17fe4be70fbb423b5422a93cb52c17a943b2d6791dee7a94c60fcad1e0023"
+      },
+      {
+        "cutoff": "2018-10-17T16:00:00+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": 177.3872,
+        "revisionSequence": 1,
+        "observationId": "obs-pbc-358e646bb5a204564775a2a186da4d68e3c3198832ae28172ee840baf8a9a569"
+      },
+      {
+        "cutoff": "2018-10-17T16:00:00+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": 12.5,
+        "revisionSequence": 1,
+        "observationId": "obs-pbc-beb17fe4be70fbb423b5422a93cb52c17a943b2d6791dee7a94c60fcad1e0023"
+      },
+      {
+        "cutoff": "2018-10-17T16:00:01+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": 182.8692,
+        "revisionSequence": 2,
+        "observationId": "obs-pbc-62cdee37df815e8d9925cbccc6fd8f48655322ccfa83ac24aba38a42b9e01bcc"
+      },
+      {
+        "cutoff": "2018-10-17T16:00:01+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": 13.4,
+        "revisionSequence": 2,
+        "observationId": "obs-pbc-1a53bfc9f40524be2e511c40220e36b75b3844df562be815b3d2ef07789e5d47"
+      },
+      {
+        "cutoff": "2019-10-15T16:30:01+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": 182.8692,
+        "revisionSequence": 2,
+        "observationId": "obs-pbc-62cdee37df815e8d9925cbccc6fd8f48655322ccfa83ac24aba38a42b9e01bcc"
+      },
+      {
+        "cutoff": "2019-10-15T16:30:01+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": 13.4,
+        "revisionSequence": 2,
+        "observationId": "obs-pbc-1a53bfc9f40524be2e511c40220e36b75b3844df562be815b3d2ef07789e5d47"
+      },
+      {
+        "cutoff": "2019-10-15T16:30:02+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": 183.2379,
+        "revisionSequence": 3,
+        "observationId": "obs-pbc-282989715ea2c3259e0cff2760f630f7d40ea7e5621f82abaefe4720ec9afb2b"
+      },
+      {
+        "cutoff": "2019-10-15T16:30:02+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": 13.5,
+        "revisionSequence": 3,
+        "observationId": "obs-pbc-3fbe2d2c70008852673c64562d53bf602852a98be26be5322c11d20006eb22ec"
+      },
+      {
+        "cutoff": "2020-01-16T15:00:30+08:00",
+        "metricId": "MACRO_AFRE_STOCK_BALANCE",
+        "value": 183.2379,
+        "revisionSequence": 3,
+        "observationId": "obs-pbc-282989715ea2c3259e0cff2760f630f7d40ea7e5621f82abaefe4720ec9afb2b"
+      },
+      {
+        "cutoff": "2020-01-16T15:00:30+08:00",
+        "metricId": "MACRO_AFRE_STOCK_YOY",
+        "value": 13.5,
+        "revisionSequence": 3,
+        "observationId": "obs-pbc-3fbe2d2c70008852673c64562d53bf602852a98be26be5322c11d20006eb22ec"
+      }
+    ]
+  },
+  "validation": {
+    "pbcTests": 68,
+    "r2aTests": 66,
+    "r1Tests": 48,
+    "projectSuites": 39,
+    "projectTests": 597,
+    "build": "PASS",
+    "env": "READY WITH WARNINGS:44 PASS/14 WARN/0 FAIL/4 SKIP",
+    "diffCheck": "PASS"
+  },
+  "sealedFiles": {
+    "input.json": {
+      "sha256": "cf7e8a1172f3b89c6658584c365c031bc6bd41da154f97f7fd3014a6061001ff",
+      "byteSize": 11745077
+    },
+    "dataset.json": {
+      "sha256": "f7b661bdfafc34a7782e0fdafb2be3adb20e827054eb331b2344ec7290f8b6f0",
+      "byteSize": 7839729
+    },
+    "report.json": {
+      "sha256": "4cf7441df1acc79601126356cd449de00b156e7738bebc102855e6ac3e952526",
+      "byteSize": 394742
+    }
+  },
+  "sidecarContentHashes": {
+    "artifactBindings": "e02bec22612a1a957cc9412465af9c7a6e64176530ffff0332bb1da34a9a0af7",
+    "conflicts": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "coverageLedger": "59b6bdee9c4da454700ab11568236a5b7341fc2924b7d2e25b1f9549281266d1",
+    "evidenceArtifacts": "f598a84d4962776bfc1adee18279eaf60046da82cc90a0702d21ea9c0b0e6abc",
+    "fieldExtractions": "e6a6cf535c1ad906c5b3fa838da54a65e0a9c11acdba85404e828f9e5b27712e",
+    "inventoryEvidence": "190f32a6f58c789f8d850014e9e1818293b24fccc5ba21109239d1e6359a972e",
+    "releaseEvents": "ddd484eadb2ebdd59622c079838113dd3a38151918cf83ab194ea62b368b14a8",
+    "retrievalAttempts": "b725391b3cb2c824ddb2b470575ca8d1aff78663679ed9a0feb54eb141a1acc3"
+  },
+  "independentValidationStatus": "PASS"
+}

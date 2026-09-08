@@ -1,0 +1,628 @@
+{
+  "acquisition": {
+    "firstAttemptAt": "2026-09-08T11:03:33.369946Z",
+    "indexEntryCount": 1098,
+    "indexPageCount": 56,
+    "lastAttemptAt": "2026-09-08T11:34:25.402166Z",
+    "outcomes": {
+      "CACHE_VERIFIED": 792,
+      "CONTENT_REJECTED": 17,
+      "HTTP_ERROR": 10,
+      "SUCCESS": 662
+    },
+    "physicalSuccessCount": 662,
+    "uniqueBytes": 30081871,
+    "uniqueResponseHashes": 646
+  },
+  "actualBase": "4920e38830cfde887dab39e64673e7f30857e331",
+  "admissionStatus": "PARTIAL",
+  "backcastPolicy": "2002-2014 search grid remains 156 months per field; only literally released native periods qualify, never interpolation.",
+  "catalogContentSha256": "5920325a4b00e10c01601a7f7f6ef1ef44f2e00e5b5c3ad76de999b84ccfd25a",
+  "conflictCount": 0,
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "datasetContentSha256": "bd5036e28c5b7123eb72780c7491fd97666af99cb252d915aa8a3e2b5c6b83d2",
+  "excludedProtocolAttempts": [
+    {
+      "attemptId": "pbc-get-31f6779cfa466efc66dd04d9",
+      "outcome": "CONTENT_REJECTED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2014s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-55f5b48936763c4c6fb2e105",
+      "outcome": "HTTP_ERROR",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2013s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-0a774de5b9596c9a61b3921e",
+      "outcome": "CONTENT_REJECTED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2012s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-972af3959eca2305dcec355c",
+      "outcome": "HTTP_ERROR",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2011s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-2ff0c7d7de62527611a24b3b",
+      "outcome": "CONTENT_REJECTED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2010s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-f1fac8d6c05b9348af981d20",
+      "outcome": "CONTENT_REJECTED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2009s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-725f6c8d1f189181f0b36311",
+      "outcome": "HTTP_ERROR",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2008S07.htm"
+    },
+    {
+      "attemptId": "pbc-get-3296faec727cd75a13f18c2e",
+      "outcome": "HTTP_ERROR",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2014s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-4ee380a0ad099b364f63f636",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2013s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-8175e52e0c6748b3534ef5fc",
+      "outcome": "HTTP_ERROR",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2012s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-1885a9c6a4d2d7195f0e12d0",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2011s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-541ab9086a6b4476d557fb97",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2010s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-ec58f65ccd66da9c2660747f",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2009s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-e4f282d2e126304417cb3055",
+      "outcome": "HTTP_ERROR",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2008S07.htm"
+    },
+    {
+      "attemptId": "pbc-get-1cb6487b95328104f89b507a",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2007S07.htm"
+    },
+    {
+      "attemptId": "pbc-get-4b01843821caf36afe587d4d",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2006S07.htm"
+    },
+    {
+      "attemptId": "pbc-get-59ab06e33a1c478d5869d049",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2014s07.htm"
+    },
+    {
+      "attemptId": "pbc-cache-9f49cbb47a3105348cdbb3de",
+      "outcome": "CACHE_VERIFIED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2013s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-281b0e5856db2dfddd80f961",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2012s07.htm"
+    },
+    {
+      "attemptId": "pbc-cache-5364cebcf483bf554b3012c0",
+      "outcome": "CACHE_VERIFIED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2011s07.htm"
+    },
+    {
+      "attemptId": "pbc-cache-638c3b64af542ecdbf9a2800",
+      "outcome": "CACHE_VERIFIED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2010s07.htm"
+    },
+    {
+      "attemptId": "pbc-cache-6cee477460a797070b94e655",
+      "outcome": "CACHE_VERIFIED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2009s07.htm"
+    },
+    {
+      "attemptId": "pbc-get-a3719f535d0f7e5a5a14e0c0",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2008S07.htm"
+    },
+    {
+      "attemptId": "pbc-cache-798352463fe4335cea658f12",
+      "outcome": "CACHE_VERIFIED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2007S07.htm"
+    },
+    {
+      "attemptId": "pbc-cache-114b51ebb79bdbee2626aaf3",
+      "outcome": "CACHE_VERIFIED",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2006S07.htm"
+    },
+    {
+      "attemptId": "pbc-get-1d413de4fc4f9ecb0aee89a3",
+      "outcome": "SUCCESS",
+      "reason": "R2A_HTTPS_REQUIRED_ORIGINAL_RECEIPT_RETAINED_IN_JOURNAL",
+      "requestUrl": "http://www.pbc.gov.cn/eportal/fileDir/defaultCurSite/resource/cms/2015/07/2005S14.htm"
+    }
+  ],
+  "extractionCount": 813,
+  "generatedAt": "2026-09-08T11:41:06Z",
+  "inventoryBlocker": "Retained mixed-era official index uses JavaScript next-page navigation. R2-A requires per-window reconciled candidate URLs and a literal href chain; no complete scan claim. Revision exhaustiveness remains unproven.",
+  "observationCount": 754,
+  "planId": "pbc-historical-vintage:v1.0.0:e8e6f33010740c2dae788ad1fc4fbb5dc8c1bcad150c3e72f59ab7ffd3eb6f83",
+  "releaseKinds": {
+    "BACKCAST": 4,
+    "FIRST_RELEASE": 402,
+    "UNRESOLVED": 6
+  },
+  "sourceCoverage": {
+    "PBOC_AFRE_STOCK_OFFICIAL_RELEASE": [
+      {
+        "counts": {
+          "availableCount": 1,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 0,
+          "structuralCount": 0,
+          "targetCount": 156,
+          "unresolvedCount": 155,
+          "vintageCount": 1
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2015-v1-backcast-search"
+      },
+      {
+        "counts": {
+          "availableCount": 1,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 0,
+          "structuralCount": 0,
+          "targetCount": 156,
+          "unresolvedCount": 155,
+          "vintageCount": 1
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2015-v1-backcast-search"
+      },
+      {
+        "counts": {
+          "availableCount": 12,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 12,
+          "structuralCount": 0,
+          "targetCount": 12,
+          "unresolvedCount": 0,
+          "vintageCount": 12
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2018-09-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 12,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 12,
+          "structuralCount": 0,
+          "targetCount": 12,
+          "unresolvedCount": 0,
+          "vintageCount": 12
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2018-09-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 2,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 2,
+          "structuralCount": 0,
+          "targetCount": 2,
+          "unresolvedCount": 0,
+          "vintageCount": 2
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2018-07-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 2,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 2,
+          "structuralCount": 0,
+          "targetCount": 2,
+          "unresolvedCount": 0,
+          "vintageCount": 2
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2018-07-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 24,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 24,
+          "structuralCount": 0,
+          "targetCount": 44,
+          "unresolvedCount": 20,
+          "vintageCount": 24
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2023-01-v6-main"
+      },
+      {
+        "counts": {
+          "availableCount": 3,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 3,
+          "structuralCount": 0,
+          "targetCount": 3,
+          "unresolvedCount": 0,
+          "vintageCount": 3
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2019-09-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 3,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 3,
+          "structuralCount": 0,
+          "targetCount": 3,
+          "unresolvedCount": 0,
+          "vintageCount": 3
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2019-09-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 32,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 32,
+          "structuralCount": 0,
+          "targetCount": 42,
+          "unresolvedCount": 10,
+          "vintageCount": 32
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2015-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 33,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 33,
+          "structuralCount": 0,
+          "targetCount": 42,
+          "unresolvedCount": 9,
+          "vintageCount": 33
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2015-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 37,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 37,
+          "structuralCount": 0,
+          "targetCount": 37,
+          "unresolvedCount": 0,
+          "vintageCount": 37
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2019-12-v5-main"
+      },
+      {
+        "counts": {
+          "availableCount": 37,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 37,
+          "structuralCount": 0,
+          "targetCount": 37,
+          "unresolvedCount": 0,
+          "vintageCount": 37
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-yoy-2019-12-v5-main"
+      },
+      {
+        "counts": {
+          "availableCount": 42,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 42,
+          "structuralCount": 0,
+          "targetCount": 44,
+          "unresolvedCount": 2,
+          "vintageCount": 42
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-afre-stock-balance-2023-01-v6-main"
+      }
+    ],
+    "PBOC_M2_OFFICIAL_RELEASE": [
+      {
+        "counts": {
+          "availableCount": 43,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 43,
+          "structuralCount": 0,
+          "targetCount": 45,
+          "unresolvedCount": 2,
+          "vintageCount": 43
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2022-12-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 43,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 43,
+          "structuralCount": 0,
+          "targetCount": 45,
+          "unresolvedCount": 2,
+          "vintageCount": 43
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2022-12-v4-main"
+      },
+      {
+        "counts": {
+          "availableCount": 59,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 59,
+          "structuralCount": 0,
+          "targetCount": 59,
+          "unresolvedCount": 0,
+          "vintageCount": 59
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2018-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 59,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 59,
+          "structuralCount": 0,
+          "targetCount": 59,
+          "unresolvedCount": 0,
+          "vintageCount": 59
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2018-v3-main"
+      },
+      {
+        "counts": {
+          "availableCount": 75,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 75,
+          "structuralCount": 0,
+          "targetCount": 75,
+          "unresolvedCount": 0,
+          "vintageCount": 75
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-2011-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 75,
+          "backcastCount": 1,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 75,
+          "structuralCount": 0,
+          "targetCount": 75,
+          "unresolvedCount": 0,
+          "vintageCount": 76
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-2011-v2-main"
+      },
+      {
+        "counts": {
+          "availableCount": 79,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 79,
+          "structuralCount": 0,
+          "targetCount": 81,
+          "unresolvedCount": 2,
+          "vintageCount": 79
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-balance-pre-2011-v1-main"
+      },
+      {
+        "counts": {
+          "availableCount": 79,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 79,
+          "structuralCount": 0,
+          "targetCount": 81,
+          "unresolvedCount": 2,
+          "vintageCount": 79
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PARTIAL",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "pbc-m2-yoy-pre-2011-v1-main"
+      }
+    ]
+  },
+  "validationStatus": "PASS",
+  "datasetVersion": "pbc-historical-v1-6b6a82060141a4e15358469fa5c0b9058c238b5639b2a4b65908b6882f359522",
+  "sealedOutput": "research-data/market-regime/vintages/pbc-r2b-v1-review",
+  "snapshotInputs": {
+    "retrieval-journal.jsonl": {
+      "path": "research-data/market-regime/vintages/pbc-r2b-v1-review/snapshot-retrieval-journal.jsonl",
+      "sha256": "4628ffbcc09a45f8948331f0a9b4a71dc2788ed27df1e6e54f0619d854b3f390",
+      "byteSize": 1381955
+    },
+    "discovery.json": {
+      "path": "research-data/market-regime/vintages/pbc-r2b-v1-review/snapshot-discovery.json",
+      "sha256": "e3b9bd7f5faf4a37a2bb05b19c6cb66667ab86684ba04ce7d64907d84b8dd3f5",
+      "byteSize": 983724
+    },
+    "table-discovery.json": {
+      "path": "research-data/market-regime/vintages/pbc-r2b-v1-review/snapshot-table-discovery.json",
+      "sha256": "a61055c596aee26ca6412f717c9aaec629f7505001acdb45c5dbca1eedd34dea",
+      "byteSize": 96287
+    },
+    "gap-discovery.json": {
+      "path": "research-data/market-regime/vintages/pbc-r2b-v1-review/snapshot-gap-discovery.json",
+      "sha256": "a9d5de395a8b53d0d4c2e9e8437014b379d3bf9e7e88f8c8881581b23b8a82d9",
+      "byteSize": 22778
+    }
+  },
+  "rawArchive": {
+    "uniqueStoredHashes": 648,
+    "storedBytesIncludingRejected": 30082765,
+    "physicalNetworkAttempts": 689,
+    "bytesVerification": "PASS"
+  },
+  "sidecarContentHashes": {
+    "artifactBindings": "9d948f10f63b062946134e50ebb4e19f6666d98452572c8bd51bac374f807a96",
+    "conflicts": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "coverageLedger": "56bd97cccbc549c5b9ade7b920c7c7c301f73dc165790533d33acad2816ca5ef",
+    "evidenceArtifacts": "f598a84d4962776bfc1adee18279eaf60046da82cc90a0702d21ea9c0b0e6abc",
+    "fieldExtractions": "b1fda73168d453d589a302de79bb38ebe9213dda94f27cab84115b49e428f61b",
+    "inventoryEvidence": "190f32a6f58c789f8d850014e9e1818293b24fccc5ba21109239d1e6359a972e",
+    "releaseEvents": "7c6f2200e967d7667f977c8bff67873376c9e47472ad3587bfecc728ab9d2dbf",
+    "retrievalAttempts": "b725391b3cb2c824ddb2b470575ca8d1aff78663679ed9a0feb54eb141a1acc3"
+  },
+  "objectCounts": {
+    "artifactBindings": 1178,
+    "conflicts": 0,
+    "coverageLedger": 1112,
+    "evidenceArtifacts": 766,
+    "fieldExtractions": 813,
+    "inventoryEvidence": 22,
+    "releaseEvents": 412,
+    "retrievalAttempts": 1788
+  },
+  "parserDiagnosticCounts": {
+    "YOY_FIELD_MISSING:2014-12": 1,
+    "M2_FIELD_MISSING": 16,
+    "YOY_FIELD_MISSING:2001-12": 2,
+    "YOY_FIELD_MISSING:2001-06": 1,
+    "YOY_FIELD_MISSING:2001-03": 1,
+    "YOY_FIELD_MISSING:2004-02": 1,
+    "YOY_FIELD_MISSING:2003-12": 1,
+    "YOY_FIELD_MISSING:2002-04": 1,
+    "YOY_FIELD_MISSING:2002-02": 1,
+    "YOY_FIELD_MISSING:2002-01": 1,
+    "REPORT_TITLE_MISSING": 1,
+    "YOY_FIELD_MISSING:2002-07": 1,
+    "YOY_FIELD_MISSING:2003-02": 1,
+    "YOY_FIELD_MISSING:2002-09": 1,
+    "UNSUPPORTED_FORMAT_NO_FIELD_OR_RELEASE_LOCATOR": 70,
+    "PUBLICATION_EVIDENCE_MISSING": 18
+  },
+  "validation": {
+    "pbcTests": 53,
+    "r2aCoreTests": 66,
+    "r1CatalogTests": 48,
+    "projectSuites": 39,
+    "projectTests": 597,
+    "build": "PASS",
+    "env": "READY WITH WARNINGS:43 PASS/15 WARN/0 FAIL/4 SKIP"
+  }
+}
