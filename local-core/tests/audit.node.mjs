@@ -104,7 +104,7 @@ for (const swallow of [false, true]) test(`audit append failure rolls back mutat
     expectCode('TRANSACTION_ROLLED_BACK', () => service.create(entityFixture(), auditFixture()));
     assert.deepEqual(store.entities.list(), []);
     raw.exec('DROP TRIGGER fixture_audit_failure');
-    assert.equal(store.database.verify().schemaVersion, 1);
+    assert.equal(store.database.verify().schemaVersion, 2);
   } finally { raw.close(); store.database.close(); }
 });
 test('audit reads reject tampered canonical payload, digest or indexed metadata', (t) => {

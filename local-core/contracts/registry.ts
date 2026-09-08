@@ -100,7 +100,7 @@ export class V1ContractRegistry implements ContractRegistry {
   readonly versions: readonly string[];
   readonly schemaCount: number;
   readonly definitionCount: number;
-  readonly declaredCases: readonly { id: string; status: 'declared / not-yet-executable' }[];
+  readonly declaredCases: readonly { id: string; status: 'declared / not-yet-executable' | 'executable' }[];
   readonly #validators = new Map<string, ValidateFunction>();
   constructor(documents = loadContractDocuments()) {
     try {
@@ -137,9 +137,11 @@ export class V1ContractRegistry implements ContractRegistry {
       this.schemaCount = schemas.length;
       this.definitionCount = definitions;
       this.versions = Object.freeze([...this.#validators.keys()].sort());
-      // No entire business case is implemented in 1A. S-001 has static evidence,
-      // but its future MCP non-exposure rule cannot yet be marked executed.
-      this.declaredCases = Object.freeze(documents['contract-test-cases.v1.json']!.cases.map((item: { id: string }) => ({ id: item.id, status: 'declared / not-yet-executable' as const })));
+      // This records test availability, never a cached PASS. The asset domain
+      // suites execute in test:local-core; CB-1/2/3 now have business tests;
+      // performance and future MCP/restore cases remain declared.
+      this.declaredCases = Object.freeze(documents['contract-test-cases.v1.json']!.cases.map((item: { id: string }) => ({ id: item.id,
+        status: ['A-001', 'A-002', 'A-003', 'A-004', 'A-005', 'A-006', 'A-007', 'A-008'].includes(item.id) ? 'executable' as const : 'declared / not-yet-executable' as const })));
     } catch {
       fail('CONTRACT_INVALID', 'V1 schema compilation or static invariant failed.');
     }

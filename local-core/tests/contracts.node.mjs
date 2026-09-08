@@ -58,9 +58,10 @@ for (const [name, corrupt] of Object.entries(corruptions)) test(`registry reject
   const docs = loadContractDocuments(); corrupt(docs);
   expectCode('CONTRACT_INVALID', () => new V1ContractRegistry(docs));
 });
-test('all 21 whole Phase 1 business cases remain declared; no fake domain execution', () => {
+test('Phase 1B case availability distinguishes executable and future work; no cached PASS', () => {
   assert.equal(contracts.declaredCases.length, 21);
-  assert(contracts.declaredCases.every((item) => item.status === 'declared / not-yet-executable'));
+  assert.deepEqual(contracts.declaredCases.filter(v => v.status === 'executable').map(v => v.id), ['A-001', 'A-002', 'A-003', 'A-004', 'A-005', 'A-006', 'A-007', 'A-008']);
+  assert.equal(contracts.declaredCases.find(v => v.id === 'P-001').status, 'declared / not-yet-executable');
 });
 test('entity types and statuses exactly match frozen contract', () => {
   const definitions = loadContractDocuments()['entity-resolution.v1.schema.json'].$defs;
@@ -200,9 +201,9 @@ for (const [name, corrupt] of Object.entries(clarificationCorruptions)) test(`cl
   expectCode('CONTRACT_INVALID', () => new V1ContractRegistry(documents));
 });
 
-test('A-001/A-002/A-005 retain IDs and remain declared whole business cases', () => {
+test('A-001/A-002/A-005 retain IDs and have executable business suites', () => {
   for (const id of ['A-001', 'A-002', 'A-005']) {
-    assert.equal(contracts.declaredCases.find((item) => item.id === id)?.status, 'declared / not-yet-executable');
+    assert.equal(contracts.declaredCases.find((item) => item.id === id)?.status, 'executable');
     assert(loadContractDocuments()['contract-test-cases.v1.json'].cases.find((item) => item.id === id).rules.length >= 8);
   }
 });

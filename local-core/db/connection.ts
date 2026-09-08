@@ -1,12 +1,14 @@
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
-import type { AuditRepository, ContractRegistry, EntityRepository, LocalDatabase } from '../ports/index.js';
+import type { AuditRepository, ContractRegistry, EntityRepository, LocalDatabase, TransactionRepositories } from '../ports/index.js';
+import type { AssetReads, AssetRepository } from '../ports/asset-ports.js';
 import { LocalCoreError, fail } from '../domain/errors.js';
 import { assertSafeDatabasePath } from '../paths.js';
 import { migrateDatabase, preflightDatabase, verifyDatabase } from './migrations.js';
 import { SqliteEntityRepository } from './entity-adapter.js';
 import { SqliteAuditRepository } from './audit-adapter.js';
+import { SqliteAssetRepository } from './asset-adapter.js';
 
 export interface OpenDatabaseOptions {
   filename: string;
@@ -17,6 +19,7 @@ export interface LocalStore {
   database: LocalDatabase;
   entities: EntityRepository;
   audit: AuditRepository;
+  ledger: AssetReads;
 }
 
 export function openLocalDatabase(options: OpenDatabaseOptions, contracts: ContractRegistry): LocalStore {
@@ -74,8 +77,17 @@ export function openLocalDatabase(options: OpenDatabaseOptions, contracts: Contr
   }
   const entities: EntityRepository = new SqliteEntityRepository(db, contracts, atomic);
   const audit: AuditRepository = new SqliteAuditRepository(db, contracts, atomic);
+  const ledger: AssetRepository = new SqliteAssetRepository(db, contracts, atomic);
+  // Copy only named read methods. Neither the adapter nor its write methods
+  // escape the trusted transaction callback through LocalStore.
+  const ledgerReads: AssetReads = {
+    accounts: () => ledger.accounts(), assets: () => ledger.assets(), transactions: () => ledger.transactions(),
+    cashFlows: () => ledger.cashFlows(), positions: () => ledger.positions(), dcaRevisions: () => ledger.dcaRevisions(),
+    dcaExecutions: () => ledger.dcaExecutions(), operation: key => ledger.operation(key),
+    importPlan: id => ledger.importPlan(id), latestImportPlanId: id => ledger.latestImportPlanId(id), fingerprint: key => ledger.fingerprint(key),
+  };
   const database: LocalDatabase = {
-    transaction<T>(work: (repositories: { entities: EntityRepository; audit: AuditRepository }) => T extends PromiseLike<unknown> ? never : T): T {
+    transaction<T>(work: (repositories: TransactionRepositories) => T extends PromiseLike<unknown> ? never : T): T {
       let active = true;
       const scopedEntities: EntityRepository = {
         create: (input) => { checkActive(); return entities.create(input); },
@@ -90,10 +102,33 @@ export function openLocalDatabase(options: OpenDatabaseOptions, contracts: Contr
         get: (id) => { checkActive(); return audit.get(id); },
         listByRequest: (id) => { checkActive(); return audit.listByRequest(id); },
       };
+      const scopedLedger: AssetRepository = {
+        accounts: () => { checkActive(); return ledger.accounts(); },
+        assets: () => { checkActive(); return ledger.assets(); },
+        transactions: () => { checkActive(); return ledger.transactions(); },
+        cashFlows: () => { checkActive(); return ledger.cashFlows(); },
+        positions: () => { checkActive(); return ledger.positions(); },
+        dcaRevisions: () => { checkActive(); return ledger.dcaRevisions(); },
+        dcaExecutions: () => { checkActive(); return ledger.dcaExecutions(); },
+        operation: key => { checkActive(); return ledger.operation(key); },
+        importPlan: id => { checkActive(); return ledger.importPlan(id); },
+        latestImportPlanId: id => { checkActive(); return ledger.latestImportPlanId(id); },
+        fingerprint: key => { checkActive(); return ledger.fingerprint(key); },
+        createAccount: (...args) => { checkActive(); ledger.createAccount(...args); },
+        createAsset: (...args) => { checkActive(); ledger.createAsset(...args); },
+        appendTransaction: (...args) => { checkActive(); ledger.appendTransaction(...args); },
+        appendCashFlow: (...args) => { checkActive(); ledger.appendCashFlow(...args); },
+        appendPosition: (...args) => { checkActive(); ledger.appendPosition(...args); },
+        appendDcaRevision: (...args) => { checkActive(); ledger.appendDcaRevision(...args); },
+        appendDcaExecution: (...args) => { checkActive(); ledger.appendDcaExecution(...args); },
+        appendOperation: value => { checkActive(); ledger.appendOperation(value); },
+        saveImportPlan: value => { checkActive(); ledger.saveImportPlan(value); },
+        appendFingerprint: value => { checkActive(); ledger.appendFingerprint(value); },
+      };
       function checkActive() { if (!active) fail('TRANSACTION_ROLLED_BACK', 'Transaction-scoped repository has expired.'); }
       try {
         if (work.constructor.name === 'AsyncFunction') fail('TRANSACTION_ROLLED_BACK', 'SQLite transaction callbacks must be synchronous.');
-        return atomic(() => work({ entities: scopedEntities, audit: scopedAudit }));
+        return atomic(() => work({ entities: scopedEntities, audit: scopedAudit, ledger: scopedLedger }));
       } catch (error) {
         throw new LocalCoreError('TRANSACTION_ROLLED_BACK', 'Explicit transaction did not commit.', error instanceof LocalCoreError ? error.reasonCode ?? error.code : undefined);
       } finally { active = false; }
@@ -101,5 +136,5 @@ export function openLocalDatabase(options: OpenDatabaseOptions, contracts: Contr
     verify: () => verifyDatabase(db),
     close: () => { if (frames.length) fail('TRANSACTION_ROLLED_BACK', 'Cannot close an active transaction.'); db.close(); },
   };
-  return { database, entities, audit };
+  return { database, entities, audit, ledger: ledgerReads };
 }

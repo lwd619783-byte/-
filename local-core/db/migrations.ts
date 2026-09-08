@@ -14,7 +14,8 @@ export function defineMigration(version: number, name: string, source: string): 
 }
 export function loadMigrations(): readonly Migration[] {
   try {
-    return Object.freeze([defineMigration(1, '001-local-core', readFileSync(path.join(projectRoot, 'local-core/db/migrations/001-local-core.sql'), 'utf8'))]);
+    return Object.freeze(['001-local-core', '002-long-term-account'].map((name, index) =>
+      defineMigration(index + 1, name, readFileSync(path.join(projectRoot, `local-core/db/migrations/${name}.sql`), 'utf8'))));
   } catch {
     return fail('DATABASE_OPEN_FAILED', 'Local Core migration source is unavailable.');
   }

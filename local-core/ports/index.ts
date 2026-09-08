@@ -1,4 +1,7 @@
 import type { BridgeAuditEvent, NewEntity, RegistryEntry, ResolutionRequest, ResolutionResult, StoredAudit } from '../domain/types.js';
+import type { AssetRepository } from './asset-ports.js';
+
+export interface TransactionRepositories { entities: EntityRepository; audit: AuditRepository; ledger: AssetRepository }
 
 export interface ContractRegistry {
   validate(version: string, value: unknown): void;
@@ -13,7 +16,7 @@ export interface DatabaseVerification {
 }
 export interface LocalDatabase {
   // Synchronous only. Repositories supplied to the callback share one connection.
-  transaction<T>(work: (repositories: { entities: EntityRepository; audit: AuditRepository }) => T extends PromiseLike<unknown> ? never : T): T;
+  transaction<T>(work: (repositories: TransactionRepositories) => T extends PromiseLike<unknown> ? never : T): T;
   verify(): DatabaseVerification;
   close(): void;
 }

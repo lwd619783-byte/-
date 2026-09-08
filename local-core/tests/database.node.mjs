@@ -15,10 +15,10 @@ test('empty memory database initializes only the five Phase 1A tables and verifi
   const db = new Database(':memory:');
   try {
     db.pragma('foreign_keys = ON');
-    assert.equal(migrateDatabase(db).schemaVersion, 1);
+    assert.equal(migrateDatabase(db, loadMigrations().slice(0, 1)).schemaVersion, 1);
     assert.deepEqual(db.prepare("SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name").all().map((row) => row.name), ['audit_events', 'entity_aliases', 'entity_provider_identifiers', 'entity_registry', 'schema_migrations']);
-    assert.equal(verifyDatabase(db).integrity, 'ok');
-    assert.equal(verifyDatabase(db).foreignKeys, 'ok');
+    assert.equal(verifyDatabase(db, loadMigrations().slice(0, 1)).integrity, 'ok');
+    assert.equal(verifyDatabase(db, loadMigrations().slice(0, 1)).foreignKeys, 'ok');
   } finally { db.close(); }
 });
 test('file initialization is idempotent; read-only verify leaves DB bytes unchanged', (t) => {
@@ -30,7 +30,7 @@ test('file initialization is idempotent; read-only verify leaves DB bytes unchan
   store = open(filename);
   assert.equal(store.entities.get(entity.entityId).canonicalName, entity.canonicalName);
   const metadata = store.database.verify();
-  assert.equal(metadata.migrations.length, 1);
+  assert.equal(metadata.migrations.length, 2);
   store.database.close();
   assert.deepEqual(readFileSync(filename), first);
   store = open(filename, 'readonly');
@@ -65,10 +65,10 @@ for (const [name, sql, code] of [
 test('initial migration failure rolls back all DDL and schema metadata', () => {
   const db = new Database(':memory:');
   try {
-    const bad = defineMigration(2, '002-failing-fixture', 'CREATE TABLE fixture_partial(id INTEGER); INVALID FIXTURE SQL;');
+    const bad = defineMigration(3, '003-failing-fixture', 'CREATE TABLE fixture_partial(id INTEGER); INVALID FIXTURE SQL;');
     expectCode('TRANSACTION_ROLLED_BACK', () => migrateDatabase(db, [...loadMigrations(), bad]));
     assert.deepEqual(db.prepare('SELECT name FROM sqlite_schema').all(), []);
-    assert.equal(migrateDatabase(db).schemaVersion, 1);
+    assert.equal(migrateDatabase(db).schemaVersion, 2);
   } finally { db.close(); }
 });
 test('new migration failure preserves earlier migration and rows', () => {
@@ -76,10 +76,10 @@ test('new migration failure preserves earlier migration and rows', () => {
   try {
     migrateDatabase(db);
     const before = db.prepare('SELECT * FROM schema_migrations').all();
-    expectCode('TRANSACTION_ROLLED_BACK', () => migrateDatabase(db, [...loadMigrations(), defineMigration(2, '002-failing-fixture', 'CREATE TABLE fixture_partial(id INTEGER); INVALID FIXTURE SQL;')]));
+    expectCode('TRANSACTION_ROLLED_BACK', () => migrateDatabase(db, [...loadMigrations(), defineMigration(3, '003-failing-fixture', 'CREATE TABLE fixture_partial(id INTEGER); INVALID FIXTURE SQL;')]));
     assert.deepEqual(db.prepare('SELECT * FROM schema_migrations').all(), before);
     assert.equal(db.prepare("SELECT 1 FROM sqlite_schema WHERE name='fixture_partial'").get(), undefined);
-    assert.equal(verifyDatabase(db).schemaVersion, 1);
+    assert.equal(verifyDatabase(db).schemaVersion, 2);
   } finally { db.close(); }
 });
 test('multi-table mutation and audit both roll back on later failure', (t) => {

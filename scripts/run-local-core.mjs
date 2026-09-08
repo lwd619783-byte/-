@@ -8,7 +8,8 @@ const targets = {
   init: ['.local-core-build/cli.js', 'init'],
   verify: ['.local-core-build/cli.js', 'verify'],
   'test-contracts': ['--test', 'local-core/tests/contracts.node.mjs'],
-  'test-local-core': ['--test', 'local-core/tests/database.node.mjs', 'local-core/tests/entities.node.mjs', 'local-core/tests/audit.node.mjs', 'local-core/tests/integration.node.mjs'],
+  'test-local-core': ['--test', 'local-core/tests/database.node.mjs', 'local-core/tests/entities.node.mjs', 'local-core/tests/audit.node.mjs', 'local-core/tests/integration.node.mjs', 'local-core/tests/assets.node.mjs', 'local-core/tests/asset-import.node.mjs', 'local-core/tests/asset-database.node.mjs', 'local-core/tests/historical-import.node.mjs', 'local-core/tests/account-value.node.mjs', 'local-core/tests/dca-temporal.node.mjs'],
+  'test-assets': ['--test', 'local-core/tests/assets.node.mjs', 'local-core/tests/asset-import.node.mjs', 'local-core/tests/asset-database.node.mjs', 'local-core/tests/historical-import.node.mjs', 'local-core/tests/account-value.node.mjs', 'local-core/tests/dca-temporal.node.mjs'],
 };
 if (!targets[command] || (!['init', 'verify'].includes(command) && args.length)) {
   console.error('Unknown Local Core command or arguments.');
