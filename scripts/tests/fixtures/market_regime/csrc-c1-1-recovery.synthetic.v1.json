@@ -1,0 +1,8 @@
+{
+  "purpose": "SYNTHETIC_OFFLINE_ONLY_NOT_SOURCE_COVERAGE",
+  "annual": "<html><h1>合成年度报告</h1><p>《证券市场月报》12期</p><a href='/synthetic-index.shtml'>合成索引</a></html>",
+  "hintOnly": "<html><h1>合成年度报告</h1><p>《证券市场月报》12期</p></html>",
+  "index": "<html><li><a href='/synthetic-landing.shtml'>2017年1月统计数据</a><span>2017-02-20</span></li></html>",
+  "landing": "<html><h1>2017年1月统计数据</h1><p>日期：2017-02-20</p><a href='/files/synthetic.docx'>附件</a></html>",
+  "noAttachment": "<html><h1>2017年1月统计数据</h1><p>日期：2017-02-20</p></html>"
+}
