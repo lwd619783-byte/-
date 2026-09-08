@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "csrc-c1-probe-1.0.0",
+  "purpose": "INVENTORY_SCHEMA_PROBE_ONLY",
+  "sourceId": "CSRC_MONTHLY_REPORTS",
+  "targetStart": "2005-01",
+  "targetEnd": "2026-08",
+  "targetCount": 260,
+  "rootUrl": "https://www.csrc.gov.cn/csrc/c100120/common_list.shtml",
+  "enumeration": "Observed official links and archived official pagination script plus per-page parameters; no guessed attachment identifiers",
+  "inventoryClaim": "Enumerated inspected source families only; absent entries remain missing, never structural or not-yet without official evidence",
+  "requestPolicy": {"minimumIntervalSeconds": 1, "timeoutSeconds": 25, "attemptsPerUrl": 2, "requestBudget": 1200},
+  "metrics": ["SUPPLY_IPO_FINANCING", "SUPPLY_REFINANCING"],
+  "allowNumericObservations": false,
+  "allowYtdDifference": false,
+  "refinancingMapping": "No aggregate recipe frozen; retain raw equity/cash/bond subfields and DEFINITION_UNRESOLVED",
+  "firstReleaseStatus": "UNPROVEN",
+  "revisionCoverage": "PARTIAL"
+}

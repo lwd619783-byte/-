@@ -1,0 +1,8 @@
+# CSRC C1 only; runtime validated on Python 3.13.
+# License: package LICENSE contains BSD 3-clause plus historical 4-clause terms.
+# This product includes software developed by David Giffin <david@giffin.org>.
+# Required by actual official 2005-12 BIFF8 XLS, sha256
+# a884e180f1079223d670fadc50dea4965b96ecd26af0384e5af8552f10471a3a.
+# Install explicitly: python -m pip install -r scripts/requirements-market-regime-csrc.txt
+# Tests never install packages. DOCX/XLSX probing uses Python ZIP/XML only.
+xlrd==2.0.2
