@@ -14,6 +14,7 @@ from scripts.market_regime.hashing import sha256_bytes
 from scripts.market_regime.historical_validator import select_vintage, validate_dataset
 from scripts.market_regime.pbc_dataset import assemble, AFRE
 from scripts.market_regime.pbc_parser import parse_pbc_release
+from scripts.market_regime.pbc_historical_cli import compact_report
 from scripts.tests.test_market_regime_pbc_dataset import small_plan, DEFS, GENERATED
 
 FIXTURES = Path(__file__).parent / 'fixtures/market_regime'
@@ -135,24 +136,66 @@ class AfreLineageIntegrationTests(unittest.TestCase):
             self.assertEqual(summary['counts']['vintageCount'],4)
             self.assertEqual(summary['datasetCoverageStatus'],'PARTIAL')
 
-    def test_backcasts_cannot_fill_missing_first_release_in_this_repair(self):
+    def test_proved_backcasts_start_collected_chain_without_first_release(self):
         _,_,bundle,dataset,diagnostics = self.build(names=NAMES[1:])
-        self.assertFalse(bundle['catalog']['observations'])
+        self.assertEqual(len(bundle['catalog']['observations']),6)
         self.assertEqual(len(dataset['fieldExtractions']),6)
-        self.assertTrue(any(d['reason']=='AFRE_BACKCAST_FIRST_RELEASE_LINEAGE_GAP' for d in diagnostics))
-        self.assertTrue(all(s['counts']['availableCount']==0 and s['counts']['vintageCount']==0
+        self.assertFalse(any(d['reason']=='AFRE_BACKCAST_FIRST_RELEASE_LINEAGE_GAP' for d in diagnostics))
+        self.assertTrue(all(s['counts']['availableCount']==1 and s['counts']['vintageCount']==3
+            and s['counts']['provenFirstReleaseCount']==0 and s['counts']['backcastCount']==1
             for s in dataset['manifest']['coverageSummary']))
+        for o in bundle['catalog']['observations']:
+            self.assertEqual(o['metadata']['releaseKind'],'BACKCAST')
+            if o['revisionSequence']==0:self.assertIsNone(o['supersedesObservationId'])
 
     def test_backcast_cannot_repair_unproved_original_comparable_yoy(self):
         def without_basis(name,html,url):
             if name==NAMES[0]:
                 html=html.replace('可比口径','未注明口径')
             return html,url
-        _,_,bundle,dataset,_ = self.build(mutate=without_basis)
-        self.assertFalse(any(o['metricId']=='MACRO_AFRE_STOCK_YOY' for o in bundle['catalog']['observations']))
+        built = self.build(mutate=without_basis)
+        _,_,bundle,dataset,diagnostics = built
+        self.assertEqual(len([o for o in bundle['catalog']['observations'] if o['metricId']=='MACRO_AFRE_STOCK_YOY']),3)
         cell=next(c for c in dataset['coverageLedger'] if c['metricId']=='MACRO_AFRE_STOCK_YOY')
-        self.assertEqual(cell['status'],'DEFINITION_UNRESOLVED')
+        self.assertEqual(cell['status'],'AVAILABLE')
+        self.assertIsNone(self.select(built,'MACRO_AFRE_STOCK_YOY','2018-08-13T19:25:11+08:00'))
+        report=compact_report(dataset,bundle,diagnostics,[],{'pages':[]})
+        reported=next(c for c in report['cells'] if c['metricId']=='MACRO_AFRE_STOCK_YOY')
+        self.assertFalse(reported['firstRelease'])  # A non-admitted candidate is not coverage.
         self.assertEqual(len([o for o in bundle['catalog']['observations'] if o['metricId']=='MACRO_AFRE_STOCK_BALANCE']),4)
+
+    def test_2017_02_c_tier_yoy_cutoffs_and_same_value_new_method_lineage(self):
+        # Independently specified official representative cells; source parser
+        # fixtures and the final full-byte replay also verify these three values.
+        pairs={NAMES[1]:('1624434','13.2'),NAMES[2]:('1659291','14.8'),NAMES[3]:('1661124','14.8')}
+        def february(name,html,url):
+            if name in pairs:
+                old_pair=MODELS[NAMES.index(name)][4]
+                html=html.replace('2017年12月','2017年2月')
+                for old,new in zip(old_pair,pairs[name]):html=html.replace(f'<td>{old}</td>',f'<td>{new}</td>')
+            return html,url
+        built=self.build(names=NAMES[1:4],mutate=february,start='2017-02',end='2017-02')
+        for cutoff,value,seq in [
+            ('2018-08-13T19:25:11+08:00',None,None),
+            ('2018-08-13T19:25:12+08:00',13.2,0),
+            ('2018-10-17T16:00:00+08:00',13.2,0),
+            ('2018-10-17T16:00:01+08:00',14.8,1),
+            ('2019-10-15T16:30:01+08:00',14.8,1),
+            ('2019-10-15T16:30:02+08:00',14.8,2),
+        ]:
+            selected=self.select(built,'MACRO_AFRE_STOCK_YOY',cutoff)
+            if value is None:self.assertIsNone(selected)
+            else:
+                self.assertEqual((selected['value'],selected['revisionSequence']),(value,seq))
+                self.assertEqual(selected['metadata']['releaseKind'],'BACKCAST')
+        chain=sorted((o for o in built[2]['catalog']['observations'] if o['metricId']=='MACRO_AFRE_STOCK_YOY'),key=lambda o:o['revisionSequence'])
+        self.assertIsNone(chain[0]['supersedesObservationId'])
+        self.assertEqual([o['supersedesObservationId'] for o in chain[1:]],[o['observationId'] for o in chain[:-1]])
+        self.assertEqual(len({o['sourceDefinitionId'] for o in chain}),3)
+        summary=next(s for s in built[3]['manifest']['coverageSummary'] if 'yoy' in s['windowId'])
+        self.assertEqual((summary['counts']['availableCount'],summary['counts']['provenFirstReleaseCount'],
+                          summary['counts']['backcastCount'],summary['counts']['vintageCount']),(1,0,1,3))
+        self.assertTrue(all(summary[k]=='PARTIAL' for k in ('inventoryStatus','revisionCoverageStatus','datasetCoverageStatus')))
 
     def test_unknown_url_or_changed_publication_cannot_use_audited_backcast_definition(self):
         for change_url in (True,False):

@@ -21,6 +21,7 @@ from .time_semantics import parse_aware_datetime
 
 M2 = 'PBOC_M2_OFFICIAL_RELEASE'
 AFRE = 'PBOC_AFRE_STOCK_OFFICIAL_RELEASE'
+ADAPTER_VERSION = 'pbc-dataset-r2b-v1.2.0'
 
 # Audited original scope-change releases, not arbitrary later historical tables.
 # Each method has independent period-applicable definitions in the PBC plan.
@@ -141,7 +142,7 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
     seed.update(catalogVersion='pbc-historical-vintage-v1', sourceDefinitions=deepcopy(definitions))
     payload = {k: [] for k in SIDECARS}
     snapshot = canonical_sha256(canonical_order(dict(planId=plan['planId'], definitions=definitions,
-        parserVersion=PARSER_VERSION,records=records,retrievalAttempts=attempts)))
+        parserVersion=PARSER_VERSION,adapterVersion=ADAPTER_VERSION,records=records,retrievalAttempts=attempts)))
     payload.update(planId=plan['planId'], datasetVersion='pbc-historical-v1-'+snapshot)
     payload['retrievalAttempts'] = deepcopy(attempts)
     evidence = {}
@@ -313,18 +314,13 @@ def assemble(plan, definitions, records, attempts, *, root: Path, generated_at: 
                 reasonCode='UNRESOLVED_RELEASE_CONFLICT', handlingBasis='No proved authoritative replacement; retain every candidate, exclude strict values'))
         previous = None
         sequence = 0
-        baseline_proved = any(i['event']['releaseKind']=='FIRST_RELEASE' and i['representable']
-            and (key[1]!='MACRO_AFRE_STOCK_YOY' or i['row']['reportedComparableBasis']) for i in representatives)
         for n, item in enumerate(items):
             e,a,x,d,row = (item[k] for k in ('event','artifact','extraction','definition','row'))
             # Mere same-value republication does not create a fake revision chain.
             basis_ok = row['metricId']!='MACRO_AFRE_STOCK_YOY' or row['reportedComparableBasis']
             keep = not conflict and item in representatives and basis_ok and item['representable']
-            if (key[0]==AFRE and key[2]>='2015-01' and e['releaseKind']=='BACKCAST'
-                    and not baseline_proved):
-                keep = False
-                diagnostics.append(dict(url=e['landingUrl'],sourceId=AFRE,period=key[2],metricId=key[1],
-                    reason='AFRE_BACKCAST_FIRST_RELEASE_LINEAGE_GAP'))
+            # A proved later backcast can start the collected chain. Sequence
+            # zero does not assert FIRST_RELEASE; coverage counts event kinds.
             if keep:
                 oid = 'obs-pbc-' + canonical_sha256([e['releaseEventId'], row['metricId'], d['sourceDefinitionId']])
                 x['observationId'] = oid

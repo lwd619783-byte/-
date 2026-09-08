@@ -92,6 +92,8 @@ def compact_report(dataset,bundle,diagnostics,journal,discovery):
     successful = [a for a in physical if a['outcome']=='SUCCESS']
     dates = sorted(a['attemptedAt'] for a in physical)
     events = {e['releaseEventId']:e for e in dataset['releaseEvents']}
+    observation_events = {x['observationId']:events[x['releaseEventId']]
+                          for x in dataset['fieldExtractions'] if x['observationId']}
     by_source = {}
     for source in (M2,AFRE):
         summaries = [s for s in dataset['manifest']['coverageSummary'] if next(w for w in dataset['manifest']['targetWindows'] if w['windowId']==s['windowId'])['sourceId']==source]
@@ -115,7 +117,7 @@ def compact_report(dataset,bundle,diagnostics,journal,discovery):
         backcastPolicy='2002-2014 search grid remains 156 months per field; only literally released native periods qualify, never interpolation.',
         cells=[dict(sourceId=c['sourceId'],metricId=c['metricId'],period=c['period'],windowId=c['windowId'],
             status=c['status'],reasonCode=c['reasonCode'],
-            firstRelease=any(events[eid]['releaseKind']=='FIRST_RELEASE' for eid in c['candidateReleaseEventIds']) and bool(c['admittedObservationIds']),
+            firstRelease=any(observation_events[oid]['releaseKind']=='FIRST_RELEASE' for oid in c['admittedObservationIds']),
             admittedCount=len(c['admittedObservationIds'])) for c in dataset['coverageLedger']])
 
 

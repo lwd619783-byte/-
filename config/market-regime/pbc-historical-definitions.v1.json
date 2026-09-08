@@ -340,7 +340,7 @@
     "unit": "万亿元",
     "nativeFrequency": "MONTHLY",
     "releaseSemantics": "BACKCAST only from the original scope-change event at 2018-08-13T19:25:12+08:00; effective dates describe value periods, never information availability.",
-    "revisionPolicy": "Preserve the first release and every later proved scope vintage in append-only lineage. An unproved earlier field remains evidence-only in this repair.",
+    "revisionPolicy": "Preserve every proved later scope vintage in append-only lineage. A backcast may start the collected chain at sequence zero; missing first-release evidence stays a separate coverage gap.",
     "sourceUrlPattern": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/352836472d1a48c19be8b9d19f2d9473/index.html",
     "createdAt": "2026-09-08T00:00:00Z"
   },
@@ -355,7 +355,7 @@
     "unit": "%",
     "nativeFrequency": "MONTHLY",
     "releaseSemantics": "BACKCAST only from the original scope-change event at 2018-08-13T19:25:12+08:00; effective dates describe value periods, never information availability.",
-    "revisionPolicy": "Preserve the first release and every later proved scope vintage in append-only lineage. An unproved earlier field remains evidence-only in this repair.",
+    "revisionPolicy": "Preserve every proved later scope vintage in append-only lineage. A backcast may start the collected chain at sequence zero; missing first-release evidence stays a separate coverage gap.",
     "sourceUrlPattern": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/352836472d1a48c19be8b9d19f2d9473/index.html",
     "createdAt": "2026-09-08T00:00:00Z"
   },
@@ -370,7 +370,7 @@
     "unit": "万亿元",
     "nativeFrequency": "MONTHLY",
     "releaseSemantics": "BACKCAST only from the original scope-change event at 2018-10-17T16:00:01+08:00; effective dates describe value periods, never information availability.",
-    "revisionPolicy": "Preserve the first release and every later proved scope vintage in append-only lineage. An unproved earlier field remains evidence-only in this repair.",
+    "revisionPolicy": "Preserve every proved later scope vintage in append-only lineage. A backcast may start the collected chain at sequence zero; missing first-release evidence stays a separate coverage gap.",
     "sourceUrlPattern": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/031b9fe3f0e84f10ab01c564d8c8b43b/index.html",
     "createdAt": "2026-09-08T00:00:00Z"
   },
@@ -385,7 +385,7 @@
     "unit": "%",
     "nativeFrequency": "MONTHLY",
     "releaseSemantics": "BACKCAST only from the original scope-change event at 2018-10-17T16:00:01+08:00; effective dates describe value periods, never information availability.",
-    "revisionPolicy": "Preserve the first release and every later proved scope vintage in append-only lineage. An unproved earlier field remains evidence-only in this repair.",
+    "revisionPolicy": "Preserve every proved later scope vintage in append-only lineage. A backcast may start the collected chain at sequence zero; missing first-release evidence stays a separate coverage gap.",
     "sourceUrlPattern": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/031b9fe3f0e84f10ab01c564d8c8b43b/index.html",
     "createdAt": "2026-09-08T00:00:00Z"
   },
@@ -400,7 +400,7 @@
     "unit": "万亿元",
     "nativeFrequency": "MONTHLY",
     "releaseSemantics": "BACKCAST only from the original scope-change event at 2019-10-15T16:30:02+08:00; effective dates describe value periods, never information availability.",
-    "revisionPolicy": "Preserve the first release and every later proved scope vintage in append-only lineage. An unproved earlier field remains evidence-only in this repair.",
+    "revisionPolicy": "Preserve every proved later scope vintage in append-only lineage. A backcast may start the collected chain at sequence zero; missing first-release evidence stays a separate coverage gap.",
     "sourceUrlPattern": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1cd1f9ef49a44b02ab96992fe75f9758/index.html",
     "createdAt": "2026-09-08T00:00:00Z"
   },
@@ -415,7 +415,7 @@
     "unit": "%",
     "nativeFrequency": "MONTHLY",
     "releaseSemantics": "BACKCAST only from the original scope-change event at 2019-10-15T16:30:02+08:00; effective dates describe value periods, never information availability.",
-    "revisionPolicy": "Preserve the first release and every later proved scope vintage in append-only lineage. An unproved earlier field remains evidence-only in this repair.",
+    "revisionPolicy": "Preserve every proved later scope vintage in append-only lineage. A backcast may start the collected chain at sequence zero; missing first-release evidence stays a separate coverage gap.",
     "sourceUrlPattern": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1cd1f9ef49a44b02ab96992fe75f9758/index.html",
     "createdAt": "2026-09-08T00:00:00Z"
   }
