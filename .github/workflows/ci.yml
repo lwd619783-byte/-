@@ -31,6 +31,7 @@ jobs:
             requirements-financial-test.txt
             requirements-announcement-provider.txt
             requirements-provider-observability-test.txt
+            scripts/requirements-market-regime-csrc.txt
 
       - name: Install JavaScript dependencies
         run: npm ci
@@ -85,6 +86,12 @@ jobs:
 
       - name: Test Market Regime PBC historical dataset offline
         run: npm run test:market-regime:pbc
+
+      - name: Install isolated CSRC schema-probe dependency
+        run: python -m pip install -r scripts/requirements-market-regime-csrc.txt
+
+      - name: Test CSRC attachment inventory and schema probe offline
+        run: npm run test:market-regime:csrc-c1
 
       - name: Build and validate deterministic Market Regime sample catalog
         run: npm run data:build:market-regime:catalog && npm run data:validate:market-regime:catalog
