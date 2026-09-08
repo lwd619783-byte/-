@@ -1,0 +1,146 @@
+[
+  {
+    "datasetAsOf": "2026-09-07T08:00:00+08:00",
+    "decisionClock": "MONDAY_0800",
+    "planId": "r2a-offline-protocol:v2.0.0:adf1a8b2b23fb9e14c97267f79a36a2125d31773c6231ce54a6e83691358a4c9",
+    "planName": "r2a-offline-protocol",
+    "planVersion": "2.0.0",
+    "purpose": "SYNTHETIC_OFFLINE",
+    "schemaVersion": "1.1.0",
+    "sources": [
+      {
+        "firstReleaseRule": "Require retained initial-release evidence; collected sequence zero is insufficient",
+        "indexUrls": [
+          "https://source.invalid/index-test_m2.v2.html"
+        ],
+        "officialRoots": [
+          "https://source.invalid/"
+        ],
+        "pagination": {
+          "candidateUrlPattern": "/report\\.html$",
+          "endPage": 1,
+          "enumerationRule": "OFFICIAL_LINKS_ONLY",
+          "pageTargets": [
+            {
+              "pageMarker": "Page 1",
+              "pageNumber": 1,
+              "url": "https://source.invalid/index-test_m2.v2.html"
+            }
+          ],
+          "requestLimit": 10,
+          "revisionPageTargets": [
+            {
+              "pageMarker": "Page 1",
+              "pageNumber": 1,
+              "url": "https://source.invalid/index-test_m2.v2.html"
+            }
+          ],
+          "revisionStopRule": {
+            "kind": "LAST_PAGE_MARKER",
+            "markerText": "END REVISION SCAN",
+            "pageNumber": 1
+          },
+          "startPage": 1,
+          "stopCondition": "Last linked index page",
+          "stopRule": {
+            "kind": "LAST_PAGE_MARKER",
+            "markerText": "END INDEX",
+            "pageNumber": 1
+          },
+          "timeoutSeconds": 5
+        },
+        "sourceId": "TEST_M2"
+      },
+      {
+        "firstReleaseRule": "Require retained initial-release evidence; collected sequence zero is insufficient",
+        "indexUrls": [
+          "https://source.invalid/index-test_exchange.v2.html"
+        ],
+        "officialRoots": [
+          "https://source.invalid/"
+        ],
+        "pagination": {
+          "candidateUrlPattern": "/report\\.html$",
+          "endPage": 1,
+          "enumerationRule": "OFFICIAL_LINKS_ONLY",
+          "pageTargets": [
+            {
+              "pageMarker": "Page 1",
+              "pageNumber": 1,
+              "url": "https://source.invalid/index-test_exchange.v2.html"
+            }
+          ],
+          "requestLimit": 10,
+          "revisionPageTargets": [
+            {
+              "pageMarker": "Page 1",
+              "pageNumber": 1,
+              "url": "https://source.invalid/index-test_exchange.v2.html"
+            }
+          ],
+          "revisionStopRule": {
+            "kind": "LAST_PAGE_MARKER",
+            "markerText": "END REVISION SCAN",
+            "pageNumber": 1
+          },
+          "startPage": 1,
+          "stopCondition": "Last linked index page",
+          "stopRule": {
+            "kind": "LAST_PAGE_MARKER",
+            "markerText": "END INDEX",
+            "pageNumber": 1
+          },
+          "timeoutSeconds": 5
+        },
+        "sourceId": "TEST_EXCHANGE"
+      }
+    ],
+    "targetWindows": [
+      {
+        "calendar": null,
+        "end": "2026-03",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "metricId": "MACRO_M2_YOY",
+        "nativeFrequencyEra": "MONTHLY",
+        "scopeVersion": "test-national-v1",
+        "sourceDefinitionIds": [
+          "m2-v1"
+        ],
+        "sourceId": "TEST_M2",
+        "start": "2026-01",
+        "windowId": "monthly"
+      },
+      {
+        "calendar": {
+          "calendarVersion": "test-calendar-v1",
+          "dates": [
+            "2026-09-03",
+            "2026-09-04"
+          ],
+          "evidence": [
+            {
+              "artifactId": "evidence-r2-03e6f348e19b0e717eaf8213b968ad55533e25f568de5c0ff175f87e8e2e22e5",
+              "byteLength": 37,
+              "byteOffset": 37,
+              "text": "Calendar dates: 2026-09-03 2026-09-04"
+            }
+          ]
+        },
+        "end": "2026-09-04",
+        "field": "turnoverValue",
+        "frequency": "TRADING_DAY",
+        "metricId": "EXCHANGE_MARKET_STATS",
+        "nativeFrequencyEra": "DAILY",
+        "scopeVersion": "test-sse-a-v1",
+        "sourceDefinitionIds": [
+          "exchange-v1"
+        ],
+        "sourceId": "TEST_EXCHANGE",
+        "start": "2026-09-03",
+        "windowId": "daily"
+      }
+    ],
+    "timezone": "Asia/Shanghai"
+  }
+]

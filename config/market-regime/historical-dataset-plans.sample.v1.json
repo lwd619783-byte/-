@@ -1,0 +1,96 @@
+[
+  {
+    "datasetAsOf": "2026-09-07T08:00:00+08:00",
+    "decisionClock": "MONDAY_0800",
+    "planId": "r2a-offline-protocol:v1.0.0:acf7f1d1272a548def30841fb313caeabfcea3692c31407f53cbb52853ee5234",
+    "planName": "r2a-offline-protocol",
+    "planVersion": "1.0.0",
+    "purpose": "SYNTHETIC_OFFLINE",
+    "schemaVersion": "1.0.0",
+    "sources": [
+      {
+        "firstReleaseRule": "Require retained initial-release evidence; collected sequence zero is insufficient",
+        "indexUrls": [
+          "https://source.invalid/report.html"
+        ],
+        "officialRoots": [
+          "https://source.invalid/"
+        ],
+        "pagination": {
+          "endPage": 1,
+          "enumerationRule": "OFFICIAL_LINKS_ONLY",
+          "requestLimit": 10,
+          "startPage": 1,
+          "stopCondition": "Last linked index page",
+          "timeoutSeconds": 5
+        },
+        "sourceId": "TEST_M2"
+      },
+      {
+        "firstReleaseRule": "Require retained initial-release evidence; collected sequence zero is insufficient",
+        "indexUrls": [
+          "https://source.invalid/report.html"
+        ],
+        "officialRoots": [
+          "https://source.invalid/"
+        ],
+        "pagination": {
+          "endPage": 1,
+          "enumerationRule": "OFFICIAL_LINKS_ONLY",
+          "requestLimit": 10,
+          "startPage": 1,
+          "stopCondition": "Last linked index page",
+          "timeoutSeconds": 5
+        },
+        "sourceId": "TEST_EXCHANGE"
+      }
+    ],
+    "targetWindows": [
+      {
+        "calendar": null,
+        "end": "2026-03",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "metricId": "MACRO_M2_YOY",
+        "nativeFrequencyEra": "MONTHLY",
+        "scopeVersion": "test-national-v1",
+        "sourceDefinitionIds": [
+          "m2-v1"
+        ],
+        "sourceId": "TEST_M2",
+        "start": "2026-01",
+        "windowId": "monthly"
+      },
+      {
+        "calendar": {
+          "calendarVersion": "test-calendar-v1",
+          "dates": [
+            "2026-09-03",
+            "2026-09-04"
+          ],
+          "evidence": [
+            {
+              "artifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+              "byteLength": 37,
+              "byteOffset": 364,
+              "text": "Calendar dates: 2026-09-03 2026-09-04"
+            }
+          ]
+        },
+        "end": "2026-09-04",
+        "field": "turnoverValue",
+        "frequency": "TRADING_DAY",
+        "metricId": "EXCHANGE_MARKET_STATS",
+        "nativeFrequencyEra": "DAILY",
+        "scopeVersion": "test-sse-a-v1",
+        "sourceDefinitionIds": [
+          "exchange-v1"
+        ],
+        "sourceId": "TEST_EXCHANGE",
+        "start": "2026-09-03",
+        "windowId": "daily"
+      }
+    ],
+    "timezone": "Asia/Shanghai"
+  }
+]
