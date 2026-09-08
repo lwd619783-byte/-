@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:investment-research-dashboard:market-regime:historical-dataset:v1",
+  "$id": "urn:investment-research-dashboard:market-regime:historical-dataset:v1.1",
   "title": "Historical Dataset Contract Core V1",
   "type": "object",
   "additionalProperties": false,
@@ -12,7 +12,8 @@
     "coverageLedger",
     "retrievalAttempts",
     "conflicts",
-    "inventoryEvidence"
+    "inventoryEvidence",
+    "evidenceArtifacts"
   ],
   "properties": {
     "manifest": {"$ref": "#/$defs/manifest"},
@@ -22,20 +23,11 @@
     "coverageLedger": {"type": "array", "items": {"$ref": "#/$defs/coverageCell"}, "uniqueItems": true, "minItems": 0},
     "retrievalAttempts": {"type": "array", "items": {"$ref": "#/$defs/retrievalAttempt"}, "uniqueItems": true, "minItems": 0},
     "conflicts": {"type": "array", "items": {"$ref": "#/$defs/conflict"}, "uniqueItems": true, "minItems": 0},
-    "inventoryEvidence": {"type": "array", "items": {"$ref": "#/$defs/inventoryEvidence"}, "uniqueItems": true, "minItems": 0}
+    "inventoryEvidence": {"type": "array", "items": {"$ref": "#/$defs/inventoryEvidence"}, "uniqueItems": true, "minItems": 0},
+    "evidenceArtifacts": {"type": "array", "items": {"$ref": "#/$defs/evidenceArtifact"}, "uniqueItems": true}
   },
   "$defs": {
-    "locator": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["artifactId", "byteOffset", "byteLength", "text"],
-      "properties": {
-        "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
-        "byteOffset": {"type": "integer", "minimum": 0},
-        "byteLength": {"type": "integer", "minimum": 1},
-        "text": {"type": "string", "minLength": 1}
-      }
-    },
+    "locator": {"oneOf": [{"$ref": "#/$defs/byteTextLocator"}, {"$ref": "#/$defs/structuredLocator"}]},
     "storedBytes": {
       "type": "object",
       "additionalProperties": false,
@@ -99,14 +91,31 @@
     "pagination": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["startPage", "endPage", "stopCondition", "requestLimit", "timeoutSeconds", "enumerationRule"],
+      "required": [
+        "startPage",
+        "endPage",
+        "stopCondition",
+        "requestLimit",
+        "timeoutSeconds",
+        "enumerationRule",
+        "pageTargets",
+        "revisionPageTargets",
+        "stopRule",
+        "revisionStopRule",
+        "candidateUrlPattern"
+      ],
       "properties": {
         "startPage": {"type": "integer", "minimum": 0},
         "endPage": {"type": "integer", "minimum": 0},
         "stopCondition": {"type": "string", "minLength": 1},
         "requestLimit": {"type": "integer", "minimum": 1},
         "timeoutSeconds": {"type": "number", "exclusiveMinimum": 0},
-        "enumerationRule": {"const": "OFFICIAL_LINKS_ONLY"}
+        "enumerationRule": {"const": "OFFICIAL_LINKS_ONLY"},
+        "pageTargets": {"type": "array", "items": {"$ref": "#/$defs/pageTarget"}, "uniqueItems": true},
+        "revisionPageTargets": {"type": "array", "items": {"$ref": "#/$defs/pageTarget"}, "uniqueItems": true},
+        "stopRule": {"$ref": "#/$defs/stopRule"},
+        "revisionStopRule": {"$ref": "#/$defs/stopRule"},
+        "candidateUrlPattern": {"type": "string", "minLength": 1}
       }
     },
     "sourcePlan": {
@@ -137,7 +146,7 @@
         "targetWindows"
       ],
       "properties": {
-        "schemaVersion": {"const": "1.0.0"},
+        "schemaVersion": {"const": "1.1.0"},
         "planName": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
         "planVersion": {"type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"},
         "planId": {
@@ -173,7 +182,8 @@
         "coveredPeriods",
         "firstReleaseEvidenceArtifactIds",
         "firstReleaseEvidence",
-        "revisionEvidence"
+        "revisionEvidence",
+        "indexEvidence"
       ],
       "properties": {
         "releaseEventId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
@@ -184,13 +194,7 @@
         "publicationDate": {"oneOf": [{"type": "string", "format": "date"}, {"type": "null"}]},
         "releaseAvailableAt": {"type": "string", "format": "date-time"},
         "releaseConfidenceClass": {
-          "enum": [
-            "EXACT_TIMESTAMP",
-            "DATE_ONLY_SAFE",
-            "SCHEDULE_INFERRED",
-            "LATEST_REVISED_PROXY",
-            "BACKCAST_RELEASED_LATER"
-          ]
+          "enum": ["EXACT_TIMESTAMP", "DATE_ONLY_SAFE", "SCHEDULE_INFERRED", "LATEST_REVISED_PROXY", "BACKCAST_RELEASED_LATER"]
         },
         "landingArtifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
         "attachmentArtifactIds": {
@@ -224,7 +228,22 @@
           "minItems": 0
         },
         "firstReleaseEvidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0},
-        "revisionEvidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0}
+        "revisionEvidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0},
+        "indexEvidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["artifactId", "url", "locator"],
+            "properties": {
+              "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+              "url": {"type": "string", "format": "uri"},
+              "locator": {"$ref": "#/$defs/locator"}
+            }
+          },
+          "uniqueItems": true,
+          "minItems": 0
+        }
       }
     },
     "artifactBinding": {
@@ -233,7 +252,7 @@
       "required": ["artifactId", "releaseEventId", "completeResponse", "contentValidation", "contentEvidence"],
       "properties": {
         "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
-        "releaseEventId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "releaseEventId": {"oneOf": [{"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"}, {"type": "null"}]},
         "completeResponse": {"type": "boolean"},
         "contentValidation": {"enum": ["VALIDATED", "ERROR_PAGE", "UNSUPPORTED"]},
         "contentEvidence": {"$ref": "#/$defs/locator"}
@@ -387,7 +406,9 @@
         "outcome",
         "reasonCode",
         "candidateReleaseEventIds",
-        "handlingBasis"
+        "handlingBasis",
+        "verifiedAt",
+        "acquisitionAttemptId"
       ],
       "properties": {
         "attemptId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
@@ -406,7 +427,9 @@
           "uniqueItems": true,
           "minItems": 0
         },
-        "handlingBasis": {"type": "string", "minLength": 1}
+        "handlingBasis": {"type": "string", "minLength": 1},
+        "verifiedAt": {"oneOf": [{"type": "string", "format": "date-time"}, {"type": "null"}]},
+        "acquisitionAttemptId": {"oneOf": [{"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"}, {"type": "null"}]}
       }
     },
     "conflict": {
@@ -452,7 +475,11 @@
         "paginationComplete",
         "candidatesReconciled",
         "revisionScanComplete",
-        "evidence"
+        "evidence",
+        "pages",
+        "stopEvidence",
+        "revisionPages",
+        "revisionStopEvidence"
       ],
       "properties": {
         "windowId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
@@ -460,7 +487,11 @@
         "paginationComplete": {"type": "boolean"},
         "candidatesReconciled": {"type": "boolean"},
         "revisionScanComplete": {"type": "boolean"},
-        "evidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0}
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0},
+        "pages": {"type": "array", "items": {"$ref": "#/$defs/pageEvidence"}, "uniqueItems": true},
+        "stopEvidence": {"oneOf": [{"$ref": "#/$defs/scanStopEvidence"}, {"type": "null"}]},
+        "revisionPages": {"type": "array", "items": {"$ref": "#/$defs/pageEvidence"}, "uniqueItems": true},
+        "revisionStopEvidence": {"oneOf": [{"$ref": "#/$defs/scanStopEvidence"}, {"type": "null"}]}
       }
     },
     "coverageSummary": {
@@ -517,7 +548,7 @@
         "coverageSummary"
       ],
       "properties": {
-        "schemaVersion": {"const": "1.0.0"},
+        "schemaVersion": {"const": "1.1.0"},
         "datasetVersion": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
         "planId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
         "planContentSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
@@ -534,7 +565,8 @@
             "coverageLedger",
             "retrievalAttempts",
             "conflicts",
-            "inventoryEvidence"
+            "inventoryEvidence",
+            "evidenceArtifacts"
           ],
           "properties": {
             "releaseEvents": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
@@ -543,7 +575,8 @@
             "coverageLedger": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
             "retrievalAttempts": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
             "conflicts": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-            "inventoryEvidence": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            "inventoryEvidence": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "evidenceArtifacts": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
           }
         },
         "datasetContentSha256": {
@@ -556,6 +589,145 @@
         "admissionStatus": {"enum": ["SYNTHETIC_ONLY", "PARTIAL", "ADMITTED"]},
         "coverageSummary": {"type": "array", "items": {"$ref": "#/$defs/coverageSummary"}, "uniqueItems": true, "minItems": 1}
       }
+    },
+    "byteTextLocator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactId", "byteOffset", "byteLength", "text"],
+      "properties": {
+        "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "byteOffset": {"type": "integer", "minimum": 0},
+        "byteLength": {"type": "integer", "minimum": 1},
+        "text": {"type": "string", "minLength": 1}
+      }
+    },
+    "structuredLocator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "artifactId",
+        "artifactSha256",
+        "format",
+        "sheet",
+        "table",
+        "row",
+        "column",
+        "cell",
+        "rowSpan",
+        "columnSpan",
+        "part",
+        "parserVersion",
+        "text"
+      ],
+      "properties": {
+        "kind": {"const": "STRUCTURED_CELL"},
+        "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "artifactSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "format": {"enum": ["XLS_OLE", "XLSX", "DOCX_TABLE"]},
+        "sheet": {"oneOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+        "table": {"oneOf": [{"type": "integer", "minimum": 1}, {"type": "null"}]},
+        "row": {"type": "integer", "minimum": 1},
+        "column": {"type": "integer", "minimum": 1},
+        "cell": {"oneOf": [{"type": "string", "pattern": "^[A-Z]+[1-9][0-9]*$"}, {"type": "null"}]},
+        "rowSpan": {"type": "integer", "minimum": 1},
+        "columnSpan": {"type": "integer", "minimum": 1},
+        "part": {"oneOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+        "parserVersion": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "text": {"type": "string", "minLength": 1}
+      },
+      "description": "Versioned replay of a row/column anchored rectangle. cell is its top-left A1 address; rowSpan/columnSpan include original headers, units and value. Sheet names and DOCX table indexes are exact; table, row and column indexes are one-based. A matching trusted replayer must prove document content and merged-cell semantics."
+    },
+    "evidenceArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifactId",
+        "sourceId",
+        "sourceUrl",
+        "fetchedAt",
+        "contentType",
+        "fileName",
+        "sha256",
+        "byteSize",
+        "httpStatus",
+        "artifactRole",
+        "localPath",
+        "parseStatus",
+        "error",
+        "evidenceRole"
+      ],
+      "properties": {
+        "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "sourceId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "sourceUrl": {"type": "string", "format": "uri"},
+        "fetchedAt": {"type": "string", "format": "date-time"},
+        "contentType": {"type": "string", "minLength": 1},
+        "fileName": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "byteSize": {"type": "integer", "minimum": 0},
+        "httpStatus": {"type": "integer", "minimum": 200, "maximum": 299},
+        "artifactRole": {"enum": ["RAW_SOURCE", "TEST_FIXTURE_EXCERPT"]},
+        "localPath": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*[\\\\:%?#\\u0000])(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[. ](?:/|$))[^/]+(?:/[^/]+)*$",
+          "description": "Safe repository-relative POSIX path; validator also rejects resolved symlink/junction escapes."
+        },
+        "parseStatus": {"enum": ["INDEXED", "PARSED", "FIELD_SCHEMA_PROBE_REQUIRED", "FAILED"]},
+        "error": {"type": ["string", "null"]},
+        "evidenceRole": {"enum": ["ARCHIVE_INDEX", "CALENDAR", "INVENTORY"]}
+      }
+    },
+    "pageTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pageNumber", "url", "pageMarker"],
+      "properties": {
+        "pageNumber": {"type": "integer", "minimum": 1},
+        "url": {"type": "string", "format": "uri"},
+        "pageMarker": {"type": "string", "minLength": 1}
+      }
+    },
+    "stopRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pageNumber", "kind", "markerText"],
+      "properties": {
+        "pageNumber": {"type": "integer", "minimum": 1},
+        "kind": {"const": "LAST_PAGE_MARKER"},
+        "markerText": {"type": "string", "minLength": 1}
+      }
+    },
+    "pageEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pageNumber",
+        "url",
+        "artifactId",
+        "retrievalAttemptId",
+        "pageIdentityEvidence",
+        "entryEvidence",
+        "candidateReleaseEventIds",
+        "nextPageEvidence"
+      ],
+      "properties": {
+        "pageNumber": {"type": "integer", "minimum": 1},
+        "url": {"type": "string", "format": "uri"},
+        "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "retrievalAttemptId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "pageIdentityEvidence": {"$ref": "#/$defs/byteTextLocator"},
+        "entryEvidence": {"type": "array", "items": {"$ref": "#/$defs/byteTextLocator"}, "uniqueItems": true},
+        "candidateReleaseEventIds": {"type": "array", "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"}, "uniqueItems": true},
+        "nextPageEvidence": {"oneOf": [{"$ref": "#/$defs/byteTextLocator"}, {"type": "null"}]}
+      }
+    },
+    "scanStopEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pageNumber", "locator"],
+      "properties": {"pageNumber": {"type": "integer", "minimum": 1}, "locator": {"$ref": "#/$defs/byteTextLocator"}}
     }
   }
 }

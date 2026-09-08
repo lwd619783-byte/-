@@ -4,7 +4,7 @@ from pathlib import Path
 
 from scripts.market_regime.catalog import build_catalog
 from scripts.market_regime.hashing import sha256_bytes
-from scripts.market_regime.historical import artifact_identity, plan_identity, release_identity, target_grid
+from scripts.market_regime.historical import artifact_identity, evidence_artifact_identity, plan_identity, release_identity, target_grid
 
 
 AS_OF = "2026-09-07T08:00:00+08:00"
@@ -43,8 +43,8 @@ def make_fixture(root: Path, *, historical=False):
                                 revisionPolicy='Append-only authoritative replacement',sourceUrlPattern=host+'/',createdAt=GENERATED))
     seed = dict(sourceDefinitions=definitions, artifacts=[], observations=[], exchangeMarketObservations=[],
                 marketScopeVersions=[], providerSlots=[], generatedAt=GENERATED)
-    payload = dict(planId='', datasetVersion='r2a-synthetic-offline-v1',releaseEvents=[],artifactBindings=[],
-                   fieldExtractions=[],coverageLedger=[],retrievalAttempts=[],conflicts=[],inventoryEvidence=[])
+    payload = dict(planId='', datasetVersion='r2a-synthetic-offline-v2',releaseEvents=[],artifactBindings=[],
+                   fieldExtractions=[],coverageLedger=[],retrievalAttempts=[],conflicts=[],inventoryEvidence=[],evidenceArtifacts=[])
 
     def loc(aid, text):
         encoded = text.encode()
@@ -58,7 +58,7 @@ def make_fixture(root: Path, *, historical=False):
         e = dict(sourceId=source,landingUrl=host+'/report.html',eventSection=label,publicationDateTime=publication,
                  publicationDate=publication_date,releaseAvailableAt=available,releaseConfidenceClass=confidence,
                  releaseKind=kind,coveredPeriods=[period],attachmentArtifactIds=[],attachmentEvidence=[],
-                 firstReleaseEvidenceArtifactIds=[],firstReleaseEvidence=[],revisionEvidence=[])
+                 firstReleaseEvidenceArtifactIds=[],firstReleaseEvidence=[],revisionEvidence=[],indexEvidence=[])
         eid = release_identity(e)
         a = dict(sourceId=source,sourceUrl=e['landingUrl'],publicationDateTime=publication,publicationDate=publication_date,
                  releaseAvailableAt=available,fetchedAt=GENERATED,contentType='text/html',fileName='response.html',
@@ -113,11 +113,46 @@ def make_fixture(root: Path, *, historical=False):
     extraction(revision,a1,'jan-v1','value','m2-v1','2026-01 M2 % 11.0 comparable basis',11.0,'2026-01',sequence=1,previous='jan-v0')
     extraction(backcast,ab,'feb-backcast','value','m2-v1','2026-02 M2 % 9.0 comparable basis',9.0,'2026-02')
     extraction(market,am,'sep-03','turnoverValue','exchange-v1','2026-09-03 turnover CNY 20.0 A shares',20.0,'2026-09-03')
-    sources=[dict(sourceId=s,officialRoots=[host+'/'],indexUrls=[host+'/report.html'],pagination=dict(startPage=1,endPage=1,
-             stopCondition='Last linked index page',requestLimit=10,timeoutSeconds=5,enumerationRule='OFFICIAL_LINKS_ONLY'),
+    evidence_bodies = {}
+    def evidence(source, role, name, text):
+        data = (('' if historical else 'SYNTHETIC OFFLINE TEST FIXTURE\n') + text).encode()
+        local_path = 'raw/'+name if historical else 'scripts/tests/fixtures/market_regime/r2a-synthetic-'+name
+        target = root/local_path; target.parent.mkdir(parents=True, exist_ok=True); target.write_bytes(data)
+        a = dict(sourceId=source,sourceUrl=host+'/'+name,fetchedAt=GENERATED,contentType='text/html',fileName=name,
+                 sha256=sha256_bytes(data),byteSize=len(data),httpStatus=200,artifactRole='RAW_SOURCE' if historical else 'TEST_FIXTURE_EXCERPT',
+                 localPath=local_path,parseStatus='PARSED',error=None,evidenceRole=role)
+        a['artifactId']=evidence_artifact_identity(a); payload['evidenceArtifacts'].append(a)
+        evidence_bodies[a['artifactId']]=data
+        payload['artifactBindings'].append(dict(artifactId=a['artifactId'],releaseEventId=None,completeResponse=historical,
+            contentValidation='VALIDATED',contentEvidence=dict(artifactId=a['artifactId'],byteOffset=0,byteLength=len(data),text=data.decode())))
+        payload['retrievalAttempts'].append(dict(attemptId='acquire-'+name,sourceId=source,requestUrl=a['sourceUrl'],finalUrl=a['sourceUrl'],
+            attemptedAt=GENERATED,httpStatus=200,transportError=None,storedBytes={k:a[k] for k in ('localPath','sha256','byteSize')},
+            outcome='SUCCESS',reasonCode='OFFLINE_MODEL',candidateReleaseEventIds=[],handlingBasis='Independent acquired evidence'))
+        return a
+
+    def eloc(a, text):
+        return dict(artifactId=a['artifactId'],byteOffset=evidence_bodies[a['artifactId']].index(text.encode()),byteLength=len(text.encode()),text=text)
+
+    index_pages={}; entries={}
+    for source in ('TEST_M2','TEST_EXCHANGE'):
+        source_events=[e for e in payload['releaseEvents'] if e['sourceId']==source]
+        entries[source]=['<a href="report.html">'+(e['publicationDateTime'] or e['publicationDate'])+'</a>' for e in source_events]
+        page=evidence(source,'ARCHIVE_INDEX','index-'+source.lower()+'.v2.html',
+                      '<html><title>Archive</title>Page 1\n'+'\n'.join(entries[source])+'\nEND INDEX\nEND REVISION SCAN</html>')
+        index_pages[source]=page
+        for e,entry in zip(source_events,entries[source]):
+            e['indexEvidence']=[dict(artifactId=page['artifactId'],url=e['landingUrl'],locator=eloc(page,entry))]
+    calendar=evidence('TEST_EXCHANGE','CALENDAR','calendar.v2.html','<html>Calendar dates: 2026-09-03 2026-09-04</html>')
+    sources=[dict(sourceId=s,officialRoots=[host+'/'],indexUrls=[index_pages[s]['sourceUrl']],pagination=dict(startPage=1,endPage=1,
+             stopCondition='Last linked index page',requestLimit=10,timeoutSeconds=5,enumerationRule='OFFICIAL_LINKS_ONLY',
+             pageTargets=[dict(pageNumber=1,url=index_pages[s]['sourceUrl'],pageMarker='Page 1')],
+             revisionPageTargets=[dict(pageNumber=1,url=index_pages[s]['sourceUrl'],pageMarker='Page 1')],
+             stopRule=dict(pageNumber=1,kind='LAST_PAGE_MARKER',markerText='END INDEX'),
+             revisionStopRule=dict(pageNumber=1,kind='LAST_PAGE_MARKER',markerText='END REVISION SCAN'),
+             candidateUrlPattern=r'/report\.html$'),
              firstReleaseRule='Require retained initial-release evidence; collected sequence zero is insufficient')
              for s in ['TEST_M2','TEST_EXCHANGE']]
-    plan=dict(schemaVersion='1.0.0',planName='r2a-offline-protocol',planVersion='1.0.0',planId='',
+    plan=dict(schemaVersion='1.1.0',planName='r2a-offline-protocol',planVersion='2.0.0',planId='',
               purpose='HISTORICAL' if historical else 'SYNTHETIC_OFFLINE',datasetAsOf=AS_OF,timezone='Asia/Shanghai',
               decisionClock='MONDAY_0800',sources=sources,targetWindows=[
                   dict(windowId='monthly',sourceId='TEST_M2',metricId='MACRO_M2_YOY',field='value',frequency='MONTHLY',
@@ -126,7 +161,7 @@ def make_fixture(root: Path, *, historical=False):
                   dict(windowId='daily',sourceId='TEST_EXCHANGE',metricId='EXCHANGE_MARKET_STATS',field='turnoverValue',
                        frequency='TRADING_DAY',start='2026-09-03',end='2026-09-04',scopeVersion='test-sse-a-v1',
                        nativeFrequencyEra='DAILY',sourceDefinitionIds=['exchange-v1'],calendar=dict(calendarVersion='test-calendar-v1',
-                       dates=['2026-09-03','2026-09-04'],evidence=[loc(am['artifactId'],'Calendar dates: 2026-09-03 2026-09-04')]))])
+                       dates=['2026-09-03','2026-09-04'],evidence=[eloc(calendar,'Calendar dates: 2026-09-03 2026-09-04')]))])
     plan['planId']=plan_identity(plan)
     payload['planId']=plan['planId']
     for cell in target_grid(plan):
@@ -143,7 +178,14 @@ def make_fixture(root: Path, *, historical=False):
     payload['retrievalAttempts'].append(dict(attemptId='timeout',sourceId='TEST_EXCHANGE',requestUrl=host+'/index.html',
         finalUrl=None,attemptedAt=GENERATED,httpStatus=None,transportError='TimeoutError',storedBytes=None,
         outcome='TRANSPORT_ERROR',reasonCode='TIMEOUT',candidateReleaseEventIds=[],handlingBasis='Preserve gap; no pseudo-artifact'))
-    for window,a in [('monthly',a0),('daily',am)]:
-        payload['inventoryEvidence'].append(dict(windowId=window,scannedIndexUrls=[host+'/report.html'],paginationComplete=True,
-            candidatesReconciled=True,revisionScanComplete=False,evidence=[loc(a['artifactId'],'Index pages 1..1 fully scanned; all candidates reconciled.')]))
+    for window,source in [('monthly','TEST_M2'),('daily','TEST_EXCHANGE')]:
+        a=index_pages[source]
+        page=dict(pageNumber=1,url=a['sourceUrl'],artifactId=a['artifactId'],retrievalAttemptId='acquire-'+a['fileName'],
+                  pageIdentityEvidence=eloc(a,'Page 1'),entryEvidence=[eloc(a,text) for text in entries[source]],
+                  candidateReleaseEventIds=[e['releaseEventId'] for e in payload['releaseEvents'] if e['sourceId']==source],nextPageEvidence=None)
+        payload['inventoryEvidence'].append(dict(windowId=window,scannedIndexUrls=[a['sourceUrl']],paginationComplete=True,
+            candidatesReconciled=True,revisionScanComplete=False,evidence=[eloc(a,'END INDEX')],pages=[page],
+            stopEvidence=dict(pageNumber=1,locator=eloc(a,'END INDEX')),revisionPages=[],revisionStopEvidence=None))
+    for r in payload['retrievalAttempts']:
+        r.update(verifiedAt=None,acquisitionAttemptId=None)
     return {'catalog':build_catalog(seed),'dataset':payload},[plan]

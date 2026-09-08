@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 
-from .catalog import render_catalog
+from .catalog import render_catalog, utc_now_iso
 from .hashing import atomic_write_bytes
 from .historical import build_dataset
 from .historical_validator import safe_file, validate_dataset
@@ -31,7 +31,7 @@ def main(argv=None):
     parser.add_argument('--input', required=True, help='Controlled bundle containing catalog and dataset seed')
     parser.add_argument('--plans', required=True, help='Versioned external plan registry')
     parser.add_argument('--output', required=True, help='Dataset envelope path')
-    parser.add_argument('--generated-at', default='2026-09-08T00:00:00Z')
+    parser.add_argument('--generated-at', help='Explicit timestamp for deterministic offline builds; defaults to current UTC')
     args=parser.parse_args(argv)
     try:
         bundle=load(safe_file(ROOT,args.input))
@@ -42,7 +42,8 @@ def main(argv=None):
         if not _safe_relative_path(args.output) or ':' in args.output or '\\' in args.output or not target.is_relative_to(ROOT.resolve()):
             raise ValueError('unsafe output path')
         if args.command=='build':
-            dataset=build_dataset(bundle['dataset'],bundle['catalog'],plans=plans,artifact_root=ROOT,generated_at=args.generated_at)
+            dataset=build_dataset(bundle['dataset'],bundle['catalog'],plans=plans,artifact_root=ROOT,
+                                  generated_at=args.generated_at or utc_now_iso())
             payload=render_catalog(dataset).encode('utf-8')
             # A sealed version is append-only. Same bytes is an idempotent rebuild.
             if target.exists() and target.read_bytes()!=payload:

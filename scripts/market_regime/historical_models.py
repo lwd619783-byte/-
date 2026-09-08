@@ -1,14 +1,7 @@
-"""R2 envelope contracts; R1 models and serialized records remain unchanged."""
+"""R2 1.1 envelope contracts; R1 records remain unchanged."""
 from __future__ import annotations
 
 from typing import Literal, TypedDict
-
-
-class Locator(TypedDict):
-    artifactId: str
-    byteOffset: int
-    byteLength: int
-    text: str
 
 
 class StoredBytes(TypedDict):
@@ -44,6 +37,11 @@ class Pagination(TypedDict):
     requestLimit: int
     timeoutSeconds: float | int
     enumerationRule: Literal['OFFICIAL_LINKS_ONLY']
+    pageTargets: list[PageTarget]
+    revisionPageTargets: list[PageTarget]
+    stopRule: StopRule
+    revisionStopRule: StopRule
+    candidateUrlPattern: str
 
 
 class SourcePlan(TypedDict):
@@ -55,7 +53,7 @@ class SourcePlan(TypedDict):
 
 
 class Plan(TypedDict):
-    schemaVersion: Literal['1.0.0']
+    schemaVersion: Literal['1.1.0']
     planName: str
     planVersion: str
     planId: str
@@ -68,6 +66,12 @@ class Plan(TypedDict):
 
 
 class ReleaseEventAttachmentEvidenceItem(TypedDict):
+    artifactId: str
+    url: str
+    locator: Locator
+
+
+class ReleaseEventIndexEvidenceItem(TypedDict):
     artifactId: str
     url: str
     locator: Locator
@@ -91,11 +95,12 @@ class ReleaseEvent(TypedDict):
     firstReleaseEvidenceArtifactIds: list[str]
     firstReleaseEvidence: list[Locator]
     revisionEvidence: list[Locator]
+    indexEvidence: list[ReleaseEventIndexEvidenceItem]
 
 
 class ArtifactBinding(TypedDict):
     artifactId: str
-    releaseEventId: str
+    releaseEventId: str | None
     completeResponse: bool
     contentValidation: Literal['VALIDATED', 'ERROR_PAGE', 'UNSUPPORTED']
     contentEvidence: Locator
@@ -159,6 +164,8 @@ class RetrievalAttempt(TypedDict):
     reasonCode: str
     candidateReleaseEventIds: list[str]
     handlingBasis: str
+    verifiedAt: str | None
+    acquisitionAttemptId: str | None
 
 
 class Conflict(TypedDict):
@@ -179,6 +186,10 @@ class InventoryEvidence(TypedDict):
     candidatesReconciled: bool
     revisionScanComplete: bool
     evidence: list[Locator]
+    pages: list[PageEvidence]
+    stopEvidence: ScanStopEvidence | None
+    revisionPages: list[PageEvidence]
+    revisionStopEvidence: ScanStopEvidence | None
 
 
 class CoverageSummaryCounts(TypedDict):
@@ -208,10 +219,11 @@ class ManifestSidecarContentHashes(TypedDict):
     retrievalAttempts: str
     conflicts: str
     inventoryEvidence: str
+    evidenceArtifacts: str
 
 
 class Manifest(TypedDict):
-    schemaVersion: Literal['1.0.0']
+    schemaVersion: Literal['1.1.0']
     datasetVersion: str
     planId: str
     planContentSha256: str
@@ -226,6 +238,75 @@ class Manifest(TypedDict):
     coverageSummary: list[CoverageSummary]
 
 
+class ByteTextLocator(TypedDict):
+    artifactId: str
+    byteOffset: int
+    byteLength: int
+    text: str
+
+
+class StructuredLocator(TypedDict):
+    kind: Literal['STRUCTURED_CELL']
+    artifactId: str
+    artifactSha256: str
+    format: Literal['XLS_OLE', 'XLSX', 'DOCX_TABLE']
+    sheet: str | None
+    table: int | None
+    row: int
+    column: int
+    cell: str | None
+    rowSpan: int
+    columnSpan: int
+    part: str | None
+    parserVersion: str
+    text: str
+
+
+class EvidenceArtifact(TypedDict):
+    artifactId: str
+    sourceId: str
+    sourceUrl: str
+    fetchedAt: str
+    contentType: str
+    fileName: str
+    sha256: str
+    byteSize: int
+    httpStatus: int
+    artifactRole: Literal['RAW_SOURCE', 'TEST_FIXTURE_EXCERPT']
+    localPath: str
+    parseStatus: Literal['INDEXED', 'PARSED', 'FIELD_SCHEMA_PROBE_REQUIRED', 'FAILED']
+    error: str | None
+    evidenceRole: Literal['ARCHIVE_INDEX', 'CALENDAR', 'INVENTORY']
+
+
+class PageTarget(TypedDict):
+    pageNumber: int
+    url: str
+    pageMarker: str
+
+
+class StopRule(TypedDict):
+    pageNumber: int
+    kind: Literal['LAST_PAGE_MARKER']
+    markerText: str
+
+
+class PageEvidence(TypedDict):
+    pageNumber: int
+    url: str
+    artifactId: str
+    retrievalAttemptId: str
+    pageIdentityEvidence: ByteTextLocator
+    entryEvidence: list[ByteTextLocator]
+    candidateReleaseEventIds: list[str]
+    nextPageEvidence: ByteTextLocator | None
+
+
+class ScanStopEvidence(TypedDict):
+    pageNumber: int
+    locator: ByteTextLocator
+
+
 class HistoricalDataset(TypedDict):
     manifest: Manifest
     releaseEvents: list[ReleaseEvent]
@@ -235,3 +316,7 @@ class HistoricalDataset(TypedDict):
     retrievalAttempts: list[RetrievalAttempt]
     conflicts: list[Conflict]
     inventoryEvidence: list[InventoryEvidence]
+    evidenceArtifacts: list[EvidenceArtifact]
+
+
+Locator = ByteTextLocator | StructuredLocator

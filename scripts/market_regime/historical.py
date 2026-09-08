@@ -19,6 +19,7 @@ SIDECARS = {
     "fieldExtractions": "extractionId", "coverageLedger": "cellId",
     "retrievalAttempts": "attemptId", "conflicts": "conflictId",
     "inventoryEvidence": "windowId",
+    "evidenceArtifacts": "artifactId",
 }
 
 
@@ -53,6 +54,11 @@ def artifact_identity(artifact: dict, release_event_id: str) -> str:
         "sourceId": artifact["sourceId"], "sourceUrl": artifact["sourceUrl"],
         "releaseEventId": release_event_id, "sha256": artifact["sha256"],
     })
+
+
+def evidence_artifact_identity(artifact: dict) -> str:
+    return "evidence-r2-" + canonical_sha256({k: artifact[k] for k in
+        ("sourceId", "sourceUrl", "fetchedAt", "sha256", "evidenceRole")})
 
 
 def target_grid(plan: Plan) -> list[dict]:
@@ -103,6 +109,16 @@ def dataset_content_projection(dataset: HistoricalDataset) -> dict:
     })
 
 
+def enumeration_complete(scan: dict, pagination: dict, *, revision=False) -> bool:
+    pages = scan["revisionPages" if revision else "pages"]
+    targets = pagination["revisionPageTargets" if revision else "pageTargets"]
+    stop = scan["revisionStopEvidence" if revision else "stopEvidence"]
+    rule = pagination["revisionStopRule" if revision else "stopRule"]
+    return (bool(targets) and {(p['pageNumber'], p['url']) for p in pages}
+            == {(p['pageNumber'], p['url']) for p in targets}
+            and bool(stop) and stop['pageNumber'] == rule['pageNumber'])
+
+
 def coverage_summary(dataset: dict, plan: Plan, *, raw_admitted: set[str]) -> list[dict]:
     events = {e["releaseEventId"]: e for e in dataset["releaseEvents"]}
     extractions = {(x["observationId"] or x["exchangeObservationId"], x["field"]): x
@@ -130,8 +146,10 @@ def coverage_summary(dataset: dict, plan: Plan, *, raw_admitted: set[str]) -> li
             else:
                 counts["unresolvedCount"] += 1
         scan = next((s for s in dataset["inventoryEvidence"] if s["windowId"] == w["windowId"]), None)
-        inventory = bool(scan and scan["paginationComplete"] and scan["candidatesReconciled"] and scan["evidence"])
-        revisions = bool(inventory and scan["revisionScanComplete"])
+        pagination = next(s['pagination'] for s in plan['sources'] if s['sourceId'] == w['sourceId'])
+        inventory = bool(scan and scan["paginationComplete"] and scan["candidatesReconciled"]
+                         and scan["evidence"] and enumeration_complete(scan, pagination))
+        revisions = bool(inventory and scan["revisionScanComplete"] and enumeration_complete(scan, pagination, revision=True))
         complete = (plan["purpose"] == "HISTORICAL" and inventory and revisions
                     and counts["availableCount"] > 0 and counts["unresolvedCount"] == 0
                     and counts["provenFirstReleaseCount"] == counts["availableCount"])
@@ -143,7 +161,7 @@ def coverage_summary(dataset: dict, plan: Plan, *, raw_admitted: set[str]) -> li
 
 
 def build_dataset(payload: dict, catalog: dict, *, plans: list[Plan], artifact_root,
-                  generated_at: str) -> HistoricalDataset:
+                  generated_at: str, locator_replayers=None) -> HistoricalDataset:
     from .historical_validator import SCHEMA, resolve_plan, schema_check, validate_dataset
     plan = resolve_plan(payload["planId"], plans)
     if set(payload) != {"planId", "datasetVersion", *SIDECARS}:
@@ -157,7 +175,7 @@ def build_dataset(payload: dict, catalog: dict, *, plans: list[Plan], artifact_r
             schema_check(record, definition)
     dataset = canonical_order({k: deepcopy(payload[k]) for k in SIDECARS})
     m = {
-        "schemaVersion": "1.0.0", "datasetVersion": payload["datasetVersion"],
+        "schemaVersion": "1.1.0", "datasetVersion": payload["datasetVersion"],
         "planId": plan["planId"], "planContentSha256": canonical_sha256(plan_projection(plan)),
         "datasetAsOf": plan["datasetAsOf"], "targetWindows": canonical_order(plan["targetWindows"]),
         "catalogContentSha256": canonical_sha256(catalog_content_projection(catalog)),
@@ -173,7 +191,8 @@ def build_dataset(payload: dict, catalog: dict, *, plans: list[Plan], artifact_r
     if plan["purpose"] == "HISTORICAL" and all(s["datasetCoverageStatus"] == "PASS" for s in m["coverageSummary"]):
         m["admissionStatus"] = "ADMITTED"
     m["datasetContentSha256"] = canonical_sha256(dataset_content_projection(dataset))
-    errors = validate_dataset(dataset, catalog, plans=plans, artifact_root=artifact_root)
+    errors = validate_dataset(dataset, catalog, plans=plans, artifact_root=artifact_root,
+                              locator_replayers=locator_replayers)
     if errors:
         raise ValueError("\n".join(errors))
     return dataset

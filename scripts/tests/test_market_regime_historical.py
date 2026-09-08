@@ -135,6 +135,10 @@ class CORE1HashAndContractTests(FixtureCase):
     def test_python_contract_required_fields_match_machine_schema(self):
         for name,definition in SCHEMA['$defs'].items():
             model=getattr(historical_models,name[0].upper()+name[1:])
+            if name == 'locator':
+                from typing import get_args
+                self.assertEqual(set(get_args(model)),{historical_models.ByteTextLocator,historical_models.StructuredLocator})
+                continue
             self.assertEqual(set(get_type_hints(model)),set(definition['required']),name)
         self.assertEqual(set(get_type_hints(historical_models.HistoricalDataset)),set(SCHEMA['required']))
 
@@ -168,7 +172,7 @@ class CORE2ArtifactTests(FixtureCase):
                  candidateReleaseEventIds=[])
         self.seed['retrievalAttempts'].append(r)
         d=self.build()
-        self.assertEqual(len(d['retrievalAttempts']),7)
+        self.assertEqual(len(d['retrievalAttempts']),10)
         self.assertEqual(len(self.catalog['artifacts']),5)
 
     def test_CORE2_one_byte_corruption_and_size_mismatch(self):
@@ -198,7 +202,7 @@ class CORE2ArtifactTests(FixtureCase):
                 with self.assertRaisesRegex(ValueError,'unsafe'): safe_file(self.root,'escape')
 
     def test_CORE2_failed_download_not_artifact_and_retained_retrieval(self):
-        self.assertEqual(len(self.build()['retrievalAttempts']),6)
+        self.assertEqual(len(self.build()['retrievalAttempts']),9)
         self.catalog['artifacts'][0]['httpStatus']=503
         self.assert_rejected('schema|retrieval|失败')
 
@@ -231,11 +235,11 @@ class CORE2ArtifactTests(FixtureCase):
             a['artifactId']=artifact_identity(a,binding['releaseEventId']); mapping[old]=a['artifactId']
         def update(v):
             if isinstance(v,dict):
-                if set(('byteOffset','byteLength','text'))<=v.keys():
+                if set(('byteOffset','byteLength','text'))<=v.keys() and v.get('artifactId') in mapping:
                     if 'Protocol report' in v['text'] and b'<title>Access denied</title>' in body:
                         v['text']='<title>Access denied</title>'
                     v['byteOffset']=body.index(v['text'].encode()); v['byteLength']=len(v['text'].encode())
-                if set(('localPath','sha256','byteSize'))<=v.keys():
+                if set(('localPath','sha256','byteSize'))<=v.keys() and v['localPath']=='raw/response.html':
                     v['sha256']=sha256_bytes(body); v['byteSize']=len(body)
                 return {k:update(x) for k,x in v.items()}
             if isinstance(v,list): return [update(x) for x in v]
@@ -262,7 +266,7 @@ class CORE2ArtifactTests(FixtureCase):
             self.assert_rejected('retrieval|failure')
             self.seed['retrievalAttempts'][-1]=original
         self.seed['retrievalAttempts'][0]['outcome']='CACHE_VERIFIED'
-        self.assertEqual(self.build()['manifest']['validationStatus'],'PASS')
+        self.assert_rejected('cache requires original network acquisition|matching successful retrieval')
 
 
 class CORE3ClockTests(FixtureCase):
@@ -411,6 +415,12 @@ class CORE6CoverageTests(FixtureCase):
         self.seed['coverageLedger']=[self.row('2026-01')]
         self.seed['inventoryEvidence']=[s for s in self.seed['inventoryEvidence'] if s['windowId']=='monthly']
         self.seed['inventoryEvidence'][0]['revisionScanComplete']=True
+        scan=self.seed['inventoryEvidence'][0]
+        scan['pages'][0]['candidateReleaseEventIds']=self.row('2026-01')['candidateReleaseEventIds'][:]
+        scan['revisionPages']=copy.deepcopy(scan['pages'])
+        a=next(a for a in self.seed['evidenceArtifacts'] if a['artifactId']==scan['pages'][0]['artifactId'])
+        body=(self.root/a['localPath']).read_bytes(); text='END REVISION SCAN'
+        scan['revisionStopEvidence']=dict(pageNumber=1,locator=dict(artifactId=a['artifactId'],byteOffset=body.index(text.encode()),byteLength=len(text),text=text))
         self.catalog['observations']=[o for o in self.catalog['observations'] if o['valueDate']=='2026-01']
         self.catalog['exchangeMarketObservations']=[]
         self.seed['fieldExtractions']=[x for x in self.seed['fieldExtractions'] if x['period']=='2026-01']
@@ -486,7 +496,7 @@ class R1CompatibilityTests(unittest.TestCase):
             bundle,plans=make_fixture(root)
             (root/'input.json').write_text(json.dumps(bundle),encoding='utf-8')
             (root/'plans.json').write_text(json.dumps(plans),encoding='utf-8')
-            args=['build','--input','input.json','--plans','plans.json','--output','out.json']
+            args=['build','--generated-at',GENERATED,'--input','input.json','--plans','plans.json','--output','out.json']
             with patch('scripts.market_regime.historical_cli.ROOT',root),redirect_stdout(StringIO()):
                 self.assertEqual(main(args),0)
                 original=(root/'out.json').read_bytes()
@@ -510,9 +520,9 @@ class R1CompatibilityTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'schema'): schema_check(catalog,r1=True)
 
     def test_committed_synthetic_bundle_envelope_and_plan_replay(self):
-        bundle=load(FIXTURES/'r2a-input.sample.v1.json')
-        plans=load(ROOT/'config/market-regime/historical-dataset-plans.sample.v1.json')
-        dataset=load(FIXTURES/'r2a-dataset.sample.v1.json')
+        bundle=load(FIXTURES/'r2a-input.sample.v2.json')
+        plans=load(ROOT/'config/market-regime/historical-dataset-plans.sample.v2.json')
+        dataset=load(FIXTURES/'r2a-dataset.sample.v2.json')
         self.assertEqual(validate_dataset(dataset,bundle['catalog'],plans=plans,artifact_root=ROOT),[])
         self.assertEqual(render_catalog(dataset),render_catalog(build_dataset(bundle['dataset'],bundle['catalog'],
                          plans=plans,artifact_root=ROOT,generated_at=GENERATED)))

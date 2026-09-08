@@ -13,9 +13,10 @@ from jsonschema import Draft202012Validator, FormatChecker
 from .catalog import catalog_content_projection
 from .collectors import extract_html
 from .hashing import canonical_sha256, sha256_bytes
-from .historical import (SIDECARS, artifact_identity, canonical_order, coverage_summary,
+from .historical import (SIDECARS, artifact_identity, evidence_artifact_identity, canonical_order, coverage_summary,
                          dataset_content_projection, plan_identity, plan_projection,
-                         release_identity, target_grid)
+                         release_identity, target_grid, enumeration_complete)
+from .historical_locators import replay_structured_locator, validate_structured_locator
 from .time_semantics import date_only_safe_available_at, is_observation_eligible, parse_aware_datetime
 from .validator import _safe_relative_path, _value_date_bounds, validate_catalog
 
@@ -92,6 +93,21 @@ def resolve_plan(plan_id: str, plans: list[dict]) -> dict:
             pg = source["pagination"]
             require(pg["endPage"] >= pg["startPage"] and pg["requestLimit"] >= pg["endPage"] - pg["startPage"] + 1,
                     "invalid pagination bounds/request limit")
+            require({p['pageNumber'] for p in pg['pageTargets']} == set(range(pg['startPage'], pg['endPage'] + 1)),
+                    'plan page targets do not cover frozen pagination range')
+            require(pg['stopRule']['pageNumber'] == pg['endPage'], 'plan stop rule not at frozen range end')
+            try:
+                re.compile(pg['candidateUrlPattern'])
+            except re.error as exc:
+                raise ValueError('invalid candidate URL pattern') from exc
+            for target_key, stop_key in [('pageTargets','stopRule'), ('revisionPageTargets','revisionStopRule')]:
+                targets = pg[target_key]
+                numbered = index(targets, 'pageNumber')
+                require(bool(numbered) and pg[stop_key]['pageNumber'] == max(numbered), 'scan stop outside plan targets')
+                require(len({p['url'] for p in targets}) == len(targets), 'duplicate enumeration page URL')
+                for page in targets:
+                    require(official_url(page['url'], source['officialRoots']), 'enumeration URL outside official roots')
+            require(set(source['indexUrls']) <= {p['url'] for p in pg['pageTargets']}, 'index roots missing from page plan')
             for url in source["officialRoots"] + source["indexUrls"]:
                 require(official_url(url, source["officialRoots"]), "source plan URL outside official roots")
                 host = urlsplit(url).hostname or ""
@@ -111,10 +127,25 @@ def resolve_plan(plan_id: str, plans: list[dict]) -> dict:
     return matches[0]
 
 
+def validate_locator_contract(loc, artifact, body):
+    schema_check(loc, 'locator')
+    require(loc['artifactId'] == artifact['artifactId'] and sha256_bytes(body) == artifact['sha256'], 'locator artifact identity mismatch')
+    if loc.get('kind') == 'STRUCTURED_CELL':
+        expected_mime = {'XLS_OLE':'application/vnd.ms-excel',
+                         'XLSX':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                         'DOCX_TABLE':'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}[loc['format']]
+        require(artifact['contentType'].split(';', 1)[0].strip() == expected_mime, 'structured locator MIME/format mismatch')
+        validate_structured_locator(loc, body)
+
+
 class Graph:
-    def __init__(self, dataset, catalog, plan, root):
+    def __init__(self, dataset, catalog, plan, root, locator_replayers=None):
         self.d, self.c, self.p, self.root = dataset, catalog, plan, root
-        self.artifacts = index(catalog["artifacts"], "artifactId")
+        self.event_artifacts = index(catalog["artifacts"], "artifactId")
+        self.evidence_artifacts = index(dataset['evidenceArtifacts'], 'artifactId')
+        require(not self.event_artifacts.keys() & self.evidence_artifacts.keys(), 'event/evidence artifact identity collision')
+        self.artifacts = {**self.event_artifacts, **self.evidence_artifacts}
+        self.locator_replayers = locator_replayers or {}
         self.definitions = index(catalog["sourceDefinitions"], "sourceDefinitionId")
         self.observations = index(catalog["observations"], "observationId")
         self.exchanges = index(catalog["exchangeMarketObservations"], "observationId")
@@ -125,6 +156,7 @@ class Graph:
         self.bindings = index(dataset["artifactBindings"], "artifactId")
         self.extractions = index(dataset["fieldExtractions"], "extractionId")
         self.cells = index(dataset["coverageLedger"], "cellId")
+        self.attempts = index(dataset['retrievalAttempts'], 'attemptId')
         for collection, key in SIDECARS.items():
             index(dataset[collection], key)
         self.bytes = {}
@@ -133,6 +165,76 @@ class Graph:
     def url(self, url, source_id):
         require(source_id in self.sources and official_url(url, self.sources[source_id]["officialRoots"]),
                 "URL/source outside frozen plan roots")
+
+    def validate_href(self, loc, base_url, expected_url):
+        hrefs = [urljoin(base_url, href) for href, _ in extract_html(loc['text'])[1]]
+        require(expected_url in hrefs, 'retained HTML link does not resolve to expected URL')
+
+    def validate_scan(self, scan, *, revision=False):
+        window = self.windows[scan['windowId']]
+        source_id = window['sourceId']
+        pg = self.sources[source_id]['pagination']
+        targets = index(pg['revisionPageTargets' if revision else 'pageTargets'], 'pageNumber')
+        pages = index(scan['revisionPages' if revision else 'pages'], 'pageNumber')
+        stop = scan['revisionStopEvidence' if revision else 'stopEvidence']
+        rule = pg['revisionStopRule' if revision else 'stopRule']
+        complete = scan['revisionScanComplete' if revision else 'paginationComplete']
+        require(pages.keys() <= targets.keys(), 'scan contains page outside frozen plan')
+        expected_candidates = {e['releaseEventId'] for e in self.events.values()
+            if e['sourceId'] == source_id and any(c['windowId'] == window['windowId']
+                and c['period'] in e['coveredPeriods'] for c in self.cells.values())}
+        found = set()
+        for number, page in pages.items():
+            target = targets[number]
+            aid = page['artifactId']
+            require(aid in self.evidence_artifacts and self.artifacts[aid]['evidenceRole'] == 'ARCHIVE_INDEX',
+                    'scan page must be independent archive/index evidence')
+            a = self.artifacts[aid]
+            require(page['url'] == target['url'] == a['sourceUrl'] and a['sourceId'] == source_id,
+                    'scan page URL/source differs from plan/acquisition')
+            attempt = self.attempts.get(page['retrievalAttemptId'])
+            require(attempt is not None and attempt['outcome'] == 'SUCCESS'
+                    and attempt['finalUrl'] == page['url'] and attempt['sourceId'] == source_id
+                    and attempt['attemptedAt'] == a['fetchedAt']
+                    and attempt['storedBytes'] == {k:a[k] for k in ('localPath','sha256','byteSize')},
+                    'scan page lacks original successful acquisition')
+            require(self.locator(page['pageIdentityEvidence'], source=source_id) == aid
+                    and target['pageMarker'] in page['pageIdentityEvidence']['text'], 'scan page ordinal evidence mismatch')
+            if self.p['purpose'] == 'HISTORICAL':
+                require(self.raw(aid), 'scan page cannot count fixture/incomplete bytes')
+            candidates = set(page['candidateReleaseEventIds'])
+            require(candidates <= expected_candidates, 'scan candidate outside source/window')
+            found.update(candidates)
+            for loc in page['entryEvidence']:
+                require(self.locator(loc, source=source_id) == aid, 'scan entry locator on wrong page')
+            page_links = {urljoin(a['sourceUrl'], href) for href, _ in extract_html(self.bytes[aid].decode('utf-8'))[1]
+                          if re.search(pg['candidateUrlPattern'], urljoin(a['sourceUrl'], href))}
+            # Reconcile every matching link in the actual retained page, not only
+            # links volunteered in a completeness declaration.
+            require(page_links == {self.events[eid]['landingUrl'] for eid in candidates},
+                    'actual page candidate links are missing/unreconciled')
+            for eid in candidates:
+                url = self.events[eid]['landingUrl']
+                require(any(url in {urljoin(a['sourceUrl'], href) for href, _ in extract_html(loc['text'])[1]}
+                            for loc in page['entryEvidence']), 'scan candidate has no retained entry')
+            next_numbers = sorted(n for n in targets if n > number)
+            if next_numbers:
+                loc = page['nextPageEvidence']
+                require(loc is not None and self.locator(loc, source=source_id) == aid, 'next page navigation evidence missing')
+                self.validate_href(loc, a['sourceUrl'], targets[next_numbers[0]]['url'])
+            else:
+                require(page['nextPageEvidence'] is None, 'terminal scan page has unexpected next page')
+        if stop:
+            require(stop['pageNumber'] == rule['pageNumber'] and stop['pageNumber'] in pages, 'scan stop not on planned terminal page')
+            require(self.locator(stop['locator'], source=source_id) == pages[stop['pageNumber']]['artifactId']
+                    and rule['markerText'] in stop['locator']['text'], 'scan stopping condition evidence mismatch')
+        if complete:
+            require(enumeration_complete(scan, pg, revision=revision), 'claimed complete scan missing planned page/stop evidence')
+        if (complete and scan['candidatesReconciled']) or (revision and complete):
+            require(found == expected_candidates, 'complete scan omits discovered release/revision candidates')
+        if not revision:
+            require(set(scan['scannedIndexUrls']) == {p['url'] for p in pages.values()}, 'scanned URLs differ from retained pages')
+            require(scan['candidatesReconciled'] is False or complete, 'candidate reconciliation requires complete page scan')
 
     def stored(self, record):
         body = safe_file(self.root, record["localPath"]).read_bytes()
@@ -145,6 +247,10 @@ class Graph:
         require(aid in self.bytes, "locator artifact missing")
         if source:
             require(self.artifacts[aid]["sourceId"] == source, "locator source mismatch")
+        if loc.get('kind') == 'STRUCTURED_CELL':
+            validate_locator_contract(loc, self.artifacts[aid], self.bytes[aid])
+            replay_structured_locator(loc, self.bytes[aid], self.locator_replayers)
+            return aid
         start, size = loc["byteOffset"], loc["byteLength"]
         require(self.bytes[aid][start:start + size] == loc["text"].encode("utf-8"), "locator bytes/text mismatch")
         return aid
@@ -162,8 +268,13 @@ class Graph:
             self.bytes[aid] = self.stored(a)
         for aid, a in self.artifacts.items():
             b = self.bindings[aid]
-            require(b["releaseEventId"] in self.events, "artifact release reference missing")
-            require(aid == artifact_identity(a, b["releaseEventId"]), "artifact event identity mismatch")
+            if aid in self.event_artifacts:
+                require(b["releaseEventId"] in self.events, "artifact release reference missing")
+                require(aid == artifact_identity(a, b["releaseEventId"]), "artifact event identity mismatch")
+            else:
+                require(b['releaseEventId'] is None, 'independent evidence must not invent a release event')
+                require(aid == evidence_artifact_identity(a), 'evidence acquisition identity mismatch')
+                require((a['parseStatus'] == 'FAILED') == bool(a['error']), 'evidence parse status/error mismatch')
             require(self.locator(b["contentEvidence"], source=a["sourceId"]) == aid, "content evidence must bind own bytes")
             if a["artifactRole"] == "RAW_SOURCE":
                 require(self.p["purpose"] == "HISTORICAL" and b["completeResponse"], "fixture cannot masquerade as RAW_SOURCE")
@@ -174,7 +285,7 @@ class Graph:
             if b["contentValidation"] == "VALIDATED":
                 require(not re.search(rb"<title[^>]*>[^<]*(?:error|login|access denied|captcha)|<form[^>]*[^<]*login", self.bytes[aid], re.I),
                         "200 error/login page is not data")
-            matching = [r for r in self.d["retrievalAttempts"] if r["outcome"] in ("SUCCESS", "CACHE_VERIFIED")
+            matching = [r for r in self.d["retrievalAttempts"] if r["outcome"] == "SUCCESS"
                         and r["sourceId"] == a["sourceId"] and r["finalUrl"] == a["sourceUrl"]
                         and r["storedBytes"] == {k: a[k] for k in ("localPath", "sha256", "byteSize")}
                         and r["attemptedAt"] == a["fetchedAt"] and r["httpStatus"] == a["httpStatus"]]
@@ -189,7 +300,23 @@ class Graph:
             if r["storedBytes"]:
                 self.stored(r["storedBytes"])
             status = r["httpStatus"]
-            if r["outcome"] in ("SUCCESS", "CACHE_VERIFIED"):
+            if r['outcome'] == 'CACHE_VERIFIED':
+                origin = self.attempts.get(r['acquisitionAttemptId'])
+                require(origin is not None and origin['outcome'] == 'SUCCESS', 'cache requires original network acquisition')
+                require(r['verifiedAt'] is not None
+                        and parse_aware_datetime(r['verifiedAt']) >= parse_aware_datetime(r['attemptedAt'])
+                        >= parse_aware_datetime(origin['attemptedAt']),
+                        'cache verification time precedes acquisition or is missing')
+                require(status is None and r['transportError'] is None, 'cache verification must not claim an HTTP response')
+                require(all(r[k] == origin[k] for k in ('sourceId','requestUrl','finalUrl','storedBytes')),
+                        'cache bytes/URL/source differ from acquisition')
+                require(any(a['sourceId'] == origin['sourceId'] and a['sourceUrl'] == origin['finalUrl']
+                            and a['fetchedAt'] == origin['attemptedAt']
+                            and {k:a[k] for k in ('localPath','sha256','byteSize')} == origin['storedBytes']
+                            for a in self.artifacts.values()), 'cache acquisition has no retained artifact')
+                continue
+            require(r['verifiedAt'] is None and r['acquisitionAttemptId'] is None, 'network attempt cannot claim cache verification fields')
+            if r["outcome"] == "SUCCESS":
                 require(status is not None and 200 <= status < 300 and r["transportError"] is None
                         and r["storedBytes"] is not None and r["finalUrl"] is not None, "pseudo-success retrieval")
             elif r["outcome"] == "HTTP_ERROR":
@@ -205,7 +332,7 @@ class Graph:
             require(eid == release_identity(e), "release event identity mismatch")
             self.url(e["landingUrl"], e["sourceId"])
             aids = {e["landingArtifactId"], *e["attachmentArtifactIds"]}
-            require(aids <= self.artifacts.keys(), "release artifact reference missing")
+            require(aids <= self.event_artifacts.keys(), "release artifact reference missing")
             require(len(aids) == 1 + len(e["attachmentArtifactIds"]), "landing cannot be attachment")
             require(self.artifacts[e["landingArtifactId"]]["sourceUrl"] == e["landingUrl"], "landing URL mismatch")
             for aid in aids:
@@ -220,7 +347,15 @@ class Graph:
                 expected = pub or date_only_safe_available_at(e["publicationDate"])
                 require(e["releaseAvailableAt"] == expected, "unsafe release availability")
             self.locator(e["publicationEvidence"], source=e["sourceId"])
-            require(e["publicationEvidence"]["artifactId"] in aids, "publication locator outside event")
+            for link in e['indexEvidence']:
+                aid = link['artifactId']
+                require(aid in self.evidence_artifacts and self.artifacts[aid]['evidenceRole'] == 'ARCHIVE_INDEX', 'index link requires independent archive/index artifact')
+                require(self.locator(link['locator'], source=e['sourceId']) == aid and link['url'] == e['landingUrl'], 'index landing link mismatch')
+                require(len(extract_html(link['locator']['text'])[1]) == 1, 'index evidence must locate one landing entry')
+                self.validate_href(link['locator'], self.artifacts[aid]['sourceUrl'], e['landingUrl'])
+            if e['publicationEvidence']['artifactId'] not in aids:
+                require(any(e['publicationEvidence'] == link['locator'] for link in e['indexEvidence']),
+                        'index publication fallback must bind the same landing entry')
             publication_text = e["publicationEvidence"]["text"]
             raw_publication = pub or e["publicationDate"]
             require(raw_publication is not None and (raw_publication in publication_text or
@@ -232,11 +367,8 @@ class Graph:
             require(links.keys() == set(e["attachmentArtifactIds"]), "attachment links incomplete")
             for aid, link in links.items():
                 require(self.locator(link["locator"]) == e["landingArtifactId"], "attachment link not on landing")
-                text = link["locator"]["text"]
-                hrefs = [href for href, _ in extract_html(text)[1]]
-                require(link["url"] == self.artifacts[aid]["sourceUrl"] and
-                        (link["url"] in text or any(urljoin(e["landingUrl"], href) == link["url"] for href in hrefs)),
-                        "attachment href mismatch")
+                require(link["url"] == self.artifacts[aid]["sourceUrl"], "attachment href mismatch")
+                self.validate_href(link['locator'], e['landingUrl'], link['url'])
             for loc in e["firstReleaseEvidence"] + e["revisionEvidence"]:
                 self.locator(loc, source=e["sourceId"])
             require(set(e["firstReleaseEvidenceArtifactIds"]) == {l["artifactId"] for l in e["firstReleaseEvidence"]},
@@ -276,6 +408,8 @@ class Graph:
             if semantics == "QUARTER_END":
                 require(x["period"][-2:] in ('03','06','09','12'), "QUARTER_END requires quarter end")
             require(self.locator(x["locator"]) == x["rawArtifactId"], "field locator must bind raw artifact")
+            if x['locator'].get('kind') == 'STRUCTURED_CELL':
+                require(x['locator']['parserVersion'] == x['parserVersion'], 'structured locator/parser version mismatch')
             self.locator(x["basisEvidence"], source=e["sourceId"])
             require(all(v in x["locator"]["text"] for v in (x["rawFieldName"], x["rawUnit"], x["rawValueText"])),
                     "raw field/unit/value missing from locator")
@@ -377,6 +511,7 @@ class Graph:
         evidence_ids = {e["landingArtifactId"], *e["attachmentArtifactIds"], x["rawArtifactId"],
                         x["basisEvidence"]["artifactId"], e["publicationEvidence"]["artifactId"],
                         *(l["artifactId"] for l in e["firstReleaseEvidence"] + e["revisionEvidence"])}
+        evidence_ids.update(link['artifactId'] for link in e['indexEvidence'])
         return all(self.raw(aid) for aid in evidence_ids)
 
     def validate_coverage(self):
@@ -436,9 +571,8 @@ class Graph:
                 self.locator(loc, source=w["sourceId"])
                 if self.p["purpose"] == "HISTORICAL":
                     require(self.raw(loc["artifactId"]), "inventory cannot use fixture evidence")
-            if scan["paginationComplete"]:
-                require(bool(scan["evidence"]) and set(self.sources[w["sourceId"]]["indexUrls"]) <= set(scan["scannedIndexUrls"]),
-                        "inventory pagination evidence incomplete")
+            self.validate_scan(scan)
+            self.validate_scan(scan, revision=True)
         return admitted
 
     def validate_conflicts(self):
@@ -456,7 +590,7 @@ class Graph:
                 require(eid in c["candidateReleaseEventIds"], "resolution event not retained as candidate")
 
 
-def validate_dataset(dataset, catalog, *, plans: list[dict], artifact_root: Path) -> list[str]:
+def validate_dataset(dataset, catalog, *, plans: list[dict], artifact_root: Path, locator_replayers=None) -> list[str]:
     try:
         schema_check(dataset)
         schema_check(catalog, r1=True)
@@ -464,7 +598,7 @@ def validate_dataset(dataset, catalog, *, plans: list[dict], artifact_root: Path
         plan = resolve_plan(m["planId"], plans)
         require(m["planContentSha256"] == canonical_sha256(plan_projection(plan)) and m["datasetAsOf"] == plan["datasetAsOf"]
                 and m["targetWindows"] == canonical_order(plan["targetWindows"]), "manifest frozen plan mismatch")
-        graph = Graph(dataset, catalog, plan, Path(artifact_root))
+        graph = Graph(dataset, catalog, plan, Path(artifact_root), locator_replayers)
         graph.validate_artifacts()  # Resolve containment before the unchanged R1 byte validator.
         r1_errors = validate_catalog(catalog, artifact_root=Path(artifact_root), verify_artifacts=True)
         require(not r1_errors, "R1: " + '; '.join(r1_errors))

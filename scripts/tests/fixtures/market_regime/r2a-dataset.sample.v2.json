@@ -1,0 +1,1052 @@
+{
+  "artifactBindings": [
+    {
+      "artifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+      "completeResponse": false,
+      "contentEvidence": {
+        "artifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+        "byteLength": 30,
+        "byteOffset": 37,
+        "text": "<title>Protocol report</title>"
+      },
+      "contentValidation": "VALIDATED",
+      "releaseEventId": "release-e276c809e42c5e9b9c166376c88ab6d1491582e093a99a1f2f92a393f66cbc73"
+    },
+    {
+      "artifactId": "artifact-r2-28c41c6b9c86d9d5ae416ab17be64e0860457f5f5c872a2dd70600faa2505589",
+      "completeResponse": false,
+      "contentEvidence": {
+        "artifactId": "artifact-r2-28c41c6b9c86d9d5ae416ab17be64e0860457f5f5c872a2dd70600faa2505589",
+        "byteLength": 30,
+        "byteOffset": 37,
+        "text": "<title>Protocol report</title>"
+      },
+      "contentValidation": "VALIDATED",
+      "releaseEventId": "release-f41c402644f583d59f1754a542dab2e5c84ae3b3097c50446f26cdfe466f0f98"
+    },
+    {
+      "artifactId": "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9",
+      "completeResponse": false,
+      "contentEvidence": {
+        "artifactId": "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9",
+        "byteLength": 30,
+        "byteOffset": 37,
+        "text": "<title>Protocol report</title>"
+      },
+      "contentValidation": "VALIDATED",
+      "releaseEventId": "release-32c81ca95e426a6c5e866d14b6ec21ba82eb7b4c75599ed8096d49e399192755"
+    },
+    {
+      "artifactId": "artifact-r2-acd9f96bef094fc1b772971d0fd582e543c4020f354f1a724588ba5137f10c1f",
+      "completeResponse": false,
+      "contentEvidence": {
+        "artifactId": "artifact-r2-acd9f96bef094fc1b772971d0fd582e543c4020f354f1a724588ba5137f10c1f",
+        "byteLength": 30,
+        "byteOffset": 37,
+        "text": "<title>Protocol report</title>"
+      },
+      "contentValidation": "VALIDATED",
+      "releaseEventId": "release-0cfa780681b64e60187a4a2773e59de432b2a71217bb61457afb6a50706dbe4d"
+    },
+    {
+      "artifactId": "artifact-r2-e237da4127c3ad78745673daa1a54f8cc48459869a6e1da00fda8723c481e6d6",
+      "completeResponse": false,
+      "contentEvidence": {
+        "artifactId": "artifact-r2-e237da4127c3ad78745673daa1a54f8cc48459869a6e1da00fda8723c481e6d6",
+        "byteLength": 30,
+        "byteOffset": 37,
+        "text": "<title>Protocol report</title>"
+      },
+      "contentValidation": "VALIDATED",
+      "releaseEventId": "release-1604681c180d5299fbd83efe2a721a8d4afdbc4336732395e9d1d478dc33d2fa"
+    },
+    {
+      "artifactId": "evidence-r2-03e6f348e19b0e717eaf8213b968ad55533e25f568de5c0ff175f87e8e2e22e5",
+      "completeResponse": false,
+      "contentEvidence": {
+        "artifactId": "evidence-r2-03e6f348e19b0e717eaf8213b968ad55533e25f568de5c0ff175f87e8e2e22e5",
+        "byteLength": 81,
+        "byteOffset": 0,
+        "text": "SYNTHETIC OFFLINE TEST FIXTURE\n<html>Calendar dates: 2026-09-03 2026-09-04</html>"
+      },
+      "contentValidation": "VALIDATED",
+      "releaseEventId": null
+    },
+    {
+      "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+      "completeResponse": false,
+      "contentEvidence": {
+        "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+        "byteLength": 293,
+        "byteOffset": 0,
+        "text": "SYNTHETIC OFFLINE TEST FIXTURE\n<html><title>Archive</title>Page 1\n<a href=\"report.html\">2026-09-07T07:59:00+08:00</a>\n<a href=\"report.html\">2026-09-07T08:00:00+08:00</a>\n<a href=\"report.html\">2026-09-06</a>\n<a href=\"report.html\">2026-09-07T08:01:00+08:00</a>\nEND INDEX\nEND REVISION SCAN</html>"
+      },
+      "contentValidation": "VALIDATED",
+      "releaseEventId": null
+    },
+    {
+      "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+      "completeResponse": false,
+      "contentEvidence": {
+        "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+        "byteLength": 152,
+        "byteOffset": 0,
+        "text": "SYNTHETIC OFFLINE TEST FIXTURE\n<html><title>Archive</title>Page 1\n<a href=\"report.html\">2026-09-07T07:59:00+08:00</a>\nEND INDEX\nEND REVISION SCAN</html>"
+      },
+      "contentValidation": "VALIDATED",
+      "releaseEventId": null
+    }
+  ],
+  "conflicts": [],
+  "coverageLedger": [
+    {
+      "admittedObservationIds": [],
+      "candidateReleaseEventIds": [
+        "release-0cfa780681b64e60187a4a2773e59de432b2a71217bb61457afb6a50706dbe4d",
+        "release-32c81ca95e426a6c5e866d14b6ec21ba82eb7b4c75599ed8096d49e399192755"
+      ],
+      "cellId": "cell-c3dd7351dfb61ff1ac5941e4b34462302160bf81a9d72390672fea9382b32e83",
+      "evidenceArtifactIds": [],
+      "field": "value",
+      "metricId": "MACRO_M2_YOY",
+      "period": "2026-01",
+      "reasonCode": "SYNTHETIC_PROTOCOL",
+      "scopeVersion": "test-national-v1",
+      "sourceDefinitionIds": [
+        "m2-v1"
+      ],
+      "sourceId": "TEST_M2",
+      "status": "PIT_VINTAGE_UNPROVEN",
+      "statusEvidence": [],
+      "windowId": "monthly"
+    },
+    {
+      "admittedObservationIds": [],
+      "candidateReleaseEventIds": [
+        "release-1604681c180d5299fbd83efe2a721a8d4afdbc4336732395e9d1d478dc33d2fa"
+      ],
+      "cellId": "cell-044dd62ebdf539f8f7a12d0a3adcce1891fb50588e8e530ef6f330c32bc65309",
+      "evidenceArtifactIds": [
+        "artifact-r2-e237da4127c3ad78745673daa1a54f8cc48459869a6e1da00fda8723c481e6d6"
+      ],
+      "field": "value",
+      "metricId": "MACRO_M2_YOY",
+      "period": "2026-03",
+      "reasonCode": "SYNTHETIC_PROTOCOL",
+      "scopeVersion": "test-national-v1",
+      "sourceDefinitionIds": [
+        "m2-v1"
+      ],
+      "sourceId": "TEST_M2",
+      "status": "NOT_YET_RELEASED",
+      "statusEvidence": [
+        {
+          "artifactId": "artifact-r2-e237da4127c3ad78745673daa1a54f8cc48459869a6e1da00fda8723c481e6d6",
+          "byteLength": 25,
+          "byteOffset": 162,
+          "text": "2026-09-07T08:01:00+08:00"
+        }
+      ],
+      "windowId": "monthly"
+    },
+    {
+      "admittedObservationIds": [],
+      "candidateReleaseEventIds": [
+        "release-e276c809e42c5e9b9c166376c88ab6d1491582e093a99a1f2f92a393f66cbc73"
+      ],
+      "cellId": "cell-2b6a70ce0935f3fba234f3d2dae0e780fa84fc20910fe0186a5316ff71c4b185",
+      "evidenceArtifactIds": [],
+      "field": "turnoverValue",
+      "metricId": "EXCHANGE_MARKET_STATS",
+      "period": "2026-09-03",
+      "reasonCode": "SYNTHETIC_PROTOCOL",
+      "scopeVersion": "test-sse-a-v1",
+      "sourceDefinitionIds": [
+        "exchange-v1"
+      ],
+      "sourceId": "TEST_EXCHANGE",
+      "status": "PIT_VINTAGE_UNPROVEN",
+      "statusEvidence": [],
+      "windowId": "daily"
+    },
+    {
+      "admittedObservationIds": [],
+      "candidateReleaseEventIds": [
+        "release-f41c402644f583d59f1754a542dab2e5c84ae3b3097c50446f26cdfe466f0f98"
+      ],
+      "cellId": "cell-ff0f99238b6ffbb3a5e6b153cf6b2ff9674f41356e83429b4f75aa9d128e47fe",
+      "evidenceArtifactIds": [],
+      "field": "value",
+      "metricId": "MACRO_M2_YOY",
+      "period": "2026-02",
+      "reasonCode": "SYNTHETIC_PROTOCOL",
+      "scopeVersion": "test-national-v1",
+      "sourceDefinitionIds": [
+        "m2-v1"
+      ],
+      "sourceId": "TEST_M2",
+      "status": "PIT_VINTAGE_UNPROVEN",
+      "statusEvidence": [],
+      "windowId": "monthly"
+    },
+    {
+      "admittedObservationIds": [],
+      "candidateReleaseEventIds": [],
+      "cellId": "cell-803483786560403c9431904da2a752f1cae1a7f05a195b415620f8fc4479b988",
+      "evidenceArtifactIds": [],
+      "field": "turnoverValue",
+      "metricId": "EXCHANGE_MARKET_STATS",
+      "period": "2026-09-04",
+      "reasonCode": "TIMEOUT",
+      "scopeVersion": "test-sse-a-v1",
+      "sourceDefinitionIds": [
+        "exchange-v1"
+      ],
+      "sourceId": "TEST_EXCHANGE",
+      "status": "SOURCE_UNREACHABLE",
+      "statusEvidence": [],
+      "windowId": "daily"
+    }
+  ],
+  "evidenceArtifacts": [
+    {
+      "artifactId": "evidence-r2-03e6f348e19b0e717eaf8213b968ad55533e25f568de5c0ff175f87e8e2e22e5",
+      "artifactRole": "TEST_FIXTURE_EXCERPT",
+      "byteSize": 81,
+      "contentType": "text/html",
+      "error": null,
+      "evidenceRole": "CALENDAR",
+      "fetchedAt": "2026-09-08T00:00:00Z",
+      "fileName": "calendar.v2.html",
+      "httpStatus": 200,
+      "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-calendar.v2.html",
+      "parseStatus": "PARSED",
+      "sha256": "c17dfae76ef05c658c16e53377e0fe1970f3fd30a319b60b1709f92fc6afc40e",
+      "sourceId": "TEST_EXCHANGE",
+      "sourceUrl": "https://source.invalid/calendar.v2.html"
+    },
+    {
+      "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+      "artifactRole": "TEST_FIXTURE_EXCERPT",
+      "byteSize": 293,
+      "contentType": "text/html",
+      "error": null,
+      "evidenceRole": "ARCHIVE_INDEX",
+      "fetchedAt": "2026-09-08T00:00:00Z",
+      "fileName": "index-test_m2.v2.html",
+      "httpStatus": 200,
+      "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-index-test_m2.v2.html",
+      "parseStatus": "PARSED",
+      "sha256": "4e587d33c210d4c47d0e59c4a268e7d87ab3f3805c09b01310d315410ed32c48",
+      "sourceId": "TEST_M2",
+      "sourceUrl": "https://source.invalid/index-test_m2.v2.html"
+    },
+    {
+      "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+      "artifactRole": "TEST_FIXTURE_EXCERPT",
+      "byteSize": 152,
+      "contentType": "text/html",
+      "error": null,
+      "evidenceRole": "ARCHIVE_INDEX",
+      "fetchedAt": "2026-09-08T00:00:00Z",
+      "fileName": "index-test_exchange.v2.html",
+      "httpStatus": 200,
+      "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-index-test_exchange.v2.html",
+      "parseStatus": "PARSED",
+      "sha256": "17bac6bcc57bca9265a3d162d0ff00d6d5b4749262b2a1ea46aadf9e20611364",
+      "sourceId": "TEST_EXCHANGE",
+      "sourceUrl": "https://source.invalid/index-test_exchange.v2.html"
+    }
+  ],
+  "fieldExtractions": [
+    {
+      "basisEvidence": {
+        "artifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+        "byteLength": 37,
+        "byteOffset": 326,
+        "text": "2026-09-03 turnover CNY 20.0 A shares"
+      },
+      "exchangeObservationId": "sep-03",
+      "extractionId": "extract-sep-03",
+      "field": "turnoverValue",
+      "locator": {
+        "artifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+        "byteLength": 37,
+        "byteOffset": 326,
+        "text": "2026-09-03 turnover CNY 20.0 A shares"
+      },
+      "observationId": null,
+      "parserVersion": "synthetic-parser-v1",
+      "period": "2026-09-03",
+      "periodSemantics": "DAY",
+      "predecessorExtractionIds": [],
+      "rawArtifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+      "rawFieldName": "turnover",
+      "rawUnit": "CNY",
+      "rawValue": 20.0,
+      "rawValueText": "20.0",
+      "releaseEventId": "release-e276c809e42c5e9b9c166376c88ab6d1491582e093a99a1f2f92a393f66cbc73",
+      "reportedComparableBasis": true,
+      "sourceDefinitionId": "exchange-v1",
+      "unitConversion": {
+        "factor": 1,
+        "outputUnit": "CNY",
+        "rule": "IDENTITY"
+      }
+    },
+    {
+      "basisEvidence": {
+        "artifactId": "artifact-r2-28c41c6b9c86d9d5ae416ab17be64e0860457f5f5c872a2dd70600faa2505589",
+        "byteLength": 33,
+        "byteOffset": 292,
+        "text": "2026-02 M2 % 9.0 comparable basis"
+      },
+      "exchangeObservationId": null,
+      "extractionId": "extract-feb-backcast",
+      "field": "value",
+      "locator": {
+        "artifactId": "artifact-r2-28c41c6b9c86d9d5ae416ab17be64e0860457f5f5c872a2dd70600faa2505589",
+        "byteLength": 33,
+        "byteOffset": 292,
+        "text": "2026-02 M2 % 9.0 comparable basis"
+      },
+      "observationId": "feb-backcast",
+      "parserVersion": "synthetic-parser-v1",
+      "period": "2026-02",
+      "periodSemantics": "MONTH",
+      "predecessorExtractionIds": [],
+      "rawArtifactId": "artifact-r2-28c41c6b9c86d9d5ae416ab17be64e0860457f5f5c872a2dd70600faa2505589",
+      "rawFieldName": "M2",
+      "rawUnit": "%",
+      "rawValue": 9.0,
+      "rawValueText": "9.0",
+      "releaseEventId": "release-f41c402644f583d59f1754a542dab2e5c84ae3b3097c50446f26cdfe466f0f98",
+      "reportedComparableBasis": true,
+      "sourceDefinitionId": "m2-v1",
+      "unitConversion": {
+        "factor": 1,
+        "outputUnit": "%",
+        "rule": "IDENTITY"
+      }
+    },
+    {
+      "basisEvidence": {
+        "artifactId": "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9",
+        "byteLength": 34,
+        "byteOffset": 222,
+        "text": "2026-01 M2 % 10.0 comparable basis"
+      },
+      "exchangeObservationId": null,
+      "extractionId": "extract-jan-v0",
+      "field": "value",
+      "locator": {
+        "artifactId": "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9",
+        "byteLength": 34,
+        "byteOffset": 222,
+        "text": "2026-01 M2 % 10.0 comparable basis"
+      },
+      "observationId": "jan-v0",
+      "parserVersion": "synthetic-parser-v1",
+      "period": "2026-01",
+      "periodSemantics": "MONTH",
+      "predecessorExtractionIds": [],
+      "rawArtifactId": "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9",
+      "rawFieldName": "M2",
+      "rawUnit": "%",
+      "rawValue": 10.0,
+      "rawValueText": "10.0",
+      "releaseEventId": "release-32c81ca95e426a6c5e866d14b6ec21ba82eb7b4c75599ed8096d49e399192755",
+      "reportedComparableBasis": true,
+      "sourceDefinitionId": "m2-v1",
+      "unitConversion": {
+        "factor": 1,
+        "outputUnit": "%",
+        "rule": "IDENTITY"
+      }
+    },
+    {
+      "basisEvidence": {
+        "artifactId": "artifact-r2-acd9f96bef094fc1b772971d0fd582e543c4020f354f1a724588ba5137f10c1f",
+        "byteLength": 34,
+        "byteOffset": 257,
+        "text": "2026-01 M2 % 11.0 comparable basis"
+      },
+      "exchangeObservationId": null,
+      "extractionId": "extract-jan-v1",
+      "field": "value",
+      "locator": {
+        "artifactId": "artifact-r2-acd9f96bef094fc1b772971d0fd582e543c4020f354f1a724588ba5137f10c1f",
+        "byteLength": 34,
+        "byteOffset": 257,
+        "text": "2026-01 M2 % 11.0 comparable basis"
+      },
+      "observationId": "jan-v1",
+      "parserVersion": "synthetic-parser-v1",
+      "period": "2026-01",
+      "periodSemantics": "MONTH",
+      "predecessorExtractionIds": [
+        "extract-jan-v0"
+      ],
+      "rawArtifactId": "artifact-r2-acd9f96bef094fc1b772971d0fd582e543c4020f354f1a724588ba5137f10c1f",
+      "rawFieldName": "M2",
+      "rawUnit": "%",
+      "rawValue": 11.0,
+      "rawValueText": "11.0",
+      "releaseEventId": "release-0cfa780681b64e60187a4a2773e59de432b2a71217bb61457afb6a50706dbe4d",
+      "reportedComparableBasis": true,
+      "sourceDefinitionId": "m2-v1",
+      "unitConversion": {
+        "factor": 1,
+        "outputUnit": "%",
+        "rule": "IDENTITY"
+      }
+    }
+  ],
+  "inventoryEvidence": [
+    {
+      "candidatesReconciled": true,
+      "evidence": [
+        {
+          "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+          "byteLength": 9,
+          "byteOffset": 259,
+          "text": "END INDEX"
+        }
+      ],
+      "pages": [
+        {
+          "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+          "candidateReleaseEventIds": [
+            "release-0cfa780681b64e60187a4a2773e59de432b2a71217bb61457afb6a50706dbe4d",
+            "release-1604681c180d5299fbd83efe2a721a8d4afdbc4336732395e9d1d478dc33d2fa",
+            "release-32c81ca95e426a6c5e866d14b6ec21ba82eb7b4c75599ed8096d49e399192755",
+            "release-f41c402644f583d59f1754a542dab2e5c84ae3b3097c50446f26cdfe466f0f98"
+          ],
+          "entryEvidence": [
+            {
+              "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+              "byteLength": 36,
+              "byteOffset": 170,
+              "text": "<a href=\"report.html\">2026-09-06</a>"
+            },
+            {
+              "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+              "byteLength": 51,
+              "byteOffset": 118,
+              "text": "<a href=\"report.html\">2026-09-07T08:00:00+08:00</a>"
+            },
+            {
+              "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+              "byteLength": 51,
+              "byteOffset": 207,
+              "text": "<a href=\"report.html\">2026-09-07T08:01:00+08:00</a>"
+            },
+            {
+              "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+              "byteLength": 51,
+              "byteOffset": 66,
+              "text": "<a href=\"report.html\">2026-09-07T07:59:00+08:00</a>"
+            }
+          ],
+          "nextPageEvidence": null,
+          "pageIdentityEvidence": {
+            "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+            "byteLength": 6,
+            "byteOffset": 59,
+            "text": "Page 1"
+          },
+          "pageNumber": 1,
+          "retrievalAttemptId": "acquire-index-test_m2.v2.html",
+          "url": "https://source.invalid/index-test_m2.v2.html"
+        }
+      ],
+      "paginationComplete": true,
+      "revisionPages": [],
+      "revisionScanComplete": false,
+      "revisionStopEvidence": null,
+      "scannedIndexUrls": [
+        "https://source.invalid/index-test_m2.v2.html"
+      ],
+      "stopEvidence": {
+        "locator": {
+          "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+          "byteLength": 9,
+          "byteOffset": 259,
+          "text": "END INDEX"
+        },
+        "pageNumber": 1
+      },
+      "windowId": "monthly"
+    },
+    {
+      "candidatesReconciled": true,
+      "evidence": [
+        {
+          "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+          "byteLength": 9,
+          "byteOffset": 118,
+          "text": "END INDEX"
+        }
+      ],
+      "pages": [
+        {
+          "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+          "candidateReleaseEventIds": [
+            "release-e276c809e42c5e9b9c166376c88ab6d1491582e093a99a1f2f92a393f66cbc73"
+          ],
+          "entryEvidence": [
+            {
+              "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+              "byteLength": 51,
+              "byteOffset": 66,
+              "text": "<a href=\"report.html\">2026-09-07T07:59:00+08:00</a>"
+            }
+          ],
+          "nextPageEvidence": null,
+          "pageIdentityEvidence": {
+            "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+            "byteLength": 6,
+            "byteOffset": 59,
+            "text": "Page 1"
+          },
+          "pageNumber": 1,
+          "retrievalAttemptId": "acquire-index-test_exchange.v2.html",
+          "url": "https://source.invalid/index-test_exchange.v2.html"
+        }
+      ],
+      "paginationComplete": true,
+      "revisionPages": [],
+      "revisionScanComplete": false,
+      "revisionStopEvidence": null,
+      "scannedIndexUrls": [
+        "https://source.invalid/index-test_exchange.v2.html"
+      ],
+      "stopEvidence": {
+        "locator": {
+          "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+          "byteLength": 9,
+          "byteOffset": 118,
+          "text": "END INDEX"
+        },
+        "pageNumber": 1
+      },
+      "windowId": "daily"
+    }
+  ],
+  "manifest": {
+    "admissionStatus": "SYNTHETIC_ONLY",
+    "catalogContentSha256": "cc36427b0d26f2992fcd7af5c07bd485ea006dd023d4d1e7a9851e14ca0a4eda",
+    "coverageSummary": [
+      {
+        "counts": {
+          "availableCount": 0,
+          "backcastCount": 0,
+          "notYetReleasedCount": 0,
+          "provenFirstReleaseCount": 0,
+          "structuralCount": 0,
+          "targetCount": 2,
+          "unresolvedCount": 2,
+          "vintageCount": 0
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PASS",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "daily"
+      },
+      {
+        "counts": {
+          "availableCount": 0,
+          "backcastCount": 0,
+          "notYetReleasedCount": 1,
+          "provenFirstReleaseCount": 0,
+          "structuralCount": 0,
+          "targetCount": 3,
+          "unresolvedCount": 2,
+          "vintageCount": 0
+        },
+        "datasetCoverageStatus": "PARTIAL",
+        "inventoryStatus": "PASS",
+        "revisionCoverageStatus": "PARTIAL",
+        "windowId": "monthly"
+      }
+    ],
+    "datasetAsOf": "2026-09-07T08:00:00+08:00",
+    "datasetContentSha256": "851c81e5e2a0f9f7037f64e6ac88a9abb27028c3b0de854d6ca069b496bb2366",
+    "datasetVersion": "r2a-synthetic-offline-v2",
+    "generatedAt": "2026-09-08T00:00:00Z",
+    "planContentSha256": "adf1a8b2b23fb9e14c97267f79a36a2125d31773c6231ce54a6e83691358a4c9",
+    "planId": "r2a-offline-protocol:v2.0.0:adf1a8b2b23fb9e14c97267f79a36a2125d31773c6231ce54a6e83691358a4c9",
+    "schemaVersion": "1.1.0",
+    "sidecarContentHashes": {
+      "artifactBindings": "7ea93103e0247d27316701df7d7cbbe96b25f1b53dfebf33ee26c455dc433f09",
+      "conflicts": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "coverageLedger": "21a6ec3e8d25b009d3536dc8282047b38a2fadbce51d7fab53c5d9e092d4b551",
+      "evidenceArtifacts": "b6c8a5fcd3accb94af299354b1da38d7fbbb9e3b092f52868ddafc1f6d5ab0c5",
+      "fieldExtractions": "2421b93a9617fbdc2c90249c2cd6daa60941c75a5a3f5fc7863b84fb71a607bc",
+      "inventoryEvidence": "81e09ea9d2d295e91d5ab7351212436d7971ac39aa2b4d0a178932f03ad56865",
+      "releaseEvents": "479f01b5a0379aa22bdf89630e4a0b9d92eaa0ed9e29b5c529ab53bf6149fa3d",
+      "retrievalAttempts": "692886237d7b70d0ad31a9ff6e6b15474272df97bbe32e2d18a3d8bcd9e8e953"
+    },
+    "targetWindows": [
+      {
+        "calendar": null,
+        "end": "2026-03",
+        "field": "value",
+        "frequency": "MONTHLY",
+        "metricId": "MACRO_M2_YOY",
+        "nativeFrequencyEra": "MONTHLY",
+        "scopeVersion": "test-national-v1",
+        "sourceDefinitionIds": [
+          "m2-v1"
+        ],
+        "sourceId": "TEST_M2",
+        "start": "2026-01",
+        "windowId": "monthly"
+      },
+      {
+        "calendar": {
+          "calendarVersion": "test-calendar-v1",
+          "dates": [
+            "2026-09-03",
+            "2026-09-04"
+          ],
+          "evidence": [
+            {
+              "artifactId": "evidence-r2-03e6f348e19b0e717eaf8213b968ad55533e25f568de5c0ff175f87e8e2e22e5",
+              "byteLength": 37,
+              "byteOffset": 37,
+              "text": "Calendar dates: 2026-09-03 2026-09-04"
+            }
+          ]
+        },
+        "end": "2026-09-04",
+        "field": "turnoverValue",
+        "frequency": "TRADING_DAY",
+        "metricId": "EXCHANGE_MARKET_STATS",
+        "nativeFrequencyEra": "DAILY",
+        "scopeVersion": "test-sse-a-v1",
+        "sourceDefinitionIds": [
+          "exchange-v1"
+        ],
+        "sourceId": "TEST_EXCHANGE",
+        "start": "2026-09-03",
+        "windowId": "daily"
+      }
+    ],
+    "validationStatus": "PASS"
+  },
+  "releaseEvents": [
+    {
+      "attachmentArtifactIds": [],
+      "attachmentEvidence": [],
+      "coveredPeriods": [
+        "2026-01"
+      ],
+      "eventSection": "INITIAL RELEASE",
+      "firstReleaseEvidence": [
+        {
+          "artifactId": "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9",
+          "byteLength": 15,
+          "byteOffset": 100,
+          "text": "INITIAL RELEASE"
+        }
+      ],
+      "firstReleaseEvidenceArtifactIds": [
+        "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9"
+      ],
+      "indexEvidence": [
+        {
+          "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+          "locator": {
+            "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+            "byteLength": 51,
+            "byteOffset": 66,
+            "text": "<a href=\"report.html\">2026-09-07T07:59:00+08:00</a>"
+          },
+          "url": "https://source.invalid/report.html"
+        }
+      ],
+      "landingArtifactId": "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9",
+      "landingUrl": "https://source.invalid/report.html",
+      "publicationDate": "2026-09-07",
+      "publicationDateTime": "2026-09-07T07:59:00+08:00",
+      "publicationEvidence": {
+        "artifactId": "artifact-r2-563312aa4d25d28490465e9d7b8eb3cc7a41356403afa2fd19ff351562e521a9",
+        "byteLength": 25,
+        "byteOffset": 74,
+        "text": "2026-09-07T07:59:00+08:00"
+      },
+      "releaseAvailableAt": "2026-09-07T07:59:00+08:00",
+      "releaseConfidenceClass": "EXACT_TIMESTAMP",
+      "releaseEventId": "release-32c81ca95e426a6c5e866d14b6ec21ba82eb7b4c75599ed8096d49e399192755",
+      "releaseKind": "FIRST_RELEASE",
+      "revisionEvidence": [],
+      "sourceId": "TEST_M2"
+    },
+    {
+      "attachmentArtifactIds": [],
+      "attachmentEvidence": [],
+      "coveredPeriods": [
+        "2026-01"
+      ],
+      "eventSection": "OFFICIAL CORRECTION",
+      "firstReleaseEvidence": [],
+      "firstReleaseEvidenceArtifactIds": [],
+      "indexEvidence": [
+        {
+          "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+          "locator": {
+            "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+            "byteLength": 51,
+            "byteOffset": 118,
+            "text": "<a href=\"report.html\">2026-09-07T08:00:00+08:00</a>"
+          },
+          "url": "https://source.invalid/report.html"
+        }
+      ],
+      "landingArtifactId": "artifact-r2-acd9f96bef094fc1b772971d0fd582e543c4020f354f1a724588ba5137f10c1f",
+      "landingUrl": "https://source.invalid/report.html",
+      "publicationDate": "2026-09-07",
+      "publicationDateTime": "2026-09-07T08:00:00+08:00",
+      "publicationEvidence": {
+        "artifactId": "artifact-r2-acd9f96bef094fc1b772971d0fd582e543c4020f354f1a724588ba5137f10c1f",
+        "byteLength": 25,
+        "byteOffset": 116,
+        "text": "2026-09-07T08:00:00+08:00"
+      },
+      "releaseAvailableAt": "2026-09-07T08:00:00+08:00",
+      "releaseConfidenceClass": "EXACT_TIMESTAMP",
+      "releaseEventId": "release-0cfa780681b64e60187a4a2773e59de432b2a71217bb61457afb6a50706dbe4d",
+      "releaseKind": "REVISION",
+      "revisionEvidence": [
+        {
+          "artifactId": "artifact-r2-acd9f96bef094fc1b772971d0fd582e543c4020f354f1a724588ba5137f10c1f",
+          "byteLength": 19,
+          "byteOffset": 142,
+          "text": "OFFICIAL CORRECTION"
+        }
+      ],
+      "sourceId": "TEST_M2"
+    },
+    {
+      "attachmentArtifactIds": [],
+      "attachmentEvidence": [],
+      "coveredPeriods": [
+        "2026-02"
+      ],
+      "eventSection": "BACKCAST",
+      "firstReleaseEvidence": [],
+      "firstReleaseEvidenceArtifactIds": [],
+      "indexEvidence": [
+        {
+          "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+          "locator": {
+            "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+            "byteLength": 36,
+            "byteOffset": 170,
+            "text": "<a href=\"report.html\">2026-09-06</a>"
+          },
+          "url": "https://source.invalid/report.html"
+        }
+      ],
+      "landingArtifactId": "artifact-r2-28c41c6b9c86d9d5ae416ab17be64e0860457f5f5c872a2dd70600faa2505589",
+      "landingUrl": "https://source.invalid/report.html",
+      "publicationDate": "2026-09-06",
+      "publicationDateTime": null,
+      "publicationEvidence": {
+        "artifactId": "artifact-r2-28c41c6b9c86d9d5ae416ab17be64e0860457f5f5c872a2dd70600faa2505589",
+        "byteLength": 10,
+        "byteOffset": 202,
+        "text": "2026-09-06"
+      },
+      "releaseAvailableAt": "2026-09-07T00:00:00+08:00",
+      "releaseConfidenceClass": "BACKCAST_RELEASED_LATER",
+      "releaseEventId": "release-f41c402644f583d59f1754a542dab2e5c84ae3b3097c50446f26cdfe466f0f98",
+      "releaseKind": "BACKCAST",
+      "revisionEvidence": [],
+      "sourceId": "TEST_M2"
+    },
+    {
+      "attachmentArtifactIds": [],
+      "attachmentEvidence": [],
+      "coveredPeriods": [
+        "2026-03"
+      ],
+      "eventSection": "LATER RELEASE",
+      "firstReleaseEvidence": [
+        {
+          "artifactId": "artifact-r2-e237da4127c3ad78745673daa1a54f8cc48459869a6e1da00fda8723c481e6d6",
+          "byteLength": 13,
+          "byteOffset": 188,
+          "text": "LATER RELEASE"
+        }
+      ],
+      "firstReleaseEvidenceArtifactIds": [
+        "artifact-r2-e237da4127c3ad78745673daa1a54f8cc48459869a6e1da00fda8723c481e6d6"
+      ],
+      "indexEvidence": [
+        {
+          "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+          "locator": {
+            "artifactId": "evidence-r2-a2bb014a3d6bfcfc90489dc08a8a294a3cb48d78582ef945201d6d9d7584e454",
+            "byteLength": 51,
+            "byteOffset": 207,
+            "text": "<a href=\"report.html\">2026-09-07T08:01:00+08:00</a>"
+          },
+          "url": "https://source.invalid/report.html"
+        }
+      ],
+      "landingArtifactId": "artifact-r2-e237da4127c3ad78745673daa1a54f8cc48459869a6e1da00fda8723c481e6d6",
+      "landingUrl": "https://source.invalid/report.html",
+      "publicationDate": "2026-09-07",
+      "publicationDateTime": "2026-09-07T08:01:00+08:00",
+      "publicationEvidence": {
+        "artifactId": "artifact-r2-e237da4127c3ad78745673daa1a54f8cc48459869a6e1da00fda8723c481e6d6",
+        "byteLength": 25,
+        "byteOffset": 162,
+        "text": "2026-09-07T08:01:00+08:00"
+      },
+      "releaseAvailableAt": "2026-09-07T08:01:00+08:00",
+      "releaseConfidenceClass": "EXACT_TIMESTAMP",
+      "releaseEventId": "release-1604681c180d5299fbd83efe2a721a8d4afdbc4336732395e9d1d478dc33d2fa",
+      "releaseKind": "FIRST_RELEASE",
+      "revisionEvidence": [],
+      "sourceId": "TEST_M2"
+    },
+    {
+      "attachmentArtifactIds": [],
+      "attachmentEvidence": [],
+      "coveredPeriods": [
+        "2026-09-03"
+      ],
+      "eventSection": "INITIAL RELEASE",
+      "firstReleaseEvidence": [
+        {
+          "artifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+          "byteLength": 15,
+          "byteOffset": 100,
+          "text": "INITIAL RELEASE"
+        }
+      ],
+      "firstReleaseEvidenceArtifactIds": [
+        "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2"
+      ],
+      "indexEvidence": [
+        {
+          "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+          "locator": {
+            "artifactId": "evidence-r2-cb967422c9816890eefb7333ffde13a60a1a1fc9cbcea6c4fed6f349ad6b71e1",
+            "byteLength": 51,
+            "byteOffset": 66,
+            "text": "<a href=\"report.html\">2026-09-07T07:59:00+08:00</a>"
+          },
+          "url": "https://source.invalid/report.html"
+        }
+      ],
+      "landingArtifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+      "landingUrl": "https://source.invalid/report.html",
+      "publicationDate": "2026-09-07",
+      "publicationDateTime": "2026-09-07T07:59:00+08:00",
+      "publicationEvidence": {
+        "artifactId": "artifact-r2-1b9b46b2d09ed069e04341a1d02c60eacd126b77f98a138d705062b42f2dcbc2",
+        "byteLength": 25,
+        "byteOffset": 74,
+        "text": "2026-09-07T07:59:00+08:00"
+      },
+      "releaseAvailableAt": "2026-09-07T07:59:00+08:00",
+      "releaseConfidenceClass": "EXACT_TIMESTAMP",
+      "releaseEventId": "release-e276c809e42c5e9b9c166376c88ab6d1491582e093a99a1f2f92a393f66cbc73",
+      "releaseKind": "FIRST_RELEASE",
+      "revisionEvidence": [],
+      "sourceId": "TEST_EXCHANGE"
+    }
+  ],
+  "retrievalAttempts": [
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "acquire-calendar.v2.html",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [],
+      "finalUrl": "https://source.invalid/calendar.v2.html",
+      "handlingBasis": "Independent acquired evidence",
+      "httpStatus": 200,
+      "outcome": "SUCCESS",
+      "reasonCode": "OFFLINE_MODEL",
+      "requestUrl": "https://source.invalid/calendar.v2.html",
+      "sourceId": "TEST_EXCHANGE",
+      "storedBytes": {
+        "byteSize": 81,
+        "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-calendar.v2.html",
+        "sha256": "c17dfae76ef05c658c16e53377e0fe1970f3fd30a319b60b1709f92fc6afc40e"
+      },
+      "transportError": null,
+      "verifiedAt": null
+    },
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "acquire-index-test_exchange.v2.html",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [],
+      "finalUrl": "https://source.invalid/index-test_exchange.v2.html",
+      "handlingBasis": "Independent acquired evidence",
+      "httpStatus": 200,
+      "outcome": "SUCCESS",
+      "reasonCode": "OFFLINE_MODEL",
+      "requestUrl": "https://source.invalid/index-test_exchange.v2.html",
+      "sourceId": "TEST_EXCHANGE",
+      "storedBytes": {
+        "byteSize": 152,
+        "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-index-test_exchange.v2.html",
+        "sha256": "17bac6bcc57bca9265a3d162d0ff00d6d5b4749262b2a1ea46aadf9e20611364"
+      },
+      "transportError": null,
+      "verifiedAt": null
+    },
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "acquire-index-test_m2.v2.html",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [],
+      "finalUrl": "https://source.invalid/index-test_m2.v2.html",
+      "handlingBasis": "Independent acquired evidence",
+      "httpStatus": 200,
+      "outcome": "SUCCESS",
+      "reasonCode": "OFFLINE_MODEL",
+      "requestUrl": "https://source.invalid/index-test_m2.v2.html",
+      "sourceId": "TEST_M2",
+      "storedBytes": {
+        "byteSize": 293,
+        "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-index-test_m2.v2.html",
+        "sha256": "4e587d33c210d4c47d0e59c4a268e7d87ab3f3805c09b01310d315410ed32c48"
+      },
+      "transportError": null,
+      "verifiedAt": null
+    },
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "attempt-1",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [
+        "release-32c81ca95e426a6c5e866d14b6ec21ba82eb7b4c75599ed8096d49e399192755"
+      ],
+      "finalUrl": "https://source.invalid/report.html",
+      "handlingBasis": "Synthetic protocol fixture, no network request",
+      "httpStatus": 200,
+      "outcome": "SUCCESS",
+      "reasonCode": "OFFLINE_MODEL",
+      "requestUrl": "https://source.invalid/report.html",
+      "sourceId": "TEST_M2",
+      "storedBytes": {
+        "byteSize": 515,
+        "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-response.html",
+        "sha256": "979b08a2d1ca973fc2ae594f1f6ab6bdb573a0569cfbc8820d0879dcbea41bbc"
+      },
+      "transportError": null,
+      "verifiedAt": null
+    },
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "attempt-2",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [
+        "release-0cfa780681b64e60187a4a2773e59de432b2a71217bb61457afb6a50706dbe4d"
+      ],
+      "finalUrl": "https://source.invalid/report.html",
+      "handlingBasis": "Synthetic protocol fixture, no network request",
+      "httpStatus": 200,
+      "outcome": "SUCCESS",
+      "reasonCode": "OFFLINE_MODEL",
+      "requestUrl": "https://source.invalid/report.html",
+      "sourceId": "TEST_M2",
+      "storedBytes": {
+        "byteSize": 515,
+        "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-response.html",
+        "sha256": "979b08a2d1ca973fc2ae594f1f6ab6bdb573a0569cfbc8820d0879dcbea41bbc"
+      },
+      "transportError": null,
+      "verifiedAt": null
+    },
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "attempt-3",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [
+        "release-f41c402644f583d59f1754a542dab2e5c84ae3b3097c50446f26cdfe466f0f98"
+      ],
+      "finalUrl": "https://source.invalid/report.html",
+      "handlingBasis": "Synthetic protocol fixture, no network request",
+      "httpStatus": 200,
+      "outcome": "SUCCESS",
+      "reasonCode": "OFFLINE_MODEL",
+      "requestUrl": "https://source.invalid/report.html",
+      "sourceId": "TEST_M2",
+      "storedBytes": {
+        "byteSize": 515,
+        "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-response.html",
+        "sha256": "979b08a2d1ca973fc2ae594f1f6ab6bdb573a0569cfbc8820d0879dcbea41bbc"
+      },
+      "transportError": null,
+      "verifiedAt": null
+    },
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "attempt-4",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [
+        "release-1604681c180d5299fbd83efe2a721a8d4afdbc4336732395e9d1d478dc33d2fa"
+      ],
+      "finalUrl": "https://source.invalid/report.html",
+      "handlingBasis": "Synthetic protocol fixture, no network request",
+      "httpStatus": 200,
+      "outcome": "SUCCESS",
+      "reasonCode": "OFFLINE_MODEL",
+      "requestUrl": "https://source.invalid/report.html",
+      "sourceId": "TEST_M2",
+      "storedBytes": {
+        "byteSize": 515,
+        "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-response.html",
+        "sha256": "979b08a2d1ca973fc2ae594f1f6ab6bdb573a0569cfbc8820d0879dcbea41bbc"
+      },
+      "transportError": null,
+      "verifiedAt": null
+    },
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "attempt-5",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [
+        "release-e276c809e42c5e9b9c166376c88ab6d1491582e093a99a1f2f92a393f66cbc73"
+      ],
+      "finalUrl": "https://source.invalid/report.html",
+      "handlingBasis": "Synthetic protocol fixture, no network request",
+      "httpStatus": 200,
+      "outcome": "SUCCESS",
+      "reasonCode": "OFFLINE_MODEL",
+      "requestUrl": "https://source.invalid/report.html",
+      "sourceId": "TEST_EXCHANGE",
+      "storedBytes": {
+        "byteSize": 515,
+        "localPath": "scripts/tests/fixtures/market_regime/r2a-synthetic-response.html",
+        "sha256": "979b08a2d1ca973fc2ae594f1f6ab6bdb573a0569cfbc8820d0879dcbea41bbc"
+      },
+      "transportError": null,
+      "verifiedAt": null
+    },
+    {
+      "acquisitionAttemptId": null,
+      "attemptId": "timeout",
+      "attemptedAt": "2026-09-08T00:00:00Z",
+      "candidateReleaseEventIds": [],
+      "finalUrl": null,
+      "handlingBasis": "Preserve gap; no pseudo-artifact",
+      "httpStatus": null,
+      "outcome": "TRANSPORT_ERROR",
+      "reasonCode": "TIMEOUT",
+      "requestUrl": "https://source.invalid/index.html",
+      "sourceId": "TEST_EXCHANGE",
+      "storedBytes": null,
+      "transportError": "TimeoutError",
+      "verifiedAt": null
+    }
+  ]
+}
