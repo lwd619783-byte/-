@@ -21,6 +21,7 @@
 - Phase 1B 已关闭，但只完成 Node-only Local Core；没有由此获得 Portfolio UI / Exposure、Research Bridge、可信来源 adapter、OCR、真实历史迁移或 cloud business database 的实现与准入。
 - [Local-first 冻结决定](investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md)覆盖旧云端业务数据库假设；[Master Plan](investment-dashboard-master-plan-2026-09.md)中的 Stage 4 顺序保留为历史基线。Phase 1B 后的唯一当前开发顺序与重叠判断见[路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)，业务语义与准入仍由冻结合同和专项审计决定。
 - 下一项实际业务任务冻结为 **STAGE 4.1 — HISTORICAL OBSERVATION CATALOG R2 / PIT DATASET EXPANSION**；本索引更新不授权其实现。
+- 2026-09-08：[R2 Dataset Scope Freeze V1](market-regime/observation-catalog-r2-scope-freeze-v1.md) 已形成 implementation brief，状态为 **R2 SCOPE FREEZE IMPLEMENTED / PENDING INDEPENDENT REVIEW**；只冻结 dataset、PIT、逐源准入和实施切片，R2 数据集尚未实现。普通 push 后停止，等待独立远端审计。
 
 ## P0 展示口径与待办
 
