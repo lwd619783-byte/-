@@ -1,0 +1,12 @@
+[
+  {"name":"manifest-self-reference", "path":["manifest","self"], "value":"datasetContentSha256"},
+  {"name":"unknown-release-kind", "path":["releaseEvents",0,"releaseKind"], "value":"COLLECTED_FIRST"},
+  {"name":"unknown-coverage-state", "path":["coverageLedger",0,"status"], "value":"GOOD_ENOUGH"},
+  {"name":"invalid-field", "path":["fieldExtractions",0,"field"], "value":"freeFloatGuess"},
+  {"name":"unknown-retrieval", "path":["retrievalAttempts",0,"outcome"], "value":"ASSUMED_SUCCESS"},
+  {"name":"non-object-record", "path":["releaseEvents",0], "value":null},
+  {"name":"unsafe-windows-path", "path":["retrievalAttempts",0,"storedBytes","localPath"], "value":"C:secret"},
+  {"name":"orphan-plan", "path":["manifest","planId"], "value":"nonexistent:v1"},
+  {"name":"forged-coverage", "path":["manifest","admissionStatus"], "value":"ADMITTED"},
+  {"name":"stale-sidecar-hash", "path":["manifest","sidecarContentHashes","conflicts"], "value":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+]

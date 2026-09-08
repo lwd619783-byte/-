@@ -1,0 +1,561 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:investment-research-dashboard:market-regime:historical-dataset:v1",
+  "title": "Historical Dataset Contract Core V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest",
+    "releaseEvents",
+    "artifactBindings",
+    "fieldExtractions",
+    "coverageLedger",
+    "retrievalAttempts",
+    "conflicts",
+    "inventoryEvidence"
+  ],
+  "properties": {
+    "manifest": {"$ref": "#/$defs/manifest"},
+    "releaseEvents": {"type": "array", "items": {"$ref": "#/$defs/releaseEvent"}, "uniqueItems": true, "minItems": 0},
+    "artifactBindings": {"type": "array", "items": {"$ref": "#/$defs/artifactBinding"}, "uniqueItems": true, "minItems": 0},
+    "fieldExtractions": {"type": "array", "items": {"$ref": "#/$defs/fieldExtraction"}, "uniqueItems": true, "minItems": 0},
+    "coverageLedger": {"type": "array", "items": {"$ref": "#/$defs/coverageCell"}, "uniqueItems": true, "minItems": 0},
+    "retrievalAttempts": {"type": "array", "items": {"$ref": "#/$defs/retrievalAttempt"}, "uniqueItems": true, "minItems": 0},
+    "conflicts": {"type": "array", "items": {"$ref": "#/$defs/conflict"}, "uniqueItems": true, "minItems": 0},
+    "inventoryEvidence": {"type": "array", "items": {"$ref": "#/$defs/inventoryEvidence"}, "uniqueItems": true, "minItems": 0}
+  },
+  "$defs": {
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactId", "byteOffset", "byteLength", "text"],
+      "properties": {
+        "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "byteOffset": {"type": "integer", "minimum": 0},
+        "byteLength": {"type": "integer", "minimum": 1},
+        "text": {"type": "string", "minLength": 1}
+      }
+    },
+    "storedBytes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["localPath", "sha256", "byteSize"],
+      "properties": {
+        "localPath": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?!.*[\\\\:%?#\\u0000])(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*[. ](?:/|$))[^/]+(?:/[^/]+)*$",
+          "description": "Safe repository-relative POSIX path; validator also rejects resolved symlink/junction escapes."
+        },
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "byteSize": {"type": "integer", "minimum": 1}
+      }
+    },
+    "calendar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["calendarVersion", "dates", "evidence"],
+      "properties": {
+        "calendarVersion": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "dates": {"type": "array", "items": {"type": "string", "format": "date"}, "uniqueItems": true, "minItems": 1},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0}
+      }
+    },
+    "targetWindow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "windowId",
+        "sourceId",
+        "metricId",
+        "field",
+        "frequency",
+        "start",
+        "end",
+        "scopeVersion",
+        "nativeFrequencyEra",
+        "sourceDefinitionIds",
+        "calendar"
+      ],
+      "properties": {
+        "windowId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "sourceId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "metricId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "field": {"enum": ["value", "turnoverValue", "totalMarketCap", "negotiableMarketCap"]},
+        "frequency": {"enum": ["MONTHLY", "TRADING_DAY"]},
+        "start": {"type": "string", "minLength": 1},
+        "end": {"type": "string", "minLength": 1},
+        "scopeVersion": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "nativeFrequencyEra": {"type": "string", "minLength": 1},
+        "sourceDefinitionIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "calendar": {"oneOf": [{"$ref": "#/$defs/calendar"}, {"type": "null"}]}
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["startPage", "endPage", "stopCondition", "requestLimit", "timeoutSeconds", "enumerationRule"],
+      "properties": {
+        "startPage": {"type": "integer", "minimum": 0},
+        "endPage": {"type": "integer", "minimum": 0},
+        "stopCondition": {"type": "string", "minLength": 1},
+        "requestLimit": {"type": "integer", "minimum": 1},
+        "timeoutSeconds": {"type": "number", "exclusiveMinimum": 0},
+        "enumerationRule": {"const": "OFFICIAL_LINKS_ONLY"}
+      }
+    },
+    "sourcePlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceId", "officialRoots", "indexUrls", "pagination", "firstReleaseRule"],
+      "properties": {
+        "sourceId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "officialRoots": {"type": "array", "items": {"type": "string", "format": "uri"}, "uniqueItems": true, "minItems": 1},
+        "indexUrls": {"type": "array", "items": {"type": "string", "format": "uri"}, "uniqueItems": true, "minItems": 1},
+        "pagination": {"$ref": "#/$defs/pagination"},
+        "firstReleaseRule": {"type": "string", "minLength": 1}
+      }
+    },
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "planName",
+        "planVersion",
+        "planId",
+        "purpose",
+        "datasetAsOf",
+        "timezone",
+        "decisionClock",
+        "sources",
+        "targetWindows"
+      ],
+      "properties": {
+        "schemaVersion": {"const": "1.0.0"},
+        "planName": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "planVersion": {"type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"},
+        "planId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "description": "planName:v<planVersion>:<full canonical SHA-256 of all plan fields except planId>. Must resolve uniquely in the external versioned registry."
+        },
+        "purpose": {"enum": ["SYNTHETIC_OFFLINE", "HISTORICAL"]},
+        "datasetAsOf": {"type": "string", "format": "date-time"},
+        "timezone": {"const": "Asia/Shanghai"},
+        "decisionClock": {"const": "MONDAY_0800"},
+        "sources": {"type": "array", "items": {"$ref": "#/$defs/sourcePlan"}, "uniqueItems": true, "minItems": 1},
+        "targetWindows": {"type": "array", "items": {"$ref": "#/$defs/targetWindow"}, "uniqueItems": true, "minItems": 1}
+      }
+    },
+    "releaseEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "releaseEventId",
+        "sourceId",
+        "landingUrl",
+        "eventSection",
+        "publicationDateTime",
+        "publicationDate",
+        "releaseAvailableAt",
+        "releaseConfidenceClass",
+        "landingArtifactId",
+        "attachmentArtifactIds",
+        "publicationEvidence",
+        "attachmentEvidence",
+        "releaseKind",
+        "coveredPeriods",
+        "firstReleaseEvidenceArtifactIds",
+        "firstReleaseEvidence",
+        "revisionEvidence"
+      ],
+      "properties": {
+        "releaseEventId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "sourceId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "landingUrl": {"type": "string", "format": "uri"},
+        "eventSection": {"type": "string", "minLength": 1},
+        "publicationDateTime": {"oneOf": [{"type": "string", "format": "date-time"}, {"type": "null"}]},
+        "publicationDate": {"oneOf": [{"type": "string", "format": "date"}, {"type": "null"}]},
+        "releaseAvailableAt": {"type": "string", "format": "date-time"},
+        "releaseConfidenceClass": {
+          "enum": [
+            "EXACT_TIMESTAMP",
+            "DATE_ONLY_SAFE",
+            "SCHEDULE_INFERRED",
+            "LATEST_REVISED_PROXY",
+            "BACKCAST_RELEASED_LATER"
+          ]
+        },
+        "landingArtifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "attachmentArtifactIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "publicationEvidence": {"$ref": "#/$defs/locator"},
+        "attachmentEvidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["artifactId", "url", "locator"],
+            "properties": {
+              "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+              "url": {"type": "string", "format": "uri"},
+              "locator": {"$ref": "#/$defs/locator"}
+            }
+          },
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "releaseKind": {"enum": ["FIRST_RELEASE", "REVISION", "BACKCAST", "UNRESOLVED"]},
+        "coveredPeriods": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true, "minItems": 1},
+        "firstReleaseEvidenceArtifactIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "firstReleaseEvidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0},
+        "revisionEvidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0}
+      }
+    },
+    "artifactBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactId", "releaseEventId", "completeResponse", "contentValidation", "contentEvidence"],
+      "properties": {
+        "artifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "releaseEventId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "completeResponse": {"type": "boolean"},
+        "contentValidation": {"enum": ["VALIDATED", "ERROR_PAGE", "UNSUPPORTED"]},
+        "contentEvidence": {"$ref": "#/$defs/locator"}
+      }
+    },
+    "fieldExtraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extractionId",
+        "observationId",
+        "exchangeObservationId",
+        "field",
+        "releaseEventId",
+        "rawArtifactId",
+        "sourceDefinitionId",
+        "parserVersion",
+        "rawFieldName",
+        "rawUnit",
+        "rawValue",
+        "rawValueText",
+        "locator",
+        "period",
+        "periodSemantics",
+        "unitConversion",
+        "basisEvidence",
+        "reportedComparableBasis",
+        "predecessorExtractionIds"
+      ],
+      "properties": {
+        "extractionId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "observationId": {"oneOf": [{"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"}, {"type": "null"}]},
+        "exchangeObservationId": {"oneOf": [{"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"}, {"type": "null"}]},
+        "field": {"enum": ["value", "turnoverValue", "totalMarketCap", "negotiableMarketCap"]},
+        "releaseEventId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "rawArtifactId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "sourceDefinitionId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "parserVersion": {"type": "string", "minLength": 1},
+        "rawFieldName": {"type": "string", "minLength": 1},
+        "rawUnit": {"type": "string", "minLength": 1},
+        "rawValue": {"type": "number"},
+        "rawValueText": {"type": "string", "minLength": 1},
+        "locator": {"$ref": "#/$defs/locator"},
+        "period": {"type": "string", "minLength": 1},
+        "periodSemantics": {"enum": ["MONTH", "DAY", "YEAR_END", "QUARTER_END", "YTD"]},
+        "unitConversion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["rule", "factor", "outputUnit"],
+          "properties": {
+            "rule": {"enum": ["IDENTITY", "SCALE"]},
+            "factor": {"type": "number", "exclusiveMinimum": 0},
+            "outputUnit": {"type": "string", "minLength": 1}
+          }
+        },
+        "basisEvidence": {"$ref": "#/$defs/locator"},
+        "reportedComparableBasis": {"type": "boolean"},
+        "predecessorExtractionIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 0
+        }
+      }
+    },
+    "coverageCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cellId",
+        "windowId",
+        "sourceId",
+        "metricId",
+        "field",
+        "period",
+        "scopeVersion",
+        "sourceDefinitionIds",
+        "status",
+        "reasonCode",
+        "evidenceArtifactIds",
+        "statusEvidence",
+        "candidateReleaseEventIds",
+        "admittedObservationIds"
+      ],
+      "properties": {
+        "cellId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "windowId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "sourceId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "metricId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "field": {"enum": ["value", "turnoverValue", "totalMarketCap", "negotiableMarketCap"]},
+        "period": {"type": "string", "minLength": 1},
+        "scopeVersion": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "sourceDefinitionIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "status": {
+          "enum": [
+            "AVAILABLE",
+            "NOT_YET_RELEASED",
+            "STRUCTURALLY_UNAVAILABLE",
+            "MISSING",
+            "SOURCE_UNREACHABLE",
+            "SOURCE_ABSENT_CONFIRMED",
+            "AUTOMATION_UNPROVEN",
+            "FIRST_RELEASE_UNPROVEN",
+            "PIT_VINTAGE_UNPROVEN",
+            "FIELD_MISSING",
+            "UNSUPPORTED_FORMAT",
+            "PARSER_FAILED",
+            "DEFINITION_UNRESOLVED",
+            "UNRESOLVED_RELEASE_CONFLICT"
+          ]
+        },
+        "reasonCode": {"type": "string", "minLength": 1},
+        "evidenceArtifactIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "statusEvidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0},
+        "candidateReleaseEventIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "admittedObservationIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 0
+        }
+      }
+    },
+    "retrievalAttempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attemptId",
+        "sourceId",
+        "requestUrl",
+        "finalUrl",
+        "attemptedAt",
+        "httpStatus",
+        "transportError",
+        "storedBytes",
+        "outcome",
+        "reasonCode",
+        "candidateReleaseEventIds",
+        "handlingBasis"
+      ],
+      "properties": {
+        "attemptId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "sourceId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "requestUrl": {"type": "string", "format": "uri"},
+        "finalUrl": {"oneOf": [{"type": "string", "format": "uri"}, {"type": "null"}]},
+        "attemptedAt": {"type": "string", "format": "date-time"},
+        "httpStatus": {"oneOf": [{"type": "integer", "minimum": 100, "maximum": 599}, {"type": "null"}]},
+        "transportError": {"oneOf": [{"type": "string", "minLength": 1}, {"type": "null"}]},
+        "storedBytes": {"oneOf": [{"$ref": "#/$defs/storedBytes"}, {"type": "null"}]},
+        "outcome": {"enum": ["SUCCESS", "CACHE_VERIFIED", "HTTP_ERROR", "TRANSPORT_ERROR", "CONTENT_REJECTED"]},
+        "reasonCode": {"type": "string", "minLength": 1},
+        "candidateReleaseEventIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "handlingBasis": {"type": "string", "minLength": 1}
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflictId",
+        "cellIds",
+        "candidateReleaseEventIds",
+        "status",
+        "evidence",
+        "resolutionReleaseEventId",
+        "reasonCode",
+        "handlingBasis"
+      ],
+      "properties": {
+        "conflictId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "cellIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "candidateReleaseEventIds": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+          "uniqueItems": true,
+          "minItems": 2
+        },
+        "status": {"enum": ["UNRESOLVED", "RESOLVED_BY_OFFICIAL_REVISION"]},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0},
+        "resolutionReleaseEventId": {"oneOf": [{"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"}, {"type": "null"}]},
+        "reasonCode": {"type": "string", "minLength": 1},
+        "handlingBasis": {"type": "string", "minLength": 1}
+      }
+    },
+    "inventoryEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "windowId",
+        "scannedIndexUrls",
+        "paginationComplete",
+        "candidatesReconciled",
+        "revisionScanComplete",
+        "evidence"
+      ],
+      "properties": {
+        "windowId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "scannedIndexUrls": {"type": "array", "items": {"type": "string", "format": "uri"}, "uniqueItems": true, "minItems": 0},
+        "paginationComplete": {"type": "boolean"},
+        "candidatesReconciled": {"type": "boolean"},
+        "revisionScanComplete": {"type": "boolean"},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/locator"}, "uniqueItems": true, "minItems": 0}
+      }
+    },
+    "coverageSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["windowId", "counts", "inventoryStatus", "datasetCoverageStatus", "revisionCoverageStatus"],
+      "properties": {
+        "windowId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "targetCount",
+            "availableCount",
+            "provenFirstReleaseCount",
+            "backcastCount",
+            "notYetReleasedCount",
+            "structuralCount",
+            "unresolvedCount",
+            "vintageCount"
+          ],
+          "properties": {
+            "targetCount": {"type": "integer", "minimum": 0},
+            "availableCount": {"type": "integer", "minimum": 0},
+            "provenFirstReleaseCount": {"type": "integer", "minimum": 0},
+            "backcastCount": {"type": "integer", "minimum": 0},
+            "notYetReleasedCount": {"type": "integer", "minimum": 0},
+            "structuralCount": {"type": "integer", "minimum": 0},
+            "unresolvedCount": {"type": "integer", "minimum": 0},
+            "vintageCount": {"type": "integer", "minimum": 0}
+          }
+        },
+        "inventoryStatus": {"enum": ["PASS", "PARTIAL"]},
+        "datasetCoverageStatus": {"enum": ["PASS", "PARTIAL"]},
+        "revisionCoverageStatus": {"enum": ["PASS", "PARTIAL"]}
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "datasetVersion",
+        "planId",
+        "planContentSha256",
+        "datasetAsOf",
+        "targetWindows",
+        "catalogContentSha256",
+        "sidecarContentHashes",
+        "datasetContentSha256",
+        "generatedAt",
+        "validationStatus",
+        "admissionStatus",
+        "coverageSummary"
+      ],
+      "properties": {
+        "schemaVersion": {"const": "1.0.0"},
+        "datasetVersion": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "planId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+        "planContentSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "datasetAsOf": {"type": "string", "format": "date-time"},
+        "targetWindows": {"type": "array", "items": {"$ref": "#/$defs/targetWindow"}, "uniqueItems": true, "minItems": 1},
+        "catalogContentSha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "sidecarContentHashes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "releaseEvents",
+            "artifactBindings",
+            "fieldExtractions",
+            "coverageLedger",
+            "retrievalAttempts",
+            "conflicts",
+            "inventoryEvidence"
+          ],
+          "properties": {
+            "releaseEvents": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "artifactBindings": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "fieldExtractions": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "coverageLedger": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "retrievalAttempts": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "conflicts": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "inventoryEvidence": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
+        "datasetContentSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of historical.dataset_content_projection: business manifest identity plus canonically ordered sidecar contents. Excludes generatedAt, self hash, sidecar hashes and derived validation/coverage fields."
+        },
+        "generatedAt": {"type": "string", "format": "date-time"},
+        "validationStatus": {"const": "PASS"},
+        "admissionStatus": {"enum": ["SYNTHETIC_ONLY", "PARTIAL", "ADMITTED"]},
+        "coverageSummary": {"type": "array", "items": {"$ref": "#/$defs/coverageSummary"}, "uniqueItems": true, "minItems": 1}
+      }
+    }
+  }
+}
