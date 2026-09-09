@@ -1,0 +1,823 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "ALL_A_DATASET_ADMISSION_REPORT",
+  "reportVersion": "all-a-basic-amounts-r2d2-v1",
+  "baseline": "c731ec84be35ac91b0371ef294669203d78bc18d",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "generatedAt": "2026-09-09T00:00:00Z",
+  "status": "NOT_ADMITTED",
+  "numericAggregateCount": 0,
+  "observations": [],
+  "dailyGrid": null,
+  "targetCount": null,
+  "coveragePercent": null,
+  "sourceInventories": [
+    {
+      "exchange": "SZSE",
+      "inventoryPath": "research-data/market-regime/source-catalog/szse-d1b/inventory.v1.json",
+      "inventoryContentSha256": "e34a6514e49ee5f59236d8a256761978fbddb697a3a68f52eee03957b362ed7c",
+      "contractContentSha256": "1320b3420ebfdaf9bac0d98e0fc6691d02011a70bee53da129b467d5cfaef5c3",
+      "validationMode": "COMPACT_REPLAY_WITH_FROZEN_IDENTITY",
+      "rawArchiveReplay": "NOT_PERFORMED_BY_D2_REPORT",
+      "datasetAdmission": "NOT_ADMITTED",
+      "fields": {
+        "turnoverValue": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        },
+        "totalMarketCap": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        },
+        "negotiableMarketCap": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      },
+      "officialTradingDayTargetCount": null,
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2020-01-30",
+          "reason": "OFFICIAL_CALENDAR_MISSING"
+        },
+        {
+          "start": "2020-01-31",
+          "end": "2020-02-03",
+          "reason": "RELEASE_DEFINITION_AND_R2_CALENDAR_UNPROVEN"
+        },
+        {
+          "start": "2020-02-04",
+          "end": "2026-09-04",
+          "reason": "OFFICIAL_CALENDAR_MISSING"
+        }
+      ]
+    },
+    {
+      "exchange": "SSE",
+      "inventoryPath": "research-data/market-regime/source-catalog/sse-d1a/inventory.v1.json",
+      "inventoryContentSha256": "5684419e14532c8fe5ca6df9c9dcb481a1a9d91fd900b3d3f1a2afbd7cde1a71",
+      "contractContentSha256": "33f37b235b244f57d737b0d0d1eda0d5db669e37bc208f6b05509bfe442961dd",
+      "validationMode": "COMPACT_REPLAY_WITH_FROZEN_IDENTITY",
+      "rawArchiveReplay": "NOT_PERFORMED_BY_D2_REPORT",
+      "datasetAdmission": "NOT_ADMITTED",
+      "fields": {
+        "turnoverValue": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        "totalMarketCap": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        "negotiableMarketCap": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        }
+      },
+      "officialTradingDayTargetCount": null,
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2020-01-30",
+          "reason": "OFFICIAL_CALENDAR_MISSING"
+        },
+        {
+          "start": "2020-01-31",
+          "end": "2020-02-03",
+          "reason": "RELEASE_AND_DEFINITION_UNPROVEN"
+        },
+        {
+          "start": "2020-02-04",
+          "end": "2026-09-04",
+          "reason": "OFFICIAL_CALENDAR_MISSING"
+        }
+      ]
+    },
+    {
+      "exchange": "BSE",
+      "inventoryPath": "research-data/market-regime/source-catalog/bse-d1c/inventory.v1.json",
+      "inventoryContentSha256": "e04cea6e9943fdf07a96e9441ad1bdf81487075ad2e5f6090baae50ede673441",
+      "contractContentSha256": "f22d5231e89a840d55b5204c9044c11b6443d5928d575694e12276a61eb53e1c",
+      "validationMode": "COMPACT_REPLAY_WITH_FROZEN_IDENTITY",
+      "rawArchiveReplay": "NOT_PERFORMED_BY_D2_REPORT",
+      "datasetAdmission": "NOT_ADMITTED",
+      "fields": {
+        "turnoverValue": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        },
+        "totalMarketCap": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        },
+        "negotiableMarketCap": {
+          "formalCount": 0,
+          "strictPitCount": 0,
+          "blockers": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        }
+      },
+      "officialTradingDayTargetCount": null,
+      "unadmittedWindows": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-09-04",
+          "reason": "FULL_CALENDAR_SCOPE_AND_PIT_UNPROVEN"
+        }
+      ]
+    }
+  ],
+  "admissionMatrix": [
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "field": "negotiableMarketCap",
+      "requiredExchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "status": "NOT_ADMITTED",
+      "numericAggregateCount": 0,
+      "targetCount": null,
+      "coveragePercent": null,
+      "denominatorStatus": "UNKNOWN_OFFICIAL_CALENDAR",
+      "blockers": [
+        {
+          "exchange": "BSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        },
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "field": "totalMarketCap",
+      "requiredExchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "status": "NOT_ADMITTED",
+      "numericAggregateCount": 0,
+      "targetCount": null,
+      "coveragePercent": null,
+      "denominatorStatus": "UNKNOWN_OFFICIAL_CALENDAR",
+      "blockers": [
+        {
+          "exchange": "BSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        },
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "field": "turnoverValue",
+      "requiredExchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "status": "NOT_ADMITTED",
+      "numericAggregateCount": 0,
+      "targetCount": null,
+      "coveragePercent": null,
+      "denominatorStatus": "UNKNOWN_OFFICIAL_CALENDAR",
+      "blockers": [
+        {
+          "exchange": "BSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        },
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-pre-bse",
+      "start": "2005-01-01",
+      "end": "2021-11-14",
+      "field": "negotiableMarketCap",
+      "requiredExchanges": [
+        "SSE",
+        "SZSE"
+      ],
+      "status": "NOT_ADMITTED",
+      "numericAggregateCount": 0,
+      "targetCount": null,
+      "coveragePercent": null,
+      "denominatorStatus": "UNKNOWN_OFFICIAL_CALENDAR",
+      "blockers": [
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-pre-bse",
+      "start": "2005-01-01",
+      "end": "2021-11-14",
+      "field": "totalMarketCap",
+      "requiredExchanges": [
+        "SSE",
+        "SZSE"
+      ],
+      "status": "NOT_ADMITTED",
+      "numericAggregateCount": 0,
+      "targetCount": null,
+      "coveragePercent": null,
+      "denominatorStatus": "UNKNOWN_OFFICIAL_CALENDAR",
+      "blockers": [
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-pre-bse",
+      "start": "2005-01-01",
+      "end": "2021-11-14",
+      "field": "turnoverValue",
+      "requiredExchanges": [
+        "SSE",
+        "SZSE"
+      ],
+      "status": "NOT_ADMITTED",
+      "numericAggregateCount": 0,
+      "targetCount": null,
+      "coveragePercent": null,
+      "denominatorStatus": "UNKNOWN_OFFICIAL_CALENDAR",
+      "blockers": [
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    }
+  ],
+  "unadmittedWindows": [
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "field": "negotiableMarketCap",
+      "blockers": [
+        {
+          "exchange": "BSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        },
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "field": "totalMarketCap",
+      "blockers": [
+        {
+          "exchange": "BSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        },
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "field": "turnoverValue",
+      "blockers": [
+        {
+          "exchange": "BSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ]
+        },
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-pre-bse",
+      "start": "2005-01-01",
+      "end": "2021-11-14",
+      "field": "negotiableMarketCap",
+      "blockers": [
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-pre-bse",
+      "start": "2005-01-01",
+      "end": "2021-11-14",
+      "field": "totalMarketCap",
+      "blockers": [
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-pre-bse",
+      "start": "2005-01-01",
+      "end": "2021-11-14",
+      "field": "turnoverValue",
+      "blockers": [
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    }
+  ],
+  "excludedStructuralComponents": [
+    {
+      "exchange": "BSE",
+      "start": "2005-01-01",
+      "end": "2021-11-14",
+      "status": "OUTSIDE_REQUIRED_SCOPE",
+      "value": null,
+      "releaseAvailableAt": null
+    }
+  ],
+  "syntheticValidation": {
+    "included": false,
+    "historicalCoverage": 0
+  },
+  "contentSha256": "f07113d96b0a95a00c15ac7f1acf67b88fc9dffc55f6a1dcaa37f754ff045a1a"
+}
