@@ -62,7 +62,7 @@ export function RightRail({
                   </span>
                   <QuoteTrust quote={stock.quote} />
                 </span>
-                <span className={`shrink-0 text-sm tabular-nums ${toneForPct(pct)}`}>{formatPercent(pct)}</span>
+                <span className={`shrink-0 text-sm tabular-nums ${toneForPct(pct)}`}>{typeof pct === "number" && pct > 0 ? "+" : ""}{formatPercent(pct)}</span>
               </button>
             );
           })}
@@ -109,5 +109,5 @@ function RailKpi({ label, value, tone }: { label: string; value: number; tone: "
 
 function toneForPct(value: number | null | undefined) {
   if (value === null || value === undefined || value === 0) return "text-textMuted";
-  return value > 0 ? "text-success" : "text-danger";
+  return value > 0 ? "text-up" : "text-down";
 }

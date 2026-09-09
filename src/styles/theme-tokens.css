@@ -1,0 +1,126 @@
+/* NEON-RC1-20260909 presentation tokens. No runtime dependency on design assets. */
+:root,
+[data-theme="neon"] {
+  --ui-bg: #050D19;
+  --color-bg: 5 13 25;
+  --ui-panel: #0A192B;
+  --color-panel: 10 25 43;
+  --ui-raised: #10253B;
+  --color-raised: 16 37 59;
+  --ui-text: #EDF4FF;
+  --color-text: 237 244 255;
+  --ui-muted: #A6B8CE;
+  --color-muted: 166 184 206;
+  --ui-weak: #8FA4BE;
+  --color-weak: 143 164 190;
+  --ui-border: #29435D;
+  --color-border: 41 67 93;
+  --ui-control: #66819C;
+  --color-control: 102 129 156;
+  --ui-accent: #36CBFF;
+  --color-accent: 54 203 255;
+  --ui-secondary: #AC8AFF;
+  --color-secondary: 172 138 255;
+  --ui-up: #FF7885;
+  --color-up: 255 120 133;
+  --ui-down: #3FDBC0;
+  --color-down: 63 219 192;
+  --ui-warning: #F8C16C;
+  --color-warning: 248 193 108;
+  --ui-error: #FF8592;
+  --color-error: 255 133 146;
+  --ui-info: #6AB5FF;
+  --color-info: 106 181 255;
+  --ui-onaccent: #041220;
+  --color-onaccent: 4 18 32;
+  --ui-selected: #103149;
+  --color-selected: 16 49 73;
+  --ui-panel-gradient: linear-gradient(145deg, #0C1E32, var(--ui-panel));
+  --ui-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+  --ui-glow: 0 0 0 1px rgb(var(--color-accent) / 0.18), 0 4px 16px rgb(var(--color-accent) / 0.07);
+  color-scheme: dark;
+}
+
+[data-theme="pro"] {
+  --ui-bg: #111720;
+  --color-bg: 17 23 32;
+  --ui-panel: #1A2330;
+  --color-panel: 26 35 48;
+  --ui-raised: #253140;
+  --color-raised: 37 49 64;
+  --ui-text: #F0F4F8;
+  --color-text: 240 244 248;
+  --ui-muted: #BAC5D4;
+  --color-muted: 186 197 212;
+  --ui-weak: #9FAFC2;
+  --color-weak: 159 175 194;
+  --ui-border: #3F4C60;
+  --color-border: 63 76 96;
+  --ui-control: #7889A1;
+  --color-control: 120 137 161;
+  --ui-accent: #7DBBFF;
+  --color-accent: 125 187 255;
+  --ui-secondary: #B2A2E8;
+  --color-secondary: 178 162 232;
+  --ui-up: #FF8B97;
+  --color-up: 255 139 151;
+  --ui-down: #5CD0AB;
+  --color-down: 92 208 171;
+  --ui-warning: #EFC27A;
+  --color-warning: 239 194 122;
+  --ui-error: #FF98A4;
+  --color-error: 255 152 164;
+  --ui-info: #7DBBFF;
+  --color-info: 125 187 255;
+  --ui-onaccent: #101A27;
+  --color-onaccent: 16 26 39;
+  --ui-selected: #273D55;
+  --color-selected: 39 61 85;
+  --ui-panel-gradient: none;
+  --ui-shadow: 0 4px 14px rgb(0 0 0 / 0.1);
+  --ui-glow: 0 0 0 1px rgb(var(--color-accent) / 0.3);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --ui-bg: #F3F6FB;
+  --color-bg: 243 246 251;
+  --ui-panel: #FFFFFF;
+  --color-panel: 255 255 255;
+  --ui-raised: #EAF0F8;
+  --color-raised: 234 240 248;
+  --ui-text: #14233C;
+  --color-text: 20 35 60;
+  --ui-muted: #536581;
+  --color-muted: 83 101 129;
+  --ui-weak: #576A82;
+  --color-weak: 87 106 130;
+  --ui-border: #CBD5E1;
+  --color-border: 203 213 225;
+  --ui-control: #6B7E94;
+  --color-control: 107 126 148;
+  --ui-accent: #005CBF;
+  --color-accent: 0 92 191;
+  --ui-secondary: #6B46C1;
+  --color-secondary: 107 70 193;
+  --ui-up: #BA1A35;
+  --color-up: 186 26 53;
+  --ui-down: #00755B;
+  --color-down: 0 117 91;
+  --ui-warning: #865700;
+  --color-warning: 134 87 0;
+  --ui-error: #B41D35;
+  --color-error: 180 29 53;
+  --ui-info: #005CBF;
+  --color-info: 0 92 191;
+  --ui-onaccent: #FFFFFF;
+  --color-onaccent: 255 255 255;
+  --ui-selected: #E1EEFF;
+  --color-selected: 225 238 255;
+  --ui-panel-gradient: none;
+  --ui-shadow: 0 3px 12px rgb(20 35 60 / 0.05);
+  --ui-glow: 0 0 0 1px rgb(var(--color-accent) / 0.3);
+  color-scheme: light;
+}
+
+.ui-panel { background-image: var(--ui-panel-gradient); }

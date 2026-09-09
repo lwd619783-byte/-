@@ -3,7 +3,8 @@ export function FilterInput({ label, value, onChange }: { label: string; value: 
     <label className="block min-w-0">
       <span className="text-xs font-medium text-textMuted">{label}</span>
       <input
-        className="mt-1 h-10 w-full rounded-md border border-borderSoft bg-surface/85 px-3 text-sm text-text outline-none transition placeholder:text-textWeak focus:border-cyan focus:ring-2 focus:ring-cyan/15"
+        className="mt-1 h-11 w-full rounded-md border border-control bg-panel2 px-3 text-sm text-text outline-none transition placeholder:text-textWeak focus:border-accent focus:ring-2 focus:ring-accent sm:h-10"
+        aria-label={label}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="名称 / 代码"

@@ -1,97 +1,41 @@
 import { describeDataTime } from "../../utils/dataTrustDisplay";
 import { useDisplayNow } from "../../hooks/useDisplayNow";
-import { Search, ShieldAlert } from "lucide-react";
+import { Search } from "lucide-react";
 import type { DashboardDataMode } from "../../types";
 import { StatusBadge } from "../common/terminal";
 import { dataModeDisplayLabel, localizeDataSourceNote } from "../../utils/displayLabels";
-
+import { AppearanceControl } from "./Appearance";
 interface HeaderProps {
-  search: string;
-  onSearchChange: (value: string) => void;
-  updatedAt: string;
-  sourceNote: string;
-  dataMode: DashboardDataMode;
-  modeLabel: string;
-  coverageSummary?: string;
+  onHome?: () => void;
+  search: string; onSearchChange: (value: string) => void; updatedAt: string; sourceNote: string;
+  dataMode: DashboardDataMode; modeLabel: string; coverageSummary?: string;
   onDataModeChange: (mode: DashboardDataMode) => void;
 }
-
-export function Header({
-  search,
-  onSearchChange,
-  updatedAt,
-  sourceNote,
-  dataMode,
-  modeLabel,
-  coverageSummary,
-  onDataModeChange,
-}: HeaderProps) {
+export function Header({onHome,search,onSearchChange,updatedAt,sourceNote,dataMode,modeLabel,coverageSummary,onDataModeChange}: HeaderProps) {
   const time = describeDataTime(dataMode === "mock" ? undefined : updatedAt, "package_updated", useDisplayNow());
   const modeStatus = dataMode === "mock" ? "mock" : modeLabel === "Real Data" ? "real" : "partial";
   const displayModeLabel = dataModeDisplayLabel(modeLabel);
-  const displaySourceNote = localizeDataSourceNote(sourceNote);
-  const coverageBadges = (coverageSummary ?? "")
-    .split(/[；;，,]/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-  return (
-    <header className="border-b border-borderGlow/40 bg-bg/82 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1760px] flex-col gap-4 px-4 py-5 lg:px-8">
-        <div className="grid gap-4 xl:grid-cols-[420px_minmax(300px,1fr)_420px] xl:items-center">
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-2xl font-semibold tracking-wide text-textStrong">投资研究看板</h1>
-              <StatusBadge status={modeStatus} label={`数据模式：${dataModeDisplayLabel(modeLabel)}`} />
-            </div>
-            <p className="mt-1 text-sm leading-6 text-textMuted">
-              面向行业比较、核心资产跟踪、风险核验和研究线索沉淀的内部投研终端。
-            </p>
-            <p className="mt-1 break-words text-xs text-textWeak">
-              {time.text}。数据包更新不代表所有模块同时更新或市场观测时间。
-            </p>
-            {coverageBadges.length > 0 ? (
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {coverageBadges.slice(0, 4).map((item) => (
-                  <span key={item} className="max-w-full truncate rounded-full border border-borderSoft bg-surface/80 px-2 py-0.5 text-xs text-textMuted" title={item}>
-                    {item}
-                  </span>
-                ))}
-              </div>
-            ) : null}
-          </div>
-          <label className="relative block min-w-0">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cyan" />
-            <input
-              className="h-11 w-full rounded-md border border-borderGlow/60 bg-surface/85 pl-10 pr-3 text-sm text-text outline-none transition placeholder:text-textWeak focus:border-cyan focus:ring-2 focus:ring-cyan/15"
-              placeholder="搜索行业、细分板块、股票名称或代码"
-              value={search}
-              onChange={(event) => onSearchChange(event.target.value)}
-            />
-          </label>
-          <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
-            <label className="block">
-              <span className="sr-only">数据模式</span>
-              <select
-                className="h-11 rounded-md border border-borderGlow/60 bg-surface px-3 text-sm font-medium text-text outline-none transition focus:border-cyan focus:ring-2 focus:ring-cyan/15"
-                value={dataMode}
-                onChange={(event) => onDataModeChange(event.target.value as DashboardDataMode)}
-              >
-                <option value="mock">模拟数据</option>
-                <option value="mixed">混合数据</option>
-                <option value="real">真实数据</option>
-              </select>
-            </label>
-            <div className="rounded-md border border-borderSoft bg-surface/70 px-3 py-2 text-xs text-textMuted">{displayModeLabel}</div>
-          </div>
-        </div>
-        <div className="flex items-start gap-2 rounded-md border border-warning/25 bg-warning/10 px-3 py-2 text-sm text-amber-100">
-          <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0" />
-          <span className="min-w-0 break-words">
-            当前模式：{displayModeLabel}。{displaySourceNote} 本页面仅用于内部研究，不构成投资建议；缺失、过期或不支持的字段会明确显示。
-          </span>
-        </div>
+  return <header className="workspace-header">
+    <div className="workspace-topbar">
+      <a className="workspace-brand" href="#/home" onClick={event => { if(onHome){event.preventDefault();onHome();} }}><span aria-hidden="true">◈</span> 投研工作台</a>
+      <label className="workspace-search"><Search aria-hidden="true" className="h-4 w-4 shrink-0 text-cyan" />
+        <span className="sr-only">搜索当前研究池</span><input placeholder="当前研究池 · 行业、公司或代码" value={search} onChange={(event)=>onSearchChange(event.target.value)} />
+      </label>
+      <div className="flex flex-wrap items-center gap-3">
+        <label className="flex items-center gap-2 text-xs text-textMuted"><span className="sr-only">数据模式</span>
+          <select aria-label="数据模式" value={dataMode} onChange={(event)=>onDataModeChange(event.target.value as DashboardDataMode)}>
+            <option value="mock">模拟数据</option><option value="mixed">混合数据</option><option value="real">真实数据</option>
+          </select>
+        </label><AppearanceControl />
       </div>
-    </header>
-  );
+    </div>
+    <details className="workspace-data-status">
+      <summary><StatusBadge status={modeStatus} label={`当前模式：${displayModeLabel}`} /><span className="text-textMuted">数据来源与时点</span></summary>
+      <div className="space-y-1 py-3 text-xs leading-6 text-textMuted">
+        <p>{time.text}。数据包更新不代表所有模块同时更新或市场观测时间。</p>
+        <p>{localizeDataSourceNote(sourceNote)} 缺失、过期或不支持的字段会明确显示。</p>
+        {coverageSummary ? <p>{coverageSummary}</p> : null}
+      </div>
+    </details>
+  </header>;
 }

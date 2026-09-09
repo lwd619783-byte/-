@@ -10,8 +10,8 @@ export function MetricCard({
   const tones = {
     neutral: "text-textStrong",
     cyan: "text-cyan",
-    red: "text-danger",
-    green: "text-success",
+    red: "text-up",
+    green: "text-down",
     amber: "text-amber",
   };
   return (

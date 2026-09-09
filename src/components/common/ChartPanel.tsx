@@ -8,6 +8,8 @@ export function ChartPanel({
   legend,
   children,
   empty,
+  summary,
+  dataTable,
   className = "",
 }: {
   title: string;
@@ -15,6 +17,8 @@ export function ChartPanel({
   legend?: ReactNode;
   children: ReactNode;
   empty?: boolean;
+  summary?: string;
+  dataTable?: ReactNode;
   className?: string;
 }) {
   return (
@@ -27,6 +31,11 @@ export function ChartPanel({
           children
         )}
       </div>
+      {summary ? <p className="mt-3 text-xs leading-5 text-textMuted">{summary}</p> : null}
+      {dataTable ? <details className="mt-3 rounded-md border border-control bg-panel">
+        <summary className="cursor-pointer px-3 py-2 text-sm text-accent">查看原始数据表</summary>
+        <div className="max-h-80 overflow-auto px-3 pb-3">{dataTable}</div>
+      </details> : null}
     </DashboardCard>
   );
 }

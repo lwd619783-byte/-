@@ -10,6 +10,8 @@ import {
   resolveSafeWorkflowTimeZone,
 } from "../../utils/dateTime";
 import { Modal } from "../common/Modal";
+import { FormField as Field } from "../common/FormField";
+import { useSubmission } from "../../hooks/useSubmission";
 
 interface EarningsExpectationFormModalProps {
   stocks: Stock[];
@@ -19,9 +21,11 @@ interface EarningsExpectationFormModalProps {
   now?: Date;
   onClose: () => void;
   onSubmit: (input: CreateEarningsExpectationSnapshotInput, correctsSnapshotId?: string) => void;
+  error?: string | null;
 }
 
-export function EarningsExpectationFormModal({ stocks, initialStockId, correctionTarget, timeZone: requestedTimeZone, now, onClose, onSubmit }: EarningsExpectationFormModalProps) {
+export function EarningsExpectationFormModal({ stocks, initialStockId, correctionTarget, timeZone: requestedTimeZone, now, onClose, onSubmit, error }: EarningsExpectationFormModalProps) {
+  const { pending, run } = useSubmission();
   const timeZone = resolveSafeWorkflowTimeZone(requestedTimeZone);
   const initial = useMemo(() => formFrom(correctionTarget, initialStockId, timeZone, now ?? new Date()), [correctionTarget, initialStockId, now, timeZone]);
   const [form, setForm] = useState(initial);
@@ -84,7 +88,7 @@ export function EarningsExpectationFormModal({ stocks, initialStockId, correctio
   };
 
   return (
-    <Modal title={correctionTarget ? "创建纠正快照" : "添加业绩预期"} description="保存后不可原地修改；错误修正必须追加纠正快照。" onClose={close} footer={<><button type="button" onClick={close} className={buttonClass}>取消</button><button type="button" onClick={submit} className={`${buttonClass} border-cyan/50 text-cyan`}>{correctionTarget ? "保存纠正快照" : "保存不可变快照"}</button></>}>
+    <Modal error={error} busy={pending} hasUnsavedChanges={dirty} onDiscard={onClose} title={correctionTarget ? "创建纠正快照" : "添加业绩预期"} description="保存后不可原地修改；错误修正必须追加纠正快照。" onClose={close} footer={<><button type="button" disabled={pending} onClick={close} className={buttonClass}>取消</button><button type="button" onClick={() => void run(submit)} disabled={pending || !selectedStock} className={`${buttonClass} border-cyan/50 text-cyan`}>{pending ? "保存中…" : correctionTarget ? "保存纠正快照" : "保存不可变快照"}</button></>}>
       <div className="grid min-w-0 gap-3 sm:grid-cols-2">
         <Field label="公司"><select disabled={immutable} value={form.stockId} onChange={(event) => set("stockId", event.target.value)} className={inputClass}><option value="">请选择公司</option>{stocks.map((stock) => <option key={stock.id} value={stock.id}>{stock.name} · {stock.code}</option>)}</select></Field>
         <Field label="报告期"><input disabled={immutable} type="text" inputMode="numeric" placeholder="YYYY-MM-DD" value={form.reportPeriod} onChange={(event) => set("reportPeriod", event.target.value)} className={inputClass} /></Field>
@@ -159,4 +163,3 @@ const unitOptions: Array<[string, string]> = [["yuan", "元"], ["ten_thousand_yu
 const sourceCategoryOptions: Array<[string, string]> = [["company_guidance", "公司指引"], ["institution_single", "单家机构预测"], ["institution_consensus", "机构一致预期"], ["user_estimate", "用户个人预测"]];
 const inputClass = "mt-1 h-10 w-full min-w-0 rounded border border-borderSoft bg-bg px-3 text-sm text-textStrong outline-none focus:border-cyan disabled:opacity-60";
 const buttonClass = "h-9 rounded border border-borderSoft px-3 text-sm text-textStrong";
-function Field({ label, children }: { label: string; children: React.ReactNode }) { return <label className="min-w-0 text-xs text-textMuted">{label}{children}</label>; }

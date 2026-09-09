@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSubmission } from "../../hooks/useSubmission";
 import type { EarningsExpectationImportPreview } from "../../services/earningsExpectationRepository";
 import { Modal } from "../common/Modal";
 
@@ -12,6 +13,7 @@ interface EarningsExpectationImportModalProps {
   onImport: (preview: EarningsExpectationImportPreview, method: "json_import" | "csv_import", mode: "merge" | "replace", fileName?: string | null, partialConfirmed?: boolean) => void;
   onReset: () => void;
   onClose: () => void;
+  error?: string | null;
 }
 
 export function EarningsExpectationImportModal(props: EarningsExpectationImportModalProps) {
@@ -19,9 +21,14 @@ export function EarningsExpectationImportModal(props: EarningsExpectationImportM
   const [raw, setRaw] = useState("");
   const [fileName, setFileName] = useState<string | null>(null);
   const [preview, setPreview] = useState<EarningsExpectationImportPreview | null>(null);
+  const fileGeneration = useRef(0);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const { pending, run } = useSubmission();
+  useEffect(()=>()=>{fileGeneration.current++;},[]);
+  const close = () => { if(!raw || window.confirm("导入输入尚未提交，确认关闭？"))props.onClose(); };
   const updateRaw = (value: string, name: string | null = null) => { setRaw(value); setFileName(name); setPreview(method === "json_import" ? props.onPreviewJson(value) : props.onPreviewCsv(value, name)); };
   return (
-    <Modal title="业绩预期导出与快照导入" description="这里仅导入 snapshots；设置和导入历史不会从 JSON 恢复或被覆盖。" onClose={props.onClose}>
+    <Modal title="业绩预期导出与快照导入" description="这里仅导入 snapshots；设置和导入历史不会从 JSON 恢复或被覆盖。" size="import" error={fileError || props.error} busy={pending} hasUnsavedChanges={!!raw} onDiscard={props.onClose} onClose={close} footer={<><button type="button" disabled={pending} onClick={close} className={buttonClass}>关闭</button><EarningsExpectationImportActions preview={preview} method={method} fileName={fileName} onImport={props.onImport} /></>}>
       <div className="space-y-4">
         <section className="rounded-lg border border-borderSoft p-4">
           <h3 className="text-sm font-semibold text-textStrong">导出与模板</h3>
@@ -34,32 +41,46 @@ export function EarningsExpectationImportModal(props: EarningsExpectationImportM
         </section>
 
         <section className="rounded-lg border border-borderSoft p-4">
-          <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-sm font-semibold text-textStrong">导入预览</h3><select value={method} onChange={(event) => { const value = event.target.value as typeof method; setMethod(value); setRaw(""); setFileName(null); setPreview(null); }} className={inputClass}><option value="json_import">JSON 导入</option><option value="csv_import">CSV 导入</option></select></div>
+          <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="text-sm font-semibold text-textStrong">导入预览</h3><select aria-label="导入格式" value={method} onChange={(event) => { const value = event.target.value as typeof method; if(raw && !window.confirm("切换格式会清空当前导入输入，确认继续？"))return; fileGeneration.current++; setFileError(null); setMethod(value); setRaw(""); setFileName(null); setPreview(null); }} className={inputClass}><option value="json_import">JSON 导入</option><option value="csv_import">CSV 导入</option></select></div>
           <p className="mt-2 text-xs text-textMuted">限制：UTF-8、最大 2MB、最多 5000 条。JSON/CSV 都只导入快照；完整备份 JSON 当前不提供整库恢复。CSV 部分有效时必须二次确认，无效行会保留在导入历史问题清单中。</p>
-          <input type="file" accept={method === "json_import" ? "application/json,.json" : "text/csv,.csv"} onChange={(event) => { const file = event.target.files?.[0]; if (file) file.text().then((value) => updateRaw(value, file.name)); }} className="mt-3 block w-full min-w-0 text-sm text-textMuted file:mr-3 file:rounded file:border file:border-borderSoft file:bg-bg file:px-3 file:py-2 file:text-textStrong" />
-          <textarea value={raw} onChange={(event) => updateRaw(event.target.value, fileName)} placeholder={method === "json_import" ? "也可以粘贴 JSON" : "也可以粘贴 CSV"} className="mt-3 min-h-36 w-full min-w-0 rounded border border-borderSoft bg-bg p-3 font-mono text-xs text-textStrong outline-none focus:border-cyan" />
+          <input aria-label="选择预期快照文件" type="file" accept={method === "json_import" ? "application/json,.json" : "text/csv,.csv"} onChange={(event) => { const file = event.target.files?.[0]; if(file){const generation=++fileGeneration.current; setFileError(null); file.text().then(value=>{if(generation===fileGeneration.current)updateRaw(value,file.name);}).catch(()=>{if(generation===fileGeneration.current)setFileError("文件读取失败，请重新选择。已有输入未清空。");});} }} className="mt-3 block w-full min-w-0 text-sm text-textMuted file:mr-3 file:rounded file:border file:border-borderSoft file:bg-bg file:px-3 file:py-2 file:text-textStrong" />
+          <textarea aria-label="导入原文" value={raw} onChange={(event) => {fileGeneration.current++;setFileError(null);updateRaw(event.target.value, fileName);}} placeholder={method === "json_import" ? "也可以粘贴 JSON" : "也可以粘贴 CSV"} className="mt-3 min-h-36 w-full min-w-0 rounded border border-borderSoft bg-bg p-3 font-mono text-xs text-textStrong outline-none focus:border-cyan" />
           {preview ? <Preview value={preview} /> : null}
-          <EarningsExpectationImportActions preview={preview} method={method} fileName={fileName} onImport={props.onImport} />
         </section>
 
-        <section className="rounded-lg border border-danger/30 p-4"><h3 className="text-sm font-semibold text-textStrong">损坏恢复</h3><p className="mt-1 text-xs text-textMuted">重置只在用户明确确认后执行，不会写入示例预期。</p><button type="button" onClick={() => { if (window.confirm("确认清空本地业绩预期？请先导出需要保留的数据。")) props.onReset(); }} className={`${buttonClass} mt-3 border-danger/50 text-danger`}>重置为空状态</button></section>
+        <section className="rounded-lg border border-danger/30 p-4"><h3 className="text-sm font-semibold text-textStrong">损坏恢复</h3><p className="mt-1 text-xs text-textMuted">重置只在用户明确确认后执行，不会写入示例预期。</p><button type="button" onClick={() => { if (window.confirm("确认清空本地业绩预期？请先导出需要保留的数据。")) void run(props.onReset); }} className={`${buttonClass} mt-3 border-danger/50 text-danger`}>重置为空状态</button></section>
       </div>
     </Modal>
   );
 }
 
 export function EarningsExpectationImportActions({ preview, method, fileName, onImport }: { preview: EarningsExpectationImportPreview | null; method: "json_import" | "csv_import"; fileName: string | null; onImport: EarningsExpectationImportModalProps["onImport"] }) {
+  const { pending, run: submitOnce } = useSubmission();
   const run = (mode: "merge" | "replace") => {
     if (!preview?.ok || (mode === "merge" ? !preview.mergeAllowed : !preview.replaceAllowed)) return;
     const partialConfirmed = !preview.partial || window.confirm(`本次将导入 ${preview.validCount} 条并跳过 ${preview.invalidCount} 条无效记录。确认继续？`);
     if (!partialConfirmed) return;
     if (mode === "replace" && !window.confirm("替换快照会先完整备份当前状态，再仅替换快照；当前设置和导入历史会保留。确认继续？")) return;
-    onImport(preview, method, mode, fileName, preview.partial);
+    void submitOnce(()=>onImport(preview, method, mode, fileName, preview.partial));
   };
-  return <div className="mt-3 flex flex-wrap gap-2"><button type="button" disabled={!preview?.mergeAllowed} onClick={() => run("merge")} className={`${buttonClass} border-cyan/50 text-cyan disabled:opacity-40`}>合并快照</button><button type="button" disabled={!preview?.replaceAllowed} onClick={() => run("replace")} className={`${buttonClass} border-warning/50 text-warning disabled:opacity-40`}>替换快照</button></div>;
+  return <div className="mt-3 flex flex-wrap gap-2"><button type="button" disabled={pending || !preview?.mergeAllowed} onClick={() => run("merge")} className={`${buttonClass} border-cyan/50 text-cyan disabled:opacity-40`}>{pending ? "提交中…" : "合并快照"}</button><button type="button" disabled={pending || !preview?.replaceAllowed} onClick={() => run("replace")} className={`${buttonClass} border-warning/50 text-warning disabled:opacity-40`}>替换快照</button></div>;
 }
 
-export function Preview({ value }: { value: EarningsExpectationImportPreview }) { const tone = value.ok && !value.partial ? "border-success/35 bg-success/10 text-textMuted" : "border-warning/35 bg-warning/10 text-warning"; return <div className={`mt-3 rounded border p-3 text-xs ${tone}`}><p>{value.partial ? "部分可导入，需二次确认" : value.ok ? "校验通过" : "校验未通过"} · 版本：{value.schemaVersion ?? "未知"}</p><p className="mt-1">合并：{value.mergeAllowed ? "允许" : "禁止"} · 替换：{value.replaceAllowed ? "允许" : "禁止"}</p><p className="mt-1">总数：{value.totalCount} · 有效：{value.validCount} · 将新增：{value.addCount} · 将跳过：{value.skippedCount}</p><p className="mt-1">重复：{value.duplicateCount} · 冲突：{value.conflictCount} · 无效/待核验：{value.invalidCount}</p>{value.issues.some((issue) => issue.code === "audit_metadata_changed") ? <p className="mt-1 font-medium">检测到同证据的核验状态、数量、备注或审计信息变化；不会静默跳过，请追加明确纠正。</p> : null}{(value.timeZoneNotes ?? []).slice(0, 20).map((note, index) => <p key={`${note.row}-${note.field}-${index}`} className="mt-1 break-words text-cyan">• 第 {note.row || "-"} 行 · {note.field}：{note.message}</p>)}{value.issues.slice(0, 20).map((issue, index) => <p key={`${issue.row}-${issue.code}-${index}`} className="mt-1 break-words">• 第 {issue.row || "-"} 行 · [{issue.code}]：{issue.message}</p>)}</div>; }
+export function Preview({ value }: { value: EarningsExpectationImportPreview }) {
+  const [showAll,setShowAll]=useState(false);
+  const tone=value.ok && !value.partial ? "border-success/35 bg-success/10 text-textMuted" : "border-warning/35 bg-warning/10 text-warning";
+  const limit=showAll ? Infinity : 20;
+  return <div className={`mt-3 rounded border p-3 text-xs ${tone}`}>
+    <p>{value.partial ? "部分可导入，需二次确认" : value.ok ? "校验通过" : "校验未通过"} · 版本：{value.schemaVersion ?? "未知"}</p>
+    <p className="mt-1">合并：{value.mergeAllowed ? "允许" : "禁止"} · 替换：{value.replaceAllowed ? "允许" : "禁止"}</p>
+    <p className="mt-1">总数：{value.totalCount} · 有效：{value.validCount} · 将新增：{value.addCount} · 将跳过：{value.skippedCount}</p>
+    <p className="mt-1">重复：{value.duplicateCount} · 冲突：{value.conflictCount} · 无效/待核验：{value.invalidCount}</p>
+    {value.issues.some(issue=>issue.code==="audit_metadata_changed") ? <p className="mt-1 font-medium">检测到同证据的核验状态、数量、备注或审计信息变化；不会静默跳过，请追加明确纠正。</p>:null}
+    {(value.timeZoneNotes ?? []).slice(0,limit).map((note,index)=><p key={`${note.row}-${note.field}-${index}`} className="mt-1 break-words text-cyan">• 第 {note.row || "-"} 行 · {note.field}：{note.message}</p>)}
+    {value.issues.slice(0,limit).map((issue,index)=><p key={`${issue.row}-${issue.code}-${index}`} className="mt-1 break-words">• 第 {issue.row || "-"} 行 · [{issue.code}]：{issue.message}</p>)}
+    {value.issues.length>20 || (value.timeZoneNotes?.length ?? 0)>20 ? <button type="button" className="mt-3 min-h-10 underline" onClick={()=>setShowAll(!showAll)}>{showAll ? "收起问题明细" : `查看全部问题与时间说明（${value.issues.length+(value.timeZoneNotes?.length ?? 0)}）`}</button>:null}
+  </div>;
+}
 function download(value: string, name: string, type: string) { const url = URL.createObjectURL(new Blob([value], { type })); const anchor = document.createElement("a"); anchor.href = url; anchor.download = name; anchor.click(); URL.revokeObjectURL(url); }
 const inputClass = "h-10 min-w-0 rounded border border-borderSoft bg-bg px-3 text-sm text-textStrong outline-none focus:border-cyan";
-const buttonClass = "h-9 rounded border border-borderSoft px-3 text-sm text-textStrong";
+const buttonClass = "min-h-10 rounded border border-borderSoft px-3 text-sm text-textStrong";

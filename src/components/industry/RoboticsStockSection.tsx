@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import type { Industry, Stock } from "../../types";
 import { getSegmentName } from "../../utils/filters";
-import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
+import { formatYi, numberToDisplay } from "../../utils/normalize";
 import { DashboardCard, PriceChange, TextClamp } from "../common/terminal";
 
 const OBSERVATION_PREVIEW_COUNT = 10;
@@ -44,6 +44,7 @@ export function RoboticsStockSection({
       <DashboardCard className="p-4">
         <button
           type="button"
+          aria-expanded={showObservationPool}
           className="flex w-full items-start justify-between gap-3 text-left focus:outline-none focus:ring-2 focus:ring-cyan/25"
           onClick={() => setShowObservationPool((value) => !value)}
         >
@@ -118,7 +119,7 @@ function RoboticsStockRow({ stock, industries, onOpenStock }: { stock: Stock; in
 
   return (
     <article className="grid gap-4 rounded-lg border border-borderSoft bg-card p-4 transition hover:border-cyan/35 hover:bg-cardHover xl:grid-cols-[minmax(190px,1.05fr)_minmax(0,2fr)_minmax(210px,0.95fr)]">
-      <button type="button" className="min-w-0 text-left" onClick={() => onOpenStock(stock)}>
+      <button type="button" data-stock-id={stock.id} className="min-h-11 min-w-0 text-left" onClick={() => onOpenStock(stock)}>
         <p className="text-xs text-textMuted">{stock.market} · {stock.code}</p>
         <h4 className="mt-1 break-words text-lg font-semibold leading-6 text-textStrong">{stock.name}</h4>
         <p className="mt-2 text-sm leading-5 text-textMuted">{getSegmentName(industries, stock.segmentId)}</p>
@@ -178,9 +179,11 @@ function RoboticsStockRow({ stock, industries, onOpenStock }: { stock: Stock; in
           <QuoteField label="PE / PB" value={`${numberToDisplay(stock.quote?.peTtm ?? stock.quote?.pe)} / ${numberToDisplay(stock.quote?.pb)}`} />
         </div>
         <QuoteTrust quote={stock.quote} />
+        <p className="mt-1 text-xs text-textMuted">币种：源字段未提供</p>
         <button
           type="button"
-          className="mt-4 inline-flex h-9 items-center justify-center rounded-md border border-borderGlow/60 px-3 text-sm font-medium text-textStrong transition hover:border-cyan hover:text-cyan focus:outline-none focus:ring-2 focus:ring-cyan/30"
+          data-stock-id={stock.id}
+          className="mt-4 inline-flex min-h-11 items-center justify-center rounded-md border border-control px-3 text-sm font-medium text-accent transition hover:bg-selected"
           onClick={() => onOpenStock(stock)}
         >
           查看详情

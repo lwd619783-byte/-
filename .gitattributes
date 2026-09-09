@@ -1,5 +1,6 @@
 public/data/a-share-financials/*.json -text
 public/data/a-share-announcements/*.json -text
+public/data/a-share-company-guidance-expectations/*.json -text
 src/data/real/*-summaries.generated.json -text
 scripts/tests/fixtures/market_regime/*.html -text
 scripts/tests/fixtures/market_regime/bse-d1c-*.jsonp -text
