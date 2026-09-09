@@ -1,0 +1,4067 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "BSE_SOURCE_INVENTORY_NOT_R2_DATASET",
+  "contract": {
+    "schemaVersion": "1.0.0",
+    "contractId": "bse-historical-source-d1c-v1",
+    "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+    "metricId": "EXCHANGE_MARKET_STATS",
+    "datasetAsOf": "2026-09-07T08:00:00+08:00",
+    "targetWindow": {
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "frequency": "TRADING_DAY",
+      "fields": [
+        "negotiableMarketCap",
+        "totalMarketCap",
+        "turnoverValue"
+      ]
+    },
+    "families": [
+      {
+        "familyId": "daily-report",
+        "endpoint": "/marketStatController/dailyReport.do",
+        "method": "POST",
+        "dateParameter": "HQJSRQ",
+        "dateFormat": "YYYYMMDD",
+        "wrapper": "null(JSON)",
+        "scopeKey": "xxzrlx",
+        "selectedScope": "2",
+        "dateKey": "rq",
+        "parserVersion": "bse-daily-jsonp-v1.0.0",
+        "fieldKeys": {
+          "turnoverValue": "hqcjje",
+          "totalMarketCap": "zsz",
+          "negotiableMarketCap": "ltsz"
+        },
+        "rawUnit": "元",
+        "scopeStatus": "WEB_SELECTED_2_ONLY_HISTORICAL_MEMBERSHIP_UNPROVEN",
+        "pagination": "NO_PARAMETER_IN_DISCOVERED_DAILY_CALL_REJECT_ENVELOPES"
+      }
+    ],
+    "secondaryFamilies": [
+      {
+        "familyId": "home-current",
+        "endpoint": "/bseHome/index.do",
+        "status": "CURRENT_ONLY_OUTSIDE_TARGET_NO_HISTORY_DATE_PARAMETER"
+      },
+      {
+        "familyId": "monthly-report",
+        "endpoint": "/marketStatController/MonthlyReport.do",
+        "status": "NOT_PROBED_NOT_DAILY"
+      },
+      {
+        "familyId": "weekly-report",
+        "endpoint": "/marketStatController/weeklyReport.do",
+        "status": "NOT_PROBED_YTD_CONTAINS_PRELAUNCH_SELECTED_LAYER"
+      },
+      {
+        "familyId": "corporate-event-calendar",
+        "endpoint": "/tradingtipsController/tradingtipsExPage.do",
+        "status": "DISCOVERED_NOT_PROBED_NOT_TRADING_SESSION_CALENDAR"
+      }
+    ],
+    "acquisition": {
+      "maxRequests": 30,
+      "timeoutSeconds": 12,
+      "maxResponseBytes": 2000000,
+      "mode": "EXACT_REQUESTS_ONLY_NO_FULL_DATE_ENUMERATION",
+      "expansionBasis": "Launch and next-day responses plus end-date response supported five adjacent date probes; missing PIT/scope/calendar stops further expansion."
+    },
+    "requests": [
+      {
+        "requestId": "home-data",
+        "url": "https://www.bse.cn/bseHome/index.do",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "index-js",
+            "byteOffset": 6386,
+            "byteLength": 27,
+            "text": "var url=\"/bseHome/index.do\""
+          },
+          {
+            "requestId": "util-js",
+            "byteOffset": 2398,
+            "byteLength": 47,
+            "text": "type:\"get\",data:aw,cache:false,dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "home-current",
+        "requestedDate": null,
+        "discoveryKind": "API",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2021-11-15",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20211115",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2021-11-15",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2021-11-16",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20211116",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2021-11-16",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2026-01-01",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260101",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2026-01-01",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2026-01-05",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260105",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2026-01-05",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2026-08-31",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260831",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2026-08-31",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2026-09-01",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260901",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2026-09-01",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2026-09-02",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260902",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2026-09-02",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2026-09-03",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260903",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2026-09-03",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-2026-09-04",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260904",
+        "proofs": [
+          {
+            "requestId": "daily-js",
+            "byteOffset": 436,
+            "byteLength": 18,
+            "text": "var j=\"2021-11-15\""
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8772,
+            "byteLength": 20,
+            "text": "O=O.replace(/-/g,\"\")"
+          },
+          {
+            "requestId": "daily-js",
+            "byteOffset": 8982,
+            "byteLength": 75,
+            "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": "daily-report",
+        "requestedDate": "2026-09-04",
+        "discoveryKind": "API_DATE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "header",
+        "url": "https://www.bse.cn/myhead.html",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "home",
+            "byteOffset": 3472,
+            "byteLength": 17,
+            "text": "src=\"myhead.html\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "main-js",
+        "url": "https://www.bse.cn/template/6/bluewise/_files/js/main.min.js",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "home",
+            "byteOffset": 2983,
+            "byteLength": 48,
+            "text": "src=\"/template/6/bluewise/_files/js/main.min.js\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "introduce",
+        "url": "https://www.bse.cn/company/introduce.html",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "header",
+            "byteOffset": 106204,
+            "byteLength": 51,
+            "text": "href=\"/company/introduce.html\" title=\"本所简介\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "statistics",
+        "url": "https://www.bse.cn/static/statisticdata.html",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "header",
+            "byteOffset": 82148,
+            "byteLength": 54,
+            "text": "href=\"/static/statisticdata.html\" title=\"定期统计\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "index-js",
+        "url": "https://www.bse.cn/template/6/bluewise/_files/js/index/index.min.js",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "home",
+            "byteOffset": 76678,
+            "byteLength": 55,
+            "text": "src=\"/template/6/bluewise/_files/js/index/index.min.js\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "calendar-page",
+        "url": "https://www.bse.cn/disclosure/tradingtips.html",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "header",
+            "byteOffset": 60619,
+            "byteLength": 56,
+            "text": "href=\"/disclosure/tradingtips.html\" title=\"市场日历\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "daily-js",
+        "url": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "statistics",
+            "byteOffset": 26684,
+            "byteLength": 60,
+            "text": "src=\"/template/6/bluewise/_files/js/marketData/daily.min.js\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "holidays-page",
+        "url": "https://www.bse.cn/disclosure/Rest_arrangement.html",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "header",
+            "byteOffset": 61029,
+            "byteLength": 61,
+            "text": "href=\"/disclosure/Rest_arrangement.html\" title=\"休市安排\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "calendar-js",
+        "url": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/trade_notice.min.js",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "calendar-page",
+            "byteOffset": 15130,
+            "byteLength": 67,
+            "text": "src=\"/template/6/bluewise/_files/js/marketData/trade_notice.min.js\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "holidays-js",
+        "url": "https://www.bse.cn/template/6/bluewise/_files/js/service/market_authorization/rest_arrangement.min.js",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "holidays-page",
+            "byteOffset": 20559,
+            "byteLength": 89,
+            "text": "src=\"/template/6/bluewise/_files/js/service/market_authorization/rest_arrangement.min.js\""
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "LINK",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "migration",
+        "url": "https://www.bse.cn/important_news/200010914.html",
+        "method": "GET",
+        "form": null,
+        "proofs": [],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "OFFICIAL_SEARCH_RESULT",
+        "discoveryOrigin": "site:bse.cn 2021年11月15日 精选层 平移"
+      },
+      {
+        "requestId": "calendar-2026",
+        "url": "https://www.bse.cn/important_news/200027428.html",
+        "method": "GET",
+        "form": null,
+        "proofs": [],
+        "role": "CALENDAR",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "OFFICIAL_SEARCH_RESULT",
+        "discoveryOrigin": "site:bse.cn 2026 休市安排"
+      },
+      {
+        "requestId": "util-js",
+        "url": "https://www.bse.cn/template/6/bluewise/_files/js/components/common/util.min.js",
+        "method": "GET",
+        "form": null,
+        "proofs": [
+          {
+            "requestId": "home",
+            "byteOffset": 3032,
+            "byteLength": 20,
+            "text": "data-compress=\"true\""
+          },
+          {
+            "requestId": "home",
+            "byteOffset": 3076,
+            "byteLength": 34,
+            "text": "base=\"/template/6/bluewise/_files\""
+          },
+          {
+            "requestId": "main-js",
+            "byteOffset": 2520,
+            "byteLength": 55,
+            "text": "util:\"js/components/common/util\"+(!_compress?\"\":\".min\")"
+          }
+        ],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "RESOURCE",
+        "discoveryOrigin": null
+      },
+      {
+        "requestId": "home",
+        "url": "https://www.bse.cn/",
+        "method": "GET",
+        "form": null,
+        "proofs": [],
+        "role": "INVENTORY",
+        "familyId": null,
+        "requestedDate": null,
+        "discoveryKind": "ROOT",
+        "discoveryOrigin": "https://www.bse.cn/"
+      }
+    ],
+    "fieldAdmission": {
+      "turnoverValue": {
+        "status": "BLOCKED",
+        "sourceDefinitionIds": [],
+        "reason": "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN"
+      },
+      "totalMarketCap": {
+        "status": "BLOCKED",
+        "sourceDefinitionIds": [],
+        "reason": "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN"
+      },
+      "negotiableMarketCap": {
+        "status": "BLOCKED",
+        "sourceDefinitionIds": [],
+        "reason": "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN"
+      }
+    },
+    "calendar": {
+      "calendarVersion": "bse-official-bounded-facts-v1",
+      "status": "PARTIAL",
+      "officialTradingDayTargetCount": null,
+      "r2CalendarStatus": "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+      "windows": [
+        {
+          "start": "2026-01-01",
+          "end": "2026-01-05",
+          "openDates": [
+            "2026-01-05"
+          ],
+          "closedDates": [
+            "2026-01-01",
+            "2026-01-02",
+            "2026-01-03",
+            "2026-01-04"
+          ],
+          "proof": {
+            "requestId": "calendar-2026",
+            "byteOffset": 15251,
+            "byteLength": 669,
+            "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（一）元旦：1月</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\"><span style=\"font-family:微软雅黑\">1</span></span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">日（星期四）至1月3日（星期六）休市。1月4日（星期日）为周末休市。1月5日（星期一）起照常开市。</span></p>"
+          }
+        },
+        {
+          "start": "2021-11-15",
+          "end": "2021-11-15",
+          "openDates": [
+            "2021-11-15"
+          ],
+          "closedDates": [],
+          "proof": {
+            "requestId": "introduce",
+            "byteOffset": 5132,
+            "byteLength": 29,
+            "text": "2021年11月15日开市交易"
+          }
+        }
+      ]
+    },
+    "definitionBreaks": [
+      {
+        "date": "2021-11-15",
+        "kind": "BSE_LAUNCH_SELECTED_LAYER_MIGRATION",
+        "status": "IDENTITY_PROVEN_FIELD_ERA_APPLICABILITY_UNPROVEN"
+      },
+      {
+        "date": null,
+        "kind": "MARKET_EXPANSION_AND_FIELD_SCOPE_CHANGES",
+        "status": "UNRESOLVED_NO_INFERRED_BREAK_DATE"
+      }
+    ],
+    "auxiliaryProofs": [
+      {
+        "meaning": "BLOCK_TRADE_NOTE_NOT_ADDITIVE_AUTHORITY",
+        "proof": {
+          "requestId": "daily-js",
+          "byteOffset": 9399,
+          "byteLength": 76,
+          "text": "注：当日大宗交易成交 \"+p(V.hqcjsl)+\"万股、\"+p(V.hqcjje)+\"万元"
+        }
+      },
+      {
+        "meaning": "BSE_LAUNCH_AND_SEPARATE_NEEQ_IDENTITY",
+        "proof": {
+          "requestId": "introduce",
+          "byteOffset": 5132,
+          "byteLength": 29,
+          "text": "2021年11月15日开市交易"
+        }
+      },
+      {
+        "meaning": "CALENDAR_PAGE_IS_CORPORATE_EVENT_API_NOT_SESSION_CALENDAR",
+        "proof": {
+          "requestId": "calendar-js",
+          "byteOffset": 4217,
+          "byteLength": 49,
+          "text": "url:\"/tradingtipsController/tradingtipsExPage.do\""
+        }
+      },
+      {
+        "meaning": "DAILY_MARKETCAP_LABEL_MAPPING",
+        "proof": {
+          "requestId": "daily-js",
+          "byteOffset": 10222,
+          "byteLength": 128,
+          "text": "总市值（亿元）</td><td class='tc'>\"+C(R.zsz)+\"</td><td class='tc'>流通市值（亿元）</td><td class='tc'>\"+C(R.ltsz)"
+        }
+      },
+      {
+        "meaning": "DAILY_UI_SELECTS_CODE_2_ONLY",
+        "proof": {
+          "requestId": "daily-js",
+          "byteOffset": 9233,
+          "byteLength": 65,
+          "text": "var W=ac[S].xxzrlx;if(W==\"2\"){R=ac[S]}else{if(W==\"XJX\"){V=ac[S]}}"
+        }
+      },
+      {
+        "meaning": "DATE_PICKER_WEEKDAY_FILTER_IS_NOT_CALENDAR_EVIDENCE",
+        "proof": {
+          "requestId": "daily-js",
+          "byteOffset": 1088,
+          "byteLength": 43,
+          "text": "if(c(Q)<c(S)||!(Q.getDay()%6)){return true}"
+        }
+      },
+      {
+        "meaning": "RAW_CAP_UNIT_YUAN_DISPLAY_DIVIDES_1E8",
+        "proof": {
+          "requestId": "daily-js",
+          "byteOffset": 7318,
+          "byteLength": 57,
+          "text": "function C(O){if(O!=null&&O!=\"\"){return t(O,100000000,2)}"
+        }
+      },
+      {
+        "meaning": "SELECT_LAYER_MIGRATION_NOT_PRELAUNCH_BSE_SERIES",
+        "proof": {
+          "requestId": "migration",
+          "byteOffset": 15026,
+          "byteLength": 174,
+          "text": "全国中小企业股份转让系统精选层（以下简称精选层）挂牌公司平移为本所上市公司，上市时间自其在精选层挂牌之日起连续计算。"
+        }
+      },
+      {
+        "meaning": "TURNOVER_AMOUNT_DISTINCT_FROM_SHARES",
+        "proof": {
+          "requestId": "daily-js",
+          "byteOffset": 9539,
+          "byteLength": 64,
+          "text": "if(R.hqcjje){var T=u.unitAdjust(R.hqcjje,2);X=T[0]+\"元\";Z=T[1]}"
+        }
+      },
+      {
+        "meaning": "WEEKLY_ISSUANCE_BREAK_NOT_DAILY_FIELD_BREAK",
+        "proof": {
+          "requestId": "daily-js",
+          "byteOffset": 16104,
+          "byteLength": 125,
+          "text": "注：自2025年7月起，按照《证券期货业统计指标标准指引》规定口径调整，包含股权激励增发。"
+        }
+      },
+      {
+        "meaning": "WEEKLY_YTD_EXPLICITLY_CONTAINS_PRELAUNCH_SELECTED_LAYER",
+        "proof": {
+          "requestId": "daily-js",
+          "byteOffset": 16737,
+          "byteLength": 92,
+          "text": "注2：本年累计包含2021年1月1日至11月12日精选层平移公司的交易数据。"
+        }
+      }
+    ],
+    "blockers": [
+      "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+      "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+      "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+      "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+      "MARKET_RELEASE_MISSING",
+      "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+      "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+      "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+    ]
+  },
+  "contractContentSha256": "f22d5231e89a840d55b5204c9044c11b6443d5928d575694e12276a61eb53e1c",
+  "captureContentSha256": "ac362b5cff3dd1c1f8e83dbba32b6a771e32418494b66a263a54583adfb81556",
+  "evidenceArtifacts": [
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:12+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2026-01-05.body",
+      "sha256": "1b5a4385a6bab98c1ba3274e00e866b75bab8fa4c809012a3fc082d42285aeeb",
+      "byteSize": 1264,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-01-05.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/bseHome/index.do",
+      "fetchedAt": "2026-09-09T03:56:35+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "home-data.body",
+      "sha256": "a5342440ef3f0471fd2983ef5b4ec51acc3d8695af12c38f8790994f3506ddd3",
+      "byteSize": 6837,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/home-data.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-07026325839ed371992b6356a0304efae67eee6b0e5dca73db67426e657ff4ed"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/template/6/bluewise/_files/js/index/index.min.js",
+      "fetchedAt": "2026-09-09T03:55:46+00:00",
+      "contentType": "application/javascript",
+      "fileName": "index-js.body",
+      "sha256": "eb3575b6d2a98a572ce537f1de85a7c7ed53c46f1eb55d956ae749365eb6dc83",
+      "byteSize": 22950,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/index-js.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-239491578beec120844aed874087bf2b2e387782d934734508dd06ae43d8e49e"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/disclosure/tradingtips.html",
+      "fetchedAt": "2026-09-09T03:56:34+00:00",
+      "contentType": "text/html",
+      "fileName": "calendar-page.body",
+      "sha256": "903f0660c064f7a6e1957d47d628e4ae06c59a1c71f53dd48ffb8517868c4094",
+      "byteSize": 15227,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/calendar-page.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-297ea5f08e53827a994d3ba6527b1682cec4756ca031443ca910075c3b0c62be"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/disclosure/Rest_arrangement.html",
+      "fetchedAt": "2026-09-09T03:56:35+00:00",
+      "contentType": "text/html",
+      "fileName": "holidays-page.body",
+      "sha256": "1e73d9624034c342d0a47c8b4c7e82c64f343374b1029276bcca81725a53eafc",
+      "byteSize": 20663,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/holidays-page.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-2cce73a0bb0ca95a8e833544ff6f2d3fe8de3f7416db081816321f747bcb9da8"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/myhead.html",
+      "fetchedAt": "2026-09-09T03:56:22+00:00",
+      "contentType": "text/html",
+      "fileName": "header.body",
+      "sha256": "b564b21b6d56e87bb0eb152a5a0636f4957f743ae3a911d6a8c6ed386f2d6111",
+      "byteSize": 111738,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/header.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-34a60a023709b9268cb472dc4c24e6d1ecd2be7bd15a688c0ada068de6dc048b"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/template/6/bluewise/_files/js/components/common/util.min.js",
+      "fetchedAt": "2026-09-09T03:56:03+00:00",
+      "contentType": "application/javascript",
+      "fileName": "util-js.body",
+      "sha256": "79761f80f758c29cae8c86bf595e3dc363f45d1c1da8f3063548c682c8b12de5",
+      "byteSize": 25511,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/util-js.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-38c5a6f688437f781a4c0d352b0b2162a71ba57857b908b1e3423c8f0543accb"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/trade_notice.min.js",
+      "fetchedAt": "2026-09-09T03:56:59+00:00",
+      "contentType": "application/javascript",
+      "fileName": "calendar-js.body",
+      "sha256": "43b875da65c3218f2c0f621a14d5eeb9b69a352f95ea79294ee746a48806222a",
+      "byteSize": 6871,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/calendar-js.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-3a06f69fbc5837f6e959556dc63ca7056b0f007663c4945ca2728fdd61b7f38a"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:11+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2026-08-31.body",
+      "sha256": "0268b2a75e2ee275733321ec910e0089ef7ac843f53af448f0577d1ba15304ff",
+      "byteSize": 1257,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-08-31.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/company/introduce.html",
+      "fetchedAt": "2026-09-09T03:56:23+00:00",
+      "contentType": "text/html",
+      "fileName": "introduce.body",
+      "sha256": "c8c7916c7275116624d3e5ac0dfd85d79c10a5f0cda5a0c2316e192265878d0e",
+      "byteSize": 10910,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/introduce.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-4eb5395d0e6fe269c84227459503b2201a9e005dac25fad9226b5c4d94c027f8"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:12+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2026-01-01.body",
+      "sha256": "4ae603b3be3024d1592e4668657e0dbf13b738d5dfe27e9896597b5dee92e0e9",
+      "byteSize": 8,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-01-01.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-5975f0c46c85c084b6d540277f8b0c830c286dc6ed7d31d1d706927c561cd149"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/template/6/bluewise/_files/js/service/market_authorization/rest_arrangement.min.js",
+      "fetchedAt": "2026-09-09T03:56:59+00:00",
+      "contentType": "application/javascript",
+      "fileName": "holidays-js.body",
+      "sha256": "024f52549fba3c2f1fda8a248a06f143ed24135cd15e62c3e7b472554b775e66",
+      "byteSize": 182,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/holidays-js.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-7a4601ed6af9c974abafbfd0cfb4fb789ab3f281dab280e061a4424346fd90e6"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/template/6/bluewise/_files/js/main.min.js",
+      "fetchedAt": "2026-09-09T03:55:45+00:00",
+      "contentType": "application/javascript",
+      "fileName": "main-js.body",
+      "sha256": "75271fba3b4e44580cc20c6d939ce726a5100a2656b40c6b7f33eb02ebc09398",
+      "byteSize": 7198,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/main-js.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-7e1806cab785cbaec03ebe53f80a6c82ca11ef1a0040ec6f529ecde766dd5847"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:57:32+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2021-11-16.body",
+      "sha256": "e985918a10b2ee1f2cdf2326b1f10c7c9329ebe6212f9be9ebd110762d242fc0",
+      "byteSize": 1254,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2021-11-16.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:57:32+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2026-09-04.body",
+      "sha256": "7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+      "byteSize": 1262,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-09-04.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/important_news/200027428.html",
+      "fetchedAt": "2026-09-09T03:56:22+00:00",
+      "contentType": "text/html",
+      "fileName": "calendar-2026.body",
+      "sha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteSize": 21440,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/calendar-2026.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "CALENDAR",
+      "artifactId": "evidence-r2-8803aec433187be89ca026bb3382f533d5c813e9a65a616ec3885004e2be9fd3"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/static/statisticdata.html",
+      "fetchedAt": "2026-09-09T03:56:34+00:00",
+      "contentType": "text/html",
+      "fileName": "statistics.body",
+      "sha256": "cff36171ccb988b55f629f37cf9357297d7b95da17bebdd34e1aaf28b3b06785",
+      "byteSize": 26776,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/statistics.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-8944acdd4bca2678604e88f7d124bda554914ed2531b41f9f98c52c160e5a5ba"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:11+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2026-09-01.body",
+      "sha256": "4ec8af67eb5ac0818e9c4214faf43228aed6c8820f0ad05b9fc9c8f3d5ed0d11",
+      "byteSize": 1261,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-09-01.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/important_news/200010914.html",
+      "fetchedAt": "2026-09-09T03:56:22+00:00",
+      "contentType": "text/html",
+      "fileName": "migration.body",
+      "sha256": "dbb5b7536a528afb3602fb34c9a9b7e06b172dad9f8d9c2bf6323b0ea749a5e2",
+      "byteSize": 19760,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/migration.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-9d16649b736e85e40e8fa25b2d8379f06405877093367d85edb1c25b76a96e6d"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:57:32+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2021-11-15.body",
+      "sha256": "731c1f3530478541efe45d3a8de75b2e7be78ab51178c4af4efb78dc44d6f737",
+      "byteSize": 1261,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2021-11-15.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:11+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2026-09-02.body",
+      "sha256": "88c254bcbe1c5f4f916148b3c6d67ff4c79de82c44df15768d25261f0adc885e",
+      "byteSize": 1263,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-09-02.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+      "fetchedAt": "2026-09-09T03:56:58+00:00",
+      "contentType": "application/javascript",
+      "fileName": "daily-js.body",
+      "sha256": "d8a7f153d9237c1eab890e57b4dfd6d962aecfbe76decbd67656704412a2ce58",
+      "byteSize": 28183,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-js.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:12+00:00",
+      "contentType": "text/html;charset=utf-8",
+      "fileName": "daily-2026-09-03.body",
+      "sha256": "f00702c0c4ede618c4283e24ae4f364c6bf02507a06d767492fd54c7d81d635a",
+      "byteSize": 1256,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-09-03.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d"
+    },
+    {
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.bse.cn/",
+      "fetchedAt": "2026-09-09T03:54:58+00:00",
+      "contentType": "text/html",
+      "fileName": "home.body",
+      "sha256": "5dca2e2b82679a5b7238dbf2faa7226955b4e922a0e99847fafade9bf6c5d3bb",
+      "byteSize": 76765,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/bse-d1c/home.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-e38c1eebd6034a464b2661c0c4d61f00bbb632080b3690b45608f5642563c4ec"
+    }
+  ],
+  "retrievalAttempts": [
+    {
+      "attemptId": "bse-acquire-calendar-2026",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/important_news/200027428.html",
+      "finalUrl": "https://www.bse.cn/important_news/200027428.html",
+      "attemptedAt": "2026-09-09T03:56:22+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/calendar-2026.body",
+        "sha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+        "byteSize": 21440
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-calendar-js",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/trade_notice.min.js",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/trade_notice.min.js",
+      "attemptedAt": "2026-09-09T03:56:59+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/calendar-js.body",
+        "sha256": "43b875da65c3218f2c0f621a14d5eeb9b69a352f95ea79294ee746a48806222a",
+        "byteSize": 6871
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-calendar-page",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/disclosure/tradingtips.html",
+      "finalUrl": "https://www.bse.cn/disclosure/tradingtips.html",
+      "attemptedAt": "2026-09-09T03:56:34+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/calendar-page.body",
+        "sha256": "903f0660c064f7a6e1957d47d628e4ae06c59a1c71f53dd48ffb8517868c4094",
+        "byteSize": 15227
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2021-11-15",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:57:32+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2021-11-15.body",
+        "sha256": "731c1f3530478541efe45d3a8de75b2e7be78ab51178c4af4efb78dc44d6f737",
+        "byteSize": 1261
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2021-11-16",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:57:32+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2021-11-16.body",
+        "sha256": "e985918a10b2ee1f2cdf2326b1f10c7c9329ebe6212f9be9ebd110762d242fc0",
+        "byteSize": 1254
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2026-01-01",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:58:12+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-01-01.body",
+        "sha256": "4ae603b3be3024d1592e4668657e0dbf13b738d5dfe27e9896597b5dee92e0e9",
+        "byteSize": 8
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2026-01-05",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:58:12+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-01-05.body",
+        "sha256": "1b5a4385a6bab98c1ba3274e00e866b75bab8fa4c809012a3fc082d42285aeeb",
+        "byteSize": 1264
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2026-08-31",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:58:11+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-08-31.body",
+        "sha256": "0268b2a75e2ee275733321ec910e0089ef7ac843f53af448f0577d1ba15304ff",
+        "byteSize": 1257
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2026-09-01",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:58:11+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-09-01.body",
+        "sha256": "4ec8af67eb5ac0818e9c4214faf43228aed6c8820f0ad05b9fc9c8f3d5ed0d11",
+        "byteSize": 1261
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2026-09-02",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:58:11+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-09-02.body",
+        "sha256": "88c254bcbe1c5f4f916148b3c6d67ff4c79de82c44df15768d25261f0adc885e",
+        "byteSize": 1263
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2026-09-03",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:58:12+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-09-03.body",
+        "sha256": "f00702c0c4ede618c4283e24ae4f364c6bf02507a06d767492fd54c7d81d635a",
+        "byteSize": 1256
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-2026-09-04",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "attemptedAt": "2026-09-09T03:57:32+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-2026-09-04.body",
+        "sha256": "7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteSize": 1262
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-daily-js",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+      "attemptedAt": "2026-09-09T03:56:58+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/daily-js.body",
+        "sha256": "d8a7f153d9237c1eab890e57b4dfd6d962aecfbe76decbd67656704412a2ce58",
+        "byteSize": 28183
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-header",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/myhead.html",
+      "finalUrl": "https://www.bse.cn/myhead.html",
+      "attemptedAt": "2026-09-09T03:56:22+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/header.body",
+        "sha256": "b564b21b6d56e87bb0eb152a5a0636f4957f743ae3a911d6a8c6ed386f2d6111",
+        "byteSize": 111738
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-holidays-js",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/template/6/bluewise/_files/js/service/market_authorization/rest_arrangement.min.js",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/service/market_authorization/rest_arrangement.min.js",
+      "attemptedAt": "2026-09-09T03:56:59+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/holidays-js.body",
+        "sha256": "024f52549fba3c2f1fda8a248a06f143ed24135cd15e62c3e7b472554b775e66",
+        "byteSize": 182
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-holidays-page",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/disclosure/Rest_arrangement.html",
+      "finalUrl": "https://www.bse.cn/disclosure/Rest_arrangement.html",
+      "attemptedAt": "2026-09-09T03:56:35+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/holidays-page.body",
+        "sha256": "1e73d9624034c342d0a47c8b4c7e82c64f343374b1029276bcca81725a53eafc",
+        "byteSize": 20663
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-home",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/",
+      "finalUrl": "https://www.bse.cn/",
+      "attemptedAt": "2026-09-09T03:54:58+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/home.body",
+        "sha256": "5dca2e2b82679a5b7238dbf2faa7226955b4e922a0e99847fafade9bf6c5d3bb",
+        "byteSize": 76765
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-home-data",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/bseHome/index.do",
+      "finalUrl": "https://www.bse.cn/bseHome/index.do",
+      "attemptedAt": "2026-09-09T03:56:35+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/home-data.body",
+        "sha256": "a5342440ef3f0471fd2983ef5b4ec51acc3d8695af12c38f8790994f3506ddd3",
+        "byteSize": 6837
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-index-js",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/template/6/bluewise/_files/js/index/index.min.js",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/index/index.min.js",
+      "attemptedAt": "2026-09-09T03:55:46+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/index-js.body",
+        "sha256": "eb3575b6d2a98a572ce537f1de85a7c7ed53c46f1eb55d956ae749365eb6dc83",
+        "byteSize": 22950
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-introduce",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/company/introduce.html",
+      "finalUrl": "https://www.bse.cn/company/introduce.html",
+      "attemptedAt": "2026-09-09T03:56:23+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/introduce.body",
+        "sha256": "c8c7916c7275116624d3e5ac0dfd85d79c10a5f0cda5a0c2316e192265878d0e",
+        "byteSize": 10910
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-main-js",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/template/6/bluewise/_files/js/main.min.js",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/main.min.js",
+      "attemptedAt": "2026-09-09T03:55:45+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/main-js.body",
+        "sha256": "75271fba3b4e44580cc20c6d939ce726a5100a2656b40c6b7f33eb02ebc09398",
+        "byteSize": 7198
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-migration",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/important_news/200010914.html",
+      "finalUrl": "https://www.bse.cn/important_news/200010914.html",
+      "attemptedAt": "2026-09-09T03:56:22+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/migration.body",
+        "sha256": "dbb5b7536a528afb3602fb34c9a9b7e06b172dad9f8d9c2bf6323b0ea749a5e2",
+        "byteSize": 19760
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-statistics",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/static/statisticdata.html",
+      "finalUrl": "https://www.bse.cn/static/statisticdata.html",
+      "attemptedAt": "2026-09-09T03:56:34+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/statistics.body",
+        "sha256": "cff36171ccb988b55f629f37cf9357297d7b95da17bebdd34e1aaf28b3b06785",
+        "byteSize": 26776
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "bse-acquire-util-js",
+      "sourceId": "BSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.bse.cn/template/6/bluewise/_files/js/components/common/util.min.js",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/components/common/util.min.js",
+      "attemptedAt": "2026-09-09T03:56:03+00:00",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/bse-d1c/util-js.body",
+        "sha256": "79761f80f758c29cae8c86bf595e3dc363f45d1c1da8f3063548c682c8b12de5",
+        "byteSize": 25511
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Request method/form are anchored in captures; acquisition is not market release.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    }
+  ],
+  "discoveryEvidence": [
+    {
+      "requestId": "home-data",
+      "parentRequestId": "index-js",
+      "locator": {
+        "artifactId": "evidence-r2-239491578beec120844aed874087bf2b2e387782d934734508dd06ae43d8e49e",
+        "byteOffset": 6386,
+        "byteLength": 27,
+        "text": "var url=\"/bseHome/index.do\""
+      }
+    },
+    {
+      "requestId": "calendar-js",
+      "parentRequestId": "calendar-page",
+      "locator": {
+        "artifactId": "evidence-r2-297ea5f08e53827a994d3ba6527b1682cec4756ca031443ca910075c3b0c62be",
+        "byteOffset": 15130,
+        "byteLength": 67,
+        "text": "src=\"/template/6/bluewise/_files/js/marketData/trade_notice.min.js\""
+      }
+    },
+    {
+      "requestId": "holidays-js",
+      "parentRequestId": "holidays-page",
+      "locator": {
+        "artifactId": "evidence-r2-2cce73a0bb0ca95a8e833544ff6f2d3fe8de3f7416db081816321f747bcb9da8",
+        "byteOffset": 20559,
+        "byteLength": 89,
+        "text": "src=\"/template/6/bluewise/_files/js/service/market_authorization/rest_arrangement.min.js\""
+      }
+    },
+    {
+      "requestId": "introduce",
+      "parentRequestId": "header",
+      "locator": {
+        "artifactId": "evidence-r2-34a60a023709b9268cb472dc4c24e6d1ecd2be7bd15a688c0ada068de6dc048b",
+        "byteOffset": 106204,
+        "byteLength": 51,
+        "text": "href=\"/company/introduce.html\" title=\"本所简介\""
+      }
+    },
+    {
+      "requestId": "statistics",
+      "parentRequestId": "header",
+      "locator": {
+        "artifactId": "evidence-r2-34a60a023709b9268cb472dc4c24e6d1ecd2be7bd15a688c0ada068de6dc048b",
+        "byteOffset": 82148,
+        "byteLength": 54,
+        "text": "href=\"/static/statisticdata.html\" title=\"定期统计\""
+      }
+    },
+    {
+      "requestId": "calendar-page",
+      "parentRequestId": "header",
+      "locator": {
+        "artifactId": "evidence-r2-34a60a023709b9268cb472dc4c24e6d1ecd2be7bd15a688c0ada068de6dc048b",
+        "byteOffset": 60619,
+        "byteLength": 56,
+        "text": "href=\"/disclosure/tradingtips.html\" title=\"市场日历\""
+      }
+    },
+    {
+      "requestId": "holidays-page",
+      "parentRequestId": "header",
+      "locator": {
+        "artifactId": "evidence-r2-34a60a023709b9268cb472dc4c24e6d1ecd2be7bd15a688c0ada068de6dc048b",
+        "byteOffset": 61029,
+        "byteLength": 61,
+        "text": "href=\"/disclosure/Rest_arrangement.html\" title=\"休市安排\""
+      }
+    },
+    {
+      "requestId": "home-data",
+      "parentRequestId": "util-js",
+      "locator": {
+        "artifactId": "evidence-r2-38c5a6f688437f781a4c0d352b0b2162a71ba57857b908b1e3423c8f0543accb",
+        "byteOffset": 2398,
+        "byteLength": 47,
+        "text": "type:\"get\",data:aw,cache:false,dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "util-js",
+      "parentRequestId": "main-js",
+      "locator": {
+        "artifactId": "evidence-r2-7e1806cab785cbaec03ebe53f80a6c82ca11ef1a0040ec6f529ecde766dd5847",
+        "byteOffset": 2520,
+        "byteLength": 55,
+        "text": "util:\"js/components/common/util\"+(!_compress?\"\":\".min\")"
+      }
+    },
+    {
+      "requestId": "daily-js",
+      "parentRequestId": "statistics",
+      "locator": {
+        "artifactId": "evidence-r2-8944acdd4bca2678604e88f7d124bda554914ed2531b41f9f98c52c160e5a5ba",
+        "byteOffset": 26684,
+        "byteLength": 60,
+        "text": "src=\"/template/6/bluewise/_files/js/marketData/daily.min.js\""
+      }
+    },
+    {
+      "requestId": "daily-2021-11-15",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2021-11-16",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2026-01-01",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2026-01-05",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2026-08-31",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2026-09-01",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2026-09-02",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2026-09-03",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 436,
+        "byteLength": 18,
+        "text": "var j=\"2021-11-15\""
+      }
+    },
+    {
+      "requestId": "daily-2021-11-15",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2021-11-16",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2026-01-01",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2026-01-05",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2026-08-31",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2026-09-01",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2026-09-02",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2026-09-03",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8772,
+        "byteLength": 20,
+        "text": "O=O.replace(/-/g,\"\")"
+      }
+    },
+    {
+      "requestId": "daily-2021-11-15",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "daily-2021-11-16",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "daily-2026-01-01",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "daily-2026-01-05",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "daily-2026-08-31",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "daily-2026-09-01",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "daily-2026-09-02",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "daily-2026-09-03",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "parentRequestId": "daily-js",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 8982,
+        "byteLength": 75,
+        "text": "url:\"/marketStatController/dailyReport.do\",data:{HQJSRQ:O},dataType:\"jsonp\""
+      }
+    },
+    {
+      "requestId": "header",
+      "parentRequestId": "home",
+      "locator": {
+        "artifactId": "evidence-r2-e38c1eebd6034a464b2661c0c4d61f00bbb632080b3690b45608f5642563c4ec",
+        "byteOffset": 3472,
+        "byteLength": 17,
+        "text": "src=\"myhead.html\""
+      }
+    },
+    {
+      "requestId": "util-js",
+      "parentRequestId": "home",
+      "locator": {
+        "artifactId": "evidence-r2-e38c1eebd6034a464b2661c0c4d61f00bbb632080b3690b45608f5642563c4ec",
+        "byteOffset": 3032,
+        "byteLength": 20,
+        "text": "data-compress=\"true\""
+      }
+    },
+    {
+      "requestId": "util-js",
+      "parentRequestId": "home",
+      "locator": {
+        "artifactId": "evidence-r2-e38c1eebd6034a464b2661c0c4d61f00bbb632080b3690b45608f5642563c4ec",
+        "byteOffset": 3076,
+        "byteLength": 34,
+        "text": "base=\"/template/6/bluewise/_files\""
+      }
+    },
+    {
+      "requestId": "main-js",
+      "parentRequestId": "home",
+      "locator": {
+        "artifactId": "evidence-r2-e38c1eebd6034a464b2661c0c4d61f00bbb632080b3690b45608f5642563c4ec",
+        "byteOffset": 2983,
+        "byteLength": 48,
+        "text": "src=\"/template/6/bluewise/_files/js/main.min.js\""
+      }
+    },
+    {
+      "requestId": "index-js",
+      "parentRequestId": "home",
+      "locator": {
+        "artifactId": "evidence-r2-e38c1eebd6034a464b2661c0c4d61f00bbb632080b3690b45608f5642563c4ec",
+        "byteOffset": 76678,
+        "byteLength": 55,
+        "text": "src=\"/template/6/bluewise/_files/js/index/index.min.js\""
+      }
+    }
+  ],
+  "auxiliaryEvidence": [
+    {
+      "meaning": "CALENDAR_PAGE_IS_CORPORATE_EVENT_API_NOT_SESSION_CALENDAR",
+      "locator": {
+        "artifactId": "evidence-r2-3a06f69fbc5837f6e959556dc63ca7056b0f007663c4945ca2728fdd61b7f38a",
+        "byteOffset": 4217,
+        "byteLength": 49,
+        "text": "url:\"/tradingtipsController/tradingtipsExPage.do\""
+      }
+    },
+    {
+      "meaning": "BSE_LAUNCH_AND_SEPARATE_NEEQ_IDENTITY",
+      "locator": {
+        "artifactId": "evidence-r2-4eb5395d0e6fe269c84227459503b2201a9e005dac25fad9226b5c4d94c027f8",
+        "byteOffset": 5132,
+        "byteLength": 29,
+        "text": "2021年11月15日开市交易"
+      }
+    },
+    {
+      "meaning": "SELECT_LAYER_MIGRATION_NOT_PRELAUNCH_BSE_SERIES",
+      "locator": {
+        "artifactId": "evidence-r2-9d16649b736e85e40e8fa25b2d8379f06405877093367d85edb1c25b76a96e6d",
+        "byteOffset": 15026,
+        "byteLength": 174,
+        "text": "全国中小企业股份转让系统精选层（以下简称精选层）挂牌公司平移为本所上市公司，上市时间自其在精选层挂牌之日起连续计算。"
+      }
+    },
+    {
+      "meaning": "WEEKLY_ISSUANCE_BREAK_NOT_DAILY_FIELD_BREAK",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 16104,
+        "byteLength": 125,
+        "text": "注：自2025年7月起，按照《证券期货业统计指标标准指引》规定口径调整，包含股权激励增发。"
+      }
+    },
+    {
+      "meaning": "DAILY_MARKETCAP_LABEL_MAPPING",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 10222,
+        "byteLength": 128,
+        "text": "总市值（亿元）</td><td class='tc'>\"+C(R.zsz)+\"</td><td class='tc'>流通市值（亿元）</td><td class='tc'>\"+C(R.ltsz)"
+      }
+    },
+    {
+      "meaning": "DATE_PICKER_WEEKDAY_FILTER_IS_NOT_CALENDAR_EVIDENCE",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 1088,
+        "byteLength": 43,
+        "text": "if(c(Q)<c(S)||!(Q.getDay()%6)){return true}"
+      }
+    },
+    {
+      "meaning": "RAW_CAP_UNIT_YUAN_DISPLAY_DIVIDES_1E8",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 7318,
+        "byteLength": 57,
+        "text": "function C(O){if(O!=null&&O!=\"\"){return t(O,100000000,2)}"
+      }
+    },
+    {
+      "meaning": "TURNOVER_AMOUNT_DISTINCT_FROM_SHARES",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 9539,
+        "byteLength": 64,
+        "text": "if(R.hqcjje){var T=u.unitAdjust(R.hqcjje,2);X=T[0]+\"元\";Z=T[1]}"
+      }
+    },
+    {
+      "meaning": "DAILY_UI_SELECTS_CODE_2_ONLY",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 9233,
+        "byteLength": 65,
+        "text": "var W=ac[S].xxzrlx;if(W==\"2\"){R=ac[S]}else{if(W==\"XJX\"){V=ac[S]}}"
+      }
+    },
+    {
+      "meaning": "BLOCK_TRADE_NOTE_NOT_ADDITIVE_AUTHORITY",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 9399,
+        "byteLength": 76,
+        "text": "注：当日大宗交易成交 \"+p(V.hqcjsl)+\"万股、\"+p(V.hqcjje)+\"万元"
+      }
+    },
+    {
+      "meaning": "WEEKLY_YTD_EXPLICITLY_CONTAINS_PRELAUNCH_SELECTED_LAYER",
+      "locator": {
+        "artifactId": "evidence-r2-d0bbd710529a4a8dfbc802eb2382a089b9b3d720560b3eb18be41da56bbc8aab",
+        "byteOffset": 16737,
+        "byteLength": 92,
+        "text": "注2：本年累计包含2021年1月1日至11月12日精选层平移公司的交易数据。"
+      }
+    }
+  ],
+  "sourceResponses": [
+    {
+      "requestId": "daily-2026-01-01",
+      "bodyText": "null([])"
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "bodyText": "null([{\"hqcjje\":10312354,\"hqcjsl\":1983145,\"xxzrlx\":\"XJX\",\"rq\":\"20260904\"},{\"hqcjje\":29523635.86,\"hqcjsl\":16764095,\"xxzrlx\":\"X\",\"rq\":\"20260904\"},{\"gpgsjs\":170,\"hqcjje\":63817123.35,\"xxzgb\":34641598501,\"hqcjzs\":111,\"hqcjsl\":21388893,\"drxzjs\":0,\"xxfxsgb\":25543517202,\"xxzrlx\":\"M\",\"rq\":\"20260904\",\"hqcjbs\":0},{\"gpgsjs\":5614,\"hqcjje\":90417331.24,\"xxzgb\":423329740891,\"hqcjzs\":461,\"hqcjsl\":36050506,\"drxzjs\":-1,\"xxfxsgb\":239254863076,\"xxzrlx\":\"C\",\"rq\":\"20260904\",\"hqcjbs\":0},{\"gpgsjs\":341,\"hqcjje\":20618345986.47,\"xxzgb\":47189063564,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"B\",\"rq\":\"20260904\",\"hqcjbs\":0},{\"zsz\":867557008082.1,\"gpgsjs\":341,\"xxzgb\":47189063564,\"hqcjje\":20618345986.47,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"2\",\"ltsz\":484437181103.89,\"rq\":\"20260904\",\"hqcjbs\":0},{\"zsz\":1560819843828.53,\"gpgsjs\":2276,\"xxzgb\":219020247639,\"hqcjje\":128410996.06,\"hqcjzs\":404,\"hqcjsl\":34397518,\"drxzjs\":-1,\"xxfxsgb\":115072395097,\"xxzrlx\":\"1\",\"ltsz\":566611421937.75,\"rq\":\"20260904\",\"hqcjbs\":0},{\"zsz\":547911450944.94,\"gpgsjs\":3508,\"xxzgb\":238951091753,\"hqcjje\":25823458.53,\"hqcjzs\":168,\"hqcjsl\":23041881,\"drxzjs\":0,\"xxfxsgb\":149725985181,\"xxzrlx\":\"0\",\"ltsz\":292539779561.21,\"rq\":\"20260904\",\"hqcjbs\":0}])"
+    },
+    {
+      "requestId": "daily-2026-08-31",
+      "bodyText": "null([{\"hqcjje\":1585000,\"hqcjsl\":350000,\"xxzrlx\":\"XJX\",\"rq\":\"20260831\"},{\"hqcjje\":60052861.7,\"hqcjsl\":14067871,\"xxzrlx\":\"X\",\"rq\":\"20260831\"},{\"gpgsjs\":170,\"hqcjje\":80671285.01,\"xxzgb\":34641598501,\"hqcjzs\":115,\"hqcjsl\":31312978,\"drxzjs\":0,\"xxfxsgb\":25539986702,\"xxzrlx\":\"M\",\"rq\":\"20260831\",\"hqcjbs\":0},{\"gpgsjs\":5621,\"hqcjje\":137827181.17,\"xxzgb\":423775776077,\"hqcjzs\":491,\"hqcjsl\":31620339,\"drxzjs\":1,\"xxfxsgb\":239474032314,\"xxzrlx\":\"C\",\"rq\":\"20260831\",\"hqcjbs\":0},{\"gpgsjs\":339,\"hqcjje\":14794498534.67,\"xxzgb\":46866063484,\"hqcjzs\":339,\"hqcjsl\":810357544,\"drxzjs\":0,\"xxfxsgb\":28477751091,\"xxzrlx\":\"B\",\"rq\":\"20260831\",\"hqcjbs\":0},{\"zsz\":841485567368.69,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":14794498534.67,\"hqcjzs\":339,\"hqcjsl\":810357544,\"drxzjs\":0,\"xxfxsgb\":28477751091,\"xxzrlx\":\"2\",\"ltsz\":471322312417.79,\"rq\":\"20260831\",\"hqcjbs\":0},{\"zsz\":1564277947513.14,\"gpgsjs\":2287,\"xxzgb\":219996321645,\"hqcjje\":200216951.64,\"hqcjzs\":430,\"hqcjsl\":52716847,\"drxzjs\":0,\"xxfxsgb\":115578138582,\"xxzrlx\":\"1\",\"ltsz\":570359681791.06,\"rq\":\"20260831\",\"hqcjbs\":0},{\"zsz\":548104148602.08,\"gpgsjs\":3504,\"xxzgb\":238421052933,\"hqcjje\":18281514.54,\"hqcjzs\":176,\"hqcjsl\":10216470,\"drxzjs\":1,\"xxfxsgb\":149435880434,\"xxzrlx\":\"0\",\"ltsz\":293569316840.01,\"rq\":\"20260831\",\"hqcjbs\":0}])"
+    },
+    {
+      "requestId": "daily-2026-09-01",
+      "bodyText": "null([{\"hqcjje\":25105569,\"hqcjsl\":511900,\"xxzrlx\":\"XJX\",\"rq\":\"20260901\"},{\"hqcjje\":30517282.6,\"hqcjsl\":33560450,\"xxzrlx\":\"X\",\"rq\":\"20260901\"},{\"gpgsjs\":170,\"hqcjje\":63622668.66,\"xxzgb\":34641598501,\"hqcjzs\":116,\"hqcjsl\":24598114,\"drxzjs\":0,\"xxfxsgb\":25539986702,\"xxzrlx\":\"M\",\"rq\":\"20260901\",\"hqcjbs\":0},{\"gpgsjs\":5619,\"hqcjje\":80116472.22,\"xxzgb\":423701218951,\"hqcjzs\":477,\"hqcjsl\":47947880,\"drxzjs\":-2,\"xxfxsgb\":239415505973,\"xxzrlx\":\"C\",\"rq\":\"20260901\",\"hqcjbs\":0},{\"gpgsjs\":339,\"hqcjje\":19074575066.83,\"xxzgb\":46866063484,\"hqcjzs\":339,\"hqcjsl\":1105613065,\"drxzjs\":0,\"xxfxsgb\":28477744841,\"xxzrlx\":\"B\",\"rq\":\"20260901\",\"hqcjbs\":0},{\"zsz\":854581569683.1,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":19074575066.83,\"hqcjzs\":339,\"hqcjsl\":1105613065,\"drxzjs\":0,\"xxfxsgb\":28477744841,\"xxzrlx\":\"2\",\"ltsz\":480832587050.42,\"rq\":\"20260901\",\"hqcjbs\":0},{\"zsz\":1565627789575.15,\"gpgsjs\":2286,\"xxzgb\":219964884519,\"hqcjje\":122782717.87,\"hqcjzs\":430,\"hqcjsl\":33857737,\"drxzjs\":-1,\"xxfxsgb\":115524807218,\"xxzrlx\":\"1\",\"ltsz\":569296441756.86,\"rq\":\"20260901\",\"hqcjbs\":0},{\"zsz\":548570118280.29,\"gpgsjs\":3503,\"xxzgb\":238377932933,\"hqcjje\":20956423.01,\"hqcjzs\":163,\"hqcjsl\":38688257,\"drxzjs\":-1,\"xxfxsgb\":149430685457,\"xxzrlx\":\"0\",\"ltsz\":293660286559.67,\"rq\":\"20260901\",\"hqcjbs\":0}])"
+    },
+    {
+      "requestId": "daily-2021-11-15",
+      "bodyText": "null([{\"hqcjje\":3360000,\"hqcjsl\":30000,\"xxzrlx\":\"XJX\",\"rq\":\"20211115\"},{\"hqcjje\":151492935.93,\"hqcjsl\":34892579,\"xxzrlx\":\"X\",\"rq\":\"20211115\"},{\"gpgsjs\":417,\"hqcjje\":673493629.47,\"xxzgb\":55435574336,\"hqcjzs\":301,\"hqcjsl\":100369861,\"drxzjs\":-4,\"xxfxsgb\":36672643389,\"xxzrlx\":\"M\",\"rq\":\"20211115\",\"hqcjbs\":0},{\"gpgsjs\":6616,\"hqcjje\":389565918.8,\"xxzgb\":408982519828,\"hqcjzs\":909,\"hqcjsl\":110621232,\"drxzjs\":-65,\"xxfxsgb\":251104880337,\"xxzrlx\":\"C\",\"rq\":\"20211115\",\"hqcjbs\":0},{\"gpgsjs\":81,\"hqcjje\":9576305681.06,\"xxzgb\":12139276075,\"hqcjzs\":78,\"hqcjsl\":482963307,\"drxzjs\":10,\"xxfxsgb\":5566760025,\"xxzrlx\":\"B\",\"rq\":\"20211115\",\"hqcjbs\":0},{\"zsz\":288693616353.65,\"gpgsjs\":81,\"xxzgb\":12139276075,\"hqcjje\":9576305681.06,\"hqcjzs\":78,\"hqcjsl\":482963307,\"drxzjs\":10,\"xxfxsgb\":5566760025,\"xxzrlx\":\"2\",\"ltsz\":113776190803.45,\"rq\":\"20211115\",\"hqcjbs\":0},{\"zsz\":904257077694.87,\"gpgsjs\":1229,\"xxzgb\":127731256858,\"hqcjje\":917430060.07,\"hqcjzs\":661,\"hqcjsl\":121817192,\"drxzjs\":-10,\"xxfxsgb\":77252921652,\"xxzrlx\":\"1\",\"ltsz\":527314061491.74,\"rq\":\"20211115\",\"hqcjbs\":0},{\"zsz\":1046095662187.05,\"gpgsjs\":5804,\"xxzgb\":336686837306,\"hqcjje\":145629488.2,\"hqcjzs\":549,\"hqcjsl\":89173901,\"drxzjs\":-59,\"xxfxsgb\":210524602074,\"xxzrlx\":\"0\",\"ltsz\":629812225105.72,\"rq\":\"20211115\",\"hqcjbs\":0}])"
+    },
+    {
+      "requestId": "daily-2021-11-16",
+      "bodyText": "null([{\"hqcjje\":48897520,\"hqcjsl\":3588400,\"xxzrlx\":\"XJX\",\"rq\":\"20211116\"},{\"hqcjje\":157294193.6,\"hqcjsl\":33896283,\"xxzrlx\":\"X\",\"rq\":\"20211116\"},{\"gpgsjs\":416,\"hqcjje\":550924083.65,\"xxzgb\":55366009336,\"hqcjzs\":286,\"hqcjsl\":87058120,\"drxzjs\":-1,\"xxfxsgb\":36628390889,\"xxzrlx\":\"M\",\"rq\":\"20211116\",\"hqcjbs\":0},{\"gpgsjs\":6617,\"hqcjje\":330527082.88,\"xxzgb\":409161451304,\"hqcjzs\":849,\"hqcjsl\":80939930,\"drxzjs\":1,\"xxfxsgb\":251223211484,\"xxzrlx\":\"C\",\"rq\":\"20211116\",\"hqcjbs\":0},{\"gpgsjs\":81,\"hqcjje\":4496136779.76,\"xxzgb\":12139276075,\"hqcjzs\":78,\"hqcjsl\":258526378,\"drxzjs\":0,\"xxfxsgb\":5566760025,\"xxzrlx\":\"B\",\"rq\":\"20211116\",\"hqcjbs\":0},{\"zsz\":279565794897.39,\"gpgsjs\":81,\"xxzgb\":12139276075,\"hqcjje\":4496136779.76,\"hqcjzs\":78,\"hqcjsl\":258526378,\"drxzjs\":0,\"xxfxsgb\":5566760025,\"xxzrlx\":\"2\",\"ltsz\":109617392232.13,\"rq\":\"20211116\",\"hqcjbs\":0},{\"zsz\":900348579041.11,\"gpgsjs\":1229,\"xxzgb\":127731881858,\"hqcjje\":705980311.95,\"hqcjzs\":631,\"hqcjsl\":93962821,\"drxzjs\":0,\"xxfxsgb\":77270726707,\"xxzrlx\":\"1\",\"ltsz\":525434036933.24,\"rq\":\"20211116\",\"hqcjbs\":0},{\"zsz\":1045521511069.55,\"gpgsjs\":5804,\"xxzgb\":336795578782,\"hqcjje\":175470854.58,\"hqcjzs\":504,\"hqcjsl\":74035229,\"drxzjs\":0,\"xxfxsgb\":210580875666,\"xxzrlx\":\"0\",\"ltsz\":629299261855.43,\"rq\":\"20211116\",\"hqcjbs\":0}])"
+    },
+    {
+      "requestId": "daily-2026-01-05",
+      "bodyText": "null([{\"hqcjje\":49270968.8,\"hqcjsl\":3108020,\"xxzrlx\":\"XJX\",\"rq\":\"20260105\"},{\"hqcjje\":155120232.77,\"hqcjsl\":29172629,\"xxzrlx\":\"X\",\"rq\":\"20260105\"},{\"gpgsjs\":201,\"hqcjje\":69787307.31,\"xxzgb\":37396738616,\"hqcjzs\":143,\"hqcjsl\":22816928,\"drxzjs\":0,\"xxfxsgb\":26709584448,\"xxzrlx\":\"M\",\"rq\":\"20260105\",\"hqcjbs\":0},{\"gpgsjs\":5759,\"hqcjje\":261425458.31,\"xxzgb\":429343876730,\"hqcjzs\":623,\"hqcjsl\":52278767,\"drxzjs\":0,\"xxfxsgb\":245788084745,\"xxzrlx\":\"C\",\"rq\":\"20260105\",\"hqcjbs\":0},{\"gpgsjs\":287,\"hqcjje\":21187701764.64,\"xxzgb\":39677254055,\"hqcjzs\":286,\"hqcjsl\":802741000,\"drxzjs\":-1,\"xxfxsgb\":25286712693,\"xxzrlx\":\"B\",\"rq\":\"20260105\",\"hqcjbs\":0},{\"zsz\":884467922193.32,\"gpgsjs\":287,\"xxzgb\":39677254055,\"hqcjje\":21187701764.64,\"hqcjzs\":286,\"hqcjsl\":802741000,\"drxzjs\":-1,\"xxfxsgb\":25286712693,\"xxzrlx\":\"2\",\"ltsz\":534795965031.13,\"rq\":\"20260105\",\"hqcjbs\":0},{\"zsz\":1055329272099.89,\"gpgsjs\":2295,\"xxzgb\":216261721738,\"hqcjje\":258306084.66,\"hqcjzs\":560,\"hqcjsl\":44748767,\"drxzjs\":0,\"xxfxsgb\":114843737666,\"xxzrlx\":\"1\",\"ltsz\":535821881646.65,\"rq\":\"20260105\",\"hqcjbs\":0},{\"zsz\":637284920591.68,\"gpgsjs\":3665,\"xxzgb\":250478893608,\"hqcjje\":72906680.96,\"hqcjzs\":206,\"hqcjsl\":30346928,\"drxzjs\":0,\"xxfxsgb\":157653931527,\"xxzrlx\":\"0\",\"ltsz\":356787686850.3,\"rq\":\"20260105\",\"hqcjbs\":0}])"
+    },
+    {
+      "requestId": "daily-2026-09-02",
+      "bodyText": "null([{\"hqcjje\":57229957.5,\"hqcjsl\":826465,\"xxzrlx\":\"XJX\",\"rq\":\"20260902\"},{\"hqcjje\":33492478.24,\"hqcjsl\":9902742,\"xxzrlx\":\"X\",\"rq\":\"20260902\"},{\"gpgsjs\":170,\"hqcjje\":48626627.2,\"xxzgb\":34641598501,\"hqcjzs\":118,\"hqcjsl\":19777791,\"drxzjs\":0,\"xxfxsgb\":25539986702,\"xxzrlx\":\"M\",\"rq\":\"20260902\",\"hqcjbs\":0},{\"gpgsjs\":5615,\"hqcjje\":83448386.65,\"xxzgb\":423491858951,\"hqcjzs\":447,\"hqcjsl\":29491915,\"drxzjs\":-4,\"xxfxsgb\":239246963283,\"xxzrlx\":\"C\",\"rq\":\"20260902\",\"hqcjbs\":0},{\"gpgsjs\":339,\"hqcjje\":29476303090.04,\"xxzgb\":46866063484,\"hqcjzs\":339,\"hqcjsl\":1563835734,\"drxzjs\":0,\"xxfxsgb\":28483481914,\"xxzrlx\":\"B\",\"rq\":\"20260902\",\"hqcjbs\":0},{\"zsz\":876305035609.64,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":29476303090.04,\"hqcjzs\":339,\"hqcjsl\":1563835734,\"drxzjs\":0,\"xxfxsgb\":28483481914,\"xxzrlx\":\"2\",\"ltsz\":492103793186.09,\"rq\":\"20260902\",\"hqcjbs\":0},{\"zsz\":1563008834511.81,\"gpgsjs\":2285,\"xxzgb\":219895784519,\"hqcjje\":111724351.76,\"hqcjzs\":401,\"hqcjsl\":26605289,\"drxzjs\":-1,\"xxfxsgb\":115495482375,\"xxzrlx\":\"1\",\"ltsz\":567600438230.39,\"rq\":\"20260902\",\"hqcjbs\":0},{\"zsz\":547828976636.92,\"gpgsjs\":3500,\"xxzgb\":238237672933,\"hqcjje\":20350662.09,\"hqcjzs\":164,\"hqcjsl\":22664417,\"drxzjs\":-3,\"xxfxsgb\":149291467610,\"xxzrlx\":\"0\",\"ltsz\":292985801033.94,\"rq\":\"20260902\",\"hqcjbs\":0}])"
+    },
+    {
+      "requestId": "daily-2026-09-03",
+      "bodyText": "null([{\"hqcjje\":57786550,\"hqcjsl\":395000,\"xxzrlx\":\"XJX\",\"rq\":\"20260903\"},{\"hqcjje\":29941922.7,\"hqcjsl\":6981070,\"xxzrlx\":\"X\",\"rq\":\"20260903\"},{\"gpgsjs\":170,\"hqcjje\":58317535.96,\"xxzgb\":34641598501,\"hqcjzs\":109,\"hqcjsl\":17225306,\"drxzjs\":0,\"xxfxsgb\":25543517202,\"xxzrlx\":\"M\",\"rq\":\"20260903\",\"hqcjbs\":0},{\"gpgsjs\":5615,\"hqcjje\":76169014.59,\"xxzgb\":423354740951,\"hqcjzs\":468,\"hqcjsl\":20747857,\"drxzjs\":0,\"xxfxsgb\":239243538462,\"xxzrlx\":\"C\",\"rq\":\"20260903\",\"hqcjbs\":0},{\"gpgsjs\":340,\"hqcjje\":21596604071.47,\"xxzgb\":47121063484,\"hqcjzs\":340,\"hqcjsl\":1093730957,\"drxzjs\":1,\"xxfxsgb\":28511189158,\"xxzrlx\":\"B\",\"rq\":\"20260903\",\"hqcjbs\":0},{\"zsz\":869464971294.38,\"gpgsjs\":340,\"xxzgb\":47121063484,\"hqcjje\":21596604071.47,\"hqcjzs\":340,\"hqcjsl\":1093730957,\"drxzjs\":1,\"xxfxsgb\":28511189158,\"xxzrlx\":\"2\",\"ltsz\":484806071915.32,\"rq\":\"20260903\",\"hqcjbs\":0},{\"zsz\":1561061538007.96,\"gpgsjs\":2277,\"xxzgb\":219045247699,\"hqcjje\":121595125,\"hqcjzs\":405,\"hqcjsl\":27063546,\"drxzjs\":-8,\"xxfxsgb\":115055463156,\"xxzrlx\":\"1\",\"ltsz\":566434840089.34,\"rq\":\"20260903\",\"hqcjbs\":0},{\"zsz\":547329767415.96,\"gpgsjs\":3508,\"xxzgb\":238951091753,\"hqcjje\":12891425.55,\"hqcjzs\":172,\"hqcjsl\":10909617,\"drxzjs\":8,\"xxfxsgb\":149731592508,\"xxzrlx\":\"0\",\"ltsz\":292345051429.42,\"rq\":\"20260903\",\"hqcjbs\":0}])"
+    },
+    {
+      "requestId": "home-data",
+      "bodyText": "null({\"market\":[{\"zsz\":877045460435.6,\"gpgsjs\":342,\"xxzgb\":47249063564,\"hqcjje\":18104712071.53,\"hqcjzs\":342,\"hqcjsl\":939134861,\"drxzjs\":0,\"xxfxsgb\":28578625499,\"xxzrlx\":\"2\",\"ltsz\":488448255507.06,\"rq\":\"20260908\",\"hqcjbs\":0}],\"listed\":[{\"listInfo\":[{\"latestIssueUrl\":\"/issue_report_meeting/200029406.html\",\"latestIssueImage\":\"/uploads/6/file/public/202609/20260907160401_txk1e5v8vq.jpg\",\"xxzqdm\":\"920269\",\"xxzqjc\":\"杰锋动力\",\"fxssrq\":\"2026-09-07\"},{\"latestIssueUrl\":\"/issue_report_meeting/200029359.html\",\"latestIssueImage\":\"/uploads/6/file/public/202609/20260904161704_wvvjokpu5d.jpg\",\"xxzqdm\":\"920289\",\"xxzqjc\":\"华汇智能\",\"fxssrq\":\"2026-09-04\"},{\"latestIssueUrl\":\"/issue_report_meeting/200029302.html\",\"latestIssueImage\":\"/uploads/6/file/public/202609/20260903171226_2nhuolaku4.jpg\",\"xxzqdm\":\"920071\",\"xxzqjc\":\"金钛股份\",\"fxssrq\":\"2026-09-03\"},{\"latestIssueUrl\":\"/issue_report_meeting/200029182.html\",\"latestIssueImage\":\"/uploads/6/file/public/202608/20260828165043_2lrepn3alg.jpg\",\"xxzqdm\":\"920288\",\"xxzqjc\":\"华大海天\",\"fxssrq\":\"2026-08-28\"},{\"latestIssueUrl\":\"/issue_report_meeting/200029100.html\",\"latestIssueImage\":\"/uploads/6/file/public/202608/20260819161351_3q0kthe16l.jpg\",\"xxzqdm\":\"920059\",\"xxzqjc\":\"双英集团\",\"fxssrq\":\"2026-08-19\"},{\"latestIssueUrl\":\"/issue_report_meeting/200029097.html\",\"latestIssueImage\":\"/uploads/6/file/public/202608/20260819161326_3k774mjdwk.jpg\",\"xxzqdm\":\"920107\",\"xxzqjc\":\"恒兴股份\",\"fxssrq\":\"2026-08-17\"},{\"latestIssueUrl\":\"/issue_report_meeting/200029044.html\",\"latestIssueImage\":\"/uploads/6/file/public/202608/20260814164029_fjmpmduv5o.jpg\",\"xxzqdm\":\"920138\",\"xxzqjc\":\"杰理科技\",\"fxssrq\":\"2026-08-12\"},{\"latestIssueUrl\":\"/issue_report_meeting/200029025.html\",\"latestIssueImage\":\"/uploads/6/file/public/202608/20260811165320_ejax3v0u0r.jpg\",\"xxzqdm\":\"920165\",\"xxzqjc\":\"珈凯生物\",\"fxssrq\":\"2026-08-11\"},{\"latestIssueUrl\":\"/issue_report_meeting/200028999.html\",\"latestIssueImage\":\"/uploads/6/file/public/202608/20260805175750_pcak0beqdj.jpg\",\"xxzqdm\":\"920038\",\"xxzqjc\":\"森合高科\",\"fxssrq\":\"2026-08-05\"},{\"latestIssueUrl\":\"/issue_report_meeting/200028882.html\",\"latestIssueImage\":\"/uploads/6/file/public/202608/20260803171218_wo4f2r5eem.jpg\",\"xxzqdm\":\"920258\",\"xxzqjc\":\"聚仁新材\",\"fxssrq\":\"2026-08-03\"},{\"latestIssueUrl\":\"/issue_report_meeting/200028790.html\",\"latestIssueImage\":\"/uploads/6/file/public/202607/20260727163458_myvom3corl.jpg\",\"xxzqdm\":\"920176\",\"xxzqjc\":\"维琪科技\",\"fxssrq\":\"2026-07-27\"},{\"latestIssueUrl\":\"/issue_report_meeting/200028784.html\",\"latestIssueImage\":\"/uploads/6/file/public/202607/20260724174613_i965rp4l5p.jpg\",\"xxzqdm\":\"920238\",\"xxzqjc\":\"长鹰硬科\",\"fxssrq\":\"2026-07-24\"},{\"latestIssueUrl\":\"/issue_report_meeting/200028766.html\",\"latestIssueImage\":\"/uploads/6/file/public/202607/20260722164327_gn54gtcsy5.jpg\",\"xxzqdm\":\"920079\",\"xxzqjc\":\"乔路铭\",\"fxssrq\":\"2026-07-22\"},{\"latestIssueUrl\":\"/issue_report_meeting/200028745.html\",\"latestIssueImage\":\"/uploads/6/file/public/202607/20260716161824_4a1ip6ubpl.jpg\",\"xxzqdm\":\"920117\",\"xxzqjc\":\"龙鑫智能\",\"fxssrq\":\"2026-07-16\"},{\"latestIssueUrl\":\"/issue_report_meeting/200028724.html\",\"latestIssueImage\":\"/uploads/6/file/public/202607/20260710163240_rjgqsm0m8p.jpg\",\"xxzqdm\":\"920081\",\"xxzqjc\":\"欧伦电气\",\"fxssrq\":\"2026-07-10\"},{\"latestIssueUrl\":\"/issue_report_meeting/200028719.html\",\"latestIssueImage\":\"/uploads/6/file/public/202607/20260709162248_0oyfo6vxkt.jpg\",\"xxzqdm\":\"920136\",\"xxzqjc\":\"永励精密\",\"fxssrq\":\"2026-07-09\"}]}],\"nqhq\":[{\"content\":[{\"hqcjje\":338429434.26,\"hqcjsl\":31366383,\"hqjrkp\":10.2,\"hqzdcj\":10.01,\"hqzdf\":7.3,\"hqzgcj\":11.27,\"hqzjcj\":11.02,\"hqzqdm\":\"920571\",\"hqzqjc\":\"国航远洋\",\"hqzrsp\":10.27},{\"hqcjje\":251156901.16,\"hqcjsl\":29904169,\"hqjrkp\":8.67,\"hqzdcj\":8.16,\"hqzdf\":-8.58,\"hqzgcj\":8.8,\"hqzjcj\":8.2,\"hqzqdm\":\"920021\",\"hqzqjc\":\"流金科技\",\"hqzrsp\":8.97},{\"hqcjje\":166826218.02,\"hqcjsl\":17730144,\"hqjrkp\":9.39,\"hqzdcj\":9.16,\"hqzdf\":-4.52,\"hqzgcj\":9.8,\"hqzjcj\":9.29,\"hqzqdm\":\"920786\",\"hqzqjc\":\"骑士乳业\",\"hqzrsp\":9.73},{\"hqcjje\":143221446.17,\"hqcjsl\":15118688,\"hqjrkp\":9.6,\"hqzdcj\":9.23,\"hqzdf\":-8.78,\"hqzgcj\":9.88,\"hqzjcj\":9.35,\"hqzqdm\":\"920371\",\"hqzqjc\":\"欧福蛋业\",\"hqzrsp\":10.25},{\"hqcjje\":248087671.09,\"hqcjsl\":13315532,\"hqjrkp\":18.85,\"hqzdcj\":18.05,\"hqzdf\":-4.71,\"hqzgcj\":19.59,\"hqzjcj\":18.62,\"hqzqdm\":\"920087\",\"hqzqjc\":\"秋乐种业\",\"hqzrsp\":19.54}],\"firstPage\":true,\"lastPage\":true,\"number\":0,\"numberOfElements\":5,\"size\":5,\"sort\":null,\"totalElements\":5,\"totalPages\":1}],\"disInfo\":[{\"listInfo\":{\"content\":[{\"destFilePath\":\"/disclosure/2026/2026-09-08/e1d31bc5816846029711a402a72fc9ff.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]长虹能源:关于延期回复北京证券交易所审核问询函的公告\",\"infoId\":0,\"publishDate\":\"2026-09-08\"},{\"destFilePath\":\"/disclosure/2026/2026-09-08/99402e16bbcb4b6eaa529b042a99bfa0.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]广脉科技:投资者关系活动记录表\",\"infoId\":0,\"publishDate\":\"2026-09-08\"},{\"destFilePath\":\"/disclosure/2026/2026-09-08/a257524b54134724b012df90005b84fa.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]龙辰科技:2026年度董事薪酬方案（修订）\",\"infoId\":0,\"publishDate\":\"2026-09-08\"},{\"destFilePath\":\"/disclosure/2026/2026-09-08/7dc090e9ee47486fb79e7b50c4b0931d.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]龙辰科技:关于召开2026年第三次临时股东会通知公告（提供网络投票）\",\"infoId\":0,\"publishDate\":\"2026-09-08\"},{\"destFilePath\":\"/disclosure/2026/2026-09-08/7a40082c78a144cdaf8975839bdfa79b.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]龙辰科技:董事换届公告\",\"infoId\":0,\"publishDate\":\"2026-09-08\"},{\"destFilePath\":\"/disclosure/2026/2026-09-08/be3e3793b6a949d88f682d2f711001dd.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]龙辰科技:独立董事候选人声明与承诺（杨森）\",\"infoId\":0,\"publishDate\":\"2026-09-08\"},{\"destFilePath\":\"/disclosure/2026/2026-09-08/86dd6beb33ed4fc6bb0ab79fa5ce8067.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]龙辰科技:第五届董事会第三十三次会议决议公告\",\"infoId\":0,\"publishDate\":\"2026-09-08\"},{\"destFilePath\":\"/disclosure/2026/2026-09-08/30c1b9092c75451985b8d75c8840573a.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]龙辰科技:独立董事候选人声明与承诺（赵鹏飞）\",\"infoId\":0,\"publishDate\":\"2026-09-08\"},{\"destFilePath\":\"/disclosure/2026/2026-09-08/f33d19df0a7142b0afdf762d0cabc158.pdf\",\"disclosurePostTitle\":\"\",\"disclosureTitle\":\"[临时公告]龙辰科技:独立董事提名人声明与承诺（赵鹏飞）\",\"infoId\":0,\"publishDate\":\"2026-09-08\"}],\"firstPage\":true,\"lastPage\":false,\"number\":0,\"numberOfElements\":9,\"size\":9,\"sort\":null,\"totalElements\":130516,\"totalPages\":14502}}]})"
+    }
+  ],
+  "probes": [
+    {
+      "requestId": "daily-2021-11-15",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "error": null
+    },
+    {
+      "requestId": "daily-2021-11-16",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "error": null
+    },
+    {
+      "requestId": "daily-2026-01-01",
+      "status": "EMPTY_RESPONSE_NOT_CALENDAR",
+      "error": null
+    },
+    {
+      "requestId": "daily-2026-01-05",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "error": null
+    },
+    {
+      "requestId": "daily-2026-08-31",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "error": null
+    },
+    {
+      "requestId": "daily-2026-09-01",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "error": null
+    },
+    {
+      "requestId": "daily-2026-09-02",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "error": null
+    },
+    {
+      "requestId": "daily-2026-09-03",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "error": null
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "error": null
+    },
+    {
+      "requestId": "home-data",
+      "status": "CURRENT_ONLY_NOT_HISTORICAL_CANDIDATE",
+      "error": null
+    }
+  ],
+  "calendar": {
+    "calendarVersion": "bse-official-bounded-facts-v1",
+    "status": "PARTIAL",
+    "officialTradingDayTargetCount": null,
+    "r2CalendarStatus": "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+    "windows": [
+      {
+        "start": "2026-01-01",
+        "end": "2026-01-05",
+        "openDates": [
+          "2026-01-05"
+        ],
+        "closedDates": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "evidence": {
+          "artifactId": "evidence-r2-8803aec433187be89ca026bb3382f533d5c813e9a65a616ec3885004e2be9fd3",
+          "byteOffset": 15251,
+          "byteLength": 669,
+          "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（一）元旦：1月</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\"><span style=\"font-family:微软雅黑\">1</span></span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">日（星期四）至1月3日（星期六）休市。1月4日（星期日）为周末休市。1月5日（星期一）起照常开市。</span></p>"
+        }
+      },
+      {
+        "start": "2021-11-15",
+        "end": "2021-11-15",
+        "openDates": [
+          "2021-11-15"
+        ],
+        "closedDates": [],
+        "evidence": {
+          "artifactId": "evidence-r2-4eb5395d0e6fe269c84227459503b2201a9e005dac25fad9226b5c4d94c027f8",
+          "byteOffset": 5132,
+          "byteLength": 29,
+          "text": "2021年11月15日开市交易"
+        }
+      }
+    ],
+    "contentSha256": "6b55190257e04e051d5c95e2ddab5beec1b45457ad54edb31bf05e0708882602"
+  },
+  "definitionBreaks": [
+    {
+      "date": "2021-11-15",
+      "kind": "BSE_LAUNCH_SELECTED_LAYER_MIGRATION",
+      "status": "IDENTITY_PROVEN_FIELD_ERA_APPLICABILITY_UNPROVEN"
+    },
+    {
+      "date": null,
+      "kind": "MARKET_EXPANSION_AND_FIELD_SCOPE_CHANGES",
+      "status": "UNRESOLVED_NO_INFERRED_BREAK_DATE"
+    }
+  ],
+  "candidates": [
+    {
+      "tradeDate": "2021-11-15",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "113776190803.45",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 632,
+        "byteLength": 205,
+        "text": "{\"zsz\":288693616353.65,\"gpgsjs\":81,\"xxzgb\":12139276075,\"hqcjje\":9576305681.06,\"hqcjzs\":78,\"hqcjsl\":482963307,\"drxzjs\":10,\"xxfxsgb\":5566760025,\"xxzrlx\":\"2\",\"ltsz\":113776190803.45,\"rq\":\"20211115\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 794,
+        "byteLength": 15,
+        "text": "113776190803.45"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-095e138c7b097f58514264e1c5ef735130a0784b5f25d49498be8ebbf2acd3b2"
+    },
+    {
+      "tradeDate": "2026-09-01",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "854581569683.1",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 631,
+        "byteLength": 208,
+        "text": "{\"zsz\":854581569683.1,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":19074575066.83,\"hqcjzs\":339,\"hqcjsl\":1105613065,\"drxzjs\":0,\"xxfxsgb\":28477744841,\"xxzrlx\":\"2\",\"ltsz\":480832587050.42,\"rq\":\"20260901\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 638,
+        "byteLength": 14,
+        "text": "854581569683.1"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-1de198ecd50b59301e51b6e38e9ca4017e61dcda37fbaee5f26042cbfaf641bf"
+    },
+    {
+      "tradeDate": "2026-09-01",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "19074575066.83",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 631,
+        "byteLength": 208,
+        "text": "{\"zsz\":854581569683.1,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":19074575066.83,\"hqcjzs\":339,\"hqcjsl\":1105613065,\"drxzjs\":0,\"xxfxsgb\":28477744841,\"xxzrlx\":\"2\",\"ltsz\":480832587050.42,\"rq\":\"20260901\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 695,
+        "byteLength": 14,
+        "text": "19074575066.83"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-2a2acf7695812c6d80839fd14c71f0d95d4641187c5bfa610e699e8ce3da1642"
+    },
+    {
+      "tradeDate": "2026-09-04",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "484437181103.89",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 633,
+        "byteLength": 208,
+        "text": "{\"zsz\":867557008082.1,\"gpgsjs\":341,\"xxzgb\":47189063564,\"hqcjje\":20618345986.47,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"2\",\"ltsz\":484437181103.89,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 798,
+        "byteLength": 15,
+        "text": "484437181103.89"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-2b25ce9b159c235531968e913819410fbbabdd39a3b5b6a53e27105d4924f1b8"
+    },
+    {
+      "tradeDate": "2026-08-31",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "14794498534.67",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 629,
+        "byteLength": 208,
+        "text": "{\"zsz\":841485567368.69,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":14794498534.67,\"hqcjzs\":339,\"hqcjsl\":810357544,\"drxzjs\":0,\"xxfxsgb\":28477751091,\"xxzrlx\":\"2\",\"ltsz\":471322312417.79,\"rq\":\"20260831\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 694,
+        "byteLength": 14,
+        "text": "14794498534.67"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-3013e96cd1f019ed745738de16f8f0568a7f6fb3498129330bb302617a1d73dc"
+    },
+    {
+      "tradeDate": "2026-09-02",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "492103793186.09",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 632,
+        "byteLength": 209,
+        "text": "{\"zsz\":876305035609.64,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":29476303090.04,\"hqcjzs\":339,\"hqcjsl\":1563835734,\"drxzjs\":0,\"xxfxsgb\":28483481914,\"xxzrlx\":\"2\",\"ltsz\":492103793186.09,\"rq\":\"20260902\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 798,
+        "byteLength": 15,
+        "text": "492103793186.09"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-39e5117ef0770a36f69d3511ac439120b7c63e6bcdbc88c1f46a82e5a97f343c"
+    },
+    {
+      "tradeDate": "2021-11-15",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "9576305681.06",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 632,
+        "byteLength": 205,
+        "text": "{\"zsz\":288693616353.65,\"gpgsjs\":81,\"xxzgb\":12139276075,\"hqcjje\":9576305681.06,\"hqcjzs\":78,\"hqcjsl\":482963307,\"drxzjs\":10,\"xxfxsgb\":5566760025,\"xxzrlx\":\"2\",\"ltsz\":113776190803.45,\"rq\":\"20211115\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 696,
+        "byteLength": 13,
+        "text": "9576305681.06"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-3d2c7c34c87b6bade43e54ca0df5e6620270a64eeb7bf26fa92fb072c36d1730"
+    },
+    {
+      "tradeDate": "2021-11-16",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "279565794897.39",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 630,
+        "byteLength": 204,
+        "text": "{\"zsz\":279565794897.39,\"gpgsjs\":81,\"xxzgb\":12139276075,\"hqcjje\":4496136779.76,\"hqcjzs\":78,\"hqcjsl\":258526378,\"drxzjs\":0,\"xxfxsgb\":5566760025,\"xxzrlx\":\"2\",\"ltsz\":109617392232.13,\"rq\":\"20211116\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 637,
+        "byteLength": 15,
+        "text": "279565794897.39"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-43fcdfc9de5e2a06ce50727e27eeb1884289386ff356224b18170ac720f254b9"
+    },
+    {
+      "tradeDate": "2026-08-31",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "841485567368.69",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 629,
+        "byteLength": 208,
+        "text": "{\"zsz\":841485567368.69,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":14794498534.67,\"hqcjzs\":339,\"hqcjsl\":810357544,\"drxzjs\":0,\"xxfxsgb\":28477751091,\"xxzrlx\":\"2\",\"ltsz\":471322312417.79,\"rq\":\"20260831\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 636,
+        "byteLength": 15,
+        "text": "841485567368.69"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-44a0b1a440424237b93d9c8e2194feddd93ce6e48d4883b07b59be4ff9519670"
+    },
+    {
+      "tradeDate": "2026-09-01",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "480832587050.42",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 631,
+        "byteLength": 208,
+        "text": "{\"zsz\":854581569683.1,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":19074575066.83,\"hqcjzs\":339,\"hqcjsl\":1105613065,\"drxzjs\":0,\"xxfxsgb\":28477744841,\"xxzrlx\":\"2\",\"ltsz\":480832587050.42,\"rq\":\"20260901\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 796,
+        "byteLength": 15,
+        "text": "480832587050.42"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-4914e6fa29a16c1eedc76ef4d0f543c23b7c88e963fd97134e03b989473527c4"
+    },
+    {
+      "tradeDate": "2026-09-03",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "21596604071.47",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 629,
+        "byteLength": 209,
+        "text": "{\"zsz\":869464971294.38,\"gpgsjs\":340,\"xxzgb\":47121063484,\"hqcjje\":21596604071.47,\"hqcjzs\":340,\"hqcjsl\":1093730957,\"drxzjs\":1,\"xxfxsgb\":28511189158,\"xxzrlx\":\"2\",\"ltsz\":484806071915.32,\"rq\":\"20260903\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 694,
+        "byteLength": 14,
+        "text": "21596604071.47"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-4d269eb6e896507590d321fe7cf5ed5967c9bc0ece1b50709c61083ea362a9b1"
+    },
+    {
+      "tradeDate": "2026-09-03",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "869464971294.38",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 629,
+        "byteLength": 209,
+        "text": "{\"zsz\":869464971294.38,\"gpgsjs\":340,\"xxzgb\":47121063484,\"hqcjje\":21596604071.47,\"hqcjzs\":340,\"hqcjsl\":1093730957,\"drxzjs\":1,\"xxfxsgb\":28511189158,\"xxzrlx\":\"2\",\"ltsz\":484806071915.32,\"rq\":\"20260903\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 636,
+        "byteLength": 15,
+        "text": "869464971294.38"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-5563c28a8c038f198b48dd7f3dc71a14dbf1d9b355a5ed9ca23960b1e909fbb0"
+    },
+    {
+      "tradeDate": "2026-09-04",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "867557008082.1",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 633,
+        "byteLength": 208,
+        "text": "{\"zsz\":867557008082.1,\"gpgsjs\":341,\"xxzgb\":47189063564,\"hqcjje\":20618345986.47,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"2\",\"ltsz\":484437181103.89,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 640,
+        "byteLength": 14,
+        "text": "867557008082.1"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-62b3cf523a8c31bab2b9472e526974ecdf566902564bf99ee0a5298fbf6ac674"
+    },
+    {
+      "tradeDate": "2021-11-15",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "288693616353.65",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 632,
+        "byteLength": 205,
+        "text": "{\"zsz\":288693616353.65,\"gpgsjs\":81,\"xxzgb\":12139276075,\"hqcjje\":9576305681.06,\"hqcjzs\":78,\"hqcjsl\":482963307,\"drxzjs\":10,\"xxfxsgb\":5566760025,\"xxzrlx\":\"2\",\"ltsz\":113776190803.45,\"rq\":\"20211115\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 639,
+        "byteLength": 15,
+        "text": "288693616353.65"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-71a2dc09b363c3f671d06be3f16ff0c0acd57aff243b364f30472d22cf853b6d"
+    },
+    {
+      "tradeDate": "2026-01-05",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "534795965031.13",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 636,
+        "byteLength": 209,
+        "text": "{\"zsz\":884467922193.32,\"gpgsjs\":287,\"xxzgb\":39677254055,\"hqcjje\":21187701764.64,\"hqcjzs\":286,\"hqcjsl\":802741000,\"drxzjs\":-1,\"xxfxsgb\":25286712693,\"xxzrlx\":\"2\",\"ltsz\":534795965031.13,\"rq\":\"20260105\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 802,
+        "byteLength": 15,
+        "text": "534795965031.13"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-8487b3511e84fcc534c26d3eb72b3d3e2ad903b7435b159f1dd8618f14bf6beb"
+    },
+    {
+      "tradeDate": "2026-01-05",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "21187701764.64",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 636,
+        "byteLength": 209,
+        "text": "{\"zsz\":884467922193.32,\"gpgsjs\":287,\"xxzgb\":39677254055,\"hqcjje\":21187701764.64,\"hqcjzs\":286,\"hqcjsl\":802741000,\"drxzjs\":-1,\"xxfxsgb\":25286712693,\"xxzrlx\":\"2\",\"ltsz\":534795965031.13,\"rq\":\"20260105\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 701,
+        "byteLength": 14,
+        "text": "21187701764.64"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-86e7ac55761b9efba7000ccae5e2b0e09548f12fde8d7636db8fc18e7519f9fc"
+    },
+    {
+      "tradeDate": "2026-09-03",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "484806071915.32",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 629,
+        "byteLength": 209,
+        "text": "{\"zsz\":869464971294.38,\"gpgsjs\":340,\"xxzgb\":47121063484,\"hqcjje\":21596604071.47,\"hqcjzs\":340,\"hqcjsl\":1093730957,\"drxzjs\":1,\"xxfxsgb\":28511189158,\"xxzrlx\":\"2\",\"ltsz\":484806071915.32,\"rq\":\"20260903\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 795,
+        "byteLength": 15,
+        "text": "484806071915.32"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-927332a641e384747b5e424f2a2c5d660f39684e887ff84dc13d89f92df327c2"
+    },
+    {
+      "tradeDate": "2026-09-04",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "20618345986.47",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 633,
+        "byteLength": 208,
+        "text": "{\"zsz\":867557008082.1,\"gpgsjs\":341,\"xxzgb\":47189063564,\"hqcjje\":20618345986.47,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"2\",\"ltsz\":484437181103.89,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 697,
+        "byteLength": 14,
+        "text": "20618345986.47"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-98d57901cc0b5497db8113b103e2a278011127e96eccf9639eb498f20b555c2d"
+    },
+    {
+      "tradeDate": "2026-01-05",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "884467922193.32",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 636,
+        "byteLength": 209,
+        "text": "{\"zsz\":884467922193.32,\"gpgsjs\":287,\"xxzgb\":39677254055,\"hqcjje\":21187701764.64,\"hqcjzs\":286,\"hqcjsl\":802741000,\"drxzjs\":-1,\"xxfxsgb\":25286712693,\"xxzrlx\":\"2\",\"ltsz\":534795965031.13,\"rq\":\"20260105\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 643,
+        "byteLength": 15,
+        "text": "884467922193.32"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-9ac870ce8b6b46b64924f782160f71b08da2802a54425cab7e078ca130a1062f"
+    },
+    {
+      "tradeDate": "2026-09-02",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "29476303090.04",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 632,
+        "byteLength": 209,
+        "text": "{\"zsz\":876305035609.64,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":29476303090.04,\"hqcjzs\":339,\"hqcjsl\":1563835734,\"drxzjs\":0,\"xxfxsgb\":28483481914,\"xxzrlx\":\"2\",\"ltsz\":492103793186.09,\"rq\":\"20260902\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 697,
+        "byteLength": 14,
+        "text": "29476303090.04"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-a66c41b40f7730ecce860aed8c8e02b395605d4e3d7a4f7a11c5c9774384102c"
+    },
+    {
+      "tradeDate": "2021-11-16",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "109617392232.13",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 630,
+        "byteLength": 204,
+        "text": "{\"zsz\":279565794897.39,\"gpgsjs\":81,\"xxzgb\":12139276075,\"hqcjje\":4496136779.76,\"hqcjzs\":78,\"hqcjsl\":258526378,\"drxzjs\":0,\"xxfxsgb\":5566760025,\"xxzrlx\":\"2\",\"ltsz\":109617392232.13,\"rq\":\"20211116\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 791,
+        "byteLength": 15,
+        "text": "109617392232.13"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-ad527ca4a4cf91565215545692e0244b88a6db97f3696856a60b2a89545c43ea"
+    },
+    {
+      "tradeDate": "2026-08-31",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "471322312417.79",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 629,
+        "byteLength": 208,
+        "text": "{\"zsz\":841485567368.69,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":14794498534.67,\"hqcjzs\":339,\"hqcjsl\":810357544,\"drxzjs\":0,\"xxfxsgb\":28477751091,\"xxzrlx\":\"2\",\"ltsz\":471322312417.79,\"rq\":\"20260831\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 794,
+        "byteLength": 15,
+        "text": "471322312417.79"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-bec2162ed504a3c7ae77d297e122c6680e0d802190cc866bbcf3b9f6363701d1"
+    },
+    {
+      "tradeDate": "2026-09-02",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "876305035609.64",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 632,
+        "byteLength": 209,
+        "text": "{\"zsz\":876305035609.64,\"gpgsjs\":339,\"xxzgb\":46866063484,\"hqcjje\":29476303090.04,\"hqcjzs\":339,\"hqcjsl\":1563835734,\"drxzjs\":0,\"xxfxsgb\":28483481914,\"xxzrlx\":\"2\",\"ltsz\":492103793186.09,\"rq\":\"20260902\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 639,
+        "byteLength": 15,
+        "text": "876305035609.64"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-d07dc8cda9d99ac19269761c3f259d137bca41a2a99302378a9d931f9aea312a"
+    },
+    {
+      "tradeDate": "2021-11-16",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "4496136779.76",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 630,
+        "byteLength": 204,
+        "text": "{\"zsz\":279565794897.39,\"gpgsjs\":81,\"xxzgb\":12139276075,\"hqcjje\":4496136779.76,\"hqcjzs\":78,\"hqcjsl\":258526378,\"drxzjs\":0,\"xxfxsgb\":5566760025,\"xxzrlx\":\"2\",\"ltsz\":109617392232.13,\"rq\":\"20211116\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 694,
+        "byteLength": 13,
+        "text": "4496136779.76"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-fc00e54875e73a229f39264a65b5e3c226be941552dc5b42a1975e3582195a7a"
+    }
+  ],
+  "rejectedRows": [
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 147,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":201,\"hqcjje\":69787307.31,\"xxzgb\":37396738616,\"hqcjzs\":143,\"hqcjsl\":22816928,\"drxzjs\":0,\"xxfxsgb\":26709584448,\"xxzrlx\":\"M\",\"rq\":\"20260105\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 307,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5759,\"hqcjje\":261425458.31,\"xxzgb\":429343876730,\"hqcjzs\":623,\"hqcjsl\":52278767,\"drxzjs\":0,\"xxfxsgb\":245788084745,\"xxzrlx\":\"C\",\"rq\":\"20260105\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 471,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":287,\"hqcjje\":21187701764.64,\"xxzgb\":39677254055,\"hqcjzs\":286,\"hqcjsl\":802741000,\"drxzjs\":-1,\"xxfxsgb\":25286712693,\"xxzrlx\":\"B\",\"rq\":\"20260105\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 1056,
+        "byteLength": 206,
+        "text": "{\"zsz\":637284920591.68,\"gpgsjs\":3665,\"xxzgb\":250478893608,\"hqcjje\":72906680.96,\"hqcjzs\":206,\"hqcjsl\":30346928,\"drxzjs\":0,\"xxfxsgb\":157653931527,\"xxzrlx\":\"0\",\"ltsz\":356787686850.3,\"rq\":\"20260105\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 846,
+        "byteLength": 209,
+        "text": "{\"zsz\":1055329272099.89,\"gpgsjs\":2295,\"xxzgb\":216261721738,\"hqcjje\":258306084.66,\"hqcjzs\":560,\"hqcjsl\":44748767,\"drxzjs\":0,\"xxfxsgb\":114843737666,\"xxzrlx\":\"1\",\"ltsz\":535821881646.65,\"rq\":\"20260105\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 6,
+        "byteLength": 69,
+        "text": "{\"hqcjje\":49270968.8,\"hqcjsl\":3108020,\"xxzrlx\":\"XJX\",\"rq\":\"20260105\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "evidence-r2-00a11b17b16194d18db061e9c56e8563fc69ba9ad5ef1e19a52d26a562ed87c5",
+        "byteOffset": 76,
+        "byteLength": 70,
+        "text": "{\"hqcjje\":155120232.77,\"hqcjsl\":29172629,\"xxzrlx\":\"X\",\"rq\":\"20260105\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 141,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":170,\"hqcjje\":80671285.01,\"xxzgb\":34641598501,\"hqcjzs\":115,\"hqcjsl\":31312978,\"drxzjs\":0,\"xxfxsgb\":25539986702,\"xxzrlx\":\"M\",\"rq\":\"20260831\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 301,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5621,\"hqcjje\":137827181.17,\"xxzgb\":423775776077,\"hqcjzs\":491,\"hqcjsl\":31620339,\"drxzjs\":1,\"xxfxsgb\":239474032314,\"xxzrlx\":\"C\",\"rq\":\"20260831\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 465,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":339,\"hqcjje\":14794498534.67,\"xxzgb\":46866063484,\"hqcjzs\":339,\"hqcjsl\":810357544,\"drxzjs\":0,\"xxfxsgb\":28477751091,\"xxzrlx\":\"B\",\"rq\":\"20260831\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 1048,
+        "byteLength": 207,
+        "text": "{\"zsz\":548104148602.08,\"gpgsjs\":3504,\"xxzgb\":238421052933,\"hqcjje\":18281514.54,\"hqcjzs\":176,\"hqcjsl\":10216470,\"drxzjs\":1,\"xxfxsgb\":149435880434,\"xxzrlx\":\"0\",\"ltsz\":293569316840.01,\"rq\":\"20260831\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 838,
+        "byteLength": 209,
+        "text": "{\"zsz\":1564277947513.14,\"gpgsjs\":2287,\"xxzgb\":219996321645,\"hqcjje\":200216951.64,\"hqcjzs\":430,\"hqcjsl\":52716847,\"drxzjs\":0,\"xxfxsgb\":115578138582,\"xxzrlx\":\"1\",\"ltsz\":570359681791.06,\"rq\":\"20260831\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 6,
+        "byteLength": 65,
+        "text": "{\"hqcjje\":1585000,\"hqcjsl\":350000,\"xxzrlx\":\"XJX\",\"rq\":\"20260831\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "evidence-r2-445c3f825186267bdc8b47b5eb5bdc48eaf225b7d4f93a068f8cae1b74bb4026",
+        "byteOffset": 72,
+        "byteLength": 68,
+        "text": "{\"hqcjje\":60052861.7,\"hqcjsl\":14067871,\"xxzrlx\":\"X\",\"rq\":\"20260831\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 470,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":81,\"hqcjje\":4496136779.76,\"xxzgb\":12139276075,\"hqcjzs\":78,\"hqcjsl\":258526378,\"drxzjs\":0,\"xxfxsgb\":5566760025,\"xxzrlx\":\"B\",\"rq\":\"20211116\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 144,
+        "byteLength": 161,
+        "text": "{\"gpgsjs\":416,\"hqcjje\":550924083.65,\"xxzgb\":55366009336,\"hqcjzs\":286,\"hqcjsl\":87058120,\"drxzjs\":-1,\"xxfxsgb\":36628390889,\"xxzrlx\":\"M\",\"rq\":\"20211116\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 306,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":6617,\"hqcjje\":330527082.88,\"xxzgb\":409161451304,\"hqcjzs\":849,\"hqcjsl\":80939930,\"drxzjs\":1,\"xxfxsgb\":251223211484,\"xxzrlx\":\"C\",\"rq\":\"20211116\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 835,
+        "byteLength": 207,
+        "text": "{\"zsz\":900348579041.11,\"gpgsjs\":1229,\"xxzgb\":127731881858,\"hqcjje\":705980311.95,\"hqcjzs\":631,\"hqcjsl\":93962821,\"drxzjs\":0,\"xxfxsgb\":77270726707,\"xxzrlx\":\"1\",\"ltsz\":525434036933.24,\"rq\":\"20211116\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 1043,
+        "byteLength": 209,
+        "text": "{\"zsz\":1045521511069.55,\"gpgsjs\":5804,\"xxzgb\":336795578782,\"hqcjje\":175470854.58,\"hqcjzs\":504,\"hqcjsl\":74035229,\"drxzjs\":0,\"xxfxsgb\":210580875666,\"xxzrlx\":\"0\",\"ltsz\":629299261855.43,\"rq\":\"20211116\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 6,
+        "byteLength": 67,
+        "text": "{\"hqcjje\":48897520,\"hqcjsl\":3588400,\"xxzrlx\":\"XJX\",\"rq\":\"20211116\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "evidence-r2-81e2366f2250639eda00b993522303a194e89e683f6acb2864e7742c3fc83339",
+        "byteOffset": 74,
+        "byteLength": 69,
+        "text": "{\"hqcjje\":157294193.6,\"hqcjsl\":33896283,\"xxzrlx\":\"X\",\"rq\":\"20211116\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 144,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":170,\"hqcjje\":63817123.35,\"xxzgb\":34641598501,\"hqcjzs\":111,\"hqcjsl\":21388893,\"drxzjs\":0,\"xxfxsgb\":25543517202,\"xxzrlx\":\"M\",\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 304,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5614,\"hqcjje\":90417331.24,\"xxzgb\":423329740891,\"hqcjzs\":461,\"hqcjsl\":36050506,\"drxzjs\":-1,\"xxfxsgb\":239254863076,\"xxzrlx\":\"C\",\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 468,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":341,\"hqcjje\":20618345986.47,\"xxzgb\":47189063564,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"B\",\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 1053,
+        "byteLength": 207,
+        "text": "{\"zsz\":547911450944.94,\"gpgsjs\":3508,\"xxzgb\":238951091753,\"hqcjje\":25823458.53,\"hqcjzs\":168,\"hqcjsl\":23041881,\"drxzjs\":0,\"xxfxsgb\":149725985181,\"xxzrlx\":\"0\",\"ltsz\":292539779561.21,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 842,
+        "byteLength": 210,
+        "text": "{\"zsz\":1560819843828.53,\"gpgsjs\":2276,\"xxzgb\":219020247639,\"hqcjje\":128410996.06,\"hqcjzs\":404,\"hqcjsl\":34397518,\"drxzjs\":-1,\"xxfxsgb\":115072395097,\"xxzrlx\":\"1\",\"ltsz\":566611421937.75,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 6,
+        "byteLength": 67,
+        "text": "{\"hqcjje\":10312354,\"hqcjsl\":1983145,\"xxzrlx\":\"XJX\",\"rq\":\"20260904\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "evidence-r2-826463b0619895ca04c626898c13e739841a47f5f20a1989bf632ec154a40e66",
+        "byteOffset": 74,
+        "byteLength": 69,
+        "text": "{\"hqcjje\":29523635.86,\"hqcjsl\":16764095,\"xxzrlx\":\"X\",\"rq\":\"20260904\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 142,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":170,\"hqcjje\":63622668.66,\"xxzgb\":34641598501,\"hqcjzs\":116,\"hqcjsl\":24598114,\"drxzjs\":0,\"xxfxsgb\":25539986702,\"xxzrlx\":\"M\",\"rq\":\"20260901\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 302,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5619,\"hqcjje\":80116472.22,\"xxzgb\":423701218951,\"hqcjzs\":477,\"hqcjsl\":47947880,\"drxzjs\":-2,\"xxfxsgb\":239415505973,\"xxzrlx\":\"C\",\"rq\":\"20260901\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 466,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":339,\"hqcjje\":19074575066.83,\"xxzgb\":46866063484,\"hqcjzs\":339,\"hqcjsl\":1105613065,\"drxzjs\":0,\"xxfxsgb\":28477744841,\"xxzrlx\":\"B\",\"rq\":\"20260901\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 1051,
+        "byteLength": 208,
+        "text": "{\"zsz\":548570118280.29,\"gpgsjs\":3503,\"xxzgb\":238377932933,\"hqcjje\":20956423.01,\"hqcjzs\":163,\"hqcjsl\":38688257,\"drxzjs\":-1,\"xxfxsgb\":149430685457,\"xxzrlx\":\"0\",\"ltsz\":293660286559.67,\"rq\":\"20260901\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 840,
+        "byteLength": 210,
+        "text": "{\"zsz\":1565627789575.15,\"gpgsjs\":2286,\"xxzgb\":219964884519,\"hqcjje\":122782717.87,\"hqcjzs\":430,\"hqcjsl\":33857737,\"drxzjs\":-1,\"xxfxsgb\":115524807218,\"xxzrlx\":\"1\",\"ltsz\":569296441756.86,\"rq\":\"20260901\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 6,
+        "byteLength": 66,
+        "text": "{\"hqcjje\":25105569,\"hqcjsl\":511900,\"xxzrlx\":\"XJX\",\"rq\":\"20260901\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "evidence-r2-947b1f657c42a6389ae2b88bc6dbee006a05f8011cedd64309bc2335a67f60f1",
+        "byteOffset": 73,
+        "byteLength": 68,
+        "text": "{\"hqcjje\":30517282.6,\"hqcjsl\":33560450,\"xxzrlx\":\"X\",\"rq\":\"20260901\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 471,
+        "byteLength": 160,
+        "text": "{\"gpgsjs\":81,\"hqcjje\":9576305681.06,\"xxzgb\":12139276075,\"hqcjzs\":78,\"hqcjsl\":482963307,\"drxzjs\":10,\"xxfxsgb\":5566760025,\"xxzrlx\":\"B\",\"rq\":\"20211115\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 142,
+        "byteLength": 162,
+        "text": "{\"gpgsjs\":417,\"hqcjje\":673493629.47,\"xxzgb\":55435574336,\"hqcjzs\":301,\"hqcjsl\":100369861,\"drxzjs\":-4,\"xxfxsgb\":36672643389,\"xxzrlx\":\"M\",\"rq\":\"20211115\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 305,
+        "byteLength": 165,
+        "text": "{\"gpgsjs\":6616,\"hqcjje\":389565918.8,\"xxzgb\":408982519828,\"hqcjzs\":909,\"hqcjsl\":110621232,\"drxzjs\":-65,\"xxfxsgb\":251104880337,\"xxzrlx\":\"C\",\"rq\":\"20211115\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 1049,
+        "byteLength": 210,
+        "text": "{\"zsz\":1046095662187.05,\"gpgsjs\":5804,\"xxzgb\":336686837306,\"hqcjje\":145629488.2,\"hqcjzs\":549,\"hqcjsl\":89173901,\"drxzjs\":-59,\"xxfxsgb\":210524602074,\"xxzrlx\":\"0\",\"ltsz\":629812225105.72,\"rq\":\"20211115\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 838,
+        "byteLength": 210,
+        "text": "{\"zsz\":904257077694.87,\"gpgsjs\":1229,\"xxzgb\":127731256858,\"hqcjje\":917430060.07,\"hqcjzs\":661,\"hqcjsl\":121817192,\"drxzjs\":-10,\"xxfxsgb\":77252921652,\"xxzrlx\":\"1\",\"ltsz\":527314061491.74,\"rq\":\"20211115\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 6,
+        "byteLength": 64,
+        "text": "{\"hqcjje\":3360000,\"hqcjsl\":30000,\"xxzrlx\":\"XJX\",\"rq\":\"20211115\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "evidence-r2-9f47ffa10bdda318ee2bce703800f34901ce7b10bba6e98b19e1d76316e5ea5a",
+        "byteOffset": 71,
+        "byteLength": 70,
+        "text": "{\"hqcjje\":151492935.93,\"hqcjsl\":34892579,\"xxzrlx\":\"X\",\"rq\":\"20211115\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 144,
+        "byteLength": 158,
+        "text": "{\"gpgsjs\":170,\"hqcjje\":48626627.2,\"xxzgb\":34641598501,\"hqcjzs\":118,\"hqcjsl\":19777791,\"drxzjs\":0,\"xxfxsgb\":25539986702,\"xxzrlx\":\"M\",\"rq\":\"20260902\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 303,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5615,\"hqcjje\":83448386.65,\"xxzgb\":423491858951,\"hqcjzs\":447,\"hqcjsl\":29491915,\"drxzjs\":-4,\"xxfxsgb\":239246963283,\"xxzrlx\":\"C\",\"rq\":\"20260902\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 467,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":339,\"hqcjje\":29476303090.04,\"xxzgb\":46866063484,\"hqcjzs\":339,\"hqcjsl\":1563835734,\"drxzjs\":0,\"xxfxsgb\":28483481914,\"xxzrlx\":\"B\",\"rq\":\"20260902\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 1053,
+        "byteLength": 208,
+        "text": "{\"zsz\":547828976636.92,\"gpgsjs\":3500,\"xxzgb\":238237672933,\"hqcjje\":20350662.09,\"hqcjzs\":164,\"hqcjsl\":22664417,\"drxzjs\":-3,\"xxfxsgb\":149291467610,\"xxzrlx\":\"0\",\"ltsz\":292985801033.94,\"rq\":\"20260902\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 842,
+        "byteLength": 210,
+        "text": "{\"zsz\":1563008834511.81,\"gpgsjs\":2285,\"xxzgb\":219895784519,\"hqcjje\":111724351.76,\"hqcjzs\":401,\"hqcjsl\":26605289,\"drxzjs\":-1,\"xxfxsgb\":115495482375,\"xxzrlx\":\"1\",\"ltsz\":567600438230.39,\"rq\":\"20260902\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 6,
+        "byteLength": 68,
+        "text": "{\"hqcjje\":57229957.5,\"hqcjsl\":826465,\"xxzrlx\":\"XJX\",\"rq\":\"20260902\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "evidence-r2-bbf57a6e5c3f8dc665a7afaec086f16f66609ce1026fd361a1f2df3d2bd48f2a",
+        "byteOffset": 75,
+        "byteLength": 68,
+        "text": "{\"hqcjje\":33492478.24,\"hqcjsl\":9902742,\"xxzrlx\":\"X\",\"rq\":\"20260902\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 141,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":170,\"hqcjje\":58317535.96,\"xxzgb\":34641598501,\"hqcjzs\":109,\"hqcjsl\":17225306,\"drxzjs\":0,\"xxfxsgb\":25543517202,\"xxzrlx\":\"M\",\"rq\":\"20260903\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 301,
+        "byteLength": 162,
+        "text": "{\"gpgsjs\":5615,\"hqcjje\":76169014.59,\"xxzgb\":423354740951,\"hqcjzs\":468,\"hqcjsl\":20747857,\"drxzjs\":0,\"xxfxsgb\":239243538462,\"xxzrlx\":\"C\",\"rq\":\"20260903\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 464,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":340,\"hqcjje\":21596604071.47,\"xxzgb\":47121063484,\"hqcjzs\":340,\"hqcjsl\":1093730957,\"drxzjs\":1,\"xxfxsgb\":28511189158,\"xxzrlx\":\"B\",\"rq\":\"20260903\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 1047,
+        "byteLength": 207,
+        "text": "{\"zsz\":547329767415.96,\"gpgsjs\":3508,\"xxzgb\":238951091753,\"hqcjje\":12891425.55,\"hqcjzs\":172,\"hqcjsl\":10909617,\"drxzjs\":8,\"xxfxsgb\":149731592508,\"xxzrlx\":\"0\",\"ltsz\":292345051429.42,\"rq\":\"20260903\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 839,
+        "byteLength": 207,
+        "text": "{\"zsz\":1561061538007.96,\"gpgsjs\":2277,\"xxzgb\":219045247699,\"hqcjje\":121595125,\"hqcjzs\":405,\"hqcjsl\":27063546,\"drxzjs\":-8,\"xxfxsgb\":115055463156,\"xxzrlx\":\"1\",\"ltsz\":566434840089.34,\"rq\":\"20260903\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 6,
+        "byteLength": 66,
+        "text": "{\"hqcjje\":57786550,\"hqcjsl\":395000,\"xxzrlx\":\"XJX\",\"rq\":\"20260903\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "evidence-r2-d2a9743bee5f483e4c2d1af6ff07e04854076cdd9a9978145ae34ebf149c6b3d",
+        "byteOffset": 73,
+        "byteLength": 67,
+        "text": "{\"hqcjje\":29941922.7,\"hqcjsl\":6981070,\"xxzrlx\":\"X\",\"rq\":\"20260903\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    }
+  ],
+  "dayAssessments": [
+    {
+      "tradeDate": "2026-01-01",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_MISSING",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_NON_TRADING_DAY",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_MISSING",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_NON_TRADING_DAY"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_MISSING",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "OFFICIAL_NON_TRADING_DAY"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        }
+      }
+    },
+    {
+      "tradeDate": "2026-09-04",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [
+            "bse-candidate-98d57901cc0b5497db8113b103e2a278011127e96eccf9639eb498f20b555c2d"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-62b3cf523a8c31bab2b9472e526974ecdf566902564bf99ee0a5298fbf6ac674"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-2b25ce9b159c235531968e913819410fbbabdd39a3b5b6a53e27105d4924f1b8"
+          ],
+          "admittedObservationIds": []
+        }
+      }
+    },
+    {
+      "tradeDate": "2026-09-02",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [
+            "bse-candidate-a66c41b40f7730ecce860aed8c8e02b395605d4e3d7a4f7a11c5c9774384102c"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-d07dc8cda9d99ac19269761c3f259d137bca41a2a99302378a9d931f9aea312a"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-39e5117ef0770a36f69d3511ac439120b7c63e6bcdbc88c1f46a82e5a97f343c"
+          ],
+          "admittedObservationIds": []
+        }
+      }
+    },
+    {
+      "tradeDate": "2026-09-01",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [
+            "bse-candidate-2a2acf7695812c6d80839fd14c71f0d95d4641187c5bfa610e699e8ce3da1642"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-1de198ecd50b59301e51b6e38e9ca4017e61dcda37fbaee5f26042cbfaf641bf"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-4914e6fa29a16c1eedc76ef4d0f543c23b7c88e963fd97134e03b989473527c4"
+          ],
+          "admittedObservationIds": []
+        }
+      }
+    },
+    {
+      "tradeDate": "2026-09-03",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [
+            "bse-candidate-4d269eb6e896507590d321fe7cf5ed5967c9bc0ece1b50709c61083ea362a9b1"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-5563c28a8c038f198b48dd7f3dc71a14dbf1d9b355a5ed9ca23960b1e909fbb0"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-927332a641e384747b5e424f2a2c5d660f39684e887ff84dc13d89f92df327c2"
+          ],
+          "admittedObservationIds": []
+        }
+      }
+    },
+    {
+      "tradeDate": "2021-11-16",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [
+            "bse-candidate-fc00e54875e73a229f39264a65b5e3c226be941552dc5b42a1975e3582195a7a"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-43fcdfc9de5e2a06ce50727e27eeb1884289386ff356224b18170ac720f254b9"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-ad527ca4a4cf91565215545692e0244b88a6db97f3696856a60b2a89545c43ea"
+          ],
+          "admittedObservationIds": []
+        }
+      }
+    },
+    {
+      "tradeDate": "2026-08-31",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [
+            "bse-candidate-3013e96cd1f019ed745738de16f8f0568a7f6fb3498129330bb302617a1d73dc"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-44a0b1a440424237b93d9c8e2194feddd93ce6e48d4883b07b59be4ff9519670"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "OFFICIAL_CALENDAR_MISSING"
+          ],
+          "candidateIds": [
+            "bse-candidate-bec2162ed504a3c7ae77d297e122c6680e0d802190cc866bbcf3b9f6363701d1"
+          ],
+          "admittedObservationIds": []
+        }
+      }
+    },
+    {
+      "tradeDate": "2021-11-15",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [
+            "bse-candidate-3d2c7c34c87b6bade43e54ca0df5e6620270a64eeb7bf26fa92fb072c36d1730"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
+          ],
+          "candidateIds": [
+            "bse-candidate-71a2dc09b363c3f671d06be3f16ff0c0acd57aff243b364f30472d22cf853b6d"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
+          ],
+          "candidateIds": [
+            "bse-candidate-095e138c7b097f58514264e1c5ef735130a0784b5f25d49498be8ebbf2acd3b2"
+          ],
+          "admittedObservationIds": []
+        }
+      }
+    },
+    {
+      "tradeDate": "2026-01-05",
+      "status": "PARTIAL",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "candidateIds": [
+            "bse-candidate-86e7ac55761b9efba7000ccae5e2b0e09548f12fde8d7636db8fc18e7519f9fc"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
+          ],
+          "candidateIds": [
+            "bse-candidate-9ac870ce8b6b46b64924f782160f71b08da2802a54425cab7e078ca130a1062f"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
+          ],
+          "candidateIds": [
+            "bse-candidate-8487b3511e84fcc534c26d3eb72b3d3e2ad903b7435b159f1dd8618f14bf6beb"
+          ],
+          "admittedObservationIds": []
+        }
+      }
+    }
+  ],
+  "coverage": {
+    "status": "PARTIAL",
+    "fullTarget": {
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "frequency": "TRADING_DAY",
+      "fields": [
+        "negotiableMarketCap",
+        "totalMarketCap",
+        "turnoverValue"
+      ]
+    },
+    "officialTradingDayTargetCount": null,
+    "provenCalendarSubwindowTargetCount": 2,
+    "unadmittedWindows": [
+      {
+        "start": "2021-11-15",
+        "end": "2026-09-04",
+        "reason": "FULL_CALENDAR_SCOPE_AND_PIT_UNPROVEN"
+      }
+    ],
+    "fields": {
+      "turnoverValue": {
+        "status": "PARTIAL",
+        "candidateDateCount": 8,
+        "availableCount": 0,
+        "strictPitCount": 0,
+        "historicalAdmittedWindows": []
+      },
+      "totalMarketCap": {
+        "status": "PARTIAL",
+        "candidateDateCount": 8,
+        "availableCount": 0,
+        "strictPitCount": 0,
+        "historicalAdmittedWindows": []
+      },
+      "negotiableMarketCap": {
+        "status": "PARTIAL",
+        "candidateDateCount": 8,
+        "availableCount": 0,
+        "strictPitCount": 0,
+        "historicalAdmittedWindows": []
+      }
+    }
+  },
+  "admission": {
+    "status": "PARTIAL",
+    "sourceDiscovered": true,
+    "parserWorks": true,
+    "candidateAvailableCount": 24,
+    "formalCoverage": 0,
+    "strictPitCoverage": 0,
+    "blockers": [
+      "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+      "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+      "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+      "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+      "MARKET_RELEASE_MISSING",
+      "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+      "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+      "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+    ]
+  },
+  "releaseEvents": [],
+  "fieldExtractions": [],
+  "exchangeMarketObservations": [],
+  "generatedAt": "2026-09-09T04:04:08+00:00",
+  "contentSha256": "e04cea6e9943fdf07a96e9441ad1bdf81487075ad2e5f6090baae50ede673441"
+}
