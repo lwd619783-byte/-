@@ -114,7 +114,7 @@ export class EarningsExpectationStore {
       updatedAt: maxIsoInstant([data.updatedAt, writeNow.toISOString(), snapshot.createdAt]),
       snapshots: [...data.snapshots, snapshot],
     };
-    const saved = this.repository.save(next);
+    const saved = this.repository.save(next, data);
     return saved.ok ? { ok: true, data: next, error: null, snapshot } : { ok: false, data, error: saved.error, snapshot };
   }
 }

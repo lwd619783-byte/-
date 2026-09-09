@@ -1,11 +1,13 @@
 # Investment Research Dashboard V2 · Post-Phase-1B Roadmap Rebaseline
 
-> 状态：CURRENT ROADMAP REBASELINE V1
-> 日期：2026-09-08
-> 事实基线：`main` @ `2230265e727f0f2787de9e82d509f0c1d3a6230a`
-> 作用：在 Phase 1B 关闭后，统一当前实现事实、旧 Stage 4 历史基线和 V2 Top-down / Local-first 冻结路线。本文不授权任何业务实现，也不定义 `Phase 1C`。
+> 状态：CURRENT ROADMAP REBASELINE V1（Master Audit 后更新）
+> 日期：2026-09-09
+> 已合入事实基线：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`
+> 作用：统一 Phase 1B、Stage 4.1 R2 当前实现、旧 Stage 4 历史基线和 V2 Top-down / Local-first 路线。Master Audit 修复只在当前分支，未合入；本文不授权新业务实现，也不定义 `Phase 1C`。
 
 ## 1. 当前正式事实
+
+R2 Scope Freeze、R2-A CORE、R2-B PBC、CSRC C1/C1.1/C2A1/C2A2、SSE/SZSE/BSE D1 与 all-A D2 均已合入以上 main 基线。Git merge ancestry 对应 PR #26～#37（#29 为既有 CI hardening）；当前数据状态与离线验证见 §2.4。以下 Phase 1B SHA/CI 仍是该阶段的关闭证据。
 
 Phase 1B — Long-term Account & DCA Core 的当前项目状态为 **CLOSED / MERGED / MAIN CI PASS**：
 
@@ -19,16 +21,15 @@ Phase 1B — Long-term Account & DCA Core 的当前项目状态为 **CLOSED / ME
 
 ## 2. 事实源审计结论
 
-### 2.1 需要纠正的 CURRENT 描述
+### 2.1 CURRENT authority 与历史证据
 
 | 事实源 | 审计前问题 | 本次处理 |
 | --- | --- | --- |
-| `docs/development-execution-plan-2026-09-07.md` | Phase 1B 仍停在 implementation alignment / pending final audit | 登记 PR #24、audited HEAD、merge/main、PR CI、main CI 与关闭状态；保留全部历史验证链接 |
-| `docs/feature-registry.md` | 仍笼统把 Portfolio / Account / Position / Transaction 写为 NOT STARTED，且沿用旧 Stage 4 编号 | 拆分 Asset / Account Local Core、Trusted Import Core、Portfolio Exposure、真实 adapter / migration 与远程接入 |
-| `docs/architecture.md` | 仍称“没有业务后端数据库”，并把 Account / Position / Transaction 列为未实现 | 更新为 Browser SPA 与 Node-only SQLite Local Core 双边界；只保留真实 Portfolio / Bridge / adapter 缺口 |
-| `README.md` | 未登记 Phase 1B Local Core，容易把全部 V2 Local-first 能力继续理解为未实现 | 只补当前状态、运行边界和目录导航，不扩成长路线图 |
+| `docs/development-execution-plan-2026-09-07.md` | R2 仍停在 scope freeze 待审、整个数据集未实现 | 登记已合入切片及当前修复停止点；保留 Phase 1B 历史关闭证据 |
+| `docs/feature-registry.md` | R2-B / CSRC / 三所 / D2 缺少当前登记 | 分开 IMPLEMENTED、VERIFIED、PARTIAL、NOT_ADMITTED、NOT_STARTED、DEFERRED |
+| `docs/architecture.md` / `README.md` | 已有 Browser / Node-only 双边界 | 仅 Architecture 补当前 R2 导航；不进行架构重写 |
 
-`docs/investment-dashboard-master-plan-2026-09.md` 明确保留为历史基线，不按当前事实回写。Phase 1A / 1B implementation / validation 文档和 `contracts/v1/README.md` 中带日期的 delivery / audit 状态也继续作为历史记录；它们不得覆盖 PR #24 之后的 CURRENT project-state，但本次 docs-only scope 不修改 `contracts/v1/**`。
+`docs/investment-dashboard-master-plan-2026-09.md`、Phase 1A / 1B / R2 implementation / validation / delivery / audit 文档及 `contracts/v1/README.md` 的带日期交付状态均保留原貌。当前 rebaseline 不回写旧 SHA、PENDING、BLOCKED，不修改冻结合同。
 
 ### 2.2 Phase 1B 已实现的 Local Core
 
@@ -56,9 +57,22 @@ Phase 1B — Long-term Account & DCA Core 的当前项目状态为 **CLOSED / ME
 | Remote access | 可复用的 Domain / permission / Audit 合同边界 | Research Bridge / MCP adapter、受控远程入口、Auth / scope / security admission |
 | Persistence | Node-only local SQLite；浏览器 Watchlist / Expectation LocalStorage | 浏览器到 Local Core 的受控接入；没有 cloud business database 或 cross-device sync |
 
-### 2.4 真正未开始的主要任务
+### 2.4 R2 已实现，但数据准入尚未闭合
 
-- Historical Observation Catalog R2 的真实历史 release / vintage 数据集扩展；
+| 切片 | 当前实现 / 验证 | 覆盖与准入 |
+| --- | --- | --- |
+| R2-A CORE | IMPLEMENTED / VERIFIED | plan、release、artifact、calendar、revision、coverage 与 fail-closed validation；不代替逐源准入 |
+| R2-B PBC | IMPLEMENTED / VERIFIED | PARTIAL；M2 余额/同比各 256/260，AFRE 余额 129/140、同比 111/140（first-release 110/140）；894 observations；未证明全部目录与 revision 穷尽性 |
+| CSRC C1/C1.1 | IMPLEMENTED / VERIFIED | PARTIAL；247/260 indexed，13 gaps，恢复 0/13；IPO field-ready 87、再融资 readiness 0 |
+| CSRC C2A1/C2A2 | IMPLEMENTED / VERIFIED | NOT_ADMITTED；26 definition-compatible、61 归月未证明；26 月 PIT 成功 0/26、eligible=[]、formal observations=0 |
+| SSE/SZSE/BSE D1 | IMPLEMENTED / VERIFIED | source contracts、bounded inventories、guarded adapters；历史数值 NOT_ADMITTED，完整日历 / release / 定义适用仍未闭合 |
+| all-A D2 | IMPLEMENTED / VERIFIED | **NOT_ADMITTED / numericAggregateCount=0 / targetCount=null / coveragePercent=null**；2 eras × 3 fields 的完整未准入窗口保留 |
+
+本次 VERIFIED 指离线专项和 committed D2 report validation；PBC/CSRC 数字来自提交的 final evidence，不宣称本轮重放 ignored raw 或建立 durable archive。具体事实源见 [Feature Registry](feature-registry.md) 与 [D2 report](../research-data/market-regime/source-catalog/all-a-d2/admission-report.v1.json)。
+
+### 2.5 真正未开始的主要任务
+
+- R2 未闭合源的后继证据 / 准入工作；须按 blocker 单独冻结，不把整个 R2 重新标为未实现；
 - Stage 4.1 normalization / backtest / formula admission 及正式 Market Regime Engine / UI；
 - V2 Product Shell / What Changed / Research Inbox；
 - Industry Metric Registry / Provider / historical series / delta engine / prosperity；
@@ -74,7 +88,7 @@ Phase 1B — Long-term Account & DCA Core 的当前项目状态为 **CLOSED / ME
 
 | 旧 Master Plan 项 | 当前事实 / 归属 |
 | --- | --- |
-| Stage 4.1 — Macro & Bull/Bear Foundation | Metric / formula / PIT 设计与 Historical Observation Catalog R1 已完成；R2 数据扩展、normalization、backtest、formula admission、Engine / UI 仍待完成，继续保留为当前 Stage 4.1 |
+| Stage 4.1 — Macro & Bull/Bear Foundation | R1、R2-A/B、CSRC、三所 D1、D2 已实现；R2 数据整体 PARTIAL / NOT_ADMITTED；normalization、backtest、formula admission、Engine / UI 仍 NOT_STARTED |
 | Stage 4.2 — Portfolio & Valuation | Phase 1B 已提前完成其中 Account / Asset / Transaction / CashFlow / Position / DCA Local Core；Portfolio Exposure、thesis mapping、allocation、rebalance、attribution、UI 与 Valuation 仍未完成。Portfolio Exposure 在当前路线为 Stage 4.4，Advanced Valuation 后移 |
 | Stage 4.3 — Cloud Persistence | 已被 Local-first freeze 覆盖；当前不以迁往 cloud business database 为默认路线。浏览器 LocalStorage 也没有因此自动迁入 SQLite |
 | Stage 4.4 — Industry Data Platform | 在 V2 Top-down 路线前移为当前 Stage 4.2，正式 Metric Registry / Provider / prosperity 仍未开始 |
@@ -88,7 +102,7 @@ Phase 1B 对未来 Stage 4.4 的约束是：**不得重新建立第二套 Accoun
 以下是 Phase 1B 后唯一 CURRENT 顺序；各项仍须在开工前按其合同、数据与准入要求冻结具体 scope。本文不创造新的 Phase 编号，也不把任何任务命名为 `Phase 1C`。
 
 1. **Stage 4.1 — Historical Observation Catalog R2 / PIT Dataset Expansion**
-   扩展 M2、社融、证监会月报和沪深北统一口径等官方历史 release / vintage / definition 数据集；严格保留 PIT、provenance、冲突与结构性缺失语义。
+   现已完成 §2.4 列明的实现；剩余 PBC coverage/revision、CSRC historical release、沪深北定义/日历/release 等 blockers 保持原门禁，后继切片另行冻结。
 2. **Stage 4.1 — normalization / backtest / formula admission**
    基于获准历史数据集生成 weekly immutable manifests，执行 Candidate A–D 回测，完成版本化公式 admission；之后才进入正式 Market Regime Engine / UI。
 3. **Stage 4.1B — V2 Product Shell / Research Inbox**
@@ -102,24 +116,12 @@ Phase 1B 对未来 Stage 4.4 的约束是：**不得重新建立第二套 Accoun
 7. **Stage 4.5 — Research Bridge / Cloud Write Path（按 Local-first freeze 重新解释）**
    原 V2 文档的 “Cloud Write Path” 名称不能推翻后来的 Local-first freeze。实施前须重新冻结受控远程入口、Auth / scope、confirmation 与 security admission；默认写入 Local Domain Service，不以 cloud business database 为前提，不暴露 raw DB。
 
-## 5. 下一实际开发任务
+## 5. 当前实际任务
 
-下一项业务任务冻结为：
+**Master Audit Remediation V1**：MA-01 证据身份、MA-02 stale-write protection、MA-03 未来事实、MA-04 CI/discovery、MA-05 字段覆盖、MA-06 CURRENT rebaseline。结果与 residual limitations 见[验证记录](master-audit-remediation-v1.md)。
 
-**STAGE 4.1 — HISTORICAL OBSERVATION CATALOG R2 / PIT DATASET EXPANSION**
-
-理由：
-
-- V2 产品设计把 Market Regime 放在第一开发优先级；
-- Historical Observation Catalog R1 已完成并合入；
-- Feature Registry 已明确 R2 是下一步；
-- 未经过 PIT historical dataset、normalization、backtest 与 formula admission，不应直接建设正式牛熊温度 UI；
-- Research Inbox 应消费可信的 What Changed / Market Regime 输出，不能建立在旧的条数驱动或伪量化评分上。
-
-本次 rebaseline 只冻结任务身份、顺序和边界，**不实现 R2**。
+修复不提升 R2 admission，不启动 normalization / backtest / Market Temperature UI。完成独立审计前不把 remediation 写为 MAIN MERGED。后继业务任务仍处于 Stage 4.1 R2 未闭合的准入边界内，不在本轮擅定新 slice。
 
 ## 6. 停止点
 
-本轮完成后状态为：**POST-PHASE-1B REBASELINE COMPLETE / PENDING INDEPENDENT REVIEW**。
-
-本轮不修改 `src/**`、`local-core/**`、`contracts/v1/**`、`scripts/**`、`config/**`、migration、依赖、CI、UI、Provider、Market Regime 数据、Portfolio 或 Research Bridge；不创建 PR，不修改 `main`。
+本轮状态为 **MASTER AUDIT REMEDIATION V1 / PENDING INDEPENDENT REVIEW / NOT MAIN MERGED**。完成修复和验证后普通 commit + push，核验远端 SHA 后停止；不创建 PR、不 merge、不修改 main。未改变 contracts、sealed/raw 数据事实、Provider live refresh、依赖或数据库模型。

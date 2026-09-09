@@ -1,4 +1,5 @@
 import type { Stock } from "../types";
+import { isStrictCalendarDate, isStrictPreciseInstant } from "../utils/strictDateTime.mjs";
 
 const baseFinancial = {
   revenue: "数据暂缺",
@@ -18,8 +19,6 @@ const baseValuation = {
   pb: "X",
   ps: "X",
 };
-
-const roboticsObservationNote = "机构纪要提及，公开验证程度有限，需继续跟踪公告、调研纪要和客户认证。";
 
 type RobotStockSeed = {
   id: string;
@@ -44,39 +43,58 @@ type RobotStockSeed = {
   relations?: Stock["relations"];
 };
 
+function isSafeEvidenceUrl(value: string | undefined) {
+  if (!value || value !== value.trim() || /[\u0000-\u0020]/u.test(value)) return false;
+  try {
+    const url = new URL(value);
+    return (url.protocol === "https:" || url.protocol === "http:") && Boolean(url.hostname) && !url.username && !url.password;
+  } catch {
+    return false;
+  }
+}
+
 function defaultRobotEvidence(seed: RobotStockSeed): Stock["evidenceItems"] {
-  if (seed.evidenceItems?.length) return seed.evidenceItems;
+  if (seed.evidenceItems?.length) return seed.evidenceItems.map((item) => {
+    const safeUrl = isSafeEvidenceUrl(item.url);
+    if (safeUrl && (isStrictCalendarDate(item.sourceDate) || isStrictPreciseInstant(item.sourceDate))) return item;
+    return {
+      ...item,
+      url: safeUrl ? item.url : undefined,
+      confidence: "低",
+      verificationStatus: "待验证",
+      note: [item.note, "manual_unverified：来源链接或日期缺失/无效，尚待核验。"].filter(Boolean).join(" "),
+    };
+  });
 
   const isObservation = seed.candidateType === "观察池";
-  const isHighConfidence = seed.evidenceLevel === "高" && seed.verificationStatus === "已验证" && !isObservation;
-  const sourceType = isObservation ? "机构纪要" : isHighConfidence ? "年报" : "调研纪要";
-  const confidence = isObservation ? "低" : isHighConfidence ? "高" : "中";
-  const verificationStatus = isObservation ? "待验证" : isHighConfidence ? "已验证" : "部分验证";
-  const sourceName = isObservation ? "机构纪要线索（待公开资料复核）" : isHighConfidence ? "公司公开披露资料" : "公开调研纪要与公司披露交叉线索";
   const claim = isObservation
-    ? `${seed.name}被纳入${seed.chainPosition}观察线索，但公开验证程度有限，不能写成确定供货关系。`
-    : `${seed.name}公开资料可支持其处于机器人产业链${seed.chainPosition}环节，后续仍需跟踪订单、客户认证与收入确认。`;
+    ? `${seed.name}被纳入${seed.chainPosition}观察线索，尚未附可定位来源，不能写成确定供货关系。`
+    : `${seed.name}与机器人产业链${seed.chainPosition}环节的关联仅作为研究线索，尚待具体来源核验。`;
 
   return [
     {
       id: `${seed.id}-robotics-chain`,
       claim,
-      sourceType,
-      sourceName,
-      confidence,
+      sourceType: "其他",
+      sourceName: "人工研究线索（未附可定位来源）",
+      confidence: "低",
       relatedSegmentId: seed.segmentId,
-      verificationStatus,
-      note: isObservation
-        ? "机构纪要提及，公开验证程度有限，需继续跟踪公告、年报、调研纪要或客户认证。"
-        : "仅确认产业链位置与业务相关性，不代表已经形成确定供货关系或已量产供货人形机器人。",
+      verificationStatus: "待验证",
+      note: "manual_unverified：需补充具体来源链接、日期并核验内容；seed 等级和池分类不构成来源或验证证据。",
     },
   ];
 }
 
-function robotStock(seed: RobotStockSeed): Stock {
+export function robotStock(seed: RobotStockSeed): Stock {
   const isObservation = seed.candidateType === "观察池";
   const themeText = seed.themeTags.join(" / ");
   const trackingMetrics = seed.trackingMetrics ?? ["公告与定点", "客户认证", "量产节奏", "收入确认"];
+  const evidenceItems = defaultRobotEvidence(seed) ?? [];
+  const verifiedItems = evidenceItems.filter((item) => item.verificationStatus === "已验证" || item.verificationStatus === "部分验证");
+  const verificationStatus = evidenceItems.length > 0 && evidenceItems.every((item) => item.verificationStatus === "已验证")
+    ? "已验证" : verifiedItems.length > 0 ? "部分验证" : "待验证";
+  const evidenceLevel = verifiedItems.some((item) => item.confidence === "高") ? "高"
+    : verifiedItems.some((item) => item.confidence === "中") ? "中" : "低";
 
   return {
     id: seed.id,
@@ -101,12 +119,12 @@ function robotStock(seed: RobotStockSeed): Stock {
     trackingMetrics,
     riskLevel: seed.riskLevel ?? (isObservation ? "高" : "中"),
     chainPosition: seed.chainPosition,
-    evidenceLevel: seed.evidenceLevel,
-    verificationStatus: seed.verificationStatus,
+    evidenceLevel,
+    verificationStatus,
     themeTags: seed.themeTags,
     candidateType: seed.candidateType,
-    evidenceNotes: seed.evidenceNotes ?? (isObservation ? [roboticsObservationNote] : ["公开资料和产业链研究已纳入核心池，仍需持续跟踪公告、年报、订单和客户认证。"]),
-    evidenceItems: defaultRobotEvidence(seed),
+    evidenceNotes: seed.evidenceNotes ?? (seed.evidenceItems?.length ? ["按具体证据逐条核验，持续跟踪公告、订单和客户认证。"] : ["人工研究线索尚未附可定位来源，需补充链接和日期后核验。"]),
+    evidenceItems,
     researchProfile: {
       industryLogic: "机器人产业链研究字段，需以公告、年报、调研纪要和真实行情数据持续验证。",
       businessBreakdown: [

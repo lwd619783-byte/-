@@ -100,6 +100,18 @@ export interface EvidenceItem {
   verificationStatus?: "已验证" | "部分验证" | "待验证";
 }
 
+export interface StockDataCoverage {
+  scope: "mapped_numeric_fields";
+  numerator: number;
+  denominator: number;
+  percent: number | null;
+  excludedFields: string[];
+  modules: Array<{
+    id: "quotes" | "financials" | "profiles" | "priceHistory" | "research" | "announcements" | "signals" | "sectorMembership";
+    status: import("./dataSource").DataQualityMeta["status"] | "not_applicable";
+  }>;
+}
+
 export interface Stock {
   id: string;
   name: string;
@@ -137,7 +149,9 @@ export interface Stock {
   dataQuality?: import("./dataSource").DataQualityMeta[];
   missingFields?: string[];
   isRecentlyUpdated?: boolean;
-  dataCoverage?: number;
+  /** Coverage of mapped numeric fields only; module status and freshness are separate. */
+  dataCoverage?: number | null;
+  dataCoverageDetails?: StockDataCoverage;
   researchProfile?: {
     macroMapping?: string[];
     industryLogic?: string;

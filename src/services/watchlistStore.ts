@@ -218,7 +218,7 @@ export class WatchlistStore {
   }
 
   private commit(next: WatchlistStoreEnvelope, previous: WatchlistStoreEnvelope, extras: Omit<WatchlistActionResult, "ok" | "data" | "error">): WatchlistActionResult {
-    const result = this.repository.save(next);
+    const result = this.repository.save(next, previous);
     if (!result.ok) return { ok: false, data: previous, error: result.error, ...extras };
     return { ok: true, data: next, error: null, ...extras };
   }

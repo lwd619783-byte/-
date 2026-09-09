@@ -1,7 +1,7 @@
 import type { ContractRegistry, LocalDatabase, TransactionRepositories } from '../ports/index.js';
 import type { AssetCandidate, AssetImportBundle, AssetImportCommitRequest, AssetImportPlan, CandidatePayloads, Confirmation, ImportPlanItem, HistoricalAssetImport, ImportOperation, LegacyAssetImport, MutationResult, StoredImportPlan } from './asset-types.js';
 import { candidateVersions, recordId } from './asset-types.js';
-import { amountSum, amountsEqual, checked, digest, externalContributions, ledgerBaselineDate as baselineDate, readAssetState, validateRecord, validateTransferPairs } from './asset-invariants.js';
+import { amountSum, amountsEqual, checked, digest, externalContributions, ledgerBaselineDate as baselineDate, readAssetState, requireObservedFactDate, validateRecord, validateTransferPairs } from './asset-invariants.js';
 import { addToState, appendRecord, authorizeRecord, confirmedMutation, duplicateKeys, factDigest, officialRecords, registerRecord, requireConfirmation } from './asset-service.js';
 import type { ValidatedRecord } from './asset-service.js';
 import { canonicalJson } from './canonical-json.js';
@@ -53,7 +53,6 @@ export class AssetImportService {
         if (candidate.warnings?.length || legacy?.warnings?.length || historical?.warnings?.length) fail('RECONCILIATION_REQUIRED', 'Candidate or legacy source has unresolved warnings.');
         if ([...(candidate.sourceEvidenceRefs ?? []), ...(bundle.sourceEvidenceRefs ?? [])].some(v => !v.trim()) || (candidate.fingerprint !== undefined && !candidate.fingerprint.trim())) fail('RECONCILIATION_REQUIRED', 'Evidence references and fingerprints must not be blank.');
         const date = 'tradeDate' in value ? value.tradeDate : 'date' in value ? value.date : 'snapshotDate' in value ? value.snapshotDate : undefined;
-        if (date && date > bundle.asOf.slice(0, 10)) fail('LEDGER_INVALID', 'Future planned records cannot be imported as observed facts.');
         if (!historical && date && date < baselineDate) {
           if (!legacy?.sourceRefs?.some(ref => ref.quality === 'verified')) fail('RECONCILIATION_REQUIRED', 'Earlier history requires verified evidence; no back-inference is permitted.');
           fail('CONTRACT_GAP', 'Earlier history must use historical_asset_import.prepare/commit.');
@@ -64,6 +63,7 @@ export class AssetImportService {
           if (('source' in value && value.source !== 'legacy_import') || bundle.sourceType !== 'file_import') fail('LEDGER_INVALID', 'Legacy records must retain legacy provenance and file-import routing.');
           if (value.schemaVersion === 'dca-execution.v1' && !value.transactionIds?.length && !value.periodStart) fail('CONTRACT_GAP', 'Legacy DCA history needs dated transaction references; V1 period cannot prove that execution occurred on or after the baseline.');
         } else if (!historical && 'source' in value && value.source === 'legacy_import') fail('LEDGER_INVALID', 'Legacy records require legacy prepare.');
+        requireObservedFactDate(value, state, bundle.asOf.slice(0, 10));
         if (bundle.sourceType === 'chatgpt_screenshot_parse') {
           if (!bundle.sourceEvidenceRefs?.length && !candidate.sourceEvidenceRefs?.length) fail('RECONCILIATION_REQUIRED', 'Screenshot candidates require source evidence.');
           if ('source' in value && value.source !== 'confirmed_screenshot') fail('RECONCILIATION_REQUIRED', 'Screenshot provenance must not be relabelled as manual.');

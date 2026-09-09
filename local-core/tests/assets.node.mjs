@@ -1,10 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { AssetService } from '../../.local-core-build/domain/asset-service.js';
+import { AssetImportService } from '../../.local-core-build/domain/asset-import-service.js';
+import { openLocalDatabase } from '../../.local-core-build/db/connection.js';
 import { amountsEqual, amountSum, readAssetState, validateExecution } from '../../.local-core-build/domain/asset-invariants.js';
-import { contracts } from './fixtures.mjs';
-import { account, asset, transaction, cashFlow, position, dcaPlan, execution, money, approval, reason, context, now } from './asset-fixtures.mjs';
+import { contracts, tempDirectory } from './fixtures.mjs';
+import { account, asset, transaction, cashFlow, position, dcaPlan, execution, money, approval, reason, context, now, candidate, bundle, commitRequest, operator } from './asset-fixtures.mjs';
 
 test('A-008: every frozen account/asset enum persists, including future non-securities', t => {
   const { service, ledger } = context(t, false);
@@ -290,4 +293,110 @@ test('DCA links across revisions still reject and date-looking period cannot byp
   reason('RECONCILIATION_REQUIRED', () => later.commitDcaExecution(execution({ transactionIds: ['fixture-transaction', 'new-trade'] }), approval('cross-revision')));
   reason('RECONCILIATION_REQUIRED', () => later.commitDcaExecution(execution({ transactionIds: [], period: '2026-09-09' }), approval('undated')));
   assert.deepEqual(ledger.dcaExecutions(), []);
+});
+
+// MA-03 uses a fixed operator clock and disposable on-disk SQLite, never a
+// user database. Date-only facts may be recorded through the current UTC day.
+function futureFactContext(t) {
+  let store;
+  t.after(() => store?.database.close());
+  const filename = path.join(tempDirectory(t), 'future-facts.sqlite');
+  store = openLocalDatabase({ filename, purpose: 'test', mode: 'initialize' }, contracts);
+  const service = new AssetService(store.database, contracts, now);
+  const imports = new AssetImportService(store.database, contracts, now);
+  service.createAccount(account(), approval('seed-account'));
+  service.createAsset(asset(), approval('seed-asset'));
+  service.saveDcaPlan(dcaPlan(), 0, approval('seed-plan'));
+  service.createTransaction(transaction(), approval('seed-transaction'));
+  return { ...store, service, imports };
+}
+const futureDate = '2026-09-08'; // Fixed clock is 2026-09-07T12:00:00Z.
+function futureExecution(status, overrides = {}) {
+  return execution({ status, transactionIds: [], periodStart: futureDate, periodEnd: '2026-09-14',
+    executedAmount: money(status === 'completed' || status === 'partial' ? 137 : 0),
+    pendingAmount: money(status === 'completed' ? 0 : 63), ...overrides });
+}
+function assertNoFactMutation(store, key, work) {
+  const before = readAssetState(store.ledger);
+  work();
+  assert.deepEqual(readAssetState(store.ledger), before);
+  assert.equal(store.ledger.operation(key), undefined);
+  assert.deepEqual(store.audit.listByRequest(key), []);
+}
+const futureRecords = [
+  ['transaction', transaction({ transactionId: 'future-transaction', tradeDate: futureDate })],
+  ['cash_flow', cashFlow({ date: futureDate })],
+  ['position_snapshot', position({ snapshotDate: futureDate })],
+];
+for (const [type, value] of futureRecords) test(`MA-03: manual future ${type} is rejected without fact, receipt or audit`, t => {
+  const s = futureFactContext(t), key = `future-${type}`;
+  const write = type === 'transaction' ? () => s.service.createTransaction(value, approval(key))
+    : type === 'cash_flow' ? () => s.service.createCashFlows([value], approval(key))
+      : () => s.service.createPosition(value, approval(key));
+  assertNoFactMutation(s, key, () => reason('LEDGER_INVALID', write));
+});
+test('MA-03: a future CashFlow rejects the whole otherwise valid batch', t => {
+  const s = futureFactContext(t), key = 'future-cashflow-batch';
+  assertNoFactMutation(s, key, () => reason('LEDGER_INVALID', () => s.service.createCashFlows([
+    cashFlow({ cashFlowId: 'current-flow', date: '2026-09-07' }), cashFlow({ date: futureDate }),
+  ], approval(key))));
+});
+for (const status of ['completed', 'partial']) test(`MA-03: fully future ${status} DCA is rejected without fact, receipt or audit`, t => {
+  const s = futureFactContext(t), key = `future-${status}`;
+  assertNoFactMutation(s, key, () => reason('LEDGER_INVALID', () => s.service.commitDcaExecution(futureExecution(status), approval(key))));
+});
+for (const [type, value] of [...futureRecords, ...['completed', 'partial'].map(status => ['dca_execution', futureExecution(status)])]) {
+  test(`MA-03: import future ${type}/${value.status ?? 'fact'} cannot prepare ready or commit`, t => {
+    const s = futureFactContext(t), key = 'future-import';
+    assertNoFactMutation(s, key, () => {
+      const plan = s.imports.prepare(bundle([candidate(value, type)]));
+      assert.equal(plan.status, 'blocked');
+      assert.deepEqual(plan.items[0].warnings, ['LEDGER_INVALID']);
+      reason('IMPORT_NOT_READY', () => s.imports.commit(commitRequest(plan, { idempotencyKey: key }), operator));
+    });
+  });
+}
+test('MA-03: DCA actual imports bind to bundle observation date even when before the operator clock', t => {
+  const s = futureFactContext(t), key = 'future-at-observation';
+  assertNoFactMutation(s, key, () => {
+    const value = futureExecution('partial', { periodStart: '2026-09-06', periodEnd: '2026-09-07' });
+    const plan = s.imports.prepare(bundle([candidate(value, 'dca_execution')], { asOf: '2026-09-05T12:00:00Z' }));
+    assert.equal(plan.status, 'blocked');
+    assert.deepEqual(plan.items[0].warnings, ['LEDGER_INVALID']);
+    reason('IMPORT_NOT_READY', () => s.imports.commit(commitRequest(plan, { idempotencyKey: key }), operator));
+  });
+});
+test('MA-03: current-date Transaction, CashFlow and PositionSnapshot remain valid', t => {
+  const s = futureFactContext(t), today = '2026-09-07';
+  s.service.createTransaction(transaction({ transactionId: 'current-trade', tradeDate: today, settleDate: futureDate }), approval('current-trade'));
+  s.service.createCashFlows([cashFlow({ date: today })], approval('current-flow'));
+  s.service.createPosition(position({ snapshotDate: today, quantity: 20 }), approval('current-position'));
+  assert.equal(s.ledger.transactions().length, 2);
+  assert.equal(s.ledger.cashFlows().length, 1);
+  assert.equal(s.ledger.positions().length, 1);
+});
+test('MA-03: future DCA plan and later revision retain legal plan semantics', t => {
+  const s = futureFactContext(t), planId = 'future-plan';
+  const plan = dcaPlan({ planId, activeFrom: futureDate, constraints: [{ constraintType: 'purchase_limit', value: 50, effectiveFrom: futureDate }] });
+  s.service.saveDcaPlan(plan, 0, approval('future-plan'));
+  s.service.saveDcaPlan({ ...plan, activeFrom: '2026-09-15', constraints: [] }, 1, approval('future-revision'));
+  assert.deepEqual(s.ledger.dcaRevisions().filter(v => v.plan.planId === planId).map(v => v.revision), [1, 2]);
+  assert.deepEqual(s.ledger.dcaExecutions(), []);
+});
+for (const status of ['planned', 'deferred', 'cancelled']) test(`MA-03: future ${status} DCA with no fill remains valid for manual and import writes`, t => {
+  const s = futureFactContext(t);
+  s.service.commitDcaExecution(futureExecution(status), approval('future-no-fill'));
+  const value = futureExecution(status, { executionId: 'import-no-fill', period: 'Synthetic later cycle', periodStart: '2026-09-15', periodEnd: '2026-09-21' });
+  const plan = s.imports.prepare(bundle([candidate(value, 'dca_execution')]));
+  assert.equal(plan.status, 'ready');
+  s.imports.commit(commitRequest(plan), operator);
+  assert.equal(s.ledger.dcaExecutions().length, 2);
+  assert.deepEqual(s.ledger.cashFlows(), []);
+});
+for (const status of ['completed', 'partial']) test(`MA-03: ${status} DCA uses actual linked tradeDate even when period extends into the future`, t => {
+  const s = futureFactContext(t);
+  const value = futureExecution(status, { transactionIds: ['fixture-transaction'], periodStart: '2026-08-14' });
+  s.service.commitDcaExecution(value, approval('current-linked-fill'));
+  assert.equal(s.ledger.dcaExecutions()[0].execution.executedAmount.amount, 137);
+  assert.equal(s.ledger.dcaExecutions()[0].planRevision, 1);
 });

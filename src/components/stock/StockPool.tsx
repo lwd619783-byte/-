@@ -1,4 +1,5 @@
 import { isRecentlyUpdated } from "../../utils/dataQuality";
+import { formatStockFieldCoverage, formatStockModuleCoverage } from "../../utils/stockCoverage";
 import { useDisplayNow } from "../../hooks/useDisplayNow";
 import { QuoteTrust } from "../common/QuoteTrust";
 import { useMemo, useState } from "react";
@@ -156,8 +157,8 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
           <DataTable className="hidden lg:block" minWidth="1180px">
             <thead className="sticky top-0 bg-bg2 text-xs text-textMuted">
               <tr>
-                {["股票", "代码", "市场", "行业", "细分板块", "快照价格", "涨跌幅", "市值", "PE", "覆盖率", "缺失", "风险", "核心看点"].map((header) => (
-                  <th key={header} className={`px-3 py-3 font-medium ${["快照价格", "涨跌幅", "市值", "PE", "覆盖率", "缺失"].includes(header) ? "text-right" : ""}`}>
+                {["股票", "代码", "市场", "行业", "细分板块", "快照价格", "涨跌幅", "市值", "PE", "行情/财务字段", "缺失", "风险", "核心看点"].map((header) => (
+                  <th key={header} className={`px-3 py-3 font-medium ${["快照价格", "涨跌幅", "市值", "PE", "行情/财务字段", "缺失"].includes(header) ? "text-right" : ""}`}>
                     {header}
                   </th>
                 ))}
@@ -190,7 +191,10 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock }: Sto
                   </td>
                   <DataValue value={stock.financial.marketCap} numeric />
                   <DataValue value={stock.valuation.pe} numeric />
-                  <DataValue value={typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : "数据暂缺"} numeric />
+                  <td className="px-3 py-3 text-right tabular-nums">
+                    <span className="whitespace-nowrap">{formatStockFieldCoverage(stock.dataCoverageDetails)}</span>
+                    <p className="mt-1 text-xs text-textMuted">{formatStockModuleCoverage(stock.dataCoverageDetails)}</p>
+                  </td>
                   <td className="px-3 py-3 text-right">
                     <span className={`rounded border px-2 py-1 text-xs ${(stock.missingFields?.length ?? 0) > 0 ? "border-warning/40 bg-warning/10 text-warning" : "border-success/30 bg-success/10 text-success"}`}>
                       {stock.missingFields?.length ?? 0}

@@ -93,6 +93,21 @@ jobs:
       - name: Test CSRC attachment inventory and schema probe offline
         run: npm run test:market-regime:csrc-c1
 
+      - name: Test SSE historical market source offline
+        run: npm run test:market-regime:sse
+
+      - name: Test SZSE historical market source offline
+        run: npm run test:market-regime:szse
+
+      - name: Test BSE historical market source offline
+        run: npm run test:market-regime:bse
+
+      - name: Test all-A aggregation and D2 admission offline
+        run: npm run test:market-regime:all-a
+
+      - name: Validate committed D2 report against frozen D1 inventories offline
+        run: npm run data:validate:market-regime:all-a
+
       - name: Build and validate deterministic Market Regime sample catalog
         run: npm run data:build:market-regime:catalog && npm run data:validate:market-regime:catalog
 
@@ -101,6 +116,9 @@ jobs:
 
       - name: Run unit tests
         run: npm run test
+
+      - name: Verify test discovery with isolated nested checkout fixtures
+        run: npm run test:discovery
 
       - name: Build and enforce data bundle budgets
         run: npm run build

@@ -4,6 +4,7 @@
 > 基线日期：2026-09-08
 > 代码基线：`main` @ `2230265e727f0f2787de9e82d509f0c1d3a6230a`
 > 本文描述该代码基线下的已实现架构与技术边界；固定 SHA 是历史快照，不代表当前 `main`。当前实现状态还应核对 `docs/feature-registry.md`、当前代码和测试。  
+> 2026-09-09 导航同步：R2-A/B、CSRC、SSE/SZSE/BSE、D2 已合入 `a6cbf108139a2af66273c5376288b83d54712f58`；当前实现 / 数据准入状态见 [Feature Registry](feature-registry.md) 和 [CURRENT roadmap](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)。[Master Audit 修复](master-audit-remediation-v1.md) 尚在独立分支，未合入；Browser / Node-only 边界保持。
 > 当前 V2 产品与目标架构决策见 `docs/investment-dashboard-v2-research-os-and-bridge-design.md`、`docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md`、`docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md` 与 `docs/investment-dashboard-v2-final-contract-audit-v1.md`。`docs/investment-dashboard-master-plan-2026-09.md` 保留为 Stage 4 历史建设基线，不再是当前 V2 最高级路线图。
 
 ## 1. 系统定位

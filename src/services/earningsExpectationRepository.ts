@@ -1,3 +1,4 @@
+import { PersistedBaseGuard } from "./persistedBaseGuard";
 import type {
   EarningsExpectationExportFile,
   EarningsExpectationImportIssue,
@@ -216,10 +217,11 @@ export function migrateEarningsExpectationSnapshot(value: unknown, migrationTime
 }
 
 export class EarningsExpectationRepository {
+  private readonly persistedBase: PersistedBaseGuard<EarningsExpectationStoreEnvelope>;
   constructor(
     private readonly storage: EarningsExpectationStorageLike | null,
     private readonly now: () => Date = () => new Date(),
-  ) {}
+  ) { this.persistedBase = new PersistedBaseGuard(storage, EARNINGS_EXPECTATION_STORAGE_KEY); }
 
   load(): EarningsExpectationLoadResult {
     const empty = createEmptyEarningsExpectationEnvelope(this.now());
@@ -230,12 +232,12 @@ export class EarningsExpectationRepository {
     } catch (error) {
       return { data: empty, error: `读取业绩预期失败：${errorMessage(error)}`, corruptedRaw: null };
     }
-    if (raw === null) return { data: empty, error: null, corruptedRaw: null };
+    if (raw === null) return { data: this.persistedBase.remember(empty, raw), error: null, corruptedRaw: null };
     try {
       const data = migrateEarningsExpectationEnvelope(JSON.parse(raw) as unknown);
       const errors = validateEarningsExpectationEnvelope(data, { now: this.now(), timeZone: data.settings.timeZone });
       if (errors.length) throw new Error(errors.join("；"));
-      return { data, error: null, corruptedRaw: null };
+      return { data: this.persistedBase.remember(data, raw), error: null, corruptedRaw: null };
     } catch (error) {
       return {
         data: empty,
@@ -245,18 +247,19 @@ export class EarningsExpectationRepository {
     }
   }
 
-  save(data: EarningsExpectationStoreEnvelope): EarningsExpectationWriteResult {
+  save(data: EarningsExpectationStoreEnvelope, base = data): EarningsExpectationWriteResult {
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法保存。" };
     const errors = validateEarningsExpectationEnvelope(data, { now: this.now(), timeZone: data.settings.timeZone });
     if (errors.length) return { ok: false, error: `业绩预期校验失败：${errors.join("；")}` };
     try {
-      this.storage.setItem(EARNINGS_EXPECTATION_STORAGE_KEY, JSON.stringify(data));
+      this.persistedBase.write(data, base);
       return { ok: true, error: null };
     } catch (error) {
       return { ok: false, error: `保存业绩预期失败，原状态已保留：${errorMessage(error)}` };
     }
   }
 
+  /** Explicit user reset, unlike ordinary save; UI owns confirmation. */
   reset(): EarningsExpectationWriteResult {
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法重置。" };
     try {
@@ -360,12 +363,13 @@ export class EarningsExpectationRepository {
     if (mode === "replace") {
       backupKey = `${EARNINGS_EXPECTATION_BACKUP_PREFIX}${timestamp.replace(/[:.]/g, "-")}`;
       try {
-        this.storage.setItem(backupKey, JSON.stringify(current));
+        const rawBase = this.persistedBase.assertCurrent(current);
+        this.storage.setItem(backupKey, rawBase ?? JSON.stringify(current));
       } catch (error) {
         return { ok: false, error: `替换前备份失败，已取消替换：${errorMessage(error)}`, data: null, preview };
       }
     }
-    const saved = this.save(next);
+    const saved = this.save(next, current);
     return { ...saved, data: saved.ok ? next : null, preview, backupKey };
   }
 }
