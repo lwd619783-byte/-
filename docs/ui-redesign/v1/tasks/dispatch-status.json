@@ -1,0 +1,44 @@
+{
+  "package_id": "NEON-RC1-20260909",
+  "design_input_sha": "bcca135530352ed9c85407e18acceed1dbf45690",
+  "user_approval": "APPROVED",
+  "tasks": [
+    {
+      "id": "D0",
+      "state": "ARCHIVED_PENDING_INDEPENDENT_REVIEW",
+      "base_sha_at_design": "bcca135530352ed9c85407e18acceed1dbf45690"
+    },
+    {
+      "id": "D1",
+      "state": "NOT_DISPATCHABLE",
+      "base_sha": null,
+      "reason": "Exact future main SHA must be obtained after prior task is reviewed and merged."
+    },
+    {
+      "id": "D2",
+      "state": "NOT_DISPATCHABLE",
+      "base_sha": null,
+      "reason": "Exact future main SHA must be obtained after prior task is reviewed and merged."
+    },
+    {
+      "id": "D3",
+      "state": "NOT_DISPATCHABLE",
+      "base_sha": null,
+      "reason": "Exact future main SHA must be obtained after prior task is reviewed and merged."
+    },
+    {
+      "id": "D4",
+      "state": "NOT_DISPATCHABLE",
+      "base_sha": null,
+      "reason": "Exact future main SHA must be obtained after prior task is reviewed and merged."
+    },
+    {
+      "id": "D5",
+      "state": "NOT_DISPATCHABLE",
+      "base_sha": null,
+      "reason": "Exact future main SHA must be obtained after prior task is reviewed and merged."
+    }
+  ],
+  "approval_date": "2026-09-09",
+  "design_status": "FROZEN"
+}

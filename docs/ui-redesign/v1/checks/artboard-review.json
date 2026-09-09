@@ -1,0 +1,11 @@
+{
+  "scope": "STATIC_DESIGN_ASSETS_ONLY",
+  "artboard_count": 42,
+  "png_and_svg_pairs_verified": 42,
+  "text_elements_checked": 2626,
+  "text_outside_global_artboard_bounds": [],
+  "migration_mapping_count": 56,
+  "implementation_audit_check_count": 54,
+  "runtime_tests": "NOT_RUN",
+  "note": "Boundary test is a geometric check only. It does not verify DOM, web focus, table scrolling or runtime line wrapping."
+}

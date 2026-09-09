@@ -1,0 +1,162 @@
+[
+  {
+    "page": 1,
+    "title": "封面",
+    "key": "cover"
+  },
+  {
+    "page": 2,
+    "title": "阅读目录",
+    "key": "index"
+  },
+  {
+    "page": 3,
+    "title": "三主题同构对照",
+    "key": "themes"
+  },
+  {
+    "page": 4,
+    "title": "首页 / 研究工作台 / 霓虹科技",
+    "key": "home_neon"
+  },
+  {
+    "page": 5,
+    "title": "宏观 / 指标观察 / 霓虹科技",
+    "key": "macro_neon"
+  },
+  {
+    "page": 6,
+    "title": "行业 / 比较与研究 / 霓虹科技",
+    "key": "industry_neon"
+  },
+  {
+    "page": 7,
+    "title": "个股池 / 筛选与预览 / 霓虹科技",
+    "key": "stocks_neon"
+  },
+  {
+    "page": 8,
+    "title": "个股详情 / 研究概览 / 霓虹科技",
+    "key": "company_neon"
+  },
+  {
+    "page": 9,
+    "title": "观察清单 / 待办与复盘 / 霓虹科技",
+    "key": "watchlist_neon"
+  },
+  {
+    "page": 10,
+    "title": "验证中心 / 事件与证据 / 霓虹科技",
+    "key": "verification_neon"
+  },
+  {
+    "page": 11,
+    "title": "预期证据 / 同口径对照 / 霓虹科技",
+    "key": "expectations_neon"
+  },
+  {
+    "page": 12,
+    "title": "个股详情 / 经营与财务",
+    "key": "company_tab_1"
+  },
+  {
+    "page": 13,
+    "title": "个股详情 / 价格与估值",
+    "key": "company_tab_2"
+  },
+  {
+    "page": 14,
+    "title": "个股详情 / 预期与验证",
+    "key": "company_tab_3"
+  },
+  {
+    "page": 15,
+    "title": "个股详情 / 证据与复盘",
+    "key": "company_tab_4"
+  },
+  {
+    "page": 16,
+    "title": "行业 / 产业链与未上市线索",
+    "key": "industry_chain"
+  },
+  {
+    "page": 17,
+    "title": "个股池 / 快速预览",
+    "key": "stock_quick_preview"
+  },
+  {
+    "page": 18,
+    "title": "元数据编辑与复盘",
+    "key": "review"
+  },
+  {
+    "page": 19,
+    "title": "导入校验与确认",
+    "key": "import"
+  },
+  {
+    "page": 20,
+    "title": "外观切换",
+    "key": "appearance"
+  },
+  {
+    "page": 21,
+    "title": "公共组件与异常状态",
+    "key": "components_states"
+  },
+  {
+    "page": 22,
+    "title": "窄屏 / 研究发现",
+    "key": "mobile_0"
+  },
+  {
+    "page": 23,
+    "title": "窄屏 / 验证与行动",
+    "key": "mobile_1"
+  },
+  {
+    "page": 24,
+    "title": "首页 / 研究工作台 / 深色专业",
+    "key": "home_pro"
+  },
+  {
+    "page": 25,
+    "title": "首页 / 研究工作台 / 明亮简洁",
+    "key": "home_light"
+  },
+  {
+    "page": 26,
+    "title": "个股详情 / 研究概览 / 深色专业",
+    "key": "company_pro"
+  },
+  {
+    "page": 27,
+    "title": "个股详情 / 研究概览 / 明亮简洁",
+    "key": "company_light"
+  },
+  {
+    "page": 28,
+    "title": "架构与范围边界",
+    "key": "architecture"
+  },
+  {
+    "page": 29,
+    "title": "迁移与功能保留",
+    "key": "migration"
+  },
+  {
+    "page": 30,
+    "title": "静态检查与实现验收",
+    "key": "checks"
+  },
+  {
+    "page": 31,
+    "title": "Codex 实施顺序",
+    "key": "implementation"
+  },
+  {
+    "page": 32,
+    "title": "整包确认与事实基线",
+    "key": "approval"
+  }
+]

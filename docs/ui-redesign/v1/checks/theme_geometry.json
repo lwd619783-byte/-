@@ -1,0 +1,48 @@
+{
+  "kind": "STATIC_DESIGN_GEOMETRY_ONLY",
+  "not_a_runtime_or_DOM_test": true,
+  "signatures": {
+    "home": {
+      "neon": "1b5e558c5145cb70f69bc1a7c7060883636907879126e08c5df0be6fd8d0017f",
+      "pro": "1b5e558c5145cb70f69bc1a7c7060883636907879126e08c5df0be6fd8d0017f",
+      "light": "1b5e558c5145cb70f69bc1a7c7060883636907879126e08c5df0be6fd8d0017f"
+    },
+    "macro": {
+      "neon": "1cec06939a685ca3cae2eb868490caea5fe714e49570899afc542c47c78340fc",
+      "pro": "1cec06939a685ca3cae2eb868490caea5fe714e49570899afc542c47c78340fc",
+      "light": "1cec06939a685ca3cae2eb868490caea5fe714e49570899afc542c47c78340fc"
+    },
+    "industry": {
+      "neon": "0c3323a50bc509b49d4e26f4b9679bba0cb47f4d76b72e900bb261b7fa789506",
+      "pro": "0c3323a50bc509b49d4e26f4b9679bba0cb47f4d76b72e900bb261b7fa789506",
+      "light": "0c3323a50bc509b49d4e26f4b9679bba0cb47f4d76b72e900bb261b7fa789506"
+    },
+    "stocks": {
+      "neon": "27930f922e8212df3149e0614236a8b113a076d2743b78aec489975171a82f0d",
+      "pro": "27930f922e8212df3149e0614236a8b113a076d2743b78aec489975171a82f0d",
+      "light": "27930f922e8212df3149e0614236a8b113a076d2743b78aec489975171a82f0d"
+    },
+    "company": {
+      "neon": "230f65c85eb929bf66a8cd1013fb37ab6780428f3fa742554339701bd953c0ce",
+      "pro": "230f65c85eb929bf66a8cd1013fb37ab6780428f3fa742554339701bd953c0ce",
+      "light": "230f65c85eb929bf66a8cd1013fb37ab6780428f3fa742554339701bd953c0ce"
+    },
+    "watchlist": {
+      "neon": "d9d1e089e1b4bc7a2e54197e523e0e1ced72ab848b0275fda576371b708be435",
+      "pro": "d9d1e089e1b4bc7a2e54197e523e0e1ced72ab848b0275fda576371b708be435",
+      "light": "d9d1e089e1b4bc7a2e54197e523e0e1ced72ab848b0275fda576371b708be435"
+    },
+    "verification": {
+      "neon": "152dfbf90618d1856a64e6ac460f48a84e347ae950c49792b2e026d82c605e93",
+      "pro": "152dfbf90618d1856a64e6ac460f48a84e347ae950c49792b2e026d82c605e93",
+      "light": "152dfbf90618d1856a64e6ac460f48a84e347ae950c49792b2e026d82c605e93"
+    },
+    "expectations": {
+      "neon": "0d3d3456a5249be9964509ff35660c2df140b754b7cf791b3a398fe95f4998de",
+      "pro": "0d3d3456a5249be9964509ff35660c2df140b754b7cf791b3a398fe95f4998de",
+      "light": "0d3d3456a5249be9964509ff35660c2df140b754b7cf791b3a398fe95f4998de"
+    }
+  },
+  "all_pages_equal_across_themes": true,
+  "method": "All semantic text, shape geometry, chart data coordinates, row order and labels hashed. Theme name label and neon-only halo excluded; halo is decorative and does not affect layout."
+}

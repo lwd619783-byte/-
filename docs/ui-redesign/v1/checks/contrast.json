@@ -1,0 +1,1145 @@
+{
+  "kind": "DESIGN_TOKEN_CONTRAST_ONLY",
+  "source": "WCAG relative luminance, sRGB",
+  "coverage": "Opaque token pairs; rendered transparency, anti-aliasing, hover states and runtime UI still require browser checks.",
+  "count": 142,
+  "pass_count": 142,
+  "rows": [
+    {
+      "theme": "neon",
+      "fg": "text",
+      "bg": "bg",
+      "ratio": 17.611,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "text",
+      "bg": "panel",
+      "ratio": 15.996,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "text",
+      "bg": "raised",
+      "ratio": 14.065,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "text",
+      "bg": "selected",
+      "ratio": 12.189,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "muted",
+      "bg": "bg",
+      "ratio": 9.618,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "muted",
+      "bg": "panel",
+      "ratio": 8.736,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "muted",
+      "bg": "raised",
+      "ratio": 7.682,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "muted",
+      "bg": "selected",
+      "ratio": 6.657,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "weak",
+      "bg": "bg",
+      "ratio": 7.626,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "weak",
+      "bg": "panel",
+      "ratio": 6.927,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "weak",
+      "bg": "raised",
+      "ratio": 6.091,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "weak",
+      "bg": "selected",
+      "ratio": 5.279,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "accent",
+      "bg": "bg",
+      "ratio": 10.336,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "accent",
+      "bg": "panel",
+      "ratio": 9.389,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "accent",
+      "bg": "raised",
+      "ratio": 8.255,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "accent",
+      "bg": "selected",
+      "ratio": 7.154,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "secondary",
+      "bg": "bg",
+      "ratio": 7.266,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "secondary",
+      "bg": "panel",
+      "ratio": 6.6,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "secondary",
+      "bg": "raised",
+      "ratio": 5.803,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "secondary",
+      "bg": "selected",
+      "ratio": 5.029,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "up",
+      "bg": "bg",
+      "ratio": 7.678,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "up",
+      "bg": "panel",
+      "ratio": 6.974,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "up",
+      "bg": "raised",
+      "ratio": 6.132,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "up",
+      "bg": "selected",
+      "ratio": 5.314,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "down",
+      "bg": "bg",
+      "ratio": 11.229,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "down",
+      "bg": "panel",
+      "ratio": 10.199,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "down",
+      "bg": "raised",
+      "ratio": 8.968,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "down",
+      "bg": "selected",
+      "ratio": 7.772,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "warning",
+      "bg": "bg",
+      "ratio": 11.906,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "warning",
+      "bg": "panel",
+      "ratio": 10.815,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "warning",
+      "bg": "raised",
+      "ratio": 9.509,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "warning",
+      "bg": "selected",
+      "ratio": 8.241,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "error",
+      "bg": "bg",
+      "ratio": 8.369,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "error",
+      "bg": "panel",
+      "ratio": 7.602,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "error",
+      "bg": "raised",
+      "ratio": 6.684,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "error",
+      "bg": "selected",
+      "ratio": 5.792,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "info",
+      "bg": "bg",
+      "ratio": 8.966,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "info",
+      "bg": "panel",
+      "ratio": 8.145,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "info",
+      "bg": "raised",
+      "ratio": 7.161,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "info",
+      "bg": "selected",
+      "ratio": 6.206,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "control",
+      "bg": "bg",
+      "ratio": 4.81,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "control",
+      "bg": "panel",
+      "ratio": 4.369,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "control",
+      "bg": "raised",
+      "ratio": 3.841,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "onaccent",
+      "bg": "accent",
+      "ratio": 10.016,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "text",
+      "bg": "gradient_lightest_stop",
+      "ratio": 15.22,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "muted",
+      "bg": "gradient_lightest_stop",
+      "ratio": 8.312,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "weak",
+      "bg": "gradient_lightest_stop",
+      "ratio": 6.591,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "accent",
+      "bg": "gradient_lightest_stop",
+      "ratio": 8.933,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "secondary",
+      "bg": "gradient_lightest_stop",
+      "ratio": 6.28,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "up",
+      "bg": "gradient_lightest_stop",
+      "ratio": 6.636,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "down",
+      "bg": "gradient_lightest_stop",
+      "ratio": 9.704,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "warning",
+      "bg": "gradient_lightest_stop",
+      "ratio": 10.29,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "error",
+      "bg": "gradient_lightest_stop",
+      "ratio": 7.233,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "neon",
+      "fg": "info",
+      "bg": "gradient_lightest_stop",
+      "ratio": 7.749,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "text",
+      "bg": "bg",
+      "ratio": 16.278,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "text",
+      "bg": "panel",
+      "ratio": 14.318,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "text",
+      "bg": "raised",
+      "ratio": 11.935,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "text",
+      "bg": "selected",
+      "ratio": 10.08,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "muted",
+      "bg": "bg",
+      "ratio": 10.302,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "muted",
+      "bg": "panel",
+      "ratio": 9.062,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "muted",
+      "bg": "raised",
+      "ratio": 7.553,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "muted",
+      "bg": "selected",
+      "ratio": 6.38,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "weak",
+      "bg": "bg",
+      "ratio": 8.04,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "weak",
+      "bg": "panel",
+      "ratio": 7.072,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "weak",
+      "bg": "raised",
+      "ratio": 5.895,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "weak",
+      "bg": "selected",
+      "ratio": 4.979,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "accent",
+      "bg": "bg",
+      "ratio": 8.931,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "accent",
+      "bg": "panel",
+      "ratio": 7.855,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "accent",
+      "bg": "raised",
+      "ratio": 6.548,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "accent",
+      "bg": "selected",
+      "ratio": 5.53,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "secondary",
+      "bg": "bg",
+      "ratio": 7.904,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "secondary",
+      "bg": "panel",
+      "ratio": 6.953,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "secondary",
+      "bg": "raised",
+      "ratio": 5.795,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "secondary",
+      "bg": "selected",
+      "ratio": 4.895,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "up",
+      "bg": "bg",
+      "ratio": 8.046,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "up",
+      "bg": "panel",
+      "ratio": 7.077,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "up",
+      "bg": "raised",
+      "ratio": 5.899,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "up",
+      "bg": "selected",
+      "ratio": 4.983,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "down",
+      "bg": "bg",
+      "ratio": 9.48,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "down",
+      "bg": "panel",
+      "ratio": 8.339,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "down",
+      "bg": "raised",
+      "ratio": 6.951,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "down",
+      "bg": "selected",
+      "ratio": 5.87,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "warning",
+      "bg": "bg",
+      "ratio": 10.853,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "warning",
+      "bg": "panel",
+      "ratio": 9.546,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "warning",
+      "bg": "raised",
+      "ratio": 7.957,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "warning",
+      "bg": "selected",
+      "ratio": 6.721,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "error",
+      "bg": "bg",
+      "ratio": 8.806,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "error",
+      "bg": "panel",
+      "ratio": 7.746,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "error",
+      "bg": "raised",
+      "ratio": 6.457,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "error",
+      "bg": "selected",
+      "ratio": 5.453,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "info",
+      "bg": "bg",
+      "ratio": 8.931,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "info",
+      "bg": "panel",
+      "ratio": 7.855,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "info",
+      "bg": "raised",
+      "ratio": 6.548,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "info",
+      "bg": "selected",
+      "ratio": 5.53,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "control",
+      "bg": "bg",
+      "ratio": 5.047,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "control",
+      "bg": "panel",
+      "ratio": 4.44,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "control",
+      "bg": "raised",
+      "ratio": 3.701,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "pro",
+      "fg": "onaccent",
+      "bg": "accent",
+      "ratio": 8.693,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "text",
+      "bg": "bg",
+      "ratio": 14.517,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "text",
+      "bg": "panel",
+      "ratio": 15.726,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "text",
+      "bg": "raised",
+      "ratio": 13.717,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "text",
+      "bg": "selected",
+      "ratio": 13.386,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "muted",
+      "bg": "bg",
+      "ratio": 5.467,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "muted",
+      "bg": "panel",
+      "ratio": 5.922,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "muted",
+      "bg": "raised",
+      "ratio": 5.165,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "muted",
+      "bg": "selected",
+      "ratio": 5.041,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "weak",
+      "bg": "bg",
+      "ratio": 5.116,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "weak",
+      "bg": "panel",
+      "ratio": 5.542,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "weak",
+      "bg": "raised",
+      "ratio": 4.834,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "weak",
+      "bg": "selected",
+      "ratio": 4.717,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "accent",
+      "bg": "bg",
+      "ratio": 5.905,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "accent",
+      "bg": "panel",
+      "ratio": 6.396,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "accent",
+      "bg": "raised",
+      "ratio": 5.579,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "accent",
+      "bg": "selected",
+      "ratio": 5.445,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "secondary",
+      "bg": "bg",
+      "ratio": 5.926,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "secondary",
+      "bg": "panel",
+      "ratio": 6.42,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "secondary",
+      "bg": "raised",
+      "ratio": 5.6,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "secondary",
+      "bg": "selected",
+      "ratio": 5.464,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "up",
+      "bg": "bg",
+      "ratio": 5.898,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "up",
+      "bg": "panel",
+      "ratio": 6.389,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "up",
+      "bg": "raised",
+      "ratio": 5.573,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "up",
+      "bg": "selected",
+      "ratio": 5.438,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "down",
+      "bg": "bg",
+      "ratio": 5.246,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "down",
+      "bg": "panel",
+      "ratio": 5.682,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "down",
+      "bg": "raised",
+      "ratio": 4.957,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "down",
+      "bg": "selected",
+      "ratio": 4.837,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "warning",
+      "bg": "bg",
+      "ratio": 5.741,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "warning",
+      "bg": "panel",
+      "ratio": 6.219,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "warning",
+      "bg": "raised",
+      "ratio": 5.424,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "warning",
+      "bg": "selected",
+      "ratio": 5.293,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "error",
+      "bg": "bg",
+      "ratio": 6.12,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "error",
+      "bg": "panel",
+      "ratio": 6.629,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "error",
+      "bg": "raised",
+      "ratio": 5.783,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "error",
+      "bg": "selected",
+      "ratio": 5.643,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "info",
+      "bg": "bg",
+      "ratio": 5.905,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "info",
+      "bg": "panel",
+      "ratio": 6.396,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "info",
+      "bg": "raised",
+      "ratio": 5.579,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "info",
+      "bg": "selected",
+      "ratio": 5.445,
+      "threshold": 4.5,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "control",
+      "bg": "bg",
+      "ratio": 3.849,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "control",
+      "bg": "panel",
+      "ratio": 4.169,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "control",
+      "bg": "raised",
+      "ratio": 3.637,
+      "threshold": 3,
+      "pass_check": true
+    },
+    {
+      "theme": "light",
+      "fg": "onaccent",
+      "bg": "accent",
+      "ratio": 6.396,
+      "threshold": 4.5,
+      "pass_check": true
+    }
+  ]
+}

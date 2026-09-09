@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
+
 本索引固化当前任务顺序，不重写历史审计结论，也不重命名已有 Phase 编号。产品保持**单用户 Local-first、全球研究视角**，继续复用已有证据、PIT、Provider Stability 与审计基础。全球视角不等于已覆盖全球行情。
 
 > CURRENT 更新：2026-09-09。本轮 remediation 的 pre-remediation / audit-input main baseline 为 `origin/main @ a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以本次 Git ancestry、当前代码、committed artifacts 和离线验证登记。

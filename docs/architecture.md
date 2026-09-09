@@ -1,5 +1,7 @@
 # 投资研究看板架构基线
 
+> UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
+
 > 文档状态：CURRENT IMPLEMENTATION SNAPSHOT / NOT CURRENT PRODUCT ROADMAP  
 > 基线日期：2026-09-08
 > 代码基线：`main` @ `2230265e727f0f2787de9e82d509f0c1d3a6230a`
