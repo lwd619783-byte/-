@@ -29,7 +29,7 @@ BSE 开市前单列为 `OUTSIDE_REQUIRED_SCOPE`，`value=null`、`releaseAvailab
 - SZSE：历史连续性、字段定义适用、首次发布/修订、PIT 未证明；secondary family 混合范围/缺少 response date，旧 response family 未准入；流通市值与 free-float 不建立等价。
 - BSE：历史未穷举、字段 scope/era 适用、交易方式/大宗交易包含关系、首次发布/修订、市场 release 未证明；R2 calendar locator 门禁未闭合；不将流通市值解释为 free-float。
 
-所有精确 reason codes 位于报告各 `sourceInventories.fields` 与 `admissionMatrix.blockers`。
+当前报告将公共原因保存在 `sourceInventories.sourceBlockers`，字段原因保存在 `sourceInventories.fields.*.blockers`；`admissionMatrix.blockers` 和未准入窗口中的 `sourceReasons` / `reasons` 分别传播两类原因。字段归属更正及当前 hash 见末节。
 
 ## 聚合与信任边界
 
@@ -61,7 +61,7 @@ CORE PASS 之后还须通过独立的源/字段准入身份：精确 dataset bus
 
 合成测试证明沪深时代及三所时代的正向合计、三个字段的独立性、CNY 单位换算、真实零 token、cutoff 等号、全部 component lineage 和 max release 可重放。反例覆盖 candidate 冒充、缺所、错日、缺字段、范围/单位/币种、晚发布、无 release/extraction、缺日历、pre-launch 补零、错误 bytes、fixture role、伪 ledger 与 generated/reseal promotion。
 
-集合顺序 canonical 化；固定输入重复执行一致；generatedAt 不进入业务 hash。固定生成时间为 `2026-09-09T00:00:00Z`，用于确定性序列化，不冒充采集或执行时间。真实报告 business hash：
+集合顺序 canonical 化；固定输入重复执行一致；generatedAt 不进入业务 hash。固定生成时间为 `2026-09-09T00:00:00Z`，用于确定性序列化，不冒充采集或执行时间。初次交付 `472df0f` 的真实报告 business hash（历史记录，已由末节更正取代）：
 
 ```text
 f07113d96b0a95a00c15ac7f1acf67b88fc9dffc55f6a1dcaa37f754ff045a1a
@@ -77,7 +77,7 @@ npm run data:validate:market-regime:all-a
 
 build 对相同 sealed 报告幂等；不同内容报错，不覆盖已存在报告。
 
-## 验收结果
+## 初次交付验收结果（472df0f）
 
 | 检查 | 结果 |
 | --- | --- |
@@ -99,3 +99,29 @@ build 对相同 sealed 报告幂等；不同内容报错，不覆盖已存在报
 env warnings 涉及既有多运行时路径、4 个未固定 Python 依赖、pip check 问题、ignore/旧生成物/公告 partial，以及检查当时分支尚未 push、改动尚未 commit 的状态。没有为消除 warning 改环境、依赖、数据或治理。
 
 交付范围仅 D2 模块、合成 fixture/专项 tests、真实紧凑 report、本说明及三个 package scripts。完成普通 commit + push 后停止；不创建 PR、不 merge，不授予 dataset / normalization / backtest / production admission。
+
+## 独立审计修复：字段 blocker attribution
+
+在 `472df0fcfabc434c435cecfdcbec165e65320776` 上追加修复，不重写此前提交。原 `build_report()` 将 source admission 的完整 blockers 列表复制到每个字段，造成字段语义污染；同时 SSE inventory 没有顶层 admission 列表，原报告遗漏了 D1 已明确限定于流通市值的原因。
+
+本次逐一核对三所机器 contract 的 `fieldAdmission`、committed inventory 的 `dayAssessments.fields` 与已审计 `assess_day()` 分支，固定以下字段归属：
+
+| 交易所 | 字段 | 专属 blocker |
+| --- | --- | --- |
+| SSE、SZSE | negotiableMarketCap | `NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN` |
+| BSE | negotiableMarketCap | `NEGOTIABLE_NOT_PROVEN_FREE_FLOAT` |
+| BSE | turnoverValue | `TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN` |
+
+每字段同时保留对应 `contract.fieldAdmission[field].reason`。公共 source blockers 单列，包括没有正式 observation、没有 market release、完整日历未闭合，以及 D1 其余源级门禁；未明确归属到字段的 source reason 继续保留。矩阵与未准入窗口同时携带 `sourceReasons` 和字段 `reasons`，不将公共原因冒充字段专属原因。
+
+上述语义映射由 D1 源实现证明，并校验与固定 inventory 中的逐字段原因一致；没有从 probe 缺失/休市日期推断整段历史缺失。没有修改 aggregator、任何 source admission gate、D1 contract/inventory 或历史证据，没有刷新数据。
+
+更正后报告仍为 **NOT_ADMITTED / numericAggregateCount=0**，两个 era、三个字段均未准入；分母与 coveragePercent 均为 null。通过既有 builder 在临时输出重建并 validate 后替换当前报告文件；保留 CLI 的不同 sealed 内容拒绝覆盖规则。新业务内容自然产生新 hash：
+
+```text
+4ba8737f2dc9e0ba32a35249b36b07075253ea9a11270b67be78029f9ff3b3c1
+```
+
+本次验证：D2 **40 tests**（新增 3 项覆盖三所/三字段及矩阵/窗口）、historical CORE **66**、SSE **22**、SZSE **37**、BSE **25**、catalog **48** 全部通过；report build/validate、build 和 `git diff --check` 通过。data audit 为 0 errors / 24 warnings，其生成的旧审计文档已恢复。
+
+两种 env check 均 exit 0、48 PASS / 10 WARN / 0 FAIL / 4 SKIP。标准 `npm test` 仍 exit 1，仅前述两个 nested-worktree `No test suite found`；101 files / 1661 tests 通过。排除 `data-cache/**` 后主仓 39 files / 597 tests 全部通过。既有 build chunk 与环境警告未通过范围外改动消除。

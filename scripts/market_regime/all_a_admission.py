@@ -43,6 +43,14 @@ INPUTS = {
     'BSE': ('bse-d1c', 'e04cea6e9943fdf07a96e9441ad1bdf81487075ad2e5f6090baae50ede673441', bse_inventory),
 }
 REPORT_PATH = ROOT / 'research-data/market-regime/source-catalog/all-a-d2/admission-report.v1.json'
+# Attribution from the audited D1 assess_day field branches and source contracts.
+# These are semantic restrictions, not missingness inferred from probe dates.
+FIELD_BLOCKERS = {
+    'SSE': {'negotiableMarketCap': ('NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN',)},
+    'SZSE': {'negotiableMarketCap': ('NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN',)},
+    'BSE': {'turnoverValue': ('TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN',),
+            'negotiableMarketCap': ('NEGOTIABLE_NOT_PROVEN_FREE_FLOAT',)},
+}
 
 
 def scope_for(trade_date):
@@ -224,24 +232,32 @@ def build_report(*, inventories=None, generated_at=GENERATED):
         require(all(inv[k] == [] for k in ('exchangeMarketObservations', 'releaseEvents', 'fieldExtractions')),
                 'D1_V1_HAS_NO_FORMAL_COMPONENTS')
         require(inv['coverage']['officialTradingDayTargetCount'] is None, 'D1_CALENDAR_NOT_CLOSED')
+        attributed = FIELD_BLOCKERS[exchange]
+        field_only = {reason for reasons in attributed.values() for reason in reasons}
+        source_blockers = {'NO_FORMAL_EXCHANGE_OBSERVATIONS', 'MARKET_RELEASE_MISSING',
+                           'FULL_OFFICIAL_CALENDAR_UNPROVEN'}
+        # Retain all other source gates, including reasons without field attribution.
+        source_blockers.update(set(inv.get('admission', {}).get('blockers', [])) - field_only)
+        if inv['calendar'].get('r2CalendarStatus'):
+            source_blockers.add(inv['calendar']['r2CalendarStatus'])
         fields = {}
         for field in FIELDS:
             c = inv['coverage']['fields'][field]
             require(c['availableCount'] == c['strictPitCount'] == 0 and c['historicalAdmittedWindows'] == [],
                     'D1_V1_FIELD_NOT_ADMITTED')
-            blockers = {'NO_FORMAL_EXCHANGE_OBSERVATIONS', 'MARKET_RELEASE_MISSING', 'FULL_OFFICIAL_CALENDAR_UNPROVEN'}
-            blockers.update(inv.get('admission', {}).get('blockers', []))
+            blockers = set(attributed.get(field, ()))
+            require(inv['dayAssessments'] and all(blockers <= set(day['fields'][field]['blockers'])
+                                                 for day in inv['dayAssessments']),
+                    'D1_FIELD_BLOCKER_ATTRIBUTION_MISMATCH')
             field_gate = inv['contract'].get('fieldAdmission', {}).get(field, {})
             if field_gate.get('reason'):
                 blockers.add(field_gate['reason'])
-            if inv['calendar'].get('r2CalendarStatus'):
-                blockers.add(inv['calendar']['r2CalendarStatus'])
             fields[field] = dict(formalCount=0, strictPitCount=0, blockers=sorted(blockers))
         sources.append(dict(exchange=exchange, inventoryPath=f'research-data/market-regime/source-catalog/{folder}/inventory.v1.json',
                             inventoryContentSha256=pin, contractContentSha256=inv['contractContentSha256'],
                             validationMode='COMPACT_REPLAY_WITH_FROZEN_IDENTITY',
                             rawArchiveReplay='NOT_PERFORMED_BY_D2_REPORT', datasetAdmission='NOT_ADMITTED',
-                            fields=fields, officialTradingDayTargetCount=None,
+                            fields=fields, sourceBlockers=sorted(source_blockers), officialTradingDayTargetCount=None,
                             unadmittedWindows=deepcopy(inv['coverage']['unadmittedWindows'])))
     matrix = []
     for scope, start, end in ERAS:
@@ -250,7 +266,8 @@ def build_report(*, inventories=None, generated_at=GENERATED):
             matrix.append(dict(marketScopeVersionId=scope, start=start, end=end, field=field,
                                requiredExchanges=list(required), status='NOT_ADMITTED', numericAggregateCount=0,
                                targetCount=None, coveragePercent=None, denominatorStatus='UNKNOWN_OFFICIAL_CALENDAR',
-                               blockers=[dict(exchange=s['exchange'], reasons=s['fields'][field]['blockers'])
+                               blockers=[dict(exchange=s['exchange'], reasons=s['fields'][field]['blockers'],
+                                              sourceReasons=s['sourceBlockers'])
                                          for s in sources if s['exchange'] in required]))
     return seal(dict(schemaVersion='1.0.0', kind='ALL_A_DATASET_ADMISSION_REPORT', reportVersion=VERSION,
                      baseline='c731ec84be35ac91b0371ef294669203d78bc18d', datasetAsOf=AS_OF,

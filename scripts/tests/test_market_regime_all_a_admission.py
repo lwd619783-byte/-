@@ -274,8 +274,66 @@ class RealReportTests(unittest.TestCase):
             self.assertIsNone(row['coveragePercent'])
             self.assertEqual({b['exchange'] for b in row['blockers']},set(row['requiredExchanges']))
             if row['end']=='2021-11-14': self.assertNotIn('BSE',{b['exchange'] for b in row['blockers']})
-            self.assertTrue(all('NO_FORMAL_EXCHANGE_OBSERVATIONS' in b['reasons'] for b in row['blockers']))
+            self.assertTrue(all('NO_FORMAL_EXCHANGE_OBSERVATIONS' in b['sourceReasons'] for b in row['blockers']))
         self.assertEqual(r['syntheticValidation'],dict(included=False,historicalCoverage=0))
+
+    def test_three_exchanges_keep_field_blockers_without_cross_field_pollution(self):
+        report=build_report()
+        inv=load_inventories()
+        exclusive={
+            'SSE': {'negotiableMarketCap': {'NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN'}},
+            'SZSE': {'negotiableMarketCap': {'NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN'}},
+            'BSE': {'turnoverValue': {'TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN'},
+                    'negotiableMarketCap': {'NEGOTIABLE_NOT_PROVEN_FREE_FLOAT'}},
+        }
+        all_exclusive={r for fields in exclusive.values() for reasons in fields.values() for r in reasons}
+        for source in report['sourceInventories']:
+            ex=source['exchange']
+            for field in FIELDS:
+                with self.subTest(exchange=ex,field=field):
+                    expected=exclusive[ex].get(field,set())
+                    reasons=set(source['fields'][field]['blockers'])
+                    self.assertEqual(reasons,expected | {inv[ex]['contract']['fieldAdmission'][field]['reason']})
+                    self.assertEqual(reasons & all_exclusive,expected)
+                    self.assertTrue(all(expected <= set(day['fields'][field]['blockers']) for day in inv[ex]['dayAssessments']))
+                    for row in report['admissionMatrix']:
+                        if row['field']==field and ex in row['requiredExchanges']:
+                            entry=next(b for b in row['blockers'] if b['exchange']==ex)
+                            self.assertEqual(set(entry['reasons']),reasons)
+                            self.assertEqual(entry['sourceReasons'],source['sourceBlockers'])
+            self.assertFalse(set(source['sourceBlockers']) & all_exclusive)
+
+    def test_all_original_source_gates_remain_and_windows_keep_both_levels(self):
+        report=build_report()
+        inv=load_inventories()
+        for source in report['sourceInventories']:
+            common=set(source['sourceBlockers'])
+            self.assertTrue({'NO_FORMAL_EXCHANGE_OBSERVATIONS','MARKET_RELEASE_MISSING',
+                             'FULL_OFFICIAL_CALENDAR_UNPROVEN'} <= common)
+            retained=common | {r for f in source['fields'].values() for r in f['blockers']}
+            self.assertTrue(set(inv[source['exchange']].get('admission',{}).get('blockers',[])) <= retained)
+            self.assertEqual(source['datasetAdmission'],'NOT_ADMITTED')
+        for window in report['unadmittedWindows']:
+            row=next(r for r in report['admissionMatrix']
+                     if (r['marketScopeVersionId'],r['field'])==(window['marketScopeVersionId'],window['field']))
+            self.assertEqual(window['blockers'],row['blockers'])
+
+    def test_resealed_source_gate_removal_or_field_contamination_is_rejected(self):
+        report=build_report()
+        for collection in ('sourceInventories','admissionMatrix','unadmittedWindows'):
+            for contaminate in (False,True):
+                bad=deepcopy(report)
+                if collection=='sourceInventories':
+                    source=next(s for s in bad[collection] if s['exchange']=='BSE')
+                    if contaminate: source['fields']['totalMarketCap']['blockers'].append('NEGOTIABLE_NOT_PROVEN_FREE_FLOAT')
+                    else: source['sourceBlockers']=[]
+                else:
+                    row=next(r for r in bad[collection] if r['field']=='totalMarketCap' and r['start']=='2021-11-15')
+                    entry=next(b for b in row['blockers'] if b['exchange']=='BSE')
+                    if contaminate: entry['reasons'].append('NEGOTIABLE_NOT_PROVEN_FREE_FLOAT')
+                    else: entry['sourceReasons']=[]
+                with self.assertRaisesRegex(ValueError,'REPORT_REPLAY_MISMATCH'):
+                    validate_report(seal(bad))
 
     def test_missing_inventory_cannot_shrink_scope(self):
         inv=load_inventories()

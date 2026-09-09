@@ -25,57 +25,37 @@
           "formalCount": 0,
           "strictPitCount": 0,
           "blockers": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
-            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "PIT_VINTAGE_UNPROVEN",
-            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
-            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
           ]
         },
         "totalMarketCap": {
           "formalCount": 0,
           "strictPitCount": 0,
           "blockers": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
-            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "PIT_VINTAGE_UNPROVEN",
-            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
-            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
           ]
         },
         "negotiableMarketCap": {
           "formalCount": 0,
           "strictPitCount": 0,
           "blockers": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
             "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
-            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "PIT_VINTAGE_UNPROVEN",
-            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
-            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
           ]
         }
       },
+      "sourceBlockers": [
+        "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+        "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "PIT_VINTAGE_UNPROVEN",
+        "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+        "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+      ],
       "officialTradingDayTargetCount": null,
       "unadmittedWindows": [
         {
@@ -108,22 +88,14 @@
           "formalCount": 0,
           "strictPitCount": 0,
           "blockers": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
           ]
         },
         "totalMarketCap": {
           "formalCount": 0,
           "strictPitCount": 0,
           "blockers": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
           ]
         },
         "negotiableMarketCap": {
@@ -131,13 +103,16 @@
           "strictPitCount": 0,
           "blockers": [
             "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
           ]
         }
       },
+      "sourceBlockers": [
+        "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+      ],
       "officialTradingDayTargetCount": null,
       "unadmittedWindows": [
         {
@@ -170,16 +145,7 @@
           "formalCount": 0,
           "strictPitCount": 0,
           "blockers": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
             "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
-            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
             "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
           ]
         },
@@ -187,37 +153,28 @@
           "formalCount": 0,
           "strictPitCount": 0,
           "blockers": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
-            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
-            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
-            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN"
           ]
         },
         "negotiableMarketCap": {
           "formalCount": 0,
           "strictPitCount": 0,
           "blockers": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
             "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
-            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
-            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT"
           ]
         }
       },
+      "sourceBlockers": [
+        "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+        "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+        "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+        "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
+      ],
       "officialTradingDayTargetCount": null,
       "unadmittedWindows": [
         {
@@ -248,23 +205,27 @@
         {
           "exchange": "BSE",
           "reasons": [
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_HISTORY_NOT_ENUMERATED",
-            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
             "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
-            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
           ]
         },
         {
           "exchange": "SSE",
           "reasons": [
             "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -274,75 +235,16 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "PIT_VINTAGE_UNPROVEN",
-            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
-            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
-          ]
-        }
-      ]
-    },
-    {
-      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
-      "start": "2021-11-15",
-      "end": "2026-09-04",
-      "field": "totalMarketCap",
-      "requiredExchanges": [
-        "BSE",
-        "SSE",
-        "SZSE"
-      ],
-      "status": "NOT_ADMITTED",
-      "numericAggregateCount": 0,
-      "targetCount": null,
-      "coveragePercent": null,
-      "denominatorStatus": "UNKNOWN_OFFICIAL_CALENDAR",
-      "blockers": [
-        {
-          "exchange": "BSE",
-          "reasons": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
-            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
-            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
-            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
-          ]
-        },
-        {
-          "exchange": "SSE",
-          "reasons": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
-          ]
-        },
-        {
-          "exchange": "SZSE",
-          "reasons": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
-            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -370,23 +272,26 @@
         {
           "exchange": "BSE",
           "reasons": [
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_HISTORY_NOT_ENUMERATED",
-            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
             "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
-            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
           ]
         },
         {
           "exchange": "SSE",
           "reasons": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -396,14 +301,79 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "field": "totalMarketCap",
+      "requiredExchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "status": "NOT_ADMITTED",
+      "numericAggregateCount": 0,
+      "targetCount": null,
+      "coveragePercent": null,
+      "denominatorStatus": "UNKNOWN_OFFICIAL_CALENDAR",
+      "blockers": [
+        {
+          "exchange": "BSE",
+          "reasons": [
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
+          ]
+        },
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -431,6 +401,9 @@
           "exchange": "SSE",
           "reasons": [
             "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -440,14 +413,16 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -474,7 +449,9 @@
         {
           "exchange": "SSE",
           "reasons": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -484,14 +461,15 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -518,7 +496,9 @@
         {
           "exchange": "SSE",
           "reasons": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -528,14 +508,15 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -555,23 +536,27 @@
         {
           "exchange": "BSE",
           "reasons": [
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_HISTORY_NOT_ENUMERATED",
-            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
             "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
-            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
           ]
         },
         {
           "exchange": "SSE",
           "reasons": [
             "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -581,65 +566,16 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "PIT_VINTAGE_UNPROVEN",
-            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
-            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
-          ]
-        }
-      ]
-    },
-    {
-      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
-      "start": "2021-11-15",
-      "end": "2026-09-04",
-      "field": "totalMarketCap",
-      "blockers": [
-        {
-          "exchange": "BSE",
-          "reasons": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
-            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
-            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
-            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
-          ]
-        },
-        {
-          "exchange": "SSE",
-          "reasons": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
-          ]
-        },
-        {
-          "exchange": "SZSE",
-          "reasons": [
-            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
-            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
-            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
-            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
-            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
-            "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -657,23 +593,26 @@
         {
           "exchange": "BSE",
           "reasons": [
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
+            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_HISTORY_NOT_ENUMERATED",
-            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN",
             "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
-            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
-            "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
           ]
         },
         {
           "exchange": "SSE",
           "reasons": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -683,14 +622,69 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "PIT_VINTAGE_UNPROVEN",
+            "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+            "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+          ]
+        }
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "field": "totalMarketCap",
+      "blockers": [
+        {
+          "exchange": "BSE",
+          "reasons": [
+            "FIELD_SCOPE_AND_HISTORICAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+            "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+            "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
+          ]
+        },
+        {
+          "exchange": "SSE",
+          "reasons": [
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
+            "NO_FORMAL_EXCHANGE_OBSERVATIONS"
+          ]
+        },
+        {
+          "exchange": "SZSE",
+          "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
+            "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+            "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+            "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+            "MARKET_RELEASE_MISSING",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -709,6 +703,9 @@
           "exchange": "SSE",
           "reasons": [
             "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -718,14 +715,16 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -743,7 +742,9 @@
         {
           "exchange": "SSE",
           "reasons": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -753,14 +754,15 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -778,7 +780,9 @@
         {
           "exchange": "SSE",
           "reasons": [
-            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN",
+            "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
@@ -788,14 +792,15 @@
         {
           "exchange": "SZSE",
           "reasons": [
+            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+          ],
+          "sourceReasons": [
             "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
             "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
-            "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN",
             "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
             "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
             "FULL_OFFICIAL_CALENDAR_UNPROVEN",
             "MARKET_RELEASE_MISSING",
-            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
             "NO_FORMAL_EXCHANGE_OBSERVATIONS",
             "PIT_VINTAGE_UNPROVEN",
             "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
@@ -819,5 +824,5 @@
     "included": false,
     "historicalCoverage": 0
   },
-  "contentSha256": "f07113d96b0a95a00c15ac7f1acf67b88fc9dffc55f6a1dcaa37f754ff045a1a"
+  "contentSha256": "4ba8737f2dc9e0ba32a35249b36b07075253ea9a11270b67be78029f9ff3b3c1"
 }
