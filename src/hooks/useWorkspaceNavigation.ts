@@ -65,8 +65,9 @@ export function useWorkspaceNavigation() {
   };
   const back = () => { if (window.history.state?.uiV1?.parent) window.history.back(); else go(`#/${routeRef.current.page}`, true); };
   const openEvent = (eventId: string) => go(`#/verification?event=${encodeURIComponent(eventId)}`);
+  const selectEvent = (eventId: string) => { if (routeRef.current.kind === "page" && routeRef.current.page === "verification") go(`#/verification?event=${encodeURIComponent(eventId)}`, true); };
   const selectIndustry = ({ industryId, segmentId }: { industryId: string; segmentId: string }) => {
     if(routeRef.current.kind === "page" && routeRef.current.page === "industry") go(`#/industry?industry=${encodeURIComponent(industryId)}&segment=${encodeURIComponent(segmentId)}`, true);
   };
-  return { route, navigatePage, openCompany, changeCompanyTab, back, openEvent, selectIndustry };
+  return { route, navigatePage, openCompany, changeCompanyTab, back, openEvent, selectIndustry, selectEvent };
 }

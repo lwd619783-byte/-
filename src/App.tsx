@@ -54,6 +54,8 @@ export default function App() {
   const activeTab = pages[navigation.route.page];
   const industryLocation = useRef<{ industryId?: string; segmentId?: string }>({});
   if (navigation.route.kind === "page" && navigation.route.page === "industry") industryLocation.current = navigation.route;
+  const eventLocation = useRef<{ eventId?: string }>({});
+  if (navigation.route.kind === "page" && navigation.route.page === "verification") eventLocation.current = navigation.route;
   const [visitedTabs, setVisitedTabs] = useState<Set<MainTab>>(() => new Set([activeTab]));
   useEffect(() => { setVisitedTabs(previous => previous.has(activeTab) ? previous : new Set([...previous, activeTab])); }, [activeTab]);
   const [globalSearch, setGlobalSearch] = useState("");
@@ -403,16 +405,19 @@ export default function App() {
                 const result = repository.mergeImport(raw, watchlistData);
                 if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setWorkflowMessage(`合并完成：新增 ${result.preview.addCount}，跳过 ${result.preview.skipCount}。`); }
                 else setStorageError(result.error);
+                return result.ok;
               }}
               onReplaceImport={(raw) => {
                 const result = repository.replaceImport(raw, watchlistData);
                 if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setCorruptedRaw(null); setWorkflowMessage(`替换完成，备份键：${result.backupKey ?? "已创建"}`); }
                 else setStorageError(result.error);
+                return result.ok;
               }}
               onReset={() => {
                 const result = repository.reset();
                 if (result.ok) { const loaded = repository.load(); setWatchlistData(loaded.data); setStorageError(loaded.error); setCorruptedRaw(loaded.corruptedRaw); setWorkflowMessage("本地观察清单已重置为空状态。"); }
                 else setStorageError(result.error);
+                return result.ok;
               }}
               onAdd={() => setWatchForm({})}
               onEdit={(item) => setWatchForm({ itemId: item.id })}
@@ -440,6 +445,8 @@ export default function App() {
           </div>)}
           {visitedTabs.has("验证中心") && (<div hidden={activeTab !== "验证中心"}>
             <ResearchEventCenter
+              initialEventId={eventLocation.current.eventId}
+              onSelectEvent={navigation.selectEvent}
               snapshot={researchSnapshot}
               stocks={dataset.stocks}
               industries={dataset.industries}
@@ -588,6 +595,7 @@ export default function App() {
       {activePreviewStock ? <StockQuickPreview stock={activePreviewStock} onClose={() => setSelectedStock(null)} onOpenResearch={openResearch} /> : null}
 
       {watchForm ? <WatchItemFormModal
+        error={storageError}
         stocks={dataset.stocks}
         item={watchForm.itemId ? watchlistData.watchItems.find((item) => item.id === watchForm.itemId) : null}
         initialStockId={watchForm.stockId}
@@ -597,6 +605,7 @@ export default function App() {
       /> : null}
 
       {reviewItemId && watchlistData.watchItems.some((item) => item.id === reviewItemId) ? <ReviewFormModal
+        error={storageError}
         watchItem={watchlistData.watchItems.find((item) => item.id === reviewItemId) as WatchItem}
         events={researchSnapshot.events}
         tasks={reviewTasks.filter((task) => task.watchItemId === reviewItemId)}
@@ -608,6 +617,7 @@ export default function App() {
       /> : null}
 
       {expectationForm ? <EarningsExpectationFormModal
+        error={expectationStorageError}
         stocks={dataset.stocks}
         initialStockId={expectationForm.stockId}
         correctionTarget={expectationForm.correctionId ? expectationData.snapshots.find((snapshot) => snapshot.id === expectationForm.correctionId) : null}
@@ -617,6 +627,7 @@ export default function App() {
       /> : null}
 
       {expectationImportOpen ? <EarningsExpectationImportModal
+        error={expectationStorageError}
         exportJson={expectationExportJson}
         exportCsv={expectationExportCsv}
         csvTemplate={earningsExpectationCsvTemplate()}

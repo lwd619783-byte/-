@@ -45,7 +45,9 @@ describe("watchlist workflow UI", () => {
     const html = renderToStaticMarkup(<ReviewTimeline entries={[entry]} events={[event]} onCorrect={() => undefined} />);
     expect(html).toContain("复盘前");
     expect(html).toContain("复盘后");
-    expect(html).toContain("官方来源");
+    expect(html).toContain("查看证据来源");
+    expect(html).toContain('href="https://example.com/official"');
+    for (const copy of ["旧验证", "新验证", "旧风险", "新风险"]) expect(html).toContain(copy);
     expect(html).toContain("新增纠正记录");
   });
 

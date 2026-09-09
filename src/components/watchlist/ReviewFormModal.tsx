@@ -3,6 +3,8 @@ import type { CompleteReviewInput } from "../../services/watchlistStore";
 import type { ResearchEvent, ReviewEntry, ReviewTask, ReviewTriggerType, WatchItem, WatchStatus } from "../../types";
 import { statusDisplayLabel } from "../../utils/displayLabels";
 import { Modal } from "../common/Modal";
+import { FormField as Field } from "../common/FormField";
+import { useSubmission } from "../../hooks/useSubmission";
 
 interface ReviewFormModalProps {
   watchItem: WatchItem;
@@ -11,11 +13,13 @@ interface ReviewFormModalProps {
   correctionTarget?: ReviewEntry | null;
   onClose: () => void;
   onSubmit: (input: CompleteReviewInput) => void;
+  error?: string | null;
 }
 
 const STATUSES: WatchStatus[] = ["观察", "已配置", "等回调", "等业绩验证", "剔除观察"];
 
-export function ReviewFormModal({ watchItem, events, tasks, correctionTarget = null, onClose, onSubmit }: ReviewFormModalProps) {
+export function ReviewFormModal({ watchItem, events, tasks, correctionTarget = null, onClose, onSubmit, error }: ReviewFormModalProps) {
+  const { pending, run } = useSubmission();
   const [dirty, setDirty] = useState(false);
   const [triggerType, setTriggerType] = useState<ReviewTriggerType>(correctionTarget ? correctionTarget.triggerType : "manual");
   const [selectedEvents, setSelectedEvents] = useState<string[]>(correctionTarget?.triggerEventIds ?? tasks.flatMap((task) => task.relatedEventIds));
@@ -61,10 +65,11 @@ export function ReviewFormModal({ watchItem, events, tasks, correctionTarget = n
 
   return (
     <Modal
+      error={error} busy={pending} hasUnsavedChanges={dirty} onDiscard={onClose}
       title={correctionTarget ? "新增纠正复盘记录" : "完成一次投研复盘"}
-      description="提交后会追加不可变 ReviewEntry，并原子更新当前观察项。"
+      description={`${watchItem.stockId} · 提交后追加一条复盘历史，并同步更新当前判断。原历史保留。`}
       onClose={requestClose}
-      footer={<><button type="button" onClick={requestClose} className="h-10 rounded-md border border-borderSoft px-4 text-sm text-textMuted">取消</button><button type="button" onClick={submit} className="h-10 rounded-md border border-cyan/50 bg-cyan/10 px-4 text-sm font-semibold text-cyan">提交复盘</button></>}
+      footer={<><button type="button" disabled={pending} onClick={requestClose} className="h-10 rounded-md border border-borderSoft px-4 text-sm text-textMuted">取消</button><button type="button" onClick={() => void run(submit)} disabled={pending} className="h-10 rounded-md border border-cyan/50 bg-cyan/10 px-4 text-sm font-semibold text-cyan">{pending ? "提交中…" : "提交复盘"}</button></>}
     >
       <div className="grid min-w-0 gap-4 sm:grid-cols-2">
         <Field label="本次触发原因"><select value={triggerType} onChange={(event) => set(setTriggerType, event.target.value as ReviewTriggerType)} className={inputClass}><option value="manual">手动复盘</option><option value="review_due">日期到期</option><option value="financial_event">财务事件</option><option value="announcement_event">公告事件</option><option value="data_quality_warning">数据质量警告</option></select></Field>
@@ -85,10 +90,6 @@ export function ReviewFormModal({ watchItem, events, tasks, correctionTarget = n
 }
 
 const inputClass = "w-full min-w-0 rounded-md border border-borderSoft bg-bg px-3 py-2 text-sm text-textStrong outline-none focus:border-cyan";
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <label className="block min-w-0 text-xs text-textMuted"><span className="mb-1 block">{label}</span>{children}</label>;
-}
 
 function lines(value: string) {
   return [...new Set(value.split(/\r?\n/).map((item) => item.trim()).filter(Boolean))];

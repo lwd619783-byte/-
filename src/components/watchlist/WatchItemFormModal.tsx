@@ -1,4 +1,6 @@
-import { useCallback, useState, type ReactNode } from "react";
+import { useCallback, useState } from "react";
+import { FormField as Field } from "../common/FormField";
+import { useSubmission } from "../../hooks/useSubmission";
 import type { CreateWatchItemInput, WatchItemMetadataInput } from "../../services/watchlistStore";
 import type { Stock, WatchItem, WatchPriority } from "../../types";
 import { Modal } from "../common/Modal";
@@ -10,11 +12,13 @@ interface WatchItemFormModalProps {
   onClose: () => void;
   onCreate: (input: CreateWatchItemInput) => void;
   onUpdate: (input: WatchItemMetadataInput) => void;
+  error?: string | null;
 }
 
-export function WatchItemFormModal({ stocks, item = null, initialStockId = "", onClose, onCreate, onUpdate }: WatchItemFormModalProps) {
+export function WatchItemFormModal({ stocks, item = null, initialStockId = "", onClose, onCreate, onUpdate, error }: WatchItemFormModalProps) {
+  const { pending, run } = useSubmission();
   const [dirty, setDirty] = useState(false);
-  const [stockId, setStockId] = useState(item?.stockId ?? initialStockId ?? stocks[0]?.id ?? "");
+  const [stockId, setStockId] = useState(item?.stockId ?? (initialStockId || stocks[0]?.id || ""));
   const [reason, setReason] = useState(item?.reason ?? "");
   const [priority, setPriority] = useState<WatchPriority>(item?.priority ?? "medium");
   const [tags, setTags] = useState(item?.tags.join("，") ?? "");
@@ -32,7 +36,7 @@ export function WatchItemFormModal({ stocks, item = null, initialStockId = "", o
     else onCreate({ ...metadata, stockId, thesis, validationCriteria: lines(validation), riskCriteria: lines(risk) });
   };
   return (
-    <Modal title={item ? "编辑观察项元数据" : "添加观察项"} description={item ? "投资假设、验证条件、风险条件和状态只能通过复盘流程更新。" : "首次加入时记录投资假设；后续核心变化进入不可变复盘时间线。"} onClose={requestClose} footer={<><button type="button" onClick={requestClose} className="h-10 rounded-md border border-borderSoft px-4 text-sm text-textMuted">取消</button><button type="button" onClick={submit} disabled={!item && !stockId} className="h-10 rounded-md border border-cyan/50 bg-cyan/10 px-4 text-sm font-semibold text-cyan disabled:opacity-40">保存</button></>}>
+    <Modal error={error} busy={pending} hasUnsavedChanges={dirty} onDiscard={onClose} size={item ? "compact" : "research"} title={item ? "编辑观察项元数据" : "添加观察项"} description={item ? "投资假设、验证条件、风险条件和状态只能通过复盘流程更新。" : "首次加入时记录投资假设；后续核心变化进入不可变复盘时间线。"} onClose={requestClose} footer={<><button type="button" disabled={pending} onClick={requestClose} className="h-10 rounded-md border border-borderSoft px-4 text-sm text-textMuted">取消</button><button type="button" onClick={() => void run(submit)} disabled={pending || (!item && !stockId)} className="h-10 rounded-md border border-cyan/50 bg-cyan/10 px-4 text-sm font-semibold text-cyan disabled:opacity-40">{pending ? "保存中…" : "保存"}</button></>}>
       <div className="grid gap-4 sm:grid-cols-2">
         {!item ? <Field label="公司"><select value={stockId} onChange={(event) => update(setStockId, event.target.value)} className={inputClass}>{stocks.map((stock) => <option key={stock.id} value={stock.id}>{stock.name} · {stock.code}</option>)}</select></Field> : <Field label="公司"><input value={stocks.find((stock) => stock.id === item.stockId)?.name ?? item.stockId} readOnly className={`${inputClass} opacity-70`} /></Field>}
         <Field label="优先级"><select value={priority} onChange={(event) => update(setPriority, event.target.value as WatchPriority)} className={inputClass}><option value="high">高</option><option value="medium">中</option><option value="low">低</option></select></Field>
@@ -46,6 +50,5 @@ export function WatchItemFormModal({ stocks, item = null, initialStockId = "", o
 }
 
 const inputClass = "w-full min-w-0 rounded-md border border-borderSoft bg-bg px-3 py-2 text-sm text-textStrong outline-none focus:border-cyan";
-function Field({ label, children }: { label: string; children: ReactNode }) { return <label className="block min-w-0 text-xs text-textMuted"><span className="mb-1 block">{label}</span>{children}</label>; }
 function lines(value: string) { return [...new Set(value.split(/\r?\n/).map((item) => item.trim()).filter(Boolean))]; }
 function split(value: string) { return [...new Set(value.split(/[，,]/).map((item) => item.trim()).filter(Boolean))]; }
