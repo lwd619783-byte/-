@@ -11,7 +11,7 @@ export function DashboardCard({
 }) {
   return (
     <section
-      className={`min-w-0 rounded-lg border border-borderSoft bg-card/95 shadow-soft backdrop-blur-xl ${
+      className={`ui-panel min-w-0 rounded-lg border border-borderSoft bg-card shadow-soft ${
         interactive ? "transition hover:border-borderGlow hover:bg-cardHover hover:shadow-glow" : ""
       } ${className}`}
     >

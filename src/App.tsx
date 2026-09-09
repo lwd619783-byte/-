@@ -274,28 +274,8 @@ export default function App() {
   };
 
   return (
-    <div className={`${activeTab === "首页" ? "home-root" : "terminal-grid"} min-h-screen bg-bg text-text`}>
-      {activeTab === "首页" ? (
-        <HomePage
-          dataMode={dataMode}
-          modeLabel={dataset.modeLabel}
-          updatedAt={dataset.dataUpdatedAt}
-          sourceNote={dataMode === "mock" ? dataSourceNote : dataset.dataSourceNote}
-          coverageSummary={dataset.coverageSummary}
-          industriesCount={dataset.industries.length}
-          stocksCount={dataset.stocks.length}
-          activeWatchCount={watchlistData.watchItems.filter((item) => !item.archivedAt).length}
-          expectationCount={aggregatedExpectationEvidence.snapshots.length}
-          macroCount={macroIndicators.reduce((sum, indicator) => sum + indicator.metrics.length, 0)}
-          stats={dashboardStats}
-          focusStocks={dashboardStats.focusStocks}
-          quoteStocks={dataset.stocks}
-          onDataModeChange={setDataMode}
-          onNavigate={navigateToTab}
-          onOpenStock={setSelectedStock}
-        />
-      ) : (
-        <>
+    <div className="workspace min-h-screen text-text">
+      <a className="skip-link" href="#workspace-main">跳到主要内容</a>
       <Header
         search={globalSearch}
         onSearchChange={setGlobalSearch}
@@ -313,8 +293,9 @@ export default function App() {
           <section className="min-w-0 space-y-4">
           <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引数据状态">
             <div className="min-w-0 text-xs"><span className="font-semibold text-textStrong">公司指引数据</span><span className="ml-2 text-textMuted">{dataMode === "mock" ? "模拟数据模式已严格隔离真实数据提供方" : companyGuidanceWorkflowStatus === "loading" ? "全局索引校验中" : companyGuidanceWorkflowStatus === "success" ? `已验证 ${providerRecords.length} 条当前版本，导航切换不改变工作流` : companyGuidanceWorkflowStatus === "error" ? "全局索引失败，正式数据提供方已关闭" : "等待加载"}</span></div>
-            {companyGuidanceWorkflowError ? <div className="flex min-w-0 items-center gap-2"><span role="alert" className="max-w-xl truncate text-xs text-warning" title={companyGuidanceWorkflowError}>{companyGuidanceWorkflowError}</span><button type="button" onClick={retryCompanyGuidance} className="rounded border border-warning/50 px-2 py-1 text-xs text-warning">重试</button></div> : null}
+            {companyGuidanceWorkflowError ? <div className="flex min-w-0 items-center gap-2"><span role="alert" className="max-w-xl break-words text-xs text-warning" title={companyGuidanceWorkflowError}>{companyGuidanceWorkflowError}</span><button type="button" onClick={retryCompanyGuidance} className="rounded border border-warning/50 px-2 py-1 text-xs text-warning">重试</button></div> : null}
           </DashboardCard>
+          <details className="workspace-context"><summary>工作台概况与数据健康</summary>
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
               <div className="min-w-0">
@@ -400,6 +381,28 @@ export default function App() {
           </DashboardCard>
 
           <QuoteTrustSummary stocks={dataset.stocks} />
+          </details>
+          {activeTab === "首页" && (
+        <HomePage
+          dataMode={dataMode}
+          modeLabel={dataset.modeLabel}
+          updatedAt={dataset.dataUpdatedAt}
+          sourceNote={dataMode === "mock" ? dataSourceNote : dataset.dataSourceNote}
+          coverageSummary={dataset.coverageSummary}
+          industriesCount={dataset.industries.length}
+          stocksCount={dataset.stocks.length}
+          activeWatchCount={watchlistData.watchItems.filter((item) => !item.archivedAt).length}
+          expectationCount={aggregatedExpectationEvidence.snapshots.length}
+          macroCount={macroIndicators.reduce((sum, indicator) => sum + indicator.metrics.length, 0)}
+          stats={dashboardStats}
+          focusStocks={dashboardStats.focusStocks}
+          quoteStocks={dataset.stocks}
+          onDataModeChange={setDataMode}
+          onNavigate={navigateToTab}
+          onOpenStock={setSelectedStock}
+        />
+          )}
+
 
           {workflowMessage ? <div role="status" className="rounded-md border border-success/35 bg-success/10 px-3 py-2 text-sm text-success">{workflowMessage}</div> : null}
 
@@ -517,7 +520,7 @@ export default function App() {
           )}
         </section>
         }
-        rightRail={
+        rightRail={activeTab === "首页" ?
           <RightRail
             mode={dataset.mode}
             coverageSummary={dataset.coverageSummary}
@@ -526,11 +529,9 @@ export default function App() {
             focusStocks={dashboardStats.focusStocks}
             missingStocks={dashboardStats.missingStocks}
             onOpenStock={setSelectedStock}
-          />
+          /> : null
         }
       />
-        </>
-      )}
 
       <StockDetailDrawer
         stock={activeSelectedStock}

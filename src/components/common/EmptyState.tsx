@@ -16,7 +16,7 @@ export function EmptyState({
 }) {
   const Icon = state === "loading" ? Loader2 : AlertCircle;
   return (
-    <div className={`rounded-lg border border-dashed border-borderSoft bg-surface/55 text-center ${compact ? "p-6" : "p-10"}`}>
+    <div role={state === "error" ? "alert" : "status"} aria-busy={state === "loading"} className={`rounded-lg border border-dashed border-borderSoft bg-surface/55 text-center ${compact ? "p-6" : "p-10"}`}>
       <Icon className={`mx-auto h-5 w-5 text-textMuted ${state === "loading" ? "animate-spin" : ""}`} />
       <p className="mt-3 font-medium text-textStrong">{title}</p>
       <p className="mx-auto mt-1 max-w-md text-sm leading-6 text-textMuted">{description}</p>
