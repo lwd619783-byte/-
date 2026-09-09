@@ -1,0 +1,2881 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "SSE_SOURCE_INVENTORY_NOT_R2_DATASET",
+  "contract": {
+    "schemaVersion": "1.0.0",
+    "contractId": "sse-historical-source-d1a-v1",
+    "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+    "metricId": "EXCHANGE_MARKET_STATS",
+    "datasetAsOf": "2026-09-07T08:00:00+08:00",
+    "targetWindow": {
+      "start": "2005-01-01",
+      "end": "2026-09-04",
+      "frequency": "TRADING_DAY",
+      "fields": [
+        "negotiableMarketCap",
+        "totalMarketCap",
+        "turnoverValue"
+      ]
+    },
+    "families": [
+      {
+        "familyId": "daily-day",
+        "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C",
+        "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+        "scriptFile": "current-script.js",
+        "dateKey": "TRADE_DATE",
+        "boardKey": "PRODUCT_CODE",
+        "boardScopes": {
+          "01": "SSE_MAIN_BOARD_A",
+          "02": "SSE_B",
+          "03": "SSE_STAR",
+          "17": "SSE_A_B_STAR",
+          "11": "REPURCHASE"
+        },
+        "fieldKeys": {
+          "turnoverValue": "TRADE_AMT",
+          "totalMarketCap": "TOTAL_VALUE",
+          "negotiableMarketCap": "NEGO_VALUE"
+        },
+        "claimedLastDate": null
+      },
+      {
+        "familyId": "legacy-day",
+        "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C",
+        "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+        "scriptFile": "historical-script.js",
+        "dateKey": "CAL_DATE",
+        "boardKey": "PRODUCT_TYPE",
+        "boardScopes": {
+          "1": "SSE_MAIN_BOARD_A",
+          "2": "SSE_B",
+          "48": "SSE_STAR",
+          "40": "SSE_A_B_STAR",
+          "43": "REPURCHASE",
+          "12": "UNPROVEN_AGGREGATE"
+        },
+        "fieldKeys": {
+          "turnoverValue": "TX_AMOUNT",
+          "totalMarketCap": "MKT_VALUE",
+          "negotiableMarketCap": "NEGOTIABLE_VALUE"
+        },
+        "claimedLastDate": "2022-01-03"
+      }
+    ],
+    "requests": [
+      {
+        "requestId": "historical-script",
+        "url": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+        "familyId": null,
+        "requestedDate": null,
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_OR_LINK",
+        "parentRequestId": "overview-0"
+      },
+      {
+        "requestId": "current-script",
+        "url": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+        "familyId": null,
+        "requestedDate": null,
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_OR_LINK",
+        "parentRequestId": "overview-1"
+      },
+      {
+        "requestId": "calendar-2020-interface",
+        "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20200202_4991648.shtml",
+        "familyId": null,
+        "requestedDate": null,
+        "role": "CALENDAR",
+        "discovery": "OFFICIAL_PAGE_OR_LINK",
+        "parentRequestId": null
+      },
+      {
+        "requestId": "calendar-2020-original",
+        "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20191220_4969627.shtml",
+        "familyId": null,
+        "requestedDate": null,
+        "role": "CALENDAR",
+        "discovery": "OFFICIAL_PAGE_OR_LINK",
+        "parentRequestId": null
+      },
+      {
+        "requestId": "calendar-2020-revision",
+        "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200127_4991582.shtml",
+        "familyId": null,
+        "requestedDate": null,
+        "role": "CALENDAR",
+        "discovery": "OFFICIAL_PAGE_OR_LINK",
+        "parentRequestId": null
+      },
+      {
+        "requestId": "overview-0",
+        "url": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+        "familyId": null,
+        "requestedDate": null,
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_OR_LINK",
+        "parentRequestId": null
+      },
+      {
+        "requestId": "overview-1",
+        "url": "https://www.sse.com.cn/market/stockdata/overview/day/",
+        "familyId": null,
+        "requestedDate": null,
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_OR_LINK",
+        "parentRequestId": null
+      },
+      {
+        "requestId": "daily-2022-01-04",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-04",
+        "familyId": "daily-day",
+        "requestedDate": "2022-01-04",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "current-script"
+      },
+      {
+        "requestId": "daily-2026-09-04",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2026-09-04",
+        "familyId": "daily-day",
+        "requestedDate": "2026-09-04",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "current-script"
+      },
+      {
+        "requestId": "legacy-2005-01-04",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2005-01-04",
+        "familyId": "legacy-day",
+        "requestedDate": "2005-01-04",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "historical-script"
+      },
+      {
+        "requestId": "legacy-2019-07-19",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-19",
+        "familyId": "legacy-day",
+        "requestedDate": "2019-07-19",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "historical-script"
+      },
+      {
+        "requestId": "legacy-2019-07-22",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-22",
+        "familyId": "legacy-day",
+        "requestedDate": "2019-07-22",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "historical-script"
+      },
+      {
+        "requestId": "legacy-2020-01-31",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-01-31",
+        "familyId": "legacy-day",
+        "requestedDate": "2020-01-31",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "historical-script"
+      },
+      {
+        "requestId": "legacy-2020-02-03",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-02-03",
+        "familyId": "legacy-day",
+        "requestedDate": "2020-02-03",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "historical-script"
+      },
+      {
+        "requestId": "legacy-2020-04-30",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-04-30",
+        "familyId": "legacy-day",
+        "requestedDate": "2020-04-30",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "historical-script"
+      },
+      {
+        "requestId": "legacy-2020-05-06",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-05-06",
+        "familyId": "legacy-day",
+        "requestedDate": "2020-05-06",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "historical-script"
+      },
+      {
+        "requestId": "legacy-2021-12-31",
+        "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-31",
+        "familyId": "legacy-day",
+        "requestedDate": "2021-12-31",
+        "role": "INVENTORY",
+        "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+        "parentRequestId": "historical-script"
+      }
+    ],
+    "calendar": {
+      "calendarVersion": "sse-2020-holiday-revision-6-bounded-v1",
+      "start": "2020-01-31",
+      "end": "2020-02-03",
+      "closedDates": [
+        "2020-01-31",
+        "2020-02-01",
+        "2020-02-02"
+      ],
+      "openDates": [
+        "2020-02-03"
+      ],
+      "supersedes": [
+        "sse-announcement-2019-65-original-opening"
+      ],
+      "proofs": [
+        {
+          "fileName": "calendar-2020-original.body",
+          "text": "上证公告〔2019〕65号"
+        },
+        {
+          "fileName": "calendar-2020-original.body",
+          "text": "二〇一九年十二月二十日"
+        },
+        {
+          "fileName": "calendar-2020-original.body",
+          "text": "（二）春节：1月24日（星期五）至1月30日（星期四）休市，1月31日（星期五）起照常开市。另外，1月19日（星期日）、2月1日（星期六）为周末休市。"
+        },
+        {
+          "fileName": "calendar-2020-revision.body",
+          "text": "一、延长2020年春节休市至2月2日（星期日），2月3日（星期一）正常开市。"
+        },
+        {
+          "fileName": "calendar-2020-revision.body",
+          "text": "上证公告〔2020〕6号"
+        },
+        {
+          "fileName": "calendar-2020-revision.body",
+          "text": "二○二○年一月二十七日"
+        }
+      ]
+    },
+    "fieldAdmission": {
+      "turnoverValue": {
+        "status": "BLOCKED",
+        "sourceDefinitionIds": [],
+        "reason": "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+      },
+      "totalMarketCap": {
+        "status": "BLOCKED",
+        "sourceDefinitionIds": [],
+        "reason": "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+      },
+      "negotiableMarketCap": {
+        "status": "BLOCKED",
+        "sourceDefinitionIds": [],
+        "reason": "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+      }
+    },
+    "definitionBreaks": [
+      {
+        "date": "2019-07-22",
+        "kind": "AGGREGATE_COMPOSITION",
+        "meaning": "Stock total includes main A, main B and STAR; excludes repurchase. Never A-only."
+      },
+      {
+        "date": "2020-05-01",
+        "kind": "RATE_DEFINITION_ONLY",
+        "meaning": "Turnover-rate footnote does not establish a change in the three amount fields."
+      },
+      {
+        "date": "2022-01-03",
+        "kind": "SOURCE_FAMILY_BOUNDARY_CLAIM",
+        "meaning": "Legacy script declares data cutoff; boundary continuity and new-family earliest date not proven."
+      }
+    ],
+    "definitionReferences": [
+      {
+        "url": "https://star.sse.com.cn/aboutus/publication/monthly/documents/c/10061130/files/ad36978c88b94bf789a19df338d99416.pdf",
+        "status": "DISCOVERY_ONLY_NOT_API_APPLICABILITY",
+        "meaning": "2020-12 monthly definitions distinguish issued quantity and negotiable quantity; no daily backfill."
+      },
+      {
+        "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061073/files/3434d1799d1145dc826c16c34bd097bf.pdf",
+        "status": "DISCOVERY_ONLY_NOT_API_APPLICABILITY",
+        "meaning": "2020/2019 annual table uses Negotiable Cap for non-restricted capitalization and 100M Yuan; no API applicability proof."
+      }
+    ]
+  },
+  "contractContentSha256": "33f37b235b244f57d737b0d0d1eda0d5db669e37bc208f6b05509bfe442961dd",
+  "evidenceArtifacts": [
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-22",
+      "fetchedAt": "2026-09-09T01:48:37Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "legacy-2019-07-22.body",
+      "sha256": "e616d59ed250261442ae7d7929915e0cf214174163756f52f9955f88f7355822",
+      "byteSize": 3677,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2019-07-22.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200127_4991582.shtml",
+      "fetchedAt": "2026-09-09T01:48:34Z",
+      "contentType": "text/html",
+      "fileName": "calendar-2020-revision.body",
+      "sha256": "8113286860fd5b9dc4d87ee626e709324bab5f95a5b11d382885c7230a4584a6",
+      "byteSize": 28944,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/calendar-2020-revision.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "CALENDAR",
+      "artifactId": "evidence-r2-0a98c6cc6611f33a007990c6cf69d4fb562e4af578d76dc41ff02f52e7e457c0"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+      "fetchedAt": "2026-09-09T01:46:20Z",
+      "contentType": "text/html",
+      "fileName": "overview-1.html",
+      "sha256": "56e73bb657f4619d814d6c8fcfbcbdfcd4b902432494b3ed5b54b9e81dfa89f6",
+      "byteSize": 27794,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/overview-1.html",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-18e98406a1ff021e605dba24e4c2d30bbec5fe01c6d6b3390b7d345d462960ee"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+      "fetchedAt": "2026-09-09T01:46:19Z",
+      "contentType": "text/html",
+      "fileName": "overview-0.html",
+      "sha256": "4c64e9d7b860d8cee8247b30bda04ba6edcadb93cfbad2ee5bfb065e768b5019",
+      "byteSize": 28589,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/overview-0.html",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-1c380f99b87189624ad50785d2ff06b4a2acab39c1a42a2cdd05ba0ee06dd07b"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-05-06",
+      "fetchedAt": "2026-09-09T01:48:38Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "legacy-2020-05-06.body",
+      "sha256": "de377d14805f0c3135ce72838de48b1ebc9a0b5f04a26406545e1d3e6e72ac87",
+      "byteSize": 3712,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2020-05-06.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20191220_4969627.shtml",
+      "fetchedAt": "2026-09-09T01:48:34Z",
+      "contentType": "text/html",
+      "fileName": "calendar-2020-original.body",
+      "sha256": "7e886e6f67eef7f3e94f4c5db5453335526a9e67efc2e6205ab43a709c1b7799",
+      "byteSize": 28855,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/calendar-2020-original.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "CALENDAR",
+      "artifactId": "evidence-r2-4f3a86cc20a4a7f2f3cf5dbebcc20729cfcf3017d55cbd2dafd27bf6289c0815"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-04-30",
+      "fetchedAt": "2026-09-09T01:48:38Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "legacy-2020-04-30.body",
+      "sha256": "1e742b208bfdfe255944bc192f269101295d5e86bad6e7b1cecf880d0fdf91ef",
+      "byteSize": 3663,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2020-04-30.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+      "fetchedAt": "2026-09-09T01:46:52Z",
+      "contentType": "application/javascript",
+      "fileName": "current-script.js",
+      "sha256": "3673d3f8b1cd3d98227af6adbbd0add4b37fb652bdeaeb362325a46d803c5eb8",
+      "byteSize": 189208,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/current-script.js",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-6207aa0c484e25b10b5549adc677ca3657c01f136a1f243d2fdc34d02220465c"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-04",
+      "fetchedAt": "2026-09-09T01:48:39Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "daily-2022-01-04.body",
+      "sha256": "d45f7316694f388a9d8312d3743fa2d26fb7939d834be6891ea66234e59ca461",
+      "byteSize": 1238,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/daily-2022-01-04.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-19",
+      "fetchedAt": "2026-09-09T01:48:37Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "legacy-2019-07-19.body",
+      "sha256": "73057015f32b218e24a7d8000f7a1e85989e499e5e92764461ff888412752e07",
+      "byteSize": 3126,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2019-07-19.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-01-31",
+      "fetchedAt": "2026-09-09T01:48:37Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "legacy-2020-01-31.body",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2020-01-31.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-b158029b4e44fc3fca25fcfa052b32c0a92f3057b50956472e060bba2a566441"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20200202_4991648.shtml",
+      "fetchedAt": "2026-09-09T01:48:36Z",
+      "contentType": "text/html",
+      "fileName": "calendar-2020-interface.body",
+      "sha256": "561881b4d02ce1c19a37b6cffe529414136f91cdcb559b82216a9bf9ca2db311",
+      "byteSize": 30056,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/calendar-2020-interface.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "CALENDAR",
+      "artifactId": "evidence-r2-b17be2049dead678d6c7dee9a4704c83f0430c335dd672bdddaa672018c1721f"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2026-09-04",
+      "fetchedAt": "2026-09-09T01:48:39Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "daily-2026-09-04.body",
+      "sha256": "a92264aae83fc262d9b9dcb71a8ac2dc08c56c31b491636987d7ddd132df5b1b",
+      "byteSize": 1710,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/daily-2026-09-04.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-31",
+      "fetchedAt": "2026-09-09T01:48:39Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "legacy-2021-12-31.body",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2021-12-31.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-c6c50b32a5fb1edcf64d94ecd8f6aedf4e9f00e4efacb4259651a51f1796cc0b"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2005-01-04",
+      "fetchedAt": "2026-09-09T01:48:36Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "legacy-2005-01-04.body",
+      "sha256": "d52ddb819347f8074ebdd0a7398058516feb5595fe287c4f82951f1f9381704b",
+      "byteSize": 2086,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2005-01-04.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-02-03",
+      "fetchedAt": "2026-09-09T01:48:38Z",
+      "contentType": "application/json;charset=UTF-8",
+      "fileName": "legacy-2020-02-03.body",
+      "sha256": "73677cb03ce4ea9202f51613362b3d25b51deb9218c3bbb21c74a1f68895323f",
+      "byteSize": 3677,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2020-02-03.body",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8"
+    },
+    {
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "sourceUrl": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+      "fetchedAt": "2026-09-09T01:46:51Z",
+      "contentType": "application/javascript",
+      "fileName": "historical-script.js",
+      "sha256": "c2cf4c618dc06baa146affde91fe12514837f48edbbdb161c00e4cc8ce2e66a6",
+      "byteSize": 102309,
+      "httpStatus": 200,
+      "artifactRole": "RAW_SOURCE",
+      "localPath": "research-data/market-regime/raw/sse-d1a/historical-script.js",
+      "parseStatus": "INDEXED",
+      "error": null,
+      "evidenceRole": "INVENTORY",
+      "artifactId": "evidence-r2-f390bd487b2b9f1a03f33fdd1e625a8a28f97b8401061e4a0751150d0073f53a"
+    }
+  ],
+  "artifactBindings": [
+    {
+      "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-0a98c6cc6611f33a007990c6cf69d4fb562e4af578d76dc41ff02f52e7e457c0",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-0a98c6cc6611f33a007990c6cf69d4fb562e4af578d76dc41ff02f52e7e457c0",
+        "byteOffset": 0,
+        "byteLength": 138,
+        "text": "<!doctype html>\r\n<html>\r\n\r\n<head>\r\n    <!--获取栏目id页-->\r\n    <!-- 站点属性 -->\r\n    <meta charset=\"utf-8\">\r\n<meta name=\"descri"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-18e98406a1ff021e605dba24e4c2d30bbec5fe01c6d6b3390b7d345d462960ee",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-18e98406a1ff021e605dba24e4c2d30bbec5fe01c6d6b3390b7d345d462960ee",
+        "byteOffset": 0,
+        "byteLength": 138,
+        "text": "<!DOCTYPE html>\n<html>\n<head>\n    <!--获取栏目id页-->\n    <!-- 站点属性 -->\r\n<meta charset=\"utf-8\">\r\n<meta name=\"description\" con"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-1c380f99b87189624ad50785d2ff06b4a2acab39c1a42a2cdd05ba0ee06dd07b",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-1c380f99b87189624ad50785d2ff06b4a2acab39c1a42a2cdd05ba0ee06dd07b",
+        "byteOffset": 0,
+        "byteLength": 138,
+        "text": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <!--获取栏目id页-->\r\n    <!-- 站点属性 -->\r\n<meta charset=\"utf-8\">\r\n<meta name=\"description\""
+      }
+    },
+    {
+      "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-4f3a86cc20a4a7f2f3cf5dbebcc20729cfcf3017d55cbd2dafd27bf6289c0815",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-4f3a86cc20a4a7f2f3cf5dbebcc20729cfcf3017d55cbd2dafd27bf6289c0815",
+        "byteOffset": 0,
+        "byteLength": 150,
+        "text": "<!doctype html>\r\n<html>\r\n\r\n<head>\r\n    <!--获取栏目id页-->\r\n    <!-- 站点属性 -->\r\n    \r\n<meta name=\"others\" content=\"页面生成时间 2024"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-6207aa0c484e25b10b5549adc677ca3657c01f136a1f243d2fdc34d02220465c",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-6207aa0c484e25b10b5549adc677ca3657c01f136a1f243d2fdc34d02220465c",
+        "byteOffset": 0,
+        "byteLength": 144,
+        "text": "/**\r\n * 股票数据-股票数据总貌-总貌\r\n */\r\nString.prototype.num_toFixed = function (num) {\r\n  var _this = \"\";\r\n  if (Number(this)) {\r\n"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-b158029b4e44fc3fca25fcfa052b32c0a92f3057b50956472e060bba2a566441",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-b158029b4e44fc3fca25fcfa052b32c0a92f3057b50956472e060bba2a566441",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-b17be2049dead678d6c7dee9a4704c83f0430c335dd672bdddaa672018c1721f",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-b17be2049dead678d6c7dee9a4704c83f0430c335dd672bdddaa672018c1721f",
+        "byteOffset": 0,
+        "byteLength": 150,
+        "text": "<!doctype html>\r\n<html>\r\n\r\n\t<head>\r\n\t\t<!--获取栏目id页-->\r\n\t\t<!-- 站点属性 -->\r\n\t\t\r\n<meta name=\"others\" content=\"页面生成时间 2024-03-0"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-c6c50b32a5fb1edcf64d94ecd8f6aedf4e9f00e4efacb4259651a51f1796cc0b",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-c6c50b32a5fb1edcf64d94ecd8f6aedf4e9f00e4efacb4259651a51f1796cc0b",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 0,
+        "byteLength": 120,
+        "text": "{\"actionErrors\":[],\"actionMessages\":[],\"fieldErrors\":{},\"isPagination\":\"false\",\"jsonCallBack\":null,\"locale\":\"en_CN\",\"pag"
+      }
+    },
+    {
+      "artifactId": "evidence-r2-f390bd487b2b9f1a03f33fdd1e625a8a28f97b8401061e4a0751150d0073f53a",
+      "releaseEventId": null,
+      "completeResponse": true,
+      "contentValidation": "VALIDATED",
+      "contentEvidence": {
+        "artifactId": "evidence-r2-f390bd487b2b9f1a03f33fdd1e625a8a28f97b8401061e4a0751150d0073f53a",
+        "byteOffset": 0,
+        "byteLength": 172,
+        "text": "/* 首页-数据-股票-成交概况-每周概况 */\r\nvar $stockweek = $(\".search_stockweek\");\r\n/* 首页-数据-股票-成交概况-单日 */\r\nvar $stockday = $(\".search_s"
+      }
+    }
+  ],
+  "retrievalAttempts": [
+    {
+      "attemptId": "sse-acquire-calendar-2020-interface",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20200202_4991648.shtml",
+      "finalUrl": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20200202_4991648.shtml",
+      "attemptedAt": "2026-09-09T01:48:36Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/calendar-2020-interface.body",
+        "sha256": "561881b4d02ce1c19a37b6cffe529414136f91cdcb559b82216a9bf9ca2db311",
+        "byteSize": 30056
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-calendar-2020-original",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20191220_4969627.shtml",
+      "finalUrl": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20191220_4969627.shtml",
+      "attemptedAt": "2026-09-09T01:48:34Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/calendar-2020-original.body",
+        "sha256": "7e886e6f67eef7f3e94f4c5db5453335526a9e67efc2e6205ab43a709c1b7799",
+        "byteSize": 28855
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-calendar-2020-revision",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200127_4991582.shtml",
+      "finalUrl": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200127_4991582.shtml",
+      "attemptedAt": "2026-09-09T01:48:34Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/calendar-2020-revision.body",
+        "sha256": "8113286860fd5b9dc4d87ee626e709324bab5f95a5b11d382885c7230a4584a6",
+        "byteSize": 28944
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-current-script",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+      "finalUrl": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+      "attemptedAt": "2026-09-09T01:46:52Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/current-script.js",
+        "sha256": "3673d3f8b1cd3d98227af6adbbd0add4b37fb652bdeaeb362325a46d803c5eb8",
+        "byteSize": 189208
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-daily-2022-01-04",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-04",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-04",
+      "attemptedAt": "2026-09-09T01:48:39Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/daily-2022-01-04.body",
+        "sha256": "d45f7316694f388a9d8312d3743fa2d26fb7939d834be6891ea66234e59ca461",
+        "byteSize": 1238
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-daily-2026-09-04",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2026-09-04",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2026-09-04",
+      "attemptedAt": "2026-09-09T01:48:39Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/daily-2026-09-04.body",
+        "sha256": "a92264aae83fc262d9b9dcb71a8ac2dc08c56c31b491636987d7ddd132df5b1b",
+        "byteSize": 1710
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-historical-script",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+      "finalUrl": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+      "attemptedAt": "2026-09-09T01:46:51Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/historical-script.js",
+        "sha256": "c2cf4c618dc06baa146affde91fe12514837f48edbbdb161c00e4cc8ce2e66a6",
+        "byteSize": 102309
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-legacy-2005-01-04",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2005-01-04",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2005-01-04",
+      "attemptedAt": "2026-09-09T01:48:36Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2005-01-04.body",
+        "sha256": "d52ddb819347f8074ebdd0a7398058516feb5595fe287c4f82951f1f9381704b",
+        "byteSize": 2086
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-legacy-2019-07-19",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-19",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-19",
+      "attemptedAt": "2026-09-09T01:48:37Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2019-07-19.body",
+        "sha256": "73057015f32b218e24a7d8000f7a1e85989e499e5e92764461ff888412752e07",
+        "byteSize": 3126
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-legacy-2019-07-22",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-22",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-22",
+      "attemptedAt": "2026-09-09T01:48:37Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2019-07-22.body",
+        "sha256": "e616d59ed250261442ae7d7929915e0cf214174163756f52f9955f88f7355822",
+        "byteSize": 3677
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-legacy-2020-01-31",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-01-31",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-01-31",
+      "attemptedAt": "2026-09-09T01:48:37Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2020-01-31.body",
+        "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+        "byteSize": 504
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-legacy-2020-02-03",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-02-03",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-02-03",
+      "attemptedAt": "2026-09-09T01:48:38Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2020-02-03.body",
+        "sha256": "73677cb03ce4ea9202f51613362b3d25b51deb9218c3bbb21c74a1f68895323f",
+        "byteSize": 3677
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-legacy-2020-04-30",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-04-30",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-04-30",
+      "attemptedAt": "2026-09-09T01:48:38Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2020-04-30.body",
+        "sha256": "1e742b208bfdfe255944bc192f269101295d5e86bad6e7b1cecf880d0fdf91ef",
+        "byteSize": 3663
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-legacy-2020-05-06",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-05-06",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-05-06",
+      "attemptedAt": "2026-09-09T01:48:38Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2020-05-06.body",
+        "sha256": "de377d14805f0c3135ce72838de48b1ebc9a0b5f04a26406545e1d3e6e72ac87",
+        "byteSize": 3712
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-legacy-2021-12-31",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-31",
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-31",
+      "attemptedAt": "2026-09-09T01:48:39Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/legacy-2021-12-31.body",
+        "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+        "byteSize": 504
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-overview-0",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+      "finalUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+      "attemptedAt": "2026-09-09T01:46:19Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/overview-0.html",
+        "sha256": "4c64e9d7b860d8cee8247b30bda04ba6edcadb93cfbad2ee5bfb065e768b5019",
+        "byteSize": 28589
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    },
+    {
+      "attemptId": "sse-acquire-overview-1",
+      "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+      "requestUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+      "finalUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+      "attemptedAt": "2026-09-09T01:46:20Z",
+      "httpStatus": 200,
+      "transportError": null,
+      "storedBytes": {
+        "localPath": "research-data/market-regime/raw/sse-d1a/overview-1.html",
+        "sha256": "56e73bb657f4619d814d6c8fcfbcbdfcd4b902432494b3ed5b54b9e81dfa89f6",
+        "byteSize": 27794
+      },
+      "outcome": "SUCCESS",
+      "reasonCode": "BOUNDED_OFFICIAL_SOURCE_PROBE",
+      "candidateReleaseEventIds": [],
+      "handlingBasis": "Original network acquisition; data date is not publication time.",
+      "verifiedAt": null,
+      "acquisitionAttemptId": null
+    }
+  ],
+  "sourceMappings": [
+    {
+      "mappingId": "daily-day",
+      "scopeAndUnitEvidence": {
+        "artifactId": "evidence-r2-6207aa0c484e25b10b5549adc677ca3657c01f136a1f243d2fdc34d02220465c",
+        "byteOffset": 9422,
+        "byteLength": 6339,
+        "text": "var overviewDay = {\r\n  indexNum: 0,\r\n  overviewDayUrl: sseQueryURL + \"commonQuery.do?jsonCallBack=?\",\r\n  overviewDayParams: {\r\n    sqlId: \"COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C\",\r\n    PRODUCT_CODE: \"01,02,03,11,17\",\r\n    type: \"inParams\",\r\n    SEARCH_DATE: \"\",\r\n  },\r\n  init: function () {\r\n    this.loadEvents();\r\n  },\r\n  loadEvents: function () {\r\n    var _this = this;\r\n    //日期范围渲染\r\n    laydate({\r\n      elem: \".js_date input\",\r\n      theme: \"#b50005\",\r\n      format: \"yyyy-MM-dd\",\r\n      trigger: \"click\",\r\n      btns: [\"confirm\"],\r\n      done: function (value, date, endDate) {\r\n        //选择时间触发查询\r\n        setTimeout(function () {\r\n          _this.setOverviewDayParams();\r\n        }, 500);\r\n      },\r\n    });\r\n    //点击搜索、回车触发查询\r\n    triggerSearch(_this.setOverviewDayParams);\r\n    //初始加载\r\n    _this.getOverviewDayList();\r\n  },\r\n  setOverviewDayParams: function () {\r\n    var _this = overviewDay;\r\n    var searchDate = $(\".js_date input\").val() ? $(\".js_date input\").val() : \"\";\r\n    _this.overviewDayParams.SEARCH_DATE = searchDate;\r\n    $(\".js_overviewDay .title_lev2 .new_date\").html(\"数据日期：\" + searchDate);\r\n    _this.getOverviewDayList();\r\n  },\r\n  getOverviewDayList: function () {\r\n    var _this = this;\r\n    var emptyTr = '<tr><td colspan=\"6\">暂无数据</td></tr>';\r\n    var overviewDayHtml = \"<thead><tr>\";\r\n    overviewDayHtml += \"<th>单日情况</th>\";\r\n    overviewDayHtml += '<th class=\"text-right\">股票</th>';\r\n    overviewDayHtml += '<th class=\"text-right\">主板A</th>';\r\n    overviewDayHtml += '<th class=\"text-right\">主板B</th>';\r\n    overviewDayHtml += '<th class=\"text-right\">科创板</th>';\r\n    overviewDayHtml += '<th class=\"text-right\">股票回购</th>';\r\n    overviewDayHtml += \"</tr></thead><tbody>\";\r\n    getJSONP({\r\n      type: \"post\",\r\n      dataType: \"jsonp\",\r\n      url: _this.overviewDayUrl,\r\n      data: _this.overviewDayParams,\r\n      successCallback: function (data) {\r\n        if (data && data.result && data.result.length > 0) {\r\n          //初次加载 更新数据日期及插件日期\r\n          if (_this.indexNum == 0) {\r\n            _this.indexNum = 1;\r\n            var dataDate = data.result[0].TRADE_DATE ?\r\n              turnDateAddLine(data.result[0].TRADE_DATE).substr(0, 10) :\r\n              \"\";\r\n            $(\".js_overviewDay .title_lev2 .new_date\").html(\r\n              \"数据日期：\" + dataDate\r\n            );\r\n            $(\".js_date input\").val(dataDate);\r\n          }\r\n          var resultDatas = [],\r\n            tableTitle = [\r\n              \"\",\r\n              \"挂牌数\",\r\n              \"市价总值(亿元)\",\r\n              \"流通市值(亿元)\",\r\n              \"成交金额(亿元)\",\r\n              \"成交量(亿股/亿份)\",\r\n              \"平均市盈率(倍)\",\r\n              \"换手率(%)\",\r\n              \"流通换手率(%)\",\r\n            ];\r\n          $.each(data.result, function (k, v) {\r\n            var resultData = [];\r\n            //数组传入顺序固定，与表格第一列抱持一致，类型作为行数据获取标准（通过类型下标获取行数据）\r\n            resultData.push(v.PRODUCT_CODE); //股票类型\r\n\r\n            resultData.push(v.LIST_NUM); //挂牌数\r\n            resultData.push(v.TOTAL_VALUE.str_toFixed(2)); //市价总值(亿元)\r\n            resultData.push(v.NEGO_VALUE.str_toFixed(2)); //流通市值(亿元)\r\n            resultData.push(v.TRADE_AMT.str_toFixed(2)); //成交金额(亿元)\r\n            resultData.push(v.TRADE_VOL.str_toFixed(2)); //成交量(亿股/亿份)\r\n            resultData.push(v.AVG_PE_RATE.str_toFixed(4)); //平均市盈率(倍)\r\n            resultData.push(v.TOTAL_TO_RATE.str_toFixed(4)); //换手率(%)\r\n            resultData.push(v.NEGO_TO_RATE.str_toFixed(4)); //流通换手率(%)\r\n\r\n            resultDatas.push(resultData);\r\n          });\r\n          //横向变纵向\r\n          resultDatas = changearr(resultDatas);\r\n          //获取下标 股票17 主板A 01 主板B 02 科创板 03 股票回购 11\r\n          var STOCKINDEX = resultDatas[0].indexOf(\"17\"); //股票下标\r\n          var ASHAREINDEX = resultDatas[0].indexOf(\"01\"); //主板A下标\r\n          var BSHAREINDEX = resultDatas[0].indexOf(\"02\"); //主板B下标\r\n          var STARINDEX = resultDatas[0].indexOf(\"03\"); //科创板下标\r\n          var STOCKBUYBACKINDEX = resultDatas[0].indexOf(\"11\"); //股票回购 下标\r\n          $.each(resultDatas, function (k, v) {\r\n            if (k > 0 && k < 11) {\r\n              overviewDayHtml += \"<tr>\";\r\n              overviewDayHtml +=\r\n                '<td class=\"text-nowrap\">' + tableTitle[k] + \"</td>\"; //单日情况\r\n              overviewDayHtml +=\r\n                '<td class=\"text-right text-nowrap\">' +\r\n                (STOCKINDEX != -1 ? v[STOCKINDEX] : \"-\") +\r\n                \"</td>\"; //股票\r\n              overviewDayHtml +=\r\n                '<td class=\"text-right text-nowrap\">' +\r\n                (ASHAREINDEX != -1 ? v[ASHAREINDEX] : \"-\") +\r\n                \"</td>\"; //主板A\r\n              overviewDayHtml +=\r\n                '<td class=\"text-right text-nowrap\">' +\r\n                (BSHAREINDEX != -1 ? v[BSHAREINDEX] : \"-\") +\r\n                \"</td>\"; //主板B\r\n              overviewDayHtml +=\r\n                '<td class=\"text-right text-nowrap\">' +\r\n                (STARINDEX != -1 ? v[STARINDEX] : \"-\") +\r\n                \"</td>\"; //科创板\r\n              overviewDayHtml +=\r\n                '<td class=\"text-right text-nowrap\">' +\r\n                (STOCKBUYBACKINDEX != -1 ? v[STOCKBUYBACKINDEX] : \"-\") +\r\n                \"</td>\"; //股票回购\r\n              overviewDayHtml += \"</tr>\";\r\n            }\r\n          });\r\n          overviewDayHtml += \"</tbody>\";\r\n          $(\".js_overviewDay .table\").html(overviewDayHtml);\r\n        } else {\r\n          overviewDayHtml += emptyTr;\r\n          overviewDayHtml += \"</tbody>\";\r\n          $(\".js_overviewDay .table\").html(overviewDayHtml);\r\n        }\r\n      },\r\n      errCallback: function () {\r\n        overviewDayHtml += emptyTr;\r\n        overviewDayHtml += \"</tbody>\";\r\n        $(\".js_overviewDay .table\").html(overviewDayHtml);\r\n      },\r\n    });\r\n  },\r\n};\r\nif ($(\".js_overviewDay\").length > 0) {\r\n  overviewDay.init();\r\n}\r\n//股票成交概况-每日概况 END\r\n\r\n/**\r\n* 股票成交概况-每周概况\r\n*/\r\n"
+      },
+      "applicabilityStatus": "API_DEFINITION_APPLICABILITY_UNPROVEN"
+    },
+    {
+      "mappingId": "legacy-day",
+      "scopeAndUnitEvidence": {
+        "artifactId": "evidence-r2-f390bd487b2b9f1a03f33fdd1e625a8a28f97b8401061e4a0751150d0073f53a",
+        "byteOffset": 4454,
+        "byteLength": 8336,
+        "text": "//日股票成交概况\r\nif ($stockday.length > 0) {\r\n    var init = true;\r\n    var day = '';\r\n    // 添加跳转链接以及备注\r\n    var htm = \"<a href='/market/stockdata/overview/day/' target='_blank' style='font-size:12px;font-weight:normal;float:inherit' title='数据截止到2022年1月3日' target='_blank'>(此栏目为历史数据，更多数据点击此处)</a>\"\r\n    $(\".sse_title_common\").find(\"h2\").html(\"每日股票情况\" + htm);\r\n    var stockDay = {\r\n        parms: {\r\n            searchDate: init ? '' : day,\r\n            sqlId: 'COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C',\r\n            stockType: '90'\r\n        },\r\n        fnCallBack: function(data) {\r\n            var item = data.result;\r\n            if (init && item && item[0]) {\r\n                $(\"#start_date2\").val(item[0].CAL_DATE.substr(0, 10));\r\n                $(\".sse_table_title2\").show().find(\"p\").html('数据日期：' + item[0].CAL_DATE.substr(0, 10));\r\n            }\r\n            var noData = arrayObjNodata(item, ['PRODUCT_TYPE', 'CAL_DATE']);\r\n            var header = [\r\n                [\"\", \"<div class='th_div_center'>单日情况</div>\"],\r\n                [\"\", \"<div class='th_div_center'>股票</div>\"],\r\n                [\"\", \"<div class='th_div_center'>主板A</div>\"],\r\n                [\"\", \"<div class='th_div_center'>主板B</div>\"],\r\n                [\"\", \"<div class='th_div_center'>科创板</div>\"],\r\n                [\"\", \"<div class='th_div_center'>股票回购</div>\"]\r\n            ];\r\n            var tempArr = [];\r\n            var headerlength = header.length;\r\n            tempArr.push(\"<tr>\");\r\n            for (var j = 0; j < header.length; ++j) {\r\n                tempArr.push(\"<th>\" + header[j][1] + \"</th>\");\r\n            }\r\n            tempArr.push(\"</tr>\");\r\n\r\n            if (!item || noData) {\r\n                tempArr.push(\"<tr><td colspan='50'>暂无数据</td></tr>\");\r\n            } else {\r\n                function createArr(item) {\r\n                    var arr = [];\r\n                    arr[0] = item.TX_VOLUME; //成交量\r\n                    arr[1] = item.TX_AMOUNT; //成交金额\r\n                    arr[2] = item.TRADING_TX; //成交笔数\r\n                    arr[3] = item.CAL_DATE; //日期\r\n                    arr[4] = item.TX_NUM; //挂牌数\r\n                    arr[5] = item.MKT_VALUE; //市价总值\r\n                    arr[6] = item.NEGOTIABLE_VALUE; //流通市值\r\n                    arr[7] = item.AVG_PROFIT_RATE; //平均市盈率\r\n                    arr[8] = item.TOTAL_MK_CAP_RATE.num_toFixed(4); //总市值换手率\r\n                    arr[9] = item.SUB_NEW_STOCK_RATE.num_toFixed(4); //次新换手率\r\n                    arr[10] = item.EXCHANGE_RATE.num_toFixed(4); //流通换手率\r\n                    return arr;\r\n                }\r\n                var arrA = [],\r\n                    arrB = [],\r\n                    arrC = [],\r\n                    arrF = [],\r\n                    arrG = [];\r\n                for (var i = 0; i < item.length; i++) {\r\n                    var result = item[i];\r\n                    if (result.PRODUCT_TYPE == \"40\") {\r\n                        arrA = createArr(result);\r\n                    } else if (result.PRODUCT_TYPE == \"1\") {\r\n                        arrB = createArr(result);\r\n                    } else if (result.PRODUCT_TYPE == \"2\") {\r\n                        arrC = createArr(result);\r\n                    } else if (result.PRODUCT_TYPE == \"43\") {\r\n                        arrF = createArr(result);\r\n                    } else if (result.PRODUCT_TYPE == \"48\") {\r\n                        arrG = createArr(result);\r\n                    }\r\n                }\r\n                var list = [\r\n                    ['挂牌数', '<div class=\"align_right\">' + ifundefindTurn(arrA[4]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[4]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[4]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[4]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[4]) + '</div>'],\r\n                    ['市价总值(亿元)', '<div class=\"align_right\">' + ifundefindTurn(arrA[5]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[5]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[5]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[5]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[5]) + '</div>'],\r\n                    ['流通市值(亿元)', '<div class=\"align_right\">' + ifundefindTurn(arrA[6]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[6]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[6]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[6]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[6]) + '</div>'],\r\n                    ['成交金额(亿元)', '<div class=\"align_right\">' + ifundefindTurn(arrA[1]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[1]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[1]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[1]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[1]) + '</div>'],\r\n                    ['成交量(亿股/亿份)', '<div class=\"align_right\">' + ifundefindTurn(arrA[0]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[0]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[0]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[0]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[0]) + '</div>'],\r\n                    ['成交笔数(万笔)', '<div class=\"align_right\">' + ifundefindTurn(arrA[2]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[2]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[2]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[2]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[2]) + '</div>'],\r\n                    ['平均市盈率(倍)', '<div class=\"align_right\">' + ifundefindTurn(arrA[7]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[7]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[7]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[7]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[7]) + '</div>'],\r\n                    ['换手率(%)', '<div class=\"align_right\">' + ifundefindTurn(arrA[8]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[8]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[8]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[8]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[8]) + '</div>'],\r\n                    ['次新股换手率(%)', '<div class=\"align_right\">' + ifundefindTurn(arrA[9]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[9]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[9]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[9]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[9]) + '</div>'],\r\n                    ['流通换手率(%)', '<div class=\"align_right\">' + ifundefindTurn(arrA[10]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrB[10]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrC[10]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrG[10]) + '</div>', '<div class=\"align_right\">' + ifundefindTurn(arrF[10]) + '</div>']\r\n                ];\r\n\r\n                //创建表格内容\r\n                var listLen = list.length;\r\n                for (var k = 0; k < listLen; ++k) {\r\n                    var items = list[k];\r\n                    tempArr.push(\"<tr>\");\r\n                    for (var l = 0; l < items.length; ++l) {\r\n                        var item = items[l]\r\n                        tempArr.push(\"<td>\" + item + \"</td>\");\r\n                    }\r\n                    tempArr.push(\"</tr>\");\r\n                }\r\n            }\r\n            $('.js_tableT01').find('.table').html(tempArr.join(\"\"));\r\n        }\r\n    }\r\n    ajaxFn(stockDay);\r\n    buttonStockday.on(\"click\", function() {\r\n        init = false;\r\n        day = $(\"#start_date2\").val();\r\n        stockDay.parms.searchDate = day;\r\n        $(\".sse_table_title2\").show().find(\"p\").html('数据日期：' + day);\r\n        ajaxFn(stockDay);\r\n    });\r\n}\r\n\r\n"
+      },
+      "applicabilityStatus": "API_DEFINITION_APPLICABILITY_UNPROVEN"
+    }
+  ],
+  "calendar": {
+    "calendarVersion": "sse-2020-holiday-revision-6-bounded-v1",
+    "start": "2020-01-31",
+    "end": "2020-02-03",
+    "openDates": [
+      "2020-02-03"
+    ],
+    "closedDates": [
+      "2020-01-31",
+      "2020-02-01",
+      "2020-02-02"
+    ],
+    "evidence": [
+      {
+        "artifactId": "evidence-r2-0a98c6cc6611f33a007990c6cf69d4fb562e4af578d76dc41ff02f52e7e457c0",
+        "byteOffset": 15226,
+        "byteLength": 26,
+        "text": "上证公告〔2020〕6号"
+      },
+      {
+        "artifactId": "evidence-r2-0a98c6cc6611f33a007990c6cf69d4fb562e4af578d76dc41ff02f52e7e457c0",
+        "byteOffset": 16780,
+        "byteLength": 33,
+        "text": "二○二○年一月二十七日"
+      },
+      {
+        "artifactId": "evidence-r2-0a98c6cc6611f33a007990c6cf69d4fb562e4af578d76dc41ff02f52e7e457c0",
+        "byteOffset": 15562,
+        "byteLength": 98,
+        "text": "一、延长2020年春节休市至2月2日（星期日），2月3日（星期一）正常开市。"
+      },
+      {
+        "artifactId": "evidence-r2-4f3a86cc20a4a7f2f3cf5dbebcc20729cfcf3017d55cbd2dafd27bf6289c0815",
+        "byteOffset": 15466,
+        "byteLength": 197,
+        "text": "（二）春节：1月24日（星期五）至1月30日（星期四）休市，1月31日（星期五）起照常开市。另外，1月19日（星期日）、2月1日（星期六）为周末休市。"
+      },
+      {
+        "artifactId": "evidence-r2-4f3a86cc20a4a7f2f3cf5dbebcc20729cfcf3017d55cbd2dafd27bf6289c0815",
+        "byteOffset": 15057,
+        "byteLength": 27,
+        "text": "上证公告〔2019〕65号"
+      },
+      {
+        "artifactId": "evidence-r2-4f3a86cc20a4a7f2f3cf5dbebcc20729cfcf3017d55cbd2dafd27bf6289c0815",
+        "byteOffset": 16726,
+        "byteLength": 33,
+        "text": "二〇一九年十二月二十日"
+      }
+    ],
+    "supersedes": [
+      "sse-announcement-2019-65-original-opening"
+    ],
+    "status": "OFFICIAL_BOUNDED_WINDOW",
+    "r2CalendarStatus": "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+    "contentSha256": "51dc787f80b92695066e44a4975d4c4e6a70496fa8ff0f63f8fc4322ea49779e"
+  },
+  "candidates": [
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2022-01-04",
+      "boardCode": "01",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "turnoverValue",
+      "rawFieldName": "TRADE_AMT",
+      "rawValueText": "4572.35",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+        "byteOffset": 399,
+        "byteLength": 248,
+        "text": "{\"TOTAL_VALUE\":\"462390.21\",\"TRADE_VOL\":\"395.81\",\"AVG_PE_RATE\":\"16.6\",\"TOTAL_TO_RATE\":\"0.9889\",\"TRADE_AMT\":\"4572.35\",\"TRADE_NUM\":\"0.1652\",\"NEGO_VALUE\":\"411965.32\",\"NEGO_TO_RATE\":\"1.1099\",\"TRADE_DATE\":\"20220104\",\"LIST_NUM\":\"1655\",\"PRODUCT_CODE\":\"01\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-27efd3b5fa6a0b8150463c52d24a9230775038739b736b6b4371febc78458aeb",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2022-01-04",
+      "boardCode": "01",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "totalMarketCap",
+      "rawFieldName": "TOTAL_VALUE",
+      "rawValueText": "462390.21",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+        "byteOffset": 399,
+        "byteLength": 248,
+        "text": "{\"TOTAL_VALUE\":\"462390.21\",\"TRADE_VOL\":\"395.81\",\"AVG_PE_RATE\":\"16.6\",\"TOTAL_TO_RATE\":\"0.9889\",\"TRADE_AMT\":\"4572.35\",\"TRADE_NUM\":\"0.1652\",\"NEGO_VALUE\":\"411965.32\",\"NEGO_TO_RATE\":\"1.1099\",\"TRADE_DATE\":\"20220104\",\"LIST_NUM\":\"1655\",\"PRODUCT_CODE\":\"01\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-2ee917961624ad2a351050b8d6f40a88a4c0a15a528e5793f6cd736d2d912948",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2026-09-04",
+      "boardCode": "01",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "totalMarketCap",
+      "rawFieldName": "TOTAL_VALUE",
+      "rawValueText": "528394.24",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 399,
+        "byteLength": 249,
+        "text": "{\"TOTAL_VALUE\":\"528394.24\",\"TRADE_VOL\":\"496.08\",\"AVG_PE_RATE\":\"14.03\",\"TOTAL_TO_RATE\":\"1.2883\",\"TRADE_AMT\":\"6807.49\",\"TRADE_NUM\":\"0.1699\",\"NEGO_VALUE\":\"508237.96\",\"NEGO_TO_RATE\":\"1.3394\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"1700\",\"PRODUCT_CODE\":\"01\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-62915a5ef8ec9c503596dd3aedc9825c0c45c81cc75a6c204c2c8bc9091ec8cc",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2026-09-04",
+      "boardCode": "01",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "turnoverValue",
+      "rawFieldName": "TRADE_AMT",
+      "rawValueText": "6807.49",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 399,
+        "byteLength": 249,
+        "text": "{\"TOTAL_VALUE\":\"528394.24\",\"TRADE_VOL\":\"496.08\",\"AVG_PE_RATE\":\"14.03\",\"TOTAL_TO_RATE\":\"1.2883\",\"TRADE_AMT\":\"6807.49\",\"TRADE_NUM\":\"0.1699\",\"NEGO_VALUE\":\"508237.96\",\"NEGO_TO_RATE\":\"1.3394\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"1700\",\"PRODUCT_CODE\":\"01\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-6aa6b12a842dfd203e5d7c309c689a5c71851efa555980ac561584bdf9fb52eb",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2022-01-04",
+      "boardCode": "01",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGO_VALUE",
+      "rawValueText": "411965.32",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+        "byteOffset": 399,
+        "byteLength": 248,
+        "text": "{\"TOTAL_VALUE\":\"462390.21\",\"TRADE_VOL\":\"395.81\",\"AVG_PE_RATE\":\"16.6\",\"TOTAL_TO_RATE\":\"0.9889\",\"TRADE_AMT\":\"4572.35\",\"TRADE_NUM\":\"0.1652\",\"NEGO_VALUE\":\"411965.32\",\"NEGO_TO_RATE\":\"1.1099\",\"TRADE_DATE\":\"20220104\",\"LIST_NUM\":\"1655\",\"PRODUCT_CODE\":\"01\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-c44c9c28e32978183e9d44fbc29522b26ce77fa9af731202339298ab58c29ae0",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2026-09-04",
+      "boardCode": "01",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGO_VALUE",
+      "rawValueText": "508237.96",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 399,
+        "byteLength": 249,
+        "text": "{\"TOTAL_VALUE\":\"528394.24\",\"TRADE_VOL\":\"496.08\",\"AVG_PE_RATE\":\"14.03\",\"TOTAL_TO_RATE\":\"1.2883\",\"TRADE_AMT\":\"6807.49\",\"TRADE_NUM\":\"0.1699\",\"NEGO_VALUE\":\"508237.96\",\"NEGO_TO_RATE\":\"1.3394\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"1700\",\"PRODUCT_CODE\":\"01\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-d15945e71de7f4d797b2b13f5235adc3223a454c8ab4b8267eea31f1642b2222",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2022-01-04",
+      "boardCode": "03",
+      "scope": "SSE_STAR",
+      "field": "turnoverValue",
+      "rawFieldName": "TRADE_AMT",
+      "rawValueText": "536.56",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+        "byteOffset": 885,
+        "byteLength": 243,
+        "text": "{\"TOTAL_VALUE\":\"55282.51\",\"TRADE_VOL\":\"9.34\",\"AVG_PE_RATE\":\"70.26\",\"TOTAL_TO_RATE\":\"0.9706\",\"TRADE_AMT\":\"536.56\",\"TRADE_NUM\":\"0.0377\",\"NEGO_VALUE\":\"22269.52\",\"NEGO_TO_RATE\":\"2.4094\",\"TRADE_DATE\":\"20220104\",\"LIST_NUM\":\"377\",\"PRODUCT_CODE\":\"03\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-1033d56e7ba26fc2016fb907b0b31ced99e15c66e71b6b7635c1e7056abef6ec",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2022-01-04",
+      "boardCode": "03",
+      "scope": "SSE_STAR",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGO_VALUE",
+      "rawValueText": "22269.52",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+        "byteOffset": 885,
+        "byteLength": 243,
+        "text": "{\"TOTAL_VALUE\":\"55282.51\",\"TRADE_VOL\":\"9.34\",\"AVG_PE_RATE\":\"70.26\",\"TOTAL_TO_RATE\":\"0.9706\",\"TRADE_AMT\":\"536.56\",\"TRADE_NUM\":\"0.0377\",\"NEGO_VALUE\":\"22269.52\",\"NEGO_TO_RATE\":\"2.4094\",\"TRADE_DATE\":\"20220104\",\"LIST_NUM\":\"377\",\"PRODUCT_CODE\":\"03\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-69dad2cd10fb7a4008b1a014f89712e42faf69882a2d51be5c85946135b627c4",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2022-01-04",
+      "boardCode": "03",
+      "scope": "SSE_STAR",
+      "field": "totalMarketCap",
+      "rawFieldName": "TOTAL_VALUE",
+      "rawValueText": "55282.51",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+        "byteOffset": 885,
+        "byteLength": 243,
+        "text": "{\"TOTAL_VALUE\":\"55282.51\",\"TRADE_VOL\":\"9.34\",\"AVG_PE_RATE\":\"70.26\",\"TOTAL_TO_RATE\":\"0.9706\",\"TRADE_AMT\":\"536.56\",\"TRADE_NUM\":\"0.0377\",\"NEGO_VALUE\":\"22269.52\",\"NEGO_TO_RATE\":\"2.4094\",\"TRADE_DATE\":\"20220104\",\"LIST_NUM\":\"377\",\"PRODUCT_CODE\":\"03\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-6be6d8de6f10bec9d3bad50a6a58299c11e4efdfb075d56332352927067f1ba8",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2026-09-04",
+      "boardCode": "03",
+      "scope": "SSE_STAR",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGO_VALUE",
+      "rawValueText": "106975.87",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 886,
+        "byteLength": 246,
+        "text": "{\"TOTAL_VALUE\":\"165163.24\",\"TRADE_VOL\":\"41.5\",\"AVG_PE_RATE\":\"118.78\",\"TOTAL_TO_RATE\":\"1.566\",\"TRADE_AMT\":\"2586.48\",\"TRADE_NUM\":\"0.0615\",\"NEGO_VALUE\":\"106975.87\",\"NEGO_TO_RATE\":\"2.4178\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"616\",\"PRODUCT_CODE\":\"03\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-d2f7bace3ef79c3391cecea08e47290238f78b72aea7bb554fc16ed4e08b86ad",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2026-09-04",
+      "boardCode": "03",
+      "scope": "SSE_STAR",
+      "field": "turnoverValue",
+      "rawFieldName": "TRADE_AMT",
+      "rawValueText": "2586.48",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 886,
+        "byteLength": 246,
+        "text": "{\"TOTAL_VALUE\":\"165163.24\",\"TRADE_VOL\":\"41.5\",\"AVG_PE_RATE\":\"118.78\",\"TOTAL_TO_RATE\":\"1.566\",\"TRADE_AMT\":\"2586.48\",\"TRADE_NUM\":\"0.0615\",\"NEGO_VALUE\":\"106975.87\",\"NEGO_TO_RATE\":\"2.4178\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"616\",\"PRODUCT_CODE\":\"03\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-ee1ca4f325e520941069a0d4019d1104323df130acec1569fc7772932c389fdb",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "daily-day",
+      "tradeDate": "2026-09-04",
+      "boardCode": "03",
+      "scope": "SSE_STAR",
+      "field": "totalMarketCap",
+      "rawFieldName": "TOTAL_VALUE",
+      "rawValueText": "165163.24",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 886,
+        "byteLength": 246,
+        "text": "{\"TOTAL_VALUE\":\"165163.24\",\"TRADE_VOL\":\"41.5\",\"AVG_PE_RATE\":\"118.78\",\"TOTAL_TO_RATE\":\"1.566\",\"TRADE_AMT\":\"2586.48\",\"TRADE_NUM\":\"0.0615\",\"NEGO_VALUE\":\"106975.87\",\"NEGO_TO_RATE\":\"2.4178\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"616\",\"PRODUCT_CODE\":\"03\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-ee8d1f4b1ce13fe888564bdfc466f2ebd9d4d0685b91615ff6e509d148146640",
+      "mappingId": "daily-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-05-06",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "2800.11",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 2492,
+        "byteLength": 555,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"288941.9455253221\",\"EXCHANGE_RATE\":\"0.9691\",\"AVG_PROFIT_RATE\":\"12.73\",\"AVG_PROFIT_RATE_FULL\":\"12.725\",\"MKT_VALUE\":\"334985.71\",\"TX_AMOUNT\":\"2800.11\",\"TOTAL_MK_CAP_RATE\":\"0.8359\",\"EXCHANGE_RATE_FULL\":\"0.9691\",\"TX_NUM\":\"1511\",\"TX_VOLUME_FULL\":\"244.12158775\",\"NEGOTIABLE_VALUE\":\"288941.95\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"334985.712271629\",\"TRADING_TX\":\"1675.79\",\"TX_AMOUNT_FULL\":\"2800.10582251\",\"TX_VOLUME\":\"244.12\",\"SUB_NEW_STOCK_RATE\":\"0.7522\",\"TRADING_TX_FULL\":\"1675.79\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-083b43b92fdeec8e59c837462b47996ea01ea3ddec3d26964ddd30d3c6baaee0",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-19",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "1491.86",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+        "byteOffset": 945,
+        "byteLength": 548,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"279327.065275749\",\"EXCHANGE_RATE\":\"0.4381\",\"AVG_PROFIT_RATE\":\"13.61\",\"AVG_PROFIT_RATE_FULL\":\"13.614\",\"MKT_VALUE\":\"322210.12\",\"TX_AMOUNT\":\"1491.86\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.4381\",\"TX_NUM\":\"1473\",\"TX_VOLUME_FULL\":\"149.62075595\",\"NEGOTIABLE_VALUE\":\"279327.07\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2019-07-19 00:00:00.0\",\"MKT_VALUE_FULL\":\"322210.117451818\",\"TRADING_TX\":\"1037.9579\",\"TX_AMOUNT_FULL\":\"1491.86293535\",\"TX_VOLUME\":\"149.62\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1037.9579\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-103d5d3063a2cf9d0a87413103aba8a9edfc6802dbd5a1da714e34959bd5da9f",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2005-01-04",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "6941.07",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5",
+        "byteOffset": 1450,
+        "byteLength": 531,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"6941.0675900357\",\"EXCHANGE_RATE\":\"0.6368\",\"AVG_PROFIT_RATE\":\"23.82\",\"AVG_PROFIT_RATE_FULL\":\"23.817\",\"MKT_VALUE\":\"25228.24\",\"TX_AMOUNT\":\"43.89\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.6368\",\"TX_NUM\":\"827\",\"TX_VOLUME_FULL\":\"8.06483466\",\"NEGOTIABLE_VALUE\":\"6941.07\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2005-01-04 00:00:00.0\",\"MKT_VALUE_FULL\":\"25228.2406184187\",\"TRADING_TX\":\"42.2473\",\"TX_AMOUNT_FULL\":\"43.88827578\",\"TX_VOLUME\":\"8.06\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"42.2473\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-191f062d5d9d0a2e89561572d91b5e438b0ab4b6e14ea80ec152bb1090b39325",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-02-03",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "271163.49",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 1919,
+        "byteLength": 549,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"271163.4920344703\",\"EXCHANGE_RATE\":\"0.5959\",\"AVG_PROFIT_RATE\":\"12.94\",\"AVG_PROFIT_RATE_FULL\":\"12.943\",\"MKT_VALUE\":\"315294.7\",\"TX_AMOUNT\":\"2344.46\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.5959\",\"TX_NUM\":\"1497\",\"TX_VOLUME_FULL\":\"210.21963803\",\"NEGOTIABLE_VALUE\":\"271163.49\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"315294.6976200629\",\"TRADING_TX\":\"1018.7914\",\"TX_AMOUNT_FULL\":\"2344.45860743\",\"TX_VOLUME\":\"210.22\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1018.7914\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-432b3176e34a819592ad51982dd70e041f9f19695c5fc6a9e58d22cef9e63da9",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-05-06",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "334985.71",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 2492,
+        "byteLength": 555,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"288941.9455253221\",\"EXCHANGE_RATE\":\"0.9691\",\"AVG_PROFIT_RATE\":\"12.73\",\"AVG_PROFIT_RATE_FULL\":\"12.725\",\"MKT_VALUE\":\"334985.71\",\"TX_AMOUNT\":\"2800.11\",\"TOTAL_MK_CAP_RATE\":\"0.8359\",\"EXCHANGE_RATE_FULL\":\"0.9691\",\"TX_NUM\":\"1511\",\"TX_VOLUME_FULL\":\"244.12158775\",\"NEGOTIABLE_VALUE\":\"288941.95\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"334985.712271629\",\"TRADING_TX\":\"1675.79\",\"TX_AMOUNT_FULL\":\"2800.10582251\",\"TX_VOLUME\":\"244.12\",\"SUB_NEW_STOCK_RATE\":\"0.7522\",\"TRADING_TX_FULL\":\"1675.79\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-43feb5233955089bcffb5bc6999b20631bb769f31eeceaa040d2ac8fe994e007",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-04-30",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "2602.43",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 3013,
+        "byteLength": 545,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"287214.000849289\",\"EXCHANGE_RATE\":\"0.6677\",\"AVG_PROFIT_RATE\":\"13.61\",\"AVG_PROFIT_RATE_FULL\":\"13.609\",\"MKT_VALUE\":\"332858.86\",\"TX_AMOUNT\":\"2602.43\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.6677\",\"TX_NUM\":\"1511\",\"TX_VOLUME_FULL\":\"238.09820869\",\"NEGOTIABLE_VALUE\":\"287214\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"332858.8615966116\",\"TRADING_TX\":\"1568.4314\",\"TX_AMOUNT_FULL\":\"2602.43164048\",\"TX_VOLUME\":\"238.1\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1568.4314\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-4529b41b8c8d79dec6f8fed24bfcd99bb50b7aa9833350387b5bf6f462e84702",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-04-30",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "287214",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 3013,
+        "byteLength": 545,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"287214.000849289\",\"EXCHANGE_RATE\":\"0.6677\",\"AVG_PROFIT_RATE\":\"13.61\",\"AVG_PROFIT_RATE_FULL\":\"13.609\",\"MKT_VALUE\":\"332858.86\",\"TX_AMOUNT\":\"2602.43\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.6677\",\"TX_NUM\":\"1511\",\"TX_VOLUME_FULL\":\"238.09820869\",\"NEGOTIABLE_VALUE\":\"287214\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"332858.8615966116\",\"TRADING_TX\":\"1568.4314\",\"TX_AMOUNT_FULL\":\"2602.43164048\",\"TX_VOLUME\":\"238.1\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1568.4314\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-46ab6d4a4782aeaa9b3d25a437459a7f8bbd396801c1f2cf6317ce3a2cc9e076",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2005-01-04",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "25228.24",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5",
+        "byteOffset": 1450,
+        "byteLength": 531,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"6941.0675900357\",\"EXCHANGE_RATE\":\"0.6368\",\"AVG_PROFIT_RATE\":\"23.82\",\"AVG_PROFIT_RATE_FULL\":\"23.817\",\"MKT_VALUE\":\"25228.24\",\"TX_AMOUNT\":\"43.89\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.6368\",\"TX_NUM\":\"827\",\"TX_VOLUME_FULL\":\"8.06483466\",\"NEGOTIABLE_VALUE\":\"6941.07\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2005-01-04 00:00:00.0\",\"MKT_VALUE_FULL\":\"25228.2406184187\",\"TRADING_TX\":\"42.2473\",\"TX_AMOUNT_FULL\":\"43.88827578\",\"TX_VOLUME\":\"8.06\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"42.2473\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-5c01b45282df7611ac87b169cce930d04e1c144e189cbe8523f736e160d29b31",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-02-03",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "315294.7",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 1919,
+        "byteLength": 549,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"271163.4920344703\",\"EXCHANGE_RATE\":\"0.5959\",\"AVG_PROFIT_RATE\":\"12.94\",\"AVG_PROFIT_RATE_FULL\":\"12.943\",\"MKT_VALUE\":\"315294.7\",\"TX_AMOUNT\":\"2344.46\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.5959\",\"TX_NUM\":\"1497\",\"TX_VOLUME_FULL\":\"210.21963803\",\"NEGOTIABLE_VALUE\":\"271163.49\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"315294.6976200629\",\"TRADING_TX\":\"1018.7914\",\"TX_AMOUNT_FULL\":\"2344.45860743\",\"TX_VOLUME\":\"210.22\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1018.7914\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-5fc18cf3402b29682962c4f761b4661cf966c40ec4b877a6d6576daa5609d48e",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-22",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "318385.05",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 1399,
+        "byteLength": 550,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"276212.9727423406\",\"EXCHANGE_RATE\":\"0.4855\",\"AVG_PROFIT_RATE\":\"13.46\",\"AVG_PROFIT_RATE_FULL\":\"13.459\",\"MKT_VALUE\":\"318385.05\",\"TX_AMOUNT\":\"1563.53\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.4855\",\"TX_NUM\":\"1473\",\"TX_VOLUME_FULL\":\"165.82971288\",\"NEGOTIABLE_VALUE\":\"276212.97\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"318385.0496110423\",\"TRADING_TX\":\"1219.8103\",\"TX_AMOUNT_FULL\":\"1563.52671347\",\"TX_VOLUME\":\"165.83\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1219.8103\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-76f11efe9420bb1e89e75d46b816bca7b228705cf9155c820bdf914954cbd99a",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-02-03",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "2344.46",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 1919,
+        "byteLength": 549,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"271163.4920344703\",\"EXCHANGE_RATE\":\"0.5959\",\"AVG_PROFIT_RATE\":\"12.94\",\"AVG_PROFIT_RATE_FULL\":\"12.943\",\"MKT_VALUE\":\"315294.7\",\"TX_AMOUNT\":\"2344.46\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.5959\",\"TX_NUM\":\"1497\",\"TX_VOLUME_FULL\":\"210.21963803\",\"NEGOTIABLE_VALUE\":\"271163.49\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"315294.6976200629\",\"TRADING_TX\":\"1018.7914\",\"TX_AMOUNT_FULL\":\"2344.45860743\",\"TX_VOLUME\":\"210.22\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1018.7914\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-8d72cb51d94a065dea0787ae5f7ea0a4dcf3f7a4708fa03a19b6034a1cf2104b",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-04-30",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "332858.86",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 3013,
+        "byteLength": 545,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"287214.000849289\",\"EXCHANGE_RATE\":\"0.6677\",\"AVG_PROFIT_RATE\":\"13.61\",\"AVG_PROFIT_RATE_FULL\":\"13.609\",\"MKT_VALUE\":\"332858.86\",\"TX_AMOUNT\":\"2602.43\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.6677\",\"TX_NUM\":\"1511\",\"TX_VOLUME_FULL\":\"238.09820869\",\"NEGOTIABLE_VALUE\":\"287214\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"332858.8615966116\",\"TRADING_TX\":\"1568.4314\",\"TX_AMOUNT_FULL\":\"2602.43164048\",\"TX_VOLUME\":\"238.1\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1568.4314\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-a53fa8c8dcd39a11b127070faa798d95ad0e93a0e58e07ee1ae67ede47ea7766",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-22",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "276212.97",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 1399,
+        "byteLength": 550,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"276212.9727423406\",\"EXCHANGE_RATE\":\"0.4855\",\"AVG_PROFIT_RATE\":\"13.46\",\"AVG_PROFIT_RATE_FULL\":\"13.459\",\"MKT_VALUE\":\"318385.05\",\"TX_AMOUNT\":\"1563.53\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.4855\",\"TX_NUM\":\"1473\",\"TX_VOLUME_FULL\":\"165.82971288\",\"NEGOTIABLE_VALUE\":\"276212.97\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"318385.0496110423\",\"TRADING_TX\":\"1219.8103\",\"TX_AMOUNT_FULL\":\"1563.52671347\",\"TX_VOLUME\":\"165.83\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1219.8103\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-a7c49bb22fcc27a0ffe73c33840765ee933164e458eef02105023c7f6a257c2b",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-19",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "279327.07",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+        "byteOffset": 945,
+        "byteLength": 548,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"279327.065275749\",\"EXCHANGE_RATE\":\"0.4381\",\"AVG_PROFIT_RATE\":\"13.61\",\"AVG_PROFIT_RATE_FULL\":\"13.614\",\"MKT_VALUE\":\"322210.12\",\"TX_AMOUNT\":\"1491.86\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.4381\",\"TX_NUM\":\"1473\",\"TX_VOLUME_FULL\":\"149.62075595\",\"NEGOTIABLE_VALUE\":\"279327.07\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2019-07-19 00:00:00.0\",\"MKT_VALUE_FULL\":\"322210.117451818\",\"TRADING_TX\":\"1037.9579\",\"TX_AMOUNT_FULL\":\"1491.86293535\",\"TX_VOLUME\":\"149.62\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1037.9579\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-aebd6b428a52286b6a94d0ef7bddf13e8cdb7f36a495f3ab4b7210bbf183573d",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2005-01-04",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "43.89",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5",
+        "byteOffset": 1450,
+        "byteLength": 531,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"6941.0675900357\",\"EXCHANGE_RATE\":\"0.6368\",\"AVG_PROFIT_RATE\":\"23.82\",\"AVG_PROFIT_RATE_FULL\":\"23.817\",\"MKT_VALUE\":\"25228.24\",\"TX_AMOUNT\":\"43.89\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.6368\",\"TX_NUM\":\"827\",\"TX_VOLUME_FULL\":\"8.06483466\",\"NEGOTIABLE_VALUE\":\"6941.07\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2005-01-04 00:00:00.0\",\"MKT_VALUE_FULL\":\"25228.2406184187\",\"TRADING_TX\":\"42.2473\",\"TX_AMOUNT_FULL\":\"43.88827578\",\"TX_VOLUME\":\"8.06\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"42.2473\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-bf245d22323b4e83038f960a7deac9c07d2d4109cc1d349497ef2be891a05349",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-22",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "1563.53",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 1399,
+        "byteLength": 550,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"276212.9727423406\",\"EXCHANGE_RATE\":\"0.4855\",\"AVG_PROFIT_RATE\":\"13.46\",\"AVG_PROFIT_RATE_FULL\":\"13.459\",\"MKT_VALUE\":\"318385.05\",\"TX_AMOUNT\":\"1563.53\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.4855\",\"TX_NUM\":\"1473\",\"TX_VOLUME_FULL\":\"165.82971288\",\"NEGOTIABLE_VALUE\":\"276212.97\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"318385.0496110423\",\"TRADING_TX\":\"1219.8103\",\"TX_AMOUNT_FULL\":\"1563.52671347\",\"TX_VOLUME\":\"165.83\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1219.8103\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-d8e2c645f627779e451dfe9bc9a83231c47d323e2c88add11a3709fdd649baf1",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-19",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "322210.12",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+        "byteOffset": 945,
+        "byteLength": 548,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"279327.065275749\",\"EXCHANGE_RATE\":\"0.4381\",\"AVG_PROFIT_RATE\":\"13.61\",\"AVG_PROFIT_RATE_FULL\":\"13.614\",\"MKT_VALUE\":\"322210.12\",\"TX_AMOUNT\":\"1491.86\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.4381\",\"TX_NUM\":\"1473\",\"TX_VOLUME_FULL\":\"149.62075595\",\"NEGOTIABLE_VALUE\":\"279327.07\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2019-07-19 00:00:00.0\",\"MKT_VALUE_FULL\":\"322210.117451818\",\"TRADING_TX\":\"1037.9579\",\"TX_AMOUNT_FULL\":\"1491.86293535\",\"TX_VOLUME\":\"149.62\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1037.9579\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-f4199ffb49024f7fc8dac96a1ed2d5baed5720bdd06e6a5a67d139793587ffa9",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-05-06",
+      "boardCode": "1",
+      "scope": "SSE_MAIN_BOARD_A",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "288941.95",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 2492,
+        "byteLength": 555,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"288941.9455253221\",\"EXCHANGE_RATE\":\"0.9691\",\"AVG_PROFIT_RATE\":\"12.73\",\"AVG_PROFIT_RATE_FULL\":\"12.725\",\"MKT_VALUE\":\"334985.71\",\"TX_AMOUNT\":\"2800.11\",\"TOTAL_MK_CAP_RATE\":\"0.8359\",\"EXCHANGE_RATE_FULL\":\"0.9691\",\"TX_NUM\":\"1511\",\"TX_VOLUME_FULL\":\"244.12158775\",\"NEGOTIABLE_VALUE\":\"288941.95\",\"PRODUCT_TYPE\":\"1\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"334985.712271629\",\"TRADING_TX\":\"1675.79\",\"TX_AMOUNT_FULL\":\"2800.10582251\",\"TX_VOLUME\":\"244.12\",\"SUB_NEW_STOCK_RATE\":\"0.7522\",\"TRADING_TX_FULL\":\"1675.79\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-fa899e065f2ffbdb8c9f351af82d8aaa0425cf6400efa2d6d41441c859c286fb",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-04-30",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "2181.57",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 918,
+        "byteLength": 533,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"2181.5693174965\",\"EXCHANGE_RATE\":\"7.9174\",\"AVG_PROFIT_RATE\":\"93.26\",\"AVG_PROFIT_RATE_FULL\":\"93.264\",\"MKT_VALUE\":\"13895.61\",\"TX_AMOUNT\":\"171.62\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"7.9174\",\"TX_NUM\":\"100\",\"TX_VOLUME_FULL\":\"4.0889762\",\"NEGOTIABLE_VALUE\":\"2181.57\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"13895.6121369723\",\"TRADING_TX\":\"47.2914\",\"TX_AMOUNT_FULL\":\"171.61752933\",\"TX_VOLUME\":\"4.09\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"47.2914\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-3f8d1da71429c61ea4925dd405b76a34209bf6ceb1918f0d718c9de3a4795397",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-02-03",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "223.97",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 399,
+        "byteLength": 535,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"1501.1560081403\",\"EXCHANGE_RATE\":\"13.8839\",\"AVG_PROFIT_RATE\":\"81.19\",\"AVG_PROFIT_RATE_FULL\":\"81.187\",\"MKT_VALUE\":\"10079.26\",\"TX_AMOUNT\":\"223.97\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"13.8839\",\"TX_NUM\":\"79\",\"TX_VOLUME_FULL\":\"5.46745361\",\"NEGOTIABLE_VALUE\":\"1501.16\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"10079.2580772244\",\"TRADING_TX\":\"57.7428\",\"TX_AMOUNT_FULL\":\"223.97385435\",\"TX_VOLUME\":\"5.47\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"57.7428\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-501564049777b47cf02c986c8b25e4f57de53233aa1923e756f3fd619f6b69ac",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-22",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "5293.39",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 399,
+        "byteLength": 535,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"680.9462188336\",\"EXCHANGE_RATE\":\"77.9214\",\"AVG_PROFIT_RATE\":\"81.43\",\"AVG_PROFIT_RATE_FULL\":\"81.427\",\"MKT_VALUE\":\"5293.39\",\"TX_AMOUNT\":\"485.78\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"77.9214\",\"TX_NUM\":\"25\",\"TX_VOLUME_FULL\":\"15.80915727\",\"NEGOTIABLE_VALUE\":\"680.95\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"5293.3885391778\",\"TRADING_TX\":\"202.3165\",\"TX_AMOUNT_FULL\":\"485.77601492\",\"TX_VOLUME\":\"15.81\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"202.3165\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-57ac105f916203c501571268be13d3a926bbd173063a15a6ac1b5af71fa57e3a",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-05-06",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "242.09",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 399,
+        "byteLength": 546,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"2363.3728744841\",\"EXCHANGE_RATE\":\"10.2434\",\"AVG_PROFIT_RATE\":\"76.28\",\"AVG_PROFIT_RATE_FULL\":\"76.278\",\"MKT_VALUE\":\"15009.48\",\"TX_AMOUNT\":\"242.09\",\"TOTAL_MK_CAP_RATE\":\"1.6129\",\"EXCHANGE_RATE_FULL\":\"10.2434\",\"TX_NUM\":\"100\",\"TX_VOLUME_FULL\":\"5.63305853\",\"NEGOTIABLE_VALUE\":\"2363.37\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"15009.4818295065\",\"TRADING_TX\":\"64.6006\",\"TX_AMOUNT_FULL\":\"242.08887072\",\"TX_VOLUME\":\"5.63\",\"SUB_NEW_STOCK_RATE\":\"1.6129\",\"TRADING_TX_FULL\":\"64.6006\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-60e69cd5b65cd4620005e360ad5816d24021cd55e94cbebd1f89388c8d3e060c",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-02-03",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "1501.16",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 399,
+        "byteLength": 535,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"1501.1560081403\",\"EXCHANGE_RATE\":\"13.8839\",\"AVG_PROFIT_RATE\":\"81.19\",\"AVG_PROFIT_RATE_FULL\":\"81.187\",\"MKT_VALUE\":\"10079.26\",\"TX_AMOUNT\":\"223.97\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"13.8839\",\"TX_NUM\":\"79\",\"TX_VOLUME_FULL\":\"5.46745361\",\"NEGOTIABLE_VALUE\":\"1501.16\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"10079.2580772244\",\"TRADING_TX\":\"57.7428\",\"TX_AMOUNT_FULL\":\"223.97385435\",\"TX_VOLUME\":\"5.47\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"57.7428\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-7549d41dede4c3bca13da9aa01849192a21ef622762f03465eb388dab157ff00",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-04-30",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "171.62",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 918,
+        "byteLength": 533,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"2181.5693174965\",\"EXCHANGE_RATE\":\"7.9174\",\"AVG_PROFIT_RATE\":\"93.26\",\"AVG_PROFIT_RATE_FULL\":\"93.264\",\"MKT_VALUE\":\"13895.61\",\"TX_AMOUNT\":\"171.62\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"7.9174\",\"TX_NUM\":\"100\",\"TX_VOLUME_FULL\":\"4.0889762\",\"NEGOTIABLE_VALUE\":\"2181.57\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"13895.6121369723\",\"TRADING_TX\":\"47.2914\",\"TX_AMOUNT_FULL\":\"171.61752933\",\"TX_VOLUME\":\"4.09\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"47.2914\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-835099458aefbdd5e7531e1b0f778bc6ff406655f608697185db3821980a10ff",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-22",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "680.95",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 399,
+        "byteLength": 535,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"680.9462188336\",\"EXCHANGE_RATE\":\"77.9214\",\"AVG_PROFIT_RATE\":\"81.43\",\"AVG_PROFIT_RATE_FULL\":\"81.427\",\"MKT_VALUE\":\"5293.39\",\"TX_AMOUNT\":\"485.78\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"77.9214\",\"TX_NUM\":\"25\",\"TX_VOLUME_FULL\":\"15.80915727\",\"NEGOTIABLE_VALUE\":\"680.95\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"5293.3885391778\",\"TRADING_TX\":\"202.3165\",\"TX_AMOUNT_FULL\":\"485.77601492\",\"TX_VOLUME\":\"15.81\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"202.3165\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-99a176b338f4b84635ec1d5a1d6e2426f7641358a84b36c3fe231ef23150df9a",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-05-06",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "negotiableMarketCap",
+      "rawFieldName": "NEGOTIABLE_VALUE",
+      "rawValueText": "2363.37",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 399,
+        "byteLength": 546,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"2363.3728744841\",\"EXCHANGE_RATE\":\"10.2434\",\"AVG_PROFIT_RATE\":\"76.28\",\"AVG_PROFIT_RATE_FULL\":\"76.278\",\"MKT_VALUE\":\"15009.48\",\"TX_AMOUNT\":\"242.09\",\"TOTAL_MK_CAP_RATE\":\"1.6129\",\"EXCHANGE_RATE_FULL\":\"10.2434\",\"TX_NUM\":\"100\",\"TX_VOLUME_FULL\":\"5.63305853\",\"NEGOTIABLE_VALUE\":\"2363.37\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"15009.4818295065\",\"TRADING_TX\":\"64.6006\",\"TX_AMOUNT_FULL\":\"242.08887072\",\"TX_VOLUME\":\"5.63\",\"SUB_NEW_STOCK_RATE\":\"1.6129\",\"TRADING_TX_FULL\":\"64.6006\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-abcb8c415674deaf8de2976a365f450c734c29e750560f67882e72c4835022a1",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-02-03",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "10079.26",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 399,
+        "byteLength": 535,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"1501.1560081403\",\"EXCHANGE_RATE\":\"13.8839\",\"AVG_PROFIT_RATE\":\"81.19\",\"AVG_PROFIT_RATE_FULL\":\"81.187\",\"MKT_VALUE\":\"10079.26\",\"TX_AMOUNT\":\"223.97\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"13.8839\",\"TX_NUM\":\"79\",\"TX_VOLUME_FULL\":\"5.46745361\",\"NEGOTIABLE_VALUE\":\"1501.16\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"10079.2580772244\",\"TRADING_TX\":\"57.7428\",\"TX_AMOUNT_FULL\":\"223.97385435\",\"TX_VOLUME\":\"5.47\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"57.7428\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-d1d2c19f5f226984298af50a855d7fb85e90fe05701587512ff2dcf6749cbb75",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-05-06",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "15009.48",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 399,
+        "byteLength": 546,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"2363.3728744841\",\"EXCHANGE_RATE\":\"10.2434\",\"AVG_PROFIT_RATE\":\"76.28\",\"AVG_PROFIT_RATE_FULL\":\"76.278\",\"MKT_VALUE\":\"15009.48\",\"TX_AMOUNT\":\"242.09\",\"TOTAL_MK_CAP_RATE\":\"1.6129\",\"EXCHANGE_RATE_FULL\":\"10.2434\",\"TX_NUM\":\"100\",\"TX_VOLUME_FULL\":\"5.63305853\",\"NEGOTIABLE_VALUE\":\"2363.37\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"15009.4818295065\",\"TRADING_TX\":\"64.6006\",\"TX_AMOUNT_FULL\":\"242.08887072\",\"TX_VOLUME\":\"5.63\",\"SUB_NEW_STOCK_RATE\":\"1.6129\",\"TRADING_TX_FULL\":\"64.6006\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-d3f7a226f6d12413775c3134310aa83bd20ba1b4a4b6a373c1d658de694b75c0",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2020-04-30",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "totalMarketCap",
+      "rawFieldName": "MKT_VALUE",
+      "rawValueText": "13895.61",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 918,
+        "byteLength": 533,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"2181.5693174965\",\"EXCHANGE_RATE\":\"7.9174\",\"AVG_PROFIT_RATE\":\"93.26\",\"AVG_PROFIT_RATE_FULL\":\"93.264\",\"MKT_VALUE\":\"13895.61\",\"TX_AMOUNT\":\"171.62\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"7.9174\",\"TX_NUM\":\"100\",\"TX_VOLUME_FULL\":\"4.0889762\",\"NEGOTIABLE_VALUE\":\"2181.57\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"13895.6121369723\",\"TRADING_TX\":\"47.2914\",\"TX_AMOUNT_FULL\":\"171.61752933\",\"TX_VOLUME\":\"4.09\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"47.2914\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-d909e8bed017a54aa6cba480104ac4ef643343d3984513c532a567a2a20f0cc0",
+      "mappingId": "legacy-day"
+    },
+    {
+      "familyId": "legacy-day",
+      "tradeDate": "2019-07-22",
+      "boardCode": "48",
+      "scope": "SSE_STAR",
+      "field": "turnoverValue",
+      "rawFieldName": "TX_AMOUNT",
+      "rawValueText": "485.78",
+      "rawUnit": "亿元",
+      "parserVersion": "sse-daily-json-v1.0.0",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 399,
+        "byteLength": 535,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"680.9462188336\",\"EXCHANGE_RATE\":\"77.9214\",\"AVG_PROFIT_RATE\":\"81.43\",\"AVG_PROFIT_RATE_FULL\":\"81.427\",\"MKT_VALUE\":\"5293.39\",\"TX_AMOUNT\":\"485.78\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"77.9214\",\"TX_NUM\":\"25\",\"TX_VOLUME_FULL\":\"15.80915727\",\"NEGOTIABLE_VALUE\":\"680.95\",\"PRODUCT_TYPE\":\"48\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"5293.3885391778\",\"TRADING_TX\":\"202.3165\",\"TX_AMOUNT_FULL\":\"485.77601492\",\"TX_VOLUME\":\"15.81\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"202.3165\",\"DEPOSIT_VOL\":\"-\"}"
+      },
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "sse-candidate-f7c9b2fcebf0ec2909f93a9bcf8c54a603357b214d0fe5d92c4e9bf8086cff66",
+      "mappingId": "legacy-day"
+    }
+  ],
+  "rejectedRows": [
+    {
+      "boardCode": "02",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+        "byteOffset": 648,
+        "byteLength": 236,
+        "text": "{\"TOTAL_VALUE\":\"905.43\",\"TRADE_VOL\":\"0.38\",\"AVG_PE_RATE\":\"11.02\",\"TOTAL_TO_RATE\":\"0.1802\",\"TRADE_AMT\":\"1.63\",\"TRADE_NUM\":\"0.0047\",\"NEGO_VALUE\":\"789.62\",\"NEGO_TO_RATE\":\"0.2067\",\"TRADE_DATE\":\"20220104\",\"LIST_NUM\":\"47\",\"PRODUCT_CODE\":\"02\"}"
+      }
+    },
+    {
+      "boardCode": "02",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 649,
+        "byteLength": 236,
+        "text": "{\"TOTAL_VALUE\":\"1127.41\",\"TRADE_VOL\":\"0.28\",\"AVG_PE_RATE\":\"11.68\",\"TOTAL_TO_RATE\":\"0.141\",\"TRADE_AMT\":\"1.59\",\"TRADE_NUM\":\"0.0041\",\"NEGO_VALUE\":\"752.94\",\"NEGO_TO_RATE\":\"0.2111\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"41\",\"PRODUCT_CODE\":\"02\"}"
+      }
+    },
+    {
+      "boardCode": "11",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 1133,
+        "byteLength": 218,
+        "text": "{\"TOTAL_VALUE\":\"0.0\",\"TRADE_VOL\":\"0.17\",\"AVG_PE_RATE\":\"-\",\"TOTAL_TO_RATE\":\"0.0\",\"TRADE_AMT\":\"0.7\",\"TRADE_NUM\":\"0.0001\",\"NEGO_VALUE\":\"0.0\",\"NEGO_TO_RATE\":\"0.0\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"0\",\"PRODUCT_CODE\":\"11\"}"
+      }
+    },
+    {
+      "boardCode": "12",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 1950,
+        "byteLength": 551,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"277759.0188575589\",\"EXCHANGE_RATE\":\"0.5294\",\"AVG_PROFIT_RATE\":\"13.64\",\"AVG_PROFIT_RATE_FULL\":\"13.637\",\"MKT_VALUE\":\"324543.54\",\"TX_AMOUNT\":\"2051.35\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.5294\",\"TX_NUM\":\"1548\",\"TX_VOLUME_FULL\":\"182.06296143\",\"NEGOTIABLE_VALUE\":\"277759.02\",\"PRODUCT_TYPE\":\"12\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"324543.5380466048\",\"TRADING_TX\":\"1423.0856\",\"TX_AMOUNT_FULL\":\"2051.34647215\",\"TX_VOLUME\":\"182.06\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1423.0856\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "12",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 3048,
+        "byteLength": 559,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"291970.5028558677\",\"EXCHANGE_RATE\":\"1.0424\",\"AVG_PROFIT_RATE\":\"13.16\",\"AVG_PROFIT_RATE_FULL\":\"13.159\",\"MKT_VALUE\":\"350660.38\",\"TX_AMOUNT\":\"3050.78\",\"TOTAL_MK_CAP_RATE\":\"0.8679\",\"EXCHANGE_RATE_FULL\":\"1.0424\",\"TX_NUM\":\"1661\",\"TX_VOLUME_FULL\":\"251.45597233\",\"NEGOTIABLE_VALUE\":\"291970.5\",\"PRODUCT_TYPE\":\"12\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"350660.378557197\",\"TRADING_TX\":\"1742.0803\",\"TX_AMOUNT_FULL\":\"3050.78433435\",\"TX_VOLUME\":\"251.46\",\"SUB_NEW_STOCK_RATE\":\"1.1707\",\"TRADING_TX_FULL\":\"1742.0803\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "12",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 2464,
+        "byteLength": 548,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"290064.4098560366\",\"EXCHANGE_RATE\":\"0.676\",\"AVG_PROFIT_RATE\":\"14.07\",\"AVG_PROFIT_RATE_FULL\":\"14.067\",\"MKT_VALUE\":\"347423.31\",\"TX_AMOUNT\":\"2776.65\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.676\",\"TX_NUM\":\"1661\",\"TX_VOLUME_FULL\":\"242.68098955\",\"NEGOTIABLE_VALUE\":\"290064.41\",\"PRODUCT_TYPE\":\"12\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"347423.313422835\",\"TRADING_TX\":\"1617.4016\",\"TX_AMOUNT_FULL\":\"2776.65239236\",\"TX_VOLUME\":\"242.68\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1617.4016\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "12",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+        "byteOffset": 1960,
+        "byteLength": 543,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"280200.750837296\",\"EXCHANGE_RATE\":\"0.4363\",\"AVG_PROFIT_RATE\":\"13.6\",\"AVG_PROFIT_RATE_FULL\":\"13.601\",\"MKT_VALUE\":\"323083.8\",\"TX_AMOUNT\":\"1493.37\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.4363\",\"TX_NUM\":\"1523\",\"TX_VOLUME_FULL\":\"149.88521612\",\"NEGOTIABLE_VALUE\":\"280200.75\",\"PRODUCT_TYPE\":\"12\",\"CAL_DATE\":\"2019-07-19 00:00:00.0\",\"MKT_VALUE_FULL\":\"323083.803013365\",\"TRADING_TX\":\"1039.02\",\"TX_AMOUNT_FULL\":\"1493.36866782\",\"TX_VOLUME\":\"149.89\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1039.02\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "12",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5",
+        "byteOffset": 919,
+        "byteLength": 530,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"7239.8982042199\",\"EXCHANGE_RATE\":\"0.5976\",\"AVG_PROFIT_RATE\":\"23.77\",\"AVG_PROFIT_RATE_FULL\":\"23.768\",\"MKT_VALUE\":\"25527.07\",\"TX_AMOUNT\":\"44.2\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.5976\",\"TX_NUM\":\"881\",\"TX_VOLUME_FULL\":\"8.16677054\",\"NEGOTIABLE_VALUE\":\"7239.9\",\"PRODUCT_TYPE\":\"12\",\"CAL_DATE\":\"2005-01-04 00:00:00.0\",\"MKT_VALUE_FULL\":\"25527.0712326029\",\"TRADING_TX\":\"42.6915\",\"TX_AMOUNT_FULL\":\"44.19952072\",\"TX_VOLUME\":\"8.17\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"42.6915\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "12",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 3021,
+        "byteLength": 551,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"273342.5658100919\",\"EXCHANGE_RATE\":\"0.6093\",\"AVG_PROFIT_RATE\":\"13.27\",\"AVG_PROFIT_RATE_FULL\":\"13.272\",\"MKT_VALUE\":\"326051.87\",\"TX_AMOUNT\":\"2571.89\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.6093\",\"TX_NUM\":\"1626\",\"TX_VOLUME_FULL\":\"216.34943956\",\"NEGOTIABLE_VALUE\":\"273342.57\",\"PRODUCT_TYPE\":\"12\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"326051.8734647686\",\"TRADING_TX\":\"1078.8974\",\"TX_AMOUNT_FULL\":\"2571.88580932\",\"TX_VOLUME\":\"216.35\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1078.8974\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "17",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+        "byteOffset": 1352,
+        "byteLength": 248,
+        "text": "{\"TOTAL_VALUE\":\"694684.89\",\"TRADE_VOL\":\"537.85\",\"AVG_PE_RATE\":\"17.3\",\"TOTAL_TO_RATE\":\"1.3525\",\"TRADE_AMT\":\"9395.56\",\"TRADE_NUM\":\"0.2355\",\"NEGO_VALUE\":\"615966.77\",\"NEGO_TO_RATE\":\"1.5253\",\"TRADE_DATE\":\"20260904\",\"LIST_NUM\":\"2357\",\"PRODUCT_CODE\":\"17\"}"
+      }
+    },
+    {
+      "boardCode": "2",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 2502,
+        "byteLength": 518,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"865.0998963847\",\"EXCHANGE_RATE\":\"0.0885\",\"AVG_PROFIT_RATE\":\"10.05\",\"AVG_PROFIT_RATE_FULL\":\"10.054\",\"MKT_VALUE\":\"865.1\",\"TX_AMOUNT\":\"0.81\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.0885\",\"TX_NUM\":\"50\",\"TX_VOLUME_FULL\":\"0.14406328\",\"NEGOTIABLE_VALUE\":\"865.1\",\"PRODUCT_TYPE\":\"2\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"865.0998963847\",\"TRADING_TX\":\"0.9581\",\"TX_AMOUNT_FULL\":\"0.80898542\",\"TX_VOLUME\":\"0.14\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"0.9581\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "2",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 1506,
+        "byteLength": 522,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"665.1844560615\",\"EXCHANGE_RATE\":\"0.1937\",\"AVG_PROFIT_RATE\":\"7.4\",\"AVG_PROFIT_RATE_FULL\":\"7.395\",\"MKT_VALUE\":\"665.18\",\"TX_AMOUNT\":\"1.29\",\"TOTAL_MK_CAP_RATE\":\"0.1937\",\"EXCHANGE_RATE_FULL\":\"0.1937\",\"TX_NUM\":\"50\",\"TX_VOLUME_FULL\":\"0.29399469\",\"NEGOTIABLE_VALUE\":\"665.18\",\"PRODUCT_TYPE\":\"2\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"665.1844560615\",\"TRADING_TX\":\"1.6887\",\"TX_AMOUNT_FULL\":\"1.28876483\",\"TX_VOLUME\":\"0.29\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1.6887\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "2",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 399,
+        "byteLength": 518,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"668.8396892511\",\"EXCHANGE_RATE\":\"0.1909\",\"AVG_PROFIT_RATE\":\"7.59\",\"AVG_PROFIT_RATE_FULL\":\"7.592\",\"MKT_VALUE\":\"668.84\",\"TX_AMOUNT\":\"1.54\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.1909\",\"TX_NUM\":\"50\",\"TX_VOLUME_FULL\":\"0.31066066\",\"NEGOTIABLE_VALUE\":\"668.84\",\"PRODUCT_TYPE\":\"2\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"668.8396892511\",\"TRADING_TX\":\"1.6781\",\"TX_AMOUNT_FULL\":\"1.54413511\",\"TX_VOLUME\":\"0.31\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1.6781\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "2",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+        "byteOffset": 2504,
+        "byteLength": 517,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"873.6855615468\",\"EXCHANGE_RATE\":\"0.0754\",\"AVG_PROFIT_RATE\":\"10.13\",\"AVG_PROFIT_RATE_FULL\":\"10.126\",\"MKT_VALUE\":\"873.69\",\"TX_AMOUNT\":\"1\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.0754\",\"TX_NUM\":\"50\",\"TX_VOLUME_FULL\":\"0.12266605\",\"NEGOTIABLE_VALUE\":\"873.69\",\"PRODUCT_TYPE\":\"2\",\"CAL_DATE\":\"2019-07-19 00:00:00.0\",\"MKT_VALUE_FULL\":\"873.6855615468\",\"TRADING_TX\":\"1.0618\",\"TX_AMOUNT_FULL\":\"0.99861298\",\"TX_VOLUME\":\"0.12\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1.0618\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "2",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5",
+        "byteOffset": 399,
+        "byteLength": 519,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"298.8306141842\",\"EXCHANGE_RATE\":\"0.1018\",\"AVG_PROFIT_RATE\":\"20.07\",\"AVG_PROFIT_RATE_FULL\":\"20.065\",\"MKT_VALUE\":\"298.83\",\"TX_AMOUNT\":\"0.31\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.1018\",\"TX_NUM\":\"54\",\"TX_VOLUME_FULL\":\"0.10193588\",\"NEGOTIABLE_VALUE\":\"298.83\",\"PRODUCT_TYPE\":\"2\",\"CAL_DATE\":\"2005-01-04 00:00:00.0\",\"MKT_VALUE_FULL\":\"298.8306141842\",\"TRADING_TX\":\"0.4442\",\"TX_AMOUNT_FULL\":\"0.31124494\",\"TX_VOLUME\":\"0.1\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"0.4442\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "2",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 1401,
+        "byteLength": 517,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"677.9177674813\",\"EXCHANGE_RATE\":\"0.3072\",\"AVG_PROFIT_RATE\":\"7.87\",\"AVG_PROFIT_RATE_FULL\":\"7.871\",\"MKT_VALUE\":\"677.92\",\"TX_AMOUNT\":\"2.99\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.3072\",\"TX_NUM\":\"50\",\"TX_VOLUME_FULL\":\"0.49989995\",\"NEGOTIABLE_VALUE\":\"677.92\",\"PRODUCT_TYPE\":\"2\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"677.9177674813\",\"TRADING_TX\":\"2.3629\",\"TX_AMOUNT_FULL\":\"2.99307851\",\"TX_VOLUME\":\"0.5\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"2.3629\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "40",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 3021,
+        "byteLength": 551,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"277759.0188575589\",\"EXCHANGE_RATE\":\"0.5294\",\"AVG_PROFIT_RATE\":\"13.64\",\"AVG_PROFIT_RATE_FULL\":\"13.637\",\"MKT_VALUE\":\"324543.54\",\"TX_AMOUNT\":\"2050.11\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.5294\",\"TX_NUM\":\"1548\",\"TX_VOLUME_FULL\":\"181.78293343\",\"NEGOTIABLE_VALUE\":\"277759.02\",\"PRODUCT_TYPE\":\"40\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"324543.5380466048\",\"TRADING_TX\":\"1423.0849\",\"TX_AMOUNT_FULL\":\"2050.11171381\",\"TX_VOLUME\":\"181.78\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1423.0849\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "40",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 946,
+        "byteLength": 559,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"291970.5028558677\",\"EXCHANGE_RATE\":\"1.0424\",\"AVG_PROFIT_RATE\":\"13.16\",\"AVG_PROFIT_RATE_FULL\":\"13.159\",\"MKT_VALUE\":\"350660.38\",\"TX_AMOUNT\":\"3043.48\",\"TOTAL_MK_CAP_RATE\":\"0.8679\",\"EXCHANGE_RATE_FULL\":\"1.0424\",\"TX_NUM\":\"1661\",\"TX_VOLUME_FULL\":\"250.04864097\",\"NEGOTIABLE_VALUE\":\"291970.5\",\"PRODUCT_TYPE\":\"40\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"350660.378557197\",\"TRADING_TX\":\"1742.0793\",\"TX_AMOUNT_FULL\":\"3043.48345806\",\"TX_VOLUME\":\"250.05\",\"SUB_NEW_STOCK_RATE\":\"1.1707\",\"TRADING_TX_FULL\":\"1742.0793\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "40",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 1916,
+        "byteLength": 547,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"290064.4098560366\",\"EXCHANGE_RATE\":\"0.676\",\"AVG_PROFIT_RATE\":\"14.07\",\"AVG_PROFIT_RATE_FULL\":\"14.067\",\"MKT_VALUE\":\"347423.31\",\"TX_AMOUNT\":\"2775.59\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.676\",\"TX_NUM\":\"1661\",\"TX_VOLUME_FULL\":\"242.49784555\",\"NEGOTIABLE_VALUE\":\"290064.41\",\"PRODUCT_TYPE\":\"40\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"347423.313422835\",\"TRADING_TX\":\"1617.4009\",\"TX_AMOUNT_FULL\":\"2775.59330492\",\"TX_VOLUME\":\"242.5\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1617.4009\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "40",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+        "byteOffset": 399,
+        "byteLength": 545,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"280200.750837296\",\"EXCHANGE_RATE\":\"0.4363\",\"AVG_PROFIT_RATE\":\"13.6\",\"AVG_PROFIT_RATE_FULL\":\"13.601\",\"MKT_VALUE\":\"323083.8\",\"TX_AMOUNT\":\"1492.86\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.4363\",\"TX_NUM\":\"1523\",\"TX_VOLUME_FULL\":\"149.743422\",\"NEGOTIABLE_VALUE\":\"280200.75\",\"PRODUCT_TYPE\":\"40\",\"CAL_DATE\":\"2019-07-19 00:00:00.0\",\"MKT_VALUE_FULL\":\"323083.803013365\",\"TRADING_TX\":\"1039.0197\",\"TX_AMOUNT_FULL\":\"1492.86154833\",\"TX_VOLUME\":\"149.74\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1039.0197\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "40",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 2469,
+        "byteLength": 551,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"273342.5658100919\",\"EXCHANGE_RATE\":\"0.6093\",\"AVG_PROFIT_RATE\":\"13.27\",\"AVG_PROFIT_RATE_FULL\":\"13.272\",\"MKT_VALUE\":\"326051.87\",\"TX_AMOUNT\":\"2571.43\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0.6093\",\"TX_NUM\":\"1626\",\"TX_VOLUME_FULL\":\"216.18699159\",\"NEGOTIABLE_VALUE\":\"273342.57\",\"PRODUCT_TYPE\":\"40\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"326051.8734647686\",\"TRADING_TX\":\"1078.8971\",\"TX_AMOUNT_FULL\":\"2571.42554029\",\"TX_VOLUME\":\"216.19\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"1078.8971\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "43",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+        "byteOffset": 935,
+        "byteLength": 463,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"-\",\"EXCHANGE_RATE\":\"0\",\"AVG_PROFIT_RATE\":\"0\",\"AVG_PROFIT_RATE_FULL\":\"0\",\"MKT_VALUE\":\"-\",\"TX_AMOUNT\":\"1.23\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0\",\"TX_NUM\":\"-\",\"TX_VOLUME_FULL\":\"0.280028\",\"NEGOTIABLE_VALUE\":\"-\",\"PRODUCT_TYPE\":\"43\",\"CAL_DATE\":\"2019-07-22 00:00:00.0\",\"MKT_VALUE_FULL\":\"-\",\"TRADING_TX\":\"0.0007\",\"TX_AMOUNT_FULL\":\"1.23475834\",\"TX_VOLUME\":\"0.28\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"0.0007\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "43",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+        "byteOffset": 2029,
+        "byteLength": 462,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"-\",\"EXCHANGE_RATE\":\"0\",\"AVG_PROFIT_RATE\":\"0\",\"AVG_PROFIT_RATE_FULL\":\"0\",\"MKT_VALUE\":\"-\",\"TX_AMOUNT\":\"7.3\",\"TOTAL_MK_CAP_RATE\":\"0\",\"EXCHANGE_RATE_FULL\":\"0\",\"TX_NUM\":\"-\",\"TX_VOLUME_FULL\":\"1.40733136\",\"NEGOTIABLE_VALUE\":\"-\",\"PRODUCT_TYPE\":\"43\",\"CAL_DATE\":\"2020-05-06 00:00:00.0\",\"MKT_VALUE_FULL\":\"-\",\"TRADING_TX\":\"0.001\",\"TX_AMOUNT_FULL\":\"7.30087629\",\"TX_VOLUME\":\"1.41\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"0.001\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "43",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+        "byteOffset": 1452,
+        "byteLength": 463,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"-\",\"EXCHANGE_RATE\":\"0\",\"AVG_PROFIT_RATE\":\"0\",\"AVG_PROFIT_RATE_FULL\":\"0\",\"MKT_VALUE\":\"-\",\"TX_AMOUNT\":\"1.06\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0\",\"TX_NUM\":\"-\",\"TX_VOLUME_FULL\":\"0.183144\",\"NEGOTIABLE_VALUE\":\"-\",\"PRODUCT_TYPE\":\"43\",\"CAL_DATE\":\"2020-04-30 00:00:00.0\",\"MKT_VALUE_FULL\":\"-\",\"TRADING_TX\":\"0.0007\",\"TX_AMOUNT_FULL\":\"1.05908744\",\"TX_VOLUME\":\"0.18\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"0.0007\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "43",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+        "byteOffset": 1494,
+        "byteLength": 465,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"0\",\"EXCHANGE_RATE\":\"0\",\"AVG_PROFIT_RATE\":\"0\",\"AVG_PROFIT_RATE_FULL\":\"0\",\"MKT_VALUE\":\"0\",\"TX_AMOUNT\":\"0.51\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0\",\"TX_NUM\":\"0\",\"TX_VOLUME_FULL\":\"0.14179412\",\"NEGOTIABLE_VALUE\":\"0\",\"PRODUCT_TYPE\":\"43\",\"CAL_DATE\":\"2019-07-19 00:00:00.0\",\"MKT_VALUE_FULL\":\"0\",\"TRADING_TX\":\"0.0003\",\"TX_AMOUNT_FULL\":\"0.50711949\",\"TX_VOLUME\":\"0.14\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"0.0003\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    },
+    {
+      "boardCode": "43",
+      "reason": "MIXED_OR_NON_A_OR_UNKNOWN_SCOPE",
+      "locator": {
+        "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+        "byteOffset": 935,
+        "byteLength": 465,
+        "text": "{\"NEGOTIABLE_VALUE_FULL\":\"-\",\"EXCHANGE_RATE\":\"0\",\"AVG_PROFIT_RATE\":\"0\",\"AVG_PROFIT_RATE_FULL\":\"0\",\"MKT_VALUE\":\"-\",\"TX_AMOUNT\":\"0.46\",\"TOTAL_MK_CAP_RATE\":\"-\",\"EXCHANGE_RATE_FULL\":\"0\",\"TX_NUM\":\"-\",\"TX_VOLUME_FULL\":\"0.16244797\",\"NEGOTIABLE_VALUE\":\"-\",\"PRODUCT_TYPE\":\"43\",\"CAL_DATE\":\"2020-02-03 00:00:00.0\",\"MKT_VALUE_FULL\":\"-\",\"TRADING_TX\":\"0.0003\",\"TX_AMOUNT_FULL\":\"0.46026903\",\"TX_VOLUME\":\"0.16\",\"SUB_NEW_STOCK_RATE\":\"-\",\"TRADING_TX_FULL\":\"0.0003\",\"DEPOSIT_VOL\":\"-\"}"
+      }
+    }
+  ],
+  "probes": [
+    {
+      "requestId": "legacy-2019-07-22",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "artifactId": "evidence-r2-056a8425350d42925d1415f4042bd0853ba58a3f414e54d1f35048efb5a1f30e",
+      "rowCount": 6
+    },
+    {
+      "requestId": "legacy-2020-05-06",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "artifactId": "evidence-r2-3e1e9d233d88c07eb017191095a8f93203957625790aa1e26b2ea6966aadd604",
+      "rowCount": 6
+    },
+    {
+      "requestId": "legacy-2020-04-30",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "artifactId": "evidence-r2-53d3e0a5d312ea67a47480c8b0364de8f546dcd2933e06d326fb2bcf4918e2ee",
+      "rowCount": 6
+    },
+    {
+      "requestId": "daily-2022-01-04",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "artifactId": "evidence-r2-9fc19f08ef8482df4c3b80b3b97b0b82c6fccee69a5d681b95edcc775932f281",
+      "rowCount": 3
+    },
+    {
+      "requestId": "legacy-2019-07-19",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "artifactId": "evidence-r2-a3d42f4a02bcd1c368a4396dbf14a8c0a161a1f1343891a8284a0fccac7140c6",
+      "rowCount": 5
+    },
+    {
+      "requestId": "legacy-2020-01-31",
+      "status": "EMPTY_RESPONSE",
+      "artifactId": "evidence-r2-b158029b4e44fc3fca25fcfa052b32c0a92f3057b50956472e060bba2a566441",
+      "rowCount": 0
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "artifactId": "evidence-r2-bdeb50009b137326146bf68051c79abdd06d0ba6e8f6ea2ed2764f59ac69d46a",
+      "rowCount": 5
+    },
+    {
+      "requestId": "legacy-2021-12-31",
+      "status": "EMPTY_RESPONSE",
+      "artifactId": "evidence-r2-c6c50b32a5fb1edcf64d94ecd8f6aedf4e9f00e4efacb4259651a51f1796cc0b",
+      "rowCount": 0
+    },
+    {
+      "requestId": "legacy-2005-01-04",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "artifactId": "evidence-r2-ce53cfe9773238b4af86d66049f8d7127c924815687811cf2d758428794454c5",
+      "rowCount": 3
+    },
+    {
+      "requestId": "legacy-2020-02-03",
+      "status": "PARSED_CANDIDATES_ONLY",
+      "artifactId": "evidence-r2-f201d66e60ec4db743528687b86d889f811b2d09a7a1cd3a26043f0171a85de8",
+      "rowCount": 6
+    }
+  ],
+  "dayAssessments": [
+    {
+      "tradeDate": "2021-12-31",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIELD_MISSING:SSE_MAIN_BOARD_A",
+            "FIELD_MISSING:SSE_STAR",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIELD_MISSING:SSE_MAIN_BOARD_A",
+            "FIELD_MISSING:SSE_STAR",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIELD_MISSING:SSE_MAIN_BOARD_A",
+            "FIELD_MISSING:SSE_STAR",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2020-01-31",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIELD_MISSING:SSE_MAIN_BOARD_A",
+            "FIELD_MISSING:SSE_STAR",
+            "OFFICIAL_NON_TRADING_DAY",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIELD_MISSING:SSE_MAIN_BOARD_A",
+            "FIELD_MISSING:SSE_STAR",
+            "OFFICIAL_NON_TRADING_DAY",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "FIELD_MISSING:SSE_MAIN_BOARD_A",
+            "FIELD_MISSING:SSE_STAR",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_NON_TRADING_DAY",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2005-01-04",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-bf245d22323b4e83038f960a7deac9c07d2d4109cc1d349497ef2be891a05349"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-5c01b45282df7611ac87b169cce930d04e1c144e189cbe8523f736e160d29b31"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-191f062d5d9d0a2e89561572d91b5e438b0ab4b6e14ea80ec152bb1090b39325"
+          ],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2020-04-30",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-4529b41b8c8d79dec6f8fed24bfcd99bb50b7aa9833350387b5bf6f462e84702",
+            "sse-candidate-835099458aefbdd5e7531e1b0f778bc6ff406655f608697185db3821980a10ff"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-a53fa8c8dcd39a11b127070faa798d95ad0e93a0e58e07ee1ae67ede47ea7766",
+            "sse-candidate-d909e8bed017a54aa6cba480104ac4ef643343d3984513c532a567a2a20f0cc0"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-3f8d1da71429c61ea4925dd405b76a34209bf6ceb1918f0d718c9de3a4795397",
+            "sse-candidate-46ab6d4a4782aeaa9b3d25a437459a7f8bbd396801c1f2cf6317ce3a2cc9e076"
+          ],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2022-01-04",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-1033d56e7ba26fc2016fb907b0b31ced99e15c66e71b6b7635c1e7056abef6ec",
+            "sse-candidate-27efd3b5fa6a0b8150463c52d24a9230775038739b736b6b4371febc78458aeb"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-2ee917961624ad2a351050b8d6f40a88a4c0a15a528e5793f6cd736d2d912948",
+            "sse-candidate-6be6d8de6f10bec9d3bad50a6a58299c11e4efdfb075d56332352927067f1ba8"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-69dad2cd10fb7a4008b1a014f89712e42faf69882a2d51be5c85946135b627c4",
+            "sse-candidate-c44c9c28e32978183e9d44fbc29522b26ce77fa9af731202339298ab58c29ae0"
+          ],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2019-07-22",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-d8e2c645f627779e451dfe9bc9a83231c47d323e2c88add11a3709fdd649baf1",
+            "sse-candidate-f7c9b2fcebf0ec2909f93a9bcf8c54a603357b214d0fe5d92c4e9bf8086cff66"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-57ac105f916203c501571268be13d3a926bbd173063a15a6ac1b5af71fa57e3a",
+            "sse-candidate-76f11efe9420bb1e89e75d46b816bca7b228705cf9155c820bdf914954cbd99a"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-99a176b338f4b84635ec1d5a1d6e2426f7641358a84b36c3fe231ef23150df9a",
+            "sse-candidate-a7c49bb22fcc27a0ffe73c33840765ee933164e458eef02105023c7f6a257c2b"
+          ],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2020-05-06",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-083b43b92fdeec8e59c837462b47996ea01ea3ddec3d26964ddd30d3c6baaee0",
+            "sse-candidate-60e69cd5b65cd4620005e360ad5816d24021cd55e94cbebd1f89388c8d3e060c"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-43feb5233955089bcffb5bc6999b20631bb769f31eeceaa040d2ac8fe994e007",
+            "sse-candidate-d3f7a226f6d12413775c3134310aa83bd20ba1b4a4b6a373c1d658de694b75c0"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-abcb8c415674deaf8de2976a365f450c734c29e750560f67882e72c4835022a1",
+            "sse-candidate-fa899e065f2ffbdb8c9f351af82d8aaa0425cf6400efa2d6d41441c859c286fb"
+          ],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2019-07-19",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-103d5d3063a2cf9d0a87413103aba8a9edfc6802dbd5a1da714e34959bd5da9f"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-f4199ffb49024f7fc8dac96a1ed2d5baed5720bdd06e6a5a67d139793587ffa9"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-aebd6b428a52286b6a94d0ef7bddf13e8cdb7f36a495f3ab4b7210bbf183573d"
+          ],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2026-09-04",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-6aa6b12a842dfd203e5d7c309c689a5c71851efa555980ac561584bdf9fb52eb",
+            "sse-candidate-ee1ca4f325e520941069a0d4019d1104323df130acec1569fc7772932c389fdb"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-62915a5ef8ec9c503596dd3aedc9825c0c45c81cc75a6c204c2c8bc9091ec8cc",
+            "sse-candidate-ee8d1f4b1ce13fe888564bdfc466f2ebd9d4d0685b91615ff6e509d148146640"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "OFFICIAL_CALENDAR_MISSING",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-d15945e71de7f4d797b2b13f5235adc3223a454c8ab4b8267eea31f1642b2222",
+            "sse-candidate-d2f7bace3ef79c3391cecea08e47290238f78b72aea7bb554fc16ed4e08b86ad"
+          ],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "tradeDate": "2020-02-03",
+      "fields": {
+        "turnoverValue": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-501564049777b47cf02c986c8b25e4f57de53233aa1923e756f3fd619f6b69ac",
+            "sse-candidate-8d72cb51d94a065dea0787ae5f7ea0a4dcf3f7a4708fa03a19b6034a1cf2104b"
+          ],
+          "admittedObservationIds": []
+        },
+        "totalMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-5fc18cf3402b29682962c4f761b4661cf966c40ec4b877a6d6576daa5609d48e",
+            "sse-candidate-d1d2c19f5f226984298af50a855d7fb85e90fe05701587512ff2dcf6749cbb75"
+          ],
+          "admittedObservationIds": []
+        },
+        "negotiableMarketCap": {
+          "status": "PARTIAL",
+          "blockers": [
+            "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+            "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+            "PIT_VINTAGE_UNPROVEN"
+          ],
+          "candidateIds": [
+            "sse-candidate-432b3176e34a819592ad51982dd70e041f9f19695c5fc6a9e58d22cef9e63da9",
+            "sse-candidate-7549d41dede4c3bca13da9aa01849192a21ef622762f03465eb388dab157ff00"
+          ],
+          "admittedObservationIds": []
+        }
+      },
+      "status": "PARTIAL"
+    }
+  ],
+  "releaseEvents": [],
+  "fieldExtractions": [],
+  "exchangeMarketObservations": [],
+  "coverage": {
+    "status": "PARTIAL",
+    "fullTarget": {
+      "start": "2005-01-01",
+      "end": "2026-09-04",
+      "frequency": "TRADING_DAY",
+      "fields": [
+        "negotiableMarketCap",
+        "totalMarketCap",
+        "turnoverValue"
+      ]
+    },
+    "officialTradingDayTargetCount": null,
+    "provenCalendarSubwindowTargetCount": 1,
+    "unadmittedWindows": [
+      {
+        "start": "2005-01-01",
+        "end": "2020-01-30",
+        "reason": "OFFICIAL_CALENDAR_MISSING"
+      },
+      {
+        "start": "2020-01-31",
+        "end": "2020-02-03",
+        "reason": "RELEASE_AND_DEFINITION_UNPROVEN"
+      },
+      {
+        "start": "2020-02-04",
+        "end": "2026-09-04",
+        "reason": "OFFICIAL_CALENDAR_MISSING"
+      }
+    ],
+    "fields": {
+      "turnoverValue": {
+        "status": "PARTIAL",
+        "availableCount": 0,
+        "strictPitCount": 0,
+        "historicalAdmittedWindows": []
+      },
+      "totalMarketCap": {
+        "status": "PARTIAL",
+        "availableCount": 0,
+        "strictPitCount": 0,
+        "historicalAdmittedWindows": []
+      },
+      "negotiableMarketCap": {
+        "status": "PARTIAL",
+        "availableCount": 0,
+        "strictPitCount": 0,
+        "historicalAdmittedWindows": []
+      }
+    }
+  },
+  "generatedAt": "2026-09-09T01:55:04Z",
+  "contentSha256": "5684419e14532c8fe5ca6df9c9dcb481a1a9d91fd900b3d3f1a2afbd7cde1a71"
+}
