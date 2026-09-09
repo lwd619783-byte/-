@@ -1,55 +1,42 @@
 import { X } from "lucide-react";
-import { useEffect, useRef, type ReactNode } from "react";
-
+import { useEffect, useId, useRef, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { AppearanceControl } from "../layout/Appearance";
 interface ModalProps {
-  title: string;
-  description?: string;
-  onClose: () => void;
-  children: ReactNode;
-  footer?: ReactNode;
+  title: string; description?: string; onClose: () => void; children: ReactNode; footer?: ReactNode;
+  size?: "compact" | "research" | "import" | "drawer";
 }
-
-export function Modal({ title, description, onClose, children, footer }: ModalProps) {
-  const panelRef = useRef<HTMLDivElement>(null);
-  const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
-
-  useEffect(() => {
-    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    const panel = panelRef.current;
-    const focusable = panel?.querySelector<HTMLElement>("button, input, select, textarea, a[href], [tabindex]:not([tabindex='-1'])");
-    focusable?.focus();
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onCloseRef.current();
-      if (event.key !== "Tab" || !panel) return;
-      const elements = [...panel.querySelectorAll<HTMLElement>("button, input, select, textarea, a[href], [tabindex]:not([tabindex='-1'])")]
-        .filter((element) => !element.hasAttribute("disabled"));
-      if (!elements.length) return;
-      const first = elements[0];
-      const last = elements[elements.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+export function Modal({ title, description, onClose, children, footer, size="research" }: ModalProps) {
+  const panelRef=useRef<HTMLDivElement>(null); const onCloseRef=useRef(onClose); onCloseRef.current=onClose;
+  const titleId=useId();
+  useEffect(()=>{
+    const previous=document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const panel=panelRef.current; const root=document.getElementById("root"); const oldInert=root?.inert; const oldOverflow=document.body.style.overflow;
+    if(root)root.inert=true; document.body.style.overflow="hidden";
+    const focusables=()=>[...panel!.querySelectorAll<HTMLElement>("button,input,select,textarea,a[href],summary,[tabindex]:not([tabindex='-1'])")].filter(el=>!el.hasAttribute("disabled")&&!el.closest("[hidden]"));
+    (focusables()[0] ?? panel)?.focus();
+    const key=(event:KeyboardEvent)=>{
+      if([...document.querySelectorAll('[data-workspace-modal]')].pop()!==panel)return;
+      if(event.key==="Escape"){event.preventDefault();event.stopPropagation();onCloseRef.current();}
+      if(event.key!=="Tab"||!panel)return;
+      const elements=focusables();const first=elements[0];const last=elements[elements.length-1];
+      if(!first){event.preventDefault();panel.focus();return;}
+      if(event.shiftKey&&(document.activeElement===first||!panel.contains(document.activeElement))){event.preventDefault();last.focus();}
+      else if(!event.shiftKey&&(document.activeElement===last||!panel.contains(document.activeElement))){event.preventDefault();first.focus();}
     };
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      previous?.focus();
-    };
-  }, []);
-
-  return (
-    <div className="fixed inset-0 z-[70] flex items-end justify-center bg-bg/80 p-0 backdrop-blur-sm sm:items-center sm:p-4" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby="modal-title" className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-t-xl border border-borderGlow/50 bg-bg2 shadow-2xl sm:rounded-xl">
-        <header className="flex items-start justify-between gap-4 border-b border-borderSoft p-4">
-          <div className="min-w-0">
-            <h2 id="modal-title" className="text-lg font-semibold text-textStrong">{title}</h2>
-            {description ? <p className="mt-1 text-sm text-textMuted">{description}</p> : null}
-          </div>
-          <button type="button" onClick={onClose} aria-label="关闭" className="rounded-md border border-borderSoft p-2 text-textMuted hover:border-cyan hover:text-cyan"><X className="h-4 w-4" /></button>
-        </header>
-        <div className="scrollbar-thin min-w-0 flex-1 overflow-y-auto p-4">{children}</div>
-        {footer ? <footer className="flex flex-wrap justify-end gap-2 border-t border-borderSoft p-4">{footer}</footer> : null}
-      </div>
+    document.addEventListener("keydown",key);
+    return()=>{document.removeEventListener("keydown",key);if(root)root.inert=oldInert ?? false;document.body.style.overflow=oldOverflow;previous?.focus({preventScroll:true});};
+  },[]);
+  const content = <div className={`modal-overlay modal-${size}`} role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)onCloseRef.current();}}>
+    <div ref={panelRef} data-workspace-modal role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1} className="modal-panel">
+      <header className="flex flex-wrap items-start justify-between gap-3 border-b border-borderSoft p-4">
+        <div className="min-w-0 flex-1"><h2 id={titleId} className="text-lg font-semibold text-textStrong">{title}</h2>{description ? <p className="mt-1 text-sm text-textMuted">{description}</p>:null}</div>
+        <button type="button" onClick={()=>onCloseRef.current()} aria-label="关闭" className="rounded-md border border-control p-2 text-textMuted hover:text-cyan"><X className="h-4 w-4"/></button>
+        <div className="w-full"><AppearanceControl/></div>
+      </header>
+      <div className="modal-content scrollbar-thin">{children}</div>
+      {footer ? <footer className="modal-footer">{footer}</footer>:null}
     </div>
-  );
+  </div>;
+  return typeof document === "undefined" ? content : createPortal(content,document.body);
 }

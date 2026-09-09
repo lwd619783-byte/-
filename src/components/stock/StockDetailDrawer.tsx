@@ -1,7 +1,8 @@
 import { QuoteTrust } from "../common/QuoteTrust";
-import { AlertTriangle, BarChart3, Binoculars, BookOpen, CheckCircle2, LineChart as LineChartIcon, Target, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, BarChart3, Binoculars, BookOpen, CheckCircle2, LineChart as LineChartIcon, Target, X } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { StockPriceHistoryChart } from "./StockPriceHistoryChart";
+import { CompanyFinancialHistory } from "./CompanyFinancialHistory";
 import { loadAShareFinancial } from "../../services/aShareFinancialLoader";
 import { loadAShareAnnouncements } from "../../services/aShareAnnouncementLoader";
 import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancialData, EarningsExpectationProviderSnapshot, EarningsExpectationSnapshot, Industry, IndustrySegment, ResearchEvent, ReviewEntry, ReviewTask, Stock, WatchItem } from "../../types";
@@ -10,14 +11,22 @@ import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
 import { statusDisplayLabel } from "../../utils/displayLabels";
 import { formatStockFieldCoverage, formatStockModuleCoverage } from "../../utils/stockCoverage";
-import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp, metricTone } from "../common/terminal";
+import { DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp, metricTone } from "../common/terminal";
 import { CompanyRelationGraph } from "./CompanyRelationGraph";
 import { IndustryChainMap } from "./IndustryChainMap";
 import { EarningsVerificationPanel } from "../research/EarningsVerificationPanel";
 import { StockWatchlistPanel } from "../watchlist/StockWatchlistPanel";
 import { StockEarningsExpectationPanel } from "../expectation/StockEarningsExpectationPanel";
 
+export type CompanyResearchTab = "overview" | "financials" | "valuation" | "expectations" | "evidence";
+const researchTabs: Array<{ id: CompanyResearchTab; label: string }> = [
+  { id: "overview", label: "研究概览" }, { id: "financials", label: "经营与财务" }, { id: "valuation", label: "价格与估值" }, { id: "expectations", label: "预期与验证" }, { id: "evidence", label: "证据与复盘" },
+];
+
 interface StockDetailDrawerProps {
+  presentation?: "page" | "drawer";
+  activeTab?: CompanyResearchTab;
+  onTabChange?: (tab: CompanyResearchTab) => void;
   stock: Stock | null;
   stocks?: Stock[];
   industries: Industry[];
@@ -46,8 +55,12 @@ interface StockDetailDrawerProps {
 const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
-export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation }: StockDetailDrawerProps) {
+export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation, presentation = "drawer", activeTab, onTabChange }: StockDetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
+  const [localSelection, setLocalSelection] = useState<{ stockId: string | null; tab: CompanyResearchTab }>({ stockId: stock?.id ?? null, tab: "overview" });
+  const tab = activeTab ?? (localSelection.stockId === stock?.id ? localSelection.tab : "overview");
+  const selectTab = (next: CompanyResearchTab) => { setLocalSelection({ stockId: stock?.id ?? null, tab: next }); onTabChange?.(next); };
+  const [financialChart, setFinancialChart] = useState<{ stockId: string | null; period: "singleQuarter" | "cumulative"; scope: string }>({ stockId: stock?.id ?? null, period: "singleQuarter", scope: "consolidated" });
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   const selectedStockId = useRef<string | null>(stock?.id ?? null);
@@ -64,14 +77,25 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   }>({ stockId: null, status: "idle", data: null });
 
   useEffect(() => {
-    if (!stock) return;
+    if (!stock || presentation !== "drawer") return;
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    const closeButton = drawerRef.current?.querySelector<HTMLElement>("button[aria-label='关闭详情']");
-    closeButton?.focus();
-    const handleKey = (event: KeyboardEvent) => { if (event.key === "Escape") onCloseRef.current(); };
+    const panel = drawerRef.current;
+    panel?.querySelector<HTMLElement>("button[aria-label='关闭详情']")?.focus();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKey = (event: KeyboardEvent) => {
+      const dialogs = document.querySelectorAll("[role='dialog'][aria-modal='true']");
+      if (dialogs[dialogs.length - 1] !== panel?.parentElement) return;
+      if (event.key === "Escape") { event.preventDefault(); onCloseRef.current(); }
+      if (event.key !== "Tab" || !panel) return;
+      const controls = [...panel.querySelectorAll<HTMLElement>("button, input, select, textarea, a[href], summary, [tabindex='0']")].filter((element) => !element.hasAttribute("disabled") && !element.closest("[hidden]") && ![...panel.querySelectorAll("details:not([open])")].some((detail) => detail.contains(element) && detail.querySelector(":scope > summary") !== element));
+      const first = controls[0]; const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    };
     document.addEventListener("keydown", handleKey);
-    return () => { document.removeEventListener("keydown", handleKey); previous?.focus(); };
-  }, [stock?.id]);
+    return () => { document.removeEventListener("keydown", handleKey); document.body.style.overflow = previousOverflow; if (previous?.isConnected) previous.focus(); };
+  }, [stock?.id, presentation]);
 
   useEffect(() => {
     let active = true;
@@ -137,54 +161,93 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-bg/75 backdrop-blur-sm" role="dialog" aria-modal="true">
-      <aside ref={drawerRef} className="ml-auto flex h-full w-full max-w-[1180px] flex-col border-l border-borderGlow/50 bg-bg2/95 shadow-2xl">
-        <ResearchHeader
-          stock={stock}
-          industryName={industryName}
-          segmentName={segmentName}
-          positioning={positioning}
-          onClose={onClose}
-        />
-
-        <div className="scrollbar-thin flex-1 overflow-y-auto p-4 sm:p-5">
-          <div className="grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+    <div className={presentation === "drawer" ? "fixed inset-0 z-50 bg-bg/75 backdrop-blur-sm" : "min-w-0"} role={presentation === "drawer" ? "dialog" : undefined} aria-modal={presentation === "drawer" ? true : undefined} aria-label={presentation === "drawer" ? `${stock.name}完整研究` : undefined}>
+      <article ref={drawerRef} className={presentation === "drawer" ? "ml-auto flex h-full w-full max-w-[1180px] flex-col overflow-y-auto border-l border-borderGlow/50 bg-bg2 shadow-2xl" : "min-w-0 space-y-4"}>
+        <ResearchHeader stock={stock} industryName={industryName} segmentName={segmentName} onClose={onClose} presentation={presentation}
+          action={activeWatchItem ? () => onStartReview?.(activeWatchItem) : archivedWatchItem ? () => onRestoreWatchItem?.(archivedWatchItem) : () => onAddToWatchlist?.(stock)}
+          actionLabel={activeWatchItem ? "开始复盘" : archivedWatchItem ? "恢复已归档观察项" : "加入观察清单"} />
+        {companyGuidanceLoadError ? <p role="alert" className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm text-warning">公司指引加载限制：{companyGuidanceLoadError}；本地独立快照仍按原资格展示。</p> : null}
+        <div className="flex min-w-0 flex-wrap gap-1 rounded-lg border border-borderSoft bg-bg2 p-1" role="tablist" aria-label="公司研究章节">
+          {researchTabs.map((item, index) => <button key={item.id} id={`company-tab-${item.id}`} role="tab" aria-selected={tab === item.id} aria-controls={`company-panel-${item.id}`} tabIndex={tab === item.id ? 0 : -1}
+            className={`min-h-11 flex-1 whitespace-nowrap rounded-md px-3 py-2 text-sm ${tab === item.id ? "bg-selected font-semibold text-accent ring-1 ring-inset ring-control" : "text-textMuted hover:bg-surface"}`}
+            onClick={() => selectTab(item.id)} onKeyDown={(event) => {
+              const nextIndex = event.key === "ArrowRight" ? (index + 1) % researchTabs.length : event.key === "ArrowLeft" ? (index + researchTabs.length - 1) % researchTabs.length : event.key === "Home" ? 0 : event.key === "End" ? researchTabs.length - 1 : -1;
+              if (nextIndex >= 0) { event.preventDefault(); selectTab(researchTabs[nextIndex].id); document.getElementById(`company-tab-${researchTabs[nextIndex].id}`)?.focus(); }
+            }}>{item.label}</button>)}
+        </div>
+        <div className={presentation === "drawer" ? "min-w-0 p-4" : "min-w-0"}>
+          <section id={`company-panel-${tab}`} role="tabpanel" aria-labelledby={`company-tab-${tab}`} tabIndex={0} className="min-w-0 space-y-4">
+          {tab === "overview" ? <>
+            <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)]">
+              <Section title="公司研究摘要" icon={<BookOpen className="h-4 w-4" />}>
+                <p className="mb-3 text-xs text-textMuted">以下为已有研究资料，支持与反对证据请结合来源核验。</p>
+                <div className="space-y-3"><NarrativeCard title="如何赚钱" value={stock.business} /><NarrativeCard title="当前研究依据" value={stock.thesis} strong /><ListCard title="已有风险与限制" items={stock.risks} tone="warning" /><ListCard title="下一步验证" items={stock.researchProfile?.validationSignals ?? stock.trackingMetrics} tone="cyan" /></div>
+              </Section>
+              <StockPriceHistoryChart stock={stock} compact />
+            </div>
+            <details className="rounded-lg border border-control bg-bg2 p-4"><summary className="cursor-pointer text-sm font-semibold text-accent">研究定位与投资逻辑全文</summary><p className="my-4 text-sm leading-6 text-textMuted">{positioning}</p><InvestmentLogic stock={stock} /></details>
+            <p className="text-xs text-textMuted">以下为既有行业与公司研究资料；未提供独立来源或更新时间的内容不视为实时官方事实。</p>
             <MacroIndustrySection industry={industry} segment={segment} stock={stock} />
-            <Section title="产业链位置" icon={<Target className="h-4 w-4" />}>
-              <IndustryChainMap industry={industry} segmentName={segmentName} stock={stock} />
-            </Section>
-          </div>
-
-          <Section title="主营业务拆解" icon={<BookOpen className="h-4 w-4" />}>
-            <BusinessBreakdown stock={stock} segment={segment} />
-          </Section>
-
-          <Section title="公司投资逻辑" icon={<CheckCircle2 className="h-4 w-4" />}>
-            <InvestmentLogic stock={stock} />
-          </Section>
-
-          <Section title="观察清单与复盘" icon={<Binoculars className="h-4 w-4" />}>
-            <StockWatchlistPanel
-              activeItem={activeWatchItem}
-              archivedItem={archivedWatchItem}
-              tasks={reviewTasks}
-              entries={reviewEntries}
-              events={stockResearchEvents}
-              onAdd={() => onAddToWatchlist?.(stock)}
-              onEdit={(item) => onEditWatchItem?.(item)}
-              onStartReview={(item) => onStartReview?.(item)}
-              onCorrectReview={(entry) => onCorrectReview?.(entry)}
-              onRestore={(item) => onRestoreWatchItem?.(item)}
-            />
-          </Section>
-
-          {stock.evidenceLevel || stock.themeTags?.length || stock.evidenceNotes?.length ? (
-            <Section title="证据与验证" icon={<AlertTriangle className="h-4 w-4" />}>
-              <EvidenceVerification stock={stock} />
-            </Section>
-          ) : null}
-
-          <Section title="业绩验证" icon={<FileCheckIcon />}>
+            <details className="rounded-lg border border-control bg-bg2 p-4"><summary className="cursor-pointer text-sm font-semibold text-accent">产业链位置与关联公司</summary><div className="mt-4 space-y-4"><Section title="产业链位置" icon={<Target className="h-4 w-4" />}><IndustryChainMap industry={industry} segmentName={segmentName} stock={stock} /></Section><Section title="关联公司" icon={<BarChart3 className="h-4 w-4" />}><CompanyRelationGraph stock={stock} stocks={stocks} industry={industry} onOpenStock={switchStock} /></Section></div></details>
+            <div className="grid gap-4 lg:grid-cols-2"><Panel title="板块 / 概念">
+                  <div className="space-y-3">
+                    <TagList items={[stock.profile?.industryName, ...(stock.sectorMembership?.industry ?? []).map((item) => item.name)].filter(Boolean) as string[]} color="blue" />
+                    <TagList items={(stock.sectorMembership?.concept ?? []).map((item) => item.name)} color="green" />
+                    <TagList items={(stock.sectorMembership?.region ?? []).map((item) => item.name)} color="blue" />
+                  </div>
+                </Panel><Panel title="证据摘要"><p className="text-sm text-textStrong">证据等级：{stock.evidenceLevel ?? PENDING} · 核验状态：{stock.verificationStatus ?? PENDING}</p><p className="mt-2 text-xs text-textMuted">已有结构化证据 {stock.evidenceItems?.length ?? 0} 条；完整来源与说明见“证据与复盘”。</p><button type="button" className="mt-3 min-h-11 text-sm text-accent" onClick={() => selectTab("evidence")}>查看证据与复盘</button></Panel></div>
+          </> : null}
+          {tab === "financials" ? <>
+            <Section title="经营与财务快照" icon={<BookOpen className="h-4 w-4" />}><Grid rows={financialRows} /></Section>
+            <CompanyFinancialHistory detail={loadedFinancial} selection={financialChart.stockId === stock.id ? financialChart : { period: "singleQuarter", scope: "consolidated" }} onSelectionChange={(selection) => setFinancialChart({ stockId: stock.id, ...selection })} />
+            <Section title="主营业务拆解" icon={<BookOpen className="h-4 w-4" />}><BusinessBreakdown stock={stock} segment={segment} /></Section>
+            <Panel title="F10 / 公司基础资料">
+                <Grid
+                  rows={[
+                    ["公司全称", stock.profile?.fullName ?? EMPTY],
+                    ["上市日期", stock.profile?.listDate ?? EMPTY],
+                    ["行业分类", stock.profile?.industryName ?? EMPTY],
+                    ["总股本", stock.profile?.totalShares ? `${stock.profile.totalShares.toFixed(2)} 亿股` : EMPTY],
+                    ["流通股本", stock.profile?.floatShares ? `${stock.profile.floatShares.toFixed(2)} 亿股` : EMPTY],
+                  ]}
+                />
+                <TextBlock title="主营业务原始口径" value={stock.profile?.businessScope ?? stock.business} />
+                <TextBlock title="公司简介原始口径" value={stock.profile?.companyProfile} />
+              </Panel>
+          </> : null}
+          {tab === "valuation" ? <>
+            <Section title="行情快照与口径" icon={<LineChartIcon className="h-4 w-4" />}><QuoteTrust quote={stock.quote} />
+              <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+                <MetricCard label="快照价格" value={numberToDisplay(stock.quote?.latestPrice)} />
+                <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={metricTone(stock.quote?.pctChange)} />
+                <MetricCard label="成交额" value={formatYi(stock.quote?.amount)} />
+                <MetricCard label="换手率" value={formatPercent(stock.quote?.turnover)} />
+                <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />
+                <MetricCard label="流通市值" value={formatYi(stock.quote?.floatMarketCap)} />
+                <MetricCard label="涨停价" value={numberToDisplay(stock.quote?.limitUp)} />
+                <MetricCard label="跌停价" value={numberToDisplay(stock.quote?.limitDown)} />
+              </div></Section>
+            <StockPriceHistoryChart stock={stock} />
+            <Panel title="估值快照"><Grid rows={valuationRows} /><p className="mt-3 text-xs text-textMuted">沿用现有估值快照口径；历史估值序列与百分位尚未提供。</p></Panel>
+            <Panel title="信号雷达">
+                <Grid
+                  rows={[
+                    ["最新主力净流入", formatYi(stock.signals?.latestMainFundFlow)],
+                    ["5 日主力净流入", formatYi(stock.signals?.mainFundFlow5d)],
+                    ["20 日主力净流入", formatYi(stock.signals?.mainFundFlow20d)],
+                    ["融资余额", formatYi(stock.signals?.marginBalance)],
+                    ["30 日龙虎榜次数", nullableNumber(stock.signals?.dragonTigerCount30d)],
+                    ["股东户数变化", formatPercent(stock.signals?.holderChangePct)],
+                    ["未来 90 天解禁", nullableNumber(stock.signals?.upcomingLockupCount)],
+                    ["人气排名", nullableNumber(stock.signals?.popularityRank)],
+                  ]}
+                />
+                <TextClamp lines={3} title={stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? EMPTY} className="mt-3 text-sm leading-6 text-textMuted">
+                  {stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? EMPTY}
+                </TextClamp>
+              </Panel>
+          </> : null}
+          {tab === "expectations" ? <><Section title="业绩验证" icon={<FileCheckIcon />}>
             <EarningsVerificationPanel
               stock={stock}
               financialData={loadedFinancial}
@@ -211,64 +274,28 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
               onAdd={onAddEarningsExpectation}
               onCorrect={onCorrectEarningsExpectation}
             />
-          </Section>
-
-          <Section title="关联公司" icon={<BarChart3 className="h-4 w-4" />}>
-            <CompanyRelationGraph stock={stock} stocks={stocks} industry={industry} onOpenStock={switchStock} />
-          </Section>
-
-          <Section title="数据验证：行情、财务、估值与 F10" icon={<LineChartIcon className="h-4 w-4" />}>
-            <div className="space-y-4">
-              <QuoteTrust quote={stock.quote} />
-              <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-                <MetricCard label="快照价格" value={numberToDisplay(stock.quote?.latestPrice)} />
-                <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={metricTone(stock.quote?.pctChange)} />
-                <MetricCard label="成交额" value={formatYi(stock.quote?.amount)} />
-                <MetricCard label="换手率" value={formatPercent(stock.quote?.turnover)} />
-                <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />
-                <MetricCard label="流通市值" value={formatYi(stock.quote?.floatMarketCap)} />
-                <MetricCard label="涨停价" value={numberToDisplay(stock.quote?.limitUp)} />
-                <MetricCard label="跌停价" value={numberToDisplay(stock.quote?.limitDown)} />
-              </div>
-
-              <ChartPanel
-                title="60 日价格走势"
-                description="验证层数据：使用已生成的历史价格序列；无数据时不回填假图。"
-                empty={!stock.priceHistory || stock.priceHistory.length === 0}
-              >
-                <div className="h-56">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={stock.priceHistory}>
-                      <CartesianGrid stroke="rgba(148,163,184,0.12)" strokeDasharray="3 3" />
-                      <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#9CA3AF" }} minTickGap={24} />
-                      <YAxis tick={{ fontSize: 11, fill: "#9CA3AF" }} width={48} />
-                      <Tooltip contentStyle={{ background: "#0F172A", border: "1px solid #334155", color: "#E5E7EB" }} labelStyle={{ color: "#E5E7EB" }} />
-                      <Line type="monotone" dataKey="close" stroke="#22D3EE" strokeWidth={2} dot={false} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </ChartPanel>
-
-              <div className="grid gap-4 lg:grid-cols-2">
-                <Panel title="财务快照"><Grid rows={financialRows} /></Panel>
-                <Panel title="估值快照"><Grid rows={valuationRows} /></Panel>
-              </div>
-
-              <Panel title="F10 / 公司基础资料">
-                <Grid
-                  rows={[
-                    ["公司全称", stock.profile?.fullName ?? EMPTY],
-                    ["上市日期", stock.profile?.listDate ?? EMPTY],
-                    ["行业分类", stock.profile?.industryName ?? EMPTY],
-                    ["总股本", stock.profile?.totalShares ? `${stock.profile.totalShares.toFixed(2)} 亿股` : EMPTY],
-                    ["流通股本", stock.profile?.floatShares ? `${stock.profile.floatShares.toFixed(2)} 亿股` : EMPTY],
-                  ]}
-                />
-                <TextBlock title="主营业务原始口径" value={stock.profile?.businessScope ?? stock.business} />
-                <TextBlock title="公司简介原始口径" value={stock.profile?.companyProfile} />
-              </Panel>
-
-              <div className="grid gap-4 lg:grid-cols-2">
+          </Section></> : null}
+          {tab === "evidence" ? <>
+            <Section title="观察清单与复盘" icon={<Binoculars className="h-4 w-4" />}>
+            <StockWatchlistPanel
+              activeItem={activeWatchItem}
+              archivedItem={archivedWatchItem}
+              tasks={reviewTasks}
+              entries={reviewEntries}
+              events={stockResearchEvents}
+              onAdd={() => onAddToWatchlist?.(stock)}
+              onEdit={(item) => onEditWatchItem?.(item)}
+              onStartReview={(item) => onStartReview?.(item)}
+              onCorrectReview={(entry) => onCorrectReview?.(entry)}
+              onRestore={(item) => onRestoreWatchItem?.(item)}
+            />
+          </Section>{stock.evidenceLevel || stock.themeTags?.length || stock.evidenceNotes?.length ? (
+            <Section title="证据与验证" icon={<AlertTriangle className="h-4 w-4" />}>
+              <EvidenceVerification stock={stock} />
+            </Section>
+          ) : null}
+            <Section title="公司研究事件"><div className="space-y-3">{stockResearchEvents.length ? stockResearchEvents.map((event) => <article key={event.id} className="rounded border border-borderSoft bg-bg2 p-3"><p className="text-sm font-semibold text-textStrong">{event.title}</p><p className="mt-1 break-words text-xs text-textMuted">{event.publishedAt ?? event.eventDate ?? "时间未提供"} · {statusDisplayLabel(event.parseStatus)}</p><p className="mt-2 text-sm text-textMuted">{event.summary}</p></article>) : <p className="text-sm text-textMuted">当前公司暂无研究事件。</p>}</div></Section>
+            <div className="grid gap-4 lg:grid-cols-2">
                 <Panel title="研报">
                   <ArticleList
                     rows={(stock.research?.reports ?? []).slice(0, 5).map((item) => ({
@@ -282,34 +309,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                   <AnnouncementPanel stock={stock} detail={loadedAnnouncements} loadStatus={announcementLoad.stockId === stock.id ? announcementLoad.status : "idle"} />
                 </Panel>
               </div>
-
-              <Panel title="信号雷达">
-                <Grid
-                  rows={[
-                    ["最新主力净流入", formatYi(stock.signals?.latestMainFundFlow)],
-                    ["5 日主力净流入", formatYi(stock.signals?.mainFundFlow5d)],
-                    ["20 日主力净流入", formatYi(stock.signals?.mainFundFlow20d)],
-                    ["融资余额", formatYi(stock.signals?.marginBalance)],
-                    ["30 日龙虎榜次数", nullableNumber(stock.signals?.dragonTigerCount30d)],
-                    ["股东户数变化", formatPercent(stock.signals?.holderChangePct)],
-                    ["未来 90 天解禁", nullableNumber(stock.signals?.upcomingLockupCount)],
-                    ["人气排名", nullableNumber(stock.signals?.popularityRank)],
-                  ]}
-                />
-                <TextClamp lines={3} title={stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? EMPTY} className="mt-3 text-sm leading-6 text-textMuted">
-                  {stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? EMPTY}
-                </TextClamp>
-              </Panel>
-
-              <div className="grid gap-4 lg:grid-cols-2">
-                <Panel title="板块 / 概念">
-                  <div className="space-y-3">
-                    <TagList items={[stock.profile?.industryName, ...(stock.sectorMembership?.industry ?? []).map((item) => item.name)].filter(Boolean) as string[]} color="blue" />
-                    <TagList items={(stock.sectorMembership?.concept ?? []).map((item) => item.name)} color="green" />
-                    <TagList items={(stock.sectorMembership?.region ?? []).map((item) => item.name)} color="blue" />
-                  </div>
-                </Panel>
-                <Panel title="数据质量">
+            <details className="rounded-lg border border-control bg-bg2 p-4"><summary className="cursor-pointer text-sm font-semibold text-accent">来源与核验详细层</summary><div className="mt-4"><Panel title="数据质量">
                   <Grid
                     rows={[
                       ["来源", stock.dataQuality?.map((item) => item.source).join(" / ") || "mock"],
@@ -321,67 +321,29 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                       ["源端点", stock.dataQuality?.map((item) => item.sourceEndpoint).filter(Boolean).join(" / ") || EMPTY],
                     ]}
                   />
-                </Panel>
-              </div>
-            </div>
-          </Section>
+                </Panel><pre className="mt-3 max-h-80 overflow-auto whitespace-pre-wrap break-all text-xs text-textMuted">{JSON.stringify({ quality: stock.dataQuality, missingFields: stock.missingFields }, null, 2)}</pre></div></details>
+          </> : null}
+          </section>
         </div>
-      </aside>
+      </article>
     </div>
   );
 }
 
-function ResearchHeader({
-  stock,
-  industryName,
-  segmentName,
-  positioning,
-  onClose,
-}: {
-  stock: Stock;
-  industryName: string;
-  segmentName: string;
-  positioning: string;
-  onClose: () => void;
+function ResearchHeader({ stock, industryName, segmentName, onClose, presentation, action, actionLabel }: {
+  stock: Stock; industryName: string; segmentName: string; onClose: () => void; presentation: "page" | "drawer"; action: () => void; actionLabel: string;
 }) {
-  return (
-    <div className="border-b border-borderGlow/40 p-4 sm:p-5">
-      <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <p className="truncate text-sm text-textMuted" title={`${stock.market} · ${stock.code}`}>
-            {stock.market} · {stock.code}
-          </p>
-          <div className="mt-1 flex flex-wrap items-center gap-2">
-            <h2 className="truncate text-2xl font-semibold text-textStrong" title={stock.name}>{stock.name}</h2>
-            <DataQualityBadge quality={stock.dataQuality} />
-          </div>
-          <p className="mt-1 truncate text-sm text-textMuted" title={`${industryName} / ${segmentName}`}>
-            {industryName} / {segmentName}
-          </p>
-        </div>
-        <button
-          className="shrink-0 rounded-md border border-borderSoft p-2 text-textMuted transition hover:border-danger hover:text-red-200 focus:outline-none focus:ring-2 focus:ring-danger/30"
-          onClick={onClose}
-          aria-label="关闭详情"
-        >
-          <X className="h-5 w-5" />
-        </button>
-      </div>
-
-      <QuoteTrust quote={stock.quote} />
-      <div className="mt-4 rounded-lg border border-cyan/30 bg-cyan/10 p-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">Research Positioning</p>
-        <p className="mt-2 text-base leading-7 text-textStrong">{positioning}</p>
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-textMuted">
-          <span>快照价格 {numberToDisplay(stock.quote?.latestPrice)}</span>
-          <PriceChange value={stock.quote?.pctChange} />
-          <span>行情/财务字段 {formatStockFieldCoverage(stock.dataCoverageDetails)}</span>
-          <span>{formatStockModuleCoverage(stock.dataCoverageDetails)}</span>
-          <span>风险等级 {stock.riskLevel}</span>
-        </div>
-      </div>
+  return <header className="z-20 min-w-0 rounded-lg border border-borderSoft bg-bg2 p-4 sm:sticky sm:top-[72px]">
+    <div className="flex flex-wrap items-start justify-between gap-3">
+      <div className="min-w-0 flex-1"><p className="text-xs text-textMuted">{stock.market} · {stock.code} · {industryName} / {segmentName}</p><h1 className="mt-1 break-words text-2xl font-semibold text-textStrong">{stock.name}</h1></div>
+      <button type="button" onClick={onClose} aria-label={presentation === "page" ? "返回研究入口" : "关闭详情"} className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded border border-control px-3 text-sm text-textMuted">{presentation === "page" ? <ArrowLeft className="h-4 w-4" /> : <X className="h-4 w-4" />}{presentation === "page" ? "返回" : "关闭"}</button>
     </div>
-  );
+    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2"><span className="text-2xl font-semibold tabular-nums text-textStrong">{numberToDisplay(stock.quote?.latestPrice)} <span className="text-xs font-normal">币种：源字段未提供</span></span><PriceChange value={stock.quote?.pctChange} /><DataQualityBadge quality={stock.dataQuality} /><span className="text-sm text-warning">风险等级 {stock.riskLevel}</span><button type="button" onClick={action} className="min-h-11 rounded border border-control bg-selected px-3 text-sm font-semibold text-accent">{actionLabel}</button></div>
+    <div className="mt-2"><QuoteTrust quote={stock.quote} /></div>
+    <details className="mt-2 text-xs text-textMuted"><summary className="cursor-pointer">行情/财务字段 {formatStockFieldCoverage(stock.dataCoverageDetails)}</summary><p className="mt-2">{formatStockModuleCoverage(stock.dataCoverageDetails)}</p></details>
+    {stock.verificationStatus === "待验证" ? <p className="mt-2 text-xs text-warning">研究关系待验证，不得写成确定供货关系。</p> : null}
+    {stock.risks.length ? <p className="mt-2 break-words text-xs text-warning">主要风险：{stock.risks[0]}</p> : null}
+  </header>;
 }
 
 function MacroIndustrySection({ industry, segment, stock }: { industry?: Industry; segment?: IndustrySegment; stock: Stock }) {
@@ -506,7 +468,7 @@ function EvidenceItemList({ stock }: { stock: Stock }) {
           <article key={item.id} className={`rounded-lg border p-3 ${isLowConfidence ? "border-warning/35 bg-warning/10" : "border-borderSoft bg-surface/70"}`}>
             <div className="flex flex-wrap items-center gap-2 text-xs">
               <span className="rounded border border-borderSoft bg-bg2/70 px-2 py-1 text-textMuted">{item.sourceType}</span>
-              <span className={item.confidence === "高" ? "rounded border border-cyan/30 bg-cyan/10 px-2 py-1 text-cyan" : item.confidence === "中" ? "rounded border border-warning/30 bg-warning/10 px-2 py-1 text-warning" : "rounded border border-danger/30 bg-danger/10 px-2 py-1 text-red-200"}>
+              <span className={item.confidence === "高" ? "rounded border border-cyan/30 bg-cyan/10 px-2 py-1 text-cyan" : item.confidence === "中" ? "rounded border border-warning/30 bg-warning/10 px-2 py-1 text-warning" : "rounded border border-danger/30 bg-danger/10 px-2 py-1 text-danger"}>
                 {item.confidence}可信
               </span>
               <span className="rounded border border-borderSoft bg-bg2/70 px-2 py-1 text-textMuted">{item.verificationStatus ?? "待验证"}</span>
@@ -535,7 +497,7 @@ function Section({ title, icon, children }: { title: string; icon?: ReactNode; c
     <SectionPanel title={title} className="mb-5">
       <div className="mb-3 flex items-center gap-2 text-cyan">
         {icon}
-        <p className="text-xs font-semibold uppercase tracking-[0.16em]">Research Layer</p>
+        <p className="text-xs font-semibold">研究资料</p>
       </div>
       {children}
     </SectionPanel>
@@ -626,14 +588,14 @@ function TextBlock({ title, value }: { title: string; value?: string | null }) {
 
 function TagList({ items, color }: { items: string[]; color: "green" | "blue" }) {
   const palette = {
-    green: "border-success/25 bg-success/10 text-green-100",
-    blue: "border-cyan/25 bg-cyan/10 text-cyan-100",
+    green: "border-success/25 bg-success/10 text-success",
+    blue: "border-cyan/25 bg-cyan/10 text-accent",
   };
   return (
     <div className="flex flex-wrap gap-2">
       {items.length === 0 ? <span className="text-sm text-textMuted">{EMPTY}</span> : null}
       {items.map((item, index) => (
-        <span key={`${item}-${index}`} className={`max-w-full truncate rounded border px-2 py-1 text-xs ${palette[color]}`} title={item}>
+        <span key={`${item}-${index}`} className={`max-w-full break-words rounded border px-2 py-1 text-xs ${palette[color]}`} title={item}>
           {item}
         </span>
       ))}

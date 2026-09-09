@@ -1,3 +1,5 @@
+import { pages, useWorkspaceNavigation } from "./hooks/useWorkspaceNavigation";
+import { StockQuickPreview } from "./components/stock/StockQuickPreview";
 import { QuoteTrustSummary } from "./components/common/QuoteTrust";
 import { summarizeQuotes } from "./utils/dataTrustDisplay";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -48,9 +50,12 @@ const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<MainTab>("首页");
+  const navigation = useWorkspaceNavigation();
+  const activeTab = pages[navigation.route.page];
+  const [visitedTabs, setVisitedTabs] = useState<Set<MainTab>>(() => new Set([activeTab]));
+  useEffect(() => { setVisitedTabs(previous => previous.has(activeTab) ? previous : new Set([...previous, activeTab])); }, [activeTab]);
   const [globalSearch, setGlobalSearch] = useState("");
-  const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
+  const [previewStock, setSelectedStock] = useState<Stock | null>(null);
   const [dataMode, setDataMode] = useState<DashboardDataMode>("mixed");
   const repository = useMemo(() => createBrowserWatchlistRepository(), []);
   const watchlistStore = useMemo(() => new WatchlistStore(repository), [repository]);
@@ -100,7 +105,10 @@ export default function App() {
   const exportJson = useMemo(() => repository.export(watchlistData), [repository, watchlistData]);
   const expectationExportJson = useMemo(() => expectationRepository.export(expectationData), [expectationData, expectationRepository]);
   const expectationExportCsv = useMemo(() => exportEarningsExpectationCsv(expectationData.snapshots), [expectationData.snapshots]);
-  const activeSelectedStock = selectedStock ? dataset.stocks.find((stock) => stock.id === selectedStock.id) ?? null : null;
+  const activeSelectedStock = navigation.route.kind === "company" ? dataset.stocks.find((stock) => stock.id === navigation.route.stockId) ?? null : null;
+  useEffect(() => { setSelectedStock(null); }, [navigation.route]);
+  const activePreviewStock = previewStock ? dataset.stocks.find(stock => stock.id === previewStock.id) ?? null : null;
+  const openResearch = (stock: Stock) => { setSelectedStock(null); navigation.openCompany(stock.id); };
 
   useEffect(() => {
     const generation = ++companyGuidanceRequestGeneration.current;
@@ -161,10 +169,8 @@ export default function App() {
     setCompanyGuidanceRetryToken((value) => value + 1);
   };
 
-  const navigateToTab = (tab: MainTab) => {
-    setActiveTab(tab);
-    window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "auto" }));
-  };
+  const navigateToTab = navigation.navigatePage;
+  const setActiveTab = navigateToTab;
 
   const dashboardStats = useMemo(() => {
     const stocksWithReal = dataset.stocks.filter((stock) =>
@@ -275,8 +281,9 @@ export default function App() {
 
   return (
     <div className="workspace min-h-screen text-text">
-      <a className="skip-link" href="#workspace-main">跳到主要内容</a>
+      <a className="skip-link" href="#workspace-main" onClick={event => { event.preventDefault(); document.getElementById("workspace-main")?.focus(); }}>跳到主要内容</a>
       <Header
+        onHome={() => navigateToTab("首页")}
         search={globalSearch}
         onSearchChange={setGlobalSearch}
         updatedAt={dataset.dataUpdatedAt}
@@ -295,6 +302,37 @@ export default function App() {
             <div className="min-w-0 text-xs"><span className="font-semibold text-textStrong">公司指引数据</span><span className="ml-2 text-textMuted">{dataMode === "mock" ? "模拟数据模式已严格隔离真实数据提供方" : companyGuidanceWorkflowStatus === "loading" ? "全局索引校验中" : companyGuidanceWorkflowStatus === "success" ? `已验证 ${providerRecords.length} 条当前版本，导航切换不改变工作流` : companyGuidanceWorkflowStatus === "error" ? "全局索引失败，正式数据提供方已关闭" : "等待加载"}</span></div>
             {companyGuidanceWorkflowError ? <div className="flex min-w-0 items-center gap-2"><span role="alert" className="max-w-xl break-words text-xs text-warning" title={companyGuidanceWorkflowError}>{companyGuidanceWorkflowError}</span><button type="button" onClick={retryCompanyGuidance} className="rounded border border-warning/50 px-2 py-1 text-xs text-warning">重试</button></div> : null}
           </DashboardCard>
+          {navigation.route.kind === "invalid" || (navigation.route.kind === "company" && !activeSelectedStock) ? <section className="ui-panel rounded-lg border border-warning p-6" role="status"><h1 className="text-2xl font-semibold">找不到研究对象或页面</h1><p className="my-4 text-textMuted">链接中的对象不存在于当前研究池，请返回入口重新选择。</p><button type="button" onClick={() => navigateToTab("个股池")} className="rounded-md border border-control px-4 py-2">返回个股池</button></section> : null}
+                <StockDetailDrawer
+        presentation="page"
+        activeTab={navigation.route.tab}
+        onTabChange={navigation.changeCompanyTab}
+        stock={activeSelectedStock}
+        stocks={dataset.stocks}
+        industries={dataset.industries}
+        watchItems={watchlistData.watchItems}
+        reviewEntries={watchlistData.reviewEntries}
+        reviewTasks={reviewTasks}
+        researchEvents={researchSnapshot.events}
+        earningsExpectationSnapshots={aggregatedExpectationEvidence.snapshots}
+        earningsExpectationProviderSnapshotIds={aggregatedExpectationEvidence.providerSnapshotIds}
+        earningsExpectationDuplicateOfProviderByLocalId={aggregatedExpectationEvidence.duplicateOfProviderByLocalId}
+        earningsExpectationProviderRecordBySnapshotId={aggregatedExpectationEvidence.providerRecordBySnapshotId}
+        companyGuidanceLoadStatus={companyGuidanceLoadStatus}
+        companyGuidanceLoadError={companyGuidanceLoadError}
+        earningsExpectationTimeZone={expectationData.settings.timeZone}
+        onAddToWatchlist={(stock) => setWatchForm({ stockId: stock.id })}
+        onEditWatchItem={(item) => setWatchForm({ itemId: item.id })}
+        onStartReview={startReview}
+        onCorrectReview={(entry) => { setReviewItemId(entry.watchItemId); setCorrectionReviewId(entry.id); }}
+        onRestoreWatchItem={restoreWatchItem}
+        onAddEarningsExpectation={(stock) => setExpectationForm({ stockId: stock.id })}
+        onCorrectEarningsExpectation={(snapshot) => { if (!aggregatedExpectationEvidence.providerSnapshotIds.has(snapshot.id)) setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id }); }}
+        onClose={navigation.back}
+        onOpenStock={openResearch}
+      />
+          <div hidden={navigation.route.kind !== "page"} className="space-y-4">
+
           <details className="workspace-context"><summary>工作台概况与数据健康</summary>
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
@@ -382,7 +420,7 @@ export default function App() {
 
           <QuoteTrustSummary stocks={dataset.stocks} />
           </details>
-          {activeTab === "首页" && (
+          {visitedTabs.has("首页") && (<div hidden={activeTab !== "首页"}>
         <HomePage
           dataMode={dataMode}
           modeLabel={dataset.modeLabel}
@@ -401,29 +439,30 @@ export default function App() {
           onNavigate={navigateToTab}
           onOpenStock={setSelectedStock}
         />
-          )}
+          </div>)}
 
 
           {workflowMessage ? <div role="status" className="rounded-md border border-success/35 bg-success/10 px-3 py-2 text-sm text-success">{workflowMessage}</div> : null}
 
-          {activeTab === "宏观" && <MacroTab indicators={macroIndicators} generatedAt={dataUpdatedAt} />}
-          {activeTab === "行业" && (
+          {visitedTabs.has("宏观") && <div hidden={activeTab !== "宏观"}><MacroTab indicators={macroIndicators} generatedAt={dataUpdatedAt} /></div>}
+          {visitedTabs.has("行业") && (<div hidden={activeTab !== "行业"}>
             <IndustryTab
               industries={dataset.industries}
               stocks={dataset.stocks}
               globalSearch={globalSearch}
               onOpenStock={setSelectedStock}
             />
-          )}
-          {activeTab === "个股池" && (
+          </div>)}
+          {visitedTabs.has("个股池") && (<div hidden={activeTab !== "个股池"}>
             <StockPool
+              onOpenResearch={openResearch}
               stocks={dataset.stocks}
               industries={dataset.industries}
               globalSearch={globalSearch}
               onOpenStock={setSelectedStock}
             />
-          )}
-          {activeTab === "观察清单" && (
+          </div>)}
+          {visitedTabs.has("观察清单") && (<div hidden={activeTab !== "观察清单"}>
             <WatchlistTab
               watchItems={watchlistData.watchItems}
               samples={watchlistSamples}
@@ -474,8 +513,8 @@ export default function App() {
               onTaskState={(taskId, status, snoozedUntil) => applyAction(watchlistStore.setTaskState(watchlistData, taskId, status, snoozedUntil), status === "snoozed" ? "任务已暂缓。" : status === "dismissed" ? "任务已忽略。" : "任务已确认。")}
               onOpenStock={setSelectedStock}
             />
-          )}
-          {activeTab === "验证中心" && (
+          </div>)}
+          {visitedTabs.has("验证中心") && (<div hidden={activeTab !== "验证中心"}>
             <ResearchEventCenter
               snapshot={researchSnapshot}
               stocks={dataset.stocks}
@@ -486,8 +525,8 @@ export default function App() {
               onStartReview={startReview}
               onOpenStock={setSelectedStock}
             />
-          )}
-          {activeTab === "预期证据" && (
+          </div>)}
+          {visitedTabs.has("预期证据") && (<div hidden={activeTab !== "预期证据"}>
             <EarningsExpectationCenter
               snapshots={aggregatedExpectationEvidence.snapshots}
               comparisons={expectationComparisons}
@@ -517,10 +556,11 @@ export default function App() {
               onImport={() => setExpectationImportOpen(true)}
               onOpenStock={setSelectedStock}
             />
-          )}
+          </div>)}
+          </div>
         </section>
         }
-        rightRail={activeTab === "首页" ?
+        rightRail={activeTab === "首页" && navigation.route.kind === "page" ?
           <RightRail
             mode={dataset.mode}
             coverageSummary={dataset.coverageSummary}
@@ -533,31 +573,9 @@ export default function App() {
         }
       />
 
-      <StockDetailDrawer
-        stock={activeSelectedStock}
-        stocks={dataset.stocks}
-        industries={dataset.industries}
-        watchItems={watchlistData.watchItems}
-        reviewEntries={watchlistData.reviewEntries}
-        reviewTasks={reviewTasks}
-        researchEvents={researchSnapshot.events}
-        earningsExpectationSnapshots={aggregatedExpectationEvidence.snapshots}
-        earningsExpectationProviderSnapshotIds={aggregatedExpectationEvidence.providerSnapshotIds}
-        earningsExpectationDuplicateOfProviderByLocalId={aggregatedExpectationEvidence.duplicateOfProviderByLocalId}
-        earningsExpectationProviderRecordBySnapshotId={aggregatedExpectationEvidence.providerRecordBySnapshotId}
-        companyGuidanceLoadStatus={companyGuidanceLoadStatus}
-        companyGuidanceLoadError={companyGuidanceLoadError}
-        earningsExpectationTimeZone={expectationData.settings.timeZone}
-        onAddToWatchlist={(stock) => setWatchForm({ stockId: stock.id })}
-        onEditWatchItem={(item) => setWatchForm({ itemId: item.id })}
-        onStartReview={startReview}
-        onCorrectReview={(entry) => { setReviewItemId(entry.watchItemId); setCorrectionReviewId(entry.id); }}
-        onRestoreWatchItem={restoreWatchItem}
-        onAddEarningsExpectation={(stock) => setExpectationForm({ stockId: stock.id })}
-        onCorrectEarningsExpectation={(snapshot) => { if (!aggregatedExpectationEvidence.providerSnapshotIds.has(snapshot.id)) setExpectationForm({ stockId: snapshot.stockId, correctionId: snapshot.id }); }}
-        onClose={() => setSelectedStock(null)}
-        onOpenStock={setSelectedStock}
-      />
+
+
+      {activePreviewStock ? <StockQuickPreview stock={activePreviewStock} onClose={() => setSelectedStock(null)} onOpenResearch={openResearch} /> : null}
 
       {watchForm ? <WatchItemFormModal
         stocks={dataset.stocks}

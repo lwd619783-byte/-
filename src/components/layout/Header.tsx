@@ -6,17 +6,18 @@ import { StatusBadge } from "../common/terminal";
 import { dataModeDisplayLabel, localizeDataSourceNote } from "../../utils/displayLabels";
 import { AppearanceControl } from "./Appearance";
 interface HeaderProps {
+  onHome?: () => void;
   search: string; onSearchChange: (value: string) => void; updatedAt: string; sourceNote: string;
   dataMode: DashboardDataMode; modeLabel: string; coverageSummary?: string;
   onDataModeChange: (mode: DashboardDataMode) => void;
 }
-export function Header({search,onSearchChange,updatedAt,sourceNote,dataMode,modeLabel,coverageSummary,onDataModeChange}: HeaderProps) {
+export function Header({onHome,search,onSearchChange,updatedAt,sourceNote,dataMode,modeLabel,coverageSummary,onDataModeChange}: HeaderProps) {
   const time = describeDataTime(dataMode === "mock" ? undefined : updatedAt, "package_updated", useDisplayNow());
   const modeStatus = dataMode === "mock" ? "mock" : modeLabel === "Real Data" ? "real" : "partial";
   const displayModeLabel = dataModeDisplayLabel(modeLabel);
   return <header className="workspace-header">
     <div className="workspace-topbar">
-      <a className="workspace-brand" href="#/home"><span aria-hidden="true">◈</span> 投研工作台</a>
+      <a className="workspace-brand" href="#/home" onClick={event => { if(onHome){event.preventDefault();onHome();} }}><span aria-hidden="true">◈</span> 投研工作台</a>
       <label className="workspace-search"><Search aria-hidden="true" className="h-4 w-4 shrink-0 text-cyan" />
         <span className="sr-only">搜索当前研究池</span><input placeholder="当前研究池 · 行业、公司或代码" value={search} onChange={(event)=>onSearchChange(event.target.value)} />
       </label>
