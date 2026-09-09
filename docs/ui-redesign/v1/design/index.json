@@ -1,0 +1,254 @@
+[
+  {
+    "id": "home_neon",
+    "title": "首页 / 研究工作台 / 霓虹科技",
+    "file": "design/desktop/home_neon.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "home_pro",
+    "title": "首页 / 研究工作台 / 深色专业",
+    "file": "design/desktop/home_pro.svg",
+    "theme": "pro"
+  },
+  {
+    "id": "home_light",
+    "title": "首页 / 研究工作台 / 明亮简洁",
+    "file": "design/desktop/home_light.svg",
+    "theme": "light"
+  },
+  {
+    "id": "macro_neon",
+    "title": "宏观 / 指标观察 / 霓虹科技",
+    "file": "design/desktop/macro_neon.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "macro_pro",
+    "title": "宏观 / 指标观察 / 深色专业",
+    "file": "design/desktop/macro_pro.svg",
+    "theme": "pro"
+  },
+  {
+    "id": "macro_light",
+    "title": "宏观 / 指标观察 / 明亮简洁",
+    "file": "design/desktop/macro_light.svg",
+    "theme": "light"
+  },
+  {
+    "id": "industry_neon",
+    "title": "行业 / 比较与研究 / 霓虹科技",
+    "file": "design/desktop/industry_neon.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "industry_pro",
+    "title": "行业 / 比较与研究 / 深色专业",
+    "file": "design/desktop/industry_pro.svg",
+    "theme": "pro"
+  },
+  {
+    "id": "industry_light",
+    "title": "行业 / 比较与研究 / 明亮简洁",
+    "file": "design/desktop/industry_light.svg",
+    "theme": "light"
+  },
+  {
+    "id": "stocks_neon",
+    "title": "个股池 / 筛选与预览 / 霓虹科技",
+    "file": "design/desktop/stocks_neon.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "stocks_pro",
+    "title": "个股池 / 筛选与预览 / 深色专业",
+    "file": "design/desktop/stocks_pro.svg",
+    "theme": "pro"
+  },
+  {
+    "id": "stocks_light",
+    "title": "个股池 / 筛选与预览 / 明亮简洁",
+    "file": "design/desktop/stocks_light.svg",
+    "theme": "light"
+  },
+  {
+    "id": "company_neon",
+    "title": "个股详情 / 研究概览 / 霓虹科技",
+    "file": "design/desktop/company_neon.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "company_pro",
+    "title": "个股详情 / 研究概览 / 深色专业",
+    "file": "design/desktop/company_pro.svg",
+    "theme": "pro"
+  },
+  {
+    "id": "company_light",
+    "title": "个股详情 / 研究概览 / 明亮简洁",
+    "file": "design/desktop/company_light.svg",
+    "theme": "light"
+  },
+  {
+    "id": "watchlist_neon",
+    "title": "观察清单 / 待办与复盘 / 霓虹科技",
+    "file": "design/desktop/watchlist_neon.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "watchlist_pro",
+    "title": "观察清单 / 待办与复盘 / 深色专业",
+    "file": "design/desktop/watchlist_pro.svg",
+    "theme": "pro"
+  },
+  {
+    "id": "watchlist_light",
+    "title": "观察清单 / 待办与复盘 / 明亮简洁",
+    "file": "design/desktop/watchlist_light.svg",
+    "theme": "light"
+  },
+  {
+    "id": "verification_neon",
+    "title": "验证中心 / 事件与证据 / 霓虹科技",
+    "file": "design/desktop/verification_neon.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "verification_pro",
+    "title": "验证中心 / 事件与证据 / 深色专业",
+    "file": "design/desktop/verification_pro.svg",
+    "theme": "pro"
+  },
+  {
+    "id": "verification_light",
+    "title": "验证中心 / 事件与证据 / 明亮简洁",
+    "file": "design/desktop/verification_light.svg",
+    "theme": "light"
+  },
+  {
+    "id": "expectations_neon",
+    "title": "预期证据 / 同口径对照 / 霓虹科技",
+    "file": "design/desktop/expectations_neon.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "expectations_pro",
+    "title": "预期证据 / 同口径对照 / 深色专业",
+    "file": "design/desktop/expectations_pro.svg",
+    "theme": "pro"
+  },
+  {
+    "id": "expectations_light",
+    "title": "预期证据 / 同口径对照 / 明亮简洁",
+    "file": "design/desktop/expectations_light.svg",
+    "theme": "light"
+  },
+  {
+    "id": "company_tab_1",
+    "title": "个股详情 / 经营与财务",
+    "file": "design/detail/company_tab_1.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "company_tab_2",
+    "title": "个股详情 / 价格与估值",
+    "file": "design/detail/company_tab_2.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "company_tab_3",
+    "title": "个股详情 / 预期与验证",
+    "file": "design/detail/company_tab_3.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "company_tab_4",
+    "title": "个股详情 / 证据与复盘",
+    "file": "design/detail/company_tab_4.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "industry_chain",
+    "title": "行业 / 产业链与未上市线索",
+    "file": "design/detail/industry_chain.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "stock_quick_preview",
+    "title": "个股池 / 快速预览",
+    "file": "design/flows/stock_quick_preview.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "review",
+    "title": "复盘与元数据编辑",
+    "file": "design/flows/review.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "import",
+    "title": "导入校验与确认",
+    "file": "design/flows/import.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "appearance",
+    "title": "三套外观切换",
+    "file": "design/flows/appearance.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "components_states",
+    "title": "公共组件与异常状态",
+    "file": "design/system/components_states.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "home_mobile",
+    "title": "首页 / 研究工作台 / 窄屏",
+    "file": "design/mobile/home_mobile.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "macro_mobile",
+    "title": "宏观 / 指标观察 / 窄屏",
+    "file": "design/mobile/macro_mobile.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "industry_mobile",
+    "title": "行业 / 比较与研究 / 窄屏",
+    "file": "design/mobile/industry_mobile.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "stocks_mobile",
+    "title": "个股池 / 筛选与预览 / 窄屏",
+    "file": "design/mobile/stocks_mobile.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "company_mobile",
+    "title": "个股详情 / 研究概览 / 窄屏",
+    "file": "design/mobile/company_mobile.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "watchlist_mobile",
+    "title": "观察清单 / 待办与复盘 / 窄屏",
+    "file": "design/mobile/watchlist_mobile.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "verification_mobile",
+    "title": "验证中心 / 事件与证据 / 窄屏",
+    "file": "design/mobile/verification_mobile.svg",
+    "theme": "neon"
+  },
+  {
+    "id": "expectations_mobile",
+    "title": "预期证据 / 同口径对照 / 窄屏",
+    "file": "design/mobile/expectations_mobile.svg",
+    "theme": "neon"
+  }
+]

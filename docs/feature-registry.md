@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
+
 > 2026-09-09 CURRENT：Phase 1B 与 Stage 4.1 R2-A → R2-B / CSRC / SSE / SZSE / BSE / D2 已合入以下 audit-input main 基线；实现与准入分别登记。当前实现顺序见[开发执行索引](development-execution-plan-2026-09-07.md)与[路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)。[Master Audit Remediation V1](master-audit-remediation-v1.md) 是版本化修复验证记录。历史实施 / 审计文档保留原时点状态。
 
 > 基线日期：2026-09-09
