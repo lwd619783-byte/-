@@ -567,7 +567,7 @@ export default function App() {
           <DashboardCard className="p-3">
             <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-4" aria-label="数据健康信息">
               <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">A股行情质量状态 real 且有价格：<strong className="text-textStrong">{dashboardStats.quoteStatusRealCovered}/{dashboardStats.quoteCoverageTotal}</strong></span>
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">已载入快照平均涨跌幅：<strong className="text-textStrong">{formatPercent(dashboardStats.averagePct)}</strong>（有值 {dashboardStats.pctSampleCount}/{dataset.stocks.length}）</span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">已载入快照平均涨跌幅：<strong className="text-textStrong">{typeof dashboardStats.averagePct === "number" && dashboardStats.averagePct > 0 ? "+" : ""}{formatPercent(dashboardStats.averagePct)}</strong>（有值 {dashboardStats.pctSampleCount}/{dataset.stocks.length}）</span>
               <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">缺失字段：<strong className="text-warning">{dashboardStats.missingFields}</strong></span>
               <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">{dashboardStats.hkCoverageSummary}</span>
             </div>

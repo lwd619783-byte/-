@@ -35,7 +35,7 @@ export function StockCard({ stock, industries, onOpen, onOpenResearch }: StockCa
       </div>
       <div className="mt-3 grid min-w-0 grid-cols-2 gap-2 text-sm sm:grid-cols-3">
         <MetricCard label="快照价格" value={numberToDisplay(stock.quote?.latestPrice)} />
-        <MetricCard label="涨跌幅" value={`${(stock.quote?.pctChange ?? 0) > 0 ? "+" : ""}${formatPercent(stock.quote?.pctChange)}`} tone={metricTone(stock.quote?.pctChange)} />
+        <MetricCard label="涨跌幅" value={`${typeof stock.quote?.pctChange === "number" && stock.quote.pctChange > 0 ? "+" : ""}${formatPercent(stock.quote?.pctChange)}`} tone={metricTone(stock.quote?.pctChange)} />
         <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />
       </div>
       <p className="mt-2 text-xs text-textMuted">币种：源字段未提供</p>

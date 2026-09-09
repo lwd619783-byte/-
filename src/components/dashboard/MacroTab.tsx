@@ -62,7 +62,7 @@ export function MacroTab({ indicators, generatedAt, now }: { indicators: MacroIn
       {groups.slice(0, 4).map((group) => <button key={group.key} type="button" aria-pressed={selectedGroup.key === group.key} onClick={() => setSelectedGroupKey(group.key)} className={`min-h-11 rounded-md border px-3 py-2 text-sm ${selectedGroup.key === group.key ? "border-control bg-selected font-semibold text-accent" : "border-borderSoft bg-bg2 text-textMuted hover:border-control"}`}>
         {group.title}<span className="ml-2 text-xs font-normal">{group.rows.length ? `${group.rows.length} 项` : "待接入"}</span>
       </button>)}
-      <label className="flex min-w-0 items-center"><span className="sr-only">其他宏观分类</span><select aria-label="其他宏观分类" value={otherGroups.some((group) => group.key === selectedGroup.key) ? selectedGroup.key : ""} onChange={(event) => { if (event.target.value) setSelectedGroupKey(event.target.value); }} className={`min-h-11 w-full rounded-md border bg-bg2 px-3 py-2 text-sm ${otherGroups.some((group) => group.key === selectedGroup.key) ? "border-control bg-selected text-accent" : "border-borderSoft text-textMuted"}`}>
+      <label className="flex min-w-0 items-center"><span className="sr-only">其他宏观分类</span><select aria-label="其他宏观分类" value={otherGroups.some((group) => group.key === selectedGroup.key) ? selectedGroup.key : ""} onChange={(event) => { if (event.target.value) setSelectedGroupKey(event.target.value); }} className={`min-h-11 w-full rounded-md border bg-bg2 px-3 py-2 text-sm ${otherGroups.some((group) => group.key === selectedGroup.key) ? "border-control bg-selected text-accent" : "border-control text-textMuted"}`}>
         <option value="" disabled>其他分类（5）</option>{otherGroups.map((group) => <option key={group.key} value={group.key}>{group.title} · {group.rows.length ? `${group.rows.length} 项` : "待接入"}</option>)}
       </select></label>
     </nav>
@@ -120,7 +120,7 @@ function MacroDetailTable({ rows, now }: { rows: MacroIndicatorRow[]; now: Date 
       </div>
       <div className="max-h-[560px] overflow-auto" tabIndex={0} aria-label="完整宏观指标表，可横向和纵向滚动">
         <table className="min-w-[1080px] w-full border-separate border-spacing-0 text-left text-sm">
-          <thead className="sticky top-0 z-10 bg-bg1/95 text-xs uppercase tracking-[0.12em] text-textWeak">
+          <thead className="sticky top-0 z-10 bg-bg2 text-xs uppercase tracking-[0.12em] text-textWeak">
             <tr>
               {["分类", "指标名称", "观测值", "单位", "时间与时效", "来源", "质量状态", "原始字段 key"].map((header) => (
                 <th key={header} className="border-b border-borderSoft px-4 py-3 font-medium">{header}</th>

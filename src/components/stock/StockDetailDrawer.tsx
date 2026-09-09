@@ -61,6 +61,9 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   const tab = activeTab ?? (localSelection.stockId === stock?.id ? localSelection.tab : "overview");
   const selectTab = (next: CompanyResearchTab) => { setLocalSelection({ stockId: stock?.id ?? null, tab: next }); onTabChange?.(next); };
   const [financialChart, setFinancialChart] = useState<{ stockId: string | null; period: "singleQuarter" | "cumulative"; scope: string }>({ stockId: stock?.id ?? null, period: "singleQuarter", scope: "consolidated" });
+  const [priceRange,setPriceRange]=useState<{stockId:string|null;range:"all"|"20"}>({stockId:stock?.id ?? null,range:"all"});
+  const currentPriceRange=priceRange.stockId===stock?.id ? priceRange.range : "all";
+  const changePriceRange=(range:"all"|"20")=>setPriceRange({stockId:stock?.id ?? null,range});
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   const selectedStockId = useRef<string | null>(stock?.id ?? null);
@@ -183,7 +186,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                 <p className="mb-3 text-xs text-textMuted">以下为已有研究资料，支持与反对证据请结合来源核验。</p>
                 <div className="space-y-3"><NarrativeCard title="如何赚钱" value={stock.business} /><NarrativeCard title="当前研究依据" value={stock.thesis} strong /><ListCard title="已有风险与限制" items={stock.risks} tone="warning" /><ListCard title="下一步验证" items={stock.researchProfile?.validationSignals ?? stock.trackingMetrics} tone="cyan" /></div>
               </Section>
-              <StockPriceHistoryChart stock={stock} compact />
+              <StockPriceHistoryChart stock={stock} compact range={currentPriceRange} onRangeChange={changePriceRange} />
             </div>
             <details className="rounded-lg border border-control bg-bg2 p-4"><summary className="cursor-pointer text-sm font-semibold text-accent">研究定位与投资逻辑全文</summary><p className="my-4 text-sm leading-6 text-textMuted">{positioning}</p><InvestmentLogic stock={stock} /></details>
             <p className="text-xs text-textMuted">以下为既有行业与公司研究资料；未提供独立来源或更新时间的内容不视为实时官方事实。</p>
@@ -207,8 +210,8 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                     ["公司全称", stock.profile?.fullName ?? EMPTY],
                     ["上市日期", stock.profile?.listDate ?? EMPTY],
                     ["行业分类", stock.profile?.industryName ?? EMPTY],
-                    ["总股本", stock.profile?.totalShares ? `${stock.profile.totalShares.toFixed(2)} 亿股` : EMPTY],
-                    ["流通股本", stock.profile?.floatShares ? `${stock.profile.floatShares.toFixed(2)} 亿股` : EMPTY],
+                    ["总股本", typeof stock.profile?.totalShares === "number" && Number.isFinite(stock.profile.totalShares) ? `${stock.profile.totalShares.toFixed(2)} 亿股` : EMPTY],
+                    ["流通股本", typeof stock.profile?.floatShares === "number" && Number.isFinite(stock.profile.floatShares) ? `${stock.profile.floatShares.toFixed(2)} 亿股` : EMPTY],
                   ]}
                 />
                 <TextBlock title="主营业务原始口径" value={stock.profile?.businessScope ?? stock.business} />
@@ -219,7 +222,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
             <Section title="行情快照与口径" icon={<LineChartIcon className="h-4 w-4" />}><QuoteTrust quote={stock.quote} />
               <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
                 <MetricCard label="快照价格" value={numberToDisplay(stock.quote?.latestPrice)} />
-                <MetricCard label="涨跌幅" value={formatPercent(stock.quote?.pctChange)} tone={metricTone(stock.quote?.pctChange)} />
+                <MetricCard label="涨跌幅" value={`${typeof stock.quote?.pctChange === "number" && stock.quote.pctChange > 0 ? "+" : ""}${formatPercent(stock.quote?.pctChange)}`} tone={metricTone(stock.quote?.pctChange)} />
                 <MetricCard label="成交额" value={formatYi(stock.quote?.amount)} />
                 <MetricCard label="换手率" value={formatPercent(stock.quote?.turnover)} />
                 <MetricCard label="总市值" value={formatYi(stock.quote?.marketCap)} />
@@ -227,7 +230,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                 <MetricCard label="涨停价" value={numberToDisplay(stock.quote?.limitUp)} />
                 <MetricCard label="跌停价" value={numberToDisplay(stock.quote?.limitDown)} />
               </div></Section>
-            <StockPriceHistoryChart stock={stock} />
+            <StockPriceHistoryChart stock={stock} range={currentPriceRange} onRangeChange={changePriceRange} />
             <Panel title="估值快照"><Grid rows={valuationRows} /><p className="mt-3 text-xs text-textMuted">沿用现有估值快照口径；历史估值序列与百分位尚未提供。</p></Panel>
             <Panel title="信号雷达">
                 <Grid
@@ -242,9 +245,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
                     ["人气排名", nullableNumber(stock.signals?.popularityRank)],
                   ]}
                 />
-                <TextClamp lines={3} title={stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? EMPTY} className="mt-3 text-sm leading-6 text-textMuted">
-                  {stock.signals?.hotReason ?? stock.signals?.latestInteraction ?? EMPTY}
-                </TextClamp>
+                <div className="mt-3 space-y-3 text-sm leading-6 text-textMuted"><p className="break-words"><strong className="text-textStrong">热点原因：</strong>{stock.signals?.hotReason || EMPTY}</p><p className="break-words"><strong className="text-textStrong">最新互动：</strong>{stock.signals?.latestInteraction || EMPTY}</p></div>
               </Panel>
           </> : null}
           {tab === "expectations" ? <><Section title="业绩验证" icon={<FileCheckIcon />}>
@@ -312,8 +313,8 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
             <details className="rounded-lg border border-control bg-bg2 p-4"><summary className="cursor-pointer text-sm font-semibold text-accent">来源与核验详细层</summary><div className="mt-4"><Panel title="数据质量">
                   <Grid
                     rows={[
-                      ["来源", stock.dataQuality?.map((item) => item.source).join(" / ") || "mock"],
-                      ["状态", stock.dataQuality?.map((item) => item.status).join(" / ") || "mock"],
+                      ["来源", stock.dataQuality?.map((item) => item.source).join(" / ") || "来源未提供"],
+                      ["状态", stock.dataQuality?.map((item) => item.status).join(" / ") || "质量状态未知"],
                       ["行情采集时间", stock.quote?.updatedAt ?? EMPTY],
                       ["缺失字段数", String(stock.missingFields?.length ?? 0)],
                       ["财务更新时间", stock.aShareFinancialSummary?.fetchedAt ?? (stock.market === "港股" && stock.dataMode !== "mock" ? "港股财务数据暂未接入" : EMPTY)],

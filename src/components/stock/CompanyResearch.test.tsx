@@ -53,7 +53,7 @@ describe("complete company research navigation and identity", () => {
     fireEvent.click(screen.getByRole("button", { name: "加入观察清单" })); expect(add).toHaveBeenCalledWith(expect.objectContaining({ id: stocks[0].id }));
     const cases = [
       ["经营与财务", ["主营业务拆解", "F10 / 公司基础资料", "经营与财务快照"]],
-      ["价格与估值", ["60 日价格走势", "估值快照", "信号雷达", "涨停价", "跌停价"]],
+      ["价格与估值", ["价格走势", "估值快照", "信号雷达", "涨停价", "跌停价"]],
       ["预期与验证", ["业绩验证", "业绩预期"]],
       ["证据与复盘", ["观察清单与复盘", "研报", "公告与业绩动态", "来源与核验详细层"]],
       ["研究概览", ["公司研究摘要", "产业链位置与关联公司", "板块 / 概念", "研究定位与投资逻辑全文"]],
@@ -127,6 +127,18 @@ describe("complete company research navigation and identity", () => {
 });
 
 describe("existing price observations", () => {
+  it("keeps zero share counts, both source signal texts and unknown provenance distinct", () => {
+    const subject={...stocks[0],dataQuality:[],profile:{...stocks[0].profile,totalShares:0,floatShares:0},signals:{...stocks[0].signals,hotReason:"既有热点原因",latestInteraction:"既有互动文本"}} as Stock;
+    render(<StockDetailDrawer {...baseProps} stock={subject} />);
+    fireEvent.click(screen.getByRole("tab",{name:"经营与财务"}));expect(screen.getAllByText("0.00 亿股")).toHaveLength(2);
+    fireEvent.click(screen.getByRole("tab",{name:"价格与估值"}));expect(screen.getByText("既有热点原因",{exact:false})).toBeTruthy();expect(screen.getByText("既有互动文本",{exact:false})).toBeTruthy();
+    fireEvent.click(screen.getByRole("tab",{name:"证据与复盘"}));expect(screen.getByText("来源未提供")).toBeTruthy();expect(screen.getByText("质量状态未知")).toBeTruthy();
+  });
+  it("only offers loaded price ranges and preserves the underlying observations", () => {
+    const subject={...stocks[0],priceHistory:Array.from({length:30},(_,i)=>({date:`2026-01-${String(i+1).padStart(2,"0")}`,close:i,amount:null,pctChange:null}))};
+    const before=JSON.stringify(subject);render(<StockPriceHistoryChart stock={subject}/>);
+    fireEvent.change(screen.getByLabelText("价格观察范围"),{target:{value:"20"}});expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(21);expect(JSON.stringify(subject)).toBe(before);
+  });
   it("keeps missing, zero and single valid observations readable without inventing currency", () => {
     const stock: Stock = { ...stocks[0], priceHistory: [{ date: "2026-01-01", close: null, amount: null, pctChange: null }, { date: "2026-01-02", close: 0, amount: null, pctChange: null }, { date: "2026-01-03", close: null, amount: null, pctChange: null }] };
     render(<StockPriceHistoryChart stock={stock} />);

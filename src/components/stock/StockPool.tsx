@@ -44,8 +44,11 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
   const [qualityFilter, setQualityFilter] = useState<QualityFilter>("全部");
   const [sortMode, setSortMode] = useState<SortMode>("默认");
   const [showMoreFilters, setShowMoreFilters] = useState(false);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const mobileFiltersId = useId();
   const moreFiltersId = useId();
   const moreFilterCount = Number(Boolean(filters.search.trim())) + Number(filters.riskLevel !== "全部");
+  const activeFilterCount = moreFilterCount + Number(filters.industryId !== "全部") + Number(filters.segmentId !== "全部") + Number(filters.market !== "全部") + Number(qualityFilter !== "全部");
 
   const mergedFilters = { ...filters, search: [globalSearch, filters.search].filter(Boolean).join(" ") };
   const visibleStocks = useMemo(() => {
@@ -77,7 +80,14 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
 
   return (
     <section className="space-y-4">
-      <SectionHeader title="个股研究池" description={`当前显示 ${visibleStocks.length} / ${stocks.length} 家研究池公司；数量仅表示池内范围。价格与采集时点按现有来源展示。`} />
+      <SectionHeader className="page-heading" title="个股研究池" description={`当前显示 ${visibleStocks.length} / ${stocks.length} 家研究池公司；数量仅表示池内范围。价格与采集时点按现有来源展示。`} />
+      <div className="flex flex-wrap gap-2 sm:hidden">
+        <button type="button" className="min-h-11 flex-1 rounded-md border border-control bg-panel px-3 text-left text-sm" aria-expanded={mobileFiltersOpen} aria-controls={mobileFiltersId} onClick={() => setMobileFiltersOpen((value) => !value)}>
+          筛选与排序 · {activeFilterCount} 项条件 · {sortMode}{mobileFiltersOpen ? " · 收起" : " · 展开"}
+        </button>
+        {activeFilterCount || sortMode !== "默认" ? <button type="button" className="min-h-11 rounded-md border border-control px-3 text-sm text-accent" onClick={() => { setFilters({ ...defaultStockFilters }); setQualityFilter("全部"); setSortMode("默认"); }}>清除池内条件</button> : null}
+      </div>
+      <div id={mobileFiltersId} className={mobileFiltersOpen ? "space-y-3" : "hidden space-y-3 sm:block"}>
       <FilterBar
         className="[&>div]:xl:flex-col [&>div]:xl:items-stretch [&>div>div:first-child]:xl:grid-cols-5"
         action={
@@ -147,6 +157,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
             {["全部", "低", "中", "高"].map((item) => <option key={item} value={item}>{item}</option>)}
           </FilterSelect>
         </div>
+      </div>
       </div>
       {globalSearch ? <p className="text-xs text-textMuted">当前研究池顶栏搜索：{globalSearch}；此条件在顶栏修改。</p> : null}
 

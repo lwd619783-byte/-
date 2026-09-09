@@ -90,7 +90,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
         />
         <p className="mt-2 text-xs text-textMuted">工作流时区：{timeZone}</p>
 
-      <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4" aria-label="验证中心指标">
+      <section className="grid grid-cols-2 gap-3 2xl:grid-cols-4" aria-label="验证中心指标">
         <KpiCard label="最近 7 天事件" value={recentCount} delta="现有事件摘要" description="按公告日期或财务更新时间统计" tone="info" icon={<CalendarDays className="h-4 w-4" />} />
         <KpiCard label="待复盘公司" value={pendingCompanies} delta="需人工判断" description="至少有一项待复盘或数据缺口" tone={pendingCompanies ? "warning" : "positive"} icon={<CheckSquare className="h-4 w-4" />} />
         <KpiCard label="业绩验证事件" value={performanceCount} delta="预告 / 快报 / 报告" description="不与机构一致预期进行比较" tone="positive" icon={<FileCheck2 className="h-4 w-4" />} />

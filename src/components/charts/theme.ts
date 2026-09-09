@@ -18,3 +18,9 @@ export const chartTooltipStyle = {
   color: "var(--ui-text)",
   fontSize: "13px",
 } as const;
+/** Compact axis labels only; tooltips and raw tables retain full values/units. */
+export function formatAxisNumber(value: number): string {
+  if (!Number.isFinite(value)) return "—";
+  if (Math.abs(value) >= 1e6 || (value !== 0 && Math.abs(value) < 0.001)) return value.toExponential(1);
+  return new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 2 }).format(value);
+}

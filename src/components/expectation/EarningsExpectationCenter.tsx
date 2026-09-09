@@ -285,5 +285,5 @@ function Select({ label, value, onChange, options }: { label: string; value: str
 function Field({ label, children }: { label: string; children: React.ReactNode }) { return <label className="min-w-0 text-xs text-textMuted"><span className="mb-1 block">{label}</span>{children}</label>; }
 const metricOptions: Array<[string, string]> = [["revenue", "营业收入"], ["attributable_net_profit", "归母净利润"], ["adjusted_net_profit", "扣非净利润"], ["eps", "每股收益"], ["operating_cash_flow", "经营现金流"]];
 const sourceOptions: Array<[string, string]> = [["company_guidance", "公司指引"], ["institution_single", "单家机构预测"], ["institution_consensus", "机构一致预期"], ["user_estimate", "用户个人预测"]];
-const inputClass = "h-10 w-full min-w-0 rounded border border-borderSoft bg-bg2 px-3 text-sm text-textStrong outline-none focus:border-cyan";
+const inputClass = "min-h-11 w-full min-w-0 rounded border border-control bg-bg2 px-3 text-sm text-textStrong outline-none focus:border-cyan sm:min-h-10";
 const buttonClass = "inline-flex min-h-11 min-w-0 items-center justify-center gap-2 rounded border border-control bg-panel px-3 py-2 text-xs text-textStrong hover:border-cyan";
