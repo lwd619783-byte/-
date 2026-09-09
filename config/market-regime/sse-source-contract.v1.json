@@ -1,0 +1,305 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractId": "sse-historical-source-d1a-v1",
+  "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+  "metricId": "EXCHANGE_MARKET_STATS",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "targetWindow": {
+    "start": "2005-01-01",
+    "end": "2026-09-04",
+    "frequency": "TRADING_DAY",
+    "fields": [
+      "turnoverValue",
+      "totalMarketCap",
+      "negotiableMarketCap"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "legacy-day",
+      "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C",
+      "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+      "scriptFile": "historical-script.js",
+      "dateKey": "CAL_DATE",
+      "boardKey": "PRODUCT_TYPE",
+      "boardScopes": {
+        "1": "SSE_MAIN_BOARD_A",
+        "2": "SSE_B",
+        "48": "SSE_STAR",
+        "40": "SSE_A_B_STAR",
+        "43": "REPURCHASE",
+        "12": "UNPROVEN_AGGREGATE"
+      },
+      "fieldKeys": {
+        "turnoverValue": "TX_AMOUNT",
+        "totalMarketCap": "MKT_VALUE",
+        "negotiableMarketCap": "NEGOTIABLE_VALUE"
+      },
+      "claimedLastDate": "2022-01-03"
+    },
+    {
+      "familyId": "daily-day",
+      "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C",
+      "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+      "scriptFile": "current-script.js",
+      "dateKey": "TRADE_DATE",
+      "boardKey": "PRODUCT_CODE",
+      "boardScopes": {
+        "01": "SSE_MAIN_BOARD_A",
+        "02": "SSE_B",
+        "03": "SSE_STAR",
+        "17": "SSE_A_B_STAR",
+        "11": "REPURCHASE"
+      },
+      "fieldKeys": {
+        "turnoverValue": "TRADE_AMT",
+        "totalMarketCap": "TOTAL_VALUE",
+        "negotiableMarketCap": "NEGO_VALUE"
+      },
+      "claimedLastDate": null
+    }
+  ],
+  "requests": [
+    {
+      "requestId": "calendar-2020-interface",
+      "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20200202_4991648.shtml",
+      "familyId": null,
+      "requestedDate": null,
+      "role": "CALENDAR",
+      "discovery": "OFFICIAL_PAGE_OR_LINK",
+      "parentRequestId": null
+    },
+    {
+      "requestId": "calendar-2020-original",
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20191220_4969627.shtml",
+      "familyId": null,
+      "requestedDate": null,
+      "role": "CALENDAR",
+      "discovery": "OFFICIAL_PAGE_OR_LINK",
+      "parentRequestId": null
+    },
+    {
+      "requestId": "calendar-2020-revision",
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200127_4991582.shtml",
+      "familyId": null,
+      "requestedDate": null,
+      "role": "CALENDAR",
+      "discovery": "OFFICIAL_PAGE_OR_LINK",
+      "parentRequestId": null
+    },
+    {
+      "requestId": "current-script",
+      "url": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_OR_LINK",
+      "parentRequestId": "overview-1"
+    },
+    {
+      "requestId": "daily-2022-01-04",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-04",
+      "familyId": "daily-day",
+      "requestedDate": "2022-01-04",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "current-script"
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2026-09-04",
+      "familyId": "daily-day",
+      "requestedDate": "2026-09-04",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "current-script"
+    },
+    {
+      "requestId": "historical-script",
+      "url": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_OR_LINK",
+      "parentRequestId": "overview-0"
+    },
+    {
+      "requestId": "legacy-2005-01-04",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2005-01-04",
+      "familyId": "legacy-day",
+      "requestedDate": "2005-01-04",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "historical-script"
+    },
+    {
+      "requestId": "legacy-2019-07-19",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-19",
+      "familyId": "legacy-day",
+      "requestedDate": "2019-07-19",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "historical-script"
+    },
+    {
+      "requestId": "legacy-2019-07-22",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2019-07-22",
+      "familyId": "legacy-day",
+      "requestedDate": "2019-07-22",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "historical-script"
+    },
+    {
+      "requestId": "legacy-2020-01-31",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-01-31",
+      "familyId": "legacy-day",
+      "requestedDate": "2020-01-31",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "historical-script"
+    },
+    {
+      "requestId": "legacy-2020-02-03",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-02-03",
+      "familyId": "legacy-day",
+      "requestedDate": "2020-02-03",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "historical-script"
+    },
+    {
+      "requestId": "legacy-2020-04-30",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-04-30",
+      "familyId": "legacy-day",
+      "requestedDate": "2020-04-30",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "historical-script"
+    },
+    {
+      "requestId": "legacy-2020-05-06",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-05-06",
+      "familyId": "legacy-day",
+      "requestedDate": "2020-05-06",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "historical-script"
+    },
+    {
+      "requestId": "legacy-2021-12-31",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-31",
+      "familyId": "legacy-day",
+      "requestedDate": "2021-12-31",
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_SCRIPT_PARAMETERS",
+      "parentRequestId": "historical-script"
+    },
+    {
+      "requestId": "overview-0",
+      "url": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_OR_LINK",
+      "parentRequestId": null
+    },
+    {
+      "requestId": "overview-1",
+      "url": "https://www.sse.com.cn/market/stockdata/overview/day/",
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY",
+      "discovery": "OFFICIAL_PAGE_OR_LINK",
+      "parentRequestId": null
+    }
+  ],
+  "calendar": {
+    "calendarVersion": "sse-2020-holiday-revision-6-bounded-v1",
+    "start": "2020-01-31",
+    "end": "2020-02-03",
+    "closedDates": [
+      "2020-01-31",
+      "2020-02-01",
+      "2020-02-02"
+    ],
+    "openDates": [
+      "2020-02-03"
+    ],
+    "supersedes": [
+      "sse-announcement-2019-65-original-opening"
+    ],
+    "proofs": [
+      {
+        "fileName": "calendar-2020-original.body",
+        "text": "（二）春节：1月24日（星期五）至1月30日（星期四）休市，1月31日（星期五）起照常开市。另外，1月19日（星期日）、2月1日（星期六）为周末休市。"
+      },
+      {
+        "fileName": "calendar-2020-revision.body",
+        "text": "一、延长2020年春节休市至2月2日（星期日），2月3日（星期一）正常开市。"
+      },
+      {
+        "fileName": "calendar-2020-original.body",
+        "text": "上证公告〔2019〕65号"
+      },
+      {
+        "fileName": "calendar-2020-original.body",
+        "text": "二〇一九年十二月二十日"
+      },
+      {
+        "fileName": "calendar-2020-revision.body",
+        "text": "上证公告〔2020〕6号"
+      },
+      {
+        "fileName": "calendar-2020-revision.body",
+        "text": "二○二○年一月二十七日"
+      }
+    ]
+  },
+  "fieldAdmission": {
+    "turnoverValue": {
+      "status": "BLOCKED",
+      "sourceDefinitionIds": [],
+      "reason": "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+    },
+    "totalMarketCap": {
+      "status": "BLOCKED",
+      "sourceDefinitionIds": [],
+      "reason": "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+    },
+    "negotiableMarketCap": {
+      "status": "BLOCKED",
+      "sourceDefinitionIds": [],
+      "reason": "API_DEFINITION_APPLICABILITY_AND_OFFICIAL_RELEASE_UNPROVEN"
+    }
+  },
+  "definitionBreaks": [
+    {
+      "date": "2019-07-22",
+      "kind": "AGGREGATE_COMPOSITION",
+      "meaning": "Stock total includes main A, main B and STAR; excludes repurchase. Never A-only."
+    },
+    {
+      "date": "2020-05-01",
+      "kind": "RATE_DEFINITION_ONLY",
+      "meaning": "Turnover-rate footnote does not establish a change in the three amount fields."
+    },
+    {
+      "date": "2022-01-03",
+      "kind": "SOURCE_FAMILY_BOUNDARY_CLAIM",
+      "meaning": "Legacy script declares data cutoff; boundary continuity and new-family earliest date not proven."
+    }
+  ],
+  "definitionReferences": [
+    {
+      "url": "https://star.sse.com.cn/aboutus/publication/monthly/documents/c/10061130/files/ad36978c88b94bf789a19df338d99416.pdf",
+      "status": "DISCOVERY_ONLY_NOT_API_APPLICABILITY",
+      "meaning": "2020-12 monthly definitions distinguish issued quantity and negotiable quantity; no daily backfill."
+    },
+    {
+      "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061073/files/3434d1799d1145dc826c16c34bd097bf.pdf",
+      "status": "DISCOVERY_ONLY_NOT_API_APPLICABILITY",
+      "meaning": "2020/2019 annual table uses Negotiable Cap for non-restricted capitalization and 100M Yuan; no API applicability proof."
+    }
+  ]
+}

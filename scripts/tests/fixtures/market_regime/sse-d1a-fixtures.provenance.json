@@ -1,0 +1,26 @@
+[
+  {
+    "path": "scripts/tests/fixtures/market_regime/sse-d1a-legacy-2005-01-04.json",
+    "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2005-01-04",
+    "fetchedAt": "2026-09-09T01:48:36Z",
+    "sha256": "d52ddb819347f8074ebdd0a7398058516feb5595fe287c4f82951f1f9381704b",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "historicalCoverageEligible": false
+  },
+  {
+    "path": "scripts/tests/fixtures/market_regime/sse-d1a-legacy-2020-02-03.json",
+    "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2020-02-03",
+    "fetchedAt": "2026-09-09T01:48:38Z",
+    "sha256": "73677cb03ce4ea9202f51613362b3d25b51deb9218c3bbb21c74a1f68895323f",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "historicalCoverageEligible": false
+  },
+  {
+    "path": "scripts/tests/fixtures/market_regime/sse-d1a-daily-2026-09-04.json",
+    "sourceUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2026-09-04",
+    "fetchedAt": "2026-09-09T01:48:39Z",
+    "sha256": "a92264aae83fc262d9b9dcb71a8ac2dc08c56c31b491636987d7ddd132df5b1b",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "historicalCoverageEligible": false
+  }
+]
