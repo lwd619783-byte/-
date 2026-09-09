@@ -131,7 +131,7 @@ describe("existing price observations", () => {
     const stock: Stock = { ...stocks[0], priceHistory: [{ date: "2026-01-01", close: null, amount: null, pctChange: null }, { date: "2026-01-02", close: 0, amount: null, pctChange: null }, { date: "2026-01-03", close: null, amount: null, pctChange: null }] };
     render(<StockPriceHistoryChart stock={stock} />);
     const table = screen.getByRole("table"); expect(within(table).getAllByRole("row")).toHaveLength(4);
-    expect(within(table).getByRole("cell", { name: "0", exact: true })).toBeTruthy(); expect(table.textContent).toContain("币种：源字段未提供");
+    expect(within(table).getByRole("cell", { name: "0" })).toBeTruthy(); expect(table.textContent).toContain("币种：源字段未提供");
     expect(screen.queryByText("图表数据暂缺")).toBeNull();
   });
   it("shows empty data instead of generating a series", () => { render(<StockPriceHistoryChart stock={{ ...stocks[0], priceHistory: [] }} />); expect(screen.getByText("图表数据暂缺")).toBeTruthy(); });

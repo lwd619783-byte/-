@@ -22,3 +22,12 @@ Branch: `codex/ui-v1-full-implementation-ultra`. This task executes D1–D5 cont
 - Focused validation: 9 files / 84 tests PASS, including eight new company identity/chapter/late-response checks. TypeScript and full build/bundle gate PASS.
 - Actual Chromium workflow: filter → sort → preview (zero new data requests) → Escape → full research → financials → neon/pro/light → browser back; filter, sort, scroll and company row focus restored. Invalid company deep link verified. Company overview at 390px and 320px has no document overflow.
 - Local evidence: `data-cache/ui-v1-acceptance/d2-focused.log`, `d2-build.log`, `d2-browser.json`, `d2-responsive.json`, `d2-*.png`.
+
+## D3 — research overview pages
+
+- Home now starts with actual user tasks and research events, a selected existing price series, user observations and six research entries. Empty user work is explicit; no market temperature, news feed or AI conclusions were introduced.
+- Macro retains all nine categories and original detail rows. The selected snapshot separates observation/time/source from the explicitly unavailable historical series and model.
+- Industry provides overview, segment comparison and chain views, with research-pool denominators, scoped amount limitations, all robotics companies and independent private-company clues. Industry hash context survives company research and entry-page navigation.
+- D2 follow-up correction: its final test-only selector used an unsupported `exact` option after the earlier successful typecheck/build. The extra selector option is removed here; the assertions and business implementation are unchanged. Current TypeScript and full build PASS.
+- Focused validation: 5 files / 45 tests PASS. Browser verifies industry → preview → full research → back, page revisit, private-company access, nine desktop page/theme screenshots, and all three pages at 390px and 320px without document overflow or page errors.
+- Evidence: `data-cache/ui-v1-acceptance/d3-focused.log`, `d3-build.log`, `d3-browser.json`, `d3-*.png`. Existing local guidance CRLF integrity failure remains visible pending the isolated checkout-byte correction in D5.

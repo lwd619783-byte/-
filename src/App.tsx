@@ -52,6 +52,8 @@ const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
 export default function App() {
   const navigation = useWorkspaceNavigation();
   const activeTab = pages[navigation.route.page];
+  const industryLocation = useRef<{ industryId?: string; segmentId?: string }>({});
+  if (navigation.route.kind === "page" && navigation.route.page === "industry") industryLocation.current = navigation.route;
   const [visitedTabs, setVisitedTabs] = useState<Set<MainTab>>(() => new Set([activeTab]));
   useEffect(() => { setVisitedTabs(previous => previous.has(activeTab) ? previous : new Set([...previous, activeTab])); }, [activeTab]);
   const [globalSearch, setGlobalSearch] = useState("");
@@ -333,95 +335,14 @@ export default function App() {
       />
           <div hidden={navigation.route.kind !== "page"} className="space-y-4">
 
-          <details className="workspace-context"><summary>工作台概况与数据健康</summary>
-          <DashboardCard className="overflow-hidden p-5">
-            <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
-              <div className="min-w-0">
-                <SectionHeader
-                  eyebrow="研究指挥台"
-                  title="事件验证、风险核验与核心资产跟踪"
-                  description="优先展示真实公告和财务数据触发的投研动作；数据健康与缺失覆盖保留为底层证据状态。"
-                />
-                <button type="button" onClick={() => setExpectationForm({})} className="mt-4 inline-flex h-9 items-center gap-2 rounded border border-cyan/50 px-3 text-xs text-cyan hover:border-cyan"><Plus className="h-4 w-4" />添加业绩预期</button>
-              </div>
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
-                  <p className="text-xs text-textMuted">行业 / 细分</p>
-                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">
-                    {dataset.industries.length} / {dashboardStats.segments}
-                  </p>
-                </div>
-                <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
-                  <p className="text-xs text-textMuted">个股池</p>
-                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{dataset.stocks.length}</p>
-                </div>
-                <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
-                  <p className="text-xs text-textMuted">观察项</p>
-                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{watchlistData.watchItems.filter((item) => !item.archivedAt).length}</p>
-                </div>
-              </div>
-            </div>
-          </DashboardCard>
 
-          <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
-            <KpiCard
-              label="今日待复盘"
-              value={dashboardStats.todayReview}
-              delta="用户观察项"
-              description="复盘日期已到或任务今日到期"
-              tone="info"
-              icon={<RefreshCw className="h-4 w-4" />}
-            />
-            <KpiCard
-              label="已逾期复盘"
-              value={dashboardStats.overdueReview}
-              delta="只读提醒"
-              description="不会自动改变观察状态"
-              tone={dashboardStats.overdueReview ? "warning" : "positive"}
-              icon={<CheckSquare className="h-4 w-4" />}
-            />
-            <KpiCard
-              label="新事件提醒"
-              value={dashboardStats.newEventReminder}
-              delta="研究事件"
-              description="上次复盘后新增真实事件"
-              tone="info"
-              icon={<FileCheck2 className="h-4 w-4" />}
-            />
-            <KpiCard
-              label="高优先级观察"
-              value={dashboardStats.highPriorityWatch}
-              delta="用户数据"
-              description="示例模板不计入"
-              tone={dashboardStats.highPriorityWatch ? "warning" : "positive"}
-              icon={<AlertTriangle className="h-4 w-4" />}
-            />
-          </section>
-
-          <DashboardCard className="p-3">
-            <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-6" aria-label="业绩预期行动指标">
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增业绩预期：<strong className="text-textStrong">{dashboardStats.recentExpectationSnapshots}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">数据更正：<strong className="text-cyan">{dashboardStats.expectationCorrections}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期上修：<strong className="text-success">{dashboardStats.expectationRevisionUp}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期下修：<strong className="text-warning">{dashboardStats.expectationRevisionDown}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增可复盘实际结果：<strong className="text-textStrong">{dashboardStats.reviewableExpectationActuals}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">来源待核验：<strong className="text-warning">{dashboardStats.pendingExpectationSources}</strong></button>
-            </div>
-          </DashboardCard>
-
-          <DashboardCard className="p-3">
-            <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-4" aria-label="数据健康信息">
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">A股行情质量状态 real 且有价格：<strong className="text-textStrong">{dashboardStats.quoteStatusRealCovered}/{dashboardStats.quoteCoverageTotal}</strong></span>
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">已载入快照平均涨跌幅：<strong className="text-textStrong">{formatPercent(dashboardStats.averagePct)}</strong>（有值 {dashboardStats.pctSampleCount}/{dataset.stocks.length}）</span>
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">缺失字段：<strong className="text-warning">{dashboardStats.missingFields}</strong></span>
-              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">{dashboardStats.hkCoverageSummary}</span>
-            </div>
-          </DashboardCard>
-
-          <QuoteTrustSummary stocks={dataset.stocks} />
-          </details>
           {visitedTabs.has("首页") && (<div hidden={activeTab !== "首页"}>
         <HomePage
+          watchItems={watchlistData.watchItems}
+          tasks={reviewTasks}
+          events={researchSnapshot.events}
+          onStartReview={startReview}
+          onOpenEvent={event => navigation.openEvent(event.id)}
           dataMode={dataMode}
           modeLabel={dataset.modeLabel}
           updatedAt={dataset.dataUpdatedAt}
@@ -447,6 +368,9 @@ export default function App() {
           {visitedTabs.has("宏观") && <div hidden={activeTab !== "宏观"}><MacroTab indicators={macroIndicators} generatedAt={dataUpdatedAt} /></div>}
           {visitedTabs.has("行业") && (<div hidden={activeTab !== "行业"}>
             <IndustryTab
+              initialIndustryId={industryLocation.current.industryId}
+              initialSegmentId={industryLocation.current.segmentId}
+              onSelectionChange={navigation.selectIndustry}
               industries={dataset.industries}
               stocks={dataset.stocks}
               globalSearch={globalSearch}
@@ -557,10 +481,92 @@ export default function App() {
               onOpenStock={setSelectedStock}
             />
           </div>)}
-          </div>
-        </section>
-        }
-        rightRail={activeTab === "首页" && navigation.route.kind === "page" ?
+          <details className="workspace-context"><summary>工作台概况与数据健康</summary>
+          <DashboardCard className="overflow-hidden p-5">
+            <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
+              <div className="min-w-0">
+                <SectionHeader
+                  eyebrow="研究指挥台"
+                  title="事件验证、风险核验与核心资产跟踪"
+                  description="优先展示真实公告和财务数据触发的投研动作；数据健康与缺失覆盖保留为底层证据状态。"
+                />
+                <button type="button" onClick={() => setExpectationForm({})} className="mt-4 inline-flex h-9 items-center gap-2 rounded border border-cyan/50 px-3 text-xs text-cyan hover:border-cyan"><Plus className="h-4 w-4" />添加业绩预期</button>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
+                  <p className="text-xs text-textMuted">行业 / 细分</p>
+                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">
+                    {dataset.industries.length} / {dashboardStats.segments}
+                  </p>
+                </div>
+                <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
+                  <p className="text-xs text-textMuted">个股池</p>
+                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{dataset.stocks.length}</p>
+                </div>
+                <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
+                  <p className="text-xs text-textMuted">观察项</p>
+                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{watchlistData.watchItems.filter((item) => !item.archivedAt).length}</p>
+                </div>
+              </div>
+            </div>
+          </DashboardCard>
+
+          <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
+            <KpiCard
+              label="今日待复盘"
+              value={dashboardStats.todayReview}
+              delta="用户观察项"
+              description="复盘日期已到或任务今日到期"
+              tone="info"
+              icon={<RefreshCw className="h-4 w-4" />}
+            />
+            <KpiCard
+              label="已逾期复盘"
+              value={dashboardStats.overdueReview}
+              delta="只读提醒"
+              description="不会自动改变观察状态"
+              tone={dashboardStats.overdueReview ? "warning" : "positive"}
+              icon={<CheckSquare className="h-4 w-4" />}
+            />
+            <KpiCard
+              label="新事件提醒"
+              value={dashboardStats.newEventReminder}
+              delta="研究事件"
+              description="上次复盘后新增真实事件"
+              tone="info"
+              icon={<FileCheck2 className="h-4 w-4" />}
+            />
+            <KpiCard
+              label="高优先级观察"
+              value={dashboardStats.highPriorityWatch}
+              delta="用户数据"
+              description="示例模板不计入"
+              tone={dashboardStats.highPriorityWatch ? "warning" : "positive"}
+              icon={<AlertTriangle className="h-4 w-4" />}
+            />
+          </section>
+
+          <DashboardCard className="p-3">
+            <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-6" aria-label="业绩预期行动指标">
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增业绩预期：<strong className="text-textStrong">{dashboardStats.recentExpectationSnapshots}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">数据更正：<strong className="text-cyan">{dashboardStats.expectationCorrections}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期上修：<strong className="text-success">{dashboardStats.expectationRevisionUp}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期下修：<strong className="text-warning">{dashboardStats.expectationRevisionDown}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增可复盘实际结果：<strong className="text-textStrong">{dashboardStats.reviewableExpectationActuals}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">来源待核验：<strong className="text-warning">{dashboardStats.pendingExpectationSources}</strong></button>
+            </div>
+          </DashboardCard>
+
+          <DashboardCard className="p-3">
+            <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-4" aria-label="数据健康信息">
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">A股行情质量状态 real 且有价格：<strong className="text-textStrong">{dashboardStats.quoteStatusRealCovered}/{dashboardStats.quoteCoverageTotal}</strong></span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">已载入快照平均涨跌幅：<strong className="text-textStrong">{formatPercent(dashboardStats.averagePct)}</strong>（有值 {dashboardStats.pctSampleCount}/{dataset.stocks.length}）</span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">缺失字段：<strong className="text-warning">{dashboardStats.missingFields}</strong></span>
+              <span className="rounded border border-borderSoft bg-bg2/60 px-3 py-2">{dashboardStats.hkCoverageSummary}</span>
+            </div>
+          </DashboardCard>
+
+          <QuoteTrustSummary stocks={dataset.stocks} />
           <RightRail
             mode={dataset.mode}
             coverageSummary={dataset.coverageSummary}
@@ -569,8 +575,12 @@ export default function App() {
             focusStocks={dashboardStats.focusStocks}
             missingStocks={dashboardStats.missingStocks}
             onOpenStock={setSelectedStock}
-          /> : null
+          />
+          </details>
+          </div>
+        </section>
         }
+
       />
 
 

@@ -39,7 +39,7 @@ export function KpiCard({
   const styles = toneClass[tone];
 
   return (
-    <DashboardCard className="p-4" interactive>
+    <DashboardCard className="p-4">
       <div className="flex min-w-0 items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="break-words text-xs font-medium text-textMuted" title={label}>
@@ -47,13 +47,13 @@ export function KpiCard({
           </p>
           <div className={`mt-2 break-words text-[28px] font-semibold leading-tight tabular-nums ${styles.value}`}>{value}</div>
         </div>
-        <div className="rounded-md border border-borderSoft bg-surface/80 p-2 text-cyan">{icon ?? <Icon className="h-4 w-4" />}</div>
+        {icon ? <div className="rounded-md border border-borderSoft bg-surface/80 p-2 text-cyan">{icon}</div> : null}
       </div>
       <div className="mt-3 flex min-w-0 flex-wrap items-center gap-2">
-        <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs ${styles.badge}`}>
+        {delta ? <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs ${styles.badge}`}>
           <Icon className="h-3 w-3" />
-          {delta ?? styles.label}
-        </span>
+          {delta}
+        </span> : null}
         <span className="break-words text-xs leading-5 text-textWeak" title={description}>
           {description}
         </span>

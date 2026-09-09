@@ -109,5 +109,5 @@ function RailKpi({ label, value, tone }: { label: string; value: number; tone: "
 
 function toneForPct(value: number | null | undefined) {
   if (value === null || value === undefined || value === 0) return "text-textMuted";
-  return value > 0 ? "text-success" : "text-danger";
+  return value > 0 ? "text-up" : "text-down";
 }

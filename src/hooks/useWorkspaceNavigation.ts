@@ -28,6 +28,8 @@ export function parseWorkspaceHash(hash: string): WorkspaceRoute {
 export function useWorkspaceNavigation() {
   const [route, setRoute] = useState(() => parseWorkspaceHash(window.location.hash));
   const routeRef = useRef(route); routeRef.current = route;
+  const pageLocations = useRef<Partial<Record<PageId, string>>>({});
+  if (route.kind === "page") pageLocations.current[route.page] = window.location.hash || "#/home";
   const restoreFrame = useRef(0);
   useEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -54,7 +56,7 @@ export function useWorkspaceNavigation() {
   };
   const navigatePage = (page: MainPage) => {
     const id = (Object.keys(pages) as PageId[]).find(id => pages[id] === page)!;
-    go(`#/${id}`);
+    go(pageLocations.current[id] ?? `#/${id}`);
   };
   const openCompany = (stockId: string) => go(`#/company/${encodeURIComponent(stockId)}/overview?from=${routeRef.current.page}`);
   const changeCompanyTab = (tab: CompanyTab) => {
@@ -62,5 +64,9 @@ export function useWorkspaceNavigation() {
     if (current.kind === "company") go(`#/company/${encodeURIComponent(current.stockId!)}/${tab}?from=${current.page}`, true);
   };
   const back = () => { if (window.history.state?.uiV1?.parent) window.history.back(); else go(`#/${routeRef.current.page}`, true); };
-  return { route, navigatePage, openCompany, changeCompanyTab, back };
+  const openEvent = (eventId: string) => go(`#/verification?event=${encodeURIComponent(eventId)}`);
+  const selectIndustry = ({ industryId, segmentId }: { industryId: string; segmentId: string }) => {
+    if(routeRef.current.kind === "page" && routeRef.current.page === "industry") go(`#/industry?industry=${encodeURIComponent(industryId)}&segment=${encodeURIComponent(segmentId)}`, true);
+  };
+  return { route, navigatePage, openCompany, changeCompanyTab, back, openEvent, selectIndustry };
 }
