@@ -23,9 +23,9 @@ import { watchlistSamples } from "./data/watchlist";
 import { buildDashboardDataset } from "./services/dataProvider";
 import { buildResearchEventSnapshot, deduplicateResearchEvents, sortResearchEvents } from "./services/researchEventProvider";
 import { buildReviewTasks } from "./services/reviewTaskProvider";
-import { createBrowserWatchlistRepository, createEmptyWatchlistEnvelope } from "./services/watchlistRepository";
+import { createBrowserWatchlistRepository } from "./services/watchlistRepository";
 import { WatchlistStore, type CreateWatchItemInput, type WatchItemMetadataInput, type WatchlistActionResult } from "./services/watchlistStore";
-import { createBrowserEarningsExpectationRepository, createEmptyEarningsExpectationEnvelope, earningsExpectationCsvTemplate, exportEarningsExpectationCsv } from "./services/earningsExpectationRepository";
+import { createBrowserEarningsExpectationRepository, earningsExpectationCsvTemplate, exportEarningsExpectationCsv } from "./services/earningsExpectationRepository";
 import { EarningsExpectationStore, type CreateEarningsExpectationSnapshotInput, type EarningsExpectationActionResult } from "./services/earningsExpectationStore";
 import { buildEarningsExpectationComparisons } from "./services/earningsExpectationComparisonProvider";
 import { buildEarningsExpectationResearchEvents } from "./services/earningsExpectationEventProvider";
@@ -445,7 +445,7 @@ export default function App() {
               }}
               onReset={() => {
                 const result = repository.reset();
-                if (result.ok) { setWatchlistData(createEmptyWatchlistEnvelope()); setStorageError(null); setCorruptedRaw(null); setWorkflowMessage("本地观察清单已重置为空状态。"); }
+                if (result.ok) { const loaded = repository.load(); setWatchlistData(loaded.data); setStorageError(loaded.error); setCorruptedRaw(loaded.corruptedRaw); setWorkflowMessage("本地观察清单已重置为空状态。"); }
                 else setStorageError(result.error);
               }}
               onAdd={() => setWatchForm({})}
@@ -607,9 +607,10 @@ export default function App() {
         onReset={() => {
           const result = expectationRepository.reset();
           if (result.ok) {
-            setExpectationData(createEmptyEarningsExpectationEnvelope());
-            setExpectationStorageError(null);
-            setExpectationCorruptedRaw(null);
+            const loaded = expectationRepository.load();
+            setExpectationData(loaded.data);
+            setExpectationStorageError(loaded.error);
+            setExpectationCorruptedRaw(loaded.corruptedRaw);
             setWorkflowMessage("本地业绩预期已重置为空状态。");
             setExpectationImportOpen(false);
           } else setExpectationStorageError(result.error);

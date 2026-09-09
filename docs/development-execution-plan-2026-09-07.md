@@ -2,6 +2,9 @@
 
 本索引固化当前任务顺序，不重写历史审计结论，也不重命名已有 Phase 编号。产品保持**单用户 Local-first、全球研究视角**，继续复用已有证据、PIT、Provider Stability 与审计基础。全球视角不等于已覆盖全球行情。
 
+> CURRENT 更新：2026-09-09。本轮 remediation 的 pre-remediation / audit-input main baseline 为 `origin/main @ a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以本次 Git ancestry、当前代码、committed artifacts 和离线验证登记。
+> Remediation 的实际 merge / CI 状态以包含本变更的 Git commit 是否成为 `main` ancestor、对应 PR 和 GitHub Actions 为准；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
+
 ## 冻结顺序与停止点
 
 | 顺序 | 实现与验证门槛 | 独立审查 / 合入门槛 | 当前状态与停止点 |
@@ -20,8 +23,23 @@
 - Phase 1A 已落实 **provider identifier 精确匹配**与 **resolver 合同输入**的内部 seam；后续继续复用当前代码与[实施验证中的合同边界](investment-dashboard-v2-phase-1a-implementation-validation.md)，不擅改 `contracts/v1`。
 - Phase 1B 已关闭，但只完成 Node-only Local Core；没有由此获得 Portfolio UI / Exposure、Research Bridge、可信来源 adapter、OCR、真实历史迁移或 cloud business database 的实现与准入。
 - [Local-first 冻结决定](investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md)覆盖旧云端业务数据库假设；[Master Plan](investment-dashboard-master-plan-2026-09.md)中的 Stage 4 顺序保留为历史基线。Phase 1B 后的唯一当前开发顺序与重叠判断见[路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)，业务语义与准入仍由冻结合同和专项审计决定。
-- 下一项实际业务任务冻结为 **STAGE 4.1 — HISTORICAL OBSERVATION CATALOG R2 / PIT DATASET EXPANSION**；本索引更新不授权其实现。
-- 2026-09-08：[R2 Dataset Scope Freeze V1](market-regime/observation-catalog-r2-scope-freeze-v1.md) 已形成 implementation brief，状态为 **R2 SCOPE FREEZE IMPLEMENTED / PENDING INDEPENDENT REVIEW**；只冻结 dataset、PIT、逐源准入和实施切片，R2 数据集尚未实现。普通 push 后停止，等待独立远端审计。
+- Stage 4.1 R2 已进入逐源实现 / 准入未闭合阶段，不再是整体 NOT_STARTED；CURRENT 逐项状态见下表。
+
+## Stage 4.1 R2 与当前修复停止点
+
+| 切片 | 已合入事实 | 当前数据 / 执行状态 |
+| --- | --- | --- |
+| Scope Freeze / R2-A | PR #26 / #27 | IMPLEMENTED / VERIFIED（离线 CORE）；不是全部历史数据准入 |
+| R2-B PBC | PR #28 | IMPLEMENTED / VERIFIED；数据 PARTIAL；M2 各 256/260、AFRE 余额 129/140、同比 111/140，894 observations |
+| CSRC C1 / C1.1 | PR #30 / #31 | IMPLEMENTED / VERIFIED；PARTIAL：247/260、recovery 0/13，87 field-ready |
+| CSRC C2A1 / C2A2 | PR #32 / #33 | IMPLEMENTED / VERIFIED；NOT_ADMITTED：26 definition-compatible、PIT 0/26、formal observations=0 |
+| SSE / SZSE / BSE D1 | PR #34 / #35 / #36 | IMPLEMENTED / VERIFIED；三所历史数值 NOT_ADMITTED |
+| all-A D2 | PR #37 | IMPLEMENTED / VERIFIED；**NOT_ADMITTED / numericAggregateCount=0 / targetCount=null / coveragePercent=null** |
+| Master Audit Remediation V1 | 实际 merge / CI 状态按本文顶部规则核对 | [MA-01～MA-06 验证记录](master-audit-remediation-v1.md)保留记录时点状态；本轮交付约束：完成验证、commit + push 后停止，等待独立审计；不创建 PR / merge |
+| normalization / backtest / Market Temperature UI | 无正式实现 | NOT_STARTED；没有因本轮修复获得授权 |
+| cloud business database / cross-device sync | Local-first freeze | DEFERRED |
+
+`VERIFIED` 指本轮离线专项与 committed D2 report validation；不新增远端 CI 或完整 raw archive 证明。R2 后继工作须围绕仍未闭合的 source/definition/calendar/release blockers 单独冻结，不从 D2 0 聚合结果跳到 normalization。
 
 ## P0 展示口径与待办
 

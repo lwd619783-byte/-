@@ -5,6 +5,7 @@ import { getIndustryName, getSegmentName } from "../../utils/filters";
 import type { Industry } from "../../types";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
 import { statusDisplayLabel } from "../../utils/displayLabels";
+import { formatStockFieldCoverage, formatStockModuleCoverage } from "../../utils/stockCoverage";
 import { DataQualityBadge, GlassCard, MetricCard, OverflowTooltip, Sparkline, TextClamp, metricTone } from "../common/terminal";
 
 interface StockCardProps {
@@ -81,7 +82,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
       <div className="mt-4 grid min-w-0 grid-cols-1 gap-2 text-sm sm:grid-cols-3">
         <MetricCard label="PE / PB" value={`${numberToDisplay(stock.quote?.peTtm ?? stock.quote?.pe)} / ${numberToDisplay(stock.quote?.pb)}`} />
         <MetricCard label="报告期" value={stock.realFinancial?.reportDate ?? "数据暂缺"} />
-        <MetricCard label="覆盖率" value={typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : "数据暂缺"} tone="cyan" />
+        <MetricCard label="行情/财务字段" value={formatStockFieldCoverage(stock.dataCoverageDetails)} tone="cyan" />
       </div>
       <div className="mt-3 rounded-md border border-borderSoft bg-surface/70 p-2 text-xs text-textMuted">
         <p className="flex min-w-0 gap-1">
@@ -94,6 +95,7 @@ export function StockCard({ stock, industries, onOpen }: StockCardProps) {
           状态：{stock.dataQuality?.map((item) => statusDisplayLabel(item.status)).join(" / ") || "模拟数据"}
         </p>
         <QuoteTrust quote={stock.quote} />
+        <p>{formatStockModuleCoverage(stock.dataCoverageDetails)}</p>
         <p>
           缺失字段：
           <span className={(stock.missingFields?.length ?? 0) > 0 ? "text-warning" : "text-success"}>{stock.missingFields?.length ?? 0}</span>

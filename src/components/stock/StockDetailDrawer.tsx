@@ -9,6 +9,7 @@ import { displayFinancialField, financialStatusLabel, financialUnavailableLabel,
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
 import { statusDisplayLabel } from "../../utils/displayLabels";
+import { formatStockFieldCoverage, formatStockModuleCoverage } from "../../utils/stockCoverage";
 import { ChartPanel, DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp, metricTone } from "../common/terminal";
 import { CompanyRelationGraph } from "./CompanyRelationGraph";
 import { IndustryChainMap } from "./IndustryChainMap";
@@ -374,7 +375,8 @@ function ResearchHeader({
         <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-textMuted">
           <span>快照价格 {numberToDisplay(stock.quote?.latestPrice)}</span>
           <PriceChange value={stock.quote?.pctChange} />
-          <span>覆盖率 {typeof stock.dataCoverage === "number" ? `${stock.dataCoverage}%` : EMPTY}</span>
+          <span>行情/财务字段 {formatStockFieldCoverage(stock.dataCoverageDetails)}</span>
+          <span>{formatStockModuleCoverage(stock.dataCoverageDetails)}</span>
           <span>风险等级 {stock.riskLevel}</span>
         </div>
       </div>

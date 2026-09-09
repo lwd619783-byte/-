@@ -150,6 +150,18 @@ export function executionDates(execution: DcaExecution, state: AssetState): stri
   if (!start || !end) fail('RECONCILIATION_REQUIRED', 'Unlinked DCA execution requires periodStart and periodEnd; period is display only.');
   return [start, end];
 }
+export function requireObservedFactDate(value: CandidatePayloads[CandidateType], state: AssetState, asOfDate: string): void {
+  const date = 'tradeDate' in value ? value.tradeDate : 'date' in value ? value.date : 'snapshotDate' in value ? value.snapshotDate : undefined;
+  if (date && date > asOfDate) fail('LEDGER_INVALID', 'A future record cannot be recorded as an observed fact.');
+  if (value.schemaVersion === 'dca-execution.v1' && ['completed', 'partial'].includes(value.status)) {
+    const dates = executionDates(value, state);
+    // Linked tradeDate is the actual fact. An unlinked period has no precise
+    // fill date in V1: only a wholly future interval proves a future fill.
+    // periodEnd alone must not invalidate an already started planned cycle.
+    const futureFill = value.transactionIds?.length ? dates.some(d => d > asOfDate) : dates[0]! > asOfDate;
+    if (futureFill) fail('LEDGER_INVALID', 'Future DCA fills cannot be recorded as completed or partial.');
+  }
+}
 export function validateExecution(execution: DcaExecution, state: AssetState, historical = false): number {
   const amounts = [execution.plannedAmount, execution.executedAmount, execution.pendingAmount];
   amounts.forEach(v => nonnegative(v.amount));

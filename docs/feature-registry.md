@@ -1,11 +1,17 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-08 CURRENT：Phase 1B 已经由 PR #24 合入并通过 main CI；当前实现顺序见[开发执行索引](development-execution-plan-2026-09-07.md)与[Phase 1B 后路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)。历史实施 / 审计文档仍保留其记录时点状态。
+> 2026-09-09 CURRENT：Phase 1B 与 Stage 4.1 R2-A → R2-B / CSRC / SSE / SZSE / BSE / D2 已合入以下 audit-input main 基线；实现与准入分别登记。当前实现顺序见[开发执行索引](development-execution-plan-2026-09-07.md)与[路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)。[Master Audit Remediation V1](master-audit-remediation-v1.md) 是版本化修复验证记录。历史实施 / 审计文档保留原时点状态。
 
-> 基线日期：2026-09-08
-> 代码基线：`main` @ `2230265e727f0f2787de9e82d509f0c1d3a6230a`
+> 基线日期：2026-09-09
+> 本轮 remediation 的 pre-remediation / audit-input main baseline：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。
+> Remediation 的实际 merge / CI 状态以包含本变更的 Git commit 是否成为 `main` ancestor、对应 PR 和 GitHub Actions 为准；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
 
 状态定义：
+
+- `IMPLEMENTED`：代码 / 合同 / artifact 已存在；不表示获得数据或生产准入。
+- `VERIFIED`：已通过明确范围的验证；本次 R2 指离线专项 / committed report 校验，不冒称全量 raw 重放或远端 CI。
+- `NOT_ADMITTED`：对应数据 / 生产能力未准入；可与 IMPLEMENTED、VERIFIED 同时成立。
+- `NOT_STARTED`：尚无该项正式实现；旧条目中的 `NOT STARTED` 同义。
 
 - `DONE`：功能和当前范围内验证已完成，可继续使用。
 - `DONE V1 / LOCAL CORE`：V1 Node-only 核心与当前范围验证已完成；不表示浏览器 UI、远程入口、真实 adapter / migration 或 Production Admission 已完成。
@@ -98,7 +104,7 @@
 | Macro / Market Regime Metric Registry V1 | CONTRACT V1 | P0 | 原始指标、native frequency、source/release/revision/stale contract 已固化 |
 | 牛熊温度计数学定义 / Normalization V1 | CONTRACT V1 | P0 | 巴菲特、PE、社融、供给压力、缺失数据与 policy cap 已冻结为回测基线 |
 | Historical PIT Backtest Dataset Design V1 | CONTRACT V1 | P0 | 周一08:00决策时钟、release vintage、coverage era、质量分层、immutable manifest 已冻结；R1 observation catalog skeleton 已落地 |
-| Historical Observation Catalog R1 | DONE | P0 | PR #13 已合并；strict PIT、provenance、统计口径版本、离线 validator/test 已通过；下一步 R2 扩展真实历史 vintage 数据集 |
+| Historical Observation Catalog R1 | IMPLEMENTED / VERIFIED | P0 | PR #13 已合并；strict PIT、provenance、统计口径版本与离线 validator；后续 R2 当前事实见下表 |
 | 牛熊温度计 / Market Regime Engine | CONTRACT V1 | P0 | 已恢复 5 个基础模块 + 政策/盈利/结构泡沫 overlay；生产权重仍需历史回测 admission |
 | Asset / Account Local Core | DONE V1 / LOCAL CORE | P0 | Phase 1B：Account、Asset、Transaction、CashFlow、PositionSnapshot、DCA Plan revision / Execution、rollover、append-only SQLite、confirmation、idempotency、Audit、HistoricalAssetImport、账户总额 reconciliation 与 DCA temporal binding；不是完整 Portfolio |
 | Trusted Asset Import Core | DONE V1 / LOCAL CORE | P0 | ImportTrust seam、evidence validation、prepare/plan/confirm/commit、approval binding、幂等与原子写入已实现 |
@@ -117,18 +123,30 @@
 
 ### Stage 4.1 Metric Source / Formula 状态摘要
 
+R2 当前实现已逐项合入；以下验证仅指本轮离线测试及 committed evidence 一致性，不提升原始数据、历史完整性或生产 admission。
+
+| R2 切片 | 实现 / 验证 | 数据状态与证据 |
+| --- | --- | --- |
+| Scope Freeze / R2-A CORE | IMPLEMENTED / VERIFIED；PR #26 / #27 | plan / release / artifact identity、coverage、calendar、revision 与 fail-closed validator；[CORE](market-regime/historical-dataset-r2a-core-v1.md) |
+| R2-B PBC | IMPLEMENTED / VERIFIED；PR #28 | PARTIAL；M2 余额与同比各 256/260，AFRE 余额 129/140、同比 111/140（first release 110）；894 observations；[final evidence](../research-data/market-regime/source-catalog/pbc-final-evidence.v1.json)，inventory / revision 穷尽性仍 PARTIAL |
+| CSRC C1 / C1.1 | IMPLEMENTED / VERIFIED；PR #30 / #31 | PARTIAL；indexed 247/260，13 gaps；recovery 0/13；IPO field-ready 87，refinancing readiness 0；不是正式融资 observations |
+| CSRC C2A1 / C2A2 | IMPLEMENTED / VERIFIED；PR #32 / #33 | NOT_ADMITTED；87 中 26 definition-compatible、61 归月未证明；26 月 PIT 调查成功 0/26，eligible=[]、formal observations=0；[provenance](market-regime/csrc-ipo-historical-release-provenance-r2c2a2-v1.md) |
+| SSE / SZSE / BSE D1 | IMPLEMENTED / VERIFIED；PR #34 / #35 / #36 | 三所 source contract、bounded inventory 与 guarded adapter 已实现；历史数值均 NOT_ADMITTED，完整官方日历、定义适用及 release/vintage 仍有 blocker |
+| all-A D2 | IMPLEMENTED / VERIFIED；PR #37 | **NOT_ADMITTED / numericAggregateCount=0 / targetCount=null / coveragePercent=null**；2 eras × 3 fields，完整未准入窗口保留；[committed report](../research-data/market-regime/source-catalog/all-a-d2/admission-report.v1.json) |
+| normalization / backtest / 正式 Market Temperature UI | NOT_STARTED | 没有因上述实现或测试获得授权 / admission |
+
 | 指标 | 当前状态 | 说明 |
 | --- | --- | --- |
 | 融资余额 | FORMULA READY / SOURCE_READY | 融资余额÷A股流通市值，70%水平分位+30%20日动量；严格历史从2010启动期开始 |
 | 权益 ETF 净流入 | FORMULA CANDIDATE / PROBE_REQUIRED | 20日净申赎÷期初权益ETF AUM；ETF虽自2005存在，但净申赎历史不得用成交额替代 |
 | 北向资金 | FORMULA CANDIDATE / SOURCE_READY | 2014-11-17起沪股通；2016-12-05起沪深两通道；scope break 必须版本化 |
-| A 股成交额 | FORMULA READY / SOURCE PARTIAL | 公式已冻结；沪深北统一历史日频口径仍待 R2/R3 source contract 完成 |
+| A 股成交额 | FORMULA READY / NOT_ADMITTED | SSE/SZSE/BSE source contract 与 D2 已实现；统一日频数值仍 0、完整分母未知 |
 | 新增投资者 | FORMULA CANDIDATE / PROBE_REQUIRED | 2014一码通存在语义断点；V1目标从2015可比口径开始，不拼接旧“新增股票账户” |
 | 市场 PE 百分位 | FORMULA READY / NO_GO | V1主锚沪深300 TTM PE；官方连续可自动化历史估值序列仍未证明，严格 PIT Provider 保持 NO_GO |
-| 中国版巴菲特指标 | FORMULA READY / SOURCE EXTRACTION PENDING | 全部A股总市值÷TTM名义GDP；GDP revision 与北交所 scope 必须版本化 |
-| 股票供给压力 | FORMULA READY / SOURCE PARTIAL | IPO/再融资官方月报 source family 已证明；老 XLS 字段解析仍待完成；减持/回购后续独立建设 |
-| M2 | FORMULA READY / SOURCE_READY | R1 已验证 2005/2015/2024 官方发布样本；R2 扩展完整历史 vintage 索引与 comparable-growth 提取 |
-| 社融 | FORMULA READY / SOURCE PARTIAL | backcast PIT 规则已验证；R2 需枚举 2015 后 first-release vintage 与统计口径演化 |
+| 中国版巴菲特指标 | FORMULA READY / NOT_ADMITTED | 全 A 总市值仍未准入；GDP revision 与北交所 scope 约束保留 |
+| 股票供给压力 | FORMULA READY / NOT_ADMITTED | CSRC XLS probe、IPO definition/provenance gate 已实现，formal financing observations=0；再融资及减持/回购未完成 |
+| M2 | FORMULA READY / PARTIAL | R2-B 余额、同比各 available 256/260；未证明目录 / revision 穷尽性 |
+| 社融 | FORMULA READY / PARTIAL | R2-B 余额 available 129/140；同比 111/140、first-release 110/140；backcast 不倒填到早期 cutoff |
 | 工业企业利润 | CLASSIFIER CANDIDATE / SOURCE_READY | 2005–2010按旧全国口径较低频使用；2011后全国月度、1月免报 |
 | 上市公司盈利扩散 | NOT_READY | 当前56公司Provider不足以代表全A |
 | 政策周期修正 | ARCHITECTURE READY | 总温度修正上限 ±5；初始 strict backtest 可先禁用，再独立建设历史政策事件集 |
@@ -181,13 +199,11 @@
 - [x] P0 Source Probe Pack V1：M2 PASS；AFRE/全市场统计/CSRC 月报 PARTIAL；CSI300 历史 TTM PE NO_GO
 - [x] Task 4.1-R1 Historical Observation Catalog Skeleton：PR #13 合并，strict PIT / provenance / source-definition guards 完成
 
-下一步：
+R2 已实现切片与剩余工作：
 
-- [ ] **冻结的下一实际开发任务：STAGE 4.1 — HISTORICAL OBSERVATION CATALOG R2 / PIT DATASET EXPANSION**
-- [ ] Task 4.1-R2：扩展 M2 2005–present 官方历史 release/vintage 目录
-- [ ] Task 4.1-R2：扩展社融存量 2015–present first-release vintage 与定义版本
-- [ ] Task 4.1-R2：枚举证监会证券市场月报历史索引并完成 IPO/再融资 XLS 字段 schema probe
-- [ ] Task 4.1-R2：继续验证沪深北统一口径成交额 / 总市值 / 流通市值历史 adapter
+- [x] R2-A CORE、R2-B PBC、CSRC C1/C1.1/C2A1/C2A2、SSE/SZSE/BSE D1、all-A D2 已合入上述基线
+- [ ] R2 完整数据 / 逐源准入：继续保留上表 PARTIAL / NOT_ADMITTED，后继 evidence/contract 工作须单独冻结范围
+- Master Audit Remediation V1：修复与验证见版本化记录；实际 merge / CI 状态按本文顶部规则核对。
 - [ ] P1 Source Probe：新增投资者、实际减持、实际回购、ETF净申赎
 - [ ] 构建 2005–present weekly immutable manifests
 - [ ] 执行 Candidate A–D 回测与参数选择

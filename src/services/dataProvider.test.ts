@@ -89,7 +89,8 @@ describe("dashboard data provider", () => {
     expect(stock?.quote?.latestPrice).toBe(88.12);
     expect(stock?.valuation.pe).toBe("48.2");
     expect(stock?.leaderPosition).toContain("国产服务器");
-    expect(stock?.missingFields).toContain("ps");
+    expect(stock?.missingFields).not.toContain("ps");
+    expect(stock?.missingFields).toContain("revenue");
     expect(stock?.research?.reports[0].title).toBe("算力服务器跟踪");
     expect(stock?.aShareAnnouncementSummary?.announcementCount).toBe(1);
     expect(stock?.signals?.dragonTigerCount30d).toBe(1);

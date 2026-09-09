@@ -1,5 +1,6 @@
 import type { DashboardDataMode, DataQualityMeta, FinancialFetchStatus, GeneratedRealDataBundle, Stock } from "../types";
-import { countMissingFields, isRecentlyUpdated, mergeQuality } from "../utils/dataQuality";
+import { isRecentlyUpdated, mergeQuality } from "../utils/dataQuality";
+import { calculateStockCoverage } from "../utils/stockCoverage";
 import { formatFinancialChangeMetric, resolveFinancialDisplayValue } from "../utils/financialDisplay";
 import { formatNumber, formatPercent, formatYi } from "../utils/normalize";
 
@@ -32,37 +33,11 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       ? mergeQuality(profile?.quality, quote?.quality, financialQuality, history?.quality, research?.quality, announcementQuality, signals?.quality, sectorMembership?.quality)
       : [{ source: "mock", status: "mock" as const }];
 
-    const missingFields = useReal
-      ? (() => {
-          const isUnsupportedMarket = dataQuality.some((item) => item.status === "unsupported_market");
-          if (isUnsupportedMarket) return [];
-          const valueMissingFields = countMissingFields({
-            latestPrice: quote?.latestPrice ?? null,
-            pctChange: quote?.pctChange ?? null,
-            marketCap: quote?.marketCap ?? null,
-            floatMarketCap: quote?.floatMarketCap ?? null,
-            pe: quote?.pe ?? null,
-            pb: quote?.pb ?? null,
-            ps: quote?.ps ?? null,
-            revenue: latestSingle?.operatingRevenue ?? null,
-            netProfit: latestSingle?.netProfitAttributableToParent ?? null,
-            roe: null,
-            operatingCashFlow: latestSingle?.netOperatingCashFlow ?? null,
-          });
-          const moduleQualities: Array<[string, DataQualityMeta | undefined]> = [
-            ["quotes", quote?.quality], ["priceHistory", history?.quality], ["financials", financialQuality], ["profiles", profile?.quality],
-            ["research", research?.quality], ["announcements", announcementQuality], ["signals", signals?.quality], ["sectorMembership", sectorMembership?.quality],
-          ];
-          const moduleMissingFields = moduleQualities
-            .filter(([, quality]) => quality && ["missing", "error", "not_implemented", "source_unavailable"].includes(String(quality.status)))
-            .map(([module]) => module);
-          return [...new Set([...valueMissingFields, ...moduleMissingFields])];
-        })()
-      : [];
-    const dataCoverage = useReal ? Math.max(0, Math.round(((19 - missingFields.length) / 19) * 100)) : 0;
+    const { details: dataCoverageDetails, missingFields } = calculateStockCoverage(stock, real, mode);
+    const dataCoverage = dataCoverageDetails.percent;
 
     if (!useReal) {
-      return { ...stock, dataMode: mode, dataQuality, missingFields, dataCoverage, isRecentlyUpdated: false };
+      return { ...stock, dataMode: mode, dataQuality, missingFields, dataCoverage, dataCoverageDetails, isRecentlyUpdated: false };
     }
 
     const amountInYi = (value: number) => formatYi(value / 100_000_000);
@@ -83,6 +58,7 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       dataQuality,
       missingFields,
       dataCoverage,
+      dataCoverageDetails,
       isRecentlyUpdated: isRecentlyUpdated(quote?.updatedAt, now),
       financial: {
         revenue: resolveFinancialDisplayValue({ mode, realValue: latestSingle?.operatingRevenue, status: financialStatus, mockValue: stock.financial.revenue, formatter: amountInYi }),

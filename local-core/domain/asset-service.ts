@@ -1,7 +1,7 @@
 import type { ContractRegistry, LocalDatabase, TransactionRepositories } from '../ports/index.js';
 import type { Account, Asset, AssetCandidate, AuthorizedAppend, CandidatePayloads, CandidateType, CashFlow, Confirmation, DcaExecution, DcaPlan, ImportProvenance, MutationResult, PositionSnapshot, Transaction } from './asset-types.js';
 import { candidateVersions, recordId } from './asset-types.js';
-import { checked, digest, externalContributions, positionWarnings, readAssetState, resolveAsset, validateDcaPlan, validateRecord, validateTransferPairs } from './asset-invariants.js';
+import { checked, digest, externalContributions, positionWarnings, readAssetState, requireObservedFactDate, resolveAsset, validateDcaPlan, validateRecord, validateTransferPairs } from './asset-invariants.js';
 import type { AssetState } from './asset-invariants.js';
 import { canonicalJson } from './canonical-json.js';
 import { fail } from './errors.js';
@@ -95,7 +95,7 @@ export class AssetService {
     const c = requireConfirmation(confirmation);
     return this.database.transaction(repositories => confirmedMutation(repositories, operation, c, value, () => {
       const state = readAssetState(repositories.ledger);
-      if ('tradeDate' in value && value.tradeDate > this.now().slice(0, 10)) fail('LEDGER_INVALID', 'A future plan cannot be recorded as an actual transaction.');
+      requireObservedFactDate(value, state, this.now().slice(0, 10));
       if (officialRecords(state, type).some(v => recordId(v) === recordId(value))) fail('LEDGER_INVALID', 'Stable record ID already exists.');
       const validation = validateRecord(type, value, state, repositories.entities, this.contracts);
       if (validation.warnings.length && !allowPositionWarning) fail('RECONCILIATION_REQUIRED', 'Official write requires resolved reconciliation.');
@@ -116,7 +116,9 @@ export class AssetService {
     if (!values.length || new Set(values.map(v => v.cashFlowId)).size !== values.length) fail('LEDGER_INVALID', 'CashFlow batch requires unique records.');
     return this.database.transaction(repositories => confirmedMutation(repositories, 'cashflow.manual_create', c, values, () => {
       const state = readAssetState(repositories.ledger);
+      const asOfDate = this.now().slice(0, 10);
       for (const value of values) {
+        requireObservedFactDate(value, state, asOfDate);
         if (state.cashFlows.some(v => v.cashFlowId === value.cashFlowId) || duplicateKeys('cash_flow', value).some(k => repositories.ledger.fingerprint(k))) fail('LEDGER_INVALID', 'CashFlow already exists.');
         validateRecord('cash_flow', value, state, repositories.entities, this.contracts);
       }

@@ -1,3 +1,4 @@
+import { PersistedBaseGuard } from "./persistedBaseGuard";
 import type {
   ReviewEntry,
   ReviewTaskState,
@@ -78,10 +79,11 @@ export function migrateWatchlistEnvelope(value: unknown): WatchlistStoreEnvelope
 }
 
 export class WatchlistRepository {
+  private readonly persistedBase: PersistedBaseGuard<WatchlistStoreEnvelope>;
   constructor(
     private readonly storage: StorageLike | null,
     private readonly now: () => Date = () => new Date(),
-  ) {}
+  ) { this.persistedBase = new PersistedBaseGuard(storage, WATCHLIST_STORAGE_KEY); }
 
   load(): RepositoryLoadResult {
     const empty = createEmptyWatchlistEnvelope(this.now());
@@ -92,13 +94,13 @@ export class WatchlistRepository {
     } catch (error) {
       return { data: empty, error: `读取本地观察清单失败：${errorMessage(error)}`, corruptedRaw: null };
     }
-    if (raw === null) return { data: empty, error: null, corruptedRaw: null };
+    if (raw === null) return { data: this.persistedBase.remember(empty, raw), error: null, corruptedRaw: null };
     try {
       const parsed = JSON.parse(raw) as unknown;
       const migrated = migrateWatchlistEnvelope(parsed);
       const validation = validateEnvelope(migrated);
       if (validation.length) throw new Error(validation.join("；"));
-      return { data: migrated, error: null, corruptedRaw: null };
+      return { data: this.persistedBase.remember(migrated, raw), error: null, corruptedRaw: null };
     } catch (error) {
       return {
         data: empty,
@@ -108,18 +110,19 @@ export class WatchlistRepository {
     }
   }
 
-  save(data: WatchlistStoreEnvelope): RepositoryWriteResult {
+  save(data: WatchlistStoreEnvelope, base = data): RepositoryWriteResult {
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法保存。" };
     const errors = validateEnvelope(data);
     if (errors.length) return { ok: false, error: `观察清单校验失败：${errors.join("；")}` };
     try {
-      this.storage.setItem(WATCHLIST_STORAGE_KEY, JSON.stringify(data));
+      this.persistedBase.write(data, base);
       return { ok: true, error: null };
     } catch (error) {
       return { ok: false, error: `保存本地观察清单失败，可能是存储空间不足或浏览器禁用了存储：${errorMessage(error)}` };
     }
   }
 
+  /** Explicit user reset, unlike ordinary save; UI owns confirmation. */
   reset(): RepositoryWriteResult {
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法重置。" };
     try {
@@ -207,7 +210,7 @@ export class WatchlistRepository {
       reviewEntries: [...current.reviewEntries, ...imported.reviewEntries.filter((item) => !reviewIds.has(item.id))],
       reviewTaskStates: [...current.reviewTaskStates, ...imported.reviewTaskStates.filter((item) => !taskIds.has(item.taskId))],
     };
-    const saved = this.save(next);
+    const saved = this.save(next, current);
     return { ...saved, data: saved.ok ? next : null, preview: validation.preview };
   }
 
@@ -219,12 +222,15 @@ export class WatchlistRepository {
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法替换。", data: null, preview: validation.preview };
     const backupKey = `${WATCHLIST_BACKUP_PREFIX}${this.now().toISOString().replace(/[:.]/g, "-")}`;
     try {
-      this.storage.setItem(backupKey, JSON.stringify(current));
+      // Replacement intentionally replaces imported history, but still requires
+      // the reviewed base and backs up its exact persisted bytes before writing.
+      const rawBase = this.persistedBase.assertCurrent(current);
+      this.storage.setItem(backupKey, rawBase ?? JSON.stringify(current));
     } catch (error) {
       return { ok: false, error: `替换前备份失败，已取消替换：${errorMessage(error)}`, data: null, preview: validation.preview };
     }
     const next = { ...cloneJson(validation.data), updatedAt: this.now().toISOString() };
-    const saved = this.save(next);
+    const saved = this.save(next, current);
     return { ...saved, data: saved.ok ? next : null, preview: validation.preview, backupKey };
   }
 }
