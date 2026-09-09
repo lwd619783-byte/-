@@ -1,0 +1,112 @@
+[
+  {
+    "requestId": "home-data",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-home-data.jsonp",
+    "sha256": "a5342440ef3f0471fd2983ef5b4ec51acc3d8695af12c38f8790994f3506ddd3",
+    "byteSize": 6837,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/bseHome/index.do",
+    "fetchedAt": "2026-09-09T03:56:35+00:00"
+  },
+  {
+    "requestId": "daily-2021-11-15",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2021-11-15.jsonp",
+    "sha256": "731c1f3530478541efe45d3a8de75b2e7be78ab51178c4af4efb78dc44d6f737",
+    "byteSize": 1261,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:57:32+00:00"
+  },
+  {
+    "requestId": "daily-2021-11-16",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2021-11-16.jsonp",
+    "sha256": "e985918a10b2ee1f2cdf2326b1f10c7c9329ebe6212f9be9ebd110762d242fc0",
+    "byteSize": 1254,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:57:32+00:00"
+  },
+  {
+    "requestId": "daily-2026-09-04",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2026-09-04.jsonp",
+    "sha256": "7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+    "byteSize": 1262,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:57:32+00:00"
+  },
+  {
+    "requestId": "daily-2026-08-31",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2026-08-31.jsonp",
+    "sha256": "0268b2a75e2ee275733321ec910e0089ef7ac843f53af448f0577d1ba15304ff",
+    "byteSize": 1257,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:58:11+00:00"
+  },
+  {
+    "requestId": "daily-2026-09-01",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2026-09-01.jsonp",
+    "sha256": "4ec8af67eb5ac0818e9c4214faf43228aed6c8820f0ad05b9fc9c8f3d5ed0d11",
+    "byteSize": 1261,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:58:11+00:00"
+  },
+  {
+    "requestId": "daily-2026-09-02",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2026-09-02.jsonp",
+    "sha256": "88c254bcbe1c5f4f916148b3c6d67ff4c79de82c44df15768d25261f0adc885e",
+    "byteSize": 1263,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:58:11+00:00"
+  },
+  {
+    "requestId": "daily-2026-09-03",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2026-09-03.jsonp",
+    "sha256": "f00702c0c4ede618c4283e24ae4f364c6bf02507a06d767492fd54c7d81d635a",
+    "byteSize": 1256,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:58:12+00:00"
+  },
+  {
+    "requestId": "daily-2026-01-01",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2026-01-01.jsonp",
+    "sha256": "4ae603b3be3024d1592e4668657e0dbf13b738d5dfe27e9896597b5dee92e0e9",
+    "byteSize": 8,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:58:12+00:00"
+  },
+  {
+    "requestId": "daily-2026-01-05",
+    "path": "scripts/tests/fixtures/market_regime/bse-d1c-daily-2026-01-05.jsonp",
+    "sha256": "1b5a4385a6bab98c1ba3274e00e866b75bab8fa4c809012a3fc082d42285aeeb",
+    "byteSize": 1264,
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "completeResponse": true,
+    "historicalCoverage": 0,
+    "sourceUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "fetchedAt": "2026-09-09T03:58:12+00:00"
+  }
+]

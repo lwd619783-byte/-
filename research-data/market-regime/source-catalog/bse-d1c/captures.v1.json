@@ -1,0 +1,332 @@
+[
+  {
+    "requestId": "home",
+    "metadata": {
+      "url": "https://www.bse.cn/",
+      "finalUrl": "https://www.bse.cn/",
+      "status": 200,
+      "contentType": "text/html",
+      "path": "research-data/market-regime/raw/bse-d1c/home.body",
+      "sha256": "5dca2e2b82679a5b7238dbf2faa7226955b4e922a0e99847fafade9bf6c5d3bb",
+      "byteSize": 76765,
+      "fetchedAt": "2026-09-09T03:54:58+00:00"
+    }
+  },
+  {
+    "requestId": "main-js",
+    "metadata": {
+      "url": "https://www.bse.cn/template/6/bluewise/_files/js/main.min.js",
+      "fetchedAt": "2026-09-09T03:55:45+00:00",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/main.min.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "path": "research-data/market-regime/raw/bse-d1c/main-js.body",
+      "sha256": "75271fba3b4e44580cc20c6d939ce726a5100a2656b40c6b7f33eb02ebc09398",
+      "byteSize": 7198
+    }
+  },
+  {
+    "requestId": "index-js",
+    "metadata": {
+      "url": "https://www.bse.cn/template/6/bluewise/_files/js/index/index.min.js",
+      "fetchedAt": "2026-09-09T03:55:46+00:00",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/index/index.min.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "path": "research-data/market-regime/raw/bse-d1c/index-js.body",
+      "sha256": "eb3575b6d2a98a572ce537f1de85a7c7ed53c46f1eb55d956ae749365eb6dc83",
+      "byteSize": 22950
+    }
+  },
+  {
+    "requestId": "util-js",
+    "metadata": {
+      "url": "https://www.bse.cn/template/6/bluewise/_files/js/components/common/util.min.js",
+      "fetchedAt": "2026-09-09T03:56:03+00:00",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/components/common/util.min.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "path": "research-data/market-regime/raw/bse-d1c/util-js.body",
+      "sha256": "79761f80f758c29cae8c86bf595e3dc363f45d1c1da8f3063548c682c8b12de5",
+      "byteSize": 25511
+    }
+  },
+  {
+    "requestId": "header",
+    "metadata": {
+      "url": "https://www.bse.cn/myhead.html",
+      "fetchedAt": "2026-09-09T03:56:22+00:00",
+      "finalUrl": "https://www.bse.cn/myhead.html",
+      "status": 200,
+      "contentType": "text/html",
+      "path": "research-data/market-regime/raw/bse-d1c/header.body",
+      "sha256": "b564b21b6d56e87bb0eb152a5a0636f4957f743ae3a911d6a8c6ed386f2d6111",
+      "byteSize": 111738
+    }
+  },
+  {
+    "requestId": "introduce",
+    "metadata": {
+      "url": "https://www.bse.cn/company/introduce.html",
+      "fetchedAt": "2026-09-09T03:56:23+00:00",
+      "finalUrl": "https://www.bse.cn/company/introduce.html",
+      "status": 200,
+      "contentType": "text/html",
+      "path": "research-data/market-regime/raw/bse-d1c/introduce.body",
+      "sha256": "c8c7916c7275116624d3e5ac0dfd85d79c10a5f0cda5a0c2316e192265878d0e",
+      "byteSize": 10910
+    }
+  },
+  {
+    "requestId": "migration",
+    "metadata": {
+      "url": "https://www.bse.cn/important_news/200010914.html",
+      "fetchedAt": "2026-09-09T03:56:22+00:00",
+      "finalUrl": "https://www.bse.cn/important_news/200010914.html",
+      "status": 200,
+      "contentType": "text/html",
+      "path": "research-data/market-regime/raw/bse-d1c/migration.body",
+      "sha256": "dbb5b7536a528afb3602fb34c9a9b7e06b172dad9f8d9c2bf6323b0ea749a5e2",
+      "byteSize": 19760
+    }
+  },
+  {
+    "requestId": "calendar-2026",
+    "metadata": {
+      "url": "https://www.bse.cn/important_news/200027428.html",
+      "fetchedAt": "2026-09-09T03:56:22+00:00",
+      "finalUrl": "https://www.bse.cn/important_news/200027428.html",
+      "status": 200,
+      "contentType": "text/html",
+      "path": "research-data/market-regime/raw/bse-d1c/calendar-2026.body",
+      "sha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteSize": 21440
+    }
+  },
+  {
+    "requestId": "statistics",
+    "metadata": {
+      "url": "https://www.bse.cn/static/statisticdata.html",
+      "fetchedAt": "2026-09-09T03:56:34+00:00",
+      "finalUrl": "https://www.bse.cn/static/statisticdata.html",
+      "status": 200,
+      "contentType": "text/html",
+      "path": "research-data/market-regime/raw/bse-d1c/statistics.body",
+      "sha256": "cff36171ccb988b55f629f37cf9357297d7b95da17bebdd34e1aaf28b3b06785",
+      "byteSize": 26776
+    }
+  },
+  {
+    "requestId": "calendar-page",
+    "metadata": {
+      "url": "https://www.bse.cn/disclosure/tradingtips.html",
+      "fetchedAt": "2026-09-09T03:56:34+00:00",
+      "finalUrl": "https://www.bse.cn/disclosure/tradingtips.html",
+      "status": 200,
+      "contentType": "text/html",
+      "path": "research-data/market-regime/raw/bse-d1c/calendar-page.body",
+      "sha256": "903f0660c064f7a6e1957d47d628e4ae06c59a1c71f53dd48ffb8517868c4094",
+      "byteSize": 15227
+    }
+  },
+  {
+    "requestId": "holidays-page",
+    "metadata": {
+      "url": "https://www.bse.cn/disclosure/Rest_arrangement.html",
+      "fetchedAt": "2026-09-09T03:56:35+00:00",
+      "finalUrl": "https://www.bse.cn/disclosure/Rest_arrangement.html",
+      "status": 200,
+      "contentType": "text/html",
+      "path": "research-data/market-regime/raw/bse-d1c/holidays-page.body",
+      "sha256": "1e73d9624034c342d0a47c8b4c7e82c64f343374b1029276bcca81725a53eafc",
+      "byteSize": 20663
+    }
+  },
+  {
+    "requestId": "home-data",
+    "metadata": {
+      "url": "https://www.bse.cn/bseHome/index.do",
+      "fetchedAt": "2026-09-09T03:56:35+00:00",
+      "finalUrl": "https://www.bse.cn/bseHome/index.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/home-data.body",
+      "sha256": "a5342440ef3f0471fd2983ef5b4ec51acc3d8695af12c38f8790994f3506ddd3",
+      "byteSize": 6837
+    }
+  },
+  {
+    "requestId": "daily-js",
+    "metadata": {
+      "url": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+      "fetchedAt": "2026-09-09T03:56:58+00:00",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-js.body",
+      "sha256": "d8a7f153d9237c1eab890e57b4dfd6d962aecfbe76decbd67656704412a2ce58",
+      "byteSize": 28183
+    }
+  },
+  {
+    "requestId": "calendar-js",
+    "metadata": {
+      "url": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/trade_notice.min.js",
+      "fetchedAt": "2026-09-09T03:56:59+00:00",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/trade_notice.min.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "path": "research-data/market-regime/raw/bse-d1c/calendar-js.body",
+      "sha256": "43b875da65c3218f2c0f621a14d5eeb9b69a352f95ea79294ee746a48806222a",
+      "byteSize": 6871
+    }
+  },
+  {
+    "requestId": "holidays-js",
+    "metadata": {
+      "url": "https://www.bse.cn/template/6/bluewise/_files/js/service/market_authorization/rest_arrangement.min.js",
+      "fetchedAt": "2026-09-09T03:56:59+00:00",
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/service/market_authorization/rest_arrangement.min.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "path": "research-data/market-regime/raw/bse-d1c/holidays-js.body",
+      "sha256": "024f52549fba3c2f1fda8a248a06f143ed24135cd15e62c3e7b472554b775e66",
+      "byteSize": 182
+    }
+  },
+  {
+    "requestId": "daily-2021-11-15",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:57:32+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20211115",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2021-11-15.body",
+      "sha256": "731c1f3530478541efe45d3a8de75b2e7be78ab51178c4af4efb78dc44d6f737",
+      "byteSize": 1261
+    }
+  },
+  {
+    "requestId": "daily-2021-11-16",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:57:32+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20211116",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2021-11-16.body",
+      "sha256": "e985918a10b2ee1f2cdf2326b1f10c7c9329ebe6212f9be9ebd110762d242fc0",
+      "byteSize": 1254
+    }
+  },
+  {
+    "requestId": "daily-2026-09-04",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:57:32+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20260904",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2026-09-04.body",
+      "sha256": "7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+      "byteSize": 1262
+    }
+  },
+  {
+    "requestId": "daily-2026-08-31",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:11+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20260831",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2026-08-31.body",
+      "sha256": "0268b2a75e2ee275733321ec910e0089ef7ac843f53af448f0577d1ba15304ff",
+      "byteSize": 1257
+    }
+  },
+  {
+    "requestId": "daily-2026-09-01",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:11+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20260901",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2026-09-01.body",
+      "sha256": "4ec8af67eb5ac0818e9c4214faf43228aed6c8820f0ad05b9fc9c8f3d5ed0d11",
+      "byteSize": 1261
+    }
+  },
+  {
+    "requestId": "daily-2026-09-02",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:11+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20260902",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2026-09-02.body",
+      "sha256": "88c254bcbe1c5f4f916148b3c6d67ff4c79de82c44df15768d25261f0adc885e",
+      "byteSize": 1263
+    }
+  },
+  {
+    "requestId": "daily-2026-09-03",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:12+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20260903",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2026-09-03.body",
+      "sha256": "f00702c0c4ede618c4283e24ae4f364c6bf02507a06d767492fd54c7d81d635a",
+      "byteSize": 1256
+    }
+  },
+  {
+    "requestId": "daily-2026-01-01",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:12+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20260101",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2026-01-01.body",
+      "sha256": "4ae603b3be3024d1592e4668657e0dbf13b738d5dfe27e9896597b5dee92e0e9",
+      "byteSize": 8
+    }
+  },
+  {
+    "requestId": "daily-2026-01-05",
+    "metadata": {
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "fetchedAt": "2026-09-09T03:58:12+00:00",
+      "method": "POST",
+      "form": "HQJSRQ=20260105",
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "status": 200,
+      "contentType": "text/html;charset=utf-8",
+      "path": "research-data/market-regime/raw/bse-d1c/daily-2026-01-05.body",
+      "sha256": "1b5a4385a6bab98c1ba3274e00e866b75bab8fa4c809012a3fc082d42285aeeb",
+      "byteSize": 1264
+    }
+  }
+]
