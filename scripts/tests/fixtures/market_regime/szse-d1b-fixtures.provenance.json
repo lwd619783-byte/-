@@ -1,0 +1,65 @@
+[
+  {
+    "path": "scripts/tests/fixtures/market_regime/szse-d1b-daily-2005-01-04.json",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2005-01-04&TABKEY=tab1",
+    "sha256": "523ced82088c8359d0ea5f908f59781de7892e85dfc64d1e55b89d448a165d6c",
+    "byteSize": 3162,
+    "fetchedAt": "2026-09-09T03:19:59+00:00",
+    "historicalCoverage": 0
+  },
+  {
+    "path": "scripts/tests/fixtures/market_regime/szse-d1b-daily-2009-10-29.json",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2009-10-29&TABKEY=tab1",
+    "sha256": "ad4f5a963b01b27c8e9a58d2e327c75815a776797c54f45a72c273a93cbed0c6",
+    "byteSize": 4963,
+    "fetchedAt": "2026-09-09T03:19:59+00:00",
+    "historicalCoverage": 0
+  },
+  {
+    "path": "scripts/tests/fixtures/market_regime/szse-d1b-daily-2009-10-30.json",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2009-10-30&TABKEY=tab1",
+    "sha256": "4239e6637287029f07bc8f74bb959f0eb47db9c07f62b4a50568bfb8861e560d",
+    "byteSize": 5082,
+    "fetchedAt": "2026-09-09T03:19:59+00:00",
+    "historicalCoverage": 0
+  },
+  {
+    "path": "scripts/tests/fixtures/market_regime/szse-d1b-daily-2020-02-03.json",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2020-02-03&TABKEY=tab1",
+    "sha256": "83435febd4731b2390537aa09d27d7a816571b967f7878087df33002e2568fa6",
+    "byteSize": 4794,
+    "fetchedAt": "2026-09-09T03:20:00+00:00",
+    "historicalCoverage": 0
+  },
+  {
+    "path": "scripts/tests/fixtures/market_regime/szse-d1b-daily-2021-04-02.json",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2021-04-02&TABKEY=tab1",
+    "sha256": "272d409443a0edd54048431c01080e29070dc9e8628c4d99e4e16e3caceee89e",
+    "byteSize": 4686,
+    "fetchedAt": "2026-09-09T03:20:00+00:00",
+    "historicalCoverage": 0
+  },
+  {
+    "path": "scripts/tests/fixtures/market_regime/szse-d1b-daily-2021-04-06.json",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2021-04-06&TABKEY=tab1",
+    "sha256": "34bfffac205058b34e43a4effb1aa57a83cdad79589885c2e816c74e145ac9d0",
+    "byteSize": 4558,
+    "fetchedAt": "2026-09-09T03:20:01+00:00",
+    "historicalCoverage": 0
+  },
+  {
+    "path": "scripts/tests/fixtures/market_regime/szse-d1b-daily-2026-09-04.json",
+    "artifactRole": "TEST_FIXTURE_EXCERPT",
+    "sourceUrl": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2026-09-04&TABKEY=tab1",
+    "sha256": "6d60d99ef7592f71f4fd8b568df8beb6893af4d48ee088f24e29b211ac62916b",
+    "byteSize": 4699,
+    "fetchedAt": "2026-09-09T03:19:14+00:00",
+    "historicalCoverage": 0
+  }
+]

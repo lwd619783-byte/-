@@ -1,0 +1,588 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractId": "szse-historical-source-d1b-v1",
+  "sourceId": "SZSE_MARKET_STATS_OFFICIAL",
+  "metricId": "EXCHANGE_MARKET_STATS",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "targetWindow": {
+    "start": "2005-01-01",
+    "end": "2026-09-04",
+    "frequency": "TRADING_DAY",
+    "fields": [
+      "turnoverValue",
+      "totalMarketCap",
+      "negotiableMarketCap"
+    ]
+  },
+  "families": [
+    {
+      "familyId": "security-category",
+      "catalogId": "1803_sczm",
+      "parserVersion": "szse-security-category-json-v1.0.0",
+      "fieldKeys": {
+        "turnoverValue": "cjje",
+        "totalMarketCap": "sjzz",
+        "negotiableMarketCap": "ltsz"
+      },
+      "columnLabels": {
+        "cjje": "成交金额<br>(亿元)",
+        "sjzz": "总市值<br>(亿元)",
+        "ltsz": "流通市值<br>(亿元)"
+      },
+      "rowScopes": {
+        "主板A股": "SZSE_MAIN_A",
+        "中小板": "SZSE_SME_A",
+        "创业板": "SZSE_CHINEXT_A",
+        "创业板A股": "SZSE_CHINEXT_A"
+      },
+      "scopeStatus": "LABEL_CANDIDATES_ONLY_NO_AGGREGATION_OR_CROSS_ERA_ADMISSION"
+    }
+  ],
+  "secondaryFamily": {
+    "familyId": "stock-daily",
+    "catalogId": "scsj_gprdgk_after",
+    "status": "EVIDENCE_ONLY_MIXED_SCOPE_AND_UNPROVEN_RESPONSE_DATE",
+    "fieldsAvailable": [
+      "turnoverValue"
+    ],
+    "fieldsAbsent": [
+      "totalMarketCap",
+      "negotiableMarketCap"
+    ],
+    "reason": "Main board includes B; footer includes depositary receipts; no independent response date. Never sum gp with boards.",
+    "legacyResponseCatalogId": "scsj_gprdgk",
+    "legacyStatus": "REJECTED_WRONG_SOURCE_FAMILY_NOT_SILENTLY_ACCEPTED"
+  },
+  "acquisition": {
+    "maxRequests": 30,
+    "timeoutSeconds": 12,
+    "maxResponseBytes": 2000000,
+    "mode": "EXACT_REQUESTS_ONLY_NO_DATE_ENUMERATION"
+  },
+  "fieldAdmission": {
+    "turnoverValue": {
+      "status": "BLOCKED",
+      "sourceDefinitionIds": [],
+      "reason": "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+    },
+    "totalMarketCap": {
+      "status": "BLOCKED",
+      "sourceDefinitionIds": [],
+      "reason": "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+    },
+    "negotiableMarketCap": {
+      "status": "BLOCKED",
+      "sourceDefinitionIds": [],
+      "reason": "FIELD_APPLICABILITY_AND_RELEASE_UNPROVEN"
+    }
+  },
+  "requests": [
+    {
+      "requestId": "overview",
+      "url": "https://www.szse.cn/market/overview/index.html",
+      "discoveryKind": "ROOT",
+      "proofs": [],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "szse-path",
+      "url": "https://www.szse.cn/szsePath.js",
+      "discoveryKind": "SCRIPT",
+      "proofs": [
+        {
+          "requestId": "overview",
+          "text": "\"/szsePath.js?random=\""
+        }
+      ],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "concat-https",
+      "url": "https://res.szse.cn/common/js/concatversion.js",
+      "discoveryKind": "SCRIPT",
+      "proofs": [
+        {
+          "requestId": "overview",
+          "text": "\"/common/js/concatversion.js?random=\""
+        }
+      ],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "report-static",
+      "url": "https://res.static.szse.cn/modules/report/js/report_new.min.js?version=1.2.221",
+      "discoveryKind": "SCRIPT",
+      "proofs": [
+        {
+          "requestId": "overview",
+          "text": "changeVertion('/modules/report/js/report_new.js','js');"
+        },
+        {
+          "requestId": "concat-https",
+          "text": "var sjsVersion = '1.2.221';"
+        },
+        {
+          "requestId": "concat-https",
+          "text": "if(!minFlag)url=url.replace('.'+type,'.min.'+type);"
+        },
+        {
+          "requestId": "concat-https",
+          "text": "https_file_path: domainBackSwitch('resStaticHttps'),"
+        },
+        {
+          "requestId": "szse-path",
+          "text": "var domainResStaticHttps=\"https://res.static.szse.cn\";"
+        }
+      ],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-landing",
+      "url": "https://www.szse.cn/market/stock/situation/daily/index.html",
+      "discoveryKind": "LINK",
+      "proofs": [
+        {
+          "requestId": "overview",
+          "text": "href=\"../../market/stock/situation/daily/index.html\""
+        }
+      ],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "overview-current",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm",
+      "discoveryKind": "API_METADATA",
+      "proofs": [
+        {
+          "requestId": "concat-https",
+          "text": "report_path: '/api/report',"
+        },
+        {
+          "requestId": "report-static",
+          "text": "url:pathObj.report_path+\"/ShowReport/data\""
+        },
+        {
+          "requestId": "report-static",
+          "text": "a=this.settings.url+\"?SHOWTYPE=JSON&CATALOGID=\"+this.settings.catalogId"
+        },
+        {
+          "requestId": "overview",
+          "text": "data-s-catalog-id=\"1803_sczm\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "stock-current",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=scsj_gprdgk_after",
+      "discoveryKind": "API_METADATA",
+      "proofs": [
+        {
+          "requestId": "concat-https",
+          "text": "report_path: '/api/report',"
+        },
+        {
+          "requestId": "report-static",
+          "text": "url:pathObj.report_path+\"/ShowReport/data\""
+        },
+        {
+          "requestId": "report-static",
+          "text": "a=this.settings.url+\"?SHOWTYPE=JSON&CATALOGID=\"+this.settings.catalogId"
+        },
+        {
+          "requestId": "daily-landing",
+          "text": "data-s-catalog-id=\"scsj_gprdgk_after\""
+        }
+      ],
+      "familyId": "stock-daily",
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-2005-01-04",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2005-01-04&TABKEY=tab1",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "overview-current",
+          "text": "\"name\":\"txtQueryDate\""
+        },
+        {
+          "requestId": "overview-current",
+          "text": "\"tabkey\":\"tab1\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": "2005-01-04",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-2009-10-29",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2009-10-29&TABKEY=tab1",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "overview-current",
+          "text": "\"name\":\"txtQueryDate\""
+        },
+        {
+          "requestId": "overview-current",
+          "text": "\"tabkey\":\"tab1\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": "2009-10-29",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-2009-10-30",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2009-10-30&TABKEY=tab1",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "overview-current",
+          "text": "\"name\":\"txtQueryDate\""
+        },
+        {
+          "requestId": "overview-current",
+          "text": "\"tabkey\":\"tab1\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": "2009-10-30",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-2020-01-31",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2020-01-31&TABKEY=tab1",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "overview-current",
+          "text": "\"name\":\"txtQueryDate\""
+        },
+        {
+          "requestId": "overview-current",
+          "text": "\"tabkey\":\"tab1\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": "2020-01-31",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-2020-02-03",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2020-02-03&TABKEY=tab1",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "overview-current",
+          "text": "\"name\":\"txtQueryDate\""
+        },
+        {
+          "requestId": "overview-current",
+          "text": "\"tabkey\":\"tab1\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": "2020-02-03",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-2021-04-02",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2021-04-02&TABKEY=tab1",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "overview-current",
+          "text": "\"name\":\"txtQueryDate\""
+        },
+        {
+          "requestId": "overview-current",
+          "text": "\"tabkey\":\"tab1\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": "2021-04-02",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-2021-04-06",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2021-04-06&TABKEY=tab1",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "overview-current",
+          "text": "\"name\":\"txtQueryDate\""
+        },
+        {
+          "requestId": "overview-current",
+          "text": "\"tabkey\":\"tab1\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": "2021-04-06",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&txtQueryDate=2026-09-04&TABKEY=tab1",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "overview-current",
+          "text": "\"name\":\"txtQueryDate\""
+        },
+        {
+          "requestId": "overview-current",
+          "text": "\"tabkey\":\"tab1\""
+        }
+      ],
+      "familyId": "security-category",
+      "requestedDate": "2026-09-04",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "stock-2005-01-04",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=scsj_gprdgk_after&txtQueryDate=2005-01-04&tjzqlb=D&bkbz=GP%7CXZ%7CCY&cjbz=cjl%7Ccjje&cxzs=%E6%88%90%E4%BA%A4%E9%87%8F%EF%BC%88%E4%BA%BF%EF%BC%89%7C%E6%88%90%E4%BA%A4%E9%87%91%E9%A2%9D%EF%BC%88%E4%BA%BF%E5%85%83%EF%BC%89",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "stock-current",
+          "text": "\"name\":\"txtQueryDate\""
+        }
+      ],
+      "familyId": "stock-daily",
+      "requestedDate": "2005-01-04",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "stock-2021-04-02",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=scsj_gprdgk_after&txtQueryDate=2021-04-02&tjzqlb=D&bkbz=GP%7CXZ%7CCY&cjbz=cjl%7Ccjje&cxzs=%E6%88%90%E4%BA%A4%E9%87%8F%EF%BC%88%E4%BA%BF%EF%BC%89%7C%E6%88%90%E4%BA%A4%E9%87%91%E9%A2%9D%EF%BC%88%E4%BA%BF%E5%85%83%EF%BC%89",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "stock-current",
+          "text": "\"name\":\"txtQueryDate\""
+        }
+      ],
+      "familyId": "stock-daily",
+      "requestedDate": "2021-04-02",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "stock-2021-04-06",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=scsj_gprdgk_after&txtQueryDate=2021-04-06&tjzqlb=D&bkbz=GP%7CXZ%7CCY&cjbz=cjl%7Ccjje&cxzs=%E6%88%90%E4%BA%A4%E9%87%8F%EF%BC%88%E4%BA%BF%EF%BC%89%7C%E6%88%90%E4%BA%A4%E9%87%91%E9%A2%9D%EF%BC%88%E4%BA%BF%E5%85%83%EF%BC%89",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "stock-current",
+          "text": "\"name\":\"txtQueryDate\""
+        }
+      ],
+      "familyId": "stock-daily",
+      "requestedDate": "2021-04-06",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "stock-2026-09-04",
+      "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=scsj_gprdgk_after&txtQueryDate=2026-09-04&tjzqlb=D&bkbz=GP%7CXZ%7CCY&cjbz=cjl%7Ccjje&cxzs=%E6%88%90%E4%BA%A4%E9%87%8F%EF%BC%88%E4%BA%BF%EF%BC%89%7C%E6%88%90%E4%BA%A4%E9%87%91%E9%A2%9D%EF%BC%88%E4%BA%BF%E5%85%83%EF%BC%89",
+      "discoveryKind": "API_DATE",
+      "proofs": [
+        {
+          "requestId": "stock-current",
+          "text": "\"name\":\"txtQueryDate\""
+        }
+      ],
+      "familyId": "stock-daily",
+      "requestedDate": "2026-09-04",
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "calendar-original",
+      "url": "https://www.szse.cn/disclosure/notice/general/t20191220_572766.html",
+      "discoveryKind": "ROOT",
+      "proofs": [],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "CALENDAR"
+    },
+    {
+      "requestId": "calendar-spring",
+      "url": "https://www.szse.cn/disclosure/notice/general/t20200116_573576.html",
+      "discoveryKind": "ROOT",
+      "proofs": [],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "CALENDAR"
+    },
+    {
+      "requestId": "calendar-revision",
+      "url": "https://www.szse.cn/disclosure/notice/t20200127_573917.html",
+      "discoveryKind": "ROOT",
+      "proofs": [],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "CALENDAR"
+    },
+    {
+      "requestId": "board-merger",
+      "url": "https://www.szse.cn/aboutus/trends/news/t20210406_585442.html",
+      "discoveryKind": "ROOT",
+      "proofs": [],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "chinext-launch",
+      "url": "https://www.szse.cn/disclosure/notice/general/t20091026_500286.html",
+      "discoveryKind": "ROOT",
+      "proofs": [],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "monthly-page",
+      "url": "https://www.szse.cn/www/market/periodical/month/t20250805_615341.html",
+      "discoveryKind": "ROOT",
+      "proofs": [],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    },
+    {
+      "requestId": "monthly-overview",
+      "url": "http://docs.static.szse.cn/www/market/periodical/month/W020250805517078681963.html",
+      "discoveryKind": "LINK",
+      "proofs": [
+        {
+          "requestId": "monthly-page",
+          "text": "href=\"http://docs.static.szse.cn/www/market/periodical/month/W020250805517078681963.html\""
+        }
+      ],
+      "familyId": null,
+      "requestedDate": null,
+      "role": "INVENTORY"
+    }
+  ],
+  "calendar": {
+    "calendarVersion": "szse-2020-spring-revision-bounded-v1",
+    "start": "2020-01-31",
+    "end": "2020-02-03",
+    "closedDates": [
+      "2020-01-31",
+      "2020-02-01",
+      "2020-02-02"
+    ],
+    "openDates": [
+      "2020-02-03"
+    ],
+    "supersedes": [
+      "szse-2020-spring-original-opening"
+    ],
+    "proofs": [
+      {
+        "requestId": "calendar-original",
+        "text": "<p class=\"MsoPlainText\" style=\"text-indent: 24.0pt; mso-char-indent-count: 2.0; line-height: 200%;\"><span style=\"font-size: 12pt; line-height: 200%; font-family: 宋体;\">（二）春节：<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">24</span>日（星期五）至<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">30</span>日（星期四）休市，<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">31</span>日（星期五）起照常开市。另外，<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">19</span>日（星期日）、<span lang=\"EN-US\">2</span>月<span lang=\"EN-US\">1</span>日（星期六）为周末休市。<span lang=\"EN-US\"><o:p></o:p></span></span></p>"
+      },
+      {
+        "requestId": "calendar-spring",
+        "text": "<p class=\"MsoNormal\" style=\"text-indent: 24.0pt; mso-char-indent-count: 2.0; line-height: 200%; mso-pagination: widow-orphan; layout-grid-mode: char;\"><span lang=\"EN-US\" style=\"font-size: 12.0pt; line-height: 200%; font-family: 宋体; mso-ascii-theme-font: minor-fareast; mso-fareast-theme-font: minor-fareast; mso-hansi-theme-font: minor-fareast;\">1</span><span style=\"font-size: 12.0pt; line-height: 200%; font-family: 宋体; mso-ascii-theme-font: minor-fareast; mso-fareast-theme-font: minor-fareast; mso-hansi-theme-font: minor-fareast;\">月<span lang=\"EN-US\">24</span>日（星期五）至<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">30</span>日（星期四）休市，<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">31</span>日（星期五）起照常开市。另外，<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">19</span>日（星期日）、<span lang=\"EN-US\">2</span>月<span lang=\"EN-US\">1</span>日（星期六）为周末休市。<span lang=\"EN-US\"><o:p></o:p></span></span></p>"
+      },
+      {
+        "requestId": "calendar-revision",
+        "text": "<p class=\"MsoNormal\" style=\"line-height: 200%; font-size: 16px; text-indent: 2em;\"><span style=\"font-size: 12.0pt; line-height: 200%; font-family: 宋体; mso-ascii-theme-font: minor-fareast; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-theme-font: minor-fareast; mso-bidi-font-family: 'Times New Roman';\">一、延长<span lang=\"EN-US\">2020</span>年春节休市至<span lang=\"EN-US\">2</span>月<span lang=\"EN-US\">2</span>日（星期日），<span lang=\"EN-US\">2</span>月<span lang=\"EN-US\">3</span>日（星期一）起照常开市。<span lang=\"EN-US\"><o:p></o:p></span></span></p>"
+      },
+      {
+        "requestId": "calendar-revision",
+        "text": "<div class=\"time\">时间：<span>2020-01-27</span></div>"
+      }
+    ]
+  },
+  "definitionBreaks": [
+    {
+      "date": "2009-10-30",
+      "kind": "CHINEXT_LAUNCH",
+      "proof": {
+        "requestId": "chinext-launch",
+        "text": "<P class=MsoNormal style=\"MARGIN: 0cm 0cm 0pt; TEXT-INDENT: 18pt; mso-pagination: widow-orphan; mso-char-indent-count: 2.0\"><SPAN style=\"FONT-SIZE: 9pt; FONT-FAMILY: 宋体\">创业板首批股票将于<?xml:namespace prefix = st1 ns = \"urn:schemas-microsoft-com:office:smarttags\" /><st1:chsdate w:st=\"on\" Year=\"2009\" Month=\"10\" Day=\"30\" IsLunarDate=\"False\" IsROCDate=\"False\"><SPAN lang=EN-US>2009</SPAN>年<SPAN lang=EN-US>10</SPAN>月<SPAN lang=EN-US>30</SPAN>日</st1:chsdate>在本所上市交易，现就创业板上市证券交易的有关事项通知如下：<SPAN lang=EN-US><o:p></o:p></SPAN></SPAN></P>"
+      }
+    },
+    {
+      "date": "2021-04-06",
+      "kind": "MAIN_SME_MERGER",
+      "proof": {
+        "requestId": "board-merger",
+        "text": "<p class=\"MsoNormal\" style=\"text-indent: 24.0pt; mso-char-indent-count: 2.0; line-height: 200%;\"><span lang=\"EN-US\" style=\"font-size: 12.0pt; line-height: 200%; font-family: 宋体;\">4</span><span style=\"font-size: 12.0pt; line-height: 200%; font-family: 宋体;\">月<span lang=\"EN-US\">6</span>日，深交所主板与中小板合并正式实施，真爱美家、中农联合、华亚智能等<span lang=\"EN-US\">3</span>家企业首次公开发行股份并在深市主板上市。这是继创业板改革并试点注册制顺利实施后，资本市场又一项重大改革成功落地，是资本市场支持粤港澳大湾区和先行示范区建设的又一项重要成果。<span lang=\"EN-US\"><o:p></o:p></span></span></p>"
+      }
+    },
+    {
+      "date": null,
+      "kind": "SOURCE_FAMILY_COVERAGE_BREAK_UNLOCATED",
+      "proof": null
+    },
+    {
+      "date": null,
+      "kind": "CHINEXT_LABEL_CHANGE_UNLOCATED",
+      "proof": null
+    },
+    {
+      "date": "2021-04-06",
+      "kind": "SECONDARY_RESPONSE_FAMILY_MIGRATION_BEFORE",
+      "proof": {
+        "requestId": "stock-2021-04-02",
+        "text": "\"catalogid\":\"scsj_gprdgk\""
+      }
+    },
+    {
+      "date": "2021-04-06",
+      "kind": "SECONDARY_RESPONSE_FAMILY_MIGRATION_AFTER",
+      "proof": {
+        "requestId": "stock-2021-04-06",
+        "text": "\"catalogid\":\"scsj_gprdgk_after\""
+      }
+    }
+  ],
+  "blockers": [
+    "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+    "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+    "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+    "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+    "PIT_VINTAGE_UNPROVEN",
+    "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+    "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN",
+    "SECONDARY_FAMILY_MIXED_SCOPE_AND_NO_RESPONSE_DATE",
+    "SECONDARY_LEGACY_RESPONSE_FAMILY_NOT_ADMITTED"
+  ],
+  "auxiliaryProofs": [
+    {
+      "requestId": "monthly-overview",
+      "text": "Total Market Capitalization (RMB Mil.)",
+      "meaning": "MONTHLY_TOTAL_CAP_TERM_ONLY_NOT_DAILY_API_APPLICABILITY"
+    },
+    {
+      "requestId": "monthly-overview",
+      "text": "Total Negotiable Market Capitalization (RMB Mil.)",
+      "meaning": "MONTHLY_NEGOTIABLE_TERM_NOT_FREE_FLOAT_OR_DAILY_VALUE"
+    },
+    {
+      "requestId": "monthly-overview",
+      "text": "Total Turnover (RMB Mil.)",
+      "meaning": "MONTHLY_TURNOVER_NOT_DAILY_BACKFILL"
+    }
+  ]
+}
