@@ -1,0 +1,5 @@
+
+> investment-research-dashboard@0.1.0 ui:audit
+> node scripts/ui-audit.mjs
+
+UI audit written to docs\ui-display-audit-report.md

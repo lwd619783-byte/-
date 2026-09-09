@@ -13,12 +13,12 @@ export function readAppearance(): { theme: Theme; error: string | null } {
 }
 const AppearanceContext = createContext({ theme: "neon" as Theme, error: null as string | null, setTheme: (_theme: Theme) => {} });
 
-export function AppearanceProvider({ children }: { children: ReactNode }) {
-  const [appearance, setAppearance] = useState(readAppearance);
+export function AppearanceProvider({ children, persist = true }: { children: ReactNode; persist?: boolean }) {
+  const [appearance, setAppearance] = useState(() => persist ? readAppearance() : { theme: "neon" as Theme, error: null });
   useLayoutEffect(() => { document.documentElement.dataset.theme = appearance.theme; }, [appearance.theme]);
   const setTheme = (theme: Theme) => {
     let error: string | null = null;
-    try { localStorage.setItem(APPEARANCE_KEY, theme); }
+    try { if (persist) localStorage.setItem(APPEARANCE_KEY, theme); }
     catch { error = "外观偏好未能保存，当前会话仍可使用；业务数据不受影响。"; }
     setAppearance({ theme, error });
   };

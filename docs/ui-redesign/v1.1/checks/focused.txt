@@ -1,0 +1,25 @@
+
+ RUN  v2.1.9 <workspace>
+
+ ✓ src/hooks/useWorkspaceNavigation.test.tsx (9 tests) 43ms
+stderr | VirtualConsole.<anonymous> (<workspace>\node_modules\jsdom\lib\jsdom\virtual-console.js:29:45)
+Error: Not implemented: window.scrollTo
+    at module.exports (<workspace>\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at <workspace>\node_modules\jsdom\lib\jsdom\browser\Window.js:960:7
+    at <workspace>\src\hooks\useWorkspaceNavigation.ts:55:54
+    at invokeTheCallbackFunction (<workspace>\node_modules\jsdom\lib\jsdom\living\generated\Function.js:19:26)
+    at runAnimationFrameCallbacks (<workspace>\node_modules\jsdom\lib\jsdom\browser\Window.js:662:13)
+    at Timeout.<anonymous> (<workspace>\node_modules\jsdom\lib\jsdom\browser\Window.js:640:11)
+    at listOnTimeout (node:internal/timers:585:17)
+    at processTimers (node:internal/timers:521:7) undefined
+
+ ✓ src/components/layout/Appearance.test.tsx (6 tests) 95ms
+ ✓ src/components/home/HomePage.test.tsx (9 tests) 257ms
+ ✓ src/components/stock/CompanyResearch.test.tsx (11 tests) 649ms
+ ✓ src/ui-review/UiReview.test.tsx (4 tests) 3221ms
+   ✓ explicit isolated UI review > does not import the business application, read/write storage, call loaders or export across all profiles/pages/chapters 3193ms
+
+ Test Files  5 passed (5)
+      Tests  39 passed (39)
+   Start at  00:06:42
+   Duration  6.84s (transform 1.27s, setup 0ms, collect 5.68s, tests 4.27s, environment 7.02s, prepare 1.02s)

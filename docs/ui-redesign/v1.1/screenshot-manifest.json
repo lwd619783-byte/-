@@ -1,0 +1,382 @@
+[
+  {
+    "file": "screenshots/full-home-1536-neon.png",
+    "sha256": "67fdb5981d2f1539080eff532a45e133c4cff81e9c7bc4f0c418fd7e8536f586"
+  },
+  {
+    "file": "screenshots/full-home-1536-pro.png",
+    "sha256": "95d60b1ee9f6eee45b7ca6ac95408a9a005974f144de42f9ad250afd258a86e7"
+  },
+  {
+    "file": "screenshots/full-home-1536-light.png",
+    "sha256": "408b813030bed3b203b75fd08ba073e76e0d119a4a74de42c2ece200a57de893"
+  },
+  {
+    "file": "screenshots/full-macro-1536-neon.png",
+    "sha256": "4d0fee45529a7b15776dff7741e9598878f4681c240c80f0c9aee40e22bfad2b"
+  },
+  {
+    "file": "screenshots/full-macro-1536-pro.png",
+    "sha256": "0399a8ac1da119006fee901824ff70cae320db1b1acb6a43ca0c19c97d0b22cb"
+  },
+  {
+    "file": "screenshots/full-macro-1536-light.png",
+    "sha256": "1f357716f096976e004da9fcbd773ce630c80790ce77c34ae789e0e70c7ade3e"
+  },
+  {
+    "file": "screenshots/full-industry-1536-neon.png",
+    "sha256": "80db10d0402ef945f46ecf2d814ae340512181c5cdf405df30f9a5c558746e0f"
+  },
+  {
+    "file": "screenshots/full-industry-1536-pro.png",
+    "sha256": "23e0921b9c0db381651779fa0d256e98704a05dae22061ec9af230b9c64ee3b4"
+  },
+  {
+    "file": "screenshots/full-industry-1536-light.png",
+    "sha256": "eed45b63a4dcd6e677a11ff51f739d1a5a89c0e74a3ca9540ff474f598b8589d"
+  },
+  {
+    "file": "screenshots/full-stocks-1536-neon.png",
+    "sha256": "8efa95aabcd5c35d62e463029235884d20e97f4d1c80d41d2b33802cd3abde60"
+  },
+  {
+    "file": "screenshots/full-stocks-1536-pro.png",
+    "sha256": "73c38e8151e854d0ffe08c3715d558f3a068fbd059295006239886968b56b312"
+  },
+  {
+    "file": "screenshots/full-stocks-1536-light.png",
+    "sha256": "34e46ce300ad1f3bc8f201a8d66633270d5fbf397e1c8e68f89f8d9641d094e0"
+  },
+  {
+    "file": "screenshots/full-watchlist-1536-neon.png",
+    "sha256": "005b3ba71de689c14268a24de157d8595e1f282842215af626f67a1a0641b9ca"
+  },
+  {
+    "file": "screenshots/full-watchlist-1536-pro.png",
+    "sha256": "ce0d02794cec8f38da73a4d940752283c0b10307ebd0f9b3a59c42737dd49ea1"
+  },
+  {
+    "file": "screenshots/full-watchlist-1536-light.png",
+    "sha256": "9bfaa959b95e9b41fe785039a87bdc2bb97afa610d2e709ad52f725b128cad04"
+  },
+  {
+    "file": "screenshots/full-verification-1536-neon.png",
+    "sha256": "fb9f5b14afca97f8c987e88053977c0ccbce9a0750bd54d541b184e2e5109bcb"
+  },
+  {
+    "file": "screenshots/full-verification-1536-pro.png",
+    "sha256": "a721cf64618e5495c272cd92280f6a797fab1c2d301b7e6ff8d4e842d5790484"
+  },
+  {
+    "file": "screenshots/full-verification-1536-light.png",
+    "sha256": "6fd8a1653cdefc72e07aca98485144ec1413218dc98bab13385baf5c88497f37"
+  },
+  {
+    "file": "screenshots/full-expectations-1536-neon.png",
+    "sha256": "99671ada99e6007e900cd49767c48c8eddf92d80b2a2c08d5efc885c7af578ca"
+  },
+  {
+    "file": "screenshots/full-expectations-1536-pro.png",
+    "sha256": "ea78667ceca6a71592a182bea6e661441ced680f8445789b8b7b4685a88a0498"
+  },
+  {
+    "file": "screenshots/full-expectations-1536-light.png",
+    "sha256": "9e803e8fb44e394c903a6eda9fc15e1be694adc8a9ea36467768b3cc29a02237"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-overview-1536-neon.png",
+    "sha256": "8ac9ece4460a9c71b584975519515f352ce992078b37cae1d5b18b788947900c"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-overview-1536-pro.png",
+    "sha256": "c9fe361ddf6c299f7c7669a91bcea0c4f84f29326b2954ae6a4d88835eef083e"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-overview-1536-light.png",
+    "sha256": "c08554b06177f6f1240c4a1017c225a93e0ea6d31333e8c1acbc6fd031c0a802"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-financials-1536-neon.png",
+    "sha256": "0c55553eca4cef93ac336f5624290e7b32c10b1c6b9900a4aad8976c30b173fa"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-financials-1536-pro.png",
+    "sha256": "072f4e5c47708bb5c84d4851bdaf63bc96a8a723663af2004ca3f8acb11ff9a5"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-financials-1536-light.png",
+    "sha256": "eebde3e79c5ff230dcf05a8bc4683609bc6815acb656053ad123f1de2cae1e28"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-valuation-1536-neon.png",
+    "sha256": "40e4066fd2b383303d19ba72daed92922d43957a770db7b82d198ae0b4e9a8fa"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-valuation-1536-pro.png",
+    "sha256": "d66e478dba7da269d933321227cc1b7da12502be29eebcad1dc11a89914ab038"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-valuation-1536-light.png",
+    "sha256": "e8d18b1c225d3e49c165b6080f7282c19deae8000fafbb9c1fe51a0b9c702f46"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-expectations-1536-neon.png",
+    "sha256": "2d7859695a30bea30520fd7a53d2f2ca2c3e339a96062e5bca846a44e87f8c21"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-expectations-1536-pro.png",
+    "sha256": "691df39fc6e949432fba9e1b8207f48f4bd0a0ed4100394212e18248d3ae1f82"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-expectations-1536-light.png",
+    "sha256": "fb4acca5ac7b32bba06bcf8429644190605117f142177ab66accbba60a11e64d"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-evidence-1536-neon.png",
+    "sha256": "d217f3db8a37bdf70ceaf587f4d90b73020594fbfd159d3cfd8f6352b95e7eaa"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-evidence-1536-pro.png",
+    "sha256": "743d077dba5f23e49f16ef23686bd07779a5c1a710e60e43fec20133d241289d"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-evidence-1536-light.png",
+    "sha256": "e4cbefe1c706f1a722e2dbe5715c4e706934b0ee1cf07b80bc028bf6114ed230"
+  },
+  {
+    "file": "screenshots/empty-home-1536-neon.png",
+    "sha256": "3216d3c831d9c4a4570259e5bab265ce0c33257f4b82b27d506f16f6cedff4b7"
+  },
+  {
+    "file": "screenshots/empty-macro-1536-neon.png",
+    "sha256": "bc127f1489473d55d8cad6b1a56d61af4bb8c524c65ef07e14b68ad86e13f4a4"
+  },
+  {
+    "file": "screenshots/empty-industry-1536-neon.png",
+    "sha256": "54b2a0008da9dac6b14b83f04b732eab25cd4edae9276bb8b36d7a346897c180"
+  },
+  {
+    "file": "screenshots/empty-stocks-1536-neon.png",
+    "sha256": "82286ebcd32353de262d97e888b0f73703c76bcff821667fb732571e018c1311"
+  },
+  {
+    "file": "screenshots/empty-watchlist-1536-neon.png",
+    "sha256": "a19005c8f72ab646dc251407b3f15238e583b1fedebdec6458ce6a08887e96c0"
+  },
+  {
+    "file": "screenshots/empty-verification-1536-neon.png",
+    "sha256": "fe6559106dc97b7dd313d668a13aa8ce739cf5be20024f981c982345cf39a267"
+  },
+  {
+    "file": "screenshots/empty-expectations-1536-neon.png",
+    "sha256": "9366c160ffa2409cecbd37c390e7c1023e3be80a1532fa33f902a8f4f3d946f6"
+  },
+  {
+    "file": "screenshots/empty-company-ui-review-company-1-overview-1536-neon.png",
+    "sha256": "f7a94dab5bc969b74422b5048d6b62c9970f503533d505020771b04f286b9944"
+  },
+  {
+    "file": "screenshots/empty-company-ui-review-company-1-financials-1536-neon.png",
+    "sha256": "6315f2fa4365eb20d69b372a2794c027837d4238e93f5577637b70ee59542a02"
+  },
+  {
+    "file": "screenshots/empty-company-ui-review-company-1-valuation-1536-neon.png",
+    "sha256": "cc67b077e933dcb7c2086eaf06f3b297e7252f0eedd1de0c1d3adbf9686d38f4"
+  },
+  {
+    "file": "screenshots/empty-company-ui-review-company-1-expectations-1536-neon.png",
+    "sha256": "af2ac318485e492af61ed045ed2875d53e444c4479a02db61fe5182544f05d4b"
+  },
+  {
+    "file": "screenshots/empty-company-ui-review-company-1-evidence-1536-neon.png",
+    "sha256": "719337137f53a318e14f56044af2416a69e2a31dcb57088223ee48b77cda21a0"
+  },
+  {
+    "file": "screenshots/degraded-home-1536-neon.png",
+    "sha256": "1b62ab70db44629391002e72aa24d3ab955db03138e9a6019899b09167fad1e3"
+  },
+  {
+    "file": "screenshots/degraded-macro-1536-neon.png",
+    "sha256": "1ccd621b47e72b31a081b95230752be94cae26142cf0a80cb459faab9e16e68a"
+  },
+  {
+    "file": "screenshots/degraded-industry-1536-neon.png",
+    "sha256": "a78e9bb98e996cb044b7eec6bec9dc836f73d7a58e634896ab25dfc115a9a4c5"
+  },
+  {
+    "file": "screenshots/degraded-stocks-1536-neon.png",
+    "sha256": "591a3f8632688b7870cad6304e94f8083a5892a0c96f94f8af9d3466791fe5e9"
+  },
+  {
+    "file": "screenshots/degraded-watchlist-1536-neon.png",
+    "sha256": "2ff13f0fa8a76eaaf9aca9a1099f5f012512625b7a45dbece807431ba75a47ae"
+  },
+  {
+    "file": "screenshots/degraded-verification-1536-neon.png",
+    "sha256": "6014fa2f4507dc9be80d56ca7bed529371328c825080d9d6a0bf651ce1f2389b"
+  },
+  {
+    "file": "screenshots/degraded-expectations-1536-neon.png",
+    "sha256": "33bea8b5ddaef363bc7efe286748619bf68fc03f2b4f58929915b9fd8d54621f"
+  },
+  {
+    "file": "screenshots/degraded-company-ui-review-company-1-overview-1536-neon.png",
+    "sha256": "a81dfa247fc7486947995de31c053aa4538596881702fd71c52877c2d74ea94b"
+  },
+  {
+    "file": "screenshots/degraded-company-ui-review-company-1-financials-1536-neon.png",
+    "sha256": "46f71f43554b397d79306aa0d6c02c8d36a488aea1f2640be090cbcb33e07266"
+  },
+  {
+    "file": "screenshots/degraded-company-ui-review-company-1-valuation-1536-neon.png",
+    "sha256": "46cfa7c91d3c11b7d87987ef70c4fc697e1d5b4869c397b9a1a0d2cb7b0289f1"
+  },
+  {
+    "file": "screenshots/degraded-company-ui-review-company-1-expectations-1536-neon.png",
+    "sha256": "3c672cdc8540aad1ba1988ee13841c946e2d29a1682881d3093244259d849b7a"
+  },
+  {
+    "file": "screenshots/degraded-company-ui-review-company-1-evidence-1536-neon.png",
+    "sha256": "4a5da93e2049c3acdf7f800441a3cd2135d8f11d26bb6fee8d67c38e3e11720a"
+  },
+  {
+    "file": "screenshots/full-home-390-neon.png",
+    "sha256": "326ec2e89e63455b6b69933da665f13a0ca70716126bd4dfb0a742159ea6753f"
+  },
+  {
+    "file": "screenshots/full-macro-390-neon.png",
+    "sha256": "303bf2b5c47408cbbe12f78eac88c96c57596440e9bfca028caebda69894baea"
+  },
+  {
+    "file": "screenshots/full-industry-390-neon.png",
+    "sha256": "701293879006ec89e2133f029873bc704982d73778428985eb6ce3ca6bff9fb9"
+  },
+  {
+    "file": "screenshots/full-stocks-390-neon.png",
+    "sha256": "a5f4fc21ccdd89fa4b53990cd8e4a069158e3f3181c37b25663857aa9de15db5"
+  },
+  {
+    "file": "screenshots/full-watchlist-390-neon.png",
+    "sha256": "6680d019f100234b933456b48632524509b0d5941ac804ef56375094830271c8"
+  },
+  {
+    "file": "screenshots/full-verification-390-neon.png",
+    "sha256": "01a42321f9c0e0dd1642eef97d1cebf6b10260132620c87f81ed070925e49bc0"
+  },
+  {
+    "file": "screenshots/full-expectations-390-neon.png",
+    "sha256": "c710a290cc1b26b59d96700765f05295e05cdd98067ac89c210193c5b5e550e4"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-overview-390-neon.png",
+    "sha256": "2ad6f9f007f91724dd14b16e84c1bf660e095065e45cdc57dd2a9a662e9218a1"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-financials-390-neon.png",
+    "sha256": "2acd3ed32e5c46d16f89ed984d92c20fb5181b2015c6e320012267c777f543ba"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-valuation-390-neon.png",
+    "sha256": "3b624ef5de9c9b5d09362f4a950f3445992e8853c05f854f373a1823aa5172b3"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-expectations-390-neon.png",
+    "sha256": "9e9bc9a85e0ab7e9577702c7418351be94cfa11209ac2f42c4ba6f0e87ff857c"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-evidence-390-neon.png",
+    "sha256": "2d1ca52d3fe4c102e23ff982ef14ac1a8212307196b92d60938a5dd4ffce7723"
+  },
+  {
+    "file": "screenshots/full-home-320-neon.png",
+    "sha256": "3194a7a7e175dafaa4f171a5c6d5e8c579d27d99edcb17c514a4fc3cb544d2fe"
+  },
+  {
+    "file": "screenshots/full-company-ui-review-company-1-overview-320-neon.png",
+    "sha256": "2f8488904ff771b2fe2222975fdaa099a52b92ca61077af30723b902d380771a"
+  },
+  {
+    "file": "screenshots/empty-home-320-neon.png",
+    "sha256": "4351f8fed762a9362adf85b271777d078bd76ee4a23f762c79e88f2fc1721b35"
+  },
+  {
+    "file": "screenshots/empty-company-ui-review-company-1-overview-320-neon.png",
+    "sha256": "6f0a5c362ae2637046cdc58d30816e5ab1e3b4df77265eee7590af4b16148453"
+  },
+  {
+    "file": "screenshots/degraded-home-320-neon.png",
+    "sha256": "4422167e28d3f9584114af466652d8ab0b8580b86a07b85ab14ec2ddabb345fc"
+  },
+  {
+    "file": "screenshots/degraded-company-ui-review-company-1-overview-320-neon.png",
+    "sha256": "ee4cc1022f6b791d2c114b44519475ae2dae6aaaf9df69bf3d07c72e1705df76"
+  },
+  {
+    "file": "screenshots/company-before-scroll-1536.png",
+    "sha256": "13179ce2c4d936f4fe3a3e0e13f30878c6b99acb13c9d22938c719f80cd9cb45"
+  },
+  {
+    "file": "screenshots/company-summary-scrolled-1536.png",
+    "sha256": "76948f56196da97f687736f63899619bfb2f95175f99df54385368a4bdbd1ff2"
+  },
+  {
+    "file": "screenshots/company-new-chapter-1536.png",
+    "sha256": "a5ad36349cccdb1a9bc01880c627a846b8798db6af714a75e86f08ce26653f66"
+  },
+  {
+    "file": "screenshots/company-before-scroll-1280.png",
+    "sha256": "1950e630b700c049faaa0e64cf6936b290100ea0cd6d83679bd5d43251d3e26b"
+  },
+  {
+    "file": "screenshots/company-summary-scrolled-1280.png",
+    "sha256": "75df8ff051746a74eba5c190707a63a91ab4071d4a66c24712da0fe0a42e8cb4"
+  },
+  {
+    "file": "screenshots/company-new-chapter-1280.png",
+    "sha256": "cdfa02f7313dc01a5109ddf97bf4891595e0ed06e451c691713f881f015b5615"
+  },
+  {
+    "file": "screenshots/company-before-scroll-390.png",
+    "sha256": "2ad6f9f007f91724dd14b16e84c1bf660e095065e45cdc57dd2a9a662e9218a1"
+  },
+  {
+    "file": "screenshots/company-summary-scrolled-390.png",
+    "sha256": "5d8f083d6f8dda587cfbdc9b1d1acef5906311a3dc3574924af9fb2b174e1bfe"
+  },
+  {
+    "file": "screenshots/company-new-chapter-390.png",
+    "sha256": "630ce2800c3c9639c47e0e9d6692767fb4c477048d289471597e2c8234d679f4"
+  },
+  {
+    "file": "screenshots/company-before-scroll-320.png",
+    "sha256": "2f8488904ff771b2fe2222975fdaa099a52b92ca61077af30723b902d380771a"
+  },
+  {
+    "file": "screenshots/company-summary-scrolled-320.png",
+    "sha256": "479cd0e826dc28a0d500e1c0b651f8d8673fe00fb49cdeec432adae99332ab5c"
+  },
+  {
+    "file": "screenshots/company-new-chapter-320.png",
+    "sha256": "4ac34cc1a62b93a5f48a01d230b027251f8e3b9610433c39bfdb62b3c080b9e4"
+  },
+  {
+    "file": "screenshots/home-full-1600.png",
+    "sha256": "65b2621e3572bb3d9b7694b912895e846a2f43492605021ce68898b862b558f3"
+  },
+  {
+    "file": "screenshots/home-empty-1600.png",
+    "sha256": "b614b054df8fa4e599259e6ea3bf0b67fb25039aa5d45f3d5d185022d0b1f9ed"
+  },
+  {
+    "file": "screenshots/home-text-200-percent.png",
+    "sha256": "1ec16c48f0f4c2c583e75bed78d2d9334ed68a23f431a9354322c3a69957e2ff"
+  },
+  {
+    "file": "screenshots/ordinary-company-before-scroll.png",
+    "sha256": "f8a02d8d1e0f122bc8797cbd26f8722839849d97d645c82585dd23317c892117"
+  },
+  {
+    "file": "screenshots/ordinary-company-summary-scrolled.png",
+    "sha256": "a9369198ef8e0363c2b7c846130a0d097a093bffcacffa16bba03e2d018503e8"
+  }
+]

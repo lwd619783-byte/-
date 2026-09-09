@@ -44,14 +44,15 @@ afterEach(() => { cleanup(); document.body.style.overflow = ""; });
 
 describe("complete company research navigation and identity", () => {
   it("keeps the page summary in flow and returns deep tab switches to the compact rail", () => {
-    const scroll = vi.fn();
+    const scroll = vi.spyOn(window, "scrollTo").mockImplementation(() => undefined);
     const view = render(<StockDetailDrawer {...baseProps} stock={stocks[0]} />);
     const rail = screen.getByRole("tablist");
-    rail.scrollIntoView = scroll;
+    vi.spyOn(rail, "getBoundingClientRect").mockReturnValue({ top: 8, height: 54 } as DOMRect);
     expect(view.container.querySelector(".research-header")?.className).not.toContain("sticky");
     expect(rail.className).toContain("company-page-tabs");
     fireEvent.click(screen.getByRole("tab", { name: "经营与财务" }));
-    expect(scroll).toHaveBeenCalledWith({ block: "start", behavior: "instant" });
+    expect(scroll).toHaveBeenCalledWith({ top: 0, behavior: "instant" });
+    scroll.mockRestore();
     expect(screen.getByRole("tabpanel").textContent).toContain("经营与财务快照");
   });
   it("reaches all five chapters, preserves original sections and never installs page modal behavior", () => {

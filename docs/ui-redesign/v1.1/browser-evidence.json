@@ -1,0 +1,1579 @@
+{
+  "base": "a419607ebc9d7b4413bedd8786cf814394b3c00d",
+  "generatedAt": "2026-09-09T16:03:31.265Z",
+  "checks": [
+    {
+      "name": "full-home-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 407,
+          "height": 204,
+          "bottom": 611
+        },
+        "price": {
+          "top": 631,
+          "height": 468,
+          "bottom": 1099
+        },
+        "events": {
+          "top": 631,
+          "height": 468,
+          "bottom": 1099
+        },
+        "eventCount": 3
+      }
+    },
+    {
+      "name": "full-macro-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-industry-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-stocks-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-watchlist-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-verification-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-expectations-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-overview-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-financials-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-valuation-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-expectations-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-evidence-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-home-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 407,
+          "height": 102,
+          "bottom": 509
+        },
+        "price": {
+          "top": 529,
+          "height": 480,
+          "bottom": 1009
+        },
+        "events": {
+          "top": 529,
+          "height": 480,
+          "bottom": 1009
+        },
+        "eventCount": 0
+      }
+    },
+    {
+      "name": "empty-macro-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-industry-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-stocks-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-watchlist-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-verification-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-expectations-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-overview-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-financials-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-valuation-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-expectations-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-evidence-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-home-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 407,
+          "height": 249,
+          "bottom": 656
+        },
+        "price": {
+          "top": 676,
+          "height": 538,
+          "bottom": 1214
+        },
+        "events": {
+          "top": 676,
+          "height": 538,
+          "bottom": 1214
+        },
+        "eventCount": 3
+      }
+    },
+    {
+      "name": "degraded-macro-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-industry-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-stocks-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-watchlist-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-verification-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-expectations-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-overview-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-financials-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-valuation-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-expectations-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-evidence-1536",
+      "viewport": 1536,
+      "scrollWidth": 1536,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-home-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 407,
+          "height": 204,
+          "bottom": 611
+        },
+        "price": {
+          "top": 631,
+          "height": 468,
+          "bottom": 1099
+        },
+        "events": {
+          "top": 631,
+          "height": 468,
+          "bottom": 1099
+        },
+        "eventCount": 3
+      }
+    },
+    {
+      "name": "full-macro-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-industry-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-stocks-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-watchlist-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-verification-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-expectations-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-overview-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-financials-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-valuation-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-expectations-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-evidence-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-home-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 407,
+          "height": 102,
+          "bottom": 509
+        },
+        "price": {
+          "top": 529,
+          "height": 480,
+          "bottom": 1009
+        },
+        "events": {
+          "top": 529,
+          "height": 480,
+          "bottom": 1009
+        },
+        "eventCount": 0
+      }
+    },
+    {
+      "name": "empty-macro-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-industry-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-stocks-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-watchlist-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-verification-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-expectations-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-overview-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-financials-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-valuation-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-expectations-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-evidence-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-home-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 407,
+          "height": 249,
+          "bottom": 656
+        },
+        "price": {
+          "top": 676,
+          "height": 538,
+          "bottom": 1214
+        },
+        "events": {
+          "top": 676,
+          "height": 538,
+          "bottom": 1214
+        },
+        "eventCount": 3
+      }
+    },
+    {
+      "name": "degraded-macro-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-industry-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-stocks-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-watchlist-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-verification-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-expectations-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-overview-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-financials-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-valuation-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-expectations-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-evidence-1280",
+      "viewport": 1280,
+      "scrollWidth": 1280,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-home-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 821,
+          "height": 472,
+          "bottom": 1293
+        },
+        "price": {
+          "top": 1313,
+          "height": 578,
+          "bottom": 1891
+        },
+        "events": {
+          "top": 1911,
+          "height": 446,
+          "bottom": 2357
+        },
+        "eventCount": 3
+      }
+    },
+    {
+      "name": "full-macro-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-industry-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-stocks-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-watchlist-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-verification-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-expectations-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-overview-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-financials-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-valuation-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-expectations-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-evidence-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-home-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 821,
+          "height": 126,
+          "bottom": 947
+        },
+        "price": {
+          "top": 967,
+          "height": 590,
+          "bottom": 1557
+        },
+        "events": {
+          "top": 1577,
+          "height": 226,
+          "bottom": 1803
+        },
+        "eventCount": 0
+      }
+    },
+    {
+      "name": "empty-macro-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-industry-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-stocks-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-watchlist-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-verification-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-expectations-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-overview-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-financials-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-valuation-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-expectations-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-evidence-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-home-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 821,
+          "height": 517,
+          "bottom": 1338
+        },
+        "price": {
+          "top": 1358,
+          "height": 626,
+          "bottom": 1984
+        },
+        "events": {
+          "top": 2004,
+          "height": 470,
+          "bottom": 2474
+        },
+        "eventCount": 3
+      }
+    },
+    {
+      "name": "degraded-macro-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-industry-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-stocks-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-watchlist-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-verification-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-expectations-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-overview-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-financials-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-valuation-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-expectations-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-evidence-390",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-home-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 914,
+          "height": 472,
+          "bottom": 1386
+        },
+        "price": {
+          "top": 1406,
+          "height": 598,
+          "bottom": 2004
+        },
+        "events": {
+          "top": 2024,
+          "height": 478,
+          "bottom": 2502
+        },
+        "eventCount": 3
+      }
+    },
+    {
+      "name": "full-macro-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-industry-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-stocks-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-watchlist-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-verification-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-expectations-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-overview-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-financials-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-valuation-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-expectations-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "full-company-ui-review-company-1-evidence-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-home-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 914,
+          "height": 126,
+          "bottom": 1040
+        },
+        "price": {
+          "top": 1060,
+          "height": 610,
+          "bottom": 1670
+        },
+        "events": {
+          "top": 1690,
+          "height": 226,
+          "bottom": 1916
+        },
+        "eventCount": 0
+      }
+    },
+    {
+      "name": "empty-macro-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-industry-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-stocks-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-watchlist-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-verification-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-expectations-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-overview-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-financials-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-valuation-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-expectations-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "empty-company-ui-review-company-1-evidence-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-home-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0,
+      "homeLayout": {
+        "priority": {
+          "top": 914,
+          "height": 517,
+          "bottom": 1431
+        },
+        "price": {
+          "top": 1451,
+          "height": 670,
+          "bottom": 2121
+        },
+        "events": {
+          "top": 2141,
+          "height": 518,
+          "bottom": 2659
+        },
+        "eventCount": 3
+      }
+    },
+    {
+      "name": "degraded-macro-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-industry-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-stocks-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-watchlist-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-verification-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-expectations-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-overview-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-financials-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-valuation-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-expectations-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    },
+    {
+      "name": "degraded-company-ui-review-company-1-evidence-320",
+      "viewport": 320,
+      "scrollWidth": 320,
+      "storageReadCount": 0,
+      "storageWriteCount": 0
+    }
+  ],
+  "scroll": [
+    {
+      "width": 1536,
+      "scrolled": {
+        "headerBottom": -316,
+        "rail": {
+          "x": 240,
+          "y": 8,
+          "width": 1272,
+          "height": 54,
+          "top": 8,
+          "right": 1512,
+          "bottom": 62,
+          "left": 240
+        },
+        "headerPosition": "static"
+      },
+      "chapter": {
+        "railBottom": 62,
+        "panelTop": 78
+      }
+    },
+    {
+      "width": 1280,
+      "scrolled": {
+        "headerBottom": -316,
+        "rail": {
+          "x": 100,
+          "y": 8,
+          "width": 1156,
+          "height": 54,
+          "top": 8,
+          "right": 1256,
+          "bottom": 62,
+          "left": 100
+        },
+        "headerPosition": "static"
+      },
+      "chapter": {
+        "railBottom": 62,
+        "panelTop": 78
+      }
+    },
+    {
+      "width": 390,
+      "scrolled": {
+        "headerBottom": -316,
+        "rail": {
+          "x": 12,
+          "y": 8,
+          "width": 366,
+          "height": 54,
+          "top": 8,
+          "right": 378,
+          "bottom": 62,
+          "left": 12
+        },
+        "headerPosition": "static"
+      },
+      "chapter": {
+        "railBottom": 62,
+        "panelTop": 78
+      }
+    },
+    {
+      "width": 320,
+      "scrolled": {
+        "headerBottom": -316,
+        "rail": {
+          "x": 12,
+          "y": 8,
+          "width": 296,
+          "height": 54,
+          "top": 8,
+          "right": 308,
+          "bottom": 62,
+          "left": 12
+        },
+        "headerPosition": "static"
+      },
+      "chapter": {
+        "railBottom": 62,
+        "panelTop": 78
+      }
+    }
+  ],
+  "themes": [
+    {
+      "route": "home",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "home",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "macro",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "macro",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "industry",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "industry",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "stocks",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "stocks",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "watchlist",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "watchlist",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "verification",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "verification",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "expectations",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "expectations",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/overview",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/overview",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/financials",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/financials",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/valuation",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/valuation",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/expectations",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/expectations",
+      "theme": "light",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/evidence",
+      "theme": "pro",
+      "sameGeometry": true
+    },
+    {
+      "route": "company/ui-review-company-1/evidence",
+      "theme": "light",
+      "sameGeometry": true
+    }
+  ],
+  "isolation": {
+    "before": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+    "afterExit": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+    "afterRefresh": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+    "reviewDataRequestCount": 0,
+    "reviewBusinessChunkCount": 0,
+    "downloads": 0,
+    "beforeRequests": [
+      "/data/a-share-company-guidance-expectations/manifest.generated.json",
+      "/data/a-share-company-guidance-expectations/workflow-index.generated.json"
+    ],
+    "afterRequests": [
+      "/data/a-share-company-guidance-expectations/manifest.generated.json",
+      "/data/a-share-company-guidance-expectations/workflow-index.generated.json"
+    ]
+  },
+  "failures": [],
+  "pageErrors": [],
+  "screenshots": [
+    "full-home-1536-neon.png",
+    "full-home-1536-pro.png",
+    "full-home-1536-light.png",
+    "full-macro-1536-neon.png",
+    "full-macro-1536-pro.png",
+    "full-macro-1536-light.png",
+    "full-industry-1536-neon.png",
+    "full-industry-1536-pro.png",
+    "full-industry-1536-light.png",
+    "full-stocks-1536-neon.png",
+    "full-stocks-1536-pro.png",
+    "full-stocks-1536-light.png",
+    "full-watchlist-1536-neon.png",
+    "full-watchlist-1536-pro.png",
+    "full-watchlist-1536-light.png",
+    "full-verification-1536-neon.png",
+    "full-verification-1536-pro.png",
+    "full-verification-1536-light.png",
+    "full-expectations-1536-neon.png",
+    "full-expectations-1536-pro.png",
+    "full-expectations-1536-light.png",
+    "full-company-ui-review-company-1-overview-1536-neon.png",
+    "full-company-ui-review-company-1-overview-1536-pro.png",
+    "full-company-ui-review-company-1-overview-1536-light.png",
+    "full-company-ui-review-company-1-financials-1536-neon.png",
+    "full-company-ui-review-company-1-financials-1536-pro.png",
+    "full-company-ui-review-company-1-financials-1536-light.png",
+    "full-company-ui-review-company-1-valuation-1536-neon.png",
+    "full-company-ui-review-company-1-valuation-1536-pro.png",
+    "full-company-ui-review-company-1-valuation-1536-light.png",
+    "full-company-ui-review-company-1-expectations-1536-neon.png",
+    "full-company-ui-review-company-1-expectations-1536-pro.png",
+    "full-company-ui-review-company-1-expectations-1536-light.png",
+    "full-company-ui-review-company-1-evidence-1536-neon.png",
+    "full-company-ui-review-company-1-evidence-1536-pro.png",
+    "full-company-ui-review-company-1-evidence-1536-light.png",
+    "empty-home-1536-neon.png",
+    "empty-macro-1536-neon.png",
+    "empty-industry-1536-neon.png",
+    "empty-stocks-1536-neon.png",
+    "empty-watchlist-1536-neon.png",
+    "empty-verification-1536-neon.png",
+    "empty-expectations-1536-neon.png",
+    "empty-company-ui-review-company-1-overview-1536-neon.png",
+    "empty-company-ui-review-company-1-financials-1536-neon.png",
+    "empty-company-ui-review-company-1-valuation-1536-neon.png",
+    "empty-company-ui-review-company-1-expectations-1536-neon.png",
+    "empty-company-ui-review-company-1-evidence-1536-neon.png",
+    "degraded-home-1536-neon.png",
+    "degraded-macro-1536-neon.png",
+    "degraded-industry-1536-neon.png",
+    "degraded-stocks-1536-neon.png",
+    "degraded-watchlist-1536-neon.png",
+    "degraded-verification-1536-neon.png",
+    "degraded-expectations-1536-neon.png",
+    "degraded-company-ui-review-company-1-overview-1536-neon.png",
+    "degraded-company-ui-review-company-1-financials-1536-neon.png",
+    "degraded-company-ui-review-company-1-valuation-1536-neon.png",
+    "degraded-company-ui-review-company-1-expectations-1536-neon.png",
+    "degraded-company-ui-review-company-1-evidence-1536-neon.png",
+    "full-home-390-neon.png",
+    "full-macro-390-neon.png",
+    "full-industry-390-neon.png",
+    "full-stocks-390-neon.png",
+    "full-watchlist-390-neon.png",
+    "full-verification-390-neon.png",
+    "full-expectations-390-neon.png",
+    "full-company-ui-review-company-1-overview-390-neon.png",
+    "full-company-ui-review-company-1-financials-390-neon.png",
+    "full-company-ui-review-company-1-valuation-390-neon.png",
+    "full-company-ui-review-company-1-expectations-390-neon.png",
+    "full-company-ui-review-company-1-evidence-390-neon.png",
+    "full-home-320-neon.png",
+    "full-company-ui-review-company-1-overview-320-neon.png",
+    "empty-home-320-neon.png",
+    "empty-company-ui-review-company-1-overview-320-neon.png",
+    "degraded-home-320-neon.png",
+    "degraded-company-ui-review-company-1-overview-320-neon.png",
+    "company-before-scroll-1536.png",
+    "company-summary-scrolled-1536.png",
+    "company-new-chapter-1536.png",
+    "company-before-scroll-1280.png",
+    "company-summary-scrolled-1280.png",
+    "company-new-chapter-1280.png",
+    "company-before-scroll-390.png",
+    "company-summary-scrolled-390.png",
+    "company-new-chapter-390.png",
+    "company-before-scroll-320.png",
+    "company-summary-scrolled-320.png",
+    "company-new-chapter-320.png",
+    "home-full-1600.png",
+    "home-empty-1600.png",
+    "home-text-200-percent.png",
+    "ordinary-company-before-scroll.png",
+    "ordinary-company-summary-scrolled.png"
+  ],
+  "sourceSha256": {
+    "src/Application.tsx": "1350900c53482350b05dda6b10fc349a2a5abec57fe7481c4687936d198cd06f",
+    "src/main.tsx": "29b2c562e38a9e5bda0b2050cfa10551b9301042e78fa7a6a4c858fc80826a3e",
+    "src/index.css": "579ac84db8891cb8a4d9872f4d8a090c0400aec773c812abecd6e02a8a4e9420",
+    "src/components/home/HomePage.tsx": "6dd4e2953aa1547c1c396f4b5af9fe093b0f6607ad50e3c466935d5a94c2d754",
+    "src/components/layout/Appearance.tsx": "cde8d0c191b978db2cb02d90562a7ef8315c44ed85f3cedc3b077bb37571b0a9",
+    "src/components/stock/StockDetailDrawer.tsx": "52233f64157da2d8bc475e4bf7ef1db298faa653e2f905d75e5bda5531f7f3c7",
+    "src/components/stock/StockPriceHistoryChart.tsx": "591e4f4278e3a914b951ba6e49d731fe5bf4ebe4a60b0bb3d8df8238c713d4f9",
+    "src/components/watchlist/WatchlistTab.tsx": "384f951bb7502fbf7df637ae0339082a70de6c46f9238deb40426304a4e20645",
+    "src/ui-review/config.ts": "e50e7d0f4587d50e34152963175799e09eace4d7bdd6fe87b103e7f9a094e9a6",
+    "src/ui-review/fixtures.ts": "a185f047e463d27414f11c9714e4ffe245035066f974ef4f0ca383ddb00cec92",
+    "src/ui-review/UiReviewApp.tsx": "2b7f703a73ffeb32efc8c28207c72a71bbef33ce2f863293c491a6d26a939dc2"
+  },
+  "buildAssets": [
+    "App-BePwcuCf.js",
+    "earningsExpectationEventProvider-B7VYoFTg.js",
+    "index-DwjmvOKy.css",
+    "index-oRU7yPL2.js",
+    "UiReviewApp-Ctk2sUMx.js"
+  ],
+  "ordinaryCompany": {
+    "stockId": "sugon",
+    "headerBottom": -316,
+    "railHeight": 54
+  },
+  "status": "PASS"
+}

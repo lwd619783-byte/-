@@ -8,6 +8,7 @@ import { ReviewTimeline } from "./ReviewTimeline";
 import { WatchlistBackupModal } from "./WatchlistBackupModal";
 
 interface WatchlistTabProps {
+  onRequestBackup?: () => void;
   watchItems: WatchItem[];
   samples: WatchItem[];
   reviewEntries: ReviewEntry[];
@@ -48,6 +49,7 @@ export function WatchlistTab(props: WatchlistTabProps) {
   const [includeArchived, setIncludeArchived] = useState(false);
   const [sort, setSort] = useState<SortMode>("priority");
   const [backupOpen, setBackupOpen] = useState(false);
+  const openBackup = () => props.onRequestBackup ? props.onRequestBackup() : setBackupOpen(true);
   const today = todayString();
   const active = watchItems.filter((item) => !item.archivedAt);
   const pendingTasks = tasks.filter((task) => task.status === "pending");
@@ -100,9 +102,9 @@ export function WatchlistTab(props: WatchlistTabProps) {
 
   return <section className="min-w-0 space-y-4" aria-label="观察清单与投研复盘工作流">
     <SectionHeader className="page-heading" title="观察清单 / 待办与复盘" description="提醒、判断和复盘分开；确认提醒不会改变当前投资假设。"
-      action={<><button type="button" onClick={() => setBackupOpen(true)} className={buttonClass}><DatabaseBackup className="h-4 w-4" />备份 / 导入</button><button type="button" onClick={props.onAdd} className={`${buttonClass} bg-selected text-accent`}><Plus className="h-4 w-4" />添加观察项</button></>} />
-    {props.storageError ? <div role="alert" className="rounded-md border border-warning/40 bg-warning/10 p-3 text-sm text-warning">{props.storageError}<button type="button" className="ml-3 min-h-11 underline" onClick={() => setBackupOpen(true)}>打开备份与恢复</button></div> : null}
-    {props.corruptedRaw && !props.storageError ? <div role="status" className="rounded-md border border-warning/40 p-3 text-sm text-warning">存在待恢复的原始存储内容。<button type="button" className="ml-3 min-h-11 underline" onClick={() => setBackupOpen(true)}>导出损坏原始数据</button></div> : null}
+      action={<><button type="button" onClick={openBackup} className={buttonClass}><DatabaseBackup className="h-4 w-4" />备份 / 导入</button><button type="button" onClick={props.onAdd} className={`${buttonClass} bg-selected text-accent`}><Plus className="h-4 w-4" />添加观察项</button></>} />
+    {props.storageError ? <div role="alert" className="rounded-md border border-warning/40 bg-warning/10 p-3 text-sm text-warning">{props.storageError}<button type="button" className="ml-3 min-h-11 underline" onClick={openBackup}>打开备份与恢复</button></div> : null}
+    {props.corruptedRaw && !props.storageError ? <div role="status" className="rounded-md border border-warning/40 p-3 text-sm text-warning">存在待恢复的原始存储内容。<button type="button" className="ml-3 min-h-11 underline" onClick={openBackup}>导出损坏原始数据</button></div> : null}
     <section className="grid grid-cols-2 gap-3 sm:grid-cols-2 xl:grid-cols-5" aria-label="观察清单指标">
       <WatchStat label="正在观察" value={active.length} note="用户数据；示例模板不计入" />
       <WatchStat label="待复盘" value={new Set(pendingTasks.map((task) => task.watchItemId)).size} note="按观察项去重；仅为任务提醒" warning={pendingTasks.length > 0} />
@@ -112,7 +114,7 @@ export function WatchlistTab(props: WatchlistTabProps) {
     </section>
     {unmatched.length ? <div role="status" className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm text-warning">{unmatched.length} 条观察记录无法匹配当前研究池公司；原记录仍保留并计入用户统计。
       <details className="mt-2"><summary className="cursor-pointer py-2">查看未匹配记录</summary><div className="space-y-3">{unmatched.map((item) => <div key={item.id} className="rounded border border-borderSoft bg-bg2 p-3 text-xs text-textMuted"><p className="break-all">公司 ID：{item.stockId} · 观察项 ID：{item.id}</p><p className="mt-1">{item.status} · {item.archivedAt ? "已归档" : "活跃记录"}</p><p className="mt-2 whitespace-pre-wrap break-words">关注理由：{item.reason || "未填写"}</p><p className="mt-2 whitespace-pre-wrap break-words">投资假设：{item.thesis || "未填写"}</p></div>)}</div></details>
-      <button type="button" onClick={() => setBackupOpen(true)} className="min-h-11 text-sm underline">打开备份 / 导出完整记录</button>
+      <button type="button" onClick={openBackup} className="min-h-11 text-sm underline">打开备份 / 导出完整记录</button>
     </div> : null}
 
     <DashboardCard className="min-w-0 p-4">
