@@ -1,9 +1,10 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-09 CURRENT：Phase 1B 与 Stage 4.1 R2-A → R2-B / CSRC / SSE / SZSE / BSE / D2 已合入以下 main 基线；实现与准入分别登记。当前实现顺序见[开发执行索引](development-execution-plan-2026-09-07.md)与[路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)。[Master Audit Remediation V1](master-audit-remediation-v1.md) 是当前分支的修复验证记录，尚未合入 main。历史实施 / 审计文档保留原时点状态。
+> 2026-09-09 CURRENT：Phase 1B 与 Stage 4.1 R2-A → R2-B / CSRC / SSE / SZSE / BSE / D2 已合入以下 audit-input main 基线；实现与准入分别登记。当前实现顺序见[开发执行索引](development-execution-plan-2026-09-07.md)与[路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)。[Master Audit Remediation V1](master-audit-remediation-v1.md) 是版本化修复验证记录。历史实施 / 审计文档保留原时点状态。
 
 > 基线日期：2026-09-09
-> 已合入代码基线：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`
+> 本轮 remediation 的 pre-remediation / audit-input main baseline：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。
+> Remediation 的实际 merge / CI 状态以包含本变更的 Git commit 是否成为 `main` ancestor、对应 PR 和 GitHub Actions 为准；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
 
 状态定义：
 
@@ -202,7 +203,7 @@ R2 已实现切片与剩余工作：
 
 - [x] R2-A CORE、R2-B PBC、CSRC C1/C1.1/C2A1/C2A2、SSE/SZSE/BSE D1、all-A D2 已合入上述基线
 - [ ] R2 完整数据 / 逐源准入：继续保留上表 PARTIAL / NOT_ADMITTED，后继 evidence/contract 工作须单独冻结范围
-- [ ] Master Audit Remediation V1：当前分支修复与验证，普通 push 后等待独立审计；尚未 MAIN MERGED
+- Master Audit Remediation V1：修复与验证见版本化记录；实际 merge / CI 状态按本文顶部规则核对。
 - [ ] P1 Source Probe：新增投资者、实际减持、实际回购、ETF净申赎
 - [ ] 构建 2005–present weekly immutable manifests
 - [ ] 执行 Candidate A–D 回测与参数选择

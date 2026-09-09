@@ -2,8 +2,9 @@
 
 > 状态：CURRENT ROADMAP REBASELINE V1（Master Audit 后更新）
 > 日期：2026-09-09
-> 已合入事实基线：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`
-> 作用：统一 Phase 1B、Stage 4.1 R2 当前实现、旧 Stage 4 历史基线和 V2 Top-down / Local-first 路线。Master Audit 修复只在当前分支，未合入；本文不授权新业务实现，也不定义 `Phase 1C`。
+> 本轮 remediation 的 pre-remediation / audit-input main baseline：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。
+> 作用：统一 Phase 1B、Stage 4.1 R2 当前实现、旧 Stage 4 历史基线和 V2 Top-down / Local-first 路线。本文不授权新业务实现，也不定义 `Phase 1C`。
+> Remediation 的实际 merge / CI 状态以包含本变更的 Git commit 是否成为 `main` ancestor、对应 PR 和 GitHub Actions 为准；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
 
 ## 1. 当前正式事实
 
@@ -120,8 +121,8 @@ Phase 1B 对未来 Stage 4.4 的约束是：**不得重新建立第二套 Accoun
 
 **Master Audit Remediation V1**：MA-01 证据身份、MA-02 stale-write protection、MA-03 未来事实、MA-04 CI/discovery、MA-05 字段覆盖、MA-06 CURRENT rebaseline。结果与 residual limitations 见[验证记录](master-audit-remediation-v1.md)。
 
-修复不提升 R2 admission，不启动 normalization / backtest / Market Temperature UI。完成独立审计前不把 remediation 写为 MAIN MERGED。后继业务任务仍处于 Stage 4.1 R2 未闭合的准入边界内，不在本轮擅定新 slice。
+修复不提升 R2 admission，不启动 normalization / backtest / Market Temperature UI。独立审计通过不等于实际 merge / CI 状态，后者按本文顶部规则核对。后继业务任务仍处于 Stage 4.1 R2 未闭合的准入边界内，不在本轮擅定新 slice。
 
 ## 6. 停止点
 
-本轮状态为 **MASTER AUDIT REMEDIATION V1 / PENDING INDEPENDENT REVIEW / NOT MAIN MERGED**。完成修复和验证后普通 commit + push，核验远端 SHA 后停止；不创建 PR、不 merge、不修改 main。未改变 contracts、sealed/raw 数据事实、Provider live refresh、依赖或数据库模型。
+本轮交付约束：完成修复和验证后普通 commit + push，核验远端 SHA 后停止，等待独立审计；不创建 PR、不 merge、不修改 main。该交付停止点不代表后续 CURRENT merge / CI 状态；验证记录中的状态标签仅属于记录时点。未改变 contracts、sealed/raw 数据事实、Provider live refresh、依赖或数据库模型。

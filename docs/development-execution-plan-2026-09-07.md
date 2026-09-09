@@ -2,7 +2,8 @@
 
 本索引固化当前任务顺序，不重写历史审计结论，也不重命名已有 Phase 编号。产品保持**单用户 Local-first、全球研究视角**，继续复用已有证据、PIT、Provider Stability 与审计基础。全球视角不等于已覆盖全球行情。
 
-> CURRENT 更新：2026-09-09。已合入基线 `origin/main @ a6cbf108139a2af66273c5376288b83d54712f58`。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以本次 Git ancestry、当前代码、committed artifacts 和离线验证登记。
+> CURRENT 更新：2026-09-09。本轮 remediation 的 pre-remediation / audit-input main baseline 为 `origin/main @ a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以本次 Git ancestry、当前代码、committed artifacts 和离线验证登记。
+> Remediation 的实际 merge / CI 状态以包含本变更的 Git commit 是否成为 `main` ancestor、对应 PR 和 GitHub Actions 为准；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
 
 ## 冻结顺序与停止点
 
@@ -34,7 +35,7 @@
 | CSRC C2A1 / C2A2 | PR #32 / #33 | IMPLEMENTED / VERIFIED；NOT_ADMITTED：26 definition-compatible、PIT 0/26、formal observations=0 |
 | SSE / SZSE / BSE D1 | PR #34 / #35 / #36 | IMPLEMENTED / VERIFIED；三所历史数值 NOT_ADMITTED |
 | all-A D2 | PR #37 | IMPLEMENTED / VERIFIED；**NOT_ADMITTED / numericAggregateCount=0 / targetCount=null / coveragePercent=null** |
-| Master Audit Remediation V1 | 本分支，未合入 | [MA-01～MA-06 验证记录](master-audit-remediation-v1.md)；完成验证、commit + push 后停止，等待独立审计；不创建 PR / merge |
+| Master Audit Remediation V1 | 实际 merge / CI 状态按本文顶部规则核对 | [MA-01～MA-06 验证记录](master-audit-remediation-v1.md)保留记录时点状态；本轮交付约束：完成验证、commit + push 后停止，等待独立审计；不创建 PR / merge |
 | normalization / backtest / Market Temperature UI | 无正式实现 | NOT_STARTED；没有因本轮修复获得授权 |
 | cloud business database / cross-device sync | Local-first freeze | DEFERRED |
 

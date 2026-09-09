@@ -2,6 +2,8 @@
 
 日期：2026-09-09。状态：**IMPLEMENTED / VERIFIED（本地验收）/ PENDING INDEPENDENT REVIEW / NOT MAIN MERGED**。
 
+状态解释：本文是 versioned validation record；上述状态及交付描述属于 delivery-time / record-time status，后续 CURRENT 状态不由这些历史标签判断。下述精确 base 是本轮 remediation 的 pre-remediation / audit-input main baseline；实际 merge / CI 状态以包含本变更的 Git commit 是否成为 `main` ancestor、对应 PR 和 GitHub Actions 为准，静态文档不预写 MAIN MERGED，也不自证 CI PASS。
+
 仓库 `lwd619783-byte/-`；精确 base `origin/main @ a6cbf108139a2af66273c5376288b83d54712f58`；分支 `codex/master-audit-remediation-v1`。开工 fetch 确认精确基线、工作树干净，直接从 origin/main 创建分支。最终 commit / remote SHA 在 push 后的交付消息中给出，避免提交自引用。
 
 本记录只陈述本次修复与本地验证。未创建 PR、merge、修改 main、GitHub admin/ruleset 或 required checks。冻结 contracts、Stage 4.1 配置、sealed/raw、生成金融数据与迁移均无 diff；没有 Provider live refresh、历史抓取、依赖升级或第二套模型。
