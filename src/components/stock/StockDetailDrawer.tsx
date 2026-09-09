@@ -57,9 +57,17 @@ const PENDING = "待接入";
 
 export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation, presentation = "drawer", activeTab, onTabChange }: StockDetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
   const [localSelection, setLocalSelection] = useState<{ stockId: string | null; tab: CompanyResearchTab }>({ stockId: stock?.id ?? null, tab: "overview" });
   const tab = activeTab ?? (localSelection.stockId === stock?.id ? localSelection.tab : "overview");
-  const selectTab = (next: CompanyResearchTab) => { setLocalSelection({ stockId: stock?.id ?? null, tab: next }); onTabChange?.(next); };
+  const selectTab = (next: CompanyResearchTab) => {
+    // Return a deeply scrolled page to the new chapter, below the compact rail.
+    if (presentation === "page" && (tabsRef.current?.getBoundingClientRect().top ?? 9) <= 8) {
+      tabsRef.current?.scrollIntoView?.({ block: "start", behavior: "instant" });
+    }
+    setLocalSelection({ stockId: stock?.id ?? null, tab: next });
+    onTabChange?.(next);
+  };
   const [financialChart, setFinancialChart] = useState<{ stockId: string | null; period: "singleQuarter" | "cumulative"; scope: string }>({ stockId: stock?.id ?? null, period: "singleQuarter", scope: "consolidated" });
   const [priceRange,setPriceRange]=useState<{stockId:string|null;range:"all"|"20"}>({stockId:stock?.id ?? null,range:"all"});
   const currentPriceRange=priceRange.stockId===stock?.id ? priceRange.range : "all";
@@ -170,7 +178,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
           action={activeWatchItem ? () => onStartReview?.(activeWatchItem) : archivedWatchItem ? () => onRestoreWatchItem?.(archivedWatchItem) : () => onAddToWatchlist?.(stock)}
           actionLabel={activeWatchItem ? "开始复盘" : archivedWatchItem ? "恢复已归档观察项" : "加入观察清单"} />
         {companyGuidanceLoadError ? <p role="alert" className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm text-warning">公司指引加载限制：{companyGuidanceLoadError}；本地独立快照仍按原资格展示。</p> : null}
-        <div className="flex min-w-0 flex-wrap gap-1 rounded-lg border border-borderSoft bg-bg2 p-1" role="tablist" aria-label="公司研究章节">
+        <div ref={tabsRef} className={`${presentation === "page" ? "company-page-tabs" : "flex-wrap"} flex min-w-0 gap-1 rounded-lg border border-borderSoft bg-bg2 p-1`} role="tablist" aria-label="公司研究章节">
           {researchTabs.map((item, index) => <button key={item.id} id={`company-tab-${item.id}`} role="tab" aria-selected={tab === item.id} aria-controls={`company-panel-${item.id}`} tabIndex={tab === item.id ? 0 : -1}
             className={`min-h-11 flex-1 whitespace-nowrap rounded-md px-3 py-2 text-sm ${tab === item.id ? "bg-selected font-semibold text-accent ring-1 ring-inset ring-control" : "text-textMuted hover:bg-surface"}`}
             onClick={() => selectTab(item.id)} onKeyDown={(event) => {
@@ -334,7 +342,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
 function ResearchHeader({ stock, industryName, segmentName, onClose, presentation, action, actionLabel }: {
   stock: Stock; industryName: string; segmentName: string; onClose: () => void; presentation: "page" | "drawer"; action: () => void; actionLabel: string;
 }) {
-  return <header className="z-20 min-w-0 rounded-lg border border-borderSoft bg-bg2 p-4 sm:sticky sm:top-[72px]">
+  return <header className={`research-header min-w-0 rounded-lg border border-borderSoft bg-bg2 p-4 ${presentation === "drawer" ? "z-20 sm:sticky sm:top-[72px]" : ""}`}>
     <div className="flex flex-wrap items-start justify-between gap-3">
       <div className="min-w-0 flex-1"><p className="text-xs text-textMuted">{stock.market} · {stock.code} · {industryName} / {segmentName}</p><h1 className="mt-1 break-words text-2xl font-semibold text-textStrong">{stock.name}</h1></div>
       <button type="button" onClick={onClose} aria-label={presentation === "page" ? "返回研究入口" : "关闭详情"} className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded border border-control px-3 text-sm text-textMuted">{presentation === "page" ? <ArrowLeft className="h-4 w-4" /> : <X className="h-4 w-4" />}{presentation === "page" ? "返回" : "关闭"}</button>

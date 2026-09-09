@@ -102,6 +102,8 @@ summary { cursor: pointer; }
 @media (max-width:639px) { .modal-overlay{padding:0;align-items:stretch;} .modal-panel {border-radius:0;max-height:100dvh;} .modal-content{padding:16px;} .modal-footer button{flex:1;} }
 
 .page-heading h2 { font-size:26px; line-height:1.35; }
+.company-page-tabs { position:sticky; top:8px; z-index:20; overflow-x:auto; scroll-margin-top:8px; }
+.company-page-tabs > button { flex-shrink:0; }
 .home-research-grid { display:grid; gap:20px; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1fr); align-items:start; }
 .home-events { grid-column:3; grid-row:1 / 3; }
 .home-watched { grid-column:1 / 3; }
