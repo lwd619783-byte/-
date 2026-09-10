@@ -20,6 +20,8 @@ ROOT = d2.ROOT
 BASE = '1179c0992881e01ab71bc409641e46acf129a408'
 FOLDER = Path('research-data/market-regime/source-catalog/r2-e')
 OUTPUT = FOLDER / 'integration'
+BSE_RULE_CORRECTION = FOLDER / 'bse/supplement-v3/evidence.v3.json'
+BSE_RULE_CORRECTION_PIN = '18938ada45e9aaa5f56b73cb3beb6cbf1ac3a9a852ed9c24ff90fa8dbd98f6ad'
 INPUT_PATHS = {
     'calendar': 'calendar/foundation.v1.json',
     'sse': 'sse/evidence.v1.json',
@@ -143,6 +145,25 @@ def definition_report(*, root=ROOT):
                   semantics='Review partitions and publication definitions never create admitted SourceDefinitionVersions. Frozen D1 source contracts remain unchanged.')
 
 
+def definition_report_v2(*, root=ROOT):
+    original = definition_report(root=root)
+    correction = strict_json((root / BSE_RULE_CORRECTION).read_bytes())
+    require(canonical_sha256(correction) == BSE_RULE_CORRECTION_PIN,
+            'BSE_RULE_CORRECTION_IDENTITY_MISMATCH')
+    reference = dict(path=BSE_RULE_CORRECTION.as_posix(), contentSha256=BSE_RULE_CORRECTION_PIN)
+    result = deepcopy(original)
+    result['reportVersion'] = 'r2-e-integrated-definitions-v2'
+    result['supersedes'] = dict(path=(OUTPUT / 'definitions.v1.json').as_posix(),
+        contentSha256=original['contentSha256'],
+        scope='BSE ruleEvidence byte locators only; V1 records and every admission/blocker result preserved.')
+    result['inputReferences'].append(reference)
+    for row in result['matrix']:
+        if row['exchange'] == 'BSE':
+            row['officialDefinitionEvidence']['ruleEvidence'] = correction['ruleEvidence']
+            row['evidenceReferences'].append(reference)
+    return d2.seal(result)
+
+
 def historical_inputs(*, root=ROOT):
     inventories = {ex: strict_json((root / f'research-data/market-regime/source-catalog/{folder}/inventory.v1.json').read_bytes())
                    for ex, (folder, _, _) in d2.INPUTS.items()}
@@ -225,7 +246,76 @@ def history_report(*, root=ROOT):
                      reason='Eight large complete PDFs retained in ignored local raw; compact input replay does not replace them.')])
 
 
-BUILDERS = {'release': release_report, 'definitions': definition_report, 'history': history_report}
+def admission_report(*, root=ROOT):
+    evidence = inputs(root=root)
+    _, previous = historical_inputs(root=root)
+    definitions = definition_report_v2(root=root)
+    history = history_report(root=root)
+    release = release_report(root=root)
+    checkpoints = [('release.v1', release), ('definitions.v1', definition_report(root=root)),
+                   ('definitions.v2', definitions), ('history.v1', history)]
+    for name, expected in checkpoints:
+        stored = strict_json((root / OUTPUT / (name + '.json')).read_bytes())
+        require(stored == expected, 'CHECKPOINT_ARTIFACT_REPLAY_MISMATCH:' + name)
+    require(history['eligibleObservations'] == history['formalObservations'] == history['strictPitObservations'] == [],
+            'R2_E_V1_HAS_NO_ELIGIBLE_COMPONENTS')
+    require(d2.HISTORICAL_ADMISSIONS == (), 'UNREVIEWED_ADMISSION_AUTHORITY_CHANGE')
+    fields = {(r['exchange'], r['field']): r for r in definitions['matrix']}
+    matrix = []
+    for scope, start, end in d2.ERAS:
+        required = list(d2.market_scope_exchanges(start))
+        for field in d2.FIELDS:
+            matrix.append(dict(marketScopeVersionId=scope, start=start, end=end, field=field,
+                requiredExchanges=required, status='NOT_ADMITTED', numericAggregateCount=0,
+                targetCount=None, coveragePercent=None, denominatorStatus='UNKNOWN_OFFICIAL_CALENDAR',
+                blockers=[dict(exchange=e, sourceReasons=fields[(e, field)]['sourceBlockers'],
+                               reasons=fields[(e, field)]['fieldBlockers'],
+                               evidenceReferences=fields[(e, field)]['evidenceReferences']) for e in required]))
+    sources = []
+    for counts in history['sourceCounts']:
+        exchange = counts['exchange']
+        sources.append(dict(**counts, datasetAdmission='NOT_ADMITTED', officialTradingDayTargetCount=None,
+            sourceBlockers=fields[(exchange, d2.FIELDS[0])]['sourceBlockers'],
+            fieldAdmission=[fields[(exchange, f)] for f in d2.FIELDS],
+            unadmittedWindows=[dict(start='2021-11-15' if exchange == 'BSE' else '2005-01-01', end=d2.END)]))
+    return report('ALL_A_DATASET_ADMISSION_REPORT', status='NOT_ADMITTED',
+        admissionVersion='all-a-basic-amounts-r2d3-v1',
+        previousReport=dict(path='research-data/market-regime/source-catalog/all-a-d2/admission-report.v1.json',
+                            contentSha256=previous['contentSha256'], preserved=True),
+        checkpointReferences=[dict(path=(OUTPUT / (name + '.json')).as_posix(), contentSha256=obj['contentSha256'])
+                              for name, obj in checkpoints] +
+                             [dict(path=(FOLDER / INPUT_PATHS['calendar']).as_posix(), contentSha256=evidence['calendar']['contentSha256'])],
+        numericAggregateCount=0, targetCount=None, coveragePercent=None, observations=[], dailyGrid=None,
+        candidateCount=history['candidateCount'], newCandidateCount=history['newCandidateCount'],
+        priorCandidateCount=history['priorCandidateCount'], uniqueCandidateKeyCount=history['uniqueCandidateKeyCount'],
+        candidateCountUnit=history['candidateCountUnit'], formalCount=0, strictPitCount=0,
+        sourceInventories=sources, admissionMatrix=matrix, eraDenominators=evidence['calendar']['eraDenominators'],
+        unadmittedWindows=[{k: r[k] for k in ('marketScopeVersionId', 'start', 'end', 'field', 'blockers')} for r in matrix],
+        excludedStructuralComponents=previous['excludedStructuralComponents'],
+        evidenceProgress=[
+            dict(item='SSE current holiday archive traversal', status='VERIFIED_DISCOVERY',
+                 result='6/6 pages and 83/83 listed notices retained and replayed; full session/revision coverage unproven.', references=references(['calendar'])),
+            dict(item='BSE 2022-2026 annual holiday notice retrieval', status='VERIFIED_DISCOVERY',
+                 result='5/5 notices from the exact official title query retained. V2 supersedes only V1 unrecovered 2022-2024 notice URLs.', references=references(['bseCalendar'])),
+            dict(item='SSE local source migration investigation', status='VERIFIED_DISCOVERY',
+                 result='Two-family civil-date probe grid replayed; global API era applicability remains unproven.', references=references(['sse', 'sseCandidates'])),
+            dict(item='SZSE yearbook link inventory and daily-table candidates', status='VERIFIED_DISCOVERY',
+                 result='28 official annual links; 484 replayed ChiNext field cells in a separate candidate family. No formal observations.', references=references(['szseArchive', 'szseCandidates'])),
+        ], formalAdmissionTransitions=[], notRun=history['notRun'],
+        investigationLimit='Bounded official-source investigation; neither all potentially obtainable archives nor all historical revisions are claimed exhausted.',
+        validationMode='PINNED_INPUT_AND_D1_D2_COMPACT_REPLAY_RAW_VALIDATORS_SEPARATE',
+        rawArchiveDurability='Small raw responses committed; eight large PDFs retained only in local ignored raw. No remote durable archive claimed.',
+        syntheticValidation=dict(included=False, historicalCoverage=0))
+
+
+BUILDERS = {'release': release_report, 'definitions': definition_report, 'definitions-v2': definition_report_v2,
+            'history': history_report, 'admission': admission_report}
+
+
+def output_path(kind):
+    if kind == 'definitions-v2':
+        return OUTPUT / 'definitions.v2.json'
+    return Path('research-data/market-regime/source-catalog/all-a-d3/admission-report.v1.json') if kind == 'admission' else OUTPUT / (kind + '.v1.json')
 
 
 def validate_report(obj, kind, *, root=ROOT):
@@ -237,7 +327,7 @@ def main():
     parser.add_argument('command', choices=['build', 'validate'])
     parser.add_argument('kind', choices=list(BUILDERS))
     args = parser.parse_args()
-    path = ROOT / OUTPUT / (args.kind + '.v1.json')
+    path = ROOT / output_path(args.kind)
     result = BUILDERS[args.kind]()
     if args.command == 'build':
         write_new(path, result)

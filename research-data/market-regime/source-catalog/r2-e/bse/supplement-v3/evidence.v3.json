@@ -1,0 +1,189 @@
+{
+  "version": "r2-e-bse-rule-locator-supplement-3",
+  "kind": "CORRECTED_BODY_PARAGRAPH_EVIDENCE",
+  "supersedes": {
+    "path": "research-data/market-regime/source-catalog/r2-e/bse/evidence.v1.json",
+    "scope": "ruleEvidence locators only; old V1 and V2 bytes and historical records are preserved",
+    "defect": "V1 first-substring search matched share-link summaries for effective/deferred statements; the deferred locator omitted actual deferred clauses."
+  },
+  "rawInputs": [
+    {
+      "requestId": "rules-2021",
+      "sha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+      "path": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2021.body"
+    },
+    {
+      "requestId": "rules-2026",
+      "sha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+      "path": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2026.body"
+    }
+  ],
+  "ruleEvidence": [
+    {
+      "meaning": "2.3.1",
+      "locator": {
+        "byteOffset": 24202,
+        "byteLength": 349,
+        "text": "<p style=\"line-height: 200%; text-indent: 31px;\"><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">2.3.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所交易日为每周一至周五。&nbsp; </span></p>",
+        "normalizedText": "2.3.1本所交易日为每周一至周五。",
+        "requestId": "rules-2021",
+        "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2021.body"
+      },
+      "requiredTextFragments": [
+        "2.3.1",
+        "本所交易日为每周一至周五"
+      ]
+    },
+    {
+      "meaning": "3.6.8",
+      "locator": {
+        "byteOffset": 62832,
+        "byteLength": 426,
+        "text": "<p style=\"line-height: 200%; text-indent: 31px;\"><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">3.6.8 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span></p>",
+        "normalizedText": "3.6.8大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。",
+        "requestId": "rules-2021",
+        "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2021.body"
+      },
+      "requiredTextFragments": [
+        "3.6.8",
+        "大宗交易不纳入即时行情和指数的计算",
+        "成交量在大宗交易结束后计入当日该证券成交总量"
+      ]
+    },
+    {
+      "meaning": "5.1.1",
+      "locator": {
+        "byteOffset": 77695,
+        "byteLength": 525,
+        "text": "<p style=\"line-height: 200%; text-indent: 31px;\"><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">5.1.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所每个交易日发布证券交易即时行情、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类报表，并通过符合《证券法》规定的信息披露平台予以公布。</span></p>",
+        "normalizedText": "5.1.1本所每个交易日发布证券交易即时行情、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类报表，并通过符合《证券法》规定的信息披露平台予以公布。",
+        "requestId": "rules-2021",
+        "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2021.body"
+      },
+      "requiredTextFragments": [
+        "5.1.1",
+        "本所每个交易日发布证券交易即时行情",
+        "及时编制反映市场交易情况"
+      ]
+    },
+    {
+      "meaning": "2.3.1",
+      "locator": {
+        "byteOffset": 27478,
+        "byteLength": 286,
+        "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">2.3.1 本所交易日为每周一至周五。</span></p>",
+        "normalizedText": "2.3.1本所交易日为每周一至周五。",
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2026.body"
+      },
+      "requiredTextFragments": [
+        "2.3.1",
+        "本所交易日为每周一至周五"
+      ]
+    },
+    {
+      "meaning": "3.6.8",
+      "locator": {
+        "byteOffset": 72398,
+        "byteLength": 370,
+        "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">3.6.8 大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span></p>",
+        "normalizedText": "3.6.8大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。",
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2026.body"
+      },
+      "requiredTextFragments": [
+        "3.6.8",
+        "大宗交易不纳入即时行情和指数的计算",
+        "成交量在大宗交易结束后计入当日该证券成交总量"
+      ]
+    },
+    {
+      "meaning": "5.1.1",
+      "locator": {
+        "byteOffset": 105735,
+        "byteLength": 523,
+        "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">5.1.1 本所每个交易日发布证券交易即时行情、证券指数、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类日报表、周报表、月报表和年报表，并通过符合《证券法》规定的信息披露平台予以公布。</span></p>",
+        "normalizedText": "5.1.1本所每个交易日发布证券交易即时行情、证券指数、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类日报表、周报表、月报表和年报表，并通过符合《证券法》规定的信息披露平台予以公布。",
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2026.body"
+      },
+      "requiredTextFragments": [
+        "5.1.1",
+        "本所每个交易日发布证券交易即时行情",
+        "及时编制反映市场交易情况"
+      ]
+    },
+    {
+      "meaning": "NEW_RULE_EFFECTIVE_DATE_WITH_EXCEPTIONS",
+      "locator": {
+        "byteOffset": 11356,
+        "byteLength": 905,
+        "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">为了进一步完善股票交易机制，促进市场健康发展，北京证券交易所对《北京证券交易所交易规则（试行）》进行了修订，并更名为《北京证券交易所交易规则》，经中国证监会批准，现予</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">以</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\"><span style=\"font-family:微软雅黑\">发布。除本公告特别说明的条款外，修订后的规则自</span><span style=\"font-family:微软雅黑\">2026年7月6日起施行。</span></span></p>",
+        "normalizedText": "为了进一步完善股票交易机制，促进市场健康发展，北京证券交易所对《北京证券交易所交易规则（试行）》进行了修订，并更名为《北京证券交易所交易规则》，经中国证监会批准，现予以发布。除本公告特别说明的条款外，修订后的规则自2026年7月6日起施行。",
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2026.body"
+      },
+      "requiredTextFragments": [
+        "为了进一步完善股票交易机制",
+        "除本公告特别说明的条款外",
+        "修订后的规则自2026年7月6日起施行"
+      ]
+    },
+    {
+      "meaning": "DEFERRED_CLAUSES_NOT_ASSUMED_EFFECTIVE",
+      "locator": {
+        "byteOffset": 12261,
+        "byteLength": 2996,
+        "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\"><span style=\"font-family:微软雅黑\">考虑到市场业务和技术整体准备情况，本规则第</span><span style=\"font-family:微软雅黑\">3.</span></span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">6.5条第二款和第三款、第</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">3</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">.7.1条至第</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">3</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">.</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">7</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">.</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">10条</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">、第</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">4</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">.5.1条至第</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">4</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">.5.</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">4</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">条的</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">具体施行时间</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">，</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">由本所另行通知。在此之前，关于无价格涨跌幅限制股票大宗交易价格的有关安排，</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">仍按照</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">原</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">规定执行。</span></p>",
+        "normalizedText": "考虑到市场业务和技术整体准备情况，本规则第3.6.5条第二款和第三款、第3.7.1条至第3.7.10条、第4.5.1条至第4.5.4条的具体施行时间，由本所另行通知。在此之前，关于无价格涨跌幅限制股票大宗交易价格的有关安排，仍按照原规定执行。",
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2026.body"
+      },
+      "requiredTextFragments": [
+        "考虑到市场业务和技术整体准备情况",
+        "第3.6.5条第二款和第三款",
+        "第3.7.1条至第3.7.10条",
+        "第4.5.1条至第4.5.4条",
+        "具体施行时间",
+        "由本所另行通知",
+        "仍按照原规定执行"
+      ]
+    },
+    {
+      "meaning": "INITIAL_RULE_EFFECTIVE_DATE",
+      "locator": {
+        "byteOffset": 11287,
+        "byteLength": 458,
+        "text": "<p style=\"line-height: 37px; text-indent: 31px;\"><span style=\"color: rgb(109, 109, 109); font-family: &quot;微软雅黑&quot;,sans-serif; font-size: 15px;\">为了规范北京证券交易所（以下简称本所）市场交易行为，保护投资者合法权益，本所制定了《北京证券交易所交易规则（试行）》（以下简称《交易规则》）。经中国证监会批准，现予以发布，自2021年11月15日起施行。</span></p>",
+        "normalizedText": "为了规范北京证券交易所（以下简称本所）市场交易行为，保护投资者合法权益，本所制定了《北京证券交易所交易规则（试行）》（以下简称《交易规则》）。经中国证监会批准，现予以发布，自2021年11月15日起施行。",
+        "requestId": "rules-2021",
+        "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+        "rawPath": "research-data/market-regime/source-catalog/r2-e/bse/raw/rules-2021.body"
+      },
+      "requiredTextFragments": [
+        "为了规范北京证券交易所",
+        "经中国证监会批准",
+        "自2021年11月15日起施行"
+      ]
+    }
+  ],
+  "formalCount": 0,
+  "strictPitCount": 0,
+  "releaseEvents": [],
+  "status": "EVIDENCE_CORRECTED_NOT_DATA_ADMISSION",
+  "limits": [
+    "These are rule publication/effectiveness paragraphs, not market statistical releases.",
+    "Deferred clauses are not assumed effective on 2026-07-06.",
+    "Block-trade volume wording does not prove all-mode hqcjje turnover amount inclusion.",
+    "V3 does not create calendar sessions, new field-era admission, candidates or observations."
+  ],
+  "contentSha256": "6ce58aa1ca27cd8ed8a46e0ab139aa43f9390f3fb68c05af65609ea1ef1713aa"
+}

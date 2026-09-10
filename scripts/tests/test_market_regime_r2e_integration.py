@@ -105,6 +105,97 @@ class IntegratedEvidenceTests(unittest.TestCase):
         self.assertEqual(len({r['tradeDate'] for r in candidates}), 242)
         self.assertIsNone(r2e.inputs()['calendar']['targetCount'])
 
+    def test_d3_complete_six_row_refusal_and_unknown_coverage(self):
+        obj = r2e.admission_report()
+        self.assertEqual(len(obj['admissionMatrix']), 6)
+        self.assertEqual(len(obj['unadmittedWindows']), 6)
+        self.assertEqual(obj['numericAggregateCount'], 0)
+        self.assertEqual(obj['formalAdmissionTransitions'], [])
+        for row in obj['admissionMatrix']:
+            self.assertIsNone(row['targetCount'])
+            self.assertIsNone(row['coveragePercent'])
+            self.assertEqual(set(row['requiredExchanges']), {'SSE', 'SZSE'} | ({'BSE'} if row['start'] == '2021-11-15' else set()))
+
+    def test_d3_resealed_numeric_or_denominator_injection_rejected(self):
+        for key, value in [('numericAggregateCount', 1), ('targetCount', 5000), ('coveragePercent', 0)]:
+            obj = r2e.admission_report()
+            obj[key] = value
+            with self.assertRaises(ValueError):
+                r2e.validate_report(r2e.d2.seal(obj), 'admission')
+
+    def test_d3_preserves_d2_and_bse_null_structural_marker(self):
+        obj = r2e.admission_report()
+        self.assertEqual(obj['previousReport']['contentSha256'], '4ba8737f2dc9e0ba32a35249b36b07075253ea9a11270b67be78029f9ff3b3c1')
+        self.assertIsNone(obj['excludedStructuralComponents'][0]['value'])
+        self.assertIsNone(obj['excludedStructuralComponents'][0]['releaseAvailableAt'])
+        self.assertEqual(obj['excludedStructuralComponents'][0]['status'], 'OUTSIDE_REQUIRED_SCOPE')
+
+    def test_d3_retains_bse_annual_notice_recovery_without_admission(self):
+        obj = r2e.admission_report()
+        progress = next(r for r in obj['evidenceProgress'] if r['item'].startswith('BSE'))
+        self.assertEqual(progress['status'], 'VERIFIED_DISCOVERY')
+        for row in obj['sourceInventories']:
+            self.assertFalse(any('2022-2024' in b for b in row['sourceBlockers']))
+            self.assertEqual(row['datasetAdmission'], 'NOT_ADMITTED')
+
+    def test_d3_rejects_stale_or_tampered_committed_checkpoint(self):
+        paths = {r2e.FOLDER / p for p in r2e.INPUT_PATHS.values()}
+        paths.update([r2e.BSE_RULE_CORRECTION, r2e.OUTPUT / 'definitions.v2.json'])
+        paths.update(r2e.OUTPUT / (name + '.v1.json') for name in ('release', 'definitions', 'history'))
+        paths.add(Path('research-data/market-regime/source-catalog/all-a-d2/admission-report.v1.json'))
+        for exchange, (folder, _, _) in r2e.d2.INPUTS.items():
+            paths.add(Path(f'research-data/market-regime/source-catalog/{folder}/inventory.v1.json'))
+            paths.add(Path('config/market-regime') / (exchange.lower() + '-source-contract.v1.json'))
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for path in paths:
+                (root / path).parent.mkdir(parents=True, exist_ok=True)
+                (root / path).write_bytes((r2e.ROOT / path).read_bytes())
+            path = root / r2e.OUTPUT / 'history.v1.json'
+            obj = r2e.strict_json(path.read_bytes())
+            obj['formalCount'] = 1
+            path.write_text(json.dumps(r2e.d2.seal(obj)), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'CHECKPOINT_ARTIFACT_REPLAY_MISMATCH'):
+                r2e.admission_report(root=root)
+
+    def test_definition_v2_changes_only_bse_locators_and_references(self):
+        old = r2e.definition_report()
+        new = r2e.definition_report_v2()
+        for before, after in zip(old['matrix'], new['matrix']):
+            restored = dict(after)
+            if before['exchange'] == 'BSE':
+                self.assertNotEqual(before['officialDefinitionEvidence'], after['officialDefinitionEvidence'])
+                restored['officialDefinitionEvidence'] = before['officialDefinitionEvidence']
+                restored['evidenceReferences'] = before['evidenceReferences']
+            self.assertEqual(before, restored)
+        self.assertEqual(new['supersedes']['contentSha256'], old['contentSha256'])
+        self.assertEqual(r2e.strict_json((r2e.ROOT / r2e.OUTPUT / 'definitions.v1.json').read_bytes()), old)
+
+    def test_d3_binds_corrected_definition_artifact(self):
+        obj = r2e.admission_report()
+        ref = next(r for r in obj['checkpointReferences'] if r['path'].endswith('definitions.v2.json'))
+        self.assertEqual(ref['contentSha256'], r2e.definition_report_v2()['contentSha256'])
+        bse = next(r for r in obj['sourceInventories'] if r['exchange'] == 'BSE')
+        self.assertTrue(all(any(ref['contentSha256'] == r2e.BSE_RULE_CORRECTION_PIN
+                                for ref in row['evidenceReferences']) for row in bse['fieldAdmission']))
+
+    def test_definition_v2_resealed_rule_correction_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for path in [r2e.FOLDER / p for p in r2e.INPUT_PATHS.values()] + [r2e.BSE_RULE_CORRECTION]:
+                (root / path).parent.mkdir(parents=True, exist_ok=True)
+                (root / path).write_bytes((r2e.ROOT / path).read_bytes())
+            for exchange in ('SSE', 'SZSE', 'BSE'):
+                path = Path('config/market-regime') / (exchange.lower() + '-source-contract.v1.json')
+                (root / path).parent.mkdir(parents=True, exist_ok=True)
+                (root / path).write_bytes((r2e.ROOT / path).read_bytes())
+            path = root / r2e.BSE_RULE_CORRECTION
+            obj = r2e.strict_json(path.read_bytes())
+            obj['ruleEvidence'][0]['locator']['byteOffset'] = 0
+            path.write_text(json.dumps(r2e.d2.seal(obj)), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'BSE_RULE_CORRECTION_IDENTITY_MISMATCH'):
+                r2e.definition_report_v2(root=root)
+
 
 if __name__ == '__main__':
     unittest.main()
