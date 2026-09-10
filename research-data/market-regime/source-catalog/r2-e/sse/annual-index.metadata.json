@@ -1,0 +1,12 @@
+{
+  "requestId": "annual-index",
+  "url": "https://www.sse.com.cn/aboutus/publication/yearly/",
+  "attemptedAt": "2026-09-10T04:24:08+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/",
+  "path": "research-data/market-regime/source-catalog/r2-e/sse/annual-index.body",
+  "contentType": "text/html",
+  "sha256": "ff1d02d5a7377edf25b959572ae81510499aa26d2942ca21965da27f2a98111b",
+  "byteSize": 35476
+}

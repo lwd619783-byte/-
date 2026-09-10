@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "annual-js",
+    "url": "https://www.bse.cn/template/6/bluewise/_files/js/law/law.min.js",
+    "method": "GET",
+    "discovery": "PARENT_SCRIPT_SRC",
+    "parent": "annual-index",
+    "byteOffset": 10459,
+    "text": "/template/6/bluewise/_files/js/law/law.min.js"
+  },
+  "attemptedAt": "2026-09-10T04:24:50+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/law/law.min.js",
+  "contentType": "application/javascript",
+  "bodyPath": "raw/annual-js.body",
+  "byteSize": 3818,
+  "sha256": "bc6f4ea0ea22ee5392cfb017682c8a39e597825705dc2178d015ef8613b00f56"
+}

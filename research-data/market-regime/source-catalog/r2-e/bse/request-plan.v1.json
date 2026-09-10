@@ -1,0 +1,191 @@
+{
+  "version": "r2-e-bse-1",
+  "targetWindow": {
+    "start": "2021-11-15",
+    "end": "2026-09-04"
+  },
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "maxRequests": 24,
+  "timeoutSeconds": 12,
+  "maxResponseBytes": 2000000,
+  "requests": [
+    {
+      "requestId": "rules-2021",
+      "url": "https://www.bse.cn/jygl_list/200010919.html",
+      "method": "GET",
+      "discovery": "OFFICIAL_SEARCH_RESULT"
+    },
+    {
+      "requestId": "rules-2026",
+      "url": "https://www.bse.cn/jygl_list/200028217.html",
+      "method": "GET",
+      "discovery": "OFFICIAL_SEARCH_RESULT"
+    },
+    {
+      "requestId": "calendar-2025",
+      "url": "https://www.bse.cn/important_news/200024437.html",
+      "method": "GET",
+      "discovery": "OFFICIAL_SEARCH_RESULT"
+    },
+    {
+      "requestId": "calendar-2026",
+      "url": "https://www.bse.cn/important_news/200027428.html",
+      "method": "GET",
+      "discovery": "FROZEN_D1C_CONTRACT_URL"
+    },
+    {
+      "requestId": "annual-index",
+      "url": "https://www.bse.cn/static/annual.html",
+      "method": "GET",
+      "discovery": "OFFICIAL_SEARCH_RESULT"
+    },
+    {
+      "requestId": "statistics-page",
+      "url": "https://www.bse.cn/static/statisticdata.html",
+      "method": "GET",
+      "discovery": "OFFICIAL_SEARCH_RESULT"
+    },
+    {
+      "requestId": "daily-js",
+      "url": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+      "method": "GET",
+      "discovery": "PARENT_SCRIPT_SRC",
+      "parent": "statistics-page",
+      "byteOffset": 26689,
+      "text": "/template/6/bluewise/_files/js/marketData/daily.min.js"
+    },
+    {
+      "requestId": "annual-js",
+      "url": "https://www.bse.cn/template/6/bluewise/_files/js/law/law.min.js",
+      "method": "GET",
+      "discovery": "PARENT_SCRIPT_SRC",
+      "parent": "annual-index",
+      "byteOffset": 10459,
+      "text": "/template/6/bluewise/_files/js/law/law.min.js"
+    },
+    {
+      "requestId": "annual-list",
+      "url": "https://www.bse.cn/info/listse.do",
+      "method": "POST",
+      "form": "page=0&pageSize=20&keywords=&startTime=&endTime=&nodeIds%5B%5D=2722",
+      "discovery": "annual-js /info/listse.do and annual-index searchNodeId=2722; cache-buster omitted",
+      "parent": "annual-js"
+    },
+    {
+      "requestId": "special-list",
+      "url": "https://www.bse.cn/neeqController/getSpecialList.do",
+      "method": "POST",
+      "form": "page=0&pageSize=20&startTime=&endTime=&keyword=&siteId=6",
+      "discovery": "daily-js E() explicit special report request",
+      "parent": "daily-js"
+    },
+    {
+      "requestId": "annual-docx-2021",
+      "url": "https://www.bse.cn/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx",
+      "method": "GET",
+      "discovery": "PARENT_FILE_URL",
+      "parent": "annual-list",
+      "byteOffset": 242,
+      "text": "/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx"
+    },
+    {
+      "requestId": "annual-pdf-2025",
+      "url": "https://www.bse.cn/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf",
+      "method": "GET",
+      "discovery": "PARENT_FILE_URL",
+      "parent": "special-list",
+      "byteOffset": 230,
+      "text": "/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf"
+    },
+    {
+      "requestId": "annual-pdf-2024",
+      "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf",
+      "method": "GET",
+      "discovery": "PARENT_FILE_URL",
+      "parent": "special-list",
+      "byteOffset": 1145,
+      "text": "/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf"
+    },
+    {
+      "requestId": "annual-pdf-2023",
+      "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf",
+      "method": "GET",
+      "discovery": "PARENT_FILE_URL",
+      "parent": "special-list",
+      "byteOffset": 2060,
+      "text": "/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf"
+    },
+    {
+      "requestId": "annual-pdf-2022",
+      "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf",
+      "method": "GET",
+      "discovery": "PARENT_FILE_URL",
+      "parent": "special-list",
+      "byteOffset": 2975,
+      "text": "/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf"
+    },
+    {
+      "requestId": "annual-pdf-2021",
+      "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf",
+      "method": "GET",
+      "discovery": "PARENT_FILE_URL",
+      "parent": "special-list",
+      "byteOffset": 3896,
+      "text": "/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf"
+    },
+    {
+      "requestId": "daily-2022-12-30",
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "method": "POST",
+      "form": "HQJSRQ=20221230",
+      "requestedDate": "2022-12-30",
+      "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+      "parent": "daily-js"
+    },
+    {
+      "requestId": "daily-2023-12-29",
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "method": "POST",
+      "form": "HQJSRQ=20231229",
+      "requestedDate": "2023-12-29",
+      "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+      "parent": "daily-js"
+    },
+    {
+      "requestId": "daily-2024-12-31",
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "method": "POST",
+      "form": "HQJSRQ=20241231",
+      "requestedDate": "2024-12-31",
+      "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+      "parent": "daily-js"
+    },
+    {
+      "requestId": "daily-2025-12-31",
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "method": "POST",
+      "form": "HQJSRQ=20251231",
+      "requestedDate": "2025-12-31",
+      "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+      "parent": "daily-js"
+    },
+    {
+      "requestId": "daily-2026-07-06",
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "method": "POST",
+      "form": "HQJSRQ=20260706",
+      "requestedDate": "2026-07-06",
+      "discovery": "daily-js date parameter; rules-2026 effective date; not inferred previous trading session",
+      "parent": "daily-js"
+    },
+    {
+      "requestId": "daily-2026-09-04",
+      "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "method": "POST",
+      "form": "HQJSRQ=20260904",
+      "requestedDate": "2026-09-04",
+      "discovery": "daily-js date parameter; D1C frozen endpoint date repeated to test current replay drift",
+      "parent": "daily-js"
+    }
+  ]
+}

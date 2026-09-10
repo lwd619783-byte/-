@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "sourceId": "SZSE_MARKET_STATS_OFFICIAL",
+  "role": "CANDIDATE_EVIDENCE_ONLY",
+  "acquisitionPolicy": "BOUNDED_EXACT_URLS_NO_DATE_ENUMERATION",
+  "records": [
+    {
+      "evidenceId": "csrc-2025-indicators",
+      "url": "https://www.szse.cn/www/lawrules/csrcrules/notice/P020250519343090326948.pdf",
+      "discoveryKind": "WEB_SEARCH_OFFICIAL_RESULT",
+      "startedAt": "2026-09-10T04:28:28.370309+00:00",
+      "statusCode": 200,
+      "finalUrl": "https://www.szse.cn/www/lawrules/csrcrules/notice/P020250519343090326948.pdf",
+      "contentType": "application/pdf",
+      "sha256": "bbf26cafe91b1202c0d8dfcf0234bac64acf1a009c50778f722d870e56606a30",
+      "byteSize": 2460449,
+      "path": "research-data/market-regime/raw/r2-e-szse/csrc-2025-indicators.body",
+      "status": "RETRIEVED",
+      "completedAt": "2026-09-10T04:28:51.127903+00:00",
+      "archiveDisposition": "LOCAL_IGNORED_RAW_FULL_REPLAY_REQUIRES_THIS_FILE"
+    },
+    {
+      "evidenceId": "year-2005",
+      "url": "https://docs.static.szse.cn/www/market/periodical/year/W020250610540373805626.PDF",
+      "discoveryKind": "YEAR_INDEX_LINK_HTTPS_TRANSPORT_SAME_HOST_PATH",
+      "startedAt": "2026-09-10T04:28:28.370942+00:00",
+      "statusCode": 200,
+      "finalUrl": "https://docs.static.szse.cn/www/market/periodical/year/W020250610540373805626.PDF",
+      "contentType": "application/pdf",
+      "sha256": "88b1bcc019b39b09670d77020823cd6ae9d2a98152bca74a72b2a589bf489245",
+      "byteSize": 7286823,
+      "path": "research-data/market-regime/raw/r2-e-szse/year-2005.body",
+      "status": "RETRIEVED",
+      "completedAt": "2026-09-10T04:28:54.935212+00:00",
+      "archiveDisposition": "LOCAL_IGNORED_RAW_FULL_REPLAY_REQUIRES_THIS_FILE"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "request": {
+    "requestId": "calendar-2026",
+    "url": "https://www.bse.cn/important_news/200027428.html",
+    "method": "GET",
+    "discovery": "FROZEN_D1C_CONTRACT_URL"
+  },
+  "attemptedAt": "2026-09-10T04:24:15+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/important_news/200027428.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/calendar-2026.body",
+  "byteSize": 21440,
+  "sha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab"
+}

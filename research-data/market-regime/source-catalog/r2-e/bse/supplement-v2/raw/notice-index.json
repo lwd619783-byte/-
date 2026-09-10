@@ -1,0 +1,15 @@
+{
+  "request": {
+    "requestId": "notice-index",
+    "url": "https://www.bse.cn/disclosure/vocational.html",
+    "method": "GET",
+    "discovery": "D1C retained header href /disclosure/vocational.html"
+  },
+  "attemptedAt": "2026-09-10T04:31:44+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/disclosure/vocational.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/notice-index.body",
+  "byteSize": 15691,
+  "sha256": "a363a70f5110f99387f69ab9ccca51106aef84778af74b52439691c9e16610d8"
+}

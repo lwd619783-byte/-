@@ -1,0 +1,12 @@
+{
+  "requestId": "monthly-current",
+  "url": "https://www.sse.com.cn/aboutus/publication/monthly/index/",
+  "attemptedAt": "2026-09-10T04:24:09+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/aboutus/publication/monthly/index/",
+  "path": "research-data/market-regime/source-catalog/r2-e/sse/monthly-current.body",
+  "contentType": "text/html",
+  "sha256": "5be3effcbb23a283eba6f345325d02b4bce1d9f64b51e65b01b95295b4730a59",
+  "byteSize": 33840
+}

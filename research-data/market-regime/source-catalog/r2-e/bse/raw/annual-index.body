@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>年度概况 - 北京证券交易所</title>
+        
+        <!-- 字体编码 -->
+        <meta charset="utf-8" />
+
+        <!-- 关键字 -->
+        <meta name="keywords" content="" />
+
+        <!-- 说明 -->
+        <meta name="description" content="" />
+
+        <!-- 作者 -->
+        <meta name="author" content="" />
+
+        <!-- 设置文档宽度、是否缩放 -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+
+        <!-- 优先使用IE最新版本或chrome -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <!-- 360读取到这个标签立即钱换到极速模式 -->
+        <meta name="renderer" content="webkit" />
+
+        <!-- 禁止百度转码 -->
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+        <!-- UC强制竖屏 -->
+        <meta name="screen-orientation" content="portrait" />
+
+        <!-- QQ强制竖屏 -->
+        <meta name="x5-orientation" content="portrait" />
+
+        <!-- UC强制全屏 -->
+        <meta name="full-scerrn" content="yes" />
+
+        <!-- QQ强制全屏 -->
+        <meta name="x5-fullscreen" content="ture" />
+
+        <!-- QQ应用模式 -->
+        <meta name="x5-page-mode" content="app" />
+
+        <!-- UC应用模式 -->
+        <meta name="browsermode" content="application">
+
+        <!-- window phone 点亮无高光 -->
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <!-- 安卓设备不自动识别邮件地址 -->
+        <meta name="format-detection" name="email=no" />
+
+        <!-- iOS设备 -->
+        <!-- 添加到主屏幕的标题 -->
+        <meta name="apple-mobile-web-app-title" content="标题" />
+
+        <!-- 是否启用webApp全屏 -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <!-- 设置状态栏的背景颜色，启用webapp模式时生效 -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent/black/default" />
+        <!-- 半透明/黑色/默认白色 -->
+
+        <!-- 禁止数字识别为电话号码 -->
+        <meta name="format-detection" content="telephone=no" />
+
+        <!-- 智能添加广告条 -->
+        <meta name="apple-itunes-app" content="app-id=myappstoreID,affiliate-data=myaffiliatedata,app-argument=myurl" />
+
+        
+        <link rel="shortcut icon" href="/template/6/bluewise/_files/img/favicon.ico"><!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="/template/6/bluewise/_files/js/plugins/respones/html5shiv.min.js"></script>
+    <script src="/template/6/bluewise/_files/js/plugins/respones/respond.min.js"></script>
+        <![endif]-->
+<script src="/template/6/bluewise/_files/js/plugins/requireJS/require.min.js"></script>
+<script id="base" src="/template/6/bluewise/_files/js/main.min.js" data-compress="true" data-debugMode="false" base="/template/6/bluewise/_files"></script>
+        
+		<menu style="display:none;width:0;height:0;">年度概况</menu>
+    </head>
+    <body>
+    <div class="bg-loading" style="width: 100%;height: 100%;background-color: white;position: fixed;z-index: 9999;"></div>
+    <div id="root" class="">
+    <input type="hidden" id="pageId" value="0"/>
+      <div class="mw-header en">
+        <iframe class="iframe-top" src="../myhead.html" frameborder="0" width="100%" height="140px" scrolling="no"></iframe>
+      </div>
+      <div class="mw-submenu-container"></div>
+      <div class="mw-banner-page" style="background-image: url(/template/6/bluewise/_files/img/common/banner_4.jpg);">
+        <div class="container">
+<div class="main-title clearfix">
+        <div id="titleSearch" class="fl">年度概况<span id="overviewContent"></span>
+    </div>
+	<div class="rightNav fr">
+		<span id="mbx"> 
+				<a href="/index.html" title="首页">首页</a><span style="margin:5px;">&gt;</span>
+				<a href="/nq/quotation.html" title="市场数据">市场数据</a><span style="margin:5px;">&gt;</span>
+				<a href="/static/statisticdata.html" title="定期统计">定期统计</a><span style="margin:5px;">&gt;</span>
+				<span data-url="/static/annual.html" data-name="年度概况">年度概况</span><span id="rightOverviewContent"></span> 
+		</span>
+	</div>
+</div>          </div>
+        </div>
+      
+      <div class="mw-page">
+      <div class="container"> 
+        <div class="row">
+          <div class="col-sm-12 col-md-9 col-md-push-3">
+            				 <div class="context">
+                    			<!-- <div class="bf-context clearfix">
+                    				<div class="top">
+                    					<div class="fl tit fl-Title">年度概况</div>
+	              						<div class="clearfix">
+							               <input type="hidden" id="siteUrl" value=""/>
+							               		
+							               		<div class="fr">
+													<input type="text"  id="keyword" class="top_input" maxlength="200" placeholder="关键字"> 
+													<input type="text" class="date date1" value="" name="date" placeholder="日期" />
+													<input type="hidden" id="startTime" name="startTime" class="form-control"> 
+													<input type="hidden" id="endTime" name="endTime" class="form-control"> 
+													<input id="searchNodeId" type="hidden" value="2722"/>
+													<button id="searchButton" type="button" class="go cx">查询</button>
+												</div>
+										</div>
+                    				</div>            						
+               						<ul class="knowledgeModel clearfix" id="knowledgeModel"></ul>  
+     							</div>
+     							<div class="mw-paging page" id="Pagination"></div> -->
+     			<div class="main_content_center">
+					<div class="clearfix">
+					<input type="hidden" id="siteUrl" value=""/>
+						<div id="nodeName" class="fl tit">年度概况</div>
+						<div id="inputGo" class="fr">
+							<input id="keyword" type="text" class="form-control top_input" maxlength="200" placeholder="关键字"> 
+							<input type="text" class="date" value="" name="date" placeholder="日期" />
+							<input type="hidden" id="startTime" name="startTime" class="form-control"> 
+							<input type="hidden" id="endTime" name="endTime" class="form-control"> 
+							<input id="searchNodeId" type="hidden" value="2722"/>
+							<button id="searchButton" type="button" value="GO" class="go cx">查询</button>
+						</div>
+					</div>
+					<div class="in_div">
+						<div id="div_all">
+							<table id="table_all">
+								<thead>
+									<tr>
+										<th style="width:10%">Code</th>
+										<th style="width:90%">content</th>
+									</tr>
+								</thead>
+								<tbody id="table_body"></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="mw-paging page" id="Pagination"></div>
+				
+     					  </div>
+            			 </div>
+            
+         
+             <div class="col-md-3 col-md-pull-9 hidden-xs hidden-sm">
+<div class="treeNav clearfix">
+	<input type="hidden" id="curNodeId" value="2721"/>
+	<div class=sideBar>
+		<div class="active sideHeader" dnode="1314">
+			<a href="/nq/quotation.html"><span>市场数据</span></a>
+		</div>
+		<ul class="navMenu">
+			<!-- level 1 -->
+								 <li class="menu" dnode="3147"><span class="arrow">
+<a href="/nq/quotation.html" title="行情信息">行情信息</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="3148"><span><a href="/nq/quotation.html" title="股票行情">股票行情</a></span></li>
+													<li dnode="3149"><span><a href="/bond_market/zqhq.html" title="债券行情">债券行情</a></span></li>
+								</ul>
+								 <li class="menu" dnode="2881"><span class="arrow">
+<a href="/market_data/bse_indices/bse_bz50.html" title="北证指数">北证指数</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="2913"><span><a href="/market_data/bse_indices/bse_bz50.html" title="北证50">北证50</a></span></li>
+													<li dnode="3226"><span><a href="/market_data/bse_indices/bse_zjtx.html" title="北证专精特新">北证专精特新</a></span></li>
+													<li dnode="2883"><span><a href="/bse_index/apply.html" title="指数授权">指数授权</a></span></li>
+								</ul>
+								 <li class="menu" dnode="1498"><span class="arrow">
+<a href="/fenglei/hyfl.html" title="行业分类">行业分类</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="1476"><span><a href="/fenglei/hyfl.html" title="行业分类结果">行业分类结果</a></span></li>
+													<li dnode="1499"><span><a href="/fenglei/hyfl01.html" title="行业分类指引">行业分类指引</a></span></li>
+								</ul>
+								 <li class="menu" dnode="2721"><span class="arrow">
+<a href="/static/statisticdata.html" title="定期统计">定期统计</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="1506"><span><a href="/static/statisticdata.html" title="股票">股票</a></span></li>
+													 <li class="menu" dnode="2871"><span class="arrow">
+<a href="/static/bond_statisticdata.html" title="债券">债券</a>													 </span>
+													 <ul class="subMenu sub_2" style="display:none">
+													 <!-- level 3 -->
+																		<li dnode="2929"><span><a href="/static/bond_statisticdata.html" title="发行情况">发行情况</a></span></li>
+																		<li dnode="3151"><span><a href="/static/xyz_statisticdata.html" title="现券市场概览">现券市场概览</a></span></li>
+																		<li dnode="2930"><span><a href="/static/underwriting.html" title="承销情况">承销情况</a></span></li>
+													</ul>
+								</ul>
+		</ul>
+	</div>
+</div>
+
+
+          </div>
+          
+          </div>
+         
+        </div>
+      </div>
+    
+      <div class="mw-footer">
+         <iframe src="../myfoot.html" frameborder="0" width="100%" height="80px" scrolling="no"></iframe>
+      </div>
+    </div>
+      
+                    
+      
+        <script src="/template/6/bluewise/_files/js/law/law.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "requestId": "daily-2021-12-31",
+  "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-31",
+  "attemptedAt": "2026-09-10T04:25:06+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-31",
+  "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-31.body",
+  "contentType": "application/json;charset=UTF-8",
+  "sha256": "4c33c2a117a3e46f8b2b26e570d4e25bc20c4c613f7069a166ef6beb5c41279f",
+  "byteSize": 1234
+}

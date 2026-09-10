@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "daily-2025-12-31",
+    "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "method": "POST",
+    "form": "HQJSRQ=20251231",
+    "requestedDate": "2025-12-31",
+    "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+    "parent": "daily-js"
+  },
+  "attemptedAt": "2026-09-10T04:26:21+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+  "contentType": "text/html;charset=utf-8",
+  "bodyPath": "raw/daily-2025-12-31.body",
+  "byteSize": 1259,
+  "sha256": "a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40"
+}

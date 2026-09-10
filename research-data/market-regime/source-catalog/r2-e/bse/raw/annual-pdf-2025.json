@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "annual-pdf-2025",
+    "url": "https://www.bse.cn/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf",
+    "method": "GET",
+    "discovery": "PARENT_FILE_URL",
+    "parent": "special-list",
+    "byteOffset": 230,
+    "text": "/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf"
+  },
+  "attemptedAt": "2026-09-10T04:25:40+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf",
+  "contentType": "application/pdf",
+  "bodyPath": "raw/annual-pdf-2025.body",
+  "byteSize": 192300,
+  "sha256": "ddb60d71fa378883d16ad929aa1a01541f500ca95774cf5a54064be62273f308"
+}

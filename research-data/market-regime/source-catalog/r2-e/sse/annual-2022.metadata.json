@@ -1,0 +1,14 @@
+{
+  "requestId": "annual-2022",
+  "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061072/files/dfca40e586304401b1f7a55c22684bc5.pdf",
+  "attemptedAt": "2026-09-10T04:24:28+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061072/files/dfca40e586304401b1f7a55c22684bc5.pdf",
+  "path": "research-data/market-regime/raw/r2-e-sse/annual-2022.pdf",
+  "contentType": "application/pdf",
+  "sha256": "cce82ab46b1897c22455c57bde4291e938d10543bec10e5d0ccb581871368966",
+  "byteSize": 21867723,
+  "archiveDistribution": "LOCAL_IGNORED_FULL_BYTES",
+  "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED"
+}

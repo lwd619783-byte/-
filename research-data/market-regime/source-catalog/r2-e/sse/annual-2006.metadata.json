@@ -1,0 +1,14 @@
+{
+  "requestId": "annual-2006",
+  "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061088/files/02828bf648f9437c9468c28ee3858d3f.pdf",
+  "attemptedAt": "2026-09-10T04:24:33+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061088/files/02828bf648f9437c9468c28ee3858d3f.pdf",
+  "path": "research-data/market-regime/raw/r2-e-sse/annual-2006.pdf",
+  "contentType": "application/pdf",
+  "sha256": "c236bba4663888524928c599636dd49d9c4cf387a6faeb27af4aa34ef4824478",
+  "byteSize": 4825485,
+  "archiveDistribution": "LOCAL_IGNORED_FULL_BYTES",
+  "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED"
+}

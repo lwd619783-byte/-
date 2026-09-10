@@ -1,0 +1,12 @@
+{
+  "requestId": "daily-script",
+  "url": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+  "attemptedAt": "2026-09-10T04:24:08+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+  "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-script.body",
+  "contentType": "application/javascript",
+  "sha256": "3673d3f8b1cd3d98227af6adbbd0add4b37fb652bdeaeb362325a46d803c5eb8",
+  "byteSize": 189208
+}

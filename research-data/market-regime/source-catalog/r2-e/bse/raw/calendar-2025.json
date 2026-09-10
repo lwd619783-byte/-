@@ -1,0 +1,15 @@
+{
+  "request": {
+    "requestId": "calendar-2025",
+    "url": "https://www.bse.cn/important_news/200024437.html",
+    "method": "GET",
+    "discovery": "OFFICIAL_SEARCH_RESULT"
+  },
+  "attemptedAt": "2026-09-10T04:24:14+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/important_news/200024437.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/calendar-2025.body",
+  "byteSize": 21355,
+  "sha256": "a493234de8ddb5d1a60a7ed360e02cfb65af6ab4cfa01cc1e0e22d1fa078b5a6"
+}

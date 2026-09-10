@@ -1,0 +1,1769 @@
+{
+  "version": "r2-e-bse-1",
+  "kind": "ADDITIVE_EVIDENCE_NOT_FORMAL_DATASET",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "captures": [
+    {
+      "request": {
+        "requestId": "rules-2021",
+        "url": "https://www.bse.cn/jygl_list/200010919.html",
+        "method": "GET",
+        "discovery": "OFFICIAL_SEARCH_RESULT"
+      },
+      "attemptedAt": "2026-09-10T04:24:14+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/jygl_list/200010919.html",
+      "contentType": "text/html",
+      "bodyPath": "raw/rules-2021.body",
+      "byteSize": 119658,
+      "sha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18"
+    },
+    {
+      "request": {
+        "requestId": "rules-2026",
+        "url": "https://www.bse.cn/jygl_list/200028217.html",
+        "method": "GET",
+        "discovery": "OFFICIAL_SEARCH_RESULT"
+      },
+      "attemptedAt": "2026-09-10T04:24:14+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/jygl_list/200028217.html",
+      "contentType": "text/html",
+      "bodyPath": "raw/rules-2026.body",
+      "byteSize": 158953,
+      "sha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4"
+    },
+    {
+      "request": {
+        "requestId": "calendar-2025",
+        "url": "https://www.bse.cn/important_news/200024437.html",
+        "method": "GET",
+        "discovery": "OFFICIAL_SEARCH_RESULT"
+      },
+      "attemptedAt": "2026-09-10T04:24:14+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/important_news/200024437.html",
+      "contentType": "text/html",
+      "bodyPath": "raw/calendar-2025.body",
+      "byteSize": 21355,
+      "sha256": "a493234de8ddb5d1a60a7ed360e02cfb65af6ab4cfa01cc1e0e22d1fa078b5a6"
+    },
+    {
+      "request": {
+        "requestId": "calendar-2026",
+        "url": "https://www.bse.cn/important_news/200027428.html",
+        "method": "GET",
+        "discovery": "FROZEN_D1C_CONTRACT_URL"
+      },
+      "attemptedAt": "2026-09-10T04:24:15+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/important_news/200027428.html",
+      "contentType": "text/html",
+      "bodyPath": "raw/calendar-2026.body",
+      "byteSize": 21440,
+      "sha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab"
+    },
+    {
+      "request": {
+        "requestId": "annual-index",
+        "url": "https://www.bse.cn/static/annual.html",
+        "method": "GET",
+        "discovery": "OFFICIAL_SEARCH_RESULT"
+      },
+      "attemptedAt": "2026-09-10T04:24:15+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/static/annual.html",
+      "contentType": "text/html",
+      "bodyPath": "raw/annual-index.body",
+      "byteSize": 10537,
+      "sha256": "6f3917af8155920e9f74e5187b478a3cc7d4072746c4cd70f3bb9845db341896"
+    },
+    {
+      "request": {
+        "requestId": "statistics-page",
+        "url": "https://www.bse.cn/static/statisticdata.html",
+        "method": "GET",
+        "discovery": "OFFICIAL_SEARCH_RESULT"
+      },
+      "attemptedAt": "2026-09-10T04:24:15+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/static/statisticdata.html",
+      "contentType": "text/html",
+      "bodyPath": "raw/statistics-page.body",
+      "byteSize": 26776,
+      "sha256": "cff36171ccb988b55f629f37cf9357297d7b95da17bebdd34e1aaf28b3b06785"
+    },
+    {
+      "request": {
+        "requestId": "daily-js",
+        "url": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+        "method": "GET",
+        "discovery": "PARENT_SCRIPT_SRC",
+        "parent": "statistics-page",
+        "byteOffset": 26689,
+        "text": "/template/6/bluewise/_files/js/marketData/daily.min.js"
+      },
+      "attemptedAt": "2026-09-10T04:24:50+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+      "contentType": "application/javascript",
+      "bodyPath": "raw/daily-js.body",
+      "byteSize": 28183,
+      "sha256": "d8a7f153d9237c1eab890e57b4dfd6d962aecfbe76decbd67656704412a2ce58"
+    },
+    {
+      "request": {
+        "requestId": "annual-js",
+        "url": "https://www.bse.cn/template/6/bluewise/_files/js/law/law.min.js",
+        "method": "GET",
+        "discovery": "PARENT_SCRIPT_SRC",
+        "parent": "annual-index",
+        "byteOffset": 10459,
+        "text": "/template/6/bluewise/_files/js/law/law.min.js"
+      },
+      "attemptedAt": "2026-09-10T04:24:50+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/law/law.min.js",
+      "contentType": "application/javascript",
+      "bodyPath": "raw/annual-js.body",
+      "byteSize": 3818,
+      "sha256": "bc6f4ea0ea22ee5392cfb017682c8a39e597825705dc2178d015ef8613b00f56"
+    },
+    {
+      "request": {
+        "requestId": "annual-list",
+        "url": "https://www.bse.cn/info/listse.do",
+        "method": "POST",
+        "form": "page=0&pageSize=20&keywords=&startTime=&endTime=&nodeIds%5B%5D=2722",
+        "discovery": "annual-js /info/listse.do and annual-index searchNodeId=2722; cache-buster omitted",
+        "parent": "annual-js"
+      },
+      "attemptedAt": "2026-09-10T04:25:16+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/info/listse.do",
+      "contentType": "text/html;charset=utf-8",
+      "bodyPath": "raw/annual-list.body",
+      "byteSize": 1469,
+      "sha256": "7ba4d3a82b18e17aa6250c2bf2fc40d8ac9c3936d9fb10dbc0688e6920fdf8dc"
+    },
+    {
+      "request": {
+        "requestId": "special-list",
+        "url": "https://www.bse.cn/neeqController/getSpecialList.do",
+        "method": "POST",
+        "form": "page=0&pageSize=20&startTime=&endTime=&keyword=&siteId=6",
+        "discovery": "daily-js E() explicit special report request",
+        "parent": "daily-js"
+      },
+      "attemptedAt": "2026-09-10T04:25:16+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/neeqController/getSpecialList.do",
+      "contentType": "text/html;charset=utf-8",
+      "bodyPath": "raw/special-list.body",
+      "byteSize": 4735,
+      "sha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500"
+    },
+    {
+      "request": {
+        "requestId": "annual-docx-2021",
+        "url": "https://www.bse.cn/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx",
+        "method": "GET",
+        "discovery": "PARENT_FILE_URL",
+        "parent": "annual-list",
+        "byteOffset": 242,
+        "text": "/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx"
+      },
+      "attemptedAt": "2026-09-10T04:25:40+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx",
+      "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "bodyPath": "raw/annual-docx-2021.body",
+      "byteSize": 27045,
+      "sha256": "d800ce2f1084f13e17bd67ccdcbec7ef6175faf358954439bbdf463126eaac14"
+    },
+    {
+      "request": {
+        "requestId": "annual-pdf-2025",
+        "url": "https://www.bse.cn/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf",
+        "method": "GET",
+        "discovery": "PARENT_FILE_URL",
+        "parent": "special-list",
+        "byteOffset": 230,
+        "text": "/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf"
+      },
+      "attemptedAt": "2026-09-10T04:25:40+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf",
+      "contentType": "application/pdf",
+      "bodyPath": "raw/annual-pdf-2025.body",
+      "byteSize": 192300,
+      "sha256": "ddb60d71fa378883d16ad929aa1a01541f500ca95774cf5a54064be62273f308"
+    },
+    {
+      "request": {
+        "requestId": "annual-pdf-2024",
+        "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf",
+        "method": "GET",
+        "discovery": "PARENT_FILE_URL",
+        "parent": "special-list",
+        "byteOffset": 1145,
+        "text": "/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf"
+      },
+      "attemptedAt": "2026-09-10T04:25:40+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf",
+      "contentType": "application/pdf",
+      "bodyPath": "raw/annual-pdf-2024.body",
+      "byteSize": 535645,
+      "sha256": "4f14c837331291d2965d8e18a7963561982b278f2d2eb1553a09066729632294"
+    },
+    {
+      "request": {
+        "requestId": "annual-pdf-2023",
+        "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf",
+        "method": "GET",
+        "discovery": "PARENT_FILE_URL",
+        "parent": "special-list",
+        "byteOffset": 2060,
+        "text": "/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf"
+      },
+      "attemptedAt": "2026-09-10T04:25:41+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf",
+      "contentType": "application/pdf",
+      "bodyPath": "raw/annual-pdf-2023.body",
+      "byteSize": 533031,
+      "sha256": "2d5ec7188bd0d05f86e122bfc10dbfe6cbc903b84e61da297799679451439b3b"
+    },
+    {
+      "request": {
+        "requestId": "annual-pdf-2022",
+        "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf",
+        "method": "GET",
+        "discovery": "PARENT_FILE_URL",
+        "parent": "special-list",
+        "byteOffset": 2975,
+        "text": "/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf"
+      },
+      "attemptedAt": "2026-09-10T04:25:41+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf",
+      "contentType": "application/pdf",
+      "bodyPath": "raw/annual-pdf-2022.body",
+      "byteSize": 530463,
+      "sha256": "3fa979f71738c802ecdf60ebb2dfe23d7925f4f5ba23e3f361ded73d560d096d"
+    },
+    {
+      "request": {
+        "requestId": "annual-pdf-2021",
+        "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf",
+        "method": "GET",
+        "discovery": "PARENT_FILE_URL",
+        "parent": "special-list",
+        "byteOffset": 3896,
+        "text": "/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf"
+      },
+      "attemptedAt": "2026-09-10T04:25:41+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf",
+      "contentType": "application/pdf",
+      "bodyPath": "raw/annual-pdf-2021.body",
+      "byteSize": 216780,
+      "sha256": "ae9d9d8ce4c757c55c91f0a0ead8cdcb7d9fe5e015e3f0f9a86672a8fb7a188e"
+    },
+    {
+      "request": {
+        "requestId": "daily-2022-12-30",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20221230",
+        "requestedDate": "2022-12-30",
+        "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+        "parent": "daily-js"
+      },
+      "attemptedAt": "2026-09-10T04:26:20+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "contentType": "text/html;charset=utf-8",
+      "bodyPath": "raw/daily-2022-12-30.body",
+      "byteSize": 1242,
+      "sha256": "ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982"
+    },
+    {
+      "request": {
+        "requestId": "daily-2023-12-29",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20231229",
+        "requestedDate": "2023-12-29",
+        "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+        "parent": "daily-js"
+      },
+      "attemptedAt": "2026-09-10T04:26:20+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "contentType": "text/html;charset=utf-8",
+      "bodyPath": "raw/daily-2023-12-29.body",
+      "byteSize": 1261,
+      "sha256": "14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f"
+    },
+    {
+      "request": {
+        "requestId": "daily-2024-12-31",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20241231",
+        "requestedDate": "2024-12-31",
+        "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+        "parent": "daily-js"
+      },
+      "attemptedAt": "2026-09-10T04:26:21+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "contentType": "text/html;charset=utf-8",
+      "bodyPath": "raw/daily-2024-12-31.body",
+      "byteSize": 1257,
+      "sha256": "a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc"
+    },
+    {
+      "request": {
+        "requestId": "daily-2025-12-31",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20251231",
+        "requestedDate": "2025-12-31",
+        "discovery": "daily-js date parameter; special-list annual index publication date; probe date only, not calendar proof",
+        "parent": "daily-js"
+      },
+      "attemptedAt": "2026-09-10T04:26:21+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "contentType": "text/html;charset=utf-8",
+      "bodyPath": "raw/daily-2025-12-31.body",
+      "byteSize": 1259,
+      "sha256": "a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40"
+    },
+    {
+      "request": {
+        "requestId": "daily-2026-07-06",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260706",
+        "requestedDate": "2026-07-06",
+        "discovery": "daily-js date parameter; rules-2026 effective date; not inferred previous trading session",
+        "parent": "daily-js"
+      },
+      "attemptedAt": "2026-09-10T04:26:21+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "contentType": "text/html;charset=utf-8",
+      "bodyPath": "raw/daily-2026-07-06.body",
+      "byteSize": 1257,
+      "sha256": "8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b"
+    },
+    {
+      "request": {
+        "requestId": "daily-2026-09-04",
+        "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+        "method": "POST",
+        "form": "HQJSRQ=20260904",
+        "requestedDate": "2026-09-04",
+        "discovery": "daily-js date parameter; D1C frozen endpoint date repeated to test current replay drift",
+        "parent": "daily-js"
+      },
+      "attemptedAt": "2026-09-10T04:26:21+00:00",
+      "status": 200,
+      "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+      "contentType": "text/html;charset=utf-8",
+      "bodyPath": "raw/daily-2026-09-04.body",
+      "byteSize": 1262,
+      "sha256": "7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329"
+    }
+  ],
+  "ruleEvidence": [
+    {
+      "meaning": "2.3.1",
+      "locator": {
+        "requestId": "rules-2021",
+        "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+        "byteOffset": 24366,
+        "byteLength": 181,
+        "text": "2.3.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所交易日为每周一至周五。&nbsp; </span>"
+      }
+    },
+    {
+      "meaning": "3.6.8",
+      "locator": {
+        "requestId": "rules-2021",
+        "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+        "byteOffset": 62996,
+        "byteLength": 258,
+        "text": "3.6.8 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span>"
+      }
+    },
+    {
+      "meaning": "5.1.1",
+      "locator": {
+        "requestId": "rules-2021",
+        "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+        "byteOffset": 77859,
+        "byteLength": 357,
+        "text": "5.1.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所每个交易日发布证券交易即时行情、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类报表，并通过符合《证券法》规定的信息披露平台予以公布。</span>"
+      }
+    },
+    {
+      "meaning": "2.3.1",
+      "locator": {
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "byteOffset": 27708,
+        "byteLength": 52,
+        "text": "2.3.1 本所交易日为每周一至周五。</span>"
+      }
+    },
+    {
+      "meaning": "3.6.8",
+      "locator": {
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "byteOffset": 72628,
+        "byteLength": 136,
+        "text": "3.6.8 大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span>"
+      }
+    },
+    {
+      "meaning": "5.1.1",
+      "locator": {
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "byteOffset": 105965,
+        "byteLength": 289,
+        "text": "5.1.1 本所每个交易日发布证券交易即时行情、证券指数、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类日报表、周报表、月报表和年报表，并通过符合《证券法》规定的信息披露平台予以公布。</span>"
+      }
+    },
+    {
+      "meaning": "NEW_RULE_EFFECTIVE_DATE_WITH_EXCEPTIONS",
+      "locator": {
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "byteOffset": 6345,
+        "byteLength": 4507,
+        "text": "2026年7月6日起施行。考虑到市场业务和技术整体准备情况'&url=http:///jygl_list/200028217.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2026〕17号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-04-24</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-07-06</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t现行有效\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202604/20260424170528_52kqyhc7p9.docx\" infoid=\"200028217\"  edit=\"20260424194348\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"北京证券交易所交易规则.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal\"><br/>"
+      }
+    },
+    {
+      "meaning": "DEFERRED_CLAUSES_NOT_ASSUMED_EFFECTIVE",
+      "locator": {
+        "requestId": "rules-2026",
+        "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+        "byteOffset": 6372,
+        "byteLength": 4480,
+        "text": "考虑到市场业务和技术整体准备情况'&url=http:///jygl_list/200028217.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2026〕17号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-04-24</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-07-06</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t现行有效\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202604/20260424170528_52kqyhc7p9.docx\" infoid=\"200028217\"  edit=\"20260424194348\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"北京证券交易所交易规则.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal\"><br/>"
+      }
+    },
+    {
+      "meaning": "INITIAL_RULE_EFFECTIVE_DATE",
+      "locator": {
+        "requestId": "rules-2021",
+        "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+        "byteOffset": 6347,
+        "byteLength": 4633,
+        "text": "2021年11月15日起施行。全国中小企业股份转让系统精选层（以下简称精选层）挂牌公司平移为本所上'&url=http:///jygl_list/200010919.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2021〕15号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2021-11-02</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2021-11-15</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t已被修改\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202209/20220924113331_fwbg1kr3qu.docx\" infoid=\"200010919\"  edit=\"20260424194420\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"1北京证券交易所交易规则（试行）.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\"text-align: center;\"><span style=\"color: rgb(109, 109, 109); font-family: &quot;微软雅黑&quot;,sans-serif; font-size: 12px;\"><br/></span>"
+      }
+    }
+  ],
+  "calendarEvidence": [
+    {
+      "requestId": "calendar-2025",
+      "rawSha256": "a493234de8ddb5d1a60a7ed360e02cfb65af6ab4cfa01cc1e0e22d1fa078b5a6",
+      "byteOffset": 15913,
+      "byteLength": 340,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（一）元旦： 2025年1月1日（星期三）休市。1月2日（星期四）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2025",
+      "rawSha256": "a493234de8ddb5d1a60a7ed360e02cfb65af6ab4cfa01cc1e0e22d1fa078b5a6",
+      "byteOffset": 16253,
+      "byteLength": 427,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（二）春节：1月28日（星期二）至2月4日（星期二）休市，2月5日（星期三）起照常开市。1月26日（星期日）、2月8日（星期六）为周末休市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2025",
+      "rawSha256": "a493234de8ddb5d1a60a7ed360e02cfb65af6ab4cfa01cc1e0e22d1fa078b5a6",
+      "byteOffset": 16680,
+      "byteLength": 361,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（三）清明节：4月4日（星期五）至4月6日（星期日）休市。4月7日（星期一）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2025",
+      "rawSha256": "a493234de8ddb5d1a60a7ed360e02cfb65af6ab4cfa01cc1e0e22d1fa078b5a6",
+      "byteOffset": 17041,
+      "byteLength": 403,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（四）劳动节：5月1日（星期四）至5月5日（星期一）休市，5月6日（星期二）起照常开市。4月27日（星期日）为周末休市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2025",
+      "rawSha256": "a493234de8ddb5d1a60a7ed360e02cfb65af6ab4cfa01cc1e0e22d1fa078b5a6",
+      "byteOffset": 17444,
+      "byteLength": 362,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（五）端午节：5月31日（星期六）至6月2日（星期一）休市。6月3日（星期二）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2025",
+      "rawSha256": "a493234de8ddb5d1a60a7ed360e02cfb65af6ab4cfa01cc1e0e22d1fa078b5a6",
+      "byteOffset": 17806,
+      "byteLength": 446,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（六）国庆节、中秋节：10月1日（星期三）至10月8日（星期三）休市，10月9日（星期四）起照常开市。9月28日（星期日）、10月11日（星期六）为周末休市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2026",
+      "rawSha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteOffset": 15251,
+      "byteLength": 669,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（一）元旦：1月</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\"><span style=\"font-family:微软雅黑\">1</span></span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">日（星期四）至1月3日（星期六）休市。1月4日（星期日）为周末休市。1月5日（星期一）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2026",
+      "rawSha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteOffset": 15920,
+      "byteLength": 430,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（二）春节：2月15日（星期日）至2月23日（星期一）休市，2月14日（星期六）、2月28日（星期六）为周末休市。2月24日（星期二）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2026",
+      "rawSha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteOffset": 16350,
+      "byteLength": 361,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（三）清明节：4月4日（星期六）至4月6日（星期一）休市。4月7日（星期二）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2026",
+      "rawSha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteOffset": 16711,
+      "byteLength": 402,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（四）劳动节：5月1日（星期五）至5月5日（星期二）休市，5月9日（星期六）为周末休市。5月6日（星期三）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2026",
+      "rawSha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteOffset": 17113,
+      "byteLength": 364,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（五）端午节：6月19日（星期五）至6月21日（星期日）休市。6月22日（星期一）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2026",
+      "rawSha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteOffset": 17477,
+      "byteLength": 364,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（六）中秋节：9月25日（星期五）至9月27日（星期日）休市。9月28日（星期一）起照常开市。</span></p>"
+    },
+    {
+      "requestId": "calendar-2026",
+      "rawSha256": "1d6178157837f021dcb98c1206ee2f6f8cafcadbbb5b1cb0ac3637bbe82387ab",
+      "byteOffset": 17841,
+      "byteLength": 434,
+      "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（七）国庆节：10月1日（星期四）至10月7日（星期三）休市，9月20日（星期日）、10月10日（星期六）为周末休市。10月8日（星期四）起照常开市。</span></p>"
+    }
+  ],
+  "calendar": {
+    "targetCount": null,
+    "status": "UNKNOWN",
+    "annualNoticeYearsCaptured": [
+      2025,
+      2026
+    ],
+    "gaps": [
+      "2021 launch-to-year-end session enumeration absent",
+      "2022-2024 annual official notice direct URLs not recovered by bounded search",
+      "2025-2026 notices do not enumerate every session or prove exceptional-closure/revision completeness",
+      "Existing R2 literal ISO per-session locator gate remains unsatisfied"
+    ]
+  },
+  "archive": [
+    {
+      "title": "北京证券交易所2021年市场统计快报",
+      "fileUrl": "/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx",
+      "indexPublicationText": "2021-12-31 19:16:31",
+      "publicationTimeZone": null,
+      "releaseAvailableAt": null,
+      "firstReleaseProven": false,
+      "revisionSequence": null,
+      "publicationLocator": {
+        "requestId": "annual-list",
+        "rawSha256": "7ba4d3a82b18e17aa6250c2bf2fc40d8ac9c3936d9fb10dbc0688e6920fdf8dc",
+        "byteOffset": 658,
+        "byteLength": 19,
+        "text": "2021-12-31 19:16:31"
+      },
+      "fileLocator": {
+        "requestId": "annual-list",
+        "rawSha256": "7ba4d3a82b18e17aa6250c2bf2fc40d8ac9c3936d9fb10dbc0688e6920fdf8dc",
+        "byteOffset": 242,
+        "byteLength": 60,
+        "text": "/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx"
+      },
+      "role": "ANNUAL_ARCHIVE_EVIDENCE_NOT_DAILY_OBSERVATION",
+      "reason": "Index timestamp is timezone-naive and does not bind original released attachment bytes or daily releases."
+    },
+    {
+      "title": "北京证券交易所2025年市场统计快报",
+      "fileUrl": "/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf",
+      "indexPublicationText": "2025-12-31 18:22:28",
+      "publicationTimeZone": null,
+      "releaseAvailableAt": null,
+      "firstReleaseProven": false,
+      "revisionSequence": null,
+      "publicationLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 574,
+        "byteLength": 19,
+        "text": "2025-12-31 18:22:28"
+      },
+      "fileLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 230,
+        "byteLength": 59,
+        "text": "/uploads/6/file/public/202601/20260105154847_cjpqqmw14x.pdf"
+      },
+      "role": "ANNUAL_ARCHIVE_EVIDENCE_NOT_DAILY_OBSERVATION",
+      "reason": "Index timestamp is timezone-naive and does not bind original released attachment bytes or daily releases."
+    },
+    {
+      "title": "北京证券交易所2024年市场统计快报",
+      "fileUrl": "/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf",
+      "indexPublicationText": "2024-12-31 19:23:45",
+      "publicationTimeZone": null,
+      "releaseAvailableAt": null,
+      "firstReleaseProven": false,
+      "revisionSequence": null,
+      "publicationLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 1489,
+        "byteLength": 19,
+        "text": "2024-12-31 19:23:45"
+      },
+      "fileLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 1145,
+        "byteLength": 59,
+        "text": "/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf"
+      },
+      "role": "ANNUAL_ARCHIVE_EVIDENCE_NOT_DAILY_OBSERVATION",
+      "reason": "Index timestamp is timezone-naive and does not bind original released attachment bytes or daily releases."
+    },
+    {
+      "title": "北京证券交易所2023年市场统计快报",
+      "fileUrl": "/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf",
+      "indexPublicationText": "2023-12-29 20:48:43",
+      "publicationTimeZone": null,
+      "releaseAvailableAt": null,
+      "firstReleaseProven": false,
+      "revisionSequence": null,
+      "publicationLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 2404,
+        "byteLength": 19,
+        "text": "2023-12-29 20:48:43"
+      },
+      "fileLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 2060,
+        "byteLength": 59,
+        "text": "/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf"
+      },
+      "role": "ANNUAL_ARCHIVE_EVIDENCE_NOT_DAILY_OBSERVATION",
+      "reason": "Index timestamp is timezone-naive and does not bind original released attachment bytes or daily releases."
+    },
+    {
+      "title": "北京证券交易所2022年股票市场统计快报",
+      "fileUrl": "/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf",
+      "indexPublicationText": "2022-12-30 18:52:59",
+      "publicationTimeZone": null,
+      "releaseAvailableAt": null,
+      "firstReleaseProven": false,
+      "revisionSequence": null,
+      "publicationLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 3319,
+        "byteLength": 19,
+        "text": "2022-12-30 18:52:59"
+      },
+      "fileLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 2975,
+        "byteLength": 59,
+        "text": "/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf"
+      },
+      "role": "ANNUAL_ARCHIVE_EVIDENCE_NOT_DAILY_OBSERVATION",
+      "reason": "Index timestamp is timezone-naive and does not bind original released attachment bytes or daily releases."
+    },
+    {
+      "title": "北京证券交易所2021年市场统计快报",
+      "fileUrl": "/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf",
+      "indexPublicationText": "2021-12-31 21:05:14",
+      "publicationTimeZone": null,
+      "releaseAvailableAt": null,
+      "firstReleaseProven": false,
+      "revisionSequence": null,
+      "publicationLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 4240,
+        "byteLength": 19,
+        "text": "2021-12-31 21:05:14"
+      },
+      "fileLocator": {
+        "requestId": "special-list",
+        "rawSha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500",
+        "byteOffset": 3896,
+        "byteLength": 59,
+        "text": "/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf"
+      },
+      "role": "ANNUAL_ARCHIVE_EVIDENCE_NOT_DAILY_OBSERVATION",
+      "reason": "Index timestamp is timezone-naive and does not bind original released attachment bytes or daily releases."
+    }
+  ],
+  "candidates": [
+    {
+      "tradeDate": "2022-12-30",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "114805922025.46",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 618,
+        "byteLength": 205,
+        "text": "{\"zsz\":211028651986.16,\"gpgsjs\":162,\"xxzgb\":21353833296,\"hqcjje\":463705918.71,\"hqcjzs\":162,\"hqcjsl\":50504394,\"drxzjs\":3,\"xxfxsgb\":11098517311,\"xxzrlx\":\"2\",\"ltsz\":114805922025.46,\"rq\":\"20221230\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 780,
+        "byteLength": 15,
+        "text": "114805922025.46"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-0894e7b636ea957819dc71650c47d93e0d8ffa4ab50332d388017cf727eed1ff"
+    },
+    {
+      "tradeDate": "2022-12-30",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "211028651986.16",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 618,
+        "byteLength": 205,
+        "text": "{\"zsz\":211028651986.16,\"gpgsjs\":162,\"xxzgb\":21353833296,\"hqcjje\":463705918.71,\"hqcjzs\":162,\"hqcjsl\":50504394,\"drxzjs\":3,\"xxfxsgb\":11098517311,\"xxzrlx\":\"2\",\"ltsz\":114805922025.46,\"rq\":\"20221230\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 625,
+        "byteLength": 15,
+        "text": "211028651986.16"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-a7b2a52a9fb1be2c452ae99c270f6d898ac5b9bfafbd3d110c35e748759028d3"
+    },
+    {
+      "tradeDate": "2022-12-30",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "463705918.71",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 618,
+        "byteLength": 205,
+        "text": "{\"zsz\":211028651986.16,\"gpgsjs\":162,\"xxzgb\":21353833296,\"hqcjje\":463705918.71,\"hqcjzs\":162,\"hqcjsl\":50504394,\"drxzjs\":3,\"xxfxsgb\":11098517311,\"xxzrlx\":\"2\",\"ltsz\":114805922025.46,\"rq\":\"20221230\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 683,
+        "byteLength": 12,
+        "text": "463705918.71"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-ae7a8b891c22b74f6080f248b0813c4a769e46081e039b41bebb6b8a6f3c3f25"
+    },
+    {
+      "tradeDate": "2023-12-29",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "226327666940.06",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 637,
+        "byteLength": 209,
+        "text": "{\"zsz\":449640971881.17,\"gpgsjs\":239,\"xxzgb\":31804493116,\"hqcjje\":18895652360.57,\"hqcjzs\":239,\"hqcjsl\":1432351659,\"drxzjs\":0,\"xxfxsgb\":16915774187,\"xxzrlx\":\"2\",\"ltsz\":226327666940.06,\"rq\":\"20231229\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 803,
+        "byteLength": 15,
+        "text": "226327666940.06"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-4028451ee4d10e05bba5ff3d451094ab5ffc42b1b531452628991a5766edc2f6"
+    },
+    {
+      "tradeDate": "2023-12-29",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "18895652360.57",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 637,
+        "byteLength": 209,
+        "text": "{\"zsz\":449640971881.17,\"gpgsjs\":239,\"xxzgb\":31804493116,\"hqcjje\":18895652360.57,\"hqcjzs\":239,\"hqcjsl\":1432351659,\"drxzjs\":0,\"xxfxsgb\":16915774187,\"xxzrlx\":\"2\",\"ltsz\":226327666940.06,\"rq\":\"20231229\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 702,
+        "byteLength": 14,
+        "text": "18895652360.57"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-d1fa26f59cfa71fb5383c8b31c84896b7f6889c16d261c15da9481810ca28f59"
+    },
+    {
+      "tradeDate": "2023-12-29",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "449640971881.17",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 637,
+        "byteLength": 209,
+        "text": "{\"zsz\":449640971881.17,\"gpgsjs\":239,\"xxzgb\":31804493116,\"hqcjje\":18895652360.57,\"hqcjzs\":239,\"hqcjsl\":1432351659,\"drxzjs\":0,\"xxfxsgb\":16915774187,\"xxzrlx\":\"2\",\"ltsz\":226327666940.06,\"rq\":\"20231229\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 644,
+        "byteLength": 15,
+        "text": "449640971881.17"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-deb6a8ae08ef029942709e6ba5cea0b3ede8e873f123e0389ca6beb81ca10a9e"
+    },
+    {
+      "tradeDate": "2024-12-31",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "538600921754.85",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 631,
+        "byteLength": 207,
+        "text": "{\"zsz\":538600921754.85,\"gpgsjs\":262,\"xxzgb\":35200504966,\"hqcjje\":13079912334.33,\"hqcjzs\":262,\"hqcjsl\":781594555,\"drxzjs\":0,\"xxfxsgb\":21529604435,\"xxzrlx\":\"2\",\"ltsz\":320645184219.7,\"rq\":\"20241231\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 638,
+        "byteLength": 15,
+        "text": "538600921754.85"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-eb08f5f36ef77a67dea227b39235e5a77b1589113caa54b1c0e591dba63f5411"
+    },
+    {
+      "tradeDate": "2024-12-31",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "13079912334.33",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 631,
+        "byteLength": 207,
+        "text": "{\"zsz\":538600921754.85,\"gpgsjs\":262,\"xxzgb\":35200504966,\"hqcjje\":13079912334.33,\"hqcjzs\":262,\"hqcjsl\":781594555,\"drxzjs\":0,\"xxfxsgb\":21529604435,\"xxzrlx\":\"2\",\"ltsz\":320645184219.7,\"rq\":\"20241231\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 696,
+        "byteLength": 14,
+        "text": "13079912334.33"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-efedaf6cd3074e410ef743671d739efe9a0475438c98cc56328f64b23490ec25"
+    },
+    {
+      "tradeDate": "2024-12-31",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "320645184219.7",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 631,
+        "byteLength": 207,
+        "text": "{\"zsz\":538600921754.85,\"gpgsjs\":262,\"xxzgb\":35200504966,\"hqcjje\":13079912334.33,\"hqcjzs\":262,\"hqcjsl\":781594555,\"drxzjs\":0,\"xxfxsgb\":21529604435,\"xxzrlx\":\"2\",\"ltsz\":320645184219.7,\"rq\":\"20241231\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 796,
+        "byteLength": 14,
+        "text": "320645184219.7"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-f477e65c75d5ecb462cdb49b12797f94d845375292324f550aa7f63c0bf028e5"
+    },
+    {
+      "tradeDate": "2025-12-31",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "525956277737.02",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 632,
+        "byteLength": 208,
+        "text": "{\"zsz\":869444294133.63,\"gpgsjs\":288,\"xxzgb\":39744382875,\"hqcjje\":20739197692.72,\"hqcjzs\":287,\"hqcjsl\":763234511,\"drxzjs\":1,\"xxfxsgb\":25334432407,\"xxzrlx\":\"2\",\"ltsz\":525956277737.02,\"rq\":\"20251231\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 797,
+        "byteLength": 15,
+        "text": "525956277737.02"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-6842636a33bce70f7b4468e660b70587b32c0f03b01fa30c97927fdec221d243"
+    },
+    {
+      "tradeDate": "2025-12-31",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "869444294133.63",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 632,
+        "byteLength": 208,
+        "text": "{\"zsz\":869444294133.63,\"gpgsjs\":288,\"xxzgb\":39744382875,\"hqcjje\":20739197692.72,\"hqcjzs\":287,\"hqcjsl\":763234511,\"drxzjs\":1,\"xxfxsgb\":25334432407,\"xxzrlx\":\"2\",\"ltsz\":525956277737.02,\"rq\":\"20251231\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 639,
+        "byteLength": 15,
+        "text": "869444294133.63"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-bad722baa96940147a85a32f8f3d494d39f2ab5363680afbc50744437dc5b31c"
+    },
+    {
+      "tradeDate": "2025-12-31",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "20739197692.72",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 632,
+        "byteLength": 208,
+        "text": "{\"zsz\":869444294133.63,\"gpgsjs\":288,\"xxzgb\":39744382875,\"hqcjje\":20739197692.72,\"hqcjzs\":287,\"hqcjsl\":763234511,\"drxzjs\":1,\"xxfxsgb\":25334432407,\"xxzrlx\":\"2\",\"ltsz\":525956277737.02,\"rq\":\"20251231\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 697,
+        "byteLength": 14,
+        "text": "20739197692.72"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-f4d19d3450a6136a947ab8e72dd2ca9deeba6aa47a2cafa68383ce37ea719adf"
+    },
+    {
+      "tradeDate": "2026-07-06",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "851974949661.9",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 630,
+        "byteLength": 207,
+        "text": "{\"zsz\":851974949661.9,\"gpgsjs\":324,\"xxzgb\":44419240343,\"hqcjje\":21536528522.79,\"hqcjzs\":323,\"hqcjsl\":810204037,\"drxzjs\":0,\"xxfxsgb\":27719435550,\"xxzrlx\":\"2\",\"ltsz\":498221312975.88,\"rq\":\"20260706\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 637,
+        "byteLength": 14,
+        "text": "851974949661.9"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-004ff8774e187a20d4a2871c5ddafa8861b4aa54b22cb2b67718d0fc6476450b"
+    },
+    {
+      "tradeDate": "2026-07-06",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "498221312975.88",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 630,
+        "byteLength": 207,
+        "text": "{\"zsz\":851974949661.9,\"gpgsjs\":324,\"xxzgb\":44419240343,\"hqcjje\":21536528522.79,\"hqcjzs\":323,\"hqcjsl\":810204037,\"drxzjs\":0,\"xxfxsgb\":27719435550,\"xxzrlx\":\"2\",\"ltsz\":498221312975.88,\"rq\":\"20260706\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 794,
+        "byteLength": 15,
+        "text": "498221312975.88"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-4928125bb8fa4e759422db305a93c812d104e269ad3c885cc6aaa53bd41850e4"
+    },
+    {
+      "tradeDate": "2026-07-06",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "21536528522.79",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 630,
+        "byteLength": 207,
+        "text": "{\"zsz\":851974949661.9,\"gpgsjs\":324,\"xxzgb\":44419240343,\"hqcjje\":21536528522.79,\"hqcjzs\":323,\"hqcjsl\":810204037,\"drxzjs\":0,\"xxfxsgb\":27719435550,\"xxzrlx\":\"2\",\"ltsz\":498221312975.88,\"rq\":\"20260706\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 694,
+        "byteLength": 14,
+        "text": "21536528522.79"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-9fe7d13beac89a9f3d881ebb09752ac4da276c954ccbf975901fd6963da8594a"
+    },
+    {
+      "tradeDate": "2026-09-04",
+      "field": "totalMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "zsz",
+      "rawUnit": "元",
+      "rawValueText": "867557008082.1",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 633,
+        "byteLength": 208,
+        "text": "{\"zsz\":867557008082.1,\"gpgsjs\":341,\"xxzgb\":47189063564,\"hqcjje\":20618345986.47,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"2\",\"ltsz\":484437181103.89,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 640,
+        "byteLength": 14,
+        "text": "867557008082.1"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-102f585bd2c319c7b1cd76ed13e51bd5d4a348feab8f3cd7a4de54e3532206a5"
+    },
+    {
+      "tradeDate": "2026-09-04",
+      "field": "turnoverValue",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "hqcjje",
+      "rawUnit": "元",
+      "rawValueText": "20618345986.47",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 633,
+        "byteLength": 208,
+        "text": "{\"zsz\":867557008082.1,\"gpgsjs\":341,\"xxzgb\":47189063564,\"hqcjje\":20618345986.47,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"2\",\"ltsz\":484437181103.89,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 697,
+        "byteLength": 14,
+        "text": "20618345986.47"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-10897434610ad6407f21be174b00d9a0f06ab3ae19a827bc19ee9e4e97a1a794"
+    },
+    {
+      "tradeDate": "2026-09-04",
+      "field": "negotiableMarketCap",
+      "familyId": "daily-report",
+      "rawScope": "2",
+      "scopeStatus": "WEB_SELECTED_2_HISTORICAL_MEMBERSHIP_UNPROVEN",
+      "rawFieldName": "ltsz",
+      "rawUnit": "元",
+      "rawValueText": "484437181103.89",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 633,
+        "byteLength": 208,
+        "text": "{\"zsz\":867557008082.1,\"gpgsjs\":341,\"xxzgb\":47189063564,\"hqcjje\":20618345986.47,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"2\",\"ltsz\":484437181103.89,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "valueLocator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 798,
+        "byteLength": 15,
+        "text": "484437181103.89"
+      },
+      "parserVersion": "bse-daily-jsonp-v1.0.0",
+      "status": "CANDIDATE_ONLY",
+      "candidateId": "bse-candidate-798dd465750c5ebb48f0db7e9e09609b593e2d8f3419752fde8e79b5c1a4bc69"
+    }
+  ],
+  "rejectedRows": [
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 132,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":384,\"hqcjje\":92513419.49,\"xxzgb\":53981105336,\"hqcjzs\":197,\"hqcjsl\":19104256,\"drxzjs\":0,\"xxfxsgb\":34081278527,\"xxzrlx\":\"M\",\"rq\":\"20221230\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 457,
+        "byteLength": 160,
+        "text": "{\"gpgsjs\":162,\"hqcjje\":463705918.71,\"xxzgb\":21353833296,\"hqcjzs\":162,\"hqcjsl\":50504394,\"drxzjs\":3,\"xxfxsgb\":11098517311,\"xxzrlx\":\"B\",\"rq\":\"20221230\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 292,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":6196,\"hqcjje\":221164680.87,\"xxzgb\":396882373354,\"hqcjzs\":445,\"hqcjsl\":45834903,\"drxzjs\":-3,\"xxfxsgb\":240123252839,\"xxzrlx\":\"C\",\"rq\":\"20221230\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 1033,
+        "byteLength": 207,
+        "text": "{\"zsz\":840916562985.95,\"gpgsjs\":4922,\"xxzgb\":289768641086,\"hqcjje\":40308730.99,\"hqcjzs\":217,\"hqcjsl\":18762135,\"drxzjs\":0,\"xxfxsgb\":179729720141,\"xxzrlx\":\"0\",\"ltsz\":496517523346.72,\"rq\":\"20221230\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 824,
+        "byteLength": 208,
+        "text": "{\"zsz\":896401829110.09,\"gpgsjs\":1658,\"xxzgb\":161094837604,\"hqcjje\":273369369.37,\"hqcjzs\":425,\"hqcjsl\":46177024,\"drxzjs\":-3,\"xxfxsgb\":94474811225,\"xxzrlx\":\"1\",\"ltsz\":506748021480.84,\"rq\":\"20221230\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 6,
+        "byteLength": 54,
+        "text": "{\"hqcjje\":0,\"hqcjsl\":0,\"xxzrlx\":\"XJX\",\"rq\":\"20221230\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "bse-r2e-ab11ba858f5a22c6b4fab77a2d625b36eb73152603a6ca3d54d5b9d6177ee982",
+        "byteOffset": 61,
+        "byteLength": 70,
+        "text": "{\"hqcjje\":204010369.82,\"hqcjsl\":38441982,\"xxzrlx\":\"X\",\"rq\":\"20221230\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 146,
+        "byteLength": 160,
+        "text": "{\"gpgsjs\":324,\"hqcjje\":118588877.81,\"xxzgb\":47787445231,\"hqcjzs\":192,\"hqcjsl\":46594592,\"drxzjs\":0,\"xxfxsgb\":30639973792,\"xxzrlx\":\"M\",\"rq\":\"20231229\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 307,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":5917,\"hqcjje\":229581303.27,\"xxzgb\":397673492159,\"hqcjzs\":648,\"hqcjsl\":116579520,\"drxzjs\":3,\"xxfxsgb\":235419750233,\"xxzrlx\":\"C\",\"rq\":\"20231229\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 472,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":239,\"hqcjje\":18895652360.57,\"xxzgb\":31804493116,\"hqcjzs\":239,\"hqcjsl\":1432351659,\"drxzjs\":0,\"xxfxsgb\":16915774187,\"xxzrlx\":\"B\",\"rq\":\"20231229\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 1055,
+        "byteLength": 204,
+        "text": "{\"zsz\":763084776235,\"gpgsjs\":4358,\"xxzgb\":270939400167,\"hqcjje\":111436046.11,\"hqcjzs\":282,\"hqcjsl\":94124315,\"drxzjs\":3,\"xxfxsgb\":167709145589,\"xxzrlx\":\"0\",\"ltsz\":440552491991.5,\"rq\":\"20231229\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 847,
+        "byteLength": 207,
+        "text": "{\"zsz\":897440569034.55,\"gpgsjs\":1883,\"xxzgb\":174521537223,\"hqcjje\":236734134.97,\"hqcjzs\":558,\"hqcjsl\":69049797,\"drxzjs\":0,\"xxfxsgb\":98350578436,\"xxzrlx\":\"1\",\"ltsz\":479828516066.32,\"rq\":\"20231229\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 6,
+        "byteLength": 69,
+        "text": "{\"hqcjje\":40043826.2,\"hqcjsl\":2696118,\"xxzrlx\":\"XJX\",\"rq\":\"20231229\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "bse-r2e-14f885ea21e1b8b75b9cbc9503bbeb8160683190a8c6437b72f0aa76d58c235f",
+        "byteOffset": 76,
+        "byteLength": 69,
+        "text": "{\"hqcjje\":141496058.3,\"hqcjsl\":94952349,\"xxzrlx\":\"X\",\"rq\":\"20231229\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 143,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":262,\"hqcjje\":88545098.96,\"xxzgb\":41260624602,\"hqcjzs\":163,\"hqcjsl\":39266960,\"drxzjs\":0,\"xxfxsgb\":28170813279,\"xxzrlx\":\"M\",\"rq\":\"20241231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 303,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5839,\"hqcjje\":188481049.25,\"xxzgb\":410924735242,\"hqcjzs\":564,\"hqcjsl\":74646219,\"drxzjs\":2,\"xxfxsgb\":237127221337,\"xxzrlx\":\"C\",\"rq\":\"20241231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 467,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":262,\"hqcjje\":13079912334.33,\"xxzgb\":35200504966,\"hqcjzs\":262,\"hqcjsl\":781594555,\"drxzjs\":0,\"xxfxsgb\":21529604435,\"xxzrlx\":\"B\",\"rq\":\"20241231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 1048,
+        "byteLength": 207,
+        "text": "{\"zsz\":687525341200.59,\"gpgsjs\":3924,\"xxzgb\":259284407410,\"hqcjje\":83461135.32,\"hqcjzs\":216,\"hqcjsl\":68919045,\"drxzjs\":2,\"xxfxsgb\":161407891047,\"xxzrlx\":\"0\",\"ltsz\":401397237267.85,\"rq\":\"20241231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 839,
+        "byteLength": 208,
+        "text": "{\"zsz\":796899626783.01,\"gpgsjs\":2177,\"xxzgb\":192900952434,\"hqcjje\":193565012.89,\"hqcjzs\":511,\"hqcjsl\":44994134,\"drxzjs\":0,\"xxfxsgb\":103890143569,\"xxzrlx\":\"1\",\"ltsz\":428872581629.49,\"rq\":\"20241231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 6,
+        "byteLength": 65,
+        "text": "{\"hqcjje\":4846250,\"hqcjsl\":864250,\"xxzrlx\":\"XJX\",\"rq\":\"20241231\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "bse-r2e-a7a77dba7494a2e511f2c9acd0e4fa73b17807b10c7b332b3e2581c4ef9424bc",
+        "byteOffset": 72,
+        "byteLength": 70,
+        "text": "{\"hqcjje\":153206296.92,\"hqcjsl\":64505999,\"xxzrlx\":\"X\",\"rq\":\"20241231\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 144,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":201,\"hqcjje\":78360923.73,\"xxzgb\":37396738616,\"hqcjzs\":138,\"hqcjsl\":21875281,\"drxzjs\":0,\"xxfxsgb\":26708634448,\"xxzrlx\":\"M\",\"rq\":\"20251231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 304,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5759,\"hqcjje\":244837122.82,\"xxzgb\":429184284755,\"hqcjzs\":635,\"hqcjsl\":52231905,\"drxzjs\":1,\"xxfxsgb\":245627634210,\"xxzrlx\":\"C\",\"rq\":\"20251231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 468,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":288,\"hqcjje\":20739197692.72,\"xxzgb\":39744382875,\"hqcjzs\":287,\"hqcjsl\":763234511,\"drxzjs\":1,\"xxfxsgb\":25334432407,\"xxzrlx\":\"B\",\"rq\":\"20251231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 1050,
+        "byteLength": 207,
+        "text": "{\"zsz\":635704762977.79,\"gpgsjs\":3665,\"xxzgb\":250318893633,\"hqcjje\":57547562.15,\"hqcjzs\":221,\"hqcjsl\":22645162,\"drxzjs\":2,\"xxfxsgb\":157544124703,\"xxzrlx\":\"0\",\"ltsz\":355916442787.47,\"rq\":\"20251231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 841,
+        "byteLength": 208,
+        "text": "{\"zsz\":1055024980249.26,\"gpgsjs\":2295,\"xxzgb\":216262129738,\"hqcjje\":265650484.4,\"hqcjzs\":552,\"hqcjsl\":51462024,\"drxzjs\":-1,\"xxfxsgb\":114792143955,\"xxzrlx\":\"1\",\"ltsz\":535561437245.8,\"rq\":\"20251231\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 6,
+        "byteLength": 67,
+        "text": "{\"hqcjje\":51466700,\"hqcjsl\":3370000,\"xxzrlx\":\"XJX\",\"rq\":\"20251231\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "bse-r2e-a4c95304e2b4b6624d08527db960f0af15bbf39c86b27838c9e984de79f77a40",
+        "byteOffset": 74,
+        "byteLength": 69,
+        "text": "{\"hqcjje\":166209243.9,\"hqcjsl\":35919539,\"xxzrlx\":\"X\",\"rq\":\"20251231\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 142,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":177,\"hqcjje\":81826804.18,\"xxzgb\":35285971477,\"hqcjzs\":111,\"hqcjsl\":27490906,\"drxzjs\":0,\"xxfxsgb\":25491174067,\"xxzrlx\":\"M\",\"rq\":\"20260706\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 302,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5684,\"hqcjje\":206173805.59,\"xxzgb\":428797006598,\"hqcjzs\":461,\"hqcjsl\":37902779,\"drxzjs\":0,\"xxfxsgb\":241574401993,\"xxzrlx\":\"C\",\"rq\":\"20260706\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 466,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":324,\"hqcjje\":21536528522.79,\"xxzgb\":44419240343,\"hqcjzs\":323,\"hqcjsl\":810204037,\"drxzjs\":0,\"xxfxsgb\":27719435550,\"xxzrlx\":\"B\",\"rq\":\"20260706\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 1048,
+        "byteLength": 207,
+        "text": "{\"zsz\":555747813400.28,\"gpgsjs\":3546,\"xxzgb\":240552577882,\"hqcjje\":49675067.34,\"hqcjzs\":155,\"hqcjsl\":16445789,\"drxzjs\":0,\"xxfxsgb\":151207351120,\"xxzrlx\":\"0\",\"ltsz\":298265234548.07,\"rq\":\"20260706\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 838,
+        "byteLength": 209,
+        "text": "{\"zsz\":1622786495002.47,\"gpgsjs\":2315,\"xxzgb\":223530400193,\"hqcjje\":238325542.43,\"hqcjzs\":417,\"hqcjsl\":48947896,\"drxzjs\":0,\"xxfxsgb\":115858224940,\"xxzrlx\":\"1\",\"ltsz\":601973922004.04,\"rq\":\"20260706\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 6,
+        "byteLength": 65,
+        "text": "{\"hqcjje\":5626000,\"hqcjsl\":100000,\"xxzrlx\":\"XJX\",\"rq\":\"20260706\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "bse-r2e-8cfad65e15aff39d39d644cd5b37ea0ff1a24f7a09bd4d595af2831f95a86d6b",
+        "byteOffset": 72,
+        "byteLength": 69,
+        "text": "{\"hqcjje\":95322907.74,\"hqcjsl\":17233302,\"xxzrlx\":\"X\",\"rq\":\"20260706\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 2,
+      "rawScope": "M",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 144,
+        "byteLength": 159,
+        "text": "{\"gpgsjs\":170,\"hqcjje\":63817123.35,\"xxzgb\":34641598501,\"hqcjzs\":111,\"hqcjsl\":21388893,\"drxzjs\":0,\"xxfxsgb\":25543517202,\"xxzrlx\":\"M\",\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 3,
+      "rawScope": "C",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 304,
+        "byteLength": 163,
+        "text": "{\"gpgsjs\":5614,\"hqcjje\":90417331.24,\"xxzgb\":423329740891,\"hqcjzs\":461,\"hqcjsl\":36050506,\"drxzjs\":-1,\"xxfxsgb\":239254863076,\"xxzrlx\":\"C\",\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 4,
+      "rawScope": "B",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 468,
+        "byteLength": 164,
+        "text": "{\"gpgsjs\":341,\"hqcjje\":20618345986.47,\"xxzgb\":47189063564,\"hqcjzs\":341,\"hqcjsl\":1055136079,\"drxzjs\":1,\"xxfxsgb\":28532428198,\"xxzrlx\":\"B\",\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 7,
+      "rawScope": "0",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 1053,
+        "byteLength": 207,
+        "text": "{\"zsz\":547911450944.94,\"gpgsjs\":3508,\"xxzgb\":238951091753,\"hqcjje\":25823458.53,\"hqcjzs\":168,\"hqcjsl\":23041881,\"drxzjs\":0,\"xxfxsgb\":149725985181,\"xxzrlx\":\"0\",\"ltsz\":292539779561.21,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 6,
+      "rawScope": "1",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 842,
+        "byteLength": 210,
+        "text": "{\"zsz\":1560819843828.53,\"gpgsjs\":2276,\"xxzgb\":219020247639,\"hqcjje\":128410996.06,\"hqcjzs\":404,\"hqcjsl\":34397518,\"drxzjs\":-1,\"xxfxsgb\":115072395097,\"xxzrlx\":\"1\",\"ltsz\":566611421937.75,\"rq\":\"20260904\",\"hqcjbs\":0}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 0,
+      "rawScope": "XJX",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 6,
+        "byteLength": 67,
+        "text": "{\"hqcjje\":10312354,\"hqcjsl\":1983145,\"xxzrlx\":\"XJX\",\"rq\":\"20260904\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    },
+    {
+      "rowIndex": 1,
+      "rawScope": "X",
+      "locator": {
+        "artifactId": "bse-r2e-7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329",
+        "byteOffset": 74,
+        "byteLength": 69,
+        "text": "{\"hqcjje\":29523635.86,\"hqcjsl\":16764095,\"xxzrlx\":\"X\",\"rq\":\"20260904\"}"
+      },
+      "reason": "NON_TARGET_OR_UNPROVEN_SCOPE_NO_SUM"
+    }
+  ],
+  "recaptureComparisons": [
+    {
+      "tradeDate": "2026-09-04",
+      "status": "VALUES_UNCHANGED",
+      "old": {
+        "negotiableMarketCap": "484437181103.89",
+        "totalMarketCap": "867557008082.1",
+        "turnoverValue": "20618345986.47"
+      },
+      "new": {
+        "totalMarketCap": "867557008082.1",
+        "turnoverValue": "20618345986.47",
+        "negotiableMarketCap": "484437181103.89"
+      },
+      "historicalFirstReleaseProven": false
+    }
+  ],
+  "counts": {
+    "candidateCount": 18,
+    "priorD1cCandidateCount": 24,
+    "combinedCaptureCandidateCount": 42,
+    "combinedUniqueDateFieldCandidateCount": 39,
+    "formalCount": 0,
+    "strictPitCount": 0
+  },
+  "fieldAdmission": {
+    "turnoverValue": {
+      "status": "NOT_ADMITTED",
+      "candidateCount": 6,
+      "combinedUniqueCandidateDateCount": 13,
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "blockers": [
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+        "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+      ],
+      "unadmittedWindows": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    "totalMarketCap": {
+      "status": "NOT_ADMITTED",
+      "candidateCount": 6,
+      "combinedUniqueCandidateDateCount": 13,
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "blockers": [
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+        "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE"
+      ],
+      "unadmittedWindows": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    "negotiableMarketCap": {
+      "status": "NOT_ADMITTED",
+      "candidateCount": 6,
+      "combinedUniqueCandidateDateCount": 13,
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "blockers": [
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "CONTINUOUS_HISTORY_NOT_ENUMERATED",
+        "FIELD_SCOPE_ERA_APPLICABILITY_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "FIRST_RELEASE_AND_REVISION_ARCHIVE_UNPROVEN",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT"
+      ],
+      "unadmittedWindows": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-09-04"
+        }
+      ]
+    }
+  },
+  "eraEvidence": [
+    {
+      "start": "2021-11-15",
+      "end": "2026-07-05",
+      "rule": "rules-2021",
+      "fieldDefinitionStatus": "UNPROVEN",
+      "note": "Initial rule effective date established; full interim amendment history is not established."
+    },
+    {
+      "start": "2026-07-06",
+      "end": "2026-09-04",
+      "rule": "rules-2026",
+      "fieldDefinitionStatus": "UNPROVEN",
+      "note": "General effective date with explicitly deferred clauses; hqcjje/zsz/ltsz applicability not independently established."
+    }
+  ],
+  "releaseEvents": [],
+  "formalObservations": [],
+  "strictPitObservations": [],
+  "notRun": [
+    {
+      "action": "Full daily enumeration",
+      "status": "BLOCKED",
+      "reason": "Calendar, field eras and daily release provenance gates remain unproven; sparse new probes do not prove continuity."
+    }
+  ],
+  "contentSha256": "e34ce287bf2a5282ae8f99c63c33697e18fbe61a01083a163f237f35aeec9e8b"
+}

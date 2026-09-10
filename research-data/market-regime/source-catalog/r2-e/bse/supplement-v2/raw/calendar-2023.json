@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "calendar-2023",
+    "url": "https://www.bse.cn/important_news/200014364.html",
+    "method": "GET",
+    "discovery": "PARENT_JSON_HTML_URL",
+    "parent": "holiday-title-search",
+    "byteOffset": 1767,
+    "text": "/important_news/200014364.html"
+  },
+  "attemptedAt": "2026-09-10T04:32:44+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/important_news/200014364.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/calendar-2023.body",
+  "byteSize": 23530,
+  "sha256": "111997d447d650a059c4926563f3f949cbf03cb475adb67ae2d4ca4749078529"
+}

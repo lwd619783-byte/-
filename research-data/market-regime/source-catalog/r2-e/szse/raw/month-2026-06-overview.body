@@ -1,0 +1,86 @@
+
+
+<style>
+
+	table { border-collapse:collapse; }
+	caption { font-family:华文中宋; font-size:14pt; font-weight:bold; vertical-align:middle; text-align: left;padding-bottom:10px; }
+	.title_cn { font-size: 13pt; line-height: 13pt; padding-bottom:5px; }
+	.title_en { font-size: 12pt; line-height: 12pt; }
+
+	th { padding: 2px; font-family:Tahoma,Verdana,Arial,Helvetica; font-size:9pt; line-height: 9pt; font-weight:bold; }
+	td { padding: 3px; font-family:Tahoma,Verdana,Arial,Helvetica; font-size:9pt; line-height: 9pt; vertical-align:middle; text-align:right;}
+
+	.center             { vertical-align:middle; text-align:center; }
+	.top_line           { border-top:1px black solid; }
+	.top_line_bold      { border-top:3px black solid; }
+	.bottom_line        { border-bottom:1px black solid; }
+	.bottom_line_bold   { border-bottom:3px black solid; }
+	.separator          { border: none; width:0px; }
+
+	tr.t1_top_row    td  { border-top:3px black solid; }
+	tr.t1_bottom_row td  { border-bottom:1px black solid; }
+
+	tr.t2_top_row    td  {}
+	tr.t2_bottom_row td  { border-bottom:3px black solid; }
+
+    td.c0  { text-align:left;   width:80px;  padding-left: 5px; }
+    td.c1  { text-align:left;   width:80px;  padding-left: 5px; }
+    td.c2  { text-align:right;  width:80px;  padding-right: 45px; }
+    td.c3  { text-align:right;  width:120px; padding-right: 10px; }
+    td.c4  { text-align:right;  width:120px; padding-right: 10px; }
+    td.c5  { text-align:right;  width:120px; padding-right: 10px; }
+    td.c6  { text-align:right;  width:120px; padding-right: 10px; }
+
+	td.l    { text-align:left;  width:570px; padding-left:5px;}
+	td.float    { text-align:right; width:300px;}
+	td.integer  { text-align:right; width:300px; padding-right:20px;}
+
+</style>
+<table width="620">
+    <caption>
+      <div class="title_cn">市场总貌</div>
+      <div class="title_en">MARKET OVERVIEW – (2026.06)</div>
+    </caption>
+<tr class="t1_top_row"><td class="l">    <span style="padding-left:0px"/>
+ 6月份新上市公司数目</td><td class="l" >No. of Companies Listed</td><td class="integer">2</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 上市公司数目</td><td class="l" >No. of Listed Companies</td><td class="integer">2898</td></tr><tr class=""><td class="l">    <span style="padding-left:13px"/>
+ 创业板</td><td class="l" style="padding-left:10px;" >ChiNext</td><td class="integer">1399</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 上市证券数目</td><td class="l" >No. of Listed Securities</td><td class="integer">23596</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 会员数</td><td class="l" >No. of Members</td><td class="integer">121</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 参与交易会员数</td><td class="l" >No. of Trading Members</td><td class="integer">113</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 席位数</td><td class="l" >No. of Seats</td><td class="integer">33206</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 总发行股本(百万股)</td><td class="l" >Total Issued Capital (Mil. Shs.)</td><td class="float">2755259.66</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 总流通股本(百万股)</td><td class="l" >Total Negotiable Capital (Mil. Shs)</td><td class="float">2445459.17</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 上市公司市价总值(百万元)</td><td class="l" >Total Market Capitalization (RMB Mil.)</td><td class="float">49532483.26</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 上市公司流通市值(百万元)</td><td class="l" >Total Negotiable Market Capitalization (RMB Mil.)</td><td class="float">42206382.15</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 6月份交易日数</td><td class="l" >No. of Trading Days</td><td class="integer">21</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 6月份总成交金额(百万元)</td><td class="l" >Total Turnover (RMB Mil.)</td><td class="float">46190010.87</td></tr><tr class=""><td class="l">    <span style="padding-left:13px"/>
+ 创业板</td><td class="l" style="padding-left:10px;" >ChiNext</td><td class="float">17203528.39</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 平均每日成交金额(百万元)</td><td class="l" >Average Daily Turnover in Value (RMB Mil.)</td><td class="float">2199524.33</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 6月份总成交股数(百万股)</td><td class="l" >Total Shares Traded (Mil. Shs.)</td><td class="float">1623710.69</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 平均每日成交股数(百万股)</td><td class="l" >Average Daily Shares Traded (Mil. Shs.)</td><td class="float">77319.56</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 6月份总成交笔数</td><td class="l" >Total No. of Deals</td><td class="integer">2239181384</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 平均每日成交笔数</td><td class="l" >Average Daily No. of Deals</td><td class="integer">106627685</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 6月底平均市盈率(倍)</td><td class="l" >Average P/E Ratio at End of Month (Times)</td><td class="float">34.35</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 6月底信用交易余额 - 融资</td><td class="l" >Margin Transaction Balance (RMB Mil.) - Purchases</td><td class="float">1470879.58</td></tr><tr class=""><td class="l">    <span style="padding-left:57px"/>
+ (百万元)&nbsp;&nbsp;&nbsp;融券</td><td class="l" style="padding-left:221px;" >Sales</td><td class="float">7916.45</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 6月份深证成份指数 - 最高</td><td class="l" >SZSE Component Index - High</td><td class="float">16374.02</td></tr><tr class=""><td class="l">    <span style="padding-left:115px"/>
+ 最低</td><td class="l" style="padding-left:147px;" >Low</td><td class="float">14681.64</td></tr><tr class=""><td class="l">    <span style="padding-left:115px"/>
+ 收市</td><td class="l" style="padding-left:147px;" > Close</td><td class="float">16205.56</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 6月份创业板指数   - 最高</td><td class="l" >ChiNext Index - High</td><td class="float">4380.41</td></tr><tr class=""><td class="l">    <span style="padding-left:104px"/>
+ 最低</td><td class="l" style="padding-left:93px;" >Low</td><td class="float">3755.61</td></tr><tr class="t1_bottom_row"><td class="l">    <span style="padding-left:104px"/>
+ 收市</td><td class="l" style="padding-left:93px;" > Close</td><td class="float">4342.71</td></tr><tr class="t2_top_row"><td class="l">    <span style="padding-left:0px"/>
+ 2026年新上市公司数目</td><td class="l" >No. of Newly Listed Companies in 2026</td><td class="integer">16</td></tr><tr class=""><td class="l">    <span style="padding-left:13px"/>
+ 创业板</td><td class="l" style="padding-left:10px;" >ChiNext</td><td class="integer">9</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 2026年交易日数</td><td class="l" >No. of Trading Days in 2026</td><td class="integer">116</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 2026年总成交金额(百万元)</td><td class="l" >Total Turnover in Value in 2026 (RMB Mil.)</td><td class="float">234697143.91</td></tr><tr class=""><td class="l">    <span style="padding-left:13px"/>
+ 创业板</td><td class="l" style="padding-left:10px;" >ChiNext</td><td class="float">83343138.39</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 平均每日成交金额(百万元)</td><td class="l" >Average Daily Turnover in Value (RMB Mil.)</td><td class="float">2023251.24</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 2026年总成交股数(百万股)</td><td class="l" >Total Shares Traded in 2026 (Mil. Shs.)</td><td class="float">9145417.42</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 平均每日成交股数(百万股)</td><td class="l" >Average Daily Shares Traded (Mil. Shs.)</td><td class="float">78839.81</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 2026年总成交笔数</td><td class="l" >Total No. of Deals for 2026</td><td class="integer">11795610825</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 平均每日成交笔数</td><td class="l" >Average Daily No. of Deals</td><td class="integer">101686300</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 2026年深证成份指数 - 最高</td><td class="l" >SZSE Component Index in 2026 - High</td><td class="float">16374.02</td></tr><tr class=""><td class="l">    <span style="padding-left:124px"/>
+ 最低</td><td class="l" style="padding-left:186px;" >Low</td><td class="float">13169.25</td></tr><tr class=""><td class="l">    <span style="padding-left:0px"/>
+ 2026年创业板指数  - 最高</td><td class="l" >ChiNext Index in 2026   - High</td><td class="float">4380.41</td></tr><tr class="t2_bottom_row"><td class="l">    <span style="padding-left:112px"/>
+ 最低</td><td class="l" style="padding-left:140px;" >Low</td><td class="float">3111.88</td></tr></table>

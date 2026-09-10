@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "daily-js",
+    "url": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+    "method": "GET",
+    "discovery": "PARENT_SCRIPT_SRC",
+    "parent": "statistics-page",
+    "byteOffset": 26689,
+    "text": "/template/6/bluewise/_files/js/marketData/daily.min.js"
+  },
+  "attemptedAt": "2026-09-10T04:24:50+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/marketData/daily.min.js",
+  "contentType": "application/javascript",
+  "bodyPath": "raw/daily-js.body",
+  "byteSize": 28183,
+  "sha256": "d8a7f153d9237c1eab890e57b4dfd6d962aecfbe76decbd67656704412a2ce58"
+}

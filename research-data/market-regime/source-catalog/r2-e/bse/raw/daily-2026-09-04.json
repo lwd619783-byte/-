@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "daily-2026-09-04",
+    "url": "https://www.bse.cn/marketStatController/dailyReport.do",
+    "method": "POST",
+    "form": "HQJSRQ=20260904",
+    "requestedDate": "2026-09-04",
+    "discovery": "daily-js date parameter; D1C frozen endpoint date repeated to test current replay drift",
+    "parent": "daily-js"
+  },
+  "attemptedAt": "2026-09-10T04:26:21+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/marketStatController/dailyReport.do",
+  "contentType": "text/html;charset=utf-8",
+  "bodyPath": "raw/daily-2026-09-04.body",
+  "byteSize": 1262,
+  "sha256": "7f1e751a1e7af42b4d5228d3a976c08c2dee47f958c2ef21b28e0178165f3329"
+}

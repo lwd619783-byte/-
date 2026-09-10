@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportVersion": "r2-e-integrated-v1",
+  "kind": "R2_E_RELEASE_PIT_REVIEW",
+  "baseline": "1179c0992881e01ab71bc409641e46acf129a408",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "inputReferences": [
+    {
+      "name": "calendar",
+      "path": "research-data/market-regime/source-catalog/r2-e/calendar/foundation.v1.json",
+      "contentSha256": "39809ade673fb6faa301a0f5ae7f74f05dc2796e013f7b4f216942c1017dcac1"
+    },
+    {
+      "name": "szseArchive",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/archive-index.v1.json",
+      "contentSha256": "4c1abd1be6e4585866e799d324ca2aa076f893ff6f38f72c9563a5089e5691aa"
+    },
+    {
+      "name": "sse",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/evidence.v1.json",
+      "contentSha256": "4deeb0a2da204ef24490dfd65b9a86a10be6c3f54145c8475fe225fcb3a4c15a"
+    },
+    {
+      "name": "sseCandidates",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/candidates.v1.json",
+      "contentSha256": "4fe277345cfee112bf0abc62e3054a120112e7cc2540bf60db5be929c13672f6"
+    },
+    {
+      "name": "szseExtractions",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/extractions.v1.json",
+      "contentSha256": "547c6ded0bbcf74f0765ae65c2c6e2c57c005fc8f867bf387f9616a2f6ff9f9b"
+    },
+    {
+      "name": "szseAcquisitionFollowup",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/acquisition-followup.v1.json",
+      "contentSha256": "5cc5bd1ce224dcd1e6ab58a489d6a87491290c3814d5cbb9b057ca3f8b7033b3"
+    },
+    {
+      "name": "szseCandidates",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/yearbook-candidates.v1.json",
+      "contentSha256": "64ecc0ad6d4e8dfbd0a64c95c762b7830b201670fba284bb15a7239d2e151125"
+    },
+    {
+      "name": "bsePdf",
+      "path": "research-data/market-regime/source-catalog/r2-e/bse/pdf-audit.v1.json",
+      "contentSha256": "966e176c4c9fd0a2013beca368b27bb9db5096e8b366ace6e3fca72981f77776"
+    },
+    {
+      "name": "bse",
+      "path": "research-data/market-regime/source-catalog/r2-e/bse/evidence.v1.json",
+      "contentSha256": "b8f17dca2a6484b331380de497c80c507b30da702bfb31c62ac7fa1e7523c65a"
+    },
+    {
+      "name": "szse",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/workstream-report.v1.json",
+      "contentSha256": "bf86e9c1f2a4e7546decfee2d93abce72b3ef852637889e275a02a450e0013b2"
+    },
+    {
+      "name": "szseAcquisition",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/acquisition.v1.json",
+      "contentSha256": "d86c6e6f30a374af89ed57ad65a9b9eda54ee16ee27e4fb4c233691aa65fac6d"
+    },
+    {
+      "name": "bseCalendar",
+      "path": "research-data/market-regime/source-catalog/r2-e/bse/supplement-v2/evidence.v2.json",
+      "contentSha256": "f00039ca7ade2483ca25955aff46a20d3699a7f37a9f6b7c2934fdeecad4912c"
+    }
+  ],
+  "rows": [
+    {
+      "exchange": "SZSE",
+      "status": "NOT_ADMITTED",
+      "observationDateMeaning": "STATISTICAL_DATE_ONLY",
+      "publicationDate": null,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "dateOnlySafeStatus": "NOT_APPLICABLE_NO_PROVEN_MARKET_PUBLICATION_DATE",
+      "provenFirstReleaseCount": 0,
+      "revisionCoverage": "UNPROVEN",
+      "marketReleaseCount": 0,
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "reason": "Official yearbook index, publication descriptions and historical tables establish source discovery; no actual dated daily release-to-bytes or first-release lineage is proven.",
+      "evidenceReferences": [
+        {
+          "name": "szseArchive",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/archive-index.v1.json",
+          "contentSha256": "4c1abd1be6e4585866e799d324ca2aa076f893ff6f38f72c9563a5089e5691aa"
+        },
+        {
+          "name": "szseCandidates",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/yearbook-candidates.v1.json",
+          "contentSha256": "64ecc0ad6d4e8dfbd0a64c95c762b7830b201670fba284bb15a7239d2e151125"
+        },
+        {
+          "name": "szse",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/workstream-report.v1.json",
+          "contentSha256": "bf86e9c1f2a4e7546decfee2d93abce72b3ef852637889e275a02a450e0013b2"
+        }
+      ],
+      "unadmittedWindow": {
+        "start": "2005-01-01",
+        "end": "2026-09-04"
+      },
+      "blockers": [
+        "FIRST_RELEASE_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ]
+    },
+    {
+      "exchange": "SSE",
+      "status": "NOT_ADMITTED",
+      "observationDateMeaning": "STATISTICAL_DATE_ONLY",
+      "publicationDate": null,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "dateOnlySafeStatus": "NOT_APPLICABLE_NO_PROVEN_MARKET_PUBLICATION_DATE",
+      "provenFirstReleaseCount": 0,
+      "revisionCoverage": "UNPROVEN",
+      "marketReleaseCount": 0,
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "reason": "Trade-date payloads and a monthly publication schedule have been replayed; neither supplies actual daily market release time or historical bytes binding.",
+      "evidenceReferences": [
+        {
+          "name": "sse",
+          "path": "research-data/market-regime/source-catalog/r2-e/sse/evidence.v1.json",
+          "contentSha256": "4deeb0a2da204ef24490dfd65b9a86a10be6c3f54145c8475fe225fcb3a4c15a"
+        },
+        {
+          "name": "sseCandidates",
+          "path": "research-data/market-regime/source-catalog/r2-e/sse/candidates.v1.json",
+          "contentSha256": "4fe277345cfee112bf0abc62e3054a120112e7cc2540bf60db5be929c13672f6"
+        }
+      ],
+      "unadmittedWindow": {
+        "start": "2005-01-01",
+        "end": "2026-09-04"
+      },
+      "blockers": [
+        "FIRST_RELEASE_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ]
+    },
+    {
+      "exchange": "BSE",
+      "status": "NOT_ADMITTED",
+      "observationDateMeaning": "STATISTICAL_DATE_ONLY",
+      "publicationDate": null,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "dateOnlySafeStatus": "NOT_APPLICABLE_NO_PROVEN_MARKET_PUBLICATION_DATE",
+      "provenFirstReleaseCount": 0,
+      "revisionCoverage": "UNPROVEN",
+      "marketReleaseCount": 0,
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "reason": "Annual index publication text is timezone-naive and not bound to historical daily release bytes. Trading-rule publication and holiday announcements cannot supply a market release clock.",
+      "evidenceReferences": [
+        {
+          "name": "bsePdf",
+          "path": "research-data/market-regime/source-catalog/r2-e/bse/pdf-audit.v1.json",
+          "contentSha256": "966e176c4c9fd0a2013beca368b27bb9db5096e8b366ace6e3fca72981f77776"
+        },
+        {
+          "name": "bse",
+          "path": "research-data/market-regime/source-catalog/r2-e/bse/evidence.v1.json",
+          "contentSha256": "b8f17dca2a6484b331380de497c80c507b30da702bfb31c62ac7fa1e7523c65a"
+        }
+      ],
+      "unadmittedWindow": {
+        "start": "2021-11-15",
+        "end": "2026-09-04"
+      },
+      "blockers": [
+        "FIRST_RELEASE_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ]
+    }
+  ],
+  "releaseEvents": [],
+  "formalObservations": [],
+  "strictPitObservations": [],
+  "status": "NOT_ADMITTED",
+  "validationMode": "PINNED_INPUT_OBJECT_REPLAY_RAW_REPLAY_SEPARATE",
+  "ruleReference": "docs/market-regime/observation-catalog-r2-scope-freeze-v1.md#31-pitrevision缺失与不可变性",
+  "contentSha256": "a7e66dcc8817ef32a332a81fca80f8cb7cec725d80778ecff02b1c28f9c2d4fc"
+}

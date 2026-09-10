@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "annual-docx-2021",
+    "url": "https://www.bse.cn/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx",
+    "method": "GET",
+    "discovery": "PARENT_FILE_URL",
+    "parent": "annual-list",
+    "byteOffset": 242,
+    "text": "/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx"
+  },
+  "attemptedAt": "2026-09-10T04:25:40+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/uploads/6/file/public/202201/20220104170049_c0a6gp9715.docx",
+  "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "bodyPath": "raw/annual-docx-2021.body",
+  "byteSize": 27045,
+  "sha256": "d800ce2f1084f13e17bd67ccdcbec7ef6175faf358954439bbdf463126eaac14"
+}

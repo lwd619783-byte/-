@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "news-js",
+    "url": "https://www.bse.cn/template/6/bluewise/_files/js/aboutNEEQ/neeqNews.min.js",
+    "method": "GET",
+    "discovery": "PARENT_SCRIPT_SRC",
+    "parent": "news-index",
+    "byteOffset": 8443,
+    "text": "/template/6/bluewise/_files/js/aboutNEEQ/neeqNews.min.js"
+  },
+  "attemptedAt": "2026-09-10T04:31:57+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/aboutNEEQ/neeqNews.min.js",
+  "contentType": "application/javascript",
+  "bodyPath": "raw/news-js.body",
+  "byteSize": 3003,
+  "sha256": "9c423ec6e2c830557cacc0297bded54c2a8cc53139fde5b341819069f3faa997"
+}

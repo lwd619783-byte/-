@@ -1,0 +1,17 @@
+{
+  "request": {
+    "requestId": "special-list",
+    "url": "https://www.bse.cn/neeqController/getSpecialList.do",
+    "method": "POST",
+    "form": "page=0&pageSize=20&startTime=&endTime=&keyword=&siteId=6",
+    "discovery": "daily-js E() explicit special report request",
+    "parent": "daily-js"
+  },
+  "attemptedAt": "2026-09-10T04:25:16+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/neeqController/getSpecialList.do",
+  "contentType": "text/html;charset=utf-8",
+  "bodyPath": "raw/special-list.body",
+  "byteSize": 4735,
+  "sha256": "3445175edd647afc8060a21f62175969a2df0174b9be8baa1928c5dcecabc500"
+}

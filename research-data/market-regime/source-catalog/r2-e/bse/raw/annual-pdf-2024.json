@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "annual-pdf-2024",
+    "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf",
+    "method": "GET",
+    "discovery": "PARENT_FILE_URL",
+    "parent": "special-list",
+    "byteOffset": 1145,
+    "text": "/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf"
+  },
+  "attemptedAt": "2026-09-10T04:25:40+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/uploads/6/file/public/202509/20250930163112_vjxauwgtbw.pdf",
+  "contentType": "application/pdf",
+  "bodyPath": "raw/annual-pdf-2024.body",
+  "byteSize": 535645,
+  "sha256": "4f14c837331291d2965d8e18a7963561982b278f2d2eb1553a09066729632294"
+}

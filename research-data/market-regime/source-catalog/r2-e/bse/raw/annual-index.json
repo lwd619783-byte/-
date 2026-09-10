@@ -1,0 +1,15 @@
+{
+  "request": {
+    "requestId": "annual-index",
+    "url": "https://www.bse.cn/static/annual.html",
+    "method": "GET",
+    "discovery": "OFFICIAL_SEARCH_RESULT"
+  },
+  "attemptedAt": "2026-09-10T04:24:15+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/static/annual.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/annual-index.body",
+  "byteSize": 10537,
+  "sha256": "6f3917af8155920e9f74e5187b478a3cc7d4072746c4cd70f3bb9845db341896"
+}

@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "annual-pdf-2023",
+    "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf",
+    "method": "GET",
+    "discovery": "PARENT_FILE_URL",
+    "parent": "special-list",
+    "byteOffset": 2060,
+    "text": "/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf"
+  },
+  "attemptedAt": "2026-09-10T04:25:41+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/uploads/6/file/public/202509/20250930163101_3c5x2v7a4r.pdf",
+  "contentType": "application/pdf",
+  "bodyPath": "raw/annual-pdf-2023.body",
+  "byteSize": 533031,
+  "sha256": "2d5ec7188bd0d05f86e122bfc10dbfe6cbc903b84e61da297799679451439b3b"
+}

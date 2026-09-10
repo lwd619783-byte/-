@@ -1,0 +1,12 @@
+{
+  "requestId": "legacy-script",
+  "url": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+  "attemptedAt": "2026-09-10T04:24:08+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+  "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-script.body",
+  "contentType": "application/javascript",
+  "sha256": "c2cf4c618dc06baa146affde91fe12514837f48edbbdb161c00e4cc8ce2e66a6",
+  "byteSize": 102309
+}
