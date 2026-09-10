@@ -1,0 +1,133 @@
+﻿$(function(){
+  // 搜索页面添加背景类名
+  if(col_id=="8307"){
+    $("body").addClass("bg_8307");
+  }
+  //诉求受理中心页面处理
+  if(col_id=="14888"){
+    $("body").addClass("bg_14888");
+    if(location.href.indexOf("xf.shtml")>0){
+        pageTitle = "信访"
+        $(".js_page-title").text("信访");
+    }
+  }
+  if(col_id=="14889"){
+    $("body").addClass("bg_14889");
+    if(location.href.indexOf("nmjb.shtml")>0){
+        pageTitle = "匿名举报"
+        $(".js_page-title").text("匿名举报");
+    }
+    if(location.href.indexOf("smjb.shtml")>0){
+        pageTitle = "实名举报"
+        $(".js_page-title").text("实名举报");
+    }
+  }
+  if(col_id=="14890"){
+    $("body").addClass("bg_14890");
+    if(location.href.indexOf("zxtsjy.shtml")>0){
+        pageTitle = "咨询投诉建议"
+        $(".js_page-title").text("咨询投诉建议");
+    }
+  }
+
+ //修改某些栏目文章页的大页面标题
+  if(col_id=="8903" && location.href.indexOf("/c/")>0){
+    pageTitle = "上证所信息网络有限公司"
+    $(".js_page-title").text("上证所信息网络有限公司");
+  }
+  if(col_id=="8904" && location.href.indexOf("/c/")>0){
+    pageTitle = "上交所技术有限责任公司"
+    $(".js_page-title").text("上交所技术有限责任公司");
+  }
+  if(col_id=="8319" && location.href.indexOf("/c/")>0){
+    pageTitle = "一般公告"
+    $(".js_page-title").text("一般公告");
+  }
+  if(col_id=="8458" && location.href.indexOf("/c/")>0){
+    pageTitle = "信息披露和动态"
+    $(".js_page-title").text("信息披露和动态");
+  }
+  if(col_id=="20139" && location.href.indexOf("/c/")>0){
+    pageTitle = "招聘岗位及要求"
+    $(".js_page-title").text("招聘岗位及要求");
+  }
+  if(col_id=="9725" && location.href.indexOf("/c/")>0){
+    pageTitle = "休市安排相关公告"
+    $(".js_page-title").text("休市安排相关公告");
+  }
+})
+
+//文章页正文的附件添加download属性
+$(function(){
+  if($(".article-infor .allZoom").length>0 ){
+      
+         
+         $(".article-infor .allZoom a").each(function(){
+            var str1 = $(this).attr("href")
+            var i0 = str1.lastIndexOf(".")
+            var i1 = str1.length
+            var wj_type = ""
+            if(i0>0){
+              wj_type = str1.substring(i0,i1)
+            }
+            if(str1.indexOf("/files/")>0){
+              var tit = $.trim($(this).text()).replace(".","_");
+             
+              $(this).attr("download",tit+wj_type)
+            }
+         }) 
+  }
+  if($(".downloadfile_ExCn").length>0 ){      
+         
+         $(".downloadfile_ExCn").each(function(){
+            var str1 = $(this).attr("href")
+            var i0 = str1.lastIndexOf(".")
+            var i1 = str1.length
+            var wj_type = ""
+            if(i0>0){
+              wj_type = str1.substring(i0,i1)
+            }
+            if(str1.indexOf("/files/")>0){
+              var tit = $.trim($(this).text()).replace(".","_");
+             
+              $(this).attr("download",tit+wj_type)
+            }
+         }) 
+  }
+})
+
+
+//剥壳页面
+$(function(){
+  if($("#outPutDataDiv").length>0){
+      if($(".article-infor").length>0){
+         
+         $(".article-infor a").each(function(){
+            var str1 = $(this).attr("href")
+            //console.log($(this).attr("href"))
+            if(str1.indexOf("/files/")>0 && /^(\d){4}/.test(str1)){
+              var link = location.href;
+              var index1 = link.indexOf("#http") + 1;
+              var index2 = link.lastIndexOf("/") + 1;
+              var str2 =link.substring(index1,index2);
+              var newAttr = str2 + str1;
+              $(this).attr("href",newAttr)
+            }
+         }) 
+
+         $(".article-infor img").each(function(){
+            var str1 = $(this).attr("src")
+            if(str1.indexOf("/images/")>0 && /^(\d){4}/.test(str1)){
+              var link = location.href;
+              var index1 = link.indexOf("#http") + 1;
+              var index2 = link.lastIndexOf("/") + 1;
+              var str2 =link.substring(index1,index2);
+              var newAttr = str2 + str1;
+              $(this).attr("src",newAttr)
+            }
+         })
+
+      }
+      
+  }
+})

@@ -1,0 +1,62 @@
+{
+  "kind": "R2_E_ARCHIVE_NAVIGATION",
+  "version": "v1",
+  "attempts": [
+    {
+      "exchange": "SSE",
+      "requestedUrl": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/s_list.shtml",
+      "discovery": {
+        "kind": "SAVED_SCRIPT_URL_ATTRIBUTE",
+        "parent": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/",
+        "text": "/disclosure/dealinstruc/closed/list/s_list.shtml"
+      },
+      "attemptedAt": "2026-09-10T04:27:10.489057+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/s_list.shtml",
+      "storedBytes": {
+        "localPath": "research-data/market-regime/source-catalog/r2-e/calendar/raw/c3614200056e6979cc52887501c3c65c8bfb6bb2ccd94facc8aa1e3a0ebfd5ab.body",
+        "sha256": "c3614200056e6979cc52887501c3c65c8bfb6bb2ccd94facc8aa1e3a0ebfd5ab",
+        "byteSize": 6570
+      },
+      "outcome": "RETRIEVED",
+      "links": [
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240425_10753715.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240530_10758158.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240905_10761311.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240919_10762012.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20241223_10767108.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250123_10770570.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250327_10776462.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250424_10777645.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250522_10779724.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250925_10792976.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260205_10808618.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260331_10813622.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260423_10816345.shtml",
+        "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260611_10821419.shtml",
+        "https://www.sse.com.cn/xhtml/js/common/page_list.js"
+      ]
+    },
+    {
+      "exchange": "SSE",
+      "requestedUrl": "https://www.sse.com.cn/xhtml/js/app/main_2021.js",
+      "discovery": {
+        "kind": "REQUIREJS_DATA_MAIN",
+        "parent": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/",
+        "text": "/xhtml/js/app/main_2021"
+      },
+      "attemptedAt": "2026-09-10T04:27:10.738193+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.sse.com.cn/xhtml/js/app/main_2021.js",
+      "storedBytes": {
+        "localPath": "research-data/market-regime/source-catalog/r2-e/calendar/raw/c7c1438a3cb3405e9f431e4c745415b3c95c707dd502555bab6bc2c7ee45a0e6.body",
+        "sha256": "c7c1438a3cb3405e9f431e4c745415b3c95c707dd502555bab6bc2c7ee45a0e6",
+        "byteSize": 5083
+      },
+      "outcome": "RETRIEVED",
+      "links": []
+    }
+  ],
+  "contentSha256": "750b1691042bc03d8102f6a40b02e3f4808a628cc35d5e7fba31d47c1a977a5d"
+}

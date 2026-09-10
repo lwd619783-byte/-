@@ -1,0 +1,26 @@
+{
+  "kind": "R2_E_ARCHIVE_OTHERS",
+  "version": "v1",
+  "attempts": [
+    {
+      "exchange": "SSE",
+      "requestedUrl": "https://www.sse.com.cn/xhtml/js/others.js",
+      "discovery": {
+        "kind": "REQUIREJS_MODULE",
+        "parent": "https://www.sse.com.cn/xhtml/js/app/main_2021.js",
+        "text": "/xhtml/js/others"
+      },
+      "attemptedAt": "2026-09-10T04:28:06.957038+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.sse.com.cn/xhtml/js/others.js",
+      "storedBytes": {
+        "localPath": "research-data/market-regime/source-catalog/r2-e/calendar/raw/c866d0db525bb4cd7decc59d00698a33b2b58896cc4f39c70b31f8bfa33034af.body",
+        "sha256": "c866d0db525bb4cd7decc59d00698a33b2b58896cc4f39c70b31f8bfa33034af",
+        "byteSize": 4208
+      },
+      "outcome": "RETRIEVED",
+      "links": []
+    }
+  ],
+  "contentSha256": "07c030cf7a06ce2081f0211617e279ed170341fab6ba2c7b795b00fa55120fdb"
+}

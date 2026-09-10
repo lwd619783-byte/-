@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+<!--   <title>深交所主页</title>   -->
+<script>
+    
+    var title = "Trading Calendar ";
+    
+    document.write('<title>en-'+ title +'</title>')
+</script>
+<script>
+  if(location.protocol == 'https:'){
+    document.write('<link href="https://res.szse.cn/common/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />');
+  }else{
+    document.write('<link href="http://res.static.szse.cn/common/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />');
+  }
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
+<meta http-equiv="cache-control" content="max-age=0">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="expires" content="Web, 26 Feb 1997 08:21:57 GMT">
+<meta http-equiv="pragma" content="no-cache">
+<meta name="author" content="bond.szse.cn">
+<meta name="description" content="en">
+<meta name="keywords" content="en">
+<meta name="renderer" content="webkit">
+<meta name="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="google" value="notranslate">
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="screen-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="browermode" content="application">
+<meta name="x5-orientation" content="portrait">
+<meta name="HandheldFriendly" content="true">
+<script type="text/javascript">
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;//android终端
+
+	function addElementMeta(name,  content) {
+		var head = document.getElementsByTagName('head')[0];
+		var meta = document.createElement('meta');
+
+		meta.setAttribute('name', name);
+		meta.setAttribute('content', content);
+		head.appendChild(meta);
+	}
+	if(isAndroid) {
+		addElementMeta('x5-fullscreen', 'true');
+		addElementMeta('x5-page-mode', 'app');
+	}
+</script>
+<script>
+  (function () {
+    var _versionDate = new Date().getTime();
+    if (location.protocol == 'https:') {
+      var _path = 'https://res.szse.cn';
+    } else {
+      var _path = 'http://res.static.szse.cn';
+    }
+    // _path = _path.replace(".static.", ".");
+    //var _path = 'http://res.szse.cn';
+    //document.write( " <script src='" + _path + "/common/js/first.js?random=" + _versionDate + "'> <\/script> ");
+    var _host = 'http://www.szse.cn';
+    if (location.protocol == 'https:') {
+      _host = 'https://www.szse.cn';
+    }
+
+
+    var backDomain = 'http://www.sse.org.cn'
+    var reg = /([a-zA-Z0-9][-a-zA-Z0-9]{0,62})((\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+)\.?(:\d+)?/;
+    if (backDomain && window.location.host.match(reg)[2] === backDomain.match(reg)[2]) {
+      _host = 'http://www.sse.org.cn';
+      _path = 'http://res.static.sse.org.cn';
+      if (location.protocol == 'https:') {
+        _host = 'https://www.sse.org.cn';
+        _path = 'https://res.static.sse.org.cn';
+      }
+
+    }
+
+    _path = _path.replace(".static.", ".");
+
+    document.write(" <script src='" + _host + "/szsePath.js?random=" + _versionDate + "'> <\/script> "
+      + " <script src='" + _path + "/common/js/concatversion.js?random=" + _versionDate + "'> <\/script> ");
+  }());
+</script>
+
+<script>
+
+  function backDomainLinkSwitch(value, type) {
+    var _port = location.port ? (":" + location.port) : "";
+    var reg = /([a-zA-Z0-9][-a-zA-Z0-9]{0,62})((\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+)\.?(:\d+)?/;
+    var urlRegx = /(.*)(http:|https:)(\/\/)(([a-zA-Z0-9][-a-zA-Z0-9]{0,62})((\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+))\.?(:\d+)?(.*)/;
+
+    // html字符串替换
+    if (type == 'str') {
+      var strArr = value.split("=");
+      strArr = strArr.map(function (v) {
+        var host = reg.test(v) ? v.match(reg)[0] : null;
+        if (pathObj.szseHosts.indexOf(host) > -1) {
+          if (window.location.protocol == 'https:' && urlRegx.test(v)) {
+            v = v.replace(urlRegx, '$1https:$3$4' + _port + '$9');
+          };
+          if (pathObj.current_host === pathObj.back_host) {
+            v = v.replace(pathObj.main_host, pathObj.back_host);
+          }
+        }
+        return v
+      });
+      value = strArr.join("=");
+      return value;
+    }
+
+    // a标签地址替换
+    if (type === 'A') {
+      var eleA = document.querySelectorAll(value);
+      for (var i = 0; i < eleA.length; i++) {
+        var href = eleA[i].getAttribute("href");
+        var host = reg.test(href) ? href.match(reg)[0] : null;
+        if (href && pathObj.szseHosts.indexOf(host) > -1) {
+          if (window.location.protocol == 'https:') {
+            href = href.replace(urlRegx, '$1https:$3$4' + _port + '$9');
+          };
+          if (pathObj.current_host === pathObj.back_host) {
+            href = href.replace(pathObj.main_host, pathObj.back_host);
+          }
+          eleA[i].setAttribute('href', href);
+        }
+      }
+    }
+
+    // 单链接替换
+    if (type === "link") {
+      if (window.location.protocol == 'https:' && !!value) {
+        value = value.replace(urlRegx, '$1https:$3$4' + _port + '$9');
+      };
+      if (pathObj.current_host === pathObj.back_host) {
+        var host = reg.test(value) ? value.match(reg)[0] : null;
+        if (value && pathObj.szseHosts.indexOf(host) > -1) {
+          value = value.replace(pathObj.main_host, pathObj.back_host);
+        }
+      }
+      return value;
+    }
+
+    // 背景图地址更换
+    if (type === "background") {
+      var eleBg = document.querySelectorAll(value);
+      for (var i = 0; i < eleBg.length; i++) {
+        var href = eleBg[i].style.backgroundImage;
+        if (window.location.protocol == 'https:' && !!href) {
+          href = href.replace(urlRegx, '$1https:$3$4' + _port + '$9');
+        };
+        var host = reg.test(href) ? href.match(reg)[0] : null;
+        if (href && pathObj.szseHosts.indexOf(host) > -1) {
+          if (pathObj.current_host === pathObj.back_host) {
+            href = href.replace(pathObj.main_host, pathObj.back_host);
+          }
+          eleBg[i].style.backgroundImage = href;
+        }
+      }
+    }
+
+  }
+
+</script>
+
+<script>
+   if(document.cookie.indexOf('ft_language=1')>-1){
+    var style = document.createElement('style');
+    style.textContent='body{visibility:hidden;}';
+    document.head.appendChild(style);
+  }
+</script>
+<script>
+    addComCssFile();
+    changeVertion('/enweb/common/css/common.css', 'css');
+</script>
+    <style>
+        .des{overflow:auto;}
+    </style>
+</head>
+<body>
+<script>
+  navMenuAJAX('/English/application/publicindex/header/index.html', '/English/application/publicindex/header/index.html', 'header', 'www', true);
+</script>
+<div class="g-locationnav">
+    <div class="banner-wrap">
+        <img src="http://res.static.szse.cn/enweb/common/images/commonbannerbg.jpg" />
+    </div>
+    <div class="g-container">
+        <div class="g-banner-txt">
+            <h2 class="hidden-xs">Trading Calendar</h2>
+            <p>
+                <img src="http://res.static.szse.cn/common/icon/er-banneradr.png" />LOCATION: 
+                <a href="../../../" class="CurrChnlCls">SZSE English</a>/<a href="../../" class="CurrChnlCls">SERVICES</a>/<a href="../" class="CurrChnlCls">Trading</a>/<a href="./" class="CurrChnlCls">Trading Calendar</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="g-container-wrap">
+    <div class="g-container">
+        <div class="g-sidemenu">
+              
+
+<div class="menu-container">
+	<h2 class="title">SZSE English</h2>
+	<div class="side-menu-container">
+		<ul class="side-menu-con">
+            
+            <li class="level1" type="0" chnlcode="listings">
+
+			        <a> 
+					<div>LISTING
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="0" chnlcode="whySzse">
+
+			            <a href="/English/listings/whySzse/index.html">
+					<div>Why SZSE
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="standards">
+
+			            <a href="/English/listings/standards/index.html">
+					<div>Listing Standards
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="process">
+
+			            <a href="/English/listings/process/index.html">
+					<div>Listing Process
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="listFees">
+
+			            <a href="/English/listings/listFees/index.html">
+					<div>Listing Fees
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="faq">
+
+			            <a href="/English/listings/faq/index.html">
+					<div>Frequently Asked Questions
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            
+            <li class="level1" type="0" chnlcode="disclosures">
+
+			        <a> 
+					<div>DISCLOSURE
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="0" chnlcode="announcements">
+
+			            <a href="/English/disclosures/announcements/index.html">
+					<div>Company Announcements
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="profiles_link">
+
+			           <a href="http://www.cninfo.com.cn/new/snapshot/companyListEn" target='_blank'>
+					<div>Company Profiles
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="fund">
+
+			            <a href="/English/disclosures/fund/index.html">
+					<div>Fund Information
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            
+            <li class="level1" type="0" chnlcode="siteMarketData">
+
+			        <a> 
+					<div>MARKET DATA
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+            <li class="level2" type="0" chnlcode="siteMarketDatas">
+
+			        <a> 
+					<div>Market Data
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="stocks">
+
+			            <a href="/English/siteMarketData/siteMarketDatas/stocks/index.html">
+					<div>Stocks
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="funds">
+
+			            <a href="/English/siteMarketData/siteMarketDatas/funds/index.html">
+					<div>Funds
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="lookup">
+
+			            <a href="/English/siteMarketData/siteMarketDatas/lookup/index.html">
+					<div>Quotes Lookup
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level2" type="0" chnlcode="marketStatistics">
+
+			        <a> 
+					<div>Market Statistics
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="overview">
+
+			            <a href="/English/siteMarketData/marketStatistics/overview/index.html">
+					<div>Market Overview
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="securities">
+
+			            <a href="/English/siteMarketData/marketStatistics/securities/index.html">
+					<div>Securities Summary
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="sector">
+
+			            <a href="/English/siteMarketData/marketStatistics/sector/index.html">
+					<div>Sector Summary
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="counters">
+
+			            <a href="/English/siteMarketData/marketStatistics/counters/index.html">
+					<div>Top Counters
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level2" type="0" chnlcode="indices">
+
+			        <a> 
+					<div>Indices
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="performance">
+
+			            <a href="/English/siteMarketData/indices/performance/index.html">
+					<div>Indices Performance
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="constituent">
+
+			            <a href="/English/siteMarketData/indices/constituent/index.html">
+					<div>Indices Constituent
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level2" type="0" chnlcode="publication">
+
+			        <a> 
+					<div>Publication
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="monthlyReport">
+
+			            <a href="/English/siteMarketData/publication/monthly/index.html">
+					<div>Monthly Report
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="factBook">
+
+			            <a href="/English/siteMarketData/publication/factBook/index.html">
+					<div>Fact Book
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="research">
+
+			            <a href="/English/siteMarketData/publication/research/index.html">
+					<div>Research
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+				</ul>
+	  </li>
+            
+            <li class="level1" type="0" chnlcode="products">
+
+			        <a> 
+					<div>PRODUCTS
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+            <li class="level2" type="0" chnlcode="equity">
+
+			        <a> 
+					<div>Equity
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="overviews">
+
+			            <a href="/English/products/equity/overviews/index.html">
+					<div>Overview
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="mainboards">
+
+			            <a href="/English/products/equity/mainboards/index.html">
+					<div>Main Board
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="ChiNext">
+
+			            <a href="/English/products/equity/ChiNext/index.html">
+					<div>ChiNext
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+           <li class="level2 last" type="0" chnlcode="lefuFunds">
+
+			            <a href="/English/products/funds/index.html">
+					<div>Fund
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="bonds">
+
+			            <a href="/English/products/bonds/index.html">
+					<div>Bonds
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="security">
+
+			            <a href="/English/products/security/index.html">
+					<div>Asset-Backed Securities
+					
+					</div>
+				</a>
+				
+	  </li>
+            <li class="level2" type="0" chnlcode="options">
+
+			        <a> 
+					<div>Options
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="overviewOpt_news">
+
+			            <a href="/English/products/options/overview/index.html">
+					<div>Overview
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="CSI300ETFOption">
+
+			            <a href="/English/products/options/etf/index.html">
+					<div>CSI 300 ETF Options
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+				</ul>
+	  </li>
+            
+           <li class="level1 active" chnlcode="services">
+
+			        <a class="dropup">
+					<div>SERVICES
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 active" chnlcode="trading">
+
+			        <a class="dropup">
+					<div>Trading
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="tradOverview">
+
+			            <a href="/English/services/trading/tradOverview/index.html">
+					<div>Overview
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 active last" chnlcode="calendar">
+
+			            <a href="/English/services/trading/calendar/index.html">
+					<div>Trading Calendar
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="tradingFees">
+
+			            <a href="/English/services/trading/tradingFees/index.html">
+					<div>Trading Fees
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="marginTrading">
+
+			            <a href="/English/services/trading/marginTrading/index.html">
+					<div>Margin Trading
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+           <li class="level2 last" type="0" chnlcode="membership">
+
+			            <a href="/English/services/membership/index.html">
+					<div>Membership Services
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="stockConnect_link">
+
+			           <a href="http://www.szse.cn/enSzhk/index.html" target='_blank'>
+					<div>Stock Connect
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="GreaterBayAreaPlatform_link">
+
+			           <a href="http://bond.szse.cn/enbayarea/index/index.html" target='_blank'>
+					<div>Greater Bay Area Bond Platform
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="qr_link">
+
+			           <a href="http://www.szse.cn/enqfii/index.html" target='_blank'>
+					<div>QFII & RQFII
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="dataServices">
+
+			            <a href="/English/services/dataServices/index.html">
+					<div>Data Services
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="ensusfin_link">
+
+			           <a href="http://www.szse.cn/ensustainablefinance/index.html" target='_blank'>
+					<div>Sustainable Finance Service Area
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            
+            <li class="level1" type="0" chnlcode="siteRules">
+
+			        <a> 
+					<div>RULES
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="0" chnlcode="siteRule">
+
+			            <a href="/English/rules/siteRule/index.html">
+					<div>SZSE Rules
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            
+            <li class="level1" type="0" chnlcode="enAbout">
+
+			        <a> 
+					<div>ABOUT
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="0" chnlcode="enAboutOverview">
+
+			            <a href="/English/about/overview/index.html">
+					<div>Overview
+					
+					</div>
+				</a>
+				
+	  </li>
+            <li class="level2" type="0" chnlcode="enAboutNews">
+
+			        <a> 
+					<div>News
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="enAboutSpeech">
+
+			            <a href="/English/about/news/speeches/index.html">
+					<div>Speeches
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="enSzseNews">
+
+			            <a href="/English/about/news/szse/index.html">
+					<div>SZSE News
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="enNewListings">
+
+			            <a href="/English/about/news/listings/index.html">
+					<div>New Listings
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+           <li class="level2 last" type="0" chnlcode="enMilestones">
+
+			            <a href="/English/about/milestones/index.html">
+					<div>Milestones
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="enOurBrand">
+
+			            <a href="/English/about/brand/index.html">
+					<div>Our Brand
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="enOrganization">
+
+			            <a href="/English/about/organization/index.html">
+					<div>Organization
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="enMembers">
+
+			            <a href="/English/about/members/index.html">
+					<div>Members
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="enCorporate">
+
+			            <a href="/English/about/corporate/index.html">
+					<div>Corporate Social Responsibility
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="enCrossborder_link">
+
+			           <a href="http://www.szse.cn/enydyl/index.html" target='_blank'>
+					<div>Cross-border Capital Services
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="enContactus">
+
+			            <a href="/English/about/contactus/index.html">
+					<div>Contact Us
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            
+		</ul>
+	</div>
+</div>
+
+
+        </div>
+        <div class="g-content">
+            <div class="g-conbox minH">
+              
+                  <div class="right-html">
+                    <div class="g-contitle">
+                      <h2 class="title">
+                        Trading Calendar
+                      </h2>
+                    </div>
+                    <div class="des">
+                      <p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><b><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-ansi-font-weight: bold; mso-bidi-font-weight: normal; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Stock Market Holiday Schedule (202</span></b><b><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-ansi-font-weight: bold; mso-bidi-font-weight: normal; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">6</span></b><b><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-ansi-font-weight: bold; mso-bidi-font-weight: normal; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">)</span></b><b><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-ansi-font-weight: bold; mso-bidi-font-weight: normal; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></b></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><strong>1.New Year:</strong>&nbsp;The market will close </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">from&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">January&nbsp;1st&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Thursday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">) </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">to </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">January&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">2nd</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Friday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">)</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">and resume trading on January&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">5th</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Monday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">).</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><!-- [if !supportLists]--><span style="font-size: 12pt;"><strong><span style="font-family: Arial;">2.</span></strong></span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><strong>Spring Festival:</strong>&nbsp;The market will close from&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">February </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">16</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">th&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Monday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">) to&nbsp;February </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">23rd</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Monday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">) and resume trading on&nbsp;February </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">24</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">th (</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Tuesday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">).</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><strong>3.</strong><strong>Qingming Festival:</strong>&nbsp;The market will close&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">on </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">April&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">6</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">th&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Monday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">)</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">and&nbsp;resume trading on April&nbsp;7th&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Tuesday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">).</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><strong>4.Labour Day:</strong>&nbsp;The market will close from May&nbsp;1st&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Friday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">) to May&nbsp;5th&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Tuesday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">) and resume trading on May&nbsp;6th&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Wednesday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">).</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><!-- [if !supportLists]--><span style="font-size: 12pt;"><strong><span style="font-family: Arial;">5.</span></strong></span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><strong>Dragon Boat Festival:</strong>&nbsp;The market will close </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">on </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">June</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">19th</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Friday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">)&nbsp;and resume trading on June&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">22nd</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Monday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">).</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><!-- [if !supportLists]--><span style="font-size: 12pt;"><strong><span style="font-family: Arial;">6.</span></strong></span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><strong>Mid-Autumn Festival:</strong>&nbsp;The market will close&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">on September 25th</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Friday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">)&nbsp;and resume trading on </span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">September 28</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">th&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Monday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">).</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span></p>
+<p class="MsoNormal" align="justify" style="margin-left: 0pt; text-indent: 0pt; text-align: justify; line-height: 200%;"><!-- [if !supportLists]--><span style="font-size: 12pt;"><strong><span style="font-family: Arial;">7.</span></strong></span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><strong>National Day:</strong>&nbsp;The market will close&nbsp;from&nbsp;October&nbsp;1st&nbsp;(</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">Thursday</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">)&nbsp;to&nbsp;October&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">7</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">th &nbsp;(Wednesday)&nbsp;and resume trading on October&nbsp;</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">8</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">th&nbsp;(Thursday).</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">&nbsp;</span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">* The market will close on weekends.</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+<p class="MsoNormal" align="justify" style="text-align: justify; line-height: 200%;"><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;">* For clearing and settlement arrangement, please refer to the notice of the China Securities Depository and Clearing Co., Ltd.</span><span style="mso-spacerun: 'yes'; font-family: Arial; mso-fareast-font-family: 仿宋; line-height: 200%; mso-bidi-font-weight: bold; font-size: 12.0000pt; mso-font-kerning: 1.0000pt;"><o:p></o:p></span></p>
+                    </div>
+                  </div>
+                  <script>
+                      var docType = '20';
+                      var curHtml = ''; 
+                      var curBox = document.getElementsByClassName('right-html')[0];
+                          
+                      if(docType != 20){
+                        curHtml = '<p class="text-center error-wrap">'+
+                                  '<img class="error-pic" src="http://res.static.szse.cn/common/images/page_building_1.png" />'+ 
+                                  '</p>';
+                        curBox.parentNode.removeChild(curBox);        
+                        document.write(curHtml);
+                      }
+
+
+                      
+                  </script>                 
+                              
+            </div>     
+        </div>
+    </div>
+
+</div>
+<script>
+  navMenuAJAX('/English/application/publicindex/footer/index.html', '/English/application/publicindex/footer/index.html', 'footer', 'www');
+  addComJsFile();
+  changeVertion('/enweb/common/js/common.js', 'js');
+</script>
+<script>
+                          function videoChangeSrc(){
+	                  var videoBox = $('.video-container');
+	                  if(videoBox.length >0){
+		              for(var i=0; i<videoBox.length;i++){
+			          var item = videoBox[i];
+			          var href = $('a',item).attr('href');
+			          $('video',item).attr('src',href);
+		              }
+	                  }
+                      }
+                      videoChangeSrc();
+</script>
+</body>
+</html>
