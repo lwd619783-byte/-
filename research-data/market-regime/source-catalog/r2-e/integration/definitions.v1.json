@@ -1,0 +1,1347 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportVersion": "r2-e-integrated-v1",
+  "kind": "R2_E_FIELD_DEFINITION_ERA_REVIEW",
+  "baseline": "1179c0992881e01ab71bc409641e46acf129a408",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "inputReferences": [
+    {
+      "name": "calendar",
+      "path": "research-data/market-regime/source-catalog/r2-e/calendar/foundation.v1.json",
+      "contentSha256": "39809ade673fb6faa301a0f5ae7f74f05dc2796e013f7b4f216942c1017dcac1"
+    },
+    {
+      "name": "szseArchive",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/archive-index.v1.json",
+      "contentSha256": "4c1abd1be6e4585866e799d324ca2aa076f893ff6f38f72c9563a5089e5691aa"
+    },
+    {
+      "name": "sse",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/evidence.v1.json",
+      "contentSha256": "4deeb0a2da204ef24490dfd65b9a86a10be6c3f54145c8475fe225fcb3a4c15a"
+    },
+    {
+      "name": "sseCandidates",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/candidates.v1.json",
+      "contentSha256": "4fe277345cfee112bf0abc62e3054a120112e7cc2540bf60db5be929c13672f6"
+    },
+    {
+      "name": "szseExtractions",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/extractions.v1.json",
+      "contentSha256": "547c6ded0bbcf74f0765ae65c2c6e2c57c005fc8f867bf387f9616a2f6ff9f9b"
+    },
+    {
+      "name": "szseAcquisitionFollowup",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/acquisition-followup.v1.json",
+      "contentSha256": "5cc5bd1ce224dcd1e6ab58a489d6a87491290c3814d5cbb9b057ca3f8b7033b3"
+    },
+    {
+      "name": "szseCandidates",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/yearbook-candidates.v1.json",
+      "contentSha256": "64ecc0ad6d4e8dfbd0a64c95c762b7830b201670fba284bb15a7239d2e151125"
+    },
+    {
+      "name": "bsePdf",
+      "path": "research-data/market-regime/source-catalog/r2-e/bse/pdf-audit.v1.json",
+      "contentSha256": "966e176c4c9fd0a2013beca368b27bb9db5096e8b366ace6e3fca72981f77776"
+    },
+    {
+      "name": "bse",
+      "path": "research-data/market-regime/source-catalog/r2-e/bse/evidence.v1.json",
+      "contentSha256": "b8f17dca2a6484b331380de497c80c507b30da702bfb31c62ac7fa1e7523c65a"
+    },
+    {
+      "name": "szse",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/workstream-report.v1.json",
+      "contentSha256": "bf86e9c1f2a4e7546decfee2d93abce72b3ef852637889e275a02a450e0013b2"
+    },
+    {
+      "name": "szseAcquisition",
+      "path": "research-data/market-regime/source-catalog/r2-e/szse/acquisition.v1.json",
+      "contentSha256": "d86c6e6f30a374af89ed57ad65a9b9eda54ee16ee27e4fb4c233691aa65fac6d"
+    },
+    {
+      "name": "bseCalendar",
+      "path": "research-data/market-regime/source-catalog/r2-e/bse/supplement-v2/evidence.v2.json",
+      "contentSha256": "f00039ca7ade2483ca25955aff46a20d3699a7f37a9f6b7c2934fdeecad4912c"
+    }
+  ],
+  "status": "NOT_ADMITTED",
+  "matrix": [
+    {
+      "exchange": "SZSE",
+      "field": "negotiableMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "security-category",
+          "catalogId": "1803_sczm",
+          "parserVersion": "szse-security-category-json-v1.0.0",
+          "fieldKeys": {
+            "turnoverValue": "cjje",
+            "totalMarketCap": "sjzz",
+            "negotiableMarketCap": "ltsz"
+          },
+          "columnLabels": {
+            "cjje": "成交金额<br>(亿元)",
+            "sjzz": "总市值<br>(亿元)",
+            "ltsz": "流通市值<br>(亿元)"
+          },
+          "rowScopes": {
+            "主板A股": "SZSE_MAIN_A",
+            "中小板": "SZSE_SME_A",
+            "创业板": "SZSE_CHINEXT_A",
+            "创业板A股": "SZSE_CHINEXT_A"
+          },
+          "scopeStatus": "LABEL_CANDIDATES_ONLY_NO_AGGREGATION_OR_CROSS_ERA_ADMISSION"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "evidenceIds": [
+          "csrc-2025-indicators",
+          "month-2026-06-overview"
+        ],
+        "meaning": "Publication definitions are evidence for their own reports; the 2022 daily table is a separate ChiNext candidate family, not all SZSE A shares."
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2005-01-01",
+          "end": "2009-10-29",
+          "era": "MAIN_SME",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        },
+        {
+          "start": "2009-10-30",
+          "end": "2021-04-05",
+          "era": "MAIN_SME_CHINEXT",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        },
+        {
+          "start": "2021-04-06",
+          "end": "2026-09-04",
+          "era": "MAIN_CHINEXT",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        }
+      ],
+      "fieldBlockers": [
+        "A_MEMBERSHIP_FOR_BOARD_ONLY_LABEL_UNPROVEN",
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "szseExtractions",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/extractions.v1.json",
+          "contentSha256": "547c6ded0bbcf74f0765ae65c2c6e2c57c005fc8f867bf387f9616a2f6ff9f9b"
+        },
+        {
+          "name": "szse",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/workstream-report.v1.json",
+          "contentSha256": "bf86e9c1f2a4e7546decfee2d93abce72b3ef852637889e275a02a450e0013b2"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    {
+      "exchange": "SZSE",
+      "field": "totalMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "security-category",
+          "catalogId": "1803_sczm",
+          "parserVersion": "szse-security-category-json-v1.0.0",
+          "fieldKeys": {
+            "turnoverValue": "cjje",
+            "totalMarketCap": "sjzz",
+            "negotiableMarketCap": "ltsz"
+          },
+          "columnLabels": {
+            "cjje": "成交金额<br>(亿元)",
+            "sjzz": "总市值<br>(亿元)",
+            "ltsz": "流通市值<br>(亿元)"
+          },
+          "rowScopes": {
+            "主板A股": "SZSE_MAIN_A",
+            "中小板": "SZSE_SME_A",
+            "创业板": "SZSE_CHINEXT_A",
+            "创业板A股": "SZSE_CHINEXT_A"
+          },
+          "scopeStatus": "LABEL_CANDIDATES_ONLY_NO_AGGREGATION_OR_CROSS_ERA_ADMISSION"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "evidenceIds": [
+          "year-2005",
+          "year-2022-history",
+          "year-2023-explanations"
+        ],
+        "meaning": "Publication definitions are evidence for their own reports; the 2022 daily table is a separate ChiNext candidate family, not all SZSE A shares."
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2005-01-01",
+          "end": "2009-10-29",
+          "era": "MAIN_SME",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        },
+        {
+          "start": "2009-10-30",
+          "end": "2021-04-05",
+          "era": "MAIN_SME_CHINEXT",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        },
+        {
+          "start": "2021-04-06",
+          "end": "2026-09-04",
+          "era": "MAIN_CHINEXT",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        }
+      ],
+      "fieldBlockers": [
+        "A_MEMBERSHIP_FOR_BOARD_ONLY_LABEL_UNPROVEN",
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "szseExtractions",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/extractions.v1.json",
+          "contentSha256": "547c6ded0bbcf74f0765ae65c2c6e2c57c005fc8f867bf387f9616a2f6ff9f9b"
+        },
+        {
+          "name": "szse",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/workstream-report.v1.json",
+          "contentSha256": "bf86e9c1f2a4e7546decfee2d93abce72b3ef852637889e275a02a450e0013b2"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    {
+      "exchange": "SZSE",
+      "field": "turnoverValue",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "security-category",
+          "catalogId": "1803_sczm",
+          "parserVersion": "szse-security-category-json-v1.0.0",
+          "fieldKeys": {
+            "turnoverValue": "cjje",
+            "totalMarketCap": "sjzz",
+            "negotiableMarketCap": "ltsz"
+          },
+          "columnLabels": {
+            "cjje": "成交金额<br>(亿元)",
+            "sjzz": "总市值<br>(亿元)",
+            "ltsz": "流通市值<br>(亿元)"
+          },
+          "rowScopes": {
+            "主板A股": "SZSE_MAIN_A",
+            "中小板": "SZSE_SME_A",
+            "创业板": "SZSE_CHINEXT_A",
+            "创业板A股": "SZSE_CHINEXT_A"
+          },
+          "scopeStatus": "LABEL_CANDIDATES_ONLY_NO_AGGREGATION_OR_CROSS_ERA_ADMISSION"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "evidenceIds": [
+          "year-2005",
+          "year-2022-history",
+          "year-2023-explanations"
+        ],
+        "meaning": "Publication definitions are evidence for their own reports; the 2022 daily table is a separate ChiNext candidate family, not all SZSE A shares."
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2005-01-01",
+          "end": "2009-10-29",
+          "era": "MAIN_SME",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        },
+        {
+          "start": "2009-10-30",
+          "end": "2021-04-05",
+          "era": "MAIN_SME_CHINEXT",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        },
+        {
+          "start": "2021-04-06",
+          "end": "2026-09-04",
+          "era": "MAIN_CHINEXT",
+          "applicability": "NOT_PROVEN_REVIEW_PARTITION_ONLY"
+        }
+      ],
+      "fieldBlockers": [
+        "A_MEMBERSHIP_FOR_BOARD_ONLY_LABEL_UNPROVEN",
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "szseExtractions",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/extractions.v1.json",
+          "contentSha256": "547c6ded0bbcf74f0765ae65c2c6e2c57c005fc8f867bf387f9616a2f6ff9f9b"
+        },
+        {
+          "name": "szse",
+          "path": "research-data/market-regime/source-catalog/r2-e/szse/workstream-report.v1.json",
+          "contentSha256": "bf86e9c1f2a4e7546decfee2d93abce72b3ef852637889e275a02a450e0013b2"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    {
+      "exchange": "SSE",
+      "field": "negotiableMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "daily-day",
+          "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C",
+          "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+          "scriptFile": "current-script.js",
+          "dateKey": "TRADE_DATE",
+          "boardKey": "PRODUCT_CODE",
+          "boardScopes": {
+            "01": "SSE_MAIN_BOARD_A",
+            "02": "SSE_B",
+            "03": "SSE_STAR",
+            "17": "SSE_A_B_STAR",
+            "11": "REPURCHASE"
+          },
+          "fieldKeys": {
+            "turnoverValue": "TRADE_AMT",
+            "totalMarketCap": "TOTAL_VALUE",
+            "negotiableMarketCap": "NEGO_VALUE"
+          },
+          "claimedLastDate": null
+        },
+        {
+          "familyId": "legacy-day",
+          "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C",
+          "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+          "scriptFile": "historical-script.js",
+          "dateKey": "CAL_DATE",
+          "boardKey": "PRODUCT_TYPE",
+          "boardScopes": {
+            "1": "SSE_MAIN_BOARD_A",
+            "2": "SSE_B",
+            "48": "SSE_STAR",
+            "40": "SSE_A_B_STAR",
+            "43": "REPURCHASE",
+            "12": "UNPROVEN_AGGREGATE"
+          },
+          "fieldKeys": {
+            "turnoverValue": "TX_AMOUNT",
+            "totalMarketCap": "MKT_VALUE",
+            "negotiableMarketCap": "NEGOTIABLE_VALUE"
+          },
+          "claimedLastDate": "2022-01-03"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "meaning": "Publication market price times tradable issued quantity, later non-restricted capital. No free-float identity inferred.",
+        "publications": [
+          {
+            "requestId": "annual-2006",
+            "pageIndex": 4,
+            "explicitStatisticalWindow": "2003-01-01..2003-12-31",
+            "conflict": "Volume 2006 and 2005 market overview coexist with indicator page explicitly saying 2003; preserve conflict."
+          },
+          {
+            "requestId": "annual-2013",
+            "pageIndex": 2,
+            "explicitStatisticalWindow": "2012-01-01..2012-12-31"
+          },
+          {
+            "requestId": "annual-2022",
+            "pageIndex": 7,
+            "explicitStatisticalWindow": "2021-01-01..2021-12-31"
+          },
+          {
+            "requestId": "annual-2023",
+            "pageIndex": 6,
+            "explicitStatisticalWindow": "2022-01-01..2022-12-31",
+            "termChange": "Total share capital / total cap / non-restricted share capital / non-restricted cap. No API effective date inferred."
+          }
+        ]
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2021-12-27",
+          "end": "2026-09-04",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "daily-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2005-01-01",
+          "end": "2019-07-21",
+          "scopeToReview": "MAIN_A",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2019-07-22",
+          "end": "2021-12-24",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-25",
+          "end": "2021-12-26",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": null,
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        }
+      ],
+      "fieldBlockers": [
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "DAILY_API_SCOPE_CURRENCY_AND_CLOSE_BASIS_UNPROVEN",
+        "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "sse",
+          "path": "research-data/market-regime/source-catalog/r2-e/sse/evidence.v1.json",
+          "contentSha256": "4deeb0a2da204ef24490dfd65b9a86a10be6c3f54145c8475fe225fcb3a4c15a"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    {
+      "exchange": "SSE",
+      "field": "totalMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "daily-day",
+          "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C",
+          "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+          "scriptFile": "current-script.js",
+          "dateKey": "TRADE_DATE",
+          "boardKey": "PRODUCT_CODE",
+          "boardScopes": {
+            "01": "SSE_MAIN_BOARD_A",
+            "02": "SSE_B",
+            "03": "SSE_STAR",
+            "17": "SSE_A_B_STAR",
+            "11": "REPURCHASE"
+          },
+          "fieldKeys": {
+            "turnoverValue": "TRADE_AMT",
+            "totalMarketCap": "TOTAL_VALUE",
+            "negotiableMarketCap": "NEGO_VALUE"
+          },
+          "claimedLastDate": null
+        },
+        {
+          "familyId": "legacy-day",
+          "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C",
+          "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+          "scriptFile": "historical-script.js",
+          "dateKey": "CAL_DATE",
+          "boardKey": "PRODUCT_TYPE",
+          "boardScopes": {
+            "1": "SSE_MAIN_BOARD_A",
+            "2": "SSE_B",
+            "48": "SSE_STAR",
+            "40": "SSE_A_B_STAR",
+            "43": "REPURCHASE",
+            "12": "UNPROVEN_AGGREGATE"
+          },
+          "fieldKeys": {
+            "turnoverValue": "TX_AMOUNT",
+            "totalMarketCap": "MKT_VALUE",
+            "negotiableMarketCap": "NEGOTIABLE_VALUE"
+          },
+          "claimedLastDate": "2022-01-03"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "meaning": "Publication market price times issued quantity, later total share capital; API closing-price/scope/currency applicability unproven.",
+        "publications": [
+          {
+            "requestId": "annual-2006",
+            "pageIndex": 4,
+            "explicitStatisticalWindow": "2003-01-01..2003-12-31",
+            "conflict": "Volume 2006 and 2005 market overview coexist with indicator page explicitly saying 2003; preserve conflict."
+          },
+          {
+            "requestId": "annual-2013",
+            "pageIndex": 2,
+            "explicitStatisticalWindow": "2012-01-01..2012-12-31"
+          },
+          {
+            "requestId": "annual-2022",
+            "pageIndex": 7,
+            "explicitStatisticalWindow": "2021-01-01..2021-12-31"
+          },
+          {
+            "requestId": "annual-2023",
+            "pageIndex": 6,
+            "explicitStatisticalWindow": "2022-01-01..2022-12-31",
+            "termChange": "Total share capital / total cap / non-restricted share capital / non-restricted cap. No API effective date inferred."
+          }
+        ]
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2021-12-27",
+          "end": "2026-09-04",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "daily-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2005-01-01",
+          "end": "2019-07-21",
+          "scopeToReview": "MAIN_A",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2019-07-22",
+          "end": "2021-12-24",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-25",
+          "end": "2021-12-26",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": null,
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        }
+      ],
+      "fieldBlockers": [
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "DAILY_API_SCOPE_CURRENCY_AND_CLOSE_BASIS_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "sse",
+          "path": "research-data/market-regime/source-catalog/r2-e/sse/evidence.v1.json",
+          "contentSha256": "4deeb0a2da204ef24490dfd65b9a86a10be6c3f54145c8475fe225fcb3a4c15a"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    {
+      "exchange": "SSE",
+      "field": "turnoverValue",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "daily-day",
+          "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C",
+          "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+          "scriptFile": "current-script.js",
+          "dateKey": "TRADE_DATE",
+          "boardKey": "PRODUCT_CODE",
+          "boardScopes": {
+            "01": "SSE_MAIN_BOARD_A",
+            "02": "SSE_B",
+            "03": "SSE_STAR",
+            "17": "SSE_A_B_STAR",
+            "11": "REPURCHASE"
+          },
+          "fieldKeys": {
+            "turnoverValue": "TRADE_AMT",
+            "totalMarketCap": "TOTAL_VALUE",
+            "negotiableMarketCap": "NEGO_VALUE"
+          },
+          "claimedLastDate": null
+        },
+        {
+          "familyId": "legacy-day",
+          "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C",
+          "landingUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+          "scriptFile": "historical-script.js",
+          "dateKey": "CAL_DATE",
+          "boardKey": "PRODUCT_TYPE",
+          "boardScopes": {
+            "1": "SSE_MAIN_BOARD_A",
+            "2": "SSE_B",
+            "48": "SSE_STAR",
+            "40": "SSE_A_B_STAR",
+            "43": "REPURCHASE",
+            "12": "UNPROVEN_AGGREGATE"
+          },
+          "fieldKeys": {
+            "turnoverValue": "TX_AMOUNT",
+            "totalMarketCap": "MKT_VALUE",
+            "negotiableMarketCap": "NEGOTIABLE_VALUE"
+          },
+          "claimedLastDate": "2022-01-03"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "meaning": "Publications distinguish single-side turnover and double-side trading amount; API-era applicability unproven.",
+        "publications": [
+          {
+            "requestId": "annual-2006",
+            "pageIndex": 4,
+            "explicitStatisticalWindow": "2003-01-01..2003-12-31",
+            "conflict": "Volume 2006 and 2005 market overview coexist with indicator page explicitly saying 2003; preserve conflict."
+          },
+          {
+            "requestId": "annual-2013",
+            "pageIndex": 2,
+            "explicitStatisticalWindow": "2012-01-01..2012-12-31"
+          },
+          {
+            "requestId": "annual-2022",
+            "pageIndex": 7,
+            "explicitStatisticalWindow": "2021-01-01..2021-12-31"
+          },
+          {
+            "requestId": "annual-2023",
+            "pageIndex": 6,
+            "explicitStatisticalWindow": "2022-01-01..2022-12-31",
+            "termChange": "Total share capital / total cap / non-restricted share capital / non-restricted cap. No API effective date inferred."
+          }
+        ]
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2021-12-27",
+          "end": "2026-09-04",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "daily-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2005-01-01",
+          "end": "2019-07-21",
+          "scopeToReview": "MAIN_A",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2019-07-22",
+          "end": "2021-12-24",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-25",
+          "end": "2021-12-26",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": null,
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        }
+      ],
+      "fieldBlockers": [
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "DAILY_API_SCOPE_CURRENCY_AND_CLOSE_BASIS_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "sse",
+          "path": "research-data/market-regime/source-catalog/r2-e/sse/evidence.v1.json",
+          "contentSha256": "4deeb0a2da204ef24490dfd65b9a86a10be6c3f54145c8475fe225fcb3a4c15a"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    {
+      "exchange": "BSE",
+      "field": "negotiableMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "daily-report",
+          "endpoint": "/marketStatController/dailyReport.do",
+          "method": "POST",
+          "dateParameter": "HQJSRQ",
+          "dateFormat": "YYYYMMDD",
+          "wrapper": "null(JSON)",
+          "scopeKey": "xxzrlx",
+          "selectedScope": "2",
+          "dateKey": "rq",
+          "parserVersion": "bse-daily-jsonp-v1.0.0",
+          "fieldKeys": {
+            "turnoverValue": "hqcjje",
+            "totalMarketCap": "zsz",
+            "negotiableMarketCap": "ltsz"
+          },
+          "rawUnit": "元",
+          "scopeStatus": "WEB_SELECTED_2_ONLY_HISTORICAL_MEMBERSHIP_UNPROVEN",
+          "pagination": "NO_PARAMETER_IN_DISCOVERED_DAILY_CALL_REJECT_ENVELOPES"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "ruleEvidence": [
+          {
+            "meaning": "3.6.8",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 72628,
+              "byteLength": 136,
+              "text": "3.6.8 大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span>"
+            }
+          },
+          {
+            "meaning": "2.3.1",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 24366,
+              "byteLength": 181,
+              "text": "2.3.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所交易日为每周一至周五。&nbsp; </span>"
+            }
+          },
+          {
+            "meaning": "3.6.8",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 62996,
+              "byteLength": 258,
+              "text": "3.6.8 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span>"
+            }
+          },
+          {
+            "meaning": "5.1.1",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 105965,
+              "byteLength": 289,
+              "text": "5.1.1 本所每个交易日发布证券交易即时行情、证券指数、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类日报表、周报表、月报表和年报表，并通过符合《证券法》规定的信息披露平台予以公布。</span>"
+            }
+          },
+          {
+            "meaning": "5.1.1",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 77859,
+              "byteLength": 357,
+              "text": "5.1.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所每个交易日发布证券交易即时行情、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类报表，并通过符合《证券法》规定的信息披露平台予以公布。</span>"
+            }
+          },
+          {
+            "meaning": "DEFERRED_CLAUSES_NOT_ASSUMED_EFFECTIVE",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 6372,
+              "byteLength": 4480,
+              "text": "考虑到市场业务和技术整体准备情况'&url=http:///jygl_list/200028217.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2026〕17号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-04-24</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-07-06</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t现行有效\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202604/20260424170528_52kqyhc7p9.docx\" infoid=\"200028217\"  edit=\"20260424194348\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"北京证券交易所交易规则.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal\"><br/>"
+            }
+          },
+          {
+            "meaning": "NEW_RULE_EFFECTIVE_DATE_WITH_EXCEPTIONS",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 6345,
+              "byteLength": 4507,
+              "text": "2026年7月6日起施行。考虑到市场业务和技术整体准备情况'&url=http:///jygl_list/200028217.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2026〕17号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-04-24</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-07-06</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t现行有效\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202604/20260424170528_52kqyhc7p9.docx\" infoid=\"200028217\"  edit=\"20260424194348\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"北京证券交易所交易规则.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal\"><br/>"
+            }
+          },
+          {
+            "meaning": "INITIAL_RULE_EFFECTIVE_DATE",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 6347,
+              "byteLength": 4633,
+              "text": "2021年11月15日起施行。全国中小企业股份转让系统精选层（以下简称精选层）挂牌公司平移为本所上'&url=http:///jygl_list/200010919.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2021〕15号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2021-11-02</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2021-11-15</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t已被修改\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202209/20220924113331_fwbg1kr3qu.docx\" infoid=\"200010919\"  edit=\"20260424194420\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"1北京证券交易所交易规则（试行）.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\"text-align: center;\"><span style=\"color: rgb(109, 109, 109); font-family: &quot;微软雅黑&quot;,sans-serif; font-size: 12px;\"><br/></span>"
+            }
+          },
+          {
+            "meaning": "2.3.1",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 27708,
+              "byteLength": 52,
+              "text": "2.3.1 本所交易日为每周一至周五。</span>"
+            }
+          }
+        ],
+        "meaning": "Trading-rule publication/effectiveness and annual-report terminology do not establish daily API field scope/close basis for every historical era."
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-07-05",
+          "rule": "rules-2021",
+          "fieldDefinitionStatus": "UNPROVEN",
+          "note": "Initial rule effective date established; full interim amendment history is not established."
+        },
+        {
+          "start": "2026-07-06",
+          "end": "2026-09-04",
+          "rule": "rules-2026",
+          "fieldDefinitionStatus": "UNPROVEN",
+          "note": "General effective date with explicitly deferred clauses; hqcjje/zsz/ltsz applicability not independently established."
+        }
+      ],
+      "fieldBlockers": [
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "DAILY_API_SCOPE_AND_CLOSE_BASIS_UNPROVEN",
+        "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "bsePdf",
+          "path": "research-data/market-regime/source-catalog/r2-e/bse/pdf-audit.v1.json",
+          "contentSha256": "966e176c4c9fd0a2013beca368b27bb9db5096e8b366ace6e3fca72981f77776"
+        },
+        {
+          "name": "bse",
+          "path": "research-data/market-regime/source-catalog/r2-e/bse/evidence.v1.json",
+          "contentSha256": "b8f17dca2a6484b331380de497c80c507b30da702bfb31c62ac7fa1e7523c65a"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    {
+      "exchange": "BSE",
+      "field": "totalMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "daily-report",
+          "endpoint": "/marketStatController/dailyReport.do",
+          "method": "POST",
+          "dateParameter": "HQJSRQ",
+          "dateFormat": "YYYYMMDD",
+          "wrapper": "null(JSON)",
+          "scopeKey": "xxzrlx",
+          "selectedScope": "2",
+          "dateKey": "rq",
+          "parserVersion": "bse-daily-jsonp-v1.0.0",
+          "fieldKeys": {
+            "turnoverValue": "hqcjje",
+            "totalMarketCap": "zsz",
+            "negotiableMarketCap": "ltsz"
+          },
+          "rawUnit": "元",
+          "scopeStatus": "WEB_SELECTED_2_ONLY_HISTORICAL_MEMBERSHIP_UNPROVEN",
+          "pagination": "NO_PARAMETER_IN_DISCOVERED_DAILY_CALL_REJECT_ENVELOPES"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "ruleEvidence": [
+          {
+            "meaning": "3.6.8",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 72628,
+              "byteLength": 136,
+              "text": "3.6.8 大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span>"
+            }
+          },
+          {
+            "meaning": "2.3.1",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 24366,
+              "byteLength": 181,
+              "text": "2.3.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所交易日为每周一至周五。&nbsp; </span>"
+            }
+          },
+          {
+            "meaning": "3.6.8",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 62996,
+              "byteLength": 258,
+              "text": "3.6.8 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span>"
+            }
+          },
+          {
+            "meaning": "5.1.1",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 105965,
+              "byteLength": 289,
+              "text": "5.1.1 本所每个交易日发布证券交易即时行情、证券指数、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类日报表、周报表、月报表和年报表，并通过符合《证券法》规定的信息披露平台予以公布。</span>"
+            }
+          },
+          {
+            "meaning": "5.1.1",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 77859,
+              "byteLength": 357,
+              "text": "5.1.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所每个交易日发布证券交易即时行情、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类报表，并通过符合《证券法》规定的信息披露平台予以公布。</span>"
+            }
+          },
+          {
+            "meaning": "DEFERRED_CLAUSES_NOT_ASSUMED_EFFECTIVE",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 6372,
+              "byteLength": 4480,
+              "text": "考虑到市场业务和技术整体准备情况'&url=http:///jygl_list/200028217.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2026〕17号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-04-24</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-07-06</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t现行有效\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202604/20260424170528_52kqyhc7p9.docx\" infoid=\"200028217\"  edit=\"20260424194348\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"北京证券交易所交易规则.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal\"><br/>"
+            }
+          },
+          {
+            "meaning": "NEW_RULE_EFFECTIVE_DATE_WITH_EXCEPTIONS",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 6345,
+              "byteLength": 4507,
+              "text": "2026年7月6日起施行。考虑到市场业务和技术整体准备情况'&url=http:///jygl_list/200028217.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2026〕17号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-04-24</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-07-06</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t现行有效\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202604/20260424170528_52kqyhc7p9.docx\" infoid=\"200028217\"  edit=\"20260424194348\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"北京证券交易所交易规则.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal\"><br/>"
+            }
+          },
+          {
+            "meaning": "INITIAL_RULE_EFFECTIVE_DATE",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 6347,
+              "byteLength": 4633,
+              "text": "2021年11月15日起施行。全国中小企业股份转让系统精选层（以下简称精选层）挂牌公司平移为本所上'&url=http:///jygl_list/200010919.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2021〕15号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2021-11-02</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2021-11-15</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t已被修改\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202209/20220924113331_fwbg1kr3qu.docx\" infoid=\"200010919\"  edit=\"20260424194420\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"1北京证券交易所交易规则（试行）.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\"text-align: center;\"><span style=\"color: rgb(109, 109, 109); font-family: &quot;微软雅黑&quot;,sans-serif; font-size: 12px;\"><br/></span>"
+            }
+          },
+          {
+            "meaning": "2.3.1",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 27708,
+              "byteLength": 52,
+              "text": "2.3.1 本所交易日为每周一至周五。</span>"
+            }
+          }
+        ],
+        "meaning": "Trading-rule publication/effectiveness and annual-report terminology do not establish daily API field scope/close basis for every historical era."
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-07-05",
+          "rule": "rules-2021",
+          "fieldDefinitionStatus": "UNPROVEN",
+          "note": "Initial rule effective date established; full interim amendment history is not established."
+        },
+        {
+          "start": "2026-07-06",
+          "end": "2026-09-04",
+          "rule": "rules-2026",
+          "fieldDefinitionStatus": "UNPROVEN",
+          "note": "General effective date with explicitly deferred clauses; hqcjje/zsz/ltsz applicability not independently established."
+        }
+      ],
+      "fieldBlockers": [
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "DAILY_API_SCOPE_AND_CLOSE_BASIS_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "bsePdf",
+          "path": "research-data/market-regime/source-catalog/r2-e/bse/pdf-audit.v1.json",
+          "contentSha256": "966e176c4c9fd0a2013beca368b27bb9db5096e8b366ace6e3fca72981f77776"
+        },
+        {
+          "name": "bse",
+          "path": "research-data/market-regime/source-catalog/r2-e/bse/evidence.v1.json",
+          "contentSha256": "b8f17dca2a6484b331380de497c80c507b30da702bfb31c62ac7fa1e7523c65a"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-09-04"
+        }
+      ]
+    },
+    {
+      "exchange": "BSE",
+      "field": "turnoverValue",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN",
+      "eraStatus": "NOT_PROVEN",
+      "pitStatus": "NOT_ADMITTED",
+      "mappingEvidence": [
+        {
+          "familyId": "daily-report",
+          "endpoint": "/marketStatController/dailyReport.do",
+          "method": "POST",
+          "dateParameter": "HQJSRQ",
+          "dateFormat": "YYYYMMDD",
+          "wrapper": "null(JSON)",
+          "scopeKey": "xxzrlx",
+          "selectedScope": "2",
+          "dateKey": "rq",
+          "parserVersion": "bse-daily-jsonp-v1.0.0",
+          "fieldKeys": {
+            "turnoverValue": "hqcjje",
+            "totalMarketCap": "zsz",
+            "negotiableMarketCap": "ltsz"
+          },
+          "rawUnit": "元",
+          "scopeStatus": "WEB_SELECTED_2_ONLY_HISTORICAL_MEMBERSHIP_UNPROVEN",
+          "pagination": "NO_PARAMETER_IN_DISCOVERED_DAILY_CALL_REJECT_ENVELOPES"
+        }
+      ],
+      "officialDefinitionEvidence": {
+        "ruleEvidence": [
+          {
+            "meaning": "3.6.8",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 72628,
+              "byteLength": 136,
+              "text": "3.6.8 大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span>"
+            }
+          },
+          {
+            "meaning": "2.3.1",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 24366,
+              "byteLength": 181,
+              "text": "2.3.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所交易日为每周一至周五。&nbsp; </span>"
+            }
+          },
+          {
+            "meaning": "3.6.8",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 62996,
+              "byteLength": 258,
+              "text": "3.6.8 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">大宗交易不纳入即时行情和指数的计算，成交量在大宗交易结束后计入当日该证券成交总量。</span>"
+            }
+          },
+          {
+            "meaning": "5.1.1",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 105965,
+              "byteLength": 289,
+              "text": "5.1.1 本所每个交易日发布证券交易即时行情、证券指数、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类日报表、周报表、月报表和年报表，并通过符合《证券法》规定的信息披露平台予以公布。</span>"
+            }
+          },
+          {
+            "meaning": "5.1.1",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 77859,
+              "byteLength": 357,
+              "text": "5.1.1 </span><span style=\"color: rgb(109, 109, 109); line-height: 200%; font-family: 微软雅黑,sans-serif; font-size: 15px;\">本所每个交易日发布证券交易即时行情、证券交易公开信息等交易信息，及时编制反映市场交易情况的各类报表，并通过符合《证券法》规定的信息披露平台予以公布。</span>"
+            }
+          },
+          {
+            "meaning": "DEFERRED_CLAUSES_NOT_ASSUMED_EFFECTIVE",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 6372,
+              "byteLength": 4480,
+              "text": "考虑到市场业务和技术整体准备情况'&url=http:///jygl_list/200028217.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2026〕17号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-04-24</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-07-06</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t现行有效\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202604/20260424170528_52kqyhc7p9.docx\" infoid=\"200028217\"  edit=\"20260424194348\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"北京证券交易所交易规则.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal\"><br/>"
+            }
+          },
+          {
+            "meaning": "NEW_RULE_EFFECTIVE_DATE_WITH_EXCEPTIONS",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 6345,
+              "byteLength": 4507,
+              "text": "2026年7月6日起施行。考虑到市场业务和技术整体准备情况'&url=http:///jygl_list/200028217.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2026〕17号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-04-24</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2026-07-06</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t现行有效\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202604/20260424170528_52kqyhc7p9.docx\" infoid=\"200028217\"  edit=\"20260424194348\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"北京证券交易所交易规则.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal\"><br/>"
+            }
+          },
+          {
+            "meaning": "INITIAL_RULE_EFFECTIVE_DATE",
+            "locator": {
+              "requestId": "rules-2021",
+              "rawSha256": "9e2271bef634fd9337c4ee1cef8679a5cb99f813f6e1aae4d099b57d2a01ad18",
+              "byteOffset": 6347,
+              "byteLength": 4633,
+              "text": "2021年11月15日起施行。全国中小企业股份转让系统精选层（以下简称精选层）挂牌公司平移为本所上'&url=http:///jygl_list/200010919.html&pic=&searchPic=false&style=simple\"\r\n\t\t\t\t\t\t\t\ttarget=\"_blank\"> <img src=\"/template/6/bluewise/_files/img/stockTurn/turn_03.png\"\r\n\t\t\t\t\t\t\t\tonmouseover=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\"\r\n\t\t\t\t\t\t\t\tonmouseout=\"this.src='/template/6/bluewise/_files/img/stockTurn/turn_03.png'\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t\t<span class=\"down_span\"> A <span class=\"down_a\">-</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<span class=\"up_span\"> A <span class=\"up_a\">+</span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" id=\"print\">\r\n\t\t\t\t\t\t\t\t<img\r\n\t\t\t\t\t\t\t\tsrc=\"/template/6/bluewise/_files/img/stockTurn/turn_02.png\" alt=\"\"\r\n\t\t\t\t\t\t\t\tclass=\"img_icon_right\">\r\n\t\t\t\t\t\t\t</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!--新字段-->\r\n\t\t\t\t\t\t<div class=\"newfield row\">\r\n\t\t\t\t\t\t\t<div class=\"col-lg-12 col-md-9 col-sm-12 col-xs-12\">\r\n\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发文字号】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">北证公告〔2021〕15号</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【发布日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2021-11-02</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【实施日期】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">2021-11-15</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【时效性】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t已被修改\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【规则类别】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t交易管理\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t<div class=\"col-lg-4 col-md-6 col-sm-6 col-xs-12\">\r\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-5 col-sm-5 col-xs-6 nf_label\">【业务规则层级】</div>\r\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-md-7 col-sm-7 col-xs-6 nf_text\">\r\n\t\t\t\t\t\t\t\t\t\t\t\t基本业务规则\r\n\t\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--本法变迁（历史版本）-->\r\n\t\t\t\t\t\t<input id=\"nodeid\" type=\"hidden\"\r\n\t\t\t\t\t\t\t   value=\"1304\" />\r\n\r\n\r\n\t\t\t\t\t\t<div class=\"bfbq_box\">\r\n\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" class=\"bfbq_fold\" onclick=\"bfbqFold()\">收起</a>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\" style=\"display: block\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\tfunction bfbqFold() {\r\n\t\t\t\t\t\t\t\tif ($(\".bfbq_titleList\").attr(\"style\") == \"display: block\" || $(\".bfbq_titleList\").attr(\"style\") == \"display: block;\"){\r\n\t\t\t\t\t\t\t\t    $(\".bfbq_fold\").text(\"展开\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: none\");\r\n\t\t\t\t\t\t\t\t}else {\r\n                                    $(\".bfbq_fold\").text(\"收起\");\r\n                                    $(\".bfbq_titleList\").attr(\"style\",\"display: block\");\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t</script>\r\n\t\t\t\t\t\t<div class=\"text_box\" id=\"fileDownload\" file=\"/uploads/6/file/public/202209/20220924113331_fwbg1kr3qu.docx\" infoid=\"200010919\"  edit=\"20260424194420\" hasFiles=\"0\">\r\n\t\t\t\t\t\t\t<a href=\"\" class=\"text_download\" download=\"1北京证券交易所交易规则（试行）.docx\">下载</a>\r\n\t\t\t\t\t\t\t<div class=\"text_title\">正文</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!--<div class=\"bfbq_box\" style=\"display: block;\">\r\n\t\t\t\t\t\t\t<div class=\"bfbq_title\">本法变迁:</div>\r\n\t\t\t\t\t\t\t<div class=\"bfbq_titleList\">\r\n\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>-->\r\n\r\n\t\t\t\t\t\t<div class=\"in_main clearfix\"><style style=\"display: none;\" type=\"text/css\">table {border-collapse: collapse;} table td {border-width: 1px; border-style: solid;}</style><p style=\"text-align: center;\"><span style=\"color: rgb(109, 109, 109); font-family: &quot;微软雅黑&quot;,sans-serif; font-size: 12px;\"><br/></span>"
+            }
+          },
+          {
+            "meaning": "2.3.1",
+            "locator": {
+              "requestId": "rules-2026",
+              "rawSha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4",
+              "byteOffset": 27708,
+              "byteLength": 52,
+              "text": "2.3.1 本所交易日为每周一至周五。</span>"
+            }
+          }
+        ],
+        "meaning": "Trading-rule publication/effectiveness and annual-report terminology do not establish daily API field scope/close basis for every historical era."
+      },
+      "eraReviewPartitions": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-07-05",
+          "rule": "rules-2021",
+          "fieldDefinitionStatus": "UNPROVEN",
+          "note": "Initial rule effective date established; full interim amendment history is not established."
+        },
+        {
+          "start": "2026-07-06",
+          "end": "2026-09-04",
+          "rule": "rules-2026",
+          "fieldDefinitionStatus": "UNPROVEN",
+          "note": "General effective date with explicitly deferred clauses; hqcjje/zsz/ltsz applicability not independently established."
+        }
+      ],
+      "fieldBlockers": [
+        "DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "DAILY_API_SCOPE_AND_CLOSE_BASIS_UNPROVEN",
+        "TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "CONTINUOUS_DAILY_HISTORY_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "FULL_OFFICIAL_CALENDAR_UNPROVEN",
+        "HISTORICAL_RELEASE_BYTES_BINDING_UNPROVEN",
+        "MARKET_RELEASE_MISSING",
+        "NO_FORMAL_EXCHANGE_OBSERVATIONS",
+        "R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE",
+        "REVISION_ARCHIVE_UNPROVEN"
+      ],
+      "evidenceReferences": [
+        {
+          "name": "bsePdf",
+          "path": "research-data/market-regime/source-catalog/r2-e/bse/pdf-audit.v1.json",
+          "contentSha256": "966e176c4c9fd0a2013beca368b27bb9db5096e8b366ace6e3fca72981f77776"
+        },
+        {
+          "name": "bse",
+          "path": "research-data/market-regime/source-catalog/r2-e/bse/evidence.v1.json",
+          "contentSha256": "b8f17dca2a6484b331380de497c80c507b30da702bfb31c62ac7fa1e7523c65a"
+        }
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": [],
+      "unadmittedWindows": [
+        {
+          "start": "2021-11-15",
+          "end": "2026-09-04"
+        }
+      ]
+    }
+  ],
+  "formalAdmissionTransitions": [],
+  "semantics": "Review partitions and publication definitions never create admitted SourceDefinitionVersions. Frozen D1 source contracts remain unchanged.",
+  "contentSha256": "3c7a1243d313d8f9900d99a7aee6c4fa4cc4739aef450a4050274dafc1233943"
+}

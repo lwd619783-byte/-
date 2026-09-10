@@ -97,7 +97,53 @@ def release_report(*, root=ROOT):
                   ruleReference='docs/market-regime/observation-catalog-r2-scope-freeze-v1.md#31-pitrevision缺失与不可变性')
 
 
-BUILDERS = {'release': release_report}
+def definition_report(*, root=ROOT):
+    evidence = inputs(root=root)
+    releases = {r['exchange']: r for r in release_report(root=root)['rows']}
+    rows = []
+    for exchange in ('SSE', 'SZSE', 'BSE'):
+        data = evidence[exchange.lower()]
+        for field in d2.FIELDS:
+            contract = strict_json((root / 'config/market-regime' / (exchange.lower() + '-source-contract.v1.json')).read_bytes())
+            anchor = next(r for r in evidence['calendar']['inputs'] if r['exchange'] == exchange)
+            require(canonical_sha256(contract) == anchor['contentSha256'], 'FROZEN_SOURCE_CONTRACT_CHANGED')
+            blockers = ['DAILY_API_FIELD_DEFINITION_ERA_APPLICABILITY_UNPROVEN']
+            if field == 'negotiableMarketCap':
+                blockers.append('NEGOTIABLE_NOT_PROVEN_FREE_FLOAT' if exchange == 'BSE' else 'NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN')
+            if exchange == 'SSE':
+                source_row = next(r for r in data['fieldAdmission'] if r['field'] == field)
+                eras = source_row['eras']
+                definition = dict(meaning=data['definitions']['fieldMeanings'][field],
+                                  publications=data['definitions']['publicationEvidence'])
+                blockers.append('DAILY_API_SCOPE_CURRENCY_AND_CLOSE_BASIS_UNPROVEN')
+            elif exchange == 'SZSE':
+                source_row = next(r for r in data['fieldMatrix'] if r['field'] == field)
+                eras = [dict(**w, applicability='NOT_PROVEN_REVIEW_PARTITION_ONLY') for w in source_row['unadmittedWindows']]
+                definition = dict(evidenceIds=source_row['definitionEvidenceIds'],
+                                  meaning='Publication definitions are evidence for their own reports; the 2022 daily table is a separate ChiNext candidate family, not all SZSE A shares.')
+                blockers.append('A_MEMBERSHIP_FOR_BOARD_ONLY_LABEL_UNPROVEN')
+            else:
+                eras = data['eraEvidence']
+                definition = dict(ruleEvidence=data['ruleEvidence'],
+                                  meaning='Trading-rule publication/effectiveness and annual-report terminology do not establish daily API field scope/close basis for every historical era.')
+                if field == 'turnoverValue':
+                    blockers.append('TRADE_MODE_AND_BLOCK_TRADE_INCLUSION_UNPROVEN')
+                blockers.append('DAILY_API_SCOPE_AND_CLOSE_BASIS_UNPROVEN')
+            rows.append(dict(exchange=exchange, field=field, status='NOT_ADMITTED',
+                definitionStatus='OFFICIAL_EVIDENCE_FOUND_APPLICABILITY_UNPROVEN', eraStatus='NOT_PROVEN', pitStatus='NOT_ADMITTED',
+                mappingEvidence=contract['families'], officialDefinitionEvidence=definition,
+                eraReviewPartitions=eras, fieldBlockers=sorted(blockers),
+                sourceBlockers=sorted(set(releases[exchange]['blockers'] + ['FULL_OFFICIAL_CALENDAR_UNPROVEN',
+                    'R2_CALENDAR_LITERAL_ISO_LOCATOR_UNAVAILABLE', 'CONTINUOUS_DAILY_HISTORY_UNPROVEN', 'NO_FORMAL_EXCHANGE_OBSERVATIONS'])),
+                evidenceReferences=references([exchange.lower()] + (['szseExtractions'] if exchange == 'SZSE' else ['bsePdf'] if exchange == 'BSE' else [])),
+                formalCount=0, strictPitCount=0, admittedWindows=[],
+                unadmittedWindows=[dict(start='2021-11-15' if exchange == 'BSE' else '2005-01-01', end=d2.END)]))
+    return report('R2_E_FIELD_DEFINITION_ERA_REVIEW', status='NOT_ADMITTED', matrix=rows,
+                  formalAdmissionTransitions=[],
+                  semantics='Review partitions and publication definitions never create admitted SourceDefinitionVersions. Frozen D1 source contracts remain unchanged.')
+
+
+BUILDERS = {'release': release_report, 'definitions': definition_report}
 
 
 def validate_report(obj, kind, *, root=ROOT):

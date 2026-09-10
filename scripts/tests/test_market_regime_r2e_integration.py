@@ -55,6 +55,29 @@ class IntegratedEvidenceTests(unittest.TestCase):
         synthetic['releaseConfidenceClass'] = 'SCHEDULE_INFERRED'
         self.assertFalse(is_observation_eligible(synthetic, available))
 
+    def test_definition_era_matrix_covers_all_nine_cells(self):
+        obj = r2e.definition_report()
+        self.assertEqual({(r['exchange'], r['field']) for r in obj['matrix']},
+                         {(e, f) for e in ('SSE', 'SZSE', 'BSE') for f in r2e.d2.FIELDS})
+        for row in obj['matrix']:
+            self.assertEqual(row['status'], 'NOT_ADMITTED')
+            self.assertEqual(row['admittedWindows'], [])
+            self.assertEqual(row['unadmittedWindows'][0]['end'], '2026-09-04')
+
+    def test_field_specific_blockers_do_not_leak(self):
+        for row in r2e.definition_report()['matrix']:
+            combined = row['fieldBlockers'] + row['sourceBlockers']
+            self.assertEqual(any('FREE_FLOAT' in r for r in combined), row['field'] == 'negotiableMarketCap')
+            self.assertEqual(any('BLOCK_TRADE' in r for r in combined),
+                             row['exchange'] == 'BSE' and row['field'] == 'turnoverValue')
+
+    def test_resealed_definition_era_promotion_rejected(self):
+        obj = r2e.definition_report()
+        obj['matrix'][0]['eraStatus'] = 'PROVEN'
+        obj['matrix'][0]['admittedWindows'] = obj['matrix'][0]['unadmittedWindows']
+        with self.assertRaises(ValueError):
+            r2e.validate_report(r2e.d2.seal(obj), 'definitions')
+
 
 if __name__ == '__main__':
     unittest.main()
