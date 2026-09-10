@@ -143,7 +143,89 @@ def definition_report(*, root=ROOT):
                   semantics='Review partitions and publication definitions never create admitted SourceDefinitionVersions. Frozen D1 source contracts remain unchanged.')
 
 
-BUILDERS = {'release': release_report, 'definitions': definition_report}
+def historical_inputs(*, root=ROOT):
+    inventories = {ex: strict_json((root / f'research-data/market-regime/source-catalog/{folder}/inventory.v1.json').read_bytes())
+                   for ex, (folder, _, _) in d2.INPUTS.items()}
+    baseline = d2.build_report(inventories=inventories)
+    require(strict_json((root / 'research-data/market-regime/source-catalog/all-a-d2/admission-report.v1.json').read_bytes()) == baseline,
+            'FROZEN_D2_CHANGED')
+    return inventories, baseline
+
+
+def history_report(*, root=ROOT):
+    evidence = inputs(root=root)
+    old, baseline = historical_inputs(root=root)
+    definitions = definition_report(root=root)
+    gates = {(r['exchange'], r['field']): r for r in definitions['matrix']}
+    rows = []
+
+    def add(exchange, candidate, path, pointer, phase):
+        field = candidate['field']
+        family = candidate.get('familyId', candidate.get('sourceFamily'))
+        scope = candidate.get('scope', candidate.get('rawScope'))
+        require(field in d2.FIELDS and family and scope and candidate['rawValueText'] is not None, 'CANDIDATE_IDENTITY_INCOMPLETE')
+        row = dict(exchange=exchange, field=field, family=family, scope=scope,
+                   tradeDate=candidate['tradeDate'], rawValueText=candidate['rawValueText'], rawUnit=candidate['rawUnit'],
+                   evidencePhase=phase, sourcePath=path, jsonPointer=pointer, candidateContentSha256=canonical_sha256(candidate),
+                   status='CANDIDATE_ONLY', publicationDate=None, publicationDateTime=None, releaseAvailableAt=None,
+                   formalEligible=False, strictPitEligible=False,
+                   fieldBlockers=gates[(exchange, field)]['fieldBlockers'], sourceBlockers=gates[(exchange, field)]['sourceBlockers'])
+        row['captureCandidateId'] = 'r2e-candidate-' + canonical_sha256(row)
+        rows.append(row)
+
+    for exchange, inv in old.items():
+        folder = d2.INPUTS[exchange][0]
+        for i, candidate in enumerate(inv['candidates']):
+            add(exchange, candidate, f'research-data/market-regime/source-catalog/{folder}/inventory.v1.json', f'/candidates/{i}', 'D1')
+    for i, request in enumerate(evidence['sseCandidates']['requests']):
+        for j, candidate in enumerate(request['parsed']['candidates']):
+            add('SSE', candidate, (FOLDER / INPUT_PATHS['sseCandidates']).as_posix(), f'/requests/{i}/parsed/candidates/{j}', 'R2_E')
+    for key, exchange in [('szseCandidates', 'SZSE'), ('bse', 'BSE')]:
+        for i, candidate in enumerate(evidence[key]['candidates']):
+            add(exchange, candidate, (FOLDER / INPUT_PATHS[key]).as_posix(), f'/candidates/{i}', 'R2_E')
+    require(len({r['captureCandidateId'] for r in rows}) == len(rows), 'DUPLICATE_CAPTURE_CANDIDATE')
+
+    def series_key(r):
+        return (r['exchange'], r['family'], r['scope'], r['tradeDate'], r['field'])
+
+    counts = []
+    for exchange in ('SSE', 'SZSE', 'BSE'):
+        selected = [r for r in rows if r['exchange'] == exchange]
+        counts.append(dict(exchange=exchange, candidateCount=len(selected),
+                           newCandidateCount=sum(r['evidencePhase'] == 'R2_E' for r in selected),
+                           priorCandidateCount=sum(r['evidencePhase'] == 'D1' for r in selected),
+                           uniqueCandidateKeyCount=len({series_key(r) for r in selected}), formalCount=0, strictPitCount=0,
+                           fields=[dict(field=f, candidateCount=sum(r['field'] == f for r in selected),
+                                        newCandidateCount=sum(r['field'] == f and r['evidencePhase'] == 'R2_E' for r in selected),
+                                        uniqueCandidateKeyCount=len({series_key(r) for r in selected if r['field'] == f}),
+                                        formalCount=0, strictPitCount=0) for f in d2.FIELDS]))
+    repeated = []
+    for key in sorted({series_key(r) for r in rows}):
+        group = [r for r in rows if series_key(r) == key]
+        if len(group) > 1:
+            same = len({(r['rawValueText'], r['rawUnit']) for r in group}) == 1
+            repeated.append(dict(exchange=key[0], family=key[1], scope=key[2], tradeDate=key[3], field=key[4],
+                                 captureCandidateIds=[r['captureCandidateId'] for r in group],
+                                 status='CAPTURE_TOKENS_UNCHANGED_NOT_FIRST_RELEASE_PROOF' if same else 'RAW_TOKEN_OR_UNIT_DIFFERENCE_REQUIRES_REVIEW',
+                                 truthSelection=None))
+    return report('R2_E_CANDIDATE_ELIGIBILITY_LEDGER', status='NOT_ADMITTED',
+        candidateCount=len(rows), newCandidateCount=sum(r['evidencePhase'] == 'R2_E' for r in rows),
+        priorCandidateCount=sum(r['evidencePhase'] == 'D1' for r in rows),
+        uniqueCandidateKeyCount=len({series_key(r) for r in rows}), candidateCountUnit='FIELD_SCOPE_FAMILY_CAPTURE_ROWS',
+        countCaveat='Repeated acquisitions retained; unique keys are discovery counts, never selected vintages or trading-day coverage.',
+        formalCount=0, strictPitCount=0, candidates=rows, sourceCounts=counts, recaptureComparisons=repeated,
+        eligibleObservations=[], formalObservations=[], strictPitObservations=[],
+        baselineD2ContentSha256=baseline['contentSha256'],
+        historyEvidence=dict(SSE=evidence['sse']['history'], SZSE=evidence['szse']['archive'], BSE=evidence['bse']['archive']),
+        notRun=[dict(exchange='SZSE', action='Other 25 index-discovered yearbook PDFs', status='NOT_RUN',
+                     reason='Discovered links retained; no claim of full historical archive/revision exhaustion.'),
+                dict(exchange='ALL', action='Full target daily release/vintage enumeration', status='BLOCKED',
+                     reason='Complete official calendar, source definition eras and release-to-bytes evidence remain unproven.'),
+                dict(exchange='SSE/SZSE', action='Clean-clone full large-PDF replay', status='NOT_RUN_WITHOUT_LOCAL_RAW',
+                     reason='Eight large complete PDFs retained in ignored local raw; compact input replay does not replace them.')])
+
+
+BUILDERS = {'release': release_report, 'definitions': definition_report, 'history': history_report}
 
 
 def validate_report(obj, kind, *, root=ROOT):

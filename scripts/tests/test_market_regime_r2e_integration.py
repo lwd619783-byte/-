@@ -78,6 +78,33 @@ class IntegratedEvidenceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             r2e.validate_report(r2e.d2.seal(obj), 'definitions')
 
+    def test_candidate_capture_and_unique_counts_separate(self):
+        obj = r2e.history_report()
+        self.assertEqual((obj['candidateCount'], obj['newCandidateCount'], obj['priorCandidateCount']), (700, 589, 111))
+        self.assertEqual(obj['uniqueCandidateKeyCount'], 688)
+        self.assertEqual(len(obj['recaptureComparisons']), 12)
+        self.assertEqual((obj['formalCount'], obj['strictPitCount']), (0, 0))
+        self.assertEqual(obj['eligibleObservations'], [])
+
+    def test_resealed_candidate_cannot_be_formal(self):
+        obj = r2e.history_report()
+        obj['candidates'][0]['formalEligible'] = True
+        obj['formalObservations'] = [obj['candidates'][0]]
+        with self.assertRaises(ValueError):
+            r2e.validate_report(r2e.d2.seal(obj), 'history')
+
+    def test_repeated_capture_never_selects_vintage_truth(self):
+        obj = r2e.history_report()
+        self.assertTrue(all(r['truthSelection'] is None for r in obj['recaptureComparisons']))
+        self.assertTrue(all(r['releaseAvailableAt'] is None for r in obj['candidates']))
+
+    def test_yearbook_dates_never_become_calendar(self):
+        obj = r2e.history_report()
+        candidates = [r for r in obj['candidates'] if r['family'] == 'SZSE_YEARBOOK_2022_CHINEXT']
+        self.assertEqual(len(candidates), 484)
+        self.assertEqual(len({r['tradeDate'] for r in candidates}), 242)
+        self.assertIsNone(r2e.inputs()['calendar']['targetCount'])
+
 
 if __name__ == '__main__':
     unittest.main()
