@@ -1,0 +1,93 @@
+
+> investment-research-dashboard@0.1.0 test
+> vitest run
+
+
+ RUN  v2.1.9 <workspace>
+
+ ✓ src/services/watchlistRepository.test.ts (15 tests) 13ms
+ ✓ src/services/aShareAnnouncementLoader.test.ts (6 tests) 25ms
+ ✓ src/services/aShareFinancialLoader.test.ts (7 tests) 25ms
+ ✓ src/services/earningsExpectationComparisonProvider.test.ts (34 tests) 38ms
+ ✓ src/services/reviewTaskProvider.test.ts (12 tests) 39ms
+ ✓ src/services/watchlistStore.test.ts (11 tests) 11ms
+ ✓ scripts/data-audit.test.mjs (51 tests) 393ms
+ ✓ src/utils/dateTime.test.ts (25 tests) 338ms
+ ✓ src/services/browserStaleWrite.test.ts (16 tests) 116ms
+ ✓ src/services/earningsExpectationIntegrity.test.ts (36 tests) 142ms
+ ✓ src/services/earningsExpectationRangeWarningLifecycle.test.tsx (16 tests) 155ms
+ ✓ src/services/earningsExpectationInvariantMatrix.test.tsx (25 tests) 283ms
+ ✓ src/services/earningsExpectationRepository.test.ts (61 tests) 598ms
+ ✓ src/services/stockProvider.test.ts (10 tests) 14ms
+ ✓ src/utils/dataTrustDisplay.test.ts (34 tests) 52ms
+ ✓ src/services/companyGuidanceExpectationProvider.test.ts (90 tests) 399ms
+ ✓ src/data/stocks.test.ts (7 tests) 15ms
+ ✓ scripts/check-financial-bundle.test.mjs (6 tests) 28ms
+ ✓ src/utils/financialDisplay.test.ts (3 tests) 6ms
+ ✓ src/components/common/DataQualityBadge.test.ts (4 tests) 6ms
+ ✓ src/utils/dataQuality.test.ts (4 tests) 5ms
+ ✓ scripts/setup-codex-skills.test.mjs (24 tests) 1619ms
+   ✓ managed Skill supply chain and project boundaries > runs --check as a read-only CLI, with nonzero status for missing copies and bad arguments 559ms
+ ✓ src/components/common/ChartSemantics.test.tsx (5 tests) 19ms
+ ✓ src/components/research/EarningsVerificationPanel.test.tsx (1 test) 37ms
+ ✓ src/utils/symbol.test.ts (3 tests) 5ms
+ ✓ src/utils/filters.test.ts (2 tests) 5ms
+ ✓ src/components/charts/theme.test.ts (3 tests) 7ms
+ ✓ src/utils/displayLabels.test.ts (3 tests) 6ms
+ ✓ src/services/dataProvider.test.ts (4 tests) 13ms
+ ✓ src/services/providers/aStockDataProvider.test.ts (1 test) 5ms
+ ✓ src/components/common/StatusBadge.test.tsx (3 tests) 10ms
+ ✓ src/components/research/ResearchEventCenter.test.tsx (2 tests) 56ms
+ ✓ src/services/researchEventProvider.test.ts (10 tests) 470ms
+   ✓ research event provider > builds a traceable snapshot from the committed real summaries 426ms
+ ✓ src/components/expectation/CompanyGuidanceExpectationWorkflow.test.tsx (12 tests) 134ms
+ ✓ src/components/watchlist/WatchlistWorkflow.test.tsx (6 tests) 63ms
+ ✓ src/services/earningsExpectationBusinessOrderWarningEpisodes.test.tsx (8 tests) 411ms
+ ✓ src/components/stock/StockDetailDrawer.test.ts (7 tests) 6ms
+ ✓ src/components/stock/StockDetailDrawer.watchlist.test.tsx (2 tests) 22ms
+ ✓ src/components/stock/StockCoverage.test.tsx (6 tests) 54ms
+ ✓ src/components/expectation/EarningsExpectationWorkflow.test.tsx (36 tests) 393ms
+ ✓ src/components/common/QuoteTrust.test.tsx (7 tests) 98ms
+ ✓ src/hooks/useWorkspaceNavigation.test.tsx (9 tests) 72ms
+stderr | src/hooks/useWorkspaceNavigation.test.tsx
+Error: Not implemented: window.scrollTo
+    at module.exports (<workspace>\node_modules\jsdom\lib\jsdom\browser\not-implemented.js:9:17)
+    at <workspace>\node_modules\jsdom\lib\jsdom\browser\Window.js:960:7
+    at <workspace>\src\hooks\useWorkspaceNavigation.ts:55:54
+    at invokeTheCallbackFunction (<workspace>\node_modules\jsdom\lib\jsdom\living\generated\Function.js:19:26)
+    at runAnimationFrameCallbacks (<workspace>\node_modules\jsdom\lib\jsdom\browser\Window.js:662:13)
+    at Timeout.<anonymous> (<workspace>\node_modules\jsdom\lib\jsdom\browser\Window.js:640:11)
+    at listOnTimeout (node:internal/timers:585:17)
+    at processTimers (node:internal/timers:521:7) undefined
+
+ ✓ src/components/layout/Appearance.test.tsx (6 tests) 191ms
+ ✓ src/components/layout/Header.test.tsx (8 tests) 275ms
+ ✓ src/components/dashboard/MacroTab.test.tsx (11 tests) 873ms
+ ✓ src/components/common/FormLifecycle.test.tsx (5 tests) 425ms
+ ✓ src/components/stock/StockPool.trust.test.tsx (3 tests) 669ms
+   ✓ StockPool quote filters > filters the quote collection time, preserves history, and opens the selected stock 429ms
+ ✓ src/components/stock/StockPool.ui-v1.test.tsx (7 tests) 1281ms
+   ✓ StockPool UI V1 migration > defaults to the research table and retains all five quality and six sort options 396ms
+   ✓ StockPool UI V1 migration > counts, preserves and clears collapsed advanced filters without clearing the base conditions 502ms
+ ✓ src/components/industry/IndustryTab.ui-v1.test.tsx (8 tests) 1630ms
+   ✓ Industry UI V1 migration > preserves overview fields, independent chain material and keyboard navigation 400ms
+   ✓ Industry UI V1 migration > retains segment logic, market summary, comparison and both robotics pools 419ms
+   ✓ Industry UI V1 migration > preserves subview, selection and expanded pool across theme rerenders 310ms
+ ✓ src/components/research/ResearchEventCenter.ui-v1.test.tsx (7 tests) 1853ms
+   ✓ ResearchEventCenter UI V1 > selects original event identity and keeps all three qualification questions independent 495ms
+   ✓ ResearchEventCenter UI V1 > retains six filters and keeps the global queue independent of every local filter 429ms
+   ✓ ResearchEventCenter UI V1 > exposes further loaded events and queue items without changing their denominators 544ms
+ ✓ src/components/expectation/EarningsExpectationCenter.ui-v1.test.tsx (10 tests) 1736ms
+   ✓ EarningsExpectationCenter UI V1 workflows > retains ten filters and all four frozen content entries across the three main views 979ms
+ ✓ src/components/watchlist/WatchlistInteraction.test.tsx (9 tests) 1804ms
+   ✓ watchlist list and detail workflow > switches identities without mixing judgments, then restores the list trigger focus 538ms
+   ✓ watchlist list and detail workflow > keeps basic and advanced filters, sorting, selection and callbacks intact across theme changes 537ms
+ ✓ src/components/home/HomePage.test.tsx (9 tests) 346ms
+ ✓ src/components/stock/CompanyResearch.test.tsx (11 tests) 807ms
+ ✓ src/ui-review/UiReview.test.tsx (4 tests) 3785ms
+   ✓ explicit isolated UI review > does not import the business application, read/write storage, call loaders or export across all profiles/pages/chapters 3756ms
+
+ Test Files  55 passed (55)
+      Tests  725 passed (725)
+   Start at  00:02:49
+   Duration  14.45s (transform 17.99s, setup 0ms, collect 74.31s, tests 21.88s, environment 61.53s, prepare 15.51s)

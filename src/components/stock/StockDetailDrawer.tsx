@@ -23,7 +23,16 @@ const researchTabs: Array<{ id: CompanyResearchTab; label: string }> = [
   { id: "overview", label: "研究概览" }, { id: "financials", label: "经营与财务" }, { id: "valuation", label: "价格与估值" }, { id: "expectations", label: "预期与验证" }, { id: "evidence", label: "证据与复盘" },
 ];
 
+/** Optional in-memory presentation input. Supplying it disables both detail loaders,
+ * including when its identity is absent/mismatched. No fixture is registered here. */
+export interface CompanyPresentationDetails {
+  stockId: string;
+  financial: AShareFinancialData | null;
+  announcements: AShareAnnouncementData | null;
+  status: "idle" | "success" | "error";
+}
 interface StockDetailDrawerProps {
+  presentationDetails?: CompanyPresentationDetails;
   presentation?: "page" | "drawer";
   activeTab?: CompanyResearchTab;
   onTabChange?: (tab: CompanyResearchTab) => void;
@@ -55,11 +64,24 @@ interface StockDetailDrawerProps {
 const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
-export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation, presentation = "drawer", activeTab, onTabChange }: StockDetailDrawerProps) {
+export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation, presentation = "drawer", activeTab, onTabChange, presentationDetails }: StockDetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const chapterRef = useRef<HTMLElement>(null);
   const [localSelection, setLocalSelection] = useState<{ stockId: string | null; tab: CompanyResearchTab }>({ stockId: stock?.id ?? null, tab: "overview" });
   const tab = activeTab ?? (localSelection.stockId === stock?.id ? localSelection.tab : "overview");
-  const selectTab = (next: CompanyResearchTab) => { setLocalSelection({ stockId: stock?.id ?? null, tab: next }); onTabChange?.(next); };
+  const selectTab = (next: CompanyResearchTab) => {
+    // Return a deeply scrolled page to the new chapter, below the compact rail.
+    const rail = tabsRef.current?.getBoundingClientRect();
+    const chapter = chapterRef.current?.getBoundingClientRect();
+    if (presentation === "page" && rail && chapter && rail.height > 0 && rail.top <= 8) {
+      // The sticky rail's visual position no longer identifies its document position.
+      // The in-flow chapter does: leave room for the rail, its top inset and the gap.
+      window.scrollTo({ top: Math.max(0, window.scrollY + chapter.top - rail.height - 24), behavior: "instant" });
+    }
+    setLocalSelection({ stockId: stock?.id ?? null, tab: next });
+    onTabChange?.(next);
+  };
   const [financialChart, setFinancialChart] = useState<{ stockId: string | null; period: "singleQuarter" | "cumulative"; scope: string }>({ stockId: stock?.id ?? null, period: "singleQuarter", scope: "consolidated" });
   const [priceRange,setPriceRange]=useState<{stockId:string|null;range:"all"|"20"}>({stockId:stock?.id ?? null,range:"all"});
   const currentPriceRange=priceRange.stockId===stock?.id ? priceRange.range : "all";
@@ -68,12 +90,12 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   onCloseRef.current = onClose;
   const selectedStockId = useRef<string | null>(stock?.id ?? null);
   selectedStockId.current = stock?.id ?? null;
-  const [financialLoad, setFinancialLoad] = useState<{
+  const [remoteFinancialLoad, setFinancialLoad] = useState<{
     stockId: string | null;
     status: "idle" | "loading" | "success" | "error";
     data: AShareFinancialData | null;
   }>({ stockId: null, status: "idle", data: null });
-  const [announcementLoad, setAnnouncementLoad] = useState<{
+  const [remoteAnnouncementLoad, setAnnouncementLoad] = useState<{
     stockId: string | null;
     status: "idle" | "loading" | "success" | "error";
     data: AShareAnnouncementData | null;
@@ -104,7 +126,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
     let active = true;
     const requestStockId = stock?.id ?? null;
     setFinancialLoad({ stockId: requestStockId, status: "idle", data: null });
-    if (!shouldLoadAShareFinancial(stock)) return () => { active = false; };
+    if (presentationDetails || !shouldLoadAShareFinancial(stock)) return () => { active = false; };
     setFinancialLoad({ stockId: requestStockId, status: "loading", data: null });
     loadAShareFinancial(requestStockId as string)
       .then((data) => {
@@ -118,13 +140,13 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
         }
       });
     return () => { active = false; };
-  }, [stock?.id, stock?.market, stock?.dataMode, stock?.aShareFinancialSummary?.detailPath]);
+  }, [stock?.id, stock?.market, stock?.dataMode, stock?.aShareFinancialSummary?.detailPath, presentationDetails]);
 
   useEffect(() => {
     let active = true;
     const requestStockId = stock?.id ?? null;
     setAnnouncementLoad({ stockId: requestStockId, status: "idle", data: null });
-    if (!shouldLoadAShareAnnouncements(stock)) return () => { active = false; };
+    if (presentationDetails || !shouldLoadAShareAnnouncements(stock)) return () => { active = false; };
     setAnnouncementLoad({ stockId: requestStockId, status: "loading", data: null });
     loadAShareAnnouncements(requestStockId as string)
       .then((data) => {
@@ -134,8 +156,10 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
         if (canApplyAnnouncementLoad(requestStockId, selectedStockId.current, active)) setAnnouncementLoad({ stockId: requestStockId, status: "error", data: null });
       });
     return () => { active = false; };
-  }, [stock?.id, stock?.market, stock?.dataMode, stock?.aShareAnnouncementSummary?.detailPath]);
+  }, [stock?.id, stock?.market, stock?.dataMode, stock?.aShareAnnouncementSummary?.detailPath, presentationDetails]);
 
+  const financialLoad = presentationDetails ? { stockId: presentationDetails.stockId, status: presentationDetails.status, data: presentationDetails.financial } : remoteFinancialLoad;
+  const announcementLoad = presentationDetails ? { stockId: presentationDetails.stockId, status: presentationDetails.status, data: presentationDetails.announcements } : remoteAnnouncementLoad;
   if (!stock) return null;
 
   const industry = industries.find((item) => item.id === stock.industryId);
@@ -170,7 +194,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
           action={activeWatchItem ? () => onStartReview?.(activeWatchItem) : archivedWatchItem ? () => onRestoreWatchItem?.(archivedWatchItem) : () => onAddToWatchlist?.(stock)}
           actionLabel={activeWatchItem ? "开始复盘" : archivedWatchItem ? "恢复已归档观察项" : "加入观察清单"} />
         {companyGuidanceLoadError ? <p role="alert" className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm text-warning">公司指引加载限制：{companyGuidanceLoadError}；本地独立快照仍按原资格展示。</p> : null}
-        <div className="flex min-w-0 flex-wrap gap-1 rounded-lg border border-borderSoft bg-bg2 p-1" role="tablist" aria-label="公司研究章节">
+        <div ref={tabsRef} className={`${presentation === "page" ? "company-page-tabs" : "flex-wrap"} flex min-w-0 gap-1 rounded-lg border border-borderSoft bg-bg2 p-1`} role="tablist" aria-label="公司研究章节">
           {researchTabs.map((item, index) => <button key={item.id} id={`company-tab-${item.id}`} role="tab" aria-selected={tab === item.id} aria-controls={`company-panel-${item.id}`} tabIndex={tab === item.id ? 0 : -1}
             className={`min-h-11 flex-1 whitespace-nowrap rounded-md px-3 py-2 text-sm ${tab === item.id ? "bg-selected font-semibold text-accent ring-1 ring-inset ring-control" : "text-textMuted hover:bg-surface"}`}
             onClick={() => selectTab(item.id)} onKeyDown={(event) => {
@@ -179,7 +203,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
             }}>{item.label}</button>)}
         </div>
         <div className={presentation === "drawer" ? "min-w-0 p-4" : "min-w-0"}>
-          <section id={`company-panel-${tab}`} role="tabpanel" aria-labelledby={`company-tab-${tab}`} tabIndex={0} className="min-w-0 space-y-4">
+          <section ref={chapterRef} id={`company-panel-${tab}`} role="tabpanel" aria-labelledby={`company-tab-${tab}`} tabIndex={0} className="min-w-0 space-y-4">
           {tab === "overview" ? <>
             <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)]">
               <Section title="公司研究摘要" icon={<BookOpen className="h-4 w-4" />}>
@@ -334,7 +358,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
 function ResearchHeader({ stock, industryName, segmentName, onClose, presentation, action, actionLabel }: {
   stock: Stock; industryName: string; segmentName: string; onClose: () => void; presentation: "page" | "drawer"; action: () => void; actionLabel: string;
 }) {
-  return <header className="z-20 min-w-0 rounded-lg border border-borderSoft bg-bg2 p-4 sm:sticky sm:top-[72px]">
+  return <header className={`research-header min-w-0 rounded-lg border border-borderSoft bg-bg2 p-4 ${presentation === "drawer" ? "z-20 sm:sticky sm:top-[72px]" : ""}`}>
     <div className="flex flex-wrap items-start justify-between gap-3">
       <div className="min-w-0 flex-1"><p className="text-xs text-textMuted">{stock.market} · {stock.code} · {industryName} / {segmentName}</p><h1 className="mt-1 break-words text-2xl font-semibold text-textStrong">{stock.name}</h1></div>
       <button type="button" onClick={onClose} aria-label={presentation === "page" ? "返回研究入口" : "关闭详情"} className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded border border-control px-3 text-sm text-textMuted">{presentation === "page" ? <ArrowLeft className="h-4 w-4" /> : <X className="h-4 w-4" />}{presentation === "page" ? "返回" : "关闭"}</button>

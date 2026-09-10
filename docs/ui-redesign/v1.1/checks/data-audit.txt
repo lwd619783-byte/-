@@ -1,0 +1,17 @@
+
+> investment-research-dashboard@0.1.0 data:audit
+> node scripts/data-audit.mjs
+
+{
+  "scanned": 317,
+  "registry": 29,
+  "P0": 0,
+  "P1": 10,
+  "P2": 14,
+  "P3": 0,
+  "errors": 0,
+  "warnings": 24,
+  "skipped": 10,
+  "allowlisted": 34,
+  "exit": 0
+}

@@ -1,12 +1,12 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import type { Stock } from "../../types";
 import { numberToDisplay } from "../../utils/normalize";
 import { chartColors, chartTickStyle, chartTooltipStyle, formatAxisNumber } from "../charts/theme";
 import { ChartPanel } from "../common/ChartPanel";
 
 /** Uses only the selected company's existing observations, including their gaps. */
-export function StockPriceHistoryChart({ stock, compact = false, range, onRangeChange }: { stock: Stock; compact?: boolean; range?: "all" | "20"; onRangeChange?: (range: "all" | "20") => void }) {
+export function StockPriceHistoryChart({ stock, compact = false, range, onRangeChange, objectControl }: { objectControl?: ReactNode; stock: Stock; compact?: boolean; range?: "all" | "20"; onRangeChange?: (range: "all" | "20") => void }) {
   const [localRange,setLocalRange]=useState<"all"|"20">("all");
   const allPoints = stock.priceHistory ?? [];
   const selection=allPoints.length>20 ? range ?? localRange : "all";
@@ -15,7 +15,7 @@ export function StockPriceHistoryChart({ stock, compact = false, range, onRangeC
   const source = [...new Set(stock.dataQuality?.filter((item) => /price|history|kline/i.test(`${item.sourceEndpoint ?? ""} ${item.source}`)).map((item) => item.source))].join(" / ") || "历史序列来源未单独提供";
   const period = points.length ? `${points[0].date} 至 ${points[points.length - 1].date}` : "尚无历史价格";
   return <ChartPanel title={compact ? "价格脉络" : "价格走势"}
-    legend={<label className="text-xs text-textMuted">观察范围<select aria-label="价格观察范围" value={selection} onChange={event=>{const next=event.target.value as "all"|"20";setLocalRange(next);onRangeChange?.(next);}} className="ml-2"><option value="all">全部已加载（{allPoints.length}）</option>{allPoints.length>20 ? <option value="20">最近20个观测</option>:null}</select></label>}
+    legend={<div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">{objectControl}<label className="text-xs text-textMuted">观察范围<select aria-label="价格观察范围" value={selection} onChange={event=>{const next=event.target.value as "all"|"20";setLocalRange(next);onRangeChange?.(next);}} className="ml-2"><option value="all">全部已加载（{allPoints.length}）</option>{allPoints.length>20 ? <option value="20">最近20个观测</option>:null}</select></label></div>}
     description={`${stock.name} · 收盘价 · ${currency} · ${period}`}
     empty={!points.some((point) => typeof point.close === "number" && Number.isFinite(point.close))}
     summary={`${points.length} 个已有观测点；${source}。缺失点不连接，不以采集时间替代交易日期。`}

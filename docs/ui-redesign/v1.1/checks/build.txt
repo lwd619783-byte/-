@@ -1,0 +1,64 @@
+
+> investment-research-dashboard@0.1.0 build
+> tsc -b && npm run local:typecheck && vite build && node scripts/check-financial-bundle.mjs
+
+
+> investment-research-dashboard@0.1.0 local:typecheck
+> tsc -p tsconfig.local-core.json --noEmit
+
+vite v6.4.3 building for production...
+transforming...
+✓ 2306 modules transformed.
+rendering chunks...
+Local Core browser boundary: PASS (2306 graph modules, 4 chunks, 0 forbidden).
+computing gzip size...
+dist/local-core-boundary.json                                 0.19 kB │ gzip:   0.15 kB
+dist/index.html                                               0.42 kB │ gzip:   0.30 kB
+dist/assets/index-DwjmvOKy.css                               40.86 kB │ gzip:   8.68 kB
+dist/assets/UiReviewApp-Ctk2sUMx.js                          18.87 kB │ gzip:   8.18 kB
+dist/assets/index-oRU7yPL2.js                               147.24 kB │ gzip:  48.06 kB
+dist/assets/earningsExpectationEventProvider-B7VYoFTg.js    788.54 kB │ gzip: 215.48 kB
+dist/assets/App-BePwcuCf.js                               1,468.33 kB │ gzip: 294.20 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.47s
+{
+  "status": "passed",
+  "baseline": {
+    "initialJsBytes": 4841746,
+    "initialGzipBytes": 798794,
+    "maxChunkBytes": 4841746
+  },
+  "initialJsBytes": 147236,
+  "initialGzipBytes": 48057,
+  "maxChunkBytes": 1468328,
+  "allJsBytes": 2422969,
+  "entryFiles": [
+    "index-oRU7yPL2.js"
+  ],
+  "summaryBytes": 172943,
+  "detailFiles": 56,
+  "detailBytes": 4214610,
+  "averageDetailBytes": 75261,
+  "initialReductionPct": 96.96,
+  "initialGzipReductionPct": 93.98,
+  "containsFullHistoryMarker": false,
+  "announcementSummaryBytes": 257629,
+  "announcementManifestBytes": 23555,
+  "announcementDetailFiles": 56,
+  "announcementDetailBytes": 27042130,
+  "averageAnnouncementDetailBytes": 482895,
+  "containsFullAnnouncementHistoryMarker": false,
+  "companyGuidanceSummaryBytes": 21900,
+  "companyGuidanceManifestBytes": 28534,
+  "companyGuidanceWorkflowBytes": 240254,
+  "companyGuidanceWorkflowChecksum": "a883ab1bee7da4e2bb7302445f0fa94f45bd39d190fa3060877a12e2c6db5676",
+  "companyGuidanceDetailFiles": 56,
+  "companyGuidanceDetailBytes": 373697,
+  "averageCompanyGuidanceDetailBytes": 6673,
+  "containsFullCompanyGuidanceDetailMarker": false,
+  "errors": []
+}
