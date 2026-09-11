@@ -1,0 +1,17 @@
+{
+  "request": {
+    "requestId": "annual-list",
+    "url": "https://www.bse.cn/info/listse.do",
+    "method": "POST",
+    "form": "page=0&pageSize=20&keywords=&startTime=&endTime=&nodeIds%5B%5D=2722",
+    "discovery": "annual-js /info/listse.do and annual-index searchNodeId=2722; cache-buster omitted",
+    "parent": "annual-js"
+  },
+  "attemptedAt": "2026-09-10T04:25:16+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/info/listse.do",
+  "contentType": "text/html;charset=utf-8",
+  "bodyPath": "raw/annual-list.body",
+  "byteSize": 1469,
+  "sha256": "7ba4d3a82b18e17aa6250c2bf2fc40d8ac9c3936d9fb10dbc0688e6920fdf8dc"
+}

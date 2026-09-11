@@ -1,0 +1,15 @@
+{
+  "request": {
+    "requestId": "news-index",
+    "url": "https://www.bse.cn/news/important_news.html",
+    "method": "GET",
+    "discovery": "D1C retained header href /news/important_news.html"
+  },
+  "attemptedAt": "2026-09-10T04:31:44+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/news/important_news.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/news-index.body",
+  "byteSize": 8528,
+  "sha256": "81731a2a00ee0d281bad7125a41b15c6d01d6d74ea254e1ff09a9f8269c0448c"
+}

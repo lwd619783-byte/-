@@ -1,0 +1,12 @@
+{
+  "requestId": "legacy-page",
+  "url": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+  "attemptedAt": "2026-09-10T04:24:07+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+  "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-page.body",
+  "contentType": "text/html",
+  "sha256": "4c64e9d7b860d8cee8247b30bda04ba6edcadb93cfbad2ee5bfb065e768b5019",
+  "byteSize": 28589
+}

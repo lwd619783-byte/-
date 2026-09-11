@@ -1,0 +1,14 @@
+{
+  "requestId": "annual-2023",
+  "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10791349/files/85c1e61617f44332ac2f04dbbe5cd530.pdf",
+  "attemptedAt": "2026-09-10T04:26:59+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10791349/files/85c1e61617f44332ac2f04dbbe5cd530.pdf",
+  "path": "research-data/market-regime/raw/r2-e-sse/annual-2023.pdf",
+  "contentType": "application/pdf",
+  "sha256": "2487b78b13f1c4bf9a8b010708c375de6170a1a817fc142fd683e954bd6cce13",
+  "byteSize": 21192354,
+  "archiveDistribution": "LOCAL_IGNORED_FULL_BYTES",
+  "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED"
+}

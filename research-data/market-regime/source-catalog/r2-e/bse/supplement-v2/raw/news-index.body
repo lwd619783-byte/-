@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<title>本所动态 - 北京证券交易所</title>
+
+<!-- 默认 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- 字体编码 -->
+<meta charset="utf-8" />
+
+<!-- 关键字 -->
+<meta name="keywords" content="" />
+
+<!-- 说明 -->
+<meta name="description" content="" />
+
+<!-- 作者 -->
+<meta name="author" content="" />
+
+<!-- 设置文档宽度、是否缩放 -->
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,user-scalable=no" />
+
+<!-- 优先使用IE最新版本或chrome -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<!-- 360读取到这个标签立即钱换到极速模式 -->
+<meta name="renderer" content="webkit" />
+
+<!-- 禁止百度转码 -->
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<!-- UC强制竖屏 -->
+<meta name="screen-orientation" content="portrait" />
+
+<!-- QQ强制竖屏 -->
+<meta name="x5-orientation" content="portrait" />
+
+<!-- UC强制全屏 -->
+<meta name="full-scerrn" content="yes" />
+
+<!-- QQ强制全屏 -->
+<meta name="x5-fullscreen" content="ture" />
+
+<!-- QQ应用模式 -->
+<meta name="x5-page-mode" content="app" />
+
+<!-- UC应用模式 -->
+<meta name="browsermode" content="application">
+
+<!-- window phone 点亮无高光 -->
+<meta name="msapplication-tap-highlight" content="no" />
+
+<!-- 安卓设备不自动识别邮件地址 -->
+<meta name="format-detection" name="email=no" />
+
+<!-- iOS设备 -->
+<!-- 添加到主屏幕的标题 -->
+<meta name="apple-mobile-web-app-title" content="标题" />
+
+<!-- 是否启用webApp全屏 -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+<!-- 设置状态栏的背景颜色，启用webapp模式时生效 -->
+<meta name="apple-mobile-web-app-status-bar-style"
+	content="black-translucent/black/default" />
+<!-- 半透明/黑色/默认白色 -->
+
+<!-- 禁止数字识别为电话号码 -->
+<meta name="format-detection" content="telephone=no" />
+
+<!-- 智能添加广告条 -->
+<meta name="apple-itunes-app"
+	content="app-id=myappstoreID,affiliate-data=myaffiliatedata,app-argument=myurl" />
+<link rel="shortcut icon" href="/template/6/bluewise/_files/img/favicon.ico">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lte IE 9]>
+         	<script src="/template/6/bluewise/_files/js/plugins/respones/html5shiv.min.js"></script>
+         	<script src="/template/6/bluewise/_files/js/plugins/respones/respond.min.js"></script>
+         <![endif]-->
+<script src="/template/6/bluewise/_files/js/plugins/print/bluebird.min.js"></script>
+<script src="/template/6/bluewise/_files/js/plugins/requireJS/require.min.js"></script>
+<script id="base" src="/template/6/bluewise/_files/js/main.min.js" data-compress="true" data-debugMode="false" base="/template/6/bluewise/_files"></script>
+        
+		<menu style="display:none;width:0;height:0;">本所动态</menu>
+</head>
+<body>
+<div class="bg-loading" style="width: 100%;height: 100%;background-color: white;position: fixed;z-index: 9999;"></div>
+	<input type="hidden" id="pageId" value="0"/>
+	<div id="root">
+
+            <!--Header-->
+            <div class="mw-header en">
+                <iframe src="../myhead.html" frameborder="0" width="100%" height="140px" scrolling="no"></iframe>
+            </div>
+            <!--/Header-->
+            <!-- menuContainer -->
+            <div class="mw-submenu-container"></div>
+            <!--/menuContainer -->
+            <div class="mw-banner-page">
+              <div class="container">
+<div class="main-title clearfix">
+        <div id="titleSearch" class="fl">本所动态<span id="overviewContent"></span>
+    </div>
+	<div class="rightNav fr">
+		<span id="mbx"> 
+				<a href="/index.html" title="首页">首页</a><span style="margin:5px;">&gt;</span>
+				<a href="/company/introduce.html" title="关于本所">关于本所</a><span style="margin:5px;">&gt;</span>
+				<span data-url="/news/important_news.html" data-name="本所动态">本所动态</span><span id="rightOverviewContent"></span> 
+		</span>
+	</div>
+</div>              </div>
+            </div>
+            
+            <div class="mw-page">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-12 col-md-9 col-md-push-3">
+                     <div class="context">
+				<div class="main_content_center">
+					<div class="clearfix">
+					<input type="hidden" id="siteUrl" value=""/>
+						<div id="nodeName" class="fl tit">本所动态</div>
+						<div id="inputGo" class="fr">
+							<input id="keyword" type="text" class="form-control top_input" maxlength="200" placeholder="关键字"> 
+							<input type="text" class="date" value="" name="date" placeholder="日期" />
+							<input type="hidden" id="startTime" name="startTime" class="form-control"> 
+							<input type="hidden" id="endTime" name="endTime" class="form-control"> 
+							<input id="searchNodeId" type="hidden" value="1289"/>
+							<button id="searchGo" type="button" value="GO" class="go cx">查询</button>
+						</div>
+					</div>
+					<div class="in_div">
+						<div id="div_all">
+							<table id="table_all">
+								<thead>
+									<tr>
+										<th style="width:10%">Code</th>
+										<th style="width:90%">content</th>
+									</tr>
+								</thead>
+								<tbody id="table_body"></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="mw-paging page" id="Pagination"></div>
+				<!-- <div class="mw-paging page" id="Pagination"></div> -->
+			</div>
+                  </div>
+                  <div class="col-md-3 col-md-pull-9 hidden-xs hidden-sm">
+<div class="treeNav clearfix">
+	<input type="hidden" id="curNodeId" value="1289"/>
+	<div class=sideBar>
+		<div class="active sideHeader" dnode="1358">
+			<a href="/company/introduce.html"><span>关于本所</span></a>
+		</div>
+		<ul class="navMenu">
+			<!-- level 1 -->
+								 <li class="menu" dnode="2706"><span class="arrow">
+<a href="/company/introduce.html" title="本所介绍">本所介绍</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="1288"><span><a href="/company/introduce.html" title="本所简介">本所简介</a></span></li>
+													<li dnode="1360"><span><a href="/company/organization.html" title="组织架构">组织架构</a></span></li>
+								</ul>
+								<li dnode="1289"><span><a href="/news/important_news.html" title="本所动态">本所动态</a></span></li>
+								<li dnode="2663"><span><a href="/agency/securities_list.html" title="本所会员">本所会员</a></span></li>
+								<li dnode="1380"><span><a href="/company/recruit.html" title="人才招聘">人才招聘</a></span></li>
+								<li dnode="1381"><span><a href="/purchase/list.html" title="采购信息">采购信息</a></span></li>
+								<li dnode="1382"><span><a href="/about_neeq/legal_disclaimer.html" title="法律声明">法律声明</a></span></li>
+								<li dnode="1434"><span><a href="/company/contact_us.html" title="联系我们">联系我们</a></span></li>
+								 <li class="menu" dnode="3178"><span class="arrow">
+<a href="/research/subject_research.html" title="研究">研究</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="3179"><span><a href="/research/subject_research.html" title="最新动态">最新动态</a></span></li>
+													<li dnode="3180"><span><a href="/about_company/market_study.html" title="多层次资本市场研究">多层次资本市场研究</a></span></li>
+													<li dnode="3181"><span><a href="/research/postdoctoral_workstation.html" title="博士后工作站">博士后工作站</a></span></li>
+								</ul>
+								<li dnode="1516"><span><a href="/company/supervision.html" title="廉洁监督">廉洁监督</a></span></li>
+		</ul>
+	</div>
+</div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+	
+	<!--Footer-->
+            <div class="mw-footer">
+                <iframe src="../myfoot.html" frameborder="0" width="100%" height="80px" scrolling="no"></iframe>
+            </div>
+            <!--/Footer-->
+        </div>
+	<script src="/template/6/bluewise/_files/js/aboutNEEQ/neeqNews.min.js"></script>
+</body>
+</html>

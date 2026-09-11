@@ -1,0 +1,14 @@
+{
+  "requestId": "annual-2013",
+  "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061081/files/f54d62aa04aa47de80c138c63df0b6de.pdf",
+  "attemptedAt": "2026-09-10T04:24:30+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061081/files/f54d62aa04aa47de80c138c63df0b6de.pdf",
+  "path": "research-data/market-regime/raw/r2-e-sse/annual-2013.pdf",
+  "contentType": "application/pdf",
+  "sha256": "88e1c96217d52da364939d617cf4b98683a06a280f4b2583036dbdf2e3cf22e4",
+  "byteSize": 34911012,
+  "archiveDistribution": "LOCAL_IGNORED_FULL_BYTES",
+  "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED"
+}

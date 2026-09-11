@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "annual-pdf-2022",
+    "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf",
+    "method": "GET",
+    "discovery": "PARENT_FILE_URL",
+    "parent": "special-list",
+    "byteOffset": 2975,
+    "text": "/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf"
+  },
+  "attemptedAt": "2026-09-10T04:25:41+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/uploads/6/file/public/202509/20250930163047_iycbvem65v.pdf",
+  "contentType": "application/pdf",
+  "bodyPath": "raw/annual-pdf-2022.body",
+  "byteSize": 530463,
+  "sha256": "3fa979f71738c802ecdf60ebb2dfe23d7925f4f5ba23e3f361ded73d560d096d"
+}

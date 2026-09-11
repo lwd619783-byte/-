@@ -1,0 +1,15 @@
+{
+  "request": {
+    "requestId": "statistics-page",
+    "url": "https://www.bse.cn/static/statisticdata.html",
+    "method": "GET",
+    "discovery": "OFFICIAL_SEARCH_RESULT"
+  },
+  "attemptedAt": "2026-09-10T04:24:15+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/static/statisticdata.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/statistics-page.body",
+  "byteSize": 26776,
+  "sha256": "cff36171ccb988b55f629f37cf9357297d7b95da17bebdd34e1aaf28b3b06785"
+}

@@ -1,0 +1,12 @@
+{
+  "requestId": "legacy-2021-12-25",
+  "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-25",
+  "attemptedAt": "2026-09-10T04:27:35+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-25",
+  "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-25.body",
+  "contentType": "application/json;charset=UTF-8",
+  "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+  "byteSize": 504
+}

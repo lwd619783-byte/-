@@ -1,0 +1,22 @@
+var currentScript=document.currentScript||(function(){
+  var scripts=document.getElementsByTagName('script');
+  return scripts[scripts.length-1]
+})();
+var pageId = currentScript.getAttribute('data');
+var pageUrl =currentScript.getAttribute('url');  
+function createPageHTML(id, totalPage, currIndex, pagePrefix, pageSuffix, totalCount) {        
+	if (pageUrl.indexOf('index.shtml') >= 0) {
+		pageUrl = pageUrl.substring(0, pageUrl.lastIndexOf('index.shtml')) + pagePrefix;
+	} else {
+		pageUrl = pageUrl.substring(0, pageUrl.lastIndexOf('.shtml'));
+	}
+	document.getElementsByClassName('createPage' + pageId)[0].setAttribute('PAGE_INDEX', currIndex);
+	document.getElementsByClassName('createPage' + pageId)[0].setAttribute('PAGE_NAME', pageUrl);
+	document.getElementsByClassName('createPage' + pageId)[0].setAttribute('page_count', totalPage);
+	if (document.getElementsByClassName('spTime').length > 0) {
+		var hidetime = hide_spTime();
+	}
+}
+
+
+

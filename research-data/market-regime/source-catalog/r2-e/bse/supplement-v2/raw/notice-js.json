@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "notice-js",
+    "url": "https://www.bse.cn/template/6/bluewise/_files/js/disclosure/stock_transfer_notice.min.js",
+    "method": "GET",
+    "discovery": "PARENT_SCRIPT_SRC",
+    "parent": "notice-index",
+    "byteOffset": 15586,
+    "text": "/template/6/bluewise/_files/js/disclosure/stock_transfer_notice.min.js"
+  },
+  "attemptedAt": "2026-09-10T04:31:57+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/template/6/bluewise/_files/js/disclosure/stock_transfer_notice.min.js",
+  "contentType": "application/javascript",
+  "bodyPath": "raw/notice-js.body",
+  "byteSize": 6961,
+  "sha256": "e2d8e1f84d5af31179d3458646ca5c1af6beab941e7a2c7cf7f674500f85fc60"
+}

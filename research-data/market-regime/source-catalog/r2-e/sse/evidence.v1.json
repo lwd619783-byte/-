@@ -1,0 +1,959 @@
+{
+  "schemaVersion": "1.0.0",
+  "workstream": "SSE",
+  "role": "VERSIONED_DISCOVERY_EVIDENCE_NOT_SOURCE_CONTRACT",
+  "sourceId": "SSE_MARKET_STATS_OFFICIAL",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "targetWindow": {
+    "start": "2005-01-01",
+    "end": "2026-09-04"
+  },
+  "officialTradingDayTargetCount": null,
+  "artifactCount": 51,
+  "artifacts": [
+    {
+      "requestId": "annual-2006",
+      "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061088/files/02828bf648f9437c9468c28ee3858d3f.pdf",
+      "attemptedAt": "2026-09-10T04:24:33+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061088/files/02828bf648f9437c9468c28ee3858d3f.pdf",
+      "path": "research-data/market-regime/raw/r2-e-sse/annual-2006.pdf",
+      "contentType": "application/pdf",
+      "sha256": "c236bba4663888524928c599636dd49d9c4cf387a6faeb27af4aa34ef4824478",
+      "byteSize": 4825485,
+      "archiveDistribution": "LOCAL_IGNORED_FULL_BYTES",
+      "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED"
+    },
+    {
+      "requestId": "annual-2013",
+      "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061081/files/f54d62aa04aa47de80c138c63df0b6de.pdf",
+      "attemptedAt": "2026-09-10T04:24:30+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061081/files/f54d62aa04aa47de80c138c63df0b6de.pdf",
+      "path": "research-data/market-regime/raw/r2-e-sse/annual-2013.pdf",
+      "contentType": "application/pdf",
+      "sha256": "88e1c96217d52da364939d617cf4b98683a06a280f4b2583036dbdf2e3cf22e4",
+      "byteSize": 34911012,
+      "archiveDistribution": "LOCAL_IGNORED_FULL_BYTES",
+      "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED"
+    },
+    {
+      "requestId": "annual-2022",
+      "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061072/files/dfca40e586304401b1f7a55c22684bc5.pdf",
+      "attemptedAt": "2026-09-10T04:24:28+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10061072/files/dfca40e586304401b1f7a55c22684bc5.pdf",
+      "path": "research-data/market-regime/raw/r2-e-sse/annual-2022.pdf",
+      "contentType": "application/pdf",
+      "sha256": "cce82ab46b1897c22455c57bde4291e938d10543bec10e5d0ccb581871368966",
+      "byteSize": 21867723,
+      "archiveDistribution": "LOCAL_IGNORED_FULL_BYTES",
+      "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED"
+    },
+    {
+      "requestId": "annual-2023",
+      "url": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10791349/files/85c1e61617f44332ac2f04dbbe5cd530.pdf",
+      "attemptedAt": "2026-09-10T04:26:59+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/documents/c/10791349/files/85c1e61617f44332ac2f04dbbe5cd530.pdf",
+      "path": "research-data/market-regime/raw/r2-e-sse/annual-2023.pdf",
+      "contentType": "application/pdf",
+      "sha256": "2487b78b13f1c4bf9a8b010708c375de6170a1a817fc142fd683e954bd6cce13",
+      "byteSize": 21192354,
+      "archiveDistribution": "LOCAL_IGNORED_FULL_BYTES",
+      "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED"
+    },
+    {
+      "requestId": "annual-index",
+      "url": "https://www.sse.com.cn/aboutus/publication/yearly/",
+      "attemptedAt": "2026-09-10T04:24:08+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/aboutus/publication/yearly/",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/annual-index.body",
+      "contentType": "text/html",
+      "sha256": "ff1d02d5a7377edf25b959572ae81510499aa26d2942ca21965da27f2a98111b",
+      "byteSize": 35476
+    },
+    {
+      "requestId": "daily-2005-01-04",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2005-01-04",
+      "attemptedAt": "2026-09-10T04:25:07+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2005-01-04",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2005-01-04.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2021-12-20",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-20",
+      "attemptedAt": "2026-09-10T04:27:38+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-20",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-20.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2021-12-21",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-21",
+      "attemptedAt": "2026-09-10T04:27:39+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-21",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-21.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2021-12-22",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-22",
+      "attemptedAt": "2026-09-10T04:27:39+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-22",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-22.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2021-12-23",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-23",
+      "attemptedAt": "2026-09-10T04:25:05+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-23",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-23.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2021-12-24",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-24",
+      "attemptedAt": "2026-09-10T04:25:06+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-24",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-24.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2021-12-25",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-25",
+      "attemptedAt": "2026-09-10T04:27:39+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-25",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-25.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2021-12-26",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-26",
+      "attemptedAt": "2026-09-10T04:27:39+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-26",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-26.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2021-12-27",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-27",
+      "attemptedAt": "2026-09-10T04:25:06+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-27",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-27.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "026063ff76c9068188e878fc5d5de0cfd3b31a3ad6f14aff5adf39a690531478",
+      "byteSize": 1238
+    },
+    {
+      "requestId": "daily-2021-12-28",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-28",
+      "attemptedAt": "2026-09-10T04:27:39+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-28",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-28.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "f35a85e12a01aaa79c9ecac9c066313dcc1da74b5a5af494564ddbae39b9c9ff",
+      "byteSize": 1236
+    },
+    {
+      "requestId": "daily-2021-12-29",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-29",
+      "attemptedAt": "2026-09-10T04:27:40+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-29",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-29.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "04077c83b28bd4e88799319553b72b112a31b4218a1fe1a9f4e9721f51097b43",
+      "byteSize": 1237
+    },
+    {
+      "requestId": "daily-2021-12-30",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-30",
+      "attemptedAt": "2026-09-10T04:27:40+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-30",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-30.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "b9115bf2c3d5f989c8d780be5336fe9e0641365f8a3fb14e7cbd40965edc2bf5",
+      "byteSize": 1235
+    },
+    {
+      "requestId": "daily-2021-12-31",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-31",
+      "attemptedAt": "2026-09-10T04:25:06+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2021-12-31",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2021-12-31.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "4c33c2a117a3e46f8b2b26e570d4e25bc20c4c613f7069a166ef6beb5c41279f",
+      "byteSize": 1234
+    },
+    {
+      "requestId": "daily-2022-01-01",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-01",
+      "attemptedAt": "2026-09-10T04:27:40+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-01",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2022-01-01.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2022-01-02",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-02",
+      "attemptedAt": "2026-09-10T04:27:40+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-02",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2022-01-02.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2022-01-03",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-03",
+      "attemptedAt": "2026-09-10T04:27:40+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-03",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2022-01-03.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d1058df438a374e8abf43213734003e4ef83eda30283b2687177399ae6bebd39",
+      "byteSize": 509
+    },
+    {
+      "requestId": "daily-2022-01-04",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-04",
+      "attemptedAt": "2026-09-10T04:25:06+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-04",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2022-01-04.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d45f7316694f388a9d8312d3743fa2d26fb7939d834be6891ea66234e59ca461",
+      "byteSize": 1238
+    },
+    {
+      "requestId": "daily-2022-01-05",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-05",
+      "attemptedAt": "2026-09-10T04:27:41+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-05",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2022-01-05.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "eb23bb5c3670efb26be08295ad3d29b8276c242ed4fe134c94764eea538c908e",
+      "byteSize": 1237
+    },
+    {
+      "requestId": "daily-2022-01-06",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-06",
+      "attemptedAt": "2026-09-10T04:27:41+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-06",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2022-01-06.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "504899a4b13253fd3e46184e2b278e06b57816078ebf2dc3a5de5ff9f19eebbc",
+      "byteSize": 1237
+    },
+    {
+      "requestId": "daily-2022-01-07",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-07",
+      "attemptedAt": "2026-09-10T04:27:41+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2022-01-07",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-2022-01-07.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "eb6de06c7c95e868328f39d040db2bb363d98078e0dc1287aa431c27f7758519",
+      "byteSize": 1238
+    },
+    {
+      "requestId": "daily-page",
+      "url": "https://www.sse.com.cn/market/stockdata/overview/day/",
+      "attemptedAt": "2026-09-10T04:24:07+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-page.body",
+      "contentType": "text/html",
+      "sha256": "56e73bb657f4619d814d6c8fcfbcbdfcd4b902432494b3ed5b54b9e81dfa89f6",
+      "byteSize": 27794
+    },
+    {
+      "requestId": "daily-script",
+      "url": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+      "attemptedAt": "2026-09-10T04:24:08+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_stockData_2021.js",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-script.body",
+      "contentType": "application/javascript",
+      "sha256": "3673d3f8b1cd3d98227af6adbbd0add4b37fb652bdeaeb362325a46d803c5eb8",
+      "byteSize": 189208
+    },
+    {
+      "requestId": "legacy-2005-01-04",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2005-01-04",
+      "attemptedAt": "2026-09-10T04:25:05+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2005-01-04",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2005-01-04.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "d52ddb819347f8074ebdd0a7398058516feb5595fe287c4f82951f1f9381704b",
+      "byteSize": 2086
+    },
+    {
+      "requestId": "legacy-2021-12-20",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-20",
+      "attemptedAt": "2026-09-10T04:27:34+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-20",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-20.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "650a850c592070ef0235829d326812ee78e9a510491917eebe4b27f2fdfe7c99",
+      "byteSize": 3720
+    },
+    {
+      "requestId": "legacy-2021-12-21",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-21",
+      "attemptedAt": "2026-09-10T04:27:35+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-21",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-21.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "24de4bc6b0048df6212cd112a202d69b94f36450b2234b8ff8d86c3ae6dfd85a",
+      "byteSize": 3681
+    },
+    {
+      "requestId": "legacy-2021-12-22",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-22",
+      "attemptedAt": "2026-09-10T04:27:35+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-22",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-22.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "006de57709124accc384b6af069bcb0bc960e9bf90a11c391f655ad8758ae254",
+      "byteSize": 3715
+    },
+    {
+      "requestId": "legacy-2021-12-23",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-23",
+      "attemptedAt": "2026-09-10T04:25:03+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-23",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-23.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "50f3765695c1afb77e3aed0b8df715070c596ac5dca2eb5dee2f7ba5632f1d41",
+      "byteSize": 3721
+    },
+    {
+      "requestId": "legacy-2021-12-24",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-24",
+      "attemptedAt": "2026-09-10T04:25:04+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-24",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-24.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "f4ee7a89db4267dd7ebf6a88f9ba23c8c2420df199aa365acfb63f1bbf841719",
+      "byteSize": 3716
+    },
+    {
+      "requestId": "legacy-2021-12-25",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-25",
+      "attemptedAt": "2026-09-10T04:27:35+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-25",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-25.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2021-12-26",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-26",
+      "attemptedAt": "2026-09-10T04:27:36+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-26",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-26.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2021-12-27",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-27",
+      "attemptedAt": "2026-09-10T04:25:04+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-27",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-27.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2021-12-28",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-28",
+      "attemptedAt": "2026-09-10T04:27:36+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-28",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-28.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2021-12-29",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-29",
+      "attemptedAt": "2026-09-10T04:27:36+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-29",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-29.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2021-12-30",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-30",
+      "attemptedAt": "2026-09-10T04:27:37+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-30",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-30.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2021-12-31",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-31",
+      "attemptedAt": "2026-09-10T04:25:04+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2021-12-31",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2021-12-31.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2022-01-01",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-01",
+      "attemptedAt": "2026-09-10T04:27:37+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-01",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2022-01-01.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2022-01-02",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-02",
+      "attemptedAt": "2026-09-10T04:27:37+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-02",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2022-01-02.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2022-01-03",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-03",
+      "attemptedAt": "2026-09-10T04:27:37+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-03",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2022-01-03.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2022-01-04",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-04",
+      "attemptedAt": "2026-09-10T04:25:05+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-04",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2022-01-04.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2022-01-05",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-05",
+      "attemptedAt": "2026-09-10T04:27:38+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-05",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2022-01-05.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2022-01-06",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-06",
+      "attemptedAt": "2026-09-10T04:27:38+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-06",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2022-01-06.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-2022-01-07",
+      "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-07",
+      "attemptedAt": "2026-09-10T04:27:38+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C&stockType=90&searchDate=2022-01-07",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-2022-01-07.body",
+      "contentType": "application/json;charset=UTF-8",
+      "sha256": "acb0878b12b73a589cb9a62fdddfeb4c4c8011ca9f5aae6d03674b927f05e518",
+      "byteSize": 504
+    },
+    {
+      "requestId": "legacy-page",
+      "url": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+      "attemptedAt": "2026-09-10T04:24:07+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/market/stockdata/overview/day/index_his.shtml",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-page.body",
+      "contentType": "text/html",
+      "sha256": "4c64e9d7b860d8cee8247b30bda04ba6edcadb93cfbad2ee5bfb065e768b5019",
+      "byteSize": 28589
+    },
+    {
+      "requestId": "legacy-script",
+      "url": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+      "attemptedAt": "2026-09-10T04:24:08+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/xhtml/home/public/querySearch/search_addhsl.js",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/legacy-script.body",
+      "contentType": "application/javascript",
+      "sha256": "c2cf4c618dc06baa146affde91fe12514837f48edbbdb161c00e4cc8ce2e66a6",
+      "byteSize": 102309
+    },
+    {
+      "requestId": "monthly-current",
+      "url": "https://www.sse.com.cn/aboutus/publication/monthly/index/",
+      "attemptedAt": "2026-09-10T04:24:09+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/aboutus/publication/monthly/index/",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/monthly-current.body",
+      "contentType": "text/html",
+      "sha256": "5be3effcbb23a283eba6f345325d02b4bce1d9f64b51e65b01b95295b4730a59",
+      "byteSize": 33840
+    },
+    {
+      "requestId": "monthly-index",
+      "url": "https://www.sse.com.cn/aboutus/publication/monthly/documents/",
+      "attemptedAt": "2026-09-10T04:24:09+00:00",
+      "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+      "status": 200,
+      "finalUrl": "https://www.sse.com.cn/aboutus/publication/monthly/documents/",
+      "path": "research-data/market-regime/source-catalog/r2-e/sse/monthly-index.body",
+      "contentType": "text/html",
+      "sha256": "2a993c4665a06352d86eb7ee32c6bc8bd1df0bc4da7254d72adc64c83668b882",
+      "byteSize": 32663
+    }
+  ],
+  "byteLocators": [
+    {
+      "requestId": "daily-page",
+      "artifactSha256": "56e73bb657f4619d814d6c8fcfbcbdfcd4b902432494b3ed5b54b9e81dfa89f6",
+      "byteOffset": 15226,
+      "byteLength": 68,
+      "text": "2021年12月24日之前的每日概况历史数据，请点击此处"
+    },
+    {
+      "requestId": "monthly-index",
+      "artifactSha256": "2a993c4665a06352d86eb7ee32c6bc8bd1df0bc4da7254d72adc64c83668b882",
+      "byteOffset": 15907,
+      "byteLength": 20,
+      "text": "每月15日披露。"
+    }
+  ],
+  "calendar": {
+    "status": "UNKNOWN",
+    "reason": "No complete date-level official calendar and exception/revision history; annual counts cannot identify target days or establish exchange intersection.",
+    "annualCountCrossChecks": [
+      {
+        "year": 2005,
+        "reportedCount": 242,
+        "requestId": "annual-2006",
+        "pageIndex": 5
+      },
+      {
+        "year": 2012,
+        "reportedCount": 243,
+        "requestId": "annual-2013",
+        "pageIndex": 8
+      },
+      {
+        "year": 2021,
+        "reportedCount": 243,
+        "requestId": "annual-2022",
+        "pageIndex": 13
+      },
+      {
+        "year": 2022,
+        "reportedCount": 242,
+        "requestId": "annual-2023",
+        "pageIndex": 12
+      }
+    ],
+    "useAsOfficialDateCalendar": false
+  },
+  "release": {
+    "status": "BLOCKED",
+    "publicationDate": null,
+    "publicationDateTime": null,
+    "releaseAvailableAt": null,
+    "provenFirstReleaseCount": 0,
+    "revisionCompleteness": "UNPROVEN",
+    "scheduleEvidenceLocatorIndex": 1,
+    "scheduleScope": "Monthly publication schedule only; no actual release event constructed from schedule.",
+    "dailyPayloadEvidence": "API observation date, request date, HTTP Date, script update and retrieval timestamp are not market release evidence.",
+    "dateOnlyRule": "Actual market publication date unproven; frozen DATE_ONLY_SAFE cannot be applied."
+  },
+  "definitions": {
+    "status": "PARTIAL_DISCOVERY_ONLY",
+    "apiDefinitionApplicability": "UNPROVEN",
+    "publicationEvidence": [
+      {
+        "requestId": "annual-2006",
+        "pageIndex": 4,
+        "explicitStatisticalWindow": "2003-01-01..2003-12-31",
+        "conflict": "Volume 2006 and 2005 market overview coexist with indicator page explicitly saying 2003; preserve conflict."
+      },
+      {
+        "requestId": "annual-2013",
+        "pageIndex": 2,
+        "explicitStatisticalWindow": "2012-01-01..2012-12-31"
+      },
+      {
+        "requestId": "annual-2022",
+        "pageIndex": 7,
+        "explicitStatisticalWindow": "2021-01-01..2021-12-31"
+      },
+      {
+        "requestId": "annual-2023",
+        "pageIndex": 6,
+        "explicitStatisticalWindow": "2022-01-01..2022-12-31",
+        "termChange": "Total share capital / total cap / non-restricted share capital / non-restricted cap. No API effective date inferred."
+      }
+    ],
+    "fieldMeanings": {
+      "turnoverValue": "Publications distinguish single-side turnover and double-side trading amount; API-era applicability unproven.",
+      "totalMarketCap": "Publication market price times issued quantity, later total share capital; API closing-price/scope/currency applicability unproven.",
+      "negotiableMarketCap": "Publication market price times tradable issued quantity, later non-restricted capital. No free-float identity inferred."
+    }
+  },
+  "history": {
+    "status": "PARTIAL_DISCOVERY_ONLY",
+    "boundaryHintLocatorIndex": 0,
+    "annualEnumerationStatus": "Official annual index archived; four directly linked publications retrieved for definitions and annual counts. Index titles do not close daily vintage evidence.",
+    "probeGrid": {
+      "start": "2021-12-20",
+      "end": "2022-01-07",
+      "civilDateCount": 19,
+      "families": [
+        "legacy-day",
+        "daily-day"
+      ],
+      "requestCount": 38,
+      "reason": "Every civil date around source boundary; empty or populated API response does not establish calendar."
+    },
+    "additionalProbeDates": [
+      "2005-01-04"
+    ],
+    "parsedRequestCount": 40,
+    "nonEmptyRequestCount": 15,
+    "emptyRequestCount": 25,
+    "fullTargetContinuousHistory": "UNPROVEN",
+    "unadmittedWindows": [
+      {
+        "start": "2005-01-01",
+        "end": "2026-09-04",
+        "reason": "Calendar/definition/release gates incomplete for every target observation."
+      }
+    ]
+  },
+  "counts": {
+    "candidateCount": 87,
+    "candidateUnit": "board-field-request-row",
+    "formalCount": 0,
+    "strictPitCount": 0,
+    "byField": {
+      "turnoverValue": 29,
+      "totalMarketCap": 29,
+      "negotiableMarketCap": 29
+    },
+    "priorD1ACandidateCount": 42,
+    "repeatOldDateScopeFieldCount": 9,
+    "combinedUniqueDateScopeFieldCount": 120,
+    "countCaveat": "Discovery deduplication by date/scope/field only; does not choose vintage truth."
+  },
+  "fieldAdmission": [
+    {
+      "field": "turnoverValue",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "PARTIAL_DISCOVERY_ONLY",
+      "pitStatus": "BLOCKED",
+      "eras": [
+        {
+          "start": "2005-01-01",
+          "end": "2019-07-21",
+          "scopeToReview": "MAIN_A",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2019-07-22",
+          "end": "2021-12-24",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-25",
+          "end": "2021-12-26",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": null,
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-27",
+          "end": "2026-09-04",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "daily-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        }
+      ],
+      "remainingBlockers": [
+        "OFFICIAL_CALENDAR_MISSING",
+        "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+        "PIT_VINTAGE_UNPROVEN",
+        "CONTINUOUS_HISTORICAL_RELEASE_ARCHIVE_UNPROVEN"
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": []
+    },
+    {
+      "field": "totalMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "PARTIAL_DISCOVERY_ONLY",
+      "pitStatus": "BLOCKED",
+      "eras": [
+        {
+          "start": "2005-01-01",
+          "end": "2019-07-21",
+          "scopeToReview": "MAIN_A",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2019-07-22",
+          "end": "2021-12-24",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-25",
+          "end": "2021-12-26",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": null,
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-27",
+          "end": "2026-09-04",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "daily-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        }
+      ],
+      "remainingBlockers": [
+        "OFFICIAL_CALENDAR_MISSING",
+        "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+        "PIT_VINTAGE_UNPROVEN",
+        "CONTINUOUS_HISTORICAL_RELEASE_ARCHIVE_UNPROVEN"
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": []
+    },
+    {
+      "field": "negotiableMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "PARTIAL_DISCOVERY_ONLY",
+      "pitStatus": "BLOCKED",
+      "eras": [
+        {
+          "start": "2005-01-01",
+          "end": "2019-07-21",
+          "scopeToReview": "MAIN_A",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2019-07-22",
+          "end": "2021-12-24",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "legacy-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-25",
+          "end": "2021-12-26",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": null,
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        },
+        {
+          "start": "2021-12-27",
+          "end": "2026-09-04",
+          "scopeToReview": "MAIN_A_AND_STAR",
+          "claimedApiFamily": "daily-day",
+          "role": "REVIEW_PARTITION_NOT_PROVEN_ERA",
+          "familyApplicability": "NOT_PROVEN",
+          "definitionApplicability": "NOT_PROVEN",
+          "calendarStatus": "UNKNOWN"
+        }
+      ],
+      "remainingBlockers": [
+        "OFFICIAL_CALENDAR_MISSING",
+        "FIELD_DEFINITION_APPLICABILITY_UNPROVEN",
+        "PIT_VINTAGE_UNPROVEN",
+        "CONTINUOUS_HISTORICAL_RELEASE_ARCHIVE_UNPROVEN",
+        "NEGOTIABLE_VS_FREE_FLOAT_UNPROVEN"
+      ],
+      "formalCount": 0,
+      "strictPitCount": 0,
+      "admittedWindows": []
+    }
+  ],
+  "transitions": [],
+  "formalObservations": [],
+  "limits": {
+    "allPotentialSourcesExhausted": false,
+    "cleanCloneRawReplay": "NOT_RUN_RAW_NOT_DISTRIBUTED",
+    "fullArchiveReplay": "Local raw PDF bytes required; compact replay does not claim full PDF replay.",
+    "officialNetwork": "Recorded 51 bounded acquisitions succeeded.",
+    "notRun": [
+      "Full target daily API sweep: missing calendar/release/era gates; no exhaustive archive claim.",
+      "Historical first-release/revision completeness: no complete authoritative daily release index discovered."
+    ],
+    "visualReview": "PDFium-rendered indicator pages 2006/2013/2022 and annual-count table 2006 reviewed; PDF text is a derived excerpt, not raw source bytes."
+  }
+}

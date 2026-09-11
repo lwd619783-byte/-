@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <title>股票 - 北京证券交易所</title>
+        
+        <!-- 字体编码 -->
+        <meta charset="utf-8" />
+
+        <!-- 关键字 -->
+        <meta name="keywords" content="" />
+
+        <!-- 说明 -->
+        <meta name="description" content="" />
+
+        <!-- 作者 -->
+        <meta name="author" content="" />
+
+        <!-- 设置文档宽度、是否缩放 -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+
+        <!-- 优先使用IE最新版本或chrome -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <!-- 360读取到这个标签立即钱换到极速模式 -->
+        <meta name="renderer" content="webkit" />
+
+        <!-- 禁止百度转码 -->
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+        <!-- UC强制竖屏 -->
+        <meta name="screen-orientation" content="portrait" />
+
+        <!-- QQ强制竖屏 -->
+        <meta name="x5-orientation" content="portrait" />
+
+        <!-- UC强制全屏 -->
+        <meta name="full-scerrn" content="yes" />
+
+        <!-- QQ强制全屏 -->
+        <meta name="x5-fullscreen" content="ture" />
+
+        <!-- QQ应用模式 -->
+        <meta name="x5-page-mode" content="app" />
+
+        <!-- UC应用模式 -->
+        <meta name="browsermode" content="application">
+
+        <!-- window phone 点亮无高光 -->
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <!-- 安卓设备不自动识别邮件地址 -->
+        <meta name="format-detection" name="email=no" />
+
+        <!-- iOS设备 -->
+        <!-- 添加到主屏幕的标题 -->
+        <meta name="apple-mobile-web-app-title" content="标题" />
+
+        <!-- 是否启用webApp全屏 -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <!-- 设置状态栏的背景颜色，启用webapp模式时生效 -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent/black/default" />
+        <!-- 半透明/黑色/默认白色 -->
+
+        <!-- 禁止数字识别为电话号码 -->
+        <meta name="format-detection" content="telephone=no" />
+
+        <!-- 智能添加广告条 -->
+        <meta name="apple-itunes-app" content="app-id=myappstoreID,affiliate-data=myaffiliatedata,app-argument=myurl" />
+        
+		<!-- <link rel="stylesheet" href="/template/6/bluewise/_files/css/marketData/statistical/daily.css" />  -->
+        
+        <link rel="shortcut icon" href="/template/6/bluewise/_files/img/favicon.ico"><!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+         <script src="/template/6/bluewise/_files/js/plugins/respones/html5shiv.min.js"></script>
+          <script src="/template/6/bluewise/_files/js/plugins/respones/respond.min.js"></script>
+         <![endif]-->
+<script src="/template/6/bluewise/_files/js/plugins/requireJS/require.min.js"></script>
+<script id="base" src="/template/6/bluewise/_files/js/main.min.js" data-compress="true" data-debugMode="false" base="/template/6/bluewise/_files"></script>
+        
+		<menu style="display:none;width:0;height:0;">股票</menu>
+    </head>
+    <body>
+    <input type="hidden" id="pageId" value="0"/>
+    	<div class="bg-loading" style="width: 100%;height: 100%;background-color: white;position: fixed;z-index: 9999;"></div>
+        <div id="root">
+            <!--Header-->
+            <div class="mw-header en">
+                <iframe src="../myhead.html" frameborder="0" width="100%" height="140px" scrolling="no"></iframe>
+            </div>
+            <!--/Header-->
+            <!-- menuContainer -->
+            <div class="mw-submenu-container"></div>
+            <!--/menuContainer -->
+            <div class="mw-banner-page">
+               <div class="container">
+<div class="main-title clearfix">
+        <div id="titleSearch" class="fl">股票<span id="overviewContent"></span>
+    </div>
+	<div class="rightNav fr">
+		<span id="mbx"> 
+				<a href="/index.html" title="首页">首页</a><span style="margin:5px;">&gt;</span>
+				<a href="/nq/quotation.html" title="市场数据">市场数据</a><span style="margin:5px;">&gt;</span>
+				<a href="/static/statisticdata.html" title="定期统计">定期统计</a><span style="margin:5px;">&gt;</span>
+				<span data-url="/static/statisticdata.html" data-name="股票">股票</span><span id="rightOverviewContent"></span> 
+		</span>
+	</div>
+</div>               </div>
+            </div>
+            
+            <div class="mw-page">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-12 col-md-9 col-md-push-3">
+                      <div class="context">
+            <div class="mainTitle">股票</div>
+                    
+            <div class="main_tab">
+               <ul id="ulTab" class="nav nav-tabs">
+                  <li class="active">
+                    <a href="#tab_daily" id ="daily" data-toggle="tab">日报</a>
+                  </li>
+                <li>
+                    <a href="#tab_weekly" id ="weekly" data-toggle="tab">周报</a>
+                </li>
+                <li>
+                    <a href="#tab_monthly"  id="monthly" data-toggle="tab">月报</a>
+                </li>
+                <li>
+                    <a href="#tab_specially"  id="special" data-toggle="tab">年度统计</a>
+                </li>
+               
+              </ul>
+                                                      
+            <div id="tabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="tab_daily">
+                	<div class="search clearfix" id="nowDate">
+                         <input type="text" class="date pull-left" value="" name="dailyDate" id="dailyDate" placeholder="日期" />
+                         <input type="button" class="btn btn-default cx" id="dailyList" value="查询"/>
+                     </div> 
+                
+                    <div class="main">
+                        <table class="count hung">
+							<tbody id="dailyReport">
+
+							</tbody>
+					</table>
+                    </div>
+					 <div class="tip" id="dailynote"></div>  
+                </div>
+                <div class="tab-pane fade" id="tab_weekly">
+                    <input type="hidden" value=""  id="weekReport_week_hidden"/>
+                    <div class="search clearfix" id="weekData">
+                        <input type="text" class="date pull-left" value="" name="date" id="weekReport_week" style="width:23%" placeholder="日期"/>
+                        <input type="button" class="btn btn-default cx" id="weeklyList" value="查询"/>
+                    </div> 
+                    
+                     <div class="tm_container">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="tm_active" data-toggle="collapse" data-showmore="true" href="#collapseOne">
+                                                                                                                         一、本周新增上市公司概况
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse in" id="collapseOne">
+                                    <div class="panel-body">
+                                        <table id="tb">
+                                            <tbody id="overviewWeeklyReport" ></tbody>                                          
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseTwo">
+                                                                                                                         二、本周股票发行概况
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseTwo">
+                                    <div class="panel-body">
+                                        <table id="tb" class="tb">
+                                            <tbody id ="issueWeeklyReport" class="bg-bai"></tbody>                                            
+                                        </table>
+                                    </div>
+                                    <div class="tip" id="issue-notices"></div>
+                                </div>
+                            </div>
+                    
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseThree">
+                                                                                                                              三、本周市场交易概况
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseThree">
+                                    <div class="panel-body">
+                                        <table id="tb" class="tb">
+                                            <tbody id="tradeWeeklyReport" class="bg-bai"></tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tip" id="notices"></div>
+                                </div>
+                            </div>
+                    
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseFour">
+                                                                                                                             四、本周上市公司股票成交金额前10名
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseFour">
+                                    <div class="panel-body">
+                                        <table id="tb" class="tb">
+                                         
+											<tbody id="moneyWeeklyReport" class="bg-bai">
+
+											</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseFive">
+                                                                                                                                  五、本周上市公司股票成交数量前10名
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseFive">
+                                    <div class="panel-body">
+                                        <table id="tb" class="tb">                                       
+											<tbody id="numberWeeklyReport" class="bg-bai"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseSix">
+                                                                                                                             六、本周上市公司股票换手率前10名
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseSix">
+                                    <div class="panel-body">
+                                        <table id="tb" class="tb">
+                                                                                      
+											<tbody id="turnoverWeeklyReport" class="bg-bai">
+											</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab_monthly">
+                    <div class="search clearfix" id="mouthData">
+                        <input type="text" class="date pull-left" value="" name="monthlyDate" id="monthlyDate" placeholder="日期" />
+                        <input type="button" class="btn btn-default cx" id="monthlyList" value="查询"/>
+                    </div> 
+                    
+                     <div class="tm_container">
+                        <div class="panel-group" id="accordion1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="tm_active" aria-expanded="true" data-toggle="collapse" data-showmore="true" href="#collapseOnem">
+                                                                                                                                  一、北交所概况统计表
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse in"  aria-expanded="true" id="collapseOnem">
+                                    <div class="panel-body">
+                                        <table class="tb" id="tb">
+										<tbody id="neeqStatistical" class="bg-bai"></tbody>
+                                        </table>
+                                        <div class="tip">
+                                                注：市盈率指标参照《证券期货业统计指标标准指引》规定口径计算。对多只股票计算平均市盈率，以其股票市值合计与其对应的归属母公司净利润合计的比率进行计算（剔除净利润为负的股票）。
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseTwom">
+                                                                                                                                     二、北交所股票成交统计表
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseTwom">
+                                    <div class="panel-body">
+                                        <table class="tb" id="tb">
+											<tbody id="neeqDeal" class="bg-bai"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseThreem">
+                                                                                                                               三、上市公司股票发行统计表
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseThreem">
+                                    <div class="panel-body">
+                                        <table class="tb" id="tb">
+											<tbody id="neeqCompanyPublish" class="bg-bai">
+
+											</tbody>
+                                        </table>
+                                        <div class="tip" id="issue-stat"></div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseFourm">
+                                                                                                                                   四、本月上市公司股票成交金额前10名
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseFourm">
+                                    <div class="panel-body">
+                                        <table class="tb" id="tb">
+											<tbody id="moneyMonthlyReport" class="bg-bai">
+											</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseFivem">
+                                                                                                                              五、本月上市公司股票成交数量前10名
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseFivem">
+                                    <div class="panel-body">
+                                        <table class="tb" id="tb">
+                                          
+											<tbody id="numberMonthlyReport" class="bg-bai">
+											</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-showmore="true" href="#collapseSixm">
+                                                                                                                                     六、本月上市公司股票换手率前10名
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseSixm">
+                                    <div class="panel-body">
+                                        <table class="tb" id="tb">
+                                            
+											<tbody id="turnoverMonthlyReport" class="bg-bai">
+											</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+                <!-- 专题统计 -->
+                <div id="tab_specially" class="tab-pane fade">
+					<div class="search clearfix" id="specialData">
+					    <input  id="keyword" type="text"  maxlength="200" placeholder="关键字" class="input-one pull-left"  data-toggle='date'>
+                        <input type="text" class="date date1 pull-left" value="" name="speciallydate" placeholder="日期" />
+						<input type="hidden" id="startTime" name="startTime" class="form-control"> 
+						<input type="hidden" id="endTime" name="endTime" class="form-control"> 
+                        <input type="button" class="btn btn-default cx" id="speciallyList" value="查询"/>
+                    </div> 
+					<div class="content-block censor small-min-hight">
+						<table class="count hung">
+                            <thead>
+						<tr class='table-gray'>
+							<th style="height:50px;width:67%">标题</th>
+							<th style="height:50px;width:8%">&nbsp;</th>
+							<th style="height:50px;width:25%">日期</th>
+                        </tr>
+                        </thead>
+							<tbody id="specialReport">
+
+							</tbody>
+						</table>
+					</div>
+					<div class="mw-paging page" id="Pagination"></div>
+				</div>
+				<!--估值统计-->
+				
+				<!--估值统计结束 -->
+                </div>
+            </div>               
+        </div>
+                  </div>
+                  <div class="col-md-3 col-md-pull-9 hidden-xs hidden-sm">
+<div class="treeNav clearfix">
+	<input type="hidden" id="curNodeId" value="1506"/>
+	<div class=sideBar>
+		<div class="active sideHeader" dnode="1314">
+			<a href="/nq/quotation.html"><span>市场数据</span></a>
+		</div>
+		<ul class="navMenu">
+			<!-- level 1 -->
+								 <li class="menu" dnode="3147"><span class="arrow">
+<a href="/nq/quotation.html" title="行情信息">行情信息</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="3148"><span><a href="/nq/quotation.html" title="股票行情">股票行情</a></span></li>
+													<li dnode="3149"><span><a href="/bond_market/zqhq.html" title="债券行情">债券行情</a></span></li>
+								</ul>
+								 <li class="menu" dnode="2881"><span class="arrow">
+<a href="/market_data/bse_indices/bse_bz50.html" title="北证指数">北证指数</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="2913"><span><a href="/market_data/bse_indices/bse_bz50.html" title="北证50">北证50</a></span></li>
+													<li dnode="3226"><span><a href="/market_data/bse_indices/bse_zjtx.html" title="北证专精特新">北证专精特新</a></span></li>
+													<li dnode="2883"><span><a href="/bse_index/apply.html" title="指数授权">指数授权</a></span></li>
+								</ul>
+								 <li class="menu" dnode="1498"><span class="arrow">
+<a href="/fenglei/hyfl.html" title="行业分类">行业分类</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="1476"><span><a href="/fenglei/hyfl.html" title="行业分类结果">行业分类结果</a></span></li>
+													<li dnode="1499"><span><a href="/fenglei/hyfl01.html" title="行业分类指引">行业分类指引</a></span></li>
+								</ul>
+								 <li class="menu" dnode="2721"><span class="arrow">
+<a href="/static/statisticdata.html" title="定期统计">定期统计</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="1506"><span><a href="/static/statisticdata.html" title="股票">股票</a></span></li>
+													 <li class="menu" dnode="2871"><span class="arrow">
+<a href="/static/bond_statisticdata.html" title="债券">债券</a>													 </span>
+													 <ul class="subMenu sub_2" style="display:none">
+													 <!-- level 3 -->
+																		<li dnode="2929"><span><a href="/static/bond_statisticdata.html" title="发行情况">发行情况</a></span></li>
+																		<li dnode="3151"><span><a href="/static/xyz_statisticdata.html" title="现券市场概览">现券市场概览</a></span></li>
+																		<li dnode="2930"><span><a href="/static/underwriting.html" title="承销情况">承销情况</a></span></li>
+													</ul>
+								</ul>
+		</ul>
+	</div>
+</div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+ 
+     <!--Footer-->
+            <div class="mw-footer">
+                <iframe src="../myfoot.html" frameborder="0" width="100%" height="80px" scrolling="no"></iframe>
+            </div>
+            <!--/Footer-->
+        </div>
+        <script src="/template/6/bluewise/_files/js/marketData/daily.min.js"></script>
+    </body>
+</html>

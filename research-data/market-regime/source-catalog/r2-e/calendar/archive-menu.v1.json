@@ -1,0 +1,26 @@
+{
+  "kind": "R2_E_ARCHIVE_MENU",
+  "version": "v1",
+  "attempts": [
+    {
+      "exchange": "SSE",
+      "requestedUrl": "https://www.sse.com.cn/xhtml/js/app/menuEvents_2021.js",
+      "discovery": {
+        "kind": "REQUIREJS_MODULE",
+        "parent": "https://www.sse.com.cn/xhtml/js/app/main_2021.js",
+        "text": "./menuEvents_2021"
+      },
+      "attemptedAt": "2026-09-10T04:28:28.402352+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.sse.com.cn/xhtml/js/app/menuEvents_2021.js",
+      "storedBytes": {
+        "localPath": "research-data/market-regime/source-catalog/r2-e/calendar/raw/8bffd658a8735c9d0ec462fcd20ee14fbe97d9976864ae5bb2c3078b7094925d.body",
+        "sha256": "8bffd658a8735c9d0ec462fcd20ee14fbe97d9976864ae5bb2c3078b7094925d",
+        "byteSize": 7041
+      },
+      "outcome": "RETRIEVED",
+      "links": []
+    }
+  ],
+  "contentSha256": "ce7bc2b77950410a62c9fbcfa1b20c2c342faa47cf7e5769e2e4acfd544900bf"
+}

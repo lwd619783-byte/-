@@ -1,0 +1,96 @@
+<div class="sse_list_1 js_listPage" id="sse_list_1" rel=".sse_list_1 dl">
+    <script type="text/javascript" src="/xhtml/js/common/page_list.js" id="pageParam" data="list_9725" url="/disclosure/dealinstruc/closed/list/s_list.shtml"></script>
+    <div id="createPage" class="createPagelist_9725" style="display:none" page_ext="shtml">
+    </div>
+    <dl>
+
+            <dd>
+                <span>
+                    2015-02-04
+                </span>
+                <a href="/disclosure/dealinstruc/closed/list/c/c_20160104_3979239.shtml" title="关于2015年春节休市安排的公告" target="_blank">
+                    关于2015年春节休市安排的公告
+                </a>
+            </dd>
+
+            <dd>
+                <span>
+                    2014-12-24
+                </span>
+                <a href="/disclosure/dealinstruc/closed/list/c/c_20160104_3979217.shtml" title="关于上海证券交易所2015年全年休市安排的通知" target="_blank">
+                    关于上海证券交易所2015年全年休市安排的通知
+                </a>
+            </dd>
+
+            <dd>
+                <span>
+                    2014-08-28
+                </span>
+                <a href="/disclosure/dealinstruc/closed/list/c/c_20160104_3979175.shtml" title="关于2014年中秋节、国庆节休市安排的公告" target="_blank">
+                    关于2014年中秋节、国庆节休市安排的公告
+                </a>
+            </dd>
+
+            <dd>
+                <span>
+                    2014-04-24
+                </span>
+                <a href="/disclosure/dealinstruc/closed/list/c/c_20160104_3979131.shtml" title="关于2014年劳动节休市安排的公告" target="_blank">
+                    关于2014年劳动节休市安排的公告
+                </a>
+            </dd>
+
+            <dd>
+                <span>
+                    2014-03-27
+                </span>
+                <a href="/disclosure/dealinstruc/closed/list/c/c_20160104_3979129.shtml" title="关于2014年清明节休市安排的公告" target="_blank">
+                    关于2014年清明节休市安排的公告
+                </a>
+            </dd>
+
+            <dd>
+                <span>
+                    2014-01-22
+                </span>
+                <a href="/disclosure/dealinstruc/closed/list/c/c_20160104_3979115.shtml" title="关于2014年春节休市安排的公告" target="_blank">
+                    关于2014年春节休市安排的公告
+                </a>
+            </dd>
+
+            <dd>
+                <span>
+                    2013-12-25
+                </span>
+                <a href="/disclosure/dealinstruc/closed/list/c/c_20160104_3979109.shtml" title="关于上海证券交易所2014年全年休市安排的通知" target="_blank">
+                    关于上海证券交易所2014年全年休市安排的通知
+                </a>
+            </dd>
+
+            <dd>
+                <span>
+                    2013-09-11
+                </span>
+                <a href="/disclosure/dealinstruc/closed/list/c/c_20160104_3979100.shtml" title="关于2013年中秋节、国庆节休市安排的通知" target="_blank">
+                    关于2013年中秋节、国庆节休市安排的通知
+                </a>
+            </dd>
+<script>createPageHTML('paging',6, 6,'s_list','shtml',83);</script>
+    </dl>
+</div>
+
+<!--D01换页，跳转页-->
+<div class="page-con-table js_pageTable" style="display:none;">
+    <nav class="table-page page-con hidden-xs">
+        <ul class="pagination">
+
+        </ul>
+    </nav>
+    <!--手机端分页-->
+    <div class="visible-xs mobile-page ">
+        <button type="button" class="btn btn-default navbar-btn">上一页</button>
+        <button type="button" class="btn btn-default navbar-btn next-page">下一页</button>
+    </div>
+    <!--手机端分页 end-->
+</div>
+<!--D01换页，跳转页 end-->

@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "annual-pdf-2021",
+    "url": "https://www.bse.cn/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf",
+    "method": "GET",
+    "discovery": "PARENT_FILE_URL",
+    "parent": "special-list",
+    "byteOffset": 3896,
+    "text": "/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf"
+  },
+  "attemptedAt": "2026-09-10T04:25:41+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/uploads/6/file/public/202509/20250930163032_i0tkqtk8u1.pdf",
+  "contentType": "application/pdf",
+  "bodyPath": "raw/annual-pdf-2021.body",
+  "byteSize": 216780,
+  "sha256": "ae9d9d8ce4c757c55c91f0a0ead8cdcb7d9fe5e015e3f0f9a86672a8fb7a188e"
+}

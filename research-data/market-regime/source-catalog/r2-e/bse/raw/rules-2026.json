@@ -1,0 +1,15 @@
+{
+  "request": {
+    "requestId": "rules-2026",
+    "url": "https://www.bse.cn/jygl_list/200028217.html",
+    "method": "GET",
+    "discovery": "OFFICIAL_SEARCH_RESULT"
+  },
+  "attemptedAt": "2026-09-10T04:24:14+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/jygl_list/200028217.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/rules-2026.body",
+  "byteSize": 158953,
+  "sha256": "f15d8685e71e5686343600d68a7c8c8d11386bee54fc998b5638273c9ae1fbc4"
+}

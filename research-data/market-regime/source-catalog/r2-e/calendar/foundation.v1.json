@@ -1,0 +1,654 @@
+{
+  "kind": "R2_E_CALENDAR_FOUNDATION",
+  "version": "v1",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "retrievalSha256": [
+    "07c030cf7a06ce2081f0211617e279ed170341fab6ba2c7b795b00fa55120fdb",
+    "0949591c75ef7670b92a9f394a4f9564351b6a1bf5cca16dbe92a214f14efe22",
+    "37ddbc48d04f03af80f612a9abd35222960901c6397740369004784da6aa816a",
+    "6441ce5e3b872ca95b69d5d67961f90ad90d4031ce3d4b8370de71d1ea90b30f",
+    "750b1691042bc03d8102f6a40b02e3f4808a628cc35d5e7fba31d47c1a977a5d",
+    "82b49fd4eb3dfc5d3932c5d046b8074b22e71699f765d3a8952231505b1dde16",
+    "b26d05a7a537eea375b6ca78d0b73e46dc0a00dc00a42d398c68c50f856b9f22",
+    "b56c4ca5d2ceac6acb7ca49048736e305c6b9335a784f7aa8fd86e647c95b961",
+    "c94f863efd2414bba9ecaa18b50ee8b7dcbaaeca0e32e8365210a769a476878d",
+    "ce7bc2b77950410a62c9fbcfa1b20c2c342faa47cf7e5769e2e4acfd544900bf",
+    "e8ba1f539359b261a359e19a7a997ae3c924627356c1351c1b91f336eaeec7c1",
+    "eccc3ac5ffdf00e91f124ca691b406c01fb9552ebd2c13650ecfd42b5729fd51",
+    "ee89afce66c3734cd6f4c9d5d250018d74432f5f0b19cbf808ddf904192f2751"
+  ],
+  "inputs": [
+    {
+      "exchange": "BSE",
+      "path": "config/market-regime/bse-source-contract.v1.json",
+      "contentSha256": "6db5bf835c6a69d2d4c2371a3e42203bf6007fa9803400b971ddfc8b21a82180",
+      "boundedSourceCalendar": {
+        "calendarVersion": "bse-official-bounded-facts-v1",
+        "status": "PARTIAL",
+        "officialTradingDayTargetCount": null,
+        "r2CalendarStatus": "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+        "windows": [
+          {
+            "start": "2026-01-01",
+            "end": "2026-01-05",
+            "openDates": [
+              "2026-01-05"
+            ],
+            "closedDates": [
+              "2026-01-01",
+              "2026-01-02",
+              "2026-01-03",
+              "2026-01-04"
+            ],
+            "proof": {
+              "requestId": "calendar-2026",
+              "byteOffset": 15251,
+              "byteLength": 669,
+              "text": "<p style=\";text-align: justify;font-family: Calibri;font-size: 14px;white-space: normal;text-indent: 31px;line-height: 28px\"><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">（一）元旦：1月</span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\"><span style=\"font-family:微软雅黑\">1</span></span><span style=\"font-family: 微软雅黑;line-height: 30.6667px;color: rgb(109, 109, 109);font-size: 15px\">日（星期四）至1月3日（星期六）休市。1月4日（星期日）为周末休市。1月5日（星期一）起照常开市。</span></p>"
+            }
+          },
+          {
+            "start": "2021-11-15",
+            "end": "2021-11-15",
+            "openDates": [
+              "2021-11-15"
+            ],
+            "closedDates": [],
+            "proof": {
+              "requestId": "introduce",
+              "byteOffset": 5132,
+              "byteLength": 29,
+              "text": "2021年11月15日开市交易"
+            }
+          }
+        ]
+      },
+      "fullOfficialCalendarStatus": "UNKNOWN",
+      "officialTradingDayTargetCount": null,
+      "r2CalendarStatus": "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+      "unprovenWindow": {
+        "start": "2021-11-15",
+        "end": "2026-09-04"
+      }
+    },
+    {
+      "exchange": "SSE",
+      "path": "config/market-regime/sse-source-contract.v1.json",
+      "contentSha256": "6f4c66ba0d2f3a163ee9aefd73b2f27345dfe08dcd1ad6eb8c304cb8a6b27202",
+      "boundedSourceCalendar": {
+        "calendarVersion": "sse-2020-holiday-revision-6-bounded-v1",
+        "start": "2020-01-31",
+        "end": "2020-02-03",
+        "closedDates": [
+          "2020-01-31",
+          "2020-02-01",
+          "2020-02-02"
+        ],
+        "openDates": [
+          "2020-02-03"
+        ],
+        "supersedes": [
+          "sse-announcement-2019-65-original-opening"
+        ],
+        "proofs": [
+          {
+            "fileName": "calendar-2020-original.body",
+            "text": "上证公告〔2019〕65号"
+          },
+          {
+            "fileName": "calendar-2020-original.body",
+            "text": "二〇一九年十二月二十日"
+          },
+          {
+            "fileName": "calendar-2020-original.body",
+            "text": "（二）春节：1月24日（星期五）至1月30日（星期四）休市，1月31日（星期五）起照常开市。另外，1月19日（星期日）、2月1日（星期六）为周末休市。"
+          },
+          {
+            "fileName": "calendar-2020-revision.body",
+            "text": "一、延长2020年春节休市至2月2日（星期日），2月3日（星期一）正常开市。"
+          },
+          {
+            "fileName": "calendar-2020-revision.body",
+            "text": "上证公告〔2020〕6号"
+          },
+          {
+            "fileName": "calendar-2020-revision.body",
+            "text": "二○二○年一月二十七日"
+          }
+        ]
+      },
+      "fullOfficialCalendarStatus": "UNKNOWN",
+      "officialTradingDayTargetCount": null,
+      "r2CalendarStatus": "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+      "unprovenWindow": {
+        "start": "2005-01-01",
+        "end": "2026-09-04"
+      }
+    },
+    {
+      "exchange": "SZSE",
+      "path": "config/market-regime/szse-source-contract.v1.json",
+      "contentSha256": "a5bd291da7de39f5037b6400e3d3e0146322e494027390b44975c3c823cda3eb",
+      "boundedSourceCalendar": {
+        "calendarVersion": "szse-2020-spring-revision-bounded-v1",
+        "start": "2020-01-31",
+        "end": "2020-02-03",
+        "closedDates": [
+          "2020-01-31",
+          "2020-02-01",
+          "2020-02-02"
+        ],
+        "openDates": [
+          "2020-02-03"
+        ],
+        "supersedes": [
+          "szse-2020-spring-original-opening"
+        ],
+        "proofs": [
+          {
+            "requestId": "calendar-original",
+            "text": "<p class=\"MsoPlainText\" style=\"text-indent: 24.0pt; mso-char-indent-count: 2.0; line-height: 200%;\"><span style=\"font-size: 12pt; line-height: 200%; font-family: 宋体;\">（二）春节：<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">24</span>日（星期五）至<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">30</span>日（星期四）休市，<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">31</span>日（星期五）起照常开市。另外，<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">19</span>日（星期日）、<span lang=\"EN-US\">2</span>月<span lang=\"EN-US\">1</span>日（星期六）为周末休市。<span lang=\"EN-US\"><o:p></o:p></span></span></p>"
+          },
+          {
+            "requestId": "calendar-revision",
+            "text": "<div class=\"time\">时间：<span>2020-01-27</span></div>"
+          },
+          {
+            "requestId": "calendar-revision",
+            "text": "<p class=\"MsoNormal\" style=\"line-height: 200%; font-size: 16px; text-indent: 2em;\"><span style=\"font-size: 12.0pt; line-height: 200%; font-family: 宋体; mso-ascii-theme-font: minor-fareast; mso-fareast-font-family: 宋体; mso-fareast-theme-font: minor-fareast; mso-hansi-theme-font: minor-fareast; mso-bidi-font-family: 'Times New Roman';\">一、延长<span lang=\"EN-US\">2020</span>年春节休市至<span lang=\"EN-US\">2</span>月<span lang=\"EN-US\">2</span>日（星期日），<span lang=\"EN-US\">2</span>月<span lang=\"EN-US\">3</span>日（星期一）起照常开市。<span lang=\"EN-US\"><o:p></o:p></span></span></p>"
+          },
+          {
+            "requestId": "calendar-spring",
+            "text": "<p class=\"MsoNormal\" style=\"text-indent: 24.0pt; mso-char-indent-count: 2.0; line-height: 200%; mso-pagination: widow-orphan; layout-grid-mode: char;\"><span lang=\"EN-US\" style=\"font-size: 12.0pt; line-height: 200%; font-family: 宋体; mso-ascii-theme-font: minor-fareast; mso-fareast-theme-font: minor-fareast; mso-hansi-theme-font: minor-fareast;\">1</span><span style=\"font-size: 12.0pt; line-height: 200%; font-family: 宋体; mso-ascii-theme-font: minor-fareast; mso-fareast-theme-font: minor-fareast; mso-hansi-theme-font: minor-fareast;\">月<span lang=\"EN-US\">24</span>日（星期五）至<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">30</span>日（星期四）休市，<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">31</span>日（星期五）起照常开市。另外，<span lang=\"EN-US\">1</span>月<span lang=\"EN-US\">19</span>日（星期日）、<span lang=\"EN-US\">2</span>月<span lang=\"EN-US\">1</span>日（星期六）为周末休市。<span lang=\"EN-US\"><o:p></o:p></span></span></p>"
+          }
+        ]
+      },
+      "fullOfficialCalendarStatus": "UNKNOWN",
+      "officialTradingDayTargetCount": null,
+      "r2CalendarStatus": "BLOCKED_LITERAL_ISO_LOCATOR_REQUIRED",
+      "unprovenWindow": {
+        "start": "2005-01-01",
+        "end": "2026-09-04"
+      }
+    }
+  ],
+  "officialNotices": [
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20170322_4255091.shtml",
+      "title": "关于2017年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "02e6e3324a1c19d0e216c563b7100fa9382c024810b9bdb9641561269ef81678"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979175.shtml",
+      "title": "关于2014年中秋节、国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "06be3506bcfad6a0e38fd9ad249b5c84a32eb327e59c8ee1e1b1851a3e4a054d"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979131.shtml",
+      "title": "关于2014年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "0af7959624cc41b1083f185670183c2ed26ce575069c2562e0ea94c6eab5d8bc"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20190326_4745520.shtml",
+      "title": "关于2019年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "0c1b891d3b0eb391955c906c0d987b81a3ca70873ae78503b3d8bf8f4fdd937f"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260205_10808618.shtml",
+      "title": "关于2026年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "0e05934820bcd89e88165e7725d14c9b5463ca7ad24b049a9b1aef5fcd44085e"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979100.shtml",
+      "title": "关于2013年中秋节、国庆节休市安排的通知 | 上海证券交易所",
+      "rawSha256": "114fcb697c3410a3e25d4f9d6fff4b50263a7609d4869deaae8232b4411e30a1"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200917_5220000.shtml",
+      "title": "关于2020年国庆节、中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "1517a5850426632485a26bb60c75e2d21ed31d71bc580a140cd5a83c69baf427"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20230421_5720474.shtml",
+      "title": "关于2023年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "1578b503f6b420d7f7a5aefe158af0eb652d27dc8fe215f8b1b06c285a02fa52"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240425_10753715.shtml",
+      "title": "关于2024年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "17f1899058ffd6aae2c489077718063d47f1b0616cbaa63482a104b321bf6ea4"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20230920_5726863.shtml",
+      "title": "关于2023年中秋节、国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "272df9846c0b67f806c868f215637efa67f4c8b20218ec0ea35bae3302bc77f9"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20220922_5709385.shtml",
+      "title": "关于2022年国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "2d843ad04b089653522f01eee4389784dbf7ccf26d709cec46750b4ffdb4745a"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979263.shtml",
+      "title": "关于2015年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "2f25de6d124bb863c7292c15d09e3df23ff42188bb9920010d56d7c38e7cdcb9"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979217.shtml",
+      "title": "关于上海证券交易所2015年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "30bafe4c4a5385ac228602383cd687a270957a2e63d861c1f775279d4f1122f0"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200611_5123178.shtml",
+      "title": "关于2020年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "34ff89f572a70be26b44baf3f2a77b833f9b30a1dae84d5f8a54c6c43600f3da"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20161222_4218613.shtml",
+      "title": "关于上海证券交易所2017年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "3f18c317a52e9bee47b5be770141f4f86615b9caa5f9b7b0bedf81d7236cec20"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20231226_5733939.shtml",
+      "title": "关于上海证券交易所2024年部分节假日休市安排的通知 | 上海证券交易所",
+      "rawSha256": "402ccc7431dd80f2ebece21bb8d8701f4d7b079326a9102aa657ef6bc9c41125"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200115_4985019.shtml",
+      "title": "关于2020年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "43b567f3474842969edf8d164795a95ca3eb726bc9b5f07cff52c561359c3039"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240919_10762012.shtml",
+      "title": "关于2024年国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "4643ce1d1cddb32f5de7f476502d8f9c0f5883c93171ca1f08d7e3b695d6ed2e"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20221227_5714458.shtml",
+      "title": "关于上海证券交易所2023年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "46b301280c2109b8f632ee2cd7f9da8220a4e1402bb8a105252b2d9e7c8a1bd0"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20171222_4438363.shtml",
+      "title": "关于上海证券交易所2018年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "495b1e238b478f5d66b6496c5e77a92ab20d1b67a221378a87aa7e68636eda12"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20180912_4643051.shtml",
+      "title": "关于2018年中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "4ac0f8939cfcbd2e08d1e17d87e440e0717ffad53e307fb3bc0b936f1e52fcde"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20251222_10802507.shtml",
+      "title": "关于上海证券交易所2026年部分节假日休市安排的通知 | 上海证券交易所",
+      "rawSha256": "4e260b815ce1309175ed994e6490a4ccd51b998a5f92bcdc41cec00fc6823dc7"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20230615_5722605.shtml",
+      "title": "关于2023年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "4ea281efbaad752d8a0b096dba5b9b41b3cbd315d075f72e2b29a464316ed7fe"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260331_10813622.shtml",
+      "title": "关于2026年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "4f986a033cb4e2a2b13ce33fce50bc0de1edc9520b72f5d43fd4d1c561b2064a"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250123_10770570.shtml",
+      "title": "关于2025年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "50d3829daf55712ce9c21ec176157dc5b34ca7c98122d6d1b93d5134244236f1"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20170419_4277955.shtml",
+      "title": "关于2017年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "571d73b35b64e865e9f64208ff7198cd44dceb26efd3f1dd8f3d18c4ab9f6680"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20180606_4567900.shtml",
+      "title": "关于2018年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "58c3ec7a1a5148ac32993c18849e495f625d6dd82f43775fadcaf567640ece2b"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20210923_5595625.shtml",
+      "title": "关于2021年国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "5f136f8973e5b735c472d6bb35b8caedfea217cadb43dbb767a79d979c429ec9"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200416_5040105.shtml",
+      "title": "关于2020年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "62382f3ecd0b6c1b4c270cd579a465cd64133e7854a8dcee3972999214f06a51"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20210603_5481611.shtml",
+      "title": "关于2021年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "6454fca37c7b00a48456c791405c3a4457b7c20ad329e2f8d114ab245a0d7c18"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20160519_4116157.shtml",
+      "title": "关于2016年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "69a0cfa3836dbe9dd364982f87d3d57076535e479deed212ffd6684f975480d4"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979272.shtml",
+      "title": "关于2015年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "73387a78962346fd5a0daad0a8e87f0aeb1783eb3a355a7c45856bee7db93b30"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20180919_4646933.shtml",
+      "title": "关于2018年国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "74dedd9d2d2b43a508a40e22d3f2fe5015e0acf5aa868f3f8edeb09e68ab1fb6"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240131_5735213.shtml",
+      "title": "关于2024年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "751bed8049cb962e6cccf6d2449ca60a90ac852b76c89863019699c0e151b760"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250327_10776462.shtml",
+      "title": "关于2025年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "7a7a32ded7023d6a3286c4e746b778ebb6cda6716280c623a6b696def344634b"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20220420_5701149.shtml",
+      "title": "关于2022年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "7c354af179792d437e7b1320aec9cc7c1e82816e511263c40b957c1aedd4daf5"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20191220_4969627.shtml",
+      "title": "关于上海证券交易所2020年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "7e886e6f67eef7f3e94f4c5db5453335526a9e67efc2e6205ab43a709c1b7799"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979337.shtml",
+      "title": "关于中国人民抗日战争暨世界反法西斯战争胜利70周年纪念日休市安排的公告 | 上海证券交易所",
+      "rawSha256": "7f673a2e1cd3fa6905045598f23200649f6e8b9bc78b3b78a653d3c0d5d23070"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20190903_4909639.shtml",
+      "title": "关于2019年中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "84c6e90aafbdb157d2a6dbc4f4aa8eeb4fbdc1298db7c401845499c2cb8e3d59"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20190528_4827252.shtml",
+      "title": "关于2019年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "88a0a052808d1549678b0641f0ed01af090431b719333fe95bb6974b924f1537"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20210909_5585128.shtml",
+      "title": "关于2021年中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "892bc6270c6852cc0f68f43c6d3069c20f8867627f233dc0eda1122236f17f19"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20210421_5386919.shtml",
+      "title": "关于2021年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "8e089398d4f50ec54908098d4c44ecaf2dc3efce63d65c1113012b57ce3330fe"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20211220_5662606.shtml",
+      "title": "关于上海证券交易所2022年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "9183bd346675fd363b3bb4951eec21dc03ad7e65c25509350a9947b42fc127e1"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979306.shtml",
+      "title": "关于2015年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "95735ea926df3746b500a74ed7a6c86720d81203a2b337e3c7387145bd72c2da"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240905_10761311.shtml",
+      "title": "关于2024年中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "9e1782f8e81fa59c993fa0ed9e37091d729083a843eff071f83ab081a7c1b2f2"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20200319_5013162.shtml",
+      "title": "关于2020年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "a64541bd80de450c9a94bccd243d2dba6962d5b4d3512a853050820f9cf7aa99"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979109.shtml",
+      "title": "关于上海证券交易所2014年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "a6eb2780cd71c833226cbb4e6fc746c4e89c97c25627e01a35d36569a733a5c1"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20230113_5715141.shtml",
+      "title": "关于2023年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "a821efbdd19a698aed3710a20ac26c6941715da60340a35d7ad5f85257e2b932"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20190124_4714710.shtml",
+      "title": "关于2019年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "a9254d518d4c5233bbb036f5f59dc3d1ba24d674906268d09e30112265499075"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20180320_4477161.shtml",
+      "title": "关于2018年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "abec8c56d60870a6013011286651f4b66ebaa40ee10a1b6de6643edb2930f9e2"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250925_10792976.shtml",
+      "title": "关于2025年国庆节、中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "b587eadba8fc24d097028039278b5fa7a1fccb1ab6ed69ce619c8fb5d686ce54"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_4028872.shtml",
+      "title": "关于上海证券交易所2016年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "b6385ed32912deb290835898277d4e6c0ab98402a5cdfe17740c86d0a97aadde"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20170518_4312827.shtml",
+      "title": "关于2017年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "b792ae17df0a8f9d45676af0cde4a634acf51b3452f5c2f45cb27b27190a630b"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20190919_4917419.shtml",
+      "title": "关于2019年国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "b7d18f7b2ffdafe4038d6d4a94e845b7d4e4ec032b50b2ce62a30b8257bcbec3"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20241223_10767108.shtml",
+      "title": "关于上海证券交易所2025年部分节假日休市安排的通知 | 上海证券交易所",
+      "rawSha256": "b88e5777d868192c156b85f7514fafcba8638a8bcec0cd80190b2e67769f5fff"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20220120_5688118.shtml",
+      "title": "关于2022年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "bc1d9c8e4eb7d4aa224b4a4adefd08e9488277d26078140e853b837555ffeb3d"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250424_10777645.shtml",
+      "title": "关于2025年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "bd23303d77e09ad23ed74e6b2a4b46176f782df956b50c0557e61b44fbb5ad5d"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20220526_5702578.shtml",
+      "title": "关于2022年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "c164ae77d4f1650dc1e821465b31444c837e1cb49d9c8d278f3ac203cc2ef849"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240321_5736604.shtml",
+      "title": "关于2024年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "c3de80d13ae048572bb08dd40bbf4b3766d5430aeaf920a0f41483a62fcf8f0d"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20190418_4771364.shtml",
+      "title": "关于调整2019年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "c5af509538194130b7917e88b52b8218be898003118a68d477721c1a4600beb2"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20201224_5286949.shtml",
+      "title": "关于上海证券交易所2021年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "c600f2a8a2839921b4c2c375054a7845fbbc9e795d32da8c6ff6ccb63ff6a1cc"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20170921_4392795.shtml",
+      "title": "关于2017年国庆节、中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "c91e638ea2cb0bac41a613306d643599a1af9831a8d6800fcd05f105babf0a0a"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3990048.shtml",
+      "title": "关于2015年中秋节、国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "d0481be19159abd74c7b294ba6922e48b050be043c1c8592ea9b987274f829a9"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20160317_4059388.shtml",
+      "title": "关于2016年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "d08d7080300f8bd557b8975c55eecf5fc8d07f17e0d24ef9f49a7a0cbe882eb3"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20220901_5707975.shtml",
+      "title": "关于2022年中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "d1f16d2ebf57c3d1dcaa3c9a31b78f9fa06051b02e9b0f04e8893e2ba29c5581"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20240530_10758158.shtml",
+      "title": "关于2024年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "d233bc18022d041e33515d8b9f67c43262b5312d6f546c6a86cdaa96796ee232"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20210325_5348355.shtml",
+      "title": "关于2021年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "d995b1158c0ef12e911b7198ddddf4a15d8e0616047849014f1bfb78ae9ed6a1"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979129.shtml",
+      "title": "关于2014年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "da793f868ef1d49ad6b4a5923cf40612202bd2b5897c65b4db7000636d6c0f13"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20181220_4696473.shtml",
+      "title": "关于上海证券交易所2019年全年休市安排的通知 | 上海证券交易所",
+      "rawSha256": "db0af9294621c73cbae7e55703d6e801da4aa5f1ac273e955e0622f254983950"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20180417_4504591.shtml",
+      "title": "关于2018年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "dcc522ca6af4554137b434f6477e93b56ad32b52f7e79a58f74b31d367829ee6"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20250522_10779724.shtml",
+      "title": "关于2025年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "e4a0673d9174cb93881a2ee8e2c9d9d7ddfa6ee067e510b4abc37b9b31014e01"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20160906_4174153.shtml",
+      "title": "关于2016年中秋节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "e4d7adc91fdb58abe6e19a7e269ac9d197626b8e6a287cfdcf17eafeae4a37fa"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260423_10816345.shtml",
+      "title": "关于2026年劳动节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "e8776887c63a02790aa89c5c7ff683e5321927a7a8068b62b4614af84cc5cc26"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979239.shtml",
+      "title": "关于2015年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "e89281d104d5e4c040a7342e882c194c4c55ac08659ba872413ef57837cb1512"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20210204_5317499.shtml",
+      "title": "关于2021年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "e95d30e2fa8f83ca69a443119dfd8962c5f70cd0bc61e1cc26eb13aa8063d5ca"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20230323_5718457.shtml",
+      "title": "关于2023年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "ec4f6f0358898e06c2f2121c74f6f2f74dfbef14dd724e23dd93715c13351fa7"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20180208_4461288.shtml",
+      "title": "关于2018年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "ed146b1d1c1e404271892f2477935a5a609cf4d134ce20c504b25c950a4bd0f4"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20160122_4039127.shtml",
+      "title": "关于2016年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "f2e2fc6bb120d9a13a04349ac760597c9560a8b227788ecbdee822df1ed5db88"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20160922_4180466.shtml",
+      "title": "关于2016年国庆节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "f449c30ddde3556bfbaa9277c31a84d8fda680f92f8f8a6fd868322d817498f7"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20220324_5700190.shtml",
+      "title": "关于2022年清明节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "f6ca8fc01d606980b21f0a339c41faed75d6c6e953bdc644fc309bc4a663f7e6"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20260611_10821419.shtml",
+      "title": "关于2026年端午节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "fbcc0ba031d3d720aecf744557c882e562d18b47056f5854d2dcfdf6712d04b5"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/announcement/general/c/c_20170112_4227374.shtml",
+      "title": "关于2017年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "fcee8780077e8af80d1f85c5f2e084f88893420b743191cdc5a79d507114a810"
+    },
+    {
+      "url": "https://www.sse.com.cn/disclosure/dealinstruc/closed/list/c/c_20160104_3979115.shtml",
+      "title": "关于2014年春节休市安排的公告 | 上海证券交易所",
+      "rawSha256": "fd1210379289362331f3c731ef4fc83d5e7df6fadcc7fc7f21ab1927b41b8fa5"
+    }
+  ],
+  "requestCount": 104,
+  "retrievedCount": 103,
+  "blockedRetrievals": [
+    {
+      "exchange": "BSE",
+      "requestedUrl": "https://www.bse.cn/disclosure/tradingtips.html",
+      "discovery": {
+        "kind": "OFFICIAL_SEARCH_DISCOVERY",
+        "parent": null
+      },
+      "attemptedAt": "2026-09-10T04:24:36.382830+00:00",
+      "httpStatus": 302,
+      "finalUrl": "https://www.bse.cn/disclosure/tradingtips.html",
+      "storedBytes": {
+        "localPath": "research-data/market-regime/source-catalog/r2-e/calendar/raw/753e0dd54f28c4f7009b9c0b18a68aed175416bd8b7d134858264586eaac56f0.body",
+        "sha256": "753e0dd54f28c4f7009b9c0b18a68aed175416bd8b7d134858264586eaac56f0",
+        "byteSize": 138
+      },
+      "outcome": "HTTP_ERROR",
+      "links": []
+    }
+  ],
+  "status": "UNKNOWN",
+  "targetCount": null,
+  "dailyGrid": null,
+  "eraDenominators": [
+    {
+      "marketScopeVersionId": "all-a-sse-szse-pre-bse",
+      "start": "2005-01-01",
+      "end": "2021-11-14",
+      "requiredExchanges": [
+        "SSE",
+        "SZSE"
+      ],
+      "targetCount": null,
+      "status": "UNKNOWN",
+      "reasons": [
+        "CALENDAR_REVISION_ENUMERATION_UNPROVEN",
+        "COMPLETE_OFFICIAL_SESSION_ENUMERATION_UNPROVEN",
+        "R2_LITERAL_DATE_LOCATOR_NOT_SATISFIED"
+      ]
+    },
+    {
+      "marketScopeVersionId": "all-a-sse-szse-bse-v2",
+      "start": "2021-11-15",
+      "end": "2026-09-04",
+      "requiredExchanges": [
+        "BSE",
+        "SSE",
+        "SZSE"
+      ],
+      "targetCount": null,
+      "status": "UNKNOWN",
+      "reasons": [
+        "CALENDAR_REVISION_ENUMERATION_UNPROVEN",
+        "COMPLETE_OFFICIAL_SESSION_ENUMERATION_UNPROVEN",
+        "R2_LITERAL_DATE_LOCATOR_NOT_SATISFIED"
+      ]
+    }
+  ],
+  "evidenceLimit": "Current official pages and explicitly linked notices are retrieval evidence only. No weekday, annual-count, daily-response or cross-exchange inference. Full historical archive enumeration remains incomplete.",
+  "contentSha256": "e4c9f2e75d42362eed2951c2e78bf276cd6f6fd7df1c9f6f565f1e8a50ca3ebc"
+}

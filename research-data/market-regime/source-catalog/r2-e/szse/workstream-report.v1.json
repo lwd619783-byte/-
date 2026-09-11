@@ -1,0 +1,258 @@
+{
+  "schemaVersion": "1.0.0",
+  "workstream": "R2-E_SZSE",
+  "status": "PARTIAL_EVIDENCE_NOT_DATA_ADMISSION",
+  "datasetAsOf": "2026-09-07T08:00:00+08:00",
+  "targetWindow": {
+    "start": "2005-01-01",
+    "end": "2026-09-04"
+  },
+  "calendar": {
+    "status": "UNKNOWN",
+    "targetCount": null,
+    "reason": "No complete explicit A-share open-date list; annual total trading days is max(A,B), not an A-only date list",
+    "evidenceRefs": [
+      {
+        "evidenceId": "year-2022-history",
+        "pageNumber": 4
+      }
+    ]
+  },
+  "sourceIdentity": {
+    "yearbook2022": "OFFICIAL_SZSE_PDF_WITH_INDEX_LINK_AND_FULL_BYTES",
+    "existingDailyApi": "FROZEN_D1B_UNCHANGED"
+  },
+  "counts": {
+    "newCandidateCount": 484,
+    "newCandidateDateCount": 242,
+    "priorD1bCandidateCount": 45,
+    "combinedDistinctFamilyCandidateCount": 529,
+    "formalCount": 0,
+    "strictPitCount": 0
+  },
+  "fieldMatrix": [
+    {
+      "exchange": "SZSE",
+      "field": "turnoverValue",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_BUT_DAILY_ERA_BINDING_UNPROVEN",
+      "definitionEvidenceIds": [
+        "year-2005",
+        "year-2022-history",
+        "year-2023-explanations"
+      ],
+      "fieldBlockers": [
+        "DAILY_API_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "A_MEMBERSHIP_FOR_BOARD_ONLY_LABEL_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "OFFICIAL_ALL_A_TRADING_CALENDAR_INCOMPLETE",
+        "MARKET_RELEASE_EVENT_UNPROVEN",
+        "HISTORICAL_BYTES_AVAILABLE_AT_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "REVISION_ARCHIVE_UNPROVEN",
+        "DAILY_HISTORY_COMPLETENESS_UNPROVEN"
+      ],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2009-10-29",
+          "era": "MAIN_SME"
+        },
+        {
+          "start": "2009-10-30",
+          "end": "2021-04-05",
+          "era": "MAIN_SME_CHINEXT"
+        },
+        {
+          "start": "2021-04-06",
+          "end": "2026-09-04",
+          "era": "MAIN_CHINEXT"
+        }
+      ],
+      "candidateCount": 242,
+      "priorD1bCandidateCount": 15,
+      "formalCount": 0,
+      "strictPitCount": 0
+    },
+    {
+      "exchange": "SZSE",
+      "field": "totalMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_BUT_DAILY_ERA_BINDING_UNPROVEN",
+      "definitionEvidenceIds": [
+        "year-2005",
+        "year-2022-history",
+        "year-2023-explanations"
+      ],
+      "fieldBlockers": [
+        "DAILY_API_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "A_MEMBERSHIP_FOR_BOARD_ONLY_LABEL_UNPROVEN"
+      ],
+      "sourceBlockers": [
+        "OFFICIAL_ALL_A_TRADING_CALENDAR_INCOMPLETE",
+        "MARKET_RELEASE_EVENT_UNPROVEN",
+        "HISTORICAL_BYTES_AVAILABLE_AT_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "REVISION_ARCHIVE_UNPROVEN",
+        "DAILY_HISTORY_COMPLETENESS_UNPROVEN"
+      ],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2009-10-29",
+          "era": "MAIN_SME"
+        },
+        {
+          "start": "2009-10-30",
+          "end": "2021-04-05",
+          "era": "MAIN_SME_CHINEXT"
+        },
+        {
+          "start": "2021-04-06",
+          "end": "2026-09-04",
+          "era": "MAIN_CHINEXT"
+        }
+      ],
+      "candidateCount": 242,
+      "priorD1bCandidateCount": 15,
+      "formalCount": 0,
+      "strictPitCount": 0
+    },
+    {
+      "exchange": "SZSE",
+      "field": "negotiableMarketCap",
+      "status": "NOT_ADMITTED",
+      "definitionStatus": "OFFICIAL_EVIDENCE_FOUND_BUT_DAILY_ERA_BINDING_UNPROVEN",
+      "definitionEvidenceIds": [
+        "month-2026-06-overview",
+        "csrc-2025-indicators"
+      ],
+      "fieldBlockers": [
+        "DAILY_API_DEFINITION_ERA_APPLICABILITY_UNPROVEN",
+        "A_MEMBERSHIP_FOR_BOARD_ONLY_LABEL_UNPROVEN",
+        "NEGOTIABLE_NOT_PROVEN_FREE_FLOAT",
+        "YEARBOOK_DAILY_NEGOTIABLE_FIELD_NOT_EXTRACTED"
+      ],
+      "sourceBlockers": [
+        "OFFICIAL_ALL_A_TRADING_CALENDAR_INCOMPLETE",
+        "MARKET_RELEASE_EVENT_UNPROVEN",
+        "HISTORICAL_BYTES_AVAILABLE_AT_UNPROVEN",
+        "FIRST_RELEASE_UNPROVEN",
+        "REVISION_ARCHIVE_UNPROVEN",
+        "DAILY_HISTORY_COMPLETENESS_UNPROVEN"
+      ],
+      "unadmittedWindows": [
+        {
+          "start": "2005-01-01",
+          "end": "2009-10-29",
+          "era": "MAIN_SME"
+        },
+        {
+          "start": "2009-10-30",
+          "end": "2021-04-05",
+          "era": "MAIN_SME_CHINEXT"
+        },
+        {
+          "start": "2021-04-06",
+          "end": "2026-09-04",
+          "era": "MAIN_CHINEXT"
+        }
+      ],
+      "candidateCount": 0,
+      "priorD1bCandidateCount": 15,
+      "formalCount": 0,
+      "strictPitCount": 0
+    }
+  ],
+  "releaseEvidence": {
+    "officialYearIndexPublicationPrecision": "YEAR_ONLY_NOT_DATE_ONLY_SAFE",
+    "marketReleaseDate": null,
+    "releaseAvailableAt": null,
+    "firstRelease": "UNPROVEN",
+    "revisionArchive": "UNPROVEN",
+    "reason": "Current index and raw retrieval prove current availability only; observation year, URL timestamp, year-of-publication, and HTTP timestamps are not exact historical market release events or bytes-vintage bindings."
+  },
+  "archive": {
+    "indexYears": [
+      1998,
+      1999,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "indexCount": 28,
+    "retrievedYearbooks": [
+      2005,
+      2022,
+      2023
+    ],
+    "newParsedCandidateWindow": {
+      "start": "2022-01-04",
+      "end": "2022-12-30",
+      "dateCount": 242,
+      "scope": "CHINEXT_BOARD_LABEL_ONLY"
+    },
+    "continuousHistoryStatus": "NOT_PROVEN_FOR_ALL_A",
+    "notRun": "Other 25 discovered yearbook PDFs were not retrieved; no claim that all official archives or revisions have been exhausted.",
+    "largeRawDisposition": "Four PDFs larger than 2 MB retained in ignored research-data/market-regime/raw/r2-e-szse; six small raw files committed.",
+    "freshCheckoutReplay": "NOT_RUN_MISSING_RAW for four PDFs; compact checks committed bytes and sidecars only. Full PDF cell and text replay requires local raw."
+  },
+  "limitations": [
+    "Yearbook definitions apply to their own tables; no inheritance into 1803_sczm daily API across eras.",
+    "Yearbook 2022 turnover native unit is 亿元人民币; market cap native unit is 10亿元人民币. Raw units preserved; no normalized formal values.",
+    "Current month negotiable terminology and 2025 generic standard do not prove daily-API free-float equivalence.",
+    "2005 PDF embedded font corrupts extracted Latin letters and digits; no guessed character substitutions or early numeric/date candidates.",
+    "PDF candidate locators are page/cell geometry, not R2-A admissible original-byte field extractions."
+  ],
+  "diagnostics": [
+    {
+      "action": "initial public fetch batch",
+      "status": "FAILED_RUNTIME",
+      "reason": "12MB local response-size assertion stopped first manifest; successful completed retry used 20MB bound and fresh retrieval timestamps. Prior unsealed download bytes never claimed historical evidence."
+    },
+    {
+      "action": "first build using bundled Python",
+      "status": "FAILED_DEPENDENCY_IMPORT",
+      "reason": "Bundled runtime lacks requests; fetch-only import isolated, offline replay uses bundled pdfplumber/pypdf successfully."
+    },
+    {
+      "action": "sealed byte writer migration before first commit",
+      "status": "FIXED_AND_RETESTED",
+      "reason": "Initial text writer emitted Windows CRLF. Candidate JSON normalized to LF before sealing; strict build now repeated twice identically. Preserve -text attributes on evidence for Git byte identity."
+    }
+  ],
+  "validation": {
+    "szseUnitTests": "PASS_37",
+    "rawHashReplay": "PASS_10",
+    "candidateReplay": "PASS_484",
+    "monthlyPrintedTotalCrossCheck": "PASS_12_MONTHS",
+    "formalPromotion": "NONE",
+    "adversarialSidecarTests": "PASS_10_WITH_BUNDLED_PYTHON",
+    "sealedCandidateBuildRepeat": "PASS_TWO_IDENTICAL_BUILDS_NO_OVERWRITE",
+    "sealedFetchRepeat": "PASS_NO_NETWORK_OR_TIMESTAMP_UPDATE"
+  }
+}

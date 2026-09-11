@@ -1,0 +1,100 @@
+function replaceCode(str){
+ if(str.indexOf('/sse/')==0){
+ str=str.replace('/sse/','/')
+}
+ return str;
+}
+//新闻发布会
+if (document.getElementById('list-conference-tt1')) {
+	document.querySelector('#list-conference-tt1').style.display = 'block';
+	document.querySelector('#list-conference-tt1').style.fontSize = '14px';
+	document.querySelector('#list-conference-tt1').style.width = '100%';
+	document.querySelector('#list-conference-tt1').style.order = '3';
+	document.querySelector('#list-conference-tt1').style.color = '#999';
+}
+
+//图片链接
+if (document.getElementsByClassName('js-pic-links').length > 0) {
+	for (var i = 0; i < document.getElementsByClassName('js-pic-links').length; i++) {
+		var item = document.getElementsByClassName('js-pic-links')[i];
+		if (item.getAttribute('url') == '#') {
+			if (item.getElementsByClassName('js-pic-links-panel').length > 0) {
+				item.innerHTML = item.getElementsByClassName('js-pic-links-panel')[0].innerHTML;
+			}
+		} else {
+			if (item.getElementsByClassName('js-pic-links-a').length > 0) {
+				item.innerHTML = item.getElementsByClassName('js-pic-links-a')[0].innerHTML;
+			}
+		}
+	}
+}
+if (document.getElementsByClassName('floatmenu').length > 0&&document.getElementsByClassName('floatmenu_mobile').length > 0) {
+	//链接@memo@图片@memo@标题@memo@文章@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+		sourceHtml = sourceHtml.replace(/\s*/g, "");
+		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+		var sourceArr = sourceHtml.split('@doc@');
+                var pcHtml='';
+                var phoneHtml='';
+                var modelHtml='';
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value,n) {
+				var itemArr = value.split('@memo@');
+				if (itemArr && itemArr[0]!='#') {
+				  pcHtml+='<li><a  href="'+replaceCode(itemArr[0])+'" target="_blank"><span><img src="'+replaceCode(itemArr[1])+'"></span>'+itemArr[2]+'</a></li>'
+                                  phoneHtml+='<li><a  href="'+replaceCode(itemArr[0])+'" target="_blank"><span><img src="'+replaceCode(itemArr[1])+'"></span><em>'+itemArr[2]+'</em></a></li>'
+				}else{
+                                   pcHtml+='<li><span><img src="'+replaceCode(itemArr[1])+'"></span>'+itemArr[2]+'<div class="content">'+itemArr[3]+'</div></li>'
+                                   phoneHtml+='<li><a  data-toggle="modal" id="#link_'+n+'" data-target="#modal_'+n+'"><span><img src="'+replaceCode(itemArr[1])+'"></span><em>'+itemArr[2]+'</em></a></li>'
+                                   modelHtml+='<div class="modal pop_modal" id="modal_'+n+'"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><a class="close" data-dismiss="modal" href="javascript:viod(0)">×</a></div><div class="modal-body">'+itemArr[3]+'</div></div></div></div>'
+                                 }
+			})
+			
+			document.getElementsByClassName('floatmenu')[0].innerHTML = pcHtml;
+                        document.getElementsByClassName('floatmenu_mobile')[0].innerHTML = phoneHtml;
+                        document.getElementsByClassName('modelApp')[0].innerHTML = modelHtml;
+		}
+	}
+}
+
+//判断无数据表格逻辑start
+if (document.getElementsByClassName('nodata-js').length > 0) {
+for (var i = 0; i < document.getElementsByClassName('nodata-js').length; i++) {
+var item = document.getElementsByClassName('nodata-js')[i];
+item.innerHTML = '<tr><td>1</td><td>暂无数据</td></tr>';
+}
+}
+//判断无数据表格逻辑end
+
+//判断表格读取后台数据，若有有数据正常显示，若无数据表格显示暂无数据start
+if (document.getElementsByClassName('js-table-info').length > 0) {
+    if (document.getElementsByClassName('js-has-data').length == 0) {
+        var _html = ""
+        if(col_id == "13100"){
+            _html = "<tr><td><span>1</span></td><td>暂无数据</td></tr>"
+        }else{
+            var len = $(".js-table-info tr th").length;
+            _html = "<tr><td colspan='" + len + "' style='text-align:center;'>暂无数据</td></tr>"
+        }
+        
+        $(".js-table-info tbody").append(_html);
+    }
+}
+//判断表格读取后台数据，若有有数据正常显示，若无数据表格显示暂无数据start
+
+//首页banner是否带链接判断start
+if (document.getElementsByClassName('home_banner').length > 0) {
+  $(".home_banner .swiper-slide a").each(function(){
+      var _url = $(this).attr("href");
+      if(_url=="#"){
+        $(this).removeAttr("href");
+      }
+  })
+}
+//首页banner是否带链接判断end
+
+
+

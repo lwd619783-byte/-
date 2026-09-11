@@ -1,0 +1,488 @@
+{
+  "schemaVersion": "1.0.0",
+  "sourceSha256": "87522264b9552131705e21a9590925902fadebd5d9c954512ef6107d9df32edb",
+  "entries": [
+    {
+      "year": "2025",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2025》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020260710738429172023.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 28621,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020260710738429172023.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020260710738429172023.pdf\">《深圳证券交易所市场统计年鉴 2025》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2024",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2024》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250912366937867370.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 29503,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250912366937867370.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250912366937867370.pdf\">《深圳证券交易所市场统计年鉴 2024》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2023",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2023》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020240814360443176703.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 30339,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020240814360443176703.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020240814360443176703.pdf\">《深圳证券交易所市场统计年鉴 2023》</a>"
+      },
+      "retrievalStatus": "RETRIEVED",
+      "evidenceIds": [
+        "year-2023-explanations"
+      ],
+      "reason": null,
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2022",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2022》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392900565815.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 31499,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392900565815.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392900565815.pdf\">《深圳证券交易所市场统计年鉴 2022》</a>"
+      },
+      "retrievalStatus": "RETRIEVED",
+      "evidenceIds": [
+        "year-2022-history"
+      ],
+      "reason": null,
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2021",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2021》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392901751127.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 32497,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392901751127.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392901751127.pdf\">《深圳证券交易所市场统计年鉴 2021》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2020",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2020》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392905423096.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 33333,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392905423096.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392905423096.pdf\">《深圳证券交易所市场统计年鉴 2020》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2019",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2019》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392906987283.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 34169,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392906987283.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392906987283.pdf\">《深圳证券交易所市场统计年鉴 2019》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2018",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2018》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392907990455.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 35005,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392907990455.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392907990455.pdf\">《深圳证券交易所市场统计年鉴 2018》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2017",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2017》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392909334234.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 35841,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392909334234.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392909334234.pdf\">《深圳证券交易所市场统计年鉴 2017》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2016",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2016》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392911267762.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 36839,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392911267762.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392911267762.pdf\">《深圳证券交易所市场统计年鉴 2016》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2015",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2015》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392912592747.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 37675,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392912592747.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392912592747.pdf\">《深圳证券交易所市场统计年鉴 2015》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2014",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2014》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392914020630.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 38511,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392914020630.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392914020630.pdf\">《深圳证券交易所市场统计年鉴 2014》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2013",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2013》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020230915392915188347.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 39347,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020230915392915188347.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020230915392915188347.pdf\">《深圳证券交易所市场统计年鉴 2013》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2012",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2012》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540369514728.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 40183,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540369514728.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540369514728.pdf\">《深圳证券交易所市场统计年鉴 2012》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2011",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2011》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540370351431.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 41019,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540370351431.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540370351431.pdf\">《深圳证券交易所市场统计年鉴 2011》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2010",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2010》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540370958293.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 41855,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540370958293.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540370958293.pdf\">《深圳证券交易所市场统计年鉴 2010》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2009",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2009》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540371516645.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 42691,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540371516645.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540371516645.pdf\">《深圳证券交易所市场统计年鉴 2009》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2008",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2008》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540371994634.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 43527,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540371994634.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540371994634.pdf\">《深圳证券交易所市场统计年鉴 2008》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2007",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2007》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540372435137.pdf",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 44363,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540372435137.pdf\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540372435137.pdf\">《深圳证券交易所市场统计年鉴 2007》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2006",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2006》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540373144906.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 45199,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540373144906.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540373144906.PDF\">《深圳证券交易所市场统计年鉴 2006》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2005",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2005》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540373805626.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 46035,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540373805626.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540373805626.PDF\">《深圳证券交易所市场统计年鉴 2005》</a>"
+      },
+      "retrievalStatus": "RETRIEVED",
+      "evidenceIds": [
+        "year-2005"
+      ],
+      "reason": null,
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2004",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2004》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540374512460.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 46871,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540374512460.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540374512460.PDF\">《深圳证券交易所市场统计年鉴 2004》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2003",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2003》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540375170081.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 47707,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540375170081.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540375170081.PDF\">《深圳证券交易所市场统计年鉴 2003》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2002",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2002》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540376001475.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 48543,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540376001475.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540376001475.PDF\">《深圳证券交易所市场统计年鉴 2002》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2001",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2001》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540376765200.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 49379,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540376765200.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540376765200.PDF\">《深圳证券交易所市场统计年鉴 2001》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "2000",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 2000》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540377503096.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 50215,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540377503096.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540377503096.PDF\">《深圳证券交易所市场统计年鉴 2000》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "1999",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 1999》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540378249940.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 51051,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540378249940.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540378249940.PDF\">《深圳证券交易所市场统计年鉴 1999》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    },
+    {
+      "year": "1998",
+      "officialTitle": "《深圳证券交易所市场统计年鉴 1998》",
+      "url": "http://docs.static.szse.cn/www/market/periodical/year/W020250610540378851588.PDF",
+      "sourceIndex": "year-index",
+      "locator": {
+        "byteOffset": 51887,
+        "byteLength": 212,
+        "text": "<a href=\"http://docs.static.szse.cn/www/market/periodical/year/W020250610540378851588.PDF\" target=\"_blank\" rel=\"noopener\" oldsrc=\"W020250610540378851588.PDF\">《深圳证券交易所市场统计年鉴 1998》</a>"
+      },
+      "retrievalStatus": "NOT_RUN",
+      "evidenceIds": [],
+      "reason": "DISCOVERED_LINK_ONLY_NOT_RETRIEVED_IN_BOUNDED_WORKSTREAM",
+      "releaseAvailableAt": null,
+      "firstRelease": "UNPROVEN",
+      "revisionArchive": "UNPROVEN"
+    }
+  ]
+}

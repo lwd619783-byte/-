@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "calendar-2022",
+    "url": "https://www.bse.cn/important_news/200011381.html",
+    "method": "GET",
+    "discovery": "PARENT_JSON_HTML_URL",
+    "parent": "holiday-title-search",
+    "byteOffset": 2341,
+    "text": "/important_news/200011381.html"
+  },
+  "attemptedAt": "2026-09-10T04:32:44+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/important_news/200011381.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/calendar-2022.body",
+  "byteSize": 20594,
+  "sha256": "7b4e0ae3c1b9205b3cd37e98b649d556a33f29240938329e20daf762255629aa"
+}

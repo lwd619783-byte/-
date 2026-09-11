@@ -1,0 +1,12 @@
+{
+  "requestId": "daily-page",
+  "url": "https://www.sse.com.cn/market/stockdata/overview/day/",
+  "attemptedAt": "2026-09-10T04:24:07+00:00",
+  "role": "DISCOVERY_EVIDENCE_NOT_FORMAL_OBSERVATION",
+  "status": 200,
+  "finalUrl": "https://www.sse.com.cn/market/stockdata/overview/day/",
+  "path": "research-data/market-regime/source-catalog/r2-e/sse/daily-page.body",
+  "contentType": "text/html",
+  "sha256": "56e73bb657f4619d814d6c8fcfbcbdfcd4b902432494b3ed5b54b9e81dfa89f6",
+  "byteSize": 27794
+}

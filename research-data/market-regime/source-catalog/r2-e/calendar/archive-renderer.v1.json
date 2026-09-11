@@ -1,0 +1,58 @@
+{
+  "kind": "R2_E_ARCHIVE_RENDERER",
+  "version": "v1",
+  "attempts": [
+    {
+      "exchange": "SSE",
+      "requestedUrl": "https://www.sse.com.cn/xhtml/js/common/page_list_category.js",
+      "discovery": {
+        "kind": "REQUIREJS_MODULE",
+        "parent": "https://www.sse.com.cn/xhtml/js/app/main_2021.js",
+        "text": "../common/page_list_category"
+      },
+      "attemptedAt": "2026-09-10T04:27:28.292688+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.sse.com.cn/xhtml/js/common/page_list_category.js",
+      "storedBytes": {
+        "localPath": "research-data/market-regime/source-catalog/r2-e/calendar/raw/88b102c398da843bbb0bd029bd6eeb8779b73aebaf62c4303368bb0af4f9d581.body",
+        "sha256": "88b102c398da843bbb0bd029bd6eeb8779b73aebaf62c4303368bb0af4f9d581",
+        "byteSize": 23283
+      },
+      "outcome": "RETRIEVED",
+      "links": [
+        "https://www.sse.com.cn/xhtml/js/common/' + replaceCode(htmlItem[1]) + '",
+        "https://www.sse.com.cn/xhtml/js/common/' + replaceCode(htmlItem[2]) + '",
+        "https://www.sse.com.cn/xhtml/js/common/' + replaceCode(htmlItem[2]) +'",
+        "https://www.sse.com.cn/xhtml/js/common/' + replaceCode(htmlItem[6]) + '",
+        "https://www.sse.com.cn/xhtml/js/common/' + replaceCode(htmlItem[7]) +'",
+        "https://www.sse.com.cn/xhtml/js/common/' + replaceCode(htmlItem[8]) + '",
+        "https://www.sse.com.cn/xhtml/js/common/' +replaceCode(htmlItem[2]) + '",
+        "https://www.sse.com.cn/xhtml/js/common/'+replaceCode(itemArr[0])+'",
+        "https://www.sse.com.cn/xhtml/js/common/'+replaceCode(itemArr[1])+'"
+      ]
+    },
+    {
+      "exchange": "SSE",
+      "requestedUrl": "https://www.sse.com.cn/xhtml/js/common/page_list_render.js",
+      "discovery": {
+        "kind": "REQUIREJS_MODULE",
+        "parent": "https://www.sse.com.cn/xhtml/js/app/main_2021.js",
+        "text": "../common/page_list_render"
+      },
+      "attemptedAt": "2026-09-10T04:27:28.570458+00:00",
+      "httpStatus": 200,
+      "finalUrl": "https://www.sse.com.cn/xhtml/js/common/page_list_render.js",
+      "storedBytes": {
+        "localPath": "research-data/market-regime/source-catalog/r2-e/calendar/raw/b23e9d3284d493709c44d3dd60789724d554a965d022ff673f1f3e02dcb0a259.body",
+        "sha256": "b23e9d3284d493709c44d3dd60789724d554a965d022ff673f1f3e02dcb0a259",
+        "byteSize": 4604
+      },
+      "outcome": "RETRIEVED",
+      "links": [
+        "https://www.sse.com.cn/xhtml/js/common/'+replaceCode(itemArr[0])+'",
+        "https://www.sse.com.cn/xhtml/js/common/'+replaceCode(itemArr[1])+'"
+      ]
+    }
+  ],
+  "contentSha256": "b26d05a7a537eea375b6ca78d0b73e46dc0a00dc00a42d398c68c50f856b9f22"
+}

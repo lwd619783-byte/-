@@ -1,0 +1,17 @@
+{
+  "request": {
+    "requestId": "holiday-title-search",
+    "url": "https://www.bse.cn/info/listse.do",
+    "method": "POST",
+    "form": "page=0&pageSize=20&keywords=%E9%83%A8%E5%88%86%E8%8A%82%E5%81%87%E6%97%A5%E4%BC%91%E5%B8%82%E5%AE%89%E6%8E%92&startTime=&endTime=&nodeIds%5B%5D=1289&needFields%5B%5D=infoId&needFields%5B%5D=title&needFields%5B%5D=metaDescription&needFields%5B%5D=linkUrl&needFields%5B%5D=htmlUrl&needFields%5B%5D=publishDate",
+    "parent": "news-js",
+    "discovery": "news-js exact listse.do parameters and news-index searchNodeId=1289; literal title keyword"
+  },
+  "attemptedAt": "2026-09-10T04:32:20+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/info/listse.do",
+  "contentType": "text/html;charset=utf-8",
+  "bodyPath": "raw/holiday-title-search.body",
+  "byteSize": 3037,
+  "sha256": "cb3d8f182b95008c132b9a647f1f002e6b45e506f481aa0b82e4137ed7c715ac"
+}

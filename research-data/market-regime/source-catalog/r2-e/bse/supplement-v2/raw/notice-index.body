@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <title>北交所公告 - 北京证券交易所</title>
+        
+        <!-- 字体编码 -->
+        <meta charset="utf-8" />
+
+        <!-- 关键字 -->
+        <meta name="keywords" content="" />
+
+        <!-- 说明 -->
+        <meta name="description" content="" />
+
+        <!-- 作者 -->
+        <meta name="author" content="" />
+
+        <!-- 设置文档宽度、是否缩放 -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+
+        <!-- 优先使用IE最新版本或chrome -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <!-- 360读取到这个标签立即钱换到极速模式 -->
+        <meta name="renderer" content="webkit" />
+
+        <!-- 禁止百度转码 -->
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+        <!-- UC强制竖屏 -->
+        <meta name="screen-orientation" content="portrait" />
+
+        <!-- QQ强制竖屏 -->
+        <meta name="x5-orientation" content="portrait" />
+
+        <!-- UC强制全屏 -->
+        <meta name="full-scerrn" content="yes" />
+
+        <!-- QQ强制全屏 -->
+        <meta name="x5-fullscreen" content="ture" />
+
+        <!-- QQ应用模式 -->
+        <meta name="x5-page-mode" content="app" />
+
+        <!-- UC应用模式 -->
+        <meta name="browsermode" content="application">
+
+        <!-- window phone 点亮无高光 -->
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <!-- 安卓设备不自动识别邮件地址 -->
+        <meta name="format-detection" name="email=no" />
+
+        <!-- iOS设备 -->
+        <!-- 添加到主屏幕的标题 -->
+        <meta name="apple-mobile-web-app-title" content="标题" />
+
+        <!-- 是否启用webApp全屏 -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <!-- 设置状态栏的背景颜色，启用webapp模式时生效 -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent/black/default" />
+        <!-- 半透明/黑色/默认白色 -->
+
+        <!-- 禁止数字识别为电话号码 -->
+        <meta name="format-detection" content="telephone=no" />
+
+        <!-- 智能添加广告条 -->
+        <meta name="apple-itunes-app" content="app-id=myappstoreID,affiliate-data=myaffiliatedata,app-argument=myurl" />
+        
+        
+        <link rel="shortcut icon" href="/template/6/bluewise/_files/img/favicon.ico"><!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        	<script src="/template/6/bluewise/_files/js/plugins/print/bluebird.min.js"></script>
+<script src="/template/6/bluewise/_files/js/plugins/requireJS/require.min.js"></script>
+<script id="base" src="/template/6/bluewise/_files/js/main.min.js" data-compress="true" data-debugMode="false" base="/template/6/bluewise/_files"></script>
+        
+		<menu style="display:none;width:0;height:0;">北交所公告</menu>
+    </head>
+    <body>
+    	 <div class="bg-loading" style="width: 100%;height: 100%;background-color: white;position: fixed;z-index: 9999;"></div>
+         <div id="root">
+            <!--Header-->
+            <div class="mw-header en">
+                <iframe class="iframe-top" src="../myhead.html" frameborder="0" width="100%" height="140px" scrolling="no"></iframe>
+            </div>
+            <!--/Header-->
+            <!-- menuContainer -->
+            <div class="mw-submenu-container"></div>
+            <!--/menuContainer -->
+            <!--Banner-->
+            <div class="mw-banner-page" >
+                <div class="container">
+<div class="main-title clearfix">
+        <div id="titleSearch" class="fl">北交所公告<span id="overviewContent"></span>
+    </div>
+	<div class="rightNav fr">
+		<span id="mbx"> 
+				<a href="/index.html" title="首页">首页</a><span style="margin:5px;">&gt;</span>
+				<a href="/disclosure/tradingtips.html" title="信息披露">信息披露</a><span style="margin:5px;">&gt;</span>
+				<span data-url="/disclosure/vocational.html" data-name="北交所公告">北交所公告</span><span id="rightOverviewContent"></span> 
+		</span>
+	</div>
+</div>                </div>
+            </div>
+            <!--/Banner-->
+            <!--Main-->
+            <div class="mw-page">
+                <div class="container">
+                	<div class="row">
+                        <div class="col-sm-12 col-md-9 col-md-push-3">
+                            <div class="context">
+                            <div class="mw-box-content">
+									<input id="general_information_1" type="hidden" value="/products/neeq_listed_companies/general_information.html"/>
+									<input id="general_information_2" type="hidden" value=""/>
+                                <div class="mw-box mw-margin-bottom mv-context">
+                                    <!-- <div class="center_s">挂牌公司</div> -->
+                                    <div class="tit">北交所公告</div>
+                                    <div class="submit clearfix">
+                                        <!-- <div class="suggest_box">
+                                            <div class="suggestbox">
+                                                    <input type="text" id="companyCode" class="arrcity input"  placeholder="公司简称/拼音/代码"  maxlength="200"/>
+                                                <div class="suggest ac_results"></div>
+                                            </div>
+                                        </div> -->
+                                            <input type="hidden" id="siteId" value="6"/>
+                                            <input type="hidden" id="siteUrl" value=""/>
+                                            <input type="text" class="keyword" value="" name="keyword" maxlength="200" placeholder="关键字" id="keyword"/>
+                                            <input type="text" id="dateArry" value="" class="date" readonly="readonly" name="date" placeholder="日期" />
+                                            <input type="hidden" id="startTime" name="startTime" class="form-control">
+                                            <input type="hidden" id="endTime" name="endTime" class="form-control "> 
+                                            <button id="searchMarkerInfo" type="button" class="go cx" id="submit" value="GO">查询</button>				          	
+                                    </div>
+                                    <div id="tips" style="padding: 0px 20px;color: #4d8dCd;"></div>
+		                            <!--<div class="select_div">-->
+		                               <!---->
+		                            <!--</div>-->
+                          		</div>
+                            </div>
+                            <div class="list_box">
+                    			<div class="list" id="table"></div>
+                    		</div>
+                            </div>
+                      </div>
+                        <div class="barh col-md-3 col-md-pull-9 hidden-xs hidden-sm">
+<div class="treeNav clearfix">
+	<input type="hidden" id="curNodeId" value="1409"/>
+	<div class=sideBar>
+		<div class="active sideHeader" dnode="1312">
+			<a href="/disclosure/tradingtips.html"><span>信息披露</span></a>
+		</div>
+		<ul class="navMenu">
+			<!-- level 1 -->
+								 <li class="menu" dnode="2537"><span class="arrow">
+<a href="/disclosure/tradingtips.html" title="交易提示">交易提示</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="1520"><span><a href="/disclosure/tradingtips.html" title="市场日历">市场日历</a></span></li>
+													<li dnode="2539"><span><a href="/disclosure/Rest_arrangement.html" title="休市安排">休市安排</a></span></li>
+								</ul>
+								<li dnode="1409"><span><a href="/disclosure/vocational.html" title="北交所公告">北交所公告</a></span></li>
+								 <li class="menu" dnode="2705"><span class="arrow">
+<a href="/disclosure/announcement.html" title="上市公司信息">上市公司信息</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="2013"><span><a href="/disclosure/announcement.html" title="上市公司公告">上市公司公告</a></span></li>
+													<li dnode="2763"><span><a href="/disclosure/appointment_disclosure.html" title="定期报告预约情况">定期报告预约情况</a></span></li>
+													<li dnode="3270"><span><a href="/disclosure/corp_performance_new.html" title="业绩说明会">业绩说明会</a></span></li>
+													<li dnode="3271"><span><a href="/disclosure/risk_warning_board.html" title="风险警示和退市整理股票">风险警示和退市整理股票</a></span></li>
+								</ul>
+								 <li class="menu" dnode="2866"><span class="arrow">
+<a href="/disclosure/gzzqnotice.html" title="债券信息">债券信息</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="2884"><span><a href="/disclosure/gzzqnotice.html" title="国债">国债</a></span></li>
+													<li dnode="2872"><span><a href="/disclosure/dfzqnotice.html" title="地方政府债券">地方政府债券</a></span></li>
+													<li dnode="3142"><span><a href="/disclosure/xyznotice.html" title="公开发行公司债券（含企业债券）">公开发行公司债券（含企业债券）</a></span></li>
+													<li dnode="3264"><span><a href="/disclosure/private_xyznotice.html" title="非公开发行公司债券">非公开发行公司债券</a></span></li>
+													<li dnode="3150"><span><a href="/disclosure/xyz_bondmbrinfo.html" title="债券交易参与人">债券交易参与人</a></span></li>
+								</ul>
+								 <li class="menu" dnode="1416"><span class="arrow">
+<a href="/disclosure/tradepublic.html" title="交易信息">交易信息</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="2462"><span><a href="/disclosure/tradepublic.html" title="交易公开信息">交易公开信息</a></span></li>
+													<li dnode="2599"><span><a href="/disclosure/agreement_transfer.html" title="大宗交易公开信息">大宗交易公开信息</a></span></li>
+													<li dnode="2601"><span><a href="/disclosure/specific_items_transfer.html" title="协议转让公开信息">协议转让公开信息</a></span></li>
+													<li dnode="2798"><span><a href="/disclosure/convertible_bond_tradeinfo.html" title="可转债交易公开信息">可转债交易公开信息</a></span></li>
+													<li dnode="2605"><span><a href="/disclosure/qfii.html" title="QFII/RQFII持股公开信息">QFII/RQFII持股公开信息</a></span></li>
+													<li dnode="2458"><span><a href="/disclosure/tender_offer.html" title="要约收购/回购">要约收购/回购</a></span></li>
+								</ul>
+								 <li class="menu" dnode="1419"><span class="arrow">
+<a href="/disclosure/supervise_dynamic.html" title="监管信息">监管信息</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="2862"><span><a href="/disclosure/supervise_dynamic.html" title="监管动态">监管动态</a></span></li>
+													<li dnode="2109"><span><a href="/disclosure/enquiry_letter.html" title="问询函">问询函</a></span></li>
+													<li dnode="2105"><span><a href="/disclosure/supervise.html" title="自律监管措施">自律监管措施</a></span></li>
+													<li dnode="2107"><span><a href="/disclosure/disciplinary_aciton.html" title="纪律处分">纪律处分</a></span></li>
+													<li dnode="2912"><span><a href="/disclosure/register.html" title="立案及处罚情况">立案及处罚情况</a></span></li>
+													<li dnode="2863"><span><a href="/disclosure/trade_supervise.html" title="交易监管">交易监管</a></span></li>
+													<li dnode="2865"><span><a href="/disclosure/securities_trader_supervise.html" title="会员及其他交易参与人监管">会员及其他交易参与人监管</a></span></li>
+													<li dnode="2864"><span><a href="/disclosure/intermediary_organ.html" title="中介机构监管">中介机构监管</a></span></li>
+													<li dnode="2448"><span><a href="/disclosure/reviewapplication.html" title="复核">复核</a></span></li>
+													<li dnode="2649"><span><a href="/disclosure/commitments.html" title="承诺事项及履行情况">承诺事项及履行情况</a></span></li>
+													<li dnode="2937"><span><a href="/disclosure/djg_sharehold_change.html" title="董事、高级管理人员持股变动">董事、高级管理人员持股变动</a></span></li>
+								</ul>
+								 <li class="menu" dnode="2922"><span class="arrow">
+<a href="/disclosure/rzrq_disclosure.html" title="融资融券信息">融资融券信息</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="2923"><span><a href="/disclosure/rzrq_disclosure.html" title="业务公告">业务公告</a></span></li>
+													<li dnode="2924"><span><a href="/disclosure/rzrq_bdzq_list.html" title="标的股票信息">标的股票信息</a></span></li>
+													<li dnode="2925"><span><a href="/disclosure/rzrq_kcdbzjzq_list.html" title="可充抵保证金证券">可充抵保证金证券</a></span></li>
+													<li dnode="2926"><span><a href="/disclosure/rzrq_trans_list.html" title="融资融券交易信息">融资融券交易信息</a></span></li>
+													<li dnode="2948"><span><a href="/disclosure/rzrq_dygpdbwbl.html" title="单一股票担保物比例信息">单一股票担保物比例信息</a></span></li>
+													<li dnode="2927"><span><a href="/disclosure/rzrq_broker_list.html" title="机构列表">机构列表</a></span></li>
+								</ul>
+								 <li class="menu" dnode="2788"><span class="arrow">
+<a href="/disclosure/maker_disclosure.html" title="做市业务">做市业务</a>								 </span>
+								 <ul class="subMenu sub_1" style="display:none">
+								 <!-- level 2 -->
+													<li dnode="2944"><span><a href="/disclosure/maker_disclosure.html" title="做市业务公告">做市业务公告</a></span></li>
+													<li dnode="2945"><span><a href="/disclosure/maker_list.html" title="做市商">做市商</a></span></li>
+													<li dnode="2789"><span><a href="/nq/listedMakerInfo.html" title="做市业务开展情况">做市业务开展情况</a></span></li>
+								</ul>
+		</ul>
+	</div>
+</div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/Main-->
+
+            <!--Footer-->
+            <div class="mw-footer">
+            	<iframe src="../myfoot.html" frameborder="0" width="100%" height="80px" scrolling="no"></iframe>
+            </div>
+            <!--/Footer-->
+        </div>
+        <script src="/template/6/bluewise/_files/js/disclosure/stock_transfer_notice.min.js"></script>
+    </body>
+</html>

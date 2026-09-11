@@ -1,0 +1,18 @@
+{
+  "request": {
+    "requestId": "calendar-2024",
+    "url": "https://www.bse.cn/important_news/200020235.html",
+    "method": "GET",
+    "discovery": "PARENT_JSON_HTML_URL",
+    "parent": "holiday-title-search",
+    "byteOffset": 1191,
+    "text": "/important_news/200020235.html"
+  },
+  "attemptedAt": "2026-09-10T04:32:44+00:00",
+  "status": 200,
+  "finalUrl": "https://www.bse.cn/important_news/200020235.html",
+  "contentType": "text/html",
+  "bodyPath": "raw/calendar-2024.body",
+  "byteSize": 23584,
+  "sha256": "cc6195f278a3bf0ecddd1699ca7995724006d6e02969a2adc68bb1d2d4fbf837"
+}

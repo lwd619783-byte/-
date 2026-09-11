@@ -1,0 +1,630 @@
+function replaceCode(str){
+ if(str.indexOf('/sse/')==0){
+ str=str.replace('/sse/','/')
+}
+ return str;
+}
+function cutNum(str,num){
+ if(str.length>num){
+ str=str.substr(0,num)+'...'
+ }
+ return str;
+}
+function initdom(){
+//业务规则
+if (document.getElementsByClassName('page_rulelist').length > 0) {
+	//类型@memo@时间@memo@链接@memo@标题@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	var typeArr = {
+		'两板通用规则': 1,
+		'基本业务规则': 2,
+		'自律监管指引': 3,
+		'业务细则': 4,
+		'业务指引': 5,
+		'业务通知': 6
+	}
+
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+//		sourceHtml = sourceHtml.replace(/\s*/g, "");
+//		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+sourceHtml = sourceHtml.replace(/\n/g, "");
+	     sourceHtml = sourceHtml.replace(/\s+/g, " ");
+            sourceHtml = sourceHtml.replace(/\s+@memo@\s+/g, "@memo@");
+            sourceHtml = sourceHtml.replace(/\s+@doc@\s+/g, "@doc@");
+
+ //            sourceHtml = sourceHtml.replace(/\s*/g, "");
+	     sourceHtml = sourceHtml.substring(1, sourceHtml.length -5);
+		var sourceArr = sourceHtml.split('@doc@');
+		if (sourceArr) {
+			var htmlObj = [];
+			sourceArr.forEach(function(value) {
+				var itemArr = value.split('@memo@');
+				var objs = {
+					title: itemArr[0],
+					itemArr: itemArr
+				}
+
+				htmlObj.push(objs);
+
+
+			})
+			htmlObj.sort(function(a, b) {
+				return typeArr[a.title] - typeArr[b.title]
+			})
+			var htmlObjNew = [];
+			htmlObj.forEach(function(value) {
+				if (!htmlObjNew[value.title]) {
+					htmlObjNew[value.title] = [];
+				}
+				htmlObjNew[value.title].push(value.itemArr);
+			})
+			htmlObj = htmlObjNew
+			var htmlKeys = Object.keys(htmlObj);
+			var goalHtml = [];
+			if (htmlKeys) {
+				htmlKeys.forEach(function(htmlKey) {
+					goalHtml.push('<dd class="sse_subtitle_dd"><h3>' + htmlKey + '</h3></dd>');
+					if (htmlObj[htmlKey] && htmlObj[htmlKey].length > 0) {
+						htmlObj[htmlKey].forEach(function(htmlItem) {
+							goalHtml.push('<dd><span>' + htmlItem[1] + '</span><a href="' + replaceCode(htmlItem[2]) + '" target="_blank">' + htmlItem[3] + '</a></dd>');
+						})
+					}
+				})
+			}
+			document.getElementsByClassName('page_rulelist')[0].innerHTML = goalHtml.join('');
+		}
+	}
+}
+
+//按年分类
+if (document.getElementsByClassName('page_ruleyearlist').length > 0) {
+	//类型@memo@时间@memo@链接@memo@标题@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+		sourceHtml = sourceHtml.replace(/\s*/g, "");
+		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+		var sourceArr = sourceHtml.split('@doc@');
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value) {
+				var itemArr = value.split('@memo@');
+				if (itemArr && itemArr[0]) {
+					if (!htmlObj[itemArr[0]]) {
+						htmlObj[itemArr[0]] = [];
+					}
+					htmlObj[itemArr[0]].push(itemArr);
+				}
+			})
+			var htmlKeys = Object.keys(htmlObj);
+			htmlKeys.sort(function(i, k) {
+				return k - i
+			})
+			var goalHtml = [];
+			if (htmlKeys) {
+				htmlKeys.forEach(function(htmlKey) {
+					goalHtml.push('<dd class="sse_subtitle_dd"><h3>' + htmlKey + '</h3></dd>');
+					if (htmlObj[htmlKey] && htmlObj[htmlKey].length > 0) {
+						htmlObj[htmlKey].forEach(function(htmlItem) {
+							goalHtml.push('<dd><span>' + htmlItem[1] + '</span><a href="' + replaceCode(htmlItem[2]) + '" target="_blank">' + htmlItem[3] + '</a></dd>');
+						})
+					}
+				})
+			}
+			document.getElementsByClassName('page_ruleyearlist')[0].innerHTML = goalHtml.join('');
+		}
+	}
+}
+
+//相关报道
+if (document.getElementsByClassName('page_xlcreportlist').length > 0) {
+	//类型@memo@时间@memo@链接@memo@标题@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+		sourceHtml = sourceHtml.replace(/\s*/g, "");
+		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+		var sourceArr = sourceHtml.split('@doc@');
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value) {
+				var itemArr = value.split('@memo@');
+				if (itemArr && itemArr[0]) {
+					if (!htmlObj[itemArr[0]]) {
+						htmlObj[itemArr[0]] = [];
+					}
+					htmlObj[itemArr[0]].push(itemArr);
+				}
+			})
+			var htmlKeys = Object.keys(htmlObj);
+			var goalHtml = [];
+			if (htmlKeys) {
+				htmlKeys.forEach(function(htmlKey, htmlKeyIndex) {
+					if (htmlObj[htmlKey] && htmlObj[htmlKey].length > 0) {
+						htmlObj[htmlKey].forEach(function(htmlItem, htmlItemIndex) {
+							if (htmlItemIndex == 0) {
+								var s =
+									'<dd><div class="list_thumbnail_img hidden-xs" style="background: url(///' +replaceCode(htmlItem[5]) + ') center center; background-size:cover"></div>';
+								goalHtml.push(s.replace('///', ''));
+								goalHtml.push('<div class="list_thumbnail_article"><dl>');
+							}
+							goalHtml.push('<dd><h3>' + htmlItem[3] + '</h3>' +
+								'<p class="source"><em>' + htmlItem[4] + '</em>' +
+								'<em>' + htmlItem[1] + '</em><em></em></p>' +
+								'<a href="' + replaceCode(htmlItem[2]) +
+								'" target="_blank" class="detail">全文</a></dd>');
+						})
+						goalHtml.push('</dl></div></dd>');
+					}
+				})
+			}
+			document.getElementsByClassName('page_xlcreportlist')[0].innerHTML = goalHtml.join('');
+		}
+	}
+}
+
+//图片新闻
+if (document.getElementsByClassName('page_mediagalleries').length > 0) {
+	//类型@memo@时间@memo@链接@memo@标题@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+//		sourceHtml = sourceHtml.replace(/\s*/g, "");
+//		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+
+             sourceHtml = sourceHtml.replace(/\n/g, "");
+	     sourceHtml = sourceHtml.replace(/\s+/g, " ");
+             sourceHtml = sourceHtml.replace(/@doc@/g, "@doc@");
+             sourceHtml = sourceHtml.replace(/@doc@\s+/g, "@doc@");
+             sourceHtml = sourceHtml.replace(/@memo@/g, "@memo@");
+             sourceHtml = sourceHtml.replace(/@memo@\s+/g, "@memo@");
+	     sourceHtml = sourceHtml.substring(1, sourceHtml.length -1);
+		var sourceArr = sourceHtml.split('@doc@');
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value) {
+				var itemArr = value.split('@memo@');
+				if (itemArr && itemArr[0]) {
+					if (!htmlObj[itemArr[0].substring(0, 4)]) {
+						htmlObj[itemArr[0].substring(0, 4)] = [];
+					}
+					htmlObj[itemArr[0].substring(0, 4)].push(itemArr);
+				}
+			})
+			var htmlKeys = Object.keys(htmlObj);
+			var goalHtml = [];
+			if (htmlKeys) {
+				htmlKeys.sort(function(hk1, hk2) {
+					return hk2 - hk1;
+				})
+				htmlKeys.forEach(function(htmlKey, htmlKeyIndex) {
+					if (htmlObj[htmlKey] && htmlObj[htmlKey].length > 0) {
+						htmlObj[htmlKey].forEach(function(htmlItem, htmlItemIndex) {
+							if (htmlKeyIndex == 0 && htmlItemIndex == 0) {
+								goalHtml.push('<a href="' + replaceCode(htmlItem[1]) + '" target="_blank">' +
+									'<div class="sse_news_img1"><div class="sse_news_img_box">' +
+									'<div class="sse_news_img_pc hidden-xs">' +
+									'<img src="' + replaceCode(htmlItem[8]) + '"></div>' +
+									'<div class="sse_news_img_xs hidden-lg">' +
+									'<img src="' + replaceCode(htmlItem[6]) + '"></div>' +
+									'<div class="sse_news_img_bg"></div>' +
+									'<div class="sse_news_img_text">' + htmlItem[2] +
+									'<span>' + htmlItem[0] + '</span></div></div></div></a>');
+								goalHtml.push('<div class="sse_news_img_list_n"><ul class="clearfix">');
+							}
+							if (htmlItemIndex == 0 && htmlObj[htmlKey].length > 0 && htmlKeyIndex > 0) {
+								goalHtml.push('<li class="title-li"><h2>' + htmlKey + '</h2></li>')
+							}
+							if (htmlKeyIndex == 0 && htmlObj[htmlKey].length > 1 && htmlItemIndex > 0) {
+								goalHtml.push('<li class="title-li"><h2>' + htmlKey + '</h2></li>')
+							}
+							if (htmlKeyIndex != 0 || htmlItemIndex != 0) {
+								goalHtml.push('<li><a href="' + replaceCode(htmlItem[1]) + '" title="' + htmlItem[
+										2] +
+									'" target="_blank">' +
+									'<img src="' + replaceCode(htmlItem[7]) +
+									'"><div class="imglist_text_box">' +
+									'<p>' + cutNum(htmlItem[2],28) + '<span>' + htmlItem[0] +
+									'</span></p></div></a></li>')
+							}
+							goalHtml.push('');
+						})
+					}
+				})
+				goalHtml.push('</ul></div>');
+			}
+			document.getElementsByClassName('page_mediagalleries')[0].innerHTML = goalHtml.join('');
+		}
+	}
+}
+
+//微信——规则列表碎片
+if (document.getElementById('page_other_allrulelist')) {
+	//类型@memo@时间@memo@链接@memo@标题@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+		sourceHtml = sourceHtml.replace(/\s*/g, "");
+		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+		var sourceArr = sourceHtml.split('@doc@');
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value) {
+				var itemArr = value.split('@memo@');
+				if (itemArr && itemArr[1]) {
+					if (!htmlObj[itemArr[1]]) {
+						htmlObj[itemArr[1].substr(0, 10)] = [];
+					}
+					htmlObj[itemArr[1].substr(0, 10)].push(itemArr);
+				}
+			})
+			var htmlKeys = Object.keys(htmlObj);
+			var goalHtml = [];
+			if (htmlKeys) {
+				htmlKeys.forEach(function(htmlKey) {
+					goalHtml.push('<p class="accoun-p accoun-p1">' + htmlKey + '</p>');
+					if (htmlObj[htmlKey] && htmlObj[htmlKey].length > 0) {
+						htmlObj[htmlKey].forEach(function(htmlItem) {
+							goalHtml.push(
+								'<div class="main_box"><div class="main main-ru"><p><a href="' +
+								replaceCode(htmlItem[2]) + '" target="_blank">' + htmlItem[3] + '<span>' +
+								htmlItem[1] + '</span></a></p></div></div>');
+						})
+					}
+				})
+			}
+			document.getElementById('page_other_allrulelist').innerHTML = goalHtml.join('');
+		}
+	}
+}
+
+//app——规则年份分类头条
+if (document.getElementById('page_app_lawandruleslist')) {
+	//类型@memo@时间@memo@链接@memo@标题@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+		sourceHtml = sourceHtml.replace(/\s*/g, "");
+		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+		var sourceArr = sourceHtml.split('@doc@');
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value) {
+				var itemArr = value.split('@memo@');
+				if (itemArr && itemArr[0]) {
+					if (!htmlObj[itemArr[0]]) {
+						htmlObj[itemArr[0]] = [];
+					}
+					htmlObj[itemArr[0]].push(itemArr);
+				}
+			})
+			var htmlKeys = Object.keys(htmlObj);
+			var goalHtml = [];
+			htmlKeys.sort(function(a, b) {
+				return b - a
+			})
+			if (htmlKeys) {
+				htmlKeys.forEach(function(htmlKey) {
+					goalHtml.push('<p class="lawaccoun-p">' + htmlKey + '</p>');
+					if (htmlObj[htmlKey] && htmlObj[htmlKey].length > 0) {
+						htmlObj[htmlKey].forEach(function(htmlItem) {
+							goalHtml.push('<li><a title="' + htmlItem[3] + '" ' +
+								'publishdate="' + htmlItem[4] +
+								'" docid="' + htmlItem[5] + '"' +
+								'href="' + replaceCode(htmlItem[2]) + '">' + htmlItem[3] +
+								'<div class="ducudate"><small class="more1">' + htmlItem[1] +
+								'</small></div></a></li>');
+						})
+					}
+				})
+			}
+			document.getElementById('page_app_lawandruleslist').innerHTML = goalHtml.join('');
+		}
+	}
+}
+
+//app——期权碎片
+if (document.getElementById('page_other_optionslist')) {
+	//类型@memo@时间@memo@链接@memo@标题@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+		sourceHtml = sourceHtml.replace(/\s*/g, "");
+		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+		var sourceArr = sourceHtml.split('@doc@');
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value) {
+				var itemArr = value.split('@memo@');
+				if (itemArr && itemArr[0]) {
+					if (!htmlObj[itemArr[0]]) {
+						htmlObj[itemArr[0]] = [];
+					}
+					htmlObj[itemArr[0]].push(itemArr);
+				}
+			})
+			var htmlKeys = Object.keys(htmlObj);
+			htmlKeys.sort(function(a, b) {
+				return b - a
+			})
+			var goalHtml = [];
+			if (htmlKeys) {
+				htmlKeys.forEach(function(htmlKey) {
+					goalHtml.push('<p class="lawaccoun-p">' + htmlKey + '</p>');
+					if (htmlObj[htmlKey] && htmlObj[htmlKey].length > 0) {
+						htmlObj[htmlKey].forEach(function(htmlItem) {
+							goalHtml.push('<li><a title="' + htmlItem[3] + '" ' +
+								'publishdate="' + htmlItem[4] +
+								'" docid="' + htmlItem[5] + '"' +
+								'href="' + replaceCode(htmlItem[2]) + '">' + htmlItem[3] +
+								'<div class="ducudate"><small class="more1">' + htmlItem[1] +
+								'</small></div></a></li>');
+						})
+					}
+				})
+			}
+			document.getElementById('page_other_optionslist').innerHTML = goalHtml.join('');
+		}
+	}
+}
+
+//app——规则年份分类列表
+if (document.getElementsByClassName('page_app_lawandruleslist_all_content').length > 0){
+  document.querySelectorAll('.page_app_lawandruleslist_all_content').forEach(function(obj, i) {
+          dohtml(obj,document.querySelectorAll('.page_app_lawandruleslist_all_list')[i],true)
+   }) 
+}
+//app——规则 5条列表
+if (document.getElementsByClassName('lawandrules_app_list_markup').length > 0){
+	$(".lawandrules_app_list_markup li a").each(function(){
+		var _url = $(this).attr("href");
+		if(_url.indexOf(".shtml")>0){
+			_url = "http://www.sse.com.cn/home/public/outPutData.shtml?from=App#http://www.sse.com.cn" + _url
+			$(this).attr("href",_url)
+		}
+	})
+}
+//app视频详情
+if (document.getElementsByClassName('shipin_detail').length > 0&&document.getElementsByClassName('datashow_detail').length > 0){
+  var sourceHtml = document.getElementsByClassName('shipin_detail')[0].innerHTML;
+  sourceHtml = sourceHtml.replace(/\s*/g, "");
+  if(sourceHtml.length>20){
+    document.getElementsByClassName('shipin_detail')[0].style.display="block"
+    document.getElementsByClassName('shipin_area')[0].style.display="none"
+    document.getElementsByClassName('video_box')[0].style.display="none"
+    document.getElementsByClassName('video_box')[1].style.display="none"
+  }
+  if(document.getElementsByClassName('datashow_detail')[0].getAttribute('data-show')!='1'){
+    document.getElementsByClassName('datashow_detail')[0].style.display="block"
+  }else{
+    document.getElementsByClassName('addClass')[0].classList+=' js_outline'
+  }
+  document.title = $(".article-infor h2").eq(0).text() + " | 上海证券交易所"
+}
+//关于-媒体中心-开市祥锣详情
+if (document.getElementsByClassName('shipin_detail').length > 0&&document.getElementsByClassName('ksxl_detail').length > 0){
+  var sourceHtml = document.getElementsByClassName('shipin_detail')[0].innerHTML;
+  sourceHtml = sourceHtml.replace(/\s*/g, "");
+  if(sourceHtml.length>20){
+    document.getElementsByClassName('shipin_detail')[0].style.display="block"
+    document.getElementsByClassName('shipin_area')[0].style.display="none"
+    document.getElementsByClassName('video_box')[0].style.display="none"
+    document.getElementsByClassName('video_box')[1].style.display="none"
+  }
+  
+  document.title = $(".page_big_title").eq(0).text() + " | 上海证券交易所"
+}
+function dohtml(dom1,dom2,appAllList){
+//类型@memo@时间@memo@链接@memo@标题@doc@
+	var sourceHtml = dom1.innerHTML;
+	dom1.innerHTML = '';
+	if (sourceHtml) {
+		sourceHtml = sourceHtml.replace(/\s*/g, "");
+		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+		var sourceArr = sourceHtml.split('@doc@');
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value) {
+				var itemArr = value.split('@memo@');
+				if (itemArr && itemArr[0]) {
+					if (!htmlObj[itemArr[0]]) {
+						htmlObj[itemArr[0]] = [];
+					}
+					htmlObj[itemArr[0]].push(itemArr);
+				}
+			})
+			var htmlKeys = Object.keys(htmlObj);
+			var goalHtml = [];
+			htmlKeys.sort(function(a, b) {
+				return b - a
+			})
+			if (htmlKeys) {
+				htmlKeys.forEach(function(htmlKey) {
+					goalHtml.push('<p class="lawaccoun-p">' + htmlKey + '</p>');
+					if (htmlObj[htmlKey] && htmlObj[htmlKey].length > 0) {
+						htmlObj[htmlKey].forEach(function(htmlItem) {
+							var _url = replaceCode(htmlItem[2]);
+							if(appAllList){
+								if(_url.indexOf(".shtml")>0){
+									_url = "http://www.sse.com.cn/home/public/outPutData.shtml?from=App#http://www.sse.com.cn" + _url
+								}
+							}
+							goalHtml.push('<li><a title="' + htmlItem[3] + '" ' +
+								'publishdate="' + htmlItem[4] +
+								'" docid="' + htmlItem[5] + '"' +
+								'href="' + _url + '">' + htmlItem[3] +
+								'<div class="ducudate"><small class="more1">' + htmlItem[1] +
+								'</small></div></a></li>');
+						})
+					}
+				})
+			}
+			dom2.innerHTML = goalHtml.join('');
+		}
+	}
+}
+//科创板——英文版——newlistings
+if (document.getElementById('pics')&&codeImgArr) {
+	$('#pics li').each(function(){
+		var arr=[]
+        arr.push($(this).attr('data-code'))
+		arr.push($(this).attr('data-pic'))
+		
+		codeImgArr.push(arr)
+	})
+}
+//三开门图标
+if (document.getElementById('icon_link_skm')) {
+	$('#icon_link_skm li a').each(function(i,n){
+              $(n).attr('href',($(n).attr('href')+$(n).attr('data-id')))
+             $(n).attr('data-id','')		
+	})
+}
+//附件图片列表
+if (document.getElementsByClassName('hgt-img').length > 0){
+
+		
+    $('.hgt-img a').each(function(){
+      if($(this).attr('href')=='#'){
+        $(this).removeAttr('href')
+        $(this).removeAttr('target')
+      }
+    })
+    $('.hgt-img a[href^="http://"]').each(function(){
+      $(this).attr('target','_blank')
+    })
+}
+//服务-培训服务-培训通知
+if (document.getElementsByClassName('js_sse_12507').length > 0){
+  var qpUrl="//training.sse.com.cn";
+  var pathName=location.pathname; 
+  var host=location.host;
+  // document.querySelectorAll('.js_sse_12507 a').forEach(function(obj, i) {
+  //         //不是重定向的稿件处理
+  //         if(obj.href.indexOf(host)>=0){
+  //           // 本栏目稿件
+  //            if(obj.href.indexOf('/services/training/news/')<0&&obj.href.indexOf('/training/')>=0){
+  //              var nhref=(obj.href.split('//')[1]).replace('/training/','/')                       
+  //              obj.setAttribute('href',nhref.replace(host,qpUrl))
+  //            }
+  //         }
+  //  })
+  $(".js_sse_12507 a").each(function(i,obj){
+  	//不是重定向的稿件处理
+  	if(obj.href.indexOf(host)>=0){
+  		// 本栏目稿件
+         if(obj.href.indexOf('/services/training/news/')<0 && obj.href.indexOf('/training/')>=0){
+           var nhref=(obj.href.split('//')[1]).replace('/training/','/')                       
+           obj.setAttribute('href',nhref.replace(host,qpUrl))
+         }
+  	}
+  })
+       
+}
+//微信相关-期权
+if (document.getElementsByClassName('replaceCodeName_js').length > 0){
+  document.querySelectorAll('.replaceCodeName_js a').forEach(function(obj, i) {
+          obj.innerHTML=obj.innerHTML.replaceAll('上海证券交易所','')           
+   })       
+}
+//纪律处分
+if (document.getElementsByClassName('tdclickable_js').length > 0){
+  $(".tdclickable_js a[href^='javascript']").each(function() {
+			$(this).parent("td").html($(this).text());
+		});
+}
+
+//三开门首页banner
+if (document.getElementById('transparency_banner_home_mobile')){
+  if($("#transparency_banner_home_mobile").attr('data-url')=='#'){
+      $("#transparency_banner_home_mobile_1").show();
+  }else{
+      $("#transparency_banner_home_mobile_2").show();
+  }
+}
+
+//三开门-悬浮
+if (document.getElementsByClassName('floatmenu').length > 0&&document.getElementsByClassName('floatmenu_mobile').length > 0) {
+	//链接@memo@图片@memo@标题@memo@文章@doc@
+	var sourceHtml = document.getElementById('sourceHtml').innerHTML;
+	document.getElementById('sourceHtml').innerHTML = '';
+	if (sourceHtml) {
+		sourceHtml = sourceHtml.replace(/[\t\n\r]+/g,"");
+		sourceHtml = sourceHtml.substring(0, sourceHtml.length - 5);
+		var sourceArr = sourceHtml.split('@doc@');
+                var pcHtml='';
+                var phoneHtml='';
+                var modelHtml='';
+		if (sourceArr) {
+			var htmlObj = {};
+			sourceArr.forEach(function(value,n) {
+				var itemArr = $.trim(value).split('@memo@');
+                                
+				if (itemArr && itemArr[0]!='#'&& itemArr[0]!='') {
+				  pcHtml+='<li><a  href="'+replaceCode(itemArr[0])+'" target="_blank"><span><img src="'+replaceCode(itemArr[1])+'"></span>'+itemArr[2]+'</a></li>'
+                                  phoneHtml+='<li><a  href="'+replaceCode(itemArr[0])+'" target="_blank"><span><img src="'+replaceCode(itemArr[1])+'"></span><em>'+itemArr[2]+'</em></a></li>'
+				}else if(itemArr[1]){
+                                   
+                                   pcHtml+='<li><span><img src="'+replaceCode(itemArr[1])+'"></span>'+itemArr[2]+'<div class="content">'+itemArr[3]+'</div></li>'
+                                   phoneHtml+='<li><a  data-toggle="modal" id="#link_'+n+'" data-target="#modal_'+n+'"><span><img src="'+replaceCode(itemArr[1])+'"></span><em>'+itemArr[2]+'</em></a></li>'
+                                   modelHtml+='<div class="modal pop_modal" id="modal_'+n+'"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><a class="close" data-dismiss="modal" href="javascript:viod(0)">×</a></div><div class="modal-body">'+itemArr[3]+'</div></div></div></div>'
+                                 }
+			})
+			
+			document.getElementsByClassName('floatmenu')[0].innerHTML = pcHtml;
+                        document.getElementsByClassName('floatmenu_mobile')[0].innerHTML = phoneHtml;
+                        document.getElementsByClassName('modelApp')[0].innerHTML = modelHtml;
+		}
+	}
+}
+}
+
+//关于-研究-列表的图片加载
+if (document.getElementsByClassName('list_ico_markup').length > 0){
+	$(".list_ico_markup li span").each(function(){
+		var _url = $(this).find("a").eq(0).attr("href");
+		
+		if(/(.pdf)$/.test(_url)){
+			$(this).find("img").eq(0).attr("src","/xhtml/images/ui/pdf-ico.png")
+		}else if(/(.doc)$/.test(_url) || /(.docx)$/.test(_url)){
+			$(this).find("img").eq(0).attr("src","/xhtml/images/ui/word-ico.png")
+		}else if(/(.xls)$/.test(_url) || /(.xlsx)$/.test(_url)){
+			$(this).find("img").eq(0).attr("src","/xhtml/images/ui/exl-ico.png")
+		}else if(/(.rar)$/.test(_url)){
+			$(this).find("img").eq(0).attr("src","/xhtml/images/ui/rar-ico.png")
+		}else if(/(.zip)$/.test(_url)){
+			$(this).find("img").eq(0).attr("src","/xhtml/images/ui/zip-ico.png")
+		}else{
+			$(this).remove("img")
+		}
+	})
+}
+
+
+if(location.href.indexOf('/home/apprelated/lawandrules/list/')>=0){
+   setTimeout(function(){
+    initdom()
+   },200)
+}else{
+   ;(function(){
+     initdom()
+   }())
+}
+
+
+
+
+$(function(){
+  //修改大页面标题
+  if (document.getElementsByClassName('changebigtitle_js').length > 0){
+    if(channelCode && channelCode=='dailydata'){
+       pageTitle='交易公开信息'
+    } 
+    if(channelCode && channelCode=='list_8544'){
+       pageTitle='相关基金'
+    }
+    $('.js_page-title').html(pageTitle)      
+    document.title=pageTitle+' | 上海证券交易所'
+  }
+})
