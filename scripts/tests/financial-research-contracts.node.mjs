@@ -1,13 +1,77 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { checkAll, checkCase, resolvePin, validate, validateBinding, assessGraph, vectors } from '../contracts/financial-research.mjs';
+import { checkAll, checkCase, checkSuite, resolvePin, validate, validateBinding, assessGraph, vectors } from '../contracts/financial-research.mjs';
 
 const clone = (x) => structuredClone(x);
 const vector = (id) => clone(vectors.find((v) => v.caseId === id));
 const graph = () => resolvePin(vector('closed-lineage').fixtureRef).graph;
 const binding = () => JSON.parse(readFileSync('contracts/financial-research/v1/fixtures/bindings.json', 'utf8'))['fixture-macro'];
 const graphQuery = { targetNodeId: 'claim', asOf: '2026-01-05T00:00:00Z' };
+function nextGraph() {
+  return { ...graph(), revision: 2, previousGraphRef: { ...vector('closed-lineage').fixtureRef, objectId: 'fixture', locator: '/closed-lineage/graph' } };
+}
+
+test('immediate graph revision preserves node and relation identities', () => assert.equal(assessGraph(nextGraph(), graphQuery).outcome, 'supported'));
+for (const [field, mutate] of [
+  ['ref', (n) => { n.ref = graph().nodes[0].ref; }],
+  ['kind', (n) => { n.kind = 'evidence'; }],
+  ['origin', (n) => { n.origin = 'ai_draft'; }],
+  ['releaseAvailableAt', (n) => { n.releaseAvailableAt = null; }],
+  ['nativeEvidenceRef', (n) => { n.nativeEvidenceRef = { refType: 'document', refId: 'changed' }; }],
+  ['formulaRef', (n) => { n.formulaRef = graph().nodes[0].ref; }],
+  ['inputManifestRef', (n) => { n.inputManifestRef = graph().nodes[0].ref; }],
+]) test(`graph revision rejects reused nodeId with changed ${field}`, () => {
+  const g = nextGraph(); mutate(g.nodes[3]);
+  assert.throws(() => assessGraph(g, graphQuery), /NODE_IDENTITY_OVERWRITE/);
+});
+test('graph revision cannot skip its immediate predecessor', () => {
+  const g = nextGraph(); g.revision = 3;
+  assert.throws(() => assessGraph(g, graphQuery), /GRAPH_REVISION/);
+});
+test('unchanged relationId cannot silently point at a changed endpoint object', () => {
+  const g = nextGraph(); g.nodes[3].ref = g.nodes[2].ref;
+  assert.deepEqual(g.edges, graph().edges);
+  assert.throws(() => assessGraph(g, graphQuery), /NODE_IDENTITY_OVERWRITE/);
+});
+test('conditions can be reprojected without changing immutable identity', () => {
+  const g = nextGraph(); g.nodes[3].conditions = ['stale']; g.nodes[3].conditionSourceRefs = [g.nodes[3].ref];
+  assert.deepEqual(assessGraph(g, graphQuery).conditions, ['stale']);
+});
+test('new node identity requires new relation identity when changing an endpoint', () => {
+  const g = nextGraph(); g.nodes[3].nodeId = 'new-fact';
+  for (const e of g.edges) { if (e.from === 'fact') e.from = 'new-fact'; if (e.to === 'fact') e.to = 'new-fact'; }
+  assert.throws(() => assessGraph(g, graphQuery), /RELATION_OVERWRITE/);
+  for (const e of g.edges.filter((e) => e.from === 'new-fact' || e.to === 'new-fact')) { e.supersedesRelationId = e.relationId; e.relationId += '-v2'; }
+  assert.equal(assessGraph(g, graphQuery).outcome, 'supported');
+});
+for (const [name, mutate, error] of [
+  ['delete', (v) => v.pop(), /SUITE_ROSTER/],
+  ['add', (v) => v.push({ ...v[0], caseId: 'undeclared' }), /SUITE_ROSTER/],
+  ['version mutation', (v) => { v[0].version++; }, /SUITE_ROSTER/],
+  ['replace at same count', (v) => { v[0].caseId = 'undeclared'; }, /SUITE_ROSTER/],
+  ['duplicate identity', (v) => { v[1] = clone(v[0]); }, /SUITE_DUPLICATE_IDENTITY/],
+  ['same-version expected mutation', (v) => { v[0].expected.value = 999; }, /SUITE_CASE_DRIFT/],
+]) test(`released suite rejects ${name}`, () => { const cases = clone(vectors); mutate(cases); assert.throws(() => checkSuite(cases), error); });
+test('released suite allows case array reordering', () => assert.equal(checkSuite(clone(vectors).reverse()).count, 33));
+test('every synthetic fixture pin checks identity, version, digest and locator', () => {
+  const pins = new Map();
+  function visit(x) {
+    if (!x || typeof x !== 'object') return;
+    if (typeof x.owner === 'string' && x.owner.includes('/fixtures/') && typeof x.sha256 === 'string') pins.set(JSON.stringify(x), x);
+    for (const v of Object.values(x)) visit(v);
+  }
+  visit(vectors);
+  visit(JSON.parse(readFileSync('contracts/financial-research/v1/fixtures/scenarios.json', 'utf8')));
+  visit(binding());
+  assert.ok(pins.size >= 50);
+  for (const pin of pins.values()) {
+    resolvePin(pin);
+    for (const [key, value, error] of [['objectId', 'incorrect', /PIN_IDENTITY/], ['version', 'incorrect', /PIN_VERSION/], ['sha256', '0'.repeat(64), /PIN_DIGEST/], ['locator', '/absent', /PIN_LOCATOR/]]) {
+      assert.throws(() => resolvePin({ ...pin, [key]: value }), error, `${pin.owner}${pin.locator} ${key}`);
+    }
+  }
+});
 
 test('all frozen categories and Golden Cases validate without production runtime', () => assert.equal(checkAll().status, 'PASS'));
 for (const v of vectors) test(`golden semantics: ${v.caseId}`, () => checkCase(v));

@@ -54,7 +54,9 @@ Deterministic request 固定 entity + metric binding + period(start/end/scope) +
 
 边方向统一从依据到消费者：Source → Artifact (`publishes`) → Evidence (`locates`) → Fact (`establishes`) → Derived Metric (`input_to`) → Claim / Thesis (`supports` / `contradicts`) → Expression (`expresses`) → Position (`motivates`) → Review (`reviews`)。Fact/Evidence 可直接支持 Claim，Claim 可支持 Thesis；不是强迫每条研究必须经过全部层。typed edge table 在机器合同中冻结。Position 的 motivates 只表研究关联，不授权交易或证明成交。
 
-每个关系也有 immutable relationId、assertedAt、supersedesRelationId；图快照有 graphId/revision/asOf。revision > 1 必须 pin previousGraphRef；关系更正必须引用前图中的 predecessor，不得重用同一 relationId 改写内容。更正追加新 manifest/关系版本，旧图保留。关系 assertedAt 必须在图 asOf 前；历史事实重建与当时研究判断要区分：不能把今天建立的 Claim 关系写进昨天的图。所有 node releaseAvailableAt 均为引用可用性的保守上界；源无可靠时间则 null 并阻断支持资格。
+每个关系也有 immutable relationId、assertedAt、supersedesRelationId；图快照有 graphId/revision/asOf。revision > 1 必须 pin previousGraphRef，且 `previous.revision === current.revision - 1`；关系更正必须引用前图中的 predecessor，不得重用同一 relationId 改写内容。更正追加新 manifest/关系版本，旧图保留。关系 assertedAt 必须在图 asOf 前；历史事实重建与当时研究判断要区分：不能把今天建立的 Claim 关系写进昨天的图。所有 node releaseAvailableAt 均为引用可用性的保守上界；源无可靠时间则 null 并阻断支持资格。
+
+同一 nodeId 跨相邻 revision 继续存在时，kind、ref、origin、releaseAvailableAt、nativeEvidenceRef、formulaRef、inputManifestRef 必须逐字段保持相同，包括可选字段的有无。conditions / conditionSourceRefs 允许按新 asOf 重新投影，但不得借此更改上述 immutable semantic identity。底层对象或版本变化必须新建 nodeId；关联边改变端点时须新建 relationId，使用 supersedesRelationId 连接前关系。existing relationId 只能在自身内容与端点 immutable identities 都不变时复用；即使关系 JSON 未变，也不能悄然替换端点业务对象。
 
 节点 conditions 是原 owner 状态投影的 **集合**，不替代原状态：missing_evidence、partial、stale、conflicted、not_admitted、unknown。必须保留原因与 conditionSourceRefs；源状态映射未覆盖即 unknown。Provider status=generated_real、EvidenceRef quality=verified、Artifact parse=PARSED 都不直接推出 admitted。
 
@@ -63,6 +65,10 @@ Deterministic request 固定 entity + metric binding + period(start/end/scope) +
 ## 4. F3：业务 Golden Case
 
 Golden Case 包含 caseId/version/category、synthetic 标记、固定 fixture pin、operation、request、expected（outcome、selected refs、citation refs、conditions、value、unit、exAnte、reproducible）、rationale。结果采用固定语义字段，未适用值为 null；集合无序精确比较，不比较 prompt、SQL、模型措辞或解释文本。改变 expected 是 case 新版本，必须审查；不得为迁就 runtime 输出自动更新 golden。
+
+`golden-suite.v1.json` 冻结 suiteId=`financial-research-foundations`、version=1 的 exact roster：现有 33 个 caseId + version（全部为 1）。checker 固定该 manifest 的字节摘要，逐项核对 identity 集合与 case 内容摘要；删除、增加、替换、版本静默变化、重复 identity 和同版本正文变更均拒绝。顶层 case 数组允许重排，不依赖数组顺序表达语义；case JSON 对象 key 排序后用无空白 UTF-8 JSON 求 SHA-256，case 内数组在已发布文件中保持原样。未来变更须新增 case/suite 版本及对应验收入口，保留 V1 manifest、roster 和历史发布内容，不能覆盖 V1 以适配输出。本次 remediation 首次建立机器 suite freeze；33 个 case identity、request 语义和 expected 保持审计基线不变，仅 synthetic 身份补全引起依赖 pin 摘要更新。
+
+Synthetic pin 的 identity/version 必须自包含：`fixtures/owners.json` 的所有对象具有 id/revision，包括 formula、manifest、calendar、scope、inputs、policy；其中 formula.version 是计算规则版本，不替代 pin 所引用的对象 revision。复用 schema 的 scenarios/bindings 不增加业务字段，fixture-level 规则分别将顶层 scenario key / bindingId 固定为 objectId、fixture version 固定为 1，只允许对应顶层 locator。scenario 内图仅通过 `/caseId/graph` 定位，身份为 graphId/revision。digest 校验保留完整文件字节，locator、objectId 与 version 均独立核对；真实 owner identity equivalence 仍由未来 domain adapter 负责，真实 PBC example 的 allowed/forbidden uses 和 NOT_ADMITTED 边界不变。
 
 首批八类：pit、temporal_revision、deterministic_retrieval、lineage_citation、unsupported_claim、quality_propagation、earnings_ex_ante、market_regime_recompute。每类含成功/拒绝条件，具体向量见包内 fixtures。未来 service 和 Agent 均把输出投影到同一 expected schema，且必须提交相同完整引用集合；Agent 自称“supported”不算 oracle。当前仅合同离线向量校验，不是 Agent harness 或服务运行时。
 

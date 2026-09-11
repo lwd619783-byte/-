@@ -65,14 +65,18 @@
       "strict_pit",
       "research",
       "display"
-    ]
+    ],
+    "id": "policy",
+    "revision": "1"
   },
   "formula": {
     "synthetic": true,
     "operation": "sum_divide_fixed_denominator",
     "version": "fixture-only.v1",
     "missingPolicy": "block",
-    "tolerance": 0
+    "tolerance": 0,
+    "id": "formula",
+    "revision": "1"
   },
   "manifest": {
     "synthetic": true,
@@ -83,24 +87,34 @@
     "fixedDenominator": 2,
     "cutoff": "2026-01-05T00:00:00Z",
     "calendar": "calendar",
-    "scope": "scope"
+    "scope": "scope",
+    "id": "manifest",
+    "revision": "1"
   },
   "input1": {
     "synthetic": true,
     "value": 10,
-    "releaseAvailableAt": "2026-01-01T00:00:00Z"
+    "releaseAvailableAt": "2026-01-01T00:00:00Z",
+    "id": "input1",
+    "revision": "1"
   },
   "input2": {
     "synthetic": true,
     "value": 20,
-    "releaseAvailableAt": "2026-01-02T00:00:00Z"
+    "releaseAvailableAt": "2026-01-02T00:00:00Z",
+    "id": "input2",
+    "revision": "1"
   },
   "calendar": {
     "synthetic": true,
-    "version": "fixture-only.v1"
+    "version": "fixture-only.v1",
+    "id": "calendar",
+    "revision": "1"
   },
   "scope": {
     "synthetic": true,
-    "version": "fixture-only.v1"
+    "version": "fixture-only.v1",
+    "id": "scope",
+    "revision": "1"
   }
 }

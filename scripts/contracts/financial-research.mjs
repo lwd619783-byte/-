@@ -32,6 +32,21 @@ export function resolvePin(pin) {
   const pointer = pin.locator.split('/').slice(1).map((s) => s.replace(/~1/g, '/').replace(/~0/g, '~'));
   let value = JSON.parse(bytes);
   for (const key of pointer) { requireThat(value !== null && typeof value === 'object' && Object.hasOwn(value, key), 'PIN_LOCATOR'); value = value[key]; }
+  const ownerPath = path.relative(root, filename).replaceAll('\\', '/');
+  if (ownerPath.startsWith(directory + 'fixtures/')) {
+      // Synthetic fixtures have an explicit identity even where the reused business schema
+      // cannot accept id/revision fields. Real owner equivalence remains adapter-owned.
+      requireThat(value && typeof value === 'object', 'PIN_SYNTHETIC_IDENTITY');
+      const scenario = ownerPath === directory + 'fixtures/scenarios.json';
+      const binding = ownerPath === directory + 'fixtures/bindings.json';
+      const graph = scenario && pointer.length === 2 && pointer[1] === 'graph' && value.schemaVersion === 'evidence-graph.v1';
+      requireThat(graph || pointer.length === 1, 'PIN_LOCATOR');
+      if (!scenario && !binding) requireThat(typeof value.id === 'string' && typeof value.revision === 'string', 'PIN_SYNTHETIC_IDENTITY');
+      const identity = graph ? value.graphId : binding ? value.bindingId : scenario ? pointer[0] : value.id;
+      const version = graph || (!scenario && !binding) ? String(value.revision) : '1';
+      requireThat(identity === pin.objectId, 'PIN_IDENTITY');
+      requireThat(version === pin.version, 'PIN_VERSION');
+  }
   if (value && typeof value === 'object') {
     if (Object.hasOwn(value, 'id')) requireThat(value.id === pin.objectId, 'PIN_IDENTITY');
     if (Object.hasOwn(value, 'revision')) requireThat(String(value.revision) === pin.version, 'PIN_VERSION');
@@ -107,7 +122,12 @@ export function assessGraph(graph, request) {
   const previous = graph.previousGraphRef ? resolvePin(graph.previousGraphRef) : null;
   if (previous) {
     validate('evidence-graph.v1.schema.json', previous);
-    requireThat(previous.graphId === graph.graphId && previous.revision < graph.revision && instant(previous.asOf) <= instant(graph.asOf), 'GRAPH_REVISION');
+    requireThat(previous.graphId === graph.graphId && previous.revision === graph.revision - 1 && instant(previous.asOf) <= instant(graph.asOf), 'GRAPH_REVISION');
+    const immutableFields = ['kind', 'ref', 'origin', 'releaseAvailableAt', 'nativeEvidenceRef', 'formulaRef', 'inputManifestRef'];
+    for (const node of graph.nodes) {
+      const prior = previous.nodes.find((n) => n.nodeId === node.nodeId);
+      if (prior) requireThat(immutableFields.every((field) => isDeepStrictEqual(prior[field], node[field])), 'NODE_IDENTITY_OVERWRITE');
+    }
   }
   requireThat(nodes.size === graph.nodes.length, 'DUPLICATE_NODE');
   requireThat(unique(graph.edges.map((e) => e.relationId)).length === graph.edges.length, 'DUPLICATE_RELATION');
@@ -192,7 +212,26 @@ export function checkCase(vector) {
   requireThat(isDeepStrictEqual(normalize(actual), normalize(vector.expected)), `GOLDEN_MISMATCH ${vector.caseId}: ${JSON.stringify(actual)}`);
   return actual;
 }
+function canonical(value) {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (value !== null && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map((key) => [key, canonical(value[key])]));
+  return value;
+}
+export function checkSuite(cases) {
+  const bytes = readFileSync(path.join(root, directory, 'golden-suite.v1.json'));
+  requireThat(createHash('sha256').update(bytes).digest('hex') === 'd2b95cba7576174a576d4f7de19c0b168fc1e50accfae1f413929a84d4b63610', 'SUITE_MANIFEST_DRIFT');
+  const suite = JSON.parse(bytes);
+  const identities = cases.map((c) => `${c.caseId}@${c.version}`);
+  requireThat(unique(identities).length === cases.length, 'SUITE_DUPLICATE_IDENTITY');
+  requireThat(isDeepStrictEqual(unique(identities), suite.cases.map((c) => `${c.caseId}@${c.version}`).sort()), 'SUITE_ROSTER');
+  for (const c of cases) {
+    const frozen = suite.cases.find((entry) => entry.caseId === c.caseId && entry.version === c.version);
+    requireThat(createHash('sha256').update(JSON.stringify(canonical(c))).digest('hex') === frozen.sha256, 'SUITE_CASE_DRIFT');
+  }
+  return suite;
+}
 export function checkAll() {
+  checkSuite(vectors);
   validateBinding(read(directory + 'fixtures/bindings.json')['fixture-macro']);
   validateBinding(read(directory + 'examples/pbc-binding.json'));
   requireThat(unique(vectors.map((v) => v.caseId)).length === vectors.length, 'DUPLICATE_CASE');

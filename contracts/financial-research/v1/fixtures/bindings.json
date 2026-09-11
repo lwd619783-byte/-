@@ -7,14 +7,14 @@
       "owner": "contracts/financial-research/v1/fixtures/owners.json",
       "objectId": "fact",
       "version": "1",
-      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
       "locator": "/fact"
     },
     "sourceDefinitionRef": {
       "owner": "contracts/financial-research/v1/fixtures/owners.json",
       "objectId": "source",
       "version": "1",
-      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
       "locator": "/source"
     },
     "fieldBindings": {
@@ -89,7 +89,7 @@
       "owner": "contracts/financial-research/v1/fixtures/owners.json",
       "objectId": "policy",
       "version": "1",
-      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
       "locator": "/policy"
     },
     "allowedUses": [

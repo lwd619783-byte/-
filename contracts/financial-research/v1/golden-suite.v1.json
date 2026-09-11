@@ -1,0 +1,175 @@
+{
+  "schemaVersion": "investment-research-golden-suite.v1",
+  "suiteId": "financial-research-foundations",
+  "version": 1,
+  "count": 33,
+  "order": "case-array-order-insensitive",
+  "caseDigest": "sha256-utf8-json-recursive-key-sort-no-whitespace",
+  "cases": [
+    {
+      "caseId": "ai-is-not-fact",
+      "version": 1,
+      "sha256": "f41e4b0bef8408be1c42eb846c31c12577a1d946a571cc987f481f423b195be8"
+    },
+    {
+      "caseId": "closed-lineage",
+      "version": 1,
+      "sha256": "b68b40d9e4c69ef1a74964e93bea5c569733d4a09fb7ae44c79502cd7f03fba6"
+    },
+    {
+      "caseId": "contradicting-evidence",
+      "version": 1,
+      "sha256": "3b1ea1ffab778c01dfd441e7af5e4506c2b3e6f143aed012c3f71180d03f5614"
+    },
+    {
+      "caseId": "date-safe-boundary",
+      "version": 1,
+      "sha256": "1653dacf387354ba6c4583fe59515721df68c0b2e9bc5d356d35e90acc778623"
+    },
+    {
+      "caseId": "date-safe-not-yet",
+      "version": 1,
+      "sha256": "a3accd59bd1dcca7529a284eda30638a6c485c1db8f3d5833b7f4b655ea06b98"
+    },
+    {
+      "caseId": "earnings-before-all",
+      "version": 1,
+      "sha256": "da90df363bfe5eca6b34ac4194de71ce91d59ff9ac0665a31bd00e5131e612cd"
+    },
+    {
+      "caseId": "earnings-earlier-disclosure",
+      "version": 1,
+      "sha256": "5fe2a18cd9affef4d7159061ac843422de3c454bbf131de72fd28f25ad616422"
+    },
+    {
+      "caseId": "earnings-equal-bound",
+      "version": 1,
+      "sha256": "348ead965d1f0d7ddb1d0810f95e8c37897228d743924008c46abd21d2182319"
+    },
+    {
+      "caseId": "earnings-sameMeasurementKey",
+      "version": 1,
+      "sha256": "57d6781d53699063fc51dcd95b6118a944177443343c84fd1ce45bd44e904cff"
+    },
+    {
+      "caseId": "earnings-sourceVerified",
+      "version": 1,
+      "sha256": "cd69dfea1379529c1ed4de8e8c75c57e5032dc97a12d04a0abaa252e89f86a31"
+    },
+    {
+      "caseId": "earnings-unknown-formation",
+      "version": 1,
+      "sha256": "014d7f51c10f28d0bb3abccf3f6b713aba925dd6431b455e310671219245cef8"
+    },
+    {
+      "caseId": "earnings-unknownDisclosureScope",
+      "version": 1,
+      "sha256": "b1116116063f9605635b7b34a1e7e26770541bd9a37d22cfc122180133df3436"
+    },
+    {
+      "caseId": "entity-key-mismatch",
+      "version": 1,
+      "sha256": "e0ccea2f2dfdf20a84ce062d0582b7e919a7b601621ab9f47e30a1be4fda9804"
+    },
+    {
+      "caseId": "future-only",
+      "version": 1,
+      "sha256": "7ae3abfe7e32d206af81d12b2544a9ff0cec2a4fd236bf5816da64e4e54d926b"
+    },
+    {
+      "caseId": "graph-conflicted",
+      "version": 1,
+      "sha256": "7e36f361692f95cb0ba87a91f4a628036635aa7e4407d48165f774300fb22e44"
+    },
+    {
+      "caseId": "graph-not_admitted",
+      "version": 1,
+      "sha256": "3284b06e9fb531e9a24e960728f18bd6dfcb3cbdb4c9c4ebcfae25a6508df00b"
+    },
+    {
+      "caseId": "graph-partial",
+      "version": 1,
+      "sha256": "12b8d92321b73639fdae1bce41210e79ebaad69e7fc912782df0d7e2ef7f92e5"
+    },
+    {
+      "caseId": "graph-stale",
+      "version": 1,
+      "sha256": "b71b22555f1777cb7b8731199e0f6d37f64fceb9d7877d771b74c604b737550b"
+    },
+    {
+      "caseId": "graph-unknown-release",
+      "version": 1,
+      "sha256": "bad89e21ad722471eedd443f1db0cac63975bf634bfebdd2c0de18676552fa90"
+    },
+    {
+      "caseId": "independent-chain",
+      "version": 1,
+      "sha256": "80c090adda08cf54f45ff4ee8d6f791f151a4dd699b81ef9a3155e897d7f2950"
+    },
+    {
+      "caseId": "inferred-release",
+      "version": 1,
+      "sha256": "6a3eab4558ea4ea4786d36cf986576fed04e68cf6c59f8bc277de9e3177c6ca1"
+    },
+    {
+      "caseId": "missing-evidence-lineage",
+      "version": 1,
+      "sha256": "6c70a0c808161f2aa024a6c2ba473d61743cd77d7dc44cf21fedb0fefa8c0766"
+    },
+    {
+      "caseId": "past-vintage",
+      "version": 1,
+      "sha256": "4b495d9be03bbddd3e0b8f5b957e5fbea26edf57bc44bb4813a5d40ccd3354c7"
+    },
+    {
+      "caseId": "period-key-mismatch",
+      "version": 1,
+      "sha256": "3210c4c1e3d840fecd1f8f80ea5daac1960db60e6867e1dcda1c418ab490ac53"
+    },
+    {
+      "caseId": "policy-deny",
+      "version": 1,
+      "sha256": "f8d45f7bedc5ec6f559f1227e0409d566357b9b169085dc4d65669feef6c5c44"
+    },
+    {
+      "caseId": "recompute-fixed-inputs",
+      "version": 1,
+      "sha256": "cfa32db96d392fe02ef98acd253af15668c63611aba26ac5cd1e75031046f1ad"
+    },
+    {
+      "caseId": "recompute-missing",
+      "version": 1,
+      "sha256": "f33ff274db9ea90f33055439df0ee8357cf15a62ba800f69d9aa7fb19f18e076"
+    },
+    {
+      "caseId": "recompute-unknown-denominator",
+      "version": 1,
+      "sha256": "5c4dde63199531ee5c6c492181d29320367802993789cceca79d3b928d23c523"
+    },
+    {
+      "caseId": "retrieve-conflicted",
+      "version": 1,
+      "sha256": "c1fc144d1310df5eb9071325d7485b831bbb464c7a1df86dc51f22eab5d2c220"
+    },
+    {
+      "caseId": "retrieve-not_admitted",
+      "version": 1,
+      "sha256": "f411084d3d7d6ee1c8ff76948fbb8ca4837bc4e4264340ede6482bf1815e8d1d"
+    },
+    {
+      "caseId": "retrieve-partial",
+      "version": 1,
+      "sha256": "d179fee30bdbab8931318d570e01233e2a427b297f8ca4a026d9631bd2be0151"
+    },
+    {
+      "caseId": "retrieve-stale",
+      "version": 1,
+      "sha256": "28b7a6c3e8e1b546eb8cb30cc3e994eb4663ba9fd7e405779562498930e1f239"
+    },
+    {
+      "caseId": "revision-at-cutoff",
+      "version": 1,
+      "sha256": "ca393c57eebcc600ebe81b54d196afabf0831690455b07690c40afb337dc8d75"
+    }
+  ]
+}

@@ -9,7 +9,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "past-vintage",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/past-vintage"
     },
     "operation": "retrieve",
@@ -32,14 +32,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -69,7 +69,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "future-only",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/future-only"
     },
     "operation": "retrieve",
@@ -92,14 +92,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -127,7 +127,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "revision-at-cutoff",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/revision-at-cutoff"
     },
     "operation": "retrieve",
@@ -150,14 +150,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -187,7 +187,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "independent-chain",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/independent-chain"
     },
     "operation": "retrieve",
@@ -210,14 +210,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -245,7 +245,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "inferred-release",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/inferred-release"
     },
     "operation": "retrieve",
@@ -268,14 +268,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -303,7 +303,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "period-key-mismatch",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/period-key-mismatch"
     },
     "operation": "retrieve",
@@ -326,14 +326,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -359,7 +359,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "entity-key-mismatch",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/entity-key-mismatch"
     },
     "operation": "retrieve",
@@ -382,14 +382,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -415,7 +415,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "policy-deny",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/policy-deny"
     },
     "operation": "retrieve",
@@ -438,14 +438,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -473,7 +473,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "retrieve-partial",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/retrieve-partial"
     },
     "operation": "retrieve",
@@ -496,14 +496,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -531,7 +531,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "retrieve-stale",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/retrieve-stale"
     },
     "operation": "retrieve",
@@ -554,14 +554,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -589,7 +589,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "retrieve-conflicted",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/retrieve-conflicted"
     },
     "operation": "retrieve",
@@ -612,14 +612,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -647,7 +647,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "retrieve-not_admitted",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/retrieve-not_admitted"
     },
     "operation": "retrieve",
@@ -670,14 +670,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -705,7 +705,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "closed-lineage",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/closed-lineage"
     },
     "operation": "assess_graph",
@@ -744,7 +744,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "missing-evidence-lineage",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/missing-evidence-lineage"
     },
     "operation": "assess_graph",
@@ -776,7 +776,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "ai-is-not-fact",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/ai-is-not-fact"
     },
     "operation": "assess_graph",
@@ -808,7 +808,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "graph-partial",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/graph-partial"
     },
     "operation": "assess_graph",
@@ -840,7 +840,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "graph-stale",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/graph-stale"
     },
     "operation": "assess_graph",
@@ -872,7 +872,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "graph-conflicted",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/graph-conflicted"
     },
     "operation": "assess_graph",
@@ -904,7 +904,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "graph-not_admitted",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/graph-not_admitted"
     },
     "operation": "assess_graph",
@@ -936,7 +936,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "contradicting-evidence",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/contradicting-evidence"
     },
     "operation": "assess_graph",
@@ -968,7 +968,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "earnings-before-all",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/earnings-before-all"
     },
     "operation": "qualify_earnings",
@@ -1003,7 +1003,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "earnings-equal-bound",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/earnings-equal-bound"
     },
     "operation": "qualify_earnings",
@@ -1034,7 +1034,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "earnings-unknown-formation",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/earnings-unknown-formation"
     },
     "operation": "qualify_earnings",
@@ -1065,7 +1065,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "recompute-fixed-inputs",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/recompute-fixed-inputs"
     },
     "operation": "recompute",
@@ -1104,7 +1104,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "recompute-missing",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/recompute-missing"
     },
     "operation": "recompute",
@@ -1135,7 +1135,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "recompute-unknown-denominator",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/recompute-unknown-denominator"
     },
     "operation": "recompute",
@@ -1166,7 +1166,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "date-safe-not-yet",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/date-safe-not-yet"
     },
     "operation": "retrieve",
@@ -1189,14 +1189,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -1224,7 +1224,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "date-safe-boundary",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/date-safe-boundary"
     },
     "operation": "retrieve",
@@ -1247,14 +1247,14 @@
         "owner": "contracts/financial-research/v1/fixtures/bindings.json",
         "objectId": "fixture-macro",
         "version": "1",
-        "sha256": "a850236751b7379d29f848f0103f0cc8c5e4ff9afc85a86ae35c1214e548f085",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
         "locator": "/fixture-macro"
       },
       "scopeRef": {
         "owner": "contracts/financial-research/v1/fixtures/owners.json",
         "objectId": "scope",
         "version": "1",
-        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
         "locator": "/scope"
       }
     },
@@ -1284,7 +1284,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "earnings-earlier-disclosure",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/earnings-earlier-disclosure"
     },
     "operation": "qualify_earnings",
@@ -1315,7 +1315,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "earnings-unknownDisclosureScope",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/earnings-unknownDisclosureScope"
     },
     "operation": "qualify_earnings",
@@ -1346,7 +1346,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "earnings-sameMeasurementKey",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/earnings-sameMeasurementKey"
     },
     "operation": "qualify_earnings",
@@ -1377,7 +1377,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "earnings-sourceVerified",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/earnings-sourceVerified"
     },
     "operation": "qualify_earnings",
@@ -1408,7 +1408,7 @@
       "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
       "objectId": "graph-unknown-release",
       "version": "1",
-      "sha256": "2d41818f4b4077e1c298b53685d2692bd76a9304497ee45e2b742d6a5a936ec6",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
       "locator": "/graph-unknown-release"
     },
     "operation": "assess_graph",
