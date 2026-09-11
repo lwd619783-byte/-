@@ -23,6 +23,7 @@
 
 从以下入口开始，只继续读取当前任务真正涉及的部分：
 
+- `docs/investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md`（当前战略路线与跨域架构入口）
 - `docs/investment-dashboard-v2-research-os-and-bridge-design.md`
 - `docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md`
 - `docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md`
@@ -105,7 +106,17 @@ Impeccable 原版只存于非 Skill 发现目录 `.agents/vendor/impeccable`；`
 
 来源、immutable pin、安装、升级和审计统一登记于 `docs/agent-skills.md`。Skill 是 workflow，不是事实源；project hard invariants 与冻结合同优先于外部 Skill，当前任务明确指令优先于非 hard Skill 建议。Skill recommendation 不自动授权 dependency、framework、hook、MCP、外部服务或治理文件改动。
 
-## 5. Git 边界
+## 5. 项目方案与进展同步
+
+每个正式开发切片都必须把“实现交付”和“CURRENT 文档同步”视为同一交付的一部分；具体矩阵见 `docs/investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md` §12。
+
+- 完成实现与必要验证、准备普通 push 前，按实际影响同步 `docs/feature-registry.md` 与 `docs/development-execution-plan-2026-09-07.md`。
+- 只有战略顺序、跨阶段依赖或 scope 改变时才更新当前战略 roadmap；只有真实 runtime / data flow / architecture boundary 改变时才更新 `docs/architecture.md`，避免为“看起来同步”机械改文档。
+- 分支上可登记 `IMPLEMENTED / VERIFIED / PENDING REVIEW` 等已发生事实，但不得预写 `MERGED`、`MAIN CI PASS` 或 `PRODUCTION ADMITTED`。
+- PR、merge SHA、main CI 与 admission 必须在事实发生并核验后再登记；历史审计记录不回写。
+- 若合入后 CURRENT 文档仍缺少已知 merge / CI / capability 状态，下一次项目同步必须优先补齐，不得长期保留已知过期的 current 状态。
+
+## 6. Git 边界
 
 本项目默认开发流程：当前 `main` → 独立功能分支 → 实现与必要验证 → 普通 push → 基于远端真实差异进行独立审查 → 审查通过后才创建 PR / CI / 合并。
 
