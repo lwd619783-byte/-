@@ -2,7 +2,7 @@
 
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
 
-> 2026-09-11 CURRENT：本轮 fetch 核验 `origin/main @ 087c52a7962ed08c3f550d79987e0282be5607cf`，重基线文档分支 `02a29ff25e05afa31aa44cf5ccbb12cdade6db02` 以该 main 为祖先。当前战略入口为 [Financial Research OS roadmap](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)，进展见[执行索引](development-execution-plan-2026-09-07.md)。R2-E / D3 保持 NOT_ADMITTED；本次 F1/F2/F3 仅合同冻结，未带来业务运行时或数据准入。以下 remediation 基线与历史审计保留原时点意义。
+> 2026-09-12 CURRENT：已核对 `origin/main @ 4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`。Financial Research Foundations V1 已经独立审计通过并由 PR #43 合入：audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966`，PR CI run `34621319869` completed/success，main push CI run `34621558359` completed/success。当前战略入口为 [Financial Research OS roadmap](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)，进展见[执行索引](development-execution-plan-2026-09-07.md)。R2-E / D3 仍保持 NOT_ADMITTED；F1/F2/F3 合同已经合入，但业务 runtime 仍 NOT_IMPLEMENTED、production/data 仍 NOT_ADMITTED。以下 remediation 基线与历史审计保留原时点意义。
 
 > 基线日期：2026-09-09
 > 本轮 remediation 的 pre-remediation / audit-input main baseline：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。
@@ -26,15 +26,15 @@
 
 ## 1. 产品与研究界面
 
-### Cross-cutting foundations（2026-09-11 功能分支）
+### Cross-cutting foundations（2026-09-12 CURRENT）
 
 | 能力 | 本轮真实状态 | 合同边界 / 未实施范围 |
 | --- | --- | --- |
-| F1 Financial Semantic Registry V2 | CONTRACT FROZEN / VERIFIED / PENDING REVIEW | 现有 Registry 字段绑定、独立时间语义、deterministic request；跨域 retrieval runtime NOT_IMPLEMENTED |
-| F2 Evidence Graph V1 | CONTRACT FROZEN / VERIFIED / PENDING REVIEW | immutable pin、typed relation、状态传播；复用 Entity/Evidence/Audit/Position，Graph DB / UI NOT_IMPLEMENTED |
-| F3 Investment Research Eval Suite V1 | CONTRACT FROZEN / VERIFIED / PENDING REVIEW | 八类 33 个 synthetic Golden Cases、离线合同检查；Agent/service harness NOT_IMPLEMENTED |
+| F1 Financial Semantic Registry V2 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | 现有 Registry 字段绑定、独立时间语义、deterministic request；跨域 retrieval runtime NOT_IMPLEMENTED |
+| F2 Evidence Graph V1 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | immutable pin、typed relation、状态传播；复用 Entity/Evidence/Audit/Position，Graph DB / UI NOT_IMPLEMENTED |
+| F3 Investment Research Eval Suite V1 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | 八类 33 个 synthetic Golden Cases、离线合同检查；Agent/service harness NOT_IMPLEMENTED |
 
-三项 production 均 NOT_ADMITTED。范围与复用矩阵见 [Scope Freeze](financial-research-foundations-contract-v1.md)，命令与真实 PASS/WARN 见 [validation](financial-research-foundations-contract-v1-validation.md)。无 PR / merge / main CI 声明。
+三项 production 均 NOT_ADMITTED。范围与复用矩阵见 [Scope Freeze](financial-research-foundations-contract-v1.md)，命令与真实 PASS/WARN 见 [validation](financial-research-foundations-contract-v1-validation.md)。PR #43 以 audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966` 合入，merge/main `4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`；PR CI run `34621319869` 与 main push CI run `34621558359` 均 completed/success。
 
 | 能力 | 状态 | 当前实现 | 主要缺口 / 下一步 |
 | --- | --- | --- | --- |
@@ -145,6 +145,7 @@ R2 当前实现已逐项合入；以下验证仅指本轮离线测试及 committ
 | CSRC C2A1 / C2A2 | IMPLEMENTED / VERIFIED；PR #32 / #33 | NOT_ADMITTED；87 中 26 definition-compatible、61 归月未证明；26 月 PIT 调查成功 0/26，eligible=[]、formal observations=0；[provenance](market-regime/csrc-ipo-historical-release-provenance-r2c2a2-v1.md) |
 | SSE / SZSE / BSE D1 | IMPLEMENTED / VERIFIED；PR #34 / #35 / #36 | 三所 source contract、bounded inventory 与 guarded adapter 已实现；历史数值均 NOT_ADMITTED，完整官方日历、定义适用及 release/vintage 仍有 blocker |
 | all-A D2 | IMPLEMENTED / VERIFIED；PR #37 | **NOT_ADMITTED / numericAggregateCount=0 / targetCount=null / coveragePercent=null**；2 eras × 3 fields，完整未准入窗口保留；[committed report](../research-data/market-regime/source-catalog/all-a-d2/admission-report.v1.json) |
+| R2-E Integrated / all-A D3 | IMPLEMENTED / VERIFIED；PR #42 | **MERGED / NOT_ADMITTED**；已补 official calendar/denominator evidence、release/PIT evidence、exchange field-era verification、expanded candidate observations 与 D3 rerun；完整 denominator/targetCount 在官方完整交易时段枚举未证明时仍未知，缺充分 release provenance 的 candidate 不进入 formal/strict-PIT observation |
 | normalization / backtest / 正式 Market Temperature UI | NOT_STARTED | 没有因上述实现或测试获得授权 / admission |
 
 | 指标 | 当前状态 | 说明 |

@@ -6,7 +6,7 @@
 
 本索引固化当前任务顺序，不重写历史审计结论，也不重命名已有 Phase 编号。产品保持**单用户 Local-first、全球研究视角**，继续复用已有证据、PIT、Provider Stability 与审计基础。全球视角不等于已覆盖全球行情。
 
-> CURRENT 更新：2026-09-11。当前已核对 `origin/main @ 087c52a7962ed08c3f550d79987e0282be5607cf`；固定 SHA 仅代表本次记录时点，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以 Git ancestry、当前代码、committed artifacts、专项验证与对应 PR 事实登记。
+> CURRENT 更新：2026-09-12。已核对 `origin/main @ 4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`。Financial Research Foundations V1 已由 PR #43 合入：audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966`，PR CI run `34621319869` completed/success，main push CI run `34621558359` completed/success。固定 SHA 仅代表本次记录时点，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以 Git ancestry、当前代码、committed artifacts、专项验证与对应 PR 事实登记。
 > PR、merge 与 CI 必须分别按真实状态登记；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
 
 ## 冻结顺序与停止点
@@ -52,11 +52,11 @@
 
 | Foundation | 目的 | 当前状态 | 首次主要消费阶段 |
 | --- | --- | --- | --- |
-| F1 Financial Semantic Registry V2 | 统一 metric / entity / unit / temporal / lineage / quality / allowed-use 语义；复用既有 Data Source Registry 与领域 Metric Registry，不建立第二套同义 Registry | CONTRACT FROZEN / VERIFIED / PENDING REVIEW；runtime NOT_IMPLEMENTED | Stage 4.1 / 4.2 |
-| F2 Evidence Graph V1 | 统一 Source → Artifact → Evidence → Fact → Derived Metric → Claim → Thesis → Position → Review 的引用关系；不预设 Graph DB | CONTRACT FROZEN / VERIFIED / PENDING REVIEW；runtime NOT_IMPLEMENTED | Stage 4.1B / 4.3 |
-| F3 Investment Research Eval Suite V1 | 用 Golden Cases 验证 PIT、检索、计算、Evidence、Claim 与未来 Agent tool use | CONTRACT FROZEN / VERIFIED / PENDING REVIEW；Agent/service harness NOT_IMPLEMENTED | Stage 4.1B 起持续扩展 |
+| F1 Financial Semantic Registry V2 | 统一 metric / entity / unit / temporal / lineage / quality / allowed-use 语义；复用既有 Data Source Registry 与领域 Metric Registry，不建立第二套同义 Registry | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS；runtime NOT_IMPLEMENTED | Stage 4.1 / 4.2 |
+| F2 Evidence Graph V1 | 统一 Source → Artifact → Evidence → Fact → Derived Metric → Claim → Thesis → Position → Review 的引用关系；不预设 Graph DB | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS；runtime NOT_IMPLEMENTED | Stage 4.1B / 4.3 |
+| F3 Investment Research Eval Suite V1 | 用 Golden Cases 验证 PIT、检索、计算、Evidence、Claim 与未来 Agent tool use | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS；Agent/service harness NOT_IMPLEMENTED | Stage 4.1B 起持续扩展 |
 
-本轮 [F1/F2/F3 Scope Freeze](financial-research-foundations-contract-v1.md) 新增独立版本化合同包与八类 33 个 synthetic Golden Cases，保留 `contracts/v1` 的原 schema / 权限 / Local Core runtime registry。VERIFIED 仅指 [validation](financial-research-foundations-contract-v1-validation.md) 记录的离线合同与仓库检查；三项 production NOT_ADMITTED。CURRENT 同步 feature-registry；无 runtime/data flow 或战略 scope 变化，architecture 与 roadmap 不变。停止点：功能分支普通 commit/push 并核验 SHA 后等待独立审计，不创建 PR、不 merge。
+本轮 [F1/F2/F3 Scope Freeze](financial-research-foundations-contract-v1.md) 新增独立版本化合同包与八类 33 个 synthetic Golden Cases，保留 `contracts/v1` 的原 schema / 权限 / Local Core runtime registry。独立审计在 remediation 后 PASS；PR #43 以 audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966` 合入，PR CI run `34621319869` completed/success，merge/main `4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`，main push CI run `34621558359` completed/success。三项 production 仍 NOT_ADMITTED，runtime/Agent harness 仍 NOT_IMPLEMENTED；无 runtime/data flow 或战略 scope 变化，architecture 与 roadmap 不变。当前停止点：合同冻结已经完成并合入，下一业务任务仍须服从 Stage 4.1 的真实 admission / blocker。
 
 重构后的 CURRENT 战略顺序为：
 
