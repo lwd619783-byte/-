@@ -1,0 +1,1433 @@
+[
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "past-vintage",
+    "version": 1,
+    "category": "pit",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "past-vintage",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/past-vintage"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "eligible",
+      "selectedRefs": [
+        "o1"
+      ],
+      "citationRefs": [
+        "synthetic-artifact"
+      ],
+      "conditions": [],
+      "value": 10,
+      "unit": "percent",
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Future revision cannot leak into asOf; fetchedAt is later and is not release time."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "future-only",
+    "version": 1,
+    "category": "pit",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "future-only",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/future-only"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2025-12-31T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Known future releases produce no selected value."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "revision-at-cutoff",
+    "version": 1,
+    "category": "temporal_revision",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "revision-at-cutoff",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/revision-at-cutoff"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-10T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "eligible",
+      "selectedRefs": [
+        "o2"
+      ],
+      "citationRefs": [
+        "synthetic-artifact"
+      ],
+      "conditions": [],
+      "value": 12,
+      "unit": "percent",
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Exact cutoff equality is eligible; unique chain successor wins."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "independent-chain",
+    "version": 1,
+    "category": "temporal_revision",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "independent-chain",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/independent-chain"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "conflicted",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "conflicted"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Never select by maximum value or source array order across independent chains."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "inferred-release",
+    "version": 1,
+    "category": "pit",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "inferred-release",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/inferred-release"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Inferred release is not strict PIT proof."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "period-key-mismatch",
+    "version": 1,
+    "category": "deterministic_retrieval",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "period-key-mismatch",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/period-key-mismatch"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "single_quarter"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "missing",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Same metric and entity do not erase reporting scope."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "entity-key-mismatch",
+    "version": 1,
+    "category": "deterministic_retrieval",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "entity-key-mismatch",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/entity-key-mismatch"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "other"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "missing",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "No fuzzy entity fallback."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "policy-deny",
+    "version": 1,
+    "category": "deterministic_retrieval",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "policy-deny",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/policy-deny"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "not_admitted"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Allowed uses cannot be widened by consumer."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "retrieve-partial",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "retrieve-partial",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/retrieve-partial"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "partial"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Owner condition preserved; no trusted value emitted."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "retrieve-stale",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "retrieve-stale",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/retrieve-stale"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "stale"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Owner condition preserved; no trusted value emitted."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "retrieve-conflicted",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "retrieve-conflicted",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/retrieve-conflicted"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "conflicted",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "conflicted"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Owner condition preserved; no trusted value emitted."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "retrieve-not_admitted",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "retrieve-not_admitted",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/retrieve-not_admitted"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-05T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "not_admitted"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Owner condition preserved; no trusted value emitted."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "closed-lineage",
+    "version": 1,
+    "category": "lineage_citation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "closed-lineage",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/closed-lineage"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "supported",
+      "selectedRefs": [
+        "claim"
+      ],
+      "citationRefs": [
+        "source",
+        "artifact",
+        "evidence",
+        "fact",
+        "derived_metric",
+        "claim"
+      ],
+      "conditions": [],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "All synthetic pinned material exists; validates logical closure only, not real admission."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "missing-evidence-lineage",
+    "version": 1,
+    "category": "unsupported_claim",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "missing-evidence-lineage",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/missing-evidence-lineage"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "missing_evidence"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Evidence without Artifact ancestry cannot support a claim."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "ai-is-not-fact",
+    "version": 1,
+    "category": "unsupported_claim",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "ai-is-not-fact",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/ai-is-not-fact"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "not_admitted"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "AI text cannot be promoted to Provider Fact."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "graph-partial",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "graph-partial",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/graph-partial"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "partial"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "All dependency conditions propagate to the claim."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "graph-stale",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "graph-stale",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/graph-stale"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "stale"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "All dependency conditions propagate to the claim."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "graph-conflicted",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "graph-conflicted",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/graph-conflicted"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "conflicted",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "conflicted"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "All dependency conditions propagate to the claim."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "graph-not_admitted",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "graph-not_admitted",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/graph-not_admitted"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "not_admitted"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "All dependency conditions propagate to the claim."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "contradicting-evidence",
+    "version": 1,
+    "category": "quality_propagation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "contradicting-evidence",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/contradicting-evidence"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "conflicted",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "conflicted"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Supporting path cannot hide contradicting evidence."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "earnings-before-all",
+    "version": 1,
+    "category": "earnings_ex_ante",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "earnings-before-all",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/earnings-before-all"
+    },
+    "operation": "qualify_earnings",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "eligible",
+      "selectedRefs": [
+        "evidence",
+        "fact"
+      ],
+      "citationRefs": [
+        "evidence",
+        "fact"
+      ],
+      "conditions": [],
+      "value": null,
+      "unit": null,
+      "exAnte": true,
+      "reproducible": null
+    },
+    "rationale": "Conservative availability before every related disclosure, not only chosen actual."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "earnings-equal-bound",
+    "version": 1,
+    "category": "earnings_ex_ante",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "earnings-equal-bound",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/earnings-equal-bound"
+    },
+    "operation": "qualify_earnings",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": false,
+      "reproducible": null
+    },
+    "rationale": "Equal or overlapping date bounds are not ex ante."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "earnings-unknown-formation",
+    "version": 1,
+    "category": "earnings_ex_ante",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "earnings-unknown-formation",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/earnings-unknown-formation"
+    },
+    "operation": "qualify_earnings",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": false,
+      "reproducible": null
+    },
+    "rationale": "createdAt cannot supply unknown formation time."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "recompute-fixed-inputs",
+    "version": 1,
+    "category": "market_regime_recompute",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "recompute-fixed-inputs",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/recompute-fixed-inputs"
+    },
+    "operation": "recompute",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "eligible",
+      "selectedRefs": [
+        "input1",
+        "input2"
+      ],
+      "citationRefs": [
+        "formula",
+        "manifest",
+        "calendar",
+        "scope",
+        "input1",
+        "input2"
+      ],
+      "conditions": [],
+      "value": 15,
+      "unit": "fixture-unit",
+      "exAnte": null,
+      "reproducible": true
+    },
+    "rationale": "Synthetic arithmetic proves pinned input/formula protocol, not Market Regime scoring admission."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "recompute-missing",
+    "version": 1,
+    "category": "market_regime_recompute",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "recompute-missing",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/recompute-missing"
+    },
+    "operation": "recompute",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "partial"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": false
+    },
+    "rationale": "No zero fill or denominator shrinkage."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "recompute-unknown-denominator",
+    "version": 1,
+    "category": "market_regime_recompute",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "recompute-unknown-denominator",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/recompute-unknown-denominator"
+    },
+    "operation": "recompute",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "partial"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": false
+    },
+    "rationale": "Unknown denominator cannot yield a value."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "date-safe-not-yet",
+    "version": 1,
+    "category": "pit",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "date-safe-not-yet",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/date-safe-not-yet"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-01T00:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Publication date Jan 1 is only safe from Jan 2 00:00 Asia/Shanghai, not midnight Jan 1."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "date-safe-boundary",
+    "version": 1,
+    "category": "temporal_revision",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "date-safe-boundary",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/date-safe-boundary"
+    },
+    "operation": "retrieve",
+    "request": {
+      "entity": {
+        "entityType": "macro",
+        "entityId": "fixture-macro-entity"
+      },
+      "bindingId": "fixture-macro",
+      "definitionVersion": "1",
+      "scopeVersion": "1",
+      "period": {
+        "start": "2025-12-01",
+        "end": "2025-12-31",
+        "scope": "month"
+      },
+      "asOf": "2026-01-01T16:00:00Z",
+      "use": "strict_pit",
+      "bindingRef": {
+        "owner": "contracts/financial-research/v1/fixtures/bindings.json",
+        "objectId": "fixture-macro",
+        "version": "1",
+        "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74",
+        "locator": "/fixture-macro"
+      },
+      "scopeRef": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "scope",
+        "version": "1",
+        "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+        "locator": "/scope"
+      }
+    },
+    "expected": {
+      "outcome": "eligible",
+      "selectedRefs": [
+        "o1"
+      ],
+      "citationRefs": [
+        "synthetic-artifact"
+      ],
+      "conditions": [],
+      "value": 10,
+      "unit": "percent",
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Conservative date-only availability boundary is inclusive."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "earnings-earlier-disclosure",
+    "version": 1,
+    "category": "earnings_ex_ante",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "earnings-earlier-disclosure",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/earnings-earlier-disclosure"
+    },
+    "operation": "qualify_earnings",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": false,
+      "reproducible": null
+    },
+    "rationale": "Before chosen actual is insufficient if an earlier preview exists."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "earnings-unknownDisclosureScope",
+    "version": 1,
+    "category": "earnings_ex_ante",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "earnings-unknownDisclosureScope",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/earnings-unknownDisclosureScope"
+    },
+    "operation": "qualify_earnings",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": false,
+      "reproducible": null
+    },
+    "rationale": "Unknown scope, mismatched accounting key or unverified source blocks formal qualification."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "earnings-sameMeasurementKey",
+    "version": 1,
+    "category": "earnings_ex_ante",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "earnings-sameMeasurementKey",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/earnings-sameMeasurementKey"
+    },
+    "operation": "qualify_earnings",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": false,
+      "reproducible": null
+    },
+    "rationale": "Unknown scope, mismatched accounting key or unverified source blocks formal qualification."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "earnings-sourceVerified",
+    "version": 1,
+    "category": "earnings_ex_ante",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "earnings-sourceVerified",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/earnings-sourceVerified"
+    },
+    "operation": "qualify_earnings",
+    "request": {
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": false,
+      "reproducible": null
+    },
+    "rationale": "Unknown scope, mismatched accounting key or unverified source blocks formal qualification."
+  },
+  {
+    "schemaVersion": "investment-research-golden-case.v1",
+    "caseId": "graph-unknown-release",
+    "version": 1,
+    "category": "lineage_citation",
+    "synthetic": true,
+    "fixtureRef": {
+      "owner": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "objectId": "graph-unknown-release",
+      "version": "1",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55",
+      "locator": "/graph-unknown-release"
+    },
+    "operation": "assess_graph",
+    "request": {
+      "targetNodeId": "claim",
+      "asOf": "2026-01-05T00:00:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "No fetch or audit timestamp substitutes missing release availability."
+  }
+]

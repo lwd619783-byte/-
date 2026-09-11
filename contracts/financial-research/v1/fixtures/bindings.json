@@ -1,0 +1,102 @@
+{
+  "fixture-macro": {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "fixture-macro",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "fact",
+      "version": "1",
+      "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+      "locator": "/fact"
+    },
+    "sourceDefinitionRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "source",
+      "version": "1",
+      "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+      "locator": "/source"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": null,
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": null,
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": null,
+      "admission": null,
+      "conflict": null,
+      "freshness": null,
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "policy",
+      "version": "1",
+      "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+      "locator": "/policy"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  }
+}

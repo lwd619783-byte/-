@@ -94,9 +94,9 @@
     "agent:skills:check": "node scripts/setup-codex-skills.mjs --check",
     "local:typecheck": "tsc -p tsconfig.local-core.json --noEmit",
     "local:db:verify": "node scripts/run-local-core.mjs verify",
-    "test:contracts": "node scripts/run-local-core.mjs test-contracts",
+    "test:contracts": "node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs",
     "local:db:init": "node scripts/run-local-core.mjs init",
-    "contracts:validate": "node scripts/run-local-core.mjs contracts",
+    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs",
     "test:local-core": "node scripts/run-local-core.mjs test-local-core",
     "test:assets": "node scripts/run-local-core.mjs test-assets"
   },

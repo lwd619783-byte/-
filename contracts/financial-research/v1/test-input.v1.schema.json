@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/financial-research/v1/test-input.v1.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "series",
+        "allowedUses",
+        "conditions",
+        "artifactRefs"
+      ],
+      "properties": {
+        "kind": {
+          "const": "retrieve"
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "entity",
+              "bindingId",
+              "definitionVersion",
+              "scopeVersion",
+              "period",
+              "observations"
+            ],
+            "properties": {
+              "entity": {
+                "$ref": "https://investment-dashboard.local/contracts/v1/research-asset-os.contracts.v1.schema.json#/$defs/EntityRef"
+              },
+              "bindingId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "definitionVersion": {
+                "type": "string",
+                "minLength": 1
+              },
+              "scopeVersion": {
+                "type": "string",
+                "minLength": 1
+              },
+              "period": {
+                "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Period"
+              },
+              "observations": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:investment-research-dashboard:market-regime:observation-catalog:v1#/$defs/metricObservationVintage"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              }
+            }
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "allowedUses": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "strict_pit",
+              "research",
+              "display"
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "conditions": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Conditions"
+        },
+        "artifactRefs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "formationLatest",
+        "sourceLatest",
+        "disclosureEarliest",
+        "unknownDisclosureScope",
+        "sameMeasurementKey",
+        "sourceVerified",
+        "expectationRef",
+        "actualRef"
+      ],
+      "properties": {
+        "kind": {
+          "const": "qualify_earnings"
+        },
+        "formationLatest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceLatest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "disclosureEarliest": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "unknownDisclosureScope": {
+          "type": "boolean"
+        },
+        "sameMeasurementKey": {
+          "type": "boolean"
+        },
+        "sourceVerified": {
+          "type": "boolean"
+        },
+        "expectationRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        },
+        "actualRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "formulaRef",
+        "inputManifestRef",
+        "calendarRef",
+        "scopeRef",
+        "cutoff",
+        "inputRefs",
+        "values",
+        "fixedDenominator",
+        "conditions",
+        "unit"
+      ],
+      "properties": {
+        "kind": {
+          "const": "recompute"
+        },
+        "formulaRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        },
+        "inputManifestRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        },
+        "calendarRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        },
+        "scopeRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        },
+        "cutoff": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "inputRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "minItems": 1
+        },
+        "fixedDenominator": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "conditions": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Conditions"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "graph"
+      ],
+      "properties": {
+        "kind": {
+          "const": "assess_graph"
+        },
+        "graph": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/evidence-graph.v1.schema.json"
+        }
+      }
+    }
+  ],
+  "$comment": "Synthetic contract vectors only; never a production Fact/Entity schema."
+}

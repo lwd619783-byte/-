@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "evidence-relation-policy.v1",
+  "edgeTypes": {
+    "publishes": [
+      [
+        "source",
+        "artifact"
+      ]
+    ],
+    "locates": [
+      [
+        "artifact",
+        "evidence"
+      ]
+    ],
+    "establishes": [
+      [
+        "evidence",
+        "fact"
+      ]
+    ],
+    "input_to": [
+      [
+        "fact",
+        "derived_metric"
+      ],
+      [
+        "derived_metric",
+        "derived_metric"
+      ]
+    ],
+    "supports": [
+      [
+        "evidence",
+        "claim"
+      ],
+      [
+        "evidence",
+        "thesis"
+      ],
+      [
+        "fact",
+        "claim"
+      ],
+      [
+        "fact",
+        "thesis"
+      ],
+      [
+        "derived_metric",
+        "claim"
+      ],
+      [
+        "derived_metric",
+        "thesis"
+      ],
+      [
+        "claim",
+        "thesis"
+      ]
+    ],
+    "contradicts": [
+      [
+        "evidence",
+        "claim"
+      ],
+      [
+        "evidence",
+        "thesis"
+      ],
+      [
+        "fact",
+        "claim"
+      ],
+      [
+        "fact",
+        "thesis"
+      ],
+      [
+        "derived_metric",
+        "claim"
+      ],
+      [
+        "derived_metric",
+        "thesis"
+      ],
+      [
+        "claim",
+        "thesis"
+      ]
+    ],
+    "expresses": [
+      [
+        "thesis",
+        "investment_expression"
+      ]
+    ],
+    "motivates": [
+      [
+        "investment_expression",
+        "position"
+      ]
+    ],
+    "reviews": [
+      [
+        "claim",
+        "review"
+      ],
+      [
+        "thesis",
+        "review"
+      ],
+      [
+        "investment_expression",
+        "review"
+      ],
+      [
+        "position",
+        "review"
+      ]
+    ]
+  },
+  "unknownState": "unknown",
+  "propagation": "union_all_dependencies",
+  "cycles": "reject",
+  "runtimeStatus": "NOT_IMPLEMENTED",
+  "admissionStatus": "NOT_ADMITTED",
+  "stateProjections": {
+    "EvidenceRef.quality": {
+      "verified": [],
+      "candidate": [
+        "unknown"
+      ],
+      "partial": [
+        "partial"
+      ],
+      "stale": [
+        "stale"
+      ],
+      "unknown": [
+        "unknown"
+      ]
+    },
+    "MetricObservationVintage.qualityStatus": {
+      "VERIFIED": [],
+      "REVISED": [],
+      "PROVISIONAL": [
+        "partial"
+      ],
+      "BACKCAST": [
+        "unknown"
+      ],
+      "MISSING": [
+        "partial"
+      ],
+      "STRUCTURALLY_UNAVAILABLE": [
+        "partial"
+      ],
+      "REJECTED": [
+        "not_admitted"
+      ]
+    }
+  },
+  "projectionRule": "Unknown owner value maps to unknown. Empty quality flags never prove admission; independently union admission, availability, freshness, coverage and conflict."
+}

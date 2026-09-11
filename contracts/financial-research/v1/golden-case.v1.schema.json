@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/financial-research/v1/golden-case.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "caseId",
+    "version",
+    "category",
+    "synthetic",
+    "fixtureRef",
+    "operation",
+    "request",
+    "expected",
+    "rationale"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "investment-research-golden-case.v1"
+    },
+    "caseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "category": {
+      "enum": [
+        "pit",
+        "temporal_revision",
+        "deterministic_retrieval",
+        "lineage_citation",
+        "unsupported_claim",
+        "quality_propagation",
+        "earnings_ex_ante",
+        "market_regime_recompute"
+      ]
+    },
+    "synthetic": {
+      "const": true
+    },
+    "fixtureRef": {
+      "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+    },
+    "operation": {
+      "enum": [
+        "retrieve",
+        "assess_graph",
+        "qualify_earnings",
+        "recompute"
+      ]
+    },
+    "request": {
+      "anyOf": [
+        {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Query"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "targetNodeId",
+            "asOf"
+          ],
+          "properties": {
+            "targetNodeId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "asOf": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "asOf"
+          ],
+          "properties": {
+            "asOf": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      ]
+    },
+    "expected": {
+      "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Result"
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "operation": {
+            "const": "retrieve"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "request": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Query"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "operation": {
+            "const": "assess_graph"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "request": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "targetNodeId",
+              "asOf"
+            ],
+            "properties": {
+              "targetNodeId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "asOf": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "operation": {
+            "const": "qualify_earnings"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "request": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "asOf"
+            ],
+            "properties": {
+              "asOf": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "operation": {
+            "const": "recompute"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "request": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "asOf"
+            ],
+            "properties": {
+              "asOf": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

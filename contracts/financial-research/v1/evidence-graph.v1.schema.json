@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/financial-research/v1/evidence-graph.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "graphId",
+    "revision",
+    "asOf",
+    "nodes",
+    "edges"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "evidence-graph.v1"
+    },
+    "graphId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "asOf": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "nodeId",
+          "kind",
+          "ref",
+          "origin",
+          "releaseAvailableAt",
+          "conditions",
+          "conditionSourceRefs"
+        ],
+        "properties": {
+          "nodeId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "source",
+              "artifact",
+              "evidence",
+              "fact",
+              "derived_metric",
+              "claim",
+              "thesis",
+              "investment_expression",
+              "position",
+              "review"
+            ]
+          },
+          "ref": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          },
+          "origin": {
+            "enum": [
+              "source_material",
+              "provider_fact",
+              "derived_result",
+              "user_judgement",
+              "ai_draft"
+            ]
+          },
+          "releaseAvailableAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "conditions": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Conditions"
+          },
+          "conditionSourceRefs": {
+            "type": "array",
+            "items": {
+              "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "nativeEvidenceRef": {
+            "$ref": "https://investment-dashboard.local/contracts/v1/research-asset-os.contracts.v1.schema.json#/$defs/EvidenceRef"
+          },
+          "formulaRef": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          },
+          "inputManifestRef": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          }
+        }
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relationId",
+          "from",
+          "to",
+          "type",
+          "assertedAt",
+          "supersedesRelationId"
+        ],
+        "properties": {
+          "relationId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "from": {
+            "type": "string",
+            "minLength": 1
+          },
+          "to": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "publishes",
+              "locates",
+              "establishes",
+              "input_to",
+              "supports",
+              "contradicts",
+              "expresses",
+              "motivates",
+              "reviews"
+            ]
+          },
+          "assertedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "supersedesRelationId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "previousGraphRef": {
+      "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "revision": {
+            "type": "integer",
+            "minimum": 2
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "previousGraphRef"
+        ]
+      }
+    }
+  ]
+}
