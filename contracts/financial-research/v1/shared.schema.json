@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json",
+  "$defs": {
+    "Pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner",
+        "objectId",
+        "version",
+        "sha256",
+        "locator"
+      ],
+      "properties": {
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "objectId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "locator": {
+          "type": "string",
+          "pattern": "^/"
+        }
+      }
+    },
+    "Period": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end",
+        "scope"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date"
+        },
+        "end": {
+          "type": "string",
+          "format": "date"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "Query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity",
+        "bindingId",
+        "bindingRef",
+        "scopeRef",
+        "definitionVersion",
+        "scopeVersion",
+        "period",
+        "asOf",
+        "use"
+      ],
+      "properties": {
+        "entity": {
+          "$ref": "https://investment-dashboard.local/contracts/v1/research-asset-os.contracts.v1.schema.json#/$defs/EntityRef"
+        },
+        "bindingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bindingRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        },
+        "scopeRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        },
+        "definitionVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scopeVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "period": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Period"
+        },
+        "asOf": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "use": {
+          "enum": [
+            "strict_pit",
+            "research",
+            "display"
+          ]
+        }
+      }
+    },
+    "Conditions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "missing_evidence",
+          "partial",
+          "stale",
+          "conflicted",
+          "not_admitted",
+          "unknown"
+        ]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "Result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome",
+        "selectedRefs",
+        "citationRefs",
+        "conditions",
+        "value",
+        "unit",
+        "exAnte",
+        "reproducible"
+      ],
+      "properties": {
+        "outcome": {
+          "enum": [
+            "supported",
+            "eligible",
+            "blocked",
+            "missing",
+            "conflicted"
+          ]
+        },
+        "selectedRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "citationRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "missing_evidence",
+              "partial",
+              "stale",
+              "conflicted",
+              "not_admitted",
+              "unknown"
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exAnte": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "reproducible": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

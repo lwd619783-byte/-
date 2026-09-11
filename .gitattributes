@@ -4,3 +4,5 @@ public/data/a-share-company-guidance-expectations/*.json -text
 src/data/real/*-summaries.generated.json -text
 scripts/tests/fixtures/market_regime/*.html -text
 scripts/tests/fixtures/market_regime/bse-d1c-*.jsonp -text
+contracts/financial-research/v1/** text eol=lf
+config/market-regime/pbc-historical-definitions.v1.json text eol=lf

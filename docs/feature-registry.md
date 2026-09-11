@@ -2,7 +2,7 @@
 
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
 
-> 2026-09-09 CURRENT：Phase 1B 与 Stage 4.1 R2-A → R2-B / CSRC / SSE / SZSE / BSE / D2 已合入以下 audit-input main 基线；实现与准入分别登记。当前实现顺序见[开发执行索引](development-execution-plan-2026-09-07.md)与[路线重定基线](investment-dashboard-v2-post-phase-1b-roadmap-rebaseline.md)。[Master Audit Remediation V1](master-audit-remediation-v1.md) 是版本化修复验证记录。历史实施 / 审计文档保留原时点状态。
+> 2026-09-11 CURRENT：本轮 fetch 核验 `origin/main @ 087c52a7962ed08c3f550d79987e0282be5607cf`，重基线文档分支 `02a29ff25e05afa31aa44cf5ccbb12cdade6db02` 以该 main 为祖先。当前战略入口为 [Financial Research OS roadmap](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)，进展见[执行索引](development-execution-plan-2026-09-07.md)。R2-E / D3 保持 NOT_ADMITTED；本次 F1/F2/F3 仅合同冻结，未带来业务运行时或数据准入。以下 remediation 基线与历史审计保留原时点意义。
 
 > 基线日期：2026-09-09
 > 本轮 remediation 的 pre-remediation / audit-input main baseline：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。
@@ -25,6 +25,16 @@
 - `DEFERRED`：明确延后，不应被误认为缺陷。
 
 ## 1. 产品与研究界面
+
+### Cross-cutting foundations（2026-09-11 功能分支）
+
+| 能力 | 本轮真实状态 | 合同边界 / 未实施范围 |
+| --- | --- | --- |
+| F1 Financial Semantic Registry V2 | CONTRACT FROZEN / VERIFIED / PENDING REVIEW | 现有 Registry 字段绑定、独立时间语义、deterministic request；跨域 retrieval runtime NOT_IMPLEMENTED |
+| F2 Evidence Graph V1 | CONTRACT FROZEN / VERIFIED / PENDING REVIEW | immutable pin、typed relation、状态传播；复用 Entity/Evidence/Audit/Position，Graph DB / UI NOT_IMPLEMENTED |
+| F3 Investment Research Eval Suite V1 | CONTRACT FROZEN / VERIFIED / PENDING REVIEW | 八类 33 个 synthetic Golden Cases、离线合同检查；Agent/service harness NOT_IMPLEMENTED |
+
+三项 production 均 NOT_ADMITTED。范围与复用矩阵见 [Scope Freeze](financial-research-foundations-contract-v1.md)，命令与真实 PASS/WARN 见 [validation](financial-research-foundations-contract-v1-validation.md)。无 PR / merge / main CI 声明。
 
 | 能力 | 状态 | 当前实现 | 主要缺口 / 下一步 |
 | --- | --- | --- | --- |

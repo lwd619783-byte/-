@@ -52,9 +52,11 @@
 
 | Foundation | 目的 | 当前状态 | 首次主要消费阶段 |
 | --- | --- | --- | --- |
-| F1 Financial Semantic Registry V2 | 统一 metric / entity / unit / temporal / lineage / quality / allowed-use 语义；复用既有 Data Source Registry 与领域 Metric Registry，不建立第二套同义 Registry | STRATEGIC BASELINE / NOT_IMPLEMENTED | Stage 4.1 / 4.2 |
-| F2 Evidence Graph V1 | 统一 Source → Artifact → Evidence → Fact → Derived Metric → Claim → Thesis → Position → Review 的引用关系；不预设 Graph DB | STRATEGIC BASELINE / NOT_IMPLEMENTED | Stage 4.1B / 4.3 |
-| F3 Investment Research Eval Suite V1 | 用 Golden Cases 验证 PIT、检索、计算、Evidence、Claim 与未来 Agent tool use | STRATEGIC BASELINE / NOT_IMPLEMENTED | Stage 4.1B 起持续扩展 |
+| F1 Financial Semantic Registry V2 | 统一 metric / entity / unit / temporal / lineage / quality / allowed-use 语义；复用既有 Data Source Registry 与领域 Metric Registry，不建立第二套同义 Registry | CONTRACT FROZEN / VERIFIED / PENDING REVIEW；runtime NOT_IMPLEMENTED | Stage 4.1 / 4.2 |
+| F2 Evidence Graph V1 | 统一 Source → Artifact → Evidence → Fact → Derived Metric → Claim → Thesis → Position → Review 的引用关系；不预设 Graph DB | CONTRACT FROZEN / VERIFIED / PENDING REVIEW；runtime NOT_IMPLEMENTED | Stage 4.1B / 4.3 |
+| F3 Investment Research Eval Suite V1 | 用 Golden Cases 验证 PIT、检索、计算、Evidence、Claim 与未来 Agent tool use | CONTRACT FROZEN / VERIFIED / PENDING REVIEW；Agent/service harness NOT_IMPLEMENTED | Stage 4.1B 起持续扩展 |
+
+本轮 [F1/F2/F3 Scope Freeze](financial-research-foundations-contract-v1.md) 新增独立版本化合同包与八类 33 个 synthetic Golden Cases，保留 `contracts/v1` 的原 schema / 权限 / Local Core runtime registry。VERIFIED 仅指 [validation](financial-research-foundations-contract-v1-validation.md) 记录的离线合同与仓库检查；三项 production NOT_ADMITTED。CURRENT 同步 feature-registry；无 runtime/data flow 或战略 scope 变化，architecture 与 roadmap 不变。停止点：功能分支普通 commit/push 并核验 SHA 后等待独立审计，不创建 PR、不 merge。
 
 重构后的 CURRENT 战略顺序为：
 

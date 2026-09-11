@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/financial-research/v1/semantic-binding.v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "bindingId",
+    "domain",
+    "metricDefinitionRef",
+    "sourceDefinitionRef",
+    "fieldBindings",
+    "policyRef",
+    "allowedUses",
+    "forbiddenUses"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "financial-semantic-binding.v2"
+    },
+    "bindingId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain": {
+      "enum": [
+        "macro",
+        "industry",
+        "company",
+        "valuation",
+        "portfolio"
+      ]
+    },
+    "metricDefinitionRef": {
+      "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+    },
+    "sourceDefinitionRef": {
+      "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+    },
+    "fieldBindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity",
+        "universe",
+        "metricId",
+        "canonicalName",
+        "value",
+        "unit",
+        "currency",
+        "nativeFrequency",
+        "aggregation",
+        "reportingBasis",
+        "observationDate",
+        "publicationDate",
+        "releaseAvailableAt",
+        "effectiveDate",
+        "revision",
+        "revisionPolicy",
+        "source",
+        "provider",
+        "artifact",
+        "transform",
+        "formulaVersion",
+        "quality",
+        "coverage",
+        "admission",
+        "conflict",
+        "freshness",
+        "staleAfter"
+      ],
+      "properties": {
+        "entity": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "universe": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "metricId": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "canonicalName": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "value": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "unit": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "currency": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "nativeFrequency": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "aggregation": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "reportingBasis": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "observationDate": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "publicationDate": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "releaseAvailableAt": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "effectiveDate": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "revision": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "revisionPolicy": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "source": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "provider": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "artifact": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "transform": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "formulaVersion": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "quality": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "coverage": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "admission": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "conflict": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "freshness": {
+          "$ref": "#/$defs/FieldBinding"
+        },
+        "staleAfter": {
+          "$ref": "#/$defs/FieldBinding"
+        }
+      }
+    },
+    "policyRef": {
+      "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+    },
+    "allowedUses": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "strict_pit",
+          "research",
+          "display"
+        ]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "forbiddenUses": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "strict_pit",
+          "research",
+          "display"
+        ]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "FieldBinding": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ownerContract",
+            "pointer"
+          ],
+          "properties": {
+            "ownerContract": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pointer": {
+              "type": "string",
+              "pattern": "^/"
+            }
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

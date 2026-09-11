@@ -1,0 +1,3795 @@
+{
+  "past-vintage": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "future-only": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "revision-at-cutoff": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "independent-chain": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "other",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-02T00:00:00Z",
+            "releaseAvailableAt": "2026-01-02T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 99,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "inferred-release": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "SCHEDULE_INFERRED",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "period-key-mismatch": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "entity-key-mismatch": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "policy-deny": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "retrieve-partial": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [
+      "partial"
+    ],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "retrieve-stale": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [
+      "stale"
+    ],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "retrieve-conflicted": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [
+      "conflicted"
+    ],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "retrieve-not_admitted": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-01T00:00:00Z",
+            "releaseAvailableAt": "2026-01-01T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [
+      "not_admitted"
+    ],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "closed-lineage": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "artifact-evidence",
+          "from": "artifact",
+          "to": "evidence",
+          "type": "locates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "missing-evidence-lineage": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "ai-is-not-fact": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "ai_draft",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "artifact-evidence",
+          "from": "artifact",
+          "to": "evidence",
+          "type": "locates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "graph-partial": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [
+            "partial"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "contracts/financial-research/v1/fixtures/owners.json",
+              "objectId": "evidence",
+              "version": "1",
+              "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+              "locator": "/evidence"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "artifact-evidence",
+          "from": "artifact",
+          "to": "evidence",
+          "type": "locates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "graph-stale": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [
+            "stale"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "contracts/financial-research/v1/fixtures/owners.json",
+              "objectId": "evidence",
+              "version": "1",
+              "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+              "locator": "/evidence"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "artifact-evidence",
+          "from": "artifact",
+          "to": "evidence",
+          "type": "locates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "graph-conflicted": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [
+            "conflicted"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "contracts/financial-research/v1/fixtures/owners.json",
+              "objectId": "evidence",
+              "version": "1",
+              "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+              "locator": "/evidence"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "artifact-evidence",
+          "from": "artifact",
+          "to": "evidence",
+          "type": "locates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "graph-not_admitted": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [
+            "not_admitted"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "contracts/financial-research/v1/fixtures/owners.json",
+              "objectId": "evidence",
+              "version": "1",
+              "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+              "locator": "/evidence"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "artifact-evidence",
+          "from": "artifact",
+          "to": "evidence",
+          "type": "locates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "contradicting-evidence": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "artifact-evidence",
+          "from": "artifact",
+          "to": "evidence",
+          "type": "locates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "counter",
+          "from": "fact",
+          "to": "claim",
+          "type": "contradicts",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "earnings-before-all": {
+    "kind": "qualify_earnings",
+    "formationLatest": "2026-01-01T00:00:00Z",
+    "sourceLatest": "2026-01-02T00:00:00Z",
+    "disclosureEarliest": [
+      "2026-01-03T00:00:00Z",
+      "2026-01-04T00:00:00Z"
+    ],
+    "unknownDisclosureScope": false,
+    "sameMeasurementKey": true,
+    "sourceVerified": true,
+    "expectationRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "evidence",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/evidence"
+    },
+    "actualRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "fact",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/fact"
+    }
+  },
+  "earnings-equal-bound": {
+    "kind": "qualify_earnings",
+    "formationLatest": "2026-01-01T00:00:00Z",
+    "sourceLatest": "2026-01-03T00:00:00Z",
+    "disclosureEarliest": [
+      "2026-01-03T00:00:00Z",
+      "2026-01-04T00:00:00Z"
+    ],
+    "unknownDisclosureScope": false,
+    "sameMeasurementKey": true,
+    "sourceVerified": true,
+    "expectationRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "evidence",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/evidence"
+    },
+    "actualRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "fact",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/fact"
+    }
+  },
+  "earnings-unknown-formation": {
+    "kind": "qualify_earnings",
+    "formationLatest": null,
+    "sourceLatest": "2026-01-02T00:00:00Z",
+    "disclosureEarliest": [
+      "2026-01-03T00:00:00Z",
+      "2026-01-04T00:00:00Z"
+    ],
+    "unknownDisclosureScope": false,
+    "sameMeasurementKey": true,
+    "sourceVerified": true,
+    "expectationRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "evidence",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/evidence"
+    },
+    "actualRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "fact",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/fact"
+    }
+  },
+  "recompute-fixed-inputs": {
+    "kind": "recompute",
+    "formulaRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "formula",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/formula"
+    },
+    "inputManifestRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "manifest",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/manifest"
+    },
+    "calendarRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "calendar",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/calendar"
+    },
+    "scopeRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "scope",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/scope"
+    },
+    "cutoff": "2026-01-05T00:00:00Z",
+    "inputRefs": [
+      {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "input1",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/input1"
+      },
+      {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "input2",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/input2"
+      }
+    ],
+    "values": [
+      10,
+      20
+    ],
+    "fixedDenominator": 2,
+    "conditions": [],
+    "unit": "fixture-unit"
+  },
+  "recompute-missing": {
+    "kind": "recompute",
+    "formulaRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "formula",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/formula"
+    },
+    "inputManifestRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "manifest",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/manifest"
+    },
+    "calendarRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "calendar",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/calendar"
+    },
+    "scopeRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "scope",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/scope"
+    },
+    "cutoff": "2026-01-05T00:00:00Z",
+    "inputRefs": [
+      {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "input1",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/input1"
+      },
+      {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "input2",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/input2"
+      }
+    ],
+    "values": [
+      10,
+      null
+    ],
+    "fixedDenominator": 2,
+    "conditions": [],
+    "unit": "fixture-unit"
+  },
+  "recompute-unknown-denominator": {
+    "kind": "recompute",
+    "formulaRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "formula",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/formula"
+    },
+    "inputManifestRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "manifest",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/manifest"
+    },
+    "calendarRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "calendar",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/calendar"
+    },
+    "scopeRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "scope",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/scope"
+    },
+    "cutoff": "2026-01-05T00:00:00Z",
+    "inputRefs": [
+      {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "input1",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/input1"
+      },
+      {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "input2",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/input2"
+      }
+    ],
+    "values": [
+      10,
+      20
+    ],
+    "fixedDenominator": null,
+    "conditions": [],
+    "unit": "fixture-unit"
+  },
+  "date-safe-not-yet": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": null,
+            "releaseAvailableAt": "2026-01-01T16:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "DATE_ONLY_SAFE",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "date-safe-boundary": {
+    "kind": "retrieve",
+    "series": [
+      {
+        "entity": {
+          "entityType": "macro",
+          "entityId": "fixture-macro-entity"
+        },
+        "bindingId": "fixture-macro",
+        "definitionVersion": "1",
+        "scopeVersion": "1",
+        "period": {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "scope": "month"
+        },
+        "observations": [
+          {
+            "observationId": "o1",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": null,
+            "releaseAvailableAt": "2026-01-01T16:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 10,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 0,
+            "supersedesObservationId": null,
+            "releaseConfidenceClass": "DATE_ONLY_SAFE",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          },
+          {
+            "observationId": "o2",
+            "metricId": "MACRO_M2",
+            "valueDate": "2025-12",
+            "releaseDateTime": "2026-01-10T00:00:00Z",
+            "releaseAvailableAt": "2026-01-10T00:00:00Z",
+            "fetchedAt": "2026-02-01T00:00:00Z",
+            "value": 12,
+            "unit": "percent",
+            "sourceId": "synthetic",
+            "sourceDefinitionId": "synthetic-definition",
+            "revisionSequence": 1,
+            "supersedesObservationId": "o1",
+            "releaseConfidenceClass": "EXACT_TIMESTAMP",
+            "qualityStatus": "VERIFIED",
+            "rawArtifactId": "synthetic-artifact",
+            "transformVersion": "identity.v1",
+            "metadata": {
+              "synthetic": true
+            }
+          }
+        ]
+      }
+    ],
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "conditions": [],
+    "artifactRefs": {
+      "synthetic-artifact": {
+        "owner": "contracts/financial-research/v1/fixtures/owners.json",
+        "objectId": "artifact",
+        "version": "1",
+        "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+        "locator": "/artifact"
+      }
+    }
+  },
+  "earnings-earlier-disclosure": {
+    "kind": "qualify_earnings",
+    "formationLatest": "2026-01-01T00:00:00Z",
+    "sourceLatest": "2026-01-02T00:00:00Z",
+    "disclosureEarliest": [
+      "2026-01-01T12:00:00Z",
+      "2026-01-03T00:00:00Z",
+      "2026-01-04T00:00:00Z"
+    ],
+    "unknownDisclosureScope": false,
+    "sameMeasurementKey": true,
+    "sourceVerified": true,
+    "expectationRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "evidence",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/evidence"
+    },
+    "actualRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "fact",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/fact"
+    }
+  },
+  "earnings-unknownDisclosureScope": {
+    "kind": "qualify_earnings",
+    "formationLatest": "2026-01-01T00:00:00Z",
+    "sourceLatest": "2026-01-02T00:00:00Z",
+    "disclosureEarliest": [
+      "2026-01-03T00:00:00Z",
+      "2026-01-04T00:00:00Z"
+    ],
+    "unknownDisclosureScope": true,
+    "sameMeasurementKey": true,
+    "sourceVerified": true,
+    "expectationRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "evidence",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/evidence"
+    },
+    "actualRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "fact",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/fact"
+    }
+  },
+  "earnings-sameMeasurementKey": {
+    "kind": "qualify_earnings",
+    "formationLatest": "2026-01-01T00:00:00Z",
+    "sourceLatest": "2026-01-02T00:00:00Z",
+    "disclosureEarliest": [
+      "2026-01-03T00:00:00Z",
+      "2026-01-04T00:00:00Z"
+    ],
+    "unknownDisclosureScope": false,
+    "sameMeasurementKey": false,
+    "sourceVerified": true,
+    "expectationRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "evidence",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/evidence"
+    },
+    "actualRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "fact",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/fact"
+    }
+  },
+  "earnings-sourceVerified": {
+    "kind": "qualify_earnings",
+    "formationLatest": "2026-01-01T00:00:00Z",
+    "sourceLatest": "2026-01-02T00:00:00Z",
+    "disclosureEarliest": [
+      "2026-01-03T00:00:00Z",
+      "2026-01-04T00:00:00Z"
+    ],
+    "unknownDisclosureScope": false,
+    "sameMeasurementKey": true,
+    "sourceVerified": false,
+    "expectationRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "evidence",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/evidence"
+    },
+    "actualRef": {
+      "owner": "contracts/financial-research/v1/fixtures/owners.json",
+      "objectId": "fact",
+      "version": "1",
+      "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+      "locator": "/fact"
+    }
+  },
+  "graph-unknown-release": {
+    "kind": "assess_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "fixture",
+      "revision": 1,
+      "asOf": "2026-01-05T00:00:00Z",
+      "nodes": [
+        {
+          "nodeId": "source",
+          "kind": "source",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "source",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/source"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "artifact",
+          "kind": "artifact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "artifact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/artifact"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "evidence",
+          "kind": "evidence",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "evidence",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/evidence"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "nativeEvidenceRef": {
+            "refType": "document",
+            "refId": "evidence",
+            "quality": "verified"
+          }
+        },
+        {
+          "nodeId": "fact",
+          "kind": "fact",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "fact",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/fact"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "derived_metric",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "derived_metric",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/derived_metric"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": [],
+          "formulaRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "formula",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/formula"
+          },
+          "inputManifestRef": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "manifest",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/manifest"
+          }
+        },
+        {
+          "nodeId": "claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "claim",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/claim"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "thesis",
+          "kind": "thesis",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "thesis",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/thesis"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "investment_expression",
+          "kind": "investment_expression",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "investment_expression",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/investment_expression"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "position",
+          "kind": "position",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "position",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/position"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        },
+        {
+          "nodeId": "review",
+          "kind": "review",
+          "ref": {
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "objectId": "review",
+            "version": "1",
+            "sha256": "04b838d9de62a5648f4f4f087b52d81f4f627fe6fd230c013951cb199aed56db",
+            "locator": "/review"
+          },
+          "origin": "user_judgement",
+          "releaseAvailableAt": "2026-01-01T00:00:00Z",
+          "conditions": [],
+          "conditionSourceRefs": []
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "source-artifact",
+          "from": "source",
+          "to": "artifact",
+          "type": "publishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "artifact-evidence",
+          "from": "artifact",
+          "to": "evidence",
+          "type": "locates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "evidence-fact",
+          "from": "evidence",
+          "to": "fact",
+          "type": "establishes",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "fact-derived_metric",
+          "from": "fact",
+          "to": "derived_metric",
+          "type": "input_to",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "derived_metric-claim",
+          "from": "derived_metric",
+          "to": "claim",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "claim-thesis",
+          "from": "claim",
+          "to": "thesis",
+          "type": "supports",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "thesis-investment_expression",
+          "from": "thesis",
+          "to": "investment_expression",
+          "type": "expresses",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "investment_expression-position",
+          "from": "investment_expression",
+          "to": "position",
+          "type": "motivates",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "position-review",
+          "from": "position",
+          "to": "review",
+          "type": "reviews",
+          "assertedAt": "2026-01-02T00:00:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "source": {
+    "synthetic": true,
+    "id": "source",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "artifact": {
+    "synthetic": true,
+    "id": "artifact",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "evidence": {
+    "synthetic": true,
+    "id": "evidence",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "fact": {
+    "synthetic": true,
+    "id": "fact",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "derived_metric": {
+    "synthetic": true,
+    "id": "derived_metric",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "claim": {
+    "synthetic": true,
+    "id": "claim",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "thesis": {
+    "synthetic": true,
+    "id": "thesis",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "investment_expression": {
+    "synthetic": true,
+    "id": "investment_expression",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "position": {
+    "synthetic": true,
+    "id": "position",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "review": {
+    "synthetic": true,
+    "id": "review",
+    "revision": "1",
+    "text": "contract fixture only"
+  },
+  "policy": {
+    "synthetic": true,
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ]
+  },
+  "formula": {
+    "synthetic": true,
+    "operation": "sum_divide_fixed_denominator",
+    "version": "fixture-only.v1",
+    "missingPolicy": "block",
+    "tolerance": 0
+  },
+  "manifest": {
+    "synthetic": true,
+    "inputs": [
+      "input1",
+      "input2"
+    ],
+    "fixedDenominator": 2,
+    "cutoff": "2026-01-05T00:00:00Z",
+    "calendar": "calendar",
+    "scope": "scope"
+  },
+  "input1": {
+    "synthetic": true,
+    "value": 10,
+    "releaseAvailableAt": "2026-01-01T00:00:00Z"
+  },
+  "input2": {
+    "synthetic": true,
+    "value": 20,
+    "releaseAvailableAt": "2026-01-02T00:00:00Z"
+  },
+  "calendar": {
+    "synthetic": true,
+    "version": "fixture-only.v1"
+  },
+  "scope": {
+    "synthetic": true,
+    "version": "fixture-only.v1"
+  }
+}
