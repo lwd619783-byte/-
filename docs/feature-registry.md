@@ -2,7 +2,7 @@
 
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
 
-> 2026-09-12 CURRENT：已核对 `origin/main @ 4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`。Financial Research Foundations V1 已经独立审计通过并由 PR #43 合入：audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966`，PR CI run `34621319869` completed/success，main push CI run `34621558359` completed/success。当前战略入口为 [Financial Research OS roadmap](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)，进展见[执行索引](development-execution-plan-2026-09-07.md)。R2-E / D3 仍保持 NOT_ADMITTED；F1/F2/F3 合同已经合入，但业务 runtime 仍 NOT_IMPLEMENTED、production/data 仍 NOT_ADMITTED。以下 remediation 基线与历史审计保留原时点意义。
+> 2026-09-12 CURRENT：已核对 `origin/main @ 4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`。Financial Research Foundations V1 已经独立审计通过并由 PR #43 合入：audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966`，PR CI run `34621319869` completed/success，main push CI run `34621558359` completed/success。当前战略入口为 [Financial Research OS roadmap](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)，进展见[执行索引](development-execution-plan-2026-09-07.md)。R2-E / D3 仍保持 NOT_ADMITTED；F1/F2/F3 合同已经合入；合同合入时业务 runtime 尚未实现，当前 Stage 4.1-F 功能分支状态见下文，production/data 仍 NOT_ADMITTED。以下 remediation 基线与历史审计保留原时点意义。
 
 > 基线日期：2026-09-09
 > 本轮 remediation 的 pre-remediation / audit-input main baseline：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。
@@ -137,7 +137,7 @@
 
 IMPLEMENTED / VERIFIED（本地限定范围） / PENDING INDEPENDENT REVIEW；本条不声明 MERGED / MAIN CI PASS / PRODUCTION ADMITTED。
 
-F1 的 28 个 PBC definition bindings、精确 Query、PIT revision selector 与只读 Market Regime adapter 已实现，复用原 EntityRef / Observation / Definition。readiness 覆盖 23 个 metric，normalization 与 PIT backtest 均 BLOCKED；9 项保留 PARTIAL 建设进度。PBC 894 行 committed ledger 与官方 retained excerpt 完成诊断重放；完整 RAW_SOURCE/catalog/extraction graph 不在 committed 输入中，不能声称完整正向 raw replay 或 eligible value。all-A D3 继续 NOT_ADMITTED，formal/strict=0，target/coverage=null。详见 [Stage 4.1-F design / validation](market-regime/semantic-runtime-readiness-v1.md) 及 [机器报告](../research-data/market-regime/semantic-readiness/report.v1.json)。
+F1 的 28 个 PBC definition bindings、精确 Query、PIT revision selector 与只读 Market Regime adapter 已实现，复用原 EntityRef schema / Observation / Definition；正式 Entity Registry resolution 未实现。审计 remediation 移除 metricId→EntityRef 的自动拼接，entity binding=null、policy revision 2 的 reviewed mapping/Registry refs=null，全部查询保留 ENTITY_REGISTRY_UNRESOLVED，禁止自动创建实体。readiness 覆盖 23 个 metric，normalization / PIT backtest 按独立 15/16 gate 集计算，各 READY 0 / BLOCKED 23；progress 另列 PARTIAL 9 / NOT_PROVEN 14。三项 semantic gate 已接入 PR/main CI workflow，当前只声明 wiring 与本地验证，未声明 Hosted CI PASS。PBC 894 行 committed ledger 与官方 retained excerpt 完成诊断重放；完整 RAW_SOURCE/catalog/extraction graph 不在 committed 输入中，不能声称完整正向 raw replay 或 eligible value。all-A D3 继续 NOT_ADMITTED，formal/strict=0，target/coverage=null。详见 [Stage 4.1-F design / validation](market-regime/semantic-runtime-readiness-v1.md) 及 [机器报告](../research-data/market-regime/semantic-readiness/report.v1.json)。
 
 ### Stage 4.1 Metric Source / Formula 状态摘要
 

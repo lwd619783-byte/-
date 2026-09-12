@@ -12,17 +12,19 @@ export const PBC_REPORT = 'research-data/market-regime/source-catalog/pbc-final-
 export function expectedPolicy() {
   const scopes = Object.fromEntries(read(DEFINITIONS).map((d, i) => [d.sourceDefinitionId, {
     id: d.sourceDefinitionId, version: d.version,
-    // Explicit macro EntityRef equivalence to the existing metric registry key, not displayName.
-    entity: { entityType: 'macro', entityId: d.metricId },
+    // Statistical scope only. A metric key does not identify an Entity Registry entry.
     definitionRef: pin(DEFINITIONS, `/${i}`, d.sourceDefinitionId, d.version),
     periodScope: 'native_statistical_period'
   }]));
-  return { policy: { id: 'market-regime-semantic-owner-policy', revision: '1',
+  return { policy: { id: 'market-regime-semantic-owner-policy', revision: '2',
     authority: 'Stage 4.1-F read-only diagnostic policy; no data/provider promotion',
     allowedUses: ['strict_pit', 'research', 'display'], forbiddenUses: [],
     sourceOwners: { PBOC_M2_OFFICIAL_RELEASE: 'pbc.gov.cn', PBOC_AFRE_STOCK_OFFICIAL_RELEASE: 'pbc.gov.cn' },
     admissionOwner: PBC_REPORT, admissionPointer: '/admissionStatus',
-    admittedUses: [], freshness: 'UNKNOWN' }, scopes };
+    admittedUses: [], freshness: 'UNKNOWN',
+    // No reviewed macro EntityRef <-> macro_metric RegistryEntry mapping is available.
+    entityResolution: { status: 'UNRESOLVED', registryEntryRef: null, reviewedMappingRef: null, allowAutoCreate: false }
+  }, scopes };
 }
 export function expectedBindings() {
   const template = read('contracts/financial-research/v1/examples/pbc-binding.json');
@@ -31,8 +33,9 @@ export function expectedBindings() {
     binding.bindingId = `${d.sourceDefinitionId}-runtime.v2`;
     binding.metricDefinitionRef = pin(DEFINITIONS, `/${i}`, d.sourceDefinitionId, d.version);
     binding.sourceDefinitionRef = binding.metricDefinitionRef;
-    binding.policyRef = pin(POLICY, '/policy', 'market-regime-semantic-owner-policy', '1');
-    for (const role of ['entity', 'universe', 'coverage', 'admission', 'conflict', 'freshness']) binding.fieldBindings[role] = {
+    binding.policyRef = pin(POLICY, '/policy', 'market-regime-semantic-owner-policy', '2');
+    binding.fieldBindings.entity = null;
+    for (const role of ['universe', 'coverage', 'admission', 'conflict', 'freshness']) binding.fieldBindings[role] = {
       ownerContract: 'contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context', pointer: '/' + role
     };
     binding.allowedUses = ['strict_pit', 'research', 'display'];

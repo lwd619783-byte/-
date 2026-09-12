@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
-import { ROOT, REPORT_PATH, buildReadinessReport, validateReadinessReport, serializeReadinessReport } from '../semantic-runtime/readiness.mjs';
+import { NORMALIZATION_GATES, PIT_BACKTEST_GATES, evaluateReadinessGates, ROOT, REPORT_PATH, buildReadinessReport, validateReadinessReport, serializeReadinessReport } from '../semantic-runtime/readiness.mjs';
 
 test('committed compact inputs produce deterministic schema-valid BLOCKED readiness', () => {
   const report = buildReadinessReport();
@@ -47,7 +47,11 @@ test('readiness consumes real adapter replay and preserves its evidence role and
 
 test('gate statuses are evaluated separately and every blocking gate has stable evidence and codes', () => {
   const report = buildReadinessReport();
-  assert.deepEqual(report.statusCounts, { READY: 0, PARTIAL: 0, BLOCKED: 23 });
+  assert.deepEqual(report.statusCounts, { READY: 0, BLOCKED: 23 });
+  assert.deepEqual(report.progressCounts, { PARTIAL: 9, NOT_PROVEN: 14 });
+  assert.deepEqual(report.gatePolicy.normalizationGates, NORMALIZATION_GATES);
+  assert.deepEqual(report.gatePolicy.pitBacktestGates, PIT_BACKTEST_GATES);
+  assert.equal(report.gatePolicy.overallRule, 'BOTH_READY');
   const raw = report.metrics.find((item) => item.metricId === 'MACRO_M2_YOY');
   assert.equal(raw.gateChecks.find((item) => item.gate === 'SEMANTIC_BINDING_VALIDATION').status, 'PASS');
   assert.equal(raw.gateChecks.find((item) => item.gate === 'SEMANTIC_BINDING_COMPLETENESS').status, 'BLOCKED');
@@ -67,8 +71,10 @@ test('gate statuses are evaluated separately and every blocking gate has stable 
       else assert.ok(gate.blockerCodes.length > 0 && gate.blockerCodes.every((code) => metric.blockers.some((item) => item.code === code)));
     }
     assert.equal(metric.readiness, metric.gateChecks.every((gate) => gate.status === 'PASS') ? 'READY' : 'BLOCKED');
-    assert.equal(metric.normalizationReadiness, metric.readiness);
-    assert.equal(metric.pitBacktestReadiness, metric.readiness);
+    const expected = evaluateReadinessGates(metric.gateChecks);
+    assert.equal(metric.normalizationReadiness, expected.normalizationReadiness);
+    assert.equal(metric.pitBacktestReadiness, expected.pitBacktestReadiness);
+    assert.equal(metric.gateChecks.find((gate) => gate.gate === 'ENTITY_REGISTRY_RESOLUTION').status, 'BLOCKED');
   }
 });
 
@@ -105,4 +111,45 @@ test('CLI roots itself at import.meta.url and defaults to read-only byte verific
   assert.deepEqual(readFileSync(resolve(ROOT, REPORT_PATH)), before);
   const invalid = spawnSync(process.execPath, [resolve(ROOT, 'scripts/semantic-runtime/readiness.mjs'), '--ready'], { cwd: tmpdir(), encoding: 'utf8' });
   assert.notEqual(invalid.status, 0);
+});
+
+
+test('explicit frozen gate sets separate target-era backtest coverage from normalization', () => {
+  assert.equal(Object.isFrozen(NORMALIZATION_GATES), true);
+  assert.equal(Object.isFrozen(PIT_BACKTEST_GATES), true);
+  assert.deepEqual(PIT_BACKTEST_GATES.filter((gate) => !NORMALIZATION_GATES.includes(gate)), ['HISTORICAL_COVERAGE']);
+  assert.ok(NORMALIZATION_GATES.every((gate) => PIT_BACKTEST_GATES.includes(gate)));
+  const checks = PIT_BACKTEST_GATES.map((gate) => ({ gate, status: 'PASS' }));
+  assert.deepEqual(evaluateReadinessGates(checks), { normalizationReadiness: 'READY', pitBacktestReadiness: 'READY', readiness: 'READY' });
+  for (const status of ['BLOCKED', 'UNKNOWN']) {
+    const changed = checks.map((check) => ({ ...check, status: check.gate === 'HISTORICAL_COVERAGE' ? status : check.status }));
+    assert.deepEqual(evaluateReadinessGates(changed), { normalizationReadiness: 'READY', pitBacktestReadiness: 'BLOCKED', readiness: 'BLOCKED' });
+  }
+});
+
+test('each explicit shared prerequisite independently blocks both consumers, including absent proof', () => {
+  const checks = PIT_BACKTEST_GATES.map((gate) => ({ gate, status: 'PASS' }));
+  for (const gate of NORMALIZATION_GATES) {
+    for (const status of ['BLOCKED', 'UNKNOWN']) {
+      const changed = checks.map((check) => ({ ...check, status: check.gate === gate ? status : check.status }));
+      assert.deepEqual(evaluateReadinessGates(changed), { normalizationReadiness: 'BLOCKED', pitBacktestReadiness: 'BLOCKED', readiness: 'BLOCKED' });
+    }
+    assert.equal(evaluateReadinessGates(checks.filter((check) => check.gate !== gate)).normalizationReadiness, 'BLOCKED');
+  }
+  assert.throws(() => evaluateReadinessGates([...checks, checks[0]]), /READINESS_GATE_SET_INVALID/);
+  assert.throws(() => evaluateReadinessGates([...checks, { gate: 'UNDECLARED_GATE', status: 'PASS' }]), /READINESS_GATE_SET_INVALID/);
+});
+
+test('report rejects unreachable readiness PARTIAL counts and edited gate policy or progress totals', () => {
+  const invalid = buildReadinessReport(); invalid.statusCounts.PARTIAL = 0;
+  assert.throws(() => validateReadinessReport(invalid), /READINESS_SCHEMA_INVALID/);
+  for (const mutate of [
+    (report) => { report.progressCounts.PARTIAL++; },
+    (report) => { report.gatePolicy.normalizationGates = report.gatePolicy.normalizationGates.filter((gate) => gate !== 'ENTITY_REGISTRY_RESOLUTION'); },
+    (report) => { report.metrics[0].normalizationReadiness = 'READY'; },
+    (report) => { report.metrics[0].pitBacktestReadiness = 'READY'; },
+  ]) {
+    const report = structuredClone(buildReadinessReport()); mutate(report);
+    assert.throws(() => validateReadinessReport(report), /READINESS_EVIDENCE_MISMATCH/);
+  }
 });

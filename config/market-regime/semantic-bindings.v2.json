@@ -18,10 +18,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -110,8 +107,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -139,10 +136,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -231,8 +225,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -260,10 +254,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -352,8 +343,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -381,10 +372,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -473,8 +461,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -502,10 +490,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -594,8 +579,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -623,10 +608,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -715,8 +697,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -744,10 +726,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -836,8 +815,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -865,10 +844,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -957,8 +933,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -986,10 +962,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -1078,8 +1051,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -1107,10 +1080,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -1199,8 +1169,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -1228,10 +1198,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -1320,8 +1287,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -1349,10 +1316,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -1441,8 +1405,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -1470,10 +1434,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -1562,8 +1523,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -1591,10 +1552,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -1683,8 +1641,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -1712,10 +1670,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -1804,8 +1759,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -1833,10 +1788,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -1925,8 +1877,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -1954,10 +1906,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -2046,8 +1995,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -2075,10 +2024,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -2167,8 +2113,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -2196,10 +2142,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -2288,8 +2231,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -2317,10 +2260,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -2409,8 +2349,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -2438,10 +2378,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -2530,8 +2467,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -2559,10 +2496,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -2651,8 +2585,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -2680,10 +2614,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -2772,8 +2703,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -2801,10 +2732,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -2893,8 +2821,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -2922,10 +2850,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -3014,8 +2939,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -3043,10 +2968,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -3135,8 +3057,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -3164,10 +3086,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -3256,8 +3175,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",
@@ -3285,10 +3204,7 @@
       "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
     },
     "fieldBindings": {
-      "entity": {
-        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
-        "pointer": "/entity"
-      },
+      "entity": null,
       "universe": {
         "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
         "pointer": "/universe"
@@ -3377,8 +3293,8 @@
       "owner": "config/market-regime/semantic-owner-policy.v1.json",
       "locator": "/policy",
       "objectId": "market-regime-semantic-owner-policy",
-      "version": "1",
-      "sha256": "677f46db534ec2f84f741381c0c68b794ebbdfbd249251d9d7c144da4fab7018"
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
     },
     "allowedUses": [
       "strict_pit",

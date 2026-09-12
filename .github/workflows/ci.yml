@@ -108,6 +108,16 @@ jobs:
       - name: Validate committed D2 report against frozen D1 inventories offline
         run: npm run data:validate:market-regime:all-a
 
+      # These checks read committed bytes only. Do not generate bindings or the report here.
+      - name: Validate committed Stage 4.1-F semantic bindings
+        run: npm run data:validate:semantic-bindings
+
+      - name: Test Stage 4.1-F semantic runtime and readiness offline
+        run: npm run test:semantic-runtime
+
+      - name: Validate committed Stage 4.1-F readiness report
+        run: npm run data:validate:semantic-readiness
+
       - name: Build and validate deterministic Market Regime sample catalog
         run: npm run data:build:market-regime:catalog && npm run data:validate:market-regime:catalog
 

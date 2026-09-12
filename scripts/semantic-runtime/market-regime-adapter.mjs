@@ -7,6 +7,7 @@ import { selectVintage } from './selection.mjs';
 const CSV = 'research-data/market-regime/source-catalog/pbc-final-vintages.v1.csv';
 const PROVENANCE = 'scripts/tests/fixtures/market_regime/pbc-r2b-parser-fixtures.provenance.json';
 const blocker = (code, condition, refs = []) => ({ code, condition, refs: unique(refs) });
+const unresolvedEntity = () => blocker('ENTITY_REGISTRY_UNRESOLVED', 'unknown', [POLICY + '#/policy/entityResolution']);
 // This is a compact CSV ledger reader, not a second Observation model or source parser.
 function csvRows(text) {
   const rows = []; let row = [], cell = '', quoted = false;
@@ -25,7 +26,7 @@ function csvRows(text) {
 export function replayCommittedPbc({ root = ROOT } = {}) {
   const report = read(PBC_REPORT, root), definitions = read(DEFINITIONS, root);
   const rows = csvRows(bytes(CSV, root).toString('utf8'));
-  const blockers = [blocker('FORMAL_CATALOG_NOT_COMMITTED', 'missing_evidence', [PBC_REPORT + '#/sealedOutput', CSV]),
+  const blockers = [unresolvedEntity(), blocker('FORMAL_CATALOG_NOT_COMMITTED', 'missing_evidence', [PBC_REPORT + '#/sealedOutput', CSV]),
     blocker('FIELD_EXTRACTION_GRAPH_NOT_COMMITTED', 'missing_evidence', [PBC_REPORT + '#/sidecarContentHashes']),
     blocker('RELEASE_CALENDAR_UNPROVEN', 'unknown', ['docs/market-regime/metric-registry-v1.md#native-frequency-release-calendar-and-stale-rules'])];
   // Real report state is read, never inferred from its validationStatus=PASS.
@@ -73,18 +74,20 @@ export function replayCommittedPbc({ root = ROOT } = {}) {
     }
     bindingStatus = 'PASS';
   } catch { blockers.push(blocker('SEMANTIC_BINDING_INVALID', 'unknown', [BINDINGS, POLICY])); }
-  return { sourceAdmission, observationCount: rows.length, eligibleValueCount: 0,
+  return { sourceAdmission, observationCount: rows.length, eligibleValueCount: 0, entityResolutionStatus: 'UNRESOLVED',
     semanticBindingValidation: bindingStatus, semanticBindingCompleteness: 'BLOCKED',
     metricVintageCounts: counts, retainedEvidenceReplay: excerpt,
     // Missing aggregation/reporting/freshness owner bindings stay unknown.
     blockers: [...blockers, blocker('SEMANTIC_BINDING_INCOMPLETE', 'unknown', [BINDINGS])].sort((a, b) => a.code.localeCompare(b.code, 'en')) };
 }
 
-export function queryForDefinition(sourceDefinitionId, period, asOf, use = 'strict_pit') {
+export function queryForDefinition(sourceDefinitionId, period, asOf, use = 'strict_pit', entity) {
+  // A supplied EntityRef is only a query claim. This helper never resolves/creates an entity.
+  if (entity === undefined) throw new Error('ENTITY_REGISTRY_UNRESOLVED');
   const bindings = checkBindings(), index = bindings.findIndex((b) => b.sourceDefinitionRef.objectId === sourceDefinitionId);
   if (index < 0) throw new Error('BINDING_NOT_FOUND');
   const b = bindings[index], scope = read(POLICY).scopes[sourceDefinitionId];
-  return { entity: scope.entity, bindingId: b.bindingId, bindingRef: pin(BINDINGS, `/${index}`, b.bindingId, '2'),
+  return { entity: structuredClone(entity), bindingId: b.bindingId, bindingRef: pin(BINDINGS, `/${index}`, b.bindingId, '2'),
     scopeRef: pin(POLICY, '/scopes/' + sourceDefinitionId, scope.id, scope.version),
     definitionVersion: b.sourceDefinitionRef.version, scopeVersion: scope.version,
     period: { ...period, scope: scope.periodScope }, asOf, use };
@@ -92,7 +95,7 @@ export function queryForDefinition(sourceDefinitionId, period, asOf, use = 'stri
 
 /** Public read-only domain entrypoint. All authority/conditions are owner-projected here. */
 export function queryMacro(request, { catalogPath = null } = {}) {
-  const context = { definition: {}, blockers: [], admission: 'UNKNOWN', coverage: {targetCount: null, availableCount: null}, conflict: 'UNKNOWN', freshness: 'UNKNOWN', verifyEvidence: () => ({refs: [], blockers: []}) };
+  const context = { definition: {}, blockers: [unresolvedEntity()], admission: 'UNKNOWN', coverage: {targetCount: null, availableCount: null}, conflict: 'UNKNOWN', freshness: 'UNKNOWN', verifyEvidence: () => ({refs: [], blockers: []}) };
   const deny = (code, condition = 'unknown', refs = []) => {
     context.blockers.push(blocker(code, condition, refs));
     return selectVintage([], { asOf: request?.asOf }, context);
@@ -109,7 +112,9 @@ export function queryMacro(request, { catalogPath = null } = {}) {
     if (request.scopeRef.owner !== POLICY || request.scopeRef.objectId !== expectedScope.id || request.scopeRef.version !== expectedScope.version || !isDeepStrictEqual(scope, expectedScope) || !isDeepStrictEqual(resolve(scope.definitionRef), definition)) return deny('SCOPE_IDENTITY');
   } catch { return deny('PIN_OR_OWNER_INVALID', 'missing_evidence', [request.bindingRef.owner, request.scopeRef.owner]); }
   context.definition = definition;
-  if (request.entity.entityType !== scope.entity.entityType || request.entity.entityId !== scope.entity.entityId) return deny('ENTITY_IDENTITY');
+  // No formal Registry-backed mapping exists in this adapter version. String equality,
+  // displayName or a caller's EntityRef cannot remove ENTITY_REGISTRY_UNRESOLVED.
+  // Continue metric/source diagnostics only; the blocker prevents an eligible value.
   if (request.definitionVersion !== definition.version || request.scopeVersion !== scope.version || request.period.scope !== scope.periodScope || request.period.start > request.period.end) return deny('DEFINITION_SCOPE_PERIOD_MISMATCH');
   if (request.period.start < definition.effectiveFrom || (definition.effectiveTo && request.period.end > definition.effectiveTo)) return deny('DEFINITION_PERIOD_MISMATCH');
   if (!binding.allowedUses.includes(request.use) || binding.forbiddenUses.includes(request.use) || !policy.allowedUses.includes(request.use) || policy.forbiddenUses.includes(request.use)) return deny('USE_FORBIDDEN', 'not_admitted');

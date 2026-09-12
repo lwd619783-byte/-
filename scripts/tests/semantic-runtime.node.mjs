@@ -2,7 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Ajv2020 } from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
-import { read } from '../semantic-runtime/common.mjs';
+import { ROOT, bytes, read } from '../semantic-runtime/common.mjs';
+import { spawnSync } from 'node:child_process';
+import { createRequire } from 'node:module';
+import { dirname } from 'node:path';
 import { selectVintage } from '../semantic-runtime/selection.mjs';
 import { queryMacro, queryForDefinition, replayCommittedPbc } from '../semantic-runtime/market-regime-adapter.mjs';
 import { checkBindings } from '../semantic-runtime/bindings.mjs';
@@ -10,7 +13,9 @@ import { checkBindings } from '../semantic-runtime/bindings.mjs';
 const sample = read('research-data/market-regime/catalog/observation-catalog.sample.v1.json');
 const first = sample.observations.find((o) => o.metricId === 'MACRO_M2_BALANCE' && o.valueDate === '2005-11');
 const definition = sample.sourceDefinitions.find((d) => d.sourceDefinitionId === first.sourceDefinitionId);
-const query = () => queryForDefinition(definition.sourceDefinitionId, {start: '2005-11-01', end: '2005-11-30'}, '2006-01-01T00:00:00+08:00');
+// A caller-supplied query identity is not a resolved Registry identity.
+const queryEntity = { entityType: 'macro', entityId: 'synthetic-query-claim' };
+const query = () => queryForDefinition(definition.sourceDefinitionId, {start: '2005-11-01', end: '2005-11-30'}, '2006-01-01T00:00:00+08:00', 'strict_pit', queryEntity);
 // Synthetic adapter assessment only; it is never registered in queryMacro.
 const context = () => ({ definition, blockers: [], admission: 'ADMITTED', coverage: {targetCount: 1, availableCount: 1}, conflict: 'CLEAR', freshness: 'FRESH', verifyEvidence: (o) => ({blockers: [], refs: [o.rawArtifactId]}) });
 const revised = () => ({ ...structuredClone(first), observationId: 'synthetic-revision-1', value: 31, revisionSequence: 1,
@@ -90,7 +95,7 @@ test('public runtime reads committed owners and returns real blockers, no eligib
   assert.deepEqual(out, queryMacro(query()));
 });
 test('real compact query retains only cutoff-available diagnostic refs and known temporal fields', () => {
-  const before = queryForDefinition('pbc-m2-balance-2011-v2', {start: '2011-10-01', end: '2011-10-31'}, '2011-11-01T00:00:00+08:00');
+  const before = queryForDefinition('pbc-m2-balance-2011-v2', {start: '2011-10-01', end: '2011-10-31'}, '2011-11-01T00:00:00+08:00', 'strict_pit', queryEntity);
   const after = {...before, asOf: '2011-11-12T00:00:00+08:00'};
   const old = queryMacro(before), available = queryMacro(after);
   assert.deepEqual(old.temporal, []); assert.equal(available.temporal.length, 1);
@@ -102,7 +107,7 @@ test('real compact query retains only cutoff-available diagnostic refs and known
 test('public runtime rejects bad entity/pin/version/scope/period and ignores displayName', () => {
   const q = query();
   for (const changed of [{...q, entity: {...q.entity, entityId: 'wrong'}}, {...q, definitionVersion: 'wrong'}, {...q, scopeVersion: 'wrong'}, {...q, scopeRef: {...q.scopeRef, objectId: 'wrong'}}, {...q, period: {...q.period, scope: 'cumulative'}}, {...q, bindingRef: {...q.bindingRef, sha256: '0'.repeat(64)}}]) {
-    const out = queryMacro(changed); assert.equal(out.value, null); assert.ok(out.blockers.some((b) => /IDENTITY|MISMATCH|INVALID/.test(b.code)));
+    const out = queryMacro(changed); assert.equal(out.value, null); assert.ok(out.blockers.some((b) => /IDENTITY|MISMATCH|INVALID|ENTITY_REGISTRY_UNRESOLVED/.test(b.code)));
   }
   assert.deepEqual(queryMacro({...q, entity: {...q.entity, displayName: 'irrelevant'}}), queryMacro(q));
 });
@@ -113,4 +118,53 @@ test('catalog absent returns evidence blocker', () => {
 test('sample catalog never becomes real raw evidence', () => {
   const out = queryMacro(query(), {catalogPath: 'research-data/market-regime/catalog/observation-catalog.sample.v1.json'});
   assert.equal(out.value, null); assert.ok(out.blockers.some((b) => b.code === 'EXCERPT_IS_NOT_RAW_SOURCE'));
+});
+test('no Registry mapping: policy has no Entity identity and the binding remains null', () => {
+  const policy = read('config/market-regime/semantic-owner-policy.v1.json');
+  assert.equal(policy.policy.revision, '2');
+  assert.deepEqual(policy.policy.entityResolution, {status: 'UNRESOLVED', registryEntryRef: null, reviewedMappingRef: null, allowAutoCreate: false});
+  assert.ok(Object.values(policy.scopes).every((scope) => !Object.hasOwn(scope, 'entity')));
+  assert.ok(checkBindings().every((binding) => binding.fieldBindings.entity === null));
+  assert.equal(replayCommittedPbc().entityResolutionStatus, 'UNRESOLVED');
+});
+test('request builder cannot manufacture an EntityRef from a metric key', () => {
+  assert.throws(() => queryForDefinition(definition.sourceDefinitionId, {start: '2005-11-01', end: '2005-11-30'}, '2006-01-01T00:00:00Z'), /ENTITY_REGISTRY_UNRESOLVED/);
+  assert.deepEqual(query().entity, queryEntity);
+});
+test('unresolved, wrong and metric-equal Entity IDs all remain blocked without Registry proof', () => {
+  for (const entityId of [queryEntity.entityId, 'wrong', definition.metricId]) {
+    const out = queryMacro({...query(), entity: {entityType: 'macro', entityId, displayName: definition.metricId}});
+    assert.equal(out.outcome, 'blocked'); assert.equal(out.value, null);
+    assert.ok(out.blockers.some((item) => item.code === 'ENTITY_REGISTRY_UNRESOLVED'));
+  }
+  const incompatible = queryMacro({...query(), entity: {entityType: 'macro_metric', entityId: definition.metricId}});
+  assert.ok(incompatible.blockers.some((item) => item.code === 'QUERY_SCHEMA_INVALID'));
+});
+test('public query does not need entity creation or any filesystem write permission', () => {
+  const script = `import {queryMacro} from './scripts/semantic-runtime/market-regime-adapter.mjs';
+    const result = queryMacro(${JSON.stringify(query())});
+    if (result.outcome !== 'blocked' || !result.blockers.some(b => b.code === 'ENTITY_REGISTRY_UNRESOLVED')) process.exit(1);`;
+  // Exported source trees may resolve locked dependencies from a parent node_modules.
+  // Grant reads to that installed dependency directory, never writes or Registry access.
+  const dependencies = dirname(dirname(createRequire(import.meta.url).resolve('ajv/package.json')));
+  const run = spawnSync(process.execPath, ['--permission', '--allow-fs-read=' + ROOT, '--allow-fs-read=' + dependencies, '--input-type=module', '-e', script], {cwd: ROOT, encoding: 'utf8'});
+  assert.equal(run.status, 0, run.stderr);
+});
+test('PR/main CI runs all three semantic gates without generation or failure suppression', () => {
+  const workflow = bytes('.github/workflows/ci.yml').toString('utf8');
+  assert.match(workflow, /^  pull_request:/m); assert.match(workflow, /^    branches: \[main\]$/m);
+  assert.doesNotMatch(workflow, /continue-on-error:/);
+  const steps = workflow.split(/^      - name: /m).slice(1);
+  const commands = ['npm run data:validate:semantic-bindings', 'npm run test:semantic-runtime', 'npm run data:validate:semantic-readiness'];
+  const positions = commands.map((command) => {
+    const index = steps.findIndex((step) => step.split(/\r?\n/).includes('        run: ' + command));
+    assert.ok(index >= 0, command + ' must run directly and propagate nonzero exit');
+    assert.doesNotMatch(steps[index], /^\s+if:/m);
+    return index;
+  });
+  assert.ok(positions[0] < positions[1] && positions[1] < positions[2]);
+  assert.match(steps.slice(0, positions[0]).join('\n'), /uses: actions\/checkout@/);
+  assert.match(steps.slice(0, positions[0]).join('\n'), /run: npm ci/);
+  assert.doesNotMatch(steps.slice(0, positions[2] + 1).join('\n'), /data:build:semantic|semantic-runtime\/\S+.*--write/);
+  assert.equal(read('package.json').scripts['test:semantic-runtime'], 'node --test scripts/tests/semantic-runtime.node.mjs scripts/tests/semantic-readiness.node.mjs');
 });

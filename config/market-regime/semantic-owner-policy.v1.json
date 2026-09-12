@@ -1,7 +1,7 @@
 {
   "policy": {
     "id": "market-regime-semantic-owner-policy",
-    "revision": "1",
+    "revision": "2",
     "authority": "Stage 4.1-F read-only diagnostic policy; no data/provider promotion",
     "allowedUses": [
       "strict_pit",
@@ -16,16 +16,18 @@
     "admissionOwner": "research-data/market-regime/source-catalog/pbc-final-evidence.v1.json",
     "admissionPointer": "/admissionStatus",
     "admittedUses": [],
-    "freshness": "UNKNOWN"
+    "freshness": "UNKNOWN",
+    "entityResolution": {
+      "status": "UNRESOLVED",
+      "registryEntryRef": null,
+      "reviewedMappingRef": null,
+      "allowAutoCreate": false
+    }
   },
   "scopes": {
     "pbc-m2-balance-pre-2011-v1": {
       "id": "pbc-m2-balance-pre-2011-v1",
       "version": "pre-2011-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/0",
@@ -38,10 +40,6 @@
     "pbc-m2-yoy-pre-2011-v1": {
       "id": "pbc-m2-yoy-pre-2011-v1",
       "version": "pre-2011-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/1",
@@ -54,10 +52,6 @@
     "pbc-m2-balance-2011-v2": {
       "id": "pbc-m2-balance-2011-v2",
       "version": "2011-scope-v2",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/2",
@@ -70,10 +64,6 @@
     "pbc-m2-yoy-2011-v2": {
       "id": "pbc-m2-yoy-2011-v2",
       "version": "2011-scope-v2",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/3",
@@ -86,10 +76,6 @@
     "pbc-m2-balance-2018-v3": {
       "id": "pbc-m2-balance-2018-v3",
       "version": "2018-scope-v3",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/4",
@@ -102,10 +88,6 @@
     "pbc-m2-yoy-2018-v3": {
       "id": "pbc-m2-yoy-2018-v3",
       "version": "2018-scope-v3",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/5",
@@ -118,10 +100,6 @@
     "pbc-afre-stock-balance-2015-v1": {
       "id": "pbc-afre-stock-balance-2015-v1",
       "version": "2015-backcast-release-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/6",
@@ -134,10 +112,6 @@
     "pbc-afre-stock-yoy-2015-v1": {
       "id": "pbc-afre-stock-yoy-2015-v1",
       "version": "2015-backcast-release-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/7",
@@ -150,10 +124,6 @@
     "pbc-afre-stock-balance-2018-07-v2": {
       "id": "pbc-afre-stock-balance-2018-07-v2",
       "version": "2018-07-v2",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/8",
@@ -166,10 +136,6 @@
     "pbc-afre-stock-balance-2018-09-v3": {
       "id": "pbc-afre-stock-balance-2018-09-v3",
       "version": "2018-09-v3",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/9",
@@ -182,10 +148,6 @@
     "pbc-afre-stock-balance-2019-09-v4": {
       "id": "pbc-afre-stock-balance-2019-09-v4",
       "version": "2019-09-v4",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/10",
@@ -198,10 +160,6 @@
     "pbc-afre-stock-balance-2019-12-v5": {
       "id": "pbc-afre-stock-balance-2019-12-v5",
       "version": "2019-12-v5",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/11",
@@ -214,10 +172,6 @@
     "pbc-m2-balance-2018-backcast-2017-12-v1": {
       "id": "pbc-m2-balance-2018-backcast-2017-12-v1",
       "version": "2018-backcast-2017-12-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/12",
@@ -230,10 +184,6 @@
     "pbc-afre-stock-yoy-2018-07-v2": {
       "id": "pbc-afre-stock-yoy-2018-07-v2",
       "version": "2018-07-v2",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/13",
@@ -246,10 +196,6 @@
     "pbc-afre-stock-yoy-2018-09-v3": {
       "id": "pbc-afre-stock-yoy-2018-09-v3",
       "version": "2018-09-v3",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/14",
@@ -262,10 +208,6 @@
     "pbc-afre-stock-yoy-2019-09-v4": {
       "id": "pbc-afre-stock-yoy-2019-09-v4",
       "version": "2019-09-v4",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/15",
@@ -278,10 +220,6 @@
     "pbc-afre-stock-yoy-2019-12-v5": {
       "id": "pbc-afre-stock-yoy-2019-12-v5",
       "version": "2019-12-v5",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/16",
@@ -294,10 +232,6 @@
     "pbc-m2-yoy-2018-backcast-2017-12-v1": {
       "id": "pbc-m2-yoy-2018-backcast-2017-12-v1",
       "version": "2018-backcast-2017-12-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/17",
@@ -310,10 +244,6 @@
     "pbc-m2-balance-2022-12-v4": {
       "id": "pbc-m2-balance-2022-12-v4",
       "version": "2022-12-v4",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/18",
@@ -326,10 +256,6 @@
     "pbc-afre-stock-balance-2023-01-v6": {
       "id": "pbc-afre-stock-balance-2023-01-v6",
       "version": "2023-01-v6",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/19",
@@ -342,10 +268,6 @@
     "pbc-m2-yoy-2022-12-v4": {
       "id": "pbc-m2-yoy-2022-12-v4",
       "version": "2022-12-v4",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_M2_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/20",
@@ -358,10 +280,6 @@
     "pbc-afre-stock-yoy-2023-01-v6": {
       "id": "pbc-afre-stock-yoy-2023-01-v6",
       "version": "2023-01-v6",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/21",
@@ -374,10 +292,6 @@
     "pbc-afre-stock-balance-2018-07-backcast-v1": {
       "id": "pbc-afre-stock-balance-2018-07-backcast-v1",
       "version": "2018-07-backcast-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/22",
@@ -390,10 +304,6 @@
     "pbc-afre-stock-yoy-2018-07-backcast-v1": {
       "id": "pbc-afre-stock-yoy-2018-07-backcast-v1",
       "version": "2018-07-backcast-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/23",
@@ -406,10 +316,6 @@
     "pbc-afre-stock-balance-2018-09-backcast-v1": {
       "id": "pbc-afre-stock-balance-2018-09-backcast-v1",
       "version": "2018-09-backcast-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/24",
@@ -422,10 +328,6 @@
     "pbc-afre-stock-yoy-2018-09-backcast-v1": {
       "id": "pbc-afre-stock-yoy-2018-09-backcast-v1",
       "version": "2018-09-backcast-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/25",
@@ -438,10 +340,6 @@
     "pbc-afre-stock-balance-2019-09-backcast-v1": {
       "id": "pbc-afre-stock-balance-2019-09-backcast-v1",
       "version": "2019-09-backcast-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_BALANCE"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/26",
@@ -454,10 +352,6 @@
     "pbc-afre-stock-yoy-2019-09-backcast-v1": {
       "id": "pbc-afre-stock-yoy-2019-09-backcast-v1",
       "version": "2019-09-backcast-v1",
-      "entity": {
-        "entityType": "macro",
-        "entityId": "MACRO_AFRE_STOCK_YOY"
-      },
       "definitionRef": {
         "owner": "config/market-regime/pbc-historical-definitions.v1.json",
         "locator": "/27",

@@ -23,15 +23,44 @@ const RUNTIME_INPUTS = [
   'scripts/tests/fixtures/market_regime/pbc-r2b-parser-fixtures.provenance.json',
   'scripts/tests/fixtures/market_regime/pbc-r2b-m2-2011-10.html',
 ];
-const GATES = [
-  'SEMANTIC_BINDING_VALIDATION', 'SEMANTIC_BINDING_COMPLETENESS', 'SOURCE_DATA_ADMISSION',
+// formula-normalization-v1 sections 3.2-3.3: normalization itself requires PIT
+// windows, provenance and minimum history. Backtest additionally needs target-era
+// historical coverage (backtest-dataset-design-v1 sections 3, 12, 18).
+export const NORMALIZATION_GATES = Object.freeze([
+  'SEMANTIC_BINDING_VALIDATION', 'SEMANTIC_BINDING_COMPLETENESS', 'ENTITY_REGISTRY_RESOLUTION', 'SOURCE_DATA_ADMISSION',
+  'VERSIONED_SOURCE_CONTRACT', 'OFFICIAL_CALENDAR_OR_NATIVE_PERIOD_GRID',
+  'RELEASE_AVAILABLE_AT_DATE_SAFE', 'RELEASE_ARTIFACT_BINDING',
+  'ORIGINAL_REVISION_OR_KNOWN_BACKCAST_LINEAGE', 'CANONICAL_SCOPE_AND_UNIT',
+  'DEFINITION_CONTINUITY_ERA_BREAKS', 'REQUIRED_DENOMINATOR_AND_UNIVERSE',
+  'COMPLETE_OBSERVATION_GRAPH_REPLAY', 'PIT_SELECTOR_AT_WEEKLY_CUTOFF',
+  'HISTORY_MATURITY_AND_MISSINGNESS',
+]);
+// Historical backtests consume the normalized score; all normalization gates
+// therefore also apply, but are frozen explicitly rather than copying a verdict.
+export const PIT_BACKTEST_GATES = Object.freeze([
+  'SEMANTIC_BINDING_VALIDATION', 'SEMANTIC_BINDING_COMPLETENESS', 'ENTITY_REGISTRY_RESOLUTION', 'SOURCE_DATA_ADMISSION',
   'VERSIONED_SOURCE_CONTRACT', 'OFFICIAL_CALENDAR_OR_NATIVE_PERIOD_GRID',
   'RELEASE_AVAILABLE_AT_DATE_SAFE', 'RELEASE_ARTIFACT_BINDING',
   'ORIGINAL_REVISION_OR_KNOWN_BACKCAST_LINEAGE', 'CANONICAL_SCOPE_AND_UNIT',
   'DEFINITION_CONTINUITY_ERA_BREAKS', 'REQUIRED_DENOMINATOR_AND_UNIVERSE',
   'COMPLETE_OBSERVATION_GRAPH_REPLAY', 'PIT_SELECTOR_AT_WEEKLY_CUTOFF',
   'HISTORICAL_COVERAGE', 'HISTORY_MATURITY_AND_MISSINGNESS',
-];
+]);
+const GATES = Object.freeze([...new Set([...NORMALIZATION_GATES, ...PIT_BACKTEST_GATES])]);
+
+/** Only each explicit gate set can decide its verdict; missing proof fails closed. */
+export function evaluateReadinessGates(gateChecks) {
+  const checks = new Map();
+  for (const check of gateChecks) {
+    if (!GATES.includes(check.gate) || checks.has(check.gate)) throw new Error('READINESS_GATE_SET_INVALID');
+    checks.set(check.gate, check.status);
+  }
+  const verdict = (gates) => gates.every((gate) => checks.get(gate) === 'PASS') ? 'READY' : 'BLOCKED';
+  const normalizationReadiness = verdict(NORMALIZATION_GATES);
+  const pitBacktestReadiness = verdict(PIT_BACKTEST_GATES);
+  return { normalizationReadiness, pitBacktestReadiness,
+    readiness: normalizationReadiness === 'READY' && pitBacktestReadiness === 'READY' ? 'READY' : 'BLOCKED' };
+}
 const read = (root, path) => readFileSync(resolve(root, path));
 const json = (root, path) => JSON.parse(read(root, path));
 const reference = (root, path) => ({ path, sha256: createHash('sha256').update(read(root, path)).digest('hex') });
@@ -51,6 +80,9 @@ export function buildReadinessReport({ root = ROOT } = {}) {
   const unknown = () => ({ candidateCount: null, formalCount: null, strictPitCount: null, targetCount: null, coveragePercent: null });
   const row = (metricId, dependencies, blockers, progress = 'NOT_PROVEN', counts = unknown(), paths = [REGISTRY, FORMULA, BACKTEST]) => {
     blockers = [...blockers];
+    if (!blockers.some((item) => item.code === 'ENTITY_REGISTRY_UNRESOLVED')) {
+      blockers.push(blocker('ENTITY_REGISTRY_UNRESOLVED', 'No reviewed Registry-backed owner mapping is available to this runtime; metric identity is not formal Entity identity.', paths));
+    }
     const isPbc = paths.includes(PBC), isCsrc = paths.includes(CSRC), isAllA = paths.includes(ALL_A);
     const nativeDefinitionIds = new Set(json(root, RUNTIME_INPUTS[0]).filter((definition) => definition.metricId === metricId).map((definition) => definition.sourceDefinitionId));
     const nativeBinding = isPbc && Object.hasOwn(pbc.metricCounts, metricId)
@@ -58,6 +90,7 @@ export function buildReadinessReport({ root = ROOT } = {}) {
     const provenDefinition = nativeBinding && runtimeReplay.semanticBindingValidation === 'PASS'
       && !runtimeReplay.blockers.some((item) => item.code === 'COMPACT_DEFINITION_MISMATCH');
     const statuses = Object.fromEntries(GATES.map((gate) => [gate, 'UNKNOWN']));
+    statuses.ENTITY_REGISTRY_RESOLUTION = 'BLOCKED';
     if (isPbc) {
       statuses.SEMANTIC_BINDING_VALIDATION = nativeBinding ? runtimeReplay.semanticBindingValidation === 'PASS' ? 'PASS' : 'BLOCKED' : 'UNKNOWN';
       statuses.SEMANTIC_BINDING_COMPLETENESS = runtimeReplay.semanticBindingCompleteness === 'PASS' ? 'PASS' : 'BLOCKED';
@@ -76,6 +109,7 @@ export function buildReadinessReport({ root = ROOT } = {}) {
     }
     if (isCsrc && counts.targetCount > 0 && counts.strictPitCount === 0) statuses.HISTORICAL_COVERAGE = 'BLOCKED';
     const codePatterns = {
+      ENTITY_REGISTRY_RESOLUTION: /ENTITY_REGISTRY_UNRESOLVED|ENTITY_REGISTRY_RESOLUTION/,
       SEMANTIC_BINDING_VALIDATION: /SEMANTIC_BINDING_INVALID/,
       SEMANTIC_BINDING_COMPLETENESS: /SEMANTIC_BINDING_INCOMPLETE/,
       SOURCE_DATA_ADMISSION: /SOURCE_PARTIAL|SOURCE_NOT_ADMITTED|ADMISSION_UNKNOWN|NO_FORMAL/,
@@ -101,8 +135,7 @@ export function buildReadinessReport({ root = ROOT } = {}) {
       return { gate, status: statuses[gate], evidenceReferences: evidence(...paths, ...(isPbc ? RUNTIME_INPUTS : [])),
         blockerCodes: statuses[gate] === 'PASS' ? [] : [...new Set(matching.map((item) => item.code))].sort() };
     });
-    const readiness = gateChecks.every((check) => check.status === 'PASS') ? 'READY' : 'BLOCKED';
-    return { metricId, readiness, normalizationReadiness: readiness, pitBacktestReadiness: readiness, progress, dependencies, counts,
+    return { metricId, ...evaluateReadinessGates(gateChecks), progress, dependencies, counts,
       requiredGates: GATES, gateChecks, blockers, evidenceReferences: evidence(...paths) };
   };
   const allABlockers = [
@@ -163,11 +196,16 @@ export function buildReadinessReport({ root = ROOT } = {}) {
   for (const [id, counts] of Object.entries(sourceCounts)) metrics.push(row(id, [], pbcBlockers, 'PARTIAL', {
     candidateCount: null, formalCount: null, strictPitCount: null, targetCount: counts.targetCount, coveragePercent: null,
   }, [PBC, BACKTEST]));
-  const statusCounts = { READY: 0, PARTIAL: 0, BLOCKED: 0 };
-  for (const metric of metrics) statusCounts[metric.readiness]++;
+  const statusCounts = { READY: 0, BLOCKED: 0 };
+  const progressCounts = { PARTIAL: 0, NOT_PROVEN: 0 };
+  for (const metric of metrics) { statusCounts[metric.readiness]++; progressCounts[metric.progress]++; }
   return {
     schemaVersion: '1.0.0', reportKind: 'STAGE_4_1_SEMANTIC_READINESS', assessmentScope: 'COMMITTED_COMPACT_EVIDENCE_ONLY',
-    datasetAsOf: pbc.datasetAsOf, overallStatus: statusCounts.BLOCKED === 0 ? 'READY' : 'BLOCKED', statusCounts, productionAdmitted: false,
+    datasetAsOf: pbc.datasetAsOf, overallStatus: statusCounts.BLOCKED === 0 ? 'READY' : 'BLOCKED', statusCounts, progressCounts, productionAdmitted: false,
+    gatePolicy: { normalizationGates: NORMALIZATION_GATES, pitBacktestGates: PIT_BACKTEST_GATES, overallRule: 'BOTH_READY', unknownRule: 'BLOCKED',
+      methodologyReferences: evidence(FORMULA, BACKTEST),
+      rationale: 'Formula normalization sections 3.2-3.3 require PIT percentile windows and minimum history; release, lineage, weekly cutoff and history maturity are shared. Historical coverage assesses the target backtest era, beyond one mature normalization window, and is backtest-only. Backtests consume normalized scores, so their explicit set includes all normalization gates. Entity resolution remains a shared unresolved prerequisite; metric identity does not prove Registry identity.',
+    },
     historyMaturityMinimum: { dailyObservations: 252, weeklyObservations: 52, monthlyObservations: 24, quarterlyObservations: 12 },
     interpretation: 'Source counts describe preserved evidence progress. They do not prove complete observation graph replay, scoring readiness or production admission.',
     inputReferences: refs, metrics, sourceEvidence: {

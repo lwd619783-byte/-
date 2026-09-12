@@ -93,8 +93,9 @@
 
 IMPLEMENTED / VERIFIED（本地限定范围） / PENDING INDEPENDENT REVIEW；未登记 MERGED / MAIN CI PASS / PRODUCTION ADMITTED。
 
-- 28 个 PBC F1 definition bindings、原 EntityRef 精确身份映射、只读 Macro Semantic API、native vintage 截止前唯一 revision 选择与 owner adapter。
-- 23 metric normalization / PIT backtest readiness：当前均 BLOCKED，建设进度单列。PBC PARTIAL 与 CSRC/all-A NOT_ADMITTED 保留；未知分母仍 null。
+- 28 个 PBC F1 definition bindings、只读 Macro Semantic API、native vintage 截止前唯一 revision 选择与 owner adapter；EntityRef 仅为请求 claim，正式 Registry-backed mapping 尚不可用。审计 remediation 已去除 metricId 自动生成 EntityRef，entity binding=null，ENTITY_REGISTRY_UNRESOLVED 始终阻断，不创建实体。
+- 23 metric normalization / PIT backtest readiness：分别按冻结 15/16 gate 集计算，各 READY 0 / BLOCKED 23；overall=BOTH_READY，progress 独立为 PARTIAL 9 / NOT_PROVEN 14。PBC PARTIAL 与 CSRC/all-A NOT_ADMITTED 保留；未知分母仍 null。
 - PBC committed ledger 894 行及 retained official excerpt 诊断重放可复现；完整 raw/catalog/extraction graph 未 committed，正向 RAW_SOURCE replay 仍有真实 evidence blocker。
+- PR/main CI workflow 已加入 bindings validate、semantic-runtime tests、readiness validate 三项直接门禁，读 committed bytes，非零退出失败；Hosted CI 运行结论仍未产生。
 - CURRENT feature-registry、architecture 已同步本分支实际 runtime/data flow。战略顺序未变，roadmap 不机械改写。
 - 验证与具体限制：[Stage 4.1-F design / validation](market-regime/semantic-runtime-readiness-v1.md)。普通 push 后核对 HEAD，停止等待独立审计；不创建 PR、不 merge。
