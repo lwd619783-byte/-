@@ -1,0 +1,3306 @@
+[
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-balance-pre-2011-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/0",
+      "objectId": "pbc-m2-balance-pre-2011-v1",
+      "version": "pre-2011-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/0",
+      "objectId": "pbc-m2-balance-pre-2011-v1",
+      "version": "pre-2011-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-yoy-pre-2011-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/1",
+      "objectId": "pbc-m2-yoy-pre-2011-v1",
+      "version": "pre-2011-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/1",
+      "objectId": "pbc-m2-yoy-pre-2011-v1",
+      "version": "pre-2011-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-balance-2011-v2-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/2",
+      "objectId": "pbc-m2-balance-2011-v2",
+      "version": "2011-scope-v2",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/2",
+      "objectId": "pbc-m2-balance-2011-v2",
+      "version": "2011-scope-v2",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-yoy-2011-v2-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/3",
+      "objectId": "pbc-m2-yoy-2011-v2",
+      "version": "2011-scope-v2",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/3",
+      "objectId": "pbc-m2-yoy-2011-v2",
+      "version": "2011-scope-v2",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-balance-2018-v3-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/4",
+      "objectId": "pbc-m2-balance-2018-v3",
+      "version": "2018-scope-v3",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/4",
+      "objectId": "pbc-m2-balance-2018-v3",
+      "version": "2018-scope-v3",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-yoy-2018-v3-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/5",
+      "objectId": "pbc-m2-yoy-2018-v3",
+      "version": "2018-scope-v3",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/5",
+      "objectId": "pbc-m2-yoy-2018-v3",
+      "version": "2018-scope-v3",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2015-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/6",
+      "objectId": "pbc-afre-stock-balance-2015-v1",
+      "version": "2015-backcast-release-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/6",
+      "objectId": "pbc-afre-stock-balance-2015-v1",
+      "version": "2015-backcast-release-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2015-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/7",
+      "objectId": "pbc-afre-stock-yoy-2015-v1",
+      "version": "2015-backcast-release-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/7",
+      "objectId": "pbc-afre-stock-yoy-2015-v1",
+      "version": "2015-backcast-release-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2018-07-v2-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/8",
+      "objectId": "pbc-afre-stock-balance-2018-07-v2",
+      "version": "2018-07-v2",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/8",
+      "objectId": "pbc-afre-stock-balance-2018-07-v2",
+      "version": "2018-07-v2",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2018-09-v3-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/9",
+      "objectId": "pbc-afre-stock-balance-2018-09-v3",
+      "version": "2018-09-v3",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/9",
+      "objectId": "pbc-afre-stock-balance-2018-09-v3",
+      "version": "2018-09-v3",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2019-09-v4-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/10",
+      "objectId": "pbc-afre-stock-balance-2019-09-v4",
+      "version": "2019-09-v4",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/10",
+      "objectId": "pbc-afre-stock-balance-2019-09-v4",
+      "version": "2019-09-v4",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2019-12-v5-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/11",
+      "objectId": "pbc-afre-stock-balance-2019-12-v5",
+      "version": "2019-12-v5",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/11",
+      "objectId": "pbc-afre-stock-balance-2019-12-v5",
+      "version": "2019-12-v5",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-balance-2018-backcast-2017-12-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/12",
+      "objectId": "pbc-m2-balance-2018-backcast-2017-12-v1",
+      "version": "2018-backcast-2017-12-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/12",
+      "objectId": "pbc-m2-balance-2018-backcast-2017-12-v1",
+      "version": "2018-backcast-2017-12-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2018-07-v2-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/13",
+      "objectId": "pbc-afre-stock-yoy-2018-07-v2",
+      "version": "2018-07-v2",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/13",
+      "objectId": "pbc-afre-stock-yoy-2018-07-v2",
+      "version": "2018-07-v2",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2018-09-v3-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/14",
+      "objectId": "pbc-afre-stock-yoy-2018-09-v3",
+      "version": "2018-09-v3",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/14",
+      "objectId": "pbc-afre-stock-yoy-2018-09-v3",
+      "version": "2018-09-v3",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2019-09-v4-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/15",
+      "objectId": "pbc-afre-stock-yoy-2019-09-v4",
+      "version": "2019-09-v4",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/15",
+      "objectId": "pbc-afre-stock-yoy-2019-09-v4",
+      "version": "2019-09-v4",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2019-12-v5-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/16",
+      "objectId": "pbc-afre-stock-yoy-2019-12-v5",
+      "version": "2019-12-v5",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/16",
+      "objectId": "pbc-afre-stock-yoy-2019-12-v5",
+      "version": "2019-12-v5",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-yoy-2018-backcast-2017-12-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/17",
+      "objectId": "pbc-m2-yoy-2018-backcast-2017-12-v1",
+      "version": "2018-backcast-2017-12-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/17",
+      "objectId": "pbc-m2-yoy-2018-backcast-2017-12-v1",
+      "version": "2018-backcast-2017-12-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-balance-2022-12-v4-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/18",
+      "objectId": "pbc-m2-balance-2022-12-v4",
+      "version": "2022-12-v4",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/18",
+      "objectId": "pbc-m2-balance-2022-12-v4",
+      "version": "2022-12-v4",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2023-01-v6-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/19",
+      "objectId": "pbc-afre-stock-balance-2023-01-v6",
+      "version": "2023-01-v6",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/19",
+      "objectId": "pbc-afre-stock-balance-2023-01-v6",
+      "version": "2023-01-v6",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-m2-yoy-2022-12-v4-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/20",
+      "objectId": "pbc-m2-yoy-2022-12-v4",
+      "version": "2022-12-v4",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/20",
+      "objectId": "pbc-m2-yoy-2022-12-v4",
+      "version": "2022-12-v4",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2023-01-v6-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/21",
+      "objectId": "pbc-afre-stock-yoy-2023-01-v6",
+      "version": "2023-01-v6",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/21",
+      "objectId": "pbc-afre-stock-yoy-2023-01-v6",
+      "version": "2023-01-v6",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2018-07-backcast-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/22",
+      "objectId": "pbc-afre-stock-balance-2018-07-backcast-v1",
+      "version": "2018-07-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/22",
+      "objectId": "pbc-afre-stock-balance-2018-07-backcast-v1",
+      "version": "2018-07-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2018-07-backcast-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/23",
+      "objectId": "pbc-afre-stock-yoy-2018-07-backcast-v1",
+      "version": "2018-07-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/23",
+      "objectId": "pbc-afre-stock-yoy-2018-07-backcast-v1",
+      "version": "2018-07-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2018-09-backcast-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/24",
+      "objectId": "pbc-afre-stock-balance-2018-09-backcast-v1",
+      "version": "2018-09-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/24",
+      "objectId": "pbc-afre-stock-balance-2018-09-backcast-v1",
+      "version": "2018-09-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2018-09-backcast-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/25",
+      "objectId": "pbc-afre-stock-yoy-2018-09-backcast-v1",
+      "version": "2018-09-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/25",
+      "objectId": "pbc-afre-stock-yoy-2018-09-backcast-v1",
+      "version": "2018-09-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-balance-2019-09-backcast-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/26",
+      "objectId": "pbc-afre-stock-balance-2019-09-backcast-v1",
+      "version": "2019-09-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/26",
+      "objectId": "pbc-afre-stock-balance-2019-09-backcast-v1",
+      "version": "2019-09-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  },
+  {
+    "schemaVersion": "financial-semantic-binding.v2",
+    "bindingId": "pbc-afre-stock-yoy-2019-09-backcast-v1-runtime.v2",
+    "domain": "macro",
+    "metricDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/27",
+      "objectId": "pbc-afre-stock-yoy-2019-09-backcast-v1",
+      "version": "2019-09-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "sourceDefinitionRef": {
+      "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+      "locator": "/27",
+      "objectId": "pbc-afre-stock-yoy-2019-09-backcast-v1",
+      "version": "2019-09-backcast-v1",
+      "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+    },
+    "fieldBindings": {
+      "entity": null,
+      "universe": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/universe"
+      },
+      "metricId": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/metricId"
+      },
+      "canonicalName": null,
+      "value": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/value"
+      },
+      "unit": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/unit"
+      },
+      "currency": null,
+      "nativeFrequency": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/nativeFrequency"
+      },
+      "aggregation": null,
+      "reportingBasis": null,
+      "observationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/valueDate"
+      },
+      "publicationDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseDateTime"
+      },
+      "releaseAvailableAt": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/releaseAvailableAt"
+      },
+      "effectiveDate": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/effectiveFrom"
+      },
+      "revision": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/revisionSequence"
+      },
+      "revisionPolicy": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/sourceDefinitionVersion",
+        "pointer": "/revisionPolicy"
+      },
+      "source": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/sourceId"
+      },
+      "provider": null,
+      "artifact": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/rawArtifactId"
+      },
+      "transform": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/transformVersion"
+      },
+      "formulaVersion": null,
+      "quality": {
+        "ownerContract": "config/market-regime/observation-catalog.schema.json#/$defs/metricObservationVintage",
+        "pointer": "/qualityStatus"
+      },
+      "coverage": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/coverage"
+      },
+      "admission": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/admission"
+      },
+      "conflict": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/conflict"
+      },
+      "freshness": {
+        "ownerContract": "contracts/stage-4-1/v1/semantic-runtime.schema.json#/$defs/context",
+        "pointer": "/freshness"
+      },
+      "staleAfter": null
+    },
+    "policyRef": {
+      "owner": "config/market-regime/semantic-owner-policy.v1.json",
+      "locator": "/policy",
+      "objectId": "market-regime-semantic-owner-policy",
+      "version": "2",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    "allowedUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "forbiddenUses": []
+  }
+]

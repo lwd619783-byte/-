@@ -349,3 +349,9 @@ src/
 4. **控制 App 耦合**：新增功能优先形成 feature / domain 边界，避免继续把 orchestration 和业务状态堆入 `App.tsx`。
 5. **结构性新域先表达模型**：Market Regime、Valuation、Portfolio 等新域在接入复杂 UI 前先形成可验证的数据 / domain contract。
 6. **Browser / Node 边界**：Browser SPA 不直接依赖 SQLite、Node Local Core 或 raw DB；通过后续受控 read model / Domain API 接入。
+
+## Stage 4.1-F Node-only semantic read path（2026-09-12 功能分支）
+
+IMPLEMENTED / VERIFIED（本地限定范围） / PENDING INDEPENDENT REVIEW；原历史架构快照保留。`scripts/semantic-runtime/` 新增 F1 Query claim → exact metric/source binding → Market Regime adapter → PIT revision selector → fail-closed semantic result；正式 Entity Registry resolution 尚无 reviewed mapping，entity binding=null，全部查询保留 ENTITY_REGISTRY_UNRESOLVED，不将 metricId 等同 Entity identity，不连接/创建正式实体。readiness 从真实 committed artifacts 与 adapter replay 输出逐 metric 门槛，按独立 NORMALIZATION_GATES（15）/PIT_BACKTEST_GATES（16）计算，overall=BOTH_READY；readiness 与 progress 计数分离。原 EntityRef、SourceDefinitionVersion、MetricObservationVintage 及 F1 checker 继续拥有合同语义，不复制 Metric/Evidence/Entity/Audit 模型。
+
+输入为本地版本化定义、binding/policy、catalog 或 compact evidence，默认只读；显式 build 命令仅生成本切片报告。该路径没有接入 SPA、Local Core 数据库、Provider refresh、Bridge 或生产评分。PBC 完整 raw/catalog/extraction graph 缺失时只返回诊断证据和 blocker，不能从 retained excerpt 或 source report PASS 获得 eligible value。新增结构与验证见 [Stage 4.1-F](market-regime/semantic-runtime-readiness-v1.md)。

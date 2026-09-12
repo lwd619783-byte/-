@@ -6,3 +6,15 @@ scripts/tests/fixtures/market_regime/*.html -text
 scripts/tests/fixtures/market_regime/bse-d1c-*.jsonp -text
 contracts/financial-research/v1/** text eol=lf
 config/market-regime/pbc-historical-definitions.v1.json text eol=lf
+# Stage 4.1-F immutable text pins must reproduce on Windows and clean Linux checkouts.
+config/market-regime/semantic-*.json text eol=lf
+contracts/stage-4-1/v1/** text eol=lf
+research-data/market-regime/semantic-readiness/** text eol=lf
+docs/market-regime/metric-registry-v1.md text eol=lf
+docs/market-regime/formula-normalization-v1.md text eol=lf
+docs/market-regime/backtest-dataset-design-v1.md text eol=lf
+research-data/market-regime/source-catalog/pbc-final-evidence.v1.json text eol=lf
+research-data/market-regime/source-catalog/pbc-final-vintages.v1.csv text eol=lf
+research-data/market-regime/source-catalog/csrc-c2a2/ipo-provenance-admission.v1.json text eol=lf
+research-data/market-regime/source-catalog/all-a-d3/admission-report.v1.json text eol=lf
+scripts/tests/fixtures/market_regime/pbc-r2b-parser-fixtures.provenance.json text eol=lf
