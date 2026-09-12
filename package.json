@@ -98,7 +98,13 @@
     "local:db:init": "node scripts/run-local-core.mjs init",
     "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs",
     "test:local-core": "node scripts/run-local-core.mjs test-local-core",
-    "test:assets": "node scripts/run-local-core.mjs test-assets"
+    "test:assets": "node scripts/run-local-core.mjs test-assets",
+    "test:semantic-runtime": "node --test scripts/tests/semantic-runtime.node.mjs scripts/tests/semantic-readiness.node.mjs",
+    "data:query:macro": "node scripts/semantic-runtime/cli.mjs",
+    "data:validate:semantic-bindings": "node scripts/semantic-runtime/bindings.mjs",
+    "data:build:semantic-bindings": "node scripts/semantic-runtime/bindings.mjs --write",
+    "data:validate:semantic-readiness": "node scripts/semantic-runtime/readiness.mjs",
+    "data:build:semantic-readiness": "node scripts/semantic-runtime/readiness.mjs --write"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

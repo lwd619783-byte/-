@@ -30,7 +30,7 @@
 
 | 能力 | 本轮真实状态 | 合同边界 / 未实施范围 |
 | --- | --- | --- |
-| F1 Financial Semantic Registry V2 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | 现有 Registry 字段绑定、独立时间语义、deterministic request；跨域 retrieval runtime NOT_IMPLEMENTED |
+| F1 Financial Semantic Registry V2 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | 现有 Registry 字段绑定、独立时间语义、deterministic request；Stage 4.1-F 已实现 Node-only Macro 只读 runtime / adapter；完整跨域 retrieval 未实现 |
 | F2 Evidence Graph V1 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | immutable pin、typed relation、状态传播；复用 Entity/Evidence/Audit/Position，Graph DB / UI NOT_IMPLEMENTED |
 | F3 Investment Research Eval Suite V1 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | 八类 33 个 synthetic Golden Cases、离线合同检查；Agent/service harness NOT_IMPLEMENTED |
 
@@ -132,6 +132,12 @@
 | Industry Prosperity Score | NOT STARTED | P1 | Stage 4.2 |
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |
+
+### Stage 4.1-F Semantic Runtime / Readiness（功能分支状态）
+
+IMPLEMENTED / VERIFIED（本地限定范围） / PENDING INDEPENDENT REVIEW；本条不声明 MERGED / MAIN CI PASS / PRODUCTION ADMITTED。
+
+F1 的 28 个 PBC definition bindings、精确 Query、PIT revision selector 与只读 Market Regime adapter 已实现，复用原 EntityRef / Observation / Definition。readiness 覆盖 23 个 metric，normalization 与 PIT backtest 均 BLOCKED；9 项保留 PARTIAL 建设进度。PBC 894 行 committed ledger 与官方 retained excerpt 完成诊断重放；完整 RAW_SOURCE/catalog/extraction graph 不在 committed 输入中，不能声称完整正向 raw replay 或 eligible value。all-A D3 继续 NOT_ADMITTED，formal/strict=0，target/coverage=null。详见 [Stage 4.1-F design / validation](market-regime/semantic-runtime-readiness-v1.md) 及 [机器报告](../research-data/market-regime/semantic-readiness/report.v1.json)。
 
 ### Stage 4.1 Metric Source / Formula 状态摘要
 
