@@ -2,7 +2,7 @@
 
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
 
-> 2026-09-12 CURRENT：已核对 `origin/main @ 4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`。Financial Research Foundations V1 已经独立审计通过并由 PR #43 合入：audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966`，PR CI run `34621319869` completed/success，main push CI run `34621558359` completed/success。当前战略入口为 [Financial Research OS roadmap](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)，进展见[执行索引](development-execution-plan-2026-09-07.md)。R2-E / D3 仍保持 NOT_ADMITTED；F1/F2/F3 合同已经合入；合同合入时业务 runtime 尚未实现，当前 Stage 4.1-F 功能分支状态见下文，production/data 仍 NOT_ADMITTED。以下 remediation 基线与历史审计保留原时点意义。
+> 2026-09-12 CURRENT：已核对 `origin/main @ fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`。Financial Research Foundations V1 已由 PR #43 合入；Stage 4.1-F 已经独立审计通过并由 PR #45 合入：audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac`，PR CI run `34673260311` completed/success，main push CI run `34673371463` completed/success。当前战略入口为 [Financial Research OS roadmap](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)，进展见[执行索引](development-execution-plan-2026-09-07.md)。R2-E / D3 仍保持 NOT_ADMITTED；Stage 4.1-F 已合入，但 production/data 仍 NOT_ADMITTED。以下 remediation 基线与历史审计保留原时点意义。
 
 > 基线日期：2026-09-09
 > 本轮 remediation 的 pre-remediation / audit-input main baseline：`origin/main` @ `a6cbf108139a2af66273c5376288b83d54712f58`，不是永久 CURRENT main。
@@ -30,11 +30,11 @@
 
 | 能力 | 本轮真实状态 | 合同边界 / 未实施范围 |
 | --- | --- | --- |
-| F1 Financial Semantic Registry V2 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | 现有 Registry 字段绑定、独立时间语义、deterministic request；Stage 4.1-F 已实现 Node-only Macro 只读 runtime / adapter；完整跨域 retrieval 未实现 |
+| F1 Financial Semantic Registry V2 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | 现有 Registry 字段绑定、独立时间语义、deterministic request；Stage 4.1-F 已实现并合入 Node-only Macro 只读 runtime / adapter；完整跨域 retrieval 未实现 |
 | F2 Evidence Graph V1 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | immutable pin、typed relation、状态传播；复用 Entity/Evidence/Audit/Position，Graph DB / UI NOT_IMPLEMENTED |
 | F3 Investment Research Eval Suite V1 | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS | 八类 33 个 synthetic Golden Cases、离线合同检查；Agent/service harness NOT_IMPLEMENTED |
 
-三项 production 均 NOT_ADMITTED。范围与复用矩阵见 [Scope Freeze](financial-research-foundations-contract-v1.md)，命令与真实 PASS/WARN 见 [validation](financial-research-foundations-contract-v1-validation.md)。PR #43 以 audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966` 合入，merge/main `4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`；PR CI run `34621319869` 与 main push CI run `34621558359` 均 completed/success。
+三项 production 均 NOT_ADMITTED。范围与复用矩阵见 [Scope Freeze](financial-research-foundations-contract-v1.md)，命令与真实 PASS/WARN 见 [validation](financial-research-foundations-contract-v1-validation.md)。PR #43 以 audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966` 合入，merge/main `4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`；PR CI run `34621319869` 与 main push CI run `34621558359` 均 completed/success。Stage 4.1-F 由 PR #45 以 audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac` 合入，merge/main `fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`；PR CI run `34673260311` 与 main push CI run `34673371463` 均 completed/success。
 
 | 能力 | 状态 | 当前实现 | 主要缺口 / 下一步 |
 | --- | --- | --- | --- |
@@ -95,7 +95,7 @@
 | Data Audit | DONE V1 | P0 / blocking risk / mock fallback / zero coercion 等 | 随新 domain 扩规则 |
 | Provider Stability Gate | DONE FRAMEWORK | observation / provenance / resolution / threshold | 当前样本不足，资格仍 NO_GO |
 | Developer Health Gate | DONE V1 | env check / json output | 可逐步模块化 |
-| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks | 后续新增 Stage 4 gate |
+| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F semantic bindings/runtime/readiness 三项门禁已进入 PR/main CI | 后续新增 Stage 4 gate |
 | Bundle Gate | DONE | 财务等重数据不进入 initial bundle | 新重数据功能继续遵守 |
 | UI Audit | DONE | UI 扫描 | 后续随页面扩展 |
 
@@ -133,11 +133,11 @@
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |
 
-### Stage 4.1-F Semantic Runtime / Readiness（功能分支状态）
+### Stage 4.1-F Semantic Runtime / Readiness（CURRENT）
 
-IMPLEMENTED / VERIFIED（本地限定范围） / PENDING INDEPENDENT REVIEW；本条不声明 MERGED / MAIN CI PASS / PRODUCTION ADMITTED。
+**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION/DATA NOT_ADMITTED。**
 
-F1 的 28 个 PBC definition bindings、精确 Query、PIT revision selector 与只读 Market Regime adapter 已实现，复用原 EntityRef schema / Observation / Definition；正式 Entity Registry resolution 未实现。审计 remediation 移除 metricId→EntityRef 的自动拼接，entity binding=null、policy revision 2 的 reviewed mapping/Registry refs=null，全部查询保留 ENTITY_REGISTRY_UNRESOLVED，禁止自动创建实体。readiness 覆盖 23 个 metric，normalization / PIT backtest 按独立 15/16 gate 集计算，各 READY 0 / BLOCKED 23；progress 另列 PARTIAL 9 / NOT_PROVEN 14。三项 semantic gate 已接入 PR/main CI workflow，当前只声明 wiring 与本地验证，未声明 Hosted CI PASS。PBC 894 行 committed ledger 与官方 retained excerpt 完成诊断重放；完整 RAW_SOURCE/catalog/extraction graph 不在 committed 输入中，不能声称完整正向 raw replay 或 eligible value。all-A D3 继续 NOT_ADMITTED，formal/strict=0，target/coverage=null。详见 [Stage 4.1-F design / validation](market-regime/semantic-runtime-readiness-v1.md) 及 [机器报告](../research-data/market-regime/semantic-readiness/report.v1.json)。
+F1 的 28 个 PBC definition bindings、精确 Query、PIT revision selector 与只读 Market Regime adapter 已合入，复用原 EntityRef schema / Observation / Definition；正式 Entity Registry resolution 仍未实现。审计 remediation 移除 metricId→EntityRef 的自动拼接，entity binding=null、policy revision 2 的 reviewed mapping/Registry refs=null，全部查询保留 ENTITY_REGISTRY_UNRESOLVED，禁止自动创建实体。readiness 覆盖 23 个 metric，normalization / PIT backtest 按独立 15/16 gate 集计算，各 READY 0 / BLOCKED 23；progress 另列 PARTIAL 9 / NOT_PROVEN 14。三项 semantic gate 已在 PR #45 与 main push CI 实际执行并通过。PBC 894 行 committed ledger 与官方 retained excerpt 完成诊断重放；完整 RAW_SOURCE/catalog/extraction graph 不在 committed 输入中，不能声称完整正向 raw replay 或 eligible value。all-A D3 继续 NOT_ADMITTED，formal/strict=0，target/coverage=null。PR #45：audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac`，merge/main `fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`，PR CI `34673260311`、main CI `34673371463` 均 completed/success。详见 [Stage 4.1-F design / validation](market-regime/semantic-runtime-readiness-v1.md) 及 [机器报告](../research-data/market-regime/semantic-readiness/report.v1.json)。
 
 ### Stage 4.1 Metric Source / Formula 状态摘要
 
@@ -217,6 +217,7 @@ R2 当前实现已逐项合入；以下验证仅指本轮离线测试及 committ
 - [x] 定义 SourceDefinitionVersion / ObservationVintage / Weekly Manifest / Feature Matrix 数据结构
 - [x] P0 Source Probe Pack V1：M2 PASS；AFRE/全市场统计/CSRC 月报 PARTIAL；CSI300 历史 TTM PE NO_GO
 - [x] Task 4.1-R1 Historical Observation Catalog Skeleton：PR #13 合并，strict PIT / provenance / source-definition guards 完成
+- [x] Stage 4.1-F Semantic Runtime / Readiness：PR #45 合入；F1 Macro 只读 runtime、PBC adapter 与独立 normalization/backtest readiness gate 已进入 main，仍保持 production/data NOT_ADMITTED
 
 R2 已实现切片与剩余工作：
 
