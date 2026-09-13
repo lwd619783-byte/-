@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "stage-4-1-g-v1-preservation.v1",
+  "base": "ee7f2e35d967f58812706c2ee06255cc82ea4094",
+  "files": [
+    {
+      "path": "config/market-regime/semantic-bindings.v2.json",
+      "sha256": "acd9700a234fc9233e0ce15228ed8478679e5ccaf5e95763d6dfe2babe9e077c"
+    },
+    {
+      "path": "config/market-regime/semantic-owner-policy.v1.json",
+      "sha256": "b97a4c62c4213302b2f70bc7fa851799ef2988398c05e39d988346130ec29403"
+    },
+    {
+      "path": "contracts/financial-research/v1/README.md",
+      "sha256": "935d2c469a5957bb34ee5b9dde8f68d64b21c635361c21d40eb73b9242553622"
+    },
+    {
+      "path": "contracts/financial-research/v1/evidence-graph.v1.schema.json",
+      "sha256": "c7c5eb72b0f4007a993025ddbe3d39db6b7f965d64912a0790734de68c671f6e"
+    },
+    {
+      "path": "contracts/financial-research/v1/examples/pbc-binding.json",
+      "sha256": "0e7aa021fcc2a6214b92272c29bd1efcac6752115b9e2262e7566f7fa6394283"
+    },
+    {
+      "path": "contracts/financial-research/v1/fixtures/bindings.json",
+      "sha256": "b4be44ab8fd27c4c89e4435fb43d0d52edeec520a0baee1b28da8c58c9652c74"
+    },
+    {
+      "path": "contracts/financial-research/v1/fixtures/owners.json",
+      "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61"
+    },
+    {
+      "path": "contracts/financial-research/v1/fixtures/scenarios.json",
+      "sha256": "d992e7a61b83a41c2d69af184017f950bf330d26ba250bcf76fa7c35223e6a55"
+    },
+    {
+      "path": "contracts/financial-research/v1/golden-case.v1.schema.json",
+      "sha256": "dfa6a95fda67826107ee7a13c5c7bb43b64a3457ca80a6c702a8ec9c9c0174fd"
+    },
+    {
+      "path": "contracts/financial-research/v1/golden-cases.v1.json",
+      "sha256": "d4c6852716714c5c491126bc53aeb2988d1319855bca54ad15fd0e415d5edb3c"
+    },
+    {
+      "path": "contracts/financial-research/v1/golden-suite.v1.json",
+      "sha256": "d2b95cba7576174a576d4f7de19c0b168fc1e50accfae1f413929a84d4b63610"
+    },
+    {
+      "path": "contracts/financial-research/v1/relation-policy.v1.json",
+      "sha256": "3246afd2da57ed401479b5621ea3824f30dce49544a6ca39c62bdd11f67913a8"
+    },
+    {
+      "path": "contracts/financial-research/v1/semantic-binding.v2.schema.json",
+      "sha256": "3988efcf0e08c9a1ae9ed355178a9274e0c006800839e55e8ca109282320a9f5"
+    },
+    {
+      "path": "contracts/financial-research/v1/shared.schema.json",
+      "sha256": "7194f50bfa2a0b3cb3fbcf54ad7acc5525674351bf29c7645ad48e272e0b52eb"
+    },
+    {
+      "path": "contracts/financial-research/v1/test-input.v1.schema.json",
+      "sha256": "05b8725f62399590a950398fed537105ff2f912c610d5240216ba71e3b1cb669"
+    },
+    {
+      "path": "contracts/stage-4-1/v1/README.md",
+      "sha256": "8a29d7609a9fdb45a04e4c7a5d254c343df54b8f0acd39a002437b73abbd158e"
+    },
+    {
+      "path": "contracts/stage-4-1/v1/readiness.schema.json",
+      "sha256": "6418591703fc247799ff603d0b2d593e60fba52deed1a1afb63dbe680d4d4733"
+    },
+    {
+      "path": "contracts/stage-4-1/v1/semantic-runtime.schema.json",
+      "sha256": "5b8e1145f8f3d55b0a6c1fcbab6f0b5cc0ad142cd82548d779342c2e881e9bcf"
+    },
+    {
+      "path": "contracts/v1/README.md",
+      "sha256": "440edea9cb9f83f96793ca7bd9aab308ac105f801ddbef5b6e9bb8a6a217854c"
+    },
+    {
+      "path": "contracts/v1/asset-import.v1.schema.json",
+      "sha256": "e6ca2e2a0092c6afe01b64e2646b2d3d16dc1fd5c1d494f4ab1fb962bba102eb"
+    },
+    {
+      "path": "contracts/v1/bridge-envelope.v1.schema.json",
+      "sha256": "8acc969796bd74a48fa42cb4fff1959ddd2e84c1be30322d33affa4861b848d9"
+    },
+    {
+      "path": "contracts/v1/contract-test-cases.v1.json",
+      "sha256": "d49d2a09d9b771a3761899adb37be83b5e001310f8f183bffd5e940f623e76d0"
+    },
+    {
+      "path": "contracts/v1/entity-resolution.v1.schema.json",
+      "sha256": "a87e3b1a24e7d899295b07fa4443b1f1172230670f9bc54d7c1f5c0f25379c62"
+    },
+    {
+      "path": "contracts/v1/industry-module-registry.v1.json",
+      "sha256": "26a03811068616f35cb2a1355e391e1b1fe577b365d3b04fbb8771f72dbfb687"
+    },
+    {
+      "path": "contracts/v1/ledger-invariants.v1.json",
+      "sha256": "2cac2b4bdbebdfdd7acafe5049a4a10ad0d3c6fe25f8b1c869b6604fc7bd1ef1"
+    },
+    {
+      "path": "contracts/v1/permissions.v1.json",
+      "sha256": "46c983956288610b8619221c40eebb9599d0620167a495674c81446980d3aa50"
+    },
+    {
+      "path": "contracts/v1/research-asset-os.contracts.v1.schema.json",
+      "sha256": "a39cda6f04679e91000f4dd77e5595c77f8c0d9209b0c6d9f01dfa3aa43f943c"
+    },
+    {
+      "path": "contracts/v1/restore-commit.v1.schema.json",
+      "sha256": "1a95e04a7bf0cfbbed74ecd0a32009b59c6f70e6a7bbe22893e9ccbed04f207f"
+    },
+    {
+      "path": "research-data/market-regime/semantic-readiness/report.v1.json",
+      "sha256": "9ee3420e874a5c45486b767fb7a62e88cf017d23be47e93b27446f3c759d2f0d"
+    },
+    {
+      "path": "scripts/semantic-runtime/bindings.mjs",
+      "sha256": "be987e632794e4e36467017c5fa7640b47890aa09c2c5f0a2bca1fe97c506315"
+    },
+    {
+      "path": "scripts/semantic-runtime/common.mjs",
+      "sha256": "fc47ee16b6074acb187592b1d58e03c248180b221b5f83c0a61b1b044388d240"
+    },
+    {
+      "path": "scripts/semantic-runtime/market-regime-adapter.mjs",
+      "sha256": "b0849359ed96f534a812f41cb76e865209ba2cbcdafb497f30de172120a887ea"
+    },
+    {
+      "path": "scripts/semantic-runtime/readiness.mjs",
+      "sha256": "5235605fed02ddae52c33c9c07d8acd25eaea34cfe7bcaaca16f7d94bcd2f3d0"
+    },
+    {
+      "path": "scripts/semantic-runtime/selection.mjs",
+      "sha256": "e9a3c8b40e0d3ff2832c99c5b4f350f432fb159481ee05e1775704db306efb9c"
+    }
+  ],
+  "hashMode": "UTF8_LF"
+}

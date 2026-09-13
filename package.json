@@ -104,7 +104,12 @@
     "data:validate:semantic-bindings": "node scripts/semantic-runtime/bindings.mjs",
     "data:build:semantic-bindings": "node scripts/semantic-runtime/bindings.mjs --write",
     "data:validate:semantic-readiness": "node scripts/semantic-runtime/readiness.mjs",
-    "data:build:semantic-readiness": "node scripts/semantic-runtime/readiness.mjs --write"
+    "data:build:semantic-readiness": "node scripts/semantic-runtime/readiness.mjs --write",
+    "test:stage-4-1-g": "node --test scripts/tests/identity-bridge-v2.node.mjs scripts/tests/pbc-evidence-v2.node.mjs scripts/tests/semantic-readiness-v2.node.mjs && python -m unittest scripts.tests.test_pbc_canary_v2",
+    "data:validate:pbc-evidence-v2": "node scripts/semantic-runtime/pbc-evidence-v2.mjs",
+    "data:validate:semantic-readiness:v2": "node scripts/semantic-runtime/readiness-v2.mjs",
+    "data:build:semantic-readiness:v2": "node scripts/semantic-runtime/readiness-v2.mjs --write",
+    "data:query:macro:v2": "node scripts/semantic-runtime/cli-v2.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

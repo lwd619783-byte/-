@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "2.0.0",
+  "scope": "PBC_RETAINED_CANARY_CAPABILITY_ONLY",
+  "positiveReplay": {
+    "status": "PASS",
+    "blockers": [],
+    "missingOwners": [],
+    "supportingRefs": [
+      {
+        "owner": "research-data/market-regime/source-catalog/pbc-final-evidence.v1.json",
+        "sha256": "d0e7a7f68856f8201dc6dc476f97e7a9e5e4e0dae4dc31fb6d189bcc0fb48e2b"
+      },
+      {
+        "owner": "research-data/market-regime/source-catalog/pbc-canary-v2/graph.json",
+        "sha256": "9ce82d1adf4dfeae8b581611640aa9c3ae16362d5e9f256afd2185bf41440098"
+      },
+      {
+        "owner": "config/market-regime/pbc-historical-plan.v1.json",
+        "sha256": "9a57d87d09de032a68a10e3fc26ce1e42d1769d1350ce59386e764d5f40f3ad2"
+      },
+      {
+        "owner": "config/market-regime/pbc-historical-definitions.v1.json",
+        "sha256": "4b2ade9157c04906fe07633d68b7b4aca7f2e823c58d7391190e14ba11bc74c7"
+      },
+      {
+        "owner": "config/market-regime/observation-catalog.schema.json",
+        "sha256": "7752d101be68de61136fcd4e7094c891176727459601804445d2264c24be81ba"
+      },
+      {
+        "owner": "config/market-regime/historical-dataset.schema.json",
+        "sha256": "76f5151b785c01f9517c12fd12d6b3767d01bbc555f61872812101cb94bc5167"
+      },
+      {
+        "owner": "scripts/market_regime/pbc_canary.py",
+        "sha256": "62466fc533567a3477399dbc586a268f33e54ac1c63e1aca5e2a61268589c2a7"
+      },
+      {
+        "owner": "scripts/market_regime/historical_validator.py",
+        "sha256": "7fc859524e00cbb6b80a809425ba04b667b5e86a89149ae74c9eb51b764ecce9"
+      },
+      {
+        "owner": "scripts/market_regime/pbc_parser.py",
+        "sha256": "45fc030782291fc940548fa3d9dc16e87280217a5abf31021c2d4f85d2c0b7c2"
+      },
+      {
+        "owner": "research-data/market-regime/source-catalog/pbc-canary-v2/raw/ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1.html",
+        "sha256": "ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1"
+      },
+      {
+        "owner": "research-data/market-regime/source-catalog/pbc-canary-v2/raw/90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d.html",
+        "sha256": "90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d"
+      }
+    ],
+    "nativeObservationCount": 1,
+    "committedRawCount": 2,
+    "cutoff": "2011-11-14T08:00:00+08:00"
+  },
+  "fullGraphReplay": {
+    "status": "BLOCKED",
+    "blockers": [
+      "PBC_FULL_GRAPH_NOT_COMMITTED",
+      "PBC_REVISION_INVENTORY_INCOMPLETE"
+    ],
+    "missingOwners": [
+      "research-data/market-regime/vintages/pbc-r2b-final-v1/input.json",
+      "research-data/market-regime/vintages/pbc-r2b-final-v1/dataset.json",
+      "research-data/market-regime/vintages/pbc-r2b-final-v1/snapshot-retrieval-journal.jsonl",
+      "research-data/market-regime/vintages/pbc-r2b-final-v1/snapshot-discovery.json",
+      "research-data/market-regime/vintages/pbc-r2b-final-v1/snapshot-table-discovery.json",
+      "research-data/market-regime/vintages/pbc-r2b-final-v1/snapshot-gap-discovery.json",
+      "research-data/market-regime/raw/pbc-r2b"
+    ],
+    "supportingRefs": [
+      {
+        "owner": "research-data/market-regime/source-catalog/pbc-final-evidence.v1.json",
+        "sha256": "d0e7a7f68856f8201dc6dc476f97e7a9e5e4e0dae4dc31fb6d189bcc0fb48e2b"
+      }
+    ],
+    "expectedObservationCount": 894,
+    "committedCanaryObservationCount": 1
+  },
+  "sourceAdmission": {
+    "status": "BLOCKED",
+    "blockers": [
+      "PBC_SOURCE_ADMISSION_PARTIAL"
+    ],
+    "supportingRefs": [
+      {
+        "owner": "research-data/market-regime/source-catalog/pbc-final-evidence.v1.json",
+        "sha256": "d0e7a7f68856f8201dc6dc476f97e7a9e5e4e0dae4dc31fb6d189bcc0fb48e2b"
+      }
+    ]
+  },
+  "retention": {
+    "committedRaw": [
+      "research-data/market-regime/source-catalog/pbc-canary-v2/raw/ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1.html",
+      "research-data/market-regime/source-catalog/pbc-canary-v2/raw/90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d.html"
+    ],
+    "ignoredLocalArchive": "R2-B registered worktree: verified during export; unavailable to clean-clone replay",
+    "externallyRetainedRaw": "NOT_CONFIGURED",
+    "reacquiredSource": "NONE",
+    "testFixture": "EXCLUDED",
+    "acquisitionTimeMeaning": "Actual September 2026 retained acquisition; not a contemporaneous 2011 capture."
+  },
+  "productionAdmission": "NOT_ADMITTED"
+}

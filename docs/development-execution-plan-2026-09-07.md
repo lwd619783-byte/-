@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-13 CURRENT：本轮 main 基线已核验为 `ee7f2e35d967f58812706c2ee06255cc82ea4094`；Stage 4.1-G 功能分支 IMPLEMENTED / VERIFIED / PENDING INDEPENDENT REVIEW，当前停止点与真实 blocker 见下方 Stage G。以下 2026-09-12 记录保留 Stage F 合入时点意义，不是本分支合入声明。
+
 > CURRENT 战略路线入口：[`investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md`](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)。该文档从 2026-09-11 起负责后续战略顺序、跨域基础设施与每步同步规则；本文继续负责 CURRENT 开发进展、停止点与已发生交付事实。
 
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
@@ -89,7 +91,16 @@
 
 分支上不得预写 merge / main CI / production admission；合入后若 CURRENT 文档因此已知过期，下一次项目同步优先补齐。
 
-## Stage 4.1-F — Semantic Runtime / Readiness（2026-09-12 CURRENT）
+## Stage 4.1-G — Identity / PBC Evidence / Readiness V2（2026-09-13 CURRENT）
+
+- 已 fetch 并核验指定基线 `origin/main @ ee7f2e35d967f58812706c2ee06255cc82ea4094`；分支 `codex/stage-4-1-g-identity-pbc-evidence-closure`。
+- IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW。新增 exact reviewed mapping 合同与只读 current Registry 验证；真实 resolved 0 / unresolved 23，不创建实体，不修改 V1 vocabulary/permissions。
+- R2-B 原 sealed archive 对账后提交一条原生 M2 YoY graph 和两份 RAW_SOURCE，positive replay PASS；full graph BLOCKED（1/894 committed），source/data/production 未提升。
+- V1 发布内容与报告保留；V2 重新推导全部 23 metrics，normalization / PIT backtest / overall 各 READY 0 / BLOCKED 23。368 条 gate delta 保留原 full-scope 状态；独立 canary capability BLOCKED→PASS。all-A D3/CSRC 不变。
+- 专项 27 Node + 14 Python、原 semantic 37、contracts 106+78、应用 725 与 build PASS；audit 0 errors/24 warnings/10 skipped；env 48 PASS/10 WARN/0 FAIL/4 SKIP。Hosted CI 配置同时验证 V1、V2 与真实 canary，实际 Hosted 执行未声明。
+- feature-registry、architecture 与 [Stage G design / validation](market-regime/identity-pbc-evidence-closure-v2.md) 同步；战略顺序不变。停止点是普通 commit/push 后 local=remote HEAD，等待独立审计；不创建 PR、不 merge，不进入 normalization/backtest。
+
+## Stage 4.1-F — Semantic Runtime / Readiness（2026-09-12 已合入的 V1 发布事实）
 
 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION/DATA NOT_ADMITTED。**
 

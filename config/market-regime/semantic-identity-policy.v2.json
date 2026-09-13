@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "macro-identity-owner-policy.v2",
+  "policyId": "market-regime-macro-identity",
+  "revision": 1,
+  "registryOwner": null,
+  "mappingRefs": [],
+  "allowAutoCreate": false,
+  "admittedUses": []
+}

@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-13 CURRENT：本轮已核验 main 基线 `ee7f2e35d967f58812706c2ee06255cc82ea4094`。Stage 4.1-G 在独立功能分支完成 identity bridge / PBC retained canary / Readiness V2，IMPLEMENTED / VERIFIED / PENDING INDEPENDENT REVIEW，尚未声明合入或 MAIN CI。当前能力与阻断见下方 Stage 4.1-G；以下 2026-09-12 段落保留 Stage F 合入时点记录。
+
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
 
 > 2026-09-12 CURRENT：已核对 `origin/main @ fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`。Financial Research Foundations V1 已由 PR #43 合入；Stage 4.1-F 已经独立审计通过并由 PR #45 合入：audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac`，PR CI run `34673260311` completed/success，main push CI run `34673371463` completed/success。当前战略入口为 [Financial Research OS roadmap](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)，进展见[执行索引](development-execution-plan-2026-09-07.md)。R2-E / D3 仍保持 NOT_ADMITTED；Stage 4.1-F 已合入，但 production/data 仍 NOT_ADMITTED。以下 remediation 基线与历史审计保留原时点意义。
@@ -133,7 +135,11 @@
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |
 
-### Stage 4.1-F Semantic Runtime / Readiness（CURRENT）
+### Stage 4.1-G Identity / PBC Evidence / Readiness V2（2026-09-13 CURRENT）
+
+IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW；功能分支基线 `origin/main @ ee7f2e35d967f58812706c2ee06255cc82ea4094`，不预写 MERGED / MAIN CI PASS。新增版本化 reviewed identity mapping，核对原 Registry 当前 active/confirmed entry、完整 pin、revision/review 与 exact 1:1；无自动创建或 vocabulary 改名。真实 mapping resolved 0 / unresolved 23，默认 committed readiness 未接本机 Registry owner。原 R2-B sealed archive 已对账，提交 2 份完整 RAW_SOURCE 与 1 条原生 M2 YoY canary，positive replay PASS；完整 894 行 graph 仍 BLOCKED、PBC PARTIAL。V1 保留，V2 重评 23 metrics，normalization / PIT backtest / overall 均 READY 0 / BLOCKED 23；368 条 full-scope gate delta 无状态提升，单条 canary capability BLOCKED→PASS。all-A D3、CSRC 与全部 admission 边界不变。Stage G 专项 27 Node + 14 Python PASS，原 semantic 37 / 应用 725 PASS；新增 CI 三步仍同时验证 committed V1 + V2。详见 [Stage 4.1-G design / validation](market-regime/identity-pbc-evidence-closure-v2.md) 与 [V2 report](../research-data/market-regime/semantic-readiness/report.v2.json)。
+
+### Stage 4.1-F Semantic Runtime / Readiness（已合入的 V1 发布事实）
 
 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION/DATA NOT_ADMITTED。**
 
