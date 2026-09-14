@@ -1,0 +1,97 @@
+{
+  "baseline": "2829776f8ef4b7bcbf744c8edb37410bbd6ec67a",
+  "scope": "Stage 4.1B Slice 1, local production build; synthetic UI fixtures and disposable synthetic review storage",
+  "generatedAt": "2026-09-14T08:58:09.586Z",
+  "status": "PASS_LOCAL_ONLY",
+  "browser": "headless Microsoft Edge via preinstalled Playwright",
+  "inbox": {
+    "checks": 257,
+    "passed": 257,
+    "widths": [
+      1536,
+      1280,
+      390,
+      320
+    ],
+    "profiles": [
+      "full",
+      "empty",
+      "degraded"
+    ],
+    "themes": [
+      "neon",
+      "pro",
+      "light"
+    ],
+    "reducedMotion": "reduce",
+    "failures": [],
+    "pageErrors": [],
+    "verified": [
+      "bounded layout and no page overflow",
+      "focus trap, Escape and trigger focus restoration",
+      "exact event selection and company navigation",
+      "review profiles have zero storage mutations, data requests or downloads",
+      "actual App opens original ReviewFormModal",
+      "review submission appends one entry, preserves one WatchItem and unique task IDs",
+      "completed task group stays handled after reload"
+    ]
+  },
+  "regression": {
+    "routeProfileWidthCombinations": 144,
+    "themeChecks": 24,
+    "failures": [],
+    "pageErrors": [],
+    "isolation": {
+      "before": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+      "afterExit": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+      "afterRefresh": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+      "reviewDataRequestCount": 0,
+      "reviewBusinessChunkCount": 0,
+      "downloads": 0,
+      "beforeRequests": [
+        "/data/a-share-company-guidance-expectations/manifest.generated.json",
+        "/data/a-share-company-guidance-expectations/workflow-index.generated.json"
+      ],
+      "afterRequests": [
+        "/data/a-share-company-guidance-expectations/manifest.generated.json",
+        "/data/a-share-company-guidance-expectations/workflow-index.generated.json"
+      ]
+    }
+  },
+  "sourceSha256": {
+    "src/App.tsx": "23de7b06cf0980162075dead8a624a046e18126668a6939916ecf47312dca8eb",
+    "src/services/researchInbox.ts": "7c1a398f91393b097e205016204a4af6d17d944d1aecb81f8e0c683451af8af3",
+    "src/components/home/ResearchInbox.tsx": "3cea9ee9534f8542f470c727aaa9d5313c34ad54b8a2257c7394df8495a189c2",
+    "src/components/home/HomePage.tsx": "9f7784c008249e3b66d1af9e47135cfd6147be6dcf782da2583fc2ef39b10234",
+    "src/components/research/EvidenceDrawer.tsx": "26be559cc316afb68f0d83186b1761c8b40e36dc0350e86d02c20528489c6dc3",
+    "src/components/research/ResearchEventEvidence.tsx": "de2f0b97b3a54a07250f79d52e45bb514de567704f93a7308c269e9ff592b56c",
+    "src/index.css": "a0186cb71c34733b712857772b4a4ab9b17fcc60f9e7c3a0254cc5b23ff21215"
+  },
+  "harnessSha256": {
+    "scripts/research-inbox-browser-check.mjs": "5a008fc970b7e0d2830f6c495f7ead57f5e1d3b9bc9ada468df9fb85d622a710",
+    "scripts/ui-review-browser-check.mjs": "7bcb0501a3be80f88dc8f7fcdd3c3fd240ea17a40a43f295e0f43bcf54633a53"
+  },
+  "retainedSyntheticScreenshots": {
+    "home-1536-full-neon.png": "771fb4c2b00a01764187a6de25e36b7947449a053e78aa81fc913eb0d34de9e0",
+    "home-390-full-neon.png": "c96fe5c8b7a1f58b11437d288319eac871a7196c4b2fc81f1965e2284b1d536e",
+    "drawer-390-degraded-light.png": "ae8603b1db7f51b0b941d3ed81b0a34c4aae5a691b007cd35adf712ae8aec344",
+    "home-1536-empty-pro.png": "a24370507892a6f3aa24704c6821dabffa84125c57505e8b6835f5462b0445c3"
+  },
+  "limits": [
+    "No PR/main hosted CI or production/data admission is claimed.",
+    "Strict PIT, revision continuity and F2 graph remain unproven in this UI path.",
+    "No live Provider refresh or real personal financial storage was used."
+  ],
+  "sourceDigestDefinition": "sourceSha256/harnessSha256 hash exact Windows working-tree bytes at validation; gitTextSha256 hashes UTF-8 source bytes with CRLF normalized to LF for Git checkout comparison. Neither is a business Evidence pin.",
+  "gitTextSha256": {
+    "src/App.tsx": "b152ef374fdcb2f8a7e124898f9dcb97fb00757da33af2c06096d62ca72e3999",
+    "src/services/researchInbox.ts": "deb330a899d8a23b98790375dd2e97ef415d559758be82b9ebfbf613417ecb1c",
+    "src/components/home/ResearchInbox.tsx": "6a0d385383a7615599c5413b55ffc619470a76d7ef781421fb3a6a8515ffa315",
+    "src/components/home/HomePage.tsx": "0c09eea8ef04235e21825d9bac7750708b9e5cff81d144151f4a14a7df88b9b8",
+    "src/components/research/EvidenceDrawer.tsx": "0ac452888cbd827660c9546848e2548a10316840e8f25cf4330dab06453540b4",
+    "src/components/research/ResearchEventEvidence.tsx": "ad9e41f152b1764ee8edfeaaac8caf0f140f8a712b27f8d69956eef8bf11281b",
+    "src/index.css": "e6e37cbc2d891b8b5c7d16a58d6ced041bd136c2e3573663219afeafe3ecc463",
+    "scripts/research-inbox-browser-check.mjs": "5a008fc970b7e0d2830f6c495f7ead57f5e1d3b9bc9ada468df9fb85d622a710",
+    "scripts/ui-review-browser-check.mjs": "81f95523384fe921c5d47e202bd6eabd107f7bed3e901bb2089b29303af854da"
+  }
+}

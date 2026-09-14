@@ -75,10 +75,10 @@ try {
           }
         }
         if(route==="home") {
-          const layout=await page.evaluate(()=>{ const rect=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return {top:r.top,height:r.height,bottom:r.bottom};};return {priority:rect('.home-priorities'),price:rect('.home-price'),events:rect('.home-events'),eventCount:document.querySelectorAll('.home-events article').length}; });
-          check(layout.eventCount<=3,`event limit ${name}`,layout);
-          if(width>=1280) {check(Math.abs(layout.price.top-layout.events.top)<1,`main row top ${name}`,layout);check(Math.abs(layout.price.bottom-layout.events.bottom)<1,`main row bottom ${name}`,layout);}
-          if(profile==="empty" && width>=1280) check(layout.priority.height<130,`compact empty ${name}`,layout);
+          const layout=await page.evaluate(()=>{ const rect=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return {top:r.top,height:r.height,bottom:r.bottom};};return {inbox:rect('.home-priorities'),price:rect('.home-price'),taskCount:document.querySelectorAll('[aria-label="待处理事项"] [data-inbox-id]').length,eventCount:document.querySelectorAll('[aria-label="近期变化"] [data-inbox-id]').length}; });
+          check(layout.taskCount<=6 && layout.eventCount<=4,`bounded inbox rows ${name}`,layout);
+          check(layout.inbox.bottom<=layout.price.top,`inbox precedes price ${name}`,layout);
+          if(profile==="empty") check(layout.taskCount===0 && layout.eventCount===0,`literal empty inbox ${name}`,layout);
           result.checks[result.checks.length-1].homeLayout=layout;
         }
       }

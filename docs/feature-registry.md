@@ -30,6 +30,10 @@
 
 ## 1. 产品与研究界面
 
+### Stage 4.1B / Slice 1（2026-09-14 功能分支）
+
+**IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW**。基于 `2829776f8ef4b7bcbf744c8edb37410bbd6ec67a`，首页新增 Research Inbox，只投影已有事件、任务、观察项与预期 owner；任务按 WatchItem 合并、关联事件去重，排序与日期窗口可解释。共享 Evidence Drawer V1 保留来源/时间/质量/数值和证据缺口，支持精确公司/事件与原复盘闭环。未接入的新 PIT/admission/graph/revision proof 明确未证明。没有新增 Provider、持久化模型、F2 runtime、评分或 Auditable Chart；没有改动冻结 F3 V1。验证及范围见 [Slice 1](stage-4-1b-slice-1.md)。合并、main CI 与 production/data admission 尚未由本切片获得。
+
 ### Cross-cutting foundations（2026-09-12 CURRENT）
 
 | 能力 | 本轮真实状态 | 合同边界 / 未实施范围 |

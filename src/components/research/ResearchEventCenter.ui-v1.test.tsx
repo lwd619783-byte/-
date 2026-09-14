@@ -36,7 +36,7 @@ describe("ResearchEventCenter UI V1", () => {
     expect(within(qualification).getByText("非事前有效")).toBeTruthy();
     expect(within(qualification).getByText("不可比较")).toBeTruthy();
     expect(qualification.textContent).toContain("同一时刻");
-    expect(screen.getByLabelText("选中事件详情").textContent).toContain("公司官方指引 · 数据提供方只读");
+    expect(screen.getByLabelText("选中事件详情").textContent).toContain("数据提供方只读");
     expect(screen.queryByRole("button", { name: /编辑官方|纠正官方|删除官方/ })).toBeNull();
   });
 
@@ -83,7 +83,7 @@ describe("ResearchEventCenter UI V1", () => {
     expect(within(table).getByText("缺失")).toBeTruthy();
     expect(within(table).getByText("0", { exact: true })).toBeTruthy();
     expect(within(table).getByText("点值")).toBeTruthy();
-    expect(screen.getByLabelText("选中事件详情").textContent).toContain("公告 / 事件日期：2026-09-08");
+    expect(screen.getByLabelText("选中事件详情").textContent).toContain("记录事件日期：2026-09-08");
     expect(screen.getByLabelText("选中事件详情").textContent).not.toContain("2026-09-08T00:00");
   });
 
