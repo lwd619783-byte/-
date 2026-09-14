@@ -1,8 +1,8 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-14 CURRENT：Stage G 独立审计后已同步 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`。Stage 4.1-G 在独立功能分支完成 identity bridge / PBC retained canary / Readiness V2，IMPLEMENTED / VERIFIED / PENDING INDEPENDENT REVIEW，尚未声明合入或 MAIN CI。当前能力与阻断见下方 Stage 4.1-G；以下 2026-09-12 段落保留 Stage F 合入时点记录。
+> 2026-09-14 CURRENT：Stage 4.1-G 已完成独立审计、PR #48、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；DATA / PRODUCTION 仍 NOT_ADMITTED。当前主开发线进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。当前能力与阻断见下方 Stage 4.1-G；以下 2026-09-12 段落保留 Stage F 合入时点记录。
 
-> CURRENT 战略入口以 [2026-09-13 Development Direction](current-development-direction-2026-09-13.md) 为最新增量事实源，[2026-09-11 rebaseline](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md) 为其下层长期基线。Stage 4.1-G 是计划收口任务，按流程收口后默认进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**；不默认派生 4.1-H/I，不以全部 23 metrics READY 为前提。未闭合单指标数据任务进入并行数据支线，重新列为主线 blocker 须满足最新方向 §1.1 的真实正确性/安全阻断条件。
+> CURRENT 战略入口以 [2026-09-13 Development Direction](current-development-direction-2026-09-13.md) 为最新增量事实源，[2026-09-11 rebaseline](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md) 为其下层长期基线。Stage 4.1-G 已作为计划收口任务关闭，当前默认进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**；不默认派生 4.1-H/I，不以全部 23 metrics READY 为前提。未闭合单指标数据任务进入并行数据支线，重新列为主线 blocker 须满足最新方向 §1.1 的真实正确性/安全阻断条件。
 
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
 
@@ -99,7 +99,7 @@
 | Data Audit | DONE V1 | P0 / blocking risk / mock fallback / zero coercion 等 | 随新 domain 扩规则 |
 | Provider Stability Gate | DONE FRAMEWORK | observation / provenance / resolution / threshold | 当前样本不足，资格仍 NO_GO |
 | Developer Health Gate | DONE V1 | env check / json output | 可逐步模块化 |
-| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F semantic bindings/runtime/readiness 三项门禁已进入 PR/main CI | 后续新增 Stage 4 gate |
+| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F semantic 三门禁与 Stage 4.1-G identity/PBC/readiness V2 三门禁均已进入 PR/main CI，并在各自收口流程实际执行通过 | 后续新增 Stage 4 gate |
 | Bundle Gate | DONE | 财务等重数据不进入 initial bundle | 新重数据功能继续遵守 |
 | UI Audit | DONE | UI 扫描 | 后续随页面扩展 |
 
@@ -137,9 +137,9 @@
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |
 
-### Stage 4.1-G Identity / PBC Evidence / Readiness V2（2026-09-14 CURRENT）
+### Stage 4.1-G Identity / PBC Evidence / Readiness V2（2026-09-14 CLOSED）
 
-IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW；原始实现基线 `ee7f2e35d967f58812706c2ee06255cc82ea4094`，本次独立审计收口已在原功能分支同步 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`，不预写 MERGED / MAIN CI PASS。新增版本化 reviewed identity mapping，核对原 Registry 当前 active/confirmed entry、完整 pin、revision/review 与 exact 1:1；无自动创建或 vocabulary 改名。真实 mapping resolved 0 / unresolved 23，默认 committed readiness 未接本机 Registry owner。原 R2-B sealed archive 已对账，提交 2 份完整 RAW_SOURCE 与 1 条原生 M2 YoY canary，positive replay PASS；完整 894 行 graph 仍 BLOCKED、PBC PARTIAL。V1 保留，V2 重评 23 metrics，normalization / PIT backtest / overall 均 READY 0 / BLOCKED 23；368 条 full-scope gate delta 无状态提升，单条 canary capability BLOCKED→PASS。all-A D3、CSRC 与全部 admission 边界不变。Stage G 专项 27 Node + 14 Python PASS，原 semantic 37 / 应用 725 PASS；新增 CI 三步仍同时验证 committed V1 + V2。详见 [Stage 4.1-G design / validation](market-regime/identity-pbc-evidence-closure-v2.md) 与 [V2 report](../research-data/market-regime/semantic-readiness/report.v2.json)。
+**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；DATA / PRODUCTION NOT_ADMITTED。** 原始实现基线 `ee7f2e35d967f58812706c2ee06255cc82ea4094`；最终独立审计 HEAD `5489e3f77e284c69d492cfccb7242e2bd9e504d8`。PR #48 CI `34820778498` completed/success；merge/main `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`；main push CI `34821083781` completed/success。新增版本化 reviewed identity mapping，核对原 Registry 当前 active/confirmed entry、完整 pin、revision/review 与 exact 1:1；无自动创建或 vocabulary 改名。真实 mapping resolved 0 / unresolved 23，默认 committed readiness 未接本机 Registry owner。原 R2-B sealed archive 已对账，提交 2 份完整 RAW_SOURCE 与 1 条原生 M2 YoY canary，positive replay PASS；完整 894 行 graph 仍 BLOCKED、PBC PARTIAL。V1 保留，V2 重评 23 metrics，normalization / PIT backtest / overall 均 READY 0 / BLOCKED 23；368 条 full-scope gate delta 无状态提升，单条 canary capability BLOCKED→PASS。all-A D3、CSRC 与全部 admission 边界不变。Stage G 专项 27 Node + 14 Python PASS，原 semantic 37 / 应用 725 PASS；PR/main Hosted CI 完整工作流均 completed/success。Stage G 已关闭，主开发线进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。详见 [Stage 4.1-G design / validation](market-regime/identity-pbc-evidence-closure-v2.md) 与 [V2 report](../research-data/market-regime/semantic-readiness/report.v2.json)。
 
 ### Stage 4.1-F Semantic Runtime / Readiness（已合入的 V1 发布事实）
 
@@ -226,11 +226,12 @@ R2 当前实现已逐项合入；以下验证仅指本轮离线测试及 committ
 - [x] P0 Source Probe Pack V1：M2 PASS；AFRE/全市场统计/CSRC 月报 PARTIAL；CSI300 历史 TTM PE NO_GO
 - [x] Task 4.1-R1 Historical Observation Catalog Skeleton：PR #13 合并，strict PIT / provenance / source-definition guards 完成
 - [x] Stage 4.1-F Semantic Runtime / Readiness：PR #45 合入；F1 Macro 只读 runtime、PBC adapter 与独立 normalization/backtest readiness gate 已进入 main，仍保持 production/data NOT_ADMITTED
+- [x] Stage 4.1-G Identity / PBC Evidence / Readiness V2：PR #48 合入并通过 PR/main CI；计划收口完成，DATA / PRODUCTION 仍 NOT_ADMITTED，主开发线转入 Stage 4.1B
 
 R2 已实现切片与剩余工作：
 
 - [x] R2-A CORE、R2-B PBC、CSRC C1/C1.1/C2A1/C2A2、SSE/SZSE/BSE D1、all-A D2 已合入上述基线
-- [ ] R2 完整数据 / 逐源准入：继续保留上表 PARTIAL / NOT_ADMITTED，后继 evidence/contract 工作须单独冻结范围
+- [ ] R2 完整数据 / 逐源准入：继续保留上表 PARTIAL / NOT_ADMITTED，后继 evidence/contract 工作作为并行数据支线单独冻结范围
 - Master Audit Remediation V1：修复与验证见版本化记录；实际 merge / CI 状态按本文顶部规则核对。
 - [ ] P1 Source Probe：新增投资者、实际减持、实际回购、ETF净申赎
 - [ ] 构建 2005–present weekly immutable manifests

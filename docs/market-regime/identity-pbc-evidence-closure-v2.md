@@ -2,18 +2,18 @@
 
 2026-09-13。原始实现基线：`origin/main @ ee7f2e35d967f58812706c2ee06255cc82ea4094`，fetch 后完全一致。
 分支：`codex/stage-4-1-g-identity-pbc-evidence-closure`。
-状态：IMPLEMENTED / VERIFIED（下列本地范围） / PENDING INDEPENDENT REVIEW。
-DATA / PRODUCTION：NOT_ADMITTED。本文不声明本分支 MERGED 或 MAIN CI PASS。
+状态：IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS。
+DATA / PRODUCTION：NOT_ADMITTED。
 
-## 2026-09-14 独立审计后最小同步收口
+## 2026-09-14 最终收口
 
-已审计功能提交：`aad643872fb32abe92e7b8517fc6209f0948a249`。本次 fetch 核验后，在同一功能分支正常合入 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`，无文本或实质语义冲突，保留原提交及全部 Stage G 实现。增量仅包括 main 已有的 CURRENT Development Direction 文档，以及 execution-plan、feature-registry、本文三份文档校正；不修改 Identity/PBC/Readiness、V1/V2 合同、数据或 admission。
+最终审计 HEAD：`5489e3f77e284c69d492cfccb7242e2bd9e504d8`。独立 delta audit PASS；PR #48 以该精确 HEAD 合入，PR CI run `34820778498` completed/success；merge/main 为 `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`，对应 main push CI run `34821083781` completed/success。Stage G 因此正式登记为 **MERGED / MAIN CI PASS**；数据与生产 admission 没有随代码合并提升。
 
-[2026-09-13 Development Direction](../current-development-direction-2026-09-13.md) 为最新增量事实源，9 月 11 日 rebaseline 是其下层长期基线。Stage G 按独立审计、PR/CI/merge 流程收口后默认进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**；不默认新增 4.1-H/I，未闭合单指标数据任务作为并行数据支线，不重新阻塞产品主线（最新方向 §1.1 的真实正确性/安全条件除外）。
+已审计功能提交：`aad643872fb32abe92e7b8517fc6209f0948a249`。独立审计前已在同一功能分支正常合入 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`，无文本或实质语义冲突，保留原提交及全部 Stage G 实现。增量仅包括 main 已有的 CURRENT Development Direction 文档，以及 execution-plan、feature-registry、本文三份文档校正；不修改 Identity/PBC/Readiness、V1/V2 合同、数据或 admission。
 
-Stage G 仍为 **PENDING INDEPENDENT REVIEW**，等待本次最终 delta audit；不声明 MERGED / MAIN CI PASS。本次停止于同分支普通 commit/push 和 local=remote、behind=0 核验，不创建 PR、不合入 main。下文原始实现与验证记录保留交付时点意义。
+[2026-09-13 Development Direction](../current-development-direction-2026-09-13.md) 为最新增量事实源，9 月 11 日 rebaseline 是其下层长期基线。Stage G 收口后默认进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**；不默认新增 4.1-H/I，未闭合单指标数据任务作为并行数据支线，不重新阻塞产品主线（最新方向 §1.1 的真实正确性/安全条件除外）。
 
-本次同步后重新执行：`git diff --check` PASS；`npm run test:stage-4-1-g` PASS（27 Node + 14 Python）；`npm run data:validate:pbc-evidence-v2` PASS；`npm run data:validate:semantic-readiness:v2` PASS；`npm run test:semantic-runtime` PASS（37）；`npm run test:contracts` PASS（106 + 78）；`npm test` PASS（55 files / 725 tests）；`npm run build` PASS（保留既有 bundle size warning）。相对已审计提交的四文件 allowlist 核验通过，main 带入的方向文档原样保留，代码/合同/数据无 diff；PBC full graph/admission 仍 BLOCKED，normalization/backtest 仍各 READY 0 / BLOCKED 23。
+独立审计前同步后重新执行：`git diff --check` PASS；`npm run test:stage-4-1-g` PASS（27 Node + 14 Python）；`npm run data:validate:pbc-evidence-v2` PASS；`npm run data:validate:semantic-readiness:v2` PASS；`npm run test:semantic-runtime` PASS（37）；`npm run test:contracts` PASS（106 + 78）；`npm test` PASS（55 files / 725 tests）；`npm run build` PASS（保留既有 bundle size warning）。PR Hosted CI 与 main push CI 又对同一工作流完整执行并通过。PBC full graph/admission 仍 BLOCKED，normalization/backtest 仍各 READY 0 / BLOCKED 23。
 
 ## 身份边界与最终方案
 
@@ -88,9 +88,9 @@ V2 canary 通过完整 native graph 验证后交给同一个 `selectVintage`；�
 | Git index 导出副本：bindings / V1 readiness / V2 readiness / Stage G tests | PASS；不含 ignored archive，canary 仅用 committed bytes 重放；共享既有 Node dependencies/Python 环境，不声称全新 npm ci 或 Hosted/Linux 认证 |
 | `git diff --check` / staged diff check | PASS；raw 保持原字节并按二进制证据对账 |
 
-新增三个直接 CI 步骤：Stage G tests、PBC V2 validator、readiness V2 validator；原 V1 三门禁仍执行。均无生成报告、条件跳过或 continue-on-error。Hosted CI 实际执行须后续远端事件核验，当前只声明配置已接入和本地验证。
+新增三个直接 CI 步骤：Stage G tests、PBC V2 validator、readiness V2 validator；原 V1 三门禁仍执行。PR #48 与其 main merge push 均实际执行完整 Hosted CI 并 completed/success。
 
-CURRENT 同步 feature-registry / execution-plan；新增 runtime/evidence flow 同步 architecture。战略顺序未改变，不修改 roadmap。完成最终 diff 自审与 `git diff --check` 后普通 commit/push，核验 local HEAD=remote HEAD，停止等待独立审计；不创建 PR、不 merge。
+CURRENT 同步 feature-registry / execution-plan；新增 runtime/evidence flow 同步 architecture。战略顺序未改变，不修改 roadmap。
 
 ## 最终 diff 与文件清单
 

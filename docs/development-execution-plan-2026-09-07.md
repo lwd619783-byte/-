@@ -1,6 +1,6 @@
 # 当前开发执行索引 · 2026-09-07
 
-> 2026-09-14 CURRENT：Stage G 独立审计后已在原功能分支同步 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`；Stage 4.1-G 功能分支 IMPLEMENTED / VERIFIED / PENDING INDEPENDENT REVIEW，当前停止点与真实 blocker 见下方 Stage G。以下 2026-09-12 记录保留 Stage F 合入时点意义，不是本分支合入声明。
+> 2026-09-14 CURRENT：Stage 4.1-G 已完成独立审计、PR #48、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；DATA / PRODUCTION 仍 NOT_ADMITTED。当前主开发线转入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。以下 2026-09-12 记录保留 Stage F 合入时点意义。
 
 > CURRENT 战略路线入口：[`current-development-direction-2026-09-13.md`](current-development-direction-2026-09-13.md) 是最新增量事实源；[2026-09-11 rebaseline](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md) 作为其下层长期基线，继续提供未被覆盖的跨域架构与同步规则。本文负责 CURRENT 开发进展、停止点与已发生交付事实。
 
@@ -62,7 +62,7 @@
 
 依据 [2026-09-13 最新增量方向](current-development-direction-2026-09-13.md)，CURRENT 战略顺序为：
 
-1. **Stage 4.1-G — Stage 4.1 计划收口任务**：按独立审计、PR/CI/merge 流程收口后默认进入 Stage 4.1B，不以全部 23 个指标 READY 为前置条件；不默认新增 4.1-H/I。未闭合的单指标、Provider、历史覆盖率及 normalization/backtest 等任务转为并行数据支线；仅当满足最新方向 §1.1 的主线正确性/安全阻断条件时重新评估，原数据准入门槛不变。
+1. **Stage 4.1-G — CLOSED / MERGED / MAIN CI PASS**：独立审计 HEAD `5489e3f77e284c69d492cfccb7242e2bd9e504d8`；PR #48 CI `34820778498` completed/success；merge/main `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`；main push CI `34821083781` completed/success。数据 / production admission 仍未提升。未闭合的单指标、Provider、历史覆盖率及 normalization/backtest 等任务转为并行数据支线；仅当满足最新方向 §1.1 的主线正确性/安全阻断条件时重新评估。
 2. **Stage 4.1B — Product Shell / Research Inbox / Evidence Surface**：Research Inbox、Evidence Drawer、Auditable Chart、Eval harness。
 3. **Stage 4.2 — Industry Data Platform**：Industry Metric Registry / Provider / history / delta / prosperity，并接入 F1/F2/F3。
 4. **Stage 4.3 — Top-down Research Workflow**：Macro → Industry、Claim ↔ Evidence、Industry Thesis / revision、Investment Expression、Research Memory。
@@ -91,14 +91,15 @@
 
 分支上不得预写 merge / main CI / production admission；合入后若 CURRENT 文档因此已知过期，下一次项目同步优先补齐。
 
-## Stage 4.1-G — Identity / PBC Evidence / Readiness V2（2026-09-14 CURRENT）
+## Stage 4.1-G — Identity / PBC Evidence / Readiness V2（2026-09-14 CLOSED）
 
-- 原始实现基线为 `ee7f2e35d967f58812706c2ee06255cc82ea4094`，已审计功能提交为 `aad643872fb32abe92e7b8517fc6209f0948a249`；本次收口在同一分支 `codex/stage-4-1-g-identity-pbc-evidence-closure` 正常合入 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`，无同步冲突，完整保留 Stage G 实现。
-- IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW。新增 exact reviewed mapping 合同与只读 current Registry 验证；真实 resolved 0 / unresolved 23，不创建实体，不修改 V1 vocabulary/permissions。
+- 原始实现基线 `ee7f2e35d967f58812706c2ee06255cc82ea4094`；审计功能提交 `aad643872fb32abe92e7b8517fc6209f0948a249`；最终独立审计 HEAD `5489e3f77e284c69d492cfccb7242e2bd9e504d8`。
+- **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；DATA / PRODUCTION NOT_ADMITTED。** PR #48 以精确 audited HEAD 合入；PR CI `34820778498` completed/success；merge/main `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`；main push CI `34821083781` completed/success。
+- 新增 exact reviewed mapping 合同与只读 current Registry 验证；真实 resolved 0 / unresolved 23，不创建实体，不修改 V1 vocabulary/permissions。
 - R2-B 原 sealed archive 对账后提交一条原生 M2 YoY graph 和两份 RAW_SOURCE，positive replay PASS；full graph BLOCKED（1/894 committed），source/data/production 未提升。
 - V1 发布内容与报告保留；V2 重新推导全部 23 metrics，normalization / PIT backtest / overall 各 READY 0 / BLOCKED 23。368 条 gate delta 保留原 full-scope 状态；独立 canary capability BLOCKED→PASS。all-A D3/CSRC 不变。
-- 专项 27 Node + 14 Python、原 semantic 37、contracts 106+78、应用 725 与 build PASS；audit 0 errors/24 warnings/10 skipped；env 48 PASS/10 WARN/0 FAIL/4 SKIP。Hosted CI 配置同时验证 V1、V2 与真实 canary，实际 Hosted 执行未声明。
-- 本次仅校正 feature-registry、本文与 [Stage G design / validation](market-regime/identity-pbc-evidence-closure-v2.md) 的 CURRENT 入口/同步基线；不修改业务代码、合同、数据或 admission。保持 PENDING INDEPENDENT REVIEW，普通 push 后等待最终 delta audit；不创建 PR、不合入 main。Stage G 按流程正式收口后默认进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**，未闭合单指标数据任务不重新成为产品主线 blocker。
+- 专项 27 Node + 14 Python、原 semantic 37、contracts 106+78、应用 725、build 与 validators 本地通过；PR/main Hosted CI 完整工作流均 completed/success。
+- Stage G 已关闭；当前主开发线进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。未闭合单指标数据任务继续作为并行数据支线，不重新成为产品主线 blocker，除非满足最新方向 §1.1 的真实正确性/安全阻断条件。
 
 ## Stage 4.1-F — Semantic Runtime / Readiness（2026-09-12 已合入的 V1 发布事实）
 
