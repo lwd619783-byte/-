@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/stage-4-1/v2/macro-identity-mapping.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "mappingId", "revision", "status", "entity", "metricId", "metricDefinitionRef", "registryEntryRef", "previousRef", "reviewRef"],
+  "properties": {
+    "schemaVersion": {"const": "macro-identity-mapping.v1"},
+    "mappingId": {"type": "string", "minLength": 1},
+    "revision": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["reviewed", "revoked"]},
+    "entity": {"allOf": [
+      {"$ref": "https://investment-dashboard.local/contracts/v1/research-asset-os.contracts.v1.schema.json#/$defs/EntityRef"},
+      {"type": "object", "properties": {"entityType": {"const": "macro"}}}
+    ]},
+    "metricId": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]+$"},
+    "metricDefinitionRef": {"$ref": "#/$defs/pin"},
+    "registryEntryRef": {"$ref": "#/$defs/pin"},
+    "previousRef": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/pin"}]},
+    "reviewRef": {"$ref": "#/$defs/pin"}
+  },
+  "$defs": {
+    "pin": {"$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"},
+    "review": {
+      "type": "object", "additionalProperties": false,
+      "required": ["reviewId", "revision", "mappingId", "mappingRevision", "mappingSha256", "decision", "reviewedBy", "reviewedAt"],
+      "properties": {
+        "reviewId": {"type": "string", "minLength": 1},
+        "revision": {"type": "integer", "minimum": 1},
+        "mappingId": {"type": "string", "minLength": 1},
+        "mappingRevision": {"type": "integer", "minimum": 1},
+        "mappingSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "decision": {"enum": ["reviewed", "revoked"]},
+        "reviewedBy": {"type": "string", "minLength": 1},
+        "reviewedAt": {"type": "string", "format": "date-time"}
+      }
+    },
+    "policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schemaVersion", "policyId", "revision", "registryOwner", "mappingRefs", "allowAutoCreate", "admittedUses"],
+      "properties": {
+        "schemaVersion": {"const": "macro-identity-owner-policy.v2"},
+        "policyId": {"const": "market-regime-macro-identity"},
+        "revision": {"type": "integer", "minimum": 1},
+        "registryOwner": {"type": ["string", "null"], "minLength": 1},
+        "mappingRefs": {"type": "array", "items": {"$ref": "#/$defs/pin"}},
+        "allowAutoCreate": {"const": false},
+        "admittedUses": {"type": "array", "maxItems": 0}
+      }
+    }
+  }
+}

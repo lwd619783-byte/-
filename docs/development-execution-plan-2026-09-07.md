@@ -1,6 +1,8 @@
 # 当前开发执行索引 · 2026-09-07
 
-> CURRENT 战略路线入口：[`investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md`](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)。该文档从 2026-09-11 起负责后续战略顺序、跨域基础设施与每步同步规则；本文继续负责 CURRENT 开发进展、停止点与已发生交付事实。
+> 2026-09-14 CURRENT：Stage G 独立审计后已在原功能分支同步 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`；Stage 4.1-G 功能分支 IMPLEMENTED / VERIFIED / PENDING INDEPENDENT REVIEW，当前停止点与真实 blocker 见下方 Stage G。以下 2026-09-12 记录保留 Stage F 合入时点意义，不是本分支合入声明。
+
+> CURRENT 战略路线入口：[`current-development-direction-2026-09-13.md`](current-development-direction-2026-09-13.md) 是最新增量事实源；[2026-09-11 rebaseline](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md) 作为其下层长期基线，继续提供未被覆盖的跨域架构与同步规则。本文负责 CURRENT 开发进展、停止点与已发生交付事实。
 
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
 
@@ -27,7 +29,7 @@
 - Phase 1A 已落实 **provider identifier 精确匹配**与 **resolver 合同输入**的内部 seam；后续继续复用当前代码与[实施验证中的合同边界](investment-dashboard-v2-phase-1a-implementation-validation.md)，不擅改 `contracts/v1`。
 - Phase 1B 已关闭，但只完成 Node-only Local Core；没有由此获得 Portfolio UI / Exposure、Research Bridge、可信来源 adapter、OCR、真实历史迁移或 cloud business database 的实现与准入。
 - [Local-first 冻结决定](investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md)覆盖旧云端业务数据库假设；[Master Plan](investment-dashboard-master-plan-2026-09.md)中的 Stage 4 顺序保留为历史基线。
-- 2026-09-11 起，Phase 1B 后的战略顺序与跨域基础设施以[Financial Research OS 重基线](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)为 CURRENT 入口；业务语义与准入仍由冻结合同、Feature Registry、Architecture 和专项审计决定。
+- Phase 1B 后的 CURRENT 战略顺序以[2026-09-13 Development Direction](current-development-direction-2026-09-13.md)为最新增量事实源，其下层长期基线为[Financial Research OS 重基线](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md)；业务语义与准入仍由冻结合同、Feature Registry、Architecture 和专项审计决定。
 - Stage 4.1 R2 已进入逐源实现 / 准入未闭合阶段，不再是整体 NOT_STARTED；不得因为代码或证据闭环任务已合并就自动提升生产准入。
 
 ## Stage 4.1 R2 与当前停止点
@@ -58,15 +60,15 @@
 
 本轮 [F1/F2/F3 Scope Freeze](financial-research-foundations-contract-v1.md) 新增独立版本化合同包与八类 33 个 synthetic Golden Cases，保留 `contracts/v1` 的原 schema / 权限 / Local Core runtime registry。独立审计在 remediation 后 PASS；PR #43 以 audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966` 合入，PR CI run `34621319869` completed/success，merge/main `4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`，main push CI run `34621558359` completed/success。Stage 4.1-F 经独立审计 PASS 后由 PR #45 以 audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac` 合入，merge/main `fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`，PR CI run `34673260311` 与 main push CI run `34673371463` 均 completed/success。production/data 仍 NOT_ADMITTED；Entity Registry mapping、完整 RAW_SOURCE replay 与 R2 source blockers 仍未闭合。
 
-重构后的 CURRENT 战略顺序为：
+依据 [2026-09-13 最新增量方向](current-development-direction-2026-09-13.md)，CURRENT 战略顺序为：
 
-1. **Stage 4.1 — Market Regime Foundation**：先服从当前真实 admission / blocker；随后才进入 normalization / backtest / formula admission / Engine。Stage 4.1 Metric Registry 成为 F1 首个领域实现。
+1. **Stage 4.1-G — Stage 4.1 计划收口任务**：按独立审计、PR/CI/merge 流程收口后默认进入 Stage 4.1B，不以全部 23 个指标 READY 为前置条件；不默认新增 4.1-H/I。未闭合的单指标、Provider、历史覆盖率及 normalization/backtest 等任务转为并行数据支线；仅当满足最新方向 §1.1 的主线正确性/安全阻断条件时重新评估，原数据准入门槛不变。
 2. **Stage 4.1B — Product Shell / Research Inbox / Evidence Surface**：Research Inbox、Evidence Drawer、Auditable Chart、Eval harness。
 3. **Stage 4.2 — Industry Data Platform**：Industry Metric Registry / Provider / history / delta / prosperity，并接入 F1/F2/F3。
 4. **Stage 4.3 — Top-down Research Workflow**：Macro → Industry、Claim ↔ Evidence、Industry Thesis / revision、Investment Expression、Research Memory。
 5. **Stage 4.4 — Portfolio Exposure MVP**：复用 Phase 1B Local Core，补 thesis ↔ position、macro / industry exposure、target allocation、rebalance、read model / UI。
-6. **Stage 4.5 — Research Bridge / Controlled Tool Layer**：Local-first Domain Tools、Auth/scope/confirmation/Audit、MCP/其他 Adapter、Agent tool-use Evals；不暴露 raw DB / SQL。
-7. **Stage 4.6+ — Research Agent / Artifact / Global Coverage**：Research Agent、Artifact Center、Notification、Full HK / global chain、Advanced Valuation、商业数据 entitlement；Agent production 受 F3 Eval 门槛约束。
+6. **Stage 4.5 — Research MCP Gateway / Controlled Tool Layer**：Local-first Domain Tools、Auth/scope/confirmation/Audit、Agent tool-use Evals；不暴露 raw DB / SQL。
+7. **Stage 4.6 — ChatGPT-connected Research Agent / LLM Wiki / Artifact / Global Coverage**：以 ChatGPT Web / LLM Client 与受控 MCP 连接本地研究底座，研究写回继续 prepare-preview-confirm-commit；具体范围及后续扩展以最新方向为准，Agent production 受 F3 Eval 门槛约束。
 
 明确暂缓：cloud business database 全迁移、常驻 multi-agent 集群、强制 Graph DB、所有数据 Vector 化、企业 SSO/RBAC、自动交易、未授权商业数据抓取。
 
@@ -89,7 +91,16 @@
 
 分支上不得预写 merge / main CI / production admission；合入后若 CURRENT 文档因此已知过期，下一次项目同步优先补齐。
 
-## Stage 4.1-F — Semantic Runtime / Readiness（2026-09-12 CURRENT）
+## Stage 4.1-G — Identity / PBC Evidence / Readiness V2（2026-09-14 CURRENT）
+
+- 原始实现基线为 `ee7f2e35d967f58812706c2ee06255cc82ea4094`，已审计功能提交为 `aad643872fb32abe92e7b8517fc6209f0948a249`；本次收口在同一分支 `codex/stage-4-1-g-identity-pbc-evidence-closure` 正常合入 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`，无同步冲突，完整保留 Stage G 实现。
+- IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW。新增 exact reviewed mapping 合同与只读 current Registry 验证；真实 resolved 0 / unresolved 23，不创建实体，不修改 V1 vocabulary/permissions。
+- R2-B 原 sealed archive 对账后提交一条原生 M2 YoY graph 和两份 RAW_SOURCE，positive replay PASS；full graph BLOCKED（1/894 committed），source/data/production 未提升。
+- V1 发布内容与报告保留；V2 重新推导全部 23 metrics，normalization / PIT backtest / overall 各 READY 0 / BLOCKED 23。368 条 gate delta 保留原 full-scope 状态；独立 canary capability BLOCKED→PASS。all-A D3/CSRC 不变。
+- 专项 27 Node + 14 Python、原 semantic 37、contracts 106+78、应用 725 与 build PASS；audit 0 errors/24 warnings/10 skipped；env 48 PASS/10 WARN/0 FAIL/4 SKIP。Hosted CI 配置同时验证 V1、V2 与真实 canary，实际 Hosted 执行未声明。
+- 本次仅校正 feature-registry、本文与 [Stage G design / validation](market-regime/identity-pbc-evidence-closure-v2.md) 的 CURRENT 入口/同步基线；不修改业务代码、合同、数据或 admission。保持 PENDING INDEPENDENT REVIEW，普通 push 后等待最终 delta audit；不创建 PR、不合入 main。Stage G 按流程正式收口后默认进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**，未闭合单指标数据任务不重新成为产品主线 blocker。
+
+## Stage 4.1-F — Semantic Runtime / Readiness（2026-09-12 已合入的 V1 发布事实）
 
 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION/DATA NOT_ADMITTED。**
 

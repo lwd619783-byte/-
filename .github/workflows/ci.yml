@@ -118,6 +118,15 @@ jobs:
       - name: Validate committed Stage 4.1-F readiness report
         run: npm run data:validate:semantic-readiness
 
+      - name: Test Stage 4.1-G identity and authentic retained PBC replay offline
+        run: npm run test:stage-4-1-g
+
+      - name: Validate committed PBC evidence closure V2
+        run: npm run data:validate:pbc-evidence-v2
+
+      - name: Validate preserved V1 and committed readiness V2 with gate delta
+        run: npm run data:validate:semantic-readiness:v2
+
       - name: Build and validate deterministic Market Regime sample catalog
         run: npm run data:build:market-regime:catalog && npm run data:validate:market-regime:catalog
 

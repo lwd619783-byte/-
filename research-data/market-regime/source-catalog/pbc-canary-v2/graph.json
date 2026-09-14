@@ -1,0 +1,351 @@
+{
+  "acquisitionTimeMeaning": "Actual September 2026 retained acquisition; not a contemporaneous 2011 capture.",
+  "catalog": {
+    "artifacts": [
+      {
+        "artifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+        "artifactRole": "RAW_SOURCE",
+        "byteSize": 28539,
+        "contentType": "text/html",
+        "error": null,
+        "fetchedAt": "2026-09-08T11:06:07.128856Z",
+        "fileName": "ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1.bin",
+        "httpStatus": 200,
+        "localPath": "research-data/market-regime/source-catalog/pbc-canary-v2/raw/ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1.html",
+        "parseStatus": "PARSED",
+        "publicationDate": "2011-11-11",
+        "publicationDateTime": "2011-11-11T15:05:06+08:00",
+        "releaseAvailableAt": "2011-11-11T15:05:06+08:00",
+        "releaseConfidenceClass": "EXACT_TIMESTAMP",
+        "sha256": "ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2855441/index.html"
+      }
+    ],
+    "catalogVersion": "market-regime-observation-catalog-v1",
+    "exchangeMarketObservations": [],
+    "generatedAt": "2026-09-13T00:00:00Z",
+    "manifest": {
+      "artifactCount": 1,
+      "catalogVersion": "market-regime-observation-catalog-v1",
+      "contentHashes": {
+        "artifactsSha256": "1b6c4dcd6db082be364c6f17ed4875acea68699131e1663015fb2a542b377675",
+        "catalogContentSha256": "338ce3d5829ae0205178ec22d8c1a09178975e7f2ccbff5f270e57860076092a",
+        "observationsSha256": "1936ab1fb06f6a7c3121e9ac0998e6df0038e5919a57d197ef7bc9abb0274621",
+        "sourceDefinitionsSha256": "43059c191fabdcf34693cdba4aec22dccfb421bae084331a168c67fba467009b"
+      },
+      "generatedAt": "2026-09-13T00:00:00Z",
+      "maxReleaseAvailableAt": "2011-11-11T15:05:06+08:00",
+      "maxValueDate": "2011-10",
+      "metricIds": [
+        "MACRO_M2_YOY"
+      ],
+      "minReleaseAvailableAt": "2011-11-11T15:05:06+08:00",
+      "minValueDate": "2011-10",
+      "observationCount": 1,
+      "sourceDefinitionIds": [
+        "pbc-m2-yoy-2011-v2"
+      ],
+      "validationErrors": [],
+      "validationStatus": "PASS"
+    },
+    "marketScopeVersions": [],
+    "observations": [
+      {
+        "fetchedAt": "2026-09-08T11:06:07.128856Z",
+        "metadata": {
+          "definitionNotes": [
+            {
+              "locator": {
+                "byteLength": 34,
+                "byteOffset": 23867,
+                "text": "注1：当月数据为初步数。"
+              },
+              "text": "注1：当月数据为初步数。"
+            },
+            {
+              "locator": {
+                "byteLength": 41,
+                "byteOffset": 23864,
+                "text": "<p>注1：当月数据为初步数。</p>"
+              },
+              "text": "注1：当月数据为初步数。"
+            }
+          ],
+          "nativeFrequency": "MONTHLY",
+          "publicationDate": "2011-11-11",
+          "releaseKind": "FIRST_RELEASE",
+          "reportedComparableBasis": false,
+          "title": "2011年10月金融统计数据报告"
+        },
+        "metricId": "MACRO_M2_YOY",
+        "observationId": "obs-pbc-d379727ffaa23490e6217ee69a300c03b09b3871093a8eae9ee415da7f46b176",
+        "qualityStatus": "PROVISIONAL",
+        "rawArtifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+        "releaseAvailableAt": "2011-11-11T15:05:06+08:00",
+        "releaseConfidenceClass": "EXACT_TIMESTAMP",
+        "releaseDateTime": "2011-11-11T15:05:06+08:00",
+        "revisionSequence": 0,
+        "sourceDefinitionId": "pbc-m2-yoy-2011-v2",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "supersedesObservationId": null,
+        "transformVersion": "pbc-prose-r2b-v1.1.0",
+        "unit": "%",
+        "value": 12.9,
+        "valueDate": "2011-10"
+      }
+    ],
+    "providerSlots": [],
+    "schemaVersion": "1.0.0",
+    "sourceDefinitions": [
+      {
+        "createdAt": "2026-09-02T00:00:00Z",
+        "definitionSummary": "2011 年 10 月统计范围调整后、官方按可比口径报告的 M2 同比。",
+        "effectiveFrom": "2011-10-01",
+        "effectiveTo": "2017-12-31",
+        "metricId": "MACRO_M2_YOY",
+        "nativeFrequency": "MONTHLY",
+        "releaseSemantics": "官方精确发布时间优先。",
+        "revisionPolicy": "保留官方当期 comparable-basis 同比及后续修订 lineage。",
+        "sourceDefinitionId": "pbc-m2-yoy-2011-v2",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "sourceUrlPattern": "https://www.pbc.gov.cn/**",
+        "unit": "%",
+        "version": "2011-scope-v2"
+      }
+    ]
+  },
+  "dataset": {
+    "artifactBindings": [
+      {
+        "artifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+        "completeResponse": true,
+        "contentEvidence": {
+          "artifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+          "byteLength": 52,
+          "byteOffset": 207,
+          "text": "<title>2011年10月金融统计数据报告 </title>"
+        },
+        "contentValidation": "VALIDATED",
+        "releaseEventId": "release-0d950d0643707927efffc2301068b09dcbcbf5ae94ff138099faf4cb3e6d74d5"
+      },
+      {
+        "artifactId": "evidence-r2-890671143b4926697a7d55a7e3f6e443457627fdd96e1e5a2ae7ed02d05e0a00",
+        "completeResponse": true,
+        "contentEvidence": {
+          "artifactId": "evidence-r2-890671143b4926697a7d55a7e3f6e443457627fdd96e1e5a2ae7ed02d05e0a00",
+          "byteLength": 28,
+          "byteOffset": 207,
+          "text": "<title>数据解读 </title>"
+        },
+        "contentValidation": "VALIDATED",
+        "releaseEventId": null
+      }
+    ],
+    "conflicts": [],
+    "coverageLedger": [],
+    "evidenceArtifacts": [
+      {
+        "artifactId": "evidence-r2-890671143b4926697a7d55a7e3f6e443457627fdd96e1e5a2ae7ed02d05e0a00",
+        "artifactRole": "RAW_SOURCE",
+        "byteSize": 39229,
+        "contentType": "text/html",
+        "error": null,
+        "evidenceRole": "ARCHIVE_INDEX",
+        "fetchedAt": "2026-09-08T11:04:26.186944Z",
+        "fileName": "90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d.bin",
+        "httpStatus": 200,
+        "localPath": "research-data/market-regime/source-catalog/pbc-canary-v2/raw/90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d.html",
+        "parseStatus": "INDEXED",
+        "sha256": "90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "sourceUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-31.html"
+      }
+    ],
+    "fieldExtractions": [
+      {
+        "basisEvidence": {
+          "artifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+          "byteLength": 54,
+          "byteOffset": 21900,
+          "text": "广义货币(M2)余额81.68万亿元,同比增长12.9%"
+        },
+        "exchangeObservationId": null,
+        "extractionId": "extract-d379727ffaa23490e6217ee69a300c03b09b3871093a8eae9ee415da7f46b176",
+        "field": "value",
+        "locator": {
+          "artifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+          "byteLength": 54,
+          "byteOffset": 21900,
+          "text": "广义货币(M2)余额81.68万亿元,同比增长12.9%"
+        },
+        "observationId": "obs-pbc-d379727ffaa23490e6217ee69a300c03b09b3871093a8eae9ee415da7f46b176",
+        "parserVersion": "pbc-prose-r2b-v1.1.0",
+        "period": "2011-10",
+        "periodSemantics": "MONTH",
+        "predecessorExtractionIds": [],
+        "rawArtifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+        "rawFieldName": "M2",
+        "rawUnit": "%",
+        "rawValue": 12.9,
+        "rawValueText": "12.9",
+        "releaseEventId": "release-0d950d0643707927efffc2301068b09dcbcbf5ae94ff138099faf4cb3e6d74d5",
+        "reportedComparableBasis": false,
+        "sourceDefinitionId": "pbc-m2-yoy-2011-v2",
+        "unitConversion": {
+          "factor": 1.0,
+          "outputUnit": "%",
+          "rule": "IDENTITY"
+        }
+      }
+    ],
+    "inventoryEvidence": [],
+    "planId": "pbc-historical-vintage:v1.1.0:b6712fe87477b5d59b38a58dc83188023eb672623ca92ec6e87e9bd57d825c46",
+    "releaseEvents": [
+      {
+        "attachmentArtifactIds": [],
+        "attachmentEvidence": [],
+        "coveredPeriods": [
+          "2011-10"
+        ],
+        "eventSection": "CURRENT:2011-10",
+        "firstReleaseEvidence": [
+          {
+            "artifactId": "evidence-r2-890671143b4926697a7d55a7e3f6e443457627fdd96e1e5a2ae7ed02d05e0a00",
+            "byteLength": 231,
+            "byteOffset": 31790,
+            "text": "<a href=\"/diaochatongjisi/116219/116225/2855441/index.html\" onclick=\"void(0)\" target=\"_blank\" title=\"2011年10月金融统计数据报告\" istitle=\"true\">2011年10月金融统计数据报告</a></font><span class=\"hui12\">2011-11-11"
+          }
+        ],
+        "firstReleaseEvidenceArtifactIds": [
+          "evidence-r2-890671143b4926697a7d55a7e3f6e443457627fdd96e1e5a2ae7ed02d05e0a00"
+        ],
+        "indexEvidence": [
+          {
+            "artifactId": "evidence-r2-890671143b4926697a7d55a7e3f6e443457627fdd96e1e5a2ae7ed02d05e0a00",
+            "locator": {
+              "artifactId": "evidence-r2-890671143b4926697a7d55a7e3f6e443457627fdd96e1e5a2ae7ed02d05e0a00",
+              "byteLength": 231,
+              "byteOffset": 31790,
+              "text": "<a href=\"/diaochatongjisi/116219/116225/2855441/index.html\" onclick=\"void(0)\" target=\"_blank\" title=\"2011年10月金融统计数据报告\" istitle=\"true\">2011年10月金融统计数据报告</a></font><span class=\"hui12\">2011-11-11"
+            },
+            "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2855441/index.html"
+          }
+        ],
+        "landingArtifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+        "landingUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2855441/index.html",
+        "publicationDate": "2011-11-11",
+        "publicationDateTime": "2011-11-11T15:05:06+08:00",
+        "publicationEvidence": {
+          "artifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+          "byteLength": 170,
+          "byteOffset": 20707,
+          "text": "文章来源：<span id=\"laiyuan\"> </span></td> \n            <td class=\"hui12\" align=\"right\"> \n             <!--2011年11月11日--><span id=\"shijian\">2011-11-11 15:05:06"
+        },
+        "releaseAvailableAt": "2011-11-11T15:05:06+08:00",
+        "releaseConfidenceClass": "EXACT_TIMESTAMP",
+        "releaseEventId": "release-0d950d0643707927efffc2301068b09dcbcbf5ae94ff138099faf4cb3e6d74d5",
+        "releaseKind": "FIRST_RELEASE",
+        "revisionEvidence": [],
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE"
+      }
+    ],
+    "retrievalAttempts": [
+      {
+        "acquisitionAttemptId": null,
+        "attemptId": "view-36f47f889f1942fc44b3b4f3dd57e7103b68cb64f8542a98f8e370aa47589886",
+        "attemptedAt": "2026-09-08T11:06:07.128856Z",
+        "candidateReleaseEventIds": [],
+        "finalUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2855441/index.html",
+        "handlingBasis": "Bounded official-only GET; retain complete response including failures; physical acquisition journal ID=pbc-get-a019eb0b2f6e0dcff159b793; source view, not an additional network request",
+        "httpStatus": 200,
+        "outcome": "SUCCESS",
+        "reasonCode": "COMPLETE_RESPONSE_RETAINED",
+        "requestUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2855441/index.html",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "storedBytes": {
+          "byteSize": 28539,
+          "localPath": "research-data/market-regime/source-catalog/pbc-canary-v2/raw/ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1.html",
+          "sha256": "ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1"
+        },
+        "transportError": null,
+        "verifiedAt": null
+      },
+      {
+        "acquisitionAttemptId": null,
+        "attemptId": "view-eaa33b1e6dfa8c3ace15fe95ae7de4ec0f16640f2161fe37ead5bdf7ffa32928",
+        "attemptedAt": "2026-09-08T11:04:26.186944Z",
+        "candidateReleaseEventIds": [],
+        "finalUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-31.html",
+        "handlingBasis": "Bounded official-only GET; retain complete response including failures; physical acquisition journal ID=pbc-get-0034f68a4fd8aa0646714904; source view, not an additional network request",
+        "httpStatus": 200,
+        "outcome": "SUCCESS",
+        "reasonCode": "COMPLETE_RESPONSE_RETAINED",
+        "requestUrl": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-31.html",
+        "sourceId": "PBOC_M2_OFFICIAL_RELEASE",
+        "storedBytes": {
+          "byteSize": 39229,
+          "localPath": "research-data/market-regime/source-catalog/pbc-canary-v2/raw/90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d.html",
+          "sha256": "90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d"
+        },
+        "transportError": null,
+        "verifiedAt": null
+      }
+    ]
+  },
+  "relocations": [
+    {
+      "artifactId": "artifact-r2-56b11c1f665b557b16447aa7cb9bfa333ff1f07b32c1c3786c89242747487533",
+      "committedLocalPath": "research-data/market-regime/source-catalog/pbc-canary-v2/raw/ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1.html",
+      "originalLocalPath": "research-data/market-regime/raw/pbc-r2b/sha256/ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1.bin",
+      "sha256": "ae3ba30b58f7ff84750c61550e85f5cf88f65dfff514a382254618aff3e01dc1"
+    },
+    {
+      "artifactId": "evidence-r2-890671143b4926697a7d55a7e3f6e443457627fdd96e1e5a2ae7ed02d05e0a00",
+      "committedLocalPath": "research-data/market-regime/source-catalog/pbc-canary-v2/raw/90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d.html",
+      "originalLocalPath": "research-data/market-regime/raw/pbc-r2b/sha256/90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d.bin",
+      "sha256": "90b516493937671ecb867084722a276165135a43fb209f6fed317c077c7dc76d"
+    }
+  ],
+  "retentionClass": "RETAINED_R2B_ACQUISITION",
+  "schemaVersion": "2.0.0",
+  "scope": "SINGLE_NATIVE_OBSERVATION_CANARY",
+  "sourceSeal": {
+    "catalogContentSha256": "e14025c9c88f1e103b1d45a80eccda699ffaae3eb8415bec2ff4a422101ccbde",
+    "datasetContentSha256": "fdc9da9a871818a19438843191cc1205a705255038dfb32b979202183081f1e3",
+    "owner": "research-data/market-regime/source-catalog/pbc-final-evidence.v1.json",
+    "sha256": "d0e7a7f68856f8201dc6dc476f97e7a9e5e4e0dae4dc31fb6d189bcc0fb48e2b",
+    "verifiedSidecarContentHashes": {
+      "artifactBindings": "e02bec22612a1a957cc9412465af9c7a6e64176530ffff0332bb1da34a9a0af7",
+      "conflicts": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "coverageLedger": "e3047f4025bf52169665955a0e2e43aac089c82830faf4eef61e06edb187a9ba",
+      "evidenceArtifacts": "f598a84d4962776bfc1adee18279eaf60046da82cc90a0702d21ea9c0b0e6abc",
+      "fieldExtractions": "e8564859c9dd44d0175cffb108c9635a367fcd4d3f312c557719eb67bd39c5cf",
+      "inventoryEvidence": "190f32a6f58c789f8d850014e9e1818293b24fccc5ba21109239d1e6359a972e",
+      "releaseEvents": "ddd484eadb2ebdd59622c079838113dd3a38151918cf83ab194ea62b368b14a8",
+      "retrievalAttempts": "b725391b3cb2c824ddb2b470575ca8d1aff78663679ed9a0feb54eb141a1acc3"
+    },
+    "verifiedSnapshotInputs": {
+      "snapshot-discovery.json": {
+        "byteSize": 983724,
+        "path": "research-data/market-regime/vintages/pbc-r2b-final-v1/snapshot-discovery.json",
+        "sha256": "e3b9bd7f5faf4a37a2bb05b19c6cb66667ab86684ba04ce7d64907d84b8dd3f5"
+      },
+      "snapshot-gap-discovery.json": {
+        "byteSize": 22778,
+        "path": "research-data/market-regime/vintages/pbc-r2b-final-v1/snapshot-gap-discovery.json",
+        "sha256": "a9d5de395a8b53d0d4c2e9e8437014b379d3bf9e7e88f8c8881581b23b8a82d9"
+      },
+      "snapshot-retrieval-journal.jsonl": {
+        "byteSize": 1381955,
+        "path": "research-data/market-regime/vintages/pbc-r2b-final-v1/snapshot-retrieval-journal.jsonl",
+        "sha256": "4628ffbcc09a45f8948331f0a9b4a71dc2788ed27df1e6e54f0619d854b3f390"
+      },
+      "snapshot-table-discovery.json": {
+        "byteSize": 96287,
+        "path": "research-data/market-regime/vintages/pbc-r2b-final-v1/snapshot-table-discovery.json",
+        "sha256": "a61055c596aee26ca6412f717c9aaec629f7505001acdb45c5dbca1eedd34dea"
+      }
+    }
+  }
+}
