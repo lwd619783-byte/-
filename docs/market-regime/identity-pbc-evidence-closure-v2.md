@@ -1,9 +1,19 @@
 # Stage 4.1-G · Identity Bridge / PBC Evidence / Readiness V2
 
-2026-09-13。实现基线：`origin/main @ ee7f2e35d967f58812706c2ee06255cc82ea4094`，fetch 后完全一致。
+2026-09-13。原始实现基线：`origin/main @ ee7f2e35d967f58812706c2ee06255cc82ea4094`，fetch 后完全一致。
 分支：`codex/stage-4-1-g-identity-pbc-evidence-closure`。
 状态：IMPLEMENTED / VERIFIED（下列本地范围） / PENDING INDEPENDENT REVIEW。
 DATA / PRODUCTION：NOT_ADMITTED。本文不声明本分支 MERGED 或 MAIN CI PASS。
+
+## 2026-09-14 独立审计后最小同步收口
+
+已审计功能提交：`aad643872fb32abe92e7b8517fc6209f0948a249`。本次 fetch 核验后，在同一功能分支正常合入 `origin/main @ 4bc68fec16ecb645b5690150c8f6d10a52342098`，无文本或实质语义冲突，保留原提交及全部 Stage G 实现。增量仅包括 main 已有的 CURRENT Development Direction 文档，以及 execution-plan、feature-registry、本文三份文档校正；不修改 Identity/PBC/Readiness、V1/V2 合同、数据或 admission。
+
+[2026-09-13 Development Direction](../current-development-direction-2026-09-13.md) 为最新增量事实源，9 月 11 日 rebaseline 是其下层长期基线。Stage G 按独立审计、PR/CI/merge 流程收口后默认进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**；不默认新增 4.1-H/I，未闭合单指标数据任务作为并行数据支线，不重新阻塞产品主线（最新方向 §1.1 的真实正确性/安全条件除外）。
+
+Stage G 仍为 **PENDING INDEPENDENT REVIEW**，等待本次最终 delta audit；不声明 MERGED / MAIN CI PASS。本次停止于同分支普通 commit/push 和 local=remote、behind=0 核验，不创建 PR、不合入 main。下文原始实现与验证记录保留交付时点意义。
+
+本次同步后重新执行：`git diff --check` PASS；`npm run test:stage-4-1-g` PASS（27 Node + 14 Python）；`npm run data:validate:pbc-evidence-v2` PASS；`npm run data:validate:semantic-readiness:v2` PASS；`npm run test:semantic-runtime` PASS（37）；`npm run test:contracts` PASS（106 + 78）；`npm test` PASS（55 files / 725 tests）；`npm run build` PASS（保留既有 bundle size warning）。相对已审计提交的四文件 allowlist 核验通过，main 带入的方向文档原样保留，代码/合同/数据无 diff；PBC full graph/admission 仍 BLOCKED，normalization/backtest 仍各 READY 0 / BLOCKED 23。
 
 ## 身份边界与最终方案
 
@@ -86,7 +96,7 @@ CURRENT 同步 feature-registry / execution-plan；新增 runtime/evidence flow 
 
 自审确认新增范围仅为版本化 identity/readiness、单条原生 PBC graph 与两个 raw、专项 tests / CI / CURRENT 文档。既有 V1 合同与 report 无差异。raw 按 `-text -diff` 保存，避免 Git 修改或按代码格式要求清理证据本身的原始换行/空白；真实性仍由完整 SHA-256 / byteSize 验证。
 
-以下 29 个文件构成本分支交付：
+以下 29 个文件构成原始已审计功能提交的交付：
 
 ```text
 .gitattributes
