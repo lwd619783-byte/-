@@ -1,6 +1,8 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-14 CURRENT：Stage 4.1-G 已完成独立审计、PR #48、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；DATA / PRODUCTION 仍 NOT_ADMITTED。当前主开发线进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。当前能力与阻断见下方 Stage 4.1-G；以下 2026-09-12 段落保留 Stage F 合入时点记录。
+> 2026-09-16 CURRENT：Stage 4.1B / Slice 1 — Research Inbox + Evidence Drawer V1 已完成独立审计、PR #50、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**。audited HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`，merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`，PR CI `35071221955` 与 main push CI `35071457928` 均 completed/success。PRODUCTION / DATA ADMISSION 未提升；Stage 4.1B 主线继续后续 Product Shell / Evidence Surface 能力，不因 Slice 1 合入而整体关闭。
+
+> 2026-09-14 CURRENT 历史记录：Stage 4.1-G 已完成独立审计、PR #48、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；DATA / PRODUCTION 仍 NOT_ADMITTED。当前主开发线进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。当前能力与阻断见下方 Stage 4.1-G；以下 2026-09-12 段落保留 Stage F 合入时点记录。
 
 > CURRENT 战略入口以 [2026-09-13 Development Direction](current-development-direction-2026-09-13.md) 为最新增量事实源，[2026-09-11 rebaseline](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md) 为其下层长期基线。Stage 4.1-G 已作为计划收口任务关闭，当前默认进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**；不默认派生 4.1-H/I，不以全部 23 metrics READY 为前提。未闭合单指标数据任务进入并行数据支线，重新列为主线 blocker 须满足最新方向 §1.1 的真实正确性/安全阻断条件。
 
@@ -30,9 +32,9 @@
 
 ## 1. 产品与研究界面
 
-### Stage 4.1B / Slice 1（2026-09-14 功能分支）
+### Stage 4.1B / Slice 1（2026-09-16 CLOSED）
 
-**IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW**。基于 `2829776f8ef4b7bcbf744c8edb37410bbd6ec67a`，首页新增 Research Inbox，只投影已有事件、任务、观察项与预期 owner；任务按 WatchItem 合并、关联事件去重，排序与日期窗口可解释。共享 Evidence Drawer V1 保留来源/时间/质量/数值和证据缺口，支持精确公司/事件与原复盘闭环。未接入的新 PIT/admission/graph/revision proof 明确未证明。没有新增 Provider、持久化模型、F2 runtime、评分或 Auditable Chart；没有改动冻结 F3 V1。验证及范围见 [Slice 1](stage-4-1b-slice-1.md)。合并、main CI 与 production/data admission 尚未由本切片获得。
+**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION / DATA ADMISSION 未提升。** 基于 `2829776f8ef4b7bcbf744c8edb37410bbd6ec67a` 实现，独立审计 HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`；PR #50 CI `35071221955` completed/success；merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`；main push CI `35071457928` completed/success。首页 Research Inbox 只投影已有事件、任务、观察项与预期 owner；任务按 WatchItem 合并、关联事件去重，排序与日期窗口可解释。共享 Evidence Drawer V1 保留来源/时间/质量/数值和证据缺口，支持精确公司/事件与原复盘闭环。未接入的新 PIT/admission/graph/revision proof 仍明确未证明。没有新增 Provider、持久化模型、F2 runtime、评分或 Auditable Chart；没有改动冻结 F3 V1。验证及范围见 [Slice 1](stage-4-1b-slice-1.md)。Slice 1 已收口，但 Stage 4.1B 继续后续 Auditable Chart / Product Shell / Eval harness。
 
 ### Cross-cutting foundations（2026-09-12 CURRENT）
 
@@ -103,7 +105,7 @@
 | Data Audit | DONE V1 | P0 / blocking risk / mock fallback / zero coercion 等 | 随新 domain 扩规则 |
 | Provider Stability Gate | DONE FRAMEWORK | observation / provenance / resolution / threshold | 当前样本不足，资格仍 NO_GO |
 | Developer Health Gate | DONE V1 | env check / json output | 可逐步模块化 |
-| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F semantic 三门禁与 Stage 4.1-G identity/PBC/readiness V2 三门禁均已进入 PR/main CI，并在各自收口流程实际执行通过 | 后续新增 Stage 4 gate |
+| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F semantic 三门禁与 Stage 4.1-G identity/PBC/readiness V2 三门禁均已进入 PR/main CI，并在各自收口流程实际执行通过；Stage 4.1B Slice 1 的相同完整 Hosted workflow 亦在 PR #50 / main push 实际通过 | 后续新增 Stage 4 gate |
 | Bundle Gate | DONE | 财务等重数据不进入 initial bundle | 新重数据功能继续遵守 |
 | UI Audit | DONE | UI 扫描 | 后续随页面扩展 |
 
@@ -231,6 +233,7 @@ R2 当前实现已逐项合入；以下验证仅指本轮离线测试及 committ
 - [x] Task 4.1-R1 Historical Observation Catalog Skeleton：PR #13 合并，strict PIT / provenance / source-definition guards 完成
 - [x] Stage 4.1-F Semantic Runtime / Readiness：PR #45 合入；F1 Macro 只读 runtime、PBC adapter 与独立 normalization/backtest readiness gate 已进入 main，仍保持 production/data NOT_ADMITTED
 - [x] Stage 4.1-G Identity / PBC Evidence / Readiness V2：PR #48 合入并通过 PR/main CI；计划收口完成，DATA / PRODUCTION 仍 NOT_ADMITTED，主开发线转入 Stage 4.1B
+- [x] Stage 4.1B / Slice 1 Research Inbox + Evidence Drawer V1：PR #50 合入并通过 PR/main CI；只读 deterministic Inbox、共享 fail-closed Evidence Drawer 与原复盘闭环进入 main，production/data admission 未提升；Stage 4.1B 继续后续 Slice
 
 R2 已实现切片与剩余工作：
 
