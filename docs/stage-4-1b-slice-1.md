@@ -1,6 +1,18 @@
 # Stage 4.1B / Slice 1 — Research Inbox + Evidence Drawer V1
 
-基线：`origin/main @ 2829776f8ef4b7bcbf744c8edb37410bbd6ec67a`。分支：`codex/stage-4-1b-research-inbox-evidence-v1`。
+基线：`origin/main @ 2829776f8ef4b7bcbf744c8edb37410bbd6ec67a`。实现分支：`codex/stage-4-1b-research-inbox-evidence-v1`。独立审计 HEAD：`3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`。
+
+## 2026-09-16 合入收口
+
+**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION / DATA ADMISSION 不因本切片提升。**
+
+- 独立审计：PASS（P0=0 / P1=0 / P2=0），锁定 HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`。
+- PR #50：`https://github.com/lwd619783-byte/-/pull/50`；PR CI run `35071221955` completed/success，head/base 精确为 `3a94f1c…` / `2829776…`。
+- merge/main：`38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`。
+- main push CI run `35071457928` completed/success。
+- 严格 PIT、正式 `releaseAvailableAt`、production/data admission、revision continuity 与 F2 Evidence Graph closure 仍按本页既有边界保持未证明 / 未提供；本次合入不改变任何 Provider admission。
+
+以下能力、证明边界与本地验证记录保留本切片实现时点事实。
 
 ## 能力与事实归属
 
@@ -43,7 +55,7 @@
 
 ## 本地验证与审计交付
 
-状态：**IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW**。
+实现分支本地验证状态：**IMPLEMENTED / VERIFIED（本地）**；随后已按本页“合入收口”完成独立审计、PR 与 main CI。
 
 | 检查 | 实际结果 |
 | --- | --- |
@@ -65,7 +77,7 @@
 
 旧 `ui-review-browser-check.mjs` 的首页检查同步为 Inbox 在价格图之前、首批任务/事件行数受限、空状态无生成事项。原先已移除的独立事件卡 `.home-events` 及其与价格卡同高要求不再适用；其余全站隔离、主题、响应式、导航和滚动检查保留。
 
-停止点：普通 commit + push 后等待独立审计；本切片不创建 PR、不 merge、不声明 MAIN CI PASS / production admission。上述固定基线为本次交付的比较起点，不是永久 CURRENT main。
+历史停止点：实现分支曾在普通 push 后等待独立审计，未预写 PR/merge/main CI。该停止点随后已由 2026-09-16 收口事实取代；production/data admission 仍未提升。
 
 ## 变更文件索引
 
