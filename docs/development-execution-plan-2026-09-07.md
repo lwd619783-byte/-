@@ -1,6 +1,8 @@
 # 当前开发执行索引 · 2026-09-07
 
-> 2026-09-14 CURRENT：Stage 4.1-G 已完成独立审计、PR #48、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；DATA / PRODUCTION 仍 NOT_ADMITTED。当前主开发线转入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。以下 2026-09-12 记录保留 Stage F 合入时点意义。
+> 2026-09-16 CURRENT：Stage 4.1B / Slice 1 — Research Inbox + Evidence Drawer V1 已完成独立审计、PR #50、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；audited HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`，merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`，PR CI `35071221955` 与 main push CI `35071457928` 均 completed/success。PRODUCTION / DATA ADMISSION 未因本切片提升；Stage 4.1B 主线继续推进后续 Product Shell / Evidence Surface 能力。
+
+> 2026-09-14 CURRENT 历史记录：Stage 4.1-G 已完成独立审计、PR #48、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；DATA / PRODUCTION 仍 NOT_ADMITTED。当前主开发线转入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。以下 2026-09-12 记录保留 Stage F 合入时点意义。
 
 > CURRENT 战略路线入口：[`current-development-direction-2026-09-13.md`](current-development-direction-2026-09-13.md) 是最新增量事实源；[2026-09-11 rebaseline](investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md) 作为其下层长期基线，继续提供未被覆盖的跨域架构与同步规则。本文负责 CURRENT 开发进展、停止点与已发生交付事实。
 
@@ -11,13 +13,13 @@
 > CURRENT 更新：2026-09-12。已核对 `origin/main @ fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`。Financial Research Foundations V1 已由 PR #43 合入；Stage 4.1-F 已由 PR #45 合入：audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac`，PR CI run `34673260311` completed/success，main push CI run `34673371463` completed/success。固定 SHA 仅代表本次记录时点，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以 Git ancestry、当前代码、committed artifacts、专项验证与对应 PR 事实登记。
 > PR、merge 与 CI 必须分别按真实状态登记；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
 
-## Stage 4.1B / Slice 1 当前交付（2026-09-14）
+## Stage 4.1B / Slice 1 当前交付（2026-09-16 CLOSED）
 
-**IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW**。基线 `origin/main @ 2829776f8ef4b7bcbf744c8edb37410bbd6ec67a`；分支 `codex/stage-4-1b-research-inbox-evidence-v1`。
+**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION / DATA ADMISSION 未提升。** 原实现基线 `origin/main @ 2829776f8ef4b7bcbf744c8edb37410bbd6ec67a`；实现分支 `codex/stage-4-1b-research-inbox-evidence-v1`；独立审计 HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`。
 
 首页 Inbox → 共享 Evidence Drawer → 精确公司/事件或已有 ReviewFormModal/Store 已接线；projection 仅复用 owner，确定性排序/去重、历史日期窗口、缺证据与质量状态不提升准入。详见 [设计与验证](stage-4-1b-slice-1.md)。本次仅 Slice 1；Auditable Chart、F2 runtime、Claim/Thesis、评分和 F3 service harness 未实施。
 
-停止点为普通 push 后等待独立审计，不创建 PR、不 merge。Stage G 既有合入事实不变；本切片未登记 MAIN CI PASS / production admission。
+独立审计 PASS（P0=0 / P1=0 / P2=0）；PR #50 以精确 audited HEAD 合入，PR CI run `35071221955` completed/success；merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`；main push CI run `35071457928` completed/success。严格 PIT、正式 releaseAvailableAt、production/data admission、revision continuity 与 F2 Evidence Graph closure 仍保持未证明 / 未提供。本切片已收口，但 Stage 4.1B 继续推进后续能力。
 
 ## 冻结顺序与停止点
 
@@ -71,7 +73,7 @@
 依据 [2026-09-13 最新增量方向](current-development-direction-2026-09-13.md)，CURRENT 战略顺序为：
 
 1. **Stage 4.1-G — CLOSED / MERGED / MAIN CI PASS**：独立审计 HEAD `5489e3f77e284c69d492cfccb7242e2bd9e504d8`；PR #48 CI `34820778498` completed/success；merge/main `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`；main push CI `34821083781` completed/success。数据 / production admission 仍未提升。未闭合的单指标、Provider、历史覆盖率及 normalization/backtest 等任务转为并行数据支线；仅当满足最新方向 §1.1 的主线正确性/安全阻断条件时重新评估。
-2. **Stage 4.1B — Product Shell / Research Inbox / Evidence Surface**：Research Inbox、Evidence Drawer、Auditable Chart、Eval harness。
+2. **Stage 4.1B — Product Shell / Research Inbox / Evidence Surface**：Slice 1 Research Inbox + Evidence Drawer V1 已于 PR #50 合入并通过 main CI；后续继续 Auditable Chart、Product Shell 收敛与 Eval harness，不把 Slice 1 的合入视为整个 Stage 4.1B 关闭。
 3. **Stage 4.2 — Industry Data Platform**：Industry Metric Registry / Provider / history / delta / prosperity，并接入 F1/F2/F3。
 4. **Stage 4.3 — Top-down Research Workflow**：Macro → Industry、Claim ↔ Evidence、Industry Thesis / revision、Investment Expression、Research Memory。
 5. **Stage 4.4 — Portfolio Exposure MVP**：复用 Phase 1B Local Core，补 thesis ↔ position、macro / industry exposure、target allocation、rebalance、read model / UI。
