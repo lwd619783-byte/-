@@ -361,3 +361,9 @@ IMPLEMENTED / VERIFIED（本地限定范围） / PENDING INDEPENDENT REVIEW；�
 IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW；原 V1 路径保持发布语义。新增 `market-regime-adapter-v2.mjs`：F1 Query claim → exact reviewed mapping pins / review history → 原 EntityRepository 的 current read-only list 全量 entry 对账 → 原 metric/source adapter → native PBC graph validator / 原 PIT selector → V2 fail-closed result。trusted Node host 负责注入只读 Registry port，query 不接受 authority 自报；默认无 confirmed mapping、无本机 DB 接线，不创建第二套 Registry、不执行 mutation。
 
 PBC V2 只把原 sealed R2-B 的一条 native catalog/sidecar slice 与两份真实 RAW_SOURCE 转为 committed replay owner；Python 继续使用原 R1 catalog / R2 Graph validator / PBC parser，Node 查询只收到截止前的原生 observation 与 extraction refs。完整 graph/source gate 不从该 canary 获得 PASS。Readiness V2 在保留并重验 V1 后重新评估同一 23 metrics 和 15/16 gate 集，输出 368 条 full-scope delta 及独立 canary capability delta；默认没有 live Registry owner，identity 仍 unresolved。未接入 SPA、Provider refresh、Bridge、normalization 或 backtest。详见 [Stage G](market-regime/identity-pbc-evidence-closure-v2.md)。
+
+## Stage 4.1B / Slice 1 Browser Inbox read path（2026-09-14 功能分支）
+
+新增只读数据流：原 Expectation/ResearchEvent 聚合与 `buildReviewTasks` → `buildResearchInbox` 临时投影 → HomePage / ResearchInbox → EvidenceDrawer。业务事实仍由原 ResearchEvent、WatchItem/ReviewTask、Expectation repository/store 拥有；投影无存储、Provider、网络或 Node Local Core 入口。App 复用分钟显示时钟更新当前任务，所有写入仍回到原 `ReviewFormModal` / `WatchlistStore.completeReview`，精确导航复用 `useWorkspaceNavigation`。
+
+验证中心原 EventCard 抽为 `ResearchEventEvidence`，由验证中心及抽屉共同使用。Drawer 消费当前 owner 事件和精确匹配的预期快照，不建立 Evidence registry 或 F2 graph runtime；PIT/admission/revision/graph 缺少正式证明时显式未证明。原三主题/Modal/隔离 ui-review 路径继续复用。详见 [Slice 1](stage-4-1b-slice-1.md)。本段为分支实现，不宣称已合入或准入。

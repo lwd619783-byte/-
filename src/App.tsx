@@ -1,3 +1,4 @@
+import { useDisplayNow } from "./hooks/useDisplayNow";
 import { pages, useWorkspaceNavigation } from "./hooks/useWorkspaceNavigation";
 import { StockQuickPreview } from "./components/stock/StockQuickPreview";
 import { QuoteTrustSummary } from "./components/common/QuoteTrust";
@@ -50,6 +51,7 @@ const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
 ];
 
 export default function App() {
+  const displayNow = useDisplayNow();
   const navigation = useWorkspaceNavigation();
   const activeTab = pages[navigation.route.page];
   const industryLocation = useRef<{ industryId?: string; segmentId?: string }>({});
@@ -98,6 +100,7 @@ export default function App() {
   const providerConflictEvents = useMemo(() => buildProviderContentConflictEvents(aggregatedExpectationEvidence, expectationData.snapshots, dataset.stocks), [aggregatedExpectationEvidence, dataset.stocks, expectationData.snapshots]);
   const researchSnapshot = useMemo(() => ({ ...baseResearchSnapshot, events: sortResearchEvents(deduplicateResearchEvents([...baseResearchSnapshot.events, ...expectationEvents, ...providerConflictEvents]), expectationData.settings.timeZone) }), [baseResearchSnapshot, expectationData.settings.timeZone, expectationEvents, providerConflictEvents]);
   const reviewTasks = useMemo(() => buildReviewTasks({
+    now: displayNow,
     watchItems: watchlistData.watchItems,
     events: researchSnapshot.events,
     chains: researchSnapshot.chains,
@@ -105,7 +108,7 @@ export default function App() {
     longUnreviewedDays: watchlistData.settings.longUnreviewedDays,
     expectationRevisionThreshold: expectationData.settings.revisionReminderThreshold,
     timeZone: expectationData.settings.timeZone,
-  }), [expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, researchSnapshot, watchlistData]);
+  }), [displayNow, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, researchSnapshot, watchlistData]);
   const exportJson = useMemo(() => repository.export(watchlistData), [repository, watchlistData]);
   const expectationExportJson = useMemo(() => expectationRepository.export(expectationData), [expectationData, expectationRepository]);
   const expectationExportCsv = useMemo(() => exportEarningsExpectationCsv(expectationData.snapshots), [expectationData.snapshots]);
@@ -196,12 +199,12 @@ export default function App() {
     const quoteCoverageTotal = aShareQuotes.total;
     const hkQuotes = summarizeQuotes(dataset.stocks.filter((stock) => stock.market === "港股").map((stock) => stock.quote));
     const hkCoverageSummary = `港股行情质量状态 real 且有价格 ${hkQuotes.statusRealCovered}/${hkQuotes.total}`;
-    const cutoff = shiftCalendarDate(getCalendarToday(new Date(), expectationData.settings.timeZone), -6);
+    const cutoff = shiftCalendarDate(getCalendarToday(displayNow, expectationData.settings.timeZone), -6);
     const recentEvents = researchSnapshot.events.filter((event) => event.eventType !== "data_warning" && eventCalendarDate(event, expectationData.settings.timeZone) >= cutoff).length;
     const pendingReviewCompanies = new Set(researchSnapshot.events.filter((event) => event.reviewStatus === "pending").map((event) => event.stockId)).size;
     const verificationChains = researchSnapshot.chains.length;
     const dataReviewItems = researchSnapshot.events.filter((event) => event.eventType === "data_warning" || event.reviewStatus === "pending").length;
-    const today = getCalendarToday(new Date(), expectationData.settings.timeZone);
+    const today = getCalendarToday(displayNow, expectationData.settings.timeZone);
     const pendingTasks = reviewTasks.filter((task) => task.status === "pending");
     const todayReview = new Set(pendingTasks.filter((task) => task.ruleType === "due_review" || task.dueAt === today).map((task) => task.watchItemId)).size;
     const overdueReview = new Set(pendingTasks.filter((task) => task.ruleType === "overdue_review").map((task) => task.watchItemId)).size;
@@ -242,7 +245,7 @@ export default function App() {
       reviewableExpectationActuals,
       pendingExpectationSources,
     };
-  }, [aggregatedExpectationEvidence.snapshots, dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
+  }, [displayNow, aggregatedExpectationEvidence.snapshots, dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
 
   const applyAction = (result: WatchlistActionResult, successMessage: string) => {
     if (result.ok) {
@@ -340,6 +343,10 @@ export default function App() {
 
           {visitedTabs.has("首页") && (<div hidden={activeTab !== "首页"}>
         <HomePage
+          now={displayNow}
+          expectationSnapshots={aggregatedExpectationEvidence.snapshots}
+          timeZone={expectationData.settings.timeZone}
+          inboxSourceNotice={[storageError, expectationStorageError, companyGuidanceWorkflowStatus !== "success" && dataMode !== "mock" ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? "载入完成前，预期事件范围尚不完整。"}` : null].filter(Boolean).join("；")}
           watchItems={watchlistData.watchItems}
           tasks={reviewTasks}
           events={researchSnapshot.events}
@@ -360,7 +367,7 @@ export default function App() {
           quoteStocks={dataset.stocks}
           onDataModeChange={setDataMode}
           onNavigate={navigateToTab}
-          onOpenStock={setSelectedStock}
+          onOpenStock={openResearch}
         />
           </div>)}
 

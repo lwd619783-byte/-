@@ -11,6 +11,14 @@
 > CURRENT 更新：2026-09-12。已核对 `origin/main @ fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`。Financial Research Foundations V1 已由 PR #43 合入；Stage 4.1-F 已由 PR #45 合入：audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac`，PR CI run `34673260311` completed/success，main push CI run `34673371463` completed/success。固定 SHA 仅代表本次记录时点，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以 Git ancestry、当前代码、committed artifacts、专项验证与对应 PR 事实登记。
 > PR、merge 与 CI 必须分别按真实状态登记；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
 
+## Stage 4.1B / Slice 1 当前交付（2026-09-14）
+
+**IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW**。基线 `origin/main @ 2829776f8ef4b7bcbf744c8edb37410bbd6ec67a`；分支 `codex/stage-4-1b-research-inbox-evidence-v1`。
+
+首页 Inbox → 共享 Evidence Drawer → 精确公司/事件或已有 ReviewFormModal/Store 已接线；projection 仅复用 owner，确定性排序/去重、历史日期窗口、缺证据与质量状态不提升准入。详见 [设计与验证](stage-4-1b-slice-1.md)。本次仅 Slice 1；Auditable Chart、F2 runtime、Claim/Thesis、评分和 F3 service harness 未实施。
+
+停止点为普通 push 后等待独立审计，不创建 PR、不 merge。Stage G 既有合入事实不变；本切片未登记 MAIN CI PASS / production admission。
+
 ## 冻结顺序与停止点
 
 | 顺序 | 实现与验证门槛 | 独立审查 / 合入门槛 | 当前状态与停止点 |

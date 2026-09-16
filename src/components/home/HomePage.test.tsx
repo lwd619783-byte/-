@@ -109,8 +109,8 @@ describe("HomePage", () => {
     const { container } = renderHome();
 
     expect(screen.getByRole("heading", { name: "首页 / 研究工作台" })).toBeTruthy();
-    expect(screen.getByRole("heading", { name: "今日优先事项" })).toBeTruthy();
-    expect(screen.getByRole("heading", { name: "最近研究事件" })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: /今日优先事项/ })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: /最近研究事件/ })).toBeTruthy();
     expect(screen.getByRole("heading", { name: "关注公司" })).toBeTruthy();
     expect(container.textContent).toContain("A 股行情覆盖（质量状态 real 且有价格）：56 / 56");
     expect(container.textContent).toContain("数据源：A 股数据");
@@ -137,7 +137,7 @@ describe("HomePage", () => {
     const {container}=renderHome(); expect(screen.getByText("图表数据暂缺")).toBeTruthy();
     expect(container.querySelector(".home-orbit-stage")).toBeNull();
     expect(container.querySelector(".recharts-line-curve")).toBeNull();
-    expect(screen.getByRole("heading",{name:"今日优先事项"})).toBeTruthy();
+    expect(screen.getByRole("heading",{name:/今日优先事项/})).toBeTruthy();
   });
   it("keeps a real manifest out of the Mock home and missing quote-time summary", () => {
     const realTimestamp = "2026-08-01T10:00:00+08:00";
