@@ -39,6 +39,21 @@ function populatedNumericBundle() {
 }
 
 describe("stock coverage truthfulness", () => {
+  it("retains the exact price owner and rejects foreign series from both chart and module quality", () => {
+    const bundle = populatedNumericBundle();
+    const history = { id: stock.id, points: [{ date: "2026-09-01", close: 0, amount: null, pctChange: null }], quality: { source: "exact fixture", status: "real" as const } };
+    bundle.priceHistory[stock.id] = history;
+    const valid = enrichStocksWithRealData([stock], bundle, "real")[0];
+    expect(valid.priceHistorySource).toBe(history);
+    expect(valid.priceHistory).toBe(history.points);
+    expect(valid.dataCoverageDetails.modules).toContainEqual({ id: "priceHistory", status: "real" });
+    bundle.priceHistory[stock.id] = { ...history, id: "another-company" };
+    const invalid = enrichStocksWithRealData([stock], bundle, "real")[0];
+    expect(invalid.priceHistorySource).toBeUndefined();
+    expect(invalid.priceHistory).toEqual([]);
+    expect(invalid.dataCoverageDetails.modules).toContainEqual({ id: "priceHistory", status: "missing" });
+    expect(invalid.dataQuality.some(item => item.source === "exact fixture")).toBe(false);
+  });
   it("does not call an unsupported market 100 percent covered", () => {
     const bundle = emptyBundle();
     bundle.quotes[stock.id] = {

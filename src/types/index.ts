@@ -142,6 +142,8 @@ export interface Stock {
   aShareAnnouncementSummary?: import("./marketData").AShareAnnouncementSummary;
   dataMode?: import("./dataSource").DashboardDataMode;
   priceHistory?: import("./marketData").PricePoint[];
+  /** Read-only reference to the existing series owner; never persisted separately. */
+  priceHistorySource?: import("./marketData").PriceHistorySeries;
   research?: import("./marketData").ResearchReportSeries;
   announcements?: import("./marketData").AnnouncementSeries;
   signals?: import("./marketData").StockSignalSummary;

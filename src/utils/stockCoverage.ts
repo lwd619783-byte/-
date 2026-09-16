@@ -8,6 +8,7 @@ const missingStatuses = new Set(["missing", "error", "source_unavailable", "conf
 export function calculateStockCoverage(stock: Stock, real: GeneratedRealDataBundle, mode: DashboardDataMode) {
   const quote = real.quotes[stock.id];
   const financial = real.aShareFinancialSummaries[stock.id];
+  const priceHistory = real.priceHistory[stock.id];
   const isSupportedMarket = stock.market === "A股" || stock.market === "港股";
   const moduleStatus = (qualityStatus: StockDataCoverage["modules"][number]["status"] | undefined, implemented = true) =>
     mode === "mock" ? "mock" : !isSupportedMarket ? "unsupported_market" : qualityStatus ?? (implemented ? "missing" : "not_implemented");
@@ -19,7 +20,7 @@ export function calculateStockCoverage(stock: Stock, real: GeneratedRealDataBund
     { id: "quotes", status: moduleStatus(quote?.quality.status) },
     { id: "financials", status: moduleStatus(financialState, stock.market === "A股") },
     { id: "profiles", status: moduleStatus(real.profiles[stock.id]?.quality.status) },
-    { id: "priceHistory", status: moduleStatus(real.priceHistory[stock.id]?.quality.status) },
+    { id: "priceHistory", status: moduleStatus(priceHistory?.id === stock.id ? priceHistory.quality.status : undefined) },
     { id: "research", status: moduleStatus(real.research[stock.id]?.quality.status, false) },
     { id: "announcements", status: moduleStatus(real.aShareAnnouncementSummaries[stock.id]?.quality.status, stock.market === "A股") },
     { id: "signals", status: moduleStatus(real.signals[stock.id]?.quality.status, stock.market === "A股") },

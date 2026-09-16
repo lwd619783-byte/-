@@ -1,6 +1,8 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-16 CURRENT：Stage 4.1B / Slice 1 — Research Inbox + Evidence Drawer V1 已完成独立审计、PR #50、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**。audited HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`，merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`，PR CI `35071221955` 与 main push CI `35071457928` 均 completed/success。PRODUCTION / DATA ADMISSION 未提升；Stage 4.1B 主线继续后续 Product Shell / Evidence Surface 能力，不因 Slice 1 合入而整体关闭。
+> 2026-09-16 CURRENT：Stage 4.1B / Slice 2 — Auditable Chart V1 + Product Shell V1 已在 `codex/stage-4-1b-auditable-chart-shell-v1` 实现，基线 `63208ce038f5222d10bfa471bc5d0a868fe2905e`；IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW。普通 push 后停止；不创建 PR、不合并、不宣称 Hosted/main CI PASS，不提升 data/production admission。Stage 4.1B 尚未整体关闭。详见 [Slice 2](stage-4-1b-slice-2.md)。
+
+> 2026-09-16 Slice 1 合入记录：Stage 4.1B / Slice 1 — Research Inbox + Evidence Drawer V1 已完成独立审计、PR #50、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**。audited HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`，merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`，PR CI `35071221955` 与 main push CI `35071457928` 均 completed/success。PRODUCTION / DATA ADMISSION 未提升；Stage 4.1B 主线继续后续 Product Shell / Evidence Surface 能力，不因 Slice 1 合入而整体关闭。
 
 > 2026-09-14 CURRENT 历史记录：Stage 4.1-G 已完成独立审计、PR #48、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；DATA / PRODUCTION 仍 NOT_ADMITTED。当前主开发线进入 **Stage 4.1B Research Inbox / Evidence Surface / Product Shell**。当前能力与阻断见下方 Stage 4.1-G；以下 2026-09-12 段落保留 Stage F 合入时点记录。
 
@@ -31,6 +33,10 @@
 - `DEFERRED`：明确延后，不应被误认为缺陷。
 
 ## 1. 产品与研究界面
+
+### Stage 4.1B / Slice 2（2026-09-16 功能分支）
+
+Auditable Chart 接入首页/公司价格历史与公司分期财务；纯 owner → presentation projection 展示独立时间、来源、安全链接、质量/完整性与证明缺口。价格接线保留原 PriceHistorySeries 引用；不按来源字符串猜 lineage。Product Shell 复用首页和公司页的标题、对象、质量摘要与原证据/研究导航。当前两类 owner 均无正式 metric/revision evidence pin，图表 linkage 保持空；公司级相关证据不充作图表证明。未创建新 owner、业务持久化、Provider、F2 runtime 或 F3 harness。测试、浏览器矩阵、准入边界及文件索引见 [Slice 2](stage-4-1b-slice-2.md)。
 
 ### Stage 4.1B / Slice 1（2026-09-16 CLOSED）
 

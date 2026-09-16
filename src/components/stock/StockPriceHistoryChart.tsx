@@ -4,17 +4,21 @@ import type { Stock } from "../../types";
 import { numberToDisplay } from "../../utils/normalize";
 import { chartColors, chartTickStyle, chartTooltipStyle, formatAxisNumber } from "../charts/theme";
 import { ChartPanel } from "../common/ChartPanel";
+import { ChartAuditPanel } from "../charts/ChartAuditPanel";
+import { priceChartAudit } from "../../services/chartAudit";
 
 /** Uses only the selected company's existing observations, including their gaps. */
 export function StockPriceHistoryChart({ stock, compact = false, range, onRangeChange, objectControl }: { objectControl?: ReactNode; stock: Stock; compact?: boolean; range?: "all" | "20"; onRangeChange?: (range: "all" | "20") => void }) {
   const [localRange,setLocalRange]=useState<"all"|"20">("all");
-  const allPoints = stock.priceHistory ?? [];
+  const allPoints = [...(stock.priceHistory ?? [])].sort((a, b) => a.date.localeCompare(b.date) || String(a.close).localeCompare(String(b.close)));
   const selection=allPoints.length>20 ? range ?? localRange : "all";
   const points=selection === "20" ? allPoints.slice(-20) : allPoints;
   const currency = "币种：源字段未提供";
-  const source = [...new Set(stock.dataQuality?.filter((item) => /price|history|kline/i.test(`${item.sourceEndpoint ?? ""} ${item.source}`)).map((item) => item.source))].join(" / ") || "历史序列来源未单独提供";
+  const audit = priceChartAudit(stock, points);
+  const source = audit.rows.find(row => row.label === "来源身份")?.value;
   const period = points.length ? `${points[0].date} 至 ${points[points.length - 1].date}` : "尚无历史价格";
   return <ChartPanel title={compact ? "价格脉络" : "价格走势"}
+    audit={<ChartAuditPanel audit={audit} />}
     legend={<div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">{objectControl}<label className="text-xs text-textMuted">观察范围<select aria-label="价格观察范围" value={selection} onChange={event=>{const next=event.target.value as "all"|"20";setLocalRange(next);onRangeChange?.(next);}} className="ml-2"><option value="all">全部已加载（{allPoints.length}）</option>{allPoints.length>20 ? <option value="20">最近20个观测</option>:null}</select></label></div>}
     description={`${stock.name} · 收盘价 · ${currency} · ${period}`}
     empty={!points.some((point) => typeof point.close === "number" && Number.isFinite(point.close))}
