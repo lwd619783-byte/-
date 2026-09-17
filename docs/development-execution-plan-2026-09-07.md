@@ -1,6 +1,6 @@
 # 当前开发执行索引 · 2026-09-07
 
-> 2026-09-16 CURRENT：Stage 4.1B / Slice 2 — Auditable Chart V1 + Product Shell V1 已在 `codex/stage-4-1b-auditable-chart-shell-v1` 实现，基线 `63208ce038f5222d10bfa471bc5d0a868fe2905e`；IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW。普通 push 后停止；不创建 PR、不合并、不宣称 Hosted/main CI PASS，不提升 data/production admission。Stage 4.1B 尚未整体关闭。详见 [Slice 2](stage-4-1b-slice-2.md)。
+> 2026-09-17 CURRENT：Stage 4.1B / Slice 2 — Auditable Chart V1 + Product Shell V1 已完成独立审计、PR #52、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；audited HEAD `88f97a56d44c3d512c00444f650000d60af89e40`，merge/main `753073912356de00504ba97c221c7ac1b7c8b81d`，PR CI `35201231930` 与 main push CI `35201547659` 均 completed/success。PRODUCTION / DATA ADMISSION 未因本切片提升；严格 PIT、正式 `releaseAvailableAt`、report revision continuity、Evidence Graph closure 与 chart exact Evidence linkage 仍未证明。Stage 4.1B 尚未整体关闭，下一产品主线为 F3 Research Eval service harness / closeout。详见 [Slice 2](stage-4-1b-slice-2.md)。
 
 > 2026-09-16 Slice 1 合入记录：Stage 4.1B / Slice 1 — Research Inbox + Evidence Drawer V1 已完成独立审计、PR #50、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；audited HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`，merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`，PR CI `35071221955` 与 main push CI `35071457928` 均 completed/success。PRODUCTION / DATA ADMISSION 未因本切片提升；Stage 4.1B 主线继续推进后续 Product Shell / Evidence Surface 能力。
 
@@ -15,9 +15,9 @@
 > CURRENT 更新：2026-09-12。已核对 `origin/main @ fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`。Financial Research Foundations V1 已由 PR #43 合入；Stage 4.1-F 已由 PR #45 合入：audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac`，PR CI run `34673260311` completed/success，main push CI run `34673371463` completed/success。固定 SHA 仅代表本次记录时点，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以 Git ancestry、当前代码、committed artifacts、专项验证与对应 PR 事实登记。
 > PR、merge 与 CI 必须分别按真实状态登记；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
 
-## Stage 4.1B / Slice 2 当前交付（2026-09-16 功能分支）
+## Stage 4.1B / Slice 2 当前交付（2026-09-17 CLOSED）
 
-本轮交付两类 Auditable Chart（价格历史、财务历史）和首页/公司 Product Shell；保留 owner 数据身份、时间语义、unknown 证明与质量降级。原公司/章节/事件深链、Evidence Drawer 和研究工作流继续复用。F3 Agent/service harness 仍留给后续 Slice；本轮没有改变冻结战略顺序。普通 commit + push 后等待独立审计，PR / merge / Hosted CI 未执行。详情与验证见 [Slice 2](stage-4-1b-slice-2.md)。
+**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION / DATA ADMISSION 未提升。** 本轮交付两类 Auditable Chart（价格历史、财务历史）和首页/公司 Product Shell；保留 owner 数据身份、时间语义、unknown 证明与质量降级。原公司/章节/事件深链、Evidence Drawer 和研究工作流继续复用。独立审计锁定 HEAD `88f97a56d44c3d512c00444f650000d60af89e40`；PR #52 Hosted CI `35201231930` completed/success；merge/main `753073912356de00504ba97c221c7ac1b7c8b81d`；main push CI `35201547659` completed/success。严格 PIT、正式 `releaseAvailableAt`、report revision continuity、Evidence Graph closure 与 chart exact Evidence linkage 仍未证明；价格/财务 owner 的 data/production admission 仍 unknown，既有 NOT_ADMITTED/BLOCKED 状态不变。F3 Agent/service harness 仍留给后续 Slice；本轮没有改变冻结战略顺序。详情与验证见 [Slice 2](stage-4-1b-slice-2.md)。
 
 ## Stage 4.1B / Slice 1 当前交付（2026-09-16 CLOSED）
 
@@ -79,7 +79,7 @@
 依据 [2026-09-13 最新增量方向](current-development-direction-2026-09-13.md)，CURRENT 战略顺序为：
 
 1. **Stage 4.1-G — CLOSED / MERGED / MAIN CI PASS**：独立审计 HEAD `5489e3f77e284c69d492cfccb7242e2bd9e504d8`；PR #48 CI `34820778498` completed/success；merge/main `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`；main push CI `34821083781` completed/success。数据 / production admission 仍未提升。未闭合的单指标、Provider、历史覆盖率及 normalization/backtest 等任务转为并行数据支线；仅当满足最新方向 §1.1 的主线正确性/安全阻断条件时重新评估。
-2. **Stage 4.1B — Product Shell / Research Inbox / Evidence Surface**：Slice 1 Research Inbox + Evidence Drawer V1 已于 PR #50 合入并通过 main CI；Slice 2 在功能分支实现 Auditable Chart / Product Shell V1，等待独立审计；后续 F3 service harness 未实施，不把 Slice 1 的合入视为整个 Stage 4.1B 关闭。
+2. **Stage 4.1B — Product Shell / Research Inbox / Evidence Surface**：Slice 1 Research Inbox + Evidence Drawer V1 已于 PR #50 合入并通过 main CI；Slice 2 Auditable Chart V1 + Product Shell V1 已于 PR #52 合入并通过 main CI；后续 F3 Research Eval service harness / closeout 尚未实施，因此 Stage 4.1B 尚未整体关闭。
 3. **Stage 4.2 — Industry Data Platform**：Industry Metric Registry / Provider / history / delta / prosperity，并接入 F1/F2/F3。
 4. **Stage 4.3 — Top-down Research Workflow**：Macro → Industry、Claim ↔ Evidence、Industry Thesis / revision、Investment Expression、Research Memory。
 5. **Stage 4.4 — Portfolio Exposure MVP**：复用 Phase 1B Local Core，补 thesis ↔ position、macro / industry exposure、target allocation、rebalance、read model / UI。
