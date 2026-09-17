@@ -280,9 +280,15 @@ Phase 1B 已在 Node-only Local Core 实现账户、资产、交易、现金流�
 
 Local-first freeze 明确覆盖旧“先建设最小 Cloud Research Store”的假设。远程访问未来必须经过受控 Domain API / Research Bridge、最小权限、确认与 Audit；不得将 Local DB 或 raw SQL 直接暴露。是否改变为 cloud business database 需要新的 scope freeze。
 
-### 7.3 Market Regime 数据集与 Industry Metric Registry 仍未完成
+### 7.3 Market Regime 数据集与 Industry Metric pilot
 
-Market Regime Metric Registry、时间语义、公式与 Historical Observation Catalog R1 已形成合同 / 数据骨架，但 R2 历史 release / vintage 数据集、normalization、backtest、formula admission 和正式 Engine 尚未完成。Industry 仍没有正式 Metric Registry / Provider。
+Market Regime Metric Registry、时间语义、公式与 Historical Observation Catalog R1 已形成合同 / 数据骨架，但 R2 历史 release / vintage 数据集、normalization、backtest、formula admission 和正式 Engine 尚未完成。
+
+2026-09-17 Stage 4.2 Slice 1（本地验证完成、待独立审计）新增正式 `IndustryMetricDataset` source owner，与 `Industry` qualitative research context 分层。唯一 pilot 是国家统计局工业机器人产量：官方 HTML → versioned content-addressed raw/manifest → offline parser/schema/exact replay → `src/data/real/industry-robotics.generated.json` → `industryMetricProvider` history/delta/audit → 原 `IndustryTab`。没有新业务持久化或第二套 registry/readiness/Evidence/chart/eval framework。
+
+原 `data-source-registry.ts` 登记 source owner 与 acquisition adapter；`DataQualityMeta` 与 Frozen `EvidenceRef`/F1 Pin 复用。F1 industry semantic binding 经过原 validator，但 Entity unresolved、正式 query/vintage 未闭合，不提升 READY。F3 Frozen cases/targets/report 不变。Auditable Chart / ProductShell / EvidenceDrawer 复用；drawer 新增只读 audit 分支，相关来源保留 candidate，chart exact linkage=null。UI 明示 NOT_ADMITTED preview，AI 算力/创新药/油运无 owner 时显示 not_implemented。
+
+声明窗口 2026-01—08：6 个当月值、7 个累计值，月度覆盖 6/8；1—2 月 missing，不拆分累计。observation/reference period、页面 publication、acquiredAt、generatedAt 分离；releaseAvailableAt=null，官方 revision continuity 未证明，data/production NOT_ADMITTED。raw retention 证明当前 committed 重放，不证明历史发布时字节。所有绘图/coverage 共享 exact-owner 校验；冲突修订保留记录并禁止选值。实现、命令、验证及剩余边界见 [Stage 4.2 Slice 1](stage-4-2-slice-1.md)。
 
 后续正式数据能力继续统一表达：
 

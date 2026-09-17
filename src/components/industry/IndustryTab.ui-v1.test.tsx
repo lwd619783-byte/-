@@ -6,6 +6,9 @@ import { roboticsPrivateCompanies } from "../../data/privateCompanies";
 import type { Industry, Stock } from "../../types";
 import { IndustryTab } from "./IndustryTab";
 
+// jsdom has no layout observer; the real Recharts SVG is checked in browser acceptance.
+vi.stubGlobal("ResizeObserver", class { observe() {} unobserve() {} disconnect() {} });
+
 afterEach(() => { cleanup(); delete document.documentElement.dataset.theme; });
 
 function fixture() {

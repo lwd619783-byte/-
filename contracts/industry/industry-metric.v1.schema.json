@@ -1,0 +1,449 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "definition",
+    "policy",
+    "definitionRef",
+    "observations",
+    "completeness"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "industry-metric.v1"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "definition": {
+      "$ref": "#/$defs/definition"
+    },
+    "policy": {
+      "$ref": "#/$defs/policy"
+    },
+    "definitionRef": {
+      "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "completeness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "monthlyAvailable",
+        "monthlyTarget",
+        "missingMonthlyPeriods",
+        "historicalCoverage"
+      ],
+      "properties": {
+        "scope": {
+          "const": "declared_window_only"
+        },
+        "monthlyAvailable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "monthlyTarget": {
+          "const": 8
+        },
+        "missingMonthlyPeriods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+          }
+        },
+        "historicalCoverage": {
+          "const": "partial"
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/industry/industry-metric.v1.schema.json",
+  "$defs": {
+    "definition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision",
+        "canonicalName",
+        "industryId",
+        "entity",
+        "geography",
+        "scope",
+        "unit",
+        "nativeFrequency",
+        "basis",
+        "sourceId",
+        "sourceOwner",
+        "acquisitionAdapter",
+        "revisionPolicy",
+        "window",
+        "missingMonthlyPeriods",
+        "freshness",
+        "staleAfter"
+      ],
+      "properties": {
+        "id": {
+          "const": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT"
+        },
+        "revision": {
+          "const": "1"
+        },
+        "canonicalName": {
+          "type": "string"
+        },
+        "industryId": {
+          "const": "robotics"
+        },
+        "entity": {
+          "const": null
+        },
+        "geography": {
+          "const": "CN"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "unit": {
+          "const": "套"
+        },
+        "nativeFrequency": {
+          "const": "monthly"
+        },
+        "basis": {
+          "const": [
+            "monthly",
+            "year_to_date"
+          ]
+        },
+        "sourceId": {
+          "const": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION"
+        },
+        "sourceOwner": {
+          "const": "国家统计局"
+        },
+        "acquisitionAdapter": {
+          "const": "nbs-industrial-production-html.v1"
+        },
+        "revisionPolicy": {
+          "type": "string"
+        },
+        "window": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end"
+          ],
+          "properties": {
+            "start": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            },
+            "end": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          }
+        },
+        "missingMonthlyPeriods": {
+          "const": [
+            "2026-01",
+            "2026-02"
+          ]
+        },
+        "freshness": {
+          "const": "unknown"
+        },
+        "staleAfter": {
+          "const": null
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision",
+        "entityResolution",
+        "dataAdmission",
+        "productionAdmission",
+        "allowedUses",
+        "forbiddenUses",
+        "previewUse"
+      ],
+      "properties": {
+        "id": {
+          "const": "industry-metric-pilot-policy"
+        },
+        "revision": {
+          "const": "1"
+        },
+        "entityResolution": {
+          "const": "UNRESOLVED"
+        },
+        "dataAdmission": {
+          "const": "NOT_ADMITTED"
+        },
+        "productionAdmission": {
+          "const": "NOT_ADMITTED"
+        },
+        "allowedUses": {
+          "const": []
+        },
+        "forbiddenUses": {
+          "const": [
+            "strict_pit",
+            "research",
+            "display"
+          ]
+        },
+        "previewUse": {
+          "type": "string"
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "metricId",
+        "industryId",
+        "geography",
+        "scope",
+        "unit",
+        "frequency",
+        "basis",
+        "valueDate",
+        "referencePeriod",
+        "value",
+        "publicationDateTime",
+        "releaseAvailableAt",
+        "acquiredAt",
+        "generatedAt",
+        "revision",
+        "quality",
+        "conditions",
+        "pit",
+        "dataAdmission",
+        "productionAdmission",
+        "provenance"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "metricId": {
+          "type": "string"
+        },
+        "industryId": {
+          "type": "string"
+        },
+        "geography": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "frequency": {
+          "const": "monthly"
+        },
+        "basis": {
+          "enum": [
+            "monthly",
+            "year_to_date"
+          ]
+        },
+        "valueDate": {
+          "type": "string",
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+        },
+        "referencePeriod": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end"
+          ],
+          "properties": {
+            "start": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            },
+            "end": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          }
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "publicationDateTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "releaseAvailableAt": {
+          "const": null
+        },
+        "acquiredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "revision": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "sequence",
+            "supersedes",
+            "retainedVintage"
+          ],
+          "properties": {
+            "status": {
+              "const": "unknown"
+            },
+            "sequence": {
+              "const": null
+            },
+            "supersedes": {
+              "const": null
+            },
+            "retainedVintage": {
+              "type": "string"
+            }
+          }
+        },
+        "quality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source",
+            "sourceLayer",
+            "sourceEndpoint",
+            "sourceUrl",
+            "status"
+          ],
+          "properties": {
+            "source": {
+              "type": "string"
+            },
+            "sourceLayer": {
+              "const": "official"
+            },
+            "sourceEndpoint": {
+              "type": "string"
+            },
+            "sourceUrl": {
+              "type": "string",
+              "format": "uri"
+            },
+            "status": {
+              "enum": [
+                "real",
+                "missing"
+              ]
+            }
+          }
+        },
+        "conditions": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Conditions"
+        },
+        "pit": {
+          "const": "UNPROVED"
+        },
+        "dataAdmission": {
+          "const": "NOT_ADMITTED"
+        },
+        "productionAdmission": {
+          "const": "NOT_ADMITTED"
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceId",
+            "sourceOwner",
+            "acquisitionAdapter",
+            "rawPath",
+            "rawSha256",
+            "captureRef",
+            "locator",
+            "column",
+            "rawRow",
+            "transformVersion",
+            "evidence"
+          ],
+          "properties": {
+            "sourceId": {
+              "type": "string"
+            },
+            "sourceOwner": {
+              "type": "string"
+            },
+            "acquisitionAdapter": {
+              "type": "string"
+            },
+            "rawPath": {
+              "type": "string"
+            },
+            "rawSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "captureRef": {
+              "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+            },
+            "locator": {
+              "type": "string"
+            },
+            "column": {
+              "enum": [
+                1,
+                3
+              ]
+            },
+            "rawRow": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "transformVersion": {
+              "const": "nbs-industrial-production-html.v1"
+            },
+            "evidence": {
+              "$ref": "https://investment-dashboard.local/contracts/v1/research-asset-os.contracts.v1.schema.json#/$defs/EvidenceRef"
+            }
+          }
+        }
+      }
+    }
+  }
+}

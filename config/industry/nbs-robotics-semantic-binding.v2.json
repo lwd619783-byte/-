@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "financial-semantic-binding.v2",
+  "bindingId": "nbs-industrial-robot-output.v1",
+  "domain": "industry",
+  "metricDefinitionRef": {
+    "owner": "config/industry/nbs-robotics-pilot.v1.json",
+    "locator": "/definition",
+    "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+    "version": "1",
+    "sha256": "f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664"
+  },
+  "sourceDefinitionRef": {
+    "owner": "config/industry/nbs-robotics-pilot.v1.json",
+    "locator": "/definition",
+    "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+    "version": "1",
+    "sha256": "f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664"
+  },
+  "fieldBindings": {
+    "entity": null,
+    "universe": null,
+    "metricId": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/metricId"
+    },
+    "canonicalName": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/definition",
+      "pointer": "/canonicalName"
+    },
+    "value": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/value"
+    },
+    "unit": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/unit"
+    },
+    "currency": null,
+    "nativeFrequency": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/definition",
+      "pointer": "/nativeFrequency"
+    },
+    "aggregation": null,
+    "reportingBasis": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/basis"
+    },
+    "observationDate": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/valueDate"
+    },
+    "publicationDate": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/publicationDateTime"
+    },
+    "releaseAvailableAt": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/releaseAvailableAt"
+    },
+    "effectiveDate": null,
+    "revision": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/revision"
+    },
+    "revisionPolicy": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/definition",
+      "pointer": "/revisionPolicy"
+    },
+    "source": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/provenance"
+    },
+    "provider": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/quality"
+    },
+    "artifact": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/provenance"
+    },
+    "transform": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/provenance"
+    },
+    "formulaVersion": null,
+    "quality": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/quality"
+    },
+    "coverage": null,
+    "admission": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/observation",
+      "pointer": "/dataAdmission"
+    },
+    "conflict": null,
+    "freshness": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/definition",
+      "pointer": "/freshness"
+    },
+    "staleAfter": {
+      "ownerContract": "contracts/industry/industry-metric.v1.schema.json#/$defs/definition",
+      "pointer": "/staleAfter"
+    }
+  },
+  "policyRef": {
+    "owner": "config/industry/nbs-robotics-pilot.v1.json",
+    "locator": "/policy",
+    "objectId": "industry-metric-pilot-policy",
+    "version": "1",
+    "sha256": "f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664"
+  },
+  "allowedUses": [],
+  "forbiddenUses": [
+    "strict_pit",
+    "research",
+    "display"
+  ]
+}

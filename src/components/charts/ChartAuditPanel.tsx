@@ -12,7 +12,7 @@ export function ChartAuditPanel({ audit }: { audit: ChartAuditView }) {
       <AuditRows rows={audit.rows} />
       {audit.records.map((record, index) => <details key={`${record.title}-${index}`} className="rounded border border-borderSoft p-3"><summary className="min-h-11 cursor-pointer break-words text-accent">{record.title}</summary><AuditRows rows={record.rows}/></details>)}
       <p className="text-warning">当前图表没有可验证的 Evidence linkage</p>
-      <p className="text-textMuted">当前 owner 未提供可证明的 metric / entity / revision 精确证据引用。公司相关事件不等于本图表证据；来源链接不证明 PIT 或 Evidence Graph。</p>
+      <p className="text-textMuted">当前 owner 未提供可证明的 metric / entity / revision 精确证据引用。相关事件或留存来源不等于正式图表证据；来源链接不证明 PIT 或 Evidence Graph。</p>
     </div>
   </details>;
 }
