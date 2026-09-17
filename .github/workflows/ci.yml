@@ -45,6 +45,12 @@ jobs:
       - name: Test V1 contracts offline
         run: npm run test:contracts
 
+      - name: Test F3 Research Eval Harness offline
+        run: npm run test:research-eval
+
+      - name: Validate committed F3 Research Eval report
+        run: npm run research:eval:check
+
       - name: Test Local Core with isolated temporary databases
         run: npm run test:local-core
 

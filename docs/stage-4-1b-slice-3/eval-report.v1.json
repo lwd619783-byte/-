@@ -1,0 +1,1867 @@
+{
+  "schemaVersion": "research-eval-report.v1",
+  "suite": {
+    "suiteId": "financial-research-foundations",
+    "version": 1,
+    "schemaVersion": "investment-research-golden-suite.v1",
+    "count": 33,
+    "integrity": {
+      "status": "VERIFIED",
+      "manifestSha256": "d2b95cba7576174a576d4f7de19c0b168fc1e50accfae1f413929a84d4b63610",
+      "roster": "VERIFIED",
+      "caseDigests": "VERIFIED",
+      "fixturePins": "VERIFIED"
+    }
+  },
+  "scope": {
+    "input": "SYNTHETIC_ONLY",
+    "productionAdmission": "NOT_EVALUATED",
+    "agentRuntime": "NOT_IMPLEMENTED"
+  },
+  "goldenContractHealth": {
+    "status": "PASS",
+    "claim": "REFERENCE_ONLY",
+    "targetIds": [
+      "financial-research-contract-reference"
+    ],
+    "counts": {
+      "PASS": 33,
+      "SEMANTIC_MISMATCH": 0,
+      "NOT_IMPLEMENTED": 0,
+      "EXECUTION_ERROR": 0,
+      "INVALID_OUTPUT": 0
+    }
+  },
+  "actualServiceCoverage": {
+    "denominator": 33,
+    "registeredTargets": 0,
+    "passedCases": 0,
+    "counts": {
+      "PASS": 0,
+      "SEMANTIC_MISMATCH": 0,
+      "NOT_IMPLEMENTED": 33,
+      "EXECUTION_ERROR": 0,
+      "INVALID_OUTPUT": 0
+    },
+    "operationCoverage": [
+      {
+        "operation": "assess_graph",
+        "total": 9,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 9,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "operation": "qualify_earnings",
+        "total": 7,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 7,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "operation": "recompute",
+        "total": 3,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 3,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "operation": "retrieve",
+        "total": 14,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 14,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      }
+    ],
+    "categoryCoverage": [
+      {
+        "category": "deterministic_retrieval",
+        "total": 3,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 3,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "earnings_ex_ante",
+        "total": 7,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 7,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "lineage_citation",
+        "total": 2,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 2,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "market_regime_recompute",
+        "total": 3,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 3,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "pit",
+        "total": 4,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 4,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "quality_propagation",
+        "total": 9,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 9,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "temporal_revision",
+        "total": 3,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 3,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "unsupported_claim",
+        "total": 2,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 2,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      }
+    ],
+    "cases": [
+      {
+        "caseId": "ai-is-not-fact",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "unsupported_claim",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "closed-lineage",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "lineage_citation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "contradicting-evidence",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "date-safe-boundary",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "temporal_revision",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "date-safe-not-yet",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "pit",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-before-all",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-earlier-disclosure",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-equal-bound",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-sameMeasurementKey",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-sourceVerified",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-unknown-formation",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-unknownDisclosureScope",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "entity-key-mismatch",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "deterministic_retrieval",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "future-only",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "pit",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-conflicted",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-not_admitted",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-partial",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-stale",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-unknown-release",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "lineage_citation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "independent-chain",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "temporal_revision",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "inferred-release",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "pit",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "missing-evidence-lineage",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "unsupported_claim",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "past-vintage",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "pit",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "period-key-mismatch",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "deterministic_retrieval",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "policy-deny",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "deterministic_retrieval",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "recompute-fixed-inputs",
+        "version": 1,
+        "operation": "recompute",
+        "category": "market_regime_recompute",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "recompute-missing",
+        "version": 1,
+        "operation": "recompute",
+        "category": "market_regime_recompute",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "recompute-unknown-denominator",
+        "version": 1,
+        "operation": "recompute",
+        "category": "market_regime_recompute",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "retrieve-conflicted",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "retrieve-not_admitted",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "retrieve-partial",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "retrieve-stale",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "revision-at-cutoff",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "temporal_revision",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      }
+    ]
+  },
+  "capabilityAudit": [
+    {
+      "operation": "assess_graph",
+      "status": "NOT_IMPLEMENTED",
+      "reason": "NO_F2_RUNTIME",
+      "seams": [
+        "src/services/researchInbox.ts",
+        "src/services/chartAudit.ts",
+        "src/components/research/ResearchEventEvidence.tsx"
+      ],
+      "limitation": "Product read models do not execute immutable F2 graph closure or revision semantics."
+    },
+    {
+      "operation": "qualify_earnings",
+      "status": "NOT_IMPLEMENTED",
+      "reason": "FROZEN_INPUT_LACKS_DOMAIN_RECORDS",
+      "seams": [
+        "src/services/earningsExpectationComparisonProvider.ts"
+      ],
+      "limitation": "Boolean fixture summaries and generic pins cannot supply full Snapshot, ResearchEvent, measurement and disclosure-scope records."
+    },
+    {
+      "operation": "recompute",
+      "status": "NOT_IMPLEMENTED",
+      "reason": "FIXTURE_FORMULA_HAS_NO_PRODUCTION_OWNER",
+      "seams": [
+        "scripts/semantic-runtime/readiness.mjs",
+        "scripts/semantic-runtime/readiness-v2.mjs"
+      ],
+      "limitation": "Readiness evaluates gates; it does not implement the synthetic sum_divide_fixed_denominator formula as a production service."
+    },
+    {
+      "operation": "retrieve",
+      "status": "NOT_IMPLEMENTED",
+      "reason": "FROZEN_BINDING_HAS_NO_RUNTIME_OWNER",
+      "seams": [
+        "scripts/semantic-runtime/market-regime-adapter.mjs",
+        "scripts/semantic-runtime/market-regime-adapter-v2.mjs",
+        "scripts/semantic-runtime/selection.mjs"
+      ],
+      "limitation": "Macro entrypoints require owned bindings, identity and evidence context; fixture-macro is not a reviewed runtime binding. Supplying trusted selector context would invent authority."
+    }
+  ],
+  "targets": [
+    {
+      "targetId": "financial-research-contract-reference",
+      "targetVersion": "1",
+      "targetKind": "reference_oracle",
+      "supportedOperations": [
+        "assess_graph",
+        "qualify_earnings",
+        "recompute",
+        "retrieve"
+      ],
+      "claim": "REFERENCE_ONLY",
+      "counts": {
+        "PASS": 33,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 0,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      "operationCoverage": [
+        {
+          "operation": "assess_graph",
+          "total": 9,
+          "PASS": 9,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "operation": "qualify_earnings",
+          "total": 7,
+          "PASS": 7,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "operation": "recompute",
+          "total": 3,
+          "PASS": 3,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "operation": "retrieve",
+          "total": 14,
+          "PASS": 14,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        }
+      ],
+      "categoryCoverage": [
+        {
+          "category": "deterministic_retrieval",
+          "total": 3,
+          "PASS": 3,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "earnings_ex_ante",
+          "total": 7,
+          "PASS": 7,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "lineage_citation",
+          "total": 2,
+          "PASS": 2,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "market_regime_recompute",
+          "total": 3,
+          "PASS": 3,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "pit",
+          "total": 4,
+          "PASS": 4,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "quality_propagation",
+          "total": 9,
+          "PASS": 9,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "temporal_revision",
+          "total": 3,
+          "PASS": 3,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "unsupported_claim",
+          "total": 2,
+          "PASS": 2,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        }
+      ],
+      "cases": [
+        {
+          "caseId": "ai-is-not-fact",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "unsupported_claim",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "f41e4b0bef8408be1c42eb846c31c12577a1d946a571cc987f481f423b195be8",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "closed-lineage",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "lineage_citation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "b68b40d9e4c69ef1a74964e93bea5c569733d4a09fb7ae44c79502cd7f03fba6",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "supported",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "claim"
+            ],
+            "citationRefs": [
+              "artifact",
+              "claim",
+              "derived_metric",
+              "evidence",
+              "fact",
+              "source"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "supported",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "claim"
+            ],
+            "citationRefs": [
+              "artifact",
+              "claim",
+              "derived_metric",
+              "evidence",
+              "fact",
+              "source"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "contradicting-evidence",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "3b1ea1ffab778c01dfd441e7af5e4506c2b3e6f143aed012c3f71180d03f5614",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "actual": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "date-safe-boundary",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "temporal_revision",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "1653dacf387354ba6c4583fe59515721df68c0b2e9bc5d356d35e90acc778623",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": 10,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o1"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": 10,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o1"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "date-safe-not-yet",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "pit",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "a3accd59bd1dcca7529a284eda30638a6c485c1db8f3d5833b7f4b655ea06b98",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-before-all",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "da90df363bfe5eca6b34ac4194de71ce91d59ff9ac0665a31bd00e5131e612cd",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": null,
+            "unit": null,
+            "exAnte": true,
+            "reproducible": null,
+            "selectedRefs": [
+              "evidence",
+              "fact"
+            ],
+            "citationRefs": [
+              "evidence",
+              "fact"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": null,
+            "unit": null,
+            "exAnte": true,
+            "reproducible": null,
+            "selectedRefs": [
+              "evidence",
+              "fact"
+            ],
+            "citationRefs": [
+              "evidence",
+              "fact"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-earlier-disclosure",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "5fe2a18cd9affef4d7159061ac843422de3c454bbf131de72fd28f25ad616422",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-equal-bound",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "348ead965d1f0d7ddb1d0810f95e8c37897228d743924008c46abd21d2182319",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-sameMeasurementKey",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "57d6781d53699063fc51dcd95b6118a944177443343c84fd1ce45bd44e904cff",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-sourceVerified",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "cd69dfea1379529c1ed4de8e8c75c57e5032dc97a12d04a0abaa252e89f86a31",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-unknown-formation",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "014d7f51c10f28d0bb3abccf3f6b713aba925dd6431b455e310671219245cef8",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-unknownDisclosureScope",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "b1116116063f9605635b7b34a1e7e26770541bd9a37d22cfc122180133df3436",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "entity-key-mismatch",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "deterministic_retrieval",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "e0ccea2f2dfdf20a84ce062d0582b7e919a7b601621ab9f47e30a1be4fda9804",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "missing",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "missing",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "future-only",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "pit",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "7ae3abfe7e32d206af81d12b2544a9ff0cec2a4fd236bf5816da64e4e54d926b",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-conflicted",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "7e36f361692f95cb0ba87a91f4a628036635aa7e4407d48165f774300fb22e44",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "actual": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-not_admitted",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "3284b06e9fb531e9a24e960728f18bd6dfcb3cbdb4c9c4ebcfae25a6508df00b",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-partial",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "12b8d92321b73639fdae1bce41210e79ebaad69e7fc912782df0d7e2ef7f92e5",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-stale",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "b71b22555f1777cb7b8731199e0f6d37f64fceb9d7877d771b74c604b737550b",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "stale"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "stale"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-unknown-release",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "lineage_citation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "bad89e21ad722471eedd443f1db0cac63975bf634bfebdd2c0de18676552fa90",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "independent-chain",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "temporal_revision",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "80c090adda08cf54f45ff4ee8d6f791f151a4dd699b81ef9a3155e897d7f2950",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "actual": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "inferred-release",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "pit",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "6a3eab4558ea4ea4786d36cf986576fed04e68cf6c59f8bc277de9e3177c6ca1",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "missing-evidence-lineage",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "unsupported_claim",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "6c70a0c808161f2aa024a6c2ba473d61743cd77d7dc44cf21fedb0fefa8c0766",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "missing_evidence"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "missing_evidence"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "past-vintage",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "pit",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "4b495d9be03bbddd3e0b8f5b957e5fbea26edf57bc44bb4813a5d40ccd3354c7",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": 10,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o1"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": 10,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o1"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "period-key-mismatch",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "deterministic_retrieval",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "3210c4c1e3d840fecd1f8f80ea5daac1960db60e6867e1dcda1c418ab490ac53",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "missing",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "missing",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "policy-deny",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "deterministic_retrieval",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "f8d45f7bedc5ec6f559f1227e0409d566357b9b169085dc4d65669feef6c5c44",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "recompute-fixed-inputs",
+          "version": 1,
+          "operation": "recompute",
+          "category": "market_regime_recompute",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "cfa32db96d392fe02ef98acd253af15668c63611aba26ac5cd1e75031046f1ad",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": 15,
+            "unit": "fixture-unit",
+            "exAnte": null,
+            "reproducible": true,
+            "selectedRefs": [
+              "input1",
+              "input2"
+            ],
+            "citationRefs": [
+              "calendar",
+              "formula",
+              "input1",
+              "input2",
+              "manifest",
+              "scope"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": 15,
+            "unit": "fixture-unit",
+            "exAnte": null,
+            "reproducible": true,
+            "selectedRefs": [
+              "input1",
+              "input2"
+            ],
+            "citationRefs": [
+              "calendar",
+              "formula",
+              "input1",
+              "input2",
+              "manifest",
+              "scope"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "recompute-missing",
+          "version": 1,
+          "operation": "recompute",
+          "category": "market_regime_recompute",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "f33ff274db9ea90f33055439df0ee8357cf15a62ba800f69d9aa7fb19f18e076",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": false,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": false,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "recompute-unknown-denominator",
+          "version": 1,
+          "operation": "recompute",
+          "category": "market_regime_recompute",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "5c4dde63199531ee5c6c492181d29320367802993789cceca79d3b928d23c523",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": false,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": false,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "retrieve-conflicted",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "c1fc144d1310df5eb9071325d7485b831bbb464c7a1df86dc51f22eab5d2c220",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "actual": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "retrieve-not_admitted",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "f411084d3d7d6ee1c8ff76948fbb8ca4837bc4e4264340ede6482bf1815e8d1d",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "retrieve-partial",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "d179fee30bdbab8931318d570e01233e2a427b297f8ca4a026d9631bd2be0151",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "retrieve-stale",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "28b7a6c3e8e1b546eb8cb30cc3e994eb4663ba9fd7e405779562498930e1f239",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "stale"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "stale"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "revision-at-cutoff",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "temporal_revision",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "ca393c57eebcc600ebe81b54d196afabf0831690455b07690c40afb337dc8d75",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": 12,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o2"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": 12,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o2"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        }
+      ]
+    }
+  ],
+  "evaluationStatus": "COMPLETED"
+}

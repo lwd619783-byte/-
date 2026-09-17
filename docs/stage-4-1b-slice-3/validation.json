@@ -1,0 +1,408 @@
+{
+  "schemaVersion": "stage-4-1b-slice-3-validation.v1",
+  "base": "18dad3e72a9d827fb0e6aeb923bee5a4873b1054",
+  "scope": "LOCAL_VERIFICATION_ONLY",
+  "closeout": "PENDING_INDEPENDENT_REVIEW",
+  "sourceDigestFormat": "UTF-8 with CRLF normalized to LF",
+  "sourceSha256": {
+    "package.json": "0d50bbbeacfea2926097d4c8c47400279e1fe5fc4e4c29781a4cbfdf6902aa94",
+    "scripts/contracts/financial-research.mjs": "2985d1fd509c11c98b63741979d83bc69419dd1c0a4fec6a0d25b21877939994",
+    "scripts/research-eval/harness.mjs": "88576696946eeee39be7382e6d4555cd1ed28e7cc75266370d0361469a53fe5b",
+    "scripts/research-eval/targets.mjs": "75ceb3d3c2532b7a3c9b2423db0da3a677eb696079a41104ee0a4abacfae002f",
+    "scripts/research-eval/cli.mjs": "1b5fe5e8ca6f50778dfc0175c8eb46b214b1720d8587555dd7c00f03eb0fa9f2",
+    "scripts/tests/research-eval.node.mjs": "6c9de4e5a4d76ac40ab51f380c6e1d24fa68b89e0088225860bf4f89c2f862b0",
+    ".github/workflows/ci.yml": "dbb4960192e132ad7d20b099b2548cc2f03449ac76a378351ebc78b83f7c5a27"
+  },
+  "focused": {
+    "command": "npm run test:research-eval",
+    "exit": 0,
+    "tests": 45
+  },
+  "reference": {
+    "cases": 33,
+    "PASS": 33,
+    "claim": "REFERENCE_ONLY"
+  },
+  "actualService": {
+    "denominator": 33,
+    "registeredTargets": 0,
+    "PASS": 0,
+    "NOT_IMPLEMENTED": 33
+  },
+  "formalGates": [
+    {
+      "gate": "local:typecheck",
+      "exit": 0
+    },
+    {
+      "gate": "contracts:validate",
+      "exit": 0
+    },
+    {
+      "gate": "test:contracts",
+      "exit": 0,
+      "tests": "node:106 + node:78"
+    },
+    {
+      "gate": "test:local-core",
+      "exit": 0,
+      "tests": "node:261"
+    },
+    {
+      "gate": "test:financials:a",
+      "exit": 0,
+      "tests": "python:18"
+    },
+    {
+      "gate": "data:validate:financials:a",
+      "exit": 0
+    },
+    {
+      "gate": "test:announcements:a",
+      "exit": 0,
+      "tests": "python:26"
+    },
+    {
+      "gate": "data:validate:announcements:a",
+      "exit": 0
+    },
+    {
+      "gate": "test:expectations:company-guidance",
+      "exit": 0,
+      "tests": "node:173 + vitest:102"
+    },
+    {
+      "gate": "company-guidance-check",
+      "exit": 0
+    },
+    {
+      "gate": "data:validate:expectations:company-guidance",
+      "exit": 0
+    },
+    {
+      "gate": "test:expectations:institution-consensus-probe",
+      "exit": 0,
+      "tests": "python:65"
+    },
+    {
+      "gate": "test:provider-observability",
+      "exit": 0,
+      "tests": "python:254"
+    },
+    {
+      "gate": "test:market-regime:catalog",
+      "exit": 0,
+      "tests": "python:48"
+    },
+    {
+      "gate": "test:market-regime:historical",
+      "exit": 0,
+      "tests": "python:66"
+    },
+    {
+      "gate": "test:market-regime:pbc",
+      "exit": 0,
+      "tests": "python:69"
+    },
+    {
+      "gate": "test:market-regime:csrc-c1",
+      "exit": 0,
+      "tests": "python:183"
+    },
+    {
+      "gate": "test:market-regime:sse",
+      "exit": 0,
+      "tests": "python:22"
+    },
+    {
+      "gate": "test:market-regime:szse",
+      "exit": 0,
+      "tests": "python:37"
+    },
+    {
+      "gate": "test:market-regime:bse",
+      "exit": 0,
+      "tests": "python:25"
+    },
+    {
+      "gate": "test:market-regime:all-a",
+      "exit": 0,
+      "tests": "python:40"
+    },
+    {
+      "gate": "data:validate:market-regime:all-a",
+      "exit": 0
+    },
+    {
+      "gate": "data:validate:semantic-bindings",
+      "exit": 0
+    },
+    {
+      "gate": "test:semantic-runtime",
+      "exit": 0,
+      "tests": "node:37"
+    },
+    {
+      "gate": "data:validate:semantic-readiness",
+      "exit": 0
+    },
+    {
+      "gate": "test:stage-4-1-g",
+      "exit": 0,
+      "tests": "node:27 + python:14"
+    },
+    {
+      "gate": "data:validate:pbc-evidence-v2",
+      "exit": 0
+    },
+    {
+      "gate": "data:validate:semantic-readiness:v2",
+      "exit": 0
+    },
+    {
+      "gate": "data:build:market-regime:catalog",
+      "exit": 0
+    },
+    {
+      "gate": "data:validate:market-regime:catalog",
+      "exit": 0
+    },
+    {
+      "gate": "test:research-eval",
+      "exit": 0,
+      "tests": "node:45",
+      "hostedDirectStep": "Test F3 Research Eval Harness offline",
+      "hostedStatus": "NOT_RUN"
+    },
+    {
+      "gate": "research:eval:check",
+      "exit": 0,
+      "hostedDirectStep": "Validate committed F3 Research Eval report",
+      "hostedStatus": "NOT_RUN"
+    }
+  ],
+  "contractsRerunAfterFinalCheckerEdit": {
+    "validateExit": 0,
+    "testsExit": 0,
+    "tests": [
+      106,
+      78
+    ]
+  },
+  "application": {
+    "command": "npm test",
+    "exit": 0,
+    "files": 60,
+    "tests": 788
+  },
+  "discovery": {
+    "command": "npm run test:discovery",
+    "exit": 0,
+    "formalSuites": 60,
+    "negativeControlFailures": 3
+  },
+  "dataAudit": {
+    "command": "npm run data:audit -- --no-write",
+    "exit": 0,
+    "scanned": 351,
+    "registry": 29,
+    "P0": 0,
+    "errors": 0,
+    "warnings": 24,
+    "P1": 10,
+    "P2": 14,
+    "skipped": 10,
+    "allowlisted": 35
+  },
+  "build": {
+    "command": "npm run build",
+    "exit": 0,
+    "bundleGate": "PASS",
+    "warnings": [
+      "Existing chunk size above 500 kB"
+    ]
+  },
+  "reportReplay": {
+    "command": "npm run research:eval:check",
+    "exit": 0
+  },
+  "diffCheck": {
+    "command": "git diff --check",
+    "exit": 0
+  },
+  "browsers": [
+    {
+      "name": "slice-1",
+      "script": "scripts/research-inbox-browser-check.mjs",
+      "status": "PASS",
+      "checks": 257,
+      "failures": [],
+      "pageErrors": [],
+      "sourceSha256": {
+        "src/App.tsx": "23de7b06cf0980162075dead8a624a046e18126668a6939916ecf47312dca8eb",
+        "src/services/researchInbox.ts": "7c1a398f91393b097e205016204a4af6d17d944d1aecb81f8e0c683451af8af3",
+        "src/components/home/ResearchInbox.tsx": "3cea9ee9534f8542f470c727aaa9d5313c34ad54b8a2257c7394df8495a189c2",
+        "src/components/home/HomePage.tsx": "bdf1acaa86def4f1dc6dfb3c0d723e06a49a47182a5c51dd301848d232d43daf",
+        "src/components/research/EvidenceDrawer.tsx": "26be559cc316afb68f0d83186b1761c8b40e36dc0350e86d02c20528489c6dc3",
+        "src/components/research/ResearchEventEvidence.tsx": "7f9a684f530dd754e0f2b176c9b9fac34f0fa8f49b63aaff9b63ea7fb4bba17d",
+        "src/index.css": "a0186cb71c34733b712857772b4a4ab9b17fcc60f9e7c3a0254cc5b23ff21215"
+      }
+    },
+    {
+      "name": "slice-2",
+      "script": "scripts/auditable-chart-browser-check.mjs",
+      "status": "PASS",
+      "checks": 1214,
+      "failures": [],
+      "pageErrors": [],
+      "sourceSha256": {
+        "src/services/chartAudit.ts": "e75d0ecd5f235e05bb8b2f4369824b4214adf03ee3a4950bad8951fd24ef5401",
+        "src/services/stockProvider.ts": "2c6ecdafde7e56154cf6f169ba1f53358c509b2be3e146f97fd33f5f84d694f7",
+        "src/utils/stockCoverage.ts": "d4ce1f1e1d0817ea8c5ac0e1390df8dbcb5286e1893a3e60b677e0b703156eb3",
+        "src/types/index.ts": "1965c574be3773fc0b0fad50323813a3ba56e29d10e9968304d10102ac157c64",
+        "src/utils/evidenceUrl.ts": "fdbcdb5ff73a03385844029ca2a2265aa3e5aa56547deb635575e2431aa6f122",
+        "src/components/common/ChartPanel.tsx": "9dc2f9dbf15608b2fc0dd31399e8822bb32a2920b9c49a87d1ef2b50c14fae1f",
+        "src/components/charts/ChartAuditPanel.tsx": "bf22e7a56f892daf48221927f32ef4c842aab843f87bc1cc03ca8971fb35311f",
+        "src/components/layout/ProductShell.tsx": "b19baabe50938b3ce7085f03a71d135f6a8efe6dec8efdecdcaf387ce722279a",
+        "src/components/research/RelatedResearchEvidence.tsx": "cbbc1f4aa2133e0942ea47c899c632d31774c922f6ced46ca7267813d69059e7",
+        "src/components/stock/StockPriceHistoryChart.tsx": "6ee0bc8995392daa39d1c0e51ddfc2f5a936d8648d0d9b60066e6b39f41fa09d",
+        "src/components/stock/CompanyFinancialHistory.tsx": "7506b45019d0bfc5d6f654afe280caeddcd6c5eb3c30fe827caa86b37402f728",
+        "src/components/home/HomePage.tsx": "c19d86c774a886d006124f6330be79d9c76b548c385234ffe3647de71c8ef335",
+        "src/components/stock/StockDetailDrawer.tsx": "74b0079c47b1379607293a953d5e738034783062ee31db6b9a447a3d39b35366",
+        "src/ui-review/ChartAuditStateReview.tsx": "88339eaecbd25b69ddcc4f694f6a1c89adc9a7b62ba3cedbba9be930e250497f",
+        "src/ui-review/fixtures.ts": "02c9d026cbd4bf9a93da572bb2af4ae8916a88896da3c1f697d3d99aa795c01b",
+        "src/ui-review/UiReviewApp.tsx": "34a060e4fda5546eb436cb78e696f57a0a1a6bfd1c063e533385235b84f4df9c"
+      }
+    },
+    {
+      "name": "full-ui",
+      "script": "scripts/ui-review-browser-check.mjs",
+      "status": "PASS",
+      "checks": 144,
+      "failures": [],
+      "pageErrors": [],
+      "sourceSha256": {
+        "src/Application.tsx": "1350900c53482350b05dda6b10fc349a2a5abec57fe7481c4687936d198cd06f",
+        "src/main.tsx": "29b2c562e38a9e5bda0b2050cfa10551b9301042e78fa7a6a4c858fc80826a3e",
+        "src/index.css": "a0186cb71c34733b712857772b4a4ab9b17fcc60f9e7c3a0254cc5b23ff21215",
+        "src/components/home/HomePage.tsx": "bdf1acaa86def4f1dc6dfb3c0d723e06a49a47182a5c51dd301848d232d43daf",
+        "src/components/layout/Appearance.tsx": "cde8d0c191b978db2cb02d90562a7ef8315c44ed85f3cedc3b077bb37571b0a9",
+        "src/components/stock/StockDetailDrawer.tsx": "e2d2ff4bf18562c4bda4a94282a9ae087959bddc5298fbe301ba8f41c35a67d9",
+        "src/components/stock/StockPriceHistoryChart.tsx": "62448ef9ea783475e45ed016a1d9c10643db38b8603e4620d08e938fb401c5d6",
+        "src/components/watchlist/WatchlistTab.tsx": "384f951bb7502fbf7df637ae0339082a70de6c46f9238deb40426304a4e20645",
+        "src/ui-review/config.ts": "e50e7d0f4587d50e34152963175799e09eace4d7bdd6fe87b103e7f9a094e9a6",
+        "src/ui-review/fixtures.ts": "c87ff2ae5cf8e22bcc6d4241cd4a31f958c9000397428c77ae151a2c372c4e4d",
+        "src/ui-review/UiReviewApp.tsx": "425f45e00c40c1d46b3a49c5e8bd882c3a09ae3db76f9a75d01ede1cd783ca3a"
+      },
+      "isolation": {
+        "before": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+        "afterExit": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+        "afterRefresh": "c37bd57c0939e5794c60e0c5f3ab5c00e073c751bd5636bd6f5e42dc88dd3187",
+        "reviewDataRequestCount": 0,
+        "reviewBusinessChunkCount": 0,
+        "downloads": 0,
+        "beforeRequests": [
+          "/data/a-share-company-guidance-expectations/manifest.generated.json",
+          "/data/a-share-company-guidance-expectations/workflow-index.generated.json"
+        ],
+        "afterRequests": [
+          "/data/a-share-company-guidance-expectations/manifest.generated.json",
+          "/data/a-share-company-guidance-expectations/workflow-index.generated.json"
+        ]
+      }
+    }
+  ],
+  "boundaries": {
+    "frozenContractFilesChanged": 0,
+    "lockfileChanged": false,
+    "uiChanged": false,
+    "productionAdmissionChange": false,
+    "realLLMCalls": 0,
+    "newDependencies": 0,
+    "hostedCI": "NOT_RUN",
+    "pr": "NOT_CREATED",
+    "merge": "NOT_PERFORMED",
+    "hostedPrCI": "NOT_RUN",
+    "mainCI": "NOT_RUN"
+  },
+  "remaining": [
+    "Four Frozen V1 operation adapters NOT_IMPLEMENTED",
+    "Normalization and PIT backtest 0 READY / 23 BLOCKED",
+    "23 identity mappings unresolved",
+    "PBC canary PASS does not establish full graph/source admission",
+    "all-A NOT_ADMITTED; numeric aggregates 0"
+  ],
+  "formalGateCounts": {
+    "original": 30,
+    "addedF3Direct": 2,
+    "totalUnique": 32,
+    "countingScope": "Existing formalGates inventory plus two F3 commands; application/discovery/data audit/build remain separately recorded; focused/reportReplay are the same two commands, not additional gates."
+  },
+  "ciRemediation": {
+    "previousAuditedSha": "61d8d9c721e2e6a7b960a67b6e1a069ab61c0693",
+    "localCommands": [
+      {
+        "command": "npm run test:research-eval",
+        "exit": 0
+      },
+      {
+        "command": "npm run research:eval:check",
+        "exit": 0
+      },
+      {
+        "command": "npm run contracts:validate",
+        "exit": 0
+      },
+      {
+        "command": "npm run test:contracts",
+        "exit": 0
+      },
+      {
+        "command": "npm test",
+        "exit": 0
+      },
+      {
+        "command": "npm run test:discovery",
+        "exit": 0
+      },
+      {
+        "command": "npm run data:audit -- --no-write",
+        "exit": 0
+      },
+      {
+        "command": "npm run build",
+        "exit": 0
+      },
+      {
+        "command": "git diff --check",
+        "exit": 0
+      }
+    ],
+    "workflowStructure": {
+      "status": "PASS",
+      "parser": "PyYAML 6.0.3",
+      "exactNewSteps": 2,
+      "priorWorkflowFieldsUnchanged": true,
+      "noReportGeneration": true
+    },
+    "existingWorkflowStaticChecks": {
+      "command": "node --test --test-name-pattern=CI scripts/tests/semantic-runtime.node.mjs scripts/tests/semantic-readiness-v2.node.mjs",
+      "exit": 0,
+      "tests": 2
+    },
+    "retainedPriorEvidence": {
+      "sourceSha": "61d8d9c721e2e6a7b960a67b6e1a069ab61c0693",
+      "originalFormalGateRecords": 30,
+      "rerunOriginalGateCommands": [
+        "contracts:validate",
+        "test:contracts"
+      ],
+      "otherOriginalFormalGates": "NOT_RERUN; prior verified results retained",
+      "browserRegressions": "NOT_RERUN; no UI changes, prior verified results retained"
+    },
+    "hostedPrCI": "NOT_RUN",
+    "mainCI": "NOT_RUN",
+    "pr": "NOT_CREATED",
+    "independentRemediationReview": "PENDING"
+  }
+}

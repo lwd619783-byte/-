@@ -379,3 +379,11 @@ PBC V2 只把原 sealed R2-B 的一条 native catalog/sidecar slice 与两份真
 - `ProductShell` 由首页/公司 ResearchHeader 消费既有上下文/动作；`RelatedResearchEvidence` 只选择唯一事件 ID 且 company id/code/market 匹配的当前事件，调用原 Evidence Drawer。公司相关事件不构成 chart metric/revision exact linkage。App/navigation/Store 不改，业务写入仍由既有 owner 负责。
 
 专项映射、证据边界和验证见 [Slice 2](stage-4-1b-slice-2.md)。
+
+## Stage 4.1B / Slice 3 Node-only Research Eval path（2026-09-17 功能分支）
+
+IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW。Frozen Golden V1 → 原 suite/case digest 与 fixture pin preflight → `scripts/research-eval/harness.mjs` → `targets.mjs` 审核注册表 → `execute({operation,request,input})` → 原 Result schema / exact semantic diff → deterministic report。Harness 持有 expected，target 只接 detached frozen 输入；正式报告拒绝未注册对象及 oracle wrapper，测试 double 仅能使用低层 comparison seam。默认 CLI 离线、不写文件，显式 `--write` 仅生成 synthetic eval artifact。
+
+Oracle dispatch 仍在原 `scripts/contracts/financial-research.mjs`，唯一 reference target 明确 REFERENCE_ONLY；四 oracle 算法不变，不进入 production domain。实际 Macro runtime / earnings comparison 继续自己的 owner/identity/Evidence authority 边界，当前与 Frozen V1 fixtures 无兼容 reviewed adapter，故 actual service coverage=0/33、NOT_IMPLEMENTED=33，而 reference health=33/33 PASS。Inbox/Chart/Evidence/Shell 仍为原 owner 的产品 read models，不被当作通用 graph/retrieval service。
+
+future MCP/Agent 需审核并注册 adapter 后复用同一 Harness/Result，当前无真实模型、MCP、网络、Provider refresh 或 Local Core/business storage 接线。没有新业务 owner、准入或持久化路径，前端 bundle/route 无变更。边界、capability matrix 和本地回归见 [Slice 3](stage-4-1b-slice-3.md)；Slice 1/2 合入事实以上方 CURRENT 文档及各 Slice 收口记录为准。

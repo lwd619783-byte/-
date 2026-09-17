@@ -109,7 +109,10 @@
     "data:validate:pbc-evidence-v2": "node scripts/semantic-runtime/pbc-evidence-v2.mjs",
     "data:validate:semantic-readiness:v2": "node scripts/semantic-runtime/readiness-v2.mjs",
     "data:build:semantic-readiness:v2": "node scripts/semantic-runtime/readiness-v2.mjs --write",
-    "data:query:macro:v2": "node scripts/semantic-runtime/cli-v2.mjs"
+    "data:query:macro:v2": "node scripts/semantic-runtime/cli-v2.mjs",
+    "research:eval": "node scripts/research-eval/cli.mjs",
+    "research:eval:check": "node scripts/research-eval/cli.mjs --check",
+    "test:research-eval": "node --test scripts/tests/research-eval.node.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
