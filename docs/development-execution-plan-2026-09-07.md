@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-17 CURRENT Slice 3：F3 Research Eval Harness V1 **IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW**。基线 `18dad3e72a9d827fb0e6aeb923bee5a4873b1054`；Frozen 33-case V1 未改，reference 33/33 PASS（REFERENCE_ONLY），actual service 0/33、NOT_IMPLEMENTED 33/33。Slice 1/2 已合入且回归通过；Stage 4.1B closeout 待独立审计、PR CI、merge、main CI，未 CLOSED。数据支线/admission 边界不变，普通 push 后停止。详见 [Slice 3](stage-4-1b-slice-3.md)。以下 Slice 2 段为其合入时点记录。
+
 > 2026-09-17 CURRENT：Stage 4.1B / Slice 2 — Auditable Chart V1 + Product Shell V1 已完成独立审计、PR #52、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；audited HEAD `88f97a56d44c3d512c00444f650000d60af89e40`，merge/main `753073912356de00504ba97c221c7ac1b7c8b81d`，PR CI `35201231930` 与 main push CI `35201547659` 均 completed/success。PRODUCTION / DATA ADMISSION 未因本切片提升；严格 PIT、正式 `releaseAvailableAt`、report revision continuity、Evidence Graph closure 与 chart exact Evidence linkage 仍未证明。Stage 4.1B 尚未整体关闭，下一产品主线为 F3 Research Eval service harness / closeout。详见 [Slice 2](stage-4-1b-slice-2.md)。
 
 > 2026-09-16 Slice 1 合入记录：Stage 4.1B / Slice 1 — Research Inbox + Evidence Drawer V1 已完成独立审计、PR #50、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**；audited HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`，merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`，PR CI `35071221955` 与 main push CI `35071457928` 均 completed/success。PRODUCTION / DATA ADMISSION 未因本切片提升；Stage 4.1B 主线继续推进后续 Product Shell / Evidence Surface 能力。
@@ -14,6 +16,10 @@
 
 > CURRENT 更新：2026-09-12。已核对 `origin/main @ fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`。Financial Research Foundations V1 已由 PR #43 合入；Stage 4.1-F 已由 PR #45 合入：audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac`，PR CI run `34673260311` completed/success，main push CI run `34673371463` completed/success。固定 SHA 仅代表本次记录时点，不是永久 CURRENT main。下表既有 Phase 的 SHA/CI 是相应关闭时点证据；R2 以 Git ancestry、当前代码、committed artifacts、专项验证与对应 PR 事实登记。
 > PR、merge 与 CI 必须分别按真实状态登记；静态 CURRENT 文档不预写 MAIN MERGED，也不自证 CI PASS。
+
+## Stage 4.1B / Slice 3 当前交付（2026-09-17 PENDING INDEPENDENT REVIEW）
+
+统一 Node/offline Harness、审核 target registry、严格 Result schema、结构化 exact/set diff 与确定性 eval artifact 已实现。本轮保持真实服务覆盖 0/33，禁止 oracle fallback、expected/caseId 泄露和 reference wrapper 冒充服务；future MCP/Agent 通过审核 adapter 接入同一 seam。45 focused / 788 全量应用 tests、30 正式 CI 同款 gates、discovery、data audit、build、三组 browser regressions 与 report replay 本地通过。Slice 1/2、Frozen V1 与现有 Stage F/G 不回归。未新增 UI/Provider/Evidence/admission；未创建 PR、未 merge。closeout acceptance 与剩余 NOT_IMPLEMENTED 见 [Slice 3](stage-4-1b-slice-3.md)。
 
 ## Stage 4.1B / Slice 2 当前交付（2026-09-17 CLOSED）
 
@@ -72,14 +78,14 @@
 | --- | --- | --- | --- |
 | F1 Financial Semantic Registry V2 | 统一 metric / entity / unit / temporal / lineage / quality / allowed-use 语义；复用既有 Data Source Registry 与领域 Metric Registry，不建立第二套同义 Registry | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS；Stage 4.1-F Macro runtime IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS | Stage 4.1 / 4.2 |
 | F2 Evidence Graph V1 | 统一 Source → Artifact → Evidence → Fact → Derived Metric → Claim → Thesis → Position → Review 的引用关系；不预设 Graph DB | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS；runtime NOT_IMPLEMENTED | Stage 4.1B / 4.3 |
-| F3 Investment Research Eval Suite V1 | 用 Golden Cases 验证 PIT、检索、计算、Evidence、Claim 与未来 Agent tool use | CONTRACT FROZEN / VERIFIED / MERGED / MAIN CI PASS；Agent/service harness NOT_IMPLEMENTED | Stage 4.1B 起持续扩展 |
+| F3 Investment Research Eval Suite V1 | 用 Golden Cases 验证 PIT、检索、计算、Evidence、Claim 与未来 Agent tool use | 合同已合入；Harness IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW；reference 33/33 PASS，actual service 0/33；真实 Agent runtime NOT_IMPLEMENTED | Stage 4.1B 起持续扩展 |
 
 本轮 [F1/F2/F3 Scope Freeze](financial-research-foundations-contract-v1.md) 新增独立版本化合同包与八类 33 个 synthetic Golden Cases，保留 `contracts/v1` 的原 schema / 权限 / Local Core runtime registry。独立审计在 remediation 后 PASS；PR #43 以 audited HEAD `204176924b23ed5c1d480203d284c0b01a28f966` 合入，PR CI run `34621319869` completed/success，merge/main `4ad9ec286a6cb73485ebf0e88a28837c0ae8b3c0`，main push CI run `34621558359` completed/success。Stage 4.1-F 经独立审计 PASS 后由 PR #45 以 audited HEAD `1c31efcdeb182c1c43254ad03dde0162371de1ac` 合入，merge/main `fe0a0a3fe3aa0b2d084d2b41713974bd3303f07e`，PR CI run `34673260311` 与 main push CI run `34673371463` 均 completed/success。production/data 仍 NOT_ADMITTED；Entity Registry mapping、完整 RAW_SOURCE replay 与 R2 source blockers 仍未闭合。
 
 依据 [2026-09-13 最新增量方向](current-development-direction-2026-09-13.md)，CURRENT 战略顺序为：
 
 1. **Stage 4.1-G — CLOSED / MERGED / MAIN CI PASS**：独立审计 HEAD `5489e3f77e284c69d492cfccb7242e2bd9e504d8`；PR #48 CI `34820778498` completed/success；merge/main `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`；main push CI `34821083781` completed/success。数据 / production admission 仍未提升。未闭合的单指标、Provider、历史覆盖率及 normalization/backtest 等任务转为并行数据支线；仅当满足最新方向 §1.1 的主线正确性/安全阻断条件时重新评估。
-2. **Stage 4.1B — Product Shell / Research Inbox / Evidence Surface**：Slice 1 Research Inbox + Evidence Drawer V1 已于 PR #50 合入并通过 main CI；Slice 2 Auditable Chart V1 + Product Shell V1 已于 PR #52 合入并通过 main CI；后续 F3 Research Eval service harness / closeout 尚未实施，因此 Stage 4.1B 尚未整体关闭。
+2. **Stage 4.1B — Product Shell / Research Inbox / Evidence Surface**：Slice 1 已于 PR #50 合入并通过 main CI；Slice 2 已于 PR #52 合入并通过 main CI；Slice 3 F3 Research Eval Harness 已实现并通过本地验证，reference 33/33 PASS、actual service 0/33。Stage 4.1B closeout PENDING INDEPENDENT REVIEW，尚未整体关闭；正式关闭仍需独立审计、PR CI、merge、main CI。
 3. **Stage 4.2 — Industry Data Platform**：Industry Metric Registry / Provider / history / delta / prosperity，并接入 F1/F2/F3。
 4. **Stage 4.3 — Top-down Research Workflow**：Macro → Industry、Claim ↔ Evidence、Industry Thesis / revision、Investment Expression、Research Memory。
 5. **Stage 4.4 — Portfolio Exposure MVP**：复用 Phase 1B Local Core，补 thesis ↔ position、macro / industry exposure、target allocation、rebalance、read model / UI。

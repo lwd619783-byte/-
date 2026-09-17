@@ -198,6 +198,14 @@ function recompute(input, request) {
   if (values.some((v) => !(instant(v.releaseAvailableAt) <= instant(input.cutoff)))) return result(['unknown'], { reproducible: false });
   return result([], { selectedRefs: input.inputRefs.map((r) => r.objectId), citationRefs: refs.map((r) => r.objectId), value: input.values.reduce((sum, value) => sum + value, 0) / input.fixedDenominator, unit: input.unit, reproducible: true });
 }
+// Reference execution only: no case identity, rationale or expected result enters the oracle.
+// Kept in the contract checker, never imported by production domain services.
+export function executeReference({ operation, input, request }) {
+  validate('test-input.v1.schema.json', input);
+  requireThat(input.kind === operation, 'OPERATION_MISMATCH');
+  requireThat(['retrieve', 'assess_graph', 'qualify_earnings', 'recompute'].includes(operation), 'OPERATION_UNKNOWN');
+  return operation === 'retrieve' ? retrieve(input, request) : operation === 'assess_graph' ? assessGraph(input.graph, request) : operation === 'qualify_earnings' ? earnings(input, request) : recompute(input, request);
+}
 export function checkCase(vector) {
   validate('golden-case.v1.schema.json', vector);
   const input = resolvePin(vector.fixtureRef);
@@ -206,7 +214,7 @@ export function checkCase(vector) {
   const queryName = vector.operation === 'retrieve' ? 'Query' : null;
   if (queryName) requireThat(ajv.getSchema(base + 'shared.schema.json#/$defs/Query')(vector.request), 'REQUEST_SHAPE');
   else requireThat(typeof vector.request.asOf === 'string' && (vector.operation !== 'assess_graph' || typeof vector.request.targetNodeId === 'string'), 'REQUEST_SHAPE');
-  const actual = vector.operation === 'retrieve' ? retrieve(input, vector.request) : vector.operation === 'assess_graph' ? assessGraph(input.graph, vector.request) : vector.operation === 'qualify_earnings' ? earnings(input, vector.request) : recompute(input, vector.request);
+  const actual = executeReference({ operation: vector.operation, input, request: vector.request });
   requireThat(ajv.getSchema(base + 'shared.schema.json#/$defs/Result')(actual), 'RESULT_SCHEMA');
   const normalize = (r) => ({ ...r, selectedRefs: unique(r.selectedRefs), citationRefs: unique(r.citationRefs), conditions: unique(r.conditions) });
   requireThat(isDeepStrictEqual(normalize(actual), normalize(vector.expected)), `GOLDEN_MISMATCH ${vector.caseId}: ${JSON.stringify(actual)}`);
@@ -217,9 +225,10 @@ function canonical(value) {
   if (value !== null && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map((key) => [key, canonical(value[key])]));
   return value;
 }
+export const releasedSuiteSha256 = 'd2b95cba7576174a576d4f7de19c0b168fc1e50accfae1f413929a84d4b63610';
 export function checkSuite(cases) {
   const bytes = readFileSync(path.join(root, directory, 'golden-suite.v1.json'));
-  requireThat(createHash('sha256').update(bytes).digest('hex') === 'd2b95cba7576174a576d4f7de19c0b168fc1e50accfae1f413929a84d4b63610', 'SUITE_MANIFEST_DRIFT');
+  requireThat(createHash('sha256').update(bytes).digest('hex') === releasedSuiteSha256, 'SUITE_MANIFEST_DRIFT');
   const suite = JSON.parse(bytes);
   const identities = cases.map((c) => `${c.caseId}@${c.version}`);
   requireThat(unique(identities).length === cases.length, 'SUITE_DUPLICATE_IDENTITY');
