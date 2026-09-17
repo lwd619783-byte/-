@@ -10,7 +10,8 @@
     "scripts/research-eval/harness.mjs": "88576696946eeee39be7382e6d4555cd1ed28e7cc75266370d0361469a53fe5b",
     "scripts/research-eval/targets.mjs": "75ceb3d3c2532b7a3c9b2423db0da3a677eb696079a41104ee0a4abacfae002f",
     "scripts/research-eval/cli.mjs": "1b5fe5e8ca6f50778dfc0175c8eb46b214b1720d8587555dd7c00f03eb0fa9f2",
-    "scripts/tests/research-eval.node.mjs": "6c9de4e5a4d76ac40ab51f380c6e1d24fa68b89e0088225860bf4f89c2f862b0"
+    "scripts/tests/research-eval.node.mjs": "6c9de4e5a4d76ac40ab51f380c6e1d24fa68b89e0088225860bf4f89c2f862b0",
+    ".github/workflows/ci.yml": "dbb4960192e132ad7d20b099b2548cc2f03449ac76a378351ebc78b83f7c5a27"
   },
   "focused": {
     "command": "npm run test:research-eval",
@@ -165,6 +166,19 @@
     {
       "gate": "data:validate:market-regime:catalog",
       "exit": 0
+    },
+    {
+      "gate": "test:research-eval",
+      "exit": 0,
+      "tests": "node:45",
+      "hostedDirectStep": "Test F3 Research Eval Harness offline",
+      "hostedStatus": "NOT_RUN"
+    },
+    {
+      "gate": "research:eval:check",
+      "exit": 0,
+      "hostedDirectStep": "Validate committed F3 Research Eval report",
+      "hostedStatus": "NOT_RUN"
     }
   ],
   "contractsRerunAfterFinalCheckerEdit": {
@@ -307,7 +321,9 @@
     "newDependencies": 0,
     "hostedCI": "NOT_RUN",
     "pr": "NOT_CREATED",
-    "merge": "NOT_PERFORMED"
+    "merge": "NOT_PERFORMED",
+    "hostedPrCI": "NOT_RUN",
+    "mainCI": "NOT_RUN"
   },
   "remaining": [
     "Four Frozen V1 operation adapters NOT_IMPLEMENTED",
@@ -315,5 +331,78 @@
     "23 identity mappings unresolved",
     "PBC canary PASS does not establish full graph/source admission",
     "all-A NOT_ADMITTED; numeric aggregates 0"
-  ]
+  ],
+  "formalGateCounts": {
+    "original": 30,
+    "addedF3Direct": 2,
+    "totalUnique": 32,
+    "countingScope": "Existing formalGates inventory plus two F3 commands; application/discovery/data audit/build remain separately recorded; focused/reportReplay are the same two commands, not additional gates."
+  },
+  "ciRemediation": {
+    "previousAuditedSha": "61d8d9c721e2e6a7b960a67b6e1a069ab61c0693",
+    "localCommands": [
+      {
+        "command": "npm run test:research-eval",
+        "exit": 0
+      },
+      {
+        "command": "npm run research:eval:check",
+        "exit": 0
+      },
+      {
+        "command": "npm run contracts:validate",
+        "exit": 0
+      },
+      {
+        "command": "npm run test:contracts",
+        "exit": 0
+      },
+      {
+        "command": "npm test",
+        "exit": 0
+      },
+      {
+        "command": "npm run test:discovery",
+        "exit": 0
+      },
+      {
+        "command": "npm run data:audit -- --no-write",
+        "exit": 0
+      },
+      {
+        "command": "npm run build",
+        "exit": 0
+      },
+      {
+        "command": "git diff --check",
+        "exit": 0
+      }
+    ],
+    "workflowStructure": {
+      "status": "PASS",
+      "parser": "PyYAML 6.0.3",
+      "exactNewSteps": 2,
+      "priorWorkflowFieldsUnchanged": true,
+      "noReportGeneration": true
+    },
+    "existingWorkflowStaticChecks": {
+      "command": "node --test --test-name-pattern=CI scripts/tests/semantic-runtime.node.mjs scripts/tests/semantic-readiness-v2.node.mjs",
+      "exit": 0,
+      "tests": 2
+    },
+    "retainedPriorEvidence": {
+      "sourceSha": "61d8d9c721e2e6a7b960a67b6e1a069ab61c0693",
+      "originalFormalGateRecords": 30,
+      "rerunOriginalGateCommands": [
+        "contracts:validate",
+        "test:contracts"
+      ],
+      "otherOriginalFormalGates": "NOT_RERUN; prior verified results retained",
+      "browserRegressions": "NOT_RERUN; no UI changes, prior verified results retained"
+    },
+    "hostedPrCI": "NOT_RUN",
+    "mainCI": "NOT_RUN",
+    "pr": "NOT_CREATED",
+    "independentRemediationReview": "PENDING"
+  }
 }

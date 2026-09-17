@@ -38,7 +38,7 @@
 
 ### Stage 4.1B / Slice 3（2026-09-17 PENDING INDEPENDENT REVIEW）
 
-**IMPLEMENTED / VERIFIED（本地）。** 新增 Node-only、默认离线只读 Eval Harness：Frozen integrity → 审核 target → Actual Result schema → exact scalar/set diff → deterministic report。仅注册 reference oracle，明确 REFERENCE_ONLY；四 operation 的真实 Frozen-wire adapter 均 NOT_IMPLEMENTED。现有 Macro、earnings 和产品 read models 不因同名能力获得 F3 service PASS。Registry admission 拒绝 oracle wrapper/未注册 target 伪造服务覆盖；低层测试 seam 无 expected/caseId。45 focused、788 应用 tests、全部现有正式 gates 和三组 browser regressions PASS；尚无本轮 PR/merge/main CI。完整架构、能力矩阵与 closeout gate 见 [Slice 3](stage-4-1b-slice-3.md)。
+**IMPLEMENTED / VERIFIED（本地）。** 新增 Node-only、默认离线只读 Eval Harness：Frozen integrity → 审核 target → Actual Result schema → exact scalar/set diff → deterministic report。仅注册 reference oracle，明确 REFERENCE_ONLY；四 operation 的真实 Frozen-wire adapter 均 NOT_IMPLEMENTED。现有 Macro、earnings 和产品 read models 不因同名能力获得 F3 service PASS。Registry admission 拒绝 oracle wrapper/未注册 target 伪造服务覆盖；低层测试 seam 无 expected/caseId。45 focused、788 应用 tests 与原有 gates/browser 验证通过；本次 CI remediation 已将 `test:research-eval`、`research:eval:check` 接为 Hosted direct gates，并本地重跑指定验证。原有 30 项 gate 记录 + 新增 2 项 = 32 项（其余应用/build 检查另列）；旧 browser 证据保留，本次未重跑。Hosted PR/main CI NOT_RUN，PR NOT_CREATED，仍 PENDING INDEPENDENT REVIEW。完整架构、能力矩阵与 closeout gate 见 [Slice 3](stage-4-1b-slice-3.md)。
 
 ### Stage 4.1B / Slice 2（2026-09-17 CLOSED）
 

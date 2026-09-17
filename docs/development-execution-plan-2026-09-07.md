@@ -19,7 +19,7 @@
 
 ## Stage 4.1B / Slice 3 当前交付（2026-09-17 PENDING INDEPENDENT REVIEW）
 
-统一 Node/offline Harness、审核 target registry、严格 Result schema、结构化 exact/set diff 与确定性 eval artifact 已实现。本轮保持真实服务覆盖 0/33，禁止 oracle fallback、expected/caseId 泄露和 reference wrapper 冒充服务；future MCP/Agent 通过审核 adapter 接入同一 seam。45 focused / 788 全量应用 tests、30 正式 CI 同款 gates、discovery、data audit、build、三组 browser regressions 与 report replay 本地通过。Slice 1/2、Frozen V1 与现有 Stage F/G 不回归。未新增 UI/Provider/Evidence/admission；未创建 PR、未 merge。closeout acceptance 与剩余 NOT_IMPLEMENTED 见 [Slice 3](stage-4-1b-slice-3.md)。
+统一 Node/offline Harness、审核 target registry、严格 Result schema、结构化 exact/set diff 与确定性 eval artifact 已实现。本轮保持真实服务覆盖 0/33，禁止 oracle fallback、expected/caseId 泄露和 reference wrapper 冒充服务；future MCP/Agent 通过审核 adapter 接入同一 seam。45 focused / 788 全量应用 tests、contracts、discovery、data audit、build 与 report replay 已在 CI remediation 本地复跑通过；`test:research-eval`、`research:eval:check` 已接为 Hosted direct gates。原有 30 项 gate 记录 + 新增 2 项 = 32 项，沿用原统计口径、不重复计算；旧 browser 与其余 gate 证据保留，本次未重跑。Hosted PR/main CI NOT_RUN，PR NOT_CREATED，仍 PENDING INDEPENDENT REVIEW。Slice 1/2、Frozen V1 与现有 Stage F/G 不回归。未新增 UI/Provider/Evidence/admission；未创建 PR、未 merge。closeout acceptance 与剩余 NOT_IMPLEMENTED 见 [Slice 3](stage-4-1b-slice-3.md)。
 
 ## Stage 4.1B / Slice 2 当前交付（2026-09-17 CLOSED）
 

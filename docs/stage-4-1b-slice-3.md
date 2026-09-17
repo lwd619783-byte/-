@@ -76,7 +76,9 @@ npm run test:research-eval            # 专项离线测试
 node scripts/research-eval/cli.mjs --write  # 显式仅写上述 eval artifact
 ```
 
-命令适合以后直接加入 PR/main CI，本轮未改 CI workflow。Mismatch/error/invalid 或 artifact drift 使 CLI exit 1；NOT_IMPLEMENTED 保留 coverage 缺口，不当 FAIL，也不当 PASS。preflight/registry/artifact 错误输出 BLOCKED error envelope、exit 1，不暴露异常堆栈/本机路径/secret。报告没有 timestamp/duration；case、target、集合与 coverage 顺序稳定。无新依赖，lockfile 不变。
+F3 Harness 两个独立直接 gate 已接入 `.github/workflows/ci.yml`，紧邻 `Test V1 contracts offline`：`Test F3 Research Eval Harness offline` 执行 `npm run test:research-eval`，`Validate committed F3 Research Eval report` 执行 `npm run research:eval:check`。本地已验证两个 workflow 命令；CI 只检查 committed report，不执行 `--write`、不生成或覆盖报告，其他既有 steps 与门槛不变。Hosted PR CI 与 main CI 均 NOT_RUN，PR NOT_CREATED；Stage 4.1B 仍 PENDING INDEPENDENT REVIEW，P1 remediation 等待独立复审。
+
+Mismatch/error/invalid 或 artifact drift 使 CLI exit 1；NOT_IMPLEMENTED 保留 coverage 缺口，不当 FAIL，也不当 PASS。preflight/registry/artifact 错误输出 BLOCKED error envelope、exit 1，不暴露异常堆栈/本机路径/secret。报告没有 timestamp/duration；case、target、集合与 coverage 顺序稳定。无新依赖，lockfile 不变。
 
 默认离线且只读合同 fixtures/schema；不联网、不调用生产 Provider、不读个人金融记录、不访问 browser storage/Local Core、不执行 raw SQL、不改变准入。测试在禁用 network、child-process、filesystem writes、browser storage 的进程中重复执行默认 CLI，并验证输出逐字节一致。显式 `--write` 仅写 synthetic eval report，不是业务写入。
 
@@ -84,19 +86,22 @@ node scripts/research-eval/cli.mjs --write  # 显式仅写上述 eval artifact
 
 完整结果见 [validation.json](stage-4-1b-slice-3/validation.json)。
 
+本次最小 CI remediation 基于已审计 HEAD `61d8d9c721e2e6a7b960a67b6e1a069ab61c0693`；main 基线保持不变。重跑两个 F3 命令、contracts validate/tests、应用 tests、discovery、data audit、build、diff check；已有两项 workflow 静态检查通过，并用已安装 PyYAML 解析验证新增 exact steps，移除新增两步后结构与已审计版本完全一致。原 Provider/Market Regime 等门禁和三组浏览器结果保留已审计 HEAD 的验证证据，本次未重跑；没有 UI/业务实现变化，不新增视觉验收。
+
 | 验证 | 本地结果 |
 | --- | --- |
-| Harness focused | 45/45 PASS；冻结 roster/digest、scalar/set diff、0、错误、非法输出、状态保留、wrapper/expected/caseId 防伪、默认副作用隔离、artifact 重放 |
+| `test:research-eval` → Hosted direct gate | 本地 45/45 PASS；冻结 roster/digest、scalar/set diff、0、错误、非法输出、状态保留、wrapper/expected/caseId 防伪、默认副作用隔离、artifact 重放；Hosted NOT_RUN |
+| `research:eval:check` → Hosted direct gate | 本地 exit 0，committed report deterministic replay PASS，无写入；Hosted NOT_RUN |
 | F1/F2/F3 contracts | contracts:validate PASS；test:contracts 106 + 78 PASS（最终 checker 改动后复跑） |
 | `npm test` | 60 files / 788 tests PASS；Slice 1 / Slice 2 全部保留 |
 | `npm run test:discovery` | PASS；保留 60 suites，负向对照仍复现 3 个 nested checkout failures |
-| 当前 CI 其余正式 gates | 30 项全部 exit 0，含上述 contract/local checks、Local Core、Provider、Market Regime、Stage F/G；详见 JSON 逐项结果 |
+| 正式 gate 记录计数 | 原有 30 项 + 新增 F3 direct gates 2 项 = 32 个唯一命令；沿用原 formalGates 统计口径，应用 tests/discovery/data audit/build 仍另列，不重复计数。原 30 项先前全部 exit 0，本次其中 contracts 两项复跑；新增两项本次 exit 0 |
 | `npm run data:audit -- --no-write` | exit 0；P0=0、errors=0；24 warnings（P1=10 / P2=14）、10 skipped、35 allowlisted |
 | `npm run build` | TypeScript / Local Core typecheck / Vite / bundle gate PASS；既有 >500 kB chunk WARN 保留 |
 | Slice 1 browser | 257 checks PASS，无 failures/pageErrors |
 | Slice 2 browser | 1214 checks PASS，无 failures/pageErrors |
 | 全站 UI browser | 144 route/profile/width combinations PASS；隔离、导航、三主题、storage、下载/数据请求、business chunk 检查保留 |
-| `research:eval:check` / `git diff --check` | PASS |
+| YAML / 既有 workflow 静态检查 / `git diff --check` | PASS；YAML 结构与既有 steps 不变，仅新增两个 F3 direct gates |
 
 Browser 重跑原三个脚本，使用当前 production build、已安装 Playwright + Edge、全新 synthetic context；未改 UI。原 browser scripts 中 baseline 是各 Slice 的历史基线，本次验证的实际基线以上方 Slice 3 SHA 与 validation source digests 为准。运行日志/截图在忽略目录 `data-cache/stage-4-1b-slice-3/`，本轮仅提交精简验证记录，不覆盖旧 Slice 报告。
 
