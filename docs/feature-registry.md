@@ -1,6 +1,6 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-16 CURRENT：Stage 4.1B / Slice 2 — Auditable Chart V1 + Product Shell V1 已在 `codex/stage-4-1b-auditable-chart-shell-v1` 实现，基线 `63208ce038f5222d10bfa471bc5d0a868fe2905e`；IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW。普通 push 后停止；不创建 PR、不合并、不宣称 Hosted/main CI PASS，不提升 data/production admission。Stage 4.1B 尚未整体关闭。详见 [Slice 2](stage-4-1b-slice-2.md)。
+> 2026-09-17 CURRENT：Stage 4.1B / Slice 2 — Auditable Chart V1 + Product Shell V1 已完成独立审计、PR #52、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**。audited HEAD `88f97a56d44c3d512c00444f650000d60af89e40`，merge/main `753073912356de00504ba97c221c7ac1b7c8b81d`，PR CI `35201231930` 与 main push CI `35201547659` 均 completed/success。PRODUCTION / DATA ADMISSION 未提升；严格 PIT、正式 `releaseAvailableAt`、report revision continuity、Evidence Graph closure 与 chart exact Evidence linkage 仍未证明。Stage 4.1B 尚未整体关闭；后续进入 F3 Research Eval service harness / closeout。详见 [Slice 2](stage-4-1b-slice-2.md)。
 
 > 2026-09-16 Slice 1 合入记录：Stage 4.1B / Slice 1 — Research Inbox + Evidence Drawer V1 已完成独立审计、PR #50、合并与 main push CI，正式登记为 **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**。audited HEAD `3a94f1c78cdea95481e49ba77ae8464cc3c6b37c`，merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`，PR CI `35071221955` 与 main push CI `35071457928` 均 completed/success。PRODUCTION / DATA ADMISSION 未提升；Stage 4.1B 主线继续后续 Product Shell / Evidence Surface 能力，不因 Slice 1 合入而整体关闭。
 
@@ -34,9 +34,9 @@
 
 ## 1. 产品与研究界面
 
-### Stage 4.1B / Slice 2（2026-09-16 功能分支）
+### Stage 4.1B / Slice 2（2026-09-17 CLOSED）
 
-Auditable Chart 接入首页/公司价格历史与公司分期财务；纯 owner → presentation projection 展示独立时间、来源、安全链接、质量/完整性与证明缺口。价格接线保留原 PriceHistorySeries 引用；不按来源字符串猜 lineage。Product Shell 复用首页和公司页的标题、对象、质量摘要与原证据/研究导航。当前两类 owner 均无正式 metric/revision evidence pin，图表 linkage 保持空；公司级相关证据不充作图表证明。未创建新 owner、业务持久化、Provider、F2 runtime 或 F3 harness。测试、浏览器矩阵、准入边界及文件索引见 [Slice 2](stage-4-1b-slice-2.md)。
+**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；PRODUCTION / DATA ADMISSION 未提升。** 基于 `63208ce038f5222d10bfa471bc5d0a868fe2905e` 实现，独立审计 HEAD `88f97a56d44c3d512c00444f650000d60af89e40`；PR #52 CI `35201231930` completed/success；merge/main `753073912356de00504ba97c221c7ac1b7c8b81d`；main push CI `35201547659` completed/success。Auditable Chart 接入首页/公司价格历史与公司分期财务；纯 owner → presentation projection 展示独立时间、来源、安全链接、质量/完整性与证明缺口。价格接线保留原 PriceHistorySeries 引用；不按来源字符串猜 lineage。Product Shell 复用首页和公司页的标题、对象、质量摘要与原证据/研究导航。当前两类 owner 均无正式 metric/revision evidence pin，图表 linkage 保持空；公司级相关证据不充作图表证明。未创建新 owner、业务持久化、Provider、F2 runtime 或 F3 harness。严格 PIT、正式 `releaseAvailableAt`、report revision continuity、Evidence Graph closure 与 chart exact Evidence linkage 仍未证明。测试、浏览器矩阵、准入边界及文件索引见 [Slice 2](stage-4-1b-slice-2.md)。Slice 2 已收口，但 Stage 4.1B 继续 F3 Research Eval service harness / closeout。
 
 ### Stage 4.1B / Slice 1（2026-09-16 CLOSED）
 
@@ -111,7 +111,7 @@ Auditable Chart 接入首页/公司价格历史与公司分期财务；纯 owner
 | Data Audit | DONE V1 | P0 / blocking risk / mock fallback / zero coercion 等 | 随新 domain 扩规则 |
 | Provider Stability Gate | DONE FRAMEWORK | observation / provenance / resolution / threshold | 当前样本不足，资格仍 NO_GO |
 | Developer Health Gate | DONE V1 | env check / json output | 可逐步模块化 |
-| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F semantic 三门禁与 Stage 4.1-G identity/PBC/readiness V2 三门禁均已进入 PR/main CI，并在各自收口流程实际执行通过；Stage 4.1B Slice 1 的相同完整 Hosted workflow 亦在 PR #50 / main push 实际通过 | 后续新增 Stage 4 gate |
+| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F semantic 三门禁与 Stage 4.1-G identity/PBC/readiness V2 三门禁均已进入 PR/main CI，并在各自收口流程实际执行通过；Stage 4.1B Slice 1 的完整 Hosted workflow 已在 PR #50 / main push 通过，Slice 2 亦在 PR #52 / main push 完整通过 | 后续新增 Stage 4 gate |
 | Bundle Gate | DONE | 财务等重数据不进入 initial bundle | 新重数据功能继续遵守 |
 | UI Audit | DONE | UI 扫描 | 后续随页面扩展 |
 
@@ -240,6 +240,7 @@ R2 当前实现已逐项合入；以下验证仅指本轮离线测试及 committ
 - [x] Stage 4.1-F Semantic Runtime / Readiness：PR #45 合入；F1 Macro 只读 runtime、PBC adapter 与独立 normalization/backtest readiness gate 已进入 main，仍保持 production/data NOT_ADMITTED
 - [x] Stage 4.1-G Identity / PBC Evidence / Readiness V2：PR #48 合入并通过 PR/main CI；计划收口完成，DATA / PRODUCTION 仍 NOT_ADMITTED，主开发线转入 Stage 4.1B
 - [x] Stage 4.1B / Slice 1 Research Inbox + Evidence Drawer V1：PR #50 合入并通过 PR/main CI；只读 deterministic Inbox、共享 fail-closed Evidence Drawer 与原复盘闭环进入 main，production/data admission 未提升；Stage 4.1B 继续后续 Slice
+- [x] Stage 4.1B / Slice 2 Auditable Chart V1 + Product Shell V1：PR #52 合入并通过 PR/main CI；价格/财务图表审计层与首页/公司 Product Shell 进入 main，严格 PIT / release / revision / graph / exact chart Evidence linkage 仍未证明，production/data admission 未提升；Stage 4.1B 继续 F3 harness / closeout
 
 R2 已实现切片与剩余工作：
 

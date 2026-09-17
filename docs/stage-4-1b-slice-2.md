@@ -2,7 +2,16 @@
 
 基线：`origin/main @ 63208ce038f5222d10bfa471bc5d0a868fe2905e`，开始前 fetch 已核对。功能分支：`codex/stage-4-1b-auditable-chart-shell-v1`。
 
-**IMPLEMENTED / VERIFIED（本地限定范围） / PENDING INDEPENDENT REVIEW。** 普通 commit + push 后停止；未创建 PR、未合并、未执行 Hosted/main CI；未提升 data/production admission。Stage 4.1B 尚未整体关闭。
+**CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS。** 独立审计锁定 HEAD `88f97a56d44c3d512c00444f650000d60af89e40`；PR #52 的 Hosted CI `35201231930` completed/success；merge/main `753073912356de00504ba97c221c7ac1b7c8b81d`；main push CI `35201547659` completed/success。PRODUCTION / DATA ADMISSION 未提升，Stage 4.1B 尚未整体关闭。
+
+## 合入与独立审计收口（2026-09-17）
+
+- 独立审计结论：PASS；P0/P1 blocker=0。审计确认 Auditable Chart 为只读 presentation projection，Product Shell 不成为业务 owner，不新增第二套 Metric/Evidence/ResearchEvent/持久化模型。
+- PR #52 以精确 audited HEAD `88f97a56d44c3d512c00444f650000d60af89e40` 合入；PR Hosted CI run `35201231930` completed/success。
+- merge/main 为 `753073912356de00504ba97c221c7ac1b7c8b81d`；对应 main push CI run `35201547659` completed/success，完整 workflow 的 contracts、Local Core、Providers、Stage F/G、data audit、unit tests、test discovery 与 build/bundle gate 均通过。
+- 本切片没有获得新的 `releaseAvailableAt`、严格 PIT、正式 report revision continuity、Evidence Graph closure 或 chart exact Evidence linkage 证明；价格/财务 owner 的 data/production admission 仍为 unknown，既有 NOT_ADMITTED/BLOCKED 状态不变。
+- 本页后续“验证与证据”保留实现分支在 PR 前的本地验证事实；其中 committed `verification-summary.json` 的 `hostedCI: NOT_RUN` 是 pre-PR 时点记录，不回写历史。正式 PR/main CI 收口事实以本节为准。
+- Slice 2 已收口；Stage 4.1B 继续后续 F3 Research Eval service harness / closeout，不因本切片合入而整体关闭。
 
 ## 审计与 adoption
 
@@ -62,7 +71,7 @@ F1/F2/F3 直接相关约束来自 `contracts/financial-research/v1/README.md`、
 
 ## 验证与证据
 
-全部为本地检查，不等于 Hosted CI 或生产准入。没有 Provider refresh、依赖安装、治理文件改动。
+以下为实现分支在 PR 前完成的本地检查，不等于 Hosted CI 或生产准入。正式 Hosted PR/main CI 收口见本文顶部“合入与独立审计收口”。没有 Provider refresh、依赖安装、治理文件改动。
 
 | 验证 | 结果 |
 | --- | --- |
