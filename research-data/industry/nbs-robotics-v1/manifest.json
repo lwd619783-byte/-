@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "nbs-capture.v1",
+  "id": "nbs-robotics-capture-v1",
+  "revision": "1",
+  "generatedAt": "2026-09-17T10:30:36.315891+00:00",
+  "captures": [
+    {
+      "period": "2026-02",
+      "url": "https://www.stats.gov.cn/sj/zxfbhjd/202603/t20260316_1962782.html",
+      "finalUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202603/t20260316_1962782.html",
+      "sha256": "db5d3bfe42304452d61d13fd706761f82e0e9cd7202f458704ed4262f1f329e9",
+      "path": "research-data/industry/nbs-robotics-v1/raw/db5d3bfe42304452d61d13fd706761f82e0e9cd7202f458704ed4262f1f329e9.html",
+      "byteLength": 282788,
+      "acquiredAt": "2026-09-17T10:30:32.424330+00:00",
+      "role": "REACQUIRED_OFFICIAL_PAGE"
+    },
+    {
+      "period": "2026-03",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202604/t20260416_1963329.html",
+      "finalUrl": "https://www.stats.gov.cn/sj/zxfb/202604/t20260416_1963329.html",
+      "sha256": "481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176",
+      "path": "research-data/industry/nbs-robotics-v1/raw/481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176.html",
+      "byteLength": 410317,
+      "acquiredAt": "2026-09-17T10:30:33.238239+00:00",
+      "role": "REACQUIRED_OFFICIAL_PAGE"
+    },
+    {
+      "period": "2026-04",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202605/t20260518_1963731.html",
+      "finalUrl": "https://www.stats.gov.cn/sj/zxfb/202605/t20260518_1963731.html",
+      "sha256": "2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f",
+      "path": "research-data/industry/nbs-robotics-v1/raw/2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f.html",
+      "byteLength": 384311,
+      "acquiredAt": "2026-09-17T10:30:34.215953+00:00",
+      "role": "REACQUIRED_OFFICIAL_PAGE"
+    },
+    {
+      "period": "2026-05",
+      "url": "https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260616_1963953.html",
+      "finalUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260616_1963953.html",
+      "sha256": "bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27",
+      "path": "research-data/industry/nbs-robotics-v1/raw/bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27.html",
+      "byteLength": 385168,
+      "acquiredAt": "2026-09-17T10:30:34.664739+00:00",
+      "role": "REACQUIRED_OFFICIAL_PAGE"
+    },
+    {
+      "period": "2026-06",
+      "url": "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964123.html",
+      "finalUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964123.html",
+      "sha256": "eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426",
+      "path": "research-data/industry/nbs-robotics-v1/raw/eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426.html",
+      "byteLength": 402630,
+      "acquiredAt": "2026-09-17T10:30:35.502012+00:00",
+      "role": "REACQUIRED_OFFICIAL_PAGE"
+    },
+    {
+      "period": "2026-07",
+      "url": "https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260817_1965055.html",
+      "finalUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260817_1965055.html",
+      "sha256": "14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1",
+      "path": "research-data/industry/nbs-robotics-v1/raw/14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1.html",
+      "byteLength": 393334,
+      "acquiredAt": "2026-09-17T10:30:35.970490+00:00",
+      "role": "REACQUIRED_OFFICIAL_PAGE"
+    },
+    {
+      "period": "2026-08",
+      "url": "https://www.stats.gov.cn/zwfwck/sjfb/202609/t20260915_1965308.html",
+      "finalUrl": "https://www.stats.gov.cn/zwfwck/sjfb/202609/t20260915_1965308.html",
+      "sha256": "0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3",
+      "path": "research-data/industry/nbs-robotics-v1/raw/0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3.html",
+      "byteLength": 180835,
+      "acquiredAt": "2026-09-17T10:30:36.301065+00:00",
+      "role": "REACQUIRED_OFFICIAL_PAGE"
+    }
+  ]
+}

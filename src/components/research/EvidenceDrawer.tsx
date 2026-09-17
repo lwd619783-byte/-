@@ -2,6 +2,8 @@ import { useState } from "react";
 import type { EarningsExpectationSnapshot, ResearchEvent, ReviewTask, Stock, WatchItem } from "../../types";
 import { Modal } from "../common/Modal";
 import { ResearchEventEvidence } from "./ResearchEventEvidence";
+import type { ChartAuditView } from "../../services/chartAudit";
+import { ChartAuditPanel } from "../charts/ChartAuditPanel";
 
 export interface EvidenceDrawerProps {
   events: ResearchEvent[];
@@ -16,7 +18,12 @@ export interface EvidenceDrawerProps {
   onStartReview?: (item: WatchItem) => void;
 }
 
-export function EvidenceDrawer({ events, expectationSnapshots = [], tasks = [], watchItem, unresolvedEventIds = [], stocks, onClose, onOpenStock, onOpenEvent, onStartReview }: EvidenceDrawerProps) {
+export function EvidenceDrawer(props: EvidenceDrawerProps | { audit: ChartAuditView; onClose: () => void }) {
+  if ('audit' in props) return <Modal title="Evidence Drawer / 证据核对" size="drawer" onClose={props.onClose} description="留存来源核对；candidate 证据不代表 PIT 或生产准入。"><ChartAuditPanel audit={props.audit} /></Modal>;
+  return <EventEvidenceDrawer {...props} />;
+}
+
+function EventEvidenceDrawer({ events, expectationSnapshots = [], tasks = [], watchItem, unresolvedEventIds = [], stocks, onClose, onOpenStock, onOpenEvent, onStartReview }: EvidenceDrawerProps) {
   const [selectedId, setSelectedId] = useState(events[0]?.id);
   const event = events.find(event => event.id === selectedId);
   const snapshotMatches = expectationSnapshots.filter(snapshot => snapshot.id === event?.expectation?.snapshotId && snapshot.stockId === event.stockId);

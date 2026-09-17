@@ -6,6 +6,8 @@ import { findStocksForSegment } from "../../utils/filters";
 import { StockCard } from "../stock/StockCard";
 import { DashboardCard, MetricCard, SectionHeader } from "../common/terminal";
 import { RoboticsStockSection } from "./RoboticsStockSection";
+import { IndustryMetricPanel } from "./IndustryMetricPanel";
+import { ProductShell } from "../layout/ProductShell";
 
 interface IndustrySelection { industryId: string; segmentId: string }
 interface IndustryTabProps {
@@ -85,14 +87,13 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
           </select></label>
           {!matchedIndustries.length ? <p className="text-xs text-textMuted">没有匹配行业；保留当前研究对象。</p> : null}
         </div>
-        <div className="rounded-lg border border-borderSoft bg-panel p-4">
-          <h2 className="break-words text-xl font-semibold text-textStrong">{activeIndustry.name}</h2>
-          <p className="mt-1 text-xs leading-5 text-textMuted">行业资料来源与更新时间：当前字段未提供。景气、阶段、驱动和风险为既有研究资料，未换算为评分。</p>
+        <ProductShell section="行业研究" title={activeIndustry.name} scope="研究概览 / 正式指标 / 细分比较 / 产业链" quality="行业资料来源与更新时间：当前字段未提供。景气、阶段、驱动和风险为既有研究资料，未换算为评分。">
           <div role="tablist" aria-label="行业研究视图" className="mt-3 flex flex-wrap gap-2">{industryViews.map((view, index) => <button key={view.id} id={`${panelId}-tab-${view.id}`} type="button" role="tab" aria-selected={activeView === view.id} aria-controls={`${panelId}-${view.id}`} tabIndex={activeView === view.id ? 0 : -1}
             className={`min-h-11 rounded-md border px-3 text-sm font-medium ${activeView === view.id ? "border-accent bg-selected text-accent" : "border-control text-textMuted"}`}
             onClick={() => setActiveView(view.id)} onKeyDown={(event) => { const direction = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0; if (!direction && event.key !== "Home" && event.key !== "End") return; event.preventDefault(); const next = event.key === "Home" ? 0 : event.key === "End" ? industryViews.length - 1 : (index + direction + industryViews.length) % industryViews.length; setActiveView(industryViews[next].id); document.getElementById(`${panelId}-tab-${industryViews[next].id}`)?.focus(); }}>{view.label}</button>)}</div>
-        </div>
+        </ProductShell>
         <div role="tabpanel" id={`${panelId}-overview`} aria-labelledby={`${panelId}-tab-overview`} hidden={activeView !== "overview"} className="space-y-4">
+          <IndustryMetricPanel key={activeIndustry.id} industryId={activeIndustry.id} />
           <IndustryOverview industry={activeIndustry} />
           <PoolDistribution industry={activeIndustry} stocks={industryStocks} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} />
         </div>

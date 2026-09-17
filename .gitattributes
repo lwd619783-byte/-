@@ -28,3 +28,9 @@ config/market-regime/historical-dataset.schema.json text eol=lf
 scripts/market_regime/pbc_canary.py text eol=lf
 scripts/market_regime/historical_validator.py text eol=lf
 scripts/market_regime/pbc_parser.py text eol=lf
+# Industry retained source bytes and immutable F1 pins.
+research-data/industry/**/raw/* -text -diff
+research-data/industry/**/*.json text eol=lf
+config/industry/*.json text eol=lf
+contracts/industry/*.json text eol=lf
+src/data/real/industry-robotics.generated.json text eol=lf

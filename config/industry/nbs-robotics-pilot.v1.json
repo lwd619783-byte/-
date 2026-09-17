@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "industry-metric-pilot.v1",
+  "definition": {
+    "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+    "revision": "1",
+    "canonicalName": "工业机器人产量",
+    "industryId": "robotics",
+    "entity": null,
+    "geography": "CN",
+    "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+    "unit": "套",
+    "nativeFrequency": "monthly",
+    "basis": ["monthly", "year_to_date"],
+    "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+    "sourceOwner": "国家统计局",
+    "acquisitionAdapter": "nbs-industrial-production-html.v1",
+    "revisionPolicy": "保留每次留存；不同字节不覆盖；官方修订链未证明",
+    "window": { "start": "2026-01", "end": "2026-08" },
+    "missingMonthlyPeriods": ["2026-01", "2026-02"],
+    "freshness": "unknown",
+    "staleAfter": null
+  },
+  "policy": {
+    "id": "industry-metric-pilot-policy",
+    "revision": "1",
+    "entityResolution": "UNRESOLVED",
+    "dataAdmission": "NOT_ADMITTED",
+    "productionAdmission": "NOT_ADMITTED",
+    "allowedUses": [],
+    "forbiddenUses": ["strict_pit", "research", "display"],
+    "previewUse": "显式 NOT_ADMITTED 的只读来源核对；不进入正式语义检索、评分或交易"
+  },
+  "releases": [
+    { "period": "2026-02", "url": "https://www.stats.gov.cn/sj/zxfbhjd/202603/t20260316_1962782.html" },
+    { "period": "2026-03", "url": "https://www.stats.gov.cn/sj/zxfb/202604/t20260416_1963329.html" },
+    { "period": "2026-04", "url": "https://www.stats.gov.cn/sj/zxfb/202605/t20260518_1963731.html" },
+    { "period": "2026-05", "url": "https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260616_1963953.html" },
+    { "period": "2026-06", "url": "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964123.html" },
+    { "period": "2026-07", "url": "https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260817_1965055.html" },
+    { "period": "2026-08", "url": "https://www.stats.gov.cn/zwfwck/sjfb/202609/t20260915_1965308.html" }
+  ]
+}

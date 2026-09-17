@@ -51,6 +51,12 @@ jobs:
       - name: Validate committed F3 Research Eval report
         run: npm run research:eval:check
 
+      - name: Test Industry Metric provider and authentic parser offline
+        run: npm run test:industry
+
+      - name: Validate retained Industry Metric bytes, F1 binding and normalized artifact offline
+        run: npm run data:validate:industry
+
       - name: Test Local Core with isolated temporary databases
         run: npm run test:local-core
 

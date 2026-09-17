@@ -1,0 +1,596 @@
+{
+  "base": "d50e39fcea201b1c3f139881ba7ed83d2d6d4b38",
+  "generatedAt": "2026-09-17T10:45:16.200Z",
+  "sourceSha256": {
+    "src/services/industryMetricProvider.ts": "d57bd32a0dea4ce68cde356f0ed29ea9907f5b115eb64b9468465a6b2e4b8083",
+    "src/components/industry/IndustryMetricPanel.tsx": "6189bf8eada50c70dfff411320b42ad6ecc415d76e1b904bcf54fd4d7ef32cfc",
+    "src/components/industry/IndustryTab.tsx": "23cd587045143cc83291f4dbfd140be545249a4de1a16043ce855393fdf895a6",
+    "src/components/research/EvidenceDrawer.tsx": "c7ba1134af392a08e109362a435182f9862733d84c6dbe8a7b66e91f836992b4",
+    "src/components/charts/ChartAuditPanel.tsx": "4e90cb4a2b9778a6e30d353665daa353f57c86967dc9151b40921683f22163e6",
+    "src/data/real/industry-robotics.generated.json": "37c1151527d7cf6044c56969caa9dade0884be8b420d9cf6e12eaacc097dbbc2"
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "actual latest neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual delta neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain retained neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual latest neon-390"
+    },
+    {
+      "ok": true,
+      "name": "actual delta neon-390"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-390"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-390"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-390"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-390"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-390"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-390"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-390"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-390"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection neon-390"
+    },
+    {
+      "ok": true,
+      "name": "chain retained neon-390"
+    },
+    {
+      "ok": true,
+      "name": "actual latest neon-320"
+    },
+    {
+      "ok": true,
+      "name": "actual delta neon-320"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-320"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-320"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-320"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-320"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-320"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-320"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-320"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-320"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection neon-320"
+    },
+    {
+      "ok": true,
+      "name": "chain retained neon-320"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual delta pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain retained pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-390"
+    },
+    {
+      "ok": true,
+      "name": "actual delta pro-390"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-390"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-390"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-390"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-390"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-390"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-390"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-390"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-390"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection pro-390"
+    },
+    {
+      "ok": true,
+      "name": "chain retained pro-390"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-320"
+    },
+    {
+      "ok": true,
+      "name": "actual delta pro-320"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-320"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-320"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-320"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-320"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-320"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-320"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-320"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-320"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection pro-320"
+    },
+    {
+      "ok": true,
+      "name": "chain retained pro-320"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual delta light-1536"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-1536"
+    },
+    {
+      "ok": true,
+      "name": "admission light-1536"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-1536"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-1536"
+    },
+    {
+      "ok": true,
+      "name": "official link light-1536"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-1536"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-1536"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection light-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain retained light-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-390"
+    },
+    {
+      "ok": true,
+      "name": "actual delta light-390"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-390"
+    },
+    {
+      "ok": true,
+      "name": "admission light-390"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-390"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-390"
+    },
+    {
+      "ok": true,
+      "name": "official link light-390"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-390"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-390"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-390"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection light-390"
+    },
+    {
+      "ok": true,
+      "name": "chain retained light-390"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-320"
+    },
+    {
+      "ok": true,
+      "name": "actual delta light-320"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-320"
+    },
+    {
+      "ok": true,
+      "name": "admission light-320"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-320"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-320"
+    },
+    {
+      "ok": true,
+      "name": "official link light-320"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-320"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-320"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-320"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection light-320"
+    },
+    {
+      "ok": true,
+      "name": "chain retained light-320"
+    },
+    {
+      "ok": true,
+      "name": "no proxy for ai-computing"
+    },
+    {
+      "ok": true,
+      "name": "no formal number for ai-computing"
+    },
+    {
+      "ok": true,
+      "name": "no proxy for innovative-drug"
+    },
+    {
+      "ok": true,
+      "name": "no formal number for innovative-drug"
+    },
+    {
+      "ok": true,
+      "name": "no proxy for oil-shipping"
+    },
+    {
+      "ok": true,
+      "name": "no formal number for oil-shipping"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link reload"
+    },
+    {
+      "ok": true,
+      "name": "company pool preserves exact company navigation"
+    },
+    {
+      "ok": true,
+      "name": "no browser runtime errors"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "neon-1536.png",
+    "pro-320.png",
+    "light-390.png"
+  ]
+}
