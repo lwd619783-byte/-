@@ -1,0 +1,987 @@
+{
+  "schemaVersion": "industry-metric.v1",
+  "generatedAt": "2026-09-17T14:51:58.295Z",
+  "definition": {
+    "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+    "revision": "1",
+    "canonicalName": "工业机器人产量同比增长",
+    "industryId": "robotics",
+    "entity": null,
+    "geography": "CN",
+    "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+    "unit": "%",
+    "nativeFrequency": "monthly",
+    "basis": [
+      "monthly",
+      "year_to_date"
+    ],
+    "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+    "sourceOwner": "国家统计局",
+    "acquisitionAdapter": "nbs-industrial-production-html.v1",
+    "revisionPolicy": "保留每次留存；不同字节不覆盖；官方修订链未证明",
+    "window": {
+      "start": "2026-01",
+      "end": "2026-08"
+    },
+    "missingMonthlyPeriods": [
+      "2026-01",
+      "2026-02"
+    ],
+    "freshness": "unknown",
+    "staleAfter": null
+  },
+  "policy": {
+    "id": "industry-metric-robot-output-yoy-policy",
+    "revision": "1",
+    "entityResolution": "UNRESOLVED",
+    "dataAdmission": "NOT_ADMITTED",
+    "productionAdmission": "NOT_ADMITTED",
+    "allowedUses": [],
+    "forbiddenUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "previewUse": "显式 NOT_ADMITTED 的只读来源核对；不进入正式语义检索、评分或交易"
+  },
+  "definitionRef": {
+    "owner": "config/industry/nbs-robotics-yoy.v1.json",
+    "locator": "/definition",
+    "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+    "version": "1",
+    "sha256": "b9b2c47a75d077db34902bbcb7f859d82816ab577b58d3502fa2cd5e9db51bfd"
+  },
+  "observations": [
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-02:year_to_date:db5d3bfe42304452d61d13fd706761f82e0e9cd7202f458704ed4262f1f329e9",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "year_to_date",
+      "valueDate": "2026-02",
+      "referencePeriod": {
+        "start": "2026-01",
+        "end": "2026-02"
+      },
+      "value": 31.1,
+      "publicationDateTime": "2026-03-16T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:32.424330+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "db5d3bfe42304452d61d13fd706761f82e0e9cd7202f458704ed4262f1f329e9"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202603/t20260316_1962782.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/db5d3bfe42304452d61d13fd706761f82e0e9cd7202f458704ed4262f1f329e9.html",
+        "rawSha256": "db5d3bfe42304452d61d13fd706761f82e0e9cd7202f458704ed4262f1f329e9",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "2026-02:db5d3bfe42304452d61d13fd706761f82e0e9cd7202f458704ed4262f1f329e9",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 2,
+        "rawRow": [
+          "工业机器人（套）",
+          "143608",
+          "31.1"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "db5d3bfe42304452d61d13fd706761f82e0e9cd7202f458704ed4262f1f329e9:table/tr[td=\"工业机器人（套）\"]:2",
+          "title": "2026-02 工业机器人 year_to_date 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202603/t20260316_1962782.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-03:monthly:481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "monthly",
+      "valueDate": "2026-03",
+      "referencePeriod": {
+        "start": "2026-03",
+        "end": "2026-03"
+      },
+      "value": 24.4,
+      "publicationDateTime": "2026-04-16T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:33.238239+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfb/202604/t20260416_1963329.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176.html",
+        "rawSha256": "481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/1",
+          "objectId": "2026-03:481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 2,
+        "rawRow": [
+          "工业机器人（套）",
+          "91954",
+          "24.4",
+          "237554",
+          "33.2"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176:table/tr[td=\"工业机器人（套）\"]:2",
+          "title": "2026-03 工业机器人 monthly 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfb/202604/t20260416_1963329.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-03:year_to_date:481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "year_to_date",
+      "valueDate": "2026-03",
+      "referencePeriod": {
+        "start": "2026-01",
+        "end": "2026-03"
+      },
+      "value": 33.2,
+      "publicationDateTime": "2026-04-16T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:33.238239+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfb/202604/t20260416_1963329.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176.html",
+        "rawSha256": "481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/1",
+          "objectId": "2026-03:481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 4,
+        "rawRow": [
+          "工业机器人（套）",
+          "91954",
+          "24.4",
+          "237554",
+          "33.2"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "481bb421c08fde4958091570e3e4fc1a6dffab863779b984469cef239bcb3176:table/tr[td=\"工业机器人（套）\"]:4",
+          "title": "2026-03 工业机器人 year_to_date 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfb/202604/t20260416_1963329.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-04:monthly:2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "monthly",
+      "valueDate": "2026-04",
+      "referencePeriod": {
+        "start": "2026-04",
+        "end": "2026-04"
+      },
+      "value": 15.1,
+      "publicationDateTime": "2026-05-18T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:34.215953+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfb/202605/t20260518_1963731.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f.html",
+        "rawSha256": "2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/2",
+          "objectId": "2026-04:2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 2,
+        "rawRow": [
+          "工业机器人（套）",
+          "93246",
+          "15.1",
+          "323009",
+          "25.7"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f:table/tr[td=\"工业机器人（套）\"]:2",
+          "title": "2026-04 工业机器人 monthly 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfb/202605/t20260518_1963731.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-04:year_to_date:2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "year_to_date",
+      "valueDate": "2026-04",
+      "referencePeriod": {
+        "start": "2026-01",
+        "end": "2026-04"
+      },
+      "value": 25.7,
+      "publicationDateTime": "2026-05-18T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:34.215953+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfb/202605/t20260518_1963731.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f.html",
+        "rawSha256": "2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/2",
+          "objectId": "2026-04:2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 4,
+        "rawRow": [
+          "工业机器人（套）",
+          "93246",
+          "15.1",
+          "323009",
+          "25.7"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "2e43dd7ae7710d1183f4b78091319d638b0cdfa2d3ad39ecb6760227b317126f:table/tr[td=\"工业机器人（套）\"]:4",
+          "title": "2026-04 工业机器人 year_to_date 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfb/202605/t20260518_1963731.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-05:monthly:bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "monthly",
+      "valueDate": "2026-05",
+      "referencePeriod": {
+        "start": "2026-05",
+        "end": "2026-05"
+      },
+      "value": 27.9,
+      "publicationDateTime": "2026-06-16T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:34.664739+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260616_1963953.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27.html",
+        "rawSha256": "bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/3",
+          "objectId": "2026-05:bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 2,
+        "rawRow": [
+          "工业机器人（套）",
+          "101150",
+          "27.9",
+          "424368",
+          "28.1"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27:table/tr[td=\"工业机器人（套）\"]:2",
+          "title": "2026-05 工业机器人 monthly 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260616_1963953.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-05:year_to_date:bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "year_to_date",
+      "valueDate": "2026-05",
+      "referencePeriod": {
+        "start": "2026-01",
+        "end": "2026-05"
+      },
+      "value": 28.1,
+      "publicationDateTime": "2026-06-16T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:34.664739+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260616_1963953.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27.html",
+        "rawSha256": "bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/3",
+          "objectId": "2026-05:bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 4,
+        "rawRow": [
+          "工业机器人（套）",
+          "101150",
+          "27.9",
+          "424368",
+          "28.1"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "bbc8ec6e59c3fbdedf9f1ea206996697e77099cac0cc97c19dc7848034f04c27:table/tr[td=\"工业机器人（套）\"]:4",
+          "title": "2026-05 工业机器人 year_to_date 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202606/t20260616_1963953.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-06:monthly:eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "monthly",
+      "valueDate": "2026-06",
+      "referencePeriod": {
+        "start": "2026-06",
+        "end": "2026-06"
+      },
+      "value": 28.1,
+      "publicationDateTime": "2026-07-15T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:35.502012+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964123.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426.html",
+        "rawSha256": "eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/4",
+          "objectId": "2026-06:eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 2,
+        "rawRow": [
+          "工业机器人（套）",
+          "110702",
+          "28.1",
+          "537689",
+          "28.0"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426:table/tr[td=\"工业机器人（套）\"]:2",
+          "title": "2026-06 工业机器人 monthly 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964123.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-06:year_to_date:eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "year_to_date",
+      "valueDate": "2026-06",
+      "referencePeriod": {
+        "start": "2026-01",
+        "end": "2026-06"
+      },
+      "value": 28,
+      "publicationDateTime": "2026-07-15T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:35.502012+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964123.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426.html",
+        "rawSha256": "eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/4",
+          "objectId": "2026-06:eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 4,
+        "rawRow": [
+          "工业机器人（套）",
+          "110702",
+          "28.1",
+          "537689",
+          "28.0"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "eddb32d92a0fcf51321e39942c987b581c9da2d60a28f0f222defe68c9ae4426:table/tr[td=\"工业机器人（套）\"]:4",
+          "title": "2026-06 工业机器人 year_to_date 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202607/t20260715_1964123.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-07:monthly:14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "monthly",
+      "valueDate": "2026-07",
+      "referencePeriod": {
+        "start": "2026-07",
+        "end": "2026-07"
+      },
+      "value": 30.2,
+      "publicationDateTime": "2026-08-17T15:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:35.970490+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260817_1965055.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1.html",
+        "rawSha256": "14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/5",
+          "objectId": "2026-07:14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 2,
+        "rawRow": [
+          "工业机器人（套）",
+          "98677",
+          "30.2",
+          "635056",
+          "28.5"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1:table/tr[td=\"工业机器人（套）\"]:2",
+          "title": "2026-07 工业机器人 monthly 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260817_1965055.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-07:year_to_date:14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "year_to_date",
+      "valueDate": "2026-07",
+      "referencePeriod": {
+        "start": "2026-01",
+        "end": "2026-07"
+      },
+      "value": 28.5,
+      "publicationDateTime": "2026-08-17T15:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:35.970490+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260817_1965055.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1.html",
+        "rawSha256": "14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/5",
+          "objectId": "2026-07:14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 4,
+        "rawRow": [
+          "工业机器人（套）",
+          "98677",
+          "30.2",
+          "635056",
+          "28.5"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1:table/tr[td=\"工业机器人（套）\"]:4",
+          "title": "2026-07 工业机器人 year_to_date 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260817_1965055.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-08:monthly:0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "monthly",
+      "valueDate": "2026-08",
+      "referencePeriod": {
+        "start": "2026-08",
+        "end": "2026-08"
+      },
+      "value": 34.6,
+      "publicationDateTime": "2026-09-15T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:36.301065+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/zwfwck/sjfb/202609/t20260915_1965308.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3.html",
+        "rawSha256": "0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/6",
+          "objectId": "2026-08:0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 2,
+        "rawRow": [
+          "工业机器人（套）",
+          "96174",
+          "34.6",
+          "729352",
+          "29.0"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3:table/tr[td=\"工业机器人（套）\"]:2",
+          "title": "2026-08 工业机器人 monthly 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/zwfwck/sjfb/202609/t20260915_1965308.html",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY:2026-08:year_to_date:0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "geography": "CN",
+      "scope": "全国规模以上工业企业；年主营业务收入2000万元及以上的工业企业",
+      "unit": "%",
+      "frequency": "monthly",
+      "basis": "year_to_date",
+      "valueDate": "2026-08",
+      "referencePeriod": {
+        "start": "2026-01",
+        "end": "2026-08"
+      },
+      "value": 29,
+      "publicationDateTime": "2026-09-15T10:00:00+08:00",
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-17T10:30:36.301065+00:00",
+      "generatedAt": "2026-09-17T14:51:58.295Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3"
+      },
+      "quality": {
+        "source": "国家统计局",
+        "sourceLayer": "official",
+        "sourceEndpoint": "nbs-industrial-production-html.v1",
+        "sourceUrl": "https://www.stats.gov.cn/zwfwck/sjfb/202609/t20260915_1965308.html",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "NBS_OFFICIAL_INDUSTRIAL_PRODUCTION",
+        "sourceOwner": "国家统计局",
+        "acquisitionAdapter": "nbs-industrial-production-html.v1",
+        "rawPath": "research-data/industry/nbs-robotics-v1/raw/0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3.html",
+        "rawSha256": "0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3",
+        "captureRef": {
+          "owner": "research-data/industry/nbs-robotics-v1/manifest.json",
+          "locator": "/captures/6",
+          "objectId": "2026-08:0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3",
+          "version": "1",
+          "sha256": "dbfc5c1fcaa608be038e5d6cc96dc487d87efbf57cc402ace1ed18f67dac6e79"
+        },
+        "locator": "table/tr[td=\"工业机器人（套）\"]",
+        "column": 4,
+        "rawRow": [
+          "工业机器人（套）",
+          "96174",
+          "34.6",
+          "729352",
+          "29.0"
+        ],
+        "transformVersion": "nbs-industrial-production-official-yoy.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3:table/tr[td=\"工业机器人（套）\"]:4",
+          "title": "2026-08 工业机器人 year_to_date 官方同比增长（%） 原始表格",
+          "sourceUrl": "https://www.stats.gov.cn/zwfwck/sjfb/202609/t20260915_1965308.html",
+          "quality": "candidate"
+        }
+      }
+    }
+  ],
+  "completeness": {
+    "scope": "declared_window_only",
+    "monthlyAvailable": 6,
+    "monthlyTarget": 8,
+    "missingMonthlyPeriods": [
+      "2026-01",
+      "2026-02"
+    ],
+    "historicalCoverage": "partial"
+  }
+}

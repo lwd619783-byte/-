@@ -1,6 +1,8 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-17 Stage 4.2 / Slice 1：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。在 `d50e39fcea201b1c3f139881ba7ed83d2d6d4b38` 上实现工业机器人正式 Metric owner、7 份国家统计局原网页离线重放、13 个当月/累计读数、history/delta 与原 IndustryTab 的 Chart/Evidence。窗口 2026-01—08 月度 6/8；1—2 月不拆月。数据/生产 NOT_ADMITTED；releaseAvailableAt=null、revision continuity unknown、Entity unresolved；F1 binding 有效但 NOT_READY，F3 service 仍 0/33。无 PR / merge / 本分支 Hosted CI PASS 声明。P1 合同过度特化已修复并本地验证：V1 schema/type 为 reusable foundation，pilot 精确不变量由 reviewed plan + replay 单独锁定；待独立复审。详见 [Slice 1](stage-4-2-slice-1.md)。下方 4.1B closeout 保留既有已合入事实。
+> 2026-09-17 Stage 4.2 / Slice 2：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。精确基线 `1859db0caa6df416add84740c4b4b76d2350ab4d`；分支 `codex/stage-4-2-industry-metric-registry-v1`。Industry Metric Registry V1 + Generic Provider 已接通两个机器人 metric：绝对产量与官方原生同比增长（%），共用原 7 份网页，各 13 个读数、当月 6/8；同比不计算 delta。数据/生产 NOT_ADMITTED、F1 NOT_READY、F3 actual service 0/33 不变。本轮无 PR / merge / Hosted CI PASS。验证与剩余 blocker 见 [Slice 2](stage-4-2-slice-2-plan.md)。
+
+> Slice 1 已按 [closeout](stage-4-2-slice-1-closeout.md) 关闭：PR #56、merge/main `c664021d02a45aac79c1272d4c42f6061d3fbbf2`，PR CI `35230502534`、main CI `35230848333` completed/success，独立复审 PASS。此处补齐已发生的 CURRENT 状态；不改写原审计时点记录。
 
 > 2026-09-17 CURRENT：Stage 4.1B 已通过 Slice 1–3 完成计划产品化收口，正式登记为 **CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**。Slice 3 最终独立审计 HEAD `f4d43844cf17005bcf46c9818474acdece6b47ea`；PR #54 Hosted CI `35207107183` completed/success；merge/main `93b577d599d9a1ebf187dc4388f4bcd983916850`；main push CI `35207381240` completed/success。F3 两个 direct gates（`test:research-eval`、`research:eval:check`）已在 PR/main Hosted CI 实际执行通过。Frozen V1 33 cases/digests 不变；reference oracle 33/33 PASS（REFERENCE_ONLY），actual deterministic-service PASS 0/33、NOT_IMPLEMENTED 33/33。PRODUCTION / DATA ADMISSION 未提升；严格 PIT、正式 `releaseAvailableAt`、通用 F2 runtime、真实 service adapters、MCP/Agent 仍按各自边界未实现/未证明。CURRENT 主开发线进入 **Stage 4.2 — Industry Data Platform**；单 Provider、指标覆盖、PBC/CSRC/all-A admission、normalization/backtest 继续并行数据支线。详见 [Slice 3 closeout](stage-4-1b-slice-3.md) 与[机器报告](stage-4-1b-slice-3/eval-report.v1.json)。
 
@@ -64,7 +66,7 @@
 | --- | --- | --- | --- |
 | 研究终端 UI | DONE | 暗色终端、KPI、Card、Chart、Table、Filter、响应式 | 后续仅随新 Feature 演进 |
 | 宏观看板 | PARTIAL | `MacroTab`、宏观静态/生成数据 | 接入 Stage 4.1 Metric Registry、频率/发布时间/修订/stale 体系 |
-| 行业研究 | PARTIAL | 既有研究资料、细分、产业链、公司池；新增 NBS 工业机器人 owner/history/delta/审计 preview | **Stage 4.2 Slice 1 本地验证完成、待独立审计；NOT_ADMITTED；prosperity 未实现** |
+| 行业研究 | PARTIAL | 既有研究资料、细分、产业链、公司池；Registry 驱动双 metric owner/history/审计 preview；绝对量保留差额，同比无 delta | **Stage 4.2 Slice 2 本地验证完成、待独立审计；NOT_ADMITTED；prosperity 未实现** |
 | 个股池 | DONE | A/H 股研究池、筛选、排序、详情 | 后续扩 stock universe 与估值维度 |
 | 个股详情 | DONE | 行情、财务、公告、研究事件、预期等聚合 | 后续加入估值、持仓、研究 thesis |
 | 观察清单 | DONE | Watchlist V2、复盘、任务、备份 | 云同步、跨设备、账户化 |
@@ -119,7 +121,7 @@
 | Data Audit | DONE V1 | P0 / blocking risk / mock fallback / zero coercion 等 | 随新 domain 扩规则 |
 | Provider Stability Gate | DONE FRAMEWORK | observation / provenance / resolution / threshold | 当前样本不足，资格仍 NO_GO |
 | Developer Health Gate | DONE V1 | env check / json output | 可逐步模块化 |
-| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F/G 门禁、Stage 4.1B Slice 1/2 完整 workflow 均已在对应 PR/main CI 通过；Slice 3 F3 两个 direct gates 已在 PR #54 / main push completed/success | Stage 4.2 新增 industry tests + committed artifact 两个离线 gate，本地 PASS，Hosted NOT_RUN |
+| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F/G 门禁、Stage 4.1B Slice 1/2 完整 workflow 均已在对应 PR/main CI 通过；Slice 3 F3 两个 direct gates 已在 PR #54 / main push completed/success | Slice 1 industry gates 已随 PR #56/main CI 通过；Slice 2 扩展 Registry/双 owner 回放，本地 PASS，Hosted NOT_RUN |
 | Bundle Gate | DONE | 财务等重数据不进入 initial bundle | 新重数据功能继续遵守 |
 | UI Audit | DONE | UI 扫描 | 后续随页面扩展 |
 
@@ -152,7 +154,7 @@
 | Cloud business database / cross-device sync | DEFERRED | P0 | 当前 Local-first freeze 已覆盖旧 Cloud Store 假设；若未来改变方向须重新冻结 scope，不是现行 Stage 4 默认任务；Research Bridge 自身的 Auth / scope 仍属于 Stage 4.5 缺口 |
 | Browser LocalStorage workflow migration | NOT STARTED | P0 | Watchlist / Expectation 仍使用 LocalStorage；迁往 Local Core 或其他目标尚无冻结实施范围，不得写成已迁移 |
 | Valuation Center | NOT STARTED | P1 | 当前 V2 路线列入 Stage 4.6+ Advanced Valuation |
-| Industry Metric Registry / Provider | PARTIAL / PENDING REVIEW | P1 | **Stage 4.2 Slice 1**：复用来源 registry；工业机器人 owner、真实 parser/artifact/history/delta/UI 已本地验证；正式 admission、其他行业未闭合 |
+| Industry Metric Registry / Provider | IMPLEMENTED / VERIFIED LOCALLY / PENDING REVIEW | P1 | **Stage 4.2 Slice 2**：版本化 Registry、精确 pins、通用枚举/检索、双真实 metric、三主题/窄屏与 Evidence 接线；其他行业 unavailable，正式 admission 未闭合 |
 | Industry Prosperity Score | NOT STARTED | P1 | Stage 4.2；先建立正式 metric/provider/history，再讨论评分/景气派生 |
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |

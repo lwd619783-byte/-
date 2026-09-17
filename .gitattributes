@@ -34,3 +34,4 @@ research-data/industry/**/*.json text eol=lf
 config/industry/*.json text eol=lf
 contracts/industry/*.json text eol=lf
 src/data/real/industry-robotics.generated.json text eol=lf
+src/data/real/industry-*.generated.json text eol=lf

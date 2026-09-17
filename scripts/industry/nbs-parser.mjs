@@ -2,7 +2,8 @@ import { JSDOM } from 'jsdom';
 
 const compact = value => value.replace(/\s+/gu, '');
 const requireThat = (ok, message) => { if (!ok) throw new Error(message); };
-export function parseNbsProduction(html, period) {
+export function parseNbsProduction(html, period, measure = 'output') {
+  requireThat(['output', 'official_yoy'].includes(measure), 'MEASURE_INVALID');
   requireThat(/^\d{4}-(0[2-9]|1[0-2])$/.test(period), 'PERIOD_INVALID');
   const dom = new JSDOM(html); // inert: no scripts, resources or network
   try {
@@ -24,7 +25,7 @@ export function parseNbsProduction(html, period) {
     requireThat(cells.length === (month === 2 ? 3 : 5), 'ROBOT_COLUMN_COUNT');
     const number = value => {
       if (['', '—', '…', '...', '--'].includes(value)) return null;
-      requireThat(/^\d+(?:\.\d+)?$/.test(value), 'OUTPUT_NUMBER_INVALID');
+      requireThat((measure === 'official_yoy' ? /^-?\d+(?:\.\d+)?$/ : /^\d+(?:\.\d+)?$/).test(value), 'OUTPUT_NUMBER_INVALID');
       const parsed = Number(value); requireThat(Number.isFinite(parsed), 'OUTPUT_NUMBER_INVALID'); return parsed;
     };
     // Page publication is a claim on today's retained bytes, not historical availability proof.
@@ -33,8 +34,10 @@ export function parseNbsProduction(html, period) {
     requireThat(new Set(dates).size <= 1, 'PUBLICATION_CONFLICTED');
     const publicationDateTime = dates[0] ?? null;
     if (publicationDateTime) requireThat(Number.isFinite(Date.parse(publicationDateTime)), 'PUBLICATION_INVALID');
+    // Official growth is a native column, never computed from the absolute values.
+    const column = measure === 'official_yoy' ? 2 : 1;
     return { publicationDateTime, row: cells, locator: 'table/tr[td="工业机器人（套）"]',
-      values: month === 2 ? [{ basis: 'year_to_date', value: number(cells[1]), column: 1 }] :
-        [{ basis: 'monthly', value: number(cells[1]), column: 1 }, { basis: 'year_to_date', value: number(cells[3]), column: 3 }] };
+      values: month === 2 ? [{ basis: 'year_to_date', value: number(cells[column]), column }] :
+        [{ basis: 'monthly', value: number(cells[column]), column }, { basis: 'year_to_date', value: number(cells[column + 2]), column: column + 2 }] };
   } finally { dom.window.close(); }
 }

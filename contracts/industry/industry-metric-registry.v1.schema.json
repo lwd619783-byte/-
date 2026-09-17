@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "revision",
+    "entries"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "industry-metric-registry.v1"
+    },
+    "id": {
+      "const": "industry-metric-registry"
+    },
+    "revision": {
+      "const": "1"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "metricId",
+          "industryId",
+          "definitionRef",
+          "artifactRef",
+          "bindingRef",
+          "policyRef",
+          "presentation"
+        ],
+        "properties": {
+          "metricId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "industryId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "definitionRef": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          },
+          "artifactRef": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          },
+          "bindingRef": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          },
+          "policyRef": {
+            "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+          },
+          "presentation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "delta",
+              "basisLabels",
+              "note"
+            ],
+            "properties": {
+              "delta": {
+                "enum": [
+                  "absolute_difference",
+                  "none"
+                ]
+              },
+              "basisLabels": {
+                "type": "object",
+                "minProperties": 1,
+                "additionalProperties": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/industry/industry-metric-registry.v1.schema.json"
+}

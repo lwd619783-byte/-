@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "industry-metric-registry.v1",
+  "id": "industry-metric-registry",
+  "revision": "1",
+  "entries": [
+    {
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+      "industryId": "robotics",
+      "definitionRef": {
+        "owner": "config/industry/nbs-robotics-pilot.v1.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+        "version": "1",
+        "sha256": "f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-robotics.generated.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+        "version": "1",
+        "sha256": "37c1151527d7cf6044c56969caa9dade0884be8b420d9cf6e12eaacc097dbbc2"
+      },
+      "bindingRef": {
+        "owner": "config/industry/nbs-robotics-semantic-binding.v2.json",
+        "locator": "/bindingId",
+        "objectId": "nbs-industrial-robot-output.v1",
+        "version": "1",
+        "sha256": "3541e1a4cf02b4da86693715c9ad5114b805a85e20fd928c15f8d92b16e45aac"
+      },
+      "policyRef": {
+        "owner": "config/industry/nbs-robotics-pilot.v1.json",
+        "locator": "/policy",
+        "objectId": "industry-metric-pilot-policy",
+        "version": "1",
+        "sha256": "f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664"
+      },
+      "presentation": {
+        "delta": "absolute_difference",
+        "basisLabels": {
+          "monthly": "当月产量",
+          "year_to_date": "年内累计产量"
+        },
+        "note": "1—2 月仅公布合并累计，不拆月、不以累计差分填充当月；相邻月差额仅为留存读数差，不代表官方环比或同口径景气判断。"
+      }
+    },
+    {
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "definitionRef": {
+        "owner": "config/industry/nbs-robotics-yoy.v1.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+        "version": "1",
+        "sha256": "b9b2c47a75d077db34902bbcb7f859d82816ab577b58d3502fa2cd5e9db51bfd"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-robotics-yoy.generated.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+        "version": "1",
+        "sha256": "6d8e791793ed611c28767837e51e2b15792db52cfecb35388e7665fc89f6a224"
+      },
+      "bindingRef": {
+        "owner": "config/industry/nbs-robotics-yoy-semantic-binding.v2.json",
+        "locator": "/bindingId",
+        "objectId": "nbs-industrial-robot-output-yoy.v1",
+        "version": "1",
+        "sha256": "4aa3c13b3e7bd057f4910237855427005a8b5d0575a8afb8d1735f0c88dca9a1"
+      },
+      "policyRef": {
+        "owner": "config/industry/nbs-robotics-yoy.v1.json",
+        "locator": "/policy",
+        "objectId": "industry-metric-robot-output-yoy-policy",
+        "version": "1",
+        "sha256": "b9b2c47a75d077db34902bbcb7f859d82816ab577b58d3502fa2cd5e9db51bfd"
+      },
+      "presentation": {
+        "delta": "none",
+        "basisLabels": {
+          "monthly": "当月产量同比增长",
+          "year_to_date": "年内累计产量同比增长"
+        },
+        "note": "官方直接发布同比增长（%）；不从绝对量计算，不拆分1—2月，不作累计差分或补缺；不展示相邻期变化。"
+      }
+    }
+  ]
+}
