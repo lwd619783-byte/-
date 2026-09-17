@@ -1,0 +1,54 @@
+{
+  "existingUI": {
+    "generatedAt": "2026-09-16T09:34:06.482Z",
+    "failures": [],
+    "pageErrors": [],
+    "sourceSha256": {
+      "src/Application.tsx": "1350900c53482350b05dda6b10fc349a2a5abec57fe7481c4687936d198cd06f",
+      "src/main.tsx": "29b2c562e38a9e5bda0b2050cfa10551b9301042e78fa7a6a4c858fc80826a3e",
+      "src/index.css": "a0186cb71c34733b712857772b4a4ab9b17fcc60f9e7c3a0254cc5b23ff21215",
+      "src/components/home/HomePage.tsx": "bdf1acaa86def4f1dc6dfb3c0d723e06a49a47182a5c51dd301848d232d43daf",
+      "src/components/layout/Appearance.tsx": "cde8d0c191b978db2cb02d90562a7ef8315c44ed85f3cedc3b077bb37571b0a9",
+      "src/components/stock/StockDetailDrawer.tsx": "e2d2ff4bf18562c4bda4a94282a9ae087959bddc5298fbe301ba8f41c35a67d9",
+      "src/components/stock/StockPriceHistoryChart.tsx": "62448ef9ea783475e45ed016a1d9c10643db38b8603e4620d08e938fb401c5d6",
+      "src/components/watchlist/WatchlistTab.tsx": "384f951bb7502fbf7df637ae0339082a70de6c46f9238deb40426304a4e20645",
+      "src/ui-review/config.ts": "e50e7d0f4587d50e34152963175799e09eace4d7bdd6fe87b103e7f9a094e9a6",
+      "src/ui-review/fixtures.ts": "c87ff2ae5cf8e22bcc6d4241cd4a31f958c9000397428c77ae151a2c372c4e4d",
+      "src/ui-review/UiReviewApp.tsx": "425f45e00c40c1d46b3a49c5e8bd882c3a09ae3db76f9a75d01ede1cd783ca3a"
+    },
+    "checks": 144
+  },
+  "slice1": {
+    "generatedAt": "2026-09-16T09:34:05.181Z",
+    "failures": [],
+    "pageErrors": [],
+    "sourceSha256": {
+      "src/App.tsx": "23de7b06cf0980162075dead8a624a046e18126668a6939916ecf47312dca8eb",
+      "src/services/researchInbox.ts": "7c1a398f91393b097e205016204a4af6d17d944d1aecb81f8e0c683451af8af3",
+      "src/components/home/ResearchInbox.tsx": "3cea9ee9534f8542f470c727aaa9d5313c34ad54b8a2257c7394df8495a189c2",
+      "src/components/home/HomePage.tsx": "bdf1acaa86def4f1dc6dfb3c0d723e06a49a47182a5c51dd301848d232d43daf",
+      "src/components/research/EvidenceDrawer.tsx": "26be559cc316afb68f0d83186b1761c8b40e36dc0350e86d02c20528489c6dc3",
+      "src/components/research/ResearchEventEvidence.tsx": "7f9a684f530dd754e0f2b176c9b9fac34f0fa8f49b63aaff9b63ea7fb4bba17d",
+      "src/index.css": "a0186cb71c34733b712857772b4a4ab9b17fcc60f9e7c3a0254cc5b23ff21215"
+    },
+    "checks": 257
+  },
+  "local": {
+    "focused": "8 files / 89 tests PASS",
+    "npmTest": "60 files / 788 tests PASS",
+    "discovery": "60 formal suite paths; negative control reproduced 3 nested checkout failures",
+    "dataAudit": {
+      "P0": 0,
+      "errors": 0,
+      "warnings": 24,
+      "P1": 10,
+      "P2": 14,
+      "skipped": 10,
+      "allowlisted": 35
+    },
+    "build": "PASS; existing >500kB chunk warning retained",
+    "uiAudit": "PASS; generated timestamp-only change restored",
+    "impeccableDetect": [],
+    "hostedCI": "NOT_RUN"
+  }
+}

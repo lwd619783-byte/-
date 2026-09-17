@@ -1,4 +1,6 @@
 import { QuoteTrust } from "../common/QuoteTrust";
+import { ProductShell } from "../layout/ProductShell";
+import { RelatedResearchEvidence } from "../research/RelatedResearchEvidence";
 import { AlertTriangle, ArrowLeft, BarChart3, Binoculars, BookOpen, CheckCircle2, LineChart as LineChartIcon, Target, X } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { StockPriceHistoryChart } from "./StockPriceHistoryChart";
@@ -190,7 +192,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   return (
     <div className={presentation === "drawer" ? "fixed inset-0 z-50 bg-bg/75 backdrop-blur-sm" : "min-w-0"} role={presentation === "drawer" ? "dialog" : undefined} aria-modal={presentation === "drawer" ? true : undefined} aria-label={presentation === "drawer" ? `${stock.name}完整研究` : undefined}>
       <article ref={drawerRef} className={presentation === "drawer" ? "ml-auto flex h-full w-full max-w-[1180px] flex-col overflow-y-auto border-l border-borderGlow/50 bg-bg2 shadow-2xl" : "min-w-0 space-y-4"}>
-        <ResearchHeader stock={stock} industryName={industryName} segmentName={segmentName} onClose={onClose} presentation={presentation}
+        <ResearchHeader section={`公司研究 / ${researchTabs.find(item => item.id === tab)?.label}`} relatedAction={<RelatedResearchEvidence stock={stock} events={researchEvents} expectationSnapshots={earningsExpectationSnapshots} onOpenStock={switchStock} />} stock={stock} industryName={industryName} segmentName={segmentName} onClose={onClose} presentation={presentation}
           action={activeWatchItem ? () => onStartReview?.(activeWatchItem) : archivedWatchItem ? () => onRestoreWatchItem?.(archivedWatchItem) : () => onAddToWatchlist?.(stock)}
           actionLabel={activeWatchItem ? "开始复盘" : archivedWatchItem ? "恢复已归档观察项" : "加入观察清单"} />
         {companyGuidanceLoadError ? <p role="alert" className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm text-warning">公司指引加载限制：{companyGuidanceLoadError}；本地独立快照仍按原资格展示。</p> : null}
@@ -226,7 +228,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
           </> : null}
           {tab === "financials" ? <>
             <Section title="经营与财务快照" icon={<BookOpen className="h-4 w-4" />}><Grid rows={financialRows} /></Section>
-            <CompanyFinancialHistory detail={loadedFinancial} selection={financialChart.stockId === stock.id ? financialChart : { period: "singleQuarter", scope: "consolidated" }} onSelectionChange={(selection) => setFinancialChart({ stockId: stock.id, ...selection })} />
+            <CompanyFinancialHistory stock={stock} detail={loadedFinancial} selection={financialChart.stockId === stock.id ? financialChart : { period: "singleQuarter", scope: "consolidated" }} onSelectionChange={(selection) => setFinancialChart({ stockId: stock.id, ...selection })} />
             <Section title="主营业务拆解" icon={<BookOpen className="h-4 w-4" />}><BusinessBreakdown stock={stock} segment={segment} /></Section>
             <Panel title="F10 / 公司基础资料">
                 <Grid
@@ -355,20 +357,19 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   );
 }
 
-function ResearchHeader({ stock, industryName, segmentName, onClose, presentation, action, actionLabel }: {
+function ResearchHeader({ stock, industryName, segmentName, onClose, presentation, action, actionLabel, section, relatedAction }: {
+  section: string; relatedAction: ReactNode;
   stock: Stock; industryName: string; segmentName: string; onClose: () => void; presentation: "page" | "drawer"; action: () => void; actionLabel: string;
 }) {
-  return <header className={`research-header min-w-0 rounded-lg border border-borderSoft bg-bg2 p-4 ${presentation === "drawer" ? "z-20 sm:sticky sm:top-[72px]" : ""}`}>
-    <div className="flex flex-wrap items-start justify-between gap-3">
-      <div className="min-w-0 flex-1"><p className="text-xs text-textMuted">{stock.market} · {stock.code} · {industryName} / {segmentName}</p><h1 className="mt-1 break-words text-2xl font-semibold text-textStrong">{stock.name}</h1></div>
-      <button type="button" onClick={onClose} aria-label={presentation === "page" ? "返回研究入口" : "关闭详情"} className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded border border-control px-3 text-sm text-textMuted">{presentation === "page" ? <ArrowLeft className="h-4 w-4" /> : <X className="h-4 w-4" />}{presentation === "page" ? "返回" : "关闭"}</button>
-    </div>
+  return <ProductShell className={`research-header ${presentation === "drawer" ? "z-20 sm:sticky sm:top-[72px]" : ""}`} section={section} title={stock.name} scope={`${stock.market} · ${stock.code} · ${stock.id} · ${industryName} / ${segmentName}`}
+    actions={<>{relatedAction}<button type="button" onClick={onClose} aria-label={presentation === "page" ? "返回研究入口" : "关闭详情"} className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded border border-control px-3 text-sm text-textMuted">{presentation === "page" ? <ArrowLeft className="h-4 w-4" /> : <X className="h-4 w-4" />}{presentation === "page" ? "返回" : "关闭"}</button></>}
+    quality="公司相关证据是研究导航，不代表图表的精确证据关联。">
     <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2"><span className="text-2xl font-semibold tabular-nums text-textStrong">{numberToDisplay(stock.quote?.latestPrice)} <span className="text-xs font-normal">币种：源字段未提供</span></span><PriceChange value={stock.quote?.pctChange} /><DataQualityBadge quality={stock.dataQuality} /><span className="text-sm text-warning">风险等级 {stock.riskLevel}</span><button type="button" onClick={action} className="min-h-11 rounded border border-control bg-selected px-3 text-sm font-semibold text-accent">{actionLabel}</button></div>
     <div className="mt-2"><QuoteTrust quote={stock.quote} /></div>
     <details className="mt-2 text-xs text-textMuted"><summary className="cursor-pointer">行情/财务字段 {formatStockFieldCoverage(stock.dataCoverageDetails)}</summary><p className="mt-2">{formatStockModuleCoverage(stock.dataCoverageDetails)}</p></details>
     {stock.verificationStatus === "待验证" ? <p className="mt-2 text-xs text-warning">研究关系待验证，不得写成确定供货关系。</p> : null}
     {stock.risks.length ? <p className="mt-2 break-words text-xs text-warning">主要风险：{stock.risks[0]}</p> : null}
-  </header>;
+  </ProductShell>;
 }
 
 function MacroIndustrySection({ industry, segment, stock }: { industry?: Industry; segment?: IndustrySegment; stock: Stock }) {

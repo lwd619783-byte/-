@@ -367,3 +367,15 @@ PBC V2 只把原 sealed R2-B 的一条 native catalog/sidecar slice 与两份真
 新增只读数据流：原 Expectation/ResearchEvent 聚合与 `buildReviewTasks` → `buildResearchInbox` 临时投影 → HomePage / ResearchInbox → EvidenceDrawer。业务事实仍由原 ResearchEvent、WatchItem/ReviewTask、Expectation repository/store 拥有；投影无存储、Provider、网络或 Node Local Core 入口。App 复用分钟显示时钟更新当前任务，所有写入仍回到原 `ReviewFormModal` / `WatchlistStore.completeReview`，精确导航复用 `useWorkspaceNavigation`。
 
 验证中心原 EventCard 抽为 `ResearchEventEvidence`，由验证中心及抽屉共同使用。Drawer 消费当前 owner 事件和精确匹配的预期快照，不建立 Evidence registry 或 F2 graph runtime；PIT/admission/revision/graph 缺少正式证明时显式未证明。原三主题/Modal/隔离 ui-review 路径继续复用。详见 [Slice 1](stage-4-1b-slice-1.md)。本段为分支实现，不宣称已合入或准入。
+
+
+## Stage 4.1B / Slice 2 chart audit / product context read path（2026-09-16 功能分支）
+
+基线 `63208ce038f5222d10bfa471bc5d0a868fe2905e`。IMPLEMENTED / PENDING INDEPENDENT REVIEW；本节不宣称已合入或准入。Slice 1 已在 PR #50 合入，merge/main `38ffcbd44ecd2c4531b6ef737d4c6616ec197ca8`，PR/main CI 收口事实见 [Slice 1 合入记录](stage-4-1b-slice-1.md)；上方 Slice 1 分支段保留其历史时点。
+
+- `GeneratedRealDataBundle.priceHistory[stock.id]` → 精确 id 校验 → `Stock.priceHistorySource` 保留原 `PriceHistorySeries` 引用，`Stock.priceHistory` 保留同一 points 引用 → `priceChartAudit`；chart 窗口必须是 owner 原点引用的子集。它不是新事实 owner，也不单独持久化。
+- `loadAShareFinancial` / 现有隔离 presentation seam → 原 `AShareFinancialData` 与所属 `FinancialReport` → 公司 id/code、report code/market/scope 校验 → `financialChartAudit`。UI 不修改报告、不补发布时间、不生成事件。scope、原始字段状态、派生/单位转换与 Provider 版本均为只读展示。
+- 两个投影 → `ChartPanel.audit` → `ChartAuditPanel`；React state 只控制范围/展开。PIT、releaseAvailableAt、正式 revision、data/production admission 没有 owner 字段时保持未提供/未证明；未连接 Node-only Macro Semantic Runtime 或 F2 Graph runtime。
+- `ProductShell` 由首页/公司 ResearchHeader 消费既有上下文/动作；`RelatedResearchEvidence` 只选择唯一事件 ID 且 company id/code/market 匹配的当前事件，调用原 Evidence Drawer。公司相关事件不构成 chart metric/revision exact linkage。App/navigation/Store 不改，业务写入仍由既有 owner 负责。
+
+专项映射、证据边界和验证见 [Slice 2](stage-4-1b-slice-2.md)。

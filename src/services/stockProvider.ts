@@ -19,7 +19,8 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
     const latestSingle = summary?.latestSingleQuarter;
     const latestRatios = summary?.latestRatios;
     const latestChanges = summary?.latestChanges;
-    const history = real.priceHistory[stock.id];
+    const candidateHistory = real.priceHistory[stock.id];
+    const history = candidateHistory?.id === stock.id ? candidateHistory : undefined;
     const research = real.research[stock.id];
     const announcementSummary = real.aShareAnnouncementSummaries[stock.id];
     const announcementQuality: DataQualityMeta = announcementSummary?.quality ?? {
@@ -51,6 +52,7 @@ export function enrichStocksWithRealData(stocks: Stock[], real: GeneratedRealDat
       aShareFinancialSummary: summary,
       aShareAnnouncementSummary: announcementSummary,
       priceHistory: history?.points ?? [],
+      priceHistorySource: history,
       research,
       announcements: undefined,
       signals,

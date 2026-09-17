@@ -19,6 +19,7 @@ import { sortResearchEvents } from "../services/researchEventProvider";
 import type { Stock } from "../types";
 import { createReviewFixtures, REVIEW_AT, REVIEW_NOW } from "./fixtures";
 import { UI_REVIEW_LABEL, type UiReviewProfile } from "./config";
+import { ChartAuditStateReview } from "./ChartAuditStateReview";
 
 const tabs = [{ id: "首页", icon: House }, { id: "宏观", icon: LineChart }, { id: "行业", icon: Building2 }, { id: "个股池", icon: BarChart3 }, { id: "观察清单", icon: Binoculars }, { id: "验证中心", icon: FlaskConical }, { id: "预期证据", icon: ScrollText }] as const;
 const BLOCKED = "界面验收模式仅支持浏览、筛选和导航；业务写入、导入、导出与真实数据重试均已隔离。";
@@ -68,7 +69,7 @@ export default function UiReviewApp({ initialProfile }: { initialProfile: UiRevi
       <a className="inline-flex min-h-11 items-center text-sm underline" href={`${window.location.pathname}#/home`}>退出界面验收</a>
       {notice ? <p role="status" className="w-full text-sm">{notice}</p> : null}
     </aside>
-    <DashboardLayout sidebar={<Sidebar tabs={[...tabs]} activeTab={pages[route.page]} onChange={page=>{setPreview(null);navigation.navigatePage(page);}}/>} main={<div key={profile} className="min-w-0">{content}</div>}/>
+    <DashboardLayout sidebar={<Sidebar tabs={[...tabs]} activeTab={pages[route.page]} onChange={page=>{setPreview(null);navigation.navigatePage(page);}}/>} main={<div key={profile} className="min-w-0">{content}{new URLSearchParams(window.location.search).get("chart-audit-states") === "1" ? <ChartAuditStateReview/> : null}</div>}/>
     {preview ? <StockQuickPreview stock={preview} onClose={()=>setPreview(null)} onOpenResearch={openCompany}/> : null}
     <div className="ui-review-watermark" aria-hidden="true">界面验收样例 · 合成数据 · 不用于投资研究</div>
   </div>;

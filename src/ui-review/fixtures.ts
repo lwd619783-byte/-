@@ -41,6 +41,7 @@ export function createReviewFixtures(profile: UiReviewProfile) {
   const companies = empty ? stocks.slice(0,1) : stocks;
   const details: Record<string, CompanyPresentationDetails> = {};
   for (const stock of companies) {
+    stock.priceHistorySource = { id: stock.id, points: stock.priceHistory ?? [], quality: { ...quality, status: empty ? "missing" : degraded ? "stale" : "mock", updatedAt: REVIEW_AT } };
     const data = !empty && !(degraded && stock===companies[0]) ? financial(stock) : null;
     const announcements = !empty ? announcementData(stock) : null;
     if (data) stock.aShareFinancialSummary = { ...data, latestReportPeriod: "2026-06-30", latestReportType: "H1", latestSingleQuarter: data.reports[0].singleQuarter!, latestChanges: derived, latestRatios: derived, latestBalanceSheet: data.reports[0].balanceSheet, fieldStatus: {}, detailPath: "" };

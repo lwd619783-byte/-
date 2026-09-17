@@ -5,6 +5,8 @@ import type { DashboardDataMode, Stock, WatchItem, ReviewTask, ResearchEvent, Ea
 import { QuoteTrust, QuoteTrustSummary } from "../common/QuoteTrust";
 import { DashboardCard, KpiCard, PriceChange } from "../common/terminal";
 import { StockPriceHistoryChart } from "../stock/StockPriceHistoryChart";
+import { ProductShell } from "../layout/ProductShell";
+import { RelatedResearchEvidence } from "../research/RelatedResearchEvidence";
 import { describeDataTime } from "../../utils/dataTrustDisplay";
 import { dataModeDisplayLabel, localizeDataSourceNote } from "../../utils/displayLabels";
 import { useDisplayNow } from "../../hooks/useDisplayNow";
@@ -59,7 +61,10 @@ export function HomePage({ dataMode, modeLabel, updatedAt, sourceNote, coverageS
   const [priceId,setPriceId]=useState("");
   const selected=quoteStocks.find(stock=>stock.id===priceId) ?? focusStocks[0] ?? quoteStocks[0];
   return <section className="home-workbench space-y-5" aria-label="首页研究工作台">
-    <div className="flex flex-wrap items-end justify-between gap-3"><div><h1 className="text-[26px] font-semibold text-textStrong">首页 / 研究工作台</h1><p className="mt-2 text-sm text-textMuted">先处理待验证的研究，再进入完整信息。</p></div><button type="button" onClick={()=>onNavigate("观察清单")} className="inline-flex items-center gap-2 rounded-md border border-control px-3 py-2 text-sm text-accent">打开观察清单<ArrowUpRight className="h-4 w-4"/></button></div>
+    <ProductShell section="研究入口" title="首页 / 研究工作台" scope={selected ? `当前图表对象：${selected.name} · ${selected.code} · ${selected.id}；Inbox 范围：当前研究池` : "当前研究池为空"} quality={<><span>{coverageSummary}</span><span className="mt-1 block">公司相关证据是研究导航，不代表价格图表的精确证据关联。</span></>} actions={<>
+      {selected ? <><button type="button" className="inbox-action" onClick={() => onOpenStock(selected)}>继续公司研究</button><RelatedResearchEvidence stock={selected} events={events} expectationSnapshots={expectationSnapshots} onOpenStock={onOpenStock} onOpenEvent={onOpenEvent}/></> : null}
+      <button type="button" onClick={()=>onNavigate("观察清单")} className="inbox-action">打开观察清单</button>
+    </>} />
     <ResearchInbox expectationSnapshots={expectationSnapshots} events={events} tasks={tasks} watchItems={watchItems} stocks={quoteStocks} now={displayNow} timeZone={timeZone} sourceNotice={inboxSourceNotice} onOpenStock={onOpenStock} onOpenEvent={onOpenEvent} onStartReview={onStartReview} />
     <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
       <KpiCard label="待复盘公司" value={pendingCompanies} description="仅统计有待处理任务的用户观察项" tone="warning"/>

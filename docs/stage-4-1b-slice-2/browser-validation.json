@@ -1,0 +1,199 @@
+{
+  "baseline": "63208ce038f5222d10bfa471bc5d0a868fe2905e",
+  "generatedAt": "2026-09-16T09:39:36.956Z",
+  "failures": [],
+  "pageErrors": [],
+  "screenshots": [
+    "financial-audit-1536.png",
+    "financial-audit-390.png",
+    "price-degraded-320-light.png",
+    "synthetic-not-admitted-320.png"
+  ],
+  "sourceSha256": {
+    "src/services/chartAudit.ts": "e75d0ecd5f235e05bb8b2f4369824b4214adf03ee3a4950bad8951fd24ef5401",
+    "src/services/stockProvider.ts": "2c6ecdafde7e56154cf6f169ba1f53358c509b2be3e146f97fd33f5f84d694f7",
+    "src/utils/stockCoverage.ts": "d4ce1f1e1d0817ea8c5ac0e1390df8dbcb5286e1893a3e60b677e0b703156eb3",
+    "src/types/index.ts": "1965c574be3773fc0b0fad50323813a3ba56e29d10e9968304d10102ac157c64",
+    "src/utils/evidenceUrl.ts": "fdbcdb5ff73a03385844029ca2a2265aa3e5aa56547deb635575e2431aa6f122",
+    "src/components/common/ChartPanel.tsx": "9dc2f9dbf15608b2fc0dd31399e8822bb32a2920b9c49a87d1ef2b50c14fae1f",
+    "src/components/charts/ChartAuditPanel.tsx": "bf22e7a56f892daf48221927f32ef4c842aab843f87bc1cc03ca8971fb35311f",
+    "src/components/layout/ProductShell.tsx": "b19baabe50938b3ce7085f03a71d135f6a8efe6dec8efdecdcaf387ce722279a",
+    "src/components/research/RelatedResearchEvidence.tsx": "cbbc1f4aa2133e0942ea47c899c632d31774c922f6ced46ca7267813d69059e7",
+    "src/components/stock/StockPriceHistoryChart.tsx": "6ee0bc8995392daa39d1c0e51ddfc2f5a936d8648d0d9b60066e6b39f41fa09d",
+    "src/components/stock/CompanyFinancialHistory.tsx": "7506b45019d0bfc5d6f654afe280caeddcd6c5eb3c30fe827caa86b37402f728",
+    "src/components/home/HomePage.tsx": "c19d86c774a886d006124f6330be79d9c76b548c385234ffe3647de71c8ef335",
+    "src/components/stock/StockDetailDrawer.tsx": "74b0079c47b1379607293a953d5e738034783062ee31db6b9a447a3d39b35366",
+    "src/ui-review/ChartAuditStateReview.tsx": "88339eaecbd25b69ddcc4f694f6a1c89adc9a7b62ba3cedbba9be930e250497f",
+    "src/ui-review/fixtures.ts": "02c9d026cbd4bf9a93da572bb2af4ae8916a88896da3c1f697d3d99aa795c01b",
+    "src/ui-review/UiReviewApp.tsx": "34a060e4fda5546eb436cb78e696f57a0a1a6bfd1c063e533385235b84f4df9c"
+  },
+  "sourceDigestFormat": "UTF-8 with CRLF normalized to LF",
+  "checkCount": 1214,
+  "checkGroups": [
+    {
+      "name": "shell context",
+      "total": 108,
+      "passed": 108
+    },
+    {
+      "name": "keyboard audit disclosure",
+      "total": 108,
+      "passed": 108
+    },
+    {
+      "name": "no invented linkage",
+      "total": 108,
+      "passed": 108
+    },
+    {
+      "name": "PIT unknown",
+      "total": 108,
+      "passed": 108
+    },
+    {
+      "name": "no chart evidence action",
+      "total": 108,
+      "passed": 108
+    },
+    {
+      "name": "audit text contrast",
+      "total": 108,
+      "passed": 108
+    },
+    {
+      "name": "expanded audit fits",
+      "total": 108,
+      "passed": 108
+    },
+    {
+      "name": "exact related event identity",
+      "total": 72,
+      "passed": 72
+    },
+    {
+      "name": "drawer focus trapped",
+      "total": 72,
+      "passed": 72
+    },
+    {
+      "name": "drawer fits",
+      "total": 72,
+      "passed": 72
+    },
+    {
+      "name": "focus restored",
+      "total": 72,
+      "passed": 72
+    },
+    {
+      "name": "no storage writes",
+      "total": 108,
+      "passed": 108
+    },
+    {
+      "name": "complete supplied metadata",
+      "total": 12,
+      "passed": 12
+    },
+    {
+      "name": "empty related evidence disabled",
+      "total": 36,
+      "passed": 36
+    },
+    {
+      "name": "home selection updates shell",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "continue exact company",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "financial deep link reload",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "exact related event route",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "event back navigation",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "fail-closed synthetic states rendered",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "unsafe synthetic URL has no link",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "synthetic state panel fits 320",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "mobile data table scroll",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "chart tooltip visible",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "tooltip does not expand document",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "reduced motion active",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "review isolation",
+      "total": 1,
+      "passed": 1
+    },
+    {
+      "name": "no page errors",
+      "total": 1,
+      "passed": 1
+    }
+  ],
+  "matrix": {
+    "widths": [
+      1536,
+      1280,
+      390,
+      320
+    ],
+    "profiles": [
+      "full",
+      "empty",
+      "degraded"
+    ],
+    "themes": [
+      "neon",
+      "pro",
+      "light"
+    ],
+    "routes": [
+      "home",
+      "company/financials",
+      "company/valuation"
+    ],
+    "reducedMotion": "reduce"
+  },
+  "detailReport": "scripts/auditable-chart-browser-check.mjs writes all individual checks to data-cache/stage-4-1b-slice-2/browser/browser-validation.json"
+}
