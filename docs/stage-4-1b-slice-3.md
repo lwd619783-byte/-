@@ -1,8 +1,8 @@
-# Stage 4.1B / Slice 3 — F3 Research Eval Harness V1 + closeout readiness
+# Stage 4.1B / Slice 3 — F3 Research Eval Harness V1 + closeout record
 
-2026-09-17。基线：`origin/main @ 18dad3e72a9d827fb0e6aeb923bee5a4873b1054`，fetch 后精确核对；分支 `codex/stage-4-1b-f3-eval-harness-closeout`。
+2026-09-17。实现基线：`origin/main @ 18dad3e72a9d827fb0e6aeb923bee5a4873b1054`；实现分支 `codex/stage-4-1b-f3-eval-harness-closeout`。
 
-**IMPLEMENTED / VERIFIED（本地） / PENDING INDEPENDENT REVIEW。** Stage 4.1B 尚未 CLOSED；本轮不创建 PR、不 merge、不宣称 main CI。Production/data admission 没有提升。
+**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS。Stage 4.1B CLOSED。** 最终独立审计 HEAD `f4d43844cf17005bcf46c9818474acdece6b47ea`；PR #54 Hosted CI `35207107183` completed/success；merge/main `93b577d599d9a1ebf187dc4388f4bcd983916850`；main push CI `35207381240` completed/success。PR/main Hosted CI 均直接执行 `test:research-eval` 与 `research:eval:check` 并通过。Production/data admission 没有提升；正式 deterministic-service coverage 仍为 0/33，真实 Agent/LLM runtime 仍 NOT_IMPLEMENTED。
 
 ## 真实边界与架构
 
@@ -61,7 +61,7 @@ Manifest SHA-256：`d2b95cba7576174a576d4f7de19c0b168fc1e50accfae1f413929a84d4b6
 - `PASS / SEMANTIC_MISMATCH / NOT_IMPLEMENTED / EXECUTION_ERROR / INVALID_OUTPUT` 分开统计。unsupported 不执行 target；throw/rejected promise 不 fallback；非法输出不拿 expected 补字段；unknown/not_admitted/conflicted/missing_evidence 原样比较。
 - Adapter 仅收到 detached、deep-frozen 的 operation/request/input；无 expected、caseId、category、rationale 或 fixtureRef。执行、比较、报告分层；不存在 caseId→expected matcher。
 - 正式 `runResearchEval` 只认可静态 registry 中的对象身份。直接重标 reference、普通/async wrapper、bound reference、任意未注册 service/agent 都不能出具 capability report。低层 `evaluateRequest` 支持测试 double，不能将其返回的单项比较结果当作正式服务覆盖。
-- 本地复核曾用 wrapper 复现接口漏洞，现已通过 registry admission 修正，并加入反例测试。这是本地实现复核，不是 push 后独立审计。
+- 本地复核曾用 wrapper 复现接口漏洞，现已通过 registry admission 修正，并加入反例测试；随后独立审计确认 remediation PASS，P0=0/P1=0。
 
 Adapter 是审核后的可信代码；Harness **不是执行任意 JavaScript 的安全 sandbox**。未来加入 target 必须审计其真实 service imports、输入投影、证据与副作用，更新 capability matrix 和 source-boundary tests；不能只给 oracle wrapper 添加 registry 条目。未来 agent adapter 仍须遵守同一 Result 和 exact comparison，不允许模型裁决 expected。
 
@@ -76,45 +76,45 @@ npm run test:research-eval            # 专项离线测试
 node scripts/research-eval/cli.mjs --write  # 显式仅写上述 eval artifact
 ```
 
-F3 Harness 两个独立直接 gate 已接入 `.github/workflows/ci.yml`，紧邻 `Test V1 contracts offline`：`Test F3 Research Eval Harness offline` 执行 `npm run test:research-eval`，`Validate committed F3 Research Eval report` 执行 `npm run research:eval:check`。本地已验证两个 workflow 命令；CI 只检查 committed report，不执行 `--write`、不生成或覆盖报告，其他既有 steps 与门槛不变。Hosted PR CI 与 main CI 均 NOT_RUN，PR NOT_CREATED；Stage 4.1B 仍 PENDING INDEPENDENT REVIEW，P1 remediation 等待独立复审。
+F3 Harness 两个独立直接 gate 已接入 `.github/workflows/ci.yml`，紧邻 `Test V1 contracts offline`：`Test F3 Research Eval Harness offline` 执行 `npm run test:research-eval`，`Validate committed F3 Research Eval report` 执行 `npm run research:eval:check`。CI 只检查 committed report，不执行 `--write`、不生成或覆盖报告，其他既有 steps 与门槛不变。PR #54 run `35207107183` 与 merge 后 main push run `35207381240` 均直接执行这两项并 completed/success。
 
 Mismatch/error/invalid 或 artifact drift 使 CLI exit 1；NOT_IMPLEMENTED 保留 coverage 缺口，不当 FAIL，也不当 PASS。preflight/registry/artifact 错误输出 BLOCKED error envelope、exit 1，不暴露异常堆栈/本机路径/secret。报告没有 timestamp/duration；case、target、集合与 coverage 顺序稳定。无新依赖，lockfile 不变。
 
 默认离线且只读合同 fixtures/schema；不联网、不调用生产 Provider、不读个人金融记录、不访问 browser storage/Local Core、不执行 raw SQL、不改变准入。测试在禁用 network、child-process、filesystem writes、browser storage 的进程中重复执行默认 CLI，并验证输出逐字节一致。显式 `--write` 仅写 synthetic eval report，不是业务写入。
 
-## 验证与 closeout readiness
+## 验证与 closeout
 
-完整结果见 [validation.json](stage-4-1b-slice-3/validation.json)。
+功能分支本地验证的完整历史记录见 [validation.json](stage-4-1b-slice-3/validation.json)。该 JSON 保留 `LOCAL_VERIFICATION_ONLY` 时点，不回写后续 Hosted 结果。
 
-本次最小 CI remediation 基于已审计 HEAD `61d8d9c721e2e6a7b960a67b6e1a069ab61c0693`；main 基线保持不变。重跑两个 F3 命令、contracts validate/tests、应用 tests、discovery、data audit、build、diff check；已有两项 workflow 静态检查通过，并用已安装 PyYAML 解析验证新增 exact steps，移除新增两步后结构与已审计版本完全一致。原 Provider/Market Regime 等门禁和三组浏览器结果保留已审计 HEAD 的验证证据，本次未重跑；没有 UI/业务实现变化，不新增视觉验收。
+最小 CI remediation 基于已审计 HEAD `61d8d9c721e2e6a7b960a67b6e1a069ab61c0693`；最终独立审计锁定 `f4d43844cf17005bcf46c9818474acdece6b47ea`。本地重跑两个 F3 命令、contracts validate/tests、应用 tests、discovery、data audit、build、diff check；已有两项 workflow 静态检查通过。原 Provider/Market Regime 等门禁和三组浏览器结果保留初始 Slice 3 交付时的验证证据，CI remediation 未重跑浏览器；没有 UI/业务实现变化。
 
-| 验证 | 本地结果 |
+| 验证 | 最终结果 |
 | --- | --- |
-| `test:research-eval` → Hosted direct gate | 本地 45/45 PASS；冻结 roster/digest、scalar/set diff、0、错误、非法输出、状态保留、wrapper/expected/caseId 防伪、默认副作用隔离、artifact 重放；Hosted NOT_RUN |
-| `research:eval:check` → Hosted direct gate | 本地 exit 0，committed report deterministic replay PASS，无写入；Hosted NOT_RUN |
-| F1/F2/F3 contracts | contracts:validate PASS；test:contracts 106 + 78 PASS（最终 checker 改动后复跑） |
-| `npm test` | 60 files / 788 tests PASS；Slice 1 / Slice 2 全部保留 |
-| `npm run test:discovery` | PASS；保留 60 suites，负向对照仍复现 3 个 nested checkout failures |
-| 正式 gate 记录计数 | 原有 30 项 + 新增 F3 direct gates 2 项 = 32 个唯一命令；沿用原 formalGates 统计口径，应用 tests/discovery/data audit/build 仍另列，不重复计数。原 30 项先前全部 exit 0，本次其中 contracts 两项复跑；新增两项本次 exit 0 |
-| `npm run data:audit -- --no-write` | exit 0；P0=0、errors=0；24 warnings（P1=10 / P2=14）、10 skipped、35 allowlisted |
-| `npm run build` | TypeScript / Local Core typecheck / Vite / bundle gate PASS；既有 >500 kB chunk WARN 保留 |
-| Slice 1 browser | 257 checks PASS，无 failures/pageErrors |
-| Slice 2 browser | 1214 checks PASS，无 failures/pageErrors |
-| 全站 UI browser | 144 route/profile/width combinations PASS；隔离、导航、三主题、storage、下载/数据请求、business chunk 检查保留 |
-| YAML / 既有 workflow 静态检查 / `git diff --check` | PASS；YAML 结构与既有 steps 不变，仅新增两个 F3 direct gates |
+| `test:research-eval` → Hosted direct gate | 本地 45/45 PASS；PR #54 CI 与 main push CI 均 success |
+| `research:eval:check` → Hosted direct gate | 本地 deterministic replay PASS；PR #54 CI 与 main push CI 均 success |
+| F1/F2/F3 contracts | contracts:validate PASS；test:contracts 106 + 78 PASS；PR/main Hosted CI success |
+| `npm test` | 60 files / 788 tests PASS；PR/main Hosted CI success |
+| `npm run test:discovery` | PASS；PR/main Hosted CI success |
+| 正式 gate 记录计数 | 原有 30 项 + 新增 F3 direct gates 2 项 = 32 个唯一命令；应用 tests/discovery/data audit/build 仍另列，不重复计数 |
+| `npm run data:audit -- --no-write` | 本地 exit 0；P0=0、errors=0；既有 24 warnings；Hosted data audit success |
+| `npm run build` | TypeScript / Local Core typecheck / Vite / bundle gate PASS；既有 >500 kB chunk WARN 保留；PR/main Hosted build success |
+| Slice 1 browser | 257 checks PASS；沿用原已审计历史证据，CI remediation 未重跑 |
+| Slice 2 browser | 1214 checks PASS；沿用原已审计历史证据，CI remediation 未重跑 |
+| 全站 UI browser | 144 route/profile/width combinations PASS；沿用原已审计历史证据，CI remediation 未重跑 |
+| YAML / 既有 workflow 静态检查 / `git diff --check` | PASS；仅新增两个 F3 direct gates |
 
-Browser 重跑原三个脚本，使用当前 production build、已安装 Playwright + Edge、全新 synthetic context；未改 UI。原 browser scripts 中 baseline 是各 Slice 的历史基线，本次验证的实际基线以上方 Slice 3 SHA 与 validation source digests 为准。运行日志/截图在忽略目录 `data-cache/stage-4-1b-slice-3/`，本轮仅提交精简验证记录，不覆盖旧 Slice 报告。
+此前 P2 文档残句“Browser 重跑原三个脚本”已在本 closeout 记录中清理。浏览器证据来自 Slice 3 初始功能交付及既有 Slice 1/2 验证；最小 CI remediation 没有 UI 变化，因此没有重新执行视觉验收。
 
-| Stage 4.1B acceptance | 当前状态 |
+| Stage 4.1B acceptance | 最终状态 |
 | --- | --- |
-| Research Inbox / What Changed | Slice 1 已合入 PR #50；本轮回归 PASS |
+| Research Inbox / What Changed | Slice 1 已合入 PR #50；回归 PASS |
 | Evidence Drawer | Slice 1 已合入；fail-closed 展示与原业务回路回归 PASS |
 | Auditable Chart | Slice 2 已合入 PR #52；identity、缺失/冲突、PIT/admission 未证明边界回归 PASS |
 | Product Shell | Slice 2 已合入；route/navigation/storage 回归 PASS |
-| F3 Eval | Harness 实现且本地验证；Frozen V1 不变；reference 与 actual service 明确分离 |
-| 跨域 P0 correctness/security | 本轮边界复核与正式 gates 未发现必须阻塞 Stage 4.2 的新增 P0；不是全系统安全认证 |
-| Stage 4.1B closeout | **PENDING INDEPENDENT REVIEW**；最终关闭等待独立审计 → PR CI → merge → main CI |
+| F3 Eval | Harness 已合入 PR #54；Frozen V1 不变；reference 与 actual service 明确分离；两个 direct gates 在 PR/main Hosted CI 均通过 |
+| 跨域 P0 correctness/security | 独立审计及正式 gates 未发现必须阻塞 Stage 4.2 的新增 P0；不是全系统安全认证 |
+| Stage 4.1B closeout | **CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS** |
 
-Remaining：F3 wire 的四项 service adapter、通用 F2 runtime、真实 MCP/Agent 均未实现。Stage F/G normalization/PIT backtest 仍 0 READY / 23 BLOCKED，23 identity unresolved；PBC retained canary PASS 不提升 full graph/source admission；all-A NOT_ADMITTED。单 Provider、指标 coverage、PBC/CSRC/all-A admission、normalization/backtest 继续 parallel data track，不作为无限延长 Stage 4.1B 的理由。
+Remaining：F3 wire 的四项 service adapter、通用 F2 runtime、真实 MCP/Agent 均未实现。Stage F/G normalization/PIT backtest 仍 0 READY / 23 BLOCKED，23 identity unresolved；PBC retained canary PASS 不提升 full graph/source admission；all-A NOT_ADMITTED。单 Provider、指标 coverage、PBC/CSRC/all-A admission、normalization/backtest 继续 parallel data track，不作为重新打开 Stage 4.1B 的理由，除非形成新的跨域 correctness/security blocker。
 
-本轮同步 CURRENT feature registry / execution plan；因新增 Node eval data flow，补充 architecture。未改战略 roadmap、Frozen contracts、业务 owner、UI、生产数据或准入。普通 commit/push 后停止，等待独立审计。
+Stage 4.1B 关闭后，CURRENT 主开发线进入 **Stage 4.2 — Industry Data Platform**。本轮未改战略 roadmap、Frozen contracts、业务 owner、UI、生产数据或准入。
