@@ -7,7 +7,7 @@
     "data:fetch:industry": "python scripts/industry/fetch_nbs.py",
     "data:build:industry": "node scripts/industry/artifact.mjs --write",
     "data:validate:industry": "node scripts/industry/artifact.mjs",
-    "test:industry": "node --test scripts/tests/industry-metric.node.mjs && vitest run src/services/industryMetricProvider.test.ts src/components/industry/IndustryMetricPanel.test.tsx src/components/industry/IndustryTab.ui-v1.test.tsx",
+    "test:industry": "node --test scripts/tests/industry-metric.node.mjs && vitest run src/types/industryMetric.contract.test.ts src/services/industryMetricProvider.test.ts src/components/industry/IndustryMetricPanel.test.tsx src/components/industry/IndustryTab.ui-v1.test.tsx",
     "dev": "vite",
     "env:check": "node scripts/dev-health.mjs",
     "env:check:json": "node scripts/dev-health.mjs --json",

@@ -18,10 +18,20 @@ const ajv = new Ajv2020({ strict: true, strictRequired: false, allErrors: true }
 addFormats(ajv);
 ajv.addSchema(read('contracts/v1/research-asset-os.contracts.v1.schema.json'));
 ajv.addSchema(read('contracts/financial-research/v1/shared.schema.json'));
-const validate = ajv.compile(read(SCHEMA));
+ajv.addSchema(read('contracts/stage-4-1/v1/semantic-runtime.schema.json'));
+ajv.addSchema(read('contracts/stage-4-1/v2/semantic-runtime.schema.json'));
+// Structural validation only. The pilot additionally requires its reviewed plan and exact replay.
+export const validateIndustryMetric = ajv.compile(read(SCHEMA));
+
+function pilotPlan(root) {
+  // Reviewed Slice 1 owner plan, not a restriction on Industry Metric V1.
+  // Changing source, window or policy needs an explicit owner review, not just resealing artifact/binding pins.
+  requireThat(sha256(bytes(PLAN, root)) === 'f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664', 'PILOT_PLAN_DRIFT');
+  return read(PLAN, root);
+}
 
 export function buildArtifact(generatedAt, root = ROOT) {
-  const plan = read(PLAN, root), manifest = read(MANIFEST, root);
+  const plan = pilotPlan(root), manifest = read(MANIFEST, root);
   requireThat(Number.isFinite(instant(generatedAt)), 'GENERATION_TIME_REQUIRED');
   requireThat(manifest.schemaVersion === 'nbs-capture.v1' && manifest.id === 'nbs-robotics-capture-v1' && manifest.revision === '1', 'CAPTURE_IDENTITY');
   requireThat(isDeepStrictEqual(manifest.captures.map(c => ({ period: c.period, url: c.url })), plan.releases), 'CAPTURE_ROSTER');
@@ -56,13 +66,13 @@ export function buildArtifact(generatedAt, root = ROOT) {
     definitionRef: pin(PLAN, '/definition', plan.definition.id, plan.definition.revision, root),
     observations, completeness: { scope: 'declared_window_only', monthlyAvailable: observations.filter(o => o.basis === 'monthly' && o.value !== null).length, monthlyTarget: 8,
       missingMonthlyPeriods: plan.definition.missingMonthlyPeriods, historicalCoverage: 'partial' } };
-  requireThat(validate(artifact), `INDUSTRY_SCHEMA: ${ajv.errorsText(validate.errors)}`);
+  requireThat(validateIndustryMetric(artifact), `INDUSTRY_SCHEMA: ${ajv.errorsText(validateIndustryMetric.errors)}`);
   return artifact;
 }
 
 export function buildBinding(root = ROOT) {
   // Reuse the existing F1 binding contract and validator; no alternate registry or readiness algorithm.
-  const plan = read(PLAN, root);
+  const plan = pilotPlan(root);
   const fields = Object.fromEntries(Object.keys(read('contracts/financial-research/v1/examples/pbc-binding.json', root).fieldBindings).map(k => [k, null]));
   const observationFields = { metricId: 'metricId', value: 'value', unit: 'unit', reportingBasis: 'basis', observationDate: 'valueDate', publicationDate: 'publicationDateTime', releaseAvailableAt: 'releaseAvailableAt', revision: 'revision', source: 'provenance', provider: 'quality', artifact: 'provenance', transform: 'provenance', quality: 'quality', admission: 'dataAdmission' };
   for (const [role, property] of Object.entries(observationFields)) fields[role] = { ownerContract: `${SCHEMA}#/$defs/observation`, pointer: `/${property}` };

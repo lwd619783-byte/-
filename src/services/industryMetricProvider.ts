@@ -75,7 +75,7 @@ export function industryChartAudit(owner: IndustryMetricDataset, basis: Industry
       { ...row('官方来源', safeEvidenceUrl(o.provenance.evidence.sourceUrl) ? o.provenance.evidence.sourceUrl : '不可安全打开'), ...(safeEvidenceUrl(o.provenance.evidence.sourceUrl) ? { href: o.provenance.evidence.sourceUrl } : {}) },
       row('EvidenceRef（candidate，不代表正式 Evidence Graph）', JSON.stringify(o.provenance.evidence)),
       row('原始字节 SHA-256', o.provenance.rawSha256), row('Capture pin', JSON.stringify(o.provenance.captureRef)),
-      row('表格定位 / 列', `${o.provenance.locator} / ${o.provenance.column}`), row('原始行', o.provenance.rawRow.join(' | ')),
+      row('表格定位 / 列', `${o.provenance.locator} / ${o.provenance.column ?? 'unknown'}`), row('原始行', o.provenance.rawRow?.join(' | ')),
       row('PIT / data / production', `${o.pit} / ${o.dataAdmission} / ${o.productionAdmission}`),
     ] }))), linkage: null };
 }

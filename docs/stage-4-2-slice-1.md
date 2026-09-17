@@ -2,6 +2,34 @@
 
 状态：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。基线 `d50e39fcea201b1c3f139881ba7ed83d2d6d4b38`；分支 `codex/stage-4-2-industry-metric-foundation-v1`。无 PR / merge / 本分支 Hosted CI PASS 声明；DATA / PRODUCTION **NOT_ADMITTED**。
 
+## 2026-09-17 P1 remediation — reusable V1 foundation
+
+独立审计指出初版 `industry-metric.v1` 把当前机器人 pilot 事实写成通用合同永久常量。本次从已审计 HEAD `04fb2419b7ca1e43db781d93361ed6c7da87f92d` 修复，**P1 IMPLEMENTATION FIXED / VERIFIED LOCALLY / PENDING INDEPENDENT RE-AUDIT**；仍在原功能分支，main 基线不变，不新增 V2。
+
+- 通用 schema / TypeScript 支持 owner 自有 metric / industry / geography / source / unit / frequency / basis / window；期间可为年月或 ISO 日期，适用于不同频率。通用 completeness 使用既有 semantic coverage 的 `availableCount / targetCount`（允许 unknown=null）与 `missingPeriods`；原 monthly 字段组保留兼容且不能与通用组混用，不改写已留存 artifact。
+- Entity 直接引用既有 EntityRef / semantic identity seam；TypeScript 复用 `BridgeAuditEvent['entity']`，不从 metricId 拼接实体。admission、allowed/forbidden uses、conditions、revision sequence/supersedes、release 时间复用现有 semantic/shared 合同；quality 对齐 `DataQualityMeta`。revision status 由 owner 的 revisionPolicy 定义，保留 unknown；PIT 沿用 owner/chart 的 PROVEN/UNPROVED 标记，不新增证明或准入算法。结构有效不证明 resolved、PIT、revision continuity 或 allowed use。
+- `releaseAvailableAt` 可表达明确时间或 null，publication/acquired/generated 仍分离，不做填充。freshness 复用 semantic FRESH/STALE/UNKNOWN，保留初版小写 unknown；表格 column/rawRow 变为可选，JSON 等 acquisition 不再需要伪造表格定位。现有 audit projection 仅补可选字段读取，当前机器人显示行为不变。
+- 机器人精确事实继续由 `nbs-robotics-pilot.v1.json`、builder、原 parser/replay 与专项测试约束。两个 builder 均核对 reviewed plan 的 SHA-256 `f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664`；改变 owner 计划需要显式审查并同步此锚点，不能仅重新生成 artifact/binding pins 绕过。该锚点证明计划一致性，不冒充来源真实性或历史 PIT。
+- 19 类“通用 schema 合法、当前 owner 非法”的 artifact 漂移被 exact replay 拒绝；8 类计划漂移在 artifact/binding 重封装前被拒绝。测试涵盖 identity/source/unit/frequency/basis/window/missing/denominator/entity/release/PIT/revision/admission/Evidence。新增 test-only synthetic 合同用例证明季度/日/周/年度、不同单位及未来 resolved/admitted/revised/proved 字段可表达；没有进入业务数据、UI、F1/F3 输入。
+
+当前机器人 config、binding、7 份 raw、manifest、13-observation normalized artifact 与 `04fb2419` **字节不变**。`releaseAvailableAt=null`、PIT UNPROVED、revision continuity unknown、Entity UNRESOLVED、DATA/PRODUCTION NOT_ADMITTED、allowedUses=[]、Evidence candidate、chart linkage=null 全部保持。F1 binding VALID / NOT_READY，Macro normalization/backtest 各 READY 0 / BLOCKED 23；F3 reference 33/33 REFERENCE_ONLY，actual service 0/33、NOT_IMPLEMENTED 33/33。没有新增真实指标、PIT/Entity/revision closure 或 service implementation；通用合同能力不等于通用 history/UI adapter 已实现，当前运行路径仍为机器人 pilot。
+
+| 本次 remediation 验证 | 实际结果 |
+| --- | --- |
+| `test:industry` / `data:validate:industry` | 8 Node + 32 Vitest PASS；完整 schema/binding/raw replay/owner invariants PASS，7 captures / 13 observations / 月度 6/8 |
+| `contracts:validate` / `test:contracts` | PASS；106 Local Core contract tests + 78 Financial Research tests |
+| F1 bindings / runtime / readiness V1 | PASS；37 tests；未提升 readiness |
+| Stage G / PBC Evidence / readiness V2 | PASS；27 Node + 14 Python；canary PASS，full graph/source admission BLOCKED |
+| F3 tests / committed report check | 45 tests / replay PASS；Frozen service coverage 不变 |
+| `npm test` / `test:discovery` | 63 files / 812 tests PASS；discovery PASS |
+| `data:audit -- --no-write` | exit 0、errors=0、25 warnings（P1=11 / P2=14），不是零 warning |
+| `npm run build` | PASS；typecheck、Local Core browser boundary 与 bundle checks PASS；保留 >500kB chunk warning |
+| browser | 原脚本重跑 144 checks PASS、0 errors；三主题 × 1536/390/320，真实数据、basis、Evidence、navigation 与非机器人 unavailable；[P1 报告](stage-4-2-slice-1/p1-browser-report.json) |
+| `git diff --check` | PASS |
+| Hosted CI | NOT_RUN；既有 industry 离线 gate 自动包含新增测试；功能分支 push 不触发 PR/main workflow |
+
+测试开发中首次连续 DOM replay 触及 Node heap limit；在每轮完整重放间等待 closed JSDOM 的队列清理后，以默认 heap 通过，未跳过 replay 或放宽断言。synthetic Pin 的 locator 初次不符合共享合同，已改为正确 JSON pointer；最终完整测试通过。下方原始实现验证表与浏览器证据保留 `04fb2419` 时点记录，不改写为本次证据。
+
 ## 范围与审计结论
 
 仅建立工业机器人产量一项正式指标 owner，读取国家统计局公开工业生产表；Industry 原 `prosperity / stage / drivers / catalysts / risks / trend` 继续为 qualitative research context，未升级为 Provider Fact。没有评分、Regime、Thesis、组合、MCP、Agent 或第二套行业页面。
