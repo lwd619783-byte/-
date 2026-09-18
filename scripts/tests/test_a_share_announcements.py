@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import math
 import tempfile
 import unittest
@@ -29,6 +30,28 @@ def raw(announcement_id="1225417297", title="富士康工业互联网股份有�
 
 
 class AnnouncementCoreTests(unittest.TestCase):
+    def test_equal_query_window_keeps_older_retained_records_and_replays_current_ids(self):
+        spec = importlib.util.spec_from_file_location("announcement_fetch", ROOT / "scripts/fetch-a-share-announcements.py")
+        fetcher = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(fetcher)
+        old_raw = raw("1225417296", "历史普通公告")
+        old_raw["announcementTime"] = 1720656000000  # 2024-07-11, before retained query metadata.
+        old = build_announcement(old_raw, STOCK, "2026-07-11T00:00:00Z", None, [])
+        prior_current = build_announcement(raw(title="旧普通公告标题"), STOCK, "2026-07-11T00:00:00Z", None, [])
+        previous = {"dateRange": {"start": "2024-09-18", "end": "2026-09-18"}, "announcements": [prior_current, old]}
+        client = mock.Mock()
+        client.fetch_company.return_value = [raw(title="当前普通公告标题")]
+        with mock.patch.object(fetcher, "financial_periods", return_value=[]), mock.patch.object(fetcher, "now_iso", return_value="2026-09-18T05:00:00Z"):
+            detail = fetcher.fetch_one(client, STOCK, "2024-09-18", "2026-09-18", "2026-09-18T05:00:00Z", False, False, previous)
+        self.assertEqual(len(detail["announcements"]), 2)
+        by_id = {item["announcementId"]: item for item in detail["announcements"]}
+        self.assertEqual(by_id[old["announcementId"]], old)
+        self.assertEqual(by_id[prior_current["announcementId"]]["title"], "当前普通公告标题")
+        with tempfile.TemporaryDirectory() as directory:
+            summary, detail_dir, manifest = write_staged_artifacts({"fii": detail}, Path(directory), detail["generatedAt"])
+            self.assertEqual(manifest["dateRange"], {"start": "2024-07-11", "end": "2026-07-10"})
+            self.assertEqual(validate_artifacts(summary, detail_dir, {"fii"}), [])
+
     def test_normalize_title(self): self.assertEqual(normalize_title("<em>工业富联</em>  公告"), "工业富联 公告")
     def test_parse_date(self): self.assertEqual(parse_announcement_date(1783612800000)[0], "2026-07-10")
     def test_classify_forecast(self): self.assertEqual(classify_announcement("2026年半年度业绩预增公告")["category"], "performance_forecast")

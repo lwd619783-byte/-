@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "2.0.0",
+  "providerId": "cninfo-company-guidance",
+  "providerVersion": "2.0.0",
+  "generatedAt": "2026-09-18T04:59:29Z",
+  "stockId": "unitree",
+  "stockCode": "688836",
+  "companyName": "宇树科技",
+  "market": "A股",
+  "status": "missing",
+  "totalAnnouncementCount": 19,
+  "targetAnnouncements": [],
+  "providerSnapshots": [],
+  "historicalProviderVersions": [],
+  "exclusions": [],
+  "warnings": [],
+  "quality": {
+    "source": "CNInfo",
+    "sourceLayer": "company_guidance_expectations",
+    "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+    "updatedAt": "2026-09-18T04:59:29Z",
+    "status": "missing"
+  }
+}

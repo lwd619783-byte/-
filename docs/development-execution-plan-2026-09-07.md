@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-18 Slice 3 remediation CURRENT：**IMPLEMENTED / VERIFIED LOCALLY / PENDING SECOND INDEPENDENT REVIEW**。精确审计输入 `3edd80f`、main仍`086521d`；完成Unitree稳定identity上市迁移（688836.SH）、只读listing reconciliation、真实Provider补齐与产业链视觉重做。Universe60/57 A/3 H，robotics43上市；公告+19/删除0。额外必要修复：腾讯总/流通市值读反、公告equal-window刷新丢旧历史。846 tests、build、223浏览器checks和Provider validators本地PASS；旧56静态artifact数量断言更新为实际57，预算及完整性检查不变。默认refresh eligibility仍BLOCKED、Guidance cross-epoch seam仍P2 operational gap，不改冻结准入。原NBS/2 Signal/1 Event/4 readings完整保留。本轮普通push后停止，等待第二次独立审计；[完整交付](stage-4-2-slice-3.md)、[真实delta](stage-4-2-slice-3-freshness.md)。
+
 > 2026-09-18 Stage 4.2 / Slice 3：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。精确基线 `086521d6bd305ea73cb5d4a426b9d4138e4a824b`；分支 `codex/stage-4-2-slice-3-industry-events-chain-diagram`。非破坏式 NBS freshness probe、真实公司刷新验证、2 个 Derived Signal / 1 个 Industry Change Event / 4 项读数、原 Inbox 与 Industry 页、既有研究结构产业链图。NBS 最新仍为 2026-08，无新 capture；NOT_ADMITTED / F1 NOT_READY / F3 actual service 0/33 保持。交付与实际 freshness delta 见 [Slice 3](stage-4-2-slice-3.md)。本轮只普通 push，等待独立审计，不创建 PR / merge。
 
 > 2026-09-18 Slice 2 CURRENT 事实补齐：PR [#58](https://github.com/lwd619783-byte/-/pull/58) 已合入；merge/main `086521d6bd305ea73cb5d4a426b9d4138e4a824b`。PR CI [35299972640](https://github.com/lwd619783-byte/-/actions/runs/35299972640) 与 main CI [35300272837](https://github.com/lwd619783-byte/-/actions/runs/35300272837) 均 completed/success，本轮已实时核验。Slice 2 Registry / 双 metric 为 **MERGED / MAIN CI PASS**，不代表生产准入；原 Slice 2 文档保留交付时点证据。

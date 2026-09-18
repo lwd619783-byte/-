@@ -1,0 +1,13 @@
+{
+  "sourceUrl": "https://st.gtimg.com/quotes/hs-fund/bundle.13362df9.js",
+  "sourceSha256": "58ba2828754c5b5fe2db1a1c7d1c8fb35a4fa2e21c46e4b03b768a235b88db8c",
+  "sourceByteSize": 1261707,
+  "retention": "verbatim adapter excerpt; whole source fetched and hashed, not retained",
+  "excerpt": "adaptHS:function(t){var e={51:\"0\",1:\"1\",65:\"cs\"}[t[0]];return q(q({},zt),{},{five_trans:{mcjg1:t[19],mcjg2:t[21],mcjg3:t[23],mcjg4:t[25],mcjg5:t[27],mcsl1:t[20],mcsl2:t[22],mcsl3:t[24],mcsl4:t[26],mcsl5:t[28],mrjg1:t[9],mrjg2:t[11],mrjg3:t[13],mrjg4:t[15],mrjg5:t[17],mrsl1:t[10],mrsl2:t[12],mrsl3:t[14],mrsl4:t[16],mrsl5:t[18]},secu_info:{attribute:t[84],beta:t[56],ltgb:t[72],ltgb_tz:t[76],market:e,nczj:t[62],price_ceiling:t[47],price_floor:t[48],secu_code:t[2],secu_name:t[1],status:\"\"===t[40]?\"0\":t[40],stk_name:t[1],stocktype:t[61],symbol:a(e,t[2]),zdf_day20:t[70],zdf_day5:t[63],zgb:t[73]},secu_quote:{amplitude:t[43],avg_price:t[51],cje:t[57],cjl:t[36],code:t[2],dqj:t[3],dynamic_ratio:t[52],gxl:t[64],hsl:t[38],iopv:t[78],jkj:t[5],jz:t[81],lsacle:t[49],ltz:t[44],lyr_ratio:t[53],market:e,mins:t[35],npl:t[8],phcje:t[58],phcjl:t[59],share:t[72],sjl:t[46],syl:t[39],utime:ot(t[30]),wbcale:t[74],week52zdj:t[68],week52zgj:t[67],wpl:t[7],yzl:t[77],zde:t[31],zdf:t[32],zdj:t[34],zgj:t[33],zsj:t[4],zsz:t[45],hblx:t[82]}})},",
+  "mapping": {
+    "marketCap": 45,
+    "floatMarketCap": 44
+  },
+  "unit": "CNY 100 million",
+  "releaseAvailableAt": null
+}

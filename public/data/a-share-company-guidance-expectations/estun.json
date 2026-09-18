@@ -2,7 +2,7 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-09-18T03:50:45Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "stockId": "estun",
   "stockCode": "002747",
   "companyName": "埃斯顿",
@@ -107,7 +107,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-09-18T03:50:45Z",
+        "providerGeneratedAt": "2026-09-18T04:59:29Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1225424842|estun|2026-06-30|half_year|attributable_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-5ab697df42a4852a3c18bada3acec030fbfd2603f43cca8523396b4edc93e0a6",
         "providerContentChecksum": "5ab697df42a4852a3c18bada3acec030fbfd2603f43cca8523396b4edc93e0a6",
@@ -138,7 +138,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225424842",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2026-07-15/1225424842.PDF",
       "sourceDate": "2026-07-15",
-      "generatedAt": "2026-09-18T03:50:45Z",
+      "generatedAt": "2026-09-18T04:59:29Z",
       "artifactChecksum": "5ab697df42a4852a3c18bada3acec030fbfd2603f43cca8523396b4edc93e0a6",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -229,7 +229,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-09-18T03:50:45Z",
+    "updatedAt": "2026-09-18T04:59:29Z",
     "status": "partial"
   }
 }

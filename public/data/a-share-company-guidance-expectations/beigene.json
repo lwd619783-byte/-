@@ -2,7 +2,7 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-09-18T03:50:45Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "stockId": "beigene",
   "stockCode": "688235",
   "companyName": "百济神州",
@@ -18,7 +18,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-09-18T03:50:45Z",
+    "updatedAt": "2026-09-18T04:59:29Z",
     "status": "missing"
   }
 }

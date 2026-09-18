@@ -1,5 +1,48 @@
 # Stage 4.2 Slice 3 — Freshness acquisition evidence
 
+## 2026-09-18 remediation · CURRENT delta against 3edd80f
+
+本增量覆盖本轮真实获取；后文原基线 `086521d` 的运行记录保持原样。旧“Unitree未上市”仅代表错误的静态池分类，不是当时上市事实。独立上交所核验确认 2026-08-19 上市，当前唯一 identity 为 `unitree → 688836.SH`。
+
+| 项目 | committed 3edd80f | 本轮结果 / 新鲜度 |
+| --- | --- | --- |
+| Universe | 59 = 56 A + 3 H；private1 | 60 = 57 A + 3 H；private0；warnings0 |
+| robotics pool | 42 listed（40 A+2 H）+1错误private | 43 listed（41 A+2 H）；总研究对象仍43 |
+| Unitree quote | 不在 Universe，无正式 owner 数据 | `real`，499.30元，总市值2019.49亿元、流通市值150.23亿元；采集2026-09-18T13:02:03+08:00 |
+| Unitree 源报价时间 | 无 | raw string `20260918130159`；原quote合同未单列源时钟，图表as-of仍unknown，不与updatedAt或releaseAvailableAt混用 |
+| Unitree history | 无 | real，23条，2026-08-19—2026-09-18；仅最新留存日，不声称收盘终值 |
+| Unitree profile | 无 | Eastmoney F10 real；`listDate=null`，未用上交所日期填入Provider缺失字段 |
+| Unitree financial | 无 | Sina专用Provider success，9期，latestReportPeriod 2026-06-30；获取2026-09-18T04:56:39Z |
+| Unitree announcement | 无 | CNInfo success，19条，latest2026-09-03；新source epoch2026-09-18T04:59:29Z |
+| Unitree guidance | 无状态文件 | 状态missing、0 snapshots；19条公告未产生可靠指引输入，不填0预测 |
+| A quote | 56家，采集11:48:05+08:00 | 57家真实重新请求；旧56 quote有diff。市值列语义纠正，见下文 |
+| H quote及其他模块 | 3家，quote采集12:02:47+08:00 | 本轮无必要重抓，8 composite模块的H对象逐项完全不变 |
+| 专用财务 | 56家success、最新均6/30 | 增Unitree为57家success；旧56 detail无diff |
+| 专用公告 | 17080条；24success/32partial | 17099条，新增19、删除0；25success/32partial；旧56公司latest date无推进 |
+| guidance | 56状态、16公司61snapshots | 57状态、仍16公司61snapshots、0历史修订；Unitree无可靠快照；epoch/pins更新 |
+| NBS | 2026-08 LATEST_ALREADY_RETAINED | 保留前轮正式probe事实；本轮未重新抓取/未新capture，raw/owner/Registry无diff |
+
+缺失字段还包括 Unitree quote.PS / dividendYield；HK 财务/公告仍按现有能力边界未实现。provider success 并不表示每个字段完整，也不构成 Stability/Admission 通过。完整机器差分、Unitree字段和旧源逐文件SHA见 [freshness-delta.json](stage-4-2-slice-3/remediation/freshness-delta.json)。
+
+### 获取路径及本轮暴露的两项正确性修复
+
+1. `npm run data:universe` 后对 Unitree 执行 `python scripts/fetch-a-stock-data.py --stock 688836`，专用财务 `--stock 688836 --no-cache`、公告 `--stock 688836 --no-cache`。新增 A composite `--stock` 只接受唯一已有 A identity，保留其他公司与HK所有模块并对完整Universe重算coverage；不扩Universe、不改变默认refresh。Universe seed parser排除嵌套Evidence.id，避免误认额外证券。
+2. 真实 Unitree quote 暴露旧腾讯总/流通市值字段反向。腾讯[官方HS前端bundle](https://st.gtimg.com/quotes/hs-fund/bundle.13362df9.js) 的 `ltz:t[44], zsz:t[45]` 确认**44是流通、45是总市值**。修复现有parser后重新请求全部57 A quote；57份原始GBK响应、byte count/hash及官方JS摘录/整源hash保存在 `research-data/provider-probes/tencent-market-cap/2026-09-18/`。离线逐项重放与当前quotes完全一致；没有凭比例交换旧数值。
+3. 旧56 A profiles中55条仅更新同quote派生的totalShares/floatShares，F10主体及其采集clock不动；这些派生字段的本轮来源由上述quote capture记录，不能把profile的F10时间当股本观测时间。旧公司 history/legacy financial/research/announcement/signal/sector 六模块对象全部不变；仅新增Unitree对象。H全不变。
+4. 单公司公告刷新后，Guidance严格同epoch guard阻止混合epoch；为不弱化门禁，再执行现有完整57家公司CNInfo刷新。由此发现旧逻辑只在query start前进时保留历史：equal start但已留存更早公告会丢1314条。现改为每次保留旧未覆盖announcementId，新返回同ID走既有版本关联；增加equal-window专项测试。最终17099条中1314个窗口前历史对象与3edd80f逐项完全相等，窗口仍覆盖2024-07-11—2026-09-18。
+5. Guidance cross-epoch P2 **未重构**：从3edd80f提取58个旧公告源文件并逐一核对Git原始bytes/hash；旧56家公司guidance对该旧epoch校验0errors，保持旧guidance输入未变；再用现有render/staged transaction APIs生成并校验57家公司新epoch。仅跳过错误epoch下的重复旧源检查，版本图/新源/新输出完整性仍验证。当前generator `--check` PASS。61个可靠业务快照数量/值不变，source pins与workflow epoch更新，workflow bytes261595、SHA-256 `1d16143f604b64a98dbc5c1ff77cc5a1b131c8eee3ffe4e3103a6baa04b59568`。
+
+### Artifact diff 与没有变化的范围
+
+- 更新：Universe/manifest；八个composite文件新增Unitree，quotes和派生股本另有上述纠正；专用financial summary/manifest+Unitree detail；公告57 detail/summary/manifest（旧主体新获取时钟、保留历史）；guidance57状态/summary/manifest/workflow（同epoch pins重放）；Registry当前覆盖说明。
+- 没有diff：NBS全部raw、双metric artifacts和pins；Signal/Event实现；旧56专用financial detail；旧公司六类composite对象；H全部八类composite对象。没有新9月NBS指标。
+- 验证：综合行情validator0errors/1warning；财务/公告/guidance validators与guidance `--check` PASS；7 targeted quote tests、27 announcement tests、173 guidance Node tests PASS；data audit0errors/26warnings。
+- 默认 eligibility **BLOCKED**（frozen expectedCompanies56 vs actual57、观察runs=0），未修改冻结配置、默认financial/announcement eligibility、Stability或admission。P2自动cross-epoch gap、缺失profile.listDate/guidance、32公告partial保持明确；没有为新增证券虚构字段。
+
+---
+
+## 原始 Slice 3 获取记录（输入086521d，当前差分以上述remediation为准）
+
 基线：`086521d6bd305ea73cb5d4a426b9d4138e4a824b`。本文件记录 2026-09-18 的显式获取与 committed 基线之差；执行成功、数据更新与 production admission 分别记录。
 
 ## NBS 官方 freshness probe

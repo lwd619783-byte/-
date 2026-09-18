@@ -87,7 +87,9 @@ def fetch_one(client: CNInfoClient, stock: dict[str, str], start: str, end: str,
             if category in {"performance_forecast", "performance_forecast_revision", "performance_express"} and adjunct:
                 pdf_text = client.extract_pdf_text(str(raw.get("announcementId")), f"https://static.cninfo.com.cn/{adjunct}")
             records.append(build_announcement(raw, stock, fetched_at, pdf_text, periods))
-        if previous and start > (previous.get("dateRange", {}).get("start") or start):
+        # Query windows can remain equal while retained records extend before them.
+        # A refresh may revise returned IDs, but must never truncate retained history.
+        if previous:
             existing = {item["announcementId"]: item for item in previous.get("announcements", [])}
             existing.update({item["announcementId"]: item for item in records})
             records = sorted(existing.values(), key=lambda item: (item.get("announcementDate") or "", item.get("announcementId") or ""), reverse=True)

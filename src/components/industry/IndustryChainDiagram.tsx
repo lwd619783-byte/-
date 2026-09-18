@@ -4,56 +4,79 @@ import { roboticsPrivateCompanies } from '../../data/privateCompanies';
 import { industryChainTopology, industryCompanyOverlay } from '../../services/industryChain';
 import type { ChainCompany } from '../../services/industryChain';
 import { formatYi } from '../../utils/normalize';
+import { getSymbolMapping } from '../../utils/symbol';
+import { officialListingContext } from '../../services/listingIdentity';
 import './industry-chain.css';
 
 type Props = { industry: Industry; stocks: Stock[]; onOpenStock: (stock: Stock) => void; onSelectSegment: (segmentId: string) => void };
+type Placement = NonNullable<ReturnType<typeof industryChainTopology>>['nodes'][number]['companies'][number];
+
 export function IndustryChainDiagram({ industry, stocks, onOpenStock, onSelectSegment }: Props) {
   const prefix = `industry-chain-${useId().replace(/:/g, '')}`;
   const companies: ChainCompany[] = [...stocks, ...roboticsPrivateCompanies.filter(c => c.industryId === industry.id)];
   const topology = industryChainTopology(industry, companies);
+  const stockById = new Map(stocks.filter(s => s.industryId === industry.id).map(s => [s.id, s]));
+  const renderCompany = ({ company, matchedItems }: Placement) => <CompanyNode key={company.id} company={company} matchedItems={matchedItems} stock={stockById.get(company.id)} onOpenStock={onOpenStock} />;
   return <section className="industry-chain" aria-label="产业链图">
-    <header><p className="chain-eyebrow">STRUCTURE / RESEARCH CONTEXT</p><h2>产业链图 · {industry.name}</h2>
-      <p>既有研究结构；位置不表示收入权重或资金流向，也不代表直接供货关系。动态行情不会改变节点位置。</p></header>
+    <header className="chain-heading">
+      <div><p className="chain-eyebrow">INDUSTRY RESEARCH MAP</p><h2>{industry.name}产业链全景</h2><p>从环节到公司，看清研究位置与数据覆盖。</p></div>
+      {topology && <dl className="chain-counts"><div><dt>产业阶段</dt><dd>{topology.nodes.length}</dd></div><div><dt>研究细分</dt><dd>{industry.segments.length}</dd></div><div><dt>研究池公司</dt><dd>{new Set(companies.filter(c => c.industryId === industry.id).map(c => c.id)).size}</dd></div></dl>}
+    </header>
+    <div className="chain-legend"><span><i aria-hidden="true" />Structure / Research Context · 位置与归属</span><span><i aria-hidden="true" />Provider Fact · 行情、财务、公告</span><p>箭头仅表示产业阶段顺序；不表示直接供货、收入权重或资金流向。</p></div>
     {!topology ? <p role="status">结构数据 unavailable：没有可用的既有产业链，未生成图。</p> : <>
-      {(['wide', 'narrow'] as const).map(variant => {
-        const vertical = variant === 'narrow', width = vertical ? 256 : topology.nodes.length * 320;
-        const height = vertical ? topology.nodes.length * 304 : 304;
-        return <svg key={variant} className={`chain-svg chain-svg-${variant}`} viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby={`${prefix}-${variant}-title ${prefix}-${variant}-desc`}>
-          <title id={`${prefix}-${variant}-title`}>{industry.name}上中下游产业链</title>
-          <desc id={`${prefix}-${variant}-desc`}>来自既有 Industry.chain 的结构条目；节点明细中的公司位置保留研究资料等级，行情仅作覆盖信息。</desc>
-          <defs>{['arrow', 'arrow-accent', 'arrow-link'].map((name, i) => <marker key={name} id={`${prefix}-${variant}-${name}`} markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill={i === 1 ? '#eb6c36' : i === 2 ? '#2e5aa8' : '#4f5d75'} /></marker>)}</defs>
-          {topology.nodes.slice(1).map((node, index) => <line key={node.stage} x1={vertical ? 128 : index * 320 + 288} y1={vertical ? index * 304 + 280 : 144} x2={vertical ? 128 : (index + 1) * 320 + 16} y2={vertical ? (index + 1) * 304 + 16 : 144} stroke="#4f5d75" markerEnd={`url(#${prefix}-${variant}-arrow)`} />)}
-          {topology.nodes.map((node, index) => <g key={node.stage} transform={`translate(${vertical ? 8 : index * 320 + 16},${vertical ? index * 304 + 16 : 16})`}>
-            <rect width={vertical ? 240 : 272} height="264" rx="8" fill={index === 1 ? '#f9ece5' : '#f5f5f5'} stroke={index === 1 ? '#eb6c36' : '#bfc0c0'} />
-            <text x="16" y="32" fontSize="20" fontWeight="600">{node.stage}</text>
-            {node.items.map((item, i) => <text key={item} x="16" y={56 + i * 16} fontSize="12">{item}</text>)}
-            <text x="16" y="244" fontSize="12" fill="#4f5d75">{node.companies.length} 家研究池公司 · 下方展开</text>
-          </g>)}
-        </svg>;
-      })}
-      <p className="chain-legend">箭头：上中下游研究关系　｜　公司挂接：位置文字含原条目；跨环节完整保留</p>
-      <div className="chain-stage-details">{topology.nodes.map(node => <details key={node.stage} data-chain-stage={node.stage}>
-        <summary>{node.stage} · 公司与数据覆盖 <span>{node.companies.length} 家</span></summary>
-        <div className="chain-company-list">{node.companies.length ? node.companies.map(({ company, matchedItems, segment }) => <article key={company.id} data-chain-company={company.id}>
-          <CompanyLabel company={company} stock={stocks.find(s => s.id === company.id && s.industryId === industry.id)} onOpenStock={onOpenStock} />
-          <p>研究位置：{company.chainPosition} · {company.verificationStatus ?? '未标注 / unknown'}</p>
-          <p>挂接依据：{matchedItems.join('、') || node.stage}</p>
-          {segment ? <button type="button" className="chain-link" data-chain-segment={segment.id} onClick={() => onSelectSegment(segment.id)}>细分：{segment.name} →</button> : <p>细分 identity unavailable</p>}
-          {stocks.find(s => s.id === company.id && s.industryId === industry.id) ? <CompanyFacts stock={stocks.find(s => s.id === company.id && s.industryId === industry.id)!} /> : <p>未上市研究线索 · Provider Fact unavailable</p>}
-        </article>) : <p>该环节暂无可从既有位置文字精确挂接的公司。</p>}</div>
-      </details>)}</div>
-      {topology.unpositioned.length ? <details className="chain-unpositioned"><summary>位置待映射 · {topology.unpositioned.length} 家</summary><p>原位置文字未匹配图中条目，保留原文，不分配默认环节。</p>{topology.unpositioned.map(company => <p key={company.id}><CompanyLabel company={company} stock={stocks.find(s => s.id === company.id && s.industryId === industry.id)} onOpenStock={onOpenStock} /> · {company.chainPosition || 'unknown'}</p>)}</details> : null}
-      {topology.conflictedIds.length ? <p>公司 identity conflicted：{topology.conflictedIds.join('、')}，未挂接。</p> : null}
+      <div className="chain-canvas" aria-label="上中下游研究结构">
+        {topology.nodes.map((node, index) => {
+          // Group already-positioned companies by exact segment, retaining research pool order.
+          const groups = industry.segments.filter(s => s.industryId === industry.id).map(segment => ({ segment, placements: node.companies.filter(p => p.segment?.id === segment.id) })).filter(g => g.placements.length);
+          const unresolvedSegment = node.companies.filter(p => !p.segment);
+          return <section key={node.stage} data-chain-stage={node.stage} className="chain-stage" aria-labelledby={`${prefix}-stage-${index}`}>
+            <header className="chain-stage-header"><span className="chain-stage-index">{String(index + 1).padStart(2, '0')}</span><div><h3 id={`${prefix}-stage-${index}`}>{node.stage}</h3><p>{node.items.length} 个结构条目 · {node.companies.length} 家公司挂接</p></div>{index < topology.nodes.length - 1 && <span className="chain-flow-arrow" aria-hidden="true">→</span>}</header>
+            <div className="chain-segment-grid">{groups.map(({ segment, placements }) => <section key={segment.id} className="chain-segment" data-chain-group={segment.id}>
+              <header><h4><button type="button" data-chain-segment={segment.id} onClick={() => onSelectSegment(segment.id)}>{segment.name}<span aria-hidden="true">↗</span></button></h4></header>
+              <div className="chain-company-list">{placements.slice(0, 1).map(renderCompany)}</div>
+              {placements.length > 1 && <details className="chain-more"><summary>其余 {placements.length - 1} 家公司</summary><div className="chain-company-list">{placements.slice(1).map(renderCompany)}</div></details>}
+            </section>)}
+            {unresolvedSegment.length > 0 && <section className="chain-segment"><h4>细分 identity unavailable</h4>{unresolvedSegment.map(renderCompany)}</section>}
+            {!node.companies.length && <p className="chain-empty">该阶段暂无可从既有位置文字精确挂接的公司。</p>}
+            </div>
+            <div className="chain-structure-items"><p className="chain-group-kicker">原始结构条目</p><ul>{node.items.map(item => <li key={item}>{item}</li>)}</ul></div>
+          </section>;
+        })}
+      </div>
+      {topology.unpositioned.length > 0 && <details className="chain-unpositioned"><summary>位置待映射 <span>{topology.unpositioned.length} 家 · research context unresolved</span></summary><p>原位置文字未匹配图中条目；保留细分归属与原文，不分配默认阶段。</p><div className="chain-unresolved-grid">{topology.unpositioned.map(company => <article key={company.id}><CompanyLabel company={company} stock={stockById.get(company.id)} onOpenStock={onOpenStock} /><p>{industry.segments.find(s => s.id === company.segmentId && s.industryId === industry.id)?.name ?? '细分 unknown'}</p><p>{company.chainPosition || '位置 unknown'}</p></article>)}</div></details>}
+      {topology.conflictedIds.length > 0 && <p>公司 identity conflicted：{topology.conflictedIds.join('、')}，未挂接。</p>}
     </>}
-    <footer>Structure：既有 Industry.chain / company.chainPosition / segmentId。Provider Fact：下方行情、报告期和公告日期，按原始状态展示。研究位置与上市分类未因刷新获得新的验证。</footer>
+    <footer>Structure：既有 Industry.chain / company.chainPosition / segmentId；跨环节公司在相应阶段重复展示。代表节点按研究池原始顺序选取，非投资排序。Provider Fact：独立数据覆盖，刷新不改变 topology，也不提升研究资料的验证等级。</footer>
   </section>;
 }
+
 function CompanyLabel({ company, stock, onOpenStock }: { company: ChainCompany; stock?: Stock; onOpenStock: Props['onOpenStock'] }) {
-  return stock ? <button type="button" className="chain-link chain-company-name" data-stock-id={stock.id} onClick={() => onOpenStock(stock)}>{company.name} · {company.code} · {company.market}</button> : <strong>{company.name} · {company.market}</strong>;
+  return stock ? <button type="button" className="chain-company-name" data-stock-id={stock.id} onClick={() => onOpenStock(stock)}>{company.name}<span aria-hidden="true">↗</span></button> : <strong className="chain-company-name">{company.name}</strong>;
 }
+
+function CompanyNode({ company, stock, matchedItems, onOpenStock }: { company: ChainCompany; stock?: Stock; matchedItems: string[]; onOpenStock: Props['onOpenStock'] }) {
+  const fact = stock ? industryCompanyOverlay(stock) : null;
+  const listing = officialListingContext(company);
+  const mapping = stock ? getSymbolMapping(stock.id) : undefined;
+  const mappedCode = mapping?.standardSymbol.split('.')[0];
+  const sameCode = stock?.market === '港股' ? mappedCode?.padStart(5, '0') === stock.code.padStart(5, '0') : mappedCode === stock?.code;
+  const symbol = mapping && mapping.name === company.name && mapping.market === stock?.market && sameCode ? mapping.standardSymbol : company.code ?? '证券代码 unavailable';
+  const condition = (status?: string) => status && !['real', 'generated_real'].includes(status) ? ` · ${status}` : '';
+  return <article className="chain-company" data-chain-company={company.id}>
+    <div className="chain-node-heading"><CompanyLabel company={company} stock={stock} onOpenStock={onOpenStock} /><span className="chain-verification" title="原研究资料的验证状态，非 Provider admission">{company.verificationStatus ?? 'unknown'}</span></div>
+    <p className="chain-security">{symbol} · {company.market}{listing ? ` / ${listing.board}` : ''}</p>
+    <div className="chain-compact-fact"><span>市值</span><strong>{fact?.marketCap != null ? formatYi(fact.marketCap) : '暂缺'}</strong><span>{fact?.marketCap != null ? stock?.market === '港股' ? '港元' : '人民币' : ''} · {fact?.quoteStatus ?? 'unavailable'}</span></div>
+    <details className="chain-node-detail"><summary aria-label={`${company.name}数据与研究位置`}><span className="chain-periods">财报 {fact?.reportPeriod?.slice(0, 7) ?? 'unknown'}{condition(fact?.financialStatus)}<br />公告 {fact?.announcementStatus ?? 'unavailable'}</span><span aria-hidden="true">＋</span></summary>
+      <div className="chain-context"><p className="chain-group-kicker">RESEARCH CONTEXT</p><p>研究位置：{company.chainPosition}</p><p>挂接依据：{matchedItems.join('、') || company.chainPosition}</p></div>
+      {listing && <p className="chain-listing-source">上市身份 · <a href={listing.sourceUrl} target="_blank" rel="noreferrer">{listing.sourceName}正式披露 ↗</a><br />{listing.legalName} · {listing.listingDate} 上市</p>}
+      {stock ? <CompanyFacts stock={stock} /> : <p>未上市研究线索 · Provider Fact unavailable</p>}
+    </details>
+  </article>;
+}
+
 function CompanyFacts({ stock }: { stock: Stock }) {
   const fact = industryCompanyOverlay(stock);
-  return <div className="chain-facts"><p className="chain-eyebrow">PROVIDER FACT</p><dl>
+  return <div className="chain-facts"><p className="chain-group-kicker">PROVIDER FACT</p><dl>
     <div><dt>行情源 as-of</dt><dd>{fact.quoteAsOf ?? 'unknown（原 Provider 未留存）'}</dd></div>
     <div><dt>行情获取 / 更新时间</dt><dd>{fact.quoteUpdatedAt ?? 'unknown'} · {fact.quoteStatus}</dd></div>
     <div><dt>市值</dt><dd>{fact.marketCap === null ? '暂缺' : `${formatYi(fact.marketCap)} ${stock.market === 'A股' ? '人民币' : stock.market === '港股' ? '港元' : '原币'}`} · {fact.quoteSource ?? 'unavailable'}</dd></div>

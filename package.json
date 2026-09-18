@@ -118,7 +118,10 @@
     "research:eval:check": "node scripts/research-eval/cli.mjs --check",
     "test:research-eval": "node --test scripts/tests/research-eval.node.mjs",
     "data:probe:industry": "python scripts/industry/probe_nbs.py",
-    "test:industry:freshness": "python -m unittest scripts.tests.test_industry_freshness"
+    "test:industry:freshness": "python -m unittest scripts.tests.test_industry_freshness",
+    "data:probe:listing": "python scripts/listing/probe_listing.py",
+    "test:a-stock:targeted": "python -m unittest scripts.tests.test_a_stock_targeted_refresh",
+    "test:listing": "python -m unittest scripts.tests.test_listing_reconciliation && vitest run src/data/unitreeListing.test.ts src/services/listingIdentity.test.ts"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",

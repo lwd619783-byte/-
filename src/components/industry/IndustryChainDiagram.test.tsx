@@ -16,10 +16,16 @@ it('keeps exact company/segment navigation and discloses context versus facts', 
   expect(onSelectSegment).toHaveBeenCalledWith('motor-drive-control');
   expect(container.textContent).toContain('Provider Fact');
   expect(container.textContent).toContain('位置待映射');
-  for (const svg of container.querySelectorAll('svg')) {
-    expect(svg.firstElementChild?.tagName).toBe('title');
-    expect(svg.getAttribute('aria-labelledby')!.split(' ').every(id => !!document.getElementById(id))).toBe(true);
+  for (const stage of container.querySelectorAll('[data-chain-stage]')) {
+    expect(stage.getAttribute('aria-labelledby')!.split(' ').every(id => !!document.getElementById(id))).toBe(true);
   }
+  expect(container.querySelectorAll('[data-chain-stage]')).toHaveLength(3);
+  expect(container.querySelector('[data-chain-stage="下游"] [data-chain-group="robot-oem"] [data-chain-company="unitree"]')).toBeTruthy();
+  expect(container.querySelector('[data-chain-company="unitree"]')?.closest('.chain-more')).toBeNull();
+  expect(container.querySelector('[data-chain-company="unitree"]')?.textContent).toContain('688836.SH');
+  expect(container.querySelector('[data-chain-company="unitree"]')?.textContent).toContain('A股 / 科创板');
+  fireEvent.click(container.querySelector('[data-stock-id="unitree"]')!);
+  expect(onOpenStock).toHaveBeenLastCalledWith(pool.find(s => s.id === 'unitree'));
 });
 it('shows unavailable when no structural context exists', () => {
   render(<IndustryChainDiagram industry={{ ...industry, chain: [] }} stocks={pool} onOpenStock={vi.fn()} onSelectSegment={vi.fn()} />);

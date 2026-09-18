@@ -1,0 +1,379 @@
+{
+  "base": "3edd80f228a2422a917f92f9e5d112b436f3fd84",
+  "universe": {
+    "total": 60,
+    "markets": {
+      "A股": 57,
+      "港股": 3,
+      "美股": 0,
+      "未上市": 0
+    },
+    "privateCompanies": {
+      "total": 0,
+      "ids": [],
+      "includedInListedUniverse": 0
+    },
+    "warnings": []
+  },
+  "unitree": {
+    "id": "unitree",
+    "symbol": "688836.SH",
+    "quote": {
+      "id": "unitree",
+      "latestPrice": 499.3,
+      "pctChange": -0.79,
+      "amount": 12.4074,
+      "marketCap": 2019.49,
+      "floatMarketCap": 150.23,
+      "pe": 345.66,
+      "peTtm": 345.66,
+      "pb": 22.96,
+      "ps": null,
+      "dividendYield": null,
+      "turnover": 8.36,
+      "limitUp": 603.91,
+      "limitDown": 402.61,
+      "updatedAt": "2026-09-18T13:02:03+08:00",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "quote",
+        "sourceEndpoint": "Tencent qt.gtimg.cn",
+        "updatedAt": "2026-09-18T13:02:03+08:00",
+        "status": "real",
+        "sourceUrl": "https://qt.gtimg.cn/q=sh688836"
+      }
+    },
+    "quoteSourceTimestamp": "20260918130159",
+    "quoteClockSemantics": "updatedAt is batch fetch clock; raw source timestamp reported separately; releaseAvailableAt remains unknown",
+    "historyCount": 23,
+    "historyLatestDate": "2026-09-18",
+    "historyQuality": "real",
+    "profileListDate": null,
+    "profileQuality": "real",
+    "financialStatus": "success",
+    "financialReportCount": 9,
+    "financialLatestPeriod": "2026-06-30",
+    "announcementStatus": "success",
+    "announcementCount": 19,
+    "announcementLatestDate": "2026-09-03",
+    "guidanceStatus": "missing",
+    "guidanceSnapshotCount": 0
+  },
+  "announcements": {
+    "epoch": "2026-09-18T04:59:29Z",
+    "beforeCount": 17080,
+    "afterCount": 17099,
+    "added": 19,
+    "deleted": 0,
+    "retainedOlderThanQueryStartExactObjects": 1314,
+    "success": 25,
+    "partial": 32,
+    "dateRange": {
+      "start": "2024-07-11",
+      "end": "2026-09-18"
+    }
+  },
+  "guidance": {
+    "generatedAt": "2026-09-18T04:59:29Z",
+    "totalCompanies": 57,
+    "totalSnapshots": 61,
+    "companiesWithSnapshots": 16,
+    "totalHistoricalVersions": 0,
+    "workflowIndexByteSize": 261595,
+    "workflowIndexChecksumSha256": "1d16143f604b64a98dbc5c1ff77cc5a1b131c8eee3ffe4e3103a6baa04b59568"
+  },
+  "compositeDelta": {
+    "stocks": {
+      "oldCompanyChangedCount": 55,
+      "addedIds": [
+        "unitree"
+      ],
+      "hkUnchanged": true
+    },
+    "quotes": {
+      "oldCompanyChangedCount": 56,
+      "addedIds": [
+        "unitree"
+      ],
+      "hkUnchanged": true
+    },
+    "priceHistory": {
+      "oldCompanyChangedCount": 0,
+      "addedIds": [
+        "unitree"
+      ],
+      "hkUnchanged": true
+    },
+    "financials": {
+      "oldCompanyChangedCount": 0,
+      "addedIds": [
+        "unitree"
+      ],
+      "hkUnchanged": true
+    },
+    "research": {
+      "oldCompanyChangedCount": 0,
+      "addedIds": [
+        "unitree"
+      ],
+      "hkUnchanged": true
+    },
+    "announcements": {
+      "oldCompanyChangedCount": 0,
+      "addedIds": [
+        "unitree"
+      ],
+      "hkUnchanged": true
+    },
+    "signals": {
+      "oldCompanyChangedCount": 0,
+      "addedIds": [
+        "unitree"
+      ],
+      "hkUnchanged": true
+    },
+    "sectorMembership": {
+      "oldCompanyChangedCount": 0,
+      "addedIds": [
+        "unitree"
+      ],
+      "hkUnchanged": true
+    }
+  },
+  "oldAnnouncementSourceFilesVerified": [
+    {
+      "path": "public/data/a-share-announcements/asymchem.json",
+      "sha256": "bc215dcb89c1e4916b3196702ff79db1de389fabd89daa795bb3fcf91e9a629e"
+    },
+    {
+      "path": "public/data/a-share-announcements/beigene.json",
+      "sha256": "a41a0eceed166b99a32147e472018427845f5e7c65850519b414d2f8b7ad6d2c"
+    },
+    {
+      "path": "public/data/a-share-announcements/beite.json",
+      "sha256": "495054dff2ebbcd0a6ab0dacaaf852dc19863b7217e2a04032d412b213776999"
+    },
+    {
+      "path": "public/data/a-share-announcements/best.json",
+      "sha256": "66a4597ceb1a89793906e869b61e915367f8505fe95e1f40dcc283a409fa5666"
+    },
+    {
+      "path": "public/data/a-share-announcements/cm-energy.json",
+      "sha256": "c3e5854ce38e41b41f2ddace3e8eda7137b181db3a95d06eeb9f69d4ca096271"
+    },
+    {
+      "path": "public/data/a-share-announcements/cm-nanjing.json",
+      "sha256": "9b0ef12b8f7f66e34bb25acb932ded052d0032d7eb9cc30917826590efd81ca4"
+    },
+    {
+      "path": "public/data/a-share-announcements/cosco-energy.json",
+      "sha256": "ca3f5c163cdb1cd67e19fa23a79491580936ace5c24707db4a43df58c7dee3b1"
+    },
+    {
+      "path": "public/data/a-share-announcements/daimei.json",
+      "sha256": "368c30daa23d145fbe72d0813c56b00408b6c68a82c6258485374e08d3ccdf19"
+    },
+    {
+      "path": "public/data/a-share-announcements/dongli.json",
+      "sha256": "cbf7d62b901a0df6a2330ac7d2fe35714307a1256c067d638ebfa06f85e37ee9"
+    },
+    {
+      "path": "public/data/a-share-announcements/efort.json",
+      "sha256": "64347c3f606a51539a6010ad8343daccb01d9967d127687a39c99c7bb2dd6be4"
+    },
+    {
+      "path": "public/data/a-share-announcements/eoptolink.json",
+      "sha256": "8c1cccb3a593396379d6c589f39b7f9ffd35322172e020b74d7cc3fb0f02607d"
+    },
+    {
+      "path": "public/data/a-share-announcements/estun.json",
+      "sha256": "5372701c1fd99157088bc9b99a09507cf2d97b132723f823488a0d5e3fe7dd10"
+    },
+    {
+      "path": "public/data/a-share-announcements/everwin.json",
+      "sha256": "d112a0b607fcb2eb94554aedd5efe5ca6db43e7a3060fcd5040d8c611871d558"
+    },
+    {
+      "path": "public/data/a-share-announcements/fii.json",
+      "sha256": "f51d1f9150de1e2d529011387328d2dce04e3f00e93c954bd6f8cb33c3781c83"
+    },
+    {
+      "path": "public/data/a-share-announcements/fortior.json",
+      "sha256": "e9ab897ef0eff8ad031b9a3ec9d971595086355403aea9ba7bf4558eabe91fbc"
+    },
+    {
+      "path": "public/data/a-share-announcements/hanwei.json",
+      "sha256": "95fed569adb0035f6deb4f12b3d902ab28b824a82fe818bc5dbbce197e1323c7"
+    },
+    {
+      "path": "public/data/a-share-announcements/hengbo.json",
+      "sha256": "46bd42af1c5baf05ac5e7c1cc693f0960344e872b80b9e8f1ad483fb42b60c75"
+    },
+    {
+      "path": "public/data/a-share-announcements/henghui.json",
+      "sha256": "274eedf318e67baf5f50e4dec86433ee7ed23e40b718521b872fc3dce5953aab"
+    },
+    {
+      "path": "public/data/a-share-announcements/hengli-hydraulic.json",
+      "sha256": "f37643aeb70d3cfa75c13334e1e551fb71b137b16c50a58984bc80f4cba08cc1"
+    },
+    {
+      "path": "public/data/a-share-announcements/hengrui.json",
+      "sha256": "022199cdde3b85f67ba16daba8eefa8669adeece80b2ab4fe2be0aaa4a5257b0"
+    },
+    {
+      "path": "public/data/a-share-announcements/hengshuai.json",
+      "sha256": "f9751d374765097dbfc1ec01b05a0deee13b009ab2a4c4840be15e021a3a833f"
+    },
+    {
+      "path": "public/data/a-share-announcements/innolight.json",
+      "sha256": "e0281080730b84d3f154ca1bdc53e50fac36d8f3b1b0a87e81ea05c99960bc69"
+    },
+    {
+      "path": "public/data/a-share-announcements/inovance.json",
+      "sha256": "6e359cdfa8e111a6e68abd1272bb2fe50a381237c3c69bfce773455141de13b5"
+    },
+    {
+      "path": "public/data/a-share-announcements/jinwo.json",
+      "sha256": "f8b44a3b226f1695205ddd109ed552f34e2a4af06d5e0bf88d73ef062fccc2a2"
+    },
+    {
+      "path": "public/data/a-share-announcements/joyson.json",
+      "sha256": "ae1ed661d806e8bde9114a05d5a3c09cc2b272dd57828b91a43acf166e2bcb4d"
+    },
+    {
+      "path": "public/data/a-share-announcements/kaidi.json",
+      "sha256": "1b335251cb8b672a05d96fbc2c2e75c668bd781c8317ce7a45c4deb805df9a5b"
+    },
+    {
+      "path": "public/data/a-share-announcements/keboda.json",
+      "sha256": "837c9ca63f6732e336897639105df3ac9e3da794d281f08d76adbc63b514041d"
+    },
+    {
+      "path": "public/data/a-share-announcements/leaderdrive.json",
+      "sha256": "dfd5169fc7d698b688c9c4f9da20f620dc788fce322522284bfab8457761fad6"
+    },
+    {
+      "path": "public/data/a-share-announcements/leisai.json",
+      "sha256": "f0376c91344653b64304513461af76e7fa26b07817c6c0007122b1a73faded36"
+    },
+    {
+      "path": "public/data/a-share-announcements/luster.json",
+      "sha256": "47dfe369135b02e7795be608dd5e3ad4ec58235d194943bbaf457f943db1618e"
+    },
+    {
+      "path": "public/data/a-share-announcements/manifest.generated.json",
+      "sha256": "b4c75635819237b20601eb9dd838c81abca76c805b0fba157e151cf3fed37c60"
+    },
+    {
+      "path": "public/data/a-share-announcements/molding-tech.json",
+      "sha256": "b3c0b3f757acb5a082cb4a83e26af9bb2b3e8b06446c54ff7214fa608e7f582b"
+    },
+    {
+      "path": "public/data/a-share-announcements/moons.json",
+      "sha256": "1c45bf370a860b76c27c70749f4a2c3ddddaa4c9e8b880c06e9645f0b080944d"
+    },
+    {
+      "path": "public/data/a-share-announcements/nano.json",
+      "sha256": "c6ae5d53d1a3dbf34c3227df0b61e10491bb91da4aef8ff814ea913506400b70"
+    },
+    {
+      "path": "public/data/a-share-announcements/orbbec.json",
+      "sha256": "ec20fd84c3e392c9a45998e480fb5dca67fb89a07ec055a1f9ebae5543faeddd"
+    },
+    {
+      "path": "public/data/a-share-announcements/pharmaron.json",
+      "sha256": "2ea49271e9baae611d06b54875b79ffc069e79f23c4870cab26255ba162f91ac"
+    },
+    {
+      "path": "public/data/a-share-announcements/riying.json",
+      "sha256": "a4e3bf9565b7046f24e7d002c2ab4c92338a638f1185ecb662c92f07ce3eb8a1"
+    },
+    {
+      "path": "public/data/a-share-announcements/rongtai.json",
+      "sha256": "4cdd4e3d74b595f7af992a388e2b6475d50207dd639826f5e3e59051550c511d"
+    },
+    {
+      "path": "public/data/a-share-announcements/sanhua.json",
+      "sha256": "1423339b02640457fb21ba0d4eb497cf24fd23049ee0b91d23ebd9eac4d86943"
+    },
+    {
+      "path": "public/data/a-share-announcements/shennan.json",
+      "sha256": "769dbf9beba0f0bdd773716f047abc23010719357a880e7469f364ea073ba7bb"
+    },
+    {
+      "path": "public/data/a-share-announcements/shuanghuan.json",
+      "sha256": "5e0a880d5c07cfc8ecc5745306f010b4214f248af2ebcd9a4d79349fd7da4a66"
+    },
+    {
+      "path": "public/data/a-share-announcements/siasun.json",
+      "sha256": "4fd9ca8306e23821bdc9deb3c736a6977dbb29899201a8818dba9d9b88ed235e"
+    },
+    {
+      "path": "public/data/a-share-announcements/siling.json",
+      "sha256": "7906e9ee5ee683b315640762063af69f88f1b38801801901429f9df8387a8c98"
+    },
+    {
+      "path": "public/data/a-share-announcements/sugon.json",
+      "sha256": "f0b4cd5e9a179345be726bfd6b9a9a663978ac8f37df050805c7a77e0a1d884f"
+    },
+    {
+      "path": "public/data/a-share-announcements/tieliu.json",
+      "sha256": "8296d5ebd8b30f92ff3f092b5c19653b291dd6812818298669f1464ee9467321"
+    },
+    {
+      "path": "public/data/a-share-announcements/topgroup.json",
+      "sha256": "a8743eec1112203cd11cf47e37c70476a221b96f149c2201215bd5c0fbc78ac9"
+    },
+    {
+      "path": "public/data/a-share-announcements/victor-tech.json",
+      "sha256": "e8df9e24070bac7e6aecb709e0acb48fe15690af6dbdc61e092564a30bc650bb"
+    },
+    {
+      "path": "public/data/a-share-announcements/wanxiang-qc.json",
+      "sha256": "0be2ac80e79337afd7c2bb769dc9516f0d99fe10634a06054e3f7832b30cc5c6"
+    },
+    {
+      "path": "public/data/a-share-announcements/wus.json",
+      "sha256": "257b1316c56a4ae192a233138c09521056d3dea62ca22274a9b1576d9faa8e40"
+    },
+    {
+      "path": "public/data/a-share-announcements/wuxi.json",
+      "sha256": "15502e10b3b3aa9985a614c9e44b64be4ff3fde78d8b872d6a76deab8998e471"
+    },
+    {
+      "path": "public/data/a-share-announcements/wuzhou.json",
+      "sha256": "73d61dae9eb23ed74e20a9fcd5bfa202a95406f419ef6ddf459b870d7937cb8e"
+    },
+    {
+      "path": "public/data/a-share-announcements/xingyu.json",
+      "sha256": "05fa76c5f4818fd64c67f832ee3fe39a1b60c486c13e89a7d2eec56ff4728a73"
+    },
+    {
+      "path": "public/data/a-share-announcements/xinje.json",
+      "sha256": "1eeef627533b3f8afc7573e219459da5bf2fa8cd9b1a109887b32cfdc69dd6f9"
+    },
+    {
+      "path": "public/data/a-share-announcements/xinquan.json",
+      "sha256": "2bf8a279117eeda3fd2240a6efc96e86a87b420aa64e48dba32af66c39d2969a"
+    },
+    {
+      "path": "public/data/a-share-announcements/xusheng.json",
+      "sha256": "63b646c9340df05ae92f49db754b0f346d67f8881a392bf8a1a91d2748d31b46"
+    },
+    {
+      "path": "public/data/a-share-announcements/zhaomin.json",
+      "sha256": "5992e52c9b3de18ee90b38706912ae95542c1b2ea6f73f37c1730dec93f7ac86"
+    },
+    {
+      "path": "public/data/a-share-announcements/zhongda-lide.json",
+      "sha256": "85d3180017d3ad82973510cfa238c367b62f917a460a9d9c6547dd7aff389c62"
+    }
+  ],
+  "warnings": [
+    "profile listDate unavailable; reviewed SSE identity is separate source, not a Provider fallback",
+    "Guidance automatic cross-epoch operational gap remains; old 56-company artifacts verified against retained exact old source, then existing staged APIs generated/validated new57 epoch",
+    "Provider default refresh eligibility BLOCKED: frozen expectedCompanies56 vs actual57; no eligibility/admission config change",
+    "Tencent old total/float cap mapping corrected from official adapter; new57 A quotes captured, HK unchanged"
+  ]
+}

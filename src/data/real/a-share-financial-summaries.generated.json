@@ -1,24 +1,24 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-18T03:48:04Z",
+  "generatedAt": "2026-09-18T04:56:39Z",
   "provider": "Sina CompanyFinanceService",
   "providerVersion": "2022-openapi",
   "summary": {
-    "totalCompanies": 56,
-    "statusRecords": 56,
-    "successCompanies": 56,
+    "totalCompanies": 57,
+    "statusRecords": 57,
+    "successCompanies": 57,
     "partialCompanies": 0,
     "errorCompanies": 0,
-    "latestReportCoverage": 56,
-    "operatingRevenueCoverage": 56,
-    "parentNetProfitCoverage": 56,
-    "deductedNetProfitCoverage": 56,
-    "operatingCashFlowCoverage": 56,
-    "balanceSheetCoverage": 56,
-    "singleQuarterCoverage": 56,
-    "yoyCoverage": 56,
-    "qoqCoverage": 56,
-    "traceableSourceCoverage": 56,
+    "latestReportCoverage": 57,
+    "operatingRevenueCoverage": 57,
+    "parentNetProfitCoverage": 57,
+    "deductedNetProfitCoverage": 57,
+    "operatingCashFlowCoverage": 57,
+    "balanceSheetCoverage": 57,
+    "singleQuarterCoverage": 57,
+    "yoyCoverage": 57,
+    "qoqCoverage": 57,
+    "traceableSourceCoverage": 57,
     "financialIndustryCompanies": 0
   },
   "items": {
@@ -4116,6 +4116,97 @@
         "inventory": "available"
       },
       "detailPath": "data/a-share-financials/topgroup.json"
+    },
+    "unitree": {
+      "id": "unitree",
+      "stockCode": "688836",
+      "companyName": "宇树科技",
+      "market": "SH",
+      "industryType": "general",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "fetchedAt": "2026-09-18T04:56:39Z",
+      "generatedAt": "2026-09-18T04:56:39Z",
+      "lastSuccessfulFetchAt": "2026-09-18T04:56:39Z",
+      "currentFetchError": null,
+      "quality": {
+        "source": "Sina CompanyFinanceService",
+        "sourceLayer": "provider",
+        "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+        "updatedAt": "2026-09-18T04:56:39Z",
+        "status": "real"
+      },
+      "latestReportPeriod": "2026-06-30",
+      "latestReportType": "H1",
+      "latestSingleQuarter": {
+        "operatingRevenue": 729405008.29,
+        "netProfitAttributableToParent": 223986085.3,
+        "netProfitExcludingNonRecurring": 203676700,
+        "netOperatingCashFlow": 197145655.77
+      },
+      "latestChanges": {
+        "revenueYoY": {
+          "value": 0.38997695208982264,
+          "changeAmount": 204644502.59,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.7250119970514712,
+          "changeAmount": 306564466.0,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": 2.7550052898933934,
+          "changeAmount": 351613099.64,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "parentNetProfitQoQ": {
+          "value": 3.4784832602756763,
+          "changeAmount": 173972258.68,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitYoY": {
+          "value": -0.06397284889037992,
+          "changeAmount": -13920300,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": 4.059838126279389,
+          "changeAmount": 163423100,
+          "reason": null,
+          "baseSign": "positive"
+        }
+      },
+      "latestRatios": {
+        "grossMargin": 0.5461025360160815,
+        "netMargin": 0.30708054202302193,
+        "debtToAssetRatio": 0.2510706838762117,
+        "researchExpenseRatio": 0.09968853386470077
+      },
+      "latestBalanceSheet": {
+        "accountsReceivable": 120125592.02,
+        "inventory": 670671723.42
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "netOperatingCashFlow": "available",
+        "grossMargin": "available",
+        "researchExpenseRatio": "available",
+        "accountsReceivable": "available",
+        "inventory": "available"
+      },
+      "detailPath": "data/a-share-financials/unitree.json"
     },
     "victor-tech": {
       "id": "victor-tech",

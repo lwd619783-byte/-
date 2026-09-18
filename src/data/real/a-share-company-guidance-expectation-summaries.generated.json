@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-09-18T03:50:45Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "sourceArtifact": "CNInfo A-share announcement Provider V1 committed artifacts",
-  "sourceGeneratedAt": "2026-09-18T03:50:45Z",
+  "sourceGeneratedAt": "2026-09-18T04:59:29Z",
   "status": "partial",
   "audit": {
-    "totalAnnouncementCount": 17080,
-    "companyCount": 56,
+    "totalAnnouncementCount": 17099,
+    "companyCount": 57,
     "targetCompanyCount": 37,
     "previewAnnouncementCount": 90,
     "revisionAnnouncementCount": 1,
@@ -52,7 +52,7 @@
   "workflowIndex": {
     "relativePath": "data/a-share-company-guidance-expectations/workflow-index.generated.json",
     "byteSize": 261595,
-    "checksumSha256": "a47a4fdee15033e641fa572ef97d52cb15659f20a0a34a07402efc4251f1ebfd",
+    "checksumSha256": "1d16143f604b64a98dbc5c1ff77cc5a1b131c8eee3ffe4e3103a6baa04b59568",
     "currentSnapshotCount": 61
   },
   "items": {
@@ -550,6 +550,17 @@
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "detailPath": "data/a-share-company-guidance-expectations/topgroup.json"
+    },
+    "unitree": {
+      "stockId": "unitree",
+      "stockCode": "688836",
+      "companyName": "宇树科技",
+      "status": "missing",
+      "snapshotCount": 0,
+      "excludedAnnouncementCount": 0,
+      "latestReportPeriod": null,
+      "latestSourceDate": null,
+      "detailPath": "data/a-share-company-guidance-expectations/unitree.json"
     },
     "victor-tech": {
       "stockId": "victor-tech",

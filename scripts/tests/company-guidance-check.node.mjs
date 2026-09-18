@@ -13,7 +13,7 @@ test("committed-artifact check passes byte-for-byte without writing", () => with
   const before = treeDigest(root);
   const result = checkCommittedCompanyGuidanceArtifacts({ rootPath: root });
   assert.equal(result.status, "passed");
-  assert.equal(result.expectedFileCount, 59);
+  assert.equal(result.expectedFileCount, 60);
   assert.deepEqual(result.mismatches, []);
   assert.equal(treeDigest(root), before);
 }));
@@ -158,7 +158,7 @@ test("committed-artifact check reverse-enumerates an extra Provider JSON while s
   fs.writeFileSync(path.join(root, "public/data/a-share-company-guidance-expectations/orphan.json"), "{}\n", "utf8");
   const result = checkCommittedCompanyGuidanceArtifacts({ rootPath: root });
   assert.equal(result.checked, true);
-  assert.equal(result.expectedFileCount, 59);
+  assert.equal(result.expectedFileCount, 60);
   assert.ok(result.mismatches.some((item) => item.mismatchTypes.includes("extra_or_orphan_file") && item.path.endsWith("orphan.json")));
 }));
 
@@ -170,7 +170,7 @@ test("committed-artifact check reports expected bytes for a missing derived work
   const mismatch = result.mismatches.find((item) => item.mismatchTypes.includes("missing_file") && item.path.endsWith("workflow-index.generated.json"));
   assert.ok(mismatch);
   assert.equal(mismatch.expectedByteSize, 261595);
-  assert.equal(mismatch.expectedSha256, "a47a4fdee15033e641fa572ef97d52cb15659f20a0a34a07402efc4251f1ebfd");
+  assert.equal(mismatch.expectedSha256, "1d16143f604b64a98dbc5c1ff77cc5a1b131c8eee3ffe4e3103a6baa04b59568");
 }));
 
 function reliableSourceContext(root) {

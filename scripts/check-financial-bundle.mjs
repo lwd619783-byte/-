@@ -109,15 +109,15 @@ export function checkFinancialBundle(rootPath) {
   if (metrics.initialJsBytes >= BASELINE_INITIAL_JS_BYTES * 0.5) errors.push("initial JavaScript did not decrease by at least 50% from the recorded baseline");
   if (metrics.maxChunkBytes >= BASELINE_MAX_CHUNK_BYTES * 0.5) errors.push("maximum JavaScript chunk did not decrease by at least 50% from the recorded baseline");
   if (metrics.summaryBytes > 300_000) errors.push("financial summary exceeds the 300 kB synchronous-data budget");
-  if (metrics.detailFiles !== 56) errors.push(`expected 56 company detail files, found ${metrics.detailFiles}`);
+  if (metrics.detailFiles !== 57) errors.push(`expected 57 company detail files, found ${metrics.detailFiles}`);
   if (metrics.containsFullHistoryMarker) errors.push("initial JavaScript still contains full financial-history markers");
   if (metrics.announcementSummaryBytes > 1_000_000) errors.push("announcement summary exceeds the 1 MB synchronous-data budget");
-  if (metrics.announcementDetailFiles !== 56) errors.push(`expected 56 announcement detail files, found ${metrics.announcementDetailFiles}`);
+  if (metrics.announcementDetailFiles !== 57) errors.push(`expected 57 announcement detail files, found ${metrics.announcementDetailFiles}`);
   if (metrics.containsFullAnnouncementHistoryMarker) errors.push("initial JavaScript still contains full announcement-history markers");
   if (metrics.companyGuidanceSummaryBytes > 200_000) errors.push("company-guidance summary exceeds the 200 kB synchronous-data budget");
   if (metrics.companyGuidanceWorkflowBytes > 500_000) errors.push("company-guidance workflow index exceeds the 500 kB lazy-data budget");
   if (!/^[a-f0-9]{64}$/u.test(metrics.companyGuidanceWorkflowChecksum)) errors.push("company-guidance workflow index checksum missing");
-  if (metrics.companyGuidanceDetailFiles !== 56) errors.push(`expected 56 company-guidance detail files, found ${metrics.companyGuidanceDetailFiles}`);
+  if (metrics.companyGuidanceDetailFiles !== 57) errors.push(`expected 57 company-guidance detail files, found ${metrics.companyGuidanceDetailFiles}`);
   if (metrics.containsFullCompanyGuidanceDetailMarker) errors.push("initial JavaScript still contains full company-guidance detail markers");
   return { errors, metrics };
 }

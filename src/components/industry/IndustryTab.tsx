@@ -223,6 +223,7 @@ function MiniSummary({ label, value }: { label: string; value: string }) {
 }
 
 function PrivateCompanySection() {
+  if (!roboticsPrivateCompanies.length) return null;
   return (
     <DashboardCard className="p-4">
       <div className="mb-4">

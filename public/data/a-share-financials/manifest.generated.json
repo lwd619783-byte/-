@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-09-18T03:48:04Z",
+  "generatedAt": "2026-09-18T04:56:39Z",
   "provider": "Sina CompanyFinanceService",
   "providerVersion": "2022-openapi",
-  "total": 56,
-  "success": 56,
+  "total": 57,
+  "success": 57,
   "partial": 0,
   "error": 0,
   "items": [
@@ -410,6 +410,15 @@
       "relativePath": "data/a-share-financials/topgroup.json",
       "byteSize": 75823,
       "checksumSha256": "f6196c86652f4c94f29e70641eacf097ae901d858226a9882ed000af21dc5e56",
+      "latestReportPeriod": "2026-06-30",
+      "status": "success"
+    },
+    {
+      "id": "unitree",
+      "stockCode": "688836",
+      "relativePath": "data/a-share-financials/unitree.json",
+      "byteSize": 53893,
+      "checksumSha256": "afb86b9def23274a34190fc5786a181ddde402cb03470e96d5152cae0475856f",
       "latestReportPeriod": "2026-06-30",
       "status": "success"
     },

@@ -1,24 +1,95 @@
-/* Diagram Design default skin is local to this figure; no product theme changes. */
-.industry-chain { background: #f5f5f5; color: #2d3142; border: 1px solid #bfc0c0; border-radius: 8px; padding: 16px; font-family: 'Geist', 'Microsoft YaHei', sans-serif; min-width: 0; overflow-wrap: anywhere; }
-.industry-chain h2 { font-size: 20px; font-weight: 600; margin: 4px 0 8px; }
-.industry-chain p, .industry-chain footer { font-size: 12px; line-height: 1.7; }
-.industry-chain header > p, .industry-chain footer, .chain-legend { color: #4f5d75; }
-.industry-chain .chain-eyebrow { font-size: 12px; letter-spacing: .04em; }
-.industry-chain .chain-svg { width: 100%; margin-top: 16px; fill: #2d3142; }
-.chain-svg-narrow { display: none; }
-.chain-legend, .industry-chain footer { padding-top: 12px; border-top: 1px solid #bfc0c0; }
-.chain-stage-details { margin: 16px 0; display: grid; gap: 12px; }
-.industry-chain details { border: 1px solid #bfc0c0; border-radius: 4px; min-width: 0; }
-.industry-chain summary { min-height: 44px; padding: 12px; cursor: pointer; font-size: 16px; }
-.industry-chain summary span { color: #4f5d75; font-size: 12px; }
-.chain-company-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 272px), 1fr)); gap: 16px; padding: 12px; }
-.chain-company-list article { border-top: 1px solid #bfc0c0; padding-top: 12px; min-width: 0; }
-.industry-chain .chain-link { color: #2e5aa8; text-align: left; min-height: 44px; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
-.industry-chain .chain-company-name { font-size: 16px; font-weight: 600; }
-.industry-chain :focus-visible { outline: 2px solid #2e5aa8; outline-offset: 2px; }
-.chain-facts { margin-top: 8px; padding: 8px; background: #ececec; border-left: 2px solid #4f5d75; }
-.chain-facts dl { font-size: 12px; line-height: 1.7; }
-.chain-facts dt { color: #4f5d75; }
-.chain-facts dd { margin: 0 0 8px; }
-.chain-unpositioned { margin-bottom: 16px; padding: 0 12px 12px; }
-@media (max-width: 767px) { .chain-svg-wide { display: none; } .chain-svg-narrow { display: block; max-width: 320px; margin-left: auto; margin-right: auto; } }
+/* Diagram Design hierarchy, locally skinned with the existing product theme tokens. */
+.industry-chain { color:var(--ui-text); background:var(--ui-panel); border:1px solid var(--ui-border); border-radius:8px; min-width:0; overflow-wrap:anywhere; }
+.industry-chain p { margin:0; font-size:12px; line-height:1.7; }
+.chain-heading { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:24px; }
+.industry-chain .chain-eyebrow { color:var(--ui-muted); font-size:11px; letter-spacing:.13em; }
+.industry-chain h2 { font-size:26px; line-height:1.4; font-weight:650; margin:6px 0; letter-spacing:-.025em; }
+.chain-heading > div > p:last-child { color:var(--ui-muted); }
+.chain-counts { display:flex; gap:24px; margin:0; flex-shrink:0; }
+.chain-counts div { display:flex; flex-direction:column-reverse; gap:2px; }
+.chain-counts dt { color:var(--ui-muted); font-size:12px; }
+.chain-counts dd { margin:0; font-size:26px; font-variant-numeric:tabular-nums; }
+.chain-legend { display:flex; flex-wrap:wrap; gap:8px 24px; padding:12px 24px; border-block:1px solid var(--ui-border); background:var(--ui-bg); color:var(--ui-muted); font-size:12px; }
+.chain-legend > span { display:flex; align-items:center; gap:8px; }
+.chain-legend i { display:inline-block; width:9px; height:9px; border:1px solid var(--ui-muted); }
+.chain-legend > span:nth-child(2) i { border-radius:50%; background:var(--ui-muted); }
+.chain-legend > p { flex-basis:100%; }
+.chain-canvas { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(0,1fr) minmax(0,1fr); gap:20px; padding:24px 20px; align-items:stretch; }
+.chain-stage { min-width:0; background:var(--ui-bg); border-radius:6px; display:flex; flex-direction:column; }
+.chain-stage-header { display:flex; align-items:center; gap:12px; position:relative; padding:16px 12px; border-top:2px solid var(--ui-control); border-bottom:1px solid var(--ui-border); }
+.chain-stage-index { color:var(--ui-weak); font-size:24px; font-variant-numeric:tabular-nums; font-weight:300; }
+.chain-stage h3 { font-size:20px; font-weight:650; margin:0 0 2px; }
+.chain-stage-header p { color:var(--ui-muted); }
+.chain-flow-arrow { position:absolute; right:-21px; top:-18px; z-index:1; color:var(--ui-control); font-size:22px; line-height:30px; width:22px; text-align:center; }
+.chain-segment-grid { display:grid; grid-template-columns:1fr; gap:12px; padding:12px; align-items:start; }
+.chain-stage:first-child .chain-segment-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.chain-segment { border:1px solid var(--ui-border); background:var(--ui-panel); border-radius:6px; min-width:0; }
+.chain-segment > header { padding:6px 12px; border-bottom:1px solid var(--ui-border); }
+.industry-chain .chain-group-kicker { color:var(--ui-muted); font-size:10px; letter-spacing:.06em; line-height:1.6; }
+.chain-segment h4 { margin:0; font-size:14px; font-weight:600; line-height:1.5; }
+.chain-segment h4 button { display:flex; justify-content:space-between; align-items:center; gap:8px; min-height:36px; width:100%; text-align:left; }
+.chain-segment h4 button span { color:var(--ui-muted); font-weight:400; }
+.chain-company-list { display:grid; min-width:0; }
+.chain-company { padding:10px 12px; min-width:0; }
+.chain-company + .chain-company { border-top:1px solid var(--ui-border); }
+.chain-company-name { display:flex; align-items:center; justify-content:space-between; gap:8px; text-align:left; width:100%; min-height:28px; font-size:15px; font-weight:650; }
+.chain-company-name > span { color:var(--ui-muted); font-size:12px; font-weight:400; }
+.chain-node-heading { display:flex; align-items:center; gap:6px; }
+.chain-node-heading .chain-company-name { flex:1; min-width:0; }
+.chain-node-heading .chain-company-name > span { display:none; }
+.industry-chain .chain-security { font-variant-numeric:tabular-nums; color:var(--ui-muted); font-size:12px; }
+.industry-chain .chain-verification { font-size:12px; color:var(--ui-muted); white-space:nowrap; }
+.chain-compact-fact { display:flex; flex-wrap:wrap; align-items:baseline; gap:3px 6px; font-size:12px; margin-top:6px; }
+.chain-compact-fact > span { color:var(--ui-muted); }
+.chain-compact-fact strong { font-variant-numeric:tabular-nums; font-size:14px; font-weight:600; }
+.chain-compact-fact > span:last-child { font-size:12px; }
+.industry-chain details { min-width:0; }
+.industry-chain summary { cursor:pointer; min-height:44px; font-size:12px; padding:10px 0; }
+.chain-node-detail > summary { display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--ui-muted); padding:6px 0 0; margin-top:8px; border-top:1px solid var(--ui-border); }
+.chain-node-detail[open] > summary > span:last-child { transform:rotate(45deg); }
+.chain-context { padding:8px 0; border-top:1px dashed var(--ui-control); }
+.chain-facts { padding:10px; background:var(--ui-raised); border-left:2px solid var(--ui-control); }
+.chain-facts dl { font-size:12px; line-height:1.7; margin:8px 0 0; }
+.chain-facts dt { color:var(--ui-muted); }
+.chain-facts dd { margin:0 0 8px; }
+.chain-facts dl > div:last-child dd { margin:0; }
+.industry-chain .chain-periods { font-size:12px; color:var(--ui-muted); line-height:1.6; }
+.chain-listing-source { padding:8px 0; }
+.chain-listing-source a { color:var(--ui-accent); text-decoration:underline; text-underline-offset:3px; }
+.chain-more { border-top:1px solid var(--ui-border); }
+.chain-more > summary { padding:8px 12px; color:var(--ui-muted); min-height:36px; }
+.chain-more[open] > summary { border-bottom:1px solid var(--ui-border); }
+.chain-structure-items { padding:12px; margin-top:auto; }
+.chain-structure-items .chain-group-kicker { font-size:12px; }
+.chain-structure-items ul { display:flex; flex-wrap:wrap; gap:6px; padding:0; list-style:none; margin:8px 0 0; }
+.chain-structure-items li { border:1px dashed var(--ui-border); border-radius:4px; padding:4px 6px; color:var(--ui-muted); font-size:12px; }
+.chain-empty { padding:12px; color:var(--ui-muted); }
+.chain-unpositioned { margin:0 20px 20px; border:1px dashed var(--ui-control); border-radius:6px; padding:0 12px; }
+.chain-unpositioned > summary { font-size:14px; font-weight:600; }
+.chain-unpositioned > summary span { display:inline-block; font-size:12px; font-weight:400; color:var(--ui-muted); margin-left:8px; }
+.chain-unpositioned > p { color:var(--ui-muted); }
+.chain-unresolved-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr)); gap:12px; padding:12px 0; }
+.chain-unresolved-grid article { border-top:1px solid var(--ui-border); padding:8px 0; }
+.chain-unresolved-grid p { color:var(--ui-muted); }
+.industry-chain footer { border-top:1px solid var(--ui-border); padding:14px 24px; color:var(--ui-muted); font-size:12px; line-height:1.7; }
+.industry-chain button:hover { color:var(--ui-accent); }
+.industry-chain :focus-visible { outline:2px solid var(--ui-accent); outline-offset:3px; border-radius:2px; }
+.chain-company[data-chain-company="unitree"] { border-left:2px solid var(--ui-accent); background:var(--ui-selected); }
+@media(max-width:1199px) { .chain-canvas { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; padding:20px 16px; } .chain-stage:first-child .chain-segment-grid { grid-template-columns:1fr; } .chain-flow-arrow { right:-17px; width:18px; } }
+@media(max-width:767px) {
+  .chain-heading { display:block; padding:20px 16px; }
+  .industry-chain h2 { font-size:24px; }
+  .chain-counts { margin-top:16px; gap:28px; }
+  .chain-counts dd { font-size:22px; }
+  .chain-legend { padding:12px 16px; }
+  .chain-canvas { grid-template-columns:1fr; gap:36px; padding:20px 12px; }
+  .chain-stage { position:relative; }
+  .chain-stage-header { position:static; padding:16px; }
+  .chain-flow-arrow { top:auto; bottom:-32px; right:auto; left:calc(50% - 12px); transform:rotate(90deg); width:24px; }
+  .chain-stage:first-child .chain-segment-grid { grid-template-columns:1fr; }
+  .chain-unpositioned { margin:0 12px 16px; }
+  .industry-chain footer { padding:12px 16px; }
+  .chain-company-name { min-height:44px; }
+  .chain-segment h4 button, .chain-more > summary { min-height:44px; }
+}
+@media(prefers-reduced-motion:reduce) { .industry-chain *, .industry-chain *::before, .industry-chain *::after { animation:none !important; transition:none !important; } }

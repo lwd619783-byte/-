@@ -1,5 +1,50 @@
 # Stage 4.2 / Slice 3 — Freshness + Industry Signal/Event + Industry Chain Diagram
 
+## 2026-09-18 remediation · CURRENT
+
+**IMPLEMENTED / VERIFIED LOCALLY / PENDING SECOND INDEPENDENT REVIEW**。输入为已审计 `3edd80f228a2422a917f92f9e5d112b436f3fd84`；开始前 fetch 确认远端功能分支仍为该 SHA，`origin/main` 仍为 `086521d6bd305ea73cb5d4a426b9d4138e4a824b`。以下增量纠正旧实现；后文原交付记录及旧截图保留为历史证据，不代表当前 UI 或实际上市状态。
+
+### 上市身份与只读 reconciliation
+
+- 已独立获取[上交所正式上市公告](https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20260818_10829204.shtml)：宇树科技股份有限公司，证券简称宇树科技，`688836.SH`，科创板，2026-08-19 上市。27,651 原始 bytes 与 SHA-256 `8c831ef39ccb5216e113a80ae351a065ee2b1e2ec3efdc96bf3ce38be5763d64` 留存在 `config/listing-status/retained/`。
+- `unitree` identity 不变，迁入 listed stock/symbol seeds、退出当前 private 集。当前 Universe **60 = 57 A + 3 H**，robotics **43 = 41 A + 2 H**，private **0**。旧记录的“宇树未上市”是需纠正的静态身份错误，不能解释为 2026-09-18 当时真实未上市。
+- 原产品/IPO claims、原状态及未记录 source date 的事实保存在 `unitreeHistoricalResearch.ts`；当前证据明确标为迁移前 pre-IPO 研究原文，不能据此证明历史观察时点。当前 thesis、risk、tracking 不再以 IPO 为未来催化。
+- `npm run data:probe:listing` 默认只读当前 private/pre-IPO 集，不写 Universe、不扫描全市场、不新建 Entity Registry。五状态为 `UNCHANGED_PRIVATE / IPO_IN_PROGRESS / LISTED_MIGRATION_REQUIRED / IDENTITY_CONFLICT / SOURCE_UNAVAILABLE`；exact legalName/code/exchange/listingDate 验证、官方 HTTPS/redirect、结构/身份歧义均 fail closed。
+- [Live baseline](stage-4-2-slice-3/remediation/listing-probe-live.json) 与[原始 bytes replay](stage-4-2-slice-3/remediation/listing-probe-replay.json) 均检测旧 private Unitree 为 `LISTED_MIGRATION_REQUIRED`；[当前模式](stage-4-2-slice-3/remediation/listing-probe-current.json) 因 private 集为空返回 0 条，不重复告警。V1 仅解析显式配置的 SSE 科创板公告，未来其他 tracked entity 无 reviewed source 时 unavailable，不承诺自动 IPO 搜索。
+
+### 产业链全景与事实边界
+
+主要使用 `.agents/skills/diagram-design/SKILL.md`，读取 `docs/agent-skills.md` 对应边界及 style-guide / 分组流向参考；未运行 Archify、updater、profiles 或外部服务。按本轮明确要求，将图表局部语义色映射至现有三主题 tokens；未修改主题系统、字体、Skill 治理。
+
+桌面以连续主轴、阶段背景区、**10 个 exact stage/segment groups** 与 10 个直接可见代表公司挂接组成全景（跨阶段公司重复，非 unique 公司统计）；其余 24 次公司挂接按原顺序展开。上游采用双列细分，中/下游单列，所有七类既有 robotics segment 均可直接识别。宇树上市节点局部强调，展示 `688836.SH · A股 / 科创板`；市值与财报/公告状态在节点上，完整日期/source/unknown as-of/上市原公告在可键盘展开的明细中。没有公司供应链连线，也没有按市值排名或重定位。390/320 改成纵向 stage → segment → company。
+
+保留 `industryChainTopology()` 原规则和全部源条目：上游25/中游4/下游5次挂接、12家待映射不变。未定位公司仍单列原位置与 exact segment，不能为图形完整性补位置。公司/segment 按原 identity 导航。`officialListingContext()` 只呈现人工核验的交易所身份映射，严格匹配 stock 与唯一 symbol；不替代 Provider profile.listDate，不充作通用 Entity owner。
+
+| 展示信息 | 来源与性质 |
+| --- | --- |
+| stage/segment/company position、research verification | 原 Industry.chain、segmentId、chainPosition 与研究标签；仍为 Research Context |
+| Unitree code/exchange/board/listing date | 上交所正式披露 + reviewed mapping；历史上市身份事实，非研究判断、非 PIT 准入 |
+| quote/marketCap/report period/announcement date/status | exact 原 Provider owner；实时字段只覆盖节点，不进入 topology |
+
+Provider 获取结果与额外发现的腾讯市值映射、公告历史保留修复见 [CURRENT freshness delta](stage-4-2-slice-3-freshness.md)。NBS raw/两个 owner/Registry pins、2 Signal → 1 Event / 4 readings、Inbox/Evidence、YoY no-delta、unknown releaseAvailableAt 均未改变。
+
+### 本轮验证与人工入口
+
+- `test:listing`：14 Python + 6 Vitest PASS；targeted quote/raw replay：7 Python PASS；announcement：27 Python PASS；guidance Node：173 PASS。
+- Industry：8 Python + 28 Node + 60 Vitest PASS；Registry/F1 retained replay PASS，仍 `NOT_READY / NOT_ADMITTED`。
+- Full Vitest：846 tests / 69 files PASS；build、Local Core 类型边界、bundle budgets PASS；保留大 chunk warning。56→57 的 artifact 数量断言按实际 Universe 更新为严格57，未放宽比较或预算。
+- 综合行情/财务/公告/guidance validators 与 guidance `--check` PASS；数据审计 0 errors / 26 warnings；综合行情 validator 1 warning（既有凯迪股份高 PE）。默认 refresh eligibility **BLOCKED**：冻结 expectedCompanies=56 vs 当前57，且无观察 runs；配置和 admission 不变。
+- 浏览器 **223 checks / 0 runtime errors**，三主题 × 1536/390/320；19 张截图，[报告](stage-4-2-slice-3/remediation/browser-report.json)。覆盖节点直接可见、精确 Unitree/company/segment 路由、Evidence、Inbox → Industry → Chain、keyboard focus/展开、reduced motion、无横向溢出及无业务存储写入。
+- 本轮交付是结构化 React/HTML，旧 Skill SVG-only self-check 不适用：它报告“缺 accessible SVG”和正式 SSE 外链（其单图规则禁止 remote href）。未修改/放宽该脚本，也不声称此检查 PASS；实际可访问性、链接、布局由上列浏览器断言与截图验收。
+
+人工入口：[桌面全景](stage-4-2-slice-3/remediation/chain-neon-1536.png)、[light全景](stage-4-2-slice-3/remediation/chain-light-1536.png)、[390纵向图](stage-4-2-slice-3/remediation/chain-light-390.png)、[320宇树明细](stage-4-2-slice-3/remediation/unitree-pro-320.png)、[Inbox导航](stage-4-2-slice-3/remediation/inbox-to-chain.png)、[自包含静态审阅HTML](stage-4-2-slice-3/remediation/robotics-chain.html)。本地应用 Preview：`http://127.0.0.1:4173/#/industry?industry=robotics&segment=__all__`，产业链 tab 复用原页面。
+
+Remaining：Unitree profile.listDate、PS/dividendYield 缺失，guidance missing；32家公司公告 partial，12家研究位置待映射；Guidance cross-epoch 自动刷新 seam 仍是 non-blocking operational gap。本轮使用旧 epoch 精确验证 + 现有 staged transaction 完成，不重构 P2。上市事实不提升公司研究、Provider admission 或 PIT。普通 commit/push 后等待第二次独立审计；本轮 Hosted CI NOT_RUN，无 PR/merge。
+
+---
+
+## 原始 Slice 3 交付记录（3edd80f 时点，已由上述 remediation 纠正当前身份与视觉）
+
 状态：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。2026-09-18。
 
 开始前已执行 `git fetch origin`，确认 `origin/main = 086521d6bd305ea73cb5d4a426b9d4138e4a824b`，工作区干净；从该 SHA 创建 `codex/stage-4-2-slice-3-industry-events-chain-diagram`。本轮交付普通 push 后停止，不创建 PR、不合并、不提升 admission。

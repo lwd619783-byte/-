@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T12:02:47+08:00",
+  "updatedAt": "2026-09-18T12:56:00+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -2619,6 +2619,38 @@
         "updatedAt": "2026-09-18T12:02:47+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
+      }
+    },
+    "unitree": {
+      "id": "unitree",
+      "reports": [
+        {
+          "title": "新股覆盖研究：宇树科技",
+          "org": "华金证券",
+          "analyst": "李蕙,戴筝筝",
+          "date": "2026-08-12",
+          "rating": null,
+          "epsForecast": "",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=T2IlU+53Y+G/HP0CU4vsQfqbBmLk87awurR0ozkaJ94="
+        },
+        {
+          "title": "人形机器人产业化奇点已至，商业化龙头向AGI迈进",
+          "org": "东吴证券",
+          "analyst": "周尔双,陶泽",
+          "date": "2026-08-09",
+          "rating": null,
+          "epsForecast": "1.6400000000",
+          "url": "https://data.eastmoney.com/report/zw_stock.jshtml?encodeUrl=BDemoQh81svd3Qb+FVK0OZrl6Zn4iyDYbHeRj5gUfrM="
+        }
+      ],
+      "reason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "research",
+        "sourceEndpoint": "Eastmoney reportapi",
+        "updatedAt": "2026-09-18T12:56:00+08:00",
+        "status": "real",
+        "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=688836&qType=0&pageNo=1&sortType=4&sortRule=-1"
       }
     }
   }

@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "listing-status-reconciliation.v1",
+  "mode": "current",
+  "scope": "configured tracked private/pre-IPO entities only",
+  "readOnly": true,
+  "results": []
+}

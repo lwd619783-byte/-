@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T12:06:56+08:00",
+  "updatedAt": "2026-09-18T12:56:00+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -1356,6 +1356,29 @@
         "updatedAt": "2026-09-18T12:02:47+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
+      }
+    },
+    "unitree": {
+      "id": "unitree",
+      "reportDate": "2026-06-30",
+      "revenue": 11.5224555058,
+      "revenueGrowth": 48.539,
+      "netProfit": 2.7399991192,
+      "profitGrowth": 955.5949999999999,
+      "eps": 0.75,
+      "grossMargin": 56.00893336972733,
+      "netMargin": 23.77964590812072,
+      "roe": 9.51393608091959,
+      "debtRatio": 25.10706838762117,
+      "operatingCashFlow": 2.3154529896000002,
+      "updatedAt": "2026-09-18T12:56:00+08:00",
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "finance",
+        "sourceEndpoint": "Sina financial statements",
+        "updatedAt": "2026-09-18T12:56:00+08:00",
+        "status": "real",
+        "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688836&source=lrb&type=0&page=1&num=2"
       }
     }
   }

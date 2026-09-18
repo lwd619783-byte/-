@@ -39,41 +39,41 @@ const GENERATED_AT = "2026-07-11T07:31:40Z";
 const NEXT_GENERATED_AT = "2026-07-12T07:31:40Z";
 
 test("first generation is allowed when no previous Provider directory exists", () => withTempRoot((root) => {
-  createSourceArtifacts(root, 56);
+  createSourceArtifacts(root, 57);
   const paths = resolveCompanyGuidancePaths(root);
   assert.equal(fs.existsSync(paths.outputDir), false);
   const result = generateCompanyGuidanceArtifacts({ rootPath: root });
-  assert.equal(result.manifest.items.length, 56);
+  assert.equal(result.manifest.items.length, 57);
   assert.deepEqual(validateCommittedCompanyGuidanceArtifacts(root).errors, []);
 }));
 
 test("generator reads the previous Provider manifest and rejects A-to-B replacement at the same count", () => withGeneratorRoot((root) => {
   const source = sourceManifest(root);
   const removed = source.items.shift();
-  const added = sourceEntry(56);
+  const added = sourceEntry(57);
   source.items.push(added);
   writeJson(sourceManifestPath(root), source);
-  writeJson(path.join(root, "public", added.relativePath), sourceDetail(56, []));
+  writeJson(path.join(root, "public", added.relativePath), sourceDetail(57, []));
+  assert.equal(source.items.length, 57);
+  assert.throws(() => generateCompanyGuidanceArtifacts({ rootPath: root, dryRun: true }), new RegExp(`previous provider companies disappeared: ${removed.stockId}`, "u"));
+}));
+
+test("generator rejects deletion to 56 companies", () => withGeneratorRoot((root) => {
+  const source = sourceManifest(root);
+  const removed = source.items.pop();
+  writeJson(sourceManifestPath(root), source);
   assert.equal(source.items.length, 56);
   assert.throws(() => generateCompanyGuidanceArtifacts({ rootPath: root, dryRun: true }), new RegExp(`previous provider companies disappeared: ${removed.stockId}`, "u"));
 }));
 
-test("generator rejects deletion to 55 companies", () => withGeneratorRoot((root) => {
+test("generator applies the explicit 57-company product rule to addition without deletion", () => withGeneratorRoot((root) => {
   const source = sourceManifest(root);
-  const removed = source.items.pop();
-  writeJson(sourceManifestPath(root), source);
-  assert.equal(source.items.length, 55);
-  assert.throws(() => generateCompanyGuidanceArtifacts({ rootPath: root, dryRun: true }), new RegExp(`previous provider companies disappeared: ${removed.stockId}`, "u"));
-}));
-
-test("generator applies the explicit 56-company product rule to addition without deletion", () => withGeneratorRoot((root) => {
-  const source = sourceManifest(root);
-  const added = sourceEntry(56);
+  const added = sourceEntry(57);
   source.items.push(added);
   writeJson(sourceManifestPath(root), source);
-  writeJson(path.join(root, "public", added.relativePath), sourceDetail(56, []));
-  assert.equal(source.items.length, 57);
-  assert.throws(() => generateCompanyGuidanceArtifacts({ rootPath: root, dryRun: true }), /expected 56 companies, got 57/u);
+  writeJson(path.join(root, "public", added.relativePath), sourceDetail(57, []));
+  assert.equal(source.items.length, 58);
+  assert.throws(() => generateCompanyGuidanceArtifacts({ rootPath: root, dryRun: true }), /expected 57 companies, got 58/u);
 }));
 
 for (const [name, mutate, expected] of [
@@ -736,7 +736,7 @@ for (const [label, mutate] of [
 
 function withGeneratorRoot(run) {
   return withTempRoot((root) => {
-    createSourceArtifacts(root, 56);
+    createSourceArtifacts(root, 57);
     generateCompanyGuidanceArtifacts({ rootPath: root });
     return run(root);
   });

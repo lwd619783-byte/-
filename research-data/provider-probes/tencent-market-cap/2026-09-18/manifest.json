@@ -1,0 +1,577 @@
+{
+  "purpose": "Correct previously reversed Tencent total/float market cap mapping using fresh real responses",
+  "fetchedAt": "2026-09-18T13:02:03+08:00",
+  "releaseAvailableAt": null,
+  "items": [
+    {
+      "id": "sugon",
+      "symbol": "603019.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603019",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "sugon.gbk.txt",
+      "sha256": "7a98876d77d786e643f4b403209e90879314b7d0cd6a0e5ac931b86adfc622b7",
+      "bytes": 507,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "fii",
+      "symbol": "601138.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh601138",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "fii.gbk.txt",
+      "sha256": "578c11f9e0388059815d1ec7f0cf0d90765ad5f6d29a5d82ed35fe8b8ba56d8d",
+      "bytes": 516,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "eoptolink",
+      "symbol": "300502.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300502",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "eoptolink.gbk.txt",
+      "sha256": "a20e345b0fd052df5a29a5c63ae669c268e3190b20cdf3a7fe31b626e2f4e816",
+      "bytes": 524,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "innolight",
+      "symbol": "300308.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300308",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "innolight.gbk.txt",
+      "sha256": "1456916f2466f11a3eccbd4269dd14f88fe352ef5be11a0d415520f0f46e77bb",
+      "bytes": 528,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "wus",
+      "symbol": "002463.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002463",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "wus.gbk.txt",
+      "sha256": "5de658c0caea56afd29488164b6131ac95e27b4ac81adf4a1e08b93626b61423",
+      "bytes": 523,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "victor-tech",
+      "symbol": "300476.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300476",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "victor-tech.gbk.txt",
+      "sha256": "77b0755326ac8da03d0e7439ac15ef014024636154521af29a45709de302bd27",
+      "bytes": 521,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "shennan",
+      "symbol": "002916.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002916",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "shennan.gbk.txt",
+      "sha256": "7c98671c1565d49581f5ff6fa7b12267aa479c10401dff961399d35d72ce1093",
+      "bytes": 511,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "unitree",
+      "symbol": "688836.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh688836",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "unitree.gbk.txt",
+      "sha256": "3d1258728b4422a813d266fbcc3d04b0c9c02cce63b28f70553c5080c227ae8f",
+      "bytes": 547,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "siasun",
+      "symbol": "300024.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300024",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "siasun.gbk.txt",
+      "sha256": "9606185128019bdf60fef8fa7af7109fb789bf6e2a2edd374a0c3fcbcbd0d907",
+      "bytes": 523,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "estun",
+      "symbol": "002747.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002747",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "estun.gbk.txt",
+      "sha256": "b61f31198e06bbac2011907beb051851fee97b0ec32cf4a93c2d0e4fa1fdd19c",
+      "bytes": 496,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "efort",
+      "symbol": "688165.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh688165",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "efort.gbk.txt",
+      "sha256": "b5d49b8ac04117736270638cc15aa461825133a2d5194c0ad5f12c043d28ad80",
+      "bytes": 527,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "leaderdrive",
+      "symbol": "688017.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh688017",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "leaderdrive.gbk.txt",
+      "sha256": "65391bbbf9437f873b641a39f019276ecbf37edccddd4b86c6362add3f6139d5",
+      "bytes": 533,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "zhongda-lide",
+      "symbol": "002896.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002896",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "zhongda-lide.gbk.txt",
+      "sha256": "03a6f27b329af117dff7066d941b69290a3ffd608ce8e97c26c49f5497c5aa08",
+      "bytes": 490,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "shuanghuan",
+      "symbol": "002472.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002472",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "shuanghuan.gbk.txt",
+      "sha256": "802faf7f43587c32b8354912e5a80125e95da89e834bce167ce3989bd3bfda94",
+      "bytes": 486,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "siling",
+      "symbol": "301550.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz301550",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "siling.gbk.txt",
+      "sha256": "c7699803324815467a5a6c3e2531f2551fe2242c5fb7bbc57b7f95e50ecd172f",
+      "bytes": 480,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "beite",
+      "symbol": "603009.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603009",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "beite.gbk.txt",
+      "sha256": "d763ef3ce8fad97d966dc7bcde9c6637d6123d6f1ce9bbd472507df150cdda9b",
+      "bytes": 496,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "best",
+      "symbol": "300580.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300580",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "best.gbk.txt",
+      "sha256": "03ed6afcaba516f90be0ad0805bfc692ae98d4ddec2ad646f9f98eb97910c7ea",
+      "bytes": 486,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "wuzhou",
+      "symbol": "603667.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603667",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "wuzhou.gbk.txt",
+      "sha256": "f4bab1e6718c973726534597197acd4400a8765cc2bbd8dff5864b97af2a7cfc",
+      "bytes": 487,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "jinwo",
+      "symbol": "300984.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300984",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "jinwo.gbk.txt",
+      "sha256": "394d5eea35726d5b128c8cd09767dd4b91a0dc0d97f475c7db274ab0b723d760",
+      "bytes": 485,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "sanhua",
+      "symbol": "002050.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002050",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "sanhua.gbk.txt",
+      "sha256": "97676d46a9d38d87fd4055eed9bc4d7f76f9218c02b0303eedcbbf6e67471679",
+      "bytes": 505,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "topgroup",
+      "symbol": "601689.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh601689",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "topgroup.gbk.txt",
+      "sha256": "e4f96e0494e4d0671dd59e2306928e5c623c963f8651e17268682191cbb6aa03",
+      "bytes": 508,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "hengli-hydraulic",
+      "symbol": "601100.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh601100",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "hengli-hydraulic.gbk.txt",
+      "sha256": "ade98e877c070e7a0a7d4797ca1952f5b5c416096a83b3a63352b459bdd03168",
+      "bytes": 503,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "inovance",
+      "symbol": "300124.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300124",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "inovance.gbk.txt",
+      "sha256": "1364067e07a32d62d9f3275ed82718ce7e88ab2b5adf825d1c7392295c5a8bdb",
+      "bytes": 512,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "leisai",
+      "symbol": "002979.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002979",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "leisai.gbk.txt",
+      "sha256": "2a96340a180b1d73eca13ae832c7fbbb463ac9f07549669dd416cc7d63ab193c",
+      "bytes": 479,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "moons",
+      "symbol": "603728.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603728",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "moons.gbk.txt",
+      "sha256": "41b54398768ceca63cbb580ba6896b9c11753a54d6ae78ba4a50c069d9952b76",
+      "bytes": 492,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "orbbec",
+      "symbol": "688322.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh688322",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "orbbec.gbk.txt",
+      "sha256": "86a5fbc6d899695efd631c8d5acd2420c4fe6db1099d51a7ba47380af6a4625f",
+      "bytes": 510,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "hanwei",
+      "symbol": "300007.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300007",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "hanwei.gbk.txt",
+      "sha256": "6d8c4c8b5b78c3d009ef8c8fa1336fd376962e8613b6b05c7bc11509adda3fff",
+      "bytes": 493,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "hengshuai",
+      "symbol": "300969.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300969",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "hengshuai.gbk.txt",
+      "sha256": "c8a66a240fb3be22952f7f792c8b134eff444b81b963dad71ecd2dc4a4bad78a",
+      "bytes": 477,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "fortior",
+      "symbol": "688279.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh688279",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "fortior.gbk.txt",
+      "sha256": "22f760dbc50868a4d784e9aba9ce610b49d8f98acc8920af3bc30fb9945d8839",
+      "bytes": 526,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "xinje",
+      "symbol": "603416.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603416",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "xinje.gbk.txt",
+      "sha256": "9a207814593dc8f356ba9c882d10db75051142d20685f381e136c6e6b89c734c",
+      "bytes": 486,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "rongtai",
+      "symbol": "603119.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603119",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "rongtai.gbk.txt",
+      "sha256": "2ed7a636b7a3973dae5a82d54f9237409862c39e9ec41205f8546b3baa4635e5",
+      "bytes": 498,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "luster",
+      "symbol": "688400.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh688400",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "luster.gbk.txt",
+      "sha256": "f363576838d1b93b7a2ba26f285b87bf61e7973389b5b79b682bada7cfbf3936",
+      "bytes": 506,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "everwin",
+      "symbol": "300115.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300115",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "everwin.gbk.txt",
+      "sha256": "fb97dfd7867e792f883fdd28acc5ce010968cafa858083f1a2a0aa633c6011d6",
+      "bytes": 512,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "xusheng",
+      "symbol": "603305.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603305",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "xusheng.gbk.txt",
+      "sha256": "cc3fe6519fc7d2acc88151283089163523c806e62c3c695a0a80e5279b970e54",
+      "bytes": 518,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "hengbo",
+      "symbol": "301225.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz301225",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "hengbo.gbk.txt",
+      "sha256": "725f31725812cff43decde437e533f4eb7495e14eb5e8bbd24a4922e8a59f352",
+      "bytes": 479,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "xinquan",
+      "symbol": "603179.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603179",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "xinquan.gbk.txt",
+      "sha256": "0498f3e05d9188233ee37ae2a56ccbeee71ba0aa6e2cb9a9515f2d87f7f877a1",
+      "bytes": 497,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "keboda",
+      "symbol": "603786.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603786",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "keboda.gbk.txt",
+      "sha256": "11d78c7d28a69a6fa74820f1fe7b92edc238cf86748d8af019fc721c30150160",
+      "bytes": 488,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "joyson",
+      "symbol": "600699.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh600699",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "joyson.gbk.txt",
+      "sha256": "38ff1e9597e8a537bc91112d4cb6684c00f02f41174a9777c2611543d24d4d9e",
+      "bytes": 509,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "xingyu",
+      "symbol": "601799.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh601799",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "xingyu.gbk.txt",
+      "sha256": "bd57e189864fc23545ac13d88d485e7870a297ab4bb9e3ebdcdf9fa270f425f8",
+      "bytes": 494,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "riying",
+      "symbol": "603286.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603286",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "riying.gbk.txt",
+      "sha256": "4caa09bbb593ecba9418ad82d478e09086cfc1d1112410209221e1f00530bcce",
+      "bytes": 493,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "daimei",
+      "symbol": "603730.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603730",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "daimei.gbk.txt",
+      "sha256": "435191f70b7388f6c8b39b8febed60a145960aa8c4f556604ebc7000f235bbd5",
+      "bytes": 487,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "molding-tech",
+      "symbol": "000700.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz000700",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "molding-tech.gbk.txt",
+      "sha256": "0b608ced87c98562c746df1055cd16c865c946f0be45b86ce4626afe22f6f190",
+      "bytes": 504,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "wanxiang-qc",
+      "symbol": "000559.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz000559",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "wanxiang-qc.gbk.txt",
+      "sha256": "ff7167f3dffdef34bca11cc2afa776d9111c2a0637952bc7d12f1fc623914dd6",
+      "bytes": 506,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "tieliu",
+      "symbol": "603926.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603926",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "tieliu.gbk.txt",
+      "sha256": "dfde69a4889f93b728d2e7e45740da9bbb7593530ca87408267644c30de82cc4",
+      "bytes": 490,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "zhaomin",
+      "symbol": "301000.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz301000",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "zhaomin.gbk.txt",
+      "sha256": "88cb8cdef7f12e8564d1b100ecc69a932d921673f54cd94b549e7d6c86012731",
+      "bytes": 486,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "dongli",
+      "symbol": "002164.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002164",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "dongli.gbk.txt",
+      "sha256": "ee20b4e25d0925d1cd4b33ba9fab7344f75fd51375cef3bde757b2d938fc5f27",
+      "bytes": 493,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "kaidi",
+      "symbol": "605288.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh605288",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "kaidi.gbk.txt",
+      "sha256": "39a18513eb7c150768c315eac832ddf11aec03c5dd14d7d55635f1af4e62ecd5",
+      "bytes": 487,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "henghui",
+      "symbol": "300952.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300952",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "henghui.gbk.txt",
+      "sha256": "e214d83f00c937d34c0b58e299e6d0546d694c0356182d47e95d3cb2a8e656bc",
+      "bytes": 491,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "wuxi",
+      "symbol": "603259.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh603259",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "wuxi.gbk.txt",
+      "sha256": "8443d5229536c92a94f212b30d0030d58083fdc652c9e8e85e71de1a467d9f7b",
+      "bytes": 528,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "pharmaron",
+      "symbol": "300759.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz300759",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "pharmaron.gbk.txt",
+      "sha256": "96b7ab8e51e9efb41664a69491ffd1807b1f469e66eb06070cd93c0530785794",
+      "bytes": 499,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "asymchem",
+      "symbol": "002821.SZ",
+      "sourceUrl": "https://qt.gtimg.cn/q=sz002821",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "asymchem.gbk.txt",
+      "sha256": "ac9c97c78496b2d2b8b8ae9e3ac12c72fc8f27351c4198706d8186641648e0f6",
+      "bytes": 504,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "nano",
+      "symbol": "688690.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh688690",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "nano.gbk.txt",
+      "sha256": "504f27e60728f2cd34b8717ddd47dd231161d89e87b6b7df9d849e176281aaed",
+      "bytes": 516,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "hengrui",
+      "symbol": "600276.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh600276",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "hengrui.gbk.txt",
+      "sha256": "5f28026ca14ad203430d7b3ae86a7a2f66bafe7659d9fa05bb48c8d6ad57e743",
+      "bytes": 522,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "beigene",
+      "symbol": "688235.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh688235",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "beigene.gbk.txt",
+      "sha256": "c1b494e823278ceb4172e799d23b1de5042d2daff246c3598225098f702bb945",
+      "bytes": 534,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "cosco-energy",
+      "symbol": "600026.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh600026",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "cosco-energy.gbk.txt",
+      "sha256": "4bf01599ea9cac1955685502ec8f408a039a35e97f551cef890617deb6dcdcef",
+      "bytes": 513,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "cm-energy",
+      "symbol": "601872.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh601872",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "cm-energy.gbk.txt",
+      "sha256": "334a7a364f03217f12bfb45669b3b093654372f48663714794d6ad66749f933d",
+      "bytes": 522,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    },
+    {
+      "id": "cm-nanjing",
+      "symbol": "601975.SH",
+      "sourceUrl": "https://qt.gtimg.cn/q=sh601975",
+      "fetchedAt": "2026-09-18T13:02:03+08:00",
+      "path": "cm-nanjing.gbk.txt",
+      "sha256": "51d5fe0c910a9b5d248680d65a1ef68a4fab2fa356ed633c2fd5d5d11bd1c686",
+      "bytes": 509,
+      "retention": "HTTP text decoded and re-encoded as source GBK; no release availability inference"
+    }
+  ]
+}

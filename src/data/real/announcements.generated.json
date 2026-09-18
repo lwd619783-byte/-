@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T12:02:47+08:00",
+  "updatedAt": "2026-09-18T12:56:00+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -2688,6 +2688,55 @@
         "updatedAt": "2026-09-18T12:02:47+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
+      }
+    },
+    "unitree": {
+      "id": "unitree",
+      "announcements": [
+        {
+          "title": "公司章程",
+          "date": "2026-09-03",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-09-03/1225544788.PDF",
+          "source": "CNInfo"
+        },
+        {
+          "title": "关于变更注册资本、公司类型及修订《公司章程》 并办理工商变更登记的公告",
+          "date": "2026-09-03",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-09-03/1225544776.PDF",
+          "source": "CNInfo"
+        },
+        {
+          "title": "宇树科技首次公开发行股票科创板上市公告书提示性公告",
+          "date": "2026-08-18",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-08-18/1225478669.PDF",
+          "source": "CNInfo"
+        },
+        {
+          "title": "宇树科技公司章程",
+          "date": "2026-08-18",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-08-18/1225478664.PDF",
+          "source": "CNInfo"
+        },
+        {
+          "title": "宇树科技首次公开发行股票科创板上市公告书",
+          "date": "2026-08-18",
+          "type": null,
+          "url": "http://static.cninfo.com.cn/finalpage/2026-08-18/1225478658.PDF",
+          "source": "CNInfo"
+        }
+      ],
+      "reason": null,
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "announcements",
+        "sourceEndpoint": "CNInfo hisAnnouncement",
+        "updatedAt": "2026-09-18T12:56:00+08:00",
+        "status": "real",
+        "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
       }
     }
   }

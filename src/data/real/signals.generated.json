@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T12:06:56+08:00",
+  "updatedAt": "2026-09-18T12:56:00+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -2664,6 +2664,68 @@
         "updatedAt": "2026-09-18T12:02:47+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
+      }
+    },
+    "unitree": {
+      "id": "unitree",
+      "mainFundFlow5d": null,
+      "mainFundFlow20d": null,
+      "latestMainFundFlow": null,
+      "marginBalance": null,
+      "dragonTigerCount30d": null,
+      "holderChangePct": null,
+      "upcomingLockupCount": null,
+      "popularityRank": null,
+      "hotReason": "revenue growth: 48.5% | profit growth: 955.6% | valuation risk: PE TTM 345.6x | latest research: 新股覆盖研究：宇树科技",
+      "latestInteraction": "公司章程",
+      "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T12:56:00+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688836&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T12:56:00+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688836&source=lrb&type=0&page=1&num=2"
+        },
+        "valuationRisk": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-09-18T12:56:00+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688836"
+        },
+        "research": {
+          "source": "A Stock Data",
+          "sourceLayer": "research",
+          "sourceEndpoint": "Eastmoney reportapi",
+          "updatedAt": "2026-09-18T12:56:00+08:00",
+          "status": "real",
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=688836&qType=0&pageNo=1&sortType=4&sortRule=-1"
+        },
+        "announcement": {
+          "source": "A Stock Data",
+          "sourceLayer": "announcements",
+          "sourceEndpoint": "CNInfo hisAnnouncement",
+          "updatedAt": "2026-09-18T12:56:00+08:00",
+          "status": "real",
+          "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
+        }
+      },
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "signals",
+        "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
+        "updatedAt": "2026-09-18T12:56:00+08:00",
+        "status": "real"
       }
     }
   }

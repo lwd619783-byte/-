@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T12:02:47+08:00",
+  "updatedAt": "2026-09-18T12:56:00+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -1161,6 +1161,26 @@
         "updatedAt": "2026-09-18T12:02:47+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
+      }
+    },
+    "unitree": {
+      "id": "unitree",
+      "industry": [
+        {
+          "name": "机械设备-机器人-服务机器人",
+          "changePct": null,
+          "code": null,
+          "description": "Eastmoney HSF10 industry fallback"
+        }
+      ],
+      "concept": [],
+      "region": [],
+      "quality": {
+        "source": "A Stock Data",
+        "sourceLayer": "sector",
+        "sourceEndpoint": "Eastmoney HSF10 industry fallback",
+        "updatedAt": "2026-09-18T12:56:00+08:00",
+        "status": "real"
       }
     }
   }

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "listing-status-reconciliation.v1",
+  "mode": "baseline",
+  "scope": "configured tracked private/pre-IPO entities only",
+  "readOnly": true,
+  "results": [
+    {
+      "id": "unitree",
+      "baselineStatus": "未上市",
+      "baselineRef": "3edd80f228a2422a917f92f9e5d112b436f3fd84:src/data/privateCompanies.ts",
+      "status": "LISTED_MIGRATION_REQUIRED",
+      "reason": "OFFICIAL_LISTING_DIFFERS_FROM_PRIVATE_BASELINE",
+      "candidate": {
+        "id": "unitree",
+        "legalName": "宇树科技股份有限公司",
+        "name": "宇树科技",
+        "code": "688836",
+        "exchange": "SH",
+        "market": "A股",
+        "board": "科创板",
+        "listingDate": "2026-08-19"
+      },
+      "sourceUrl": "https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20260818_10829204.shtml",
+      "releaseAvailableAt": null,
+      "checkedAt": "2026-09-18T05:08:39.191322+00:00",
+      "asOf": "2026-09-18",
+      "readOnly": true,
+      "automaticMigration": false,
+      "responseUrl": "https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20260818_10829204.shtml",
+      "rawBytes": 27651,
+      "rawSha256": "8c831ef39ccb5216e113a80ae351a065ee2b1e2ec3efdc96bf3ce38be5763d64"
+    }
+  ]
+}
