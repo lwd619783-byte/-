@@ -28,7 +28,7 @@ import { isStrictPreciseInstant } from "../src/utils/strictDateTime.mjs";
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const workflowIndexName = "workflow-index.generated.json";
 const manifestName = "manifest.generated.json";
-const expectedCompanyCount = 56;
+const expectedCompanyCount = 57;
 const SAFE_PROVIDER_DETAIL_PATH = /^data\/a-share-company-guidance-expectations\/[A-Za-z0-9_-]+\.json$/u;
 const SAFE_ANNOUNCEMENT_DETAIL_PATH = /^data\/a-share-announcements\/[A-Za-z0-9_-]+\.json$/u;
 

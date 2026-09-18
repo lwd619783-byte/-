@@ -15,8 +15,8 @@
 | `amount` | `quotes` | Tencent quote | `~37` | 亿元 |
 | `turnover` | `quotes` | Tencent quote | `~38` | % |
 | `pe` / `peTtm` | `quotes` | Tencent quote | `~39` | 倍 |
-| `marketCap` | `quotes` | Tencent quote | `~44` | 亿元 |
-| `floatMarketCap` | `quotes` | Tencent quote | `~45` | 亿元 |
+| `marketCap` | `quotes` | Tencent quote | `~45` (`zsz`) | 亿元 |
+| `floatMarketCap` | `quotes` | Tencent quote | `~44` (`ltz`) | 亿元 |
 | `pb` | `quotes` | Tencent quote | `~46` | 倍 |
 | `limitUp` / `limitDown` | `quotes` | Tencent quote | `~47` / `~48` | 元 |
 
@@ -85,3 +85,7 @@
 - `real/stale` 可参与真实覆盖。
 - `missing/error/unsupported_market` 显示“数据暂缺”或明确状态。
 - 不用 mock 数字冒充真实行情。
+
+### 2026-09-18 字段映射更正
+
+Unitree 真实刷新暴露旧表和 parser 将总市值/流通市值对调。经腾讯官方页面加载的 [HS adapter](https://st.gtimg.com/quotes/hs-fund/bundle.13362df9.js) 核验：`ltz:t[44]`、`zsz:t[45]`。本轮修复 parser 并重新获取全部 57 家 A 股 quote；HK 未重抓。官方 adapter 原文摘录、完整来源 SHA-256 与实际响应留存见 `research-data/provider-probes/tencent-market-cap/2026-09-18/`，摘录不宣称完整 raw 留存。profile 中 quote 派生股本同步重算；F10 主体与其源时间保持原值。quote `updatedAt` 仍是 fetch clock，不升级为交易所行情 as-of 或 releaseAvailableAt。

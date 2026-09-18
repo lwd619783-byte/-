@@ -1,25 +1,25 @@
 {
-  "generatedAt": "2026-07-05T17:40:50.132+08:00",
-  "updatedAt": "2026-07-05T17:40:20+08:00",
+  "generatedAt": "2026-09-18T13:02:51.678+08:00",
+  "updatedAt": "2026-09-18T13:02:03+08:00",
   "status": "mixed",
   "sourceSummary": [
     "A Stock Data",
     "Tencent quote/kline",
     "Eastmoney serial fallback",
     "CNInfo metadata",
-    "yfinance HK quote/history",
-    "Generated stock universe"
+    "Generated stock universe",
+    "yfinance HK quote/history"
   ],
   "universe": {
-    "total": 59,
+    "total": 60,
     "markets": {
-      "A股": 56,
+      "A股": 57,
       "港股": 3,
       "美股": 0,
       "未上市": 0
     },
     "supported": {
-      "A股": 56,
+      "A股": 57,
       "港股": 3,
       "美股": 0,
       "未上市": 0
@@ -30,37 +30,37 @@
       "美股": 0,
       "未上市": 0
     },
-    "privateCompanies": 1,
+    "privateCompanies": 0,
     "source": "src/data/real/stock-universe.generated.json"
   },
   "coverage": {
     "quotes": {
-      "real": 56,
-      "total": 56,
+      "real": 57,
+      "total": 57,
       "pct": 100,
       "missing": [],
       "unsupported": 0,
       "unsupportedTotal": 0
     },
     "priceHistory": {
-      "real": 56,
-      "total": 56,
+      "real": 57,
+      "total": 57,
       "pct": 100,
       "missing": [],
       "unsupported": 0,
       "unsupportedTotal": 0
     },
     "financials": {
-      "real": 56,
-      "total": 56,
+      "real": 57,
+      "total": 57,
       "pct": 100,
       "missing": [],
       "unsupported": 0,
       "unsupportedTotal": 0
     },
     "profiles": {
-      "real": 56,
-      "total": 56,
+      "real": 57,
+      "total": 57,
       "pct": 100,
       "missing": [],
       "unsupported": 0,
@@ -68,22 +68,23 @@
     },
     "research": {
       "real": 50,
-      "total": 56,
-      "pct": 89.3,
+      "total": 57,
+      "pct": 87.7,
       "missing": [
         "siasun",
         "efort",
         "riying",
         "wanxiang-qc",
         "zhaomin",
-        "dongli"
+        "dongli",
+        "nano"
       ],
       "unsupported": 0,
       "unsupportedTotal": 0
     },
     "announcements": {
-      "real": 55,
-      "total": 56,
+      "real": 56,
+      "total": 57,
       "pct": 98.2,
       "missing": [
         "siasun"
@@ -92,16 +93,16 @@
       "unsupportedTotal": 0
     },
     "signals": {
-      "real": 56,
-      "total": 56,
+      "real": 57,
+      "total": 57,
       "pct": 100,
       "missing": [],
       "unsupported": 0,
       "unsupportedTotal": 0
     },
     "sectorMembership": {
-      "real": 56,
-      "total": 56,
+      "real": 57,
+      "total": 57,
       "pct": 100,
       "missing": [],
       "unsupported": 0,
@@ -168,6 +169,9 @@
       "status": "not_implemented"
     }
   },
-  "errors": [],
+  "errors": [
+    "lenovo info partial: Failed to perform, curl: (28) Connection timed out after 30006 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
+    "lenovo quote: argument of type 'NoneType' is not iterable"
+  ],
   "universeWarnings": []
 }

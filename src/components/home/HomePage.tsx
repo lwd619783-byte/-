@@ -1,4 +1,5 @@
 import { ResearchInbox } from "./ResearchInbox";
+import type { IndustryChangeEvent } from '../../services/industrySignals';
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import type { DashboardDataMode, Stock, WatchItem, ReviewTask, ResearchEvent, EarningsExpectationSnapshot } from "../../types";
@@ -25,6 +26,7 @@ interface HomeStats {
 
 interface HomePageProps {
   expectationSnapshots?: EarningsExpectationSnapshot[];
+  industryEvents?: IndustryChangeEvent[];
   timeZone?: string;
   inboxSourceNotice?: string;
   watchItems?: WatchItem[];
@@ -53,7 +55,7 @@ interface HomePageProps {
 
 
 const destinations: ResearchDestination[] = ["宏观", "行业", "个股池", "观察清单", "验证中心", "预期证据"];
-export function HomePage({ dataMode, modeLabel, updatedAt, sourceNote, coverageSummary, stats, focusStocks, quoteStocks, activeWatchCount, onNavigate, onOpenStock, now, watchItems=[], tasks=[], events=[], onStartReview, onOpenEvent, timeZone = "Asia/Shanghai", inboxSourceNotice, expectationSnapshots }: HomePageProps) {
+export function HomePage({ dataMode, modeLabel, updatedAt, sourceNote, coverageSummary, stats, focusStocks, quoteStocks, activeWatchCount, onNavigate, onOpenStock, now, watchItems=[], tasks=[], events=[], onStartReview, onOpenEvent, timeZone = "Asia/Shanghai", inboxSourceNotice, expectationSnapshots, industryEvents }: HomePageProps) {
   const displayNow=useDisplayNow(now);
   const pending=tasks.filter(task=>task.status==="pending");
   const pendingCompanies=new Set(pending.map(task=>task.watchItemId)).size;
@@ -65,7 +67,7 @@ export function HomePage({ dataMode, modeLabel, updatedAt, sourceNote, coverageS
       {selected ? <><button type="button" className="inbox-action" onClick={() => onOpenStock(selected)}>继续公司研究</button><RelatedResearchEvidence stock={selected} events={events} expectationSnapshots={expectationSnapshots} onOpenStock={onOpenStock} onOpenEvent={onOpenEvent}/></> : null}
       <button type="button" onClick={()=>onNavigate("观察清单")} className="inbox-action">打开观察清单</button>
     </>} />
-    <ResearchInbox expectationSnapshots={expectationSnapshots} events={events} tasks={tasks} watchItems={watchItems} stocks={quoteStocks} now={displayNow} timeZone={timeZone} sourceNotice={inboxSourceNotice} onOpenStock={onOpenStock} onOpenEvent={onOpenEvent} onStartReview={onStartReview} />
+    <ResearchInbox industryEvents={industryEvents} expectationSnapshots={expectationSnapshots} events={events} tasks={tasks} watchItems={watchItems} stocks={quoteStocks} now={displayNow} timeZone={timeZone} sourceNotice={inboxSourceNotice} onOpenStock={onOpenStock} onOpenEvent={onOpenEvent} onStartReview={onStartReview} />
     <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
       <KpiCard label="待复盘公司" value={pendingCompanies} description="仅统计有待处理任务的用户观察项" tone="warning"/>
       <KpiCard label="近 7 日研究事件" value={stats.recentEvents} description="当前研究事件摘要，非实时新闻" tone="info"/>

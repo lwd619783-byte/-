@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "stockId": "sanhua",
   "stockCode": "002050",
   "companyName": "三花智控",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 365,
+  "totalAnnouncementCount": 403,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1223974775",
@@ -76,7 +76,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T04:59:29Z",
     "status": "partial"
   }
 }

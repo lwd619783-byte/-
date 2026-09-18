@@ -9,7 +9,20 @@ from a_share_announcements.artifacts import validate_artifacts
 from a_share_financials.artifacts import MANIFEST_FILENAME, load_existing_split_items, validate_split_artifacts
 from a_share_financials.core import build_summary, validate_dataset
 
-from .core import load_json
+from .core import load_json, validate_config
+
+
+def expected_company_cohort(root: Path) -> tuple[list[dict[str, Any]], set[str]]:
+    """Use the reviewed gate denominator and exact current generated A-share IDs."""
+    config = load_json(root / "config/provider-stability-gate-v1.json")
+    validate_config(config)
+    universe = load_json(root / "src/data/real/stock-universe.generated.json")["items"]
+    ids = [item.get("id") for item in universe if item.get("market") == "A股"]
+    if any(not isinstance(company_id, str) or not company_id.strip() for company_id in ids) or len(ids) != len(set(ids)):
+        raise ValueError("expected A-share cohort contains missing or duplicate company identities")
+    if len(ids) != config["expectedCompanies"]:
+        raise ValueError(f"expected A-share universe {config['expectedCompanies']}, got {len(ids)}")
+    return universe, set(ids)
 
 
 def validate_financial_production(root: Path) -> dict[str, Any]:
@@ -18,15 +31,13 @@ def validate_financial_production(root: Path) -> dict[str, Any]:
     detail_dir = root / "public/data/a-share-financials"
     manifest_path = detail_dir / MANIFEST_FILENAME
     try:
-        universe = load_json(root / "src/data/real/stock-universe.generated.json")["items"]
-        expected = {item["id"] for item in universe if item.get("market") == "A股" and item.get("shouldFetchFinancials", True)}
+        universe, expected = expected_company_cohort(root)
         items = load_existing_split_items(detail_dir)
         summary = load_json(summary_path)
         errors.extend(validate_split_artifacts(summary_path, manifest_path, detail_dir, expected))
         dataset = {"items": items, "summary": build_summary(items)}
         errors.extend(validate_dataset(dataset, universe))
         if summary.get("summary") != dataset["summary"]: errors.append("summary coverage block does not match detail records")
-        if len(expected) != 56: errors.append(f"expected A-share universe 56, got {len(expected)}")
     except Exception as exc:
         errors.append(f"unable to validate financial production: {exc}")
     errors = sorted(set(errors))
@@ -36,10 +47,8 @@ def validate_financial_production(root: Path) -> dict[str, Any]:
 def validate_announcement_production(root: Path) -> dict[str, Any]:
     errors: list[str] = []
     try:
-        universe = load_json(root / "src/data/real/stock-universe.generated.json")["items"]
-        expected = {item["id"] for item in universe if item.get("market") == "A股"}
+        _, expected = expected_company_cohort(root)
         errors.extend(validate_artifacts(root / "src/data/real/a-share-announcement-summaries.generated.json", root / "public/data/a-share-announcements", expected))
-        if len(expected) != 56: errors.append(f"expected A-share universe 56, got {len(expected)}")
     except Exception as exc:
         errors.append(f"unable to validate announcement production: {exc}")
     errors = sorted(set(errors))

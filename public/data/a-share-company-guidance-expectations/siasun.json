@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "stockId": "siasun",
   "stockCode": "300024",
   "companyName": "机器人",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 180,
+  "totalAnnouncementCount": 188,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1222427516",
@@ -104,7 +104,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T04:59:29Z",
     "status": "partial"
   }
 }

@@ -2,14 +2,14 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
-  "totalCompanies": 56,
-  "companiesWithSnapshots": 15,
-  "totalSnapshots": 56,
+  "generatedAt": "2026-09-18T04:59:29Z",
+  "totalCompanies": 57,
+  "companiesWithSnapshots": 16,
+  "totalSnapshots": 61,
   "totalHistoricalVersions": 0,
   "workflowIndexRelativePath": "data/a-share-company-guidance-expectations/workflow-index.generated.json",
-  "workflowIndexByteSize": 240254,
-  "workflowIndexChecksumSha256": "a883ab1bee7da4e2bb7302445f0fa94f45bd39d190fa3060877a12e2c6db5676",
+  "workflowIndexByteSize": 261595,
+  "workflowIndexChecksumSha256": "1d16143f604b64a98dbc5c1ff77cc5a1b131c8eee3ffe4e3103a6baa04b59568",
   "items": [
     {
       "stockId": "asymchem",
@@ -20,7 +20,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 21307,
-      "checksumSha256": "9835ea470d68e51bdf916f021d4c14310fa2dcbd6201f796155eec0e7662bf78",
+      "checksumSha256": "03305d79c847a6036107b8a107d9ee5f74c9a1dbe9a1cd7a8f502e94bb8b13c6",
       "latestReportPeriod": "2024-12-31",
       "latestSourceDate": "2025-01-28",
       "status": "generated_real"
@@ -34,7 +34,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 666,
-      "checksumSha256": "88bc3f16cce0f256f4e2a2154da099a137560165518ffdfeecba96de9e8e2d97",
+      "checksumSha256": "53a0fe542da58192370d1afbd5613619f1c3f0d9432e4678bbea34d36e2eef32",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -48,7 +48,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 5931,
-      "checksumSha256": "e99e162880d3c3423c93a2450145346eb2a81deec613e7bd48984505d92c93fb",
+      "checksumSha256": "c755d43631ea7fb5014622d5d02f59942e0d560aa352402262570dc15e1e1dd8",
       "latestReportPeriod": "2025-12-31",
       "latestSourceDate": "2026-01-27",
       "status": "generated_real"
@@ -62,7 +62,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 660,
-      "checksumSha256": "5fd0890ef588e05c20648c262b28afcf7baafeb00c590b92080d0307922d9be1",
+      "checksumSha256": "9e11acdd18cece89435c7919df52d942f860039a81e32eb8e1864c58c592c3f5",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -76,7 +76,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 2576,
-      "checksumSha256": "c11cd3e8bf5cf20ca37b28ae51fe196830062b5a17647163de48c1850e63c3f7",
+      "checksumSha256": "bd7770337188a3ad63f446a8555e1cf86105f3dddb0fadf1a0a6fe137cd261c7",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -90,7 +90,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 5978,
-      "checksumSha256": "d96ec3ec869786f5ee7488e5c775121865a95608cd14df90ae6ad16b0dca5866",
+      "checksumSha256": "64a448dcef999a23384f74688d31483754f63c0a80f6b210de59b71d6b5ee207",
       "latestReportPeriod": "2025-06-30",
       "latestSourceDate": "2025-07-08",
       "status": "generated_real"
@@ -104,7 +104,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 2599,
-      "checksumSha256": "3bfb397bdd692d6785d9849c52fdb5ee53eeb322d3e2c325bd29a99d8dfbd717",
+      "checksumSha256": "e5ce99954056a3466978d9be7a38530f02c4aa53707fdfeaf1599141b4ebee0b",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -118,7 +118,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 10969,
-      "checksumSha256": "404282ddaca8c8f299642cb1c34e1091dea407ef47fda196662bb2fe139ee725",
+      "checksumSha256": "4604078ba6cfbb852b8975eb1f28191e02aca21d8cdbe5465550d612266a125e",
       "latestReportPeriod": "2026-06-30",
       "latestSourceDate": "2026-07-10",
       "status": "generated_real"
@@ -128,13 +128,13 @@
       "stockCode": "002164",
       "companyName": "宁波东力",
       "relativePath": "data/a-share-company-guidance-expectations/dongli.json",
-      "snapshotCount": 2,
+      "snapshotCount": 4,
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
-      "byteSize": 10896,
-      "checksumSha256": "4fb2f5b89a67e1041141a68e2c712b8c116ca5ceccb5fb4c12f042d2d0bd6c31",
-      "latestReportPeriod": "2025-12-31",
-      "latestSourceDate": "2026-01-27",
+      "byteSize": 21109,
+      "checksumSha256": "d328db49465ae8307934aa2c017205dfabffdc985b5a60b2dc6660d79361eda1",
+      "latestReportPeriod": "2026-06-30",
+      "latestSourceDate": "2026-07-15",
       "status": "generated_real"
     },
     {
@@ -146,7 +146,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 21131,
-      "checksumSha256": "57c9986cf868fc4a93e4316838959af31f226f943be35061ad88ee9c5fc3b214",
+      "checksumSha256": "5bceda42f36ecd2debc136695f86b7095569210ee34a0499ace583a0ce3c17fd",
       "latestReportPeriod": "2025-12-31",
       "latestSourceDate": "2026-01-27",
       "status": "generated_real"
@@ -158,9 +158,9 @@
       "relativePath": "data/a-share-company-guidance-expectations/eoptolink.json",
       "snapshotCount": 2,
       "historicalVersionCount": 0,
-      "excludedAnnouncementCount": 2,
-      "byteSize": 13115,
-      "checksumSha256": "9dc9c0a6d38c6a71ace3143dd9a1fdd4ef86dcc6677619feac023b70c11ae39a",
+      "excludedAnnouncementCount": 3,
+      "byteSize": 14084,
+      "checksumSha256": "517a423208a4da14d1f969c8aab67049ae38911cc35e403b1422046bed43a6d0",
       "latestReportPeriod": "2025-06-30",
       "latestSourceDate": "2025-07-15",
       "status": "partial"
@@ -170,13 +170,13 @@
       "stockCode": "002747",
       "companyName": "埃斯顿",
       "relativePath": "data/a-share-company-guidance-expectations/estun.json",
-      "snapshotCount": 0,
+      "snapshotCount": 1,
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 4,
-      "byteSize": 4357,
-      "checksumSha256": "4a5bc291386e8c843bf0f3d3fcb16b17b6fa44a0e09a1e1b231d7012c713840d",
-      "latestReportPeriod": null,
-      "latestSourceDate": null,
+      "byteSize": 9715,
+      "checksumSha256": "94cce36e90c44589ca3aa6d02ac1ca001338a14bb19b7d8a9c326c6f0984105d",
+      "latestReportPeriod": "2026-06-30",
+      "latestSourceDate": "2026-07-15",
       "status": "partial"
     },
     {
@@ -188,7 +188,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 3,
       "byteSize": 3457,
-      "checksumSha256": "eba03326f4f36ecbd0b2e590be9fd058e696c3c0704dedba1259a7ccbbc7c24e",
+      "checksumSha256": "7c80c52606e1792df7d763277e27dbd19049544792ad54f61e91d1a3cdad477f",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -202,7 +202,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 31589,
-      "checksumSha256": "3b5de2e14db89d7990e9172b00fb2cb8e0629f7f72eba52a2a46d76709e2dc88",
+      "checksumSha256": "825cc3e4bfb1e5450a61b3c131176be985de0055cfd50aafeb84767a91e468c5",
       "latestReportPeriod": "2026-06-30",
       "latestSourceDate": "2026-07-10",
       "status": "generated_real"
@@ -216,7 +216,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 1,
       "byteSize": 1633,
-      "checksumSha256": "299c498c80d4fe9bb7d538ef81b7efd273da1c02fb830b0e55f73b2a1377624f",
+      "checksumSha256": "07944f757e819d43586479f817437937a699aa05162ad451103e9417a2a34bdf",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -230,7 +230,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 1,
       "byteSize": 1594,
-      "checksumSha256": "4cfdfdb8a9846cff38822c0f9b4e43d63c0b3a51a4a5c36a515fa9d03d6a4565",
+      "checksumSha256": "364b6a9d54d13f4943f3b8d83ecaab45090d2dcbab717181f37ed3c858df2f57",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -244,7 +244,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 665,
-      "checksumSha256": "8222d6f8be7ac1fa304482c1a0efe368d9e6da95e5ac5f43396e75adc7495210",
+      "checksumSha256": "2cfcf5c57282b5fd54070172bba896d4fe7930e40a411749880200736b4e8eb6",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -258,7 +258,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 666,
-      "checksumSha256": "a81f3fa5766a6b3969452fc7e5e59659ec77708b025874b8c45eccca90fed6e3",
+      "checksumSha256": "3d7405049e63035b6ecd8cff29f02056fa0a95709083159019cc3c0038971e83",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -272,7 +272,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 675,
-      "checksumSha256": "2a3bade936b12adc3663dedcb83d8524f1ea375dd47cd316d0720e1bb977c8bd",
+      "checksumSha256": "74b772cd0d5fb15191712e945a7877e7d350504493d92f9021b707efcb6a6587",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -286,7 +286,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 666,
-      "checksumSha256": "1f3050fae6c0fe1a4aeb4ff6a771e1c759776dfc7155bbdfd8f95e82a0edf188",
+      "checksumSha256": "a2f40b9931708fbf242ece206b40a17d4823315b2b8e77d05e7e56bfc2e2f770",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -300,7 +300,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 668,
-      "checksumSha256": "fbb0bda6524c9ba4f5b8dfc092c1d5c7b0fdccbe987709e414510eb4e0037b72",
+      "checksumSha256": "0f4b66787ec057f1b00a03ed657d296b091cb10fd780abbb03014f02495d6a26",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -314,7 +314,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 1,
       "byteSize": 42594,
-      "checksumSha256": "f30d7b354036f2e209af0ad727cc86c596b982949e603f12c096dad8dc400b5f",
+      "checksumSha256": "3ae827528164a192d623e5351eb82508351aa64b47926ff4b414660c30b1405c",
       "latestReportPeriod": "2025-06-30",
       "latestSourceDate": "2025-07-16",
       "status": "partial"
@@ -328,7 +328,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 45994,
-      "checksumSha256": "5f5ece8183ce5e252bdeb11beb9ded2b4bb0c135d03c486c4f86e85326fc4e8e",
+      "checksumSha256": "96f802d8a449ad48737f7a3728c60f96e31ba915c9286d0b5c99288e66ed3340",
       "latestReportPeriod": "2025-12-31",
       "latestSourceDate": "2026-02-10",
       "status": "generated_real"
@@ -342,7 +342,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 2556,
-      "checksumSha256": "a7051d4605013af489c4f39d8577cb13c840e211578f61a9f8892f70d250e728",
+      "checksumSha256": "4bfaaa65a07f115b1082b2093b1ea48d3f59eef6b870b33a3ae104fcce87c967",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -356,7 +356,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 1,
       "byteSize": 1615,
-      "checksumSha256": "cb0b0ce5bd730f36a38315abba8a25336536145dec349adf7c270b37a9e6c568",
+      "checksumSha256": "380e49f05a9e9baf8b893acb7e6b47faca1bc17504f09cfdd08fd7f2ec47a5f0",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -368,12 +368,12 @@
       "relativePath": "data/a-share-company-guidance-expectations/kaidi.json",
       "snapshotCount": 0,
       "historicalVersionCount": 0,
-      "excludedAnnouncementCount": 0,
-      "byteSize": 664,
-      "checksumSha256": "47075155d32e73b70873aa7f8d34af202b19715acffa5c295fa8dc013c0f5e2b",
+      "excludedAnnouncementCount": 1,
+      "byteSize": 1642,
+      "checksumSha256": "54a8fd2042cd4eaaf9a8348f7db7ca9d28b7c6e7074ce9cf50d2d2d537cb15c4",
       "latestReportPeriod": null,
       "latestSourceDate": null,
-      "status": "missing"
+      "status": "partial"
     },
     {
       "stockId": "keboda",
@@ -384,7 +384,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 6023,
-      "checksumSha256": "5ee7baec8f2c251be42fea320f2e0ceb668c0a3ff29c068ff7b496bc35e9260d",
+      "checksumSha256": "99cd87f62dde0316fb55b7373ad2b95eacc644a694247d4f2cdec5e2674b4428",
       "latestReportPeriod": "2024-06-30",
       "latestSourceDate": "2024-07-12",
       "status": "generated_real"
@@ -398,7 +398,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 10924,
-      "checksumSha256": "4a0a5fd2396e6a31733288c20a24942759e434346afbe61e90dd0248ed06c869",
+      "checksumSha256": "002c63dcd88c2e00a04e512dc3cc142771085049fd091fe1b8fd4a3fa05ef7e2",
       "latestReportPeriod": "2025-12-31",
       "latestSourceDate": "2026-01-30",
       "status": "generated_real"
@@ -412,7 +412,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 2887,
-      "checksumSha256": "714691b466b4a6b8b9b2b7aa57f62d981c6ec21251d346e2f62d2e9df6d6e64f",
+      "checksumSha256": "e3d5f33cc4397f5b527a47f980f66d43cf9abac5d01bef3731eec22e57504dab",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -424,9 +424,9 @@
       "relativePath": "data/a-share-company-guidance-expectations/luster.json",
       "snapshotCount": 0,
       "historicalVersionCount": 0,
-      "excludedAnnouncementCount": 1,
-      "byteSize": 1591,
-      "checksumSha256": "9ecc734f6f2f06d8c61dd821b7bfb6bce0db0dc8e8792678a0c88b0ae6aff66c",
+      "excludedAnnouncementCount": 2,
+      "byteSize": 2543,
+      "checksumSha256": "b60d48e98a7bb6be64fd0b0968aa500210f493be27b4be45bce1d5501a26c9c5",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -440,7 +440,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 1,
       "byteSize": 1654,
-      "checksumSha256": "4358e98a3356f10d4acc5fd87a8fe8d2a48211279710dd460e7b0a494abbb8b7",
+      "checksumSha256": "7782fd525369c782d76f7b0549d739d0a49406ca95b183a9deabc7d04957c08f",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -454,7 +454,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 664,
-      "checksumSha256": "21e2185d62617aebe00a49ec8ceb3daf4b9acebd54818bada58c8c9b3be715dc",
+      "checksumSha256": "08615dbeab60c73a6c266cbd3bd2f1d01024a574f76b17c02d85660a9d03ce90",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -468,7 +468,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 33318,
-      "checksumSha256": "906e3abaa83bb3797f4ef49f6e21a7a2c53e634101470d28432f2418d651981d",
+      "checksumSha256": "528c776122d045bbdb5c190d8634a337c71bbd71be9b46ab40cd29f43a2d29af",
       "latestReportPeriod": "2026-06-30",
       "latestSourceDate": "2026-07-09",
       "status": "partial"
@@ -482,7 +482,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 5,
       "byteSize": 5453,
-      "checksumSha256": "0aee5985196fcf82f22912bcb56b50fec17cc07f7eac9ec93ea1efbcddfac80a",
+      "checksumSha256": "155939ebc4299a0738f2c638b807277a316239f96281b1d670009d8982299524",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -494,9 +494,9 @@
       "relativePath": "data/a-share-company-guidance-expectations/pharmaron.json",
       "snapshotCount": 0,
       "historicalVersionCount": 0,
-      "excludedAnnouncementCount": 4,
-      "byteSize": 4414,
-      "checksumSha256": "6af2140782c0262df0a1a0ec7ec86ca1e252df24ad1dcc5164210fccea58aa72",
+      "excludedAnnouncementCount": 5,
+      "byteSize": 5351,
+      "checksumSha256": "d617ab33039b548bdff7c548ffc43500e69647df6a59ec482ca5e814df2f0c93",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -506,13 +506,13 @@
       "stockCode": "603286",
       "companyName": "日盈电子",
       "relativePath": "data/a-share-company-guidance-expectations/riying.json",
-      "snapshotCount": 4,
+      "snapshotCount": 6,
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
-      "byteSize": 21243,
-      "checksumSha256": "cb4247f705e9ea5fbce0c6c1344382413c92d4115fd4d787dfc4a67668c6abe4",
-      "latestReportPeriod": "2025-12-31",
-      "latestSourceDate": "2026-01-20",
+      "byteSize": 31483,
+      "checksumSha256": "d76760e4711f9fead08d27106b75d55b7e45daac6255b69aef4235122c2a7a69",
+      "latestReportPeriod": "2026-06-30",
+      "latestSourceDate": "2026-07-15",
       "status": "generated_real"
     },
     {
@@ -524,7 +524,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 666,
-      "checksumSha256": "0f57143cc470bd0d9d4c7db124b542c1bec1c143a8caf6a69e2d05d0e8fd320c",
+      "checksumSha256": "7f74b1706fa67064a19172e7beac6dad27928a82faf5f37d13f458a52aa3a9e2",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -538,7 +538,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 2525,
-      "checksumSha256": "e3d098d125a7bbaa70e044cd264394b69d8bbd6e50a0df472106d47ab1852314",
+      "checksumSha256": "4065877792b3b9e6d392c7d9bfe028dbe6651e32ef062756028a0ef28ecd193e",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -550,9 +550,9 @@
       "relativePath": "data/a-share-company-guidance-expectations/shennan.json",
       "snapshotCount": 0,
       "historicalVersionCount": 0,
-      "excludedAnnouncementCount": 1,
-      "byteSize": 1597,
-      "checksumSha256": "5bf3b7f79b2f3cb0d9fc0997a1ccfd410b38819f805c14f63d3e59a6af8a3dd5",
+      "excludedAnnouncementCount": 2,
+      "byteSize": 2530,
+      "checksumSha256": "31c4bab9a1be50281b13c3be5ca23c947d54e1323ebb0a747747b4153c3c4472",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -566,7 +566,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 2570,
-      "checksumSha256": "b78820abf4eb5cae82711bd757b1708f5ac0f62404fcaebe37f3590df4fd9b3f",
+      "checksumSha256": "b93ffd4666d11f5bff3cd609164b06774db8bec013803b70816f094d0d62d1dd",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -580,7 +580,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 3,
       "byteSize": 3459,
-      "checksumSha256": "d5d47e8a0bcd5fef387a2737309704eaa36fe5c82553fb832d6424f1bdb2f7c7",
+      "checksumSha256": "3e87e8abea2733b040707fdbfe49176650fed9eb9e483c9059e836215372946f",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -594,7 +594,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 665,
-      "checksumSha256": "eff21c83a2043e7e4c0f73a2044682b60a0f15ff3e9b4980ee78c6d7fbafb643",
+      "checksumSha256": "a6cf784888bb12d09dda0e5b8aab94934ced53c48e5044dba37ab82a10245fe2",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -608,7 +608,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 664,
-      "checksumSha256": "ae91c7b58cc4ea9c0abde5e57d2e9d559ff8d6fee4fedbffa72d30b36b01a896",
+      "checksumSha256": "2871883a8e48b2ec48cd145be6f6dad34b26bed8b7914f92a474d813214cd074",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -622,7 +622,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 665,
-      "checksumSha256": "bcc6e408066437aa3bca7603fb0dfb2e37a06c53156a01a0f6dc2accd67a6d0a",
+      "checksumSha256": "7d3f87ac51a1f0d0e45457f38bca8b64b1accd3fcf911ecf154e35f0ecc6deb1",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -636,10 +636,24 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 1,
       "byteSize": 1621,
-      "checksumSha256": "da17538908dfd91feec0de4bdf27321d5b42fc4804081b34f694a83f8d90426d",
+      "checksumSha256": "62c79d410268dc41f952d55556c8085eeee3636e69bd842b9537a60cc6b4e250",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
+    },
+    {
+      "stockId": "unitree",
+      "stockCode": "688836",
+      "companyName": "宇树科技",
+      "relativePath": "data/a-share-company-guidance-expectations/unitree.json",
+      "snapshotCount": 0,
+      "historicalVersionCount": 0,
+      "excludedAnnouncementCount": 0,
+      "byteSize": 665,
+      "checksumSha256": "1ef2830f65942bd5ed0144b3ca3b48eb4a50a1e9c893d7b0f59d78fca74c82eb",
+      "latestReportPeriod": null,
+      "latestSourceDate": null,
+      "status": "missing"
     },
     {
       "stockId": "victor-tech",
@@ -650,7 +664,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 3,
       "byteSize": 3498,
-      "checksumSha256": "66c6ce0c892729fd447da9b17283ba5cf4967c4eda3902bb716c83d2346ba327",
+      "checksumSha256": "18cf8c21ce96435fdcff37dc41a68ab795eebb7e878056da77bb110ea59aeb42",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -664,7 +678,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 670,
-      "checksumSha256": "3ba974f160c8f22fa303acc01362b2f2b279294896dc3ea6eaf5395c462a259b",
+      "checksumSha256": "e0c1f31e00c1f2574c3516544489556d3a8e1a5a8f878d220638cbb74277f5c8",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -676,9 +690,9 @@
       "relativePath": "data/a-share-company-guidance-expectations/wus.json",
       "snapshotCount": 4,
       "historicalVersionCount": 0,
-      "excludedAnnouncementCount": 1,
-      "byteSize": 22648,
-      "checksumSha256": "3fa2cb15aa0b9ee6e5cbfb65362f3b09e93da9213e2b4fc9daef9fddb3c9ef1e",
+      "excludedAnnouncementCount": 2,
+      "byteSize": 23573,
+      "checksumSha256": "6dc0ad847c148a8bf23a01a1fea5a14a20867fa353e33ec9024b01dfe6e9ff18",
       "latestReportPeriod": "2026-03-31",
       "latestSourceDate": "2026-04-14",
       "status": "partial"
@@ -692,7 +706,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 2527,
-      "checksumSha256": "4b0ef3730c645a095a9e778150e6ae5fe76648e3b03d80cdd4ff19b88bfeb3dd",
+      "checksumSha256": "336f21bc5d0f9424253bc20d19ed514bd1333e0c60d78276f2c1f20d3253354d",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -706,7 +720,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 665,
-      "checksumSha256": "3130413f551135348de10febd53713a1f41babfe3f1b83d4dedb699d08631096",
+      "checksumSha256": "4b088215a6c2e7e8ec371c939d57abbd5eaa261722000214ae2941e2579ee74f",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -720,7 +734,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 665,
-      "checksumSha256": "c2eaf0b9b7fa9058667c12d615515d228108b0610c6e1cfb3547f4b5bcfd674e",
+      "checksumSha256": "b6e5e3715c774f71b8d4114b7a5c17779ff5db4f0f763970ea52b2c7d7087f4e",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -734,7 +748,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 664,
-      "checksumSha256": "9aa6f49c053d96ad8f7650c6e285bd88930804abaf8cadd62f9c62a9e93db13d",
+      "checksumSha256": "53866e79c73476756e37e50fcd78f847e1efff94a9df1494e454ac8f77a5f09c",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -748,7 +762,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 666,
-      "checksumSha256": "f6a8146f305c7e80468f0964185fd81dc9ec1397288fbb2cbf51bf8a42e98dfc",
+      "checksumSha256": "8fe292291fec4f83c8314bdae940a6812ed9f0791467140b3d5d7b4d0cb48725",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -762,7 +776,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 666,
-      "checksumSha256": "0478de63e81569804906f177f8fc85955ce3bc9412d3ae776a82e4e7031aa435",
+      "checksumSha256": "4702c0f5abffa69de830376db8f0addedd3e0a97f6cd9aaee1f860ceefa91129",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"
@@ -776,7 +790,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 2,
       "byteSize": 2533,
-      "checksumSha256": "f3fc0d902c3ac1911d4c4e2e5e2dc45178f57985c77a4dfecdb3fa1029eed649",
+      "checksumSha256": "abc061c841822472b960765074b3451dc8ae8f7e6e71b2a6d8da80f76f1ab504",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "partial"
@@ -790,7 +804,7 @@
       "historicalVersionCount": 0,
       "excludedAnnouncementCount": 0,
       "byteSize": 671,
-      "checksumSha256": "ddfbe5ad411655204a88a82e9f310601a04564d6c201dcd1bd388ff9599b316b",
+      "checksumSha256": "b535d26fa349cc69398c9990083fe3f97b4b54ebae2ace7dbcf8e46a4b655198",
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "status": "missing"

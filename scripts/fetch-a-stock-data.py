@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 import random
 import re
@@ -628,14 +629,18 @@ def fetch_tencent_quote(stock: dict[str, str], updated_at: str) -> tuple[dict[st
     fields = payload.split("~")
     if len(fields) < 49:
         raise ValueError("Tencent quote payload is incomplete")
+    if fields[2] != stock["code"] or not text.startswith(f"v_{market_prefix(stock)}="):
+        raise ValueError("Tencent quote identity does not match the requested exchange/code")
 
     latest_price = to_float(fields[3])
     pct_change = to_float(fields[32])
     amount_yi = to_float(fields[37], 10000)
     turnover = to_float(fields[38])
     pe_ttm = to_float(fields[39])
-    market_cap_yi = to_float(fields[44])
-    float_market_cap_yi = to_float(fields[45])
+    # Tencent's official HS adapter maps ltz -> [44], zsz -> [45].
+    # Source: https://st.gtimg.com/quotes/hs-fund/bundle.13362df9.js
+    market_cap_yi = to_float(fields[45])
+    float_market_cap_yi = to_float(fields[44])
     pb = to_float(fields[46])
     limit_up = to_float(fields[47])
     limit_down = to_float(fields[48])
@@ -930,23 +935,46 @@ def module_coverage(items: dict[str, Any], universe: list[dict[str, Any]], statu
     }
 
 
+def select_stocks(universe: list[dict[str, Any]], stock_filter: str | None) -> list[dict[str, Any]]:
+    if not stock_filter:
+        return universe
+    selected = [stock for stock in universe if stock_filter in {stock.get("id"), stock.get("code")}
+                and stock.get("market") == "A股" and stock.get("dataProvider") == "aStockData"]
+    if len(selected) != 1:
+        raise ValueError(f"Expected exactly one existing A-share identity for --stock {stock_filter}")
+    return selected
+
+
+def retained_items(filename: str, preserve: bool) -> dict[str, Any]:
+    if not preserve:
+        return {}
+    payload = json.loads((REAL_DIR / filename).read_text(encoding="utf-8"))
+    if not isinstance(payload.get("items"), dict):
+        raise ValueError(f"{filename}: cannot preserve invalid existing items")
+    return payload["items"]
+
+
 def main() -> int:
+    parser = argparse.ArgumentParser(description="Refresh A-share Provider artifacts")
+    parser.add_argument("--stock", help="Refresh one existing A-share code or id; preserve every other company and HK coverage")
+    args = parser.parse_args()
+    universe = load_stock_universe()
+    selected = select_stocks(universe, args.stock)
+    preserve = bool(args.stock)
     updated_at = now_iso()
-    profiles: dict[str, Any] = {}
-    quotes: dict[str, Any] = {}
-    financials: dict[str, Any] = {}
-    histories: dict[str, Any] = {}
-    research: dict[str, Any] = {}
-    announcements: dict[str, Any] = {}
-    signals: dict[str, Any] = {}
-    sectors: dict[str, Any] = {}
+    profiles = retained_items("stocks.generated.json", preserve)
+    quotes = retained_items("quotes.generated.json", preserve)
+    financials = retained_items("financials.generated.json", preserve)
+    histories = retained_items("priceHistory.generated.json", preserve)
+    research = retained_items("research.generated.json", preserve)
+    announcements = retained_items("announcements.generated.json", preserve)
+    signals = retained_items("signals.generated.json", preserve)
+    sectors = retained_items("sectorMembership.generated.json", preserve)
     errors: list[str] = []
     logs: list[dict[str, Any]] = []
 
-    universe = load_stock_universe()
-
-    for index, stock in enumerate(universe, start=1):
-        print(f"[{index}/{len(universe)}] fetching {stock['id']} {stock['code']} {stock['exchange']}", flush=True)
+    for index, stock in enumerate(selected, start=1):
+        print(f"[{index}/{len(selected)}] fetching {stock['id']} {stock['code']} {stock['exchange']}", flush=True)
         if stock.get("dataProvider") != "aStockData":
             logs.append({"id": stock["id"], "status": "skipped_non_a_stock_provider", "provider": stock.get("dataProvider")})
             continue
@@ -1032,12 +1060,15 @@ def main() -> int:
         )
         logs.append(stock_log)
 
+    previous_manifest = json.loads((REAL_DIR / "data-manifest.generated.json").read_text(encoding="utf-8")) if preserve else {}
     manifest = {
+        **previous_manifest,
         "generatedAt": updated_at,
         "updatedAt": updated_at,
         "status": "mixed" if any(q["quality"]["status"] == "real" for q in quotes.values()) else "error",
-        "sourceSummary": ["A Stock Data", "Tencent quote/kline", "Eastmoney serial fallback", "CNInfo metadata"],
+        "sourceSummary": list(dict.fromkeys([*previous_manifest.get("sourceSummary", []), "A Stock Data", "Tencent quote/kline", "Eastmoney serial fallback", "CNInfo metadata"])),
         "universe": {
+            **previous_manifest.get("universe", {}),
             "total": len(universe),
             "markets": count_items_by_market(universe, lambda item: True),
             "supported": count_items_by_market(universe, lambda item: item.get("dataStatus") == "supported"),
@@ -1045,6 +1076,7 @@ def main() -> int:
             "source": "src/data/real/stock-universe.generated.json",
         },
         "coverage": {
+            **previous_manifest.get("coverage", {}),
             "quotes": module_coverage(quotes, universe),
             "priceHistory": module_coverage(histories, universe),
             "financials": module_coverage(financials, universe),
@@ -1054,7 +1086,7 @@ def main() -> int:
             "signals": module_coverage(signals, universe),
             "sectorMembership": module_coverage(sectors, universe),
         },
-        "errors": errors,
+        "errors": [*previous_manifest.get("errors", []), *errors],
     }
 
     write_errors: list[str] = []

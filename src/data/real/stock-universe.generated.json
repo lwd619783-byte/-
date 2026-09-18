@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-05T17:40:50.132+08:00",
-  "total": 59,
+  "generatedAt": "2026-09-18T13:02:51.678+08:00",
+  "total": 60,
   "markets": {
-    "A股": 56,
+    "A股": 57,
     "港股": 3,
     "美股": 0,
     "未上市": 0
   },
   "supported": {
-    "A股": 56,
+    "A股": 57,
     "港股": 3,
     "美股": 0,
     "未上市": 0
@@ -20,10 +20,8 @@
     "未上市": 0
   },
   "privateCompanies": {
-    "total": 1,
-    "ids": [
-      "unitree"
-    ],
+    "total": 0,
+    "ids": [],
     "includedInListedUniverse": 0
   },
   "warnings": [],
@@ -120,6 +118,20 @@
       "exchange": "SZ",
       "standardSymbol": "002916.SZ",
       "providerSymbol": "002916.SZ",
+      "dataProvider": "aStockData",
+      "dataStatus": "supported",
+      "shouldFetchQuote": true,
+      "shouldFetchFinancials": true,
+      "shouldValidate": true
+    },
+    {
+      "id": "unitree",
+      "name": "宇树科技",
+      "code": "688836",
+      "market": "A股",
+      "exchange": "SH",
+      "standardSymbol": "688836.SH",
+      "providerSymbol": "688836.SH",
       "dataProvider": "aStockData",
       "dataStatus": "supported",
       "shouldFetchQuote": true,

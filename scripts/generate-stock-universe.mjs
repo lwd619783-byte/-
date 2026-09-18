@@ -25,7 +25,7 @@ function uniq(values) {
 }
 
 function parseStockIds(source) {
-  return uniq([...source.matchAll(/\bid:\s*"([^"]+)"/g)].map((match) => match[1]));
+  return uniq([...source.matchAll(/(?:^|\n)(?:    |  robotStock\(\{ )id:\s*"([^"]+)"/g)].map((match) => match[1]));
 }
 
 function parsePrivateCompanyIds(source) {

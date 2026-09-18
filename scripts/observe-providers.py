@@ -24,7 +24,7 @@ from provider_observability.core import (
     announcement_diff, append_run, atomic_write, audit_observation_ledger, classify_failure, derive_announcement_query_window, evaluate, financial_diff,
     DirtyWorktreeError, file_digest, json_bytes, load_json, load_resolutions, load_runs, observation_eligibility, redact, tree_digest,
 )
-from provider_observability.production import validate_production
+from provider_observability.production import expected_company_cohort, validate_production
 from provider_observability.provenance import build_current_provenance, build_provenance, recordable_provenance
 from provider_observability.root_state import load_root_state, prepare_root_for_observation
 
@@ -77,6 +77,7 @@ def prior_observation(observation_root: Path, provider_id: str, provenance_cohor
 def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, explicit_id: str | None, eligible_sample: bool = True) -> int:
     if load_root_state(observation_root) is None:
         raise ValueError("observation root state must be initialized before provider execution")
+    _, expected = expected_company_cohort(ROOT)
     provider_id = "a-share-financials" if kind == "financials" else "a-share-announcements"
     provider_version = FINANCIAL_VERSION if kind == "financials" else ANNOUNCEMENT_VERSION
     run_id = explicit_id or f"{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}-{provider_id}-{uuid.uuid4().hex[:8]}"
@@ -110,7 +111,7 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
         message = (process.stderr or process.stdout or "provider command failed")[-2000:]
         failures.append({"category": classify_failure(message), "message": redact(message), "resolved": False})
         messages.append(redact(message))
-    metrics: dict[str, Any] = {"expectedCompanies": 56, "companyCoverage": 0, "structuralValidationRate": 0, "eligibleSample": eligible_sample, "cacheMode": "bypass" if no_cache else "isolated", "retryCount": None, "timeoutCount": int(any(f["category"] == "timeout" for f in failures)), "rateLimitCount": int(any(f["category"] == "rate_limited" for f in failures)), "httpStatusCounts": {}}
+    metrics: dict[str, Any] = {"expectedCompanies": len(expected), "companyCoverage": 0, "structuralValidationRate": 0, "eligibleSample": eligible_sample, "cacheMode": "bypass" if no_cache else "isolated", "retryCount": None, "timeoutCount": int(any(f["category"] == "timeout" for f in failures)), "rateLimitCount": int(any(f["category"] == "rate_limited" for f in failures)), "httpStatusCounts": {}}
     difference: dict[str, Any] = {"baseline": True}
     previous_run, previous = prior_observation(observation_root, provider_id, provenance.get("provenanceCohortId"))
     try:
@@ -119,8 +120,6 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
             detail_dir = generated_root / "a-share-financials"
             manifest = load_json(detail_dir / MANIFEST_FILENAME, {})
             summary = load_json(summary_path, {})
-            universe = load_json(ROOT / "src/data/real/stock-universe.generated.json")["items"]
-            expected = {item["id"] for item in universe if item.get("market") == "A股"}
             errors = validate_split_artifacts(summary_path, detail_dir / MANIFEST_FILENAME, detail_dir, expected)
             metrics.update({"companyCoverage": manifest.get("total", 0), "success": manifest.get("success", 0), "partial": manifest.get("partial", 0), "error": manifest.get("error", 0), "structuralValidationRate": 1 if not errors else 0, "detailFiles": len(list(detail_dir.glob("*.json"))) - 1, "manifestChecksum": file_digest(detail_dir / MANIFEST_FILENAME), "artifactChecksum": tree_digest([summary_path, detail_dir], generated_root)})
             difference = financial_diff(summary, load_json(previous / summary_path.name) if previous else None, run_id, previous_run.get("runId") if previous_run else None)
@@ -132,8 +131,6 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
             summary_path = generated_root / "a-share-announcement-summaries.generated.json"
             detail_dir = generated_root / "a-share-announcements"
             manifest = load_json(detail_dir / MANIFEST_FILENAME, {})
-            universe = load_json(ROOT / "src/data/real/stock-universe.generated.json")["items"]
-            expected = {item["id"] for item in universe if item.get("market") == "A股"}
             errors = validate_artifacts(summary_path, detail_dir, expected)
             details = detail_documents(detail_dir, "stockId")
             previous_detail_dir = previous / "a-share-announcements" if previous else None
@@ -181,7 +178,7 @@ def observe(kind: str, observation_root: Path, no_cache: bool, timeout: float, e
     production_unchanged = before_digest == after_digest
     worktree_unchanged = before_status == after_status
     if not production_unchanged: failures.append({"category": "atomicity_failure", "message": "production generated data changed during isolated observation", "resolved": False})
-    status = "success" if process.returncode == 0 and not failures and metrics["companyCoverage"] == 56 and metrics["structuralValidationRate"] == 1 else "partial" if metrics["companyCoverage"] else "failed"
+    status = "success" if process.returncode == 0 and not failures and metrics["companyCoverage"] == metrics["expectedCompanies"] and metrics["structuralValidationRate"] == 1 else "partial" if metrics["companyCoverage"] else "failed"
     record = redact({
         "schemaVersion": SCHEMA_VERSION, "runId": run_id, "providerId": provider_id, "providerVersion": provider_version,
         "domain": kind, "startedAt": started_at.isoformat().replace("+00:00", "Z"), "endedAt": ended_at.isoformat().replace("+00:00", "Z"),

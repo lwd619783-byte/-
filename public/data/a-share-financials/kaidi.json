@@ -10,11 +10,184 @@
   "errorMessage": null,
   "provider": "Sina CompanyFinanceService",
   "providerVersion": "2022-openapi",
-  "fetchedAt": "2026-07-10T11:00:32Z",
-  "generatedAt": "2026-07-10T11:19:45Z",
-  "lastSuccessfulFetchAt": "2026-07-10T11:00:32Z",
+  "fetchedAt": "2026-09-18T03:48:53Z",
+  "generatedAt": "2026-09-18T03:48:04Z",
+  "lastSuccessfulFetchAt": "2026-09-18T03:48:53Z",
   "currentFetchError": null,
   "reports": [
+    {
+      "stockCode": "605288",
+      "market": "SH",
+      "companyName": "凯迪股份",
+      "reportPeriod": "2026-06-30",
+      "reportType": "H1",
+      "fiscalYear": 2026,
+      "fiscalQuarter": 2,
+      "announcementDate": "2026-08-25",
+      "statementScope": "consolidated",
+      "currency": "CNY",
+      "unit": "yuan",
+      "sourceUnit": "元",
+      "normalizedUnit": "元",
+      "normalizationFactor": 1,
+      "provider": "Sina CompanyFinanceService",
+      "providerVersion": "2022-openapi",
+      "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
+      "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
+      "sourceIdentifier": "605288:20260630:lrb,fzb,llb,gjzb",
+      "fetchedAt": "2026-09-18T03:48:53Z",
+      "sourceUpdatedAt": "2026-08-24T12:08:38Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
+      "status": "success",
+      "errorCode": null,
+      "errorMessage": null,
+      "isRestated": null,
+      "isDerived": true,
+      "derivationMethod": "H1 cumulative - Q1 cumulative",
+      "sourcePeriods": [
+        "2026-03-31",
+        "2026-06-30"
+      ],
+      "rawFieldCoverage": {
+        "available": 29,
+        "total": 30
+      },
+      "coreFieldCoverage": {
+        "available": 6,
+        "total": 6
+      },
+      "fieldStatus": {
+        "operatingRevenue": "available",
+        "operatingCost": "available",
+        "operatingProfit": "available",
+        "totalProfit": "available",
+        "netProfit": "available",
+        "netProfitAttributableToParent": "available",
+        "netProfitExcludingNonRecurring": "available",
+        "researchAndDevelopmentExpense": "available",
+        "sellingExpense": "available",
+        "administrativeExpense": "available",
+        "financialExpense": "available",
+        "netOperatingCashFlow": "available",
+        "cashReceivedFromSales": "available",
+        "cashPaidForGoodsAndServices": "available",
+        "capitalExpenditure": "missing",
+        "netInvestingCashFlow": "available",
+        "netFinancingCashFlow": "available",
+        "totalAssets": "available",
+        "totalLiabilities": "available",
+        "equityAttributableToParent": "available",
+        "cashAndCashEquivalents": "available",
+        "accountsReceivable": "available",
+        "notesReceivable": "available",
+        "contractAssets": "available",
+        "inventory": "available",
+        "accountsPayable": "available",
+        "contractLiabilities": "available",
+        "shortTermBorrowings": "available",
+        "longTermBorrowings": "available",
+        "goodwill": "available"
+      },
+      "cumulative": {
+        "operatingRevenue": 645967642.2,
+        "operatingCost": 502291887.33,
+        "operatingProfit": -24489069,
+        "totalProfit": -26159068.26,
+        "netProfit": -24170109.04,
+        "netProfitAttributableToParent": -24170047.53,
+        "netProfitExcludingNonRecurring": -25191883.32,
+        "researchAndDevelopmentExpense": 39083440.65,
+        "sellingExpense": 32631947.21,
+        "administrativeExpense": 52975023.3,
+        "financialExpense": 30778942.69,
+        "netOperatingCashFlow": 60817297.06,
+        "cashReceivedFromSales": 641042481.26,
+        "cashPaidForGoodsAndServices": 379456726.57,
+        "capitalExpenditure": null,
+        "netInvestingCashFlow": -212682648.53,
+        "netFinancingCashFlow": -63949684.98
+      },
+      "singleQuarter": {
+        "operatingRevenue": 342447089.49,
+        "operatingCost": 266745816.5,
+        "operatingProfit": -17334219.7,
+        "totalProfit": -17793571.39,
+        "netProfit": -15579140.88,
+        "netProfitAttributableToParent": -15579079.37,
+        "netProfitExcludingNonRecurring": -16268426.18,
+        "researchAndDevelopmentExpense": 21261295.02,
+        "sellingExpense": 17827155.11,
+        "administrativeExpense": 29452401.52,
+        "financialExpense": 16019811.74,
+        "netOperatingCashFlow": 21559586.12,
+        "cashReceivedFromSales": 285976182.52,
+        "cashPaidForGoodsAndServices": 159076917.37,
+        "capitalExpenditure": null,
+        "netInvestingCashFlow": 88377143.82,
+        "netFinancingCashFlow": -64016843.9
+      },
+      "balanceSheet": {
+        "totalAssets": 2741844563.3,
+        "totalLiabilities": 571673139.54,
+        "equityAttributableToParent": 2169189823.2,
+        "cashAndCashEquivalents": 753483700.37,
+        "accountsReceivable": 287621089.13,
+        "notesReceivable": 0,
+        "contractAssets": 0,
+        "inventory": 302360473.62,
+        "accountsPayable": 208271300.72,
+        "contractLiabilities": 18020219.22,
+        "shortTermBorrowings": 34054500,
+        "longTermBorrowings": 0,
+        "goodwill": 0
+      },
+      "derived": {
+        "revenueYoY": {
+          "value": 0.03551981943312815,
+          "changeAmount": 11746427.79,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "revenueQoQ": {
+          "value": 0.12825008531528514,
+          "changeAmount": 38926536.78,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitYoY": {
+          "value": -2.1246655900175124,
+          "changeAmount": -29431267.53,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "parentNetProfitQoQ": {
+          "value": -0.8134253415740746,
+          "changeAmount": -6988111.21,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "deductedNetProfitYoY": {
+          "value": -2.563944267170133,
+          "changeAmount": -26670603.88,
+          "reason": null,
+          "baseSign": "positive"
+        },
+        "deductedNetProfitQoQ": {
+          "value": -0.823108009010956,
+          "changeAmount": -7344969.04,
+          "reason": null,
+          "baseSign": "negative"
+        },
+        "grossMargin": 0.22105976459820548,
+        "netMargin": -0.045493391090581696,
+        "operatingCashFlowToNetProfit": -1.3838806265738925,
+        "receivablesToRevenue": 0.4452561867502161,
+        "inventoryToRevenue": 0.46807371432760597,
+        "debtToAssetRatio": 0.20849947046303444,
+        "researchExpenseRatio": 0.06208636508391426
+      },
+      "auditStatus": "未审计"
+    },
     {
       "stockCode": "605288",
       "market": "SH",
@@ -35,9 +208,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20260331:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2026-04-29T10:04:05Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -195,7 +368,7 @@
       "reportType": "FY",
       "fiscalYear": 2025,
       "fiscalQuarter": 4,
-      "announcementDate": "2026-04-30",
+      "announcementDate": "2026-08-25",
       "statementScope": "consolidated",
       "currency": "CNY",
       "unit": "yuan",
@@ -207,9 +380,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20251231:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2026-04-29T10:04:05Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -221,7 +394,7 @@
         "2025-12-31"
       ],
       "rawFieldCoverage": {
-        "available": 25,
+        "available": 29,
         "total": 30
       },
       "coreFieldCoverage": {
@@ -251,14 +424,14 @@
         "equityAttributableToParent": "available",
         "cashAndCashEquivalents": "available",
         "accountsReceivable": "available",
-        "notesReceivable": "missing",
-        "contractAssets": "missing",
+        "notesReceivable": "available",
+        "contractAssets": "available",
         "inventory": "available",
         "accountsPayable": "available",
         "contractLiabilities": "available",
         "shortTermBorrowings": "available",
-        "longTermBorrowings": "missing",
-        "goodwill": "missing"
+        "longTermBorrowings": "available",
+        "goodwill": "available"
       },
       "cumulative": {
         "operatingRevenue": 1338907666.85,
@@ -304,14 +477,14 @@
         "equityAttributableToParent": 2249820743.84,
         "cashAndCashEquivalents": 976976106.98,
         "accountsReceivable": 320274539.73,
-        "notesReceivable": null,
-        "contractAssets": null,
+        "notesReceivable": 0,
+        "contractAssets": 0,
         "inventory": 354197837.81,
         "accountsPayable": 271696490.17,
         "contractLiabilities": 16309903.12,
         "shortTermBorrowings": 35644000,
-        "longTermBorrowings": null,
-        "goodwill": null
+        "longTermBorrowings": 0,
+        "goodwill": 0
       },
       "derived": {
         "revenueYoY": {
@@ -380,9 +553,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20250930:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2025-10-30T09:36:42Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -541,7 +714,7 @@
       "reportType": "H1",
       "fiscalYear": 2025,
       "fiscalQuarter": 2,
-      "announcementDate": "2025-08-29",
+      "announcementDate": "2026-08-25",
       "statementScope": "consolidated",
       "currency": "CNY",
       "unit": "yuan",
@@ -553,9 +726,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20250630:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
-      "sourceUpdatedAt": "2025-08-28T08:38:08Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
+      "sourceUpdatedAt": "2026-08-24T13:10:06Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -726,9 +899,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20250331:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2025-04-29T10:44:07Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -898,9 +1071,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20241231:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2025-04-29T10:46:11Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -1071,9 +1244,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20240930:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2024-10-30T07:45:05Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -1179,10 +1352,10 @@
       },
       "derived": {
         "revenueYoY": {
-          "value": -0.0797683012281151,
-          "changeAmount": -27517972.0,
-          "reason": null,
-          "baseSign": "positive"
+          "value": null,
+          "changeAmount": null,
+          "reason": "missing_value",
+          "baseSign": null
         },
         "revenueQoQ": {
           "value": -0.05444862112930994,
@@ -1191,10 +1364,10 @@
           "baseSign": "positive"
         },
         "parentNetProfitYoY": {
-          "value": -0.5914220177808605,
-          "changeAmount": -22808747.46,
-          "reason": null,
-          "baseSign": "positive"
+          "value": null,
+          "changeAmount": null,
+          "reason": "missing_value",
+          "baseSign": null
         },
         "parentNetProfitQoQ": {
           "value": -0.558958674695234,
@@ -1203,10 +1376,10 @@
           "baseSign": "positive"
         },
         "deductedNetProfitYoY": {
-          "value": -0.641855247962438,
-          "changeAmount": -24876781.68,
-          "reason": null,
-          "baseSign": "positive"
+          "value": null,
+          "changeAmount": null,
+          "reason": "missing_value",
+          "baseSign": null
         },
         "deductedNetProfitQoQ": {
           "value": -0.5897799977152361,
@@ -1244,9 +1417,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20240630:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2024-08-30T13:47:03Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -1417,9 +1590,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20240331:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2024-04-29T08:27:03Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -1589,9 +1762,9 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20231231:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2024-04-29T08:27:03Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
@@ -1703,10 +1876,10 @@
           "baseSign": null
         },
         "revenueQoQ": {
-          "value": -0.02730954597925596,
-          "changeAmount": -9421077.17,
-          "reason": null,
-          "baseSign": "positive"
+          "value": null,
+          "changeAmount": null,
+          "reason": "missing_value",
+          "baseSign": null
         },
         "parentNetProfitYoY": {
           "value": null,
@@ -1715,10 +1888,10 @@
           "baseSign": null
         },
         "parentNetProfitQoQ": {
-          "value": -0.5048539786258944,
-          "changeAmount": -19470169.45,
-          "reason": null,
-          "baseSign": "positive"
+          "value": null,
+          "changeAmount": null,
+          "reason": "missing_value",
+          "baseSign": null
         },
         "deductedNetProfitYoY": {
           "value": null,
@@ -1727,10 +1900,10 @@
           "baseSign": null
         },
         "deductedNetProfitQoQ": {
-          "value": -0.5417585328386143,
-          "changeAmount": -20997271.25,
-          "reason": null,
-          "baseSign": "positive"
+          "value": null,
+          "changeAmount": null,
+          "reason": "missing_value",
+          "baseSign": null
         },
         "grossMargin": 0.20642491256348716,
         "netMargin": 0.05690841722772985,
@@ -1762,17 +1935,16 @@
       "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
       "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
       "sourceIdentifier": "605288:20230930:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
+      "fetchedAt": "2026-09-18T03:48:53Z",
       "sourceUpdatedAt": "2023-10-30T09:47:03Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
+      "generatedAt": "2026-09-18T03:48:04Z",
       "status": "success",
       "errorCode": null,
       "errorMessage": null,
       "isRestated": null,
-      "isDerived": true,
-      "derivationMethod": "Q3 cumulative - H1 cumulative",
+      "isDerived": false,
+      "derivationMethod": "missing compatible preceding cumulative report",
       "sourcePeriods": [
-        "2023-06-30",
         "2023-09-30"
       ],
       "rawFieldCoverage": {
@@ -1834,25 +2006,7 @@
         "netInvestingCashFlow": 63083814.97,
         "netFinancingCashFlow": -21216019.64
       },
-      "singleQuarter": {
-        "operatingRevenue": 344973775.0,
-        "operatingCost": 247934046.06,
-        "operatingProfit": 44856580.02,
-        "totalProfit": 44732366.22,
-        "netProfit": 38565942.38,
-        "netProfitAttributableToParent": 38565942.38,
-        "netProfitExcludingNonRecurring": 38757619.82,
-        "researchAndDevelopmentExpense": 14295162.07,
-        "sellingExpense": 15407921.43,
-        "administrativeExpense": 15593660.41,
-        "financialExpense": 1595959.19,
-        "netOperatingCashFlow": 67975411.07,
-        "cashReceivedFromSales": 332017380.41,
-        "cashPaidForGoodsAndServices": 181238727.54,
-        "capitalExpenditure": null,
-        "netInvestingCashFlow": -104435877.67,
-        "netFinancingCashFlow": 0.0
-      },
+      "singleQuarter": null,
       "balanceSheet": {
         "totalAssets": 2667679716.25,
         "totalLiabilities": 516465243.69,
@@ -1905,166 +2059,12 @@
           "reason": "missing_value",
           "baseSign": null
         },
-        "grossMargin": 0.28129595920733397,
-        "netMargin": 0.11179383818378659,
-        "operatingCashFlowToNetProfit": 1.76257617148885,
-        "receivablesToRevenue": 0.30040762588401215,
-        "inventoryToRevenue": 0.32203973178575274,
-        "debtToAssetRatio": 0.19360091863501644,
-        "researchExpenseRatio": 0.041438402295942645
-      },
-      "auditStatus": "未审计"
-    },
-    {
-      "stockCode": "605288",
-      "market": "SH",
-      "companyName": "凯迪股份",
-      "reportPeriod": "2023-06-30",
-      "reportType": "H1",
-      "fiscalYear": 2023,
-      "fiscalQuarter": 2,
-      "announcementDate": "2024-08-31",
-      "statementScope": "consolidated",
-      "currency": "CNY",
-      "unit": "yuan",
-      "sourceUnit": "元",
-      "normalizedUnit": "元",
-      "normalizationFactor": 1,
-      "provider": "Sina CompanyFinanceService",
-      "providerVersion": "2022-openapi",
-      "sourceDescription": "新浪财经公开财务报表接口：定期报告三表与关键指标",
-      "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
-      "sourceIdentifier": "605288:20230630:lrb,fzb,llb,gjzb",
-      "fetchedAt": "2026-07-10T11:00:32Z",
-      "sourceUpdatedAt": "2023-08-30T14:22:03Z",
-      "generatedAt": "2026-07-10T11:19:45Z",
-      "status": "success",
-      "errorCode": null,
-      "errorMessage": null,
-      "isRestated": null,
-      "isDerived": false,
-      "derivationMethod": "missing compatible preceding cumulative report",
-      "sourcePeriods": [
-        "2023-06-30"
-      ],
-      "rawFieldCoverage": {
-        "available": 24,
-        "total": 30
-      },
-      "coreFieldCoverage": {
-        "available": 6,
-        "total": 6
-      },
-      "fieldStatus": {
-        "operatingRevenue": "available",
-        "operatingCost": "available",
-        "operatingProfit": "available",
-        "totalProfit": "available",
-        "netProfit": "available",
-        "netProfitAttributableToParent": "available",
-        "netProfitExcludingNonRecurring": "available",
-        "researchAndDevelopmentExpense": "available",
-        "sellingExpense": "available",
-        "administrativeExpense": "available",
-        "financialExpense": "available",
-        "netOperatingCashFlow": "available",
-        "cashReceivedFromSales": "available",
-        "cashPaidForGoodsAndServices": "available",
-        "capitalExpenditure": "missing",
-        "netInvestingCashFlow": "available",
-        "netFinancingCashFlow": "available",
-        "totalAssets": "available",
-        "totalLiabilities": "available",
-        "equityAttributableToParent": "available",
-        "cashAndCashEquivalents": "available",
-        "accountsReceivable": "available",
-        "notesReceivable": "missing",
-        "contractAssets": "missing",
-        "inventory": "available",
-        "accountsPayable": "available",
-        "contractLiabilities": "available",
-        "shortTermBorrowings": "missing",
-        "longTermBorrowings": "missing",
-        "goodwill": "missing"
-      },
-      "cumulative": {
-        "operatingRevenue": 553415030.43,
-        "operatingCost": 407382479.15,
-        "operatingProfit": 62605069.59,
-        "totalProfit": 61852155.43,
-        "netProfit": 49954670.14,
-        "netProfitAttributableToParent": 49963389.66,
-        "netProfitExcludingNonRecurring": 44704016.79,
-        "researchAndDevelopmentExpense": 29185227.09,
-        "sellingExpense": 29760289.3,
-        "administrativeExpense": 38254748.95,
-        "financialExpense": -19381650.12,
-        "netOperatingCashFlow": 106296688.73,
-        "cashReceivedFromSales": 561376228.75,
-        "cashPaidForGoodsAndServices": 290830418.61,
-        "capitalExpenditure": null,
-        "netInvestingCashFlow": 167519692.64,
-        "netFinancingCashFlow": -21216019.64
-      },
-      "singleQuarter": null,
-      "balanceSheet": {
-        "totalAssets": 2628791713.53,
-        "totalLiabilities": 514200259.5,
-        "equityAttributableToParent": 2113557257.81,
-        "cashAndCashEquivalents": 974101272.4,
-        "accountsReceivable": 231076466.01,
-        "notesReceivable": null,
-        "contractAssets": null,
-        "inventory": 308036395.15,
-        "accountsPayable": 223088572.8,
-        "contractLiabilities": 25867767.65,
-        "shortTermBorrowings": null,
-        "longTermBorrowings": null,
-        "goodwill": null
-      },
-      "derived": {
-        "revenueYoY": {
-          "value": null,
-          "changeAmount": null,
-          "reason": "missing_value",
-          "baseSign": null
-        },
-        "revenueQoQ": {
-          "value": null,
-          "changeAmount": null,
-          "reason": "missing_value",
-          "baseSign": null
-        },
-        "parentNetProfitYoY": {
-          "value": null,
-          "changeAmount": null,
-          "reason": "missing_value",
-          "baseSign": null
-        },
-        "parentNetProfitQoQ": {
-          "value": null,
-          "changeAmount": null,
-          "reason": "missing_value",
-          "baseSign": null
-        },
-        "deductedNetProfitYoY": {
-          "value": null,
-          "changeAmount": null,
-          "reason": "missing_value",
-          "baseSign": null
-        },
-        "deductedNetProfitQoQ": {
-          "value": null,
-          "changeAmount": null,
-          "reason": "missing_value",
-          "baseSign": null
-        },
         "grossMargin": null,
         "netMargin": null,
         "operatingCashFlowToNetProfit": null,
-        "receivablesToRevenue": 0.4175464223124823,
-        "inventoryToRevenue": 0.5566100994955949,
-        "debtToAssetRatio": 0.1956032715918449,
+        "receivablesToRevenue": 0.30040762588401215,
+        "inventoryToRevenue": 0.32203973178575274,
+        "debtToAssetRatio": 0.19360091863501644,
         "researchExpenseRatio": null
       },
       "auditStatus": "未审计"
@@ -2075,7 +2075,7 @@
     "sourceLayer": "provider",
     "sourceEndpoint": "CompanyFinanceService.getFinanceReport2022",
     "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022",
-    "updatedAt": "2026-07-10T11:00:32Z",
+    "updatedAt": "2026-09-18T03:48:53Z",
     "status": "real"
   }
 }

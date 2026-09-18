@@ -2,7 +2,6 @@
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getMockDashboardData } from "../../services/providers/mockProvider";
-import { roboticsPrivateCompanies } from "../../data/privateCompanies";
 import type { Industry, Stock } from "../../types";
 import { IndustryTab } from "./IndustryTab";
 
@@ -36,7 +35,7 @@ describe("Industry UI V1 migration", () => {
     fireEvent.keyDown(tab, { key: "End" });
     expect(document.activeElement).toBe(screen.getByRole("tab", { name: "产业链" }));
     expect(screen.getByRole("tabpanel", { name: "产业链" }).textContent).toContain("原料环节");
-    expect(screen.getByRole("tabpanel", { name: "产业链" }).textContent).toContain("位置不表示收入权重或资金流向");
+    expect(screen.getByRole("tabpanel", { name: "产业链" }).textContent).toContain("不表示直接供货、收入权重或资金流向");
   });
 
   it("defaults robotics to all and ordinary industries to their first segment", () => {
@@ -53,7 +52,7 @@ describe("Industry UI V1 migration", () => {
     expect((screen.getByRole("combobox", { name: "选择细分板块" }) as HTMLSelectElement).value).toBe("ordinary-first");
   });
 
-  it("keeps distribution in the listed company pool and private leads available even with no matching stock", () => {
+  it("keeps distribution in the listed pool without rendering an empty private company section", () => {
     const data = fixture();
     render(<IndustryTab {...data} initialIndustryId="robotics" globalSearch="no-matching-company" onOpenStock={vi.fn()} />);
     const overview = screen.getByRole("tabpanel", { name: "研究概览" });
@@ -62,8 +61,8 @@ describe("Industry UI V1 migration", () => {
     expect(within(overview).getAllByText("1 / 2 家")).toHaveLength(2);
     fireEvent.click(screen.getByRole("tab", { name: "产业链" }));
     const chain = screen.getByRole("tabpanel", { name: "产业链" });
-    expect(within(chain).getByText(roboticsPrivateCompanies[0].name)).toBeTruthy();
-    expect(chain.textContent).toContain("未上市公司不参与行情合并");
+    expect(within(chain).queryByText("未上市公司 / 待上市公司")).toBeNull();
+    expect(chain.textContent).not.toContain("未上市公司不参与行情合并");
   });
 
   it("retains segment logic, market summary, comparison and both robotics pools", () => {

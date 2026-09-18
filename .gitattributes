@@ -35,3 +35,8 @@ config/industry/*.json text eol=lf
 contracts/industry/*.json text eol=lf
 src/data/real/industry-robotics.generated.json text eol=lf
 src/data/real/industry-*.generated.json text eol=lf
+# Listing reconciliation retains exact official source bytes for replay.
+config/listing-status/retained/*.html -text -diff
+# Provider probe response bytes must survive cross-platform checkout unchanged.
+research-data/provider-probes/**/*.gbk.txt -text -diff
+research-data/provider-probes/**/*.json text eol=lf

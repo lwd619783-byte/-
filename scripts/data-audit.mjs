@@ -282,7 +282,7 @@ export function detectFinancialArchitectureRisks(files, rootPath) {
       const summary = JSON.parse(fs.readFileSync(summaryPath, "utf8"));
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
       const detailFiles = fs.readdirSync(detailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json");
-      if (manifest.total !== 56 || manifest.items?.length !== 56 || Object.keys(summary.items ?? {}).length !== 56 || detailFiles.length !== 56) add(findings, "P0", "coverage", "financial-split-count-mismatch", "Financial summary, manifest and detail directory must each cover 56 companies", ["a-share-financials"], "Regenerate split artifacts and remove orphan/missing files");
+      if (manifest.total !== 57 || manifest.items?.length !== 57 || Object.keys(summary.items ?? {}).length !== 57 || detailFiles.length !== 57) add(findings, "P0", "coverage", "financial-split-count-mismatch", "Financial summary, manifest and detail directory must each cover 57 companies", ["a-share-financials"], "Regenerate split artifacts and remove orphan/missing files");
     } catch {
       add(findings, "P0", "schema", "financial-split-json-invalid", "Financial summary or manifest JSON is invalid", ["a-share-financials"], "Regenerate valid UTF-8 JSON artifacts");
     }
@@ -327,7 +327,7 @@ export function detectAnnouncementArchitectureRisks(files, rootPath) {
       const summary = JSON.parse(fs.readFileSync(summaryPath, "utf8"));
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
       const detailFiles = fs.readdirSync(detailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json");
-      if (manifest.totalCompanies !== 56 || manifest.items?.length !== 56 || Object.keys(summary.items ?? {}).length !== 56 || detailFiles.length !== 56) add(findings, "P0", "coverage", "announcement-split-count-mismatch", "Announcement summary, manifest and detail directory must each cover 56 companies", ["announcements"], "Regenerate split artifacts and remove orphan/missing files");
+      if (manifest.totalCompanies !== 57 || manifest.items?.length !== 57 || Object.keys(summary.items ?? {}).length !== 57 || detailFiles.length !== 57) add(findings, "P0", "coverage", "announcement-split-count-mismatch", "Announcement summary, manifest and detail directory must each cover 57 companies", ["announcements"], "Regenerate split artifacts and remove orphan/missing files");
     } catch {
       add(findings, "P0", "schema", "announcement-split-json-invalid", "Announcement summary or manifest JSON is invalid", ["announcements"], "Regenerate valid UTF-8 JSON artifacts");
     }
@@ -380,9 +380,9 @@ export function detectCompanyGuidanceArchitectureRisks(files, rootPath) {
     const detailFiles = fs.readdirSync(detailDir).filter((name) => name.endsWith(".json") && name !== "manifest.generated.json" && name !== "workflow-index.generated.json");
     const workflow = JSON.parse(fs.readFileSync(workflowPath, "utf8"));
     if (summary.providerId !== "cninfo-company-guidance" || manifest.providerId !== "cninfo-company-guidance") add(findings, "P0", "schema", "company-guidance-provider-identity-mismatch", "Company guidance summary or manifest has an unexpected provider identity", registryIds, "Regenerate artifacts with the fixed V1 provider identity");
-    if (manifest.totalCompanies !== 56 || manifest.items?.length !== 56 || Object.keys(summary.items ?? {}).length !== 56 || detailFiles.length !== 56) add(findings, "P0", "coverage", "company-guidance-split-count-mismatch", "Company guidance summary, manifest and detail directory must each cover 56 company states", registryIds, "Regenerate split artifacts and remove orphan/missing files");
-    if (manifest.companiesWithSnapshots !== 15 || manifest.totalSnapshots !== 56 || summary.audit?.reliableCompanyCount !== 15 || summary.audit?.reliableSnapshotCount !== 56) add(findings, "P0", "coverage", "company-guidance-audit-count-mismatch", "Company guidance manifest and feasibility audit counts disagree", registryIds, "Regenerate artifacts from the committed announcement inputs and validate counts");
-    if (manifest.schemaVersion !== "2.0.0" || workflow.schemaVersion !== "2.0.0" || workflow.currentSnapshotCount !== 56 || workflow.records?.length !== 56) add(findings, "P0", "schema", "company-guidance-workflow-contract-mismatch", "Company guidance V2 workflow index count/schema mismatch", registryIds, "Regenerate and deep-validate the V2 workflow index");
+    if (manifest.totalCompanies !== 57 || manifest.items?.length !== 57 || Object.keys(summary.items ?? {}).length !== 57 || detailFiles.length !== 57) add(findings, "P0", "coverage", "company-guidance-split-count-mismatch", "Company guidance summary, manifest and detail directory must each cover 57 company states", registryIds, "Regenerate split artifacts and remove orphan/missing files");
+    if (manifest.companiesWithSnapshots !== 16 || manifest.totalSnapshots !== 61 || summary.audit?.reliableCompanyCount !== 16 || summary.audit?.reliableSnapshotCount !== 61) add(findings, "P0", "coverage", "company-guidance-audit-count-mismatch", "Company guidance manifest and feasibility audit counts disagree", registryIds, "Regenerate artifacts from the committed announcement inputs and validate counts");
+    if (manifest.schemaVersion !== "2.0.0" || workflow.schemaVersion !== "2.0.0" || workflow.currentSnapshotCount !== 61 || workflow.records?.length !== 61) add(findings, "P0", "schema", "company-guidance-workflow-contract-mismatch", "Company guidance V2 workflow index count/schema mismatch", registryIds, "Regenerate and deep-validate the V2 workflow index");
     if (workflow.records?.some((record) => !record.isCurrentVersion || record.snapshot?.id !== record.providerSnapshotVersionId || record.snapshot?.correctsSnapshotId !== null)) add(findings, "P0", "schema", "company-guidance-current-version-mismatch", "Workflow index contains a non-current, identity-mismatched or conflated correction record", registryIds, "Keep only current immutable Provider versions and separate business revisions from extraction corrections");
   } catch {
     add(findings, "P0", "schema", "company-guidance-split-json-invalid", "Company guidance summary or manifest JSON is invalid", registryIds, "Regenerate valid UTF-8 JSON artifacts");
@@ -413,7 +413,10 @@ export function detectProviderObservabilityRisks(rootPath) {
   }
   try {
     const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
-    if (config.schemaVersion !== "1.0.0" || config.minimumDistinctDays < 5 || config.minimumRunsPerProvider < 10 || config.minimumSuccessfulDaysPerProvider < 5 || config.expectedCompanies !== 56) add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config weakens the V1 minimum window", ["a-share-financials", "announcements"], "Restore the documented minimum observation thresholds");
+    if (config.schemaVersion !== "1.0.0" || config.minimumDistinctDays < 5 || config.minimumRunsPerProvider < 10 || config.minimumSuccessfulDaysPerProvider < 5) add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config weakens the V1 minimum window", ["a-share-financials", "announcements"], "Restore the documented minimum observation thresholds");
+    const universe = JSON.parse(fs.readFileSync(path.join(rootPath, "src/data/real/stock-universe.generated.json"), "utf8"));
+    const companyIds = universe.items.filter((item) => item.market === "A股").map((item) => item.id);
+    if (!Number.isInteger(config.expectedCompanies) || config.expectedCompanies <= 0 || companyIds.length !== config.expectedCompanies || new Set(companyIds).size !== companyIds.length || companyIds.some((id) => typeof id !== "string" || !id.trim())) add(findings, "P0", "provider-observability", "provider-eligibility-cohort-invalid", "Provider expected cohort differs from the current generated A-share universe", ["a-share-financials", "announcements"], "Align the reviewed gate denominator with unique generated A-share identities");
   } catch {
     add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config is invalid JSON", ["a-share-financials", "announcements"], "Commit valid UTF-8 JSON config");
   }

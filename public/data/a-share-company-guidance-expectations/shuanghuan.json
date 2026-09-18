@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "stockId": "shuanghuan",
   "stockCode": "002472",
   "companyName": "双环传动",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 261,
+  "totalAnnouncementCount": 274,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1221304658",
@@ -76,7 +76,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T04:59:29Z",
     "status": "partial"
   }
 }

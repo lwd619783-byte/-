@@ -2,57 +2,58 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "sourceArtifact": "CNInfo A-share announcement Provider V1 committed artifacts",
-  "sourceGeneratedAt": "2026-07-11T07:31:40Z",
+  "sourceGeneratedAt": "2026-09-18T04:59:29Z",
   "status": "partial",
   "audit": {
-    "totalAnnouncementCount": 15674,
-    "companyCount": 56,
-    "targetCompanyCount": 36,
-    "previewAnnouncementCount": 81,
+    "totalAnnouncementCount": 17099,
+    "companyCount": 57,
+    "targetCompanyCount": 37,
+    "previewAnnouncementCount": 90,
     "revisionAnnouncementCount": 1,
-    "targetAnnouncementCount": 82,
-    "targetWithReportPeriodCount": 81,
-    "targetWithRecognizedPeriodScopeCount": 81,
+    "targetAnnouncementCount": 91,
+    "targetWithReportPeriodCount": 90,
+    "targetWithRecognizedPeriodScopeCount": 90,
     "parseStatusCounts": {
-      "parse_partial": 51,
-      "parse_success": 31
+      "parse_partial": 57,
+      "parse_success": 34
     },
-    "reliableAnnouncementCount": 31,
-    "reliableSnapshotCount": 56,
-    "reliableCompanyCount": 15,
+    "reliableAnnouncementCount": 34,
+    "reliableSnapshotCount": 61,
+    "reliableCompanyCount": 16,
     "historicalVersionCount": 0,
     "metricCounts": {
-      "adjusted_net_profit": 21,
-      "attributable_net_profit": 25,
+      "adjusted_net_profit": 23,
+      "attributable_net_profit": 28,
       "revenue": 10
     },
     "periodScopeCounts": {
       "first_three_quarters": 3,
       "full_year": 23,
-      "half_year": 26,
+      "half_year": 31,
       "single_quarter": 4
     },
-    "excludedTargetAnnouncementCount": 51,
-    "exclusionCount": 51,
+    "excludedTargetAnnouncementCount": 57,
+    "exclusionCount": 57,
     "exclusionReasonCounts": {
-      "no_reliable_forecast_range": 50,
+      "no_reliable_forecast_range": 56,
       "no_reliable_revised_range": 1,
-      "parse_status_parse_partial": 51,
+      "official_source_invalid": 1,
+      "parse_status_parse_partial": 57,
       "report_period_missing": 1
     },
     "earliestSourceDate": "2024-07-11",
-    "latestSourceDate": "2026-07-11",
+    "latestSourceDate": "2026-07-20",
     "duplicateAnnouncementCount": 0,
     "linkedRevisionSnapshotCount": 0,
     "unresolvedRevisionAnnouncementCount": 1
   },
   "workflowIndex": {
     "relativePath": "data/a-share-company-guidance-expectations/workflow-index.generated.json",
-    "byteSize": 240254,
-    "checksumSha256": "a883ab1bee7da4e2bb7302445f0fa94f45bd39d190fa3060877a12e2c6db5676",
-    "currentSnapshotCount": 56
+    "byteSize": 261595,
+    "checksumSha256": "1d16143f604b64a98dbc5c1ff77cc5a1b131c8eee3ffe4e3103a6baa04b59568",
+    "currentSnapshotCount": 61
   },
   "items": {
     "asymchem": {
@@ -148,10 +149,10 @@
       "stockCode": "002164",
       "companyName": "宁波东力",
       "status": "generated_real",
-      "snapshotCount": 2,
+      "snapshotCount": 4,
       "excludedAnnouncementCount": 0,
-      "latestReportPeriod": "2025-12-31",
-      "latestSourceDate": "2026-01-27",
+      "latestReportPeriod": "2026-06-30",
+      "latestSourceDate": "2026-07-15",
       "detailPath": "data/a-share-company-guidance-expectations/dongli.json"
     },
     "efort": {
@@ -171,7 +172,7 @@
       "companyName": "新易盛",
       "status": "partial",
       "snapshotCount": 2,
-      "excludedAnnouncementCount": 2,
+      "excludedAnnouncementCount": 3,
       "latestReportPeriod": "2025-06-30",
       "latestSourceDate": "2025-07-15",
       "detailPath": "data/a-share-company-guidance-expectations/eoptolink.json"
@@ -181,10 +182,10 @@
       "stockCode": "002747",
       "companyName": "埃斯顿",
       "status": "partial",
-      "snapshotCount": 0,
+      "snapshotCount": 1,
       "excludedAnnouncementCount": 4,
-      "latestReportPeriod": null,
-      "latestSourceDate": null,
+      "latestReportPeriod": "2026-06-30",
+      "latestSourceDate": "2026-07-15",
       "detailPath": "data/a-share-company-guidance-expectations/estun.json"
     },
     "everwin": {
@@ -334,9 +335,9 @@
       "stockId": "kaidi",
       "stockCode": "605288",
       "companyName": "凯迪股份",
-      "status": "missing",
+      "status": "partial",
       "snapshotCount": 0,
-      "excludedAnnouncementCount": 0,
+      "excludedAnnouncementCount": 1,
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "detailPath": "data/a-share-company-guidance-expectations/kaidi.json"
@@ -380,7 +381,7 @@
       "companyName": "凌云光",
       "status": "partial",
       "snapshotCount": 0,
-      "excludedAnnouncementCount": 1,
+      "excludedAnnouncementCount": 2,
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "detailPath": "data/a-share-company-guidance-expectations/luster.json"
@@ -435,7 +436,7 @@
       "companyName": "康龙化成",
       "status": "partial",
       "snapshotCount": 0,
-      "excludedAnnouncementCount": 4,
+      "excludedAnnouncementCount": 5,
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "detailPath": "data/a-share-company-guidance-expectations/pharmaron.json"
@@ -445,10 +446,10 @@
       "stockCode": "603286",
       "companyName": "日盈电子",
       "status": "generated_real",
-      "snapshotCount": 4,
+      "snapshotCount": 6,
       "excludedAnnouncementCount": 0,
-      "latestReportPeriod": "2025-12-31",
-      "latestSourceDate": "2026-01-20",
+      "latestReportPeriod": "2026-06-30",
+      "latestSourceDate": "2026-07-15",
       "detailPath": "data/a-share-company-guidance-expectations/riying.json"
     },
     "rongtai": {
@@ -479,7 +480,7 @@
       "companyName": "深南电路",
       "status": "partial",
       "snapshotCount": 0,
-      "excludedAnnouncementCount": 1,
+      "excludedAnnouncementCount": 2,
       "latestReportPeriod": null,
       "latestSourceDate": null,
       "detailPath": "data/a-share-company-guidance-expectations/shennan.json"
@@ -550,6 +551,17 @@
       "latestSourceDate": null,
       "detailPath": "data/a-share-company-guidance-expectations/topgroup.json"
     },
+    "unitree": {
+      "stockId": "unitree",
+      "stockCode": "688836",
+      "companyName": "宇树科技",
+      "status": "missing",
+      "snapshotCount": 0,
+      "excludedAnnouncementCount": 0,
+      "latestReportPeriod": null,
+      "latestSourceDate": null,
+      "detailPath": "data/a-share-company-guidance-expectations/unitree.json"
+    },
     "victor-tech": {
       "stockId": "victor-tech",
       "stockCode": "300476",
@@ -578,7 +590,7 @@
       "companyName": "沪电股份",
       "status": "partial",
       "snapshotCount": 4,
-      "excludedAnnouncementCount": 1,
+      "excludedAnnouncementCount": 2,
       "latestReportPeriod": "2026-03-31",
       "latestSourceDate": "2026-04-14",
       "detailPath": "data/a-share-company-guidance-expectations/wus.json"

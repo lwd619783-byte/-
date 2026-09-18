@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "stockId": "joyson",
   "stockCode": "600699",
   "companyName": "均胜电子",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 293,
+  "totalAnnouncementCount": 306,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1224949844",
@@ -48,7 +48,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T04:59:29Z",
     "status": "partial"
   }
 }

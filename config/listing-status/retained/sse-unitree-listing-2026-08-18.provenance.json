@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "entityId": "unitree",
+  "sourceUrl": "https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20260818_10829204.shtml",
+  "responseUrl": "https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20260818_10829204.shtml",
+  "httpStatus": 200,
+  "fetchedAt": "2026-09-18T04:54:50.496335+00:00",
+  "rawPath": "sse-unitree-listing-2026-08-18.html",
+  "rawBytes": 27651,
+  "rawSha256": "8c831ef39ccb5216e113a80ae351a065ee2b1e2ec3efdc96bf3ce38be5763d64",
+  "publicationDate": "2026-08-18",
+  "releaseAvailableAt": null,
+  "encoding": "utf-8"
+}

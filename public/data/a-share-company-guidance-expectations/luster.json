@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T04:59:29Z",
   "stockId": "luster",
   "stockCode": "688400",
   "companyName": "凌云光",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 348,
+  "totalAnnouncementCount": 373,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1224960247",
@@ -17,6 +17,16 @@
       "sourceDate": "2026-01-31",
       "reportPeriod": "2025-12-31",
       "periodScope": "full_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1225427632",
+      "stockId": "luster",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2026-07-17",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
     }
@@ -41,6 +51,24 @@
         "no_reliable_forecast_range",
         "parse_status_parse_partial"
       ]
+    },
+    {
+      "stockId": "luster",
+      "companyName": "凌云光",
+      "sourceAnnouncementId": "1225427632",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2026年半年度业绩预告的自愿性披露公告",
+      "sourceDate": "2026-07-17",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225427632",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
     }
   ],
   "warnings": [],
@@ -48,7 +76,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T04:59:29Z",
     "status": "partial"
   }
 }

@@ -1,0 +1,1375 @@
+{
+  "base": "086521d6bd305ea73cb5d4a426b9d4138e4a824b",
+  "auditedInput": "b626be6304cfe4e825ed006a6d539933b0905461",
+  "scope": "Slice 3 unique segments and source-grounded functional relationships",
+  "generatedAt": "2026-09-18T06:47:12.852Z",
+  "sourceSha256": {
+    "src/data/industryChainResearch.ts": "c56d1d58c0e4d4213dcbe7863901147a9ed6ad05edf3ca0b9220dd50fb577a87",
+    "src/components/industry/IndustrySegmentMap.tsx": "d2bd8cf20f384d9829e0a0e0bdf7b690febbf3fd6728b40572d3badd6e1aa87b",
+    "src/services/industrySignals.ts": "2f4820345e0999cec84c68a6fe9ad357302c80bd3c8a30814172766ddabdb9bf",
+    "src/services/industryChain.ts": "084f5c62eeb440237532d35d40f5b25ff1fec65cab02735d0bf73d46deb28c73",
+    "src/components/industry/IndustryChainDiagram.tsx": "8ea4ce0f26f9947c4839d45743e979f67124d05a0eb998136c7f0eccb5a05d56",
+    "src/components/industry/industry-chain.css": "e6a31bffdc27cec9ad959eb21325cf787946a7a8275a7ba8ef7fe986b44f8e2e",
+    "src/components/industry/IndustryChangePanel.tsx": "6cb9f74ab695548f232681c4062292028c22168e3262012f9758e5c5077f59d1",
+    "src/components/industry/IndustryTab.tsx": "e5555084c8dbf3ae03bccbff1eb7bb09451fd2ff5ba9ed080a13b4133d87e8fb",
+    "src/services/researchInbox.ts": "1f0a5d65f34a8b5c19fdf1e166e9b8c0894e15cab5151f429b6a191872825f6b",
+    "src/data/industries.ts": "44aaa53b18ab1b7e2f45c93934399700eba8158a52b4ee0b0d26d9925320e47f",
+    "src/data/stocks.ts": "2d35f8625d5d91c45d8ff3cd5c27f02e005887167199edde1b4fd9b0bd9ea815",
+    "src/data/privateCompanies.ts": "29b33cfe58601bcbe1115b970cd65371ade4aac6514b73708d6d8cb738d72758",
+    "src/data/real/quotes.generated.json": "0472cb047ecc9b96f217314dba2d173e922dcecbb5aed042dff312c6e81a08c6",
+    "src/data/real/a-share-financial-summaries.generated.json": "e791d1502b882683ea07bc865ce490c4985dfc4924ce9d3193bc585102c86a3c",
+    "src/data/real/a-share-announcement-summaries.generated.json": "bf1d664b82a7d8d5b6eef52aa45e028f21c0071e5a113585b32256b587cc19af"
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "compact desktop overview neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "connectors attach to exact nodes and avoid other nodes neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no overflow neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded connectors stay attached and avoid other nodes neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-390"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible neon-390"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture neon-390"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping neon-390"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort neon-390"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels neon-390"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts neon-390"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement neon-390"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations neon-390"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction neon-390"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no overflow neon-390"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies neon-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state neon-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus neon-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation neon-390"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-390"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-320"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible neon-320"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture neon-320"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping neon-320"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort neon-320"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels neon-320"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts neon-320"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement neon-320"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations neon-320"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction neon-320"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no overflow neon-320"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies neon-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state neon-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus neon-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation neon-320"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-320"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-320"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "compact desktop overview pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "connectors attach to exact nodes and avoid other nodes pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no overflow pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded connectors stay attached and avoid other nodes pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-390"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible pro-390"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture pro-390"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping pro-390"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort pro-390"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels pro-390"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts pro-390"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement pro-390"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations pro-390"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction pro-390"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no overflow pro-390"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies pro-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state pro-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus pro-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation pro-390"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-390"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-320"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible pro-320"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture pro-320"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping pro-320"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort pro-320"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels pro-320"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts pro-320"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement pro-320"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations pro-320"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction pro-320"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no overflow pro-320"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies pro-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state pro-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus pro-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation pro-320"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-320"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-320"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible light-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture light-1536"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping light-1536"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort light-1536"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels light-1536"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts light-1536"
+    },
+    {
+      "ok": true,
+      "name": "compact desktop overview light-1536"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement light-1536"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations light-1536"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction light-1536"
+    },
+    {
+      "ok": true,
+      "name": "connectors attach to exact nodes and avoid other nodes light-1536"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no overflow light-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies light-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state light-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded connectors stay attached and avoid other nodes light-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus light-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation light-1536"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-390"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible light-390"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture light-390"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping light-390"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy light-390"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort light-390"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels light-390"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts light-390"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement light-390"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations light-390"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction light-390"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages light-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-390"
+    },
+    {
+      "ok": true,
+      "name": "no overflow light-390"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies light-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity light-390"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state light-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus light-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation light-390"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-390"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-320"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible light-320"
+    },
+    {
+      "ok": true,
+      "name": "segment-node architecture light-320"
+    },
+    {
+      "ok": true,
+      "name": "colored stage grouping light-320"
+    },
+    {
+      "ok": true,
+      "name": "architecture-canvas visual hierarchy light-320"
+    },
+    {
+      "ok": true,
+      "name": "no company-card-as-primary-node light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact unresolved cohort light-320"
+    },
+    {
+      "ok": true,
+      "name": "readable segment labels light-320"
+    },
+    {
+      "ok": true,
+      "name": "default map hides counts companies and facts light-320"
+    },
+    {
+      "ok": true,
+      "name": "unique segment placement light-320"
+    },
+    {
+      "ok": true,
+      "name": "six explicit functional and capability relations light-320"
+    },
+    {
+      "ok": true,
+      "name": "migration is a cross-cutting research direction light-320"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages light-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-320"
+    },
+    {
+      "ok": true,
+      "name": "no overflow light-320"
+    },
+    {
+      "ok": true,
+      "name": "segment keyboard dropdown reveals companies light-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity light-320"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state light-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus light-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation light-320"
+    },
+    {
+      "ok": true,
+      "name": "secondary company details inside viewport light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-320"
+    },
+    {
+      "ok": true,
+      "name": "segment dropdown closes light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-320"
+    },
+    {
+      "ok": true,
+      "name": "Inbox contains exactly one industry release"
+    },
+    {
+      "ok": true,
+      "name": "Inbox opens existing EvidenceDrawer"
+    },
+    {
+      "ok": true,
+      "name": "Inbox exact industry link"
+    },
+    {
+      "ok": true,
+      "name": "Inbox reaches formal metric owner"
+    },
+    {
+      "ok": true,
+      "name": "Inbox reaches compact chain"
+    },
+    {
+      "ok": true,
+      "name": "industry without owner has no quote/qualitative event fallback"
+    },
+    {
+      "ok": true,
+      "name": "no runtime errors"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "event-neon-1536.png",
+    "chain-neon-1536.png",
+    "overlay-neon-1536.png",
+    "segment-expanded-neon-1536.png",
+    "unitree-neon-1536.png",
+    "chain-neon-390.png",
+    "chain-neon-320.png",
+    "chain-pro-1536.png",
+    "segment-expanded-pro-1536.png",
+    "chain-pro-390.png",
+    "event-pro-320.png",
+    "chain-pro-320.png",
+    "overlay-pro-320.png",
+    "unitree-pro-320.png",
+    "chain-light-1536.png",
+    "segment-expanded-light-1536.png",
+    "event-light-390.png",
+    "chain-light-390.png",
+    "overlay-light-390.png",
+    "unitree-light-390.png",
+    "chain-light-320.png",
+    "inbox-to-chain.png"
+  ],
+  "screenshotNote": "Element captures hide the fixed mobile navigation only during screenshot; layout and navigation assertions use unmodified UI."
+}

@@ -1,5 +1,5 @@
 import { useId, useState } from "react";
-import { Factory, Layers3 } from "lucide-react";
+import { Layers3 } from "lucide-react";
 import { roboticsPrivateCompanies } from "../../data/privateCompanies";
 import type { Industry, Stock } from "../../types";
 import { findStocksForSegment } from "../../utils/filters";
@@ -7,6 +7,8 @@ import { StockCard } from "../stock/StockCard";
 import { DashboardCard, MetricCard, SectionHeader } from "../common/terminal";
 import { RoboticsStockSection } from "./RoboticsStockSection";
 import { IndustryMetricPanel } from "./IndustryMetricPanel";
+import { IndustryChainDiagram } from "./IndustryChainDiagram";
+import { IndustryChangePanel } from "./IndustryChangePanel";
 import { ProductShell } from "../layout/ProductShell";
 
 interface IndustrySelection { industryId: string; segmentId: string }
@@ -93,7 +95,9 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
             onClick={() => setActiveView(view.id)} onKeyDown={(event) => { const direction = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0; if (!direction && event.key !== "Home" && event.key !== "End") return; event.preventDefault(); const next = event.key === "Home" ? 0 : event.key === "End" ? industryViews.length - 1 : (index + direction + industryViews.length) % industryViews.length; setActiveView(industryViews[next].id); document.getElementById(`${panelId}-tab-${industryViews[next].id}`)?.focus(); }}>{view.label}</button>)}</div>
         </ProductShell>
         <div role="tabpanel" id={`${panelId}-overview`} aria-labelledby={`${panelId}-tab-overview`} hidden={activeView !== "overview"} className="space-y-4">
+          <IndustryChangePanel key={`events-${activeIndustry.id}`} industryId={activeIndustry.id} />
           <IndustryMetricPanel key={activeIndustry.id} industryId={activeIndustry.id} />
+          {activeView === "overview" ? <IndustryChainDiagram industry={activeIndustry} stocks={industryStocks} onOpenStock={onOpenStock} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} /> : null}
           <IndustryOverview industry={activeIndustry} />
           <PoolDistribution industry={activeIndustry} stocks={industryStocks} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} />
         </div>
@@ -107,7 +111,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
           </DashboardCard>
           <div hidden={compareView !== "companies"}>{visibleSegmentStocks.length === 0 ? <EmptyState title="没有匹配个股" description="请调整搜索词，或查看其他细分板块。" /> : isRobotics ? <RoboticsStockSection stocks={visibleSegmentStocks} industries={industries} onOpenStock={onOpenStock} /> : <StockGrid stocks={visibleSegmentStocks} industries={industries} onOpenStock={onOpenStock} />}</div>
         </div>
-        <div role="tabpanel" id={`${panelId}-chain`} aria-labelledby={`${panelId}-tab-chain`} hidden={activeView !== "chain"} className="space-y-4"><ChainMap industry={activeIndustry} />{isRobotics ? <PrivateCompanySection /> : null}</div>
+        <div role="tabpanel" id={`${panelId}-chain`} aria-labelledby={`${panelId}-tab-chain`} hidden={activeView !== "chain"} className="space-y-4">{activeView === "chain" ? <IndustryChainDiagram industry={activeIndustry} stocks={industryStocks} onOpenStock={onOpenStock} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} /> : null}{isRobotics ? <PrivateCompanySection /> : null}</div>
       </div>
     </div>
   </section>;
@@ -157,32 +161,6 @@ function IndustryOverview({ industry }: { industry: Industry }) {
         <InfoBlock title="核心驱动" items={industry.drivers} />
         <InfoBlock title="近期催化剂" items={industry.catalysts} />
         <InfoBlock title="主要风险" items={industry.risks} risk />
-      </div>
-    </DashboardCard>
-  );
-}
-
-function ChainMap({ industry }: { industry: Industry }) {
-  return (
-    <DashboardCard className="p-4">
-      <div className="flex items-center gap-2">
-        <Factory className="h-5 w-5 text-textMuted" />
-        <h2 className="text-lg font-semibold text-textStrong">产业链结构</h2>
-      </div>
-      <p className="mt-2 text-xs leading-5 text-textMuted">仅展示既有上中下游结构关系；位置不表示收入权重或资金流向。</p>
-      <div className="mt-3 grid gap-3 lg:grid-cols-3">
-        {industry.chain.map((chain) => (
-          <div key={chain.stage} className="rounded-lg border border-borderSoft bg-bg2/70 p-3">
-            <p className="text-sm font-semibold text-textStrong">{chain.stage}</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {chain.items.map((item) => (
-                <span key={item} className="rounded border border-borderSoft bg-surface/70 px-2 py-1 text-xs leading-5 text-textMuted" title={item}>
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
       </div>
     </DashboardCard>
   );
@@ -245,6 +223,7 @@ function MiniSummary({ label, value }: { label: string; value: string }) {
 }
 
 function PrivateCompanySection() {
+  if (!roboticsPrivateCompanies.length) return null;
   return (
     <DashboardCard className="p-4">
       <div className="mb-4">

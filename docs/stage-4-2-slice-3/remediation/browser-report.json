@@ -1,0 +1,938 @@
+{
+  "base": "086521d6bd305ea73cb5d4a426b9d4138e4a824b",
+  "auditedInput": "3edd80f228a2422a917f92f9e5d112b436f3fd84",
+  "scope": "Slice 3 listing and chain diagram remediation",
+  "generatedAt": "2026-09-18T05:18:55.195Z",
+  "sourceSha256": {
+    "src/services/industrySignals.ts": "2f4820345e0999cec84c68a6fe9ad357302c80bd3c8a30814172766ddabdb9bf",
+    "src/services/industryChain.ts": "084f5c62eeb440237532d35d40f5b25ff1fec65cab02735d0bf73d46deb28c73",
+    "src/components/industry/IndustryChainDiagram.tsx": "aeff46b399a2f6d9694a1568890838cf797fa3646f9449a01c6bf6f40bacd465",
+    "src/components/industry/industry-chain.css": "53497932dfd409d4bb7c0175bea62e9628d2ef70c419362a1a4e21995ad7cc0a",
+    "src/components/industry/IndustryChangePanel.tsx": "6cb9f74ab695548f232681c4062292028c22168e3262012f9758e5c5077f59d1",
+    "src/components/industry/IndustryTab.tsx": "e5555084c8dbf3ae03bccbff1eb7bb09451fd2ff5ba9ed080a13b4133d87e8fb",
+    "src/services/researchInbox.ts": "1f0a5d65f34a8b5c19fdf1e166e9b8c0894e15cab5151f429b6a191872825f6b",
+    "src/data/industries.ts": "44aaa53b18ab1b7e2f45c93934399700eba8158a52b4ee0b0d26d9925320e47f",
+    "src/data/stocks.ts": "2d35f8625d5d91c45d8ff3cd5c27f02e005887167199edde1b4fd9b0bd9ea815",
+    "src/data/privateCompanies.ts": "29b33cfe58601bcbe1115b970cd65371ade4aac6514b73708d6d8cb738d72758",
+    "src/data/real/quotes.generated.json": "0472cb047ecc9b96f217314dba2d173e922dcecbb5aed042dff312c6e81a08c6",
+    "src/data/real/a-share-financial-summaries.generated.json": "e791d1502b882683ea07bc865ce490c4985dfc4924ce9d3193bc585102c86a3c",
+    "src/data/real/a-share-announcement-summaries.generated.json": "bf1d664b82a7d8d5b6eef52aa45e028f21c0071e5a113585b32256b587cc19af"
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-390"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible neon-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible neon-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state neon-390"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-390"
+    },
+    {
+      "ok": true,
+      "name": "chain fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus neon-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation neon-390"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-320"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible neon-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible neon-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state neon-320"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-320"
+    },
+    {
+      "ok": true,
+      "name": "chain fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus neon-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation neon-320"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-320"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-390"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible pro-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible pro-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state pro-390"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-390"
+    },
+    {
+      "ok": true,
+      "name": "chain fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus pro-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation pro-390"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-320"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible pro-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible pro-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state pro-320"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-320"
+    },
+    {
+      "ok": true,
+      "name": "chain fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus pro-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation pro-320"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-320"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible light-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible light-1536"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state light-1536"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus light-1536"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation light-1536"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-390"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible light-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible light-390"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity light-390"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state light-390"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages light-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-390"
+    },
+    {
+      "ok": true,
+      "name": "chain fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus light-390"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation light-390"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-320"
+    },
+    {
+      "ok": true,
+      "name": "segment groups visible light-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree listed node directly visible light-320"
+    },
+    {
+      "ok": true,
+      "name": "Unitree exact listed identity light-320"
+    },
+    {
+      "ok": true,
+      "name": "no stale Unitree private state light-320"
+    },
+    {
+      "ok": true,
+      "name": "panorama or vertical stages light-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-320"
+    },
+    {
+      "ok": true,
+      "name": "chain fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard visible focus light-320"
+    },
+    {
+      "ok": true,
+      "name": "keyboard expands Unitree detail light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact Unitree company navigation light-320"
+    },
+    {
+      "ok": true,
+      "name": "company nodes inside viewport light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-320"
+    },
+    {
+      "ok": true,
+      "name": "Inbox contains exactly one industry release"
+    },
+    {
+      "ok": true,
+      "name": "Inbox opens existing EvidenceDrawer"
+    },
+    {
+      "ok": true,
+      "name": "Inbox exact industry link"
+    },
+    {
+      "ok": true,
+      "name": "Inbox reaches formal metric owner"
+    },
+    {
+      "ok": true,
+      "name": "Inbox reaches chain and Unitree node"
+    },
+    {
+      "ok": true,
+      "name": "industry without owner has no quote/qualitative event fallback"
+    },
+    {
+      "ok": true,
+      "name": "no runtime errors"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "event-neon-1536.png",
+    "chain-neon-1536.png",
+    "overlay-neon-1536.png",
+    "unitree-neon-1536.png",
+    "chain-neon-390.png",
+    "chain-neon-320.png",
+    "chain-pro-1536.png",
+    "chain-pro-390.png",
+    "event-pro-320.png",
+    "chain-pro-320.png",
+    "overlay-pro-320.png",
+    "unitree-pro-320.png",
+    "chain-light-1536.png",
+    "event-light-390.png",
+    "chain-light-390.png",
+    "overlay-light-390.png",
+    "unitree-light-390.png",
+    "chain-light-320.png",
+    "inbox-to-chain.png"
+  ],
+  "screenshotNote": "Element captures hide the fixed mobile navigation only during screenshot; layout and navigation assertions use unmodified UI."
+}

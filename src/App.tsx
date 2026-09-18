@@ -37,6 +37,8 @@ import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant } from "./u
 import type { CompanyGuidanceExpectationDetail, CompanyGuidanceExpectationLoadStatus, CompanyGuidanceExpectationWorkflowIndex, DashboardDataMode, EarningsExpectationSnapshot, Stock, WatchItem } from "./types";
 import { DashboardCard, KpiCard, SectionHeader } from "./components/common/terminal";
 import { formatPercent } from "./utils/normalize";
+import { loadIndustryMetrics, type IndustryProviderState } from './services/industryMetricProvider';
+import { buildIndustryChanges } from './services/industrySignals';
 
 type MainTab = "首页" | ResearchDestination;
 
@@ -63,6 +65,8 @@ export default function App() {
   const [globalSearch, setGlobalSearch] = useState("");
   const [previewStock, setSelectedStock] = useState<Stock | null>(null);
   const [dataMode, setDataMode] = useState<DashboardDataMode>("mixed");
+  const [industryMetricState, setIndustryMetricState] = useState<IndustryProviderState | null>(null);
+  useEffect(() => { let active = true; if (dataMode !== 'mock') void loadIndustryMetrics().then(state => { if (active) setIndustryMetricState(state); }); return () => { active = false; }; }, [dataMode]);
   const repository = useMemo(() => createBrowserWatchlistRepository(), []);
   const watchlistStore = useMemo(() => new WatchlistStore(repository), [repository]);
   const initialWatchlistLoad = useMemo(() => repository.load(), [repository]);
@@ -92,6 +96,8 @@ export default function App() {
   const [companyGuidanceFailedStockIds, setCompanyGuidanceFailedStockIds] = useState<string[]>([]);
   const [companyGuidanceRetryToken, setCompanyGuidanceRetryToken] = useState(0);
   const dataset = useMemo(() => buildDashboardDataset(dataMode), [dataMode]);
+  const industryEvents = useMemo(() => dataMode !== 'mock' && industryMetricState?.status === 'available'
+    ? dataset.industries.flatMap(industry => buildIndustryChanges(industryMetricState.provider, industry.id).events) : [], [dataMode, dataset.industries, industryMetricState]);
   const providerRecords = useMemo(() => selectActiveCompanyGuidanceProviderRecords(dataMode, companyGuidanceWorkflowStatus, companyGuidanceWorkflow), [companyGuidanceWorkflow, companyGuidanceWorkflowStatus, dataMode]);
   const aggregatedExpectationEvidence = useMemo(() => aggregateEarningsExpectationEvidence({ providerSnapshots: providerRecords, localSnapshots: expectationData.snapshots }), [expectationData.snapshots, providerRecords]);
   const baseResearchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
@@ -343,10 +349,11 @@ export default function App() {
 
           {visitedTabs.has("首页") && (<div hidden={activeTab !== "首页"}>
         <HomePage
+          industryEvents={industryEvents}
           now={displayNow}
           expectationSnapshots={aggregatedExpectationEvidence.snapshots}
           timeZone={expectationData.settings.timeZone}
-          inboxSourceNotice={[storageError, expectationStorageError, companyGuidanceWorkflowStatus !== "success" && dataMode !== "mock" ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? "载入完成前，预期事件范围尚不完整。"}` : null].filter(Boolean).join("；")}
+          inboxSourceNotice={[dataMode !== 'mock' && industryMetricState?.status !== 'available' ? `正式行业指标：${industryMetricState?.status === 'blocked' ? industryMetricState.reason : '校验中'}；行业变化范围尚不完整。` : null, storageError, expectationStorageError, companyGuidanceWorkflowStatus !== "success" && dataMode !== "mock" ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? "载入完成前，预期事件范围尚不完整。"}` : null].filter(Boolean).join("；")}
           watchItems={watchlistData.watchItems}
           tasks={reviewTasks}
           events={researchSnapshot.events}

@@ -1,4 +1,5 @@
 import type { Stock } from "../types";
+import { unitreeHistoricalResearch } from "./unitreeHistoricalResearch";
 import { isStrictCalendarDate, isStrictPreciseInstant } from "../utils/strictDateTime.mjs";
 
 const baseFinancial = {
@@ -349,6 +350,28 @@ export const stocks: Stock[] = [
     riskLevel: "中",
     chainPosition: "PCB / 封装基板",
   },
+  robotStock({
+    id: "unitree", name: "宇树科技", code: "688836", market: "A股",
+    segmentId: "robot-oem", chainPosition: "下游", candidateType: "核心池",
+    evidenceLevel: "高", verificationStatus: "部分验证",
+    themeTags: ["本体整机", "具身智能"],
+    leaderPosition: "四足与人形机器人本体整机研究对象；产业链定位沿用既有研究线索。",
+    business: "四足机器人、人形机器人、本体整机",
+    thesis: "持续跟踪产品迭代、量产节奏与商业化订单。",
+    growthDrivers: ["新品发布", "商业化订单"],
+    trackingMetrics: ["新品发布", "量产节奏", "商业化订单"],
+    risks: ["量产节奏不确定", "商业化兑现仍需跟踪"],
+    evidenceNotes: ["上市身份已按上交所公告核验；历史产品和 IPO 跟踪线索保留原证据状态，不升级产业研究真实性。"],
+    evidenceItems: [{
+      id: "unitree-sse-listing-20260818", claim: "宇树科技股份有限公司 A 股于 2026-08-19 在上海证券交易所科创板上市交易，证券简称宇树科技，证券代码 688836。",
+      sourceType: "公告", sourceName: "上海证券交易所上市交易公告", sourceDate: "2026-08-18",
+      url: "https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20260818_10829204.shtml",
+      confidence: "高", verificationStatus: "已验证", relatedSegmentId: "robot-oem",
+      note: "只核验上市身份；原始 bytes 与 provenance 保留于 config/listing-status/retained。releaseAvailableAt 未知。",
+    }, ...(unitreeHistoricalResearch[0].evidenceItems ?? []).map(item => ({
+      ...item, note: `历史迁移前 pre-IPO 研究记录（原观察日期未知，来自 3edd80f）；保留原文，不证明当时上市状态，不代表当前上市状态。${item.note ?? ""}`,
+    }))],
+  }),
   robotStock({
     id: "ubtech",
     name: "优必选",

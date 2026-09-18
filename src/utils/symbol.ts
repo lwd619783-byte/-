@@ -19,6 +19,7 @@ export const symbolMap: SymbolMapping[] = [
   mapA("victor-tech", "胜宏科技", "300476", "SZ"),
   mapA("shennan", "深南电路", "002916", "SZ"),
   mapHK("ubtech", "优必选", "9880"),
+  mapA("unitree", "宇树科技", "688836", "SH"),
   mapA("siasun", "机器人", "300024", "SZ"),
   mapA("estun", "埃斯顿", "002747", "SZ"),
   mapA("efort", "埃夫特", "688165", "SH"),

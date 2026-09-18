@@ -1,5 +1,6 @@
 import type { ResearchEvent, ReviewTask, WatchItem } from "../types";
 import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant, resolveSafeWorkflowTimeZone } from "../utils/dateTime";
+import { deduplicateIndustryEvents, type IndustryChangeEvent } from './industrySignals';
 
 /** Ephemeral projection. References stay owned by the existing event/task/watch stores. */
 export interface ResearchInboxItem {
@@ -7,6 +8,7 @@ export interface ResearchInboxItem {
   watchItem?: WatchItem;
   tasks: ReviewTask[];
   events: ResearchEvent[];
+  industryEvent?: IndustryChangeEvent;
   unresolvedEventIds: string[];
   stockId: string | null;
   bucket: "overdue" | "due" | "pending" | "event_pending" | "recent";
@@ -27,8 +29,8 @@ export function inboxEventDate(event: ResearchEvent, timeZone: string) {
   return inboxCalendarDate(event.eventOccurredAt ?? event.eventBusinessDate ?? event.eventDate, timeZone);
 }
 
-export function buildResearchInbox({ events, tasks, watchItems, now, timeZone: requestedTimeZone }: {
-  events: ResearchEvent[]; tasks: ReviewTask[]; watchItems: WatchItem[]; now: Date; timeZone: string;
+export function buildResearchInbox({ events, industryEvents = [], tasks, watchItems, now, timeZone: requestedTimeZone }: {
+  events: ResearchEvent[]; industryEvents?: IndustryChangeEvent[]; tasks: ReviewTask[]; watchItems: WatchItem[]; now: Date; timeZone: string;
 }): ResearchInboxItem[] {
   const timeZone = resolveSafeWorkflowTimeZone(requestedTimeZone);
   const today = getCalendarToday(now, timeZone);
@@ -66,6 +68,11 @@ export function buildResearchInbox({ events, tasks, watchItems, now, timeZone: r
     rows.push({ id: `event:${event.id}`, watchItem, tasks: [], events: [event], unresolvedEventIds: [], stockId: event.stockId,
       bucket: event.reviewStatus === "pending" ? "event_pending" : "recent", date: inboxEventDate(event, timeZone), severity: severity[event.materiality],
       reason: event.reviewStatus === "pending" ? "事件原状态：待复盘；当前无关联任务" : "研究事件变化；当前无关联任务" });
+  }
+  for (const event of deduplicateIndustryEvents(industryEvents)) {
+    rows.push({ id: `industry:${event.id}`, industryEvent: event, tasks: [], events: [], unresolvedEventIds: [], stockId: null,
+      bucket: 'recent', date: inboxCalendarDate(event.publicationDateTime, timeZone), severity: 0,
+      reason: '正式行业指标留存变化 · 同一发布合并展示 · 来源核对预览' });
   }
   return rows.sort((a, b) => bucketOrder[a.bucket] - bucketOrder[b.bucket] || b.severity - a.severity
     || (a.tasks.length && b.tasks.length ? compareId(a.date ?? "9999", b.date ?? "9999") : compareId(b.date ?? "", a.date ?? "")) || compareId(a.id, b.id));

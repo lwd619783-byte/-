@@ -27,7 +27,7 @@ import {
 } from "../src/services/companyGuidanceExpectationAudit.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const EXPECTED_COMPANY_COUNT = 56;
+const EXPECTED_COMPANY_COUNT = 57;
 const MANIFEST_NAME = "manifest.generated.json";
 const WORKFLOW_NAME = "workflow-index.generated.json";
 const WORKFLOW_RELATIVE_PATH = `data/a-share-company-guidance-expectations/${WORKFLOW_NAME}`;
