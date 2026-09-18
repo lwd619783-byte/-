@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> Slice 4 P1 CLI 兼容修复（2026-09-18）：无 `--metric` 恢复历史 NBS output 默认目标；显式 EIA / 未知目标仍按 exact Registry 处理，adapter dispatch 不变。仅 CLI、回归测试及状态补充，retained data / owners / pins / PIT / admission 无变化；等待独立复审。[修复记录](stage-4-2-slice-4.md#p1-remediation--public-build-cli-compatibility-2026-09-18)。
+
 > 2026-09-18 CURRENT — Stage 4.2 / Slice 4：**D0 GO / IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。从 fetch 后精确基线 `2f2d707b8b222392a969327f10f9d5af5f021eab` 实施；EIA `WCESTUS1` 官方周末商业原油库存接入既有 `oil-shipping`，11/11 声明窗口读数；3 metric owners / 2 source families，显式 fail-closed Source Adapter 分派。EIA 1 Signal / 1 Event 复用 Inbox/Evidence；未知发布时间只在 Inbox 全部日期中出现。NBS 两个 owner 的原始/生成数据与 pins 未变。865 full tests、32 Node replay tests、73 Industry Vitest、8 freshness tests、build、data audit（0 errors；28 非阻断 warnings）、EIA 169 + NBS 277 browser checks PASS。DATA/PRODUCTION NOT_ADMITTED、PIT/revision unknown、F1 NOT_READY、F3 未提升。仅普通 commit/push，不创建 PR/merge；Hosted CI NOT_RUN，push 后停止等待独立审计。[交付与可重放证据](stage-4-2-slice-4.md)。
 
 > 2026-09-18 Stage 4.2 / Slice 3 CLOSED：PR #59 已合入，merge/main `6a9aa233b4351938b39c247833d9e72d99854269`，PR CI `35318164694` 与 main CI `35320061290` 均 completed/success，Vercel production READY。Industry Signal/Event/Inbox、listing reconciliation、Unitree listed identity、cohort57 与 segment-first Architecture Industry Map 已 **MERGED / MAIN CI PASS**；准入/PIT/F1/F3未提升。下一主线为 [Stage 4.2 Slice 4 — Cross-source Industry Provider Proof](stage-4-2-slice-4-plan.md)。

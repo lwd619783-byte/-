@@ -21,11 +21,17 @@ export function sourceAdapter(entry, definition) {
     check: (root = ROOT) => adapter.check(root, owner),
     build: (generatedAt, root = ROOT) => ({ artifact: adapter.build(generatedAt, root, owner), binding: buildBinding(root, owner) }) };
 }
+export function resolveCliTarget(args, registry) {
+  const metricIndex = args.indexOf('--metric');
+  // Compatibility with the public build command before Slice 4; never a dispatch fallback.
+  const metricId = metricIndex === -1 ? 'CN_NBS_INDUSTRIAL_ROBOT_OUTPUT' : args[metricIndex + 1];
+  const entry = registry.entries.find(e => e.metricId === metricId);
+  if (!entry) throw new Error('EXACT_REGISTERED_METRIC_REQUIRED');
+  return entry;
+}
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   const registry = read('config/industry/industry-metric-registry.v1.json');
-  const metricId = process.argv[process.argv.indexOf('--metric') + 1];
-  const entry = process.argv.includes('--metric') && registry.entries.find(e => e.metricId === metricId);
-  if (!entry) throw new Error('EXACT_REGISTERED_METRIC_REQUIRED');
+  const entry = resolveCliTarget(process.argv.slice(2), registry);
   const adapter = sourceAdapter(entry, read(entry.definitionRef.owner).definition);
   if (process.argv.includes('--write')) {
     const result = adapter.build(new Date().toISOString());

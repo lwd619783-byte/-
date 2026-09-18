@@ -5,12 +5,36 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { read, bytes } from '../semantic-runtime/common.mjs';
 import { EIA_OWNER, EIA_MANIFEST, buildEiaArtifact, checkEiaArtifact } from '../industry/eia-artifact.mjs';
-import { sourceAdapter, SOURCE_ADAPTER_VERSION } from '../industry/source-adapters.mjs';
+import { resolveCliTarget, sourceAdapter, SOURCE_ADAPTER_VERSION } from '../industry/source-adapters.mjs';
 import { parseEiaPetroleum } from '../industry/eia-parser.mjs';
 const plan = read(EIA_OWNER.plan), artifact = read(EIA_OWNER.artifact), manifest = read(EIA_MANIFEST);
 const raw = bytes(manifest.captures[0].path).toString('utf8');
 const parse = html => parseEiaPetroleum(html, plan.source, plan.definition.window);
 const entry = read('config/industry/industry-metric-registry.v1.json').entries.find(e => e.metricId === plan.definition.id);
+
+test('CLI without --metric resolves the historical NBS output target, independent of registry order', () => {
+  const registry = read('config/industry/industry-metric-registry.v1.json');
+  registry.entries.reverse();
+  for (const args of [[], ['--write']]) {
+    const target = resolveCliTarget(args, registry);
+    assert.equal(target.metricId, 'CN_NBS_INDUSTRIAL_ROBOT_OUTPUT');
+    assert.equal(sourceAdapter(target, read(target.definitionRef.owner).definition).id, 'nbs-industrial-production-html.v1');
+  }
+  registry.entries = registry.entries.filter(e => e.metricId !== 'CN_NBS_INDUSTRIAL_ROBOT_OUTPUT');
+  assert.throws(() => resolveCliTarget([], registry), /EXACT_REGISTERED_METRIC_REQUIRED/);
+});
+test('CLI explicit EIA target remains exact and uses the EIA adapter', () => {
+  const registry = read('config/industry/industry-metric-registry.v1.json');
+  const target = resolveCliTarget(['--write', '--metric', 'US_EIA_COMMERCIAL_CRUDE_STOCKS'], registry);
+  assert.deepEqual(target, entry);
+  assert.equal(sourceAdapter(target, plan.definition).id, 'eia-petroleum-history-html.v1');
+});
+test('CLI unknown or missing explicit metric never falls back to the historical default', () => {
+  const registry = read('config/industry/industry-metric-registry.v1.json');
+  for (const args of [['--metric', 'UNKNOWN'], ['--metric'], ['--metric', '--write'], ['--metric', '']]) {
+    assert.throws(() => resolveCliTarget(args, registry), /EXACT_REGISTERED_METRIC_REQUIRED/);
+  }
+});
 
 test('official EIA retained bytes replay exact 11-week owner with unknown vintage/time and no admission', () => {
   assert.deepEqual(buildEiaArtifact(artifact.generatedAt), artifact);

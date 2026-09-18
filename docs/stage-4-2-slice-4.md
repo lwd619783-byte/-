@@ -102,3 +102,14 @@ No implementation blocker remains. Data audit retains two new nonblocking notice
 DATA/PRODUCTION remain **NOT_ADMITTED**, F1 **NOT_READY**, Entity **UNRESOLVED**; F3 actual-service coverage is not elevated. No PIT/release-vintage/revision continuity proof or automatic refresh SLA. Prosperity/Regime, AI Claim/Thesis, Portfolio, MCP/Agent and unrelated data repair are outside this slice.
 
 CURRENT feature/execution/architecture and plan status are synchronized. Strategic scope/order is unchanged, so the strategic roadmap is not mechanically edited. Stop after ordinary branch push and wait for independent audit; no PR or merge.
+
+
+## P1 remediation — public build CLI compatibility (2026-09-18)
+
+Audit input: `260721cf267b31369237590345af0bcbddad9dd3`; fetched main remains `2f2d707b8b222392a969327f10f9d5af5f021eab`. **IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT RE-AUDIT**.
+
+Before this fix, `npm run data:build:industry` exited 1 with `EXACT_REGISTERED_METRIC_REQUIRED`. `resolveCliTarget()` now explicitly selects historical default `CN_NBS_INDUSTRIAL_ROBOT_OUTPUT` only when `--metric` is absent; registry order is irrelevant and a missing default owner is rejected. Explicit `--metric` selects that exact registered metric; unknown/missing values still reject. `sourceAdapter()` dispatch and its owner/adapter checks are unchanged.
+
+Actual public-command verification: no arguments → exit 0, only NBS output artifact generation time changed; `-- --metric US_EIA_COMMERCIAL_CRUDE_STOCKS` → exit 0, only EIA artifact generation time changed; `-- --metric UNKNOWN` → exit 1 with zero writes. All temporarily regenerated artifacts/bindings were restored byte-for-byte in `finally`; retained source data, owner definitions, Registry pins, business values, PIT/admission semantics and `package.json` have no diff in this remediation.
+
+Validation: targeted Node file 7/7 PASS; `data:validate:industry` PASS for all 3 owners; build PASS. `test:industry` PASS: 8 Python freshness + 35 Node + 73 Vitest tests. The 3 new CLI regression cases cover the historical default, explicit EIA and rejected unknown/missing targets. This bounded CLI repair does not repeat the original full-suite/browser acceptance or claim Hosted CI / independent audit PASS.
