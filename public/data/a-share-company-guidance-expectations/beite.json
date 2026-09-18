@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "beite",
   "stockCode": "603009",
   "companyName": "北特科技",
   "market": "A股",
   "status": "generated_real",
-  "totalAnnouncementCount": 230,
+  "totalAnnouncementCount": 241,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1224949901",
@@ -67,7 +67,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1224949901|beite|2025-12-31|full_year|attributable_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-19eaa47f41c5e176153fdd8b04ae3575415cf642e5c5ddcacb6205956c7fb252",
         "providerContentChecksum": "19eaa47f41c5e176153fdd8b04ae3575415cf642e5c5ddcacb6205956c7fb252",
@@ -98,7 +98,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224949901",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2026-01-27/1224949901.PDF",
       "sourceDate": "2026-01-27",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "19eaa47f41c5e176153fdd8b04ae3575415cf642e5c5ddcacb6205956c7fb252",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -116,7 +116,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "generated_real"
   }
 }

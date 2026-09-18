@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "keboda",
   "stockCode": "603786",
   "companyName": "科博达",
   "market": "A股",
   "status": "generated_real",
-  "totalAnnouncementCount": 261,
+  "totalAnnouncementCount": 287,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1220614571",
@@ -67,7 +67,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1220614571|keboda|2024-06-30|half_year|attributable_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-29d2bf9986bd3cc045c162f73005aaa6c0652d388ba6a69a74a60ec1bd401b7a",
         "providerContentChecksum": "29d2bf9986bd3cc045c162f73005aaa6c0652d388ba6a69a74a60ec1bd401b7a",
@@ -98,7 +98,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1220614571",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2024-07-12/1220614571.PDF",
       "sourceDate": "2024-07-12",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "29d2bf9986bd3cc045c162f73005aaa6c0652d388ba6a69a74a60ec1bd401b7a",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -116,7 +116,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "generated_real"
   }
 }

@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "shennan",
   "stockCode": "002916",
   "companyName": "深南电路",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 204,
+  "totalAnnouncementCount": 243,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1224952488",
@@ -17,6 +17,16 @@
       "sourceDate": "2026-01-28",
       "reportPeriod": "2025-12-31",
       "periodScope": "full_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1225421321",
+      "stockId": "shennan",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2026-07-14",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
     }
@@ -41,6 +51,24 @@
         "no_reliable_forecast_range",
         "parse_status_parse_partial"
       ]
+    },
+    {
+      "stockId": "shennan",
+      "companyName": "深南电路",
+      "sourceAnnouncementId": "1225421321",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2026年半年度业绩预告",
+      "sourceDate": "2026-07-14",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225421321",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
     }
   ],
   "warnings": [],
@@ -48,7 +76,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "partial"
   }
 }

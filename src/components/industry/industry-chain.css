@@ -1,0 +1,24 @@
+/* Diagram Design default skin is local to this figure; no product theme changes. */
+.industry-chain { background: #f5f5f5; color: #2d3142; border: 1px solid #bfc0c0; border-radius: 8px; padding: 16px; font-family: 'Geist', 'Microsoft YaHei', sans-serif; min-width: 0; overflow-wrap: anywhere; }
+.industry-chain h2 { font-size: 20px; font-weight: 600; margin: 4px 0 8px; }
+.industry-chain p, .industry-chain footer { font-size: 12px; line-height: 1.7; }
+.industry-chain header > p, .industry-chain footer, .chain-legend { color: #4f5d75; }
+.industry-chain .chain-eyebrow { font-size: 12px; letter-spacing: .04em; }
+.industry-chain .chain-svg { width: 100%; margin-top: 16px; fill: #2d3142; }
+.chain-svg-narrow { display: none; }
+.chain-legend, .industry-chain footer { padding-top: 12px; border-top: 1px solid #bfc0c0; }
+.chain-stage-details { margin: 16px 0; display: grid; gap: 12px; }
+.industry-chain details { border: 1px solid #bfc0c0; border-radius: 4px; min-width: 0; }
+.industry-chain summary { min-height: 44px; padding: 12px; cursor: pointer; font-size: 16px; }
+.industry-chain summary span { color: #4f5d75; font-size: 12px; }
+.chain-company-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 272px), 1fr)); gap: 16px; padding: 12px; }
+.chain-company-list article { border-top: 1px solid #bfc0c0; padding-top: 12px; min-width: 0; }
+.industry-chain .chain-link { color: #2e5aa8; text-align: left; min-height: 44px; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+.industry-chain .chain-company-name { font-size: 16px; font-weight: 600; }
+.industry-chain :focus-visible { outline: 2px solid #2e5aa8; outline-offset: 2px; }
+.chain-facts { margin-top: 8px; padding: 8px; background: #ececec; border-left: 2px solid #4f5d75; }
+.chain-facts dl { font-size: 12px; line-height: 1.7; }
+.chain-facts dt { color: #4f5d75; }
+.chain-facts dd { margin: 0 0 8px; }
+.chain-unpositioned { margin-bottom: 16px; padding: 0 12px 12px; }
+@media (max-width: 767px) { .chain-svg-wide { display: none; } .chain-svg-narrow { display: block; max-width: 320px; margin-left: auto; margin-right: auto; } }

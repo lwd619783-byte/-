@@ -1,10 +1,10 @@
 # 数据真实性审计与数据源注册表 V1
 
-- 执行时间：2026-09-09T14:33:44.005Z
-- 扫描文件：312
-- 注册表条目：29
-- P0：0；P1：10；P2：14；P3：0
-- errors：0；warnings：24；skipped 目录：10；allowlist 命中：34
+- 执行时间：2026-09-18T04:08:35.499Z
+- 扫描文件：369
+- 注册表条目：31
+- P0：0；P1：12；P2：14；P3：0
+- errors：0；warnings：26；skipped 目录：10；allowlist 命中：36
 - 退出码：0
 
 ## 结论
@@ -19,10 +19,10 @@
 
 ## 状态与风险统计
 
-- 状态分布：{"generated_real":6,"not_implemented":4,"partial":6,"manual_unverified":9,"manual_verified":1,"static_reference":1,"inferred":2}
-- 风险分布：{"P0":0,"P1":10,"P2":14,"P3":0}
+- 状态分布：{"partial":8,"generated_real":6,"not_implemented":4,"manual_unverified":9,"manual_verified":1,"static_reference":1,"inferred":2}
+- 风险分布：{"P0":0,"P1":12,"P2":14,"P3":0}
 - 阻断风险：0
-- 非阻断风险：24
+- 非阻断风险：26
 
 ## 风险清单
 
@@ -31,6 +31,8 @@
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(match[1]), minor: Number(match[2] ?? 0), patch: Number(match[3] ?? 0) | scripts/dev-health.mjs | 230 | - |
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(manifest.partial ?? 0) | scripts/dev-health.mjs | 747 | - |
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(manifest.error ?? 0) | scripts/dev-health.mjs | 748 | - |
+| data-limitation | P1 | no | limitation | Data limitation: industry-nbs-industrial-robot-output | src/data/data-source-registry.ts | - | industry-nbs-industrial-robot-output |
+| data-limitation | P1 | no | limitation | Data limitation: industry-nbs-industrial-robot-output-yoy | src/data/data-source-registry.ts | - | industry-nbs-industrial-robot-output-yoy |
 | capability-gap | P1 | no | capability | Capability not implemented: hk-financials | src/data/data-source-registry.ts | - | hk-financials |
 | data-limitation | P1 | no | limitation | Data limitation: announcements | src/data/data-source-registry.ts | - | announcements |
 | data-limitation | P1 | no | limitation | Data limitation: earnings-preview | src/data/data-source-registry.ts | - | earnings-preview |

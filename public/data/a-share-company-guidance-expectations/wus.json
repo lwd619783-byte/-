@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "wus",
   "stockCode": "002463",
   "companyName": "沪电股份",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 274,
+  "totalAnnouncementCount": 291,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1220625250",
@@ -59,6 +59,16 @@
       "periodScope": "single_quarter",
       "parseStatus": "parse_success",
       "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1225421314",
+      "stockId": "wus",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2026-07-14",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
     }
   ],
   "providerSnapshots": [
@@ -107,7 +117,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1220625250|wus|2024-06-30|half_year|adjusted_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-10595683e7a5083cead2855a81b9e10f7b4a6d64ba328b4605c6119982efd8c1",
         "providerContentChecksum": "10595683e7a5083cead2855a81b9e10f7b4a6d64ba328b4605c6119982efd8c1",
@@ -138,7 +148,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1220625250",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2024-07-13/1220625250.PDF",
       "sourceDate": "2024-07-13",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "10595683e7a5083cead2855a81b9e10f7b4a6d64ba328b4605c6119982efd8c1",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -193,7 +203,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1223032564|wus|2025-03-31|single_quarter|adjusted_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-9bf99a778436936b9f0763e7b304d8a2cc1fd4d3eea2af096743387d5b23a525",
         "providerContentChecksum": "9bf99a778436936b9f0763e7b304d8a2cc1fd4d3eea2af096743387d5b23a525",
@@ -224,7 +234,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1223032564",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2025-04-09/1223032564.PDF",
       "sourceDate": "2025-04-09",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "9bf99a778436936b9f0763e7b304d8a2cc1fd4d3eea2af096743387d5b23a525",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -279,7 +289,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1224130055|wus|2025-06-30|half_year|adjusted_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-20afbf29095df9c3b5810c03394a3b851489c06f92e93581c04df917352f82c7",
         "providerContentChecksum": "20afbf29095df9c3b5810c03394a3b851489c06f92e93581c04df917352f82c7",
@@ -310,7 +320,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224130055",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2025-07-11/1224130055.PDF",
       "sourceDate": "2025-07-11",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "20afbf29095df9c3b5810c03394a3b851489c06f92e93581c04df917352f82c7",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -365,7 +375,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1225097796|wus|2026-03-31|single_quarter|adjusted_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-bf3d83c001139cf5246935152b0ea475c24141d9fddaa50c5e70a63f645c0c53",
         "providerContentChecksum": "bf3d83c001139cf5246935152b0ea475c24141d9fddaa50c5e70a63f645c0c53",
@@ -396,7 +406,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225097796",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2026-04-14/1225097796.PDF",
       "sourceDate": "2026-04-14",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "bf3d83c001139cf5246935152b0ea475c24141d9fddaa50c5e70a63f645c0c53",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -426,6 +436,24 @@
         "no_reliable_forecast_range",
         "parse_status_parse_partial"
       ]
+    },
+    {
+      "stockId": "wus",
+      "companyName": "沪电股份",
+      "sourceAnnouncementId": "1225421314",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2026年半年度业绩预告",
+      "sourceDate": "2026-07-14",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225421314",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
     }
   ],
   "warnings": [],
@@ -433,7 +461,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "partial"
   }
 }

@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "eoptolink",
   "stockCode": "300502",
   "companyName": "新易盛",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 236,
+  "totalAnnouncementCount": 266,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1220648341",
@@ -47,6 +47,16 @@
       "sourceDate": "2026-01-30",
       "reportPeriod": "2025-12-31",
       "periodScope": "full_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1225431444",
+      "stockId": "eoptolink",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2026-07-20",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
     }
@@ -97,7 +107,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1222379856|eoptolink|2024-12-31|full_year|adjusted_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-3818d8f32563d92a66c561ad85064ef8cd0599e02575c0245b2be43a09c78252",
         "providerContentChecksum": "3818d8f32563d92a66c561ad85064ef8cd0599e02575c0245b2be43a09c78252",
@@ -128,7 +138,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1222379856",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2025-01-20/1222379856.PDF",
       "sourceDate": "2025-01-20",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "3818d8f32563d92a66c561ad85064ef8cd0599e02575c0245b2be43a09c78252",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -183,7 +193,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1224162773|eoptolink|2025-06-30|half_year|adjusted_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-28058a5b7b696cec29fc82922abd31ce321bfb5d6e207489cc0d3de862e32c9b",
         "providerContentChecksum": "28058a5b7b696cec29fc82922abd31ce321bfb5d6e207489cc0d3de862e32c9b",
@@ -214,7 +224,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224162773",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2025-07-15/1224162773.PDF",
       "sourceDate": "2025-07-15",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "28058a5b7b696cec29fc82922abd31ce321bfb5d6e207489cc0d3de862e32c9b",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -262,6 +272,25 @@
         "no_reliable_forecast_range",
         "parse_status_parse_partial"
       ]
+    },
+    {
+      "stockId": "eoptolink",
+      "companyName": "新易盛",
+      "sourceAnnouncementId": "1225431444",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2026年半年度业绩预告",
+      "sourceDate": "2026-07-20",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225431444",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "official_source_invalid",
+        "parse_status_parse_partial"
+      ]
     }
   ],
   "warnings": [],
@@ -269,7 +298,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "partial"
   }
 }

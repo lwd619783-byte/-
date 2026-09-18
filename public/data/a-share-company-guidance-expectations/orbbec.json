@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "orbbec",
   "stockCode": "688322",
   "companyName": "奥比中光",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 364,
+  "totalAnnouncementCount": 455,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1221383497",
@@ -160,7 +160,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "partial"
   }
 }

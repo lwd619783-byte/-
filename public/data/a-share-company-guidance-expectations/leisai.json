@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "leisai",
   "stockCode": "002979",
   "companyName": "雷赛智能",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 291,
+  "totalAnnouncementCount": 334,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1225403602",
@@ -87,7 +87,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "partial"
   }
 }

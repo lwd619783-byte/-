@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "pharmaron",
   "stockCode": "300759",
   "companyName": "康龙化成",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 290,
+  "totalAnnouncementCount": 328,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1220690767",
@@ -47,6 +47,16 @@
       "sourceDate": "2026-01-13",
       "reportPeriod": "2025-12-31",
       "periodScope": "full_year",
+      "parseStatus": "parse_partial",
+      "isDuplicate": false
+    },
+    {
+      "sourceAnnouncementId": "1225421809",
+      "stockId": "pharmaron",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceDate": "2026-07-13",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
       "parseStatus": "parse_partial",
       "isDuplicate": false
     }
@@ -125,6 +135,24 @@
         "no_reliable_forecast_range",
         "parse_status_parse_partial"
       ]
+    },
+    {
+      "stockId": "pharmaron",
+      "companyName": "康龙化成",
+      "sourceAnnouncementId": "1225421809",
+      "sourceAnnouncementType": "earnings_preview",
+      "sourceTitle": "2026年半年度业绩预告",
+      "sourceDate": "2026-07-13",
+      "reportPeriod": "2026-06-30",
+      "periodScope": "half_year",
+      "metric": null,
+      "parseStatus": "parse_partial",
+      "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1225421809",
+      "candidateAnnouncementIds": [],
+      "reasons": [
+        "no_reliable_forecast_range",
+        "parse_status_parse_partial"
+      ]
     }
   ],
   "warnings": [],
@@ -132,7 +160,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "partial"
   }
 }

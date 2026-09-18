@@ -1,0 +1,604 @@
+{
+  "base": "086521d6bd305ea73cb5d4a426b9d4138e4a824b",
+  "generatedAt": "2026-09-18T04:10:05.660Z",
+  "sourceSha256": {
+    "src/services/industrySignals.ts": "2f4820345e0999cec84c68a6fe9ad357302c80bd3c8a30814172766ddabdb9bf",
+    "src/services/industryChain.ts": "084f5c62eeb440237532d35d40f5b25ff1fec65cab02735d0bf73d46deb28c73",
+    "src/components/industry/IndustryChainDiagram.tsx": "4db13e9854a3a5a10189e6ee8831949490d398c247a5a9282a8e4bcfbb250b7b",
+    "src/components/industry/industry-chain.css": "98895c8275a8ed31e5d4a91f069c7b9b034cf7d7558aeb1aa257a0f99fae133a",
+    "src/components/industry/IndustryChangePanel.tsx": "6cb9f74ab695548f232681c4062292028c22168e3262012f9758e5c5077f59d1",
+    "src/components/industry/IndustryTab.tsx": "f033f19e3651ff8ccb262956006d8107a976ddcea689db47e6d0ff2b0d520a10",
+    "src/services/researchInbox.ts": "1f0a5d65f34a8b5c19fdf1e166e9b8c0894e15cab5151f429b6a191872825f6b",
+    "src/data/industries.ts": "44aaa53b18ab1b7e2f45c93934399700eba8158a52b4ee0b0d26d9925320e47f",
+    "src/data/stocks.ts": "bfd90d12ea5ecf9f2058287d7f42a2678a4755b469d06145766332bf86f23723",
+    "src/data/privateCompanies.ts": "3c612a52ecc1d0d9a2d7864cd8b7858e4dde8e26388a907edf341876b5ed316b",
+    "src/data/real/quotes.generated.json": "3f3ef3f82a706b6e10961a8772e6c10d4490265370178f5ed15d2d9676bb1f05",
+    "src/data/real/a-share-financial-summaries.generated.json": "1e91bf6f7d39b2f4f8feca795df46f3e39e44cd2f4181518c7fa93e999f1d02e",
+    "src/data/real/a-share-announcement-summaries.generated.json": "1bf8f39239d91526bd0ddb9b9a18bc4c1a2333c1d46218a17b406c03836b6286"
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-390"
+    },
+    {
+      "ok": true,
+      "name": "chain fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries neon-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event neon-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit neon-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph neon-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement neon-320"
+    },
+    {
+      "ok": true,
+      "name": "chain fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference neon-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation neon-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link neon-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow neon-320"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-390"
+    },
+    {
+      "ok": true,
+      "name": "chain fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries pro-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event pro-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit pro-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph pro-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement pro-320"
+    },
+    {
+      "ok": true,
+      "name": "chain fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference pro-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation pro-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link pro-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow pro-320"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-1536"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-1536"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-1536"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-1536"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-1536"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-1536"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-1536"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-390"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-390"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-390"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-390"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-390"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-390"
+    },
+    {
+      "ok": true,
+      "name": "chain fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-390"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-390"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-390"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-390"
+    },
+    {
+      "ok": true,
+      "name": "four readings and boundaries light-320"
+    },
+    {
+      "ok": true,
+      "name": "one release event light-320"
+    },
+    {
+      "ok": true,
+      "name": "event time audit light-320"
+    },
+    {
+      "ok": true,
+      "name": "event evidence fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "one readable responsive graph light-320"
+    },
+    {
+      "ok": true,
+      "name": "three original stages light-320"
+    },
+    {
+      "ok": true,
+      "name": "no guessed placement light-320"
+    },
+    {
+      "ok": true,
+      "name": "chain fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "fact overlay labeled light-320"
+    },
+    {
+      "ok": true,
+      "name": "no quote timestamp inference light-320"
+    },
+    {
+      "ok": true,
+      "name": "expanded facts fit light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact company navigation light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact segment navigation light-320"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link light-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only flow light-320"
+    },
+    {
+      "ok": true,
+      "name": "Inbox contains exactly one industry release"
+    },
+    {
+      "ok": true,
+      "name": "Inbox opens existing EvidenceDrawer"
+    },
+    {
+      "ok": true,
+      "name": "Inbox exact industry link"
+    },
+    {
+      "ok": true,
+      "name": "Inbox reaches formal metric owner"
+    },
+    {
+      "ok": true,
+      "name": "industry without owner has no quote/qualitative event fallback"
+    },
+    {
+      "ok": true,
+      "name": "no runtime errors"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "event-neon-1536.png",
+    "chain-neon-1536.png",
+    "overlay-neon-1536.png",
+    "chain-neon-390.png",
+    "chain-neon-320.png",
+    "chain-pro-1536.png",
+    "chain-pro-390.png",
+    "event-pro-320.png",
+    "chain-pro-320.png",
+    "overlay-pro-320.png",
+    "chain-light-1536.png",
+    "event-light-390.png",
+    "chain-light-390.png",
+    "overlay-light-390.png",
+    "chain-light-320.png"
+  ],
+  "screenshotNote": "Element captures hide the fixed mobile navigation only during screenshot; layout and navigation assertions use unmodified UI."
+}

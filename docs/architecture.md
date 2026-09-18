@@ -284,13 +284,19 @@ Local-first freeze 明确覆盖旧“先建设最小 Cloud Research Store”的�
 
 Market Regime Metric Registry、时间语义、公式与 Historical Observation Catalog R1 已形成合同 / 数据骨架，但 R2 历史 release / vintage 数据集、normalization、backtest、formula admission 和正式 Engine 尚未完成。
 
-Stage 4.2 Slice 1 已关闭，合入与 CI 事实见 [closeout](stage-4-2-slice-1-closeout.md)。Slice 2 当前为 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；正式 `IndustryMetricDataset` source owner 继续与 `Industry` qualitative research context 分层。
+Stage 4.2 Slice 1 已关闭，合入与 CI 事实见 [closeout](stage-4-2-slice-1-closeout.md)。Slice 2 已经 PR #58 合入 `086521d6bd305ea73cb5d4a426b9d4138e4a824b`，PR/main CI completed/success（2026-09-18 核验）；正式 `IndustryMetricDataset` source owner 继续与 `Industry` qualitative research context 分层。
 
 Industry owner 发现链现在为：`config/industry/industry-metric-registry.v1.json` → generic resource loader → exact-byte SHA-256/pointer/identity 校验 → `list(industryId)` / `get(industryId, metricId)` → history / chart audit → 原 IndustryTab / EvidenceDrawer。Registry 分别 pin definition、artifact、既有 F1 binding 和 policy；状态从 owner/policy 投影，Evidence 入口来自 artifact observations，不复制成第二套 admission 或 Entity/F1 Registry。资源顺序无语义，任何索引身份/引用错误整体 blocked；不可选择近似指标、按数组位置拼 owner，或用原 qualitative/行情替代。
 
 浏览器 glob 仅收集 config、industry artifacts 与 capture manifests 的 UTF-8 原文；先校验完整 Registry，再暴露不可变只读结果。没有网络刷新或业务存储写入。通用校验只理解 Pin 与 V1 owner/binding 身份；国家统计局专属表头、capture roster、raw digest、官方列和历史限制由 source-specific offline replay 锁定，未把 NBS capture 结构变成新的通用合同限制。
 
 同一批 7 份 retained HTML 分别解析绝对量列 1/3 与官方同比列 2/4（1—2 月仅累计列 1/2）。两个 metric 均保留 13 个读数，声明窗口 2026-01—08，当月覆盖 6/8、累计覆盖 7/8；绝对量 owner/raw/binding 原字节不变。同比独立 identity、unit=%、provenance/F1 binding，不从产量推算、不累计差分、不补缺、不展示 delta。非机器人行业没有正式 owner 时显示 unavailable。
+
+Slice 3 在 Registry provider 之后增加只读 `industrySignals.ts`：每 metric 的 latest retained period 投影一个 Signal（monthly / year_to_date 两读数），同 source/period 聚合一个 Change Event。输入保留 definition/artifact/binding/policy pins、原 observations、Evidence 和质量；差额仅为允许的相邻月留存绝对值差。Event 接入既有 Research Inbox 与 EvidenceDrawer，industry deep link 进入原 IndustryTab；不新建 persistence / ResearchEvent owner、任务或 admission 机制。App 仅在真实/混合 runtime 注入，UI review fixture 隔离不变。
+
+Slice 3 `industryChainTopology()` 仅读取 Industry.chain 与既有 company.chainPosition/segmentId；按原条目在位置文字中的字面匹配挂接公司，跨环节保留全部匹配，未匹配/冲突不默认定位。`industryCompanyOverlay()` 独立读取 exact-ID quote、financial/announcement owner，拒绝 foreign owner 和 mock/未知 Provider Fact。行情 updatedAt 是采集时钟，交易所 as-of 未留存即 unknown。原 Industry 页面新增最新变化 → 正式指标 → 产业链图 → 既有研究模块，复用 company drawer / segment deep link，无第二套页面。
+
+NBS `probe_nbs.py` 默认只读：官方 release list → 原 parser 校验期别/表头/原列 → retained hash 比较。显式 `--retain-new` 只新建 versioned capture；后续 owner/Registry/F1/Evidence replay 仍走现有体系，不自动入库或晋升。2026-09-18 官方最新与 retained 2026-08 bytes 相同，无新 capture。详见 [Slice 3](stage-4-2-slice-3.md)。
 
 原 `data-source-registry.ts` 分别登记两个 source artifacts；共享 `DataQualityMeta`、Frozen `EvidenceRef`、F1 Pin、ChartPanel、ChartAuditPanel 和 EvidenceDrawer。两项 Entity unresolved，releaseAvailableAt=null，PIT UNPROVED、revision continuity unknown、Evidence candidate、chart linkage=null、data/production NOT_ADMITTED、allowedUses=[]。F1 binding 验证不构成 READY；F3 reference/actual service 分母、Frozen cases/report 不变。实现及验证见 [Registry V1](industry-metric-registry-v1.md) 与 [Slice 2](stage-4-2-slice-2-plan.md)。
 

@@ -169,8 +169,8 @@ test("committed-artifact check reports expected bytes for a missing derived work
   assert.equal(result.checked, true);
   const mismatch = result.mismatches.find((item) => item.mismatchTypes.includes("missing_file") && item.path.endsWith("workflow-index.generated.json"));
   assert.ok(mismatch);
-  assert.equal(mismatch.expectedByteSize, 240254);
-  assert.equal(mismatch.expectedSha256, "a883ab1bee7da4e2bb7302445f0fa94f45bd39d190fa3060877a12e2c6db5676");
+  assert.equal(mismatch.expectedByteSize, 261595);
+  assert.equal(mismatch.expectedSha256, "a47a4fdee15033e641fa572ef97d52cb15659f20a0a34a07402efc4251f1ebfd");
 }));
 
 function reliableSourceContext(root) {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T17:40:20+08:00",
+  "updatedAt": "2026-09-18T12:06:56+08:00",
   "items": {
     "sugon": {
       "id": "sugon",
@@ -11,14 +11,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 23.7% | profit growth: 22.2% | latest research: 业绩稳健增长，落地全国首个6万卡集群 | announcement: 中科曙光关于向不特定对象发行可转换公司债券申请获得中国证券监督管理委员会同意注册批复的公告",
-      "latestInteraction": "中科曙光关于向不特定对象发行可转换公司债券申请获得中国证券监督管理委员会同意注册批复的公告",
+      "hotReason": "revenue growth: 27.6% | profit growth: 33.3% | latest research: 2026年中报业绩点评报告：业绩高增长，国产算力全栈卡位优势凸显 | announcement: 中科曙光关于回购注销限制性股票及注销回购专用证券账户股份减少注册资本暨通知债权人的公告",
+      "latestInteraction": "中科曙光关于回购注销限制性股票及注销回购专用证券账户股份减少注册资本暨通知债权人的公告",
       "fieldSources": {
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603019&source=lrb&type=0&page=1&num=2"
         },
@@ -26,7 +26,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603019&source=lrb&type=0&page=1&num=2"
         },
@@ -34,15 +34,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603019&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603019&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -51,7 +51,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -65,14 +65,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 56.5% | profit growth: 102.5% | latest research: AI服务器销售占比提升，毛利预期持续改善 | announcement: 富士康工业互联网股份有限公司2026年第一次临时股东会会议资料",
-      "latestInteraction": "富士康工业互联网股份有限公司2026年第一次临时股东会会议资料",
+      "hotReason": "revenue growth: 54.6% | profit growth: 96.0% | latest research: 上半年净利润同比近翻倍，AI服务器与高速交换机持续高增 | announcement: 富士康工业互联网股份有限公司关于股份回购进展公告",
+      "latestInteraction": "富士康工业互联网股份有限公司关于股份回购进展公告",
       "fieldSources": {
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601138&source=lrb&type=0&page=1&num=2"
         },
@@ -80,7 +80,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601138&source=lrb&type=0&page=1&num=2"
         },
@@ -88,15 +88,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601138&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=601138&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -105,7 +105,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -119,14 +119,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 105.8% | profit growth: 76.8% | latest research: 1.6T环比上量将加快，盈利能力继续维持行业领先水平 | announcement: 关于完成更换公司董事的公告",
-      "latestInteraction": "关于完成更换公司董事的公告",
+      "hotReason": "revenue growth: 100.3% | profit growth: 91.0% | latest research: 2026年中报点评：800G/1.6T放量驱动业绩兑现，AI光互联龙头进入加速成长期 | announcement: 关于2024年限制性股票激励计划预留授予第二期归属结果暨股份上市的公告",
+      "latestInteraction": "关于2024年限制性股票激励计划预留授予第二期归属结果暨股份上市的公告",
       "fieldSources": {
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300502&source=lrb&type=0&page=1&num=2"
         },
@@ -134,7 +134,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300502&source=lrb&type=0&page=1&num=2"
         },
@@ -142,15 +142,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300502&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300502&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -159,7 +159,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -173,14 +173,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 192.1% | profit growth: 262.3% | valuation risk: PE TTM 83.3x | latest research: 业绩持续超预期增长，光互连全栈布局成型",
-      "latestInteraction": "关于选举第六届董事会职工代表董事的公告",
+      "hotReason": "revenue growth: 182.5% | profit growth: 241.7% | latest research: 1.6T产品继续推进，NPO/2.4T等新产品蓄势待发，维持买入 | announcement: H股公告(翌日披露报表)",
+      "latestInteraction": "H股公告(翌日披露报表)",
       "fieldSources": {
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300308&source=lrb&type=0&page=1&num=2"
         },
@@ -188,31 +188,23 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300308&source=lrb&type=0&page=1&num=2"
-        },
-        "valuationRisk": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz300308"
         },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300308&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300308&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -221,7 +213,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -235,14 +227,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 53.9% | profit growth: 62.9% | latest research: 高速交换机业务高增，产能扩张蓄力长期成长 | announcement: 关于吸收合并全资子公司的公告",
-      "latestInteraction": "关于吸收合并全资子公司的公告",
+      "hotReason": "revenue growth: 61.2% | profit growth: 73.7% | latest research: Q2盈利能力跃升，国内外扩产持续推进 | announcement: 关于公司2024年度股票期权激励计划第一个行权期采用自主行权模式的提示性公告",
+      "latestInteraction": "关于公司2024年度股票期权激励计划第一个行权期采用自主行权模式的提示性公告",
       "fieldSources": {
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002463&source=lrb&type=0&page=1&num=2"
         },
@@ -250,7 +242,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002463&source=lrb&type=0&page=1&num=2"
         },
@@ -258,15 +250,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002463&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=002463&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -275,7 +267,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -289,14 +281,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 28.0% | profit growth: 39.9% | latest research: 公司信息更新报告：2026Q1业绩同环比增长，产能建设加快推进中 | announcement: H股公告-证券变动月报表",
-      "latestInteraction": "H股公告-证券变动月报表",
+      "hotReason": "revenue growth: 28.8% | profit growth: 33.3% | latest research: 公司信息更新报告：2026Q1业绩同环比增长，产能建设加快推进中 | announcement: 董事会薪酬与考核委员会关于2026年A股限制性股票激励计划首次授予激励对象名单的核查意见及公示情况说明",
+      "latestInteraction": "董事会薪酬与考核委员会关于2026年A股限制性股票激励计划首次授予激励对象名单的核查意见及公示情况说明",
       "fieldSources": {
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:18+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300476&source=lrb&type=0&page=1&num=2"
         },
@@ -304,7 +296,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:18+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300476&source=lrb&type=0&page=1&num=2"
         },
@@ -312,15 +304,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300476&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300476&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -329,7 +321,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:18+08:00",
         "status": "real"
       }
     },
@@ -343,22 +335,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 7.42% | revenue growth: 37.9% | profit growth: 73.0% | valuation risk: PE TTM 85.2x",
-      "latestInteraction": "董事会审计委员会关于公司2026年度向特定对象发行股票相关事项的书面审核意见",
+      "hotReason": "revenue growth: 46.3% | profit growth: 65.5% | latest research: AIPCB+封装基板共驱营收、业绩高增长 | announcement: 关于回购注销部分限制性股票减少注册资本暨通知债权人的公告",
+      "latestInteraction": "关于回购注销部分限制性股票减少注册资本暨通知债权人的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002916"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:19+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002916&source=lrb&type=0&page=1&num=2"
         },
@@ -366,31 +350,23 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:19+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002916&source=lrb&type=0&page=1&num=2"
-        },
-        "valuationRisk": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002916"
         },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002916&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=002916&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -399,7 +375,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:19+08:00",
         "status": "real"
       }
     },
@@ -420,7 +396,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:21+08:00",
         "status": "real"
       }
     },
@@ -434,22 +410,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 10.00% | profit growth: 674.6% | valuation risk: PE TTM 332.8x | latest research: 2026年一季报点评：盈利能力逐步增强，工业机器人市场份额持续提升",
-      "latestInteraction": "H股公告-截至2026年6月30日止月份之股份发行人的证券变动月报表",
+      "hotReason": "profit growth: 2314.2% | valuation risk: PE TTM 144.6x | latest research: 2026年半年报点评：盈利能力修复，加速拓展出海市场 | announcement: 关于全资子公司收购埃斯顿酷卓股权交割完成的公告",
+      "latestInteraction": "关于全资子公司收购埃斯顿酷卓股权交割完成的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002747"
-        },
         "profitGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:23+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002747&source=lrb&type=0&page=1&num=2"
         },
@@ -457,7 +425,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002747"
         },
@@ -465,15 +433,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002747&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=002747&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -482,7 +450,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:23+08:00",
         "status": "real"
       }
     },
@@ -496,22 +464,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 9.87% | revenue growth: 20.6% | profit growth: 85.5% | announcement: 国信证券关于埃夫特使用暂时闲置募集资金进行现金管理的核查意见",
-      "latestInteraction": "国信证券关于埃夫特使用暂时闲置募集资金进行现金管理的核查意见",
+      "hotReason": "revenue growth: 28.9% | profit growth: 62.5% | announcement: 北京市竞天公诚律师事务所关于埃夫特2026年第四次临时股东会的法律意见书 | missing data: research",
+      "latestInteraction": "北京市竞天公诚律师事务所关于埃夫特2026年第四次临时股东会的法律意见书",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh688165"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:25+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688165&source=lrb&type=0&page=1&num=2"
         },
@@ -519,7 +479,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:25+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688165&source=lrb&type=0&page=1&num=2"
         },
@@ -527,7 +487,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -536,7 +496,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:25+08:00",
         "status": "real"
       }
     },
@@ -550,22 +510,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 18.15% | revenue growth: 43.0% | profit growth: 61.2% | valuation risk: PE TTM 654.2x",
-      "latestInteraction": "2025年年度权益分派实施公告",
+      "hotReason": "revenue growth: 38.6% | profit growth: 31.2% | valuation risk: PE TTM 383.4x | latest research: 2026年半年报点评：深耕具身智能，营收净利双增",
+      "latestInteraction": "中信证券股份有限公司关于苏州绿的谐波传动科技股份有限公司2026年半年度持续督导跟踪报告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh688017"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:26+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688017&source=lrb&type=0&page=1&num=2"
         },
@@ -573,7 +525,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:26+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688017&source=lrb&type=0&page=1&num=2"
         },
@@ -581,7 +533,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688017"
         },
@@ -589,15 +541,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688017&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=688017&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -606,7 +558,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:26+08:00",
         "status": "real"
       }
     },
@@ -620,22 +572,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 9.99% | valuation risk: PE TTM 298.5x | latest research: 深耕精密传动领域，有望受益于人形机器人产业 | announcement: 2025年年度权益分派实施公告",
-      "latestInteraction": "2025年年度权益分派实施公告",
+      "hotReason": "valuation risk: PE TTM 272.9x | latest research: 2026年中报点评：26H1利润短期承压，精密传动全品类打开机器人空间 | announcement: 关于计提资产减值准备的公告",
+      "latestInteraction": "关于计提资产减值准备的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002896"
-        },
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz002896"
         },
@@ -643,15 +587,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002896&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=002896&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -660,7 +604,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:28+08:00",
         "status": "real"
       }
     },
@@ -674,30 +618,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 9.99% | latest research: 双环传动2025年年报与2026年一季报点评报告：稳增长跑赢行业，新方向持续开拓 | announcement: 关于公司为全资子公司提供担保的进展公告",
-      "latestInteraction": "关于公司为全资子公司提供担保的进展公告",
+      "hotReason": "latest research: 2026年半年报点评：主营能力持续提升，机器人板块引领科技 | announcement: 关于2025年员工持股计划第一个锁定期届满暨解锁条件成就的公告",
+      "latestInteraction": "关于2025年员工持股计划第一个锁定期届满暨解锁条件成就的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002472"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002472&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=002472&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -706,7 +642,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:30+08:00",
         "status": "real"
       }
     },
@@ -720,22 +656,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 6.64% | valuation risk: PE TTM 221.2x | latest research: 25年年报及26年一季报点评：业绩符合预期，机器人海外产能落地在即 | announcement: 关于完成工商变更登记并换发营业执照的公告",
-      "latestInteraction": "关于完成工商变更登记并换发营业执照的公告",
+      "hotReason": "valuation risk: PE TTM 214.0x | latest research: 2026半年报点评：业绩符合市场预期，谐波国内外产能有序推进 | announcement: 财通证券股份有限公司关于浙江斯菱智能驱动集团股份有限公司部分首次公开发行前已发行股份上市流通的核查意见",
+      "latestInteraction": "财通证券股份有限公司关于浙江斯菱智能驱动集团股份有限公司部分首次公开发行前已发行股份上市流通的核查意见",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz301550"
-        },
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz301550"
         },
@@ -743,15 +671,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=301550&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=301550&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -760,7 +688,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:32+08:00",
         "status": "real"
       }
     },
@@ -774,22 +702,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 5.62% | valuation risk: PE TTM 149.4x | latest research: 2025年报及26年一季报点评：业绩符合市场预期，丝杠产能建设有序进行 | announcement: 北特科技2025年年度权益分派实施公告",
-      "latestInteraction": "北特科技2025年年度权益分派实施公告",
+      "hotReason": "valuation risk: PE TTM 132.7x | latest research: 2026半年报点评：业绩符合市场预期，丝杠产业化稳步推进 | announcement: 北特科技关于控股股东部分股份质押及解除质押的公告",
+      "latestInteraction": "北特科技关于控股股东部分股份质押及解除质押的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh603009"
-        },
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603009"
         },
@@ -797,15 +717,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603009&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603009&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -814,7 +734,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:33+08:00",
         "status": "real"
       }
     },
@@ -828,30 +748,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 20.02% | latest research: 3Q收入实现快速增长，泰国新厂开业助力加速国际化进程 | announcement: 关于股票交易异常波动公告",
-      "latestInteraction": "关于股票交易异常波动公告",
+      "hotReason": "latest research: 2季度营收稳健增长，利润短期承压；关注新产能与直线运动部件兑现 | announcement: 江苏太湖律师事务所关于无锡贝斯特精机股份有限公司2026年第二次临时股东会法律意见书",
+      "latestInteraction": "江苏太湖律师事务所关于无锡贝斯特精机股份有限公司2026年第二次临时股东会法律意见书",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz300580"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300580&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300580&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -860,7 +772,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:35+08:00",
         "status": "real"
       }
     },
@@ -874,22 +786,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 8.51% | valuation risk: PE TTM 345.9x | latest research: 盈利能力有所修复，新业务持续取得突破 | announcement: 五洲新春关于完成工商变更登记并换发营业执照的公告",
-      "latestInteraction": "五洲新春关于完成工商变更登记并换发营业执照的公告",
+      "hotReason": "valuation risk: PE TTM 253.9x | latest research: 盈利能力有所修复，新业务持续取得突破 | announcement: 五洲新春关于为公司及控股子公司提供担保的进展公告",
+      "latestInteraction": "五洲新春关于为公司及控股子公司提供担保的进展公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh603667"
-        },
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603667"
         },
@@ -897,15 +801,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603667&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603667&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -914,7 +818,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:37+08:00",
         "status": "real"
       }
     },
@@ -928,14 +832,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "valuation risk: PE TTM 166.5x | latest research: 轴承盈利向暖，绝缘套圈+精密丝杠高端赛道突围 | announcement: 2025年年度权益分派实施公告",
-      "latestInteraction": "2025年年度权益分派实施公告",
+      "hotReason": "valuation risk: PE TTM 116.0x | latest research: 轴承盈利向暖，绝缘套圈+精密丝杠高端赛道突围 | announcement: 2026年第三次临时股东会决议公告",
+      "latestInteraction": "2026年第三次临时股东会决议公告",
       "fieldSources": {
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300984"
         },
@@ -943,15 +847,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300984&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300984&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -960,7 +864,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:39+08:00",
         "status": "real"
       }
     },
@@ -974,30 +878,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 9.06% | latest research: 2026年一季报点评：业绩符合市场预期，仿生机器人等新兴产业蓄势待发 | announcement: 北京市中伦律师事务所关于浙江三花智能控制股份有限公司2024年股票增值权激励计划第二个行权期行权条件成就的法律意见书",
-      "latestInteraction": "北京市中伦律师事务所关于浙江三花智能控制股份有限公司2024年股票增值权激励计划第二个行权期行权条件成就的法律意见书",
+      "hotReason": "latest research: 2026年上半年收入小幅提升，拓展机器人、服务器液冷等新领域 | announcement: 公司章程（2026年9月）",
+      "latestInteraction": "公司章程（2026年9月）",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002050"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002050&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=002050&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1006,7 +902,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:41+08:00",
         "status": "real"
       }
     },
@@ -1020,30 +916,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 10.01% | latest research: 2026年一季报点评：营收稳定增长，机器人、液冷开拓发展新曲线 | announcement: 拓普集团关于闲置募集资金现金管理到期赎回的公告",
-      "latestInteraction": "拓普集团关于闲置募集资金现金管理到期赎回的公告",
+      "hotReason": "latest research: Optimus+智驾+液冷，AI应用全生态 | announcement: Tuopu Group Semi-annual Report 2026",
+      "latestInteraction": "Tuopu Group Semi-annual Report 2026",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh601689"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601689&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=601689&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1052,7 +940,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:42+08:00",
         "status": "real"
       }
     },
@@ -1066,22 +954,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 10.00% | revenue growth: 32.5% | latest research: Takeaways from plant visit: More positive than we thought | announcement: 江苏恒立液压股份有限公司2025年年度权益分派实施公告",
-      "latestInteraction": "江苏恒立液压股份有限公司2025年年度权益分派实施公告",
+      "hotReason": "revenue growth: 32.1% | latest research: 收入持续高增长，盈利能力短期承压 | announcement: 江苏恒立液压股份有限公司关于召开2026年半年度业绩说明会的公告",
+      "latestInteraction": "江苏恒立液压股份有限公司关于召开2026年半年度业绩说明会的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh601100"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:44+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601100&source=lrb&type=0&page=1&num=2"
         },
@@ -1089,15 +969,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601100&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=601100&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1106,7 +986,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:44+08:00",
         "status": "real"
       }
     },
@@ -1120,30 +1000,30 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 5.48% | latest research: 2025年营收净利双增，全面拥抱AI战略 | announcement: 关于回购公司股份的进展公告",
-      "latestInteraction": "关于回购公司股份的进展公告",
+      "hotReason": "revenue growth: 20.3% | latest research: 2026年中报点评：业绩超市场预期，工控龙头α强劲 | announcement: 关于第六期股权激励计划首次授予第一类限制性股票第四个限售期股份解除限售暨上市流通的公告",
+      "latestInteraction": "关于第六期股权激励计划首次授予第一类限制性股票第四个限售期股份解除限售暨上市流通的公告",
       "fieldSources": {
-        "pctChangeSignal": {
+        "revenueGrowth": {
           "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T12:06:46+08:00",
           "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz300124"
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300124&source=lrb&type=0&page=1&num=2"
         },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300124&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300124&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1152,7 +1032,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:46+08:00",
         "status": "real"
       }
     },
@@ -1166,22 +1046,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 10.00% | revenue growth: 34.5% | profit growth: 29.2% | valuation risk: PE TTM 90.9x",
-      "latestInteraction": "关于2025年员工持股计划预留份额完成非交易过户的公告",
+      "hotReason": "revenue growth: 39.9% | profit growth: 62.8% | latest research: 2026半年报点评：业绩超市场预期，人形机器人订单爆发 | announcement: 独立董事提名人声明与承诺（王宏）",
+      "latestInteraction": "独立董事提名人声明与承诺（王宏）",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002979"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002979&source=lrb&type=0&page=1&num=2"
         },
@@ -1189,31 +1061,23 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:47+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002979&source=lrb&type=0&page=1&num=2"
-        },
-        "valuationRisk": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002979"
         },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002979&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=002979&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1222,7 +1086,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:47+08:00",
         "status": "real"
       }
     },
@@ -1236,22 +1100,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 7.34% | profit growth: 92.2% | valuation risk: PE TTM 420.5x | latest research: 先发布局灵巧手电机，拓展机器人产品矩阵",
-      "latestInteraction": "上海鸣志电器股份有限公司2025年年度权益分派实施公告",
+      "hotReason": "profit growth: 38.0% | valuation risk: PE TTM 294.0x | latest research: 盈利能力明显改善，聚焦自动化行业前沿技术 | announcement: 上海鸣志电器股份有限公司董事会秘书工作规则（2026年8月修订）",
+      "latestInteraction": "上海鸣志电器股份有限公司董事会秘书工作规则（2026年8月修订）",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh603728"
-        },
         "profitGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T12:06:49+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603728&source=lrb&type=0&page=1&num=2"
         },
@@ -1259,7 +1115,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603728"
         },
@@ -1267,15 +1123,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603728&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603728&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1284,7 +1140,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:49+08:00",
         "status": "real"
       }
     },
@@ -1298,30 +1154,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 13.32% | profit growth: 27.5% | valuation risk: PE TTM 450.2x | latest research: 让所有终端都能看懂世界",
-      "latestInteraction": "关于设立募集资金专项账户并签订募集资金专户存储三方监管协议的公告",
+      "hotReason": "valuation risk: PE TTM 349.8x | latest research: 2Q26收入不及预期，短期盈利仍受新业务投入影响；下调盈利预测，维持买入 | announcement: 2026年股票期权与限制性股票激励计划激励对象名单（截至首次授予日）",
+      "latestInteraction": "2026年股票期权与限制性股票激励计划激励对象名单（截至首次授予日）",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh688322"
-        },
-        "profitGrowth": {
-          "source": "A Stock Data",
-          "sourceLayer": "finance",
-          "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688322&source=lrb&type=0&page=1&num=2"
-        },
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688322"
         },
@@ -1329,15 +1169,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688322&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=688322&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1346,7 +1186,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:51+08:00",
         "status": "real"
       }
     },
@@ -1360,46 +1200,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 9.38% | profit growth: 46.1% | valuation risk: PE TTM 85.0x | latest research: 业绩稳中向好，多维度布局人形机器人领域",
-      "latestInteraction": "关于为参股公司提供财务资助的公告",
+      "hotReason": "latest research: 业绩稳中向好，多维度布局人形机器人领域 | announcement: 关于2026年半年度计提资产减值准备的公告",
+      "latestInteraction": "关于2026年半年度计提资产减值准备的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz300007"
-        },
-        "profitGrowth": {
-          "source": "A Stock Data",
-          "sourceLayer": "finance",
-          "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300007&source=lrb&type=0&page=1&num=2"
-        },
-        "valuationRisk": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz300007"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300007&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300007&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1408,7 +1224,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:52+08:00",
         "status": "real"
       }
     },
@@ -1422,22 +1238,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 10.93% | valuation risk: PE TTM 116.4x | latest research: Q3业绩符合预期，机器人谐波磁场电机行业领先 | announcement: 关于使用部分闲置募集资金进行现金管理到期赎回并继续进行现金管理的进展公告",
-      "latestInteraction": "关于使用部分闲置募集资金进行现金管理到期赎回并继续进行现金管理的进展公告",
+      "hotReason": "revenue growth: 22.0% | valuation risk: PE TTM 83.5x | latest research: 2026年半年度报告点评：电机业务向总成化拓展，推进新型磁性材料 | announcement: 上海国瓴律师事务所关于宁波恒帅股份有限公司2026年第二次临时股东会见证的法律意见",
+      "latestInteraction": "上海国瓴律师事务所关于宁波恒帅股份有限公司2026年第二次临时股东会见证的法律意见",
       "fieldSources": {
-        "pctChangeSignal": {
+        "revenueGrowth": {
           "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T12:06:54+08:00",
           "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz300969"
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300969&source=lrb&type=0&page=1&num=2"
         },
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300969"
         },
@@ -1445,15 +1261,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300969&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300969&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1462,7 +1278,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T12:06:54+08:00",
         "status": "real"
       }
     },
@@ -1476,22 +1292,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 5.86% | revenue growth: 46.2% | profit growth: 75.1% | valuation risk: PE TTM 108.2x",
-      "latestInteraction": "H股公告（证券变动月报表）",
+      "hotReason": "revenue growth: 49.6% | profit growth: 71.0% | valuation risk: PE TTM 80.3x | latest research: 2025年三季报点评：Q3营收稳健增长，高强度研发布局未来",
+      "latestInteraction": "第三届董事会第四次会议决议公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh688279"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688279&source=lrb&type=0&page=1&num=2"
         },
@@ -1499,7 +1307,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688279&source=lrb&type=0&page=1&num=2"
         },
@@ -1507,7 +1315,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688279"
         },
@@ -1515,15 +1323,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688279&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=688279&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1532,7 +1340,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1546,22 +1354,38 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "latest research: 2025年年报&2026年一季报点评：业绩符合预期，加速布局人形机器人 | announcement: 无锡信捷电气股份有限公司股票交易异常波动公告",
-      "latestInteraction": "无锡信捷电气股份有限公司股票交易异常波动公告",
+      "hotReason": "revenue growth: 25.6% | profit growth: 22.0% | latest research: 2026年中报点评：业绩符合市场预期，机器人核心零部件批量供货 | announcement: 无锡信捷电气股份有限公司关于2026年半年度业绩说明会召开情况的公告",
+      "latestInteraction": "无锡信捷电气股份有限公司关于2026年半年度业绩说明会召开情况的公告",
       "fieldSources": {
+        "revenueGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603416&source=lrb&type=0&page=1&num=2"
+        },
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603416&source=lrb&type=0&page=1&num=2"
+        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603416&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603416&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1570,7 +1394,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1584,22 +1408,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 7.89% | revenue growth: 41.3% | profit growth: 20.6% | valuation risk: PE TTM 121.7x",
-      "latestInteraction": "浙江荣泰电工器材股份有限公司关于部分募集资金专户销户完成的公告",
+      "hotReason": "revenue growth: 56.9% | profit growth: 21.7% | valuation risk: PE TTM 85.8x | latest research: 2026年中报点评：云母主业保持高景气，精密结构件业务放量",
+      "latestInteraction": "浙江荣泰电工器材股份有限公司关于使用部分闲置募集资金进行现金管理的进展公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh603119"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603119&source=lrb&type=0&page=1&num=2"
         },
@@ -1607,7 +1423,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603119&source=lrb&type=0&page=1&num=2"
         },
@@ -1615,7 +1431,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh603119"
         },
@@ -1623,15 +1439,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603119&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603119&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1640,7 +1456,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1654,46 +1470,30 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 9.02% | profit growth: 1233.1% | valuation risk: PE TTM 98.9x | latest research: 凌云光点评报告：AI赋能，机器视觉主业多点开花，具身智能与光通信打开想象空间",
-      "latestInteraction": "2025年年度权益分派实施公告",
+      "hotReason": "profit growth: 583.3% | latest research: 中小盘信息更新：2026H1扣非净利润高增，新兴业务加速产业化 | announcement: 中国国际金融股份有限公司关于凌云光技术股份有限公司增加2026年度日常关联交易预计额度的核查意见",
+      "latestInteraction": "中国国际金融股份有限公司关于凌云光技术股份有限公司增加2026年度日常关联交易预计额度的核查意见",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh688400"
-        },
         "profitGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688400&source=lrb&type=0&page=1&num=2"
-        },
-        "valuationRisk": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh688400"
         },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688400&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=688400&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1702,7 +1502,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1716,22 +1516,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 10.78% | valuation risk: PE TTM 82.4x | latest research: 公司动态研究报告：精密制造全球龙头，全面拥抱新兴产业 | announcement: 2025年度权益分派实施公告",
-      "latestInteraction": "2025年度权益分派实施公告",
+      "hotReason": "revenue growth: 24.2% | valuation risk: PE TTM 108.5x | latest research: 公司动态研究报告：精密制造全球龙头，全面拥抱新兴产业 | announcement: 中国国际金融股份有限公司关于深圳市长盈精密技术股份有限公司2026年半年度持续督导跟踪报告",
+      "latestInteraction": "中国国际金融股份有限公司关于深圳市长盈精密技术股份有限公司2026年半年度持续督导跟踪报告",
       "fieldSources": {
-        "pctChangeSignal": {
+        "revenueGrowth": {
           "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz300115"
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz300115&source=lrb&type=0&page=1&num=2"
         },
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sz300115"
         },
@@ -1739,15 +1539,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300115&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300115&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1756,7 +1556,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1770,38 +1570,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 6.63% | profit growth: 30.9% | latest research: 储能驱动业绩重回正增长，积极布局机器人及商业航天新业务 | announcement: 2026-043 旭升集团2025年年度权益分派实施公告_2026-06-11",
-      "latestInteraction": "2026-043 旭升集团2025年年度权益分派实施公告_2026-06-11",
+      "hotReason": "latest research: 2026年中报点评：业绩符合我们预期，具身智能业务获阶段性进展 | announcement: 宁波旭升集团股份有限公司关于参加广州工业投资控股集团有限公司2026年集体投资者会议的公告",
+      "latestInteraction": "宁波旭升集团股份有限公司关于参加广州工业投资控股集团有限公司2026年集体投资者会议的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh603305"
-        },
-        "profitGrowth": {
-          "source": "A Stock Data",
-          "sourceLayer": "finance",
-          "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603305&source=lrb&type=0&page=1&num=2"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603305&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603305&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1810,7 +1594,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1824,22 +1608,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 15.41% | revenue growth: 35.2% | latest research: 公司动态研究报告：汽摩进气系统领军企业，积极开拓成长新曲线 | announcement: 2025年年度权益分派实施公告",
-      "latestInteraction": "2025年年度权益分派实施公告",
+      "hotReason": "revenue growth: 61.2% | latest research: 公司动态研究报告：汽摩进气系统领军企业，积极开拓成长新曲线 | announcement: 关于2026年限制性股票激励计划内幕信息知情人买卖公司股票情况的自查报告",
+      "latestInteraction": "关于2026年限制性股票激励计划内幕信息知情人买卖公司股票情况的自查报告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz301225"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz301225&source=lrb&type=0&page=1&num=2"
         },
@@ -1847,15 +1623,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=301225&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=301225&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1864,7 +1640,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1878,30 +1654,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 5.82% | latest research: 公司事件点评报告：26Q1业绩超预期，盈利能力稳步修复 | announcement: 江苏新泉汽车饰件股份有限公司关于调整2026年限制性股票激励计划相关事项的公告",
-      "latestInteraction": "江苏新泉汽车饰件股份有限公司关于调整2026年限制性股票激励计划相关事项的公告",
+      "hotReason": "latest research: 全球化布局持续推进，座椅及机器人第二成长曲线加速 | announcement: 江苏新泉汽车饰件股份有限公司关于完成工商变更登记的公告",
+      "latestInteraction": "江苏新泉汽车饰件股份有限公司关于完成工商变更登记的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh603179"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603179&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603179&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1910,7 +1678,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1924,22 +1692,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "latest research: 在手订单充沛，收购智能科技60%股权打开驾驶域控成长空间 | announcement: 科博达技术股份有限公司向不特定对象发行可转换公司债券网上中签率及优先配售结果公告",
-      "latestInteraction": "科博达技术股份有限公司向不特定对象发行可转换公司债券网上中签率及优先配售结果公告",
+      "hotReason": "latest research: 在手订单充沛，打造域控制器平台化企业 | announcement: 科博达技术股份有限公司关于召开2026年半年度业绩说明会的预告公告",
+      "latestInteraction": "科博达技术股份有限公司关于召开2026年半年度业绩说明会的预告公告",
       "fieldSources": {
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603786&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603786&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1948,7 +1716,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -1962,30 +1730,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 7.27% | latest research: 2025年报&2026年一季报点评：盈利能力持续优化，前瞻布局光模块业务 | announcement: 均胜电子关于实际控制人、董事长增持公司股份的公告",
-      "latestInteraction": "均胜电子关于实际控制人、董事长增持公司股份的公告",
+      "hotReason": "latest research: 在手订单充沛，积极布局新兴智能体产业链 | announcement: H股公告（截至2026年8月31日止之股份发行人的证券变动月报表）",
+      "latestInteraction": "H股公告（截至2026年8月31日止之股份发行人的证券变动月报表）",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh600699"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600699&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=600699&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -1994,7 +1754,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2008,22 +1768,30 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "latest research: 2026年第一季度报告点评：2026Q1业绩符合预期，自主车灯龙头持续成长 | announcement: 星宇股份关于股份回购进展公告",
-      "latestInteraction": "星宇股份关于股份回购进展公告",
+      "hotReason": "valuation low: PE 13.0x / PB 1.8x | latest research: 单二季度收入同比减少6%，积极布局机器人相关业务 | announcement: 星宇股份关于2025年年度报告相关文字错误的更正公告",
+      "latestInteraction": "星宇股份关于2025年年度报告相关文字错误的更正公告",
       "fieldSources": {
+        "valuationLow": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh601799"
+        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601799&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=601799&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2032,7 +1800,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2046,30 +1814,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 10.00% | profit growth: 24.8% | announcement: 股票交易异常波动公告 | missing data: research",
-      "latestInteraction": "股票交易异常波动公告",
+      "hotReason": "announcement: 2026年第三次临时股东会会议资料 | missing data: research",
+      "latestInteraction": "2026年第三次临时股东会会议资料",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh603286"
-        },
-        "profitGrowth": {
-          "source": "A Stock Data",
-          "sourceLayer": "finance",
-          "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603286&source=lrb&type=0&page=1&num=2"
-        },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2078,7 +1830,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2092,30 +1844,30 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 9.98% | latest research: 2025年年报&2026年一季报点评：业绩受偶发因素影响，遮阳龙头探索机器人新曲线 | announcement: 上海岱美汽车内饰件股份有限公司关于使用闲置募集资金进行现金管理进展的公告",
-      "latestInteraction": "上海岱美汽车内饰件股份有限公司关于使用闲置募集资金进行现金管理进展的公告",
+      "hotReason": "profit growth: 74.2% | latest research: 26Q2业绩符合预期，大内饰持续拓展 | announcement: 上海岱美汽车内饰件股份有限公司关于不提前赎回“岱美转债”的公告",
+      "latestInteraction": "上海岱美汽车内饰件股份有限公司关于不提前赎回“岱美转债”的公告",
       "fieldSources": {
-        "pctChangeSignal": {
+        "profitGrowth": {
           "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh603730"
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603730&source=lrb&type=0&page=1&num=2"
         },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603730&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603730&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2124,7 +1876,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2138,22 +1890,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "latest research: 公司事件点评报告：26Q1利润超预期，人形机器人外覆盖件开辟成长新曲线 | announcement: 模塑科技股票交易异常波动公告",
-      "latestInteraction": "模塑科技股票交易异常波动公告",
+      "hotReason": "latest research: 公司事件点评报告：26Q2扣非归母净利润同比大增，已与国内外头部机器人展开合作 | announcement: 模塑科技2026年第二次临时股东会法律意见书",
+      "latestInteraction": "模塑科技2026年第二次临时股东会法律意见书",
       "fieldSources": {
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=000700&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=000700&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2162,7 +1914,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2176,22 +1928,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 7.97% | announcement: 关于重大资产重组的进展公告 | missing data: research",
-      "latestInteraction": "关于重大资产重组的进展公告",
+      "hotReason": "announcement: 北京市天元律师事务所关于万向钱潮股份公司2026年第二次临时股东会法律意见 | missing data: research",
+      "latestInteraction": "北京市天元律师事务所关于万向钱潮股份公司2026年第二次临时股东会法律意见",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz000559"
-        },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2200,7 +1944,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2214,22 +1958,30 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "latest research: 中小盘信息更新：设立子公司全面进军具身智能，深度合作哈特研究院 | announcement: 铁流股份控股股东减持股份计划公告",
-      "latestInteraction": "铁流股份控股股东减持股份计划公告",
+      "hotReason": "profit growth: 41.3% | latest research: 中小盘信息更新：设立子公司全面进军具身智能，深度合作哈特研究院 | announcement: 铁流股份关于2026年半年度募集资金存放、管理与实际使用情况的专项报告",
+      "latestInteraction": "铁流股份关于2026年半年度募集资金存放、管理与实际使用情况的专项报告",
       "fieldSources": {
+        "profitGrowth": {
+          "source": "A Stock Data",
+          "sourceLayer": "finance",
+          "sourceEndpoint": "Sina financial statements",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
+          "status": "real",
+          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603926&source=lrb&type=0&page=1&num=2"
+        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603926&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603926&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2238,7 +1990,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2252,22 +2004,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 8.09% | announcement: 中信证券股份有限公司关于上海肇民新材料科技股份有限公司将募集资金理财收益和利息收入用于募投项目的核查意见 | missing data: research",
-      "latestInteraction": "中信证券股份有限公司关于上海肇民新材料科技股份有限公司将募集资金理财收益和利息收入用于募投项目的核查意见",
+      "hotReason": "announcement: 关于使用闲置募集资金和自有资金进行现金管理的进展公告 | missing data: research",
+      "latestInteraction": "关于使用闲置募集资金和自有资金进行现金管理的进展公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz301000"
-        },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2276,7 +2020,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2290,22 +2034,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 7.32% | profit growth: 37.4% | announcement: 关于回购公司股份的进展公告 | missing data: research",
-      "latestInteraction": "关于回购公司股份的进展公告",
+      "hotReason": "profit growth: 74.2% | announcement: 2026年第一次临时股东会法律意见书 | missing data: research",
+      "latestInteraction": "2026年第一次临时股东会法律意见书",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002164"
-        },
         "profitGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sz002164&source=lrb&type=0&page=1&num=2"
         },
@@ -2313,7 +2049,7 @@
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2322,7 +2058,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2336,22 +2072,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 6.47% | valuation risk: PE TTM 270.1x | latest research: 公司事件点评报告：26Q1业绩承压，增资浦元科技继续押注机器人领域 | announcement: 常州市凯迪电器股份有限公司关于回购注销部分限制性股票通知债权人的公告",
-      "latestInteraction": "常州市凯迪电器股份有限公司关于回购注销部分限制性股票通知债权人的公告",
+      "hotReason": "valuation risk: PE TTM 1259.3x | latest research: 公司事件点评报告：26Q1业绩承压，增资浦元科技继续押注机器人领域 | announcement: 常州市凯迪电器股份有限公司2026年半年度报告摘要",
+      "latestInteraction": "常州市凯迪电器股份有限公司2026年半年度报告摘要",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh605288"
-        },
         "valuationRisk": {
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh605288"
         },
@@ -2359,15 +2087,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=605288&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=605288&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2376,7 +2104,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2390,30 +2118,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 12.76% | latest research: 公司动态研究报告：全球安防手套领军企业，布局人形机器人纺织品 | announcement: 《公司章程》（2026年6月）",
-      "latestInteraction": "《公司章程》（2026年6月）",
+      "hotReason": "latest research: 公司动态研究报告：全球安防手套领军企业，布局人形机器人纺织品 | announcement: 关于完成补选独立董事的公告",
+      "latestInteraction": "关于完成补选独立董事的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz300952"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300952&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300952&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2422,7 +2142,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2436,14 +2156,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 28.8% | profit growth: 26.7% | latest research: 公司事件点评报告：回购彰显对未来信心 | announcement: H股公告",
+      "hotReason": "revenue growth: 38.9% | profit growth: 29.4% | latest research: 2026年半年报点评：CRDMO模式驱动成长，全年业绩指引全面上调 | announcement: H股公告",
       "latestInteraction": "H股公告",
       "fieldSources": {
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603259&source=lrb&type=0&page=1&num=2"
         },
@@ -2451,7 +2171,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh603259&source=lrb&type=0&page=1&num=2"
         },
@@ -2459,15 +2179,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=603259&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=603259&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2476,7 +2196,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2490,22 +2210,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "latest research: 一体化CXO平台持续深化 小分子CDMO商业化能力逐步验证 | announcement: H股公告",
-      "latestInteraction": "H股公告",
+      "hotReason": "latest research: 二季度业绩增长提速 CDMO商业化能力持续验证 | announcement: 康龙化成（北京）新药技术股份有限公司章程",
+      "latestInteraction": "康龙化成（北京）新药技术股份有限公司章程",
       "fieldSources": {
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=300759&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=300759&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2514,7 +2234,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2528,30 +2248,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 8.23% | latest research: 2025年年报点评：在手订单充沛，新兴业务强势增长 | announcement: H股公告：证券变动月报表",
+      "hotReason": "latest research: 2026年半年报点评：新兴业务收入、订单高增长，资本开支再提速 | announcement: H股公告：证券变动月报表",
       "latestInteraction": "H股公告：证券变动月报表",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sz002821"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=002821&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=002821&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2560,7 +2272,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2574,14 +2286,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 34.0% | profit growth: 133.2% | valuation risk: PE TTM 93.0x | latest research: 核心主业经营趋势向好，海外市场开拓迎来机遇",
-      "latestInteraction": "苏州纳微科技股份有限公司关于举办2026年投资者开放日活动的公告",
+      "hotReason": "price move signal: 5.37% | revenue growth: 37.3% | profit growth: 116.1% | valuation risk: PE TTM 91.2x",
+      "latestInteraction": "苏州纳微科技股份有限公司关于开展外汇套期保值业务的可行性分析报告",
       "fieldSources": {
+        "pctChangeSignal": {
+          "source": "A Stock Data",
+          "sourceLayer": "quote",
+          "sourceEndpoint": "Tencent qt.gtimg.cn",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
+          "status": "real",
+          "sourceUrl": "https://qt.gtimg.cn/q=sh688690"
+        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688690&source=lrb&type=0&page=1&num=2"
         },
@@ -2589,7 +2309,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688690&source=lrb&type=0&page=1&num=2"
         },
@@ -2597,23 +2317,15 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688690"
-        },
-        "research": {
-          "source": "A Stock Data",
-          "sourceLayer": "research",
-          "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688690&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2622,7 +2334,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2636,30 +2348,22 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "profit growth: 21.8% | latest research: 研发能力再得验证，创新成果加速落地 | announcement: 恒瑞医药关于获得药物临床试验批准通知书的公告",
-      "latestInteraction": "恒瑞医药关于获得药物临床试验批准通知书的公告",
+      "hotReason": "latest research: 肿瘤创新药销售承压，研发保持高强度投入 | announcement: 恒瑞医药关于首次回购公司A股股份的公告",
+      "latestInteraction": "恒瑞医药关于首次回购公司A股股份的公告",
       "fieldSources": {
-        "profitGrowth": {
-          "source": "A Stock Data",
-          "sourceLayer": "finance",
-          "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600276&source=lrb&type=0&page=1&num=2"
-        },
         "research": {
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600276&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=600276&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2668,7 +2372,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2682,22 +2386,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 5.28% | revenue growth: 31.0% | profit growth: 1801.3% | valuation risk: PE TTM 130.1x",
-      "latestInteraction": "百济神州有限公司自愿披露关于百悦泽（泽布替尼胶囊）临床试验进展的公告",
+      "hotReason": "revenue growth: 26.8% | profit growth: 627.1% | valuation risk: PE TTM 92.1x | latest research: 泽布替尼远期收入重估，后续管线待验证",
+      "latestInteraction": "港股公告：员工购股计划项下的股份购买",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh688235"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688235&source=lrb&type=0&page=1&num=2"
         },
@@ -2705,7 +2401,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh688235&source=lrb&type=0&page=1&num=2"
         },
@@ -2713,7 +2409,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh688235"
         },
@@ -2721,15 +2417,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=688235&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=688235&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2738,7 +2434,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2752,22 +2448,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "price move signal: 5.27% | revenue growth: 26.9% | profit growth: 206.7% | latest research: 26Q1点评：业绩大增有望拉开“油运大时代”序幕",
-      "latestInteraction": "中远海能关于2023年股票期权激励计划限制行权期间延长的提示性公告",
+      "hotReason": "revenue growth: 30.0% | profit growth: 143.2% | latest research: 油运高景气，H1盈利大增 | announcement: 中远海能关于新开立募集资金现金管理专用结算账户的公告",
+      "latestInteraction": "中远海能关于新开立募集资金现金管理专用结算账户的公告",
       "fieldSources": {
-        "pctChangeSignal": {
-          "source": "A Stock Data",
-          "sourceLayer": "quote",
-          "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
-          "status": "real",
-          "sourceUrl": "https://qt.gtimg.cn/q=sh600026"
-        },
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600026&source=lrb&type=0&page=1&num=2"
         },
@@ -2775,7 +2463,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh600026&source=lrb&type=0&page=1&num=2"
         },
@@ -2783,15 +2471,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=600026&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=600026&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2800,7 +2488,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2814,14 +2502,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "revenue growth: 52.9% | profit growth: 219.3% | latest research: 26Q1点评：业绩大涨初步验证周期，持续看好公司受益于油散共振 | announcement: 招商轮船2026年半年度业绩预增公告",
-      "latestInteraction": "招商轮船2026年半年度业绩预增公告",
+      "hotReason": "revenue growth: 56.2% | profit growth: 227.6% | latest research: 油散滚共振，H1业绩高增 | announcement: 招商轮船2026年半年度报告",
+      "latestInteraction": "招商轮船2026年半年度报告",
       "fieldSources": {
         "revenueGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601872&source=lrb&type=0&page=1&num=2"
         },
@@ -2829,7 +2517,7 @@
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601872&source=lrb&type=0&page=1&num=2"
         },
@@ -2837,15 +2525,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601872&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=601872&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2854,7 +2542,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2868,14 +2556,14 @@
       "holderChangePct": null,
       "upcomingLockupCount": null,
       "popularityRank": null,
-      "hotReason": "profit growth: 51.7% | valuation low: PE 11.8x / PB 1.5x | latest research: 26Q1点评：归母净利大增，关注后续地缘催化 | announcement: 招商南油股票交易异常波动公告",
-      "latestInteraction": "招商南油股票交易异常波动公告",
+      "hotReason": "profit growth: 42.4% | valuation low: PE 13.9x / PB 1.8x | latest research: 2026年中报点评：营收利润双增长，完成重新上市以来首次现金分红 | announcement: 招商南油关于召开2026年第二次临时股东会的通知",
+      "latestInteraction": "招商南油关于召开2026年第二次临时股东会的通知",
       "fieldSources": {
         "profitGrowth": {
           "source": "A Stock Data",
           "sourceLayer": "finance",
           "sourceEndpoint": "Sina financial statements",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022?paperCode=sh601975&source=lrb&type=0&page=1&num=2"
         },
@@ -2883,7 +2571,7 @@
           "source": "A Stock Data",
           "sourceLayer": "quote",
           "sourceEndpoint": "Tencent qt.gtimg.cn",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://qt.gtimg.cn/q=sh601975"
         },
@@ -2891,15 +2579,15 @@
           "source": "A Stock Data",
           "sourceLayer": "research",
           "sourceEndpoint": "Eastmoney reportapi",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
-          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-07-05&endTime=2026-07-05&code=601975&qType=0&pageNo=1&sortType=4&sortRule=-1"
+          "sourceUrl": "https://reportapi.eastmoney.com/report/list?pageSize=5&beginTime=2025-09-18&endTime=2026-09-18&code=601975&qType=0&pageNo=1&sortType=4&sortRule=-1"
         },
         "announcement": {
           "source": "A Stock Data",
           "sourceLayer": "announcements",
           "sourceEndpoint": "CNInfo hisAnnouncement",
-          "updatedAt": "2026-07-05T17:27:47+08:00",
+          "updatedAt": "2026-09-18T11:48:05+08:00",
           "status": "real",
           "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query"
         }
@@ -2908,7 +2596,7 @@
         "source": "A Stock Data",
         "sourceLayer": "signals",
         "sourceEndpoint": "Derived from quote/history/financial/research/announcements",
-        "updatedAt": "2026-07-05T17:27:47+08:00",
+        "updatedAt": "2026-09-18T11:48:05+08:00",
         "status": "real"
       }
     },
@@ -2929,7 +2617,7 @@
         "source": "yfinance",
         "sourceLayer": "signals",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:40:20+08:00",
+        "updatedAt": "2026-09-18T12:02:47+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }
@@ -2951,7 +2639,7 @@
         "source": "yfinance",
         "sourceLayer": "signals",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:40:20+08:00",
+        "updatedAt": "2026-09-18T12:02:47+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }
@@ -2973,7 +2661,7 @@
         "source": "yfinance",
         "sourceLayer": "signals",
         "sourceEndpoint": "HK provider MVP",
-        "updatedAt": "2026-07-05T17:40:20+08:00",
+        "updatedAt": "2026-09-18T12:02:47+08:00",
         "status": "not_implemented",
         "errorMessage": "港股该模块暂未接入"
       }

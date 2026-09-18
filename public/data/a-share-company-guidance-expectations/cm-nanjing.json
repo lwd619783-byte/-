@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "cm-nanjing",
   "stockCode": "601975",
   "companyName": "招商南油",
   "market": "A股",
   "status": "generated_real",
-  "totalAnnouncementCount": 161,
+  "totalAnnouncementCount": 171,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1224090881",
@@ -67,7 +67,7 @@
         "formationTimeBasis": "public_disclosure_proxy",
         "providerId": "cninfo-company-guidance",
         "providerVersion": "2.0.0",
-        "providerGeneratedAt": "2026-07-11T07:31:40Z",
+        "providerGeneratedAt": "2026-09-18T03:50:45Z",
         "providerEvidenceIdentity": "cninfo-company-guidance|1224090881|cm-nanjing|2025-06-30|half_year|attributable_net_profit",
         "providerSnapshotVersionId": "company-guidance-version-072df141e10ba00ae0b71cf5ccb934773f9ffa80881ea498b16b31158a6b1630",
         "providerContentChecksum": "072df141e10ba00ae0b71cf5ccb934773f9ffa80881ea498b16b31158a6b1630",
@@ -98,7 +98,7 @@
       "officialSourceUrl": "https://www.cninfo.com.cn/new/disclosure/detail?annoId=1224090881",
       "officialPdfUrl": "https://static.cninfo.com.cn/finalpage/2025-07-08/1224090881.PDF",
       "sourceDate": "2025-07-08",
-      "generatedAt": "2026-07-11T07:31:40Z",
+      "generatedAt": "2026-09-18T03:50:45Z",
       "artifactChecksum": "072df141e10ba00ae0b71cf5ccb934773f9ffa80881ea498b16b31158a6b1630",
       "sourceParseStatus": "parse_success",
       "sourceExtractionConfidence": "high",
@@ -116,7 +116,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "generated_real"
   }
 }

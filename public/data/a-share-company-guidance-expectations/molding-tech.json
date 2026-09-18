@@ -2,13 +2,13 @@
   "schemaVersion": "2.0.0",
   "providerId": "cninfo-company-guidance",
   "providerVersion": "2.0.0",
-  "generatedAt": "2026-07-11T07:31:40Z",
+  "generatedAt": "2026-09-18T03:50:45Z",
   "stockId": "molding-tech",
   "stockCode": "000700",
   "companyName": "模塑科技",
   "market": "A股",
   "status": "partial",
-  "totalAnnouncementCount": 208,
+  "totalAnnouncementCount": 223,
   "targetAnnouncements": [
     {
       "sourceAnnouncementId": "1220601602",
@@ -48,7 +48,7 @@
     "source": "CNInfo",
     "sourceLayer": "company_guidance_expectations",
     "sourceUrl": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
-    "updatedAt": "2026-07-11T07:31:40Z",
+    "updatedAt": "2026-09-18T03:50:45Z",
     "status": "partial"
   }
 }
