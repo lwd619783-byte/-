@@ -1,4 +1,4 @@
-import { statusDisplayLabel, unitDisplayLabel } from '../../utils/displayLabels';
+import { auditDisplayText, statusDisplayLabel, unitDisplayLabel } from '../../utils/displayLabels';
 import { AdvancedAuditDetails } from '../common/AdvancedAuditDetails';
 import { useEffect, useState } from 'react';
 import { loadIndustryMetrics, type IndustryProviderState } from '../../services/industryMetricProvider';
@@ -7,7 +7,7 @@ import { EvidenceDrawer } from '../research/EvidenceDrawer';
 
 export function IndustryChangeSummary({ event, onOpenEvidence }: { event: IndustryChangeEvent; onOpenEvidence: () => void }) {
   return <div className="min-w-0">
-    <h3 className="break-words font-semibold text-textStrong">{event.title}</h3>
+    <h3 className="break-words font-semibold text-textStrong">{auditDisplayText(event.title)}</h3>
     <p className="mt-2 text-xs leading-5 text-textMuted">留存期间：{event.period} · 页面标注发布：{event.publicationDateTime?.slice(0, 10) ?? '未确认'} · 公开可得时间：{event.releaseAvailableAt ?? '未确认'}</p>
     <p className="mt-2 break-words text-xs leading-5 text-warning">{event.conditions.map(statusDisplayLabel).join(' / ')} · 仅供来源核对，不代表生产准入。</p>
     <dl className="mt-3 grid gap-3 sm:grid-cols-2">{event.signals.flatMap(signal => signal.readings.map(reading => <div key={`${signal.id}:${reading.basis}`} className="min-w-0"><dt className="text-xs text-textMuted">{reading.label}</dt><dd className="mt-1 text-sm tabular-nums text-textStrong">{reading.value === null ? '暂缺' : reading.value.toLocaleString('zh-CN')} {unitDisplayLabel(reading.unit)}</dd></div>))}</dl>

@@ -47,3 +47,17 @@ it('keeps event identity and provenance hidden while showing ordinary evidence a
   expect(screen.getByText(event.id, { exact: true })).toBeVisible();
   expect(JSON.stringify(event)).toBe(before);
 });
+
+
+it.each([['pending', '待处理'], ['acknowledged', '已确认'], ['dismissed', '已忽略'], ['snoozed', '稍后处理']] as const)('uses review-task wording for %s without changing the task status', (status, label) => {
+  const fixture = createReviewFixtures('full');
+  const task = { ...fixture.tasks[0], status };
+  const before = JSON.stringify(task);
+  render(<EvidenceDrawer events={[]} tasks={[task]} stocks={[]} onClose={() => {}} onOpenStock={() => {}} />);
+  const tasks = screen.getByLabelText('关联既有复盘任务');
+  fireEvent.click(within(tasks).getByText('关联复盘任务 · 1（展开原因）'));
+  expect(within(tasks).getByText(new RegExp(`状态 ${label} ·`))).toBeVisible();
+  expect(tasks.textContent).not.toContain('待核验');
+  expect(task.status).toBe(status);
+  expect(JSON.stringify(task)).toBe(before);
+});

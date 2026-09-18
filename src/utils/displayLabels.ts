@@ -1,3 +1,5 @@
+import type { ReviewTask } from "../types";
+
 export function dataModeDisplayLabel(value: string) {
   return ({ mock: "模拟数据", mixed: "混合数据", real: "真实数据", "Mock Data": "模拟数据", "Mixed Data": "混合数据", "Real Data": "真实数据" } as Record<string, string>)[value] ?? value;
 }
@@ -43,6 +45,11 @@ export function statusDisplayLabel(value: string) {
   } as Record<string, string>)[value] ?? value;
 }
 
+/** Review reminders are pending action, not pending source verification. */
+export function reviewTaskStatusDisplayLabel(value: ReviewTask["status"]) {
+  return value === "pending" ? "待处理" : statusDisplayLabel(value);
+}
+
 /** Presentation only: never write these labels back to data owners. */
 export function unitDisplayLabel(value: string) {
   return ({ "Thousand Barrels": "千桶", CNY: "人民币", HKD: "港元", USD: "美元", percent: "%", ratio: "比率", yuan: "元", ten_thousand_yuan: "万元", million_yuan: "百万元", hundred_million_yuan: "亿元", currency_per_share: "每股" } as Record<string, string>)[value] ?? value;
@@ -59,6 +66,7 @@ export function financialMetricLabel(value: string) {
 export function auditDisplayText(value: string): string {
   const phrases: Record<string, string> = {
     'U.S. Energy Information Administration': '美国能源信息署（EIA）',
+    '更新oil-shipping ': '更新油运行业 ',
     'U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock': '美国商业原油期末库存（不含战略石油储备及租赁库存）',
     'Thousand Barrels': '千桶', '未提供 / unknown': '未提供 / 未确认',
     'Evidence Graph / revision continuity': '证据关联 / 修订连续性',

@@ -1,4 +1,4 @@
-import { statusDisplayLabel } from '../../utils/displayLabels';
+import { statusDisplayLabel, reviewTaskStatusDisplayLabel } from '../../utils/displayLabels';
 import { AdvancedAuditDetails } from '../common/AdvancedAuditDetails';
 import { useState } from "react";
 import type { EarningsExpectationSnapshot, ResearchEvent, ReviewTask, Stock, WatchItem } from "../../types";
@@ -40,7 +40,7 @@ function EventEvidenceDrawer({ events, expectationSnapshots = [], tasks = [], wa
       {stock ? <button type="button" className="inbox-action" data-stock-id={stock.id} onClick={() => leave(() => onOpenStock(stock))}>打开对应公司</button> : <span className="text-sm text-warning">公司未解析，无法跳转</span>}
       {reviewItem && onStartReview ? <button type="button" className="inbox-action" onClick={() => leave(() => onStartReview(reviewItem))}>开始复盘</button> : null}
     </div>}>
-    {tasks.length ? <details className="mb-4" aria-label="关联既有复盘任务"><summary className="min-h-11 font-semibold">关联复盘任务 · {tasks.length}（展开原因）</summary><ul className="mt-2 space-y-2">{tasks.map(task => <li key={task.id} className="text-sm"><p>{task.title}</p><p className="text-xs text-textMuted">{task.description}</p><p className="text-xs text-warning">状态 {statusDisplayLabel(task.status)} · 严重程度 {statusDisplayLabel(task.severity)} · 任务日期 {task.dueAt ?? "未提供"}</p></li>)}</ul></details> : null}
+    {tasks.length ? <details className="mb-4" aria-label="关联既有复盘任务"><summary className="min-h-11 font-semibold">关联复盘任务 · {tasks.length}（展开原因）</summary><ul className="mt-2 space-y-2">{tasks.map(task => <li key={task.id} className="text-sm"><p>{task.title}</p><p className="text-xs text-textMuted">{task.description}</p><p className="text-xs text-warning">状态 {reviewTaskStatusDisplayLabel(task.status)} · 严重程度 {statusDisplayLabel(task.severity)} · 任务日期 {task.dueAt ?? "未提供"}</p></li>)}</ul></details> : null}
     {unresolvedEventIds.length ? <p role="status" className="mb-3 break-all text-sm text-warning">关联事件未提供或公司不匹配：{unresolvedEventIds.length} 条。未替换为其他事件。</p> : null}
     {unresolvedEventIds.length ? <AdvancedAuditDetails>未解析事件标识：{unresolvedEventIds.join("、")}</AdvancedAuditDetails> : null}
     {events.length > 1 ? <label className="mb-4 block text-sm">关联证据<select className="mt-2 min-h-11 w-full" value={selectedId ?? ""} onChange={e => setSelectedId(e.target.value)}>{events.map(event => <option key={event.id} value={event.id}>{event.title}</option>)}</select></label> : null}
