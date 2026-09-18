@@ -36,11 +36,11 @@ it('shows unavailable when no structural context exists', () => {
 it('uses exact segment primary nodes and keeps all company facts in secondary disclosures', () => {
   const { container } = render(<IndustryChainDiagram industry={industry} stocks={pool} onOpenStock={vi.fn()} onSelectSegment={vi.fn()} />);
   const nodes = container.querySelectorAll('[data-chain-node="segment"]');
-  expect(nodes).toHaveLength(10);
+  expect(nodes).toHaveLength(7);
   expect(new Set([...nodes].map(n => n.getAttribute('data-chain-group'))).size).toBe(7);
   for (const node of nodes) {
     expect(industry.segments.some(s => s.id === node.getAttribute('data-chain-group'))).toBe(true);
-    expect(node.closest('[data-chain-stage]')).toBeTruthy();
+    expect(node.closest('[data-chain-stage], .chain-cross-context')).toBeTruthy();
     expect(node.querySelector('.chain-segment-detail > summary')?.textContent).toContain(industry.segments.find(s => s.id === node.getAttribute('data-chain-group'))!.name);
     expect(node.querySelector('.chain-provider-summary')?.closest('details')?.hasAttribute('open')).toBe(false);
   }
@@ -58,7 +58,7 @@ it('keeps missing and stale owners in the full segment coverage denominator', ()
   const stock = pool.find(s => s.id === 'unitree')!;
   const missing = { ...stock, quote: undefined, realFinancial: undefined, aShareFinancialSummary: undefined, announcements: undefined, aShareAnnouncementSummary: undefined };
   const { container, rerender } = render(<IndustryChainDiagram industry={industry} stocks={[missing]} onOpenStock={vi.fn()} onSelectSegment={vi.fn()} />);
-  const segment = container.querySelector('[data-chain-node="segment"]') as HTMLElement;
+  const segment = container.querySelector('[data-chain-group="robot-oem"]') as HTMLElement;
   expect(within(segment).getByText('行情 0/1')).toBeTruthy();
   expect(within(segment).getByText('财务 0/1')).toBeTruthy();
   expect(within(segment).getByText('公告 0/1')).toBeTruthy();

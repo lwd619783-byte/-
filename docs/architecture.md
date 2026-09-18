@@ -296,7 +296,9 @@ Slice 3 在 Registry provider 之后增加只读 `industrySignals.ts`：每 metr
 
 Slice 3 `industryChainTopology()` 仅读取 Industry.chain 与既有 company.chainPosition/segmentId；按原条目在位置文字中的字面匹配挂接公司，跨环节保留全部匹配，未匹配/冲突不默认定位。`industryCompanyOverlay()` 独立读取 exact-ID quote、financial/announcement owner，拒绝 foreign owner 和 mock/未知 Provider Fact。行情 updatedAt 是采集时钟，交易所 as-of 未留存即 unknown。原 Industry 页面新增最新变化 → 正式指标 → 产业链图 → 既有研究模块，复用 company drawer / segment deep link，无第二套页面。
 
-Slice 3 final remediation（2026-09-18）把上面投影的展示粒度改为 stage group → segment primary node → secondary company chips / expandable facts；仍无新的事实owner、关系或导航模型。节点覆盖分母是全部既有placement，公司研究状态与Provider质量分别呈现。Provider Stability使用配置expectedCompanies=57及current generated A股exact IDs，由`expected_company_cohort()`供observation和production validators共同核验；provenance cohort、历史56记录、门槛与default refresh准入不变，当前仍无足够观察窗口。
+Slice 3 细分关系增量（2026-09-18 CURRENT）将细分展示与公司跨阶段placement分离：`industryChainResearch.ts` 是既有 `Industry.chain` 与 segment `logic/demandSource` 的只读研究视图，7个唯一节点（上4/中1/下1/横向1）、6条有原文引用的功能关系。引用或identity失效则unavailable，不建立新的Provider/Entity owner，不声称企业供货关系。`IndustrySegmentMap` 用HTML节点与随ResizeObserver更新的SVG连线呈现；移动端显示源节点的关系目标短行。公司原始positions保持，展开区按exact ID合并，行情不改变结构。默认隐藏公司与Provider明细。验收与历史展示差异见[Slice 3](stage-4-2-slice-3.md)。
+
+Slice 3 final remediation（2026-09-18，上一版展示记录）把上面投影的展示粒度改为 stage group → segment primary node → secondary company chips / expandable facts；当时仍无新的事实owner、关系或导航模型。节点覆盖分母是全部既有placement，公司研究状态与Provider质量分别呈现。Provider Stability使用配置expectedCompanies=57及current generated A股exact IDs，由`expected_company_cohort()`供observation和production validators共同核验；provenance cohort、历史56记录、门槛与default refresh准入不变，当前仍无足够观察窗口。
 
 Slice 3 remediation（2026-09-18）保持上述投影，只将展示改为 stage → exact segment → company 的结构化React全景；桌面分区主轴、移动纵向，节点明细与公司/segment继续复用原路由。`listingIdentity.ts` 从已reviewed交易所披露映射匹配stock+唯一symbol后返回board/date/source，仅补正式上市身份上下文，不回填Provider profile或提升Entity/PIT/admission。`scripts/listing/probe_listing.py` 是手动只读seam：当前tracked private set的AST静态读取 → 显式官方source配置 → exact身份比对 → 五态结果；不会写Universe、扫描全市场或创建平行EntityRegistry。Unitree静态迁移由本轮reviewed代码完成，历史pre-IPO原文单独保留，当前private集合为空。
 

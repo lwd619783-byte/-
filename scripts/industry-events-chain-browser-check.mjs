@@ -5,10 +5,10 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4173';
-const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-2-slice-3/simple-chain-browser');
+const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-2-slice-3/segment-relations-browser');
 await fs.mkdir(output, { recursive: true });
-const report = { base: '086521d6bd305ea73cb5d4a426b9d4138e4a824b', auditedInput: 'a0c1f64947dc8c12447a39d26e2eac5778dd6220', scope: 'Slice 3 simplified default structure with expandable details', generatedAt: new Date().toISOString(), sourceSha256: {}, checks: [], errors: [], screenshots: [], screenshotNote: 'Element captures hide the fixed mobile navigation only during screenshot; layout and navigation assertions use unmodified UI.' };
-for (const file of ['src/services/industrySignals.ts', 'src/services/industryChain.ts', 'src/components/industry/IndustryChainDiagram.tsx', 'src/components/industry/industry-chain.css', 'src/components/industry/IndustryChangePanel.tsx', 'src/components/industry/IndustryTab.tsx', 'src/services/researchInbox.ts', 'src/data/industries.ts', 'src/data/stocks.ts', 'src/data/privateCompanies.ts', 'src/data/real/quotes.generated.json', 'src/data/real/a-share-financial-summaries.generated.json', 'src/data/real/a-share-announcement-summaries.generated.json']) report.sourceSha256[file] = createHash('sha256').update((await fs.readFile(file, 'utf8')).replace(/\r\n/g, '\n')).digest('hex');
+const report = { base: '086521d6bd305ea73cb5d4a426b9d4138e4a824b', auditedInput: 'b626be6304cfe4e825ed006a6d539933b0905461', scope: 'Slice 3 unique segments and source-grounded functional relationships', generatedAt: new Date().toISOString(), sourceSha256: {}, checks: [], errors: [], screenshots: [], screenshotNote: 'Element captures hide the fixed mobile navigation only during screenshot; layout and navigation assertions use unmodified UI.' };
+for (const file of ['src/data/industryChainResearch.ts', 'src/components/industry/IndustrySegmentMap.tsx', 'src/services/industrySignals.ts', 'src/services/industryChain.ts', 'src/components/industry/IndustryChainDiagram.tsx', 'src/components/industry/industry-chain.css', 'src/components/industry/IndustryChangePanel.tsx', 'src/components/industry/IndustryTab.tsx', 'src/services/researchInbox.ts', 'src/data/industries.ts', 'src/data/stocks.ts', 'src/data/privateCompanies.ts', 'src/data/real/quotes.generated.json', 'src/data/real/a-share-financial-summaries.generated.json', 'src/data/real/a-share-announcement-summaries.generated.json']) report.sourceSha256[file] = createHash('sha256').update((await fs.readFile(file, 'utf8')).replace(/\r\n/g, '\n')).digest('hex');
 const browser = await chromium.launch({ channel: 'msedge', headless: true });
 const check = (ok, name) => { report.checks.push({ ok, name }); if (!ok) throw new Error(name); };
 try {
@@ -23,6 +23,24 @@ try {
   const page = await context.newPage();
   page.on('pageerror', error => report.errors.push(error.message));
   const fits = async name => check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), name);
+  const validConnectors = async diagram => diagram.evaluate(root => {
+    const svg = root.querySelector('.chain-edges'), origin = svg.getBoundingClientRect();
+    const nodes = [...root.querySelectorAll('[data-chain-group]')].map(n => ({ id:n.dataset.chainGroup, r:n.getBoundingClientRect() }));
+    return [...svg.querySelectorAll('[data-chain-edge]')].every(edge => {
+      const ids = edge.dataset.chainEdge.split(':'), path = edge.querySelector('path'), length = path.getTotalLength();
+      if (!Number.isFinite(length) || !length || path.getAttribute('d').includes('NaN')) return false;
+      for (const [id, distance] of [[ids[0],0],[ids[1],length]]) {
+        const p = path.getPointAtLength(distance), r = nodes.find(n => n.id === id).r;
+        const x=p.x+origin.x,y=p.y+origin.y;
+        if (!(Math.min(Math.abs(x-r.left),Math.abs(x-r.right),Math.abs(y-r.top),Math.abs(y-r.bottom)) < 2 && x>=r.left-2 && x<=r.right+2 && y>=r.top-2 && y<=r.bottom+2)) return false;
+      }
+      for (let distance=2;distance<length;distance+=2) {
+        const p=path.getPointAtLength(distance),x=p.x+origin.x,y=p.y+origin.y;
+        if (nodes.some(n => !ids.includes(n.id) && x>n.r.left+2 && x<n.r.right-2 && y>n.r.top+2 && y<n.r.bottom-2)) return false;
+      }
+      return true;
+    });
+  });
   for (const theme of ['neon', 'pro', 'light']) for (const width of [1536, 390, 320]) {
     const name = `${theme}-${width}`;
     await page.setViewportSize({ width, height: 960 });
@@ -50,14 +68,18 @@ try {
     check(await diagram.locator('[data-chain-stage] h3').evaluateAll(nodes => nodes.map(n => n.textContent).join('/') === '上游/中游/下游'), `three original stages ${name}`);
     check(await diagram.locator('[data-chain-group]:visible').count() >= 7, `segment groups visible ${name}`);
     const unitree = diagram.locator('[data-chain-stage="下游"] [data-chain-company="unitree"]');
-    check(await diagram.locator('[data-chain-node="segment"]:visible').count() === 10, `segment-node architecture ${name}`);
+    check(await diagram.locator('[data-chain-node="segment"]:visible').count() === 7, `segment-node architecture ${name}`);
     check(await diagram.locator('[data-chain-stage]').evaluateAll(nodes => new Set(nodes.map(n => getComputedStyle(n).borderTopColor)).size === 3), `colored stage grouping ${name}`);
-    check(await diagram.locator('.chain-canvas').evaluate(n => getComputedStyle(n).backgroundImage.includes('linear-gradient')) && await diagram.locator('.chain-flow-arrow').count() === 2, `architecture-canvas visual hierarchy ${name}`);
-    check(await diagram.locator('[data-chain-company]:visible').count() === 0 && await diagram.locator('.chain-segment-detail:not([open])').count() === 10, `no company-card-as-primary-node ${name}`);
+    check(await diagram.locator('.chain-canvas').evaluate(n => getComputedStyle(n).backgroundImage.includes('linear-gradient')) && await diagram.locator('.chain-flow-arrow').count() === 0, `architecture-canvas visual hierarchy ${name}`);
+    check(await diagram.locator('[data-chain-company]:visible').count() === 0 && await diagram.locator('.chain-segment-detail:not([open])').count() === 7, `no company-card-as-primary-node ${name}`);
     check(await diagram.locator('.chain-unresolved-grid article').count() === 12, `exact unresolved cohort ${name}`);
     check(await diagram.locator('.chain-segment-detail > summary').evaluateAll(nodes => nodes.every(n => parseFloat(getComputedStyle(n.querySelector('h4')).fontSize) >= 16)), `readable segment labels ${name}`);
     check(await diagram.locator('.chain-provider-summary:visible, .chain-research-coverage:visible, [data-stock-id]:visible').count() === 0, `default map hides counts companies and facts ${name}`);
-    if (width === 1536) check((await diagram.boundingBox()).height <= 820, `compact desktop overview ${name}`);
+    if (width === 1536) check((await diagram.boundingBox()).height <= 1080, `compact desktop overview ${name}`);
+    check(await diagram.locator('[data-chain-group]').evaluateAll(nodes => new Set(nodes.map(n => n.dataset.chainGroup)).size === nodes.length), `unique segment placement ${name}`);
+    check(width > 767 ? await diagram.locator('[data-chain-edge]').count() === 6 : await diagram.locator('.chain-mobile-relations li:visible').count() === 6, `six explicit functional and capability relations ${name}`);
+    check(await diagram.locator('.chain-cross-context [data-chain-group="auto-parts-migration"]').count() === 1 && await diagram.locator('[data-chain-stage] [data-chain-group="auto-parts-migration"]').count() === 0, `migration is a cross-cutting research direction ${name}`);
+    if (width > 767) check(await validConnectors(diagram), `connectors attach to exact nodes and avoid other nodes ${name}`);
     const stageBoxes = await diagram.locator('[data-chain-stage]').evaluateAll(nodes => nodes.map(n => { const r = n.getBoundingClientRect(); return { x:r.x, y:r.y }; }));
     check(width > 767 ? stageBoxes.every(b => b.y === stageBoxes[0].y) : stageBoxes.every(b => b.x === stageBoxes[0].x), `panorama or vertical stages ${name}`);
     check((await diagram.innerText()).includes('位置待映射'), `no guessed placement ${name}`);
@@ -82,6 +104,7 @@ try {
     check((await card.innerText()).includes('行情源 as-of') && (await card.innerText()).includes('unknown（原 Provider 未留存）'), `no quote timestamp inference ${name}`);
     if (captureDetail) { await card.scrollIntoViewIfNeeded(); await page.screenshot({ path: path.join(output, `overlay-${name}.png`) }); report.screenshots.push(`overlay-${name}.png`); }
     await fits(`expanded facts fit ${name}`);
+    if (width > 767) check(await validConnectors(diagram), `expanded connectors stay attached and avoid other nodes ${name}`);
     await page.keyboard.press('Tab');
     await unitree.locator('.chain-node-detail > summary').focus();
     check(await unitree.locator('.chain-node-detail > summary').evaluate(n => n === document.activeElement && getComputedStyle(n).outlineStyle !== 'none'), `keyboard visible focus ${name}`);

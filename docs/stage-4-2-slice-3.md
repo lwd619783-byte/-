@@ -1,6 +1,38 @@
 # Stage 4.2 / Slice 3 — Freshness + Industry Signal/Event + Industry Chain Diagram
 
-## 2026-09-18 简化结构图 · CURRENT
+## 2026-09-18 细分去重与功能连线 · CURRENT
+
+**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。输入 `b626be6304cfe4e825ed006a6d539933b0905461`；fetch 后远端功能分支相等、main 仍 `086521d6bd305ea73cb5d4a426b9d4138e4a824b`。用户本轮要求细分不在多个阶段重复，并把箭头用于解释细分之间的联系。以下覆盖上一版的展示规则；历史记录保留。
+
+原重复来自公司 `chainPosition` 跨阶段挂接后，界面又据此重复整个细分。本次把**细分研究结构**与**公司原始位置**分开：`industryChainResearch.ts` 只投影 `industries.ts` 已有 `Industry.chain`、segment `logic/demandSource`；每个细分展示一次。阶段条目与逐条引用必须匹配现有来源，缺失、重复 identity、foreign identity 或引用变化均返回 unavailable。公司原始研究位置不改，展开区合并 exact company ID（原34次挂接对应31家，12家待映射继续单列）。行情刷新不参与节点位置或连线。
+
+| 显示分组 | 唯一细分节点 | 既有结构依据 |
+| --- | --- | --- |
+| 上游 | 精密减速器；线性执行器与丝杠；电机驱动与运动控制；视觉、传感器与电子皮肤 | chain 减速器/丝杠/电机/视觉及各自 logic |
+| 中游 | 关节与执行器总成 | chain 关节模组及 logic |
+| 下游 | 本体整机 | chain 工业机器人及 logic |
+| 横向研究方向 | 汽车零部件迁移 | logic 的能力迁移描述，不当作独立生产阶段 |
+
+| 起点 → 终点 | 箭头说明 | 依据字段 |
+| --- | --- | --- |
+| 精密减速器 → 关节与执行器总成 | 关节传动 | 两者 logic |
+| 线性执行器与丝杠 → 关节与执行器总成 | 线性运动 | 起点 demandSource / 终点 logic |
+| 电机驱动与运动控制 → 关节与执行器总成 | 驱动控制 | 起点 demandSource / 终点 logic |
+| 关节与执行器总成 → 本体整机 | 运动执行 | 两者 logic |
+| 视觉、传感器与电子皮肤 → 本体整机 | 感知交互 | 起点 demandSource / 终点 logic |
+| 汽车零部件迁移 → 关节与执行器总成 | 能力迁移（虚线） | 起点 logic / 终点 demandSource |
+
+这些是现有研究文字的功能关系概括，不是新增公司供货、客户、收入权重或资金流事实。每条原文可在“关系依据与边界”展开查看；电机驱控的跨环节业务仍保留原文。Structure / Research Context 的验证等级不变；quote、市值、财报、公告仍只是展开区的 Provider Fact。默认不显示公司数量、股票或数据覆盖。
+
+实际继续使用 `.agents/skills/diagram-design/SKILL.md`，遵守 `docs/agent-skills.md` 对应边界：Architecture Canvas、分组框、节点层级，图表局部沿用三主题 tokens。React 节点与响应式 SVG 连线复用当前页面；连线随展开重定位，移除阶段之间箭头。390/320 以“功能 → 目标细分”短行保留六条关系；不在窄屏强塞桌面线路。不改变全局主题、不叠加领域 Skill，不引入依赖或外部事实源。
+
+验证：**854 tests / 70 files PASS**；类型检查、build、bundle预算 PASS（已有大chunk warning）。三主题 × 1536/390/320 **331 browser checks / 22 screenshots / 0 runtime errors**，包括7个唯一节点、6条准确连接、无阶段箭头、连接端点与避让其他节点、展开后重定位、默认明细隐藏、键盘展开/收起、精确公司/细分导航、Inbox/Evidence回归。数据 artifacts、NBS capture、2 Signal / 1 Event、PIT、cohort57与admission均无diff；本轮未重跑实时获取，不产生新的 freshness 结论。
+
+[light桌面](stage-4-2-slice-3/segment-relations/chain-light-1536.png) · [neon桌面](stage-4-2-slice-3/segment-relations/chain-neon-1536.png) · [390纵向](stage-4-2-slice-3/segment-relations/chain-light-390.png) · [320纵向](stage-4-2-slice-3/segment-relations/chain-pro-320.png) · [展开明细](stage-4-2-slice-3/segment-relations/segment-expanded-neon-1536.png) · [浏览器报告与源码hash](stage-4-2-slice-3/segment-relations/browser-report.json) · [静态审阅HTML](stage-4-2-slice-3/segment-relations/robotics-chain.html)。静态HTML只用于视觉审阅，应用导航以runtime为准。普通push后核验 exact Final SHA 的 Vercel Preview；远端登录保护保持，不声称匿名远端UI矩阵PASS。等待独立审阅，无PR/merge/admission提升。
+
+---
+
+## 简化结构图记录（历史 b626be6）
 
 根据用户最新反馈，默认画布只呈现上中下游、细分方向与阶段衔接；覆盖几家、代表股票、报告期、公告和研究定位全部收入**点击细分名称展开的下拉详情**。这覆盖上一版“默认展示公司标签/Provider覆盖”的视觉要求。未改变既有stage/segment归属：仍3组、10节点（7unique），12家待映射保持折叠。机器人组标题“核心零部件 / 模组与系统集成 / 整机与应用场景”是既有chain条目的研究层概括，箭头不新增供应/客户关系。
 
