@@ -1,12 +1,30 @@
 import { describe, expect, it } from 'vitest';
-import { industryChartAudit, industryHistory, industryMetric, roboticsMetric } from './industryMetricProvider';
+import { industryChartAudit, industryHistory, loadIndustryMetrics } from './industryMetricProvider';
+import retained from '../data/real/industry-robotics.generated.json';
+import growth from '../data/real/industry-robotics-yoy.generated.json';
+import type { IndustryMetricDataset } from '../types/industryMetric';
+const roboticsMetric = retained as IndustryMetricDataset;
 const clone = () => structuredClone(roboticsMetric);
 describe('formal Industry Metric read-only owner projection', () => {
-  it('only robotics has an owner; qualitative industries cannot become Provider Facts', () => {
-    for (const id of ['ai-computing', 'innovative-drug', 'oil-shipping', 'unknown', '']) expect(industryMetric(id)).toBeNull();
-    expect(industryMetric('robotics')).toBe(roboticsMetric);
-    expect(roboticsMetric).not.toHaveProperty('prosperity');
+  it('registry enumerates two exact metrics; non-robotics and wrong identity never substitute', async () => {
+    const state = await loadIndustryMetrics(); expect(state.status).toBe('available');
+    if (state.status !== 'available') throw new Error(state.reason);
+    const provider = state.provider;
+    expect(provider.list('robotics').map(m => m.entry.metricId)).toEqual([retained.definition.id, growth.definition.id]);
+    expect(provider.get('robotics', retained.definition.id)?.owner).toEqual(roboticsMetric);
+    for (const id of ['ai-computing', 'innovative-drug', 'oil-shipping', 'unknown', '']) {
+      expect(provider.list(id)).toEqual([]); expect(provider.get(id, retained.definition.id)).toBeNull();
+    }
+    expect(provider.get('robotics', retained.definition.id + '_UNKNOWN')).toBeNull();
     expect(roboticsMetric.definition.entity).toBeNull();
+  });
+  it('official percentage series has independent values, basis, evidence, and no absolute delta', () => {
+    const owner = growth as IndustryMetricDataset;
+    const view = industryHistory(owner, 'monthly');
+    expect(view.latest?.value).toBe(34.6); expect(view.delta).toBeNull();
+    expect(view.history.slice(0, 2).map(p => p.value)).toEqual([null, null]);
+    expect(industryHistory(owner, 'year_to_date').latest?.value).toBe(29);
+    expect(industryChartAudit(owner, 'monthly').records[0].rows.find(r => r.label === '表格定位 / 列')?.value).toContain('/ 2');
   });
   it('retained real history and delta are deterministic under reversed/random order without mutation', () => {
     const owner = clone(), before = JSON.stringify(owner);

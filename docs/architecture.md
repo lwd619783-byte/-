@@ -284,11 +284,15 @@ Local-first freeze 明确覆盖旧“先建设最小 Cloud Research Store”的�
 
 Market Regime Metric Registry、时间语义、公式与 Historical Observation Catalog R1 已形成合同 / 数据骨架，但 R2 历史 release / vintage 数据集、normalization、backtest、formula admission 和正式 Engine 尚未完成。
 
-2026-09-17 Stage 4.2 Slice 1（本地验证完成、待独立审计）新增正式 `IndustryMetricDataset` source owner，与 `Industry` qualitative research context 分层。唯一 pilot 是国家统计局工业机器人产量：官方 HTML → versioned content-addressed raw/manifest → offline parser/schema/exact replay → `src/data/real/industry-robotics.generated.json` → `industryMetricProvider` history/delta/audit → 原 `IndustryTab`。没有新业务持久化或第二套 registry/readiness/Evidence/chart/eval framework。
+Stage 4.2 Slice 1 已关闭，合入与 CI 事实见 [closeout](stage-4-2-slice-1-closeout.md)。Slice 2 当前为 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；正式 `IndustryMetricDataset` source owner 继续与 `Industry` qualitative research context 分层。
 
-原 `data-source-registry.ts` 登记 source owner 与 acquisition adapter；`DataQualityMeta` 与 Frozen `EvidenceRef`/F1 Pin 复用。F1 industry semantic binding 经过原 validator，但 Entity unresolved、正式 query/vintage 未闭合，不提升 READY。F3 Frozen cases/targets/report 不变。Auditable Chart / ProductShell / EvidenceDrawer 复用；drawer 新增只读 audit 分支，相关来源保留 candidate，chart exact linkage=null。UI 明示 NOT_ADMITTED preview，AI 算力/创新药/油运无 owner 时显示 not_implemented。
+Industry owner 发现链现在为：`config/industry/industry-metric-registry.v1.json` → generic resource loader → exact-byte SHA-256/pointer/identity 校验 → `list(industryId)` / `get(industryId, metricId)` → history / chart audit → 原 IndustryTab / EvidenceDrawer。Registry 分别 pin definition、artifact、既有 F1 binding 和 policy；状态从 owner/policy 投影，Evidence 入口来自 artifact observations，不复制成第二套 admission 或 Entity/F1 Registry。资源顺序无语义，任何索引身份/引用错误整体 blocked；不可选择近似指标、按数组位置拼 owner，或用原 qualitative/行情替代。
 
-声明窗口 2026-01—08：6 个当月值、7 个累计值，月度覆盖 6/8；1—2 月 missing，不拆分累计。observation/reference period、页面 publication、acquiredAt、generatedAt 分离；releaseAvailableAt=null，官方 revision continuity 未证明，data/production NOT_ADMITTED。raw retention 证明当前 committed 重放，不证明历史发布时字节。所有绘图/coverage 共享 exact-owner 校验；冲突修订保留记录并禁止选值。实现、命令、验证及剩余边界见 [Stage 4.2 Slice 1](stage-4-2-slice-1.md)。
+浏览器 glob 仅收集 config、industry artifacts 与 capture manifests 的 UTF-8 原文；先校验完整 Registry，再暴露不可变只读结果。没有网络刷新或业务存储写入。通用校验只理解 Pin 与 V1 owner/binding 身份；国家统计局专属表头、capture roster、raw digest、官方列和历史限制由 source-specific offline replay 锁定，未把 NBS capture 结构变成新的通用合同限制。
+
+同一批 7 份 retained HTML 分别解析绝对量列 1/3 与官方同比列 2/4（1—2 月仅累计列 1/2）。两个 metric 均保留 13 个读数，声明窗口 2026-01—08，当月覆盖 6/8、累计覆盖 7/8；绝对量 owner/raw/binding 原字节不变。同比独立 identity、unit=%、provenance/F1 binding，不从产量推算、不累计差分、不补缺、不展示 delta。非机器人行业没有正式 owner 时显示 unavailable。
+
+原 `data-source-registry.ts` 分别登记两个 source artifacts；共享 `DataQualityMeta`、Frozen `EvidenceRef`、F1 Pin、ChartPanel、ChartAuditPanel 和 EvidenceDrawer。两项 Entity unresolved，releaseAvailableAt=null，PIT UNPROVED、revision continuity unknown、Evidence candidate、chart linkage=null、data/production NOT_ADMITTED、allowedUses=[]。F1 binding 验证不构成 READY；F3 reference/actual service 分母、Frozen cases/report 不变。实现及验证见 [Registry V1](industry-metric-registry-v1.md) 与 [Slice 2](stage-4-2-slice-2-plan.md)。
 
 后续正式数据能力继续统一表达：
 
