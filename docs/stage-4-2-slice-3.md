@@ -1,6 +1,18 @@
 # Stage 4.2 / Slice 3 — Freshness + Industry Signal/Event + Industry Chain Diagram
 
-## 2026-09-18 final remediation · CURRENT
+## 2026-09-18 简化结构图 · CURRENT
+
+根据用户最新反馈，默认画布只呈现上中下游、细分方向与阶段衔接；覆盖几家、代表股票、报告期、公告和研究定位全部收入**点击细分名称展开的下拉详情**。这覆盖上一版“默认展示公司标签/Provider覆盖”的视觉要求。未改变既有stage/segment归属：仍3组、10节点（7unique），12家待映射保持折叠。机器人组标题“核心零部件 / 模组与系统集成 / 整机与应用场景”是既有chain条目的研究层概括，箭头不新增供应/客户关系。
+
+继续沿用已读 `diagram-design` 的 Architecture 分组规则；不叠加Skills、不改主题系统。公司精确导航、Unitree上市身份、Provider状态与时间边界保留在展开区。原始阶段构成、图谱说明也默认折叠；页面不再默认显示公司/节点数量。桌面图高≤820px，移动端纵向；所有summary可键盘操作。数据、cohort57、Stability门槛与admission完全未改。
+
+验证：22项相关Vitest PASS；build/类型检查/预算PASS（已有大chunk warning）；三主题×1536/390/320共**298 browser checks / 22 screenshots / 0 runtime errors**，包括默认零可见股票/覆盖层、细分键盘展开/收起、exact company/segment导航与Inbox/Evidence回归。此小范围UI增量未重跑无变更的Provider实时获取/全套observability；上一轮全量结果仅代表对应输入时点。
+
+[桌面简图](stage-4-2-slice-3/simple-chain/chain-neon-1536.png) · [light桌面](stage-4-2-slice-3/simple-chain/chain-light-1536.png) · [390纵向](stage-4-2-slice-3/simple-chain/chain-light-390.png) · [展开明细](stage-4-2-slice-3/simple-chain/segment-expanded-neon-1536.png) · [浏览器报告](stage-4-2-slice-3/simple-chain/browser-report.json)。普通push后核验新Final SHA对应Vercel Preview；既有Vercel登录保护保持，不以匿名远端UI矩阵为PASS。等待独立审阅，无PR/merge/admission提升。
+
+---
+
+## 上一版结构图与cohort修复记录（历史 a0c1f64）
 
 **IMPLEMENTED / VERIFIED LOCALLY / PENDING THIRD INDEPENDENT REVIEW**。输入 `a1a4be2a6d126866eac00c1fc693ac6608728d28`；fetch 后本地/远端相等、main `086521d6bd305ea73cb5d4a426b9d4138e4a824b`、ahead 2 / behind 0、clean。只修 Segment 架构图与 Provider Stability cohort P1；下方第二次审计前记录及截图保留原时点。
 

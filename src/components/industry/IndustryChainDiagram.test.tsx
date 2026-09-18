@@ -41,13 +41,14 @@ it('uses exact segment primary nodes and keeps all company facts in secondary di
   for (const node of nodes) {
     expect(industry.segments.some(s => s.id === node.getAttribute('data-chain-group'))).toBe(true);
     expect(node.closest('[data-chain-stage]')).toBeTruthy();
-    expect(node.querySelectorAll('.chain-company-chips [data-stock-id]').length).toBeLessThanOrEqual(3);
+    expect(node.querySelector('.chain-segment-detail > summary')?.textContent).toContain(industry.segments.find(s => s.id === node.getAttribute('data-chain-group'))!.name);
+    expect(node.querySelector('.chain-provider-summary')?.closest('details')?.hasAttribute('open')).toBe(false);
   }
   for (const company of container.querySelectorAll('[data-chain-company]')) {
     expect(company.closest('.chain-segment-detail')?.hasAttribute('open')).toBe(false);
     expect(company.closest('[data-chain-node="segment"]')).toBeTruthy();
   }
-  const unitreeChip = container.querySelector('[data-chain-stage="下游"] [data-chain-group="robot-oem"] [data-chain-company-chip="unitree"]')!;
+  const unitreeChip = container.querySelector('[data-chain-stage="下游"] [data-chain-group="robot-oem"] [data-chain-company="unitree"]')!;
   expect(unitreeChip.textContent).toContain('688836.SH · A股 / 科创板');
   expect(unitreeChip.textContent).not.toMatch(/未上市|待上市|IPO 尚未完成/);
   expect(container.querySelectorAll('.chain-unresolved-grid article')).toHaveLength(12);
