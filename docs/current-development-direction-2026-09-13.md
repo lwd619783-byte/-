@@ -1,5 +1,7 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-18 CURRENT Slice 5 scope：Stage 4.1B 与 Stage 4.2 Slice 1–4 已合入；当前核验 main 为 `8497ac9199def1fbec420eecc6ad7b7305ce160d`（PR #62，PR/main CI success，Vercel Production READY）。本轮只完成 Metric → Industry Dimension → Multi-factor Snapshot，不进入 Prosperity/Regime/Claim/Thesis；具体冻结边界与验证见 [Slice 5 plan](stage-4-2-slice-5-plan.md)，较早阶段记录保留时点意义。
+
 > 状态：CURRENT STRATEGIC DIRECTION ADDENDUM V1  
 > 日期：2026-09-13  
 > 记录基线：`origin/main @ ee7f2e35d967f58812706c2ee06255cc82ea4094`  

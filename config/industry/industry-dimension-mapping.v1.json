@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "industry-dimension-mapping.v1",
+  "id": "industry-dimension-mapping",
+  "revision": "1",
+  "entries": [
+    {
+      "industryId": "robotics",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+      "definitionRef": {
+        "owner": "config/industry/nbs-robotics-pilot.v1.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+        "version": "1",
+        "sha256": "f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664"
+      },
+      "dimension": "supply",
+      "subdimension": "output"
+    },
+    {
+      "industryId": "robotics",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "definitionRef": {
+        "owner": "config/industry/nbs-robotics-yoy.v1.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+        "version": "1",
+        "sha256": "b9b2c47a75d077db34902bbcb7f859d82816ab577b58d3502fa2cd5e9db51bfd"
+      },
+      "dimension": "supply",
+      "subdimension": "output_growth"
+    },
+    {
+      "industryId": "oil-shipping",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "definitionRef": {
+        "owner": "config/industry/eia-commercial-crude-stocks.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+        "version": "1",
+        "sha256": "fbfcaf825afaf6dc9849d6cae9b90102f04a4d8efc85a0eb7664348e2d6239ae"
+      },
+      "dimension": "inventory",
+      "subdimension": "crude_stocks"
+    },
+    {
+      "industryId": "oil-shipping",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "definitionRef": {
+        "owner": "config/industry/eia-production.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_CRUDE_PRODUCTION",
+        "version": "1",
+        "sha256": "0f094f5a39098954eb734beb488e585f1a83b458a8154f108c3f61efa5f70305"
+      },
+      "dimension": "supply",
+      "subdimension": "crude_production"
+    },
+    {
+      "industryId": "oil-shipping",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "definitionRef": {
+        "owner": "config/industry/eia-exports.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_CRUDE_EXPORTS",
+        "version": "1",
+        "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+      },
+      "dimension": "trade_flow",
+      "subdimension": "crude_exports"
+    },
+    {
+      "industryId": "oil-shipping",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "definitionRef": {
+        "owner": "config/industry/eia-refinery-input.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_REFINERY_CRUDE_INPUT",
+        "version": "1",
+        "sha256": "3d0bc37fbbd9929caf6d004aa7f41e41a5d2c59c894626e89a1ae2592b889818"
+      },
+      "dimension": "demand",
+      "subdimension": "refinery_input"
+    }
+  ]
+}

@@ -5,12 +5,13 @@ import { ROOT, read } from '../semantic-runtime/common.mjs';
 import { OUTPUT_OWNER, YOY_OWNER, buildArtifact, checkArtifact } from './artifact.mjs';
 import { buildBinding } from './metric-artifact.mjs';
 import { EIA_OWNER, buildEiaArtifact, checkEiaArtifact } from './eia-artifact.mjs';
+import { EIA_ADDITIONAL_OWNERS } from './eia-reviewed-owners.mjs';
 
 // Code-owned allowlist: no dynamic imports, arbitrary executables or inferred fallback.
 export const SOURCE_ADAPTER_VERSION = 'industry-source-adapters.v1';
 const adapters = new Map([
   ['nbs-industrial-production-html.v1', { owners: [OUTPUT_OWNER, YOY_OWNER], build: buildArtifact, check: checkArtifact }],
-  ['eia-petroleum-history-html.v1', { owners: [EIA_OWNER], build: buildEiaArtifact, check: checkEiaArtifact }],
+  ['eia-petroleum-history-html.v1', { owners: [EIA_OWNER, ...EIA_ADDITIONAL_OWNERS], build: buildEiaArtifact, check: checkEiaArtifact }],
 ]);
 export function sourceAdapter(entry, definition) {
   const adapter = adapters.get(definition.acquisitionAdapter);

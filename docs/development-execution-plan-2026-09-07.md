@@ -1,5 +1,9 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-18 CURRENT — Stage 4.2 Slice 5：**D0 GO / IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。独立版本化 exact dimension mapping + 多因子只读快照；新增 EIA 原油产量/出口/炼厂净投入 3 owners，总计 6 owners，oil-shipping 覆盖 supply/demand/trade_flow/inventory 四维，robotics 原双 owner 保持。原 21 文件字节与 3 Registry pins/entries 不变。8 Python / 63 Node / 87 Industry Vitest、全量887 tests、6-owner replay、build、contracts、1038 browser checks PASS；data audit 0 errors / 34 非阻断 warnings。PIT/Entity/F1/F2/F3/admission 不提升；不生成新 delta/score/trend/Claim/Thesis。只普通 commit/push 后停止；本切片 Hosted CI NOT_RUN，独立审计 PENDING。[冻结方案与实测证据](stage-4-2-slice-5-plan.md)。
+
+> 2026-09-18 CURRENT 基线核验：PR [#62](https://github.com/lwd619783-byte/-/pull/62) 已 MERGED；main `8497ac9199def1fbec420eecc6ad7b7305ce160d`，PR CI [35335279897](https://github.com/lwd619783-byte/-/actions/runs/35335279897) / main CI [35335680417](https://github.com/lwd619783-byte/-/actions/runs/35335680417) completed/success。Vercel Production deployment `6522548855`（同一 main SHA）success / READY，核验于本轮；中文化切片与 Slice 4 均已合入。以下旧交付段落保留原时点，准入/PIT/F1/F3 不提升。当前 Slice 5 仅 Metric → Dimension → Multi-factor Snapshot，冻结方案见 [Slice 5](stage-4-2-slice-5-plan.md)，不授权 Prosperity/Regime/Claim/Thesis。
+
 > 2026-09-18 中文化审计修复增量：从 `2fd51dba9b42fc99f7bf2b3415f5c831727edbec` 修复 Industry Change / Inbox / 证据摘要的 EIA 标题展示，以及复盘任务 pending 的“待处理”上下文翻译；全局 pending 仍为“待核验”，原始事件标题与任务状态不变。相关36 tests、全量875 tests、build PASS；PENDING INDEPENDENT RE-REVIEW。仅原分支普通 commit/push，不建 PR、不 merge。[记录](chinese-ui-evidence-display-2026-09-18.md#独立审计修复增量)。
 
 > 2026-09-18 CURRENT — 中文化与证据展示降噪：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。精确基线 `01b246a25bbe304ceb9c121e92eb91bedbdcf478`；仅显示层中文标签、证据摘要与默认折叠高级审计信息。Evidence / Chart Audit / Inbox / Industry / 产业链及首页、宏观、个股、预期主要文案已同步；原始审计字段完整保留。869 Vitest、8 Industry Python、35 Industry Node、73 Industry Vitest、build、三主题三尺寸508 browser checks PASS。Provider / Registry / Contract / PIT / Evidence owner / pins / 原始数据无差异；准入不提升。本分支普通 commit/push 后停止，不创建 PR/merge；本切片 Hosted CI 未核验。[交付记录](chinese-ui-evidence-display-2026-09-18.md)。
@@ -110,7 +114,7 @@
 
 1. **Stage 4.1-G — CLOSED / MERGED / MAIN CI PASS**：独立审计 HEAD `5489e3f77e284c69d492cfccb7242e2bd9e504d8`；PR #48 CI `34820778498` completed/success；merge/main `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`；main push CI `34821083781` completed/success。数据 / production admission 仍未提升。未闭合的单指标、Provider、历史覆盖率及 normalization/backtest 等任务转为并行数据支线；仅当满足最新方向 §1.1 的主线正确性/安全阻断条件时重新评估。
 2. **Stage 4.1B — CLOSED / MERGED / MAIN CI PASS**：Slice 1 PR #50、Slice 2 PR #52、Slice 3 PR #54 均已完成独立审计、PR/main CI 与合并。最终 Slice 3 audited HEAD `f4d43844cf17005bcf46c9818474acdece6b47ea`，merge/main `93b577d599d9a1ebf187dc4388f4bcd983916850`。Research Inbox / Evidence Drawer / Auditable Chart / Product Shell / F3 Eval Harness 均已进入 main；production/data admission 未因此提升。
-3. **Stage 4.2 — CURRENT MAINLINE：Industry Data Platform**：Industry Metric Registry / Provider / history / delta / prosperity，并接入 F1/F2/F3。
+3. **Stage 4.2 — CURRENT MAINLINE：Industry Data Platform**：Slice 1–4 已合入；Slice 5 仅 Metric → Dimension → Multi-factor Snapshot，已本地验证待独立审计。Prosperity / Regime / Claim deferred；不提升 F1/F2/F3 或 admission。
 4. **Stage 4.3 — Top-down Research Workflow**：Macro → Industry、Claim ↔ Evidence、Industry Thesis / revision、Investment Expression、Research Memory。
 5. **Stage 4.4 — Portfolio Exposure MVP**：复用 Phase 1B Local Core，补 thesis ↔ position、macro / industry exposure、target allocation、rebalance、read model / UI。
 6. **Stage 4.5 — Research MCP Gateway / Controlled Tool Layer**：Local-first Domain Tools、Auth/scope/confirmation/Audit、Agent tool-use Evals；不暴露 raw DB / SQL。

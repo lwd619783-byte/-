@@ -27,3 +27,9 @@ Stage 4.2 Slice 2 的正式 owner 发现索引是 `config/industry/industry-metr
 - 原 `data:build:industry` 仍只显式重建 Slice 1 绝对量，未在本轮执行。原 raw/manifest 不重取、不覆盖。
 
 F1 仍 NOT_READY；Entity/PIT/revision/production admission 与 F3 actual service 均未闭合。完整数据、验证与停止点见 [Slice 2](stage-4-2-slice-2-plan.md)。
+
+## Slice 5 additive CURRENT extension
+
+当前 Registry 已包含 6 个 owners（NBS 双指标、EIA 商业库存/产量/出口/炼厂投入）。原 source-fact / F1 Pin / Registry V1 合同不变，新增独立 `config/industry/industry-dimension-mapping.v1.json` 语义映射；`data:validate:industry` 同时校验映射 schema、exact pins 与 code-reviewed canonical digest，之后逐 owner 重放。Registry 或映射顺序不影响结果，未经 review 的合法维度替换也拒绝。映射不是第二个 metric/Entity/F1 discovery registry，不复制事实或准入。
+
+Multi-factor Snapshot 仅从 exact mapping 与现有 Provider/history 投影；新 EIA owners 的 delta=none，不计算新变化/趋势/评分。所有维度缺失显式展示，Evidence 继续来自原 observation provenance；DATA/PRODUCTION NOT_ADMITTED、F1 NOT_READY。冻结 source of truth、D0、维度表、验证与来源 bytes 清单见 [Slice 5](stage-4-2-slice-5-plan.md)。

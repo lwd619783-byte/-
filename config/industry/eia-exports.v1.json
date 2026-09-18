@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "industry-metric-pilot.v1",
+  "definition": {
+    "id": "US_EIA_CRUDE_EXPORTS",
+    "revision": "1",
+    "canonicalName": "美国原油出口（周度日均）",
+    "industryId": "oil-shipping",
+    "entity": null,
+    "geography": "US",
+    "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+    "unit": "Thousand Barrels per Day",
+    "nativeFrequency": "weekly",
+    "basis": [
+      "week_ending"
+    ],
+    "sourceId": "EIA_PETROLEUM_WCREXUS2",
+    "sourceOwner": "U.S. Energy Information Administration",
+    "acquisitionAdapter": "eia-petroleum-history-html.v1",
+    "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+    "window": {
+      "start": "2026-07-03",
+      "end": "2026-09-11"
+    },
+    "missingPeriods": [],
+    "freshness": "unknown",
+    "staleAfter": null
+  },
+  "policy": {
+    "id": "industry-metric-eia-exports-policy",
+    "revision": "1",
+    "entityResolution": "UNRESOLVED",
+    "dataAdmission": "NOT_ADMITTED",
+    "productionAdmission": "NOT_ADMITTED",
+    "allowedUses": [],
+    "forbiddenUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "previewUse": "显式 NOT_ADMITTED 的只读来源核对；不进入正式语义检索、评分或交易"
+  },
+  "source": {
+    "dataset": "EIA Petroleum / Weekly Supply Estimates",
+    "series": "WCREXUS2",
+    "frequency": "W",
+    "title": "Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+    "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+    "downloadUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCREXUS2w.xls",
+    "publicationDateOnSnapshot": "2026-09-16",
+    "snapshotMeaning": "Current history, not historical vintages; date-only page release is not per-observation publicationDateTime",
+    "periodMeaning": "week_ending is the official weekly end-date label for the daily rate; referencePeriod start=end stores that label, not an accumulation interval"
+  }
+}

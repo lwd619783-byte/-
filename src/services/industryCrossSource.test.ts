@@ -12,7 +12,7 @@ describe('cross-source weekly inventory through existing generic surfaces', () =
   it('discovers EIA in oil-shipping only and preserves original two NBS owners', async () => {
     const state = await loadIndustryMetrics(); if (state.status !== 'available') throw new Error(state.reason);
     expect(state.provider.list('robotics')).toHaveLength(2);
-    expect(state.provider.list('oil-shipping')).toHaveLength(1);
+    expect(state.provider.list('oil-shipping')).toHaveLength(4);
     expect(state.provider.get('oil-shipping', retained.definition.id)?.owner).toEqual(retained);
     expect(state.provider.get('robotics', retained.definition.id)).toBeNull();
     expect(state.provider.list('innovative-drug')).toEqual([]);
