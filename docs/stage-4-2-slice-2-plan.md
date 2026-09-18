@@ -85,3 +85,11 @@
 两个 metric 均保持 `releaseAvailableAt=null`、PIT UNPROVED、revision continuity unknown、Entity UNRESOLVED、DATA/PRODUCTION NOT_ADMITTED、allowedUses=[]、Evidence candidate、chart linkage=null。F1 仍 NOT_READY；F3 actual deterministic service 未增加。窗口外历史、自动刷新、外部 Provider、Industry Prosperity/Regime/评分、F2 Claim/Thesis、Portfolio、MCP/Agent 与 admission closure 全部 deferred。
 
 交付仅普通 commit + push 到指定分支，核验 local HEAD=remote HEAD、干净工作区与相对 base 的 ahead/behind 后停止，等待独立审计。Final SHA/remote 同步事实在 push 后的交付消息报告，不提前写入本文件。
+
+### 2026-09-18 同一实现复验
+
+再次 `git fetch origin` 后确认 `origin/main` 仍为精确 base `1859db0caa6df416add84740c4b4b76d2350ab4d`。指定分支已有实现提交 `eb5bbb315dc6b0d1364f47b0ab0571991c50ef73`，本地与远端一致、工作区干净；本次保留既有实现，仅补充复验记录，不重建分支或改写提交。
+
+重新运行上述 industry、contracts、semantic V1/V2、Stage G、F3、全量 tests、discovery、data audit、UI 静态 audit、build 与 diff check，全部通过；测试数量、真实覆盖和 blocker 与上表一致。使用本次生产构建重新完成三主题 × 1536/390/320 浏览器矩阵，279 checks PASS、0 errors，1 条既有 favicon.ico 404 warning。Slice 1 原 artifact/config/binding/manifest/raw 与冻结 industry/F1/F3 contracts 对 base 仍无 diff。
+
+本次 `npm test` 另有 jsdom `Not implemented: window.scrollTo` 非失败提示；815 tests 仍全部通过。data audit 仍为 0 errors / 26 warnings（P1=12 / P2=14），build 仍提示 >500kB chunk。测试通过不消除这些 warnings，不构成独立审计、Hosted CI 或 admission PASS。
