@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-18 Stage 4.2 / Slice 3 CLOSED：独立审计最终 HEAD `910d66dff14b6c32da7aea07174dccaf97494a2c`；PR #59 Hosted CI `35318164694` completed/success；merge/main `6a9aa233b4351938b39c247833d9e72d99854269`；main push CI `35320061290` completed/success；Vercel production READY。正式登记为 **CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**。保留 Company Guidance cross-epoch P2，Industry DATA/PRODUCTION、PIT/F1/F3、财务/公告默认 refresh admission 未提升。下一主线进入 **Stage 4.2 / Slice 4 — Cross-source Industry Provider Proof**，见 [Slice 3 closeout](stage-4-2-slice-3-closeout.md) 与 [Slice 4 plan](stage-4-2-slice-4-plan.md)。
+
 > 2026-09-18 细分关系增量 CURRENT：机器人产业链按主要功能展示7个唯一细分（上4/中1/下1/横向1），移除阶段箭头，新增6条源自既有研究原文的细分功能连线；能力迁移为虚线，不表示公司供货事实。公司跨阶段原文保留，明细默认折叠。数据/Provider/PIT/cohort57/准入无变化。854 tests、build、三主题三尺寸331 browser checks PASS；[关系图与证据](stage-4-2-slice-3.md)。IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；普通push后核验exact Preview，不建PR/merge。
 
 > 2026-09-18 UI反馈增量（历史 b626be6）：产业链默认只显示上中下游、细分方向与阶段衔接；公司/覆盖率/Provider明细均点击节点展开，覆盖下面a0c1f64版默认展示细节的要求。原topology、数据、cohort57与准入不变。22项相关tests、build、三主题三尺寸298 browser checks PASS；[简图与证据](stage-4-2-slice-3.md)。普通push后等待独立审阅。
