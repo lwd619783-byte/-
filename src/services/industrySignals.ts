@@ -88,8 +88,9 @@ export function buildIndustryChanges(provider: IndustryMetricProvider, industryI
     const eventSignals = conflicted ? group.map(signal => ({ ...signal, conditions: orderedStates([...signal.conditions, 'conflicted']),
       readings: signal.readings.map(reading => ({ ...reading, value: null, delta: null, conditions: orderedStates([...reading.conditions, 'conflicted']) })) })) : group;
     const subject = industryId === 'robotics' ? '工业机器人' : industryId;
+    const periodLabel = /^\d{4}-\d{2}$/.test(period) ? `${Number(period.slice(5))} 月` : `${period} 周末`;
     return [{ schemaVersion: 'industry-change-event.v1' as const, id: key('industry-change', industryId, sourceId, period), industryId,
-      title: `${group[0].sourceOwner}更新${subject} ${Number(period.slice(5))} 月${industryId === 'robotics' ? '产量' : '指标'}数据`,
+      title: `${group[0].sourceOwner}更新${subject} ${periodLabel}${industryId === 'robotics' ? '产量' : '指标'}数据`,
       sourceId, period, asOf: period, publicationDateTime: consensus(records.map(o => o.publicationDateTime)), releaseAvailableAt: consensus(records.map(o => o.releaseAvailableAt)),
       transformVersion: 'industry-release-group.v1' as const, signals: eventSignals, quality: unique(group.flatMap(signal => signal.quality)), conditions,
       evidence: unique(group.flatMap(signal => signal.evidence)) }];

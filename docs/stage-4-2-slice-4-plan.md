@@ -1,6 +1,6 @@
 # Stage 4.2 / Slice 4 Plan — Cross-source Industry Provider Proof
 
-Status: **FROZEN PLAN / NOT STARTED**
+Status: **FROZEN PLAN** — implementation now **D0 GO / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**; see [Slice 4 delivery](stage-4-2-slice-4.md). The frozen scope below is unchanged.
 
 Base after Slice 3 functional merge:
 

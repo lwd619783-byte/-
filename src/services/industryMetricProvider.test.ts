@@ -12,7 +12,7 @@ describe('formal Industry Metric read-only owner projection', () => {
     const provider = state.provider;
     expect(provider.list('robotics').map(m => m.entry.metricId)).toEqual([retained.definition.id, growth.definition.id]);
     expect(provider.get('robotics', retained.definition.id)?.owner).toEqual(roboticsMetric);
-    for (const id of ['ai-computing', 'innovative-drug', 'oil-shipping', 'unknown', '']) {
+    for (const id of ['ai-computing', 'innovative-drug', 'unknown', '']) {
       expect(provider.list(id)).toEqual([]); expect(provider.get(id, retained.definition.id)).toBeNull();
     }
     expect(provider.get('robotics', retained.definition.id + '_UNKNOWN')).toBeNull();

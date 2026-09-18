@@ -1,10 +1,10 @@
 # 数据真实性审计与数据源注册表 V1
 
-- 执行时间：2026-09-18T06:14:14.984Z
-- 扫描文件：375
-- 注册表条目：31
-- P0：0；P1：12；P2：14；P3：0
-- errors：0；warnings：26；skipped 目录：10；allowlist 命中：36
+- 执行时间：2026-09-18T08:28:57.892Z
+- 扫描文件：384
+- 注册表条目：32
+- P0：0；P1：14；P2：14；P3：0
+- errors：0；warnings：28；skipped 目录：10；allowlist 命中：36
 - 退出码：0
 
 ## 结论
@@ -19,18 +19,20 @@
 
 ## 状态与风险统计
 
-- 状态分布：{"partial":8,"generated_real":6,"not_implemented":4,"manual_unverified":9,"manual_verified":1,"static_reference":1,"inferred":2}
-- 风险分布：{"P0":0,"P1":12,"P2":14,"P3":0}
+- 状态分布：{"partial":9,"generated_real":6,"not_implemented":4,"manual_unverified":9,"manual_verified":1,"static_reference":1,"inferred":2}
+- 风险分布：{"P0":0,"P1":14,"P2":14,"P3":0}
 - 阻断风险：0
-- 非阻断风险：26
+- 非阻断风险：28
 
 ## 风险清单
 
 | id | severity | blocking | category | title | file | line | registryIds |
 |---|---|---|---|---|---|---:|---|
+| partial-full-coverage | P1 | no | coverage | partial entry reports full coverage: industry-eia-commercial-crude-stocks | src/data/data-source-registry.ts | - | industry-eia-commercial-crude-stocks |
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(match[1]), minor: Number(match[2] ?? 0), patch: Number(match[3] ?? 0) | scripts/dev-health.mjs | 230 | - |
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(manifest.partial ?? 0) | scripts/dev-health.mjs | 747 | - |
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(manifest.error ?? 0) | scripts/dev-health.mjs | 748 | - |
+| data-limitation | P1 | no | limitation | Data limitation: industry-eia-commercial-crude-stocks | src/data/data-source-registry.ts | - | industry-eia-commercial-crude-stocks |
 | data-limitation | P1 | no | limitation | Data limitation: industry-nbs-industrial-robot-output | src/data/data-source-registry.ts | - | industry-nbs-industrial-robot-output |
 | data-limitation | P1 | no | limitation | Data limitation: industry-nbs-industrial-robot-output-yoy | src/data/data-source-registry.ts | - | industry-nbs-industrial-robot-output-yoy |
 | capability-gap | P1 | no | capability | Capability not implemented: hk-financials | src/data/data-source-registry.ts | - | hk-financials |

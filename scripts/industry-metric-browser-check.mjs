@@ -5,9 +5,9 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4173';
-const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-2-slice-2/browser');
+const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-2-slice-4/nbs-browser');
 await fs.mkdir(output, { recursive: true });
-const report = { base: '1859db0caa6df416add84740c4b4b76d2350ab4d', generatedAt: new Date().toISOString(), sourceSha256: {}, checks: [], errors: [], warnings: [], screenshots: [] };
+const report = { base: '2f2d707b8b222392a969327f10f9d5af5f021eab', scope: 'Slice 4 NBS owner/browser regression', generatedAt: new Date().toISOString(), sourceSha256: {}, checks: [], errors: [], warnings: [], screenshots: [] };
 for (const file of ['src/services/industryMetricProvider.ts', 'src/components/industry/IndustryMetricPanel.tsx', 'src/components/industry/IndustryTab.tsx', 'src/components/research/EvidenceDrawer.tsx', 'src/components/charts/ChartAuditPanel.tsx', 'src/data/real/industry-robotics.generated.json', 'src/data/real/industry-robotics-yoy.generated.json', 'config/industry/industry-metric-registry.v1.json', 'src/services/industryMetricRegistry.mjs']) report.sourceSha256[file] = createHash('sha256').update((await fs.readFile(file, 'utf8')).replace(/\r\n/g, '\n')).digest('hex');
 const browser = await chromium.launch({ channel: 'msedge', headless: true });
 const check = (ok, name) => { report.checks.push({ ok, name }); if (!ok) throw new Error(name); };
@@ -70,9 +70,9 @@ try {
     await page.getByRole('tab', { name: '细分比较' }).click();
     check(await page.getByLabel('选择细分板块').inputValue() === '__all__', `original robotics selection ${contextName}`);
     await page.getByRole('tab', { name: '产业链' }).click();
-    check((await page.getByRole('tabpanel', { name: '产业链' }).innerText()).includes('未上市'), `chain retained ${contextName}`);
+    check(await page.getByRole('tabpanel', { name: '产业链' }).locator('[data-chain-node="segment"]:visible').count() === 7, `chain retained ${contextName}`);
   }
-  for (const id of ['ai-computing', 'innovative-drug', 'oil-shipping']) {
+  for (const id of ['ai-computing', 'innovative-drug']) {
     await page.goto(`${origin}/#/industry?industry=${id}`); await page.waitForLoadState('networkidle');
     await page.getByRole('tab', { name: '研究概览' }).click();
     check((await page.getByRole('region', { name: '正式行业指标' }).innerText()).includes('not_implemented'), `no proxy for ${id}`);
