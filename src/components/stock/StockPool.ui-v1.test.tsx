@@ -27,7 +27,7 @@ describe("StockPool UI V1 migration", () => {
     expect(within(screen.getByRole("combobox", { name: "数据质量" })).getAllByRole("option").map((node) => node.textContent))
       .toEqual(["全部", "行情状态为真实", "缺失项", "暂不支持", "行情采集24小时内"]);
     expect(within(screen.getByRole("combobox", { name: "排序" })).getAllByRole("option").map((node) => node.textContent))
-      .toEqual(["默认", "覆盖率高到低", "覆盖率低到高", "涨跌幅", "市值", "PE"]);
+      .toEqual(["默认", "覆盖率高到低", "覆盖率低到高", "涨跌幅", "市值", "市盈率（PE）"]);
     expect(screen.queryByRole("textbox", { name: "池内搜索" })).toBeNull();
     expect(screen.queryByRole("combobox", { name: "风险等级" })).toBeNull();
   });

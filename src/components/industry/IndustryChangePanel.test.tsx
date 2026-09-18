@@ -40,18 +40,18 @@ it('foreign industry and blocked Registry have no fabricated event, and switchin
   const { rerender, unmount } = render(<IndustryChangePanel industryId="robotics" />);
   fireEvent.click(await screen.findByRole('button', { name: '查看行业变化证据' }));
   rerender(<IndustryChangePanel industryId="ai-computing" />);
-  expect(screen.queryByRole('dialog')).toBeNull(); expect(screen.getByText(/行业变化 unavailable/)).toBeTruthy();
+  expect(screen.queryByRole('dialog')).toBeNull(); expect(screen.getByText(/行业变化暂不可用/)).toBeTruthy();
   unmount();
   vi.mocked(loadIndustryMetrics).mockResolvedValue({ status: 'blocked', reason: 'PIN_DIGEST' });
   render(<IndustryChangePanel industryId="robotics" />);
-  expect(await screen.findByText(/blocked：PIN_DIGEST/)).toBeTruthy();
+  expect(await screen.findByText(/PIN_DIGEST/)).toBeTruthy();
   expect(screen.queryByRole('button', { name: '查看行业变化证据' })).toBeNull();
 });
 it('Inbox receives one explicit formal event, opens the same evidence, and links to exact industry identity', () => {
   const events = buildIndustryChanges(provider(), 'robotics').events;
   render(<ResearchInbox events={[]} tasks={[]} watchItems={[]} stocks={[]} industryEvents={[...events, ...events]} now={new Date('2026-09-18T00:00:00Z')} timeZone="Asia/Shanghai" onOpenStock={vi.fn()} />);
   expect(screen.getAllByText('国家统计局更新工业机器人 8 月产量数据')).toHaveLength(1);
-  expect(screen.getByRole('link', { name: '打开对应行业 / Metric' }).getAttribute('href')).toBe('#/industry?industry=robotics');
+  expect(screen.getByRole('link', { name: '打开对应行业 / 指标' }).getAttribute('href')).toBe('#/industry?industry=robotics');
   fireEvent.click(screen.getByRole('button', { name: '查看行业变化证据' }));
   expect(screen.getByRole('dialog').textContent).toContain('NOT_ADMITTED');
   expect(screen.getByRole('dialog').textContent).toContain('industry-retained-readings.v1');
@@ -67,5 +67,5 @@ it('Inbox updates after async industry props arrive, and unknown publication doe
   expect(screen.queryByRole('button', { name: '查看行业变化证据' })).toBeNull();
   fireEvent.change(screen.getByRole('combobox', { name: '日期范围' }), { target: { value: 'all' } });
   expect(screen.getByRole('button', { name: '查看行业变化证据' })).toBeTruthy();
-  expect(screen.getByText(/页面标注发布：unknown/)).toBeTruthy();
+  expect(screen.getByText(/页面标注发布：未确认/)).toBeTruthy();
 });

@@ -67,7 +67,7 @@ export function IndustryChainMap({ industry, segmentName, stock }: IndustryChain
           <div className="min-w-0">
             <div className="flex items-center gap-2 text-cyan">
               <Factory className="h-4 w-4" />
-              <p className="text-xs font-semibold uppercase tracking-[0.18em]">Current Position</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em]">当前位置</p>
             </div>
             <h4 className="mt-2 text-lg font-semibold text-textStrong">{stock.name}</h4>
             <p className="mt-1 text-sm leading-6 text-textMuted">

@@ -21,14 +21,14 @@ it('real pilot shows explicit admission, distinct basis, same audit/Evidence Dra
   render(<IndustryMetricPanel industryId="robotics" />);
   await screen.findByLabelText('正式指标');
   expect(screen.getByRole('region', { name: '正式行业指标' }).textContent).toContain('96,174');
-  expect(screen.getByText(/官方留存样本/).textContent).toContain('NOT_ADMITTED');
+  expect(screen.getByText(/官方留存样本/).textContent).toContain('尚未准入');
   fireEvent.change(screen.getByLabelText('指标口径'), { target: { value: 'year_to_date' } });
   expect(screen.getByText('729,352 套')).toBeTruthy(); expect(screen.getByText('不比较累计口径')).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: '查看指标证据' }));
   const drawer = screen.getByRole('dialog');
-  expect(within(drawer).getByLabelText('图表审计元数据').textContent).toContain('candidate');
+  expect(within(drawer).getByLabelText('图表来源与证明').textContent).toContain('candidate');
   expect(drawer.textContent).toContain('releaseAvailableAt'); expect(drawer.textContent).toContain('未提供 / unknown');
-  expect(drawer.textContent).toContain('当前图表没有可验证的 Evidence linkage');
+  expect(drawer.textContent).toContain('当前图表没有可验证的正式证据关联');
   expect(writes).not.toHaveBeenCalled();
 });
 it('switching industry unmounts selected basis and the evidence drawer; others never show fake metrics', async () => {
@@ -37,7 +37,7 @@ it('switching industry unmounts selected basis and the evidence drawer; others n
   fireEvent.click(screen.getByRole('button', { name: '查看指标证据' }));
   for (const id of ['ai-computing', 'innovative-drug']) {
     rerender(<IndustryMetricPanel industryId={id} />);
-    expect(screen.queryByRole('dialog')).toBeNull(); expect(screen.getByText(/not_implemented/)).toBeTruthy(); expect(screen.queryByLabelText('指标口径')).toBeNull();
+    expect(screen.queryByRole('dialog')).toBeNull(); expect(screen.getByText(/尚未接入正式指标/)).toBeTruthy(); expect(screen.queryByLabelText('指标口径')).toBeNull();
   }
 });
 it('empty and conflicted owner previews propagate instead of falling back to retained numbers', () => {
@@ -72,7 +72,7 @@ it('switches independent metric identity, percentage unit/basis/evidence without
 it('registry failure is explicitly blocked and never falls back to an artifact', async () => {
   vi.mocked(loadIndustryMetrics).mockResolvedValueOnce({ status: 'blocked', reason: 'PIN_DIGEST' });
   render(<IndustryMetricPanel industryId="robotics" />);
-  expect(await screen.findByText(/blocked：PIN_DIGEST/)).toBeTruthy();
+  expect(await screen.findByText(/PIN_DIGEST/)).toBeTruthy();
   expect(screen.queryByLabelText('正式指标')).toBeNull();
   expect(screen.queryByText('96,174 套')).toBeNull();
 });

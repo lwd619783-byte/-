@@ -37,7 +37,7 @@ export function ResearchInbox({ events, industryEvents, tasks, watchItems, stock
   function renderItem(row: ResearchInboxItem) {
     if (row.industryEvent) return <article key={row.id} data-inbox-id={row.id} className="inbox-item">
       <IndustryChangeSummary event={row.industryEvent} onOpenEvidence={() => setSelection(row.id)} />
-      <a className="inbox-action mt-3 inline-flex" href={`#/industry?industry=${encodeURIComponent(row.industryEvent.industryId)}`}>打开对应行业 / Metric</a>
+      <a className="inbox-action mt-3 inline-flex" href={`#/industry?industry=${encodeURIComponent(row.industryEvent.industryId)}`}>打开对应行业 / 指标</a>
     </article>;
     const stock = stocks.find(stock => stock.id === row.stockId);
     return <article key={row.id} data-inbox-id={row.id} className="inbox-item">
@@ -54,10 +54,10 @@ export function ResearchInbox({ events, industryEvents, tasks, watchItems, stock
     </article>;
   }
   return <DashboardCard className="home-priorities p-4" >
-    <section aria-label="Research Inbox">
-      <div className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-lg font-semibold">Research Inbox / 研究收件箱</h2><p className="mt-1 text-xs leading-5 text-textMuted">{today} · {timeZone} · 待处理与近期变化，点击证据继续研究。</p></div><span className="text-xs text-textMuted">已有任务关联事件已合并</span></div>
+    <section aria-label="研究收件箱">
+      <div className="flex flex-wrap items-end justify-between gap-3"><div><h2 className="text-lg font-semibold">研究收件箱</h2><p className="mt-1 text-xs leading-5 text-textMuted">{today} · {timeZone} · 待处理与近期变化，点击证据继续研究。</p></div><span className="text-xs text-textMuted">已有任务关联事件已合并</span></div>
       {sourceNotice ? <p role="status" className="mt-3 rounded-md border border-warning/40 p-3 text-sm text-warning">{sourceNotice}</p> : null}
-      <details className="mt-3 text-xs leading-6 text-textMuted"><summary className="cursor-pointer">排序与数据范围</summary><p>逾期任务 → 今日任务 → 其他待处理任务 → 待复盘事件 → 近期变化；左栏仅列已有待处理任务；右栏列未合并事件，默认近 30 天。各组按原始严重程度 / 影响程度、任务日期升序或事件日期降序、稳定标识排序。同一观察项合并展示所有待处理任务。已关联任务的事件不重复列出，包括已确认、忽略和稍后处理的任务。</p><p>行业事件按页面标注发布时间筛选，该日期不代表 releaseAvailableAt；同一发布的正式指标合并展示。其他日期沿用原事件记录；财务摘要可能使用报告期，更新 / 检测时间不作为新事件日期。此处是当前已载入数据的研究提醒，不是实时新闻或投资评分。严格 PIT 与准入须在证据中单独核验。</p></details>
+      <details className="mt-3 text-xs leading-6 text-textMuted"><summary className="cursor-pointer">排序与数据范围</summary><p>逾期任务 → 今日任务 → 其他待处理任务 → 待复盘事件 → 近期变化；左栏仅列已有待处理任务；右栏列未合并事件，默认近 30 天。各组按原始严重程度 / 影响程度、任务日期升序或事件日期降序、稳定标识排序。同一观察项合并展示所有待处理任务。已关联任务的事件不重复列出，包括已确认、忽略和稍后处理的任务。</p><p>行业事件按页面标注发布时间筛选，该日期不代表 公开可得时间；同一发布的正式指标合并展示。其他日期沿用原事件记录；财务摘要可能使用报告期，更新 / 检测时间不作为新事件日期。此处是当前已载入数据的研究提醒，不是实时新闻或投资评分。历史时点可得性（PIT） 与准入须在证据中单独核验。</p></details>
       <div className="mt-4 grid gap-5 xl:grid-cols-2">
         <section aria-label="待处理事项"><h3 className="mb-3 font-semibold">今日优先事项 <span className="text-sm text-textMuted">{pending.length} 项</span></h3>
           <div className="space-y-3">{pending.slice(0, limit).map(renderItem)}</div>

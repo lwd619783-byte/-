@@ -1,3 +1,4 @@
+import { financialMetricLabel } from "../../utils/displayLabels";
 import { QuoteTrust } from "../common/QuoteTrust";
 import { ChevronRight } from "lucide-react";
 import type { Stock } from "../../types";
@@ -82,7 +83,7 @@ export function StockCard({ stock, industries, onOpen, onOpenResearch }: StockCa
       ) : null}
 
       <div className="mt-4 grid min-w-0 grid-cols-2 gap-2 text-sm sm:grid-cols-3">
-        <MetricCard label="PE / PB" value={`${numberToDisplay(stock.quote?.peTtm ?? stock.quote?.pe)} / ${numberToDisplay(stock.quote?.pb)}`} />
+        <MetricCard label={`${financialMetricLabel("PE")} / ${financialMetricLabel("PB")}`} value={`${numberToDisplay(stock.quote?.peTtm ?? stock.quote?.pe)} / ${numberToDisplay(stock.quote?.pb)}`} />
         <MetricCard label="报告期" value={stock.realFinancial?.reportDate ?? "数据暂缺"} />
         <MetricCard label="行情/财务字段" value={formatStockFieldCoverage(stock.dataCoverageDetails)} tone="cyan" />
       </div>

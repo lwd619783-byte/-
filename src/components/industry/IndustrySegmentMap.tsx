@@ -69,7 +69,7 @@ export function IndustrySegmentMap({ graph, renderSegment }: { graph: ResearchMa
         {lines.map((line,i) => <g key={`${graph.edges[i].from}-${graph.edges[i].to}`} data-chain-edge={`${graph.edges[i].from}:${graph.edges[i].to}`} className={graph.edges[i].kind === 'capability' ? 'chain-edge-capability' : ''}><path d={line.d} markerEnd={`url(#${prefix}-arrow)`} /></g>)}
       </svg>
       {(['上游','中游','下游'] as const).map((stage,i) => <div key={stage} className="chain-map-column">
-        <section className="chain-stage" data-chain-stage={stage} aria-labelledby={`${prefix}-stage-${i}`}><header className="chain-stage-header"><span className="chain-stage-index">0{i+1}</span><div><p className="chain-stage-code">{['UPSTREAM','MIDSTREAM','DOWNSTREAM'][i]}</p><h3 id={`${prefix}-stage-${i}`}>{stage}</h3></div></header><div className="chain-segment-grid">{graph.nodes.filter(n => n.stage === stage).map(node)}</div></section>
+        <section className="chain-stage" data-chain-stage={stage} aria-labelledby={`${prefix}-stage-${i}`}><header className="chain-stage-header"><span className="chain-stage-index">0{i+1}</span><div><p className="chain-stage-code">{['上游环节','中游环节','下游环节'][i]}</p><h3 id={`${prefix}-stage-${i}`}>{stage}</h3></div></header><div className="chain-segment-grid">{graph.nodes.filter(n => n.stage === stage).map(node)}</div></section>
         {stage === '中游' && <aside className="chain-cross-context"><p>横向研究方向</p>{graph.nodes.filter(n => n.stage === '横向').map(node)}</aside>}
       </div>)}
     </div>

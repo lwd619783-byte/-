@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { statusDisplayLabel } from "./displayLabels";
+import { statusDisplayLabel, auditDisplayText, unitDisplayLabel, financialMetricLabel } from "./displayLabels";
 
 describe("业绩预期状态与时间分辨率中文展示", () => {
   it("保留来源核验状态的语义差异", () => {
@@ -19,4 +19,11 @@ describe("业绩预期状态与时间分辨率中文展示", () => {
   it("对未知状态保留安全透传", () => {
     expect(statusDisplayLabel("future_status")).toBe("future_status");
   });
+});
+
+it('localizes admission, uncertainty, units and financial abbreviations only for display', () => {
+  expect(unitDisplayLabel('Thousand Barrels')).toBe('千桶');
+  expect(financialMetricLabel('FCF')).toBe('自由现金流（FCF）');
+  expect(auditDisplayText('freshness：unknown；releaseAvailableAt：NOT_ADMITTED')).toBe('数据新鲜度：未确认；公开可得时间：尚未准入');
+  for (const [input, label] of [['unknown', '未确认'], ['NOT_ADMITTED', '尚未准入'], ['not_admitted', '尚未准入'], ['blocked', '暂不可用'], ['missing_evidence', '证据缺失'], ['UNPROVED', '未证明']]) expect(statusDisplayLabel(input)).toBe(label);
 });

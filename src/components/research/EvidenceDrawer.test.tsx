@@ -17,7 +17,7 @@ describe("Evidence Drawer fail-closed owner evidence", () => {
     render(<EvidenceDrawer {...data} />);
     expect(screen.getByRole("link", { name: "原始来源" }).getAttribute("href")).toBe(data.events[0].sourceUrl);
     const dialog = screen.getByRole("dialog");
-    for (const text of ["2026-09-08T09:00:00+08:00", "2026-09-09T12:00:00+08:00", "original-announcement", "严格 PIT：未证明", "准入：未证明", "revision 连续性：未证明", "Graph 闭合性：未证明"]) expect(dialog.textContent).toContain(text);
+    for (const text of ["2026-09-08T09:00:00+08:00", "2026-09-09T12:00:00+08:00", "original-announcement", "历史时点可得性（PIT）：未证明", "准入：未证明", "修订连续性：未证明", "证据关联闭合性：未证明"]) expect(dialog.textContent).toContain(text);
     expect(within(screen.getByRole("table")).getByText("0.00 元")).toBeTruthy();
     expect(within(screen.getByRole("table")).getByText("缺失")).toBeTruthy();
   });
@@ -29,9 +29,9 @@ describe("Evidence Drawer fail-closed owner evidence", () => {
     expect(container).toBeTruthy();
   });
   it("preserves explicit conflict reasons without adding graph facts", () => {
-    const data = props(); data.events[0] = { ...data.events[0], verificationStatus: "error", reviewReasons: ["关系=content_conflict", "冲突字段=value", "not_admitted"] };
+    const data = props(); data.events[0] = { ...data.events[0], verificationStatus: "error", reviewReasons: ["关系=内容冲突", "冲突字段=value", "not_admitted"] };
     render(<EvidenceDrawer {...data} />);
-    expect(screen.getByText("关系=content_conflict")).toBeTruthy(); expect(screen.getByText("not_admitted")).toBeTruthy();
+    expect(screen.getByText("关系=内容冲突")).toBeTruthy(); expect(screen.getByText("尚未准入")).toBeTruthy();
   });
   it("blocks unsafe URLs and preserves a safe PDF alternative", () => {
     const data = props(); data.events[0] = { ...data.events[0], sourceUrl: "javascript:alert(1)", pdfUrl: "https://example.com/safe.pdf" };
@@ -41,7 +41,7 @@ describe("Evidence Drawer fail-closed owner evidence", () => {
   });
   it("keeps a reminder with no evidence explicit and disables event navigation", () => {
     const data = props(); render(<EvidenceDrawer {...data} events={[]} unresolvedEventIds={["missing-id"]} />);
-    expect(screen.getByText("未提供关联事件证据")).toBeTruthy(); expect(screen.getByRole("status").textContent).toContain("missing-id");
+    expect(screen.getByText("未提供关联事件证据")).toBeTruthy(); expect(screen.getByRole("dialog").textContent).toContain("missing-id");
     expect(screen.queryByRole("button", { name: "打开对应事件" })).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "开始复盘" })); expect(data.onStartReview).toHaveBeenCalledWith(data.watchItem);
   });
@@ -58,7 +58,7 @@ describe("Evidence Drawer fail-closed owner evidence", () => {
     const event = buildEarningsExpectationResearchEvents([snapshot], [], fixture.companies, .1, "Asia/Shanghai")[0];
     expect(event.expectation?.snapshotId).toBe(snapshot.id);
     const data = props(); const { rerender } = render(<EvidenceDrawer {...data} events={[event]} expectationSnapshots={[snapshot]} />);
-    expect(screen.getByLabelText("预期原始快照数值").textContent).toContain("120000000 至 160000000 · CNY · yuan");
+    expect(screen.getByLabelText("预期原始快照数值").textContent).toContain("120000000 至 160000000 · 人民币 · 元");
     rerender(<EvidenceDrawer {...data} events={[event]} expectationSnapshots={[{ ...snapshot, stockId: "wrong-company" }]} />);
     expect(screen.getByLabelText("预期原始快照数值").textContent).toContain("未提供可唯一匹配");
   });
