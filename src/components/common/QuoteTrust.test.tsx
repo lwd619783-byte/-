@@ -52,7 +52,7 @@ it.each([
   expect(container.textContent).toContain("价格：已覆盖");
   expect(container.textContent).toContain("价格覆盖 1/2");
   expect(container.textContent).toContain(`${label} 1/2`);
-  expect(container.textContent).toContain("未知 1/2");
+  expect(container.textContent).toContain("未确认 1/2");
   expect(container.textContent).toContain("行情采集时间：2026-07-01T00:00:00Z");
   expect(container.textContent).not.toMatch(/真实来源|来源不真实|yfinance ·/);
 });

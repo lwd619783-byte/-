@@ -131,21 +131,21 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
         <FilterSelect label="市场" value={filters.market} onChange={(value) => updateFilter("market", value as "全部" | Market)}>
           {["全部", "A股", "港股", "美股"].map((item) => (
             <option key={item} value={item}>
-              {item}
+              {item === "PE" ? "市盈率（PE）" : item}
             </option>
           ))}
         </FilterSelect>
         <FilterSelect label="数据质量" value={qualityFilter} onChange={(value) => setQualityFilter(value as QualityFilter)}>
           {["全部", "行情状态为真实", "缺失项", "暂不支持", "行情采集24小时内"].map((item) => (
             <option key={item} value={item}>
-              {item}
+              {item === "PE" ? "市盈率（PE）" : item}
             </option>
           ))}
         </FilterSelect>
         <FilterSelect label="排序" value={sortMode} onChange={(value) => setSortMode(value as SortMode)}>
           {["默认", "覆盖率高到低", "覆盖率低到高", "涨跌幅", "市值", "PE"].map((item) => (
             <option key={item} value={item}>
-              {item}
+              {item === "PE" ? "市盈率（PE）" : item}
             </option>
           ))}
         </FilterSelect>
@@ -182,8 +182,8 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
           <DataTable className="hidden lg:block" minWidth="1040px">
             <thead className="sticky top-0 bg-bg2 text-xs text-textMuted">
               <tr>
-                {["公司 / 代码", "市场", "快照价格", "涨跌幅", "PE（原始估值口径）", "来源、质量与时效", "风险", "操作 / 原始字段"].map((header) => (
-                  <th key={header} className={`px-3 py-3 font-medium ${["快照价格", "涨跌幅", "PE（原始估值口径）"].includes(header) ? "text-right" : ""}`}>
+                {["公司 / 代码", "市场", "快照价格", "涨跌幅", "市盈率（PE，原始估值口径）", "来源、质量与时效", "风险", "操作 / 原始字段"].map((header) => (
+                  <th key={header} className={`px-3 py-3 font-medium ${["快照价格", "涨跌幅", "市盈率（PE，原始估值口径）"].includes(header) ? "text-right" : ""}`}>
                     {header}
                   </th>
                 ))}

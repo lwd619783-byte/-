@@ -112,7 +112,7 @@ describe("HomePage", () => {
     expect(screen.getByRole("heading", { name: /今日优先事项/ })).toBeTruthy();
     expect(screen.getByRole("heading", { name: /最近研究事件/ })).toBeTruthy();
     expect(screen.getByRole("heading", { name: "关注公司" })).toBeTruthy();
-    expect(container.textContent).toContain("A 股行情覆盖（质量状态 real 且有价格）：56 / 56");
+    expect(container.textContent).toContain("A 股行情覆盖（质量状态为真实数据 且有价格）：56 / 56");
     expect(container.textContent).toContain("数据源：A 股数据");
     expect(container.textContent).not.toContain("A Stock Data");
     expect(container.textContent).toContain("采集时间：2026-07-05T17:40:20+08:00");

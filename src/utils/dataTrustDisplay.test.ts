@@ -54,7 +54,7 @@ describe("data trust presentation", () => {
     const summary = summarizeQuotes(quotes, now);
     expect(summary).toMatchObject({ total: 6, covered: 4, statusReal: 2, statusRealCovered: 1, times: { recent: 2, older: 1, missing: 2, invalid: 1 } });
     expect(summary.text).toContain("24 小时内 2/6");
-    expect(summarizeQualityStatuses(["real", "partial", "conflicted", undefined])).toBe("真实数据 1/4；部分可用 1/4；冲突 1/4；未知 1/4");
+    expect(summarizeQualityStatuses(["real", "partial", "conflicted", undefined])).toBe("真实数据 1/4；部分可用 1/4；冲突 1/4；未确认 1/4");
   });
 
   it("handles empty and entirely missing datasets without a fresh/real aggregate", () => {
@@ -76,7 +76,7 @@ it.each(["partial", "stale", "real"] as const)("keeps %s quality separate from s
   const q = { ...quote("2026-07-01T00:00:00Z", status), latestPrice: 42, pctChange: null, quality: { status, source: status === "real" ? "" : "yfinance" } };
   const summary = summarizeQuotes([q, undefined], now);
   expect(summary).toMatchObject({ total: 2, covered: 1, statusReal: status === "real" ? 1 : 0, statusRealCovered: status === "real" ? 1 : 0 });
-  expect(summary.text).toContain("未知 1/2");
+  expect(summary.text).toContain("未确认 1/2");
   expect(summary.text).not.toMatch(/真实来源|来源不真实/);
   expect(describeQuote(q, now).source).toBe(`行情来源：${status === "real" ? "未知" : "yfinance"}`);
   expect(q.latestPrice).toBe(42);

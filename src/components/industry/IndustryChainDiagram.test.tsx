@@ -15,7 +15,7 @@ it('keeps exact company/segment navigation and discloses context versus facts', 
   expect(onOpenStock).toHaveBeenCalledWith(pool.find(s => s.id === 'inovance'));
   fireEvent.click(container.querySelector('[data-chain-segment="motor-drive-control"]')!);
   expect(onSelectSegment).toHaveBeenCalledWith('motor-drive-control');
-  expect(container.textContent).toContain('Provider Fact');
+  expect(container.textContent).toContain('来源数据');
   expect(container.textContent).toContain('位置待映射');
   for (const stage of container.querySelectorAll('[data-chain-stage]')) {
     expect(stage.getAttribute('aria-labelledby')!.split(' ').every(id => !!document.getElementById(id))).toBe(true);
@@ -30,7 +30,7 @@ it('keeps exact company/segment navigation and discloses context versus facts', 
 });
 it('shows unavailable when no structural context exists', () => {
   render(<IndustryChainDiagram industry={{ ...industry, chain: [] }} stocks={pool} onOpenStock={vi.fn()} onSelectSegment={vi.fn()} />);
-  expect(screen.getByRole('status').textContent).toContain('unavailable');
+  expect(screen.getByRole('status').textContent).toContain('暂不可用');
   expect(screen.queryByRole('img')).toBeNull();
 });
 it('uses exact segment primary nodes and keeps all company facts in secondary disclosures', () => {
@@ -52,7 +52,7 @@ it('uses exact segment primary nodes and keeps all company facts in secondary di
   expect(unitreeChip.textContent).toContain('688836.SH · A股 / 科创板');
   expect(unitreeChip.textContent).not.toMatch(/未上市|待上市|IPO 尚未完成/);
   expect(container.querySelectorAll('.chain-unresolved-grid article')).toHaveLength(12);
-  expect(container.querySelector('.chain-unpositioned')?.textContent).toContain('未自动分配 stage');
+  expect(container.querySelector('.chain-unpositioned')?.textContent).toContain('未自动分配阶段');
 });
 it('keeps missing and stale owners in the full segment coverage denominator', () => {
   const stock = pool.find(s => s.id === 'unitree')!;
@@ -62,10 +62,10 @@ it('keeps missing and stale owners in the full segment coverage denominator', ()
   expect(within(segment).getByText('行情 0/1')).toBeTruthy();
   expect(within(segment).getByText('财务 0/1')).toBeTruthy();
   expect(within(segment).getByText('公告 0/1')).toBeTruthy();
-  expect(segment.textContent).toContain('missing 1');
+  expect(segment.textContent).toContain('缺失 1');
   const stale = { ...missing, quote: { id: stock.id, updatedAt: '2026-09-01', marketCap: 0, quality: { status: 'stale', source: 'test' } } } as Stock;
   rerender(<IndustryChainDiagram industry={industry} stocks={[stale]} onOpenStock={vi.fn()} onSelectSegment={vi.fn()} />);
   expect(within(segment).getByText('行情 1/1')).toBeTruthy();
-  expect(segment.textContent).toContain('stale 1');
+  expect(segment.textContent).toContain('过期 1');
   expect(segment.textContent).toContain('财务 0/1');
 });

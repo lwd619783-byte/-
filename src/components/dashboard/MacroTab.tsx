@@ -84,14 +84,14 @@ export function MacroTab({ indicators, generatedAt, now }: { indicators: MacroIn
       <DashboardCard className="min-w-0 p-4 sm:p-5">
         <h3 className="text-base font-semibold text-textStrong">当前可确认什么</h3>
         <dl className="mt-4 space-y-4 text-sm"><div><dt className="font-medium text-accent">观测与质量</dt><dd className="mt-1 leading-6 text-textMuted">{selectedRow.value === null ? "该条目缺少可用数值，保留来源原有状态。" : "已有一条原始观测；数值存在不等于来源与时效均已核验。"}</dd></div><div><dt className="font-medium text-accent">来源</dt><dd className="mt-1 break-words leading-6 text-textMuted">来源：{selectedRow.sourceDisplayName}</dd></div><div><dt className="font-medium text-accent">时效</dt><dd className="mt-1 leading-6 text-textMuted">时效待核验；文件生成时间不是全部指标的发布时间。</dd></div></dl>
-        <details className="mt-4 rounded-md border border-control bg-bg2"><summary className="cursor-pointer px-3 py-3 text-sm text-accent">查看来源与口径</summary><div className="space-y-2 px-3 pb-3 text-xs leading-5 text-textMuted"><p className="break-all">原始字段 key：{selectedRow.rawKey}</p><p className="break-all">原始来源：{selectedRow.source || "未提供"}</p>{selectedRow.description ? <p className="break-words">原始说明：{selectedRow.description}</p> : <p>原始说明未提供。</p>}</div></details>
+        <details className="mt-4 rounded-md border border-control bg-bg2"><summary className="cursor-pointer px-3 py-3 text-sm text-accent">查看来源与口径</summary><div className="space-y-2 px-3 pb-3 text-xs leading-5 text-textMuted"><p className="break-all">原始字段标识：{selectedRow.rawKey}</p><p className="break-all">原始来源：{selectedRow.source || "未提供"}</p>{selectedRow.description ? <p className="break-words">原始说明：{selectedRow.description}</p> : <p>原始说明未提供。</p>}</div></details>
       </DashboardCard>
     </div> : <DashboardCard className="min-w-0 p-5"><Radar className="mb-3 h-6 w-6 text-textWeak" aria-hidden="true" /><h3 className="font-semibold text-textStrong">该分类数据待接入</h3><p className="mt-2 text-sm leading-6 text-textMuted">该分类暂未接入可用指标；可切换其他分类，全部已有条目仍保留在下方明细中。</p></DashboardCard>}
 
     <div className="min-w-0 rounded-lg border border-borderSoft bg-bg2 px-4 py-3"><h3 className="text-sm font-semibold text-textStrong">宏观指标观测 · 模型尚未接入</h3><p className="mt-1 text-xs leading-5 text-textMuted">当前不输出方向分或宏观结论。方向判断需要验证指标口径、发布时间、修订记录与正式模型。</p></div>
     <details className="min-w-0 rounded-lg border border-control bg-bg2">
       <summary className="cursor-pointer px-4 py-3 text-sm text-accent"><span>数值覆盖</span> {coveredCount}/{totalMetricCount} · 覆盖与时间口径</summary>
-      <div className="grid gap-3 border-t border-borderSoft p-4 text-xs leading-5 text-textMuted sm:grid-cols-2"><p>按展示条目统计，重复指标未去重；仅表示有值，不表示经济强弱。数值缺失 {totalMetricCount - coveredCount}/{totalMetricCount}。</p><p>质量状态 real：{statusRealMetricCount}/{totalMetricCount}；{summarizeQualityStatuses(rows.map((row) => row.status))}</p><p>时间语义：报告期 {times.period}；仅日期 {times.dateOnly}；精确时间 {times.recent + times.older}；缺失 {times.missing}；异常 {times.invalid + times.future}；未知 {times.unknown}。分母 {times.total}，逐项核验。</p><p className="break-words">{describeDataTime(generatedAt, "generated", displayNow).text}。文件生成不代表全部指标已更新。</p></div>
+      <div className="grid gap-3 border-t border-borderSoft p-4 text-xs leading-5 text-textMuted sm:grid-cols-2"><p>按展示条目统计，重复指标未去重；仅表示有值，不表示经济强弱。数值缺失 {totalMetricCount - coveredCount}/{totalMetricCount}。</p><p>质量状态为真实数据：{statusRealMetricCount}/{totalMetricCount}；{summarizeQualityStatuses(rows.map((row) => row.status))}</p><p>时间语义：报告期 {times.period}；仅日期 {times.dateOnly}；精确时间 {times.recent + times.older}；缺失 {times.missing}；异常 {times.invalid + times.future}；未知 {times.unknown}。分母 {times.total}，逐项核验。</p><p className="break-words">{describeDataTime(generatedAt, "generated", displayNow).text}。文件生成不代表全部指标已更新。</p></div>
     </details>
     <MacroDetailTable rows={rows} now={displayNow} />
   </section>;
@@ -122,7 +122,7 @@ function MacroDetailTable({ rows, now }: { rows: MacroIndicatorRow[]; now: Date 
         <table className="min-w-[1080px] w-full border-separate border-spacing-0 text-left text-sm">
           <thead className="sticky top-0 z-10 bg-bg2 text-xs uppercase tracking-[0.12em] text-textWeak">
             <tr>
-              {["分类", "指标名称", "观测值", "单位", "时间与时效", "来源", "质量状态", "原始字段 key"].map((header) => (
+              {["分类", "指标名称", "观测值", "单位", "时间与时效", "来源", "质量状态", "原始字段标识"].map((header) => (
                 <th key={header} className="border-b border-borderSoft px-4 py-3 font-medium">{header}</th>
               ))}
             </tr>

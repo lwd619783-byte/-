@@ -15,7 +15,7 @@ describe("Auditable Chart presentation and shell", () => {
     for (const value of ["NOT_ADMITTED", "missing", "partial", "stale", "conflicted", "not_admitted", "unknown"]) expect(container.textContent).toContain(value);
     expect(screen.getByText("0")).toBeTruthy();
     expect(container.querySelectorAll("a")).toHaveLength(0);
-    expect(container.textContent).toContain("当前图表没有可验证的 Evidence linkage");
+    expect(container.textContent).toContain("当前图表没有可验证的正式证据关联");
   });
   it("renders real owner metadata including safe source and distinct times", () => {
     const fixture = createReviewFixtures("full"), stock = fixture.companies[0], detail = fixture.details[stock.id].financial!;
@@ -25,7 +25,7 @@ describe("Auditable Chart presentation and shell", () => {
     expect(container.textContent).toContain("announcementDate");
     expect(container.textContent).toContain("fetchedAt");
     expect(container.textContent).toContain("未提供 / 未证明");
-    expect(screen.getByRole("link", { hidden: true }).getAttribute("href")).toBe("https://example.com/fixture");
+    expect(screen.getAllByRole("link", { hidden: true })[0].getAttribute("href")).toBe("https://example.com/fixture");
   });
   it("shell delegates navigation without touching storage or generating business objects", () => {
     const write = vi.spyOn(Storage.prototype, "setItem"), remove = vi.spyOn(Storage.prototype, "removeItem"), clear = vi.spyOn(Storage.prototype, "clear");

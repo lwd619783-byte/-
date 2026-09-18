@@ -1,3 +1,5 @@
+import { auditDisplayText, statusDisplayLabel, unitDisplayLabel } from '../../utils/displayLabels';
+import { AdvancedAuditDetails } from '../common/AdvancedAuditDetails';
 import { useEffect, useState } from 'react';
 import { loadIndustryMetrics, type IndustryProviderState } from '../../services/industryMetricProvider';
 import { buildIndustryChanges, industryEventAudit, type IndustryChangeEvent } from '../../services/industrySignals';
@@ -5,10 +7,10 @@ import { EvidenceDrawer } from '../research/EvidenceDrawer';
 
 export function IndustryChangeSummary({ event, onOpenEvidence }: { event: IndustryChangeEvent; onOpenEvidence: () => void }) {
   return <div className="min-w-0">
-    <h3 className="break-words font-semibold text-textStrong">{event.title}</h3>
-    <p className="mt-2 text-xs leading-5 text-textMuted">留存期间：{event.period} · 页面标注发布：{event.publicationDateTime?.slice(0, 10) ?? 'unknown'} · 公开可得时间：{event.releaseAvailableAt ?? 'unknown'}</p>
-    <p className="mt-2 break-words text-xs leading-5 text-warning">{event.conditions.join(' / ')} · 仅供来源核对，不代表生产准入。</p>
-    <dl className="mt-3 grid gap-3 sm:grid-cols-2">{event.signals.flatMap(signal => signal.readings.map(reading => <div key={`${signal.id}:${reading.basis}`} className="min-w-0"><dt className="text-xs text-textMuted">{reading.label}</dt><dd className="mt-1 text-sm tabular-nums text-textStrong">{reading.value === null ? '暂缺' : reading.value.toLocaleString('zh-CN')} {reading.unit}</dd></div>))}</dl>
+    <h3 className="break-words font-semibold text-textStrong">{auditDisplayText(event.title)}</h3>
+    <p className="mt-2 text-xs leading-5 text-textMuted">留存期间：{event.period} · 页面标注发布：{event.publicationDateTime?.slice(0, 10) ?? '未确认'} · 公开可得时间：{event.releaseAvailableAt ?? '未确认'}</p>
+    <p className="mt-2 break-words text-xs leading-5 text-warning">{event.conditions.map(statusDisplayLabel).join(' / ')} · 仅供来源核对，不代表生产准入。</p>
+    <dl className="mt-3 grid gap-3 sm:grid-cols-2">{event.signals.flatMap(signal => signal.readings.map(reading => <div key={`${signal.id}:${reading.basis}`} className="min-w-0"><dt className="text-xs text-textMuted">{reading.label}</dt><dd className="mt-1 text-sm tabular-nums text-textStrong">{reading.value === null ? '暂缺' : reading.value.toLocaleString('zh-CN')} {unitDisplayLabel(reading.unit)}</dd></div>))}</dl>
     <button type="button" className="inbox-action mt-3" onClick={onOpenEvidence}>查看行业变化证据</button>
   </div>;
 }
@@ -22,7 +24,8 @@ export function IndustryChangePanel({ industryId }: { industryId: string }) {
   return <section aria-label="行业最新变化" className="min-w-0 rounded-lg border border-borderSoft bg-panel p-4">
     <h2 className="mb-3 text-lg font-semibold text-textStrong">最新变化</h2>
     {events.map(event => <IndustryChangeSummary key={event.id} event={event} onOpenEvidence={() => setSelected(event)} />)}
-    {!events.length ? <p className="break-words text-sm text-textMuted">{!state ? '正在校验正式指标…' : state.status === 'blocked' ? `行业变化不可用 / blocked：${state.reason}` : '行业变化 unavailable：没有可投影的正式 Industry Metric 留存记录。'}</p> : null}
+    {!events.length ? <p className="break-words text-sm text-textMuted">{!state ? '正在校验正式指标…' : state.status === 'blocked' ? '行业变化暂不可用；校验未通过，详见高级审计信息。' : '行业变化暂不可用：没有正式行业指标留存记录。'}</p> : null}
+    {state?.status === 'blocked' ? <AdvancedAuditDetails>{state.reason}</AdvancedAuditDetails> : null}
     {selected ? <EvidenceDrawer audit={industryEventAudit(selected)} onClose={() => setSelected(null)} /> : null}
   </section>;
 }

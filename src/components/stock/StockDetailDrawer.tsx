@@ -11,7 +11,7 @@ import type { AShareAnnouncementData, AShareAnnouncementPreview, AShareFinancial
 import { displayFinancialField, financialStatusLabel, financialUnavailableLabel, formatFinancialAmount, formatFinancialChangeMetric, formatFinancialRatio } from "../../utils/financialDisplay";
 import { getIndustryName, getSegmentName } from "../../utils/filters";
 import { formatPercent, formatYi, numberToDisplay } from "../../utils/normalize";
-import { statusDisplayLabel } from "../../utils/displayLabels";
+import { statusDisplayLabel, financialMetricLabel } from "../../utils/displayLabels";
 import { formatStockFieldCoverage, formatStockModuleCoverage } from "../../utils/stockCoverage";
 import { DataQualityBadge, MetricCard, PriceChange, SectionPanel, TextClamp, metricTone } from "../common/terminal";
 import { CompanyRelationGraph } from "./CompanyRelationGraph";
@@ -179,9 +179,9 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   const stockResearchEvents = researchEvents.filter((event) => event.stockId === stock.id);
 
   const valuationRows = [
-    ["PE", stock.valuation.pe],
-    ["PB", stock.valuation.pb],
-    ["PS", stock.valuation.ps],
+    [financialMetricLabel("PE"), stock.valuation.pe],
+    [financialMetricLabel("PB"), stock.valuation.pb],
+    [financialMetricLabel("PS"), stock.valuation.ps],
     ["股息率", stock.valuation.dividendYield ?? EMPTY],
   ];
 
@@ -361,7 +361,7 @@ function ResearchHeader({ stock, industryName, segmentName, onClose, presentatio
   section: string; relatedAction: ReactNode;
   stock: Stock; industryName: string; segmentName: string; onClose: () => void; presentation: "page" | "drawer"; action: () => void; actionLabel: string;
 }) {
-  return <ProductShell className={`research-header ${presentation === "drawer" ? "z-20 sm:sticky sm:top-[72px]" : ""}`} section={section} title={stock.name} scope={`${stock.market} · ${stock.code} · ${stock.id} · ${industryName} / ${segmentName}`}
+  return <ProductShell className={`research-header ${presentation === "drawer" ? "z-20 sm:sticky sm:top-[72px]" : ""}`} section={section} title={stock.name} scope={`${stock.market} · ${stock.code} · ${industryName} / ${segmentName}`}
     actions={<>{relatedAction}<button type="button" onClick={onClose} aria-label={presentation === "page" ? "返回研究入口" : "关闭详情"} className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded border border-control px-3 text-sm text-textMuted">{presentation === "page" ? <ArrowLeft className="h-4 w-4" /> : <X className="h-4 w-4" />}{presentation === "page" ? "返回" : "关闭"}</button></>}
     quality="公司相关证据是研究导航，不代表图表的精确证据关联。">
     <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2"><span className="text-2xl font-semibold tabular-nums text-textStrong">{numberToDisplay(stock.quote?.latestPrice)} <span className="text-xs font-normal">币种：源字段未提供</span></span><PriceChange value={stock.quote?.pctChange} /><DataQualityBadge quality={stock.dataQuality} /><span className="text-sm text-warning">风险等级 {stock.riskLevel}</span><button type="button" onClick={action} className="min-h-11 rounded border border-control bg-selected px-3 text-sm font-semibold text-accent">{actionLabel}</button></div>
