@@ -1,6 +1,53 @@
 # Stage 4.2 / Slice 3 — Freshness + Industry Signal/Event + Industry Chain Diagram
 
-## 2026-09-18 remediation · CURRENT
+## 2026-09-18 final remediation · CURRENT
+
+**IMPLEMENTED / VERIFIED LOCALLY / PENDING THIRD INDEPENDENT REVIEW**。输入 `a1a4be2a6d126866eac00c1fc693ac6608728d28`；fetch 后本地/远端相等、main `086521d6bd305ea73cb5d4a426b9d4138e4a824b`、ahead 2 / behind 0、clean。只修 Segment 架构图与 Provider Stability cohort P1；下方第二次审计前记录及截图保留原时点。
+
+### Segment-node Architecture Canvas
+
+实际使用 `.agents/skills/diagram-design/SKILL.md`，按 `docs/agent-skills.md` 边界读取 style-guide 与 Architecture type reference。用户 MCO Runtime Architecture 图片**只作为 Visual Reference**，吸收画布网格、分组边界、节点层次与主轴；没有引入图中业务内容，没有调用 Archify、profile/updater，也没有修改全局设计系统。React/CSS runtime 复用原 Industry 页与 deep links；使用现有字体与三主题 tokens，不以静态 PNG/SVG 替代交互。Diagram Design 的独立 SVG helper 不适用此 React 交付；可访问性与布局由浏览器验收，不声称 SVG-only 检查 PASS。
+
+- **3 Stage Groups → 10 Segment Nodes（7 个 unique segments）→ 公司标签 / 展开明细**。上游6、中游3、下游1节点；三组分别复用 `--ui-accent` / `--ui-secondary` / `--ui-warning`。细网格、边界、2条水平主轴箭头，移动端切换纵轴；不添加 company-to-company 关系。10个节点按已有分组完整保留，公司明细折叠控制密度，不为满足 Skill 默认9节点建议而删掉真实映射。
+- 节点一级为 segment 名称、研究定位摘要（完整原文在展开区）、研究数量/验证标签；代表公司按原研究池顺序显示前3家，其余标 `+N`。股票涨幅、市值不参与排序、分组、定位。
+- Provider 层独立显示行情/财务/公告**有留存**覆盖、逐状态数量与最新留存报告期。分母包含全部节点公司，缺失/H股能力限制不被剔除；`partial/stale/missing/conflicted` 不折叠为已验证。可键盘展开全部公司，再查看 exact owner 的日期/source/市值/unknown as-of。没有新增 Provider 数据或评分。
+- topology 仍只来自 `Industry.chain`、exact `segmentId`、`company.chainPosition` 及既有 research context；25/4/5次公司挂接、12家位置待映射均不变。后者在画布外单列公司/细分/原位置/验证状态，明确“未自动分配 stage”。无可用结构时仍 unavailable。
+- Unitree 仍位于**下游 → robot-oem（本体整机）→ 宇树科技标签**，`unitree / 688836.SH / A股 / SH / 科创板 / 2026-08-19`，当前不出现 private/待上市状态；上市正式来源和原历史 evidence 保留。当前研究验证等级仍“部分验证”。
+- Structure / Research Context 与 Provider Fact 分层保持；箭头只表示产业结构阅读方向，不表示直接供货、收入权重或资金流向。Listing Context 来自此前 reviewed SSE identity，不填回 Provider profile.listDate。
+
+### Stability cohort P1
+
+`config/provider-stability-gate-v1.json.expectedCompanies=57` 作为受控分母。`expected_company_cohort()` 同时核验 current generated A-share universe 的数量、唯一非空 IDs；financial/announcement production validators 与 observation 都使用该函数，同数量 foreign 替换亦被原 artifact exact-ID validators 拒绝。data-audit 移除旧硬编码56断言，改为配置对照 generated universe；历史56 ledger/fixtures不回写。
+
+离线回放真实留存 artifacts：两个 Provider 57/57均可成为 complete coverage candidate；56/57、58、foreign identity 均 fail closed，旧56 provenance cohort不得借用。**候选完整不等于已达到稳定准入**。minimumDistinctDays=5、minimumRunsPerProvider=10、minimumSuccessfulDaysPerProvider=5、minimumCompleteSuccessRate=.9、minimumTotalSuccessRate=.95、requireLatestSuccess=true 全部不变；provenance、clean worktree、atomicity机制未改。
+
+当前 production validators PASS，health `insufficient_observation_window`，观察0日/0runs，strict eligibility exit2；没有自动启用 financial/announcement 默认刷新，没有提高 admission。[health](stage-4-2-slice-3/segment-architecture/provider-health.json)、[cohort/unchanged-data delta](stage-4-2-slice-3/segment-architecture/remediation-delta.json)。Company Guidance cross-epoch P2 本轮未修。
+
+### 最终验证与审阅入口
+
+| Gate | 实际结果 |
+| --- | --- |
+| Provider observability | 261 Python PASS（含双Provider57/56/58/foreign与旧cohort回放） |
+| data-audit tests | 54 PASS（在full tests中） |
+| Listing / targeted A refresh | 14 Python + 6 Vitest / 7 Python PASS；未重新请求真实Provider |
+| Industry | 8 Python + 28 Node + 62 Vitest PASS |
+| Full tests / discovery | 851 tests / 69 files PASS；69 suites discovery PASS |
+| financial / announcement / guidance validators | PASS；guidance generator `--check` PASS |
+| data audit | 0 errors / 26 warnings（P1 12、P2 14），非新增准入 |
+| build | PASS，Local Core typecheck / bundle预算 PASS；已有大chunk warning |
+| browser | 277 checks / 22 screenshots / 0 runtime errors，neon/pro/light × 1536/390/320 |
+
+Browser [report](stage-4-2-slice-3/segment-architecture/browser-report.json) 明确记录 `segment-node architecture`、`colored stage grouping`、`architecture-canvas visual hierarchy`、`Unitree exact listed identity`、`no company-card-as-primary-node`、`no guessed placement`、`no overflow`、`no runtime errors`；也覆盖keyboard focus/Enter、exact company/segment navigation、Evidence、Inbox→Industry→Chain及无业务存储写入。报告内 source digests 绑定源码；使用现有 isolated Playwright/Edge，无新增安装。
+
+人工入口：[neon桌面](stage-4-2-slice-3/segment-architecture/chain-neon-1536.png)、[pro桌面](stage-4-2-slice-3/segment-architecture/chain-pro-1536.png)、[light桌面](stage-4-2-slice-3/segment-architecture/chain-light-1536.png)、[390纵向](stage-4-2-slice-3/segment-architecture/chain-light-390.png)、[320纵向](stage-4-2-slice-3/segment-architecture/chain-pro-320.png)、[完整Segment展开](stage-4-2-slice-3/segment-architecture/segment-expanded-neon-1536.png)、[宇树320明细](stage-4-2-slice-3/segment-architecture/unitree-pro-320.png)、[Inbox路径](stage-4-2-slice-3/segment-architecture/inbox-to-chain.png)、[静态审阅HTML](stage-4-2-slice-3/segment-architecture/robotics-chain.html)。静态HTML禁用应用导航，交互路由以runtime为准。
+
+已确认现有 Vercel Git integration 绑定该项目/分支；本次普通 push 后在最终交付回复核验并提供 **Final SHA 对应 immutable Vercel deployment URL**（不把旧部署或localhost记为最终Preview）。Hosted GitHub CI 尚未运行，不能以本地PASS或Vercel build替代；无PR/merge。push后等待第三次独立审计。
+
+数据与风险：本轮所有真实数据 artifacts 对输入a1a4be2无diff，NBS保留最新2026-08及前次`LATEST_ALREADY_RETAINED`结论，未重新probe/新capture；2 Signal→1 Event→4 readings、YoY no-delta、releaseAvailableAt unknown不变。12家位置未映射、32家公司公告partial、Unitree profile.listDate/PS/dividendYield/guidance缺失继续诚实呈现；Guidance cross-epoch P2仍保留。PIT/Provider/F1/F3/admission均未升级。
+
+---
+
+## 第二次审计输入交付记录（历史 a1a4be2）
 
 **IMPLEMENTED / VERIFIED LOCALLY / PENDING SECOND INDEPENDENT REVIEW**。输入为已审计 `3edd80f228a2422a917f92f9e5d112b436f3fd84`；开始前 fetch 确认远端功能分支仍为该 SHA，`origin/main` 仍为 `086521d6bd305ea73cb5d4a426b9d4138e4a824b`。以下增量纠正旧实现；后文原交付记录及旧截图保留为历史证据，不代表当前 UI 或实际上市状态。
 

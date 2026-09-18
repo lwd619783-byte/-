@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -8,6 +8,7 @@ import {
   detectZeroFallbacks,
   detectFinancialArchitectureRisks,
   detectAnnouncementArchitectureRisks,
+  detectProviderObservabilityRisks,
   finding,
   parseRegistryEntries,
   runSelfTests,
@@ -250,5 +251,26 @@ describe("blocking classification and exit code", () => {
   it("does not block on a resolved P0", () => {
     const result = classifyRisks([finding({ severity: "P0", category: "test", id: "resolved", title: "fixed", recommendation: "none", resolved: true })]);
     expect(result.errors).toHaveLength(0);
+  });
+});
+
+
+describe("provider expected cohort", () => {
+  it("accepts the current reviewed 57-company cohort", () => {
+    expect(ids(detectProviderObservabilityRisks(process.cwd()))).not.toContain("provider-eligibility-cohort-invalid");
+  });
+
+  it.each([56, 58])("rejects denominator %i against the exact current universe", (expectedCompanies) => {
+    const read = fs.readFileSync.bind(fs);
+    const configPath = path.join(process.cwd(), "config/provider-stability-gate-v1.json");
+    const config = JSON.parse(read(configPath, "utf8"));
+    const spy = vi.spyOn(fs, "readFileSync").mockImplementation((file, ...args) => file === configPath
+      ? JSON.stringify({ ...config, expectedCompanies })
+      : read(file, ...args));
+    try {
+      expect(ids(detectProviderObservabilityRisks(process.cwd()))).toContain("provider-eligibility-cohort-invalid");
+    } finally {
+      spy.mockRestore();
+    }
   });
 });

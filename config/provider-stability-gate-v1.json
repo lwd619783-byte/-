@@ -6,7 +6,7 @@
   "minimumSuccessfulDaysPerProvider": 5,
   "minimumCompleteSuccessRate": 0.9,
   "minimumTotalSuccessRate": 0.95,
-  "expectedCompanies": 56,
+  "expectedCompanies": 57,
   "requireLatestSuccess": true,
   "providers": ["a-share-financials", "a-share-announcements"]
 }

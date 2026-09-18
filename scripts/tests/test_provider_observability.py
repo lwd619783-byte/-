@@ -36,7 +36,7 @@ from provider_observability.provenance import (
     UNAVAILABLE, cohort_id, recordable_provenance, unavailable_provenance, valid_provenance,
 )
 from provider_observability.production import (
-    validate_announcement_production, validate_default_refresh, validate_financial_production, validate_production,
+    expected_company_cohort, validate_announcement_production, validate_default_refresh, validate_financial_production, validate_production,
 )
 from provider_observability.root_state import (
     FRESH_V2,
@@ -461,6 +461,126 @@ class ProductionGateTests(unittest.TestCase):
         source = (ROOT / "scripts/provider_observability/production.py").read_text(encoding="utf-8"); self.assertNotIn("requests", source); self.assertNotIn("SinaFinancialProvider", source); self.assertNotIn("CNInfoClient", source)
 
 
+class CurrentExpectedCohortTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        spec = importlib.util.spec_from_file_location("observe_providers_current_cohort_test", ROOT / "scripts/observe-providers.py")
+        cls.observer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.observer)
+
+    def test_reviewed_cohort_is_57_including_unitree_and_thresholds_unchanged(self):
+        gate = json.loads((ROOT / "config/provider-stability-gate-v1.json").read_text(encoding="utf-8"))
+        self.assertEqual(gate, config(expectedCompanies=57))
+        _, expected = expected_company_cohort(ROOT)
+        self.assertEqual(len(expected), 57)
+        self.assertIn("unitree", expected)
+
+    def test_new_cohort_does_not_admit_or_reuse_old_56_company_runs(self):
+        current = {provider: provenance(stockUniverseIdentityCount=57) for provider in PROVIDERS}
+        summary = evaluate([run(provider) for provider in PROVIDERS], config(expectedCompanies=57), production(), current_provenance=current)
+        self.assertEqual(summary["status"], "insufficient_observation_window")
+        self.assertEqual(summary["observationDays"], 0)
+        for provider in PROVIDERS:
+            self.assertEqual(summary["providers"][provider]["totalRuns"], 0)
+            self.assertEqual(summary["providers"][provider]["cohortAudit"]["incompatibleRuns"], 1)
+
+    def test_universe_count_or_duplicate_drift_fails_closed(self):
+        universe = json.loads((ROOT / "src/data/real/stock-universe.generated.json").read_text(encoding="utf-8"))
+        for mutation in ("missing", "extra", "duplicate"):
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                (root / "config").mkdir()
+                (root / "src/data/real").mkdir(parents=True)
+                shutil.copyfile(ROOT / "config/provider-stability-gate-v1.json", root / "config/provider-stability-gate-v1.json")
+                changed = copy.deepcopy(universe)
+                item = next(item for item in changed["items"] if item["id"] == "unitree")
+                if mutation == "missing":
+                    changed["items"].remove(item)
+                elif mutation == "extra":
+                    changed["items"].append({**item, "id": "foreign-company"})
+                else:
+                    item["id"] = next(row["id"] for row in changed["items"] if row.get("market") == "A股" and row["id"] != "unitree")
+                (root / "src/data/real/stock-universe.generated.json").write_text(json.dumps(changed), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    expected_company_cohort(root)
+                self.assertFalse(validate_financial_production(root)["passed"])
+                self.assertFalse(validate_announcement_production(root)["passed"])
+
+    def observe_retained_artifacts(self, kind, mutation=None):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        observation_root = Path(temporary.name)
+        write_root_state(observation_root, build_root_state(FRESH_V2, []), atomic_write, json_bytes)
+
+        def fake_run(command, *args, **kwargs):
+            if command[:2] == ["node", "--version"]:
+                return SimpleNamespace(returncode=0, stdout="v22.15.0\n", stderr="")
+            generated = Path(command[command.index("--output-root") + 1])
+            stem = "financial" if kind == "financials" else "announcement"
+            summary_path = generated / f"a-share-{stem}-summaries.generated.json"
+            shutil.copyfile(ROOT / "src/data/real" / summary_path.name, summary_path)
+            detail_dir = generated / f"a-share-{kind}"
+            shutil.copytree(ROOT / "public/data" / detail_dir.name, detail_dir)
+            if mutation:
+                summary = json.loads(summary_path.read_text(encoding="utf-8"))
+                manifest_path = detail_dir / "manifest.generated.json"
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+                count_field = "total" if kind == "financials" else "totalCompanies"
+                if mutation == "missing":
+                    del summary["items"]["unitree"]
+                    manifest[count_field] = 56
+                elif mutation == "extra":
+                    summary["items"]["foreign-company"] = copy.deepcopy(summary["items"]["unitree"])
+                    manifest[count_field] = 58
+                else:
+                    summary["items"]["foreign-company"] = summary["items"].pop("unitree")
+                summary_path.write_text(json.dumps(summary), encoding="utf-8")
+                manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            return SimpleNamespace(returncode=0, stdout="", stderr="")
+
+        with (
+            patch.object(self.observer, "build_provenance", return_value=(provenance(stockUniverseIdentityCount=57), [])),
+            patch.object(self.observer, "subprocess") as subprocess_mock,
+            patch.object(self.observer, "git_status", return_value=""),
+            patch.object(self.observer, "refresh_summary", return_value={}),
+            patch("builtins.print"),
+        ):
+            subprocess_mock.run.side_effect = fake_run
+            code = self.observer.observe(kind, observation_root, False, 20, f"cohort-{kind}-{mutation or 'full'}")
+        return code, load_runs(observation_root)[0]
+
+    def test_financial_57_of_57_is_complete_candidate(self):
+        code, item = self.observe_retained_artifacts("financials")
+        self.assertEqual((code, item["status"], item["metrics"]["companyCoverage"], item["metrics"]["expectedCompanies"]), (0, "success", 57, 57))
+        self.assertEqual(item["failures"], [])
+        self.assertTrue(validate_financial_production(ROOT)["passed"])
+
+    def test_announcement_57_of_57_is_complete_candidate(self):
+        code, item = self.observe_retained_artifacts("announcements")
+        self.assertEqual((code, item["status"], item["metrics"]["companyCoverage"], item["metrics"]["expectedCompanies"]), (0, "success", 57, 57))
+        self.assertEqual(item["failures"], [])
+        self.assertTrue(validate_announcement_production(ROOT)["passed"])
+
+    def test_56_of_57_is_coverage_drop_for_both_providers(self):
+        for kind in ("financials", "announcements"):
+            with self.subTest(kind=kind):
+                code, item = self.observe_retained_artifacts(kind, "missing")
+                self.assertEqual(code, 1)
+                self.assertEqual((item["metrics"]["companyCoverage"], item["metrics"]["expectedCompanies"]), (56, 57))
+                self.assertIn("coverage_drop", [failure["category"] for failure in item["failures"]])
+                self.assertFalse(item["validation"]["passed"])
+
+    def test_58_or_foreign_replacement_is_not_complete_for_both_providers(self):
+        for kind in ("financials", "announcements"):
+            for mutation in ("extra", "foreign"):
+                with self.subTest(kind=kind, mutation=mutation):
+                    code, item = self.observe_retained_artifacts(kind, mutation)
+                    self.assertEqual(code, 1)
+                    self.assertNotEqual(item["status"], "success")
+                    self.assertFalse(item["validation"]["passed"])
+                    self.assertTrue(any("coverage mismatch" in failure["message"] for failure in item["failures"]))
+
+
 class EligibilityTests(unittest.TestCase):
     def test_69_first_day_insufficient(self): self.assertEqual(evaluate([run(PROVIDERS[0]), run(PROVIDERS[1])], config(), production())["status"], "insufficient_observation_window")
     def test_70_same_day_not_distinct(self):
@@ -752,7 +872,7 @@ class ObserverProvenanceRetentionTests(unittest.TestCase):
             detail.mkdir(parents=True, exist_ok=True)
             (generated / "a-share-financial-summaries.generated.json").write_text('{"items":{}}\n', encoding="utf-8")
             (detail / "manifest.generated.json").write_text(
-                json.dumps({"total": 56, "success": 56, "partial": 0, "error": 0}) + "\n",
+                json.dumps({"total": len(expected_company_cohort(ROOT)[1]), "success": len(expected_company_cohort(ROOT)[1]), "partial": 0, "error": 0}) + "\n",
                 encoding="utf-8",
             )
             return SimpleNamespace(

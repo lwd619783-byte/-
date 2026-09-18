@@ -413,7 +413,10 @@ export function detectProviderObservabilityRisks(rootPath) {
   }
   try {
     const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
-    if (config.schemaVersion !== "1.0.0" || config.minimumDistinctDays < 5 || config.minimumRunsPerProvider < 10 || config.minimumSuccessfulDaysPerProvider < 5 || config.expectedCompanies !== 56) add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config weakens the V1 minimum window", ["a-share-financials", "announcements"], "Restore the documented minimum observation thresholds");
+    if (config.schemaVersion !== "1.0.0" || config.minimumDistinctDays < 5 || config.minimumRunsPerProvider < 10 || config.minimumSuccessfulDaysPerProvider < 5) add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config weakens the V1 minimum window", ["a-share-financials", "announcements"], "Restore the documented minimum observation thresholds");
+    const universe = JSON.parse(fs.readFileSync(path.join(rootPath, "src/data/real/stock-universe.generated.json"), "utf8"));
+    const companyIds = universe.items.filter((item) => item.market === "A股").map((item) => item.id);
+    if (!Number.isInteger(config.expectedCompanies) || config.expectedCompanies <= 0 || companyIds.length !== config.expectedCompanies || new Set(companyIds).size !== companyIds.length || companyIds.some((id) => typeof id !== "string" || !id.trim())) add(findings, "P0", "provider-observability", "provider-eligibility-cohort-invalid", "Provider expected cohort differs from the current generated A-share universe", ["a-share-financials", "announcements"], "Align the reviewed gate denominator with unique generated A-share identities");
   } catch {
     add(findings, "P0", "provider-observability", "provider-eligibility-config-invalid", "Provider eligibility config is invalid JSON", ["a-share-financials", "announcements"], "Commit valid UTF-8 JSON config");
   }

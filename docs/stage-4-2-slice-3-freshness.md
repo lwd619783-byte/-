@@ -1,6 +1,26 @@
 # Stage 4.2 Slice 3 — Freshness acquisition evidence
 
-## 2026-09-18 remediation · CURRENT delta against 3edd80f
+## 2026-09-18 final remediation · CURRENT delta against a1a4be2
+
+本轮只做 Segment-node architecture 与 Stability cohort P1；**未重新请求NBS、行情、财务、公告，也未重新生成guidance**。保留上一轮真实刷新证据与完整历史记录，不把 validator 成功当新鲜度推进。
+
+| 范围 | 输入a1a4be2 → 当前 |
+| --- | --- |
+| NBS | 2026-08；前次probe LATEST_ALREADY_RETAINED；无新capture、raw/双owner/Registry pins无diff |
+| A/H行情及history/profile等 | 所有真实artifacts无diff；Unitree行情获取2026-09-18T13:02:03+08:00，source as-of仍unknown；H旧留存不宣称新鲜 |
+| 专用财务 | 57家公司，最新留存报告期2026-06-30；无diff、没有新报告期 |
+| 专用公告 | 17099条，25success/32partial；Unitree19条、latest2026-09-03；无diff |
+| guidance | 57状态、16公司61snapshots、0历史修订；Unitree missing；全部无diff |
+| Identity/研究池 | Universe60=57A+3H，robotics43=41A+2H，private0；无diff |
+| Stability控制 | expectedCompanies56→57；配置分母与current generated A universe精确核验，非源数据刷新 |
+
+[机器delta](stage-4-2-slice-3/segment-architecture/remediation-delta.json)记录对比路径及零数据diff，所有门槛除cohort数量外逐字段相等。57/57 production validation已PASS，56/57、extra58和foreign负例被拒绝；health仍0观察日、`insufficient_observation_window`、strict exit2，financial/announcement默认刷新和admission不提升。历史56 cohort不改写/不复用。
+
+本轮只更新图表与cohort检查代码、专项tests、CURRENT docs、browser screenshots/报告和health/delta证据。财务/公告/guidance validators与guidance `--check` PASS；data audit0errors/26warnings。新UI保持Structure/Research Context和Provider Fact区分；Guidance cross-epoch P2本轮继续不修。完整验收见[Slice3 CURRENT](stage-4-2-slice-3.md)。
+
+---
+
+## 上一轮真实获取记录（历史 a1a4be2 delta against 3edd80f）
 
 本增量覆盖本轮真实获取；后文原基线 `086521d` 的运行记录保持原样。旧“Unitree未上市”仅代表错误的静态池分类，不是当时上市事实。独立上交所核验确认 2026-08-19 上市，当前唯一 identity 为 `unitree → 688836.SH`。
 
