@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-18 Stage 4.2 / Slice 3 CLOSED：PR #59 已合入，merge/main `6a9aa233b4351938b39c247833d9e72d99854269`，PR CI `35318164694` 与 main CI `35320061290` 均 completed/success，Vercel production READY。Industry Signal/Event/Inbox、listing reconciliation、Unitree listed identity、cohort57 与 segment-first Architecture Industry Map 已 **MERGED / MAIN CI PASS**；准入/PIT/F1/F3未提升。下一主线为 [Stage 4.2 Slice 4 — Cross-source Industry Provider Proof](stage-4-2-slice-4-plan.md)。
+
 > 2026-09-18 细分关系增量 CURRENT：机器人产业链按主要功能展示7个唯一细分（上4/中1/下1/横向1），移除阶段箭头，新增6条源自既有研究原文的细分功能连线；能力迁移为虚线，不表示公司供货事实。公司跨阶段原文保留，明细默认折叠。数据/Provider/PIT/cohort57/准入无变化。854 tests、build、三主题三尺寸331 browser checks PASS；[关系图与证据](stage-4-2-slice-3.md)。IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；普通push后核验exact Preview，不建PR/merge。
 
 > 2026-09-18 UI反馈增量（历史 b626be6）：产业链默认只显示上中下游、细分方向与阶段衔接；公司/覆盖率/Provider明细均点击节点展开，覆盖下面a0c1f64版默认展示细节的要求。原topology、数据、cohort57与准入不变。22项相关tests、build、三主题三尺寸298 browser checks PASS；[简图与证据](stage-4-2-slice-3.md)。普通push后等待独立审阅。
