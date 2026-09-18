@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "industry-metric-pilot.v1",
+  "definition": {
+    "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+    "revision": "1",
+    "canonicalName": "美国商业原油期末库存（不含 SPR）",
+    "industryId": "oil-shipping",
+    "entity": null,
+    "geography": "US",
+    "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+    "unit": "Thousand Barrels",
+    "nativeFrequency": "weekly",
+    "basis": [
+      "week_ending"
+    ],
+    "sourceId": "EIA_PETROLEUM_WCESTUS1",
+    "sourceOwner": "U.S. Energy Information Administration",
+    "acquisitionAdapter": "eia-petroleum-history-html.v1",
+    "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+    "window": {
+      "start": "2026-07-03",
+      "end": "2026-09-11"
+    },
+    "missingPeriods": [],
+    "freshness": "unknown",
+    "staleAfter": null
+  },
+  "policy": {
+    "id": "industry-metric-eia-commercial-crude-stocks-policy",
+    "revision": "1",
+    "entityResolution": "UNRESOLVED",
+    "dataAdmission": "NOT_ADMITTED",
+    "productionAdmission": "NOT_ADMITTED",
+    "allowedUses": [],
+    "forbiddenUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "previewUse": "显式 NOT_ADMITTED 的只读来源核对；不进入正式语义检索、评分或交易"
+  },
+  "source": {
+    "dataset": "EIA Petroleum / Weekly Supply Estimates / Stocks",
+    "series": "WCESTUS1",
+    "frequency": "W",
+    "title": "Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+    "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+    "downloadUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+    "publicationDateOnSnapshot": "2026-09-16",
+    "snapshotMeaning": "Current history, not historical vintages; date-only page release is not per-observation publicationDateTime"
+  }
+}

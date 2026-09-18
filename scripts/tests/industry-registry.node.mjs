@@ -14,10 +14,10 @@ const create = (r = registry, files = resources) => createIndustryMetricProvider
 const growth = read(YOY_OWNER.artifact), manifest = read(MANIFEST);
 const raw = bytes(manifest.captures.at(-1).path).toString('utf8');
 
-test('two real owners replay with existing schema, F1/Evidence checks and unchanged admission', async () => {
+test('three real owners replay with existing schema, F1/Evidence checks and unchanged admission', async () => {
   assert.equal(validateRegistry(registry), true);
-  const result = await checkRegistry(); assert.equal(result.metrics, 2);
-  for (const owner of result.replay) { assert.equal(owner.observations, 13); assert.equal(owner.dataAdmission, 'NOT_ADMITTED'); assert.equal(owner.semanticBinding, 'VALID / NOT_READY'); }
+  const result = await checkRegistry(); assert.equal(result.metrics, 3);
+  for (const owner of result.replay.filter(o => o.metricId.startsWith("CN_NBS_"))) { assert.equal(owner.observations, 13); assert.equal(owner.dataAdmission, 'NOT_ADMITTED'); assert.equal(owner.semanticBinding, 'VALID / NOT_READY'); }
   assert.deepEqual(buildArtifact(growth.generatedAt, undefined, YOY_OWNER), growth);
   assert.deepEqual(buildBinding(undefined, YOY_OWNER), read(YOY_OWNER.binding));
   for (const o of growth.observations) {

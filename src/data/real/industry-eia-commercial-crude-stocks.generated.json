@@ -1,0 +1,906 @@
+{
+  "schemaVersion": "industry-metric.v1",
+  "generatedAt": "2026-09-18T08:14:38.909Z",
+  "definition": {
+    "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+    "revision": "1",
+    "canonicalName": "美国商业原油期末库存（不含 SPR）",
+    "industryId": "oil-shipping",
+    "entity": null,
+    "geography": "US",
+    "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+    "unit": "Thousand Barrels",
+    "nativeFrequency": "weekly",
+    "basis": [
+      "week_ending"
+    ],
+    "sourceId": "EIA_PETROLEUM_WCESTUS1",
+    "sourceOwner": "U.S. Energy Information Administration",
+    "acquisitionAdapter": "eia-petroleum-history-html.v1",
+    "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+    "window": {
+      "start": "2026-07-03",
+      "end": "2026-09-11"
+    },
+    "missingPeriods": [],
+    "freshness": "unknown",
+    "staleAfter": null
+  },
+  "policy": {
+    "id": "industry-metric-eia-commercial-crude-stocks-policy",
+    "revision": "1",
+    "entityResolution": "UNRESOLVED",
+    "dataAdmission": "NOT_ADMITTED",
+    "productionAdmission": "NOT_ADMITTED",
+    "allowedUses": [],
+    "forbiddenUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "previewUse": "显式 NOT_ADMITTED 的只读来源核对；不进入正式语义检索、评分或交易"
+  },
+  "definitionRef": {
+    "owner": "config/industry/eia-commercial-crude-stocks.v1.json",
+    "locator": "/definition",
+    "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+    "version": "1",
+    "sha256": "fbfcaf825afaf6dc9849d6cae9b90102f04a4d8efc85a0eb7664348e2d6239ae"
+  },
+  "observations": [
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-07-03:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-03",
+      "referencePeriod": {
+        "start": "2026-07-03",
+        "end": "2026-07-03"
+      },
+      "value": 411357,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "411,357",
+          "07/10",
+          "409,665",
+          "07/17",
+          "411,675",
+          "07/24",
+          "404,508",
+          "07/31",
+          "406,987"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[3]",
+          "title": "2026-07-03 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-07-10:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-10",
+      "referencePeriod": {
+        "start": "2026-07-10",
+        "end": "2026-07-10"
+      },
+      "value": 409665,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "411,357",
+          "07/10",
+          "409,665",
+          "07/17",
+          "411,675",
+          "07/24",
+          "404,508",
+          "07/31",
+          "406,987"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[5]",
+          "title": "2026-07-10 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-07-17:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-17",
+      "referencePeriod": {
+        "start": "2026-07-17",
+        "end": "2026-07-17"
+      },
+      "value": 411675,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[7]",
+        "column": 6,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "411,357",
+          "07/10",
+          "409,665",
+          "07/17",
+          "411,675",
+          "07/24",
+          "404,508",
+          "07/31",
+          "406,987"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[7]",
+          "title": "2026-07-17 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-07-24:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-24",
+      "referencePeriod": {
+        "start": "2026-07-24",
+        "end": "2026-07-24"
+      },
+      "value": 404508,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[9]",
+        "column": 8,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "411,357",
+          "07/10",
+          "409,665",
+          "07/17",
+          "411,675",
+          "07/24",
+          "404,508",
+          "07/31",
+          "406,987"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[9]",
+          "title": "2026-07-24 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-07-31:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-31",
+      "referencePeriod": {
+        "start": "2026-07-31",
+        "end": "2026-07-31"
+      },
+      "value": 406987,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[11]",
+        "column": 10,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "411,357",
+          "07/10",
+          "409,665",
+          "07/17",
+          "411,675",
+          "07/24",
+          "404,508",
+          "07/31",
+          "406,987"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[11]",
+          "title": "2026-07-31 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-08-07:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-07",
+      "referencePeriod": {
+        "start": "2026-08-07",
+        "end": "2026-08-07"
+      },
+      "value": 424410,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "424,410",
+          "08/14",
+          "428,815",
+          "08/21",
+          "428,910",
+          "08/28",
+          "424,460",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[3]",
+          "title": "2026-08-07 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-08-14:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-14",
+      "referencePeriod": {
+        "start": "2026-08-14",
+        "end": "2026-08-14"
+      },
+      "value": 428815,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "424,410",
+          "08/14",
+          "428,815",
+          "08/21",
+          "428,910",
+          "08/28",
+          "424,460",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[5]",
+          "title": "2026-08-14 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-08-21:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-21",
+      "referencePeriod": {
+        "start": "2026-08-21",
+        "end": "2026-08-21"
+      },
+      "value": 428910,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[7]",
+        "column": 6,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "424,410",
+          "08/14",
+          "428,815",
+          "08/21",
+          "428,910",
+          "08/28",
+          "424,460",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[7]",
+          "title": "2026-08-21 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-08-28:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-28",
+      "referencePeriod": {
+        "start": "2026-08-28",
+        "end": "2026-08-28"
+      },
+      "value": 424460,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[9]",
+        "column": 8,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "424,410",
+          "08/14",
+          "428,815",
+          "08/21",
+          "428,910",
+          "08/28",
+          "424,460",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[9]",
+          "title": "2026-08-28 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-09-04:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-09-04",
+      "referencePeriod": {
+        "start": "2026-09-04",
+        "end": "2026-09-04"
+      },
+      "value": 424069,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Sep",
+          "09/04",
+          "424,069",
+          "09/11",
+          "423,429",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+          "title": "2026-09-04 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-09-11:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock",
+      "unit": "Thousand Barrels",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-09-11",
+      "referencePeriod": {
+        "start": "2026-09-11",
+        "end": "2026-09-11"
+      },
+      "value": 423429,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "generatedAt": "2026-09-18T08:14:38.909Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCESTUS1",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+        "rawSha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCESTUS1:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "8defdd1c0ae10105d7f3d15263a8658e26d361c672bb093bd5ad4b511607cea9"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Sep",
+          "09/04",
+          "424,069",
+          "09/11",
+          "423,429",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+          "title": "2026-09-11 Weekly U.S. Ending Stocks excluding SPR of Crude Oil (Thousand Barrels)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+          "quality": "candidate"
+        }
+      }
+    }
+  ],
+  "completeness": {
+    "scope": "declared_window_only",
+    "availableCount": 11,
+    "targetCount": 11,
+    "missingPeriods": [],
+    "historicalCoverage": "partial"
+  }
+}

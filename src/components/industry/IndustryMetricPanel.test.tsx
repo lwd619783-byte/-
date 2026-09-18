@@ -10,7 +10,7 @@ import { loadIndustryMetrics } from '../../services/industryMetricProvider';
 // UI-only fixture; real digest/replay runs in Node tests and the browser matrix.
 vi.mock('../../services/industryMetricProvider', async importOriginal => ({
   ...await importOriginal<typeof import('../../services/industryMetricProvider')>(),
-  loadIndustryMetrics: vi.fn(async () => ({ status: 'available', provider: { list: (id: string) => id === 'robotics' ? registry.entries.map((entry, i) => ({ entry, owner: [retained, growth][i] })) : [] } })),
+  loadIndustryMetrics: vi.fn(async () => ({ status: 'available', provider: { list: (id: string) => id === 'robotics' ? registry.entries.filter(entry => entry.industryId === 'robotics').map((entry, i) => ({ entry, owner: [retained, growth][i] })) : [] } })),
 }));
 const roboticsMetric = retained as IndustryMetricDataset;
 // Recharts layout requires a browser; real browser acceptance separately exercises the plot.
@@ -35,7 +35,7 @@ it('switching industry unmounts selected basis and the evidence drawer; others n
   const { rerender } = render(<IndustryMetricPanel industryId="robotics" />);
   await screen.findByLabelText('正式指标');
   fireEvent.click(screen.getByRole('button', { name: '查看指标证据' }));
-  for (const id of ['ai-computing', 'innovative-drug', 'oil-shipping']) {
+  for (const id of ['ai-computing', 'innovative-drug']) {
     rerender(<IndustryMetricPanel industryId={id} />);
     expect(screen.queryByRole('dialog')).toBeNull(); expect(screen.getByText(/not_implemented/)).toBeTruthy(); expect(screen.queryByLabelText('指标口径')).toBeNull();
   }

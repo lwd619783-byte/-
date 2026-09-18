@@ -1,0 +1,694 @@
+{
+  "base": "2f2d707b8b222392a969327f10f9d5af5f021eab",
+  "generatedAt": "2026-09-18T08:25:14.306Z",
+  "sourceSha256": {
+    "src/services/industryMetricProvider.ts": "9cde2f4a6723076eeacf5455b4c69af9fc2047331acdf13d00b53246738790b6",
+    "src/services/industrySignals.ts": "d755c5c408e0e409b48e8636807432c68c6bf2307c08f46559bfef756c2a2486",
+    "config/industry/industry-metric-registry.v1.json": "870b29359d71bd24ee2014699aea5671b09d0d974c544c372bea9e3384ec7049",
+    "src/data/real/industry-eia-commercial-crude-stocks.generated.json": "0972a05f42c8de453baaa1421d89de6f8f771bec09b3a41bf8106a95fe782526"
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "exact EIA selection neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "real chart neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "weekly event neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "event exact input neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA selection neon-390"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics neon-390"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty neon-390"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis neon-390"
+    },
+    {
+      "ok": true,
+      "name": "real chart neon-390"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows neon-390"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence neon-390"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL neon-390"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-390"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-390"
+    },
+    {
+      "ok": true,
+      "name": "weekly event neon-390"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion neon-390"
+    },
+    {
+      "ok": true,
+      "name": "event exact input neon-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations neon-390"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-390"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA selection neon-320"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics neon-320"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty neon-320"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis neon-320"
+    },
+    {
+      "ok": true,
+      "name": "real chart neon-320"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows neon-320"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence neon-320"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL neon-320"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-320"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-320"
+    },
+    {
+      "ok": true,
+      "name": "weekly event neon-320"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion neon-320"
+    },
+    {
+      "ok": true,
+      "name": "event exact input neon-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations neon-320"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-320"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA selection pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "real chart pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "weekly event pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "event exact input pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA selection pro-390"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics pro-390"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty pro-390"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis pro-390"
+    },
+    {
+      "ok": true,
+      "name": "real chart pro-390"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows pro-390"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence pro-390"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL pro-390"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-390"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-390"
+    },
+    {
+      "ok": true,
+      "name": "weekly event pro-390"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion pro-390"
+    },
+    {
+      "ok": true,
+      "name": "event exact input pro-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations pro-390"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-390"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA selection pro-320"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics pro-320"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty pro-320"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis pro-320"
+    },
+    {
+      "ok": true,
+      "name": "real chart pro-320"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows pro-320"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence pro-320"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL pro-320"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-320"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-320"
+    },
+    {
+      "ok": true,
+      "name": "weekly event pro-320"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion pro-320"
+    },
+    {
+      "ok": true,
+      "name": "event exact input pro-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations pro-320"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-320"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA selection light-1536"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics light-1536"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty light-1536"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis light-1536"
+    },
+    {
+      "ok": true,
+      "name": "real chart light-1536"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows light-1536"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence light-1536"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL light-1536"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-1536"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-1536"
+    },
+    {
+      "ok": true,
+      "name": "weekly event light-1536"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion light-1536"
+    },
+    {
+      "ok": true,
+      "name": "event exact input light-1536"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations light-1536"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-1536"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA selection light-390"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage light-390"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics light-390"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty light-390"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis light-390"
+    },
+    {
+      "ok": true,
+      "name": "real chart light-390"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows light-390"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence light-390"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL light-390"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-390"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-390"
+    },
+    {
+      "ok": true,
+      "name": "weekly event light-390"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion light-390"
+    },
+    {
+      "ok": true,
+      "name": "event exact input light-390"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations light-390"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-390"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA selection light-320"
+    },
+    {
+      "ok": true,
+      "name": "retained weekly value coverage light-320"
+    },
+    {
+      "ok": true,
+      "name": "no monthly semantics light-320"
+    },
+    {
+      "ok": true,
+      "name": "uncertainty light-320"
+    },
+    {
+      "ok": true,
+      "name": "weekly basis light-320"
+    },
+    {
+      "ok": true,
+      "name": "real chart light-320"
+    },
+    {
+      "ok": true,
+      "name": "11 dated rows light-320"
+    },
+    {
+      "ok": true,
+      "name": "week-ending start light-320"
+    },
+    {
+      "ok": true,
+      "name": "exact EIA evidence light-320"
+    },
+    {
+      "ok": true,
+      "name": "official evidence URL light-320"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-320"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-320"
+    },
+    {
+      "ok": true,
+      "name": "weekly event light-320"
+    },
+    {
+      "ok": true,
+      "name": "no investment conclusion light-320"
+    },
+    {
+      "ok": true,
+      "name": "event exact input light-320"
+    },
+    {
+      "ok": true,
+      "name": "read-only metric event operations light-320"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-320"
+    },
+    {
+      "ok": true,
+      "name": "unknown EIA publication is excluded from near-30-day filter"
+    },
+    {
+      "ok": true,
+      "name": "Inbox has separate NBS and EIA source events"
+    },
+    {
+      "ok": true,
+      "name": "EIA appears exactly once in Inbox"
+    },
+    {
+      "ok": true,
+      "name": "Inbox exact EIA Evidence"
+    },
+    {
+      "ok": true,
+      "name": "Inbox exact oil-shipping deep link"
+    },
+    {
+      "ok": true,
+      "name": "no downloads or external acquisition"
+    },
+    {
+      "ok": true,
+      "name": "no browser runtime errors"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "neon-1536.png",
+    "pro-320.png",
+    "light-390.png"
+  ]
+}

@@ -24,21 +24,32 @@ function months(start: string, end: string) {
   }
   return result;
 }
+function periods(d: IndustryMetricDataset['definition']) {
+  if (d.nativeFrequency === 'monthly') return months(d.window.start, d.window.end);
+  if (d.nativeFrequency !== 'weekly') return [];
+  const { start, end } = d.window;
+  const valid = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(Date.parse(s)) && new Date(s).toISOString().slice(0, 10) === s;
+  if (!valid(start) || !valid(end) || start > end) return [];
+  const step = 7 * 86400000, count = (Date.parse(end) - Date.parse(start)) / step + 1;
+  if (!Number.isInteger(count) || count > 1200) return [];
+  return Array.from({ length: count }, (_, i) => new Date(Date.parse(start) + i * step).toISOString().slice(0, 10));
+}
 function belongs(o: IndustryMetricObservation, owner: IndustryMetricDataset) {
   const d = owner.definition;
   return o.metricId === d.id && o.industryId === d.industryId && o.geography === d.geography && o.scope === d.scope
     && o.unit === d.unit && o.frequency === d.nativeFrequency && d.basis.includes(o.basis)
     && o.provenance.sourceId === d.sourceId && o.provenance.sourceOwner === d.sourceOwner
     && o.provenance.acquisitionAdapter === d.acquisitionAdapter
-    && o.referencePeriod.end === o.valueDate && o.referencePeriod.start === (o.basis === 'monthly' ? o.valueDate : `${o.valueDate.slice(0, 4)}-01`)
-    && months(d.window.start, d.window.end).includes(o.valueDate);
+    && ((d.nativeFrequency === 'monthly' && ['monthly', 'year_to_date'].includes(o.basis)) || (d.nativeFrequency === 'weekly' && o.basis === 'week_ending'))
+    && o.referencePeriod.end === o.valueDate && o.referencePeriod.start === (o.basis === 'year_to_date' ? `${o.valueDate.slice(0, 4)}-01` : o.valueDate)
+    && periods(d).includes(o.valueDate);
 }
 /** Diagnostic display only. This never returns an F1 eligible value or a PIT vintage. */
 export function industryHistory(owner: IndustryMetricDataset, basis: IndustryMetricBasis) {
   const rejected = owner.observations.filter(o => !belongs(o, owner));
   const idCounts = new Map<string, number>();
   for (const o of owner.observations) idCounts.set(o.id, (idCounts.get(o.id) ?? 0) + 1);
-  const history = months(owner.definition.window.start, owner.definition.window.end).map(period => {
+  const history = periods(owner.definition).map(period => {
     const records = owner.observations.filter(o => belongs(o, owner) && o.basis === basis && o.valueDate === period)
       .sort((a, b) => compare(a.id, b.id) || compare(JSON.stringify(a), JSON.stringify(b)));
     // Unknown revision chain: retain every record; do not choose by arrival/acquisition time.
@@ -67,10 +78,10 @@ export function industryChartAudit(owner: IndustryMetricDataset, basis: Industry
   return { title: `${d.canonicalName} · ${basis}`, scope: `${d.industryId} · ${d.geography} · ${d.scope}`, quality: view.states,
     rows: [row('Metric owner', d.id), row('Industry identity（非 Entity Registry 映射）', d.industryId), row('Entity Registry', owner.policy.entityResolution),
       row('单位 / 原生频率 / 口径', `${d.unit} / ${d.nativeFrequency} / ${basis}`), row('观测期间（非发布时间）', `${d.window.start} → ${d.window.end}`),
-      row('窗口完整性', `${view.available}/${view.target}；仅声明窗口，1—2 月无独立月度值`), row('历史覆盖', owner.completeness.historicalCoverage),
+      row('窗口完整性', `${view.available}/${view.target}；仅声明窗口；缺失不补值`), row('历史覆盖', owner.completeness.historicalCoverage),
       row('freshness', d.freshness), row('包生成 generatedAt', owner.generatedAt), row('数据准入', owner.policy.dataAdmission), row('生产准入', owner.policy.productionAdmission),
       row('严格 PIT / 官方修订连续性', '未证明 / unknown'), row('F1', 'binding 已校验；Entity / vintage 未闭合，NOT_READY'),
-      row('F3', 'Frozen service adapter NOT_IMPLEMENTED；未提升覆盖'), row('计算', d.unit === '%' ? '官方直接发布同比增长（%）；不从绝对量计算、不作累计差分或补缺；不展示相邻期变化' : '当月绝对量直接读取；差额=同年相邻月留存值之差，非官方环比增速；累计值不作环比；缺失不连接'),
+      row('F3', 'Frozen service adapter NOT_IMPLEMENTED；未提升覆盖'), row('计算', entry?.presentation.note ?? (d.nativeFrequency === 'weekly' ? '官方周末留存读数；不展示相邻期变化；缺失不补值' : d.unit === '%' ? '官方直接发布同比增长（%）；不从绝对量计算、不作累计差分或补缺；不展示相邻期变化' : '当月绝对量直接读取；差额=同年相邻月留存值之差，非官方环比增速；累计值不作环比；缺失不连接')),
       row('不匹配记录数', view.rejectedCount), row('Definition pin', JSON.stringify(owner.definitionRef)),
       ...(entry ? [row('Registry', 'industry-metric-registry.v1'), row('Artifact pin', JSON.stringify(entry.artifactRef)), row('F1 binding pin', JSON.stringify(entry.bindingRef)), row('Policy pin', JSON.stringify(entry.policyRef))] : [])],
     records: view.history.flatMap(point => point.records.map(o => ({ title: `${o.valueDate} · ${o.basis} · ${o.id}`, rows: [

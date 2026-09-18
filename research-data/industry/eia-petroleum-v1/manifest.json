@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "eia-petroleum-capture.v1",
+  "id": "eia-wcestus1-capture-v1",
+  "revision": "1",
+  "series": "WCESTUS1",
+  "frequency": "W",
+  "captures": [
+    {
+      "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+      "finalUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=WCESTUS1&f=W",
+      "status": 200,
+      "path": "research-data/industry/eia-petroleum-v1/raw/3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6.html",
+      "sha256": "3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+      "byteLength": 243405,
+      "acquiredAt": "2026-09-18T08:09:31.308439Z",
+      "role": "SERIES_HISTORY"
+    },
+    {
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+      "finalUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCESTUS1w.xls",
+      "status": 200,
+      "path": "research-data/industry/eia-petroleum-v1/raw/4a06fba1d17db3a9626413dbe623b6721526bcdb3e589a19207a5c5e8d23cd04.xls",
+      "sha256": "4a06fba1d17db3a9626413dbe623b6721526bcdb3e589a19207a5c5e8d23cd04",
+      "byteLength": 130048,
+      "acquiredAt": "2026-09-18T08:10:07.731459Z",
+      "role": "OFFICIAL_DOWNLOAD"
+    }
+  ]
+}

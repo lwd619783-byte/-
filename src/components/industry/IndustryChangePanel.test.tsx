@@ -12,7 +12,7 @@ import type { IndustryMetricProvider } from '../../services/industryMetricRegist
 import type { IndustryMetricDataset } from '../../types/industryMetric';
 
 const provider = (): IndustryMetricProvider => ({
-  list: id => id === 'robotics' ? registry.entries.map((entry, i) => ({ entry: { ...entry, presentation: { ...entry.presentation, delta: i ? 'none' : 'absolute_difference' } }, owner: [retained, growth][i] as IndustryMetricDataset, binding: null })) : [],
+  list: id => id === 'robotics' ? registry.entries.filter(entry => entry.industryId === 'robotics').map((entry, i) => ({ entry: { ...entry, presentation: { ...entry.presentation, delta: i ? 'none' : 'absolute_difference', basisLabels: { monthly: entry.presentation.basisLabels.monthly!, year_to_date: entry.presentation.basisLabels.year_to_date! } } }, owner: [retained, growth][i] as IndustryMetricDataset, binding: null })) : [],
   get: () => null,
 });
 vi.mock('../../services/industryMetricProvider', async importOriginal => ({

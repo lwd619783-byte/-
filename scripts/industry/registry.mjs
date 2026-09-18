@@ -5,7 +5,8 @@ import { setImmediate } from 'node:timers/promises';
 import { Ajv2020 } from 'ajv/dist/2020.js';
 import { ROOT, read, bytes, sha256 } from '../semantic-runtime/common.mjs';
 import { createIndustryMetricProvider } from '../../src/services/industryMetricRegistry.mjs';
-import { validateIndustryMetric, checkArtifact, OUTPUT_OWNER, YOY_OWNER } from './artifact.mjs';
+import { validateIndustryMetric } from './metric-artifact.mjs';
+import { sourceAdapter } from './source-adapters.mjs';
 import { validateBinding } from '../contracts/financial-research.mjs';
 export const REGISTRY = 'config/industry/industry-metric-registry.v1.json';
 const ajv = new Ajv2020({ strict: true });
@@ -30,7 +31,11 @@ export async function checkRegistry(root = ROOT) {
   }
   // Reviewed source-specific invariants remain separate from the generic registry contract.
   const replay = [];
-  for (const owner of [OUTPUT_OWNER, YOY_OWNER]) { await setImmediate(); replay.push({ metricId: read(owner.plan, root).definition.id, ...checkArtifact(root, owner) }); }
+  for (const entry of registry.entries) {
+    await setImmediate();
+    const adapter = sourceAdapter(entry, provider.get(entry.industryId, entry.metricId).owner.definition);
+    replay.push({ metricId: entry.metricId, adapter: adapter.id, ...adapter.check(root) });
+  }
   return { status: 'PASS', metrics: registry.entries.length, replay };
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) console.log(JSON.stringify(await checkRegistry(), null, 2));

@@ -1,0 +1,1132 @@
+{
+  "base": "2f2d707b8b222392a969327f10f9d5af5f021eab",
+  "scope": "Slice 4 NBS owner/browser regression",
+  "generatedAt": "2026-09-18T08:28:59.145Z",
+  "sourceSha256": {
+    "src/services/industryMetricProvider.ts": "9cde2f4a6723076eeacf5455b4c69af9fc2047331acdf13d00b53246738790b6",
+    "src/components/industry/IndustryMetricPanel.tsx": "b5e94e67c6112ee3e0bacc9ef76898ca253c07ea985f39d4cd7682150fd4dcaa",
+    "src/components/industry/IndustryTab.tsx": "e5555084c8dbf3ae03bccbff1eb7bb09451fd2ff5ba9ed080a13b4133d87e8fb",
+    "src/components/research/EvidenceDrawer.tsx": "c7ba1134af392a08e109362a435182f9862733d84c6dbe8a7b66e91f836992b4",
+    "src/components/charts/ChartAuditPanel.tsx": "4e90cb4a2b9778a6e30d353665daa353f57c86967dc9151b40921683f22163e6",
+    "src/data/real/industry-robotics.generated.json": "37c1151527d7cf6044c56969caa9dade0884be8b420d9cf6e12eaacc097dbbc2",
+    "src/data/real/industry-robotics-yoy.generated.json": "6d8e791793ed611c28767837e51e2b15792db52cfecb35388e7665fc89f6a224",
+    "config/industry/industry-metric-registry.v1.json": "870b29359d71bd24ee2014699aea5671b09d0d974c544c372bea9e3384ec7049",
+    "src/services/industryMetricRegistry.mjs": "9fbb8ade3cbf2bc108a3f67d313b845a0b914554910c2c5bd329dac5138e1445"
+  },
+  "checks": [
+    {
+      "ok": true,
+      "name": "actual latest neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain retained neon-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual latest neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-390-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection neon-390"
+    },
+    {
+      "ok": true,
+      "name": "chain retained neon-390"
+    },
+    {
+      "ok": true,
+      "name": "actual latest neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-320-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes neon-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection neon-320"
+    },
+    {
+      "ok": true,
+      "name": "chain retained neon-320"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain retained pro-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-390-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection pro-390"
+    },
+    {
+      "ok": true,
+      "name": "chain retained pro-390"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-320-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes pro-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection pro-320"
+    },
+    {
+      "ok": true,
+      "name": "chain retained pro-320"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "admission light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "official link light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-1536-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-1536-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection light-1536"
+    },
+    {
+      "ok": true,
+      "name": "chain retained light-1536"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "admission light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "official link light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-390-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-390-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection light-390"
+    },
+    {
+      "ok": true,
+      "name": "chain retained light-390"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "admission light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "official link light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-320-output"
+    },
+    {
+      "ok": true,
+      "name": "actual latest light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "delta semantics light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "real SVG chart light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "admission light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "page fits light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "monthly gaps light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "basis switch light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact source and temporal evidence light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "exact metric column light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "official link light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "drawer fits light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus trapped light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "focus restored light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "metric operations no storage writes light-320-yoy"
+    },
+    {
+      "ok": true,
+      "name": "original robotics selection light-320"
+    },
+    {
+      "ok": true,
+      "name": "chain retained light-320"
+    },
+    {
+      "ok": true,
+      "name": "no proxy for ai-computing"
+    },
+    {
+      "ok": true,
+      "name": "no formal number for ai-computing"
+    },
+    {
+      "ok": true,
+      "name": "no proxy for innovative-drug"
+    },
+    {
+      "ok": true,
+      "name": "no formal number for innovative-drug"
+    },
+    {
+      "ok": true,
+      "name": "segment deep link reload"
+    },
+    {
+      "ok": true,
+      "name": "company pool preserves exact company navigation"
+    },
+    {
+      "ok": true,
+      "name": "no browser runtime errors"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "Existing favicon.ico 404"
+  ],
+  "screenshots": [],
+  "screenshotNote": "NBS screenshots retained in local data-cache; this committed report contains checks and input digests."
+}

@@ -82,6 +82,45 @@
         },
         "note": "官方直接发布同比增长（%）；不从绝对量计算，不拆分1—2月，不作累计差分或补缺；不展示相邻期变化。"
       }
+    },
+    {
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "definitionRef": {
+        "owner": "config/industry/eia-commercial-crude-stocks.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+        "version": "1",
+        "sha256": "fbfcaf825afaf6dc9849d6cae9b90102f04a4d8efc85a0eb7664348e2d6239ae"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-eia-commercial-crude-stocks.generated.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+        "version": "1",
+        "sha256": "0972a05f42c8de453baaa1421d89de6f8f771bec09b3a41bf8106a95fe782526"
+      },
+      "bindingRef": {
+        "owner": "config/industry/eia-commercial-crude-stocks-semantic-binding.v2.json",
+        "locator": "/bindingId",
+        "objectId": "eia-commercial-crude-stocks.v1",
+        "version": "1",
+        "sha256": "36bf9885f81045e11d3ca7ce90c9bc47a73ebf80a376ae1b1e59f821aefb3a43"
+      },
+      "policyRef": {
+        "owner": "config/industry/eia-commercial-crude-stocks.v1.json",
+        "locator": "/policy",
+        "objectId": "industry-metric-eia-commercial-crude-stocks-policy",
+        "version": "1",
+        "sha256": "fbfcaf825afaf6dc9849d6cae9b90102f04a4d8efc85a0eb7664348e2d6239ae"
+      },
+      "presentation": {
+        "delta": "none",
+        "basisLabels": {
+          "week_ending": "周末库存"
+        },
+        "note": "EIA 官方直接发布的美国商业原油期末库存（不含 SPR）；单位 Thousand Barrels。仅留存窗口，不展示相邻期差额，不代表油运需求、景气或投资方向。页面发布日期不证明历史读数发布时间。"
+      }
     }
   ]
 }

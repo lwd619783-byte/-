@@ -1,5 +1,9 @@
 # 投资研究看板 Feature Registry
 
+> Slice 4 P1 CLI 兼容修复（2026-09-18）：无 `--metric` 恢复历史 NBS output 默认目标；显式 EIA / 未知目标仍按 exact Registry 处理，adapter dispatch 不变。仅 CLI、回归测试及状态补充，retained data / owners / pins / PIT / admission 无变化；等待独立复审。[修复记录](stage-4-2-slice-4.md#p1-remediation--public-build-cli-compatibility-2026-09-18)。
+
+> 2026-09-18 CURRENT — Stage 4.2 / Slice 4：**D0 GO / IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。从 fetch 后精确基线 `2f2d707b8b222392a969327f10f9d5af5f021eab` 实施；EIA `WCESTUS1` 官方周末商业原油库存接入既有 `oil-shipping`，11/11 声明窗口读数；3 metric owners / 2 source families，显式 fail-closed Source Adapter 分派。EIA 1 Signal / 1 Event 复用 Inbox/Evidence；未知发布时间只在 Inbox 全部日期中出现。NBS 两个 owner 的原始/生成数据与 pins 未变。865 full tests、32 Node replay tests、73 Industry Vitest、8 freshness tests、build、data audit（0 errors；28 非阻断 warnings）、EIA 169 + NBS 277 browser checks PASS。DATA/PRODUCTION NOT_ADMITTED、PIT/revision unknown、F1 NOT_READY、F3 未提升。仅普通 commit/push，不创建 PR/merge；Hosted CI NOT_RUN，push 后停止等待独立审计。[交付与可重放证据](stage-4-2-slice-4.md)。
+
 > 2026-09-18 Stage 4.2 / Slice 3 CLOSED：PR #59 已合入，merge/main `6a9aa233b4351938b39c247833d9e72d99854269`，PR CI `35318164694` 与 main CI `35320061290` 均 completed/success，Vercel production READY。Industry Signal/Event/Inbox、listing reconciliation、Unitree listed identity、cohort57 与 segment-first Architecture Industry Map 已 **MERGED / MAIN CI PASS**；准入/PIT/F1/F3未提升。下一主线为 [Stage 4.2 Slice 4 — Cross-source Industry Provider Proof](stage-4-2-slice-4-plan.md)。
 
 > 2026-09-18 细分关系增量 CURRENT：机器人产业链按主要功能展示7个唯一细分（上4/中1/下1/横向1），移除阶段箭头，新增6条源自既有研究原文的细分功能连线；能力迁移为虚线，不表示公司供货事实。公司跨阶段原文保留，明细默认折叠。数据/Provider/PIT/cohort57/准入无变化。854 tests、build、三主题三尺寸331 browser checks PASS；[关系图与证据](stage-4-2-slice-3.md)。IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；普通push后核验exact Preview，不建PR/merge。
@@ -76,7 +80,7 @@
 | --- | --- | --- | --- |
 | 研究终端 UI | DONE | 暗色终端、KPI、Card、Chart、Table、Filter、响应式 | 后续仅随新 Feature 演进 |
 | 宏观看板 | PARTIAL | `MacroTab`、宏观静态/生成数据 | 接入 Stage 4.1 Metric Registry、频率/发布时间/修订/stale 体系 |
-| 行业研究 | PARTIAL | 既有研究资料、细分、产业链、公司池；Registry 驱动双 metric owner/history/审计 preview；绝对量保留差额，同比无 delta | **Slice 2 MERGED / MAIN CI PASS；Slice 3 待独立审计；NOT_ADMITTED；prosperity 未实现** |
+| 行业研究 | PARTIAL | 既有研究资料、细分、产业链、公司池；Registry 驱动 NBS 双 metric + EIA weekly inventory/history/审计 preview | **Slice 3 CLOSED；Slice 4 VERIFIED LOCALLY / PENDING REVIEW；NOT_ADMITTED；prosperity 未实现** |
 | 个股池 | DONE | A/H 股研究池、筛选、排序、详情 | 后续扩 stock universe 与估值维度 |
 | 个股详情 | DONE | 行情、财务、公告、研究事件、预期等聚合 | 后续加入估值、持仓、研究 thesis |
 | 观察清单 | DONE | Watchlist V2、复盘、任务、备份 | 云同步、跨设备、账户化 |
@@ -131,7 +135,7 @@
 | Data Audit | DONE V1 | P0 / blocking risk / mock fallback / zero coercion 等 | 随新 domain 扩规则 |
 | Provider Stability Gate | DONE FRAMEWORK | observation / provenance / resolution / threshold | 当前样本不足，资格仍 NO_GO |
 | Developer Health Gate | DONE V1 | env check / json output | 可逐步模块化 |
-| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F/G 门禁、Stage 4.1B Slice 1/2 完整 workflow 均已在对应 PR/main CI 通过；Slice 3 F3 两个 direct gates 已在 PR #54 / main push completed/success | Slice 1 industry gates 已随 PR #56/main CI 通过；Slice 2 PR #58/main CI PASS；Slice 3 Hosted NOT_RUN |
+| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F/G 门禁、Stage 4.1B Slice 1/2 完整 workflow 均已在对应 PR/main CI 通过；Slice 3 F3 两个 direct gates 已在 PR #54 / main push completed/success | Slice 1 industry gates 已随 PR #56/main CI 通过；Slice 2 PR #58/main CI PASS；Slice 3 PR #59/main CI PASS；Slice 4 Hosted NOT_RUN |
 | Bundle Gate | DONE | 财务等重数据不进入 initial bundle | 新重数据功能继续遵守 |
 | UI Audit | DONE | UI 扫描 | 后续随页面扩展 |
 
@@ -164,8 +168,8 @@
 | Cloud business database / cross-device sync | DEFERRED | P0 | 当前 Local-first freeze 已覆盖旧 Cloud Store 假设；若未来改变方向须重新冻结 scope，不是现行 Stage 4 默认任务；Research Bridge 自身的 Auth / scope 仍属于 Stage 4.5 缺口 |
 | Browser LocalStorage workflow migration | NOT STARTED | P0 | Watchlist / Expectation 仍使用 LocalStorage；迁往 Local Core 或其他目标尚无冻结实施范围，不得写成已迁移 |
 | Valuation Center | NOT STARTED | P1 | 当前 V2 路线列入 Stage 4.6+ Advanced Valuation |
-| Industry Metric Registry / Provider | MERGED / MAIN CI PASS | P1 | **Stage 4.2 Slice 2**：版本化 Registry、精确 pins、通用枚举/检索、双真实 metric、三主题/窄屏与 Evidence 接线；其他行业 unavailable，正式 admission 未闭合 |
-| Industry Signal / Change Event / Chain Diagram | IMPLEMENTED / PENDING REVIEW | P1 | **Stage 4.2 Slice 3**：latest 双 Signal 聚合一个 release event、Inbox/Evidence 导航、研究结构图与独立 Provider overlay；freshness 见专项交付；不产生景气判断 |
+| Industry Metric Registry / Provider | Slice 2 MERGED；Slice 4 VERIFIED / PENDING REVIEW | P1 | 3 owners / NBS + EIA；robotics + oil-shipping；月度产量/官方同比 + 周度库存；显式 Source Adapter 分派、exact pins/replay；其他行业 unavailable，准入未提升 |
+| Industry Signal / Change Event / Chain Diagram | Slice 3 MERGED / MAIN CI PASS；Slice 4 PENDING REVIEW | P1 | **Stage 4.2 Slice 3**：latest 双 Signal 聚合一个 release event、Inbox/Evidence 导航、研究结构图与独立 Provider overlay；freshness 见专项交付；不产生景气判断 |
 | Industry Prosperity Score | NOT STARTED | P1 | Stage 4.2；先建立正式 metric/provider/history，再讨论评分/景气派生 |
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |
