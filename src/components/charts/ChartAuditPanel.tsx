@@ -6,6 +6,7 @@ import { AdvancedAuditDetails } from '../common/AdvancedAuditDetails';
 type Rows = ChartAuditView['rows'];
 // Explicit display allowlist. New engineering fields remain available in the raw audit.
 const publicLabels: Record<string, string> = {
+  '候选结论': '事实性候选结论', '证据链状态': '证据链状态',
   '单位 / 币种': '单位 / 币种', '单位 / 原生频率 / 口径': '单位 / 频率 / 口径', '期间口径 / 原生频率': '期间口径 / 频率',
   '观测日期范围': '观测日期范围', '观测期间（非发布时间）': '观测期间（非发布时间）', '窗口完整性': '窗口完整性',
   '历史覆盖': '历史覆盖', freshness: '数据新鲜度', '数据准入': '数据准入', '生产准入': '生产准入',
@@ -61,8 +62,8 @@ export function ChartAuditPanel({ audit, expanded = false }: { audit: ChartAudit
       const rows = publicRows(record.rows);
       return rows.length ? <section key={index} className="min-w-0 rounded border border-borderSoft p-3"><h4 className="mb-3 font-medium">{auditDisplayText(record.title.split(' · ')[0])}</h4><AuditRows rows={rows} /></section> : null;
     })}
-    <p className="text-warning">当前图表没有可验证的正式证据关联</p>
-    <p className="text-textMuted">当前数据未提供指标、研究对象和修订版本的精确证据引用。相关事件或留存来源不等于正式图表证据；来源链接不证明历史时点可得性（PIT）或证据关联闭合。</p>
+    <p className="text-warning">{audit.candidateGraph ? '候选证据引用链已建立，正式支持资格未通过' : '当前图表没有可验证的正式证据关联'}</p>
+    <p className="text-textMuted">{audit.candidateGraph ? '可沿候选结论、派生公式及输入引用核对原始观测。留存来源引用不证明历史时点可得性、官方修订连续性或生产准入。' : '当前数据未提供指标、研究对象和修订版本的精确证据引用。相关事件或留存来源不等于正式图表证据；来源链接不证明历史时点可得性（PIT）或证据关联闭合。'}</p>
     <AdvancedAuditDetails>
       <p>{audit.title}</p><p>研究对象：{audit.scope}</p><p>原始状态：{audit.quality.join(' / ')}</p>
       <AuditRows rows={audit.rows} raw />

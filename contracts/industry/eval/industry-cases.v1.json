@@ -1,0 +1,172 @@
+[
+  {
+    "caseId": "industry-conflict-propagation",
+    "version": 1,
+    "inputKind": "SYNTHETIC_MUTATION_OF_RETAINED_REAL",
+    "operation": "assess_graph",
+    "request": {
+      "asOf": "2026-09-19T13:10:00Z",
+      "targetNodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim"
+    },
+    "expected": {
+      "outcome": "conflicted",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "conflicted",
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Explicit negative graph mutation; not a claim about actual provider evidence.",
+    "fixtureRef": {
+      "owner": "contracts/industry/eval/industry-inputs.v1.json",
+      "objectId": "industry-conflict-propagation",
+      "version": "1",
+      "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+      "locator": "/industry-conflict-propagation"
+    }
+  },
+  {
+    "caseId": "industry-deterministic-derived-signal",
+    "version": 1,
+    "inputKind": "RETAINED_REAL",
+    "operation": "recompute",
+    "request": {
+      "asOf": "2026-09-19T13:10:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [
+        "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      ],
+      "citationRefs": [
+        "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "retained-absolute-difference"
+      ],
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "value": 1414,
+      "unit": "Thousand Barrels per Day",
+      "exAnte": null,
+      "reproducible": true
+    },
+    "rationale": "4831 - 3417 = 1414; arithmetic reproducibility is not admission.",
+    "fixtureRef": {
+      "owner": "contracts/industry/eval/industry-inputs.v1.json",
+      "objectId": "industry-deterministic-derived-signal",
+      "version": "1",
+      "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+      "locator": "/industry-deterministic-derived-signal"
+    }
+  },
+  {
+    "caseId": "industry-missing-evidence",
+    "version": 1,
+    "inputKind": "SYNTHETIC_MUTATION_OF_RETAINED_REAL",
+    "operation": "assess_graph",
+    "request": {
+      "asOf": "2026-09-19T13:10:00Z",
+      "targetNodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "missing_evidence",
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Explicit negative graph mutation; not a claim about actual provider evidence.",
+    "fixtureRef": {
+      "owner": "contracts/industry/eval/industry-inputs.v1.json",
+      "objectId": "industry-missing-evidence",
+      "version": "1",
+      "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+      "locator": "/industry-missing-evidence"
+    }
+  },
+  {
+    "caseId": "industry-prosperity-abstention",
+    "version": 1,
+    "inputKind": "RETAINED_REAL",
+    "operation": "recompute",
+    "request": {
+      "asOf": "2026-09-19T13:10:00Z"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [
+        "industry-prosperity-eligibility"
+      ],
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": true
+    },
+    "rationale": "Real reviewed eligibility policy abstains; reproducible reasons do not create a score or direction.",
+    "fixtureRef": {
+      "owner": "contracts/industry/eval/industry-inputs.v1.json",
+      "objectId": "industry-prosperity-abstention",
+      "version": "1",
+      "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+      "locator": "/industry-prosperity-abstention"
+    }
+  },
+  {
+    "caseId": "industry-unsupported-claim",
+    "version": 1,
+    "inputKind": "SYNTHETIC_MUTATION_OF_RETAINED_REAL",
+    "operation": "assess_graph",
+    "request": {
+      "asOf": "2026-09-19T13:10:00Z",
+      "targetNodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim"
+    },
+    "expected": {
+      "outcome": "blocked",
+      "selectedRefs": [],
+      "citationRefs": [],
+      "conditions": [
+        "missing_evidence",
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "value": null,
+      "unit": null,
+      "exAnte": null,
+      "reproducible": null
+    },
+    "rationale": "Explicit negative graph mutation; not a claim about actual provider evidence.",
+    "fixtureRef": {
+      "owner": "contracts/industry/eval/industry-inputs.v1.json",
+      "objectId": "industry-unsupported-claim",
+      "version": "1",
+      "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+      "locator": "/industry-unsupported-claim"
+    }
+  }
+]

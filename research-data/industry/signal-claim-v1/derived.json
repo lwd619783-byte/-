@@ -1,0 +1,487 @@
+{
+  "schemaVersion": "industry-derived-preview.v1",
+  "id": "industry-derived-preview",
+  "revision": "1",
+  "assertedAt": "2026-09-19T13:10:00Z",
+  "signals": [
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT:monthly:2026-08:absolute-difference:v1",
+      "revision": "1",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+      "industryId": "robotics",
+      "basis": "monthly",
+      "unit": "套",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "manifestId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT:monthly:2026-08:absolute-difference:v1:inputs",
+      "value": -2503,
+      "previousPeriod": "2026-07",
+      "currentPeriod": "2026-08",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "pit": "UNPROVED",
+      "releaseAvailableAt": null,
+      "revisionContinuity": "unknown"
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:week_ending:2026-09-11:absolute-difference:v1",
+      "revision": "1",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "basis": "week_ending",
+      "unit": "Thousand Barrels",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "manifestId": "US_EIA_COMMERCIAL_CRUDE_STOCKS:week_ending:2026-09-11:absolute-difference:v1:inputs",
+      "value": -640,
+      "previousPeriod": "2026-09-04",
+      "currentPeriod": "2026-09-11",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "pit": "UNPROVED",
+      "releaseAvailableAt": null,
+      "revisionContinuity": "unknown"
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+      "revision": "1",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "basis": "week_ending",
+      "unit": "Thousand Barrels per Day",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "manifestId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:inputs",
+      "value": 1414,
+      "previousPeriod": "2026-09-04",
+      "currentPeriod": "2026-09-11",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "pit": "UNPROVED",
+      "releaseAvailableAt": null,
+      "revisionContinuity": "unknown"
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:week_ending:2026-09-11:absolute-difference:v1",
+      "revision": "1",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "basis": "week_ending",
+      "unit": "Thousand Barrels per Day",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "manifestId": "US_EIA_CRUDE_PRODUCTION:week_ending:2026-09-11:absolute-difference:v1:inputs",
+      "value": -3,
+      "previousPeriod": "2026-09-04",
+      "currentPeriod": "2026-09-11",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "pit": "UNPROVED",
+      "releaseAvailableAt": null,
+      "revisionContinuity": "unknown"
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:week_ending:2026-09-11:absolute-difference:v1",
+      "revision": "1",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "basis": "week_ending",
+      "unit": "Thousand Barrels per Day",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "manifestId": "US_EIA_REFINERY_CRUDE_INPUT:week_ending:2026-09-11:absolute-difference:v1:inputs",
+      "value": -256,
+      "previousPeriod": "2026-09-04",
+      "currentPeriod": "2026-09-11",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "pit": "UNPROVED",
+      "releaseAvailableAt": null,
+      "revisionContinuity": "unknown"
+    }
+  ],
+  "manifests": [
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT:monthly:2026-08:absolute-difference:v1:inputs",
+      "revision": "1",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "definitionRef": {
+        "owner": "config/industry/nbs-robotics-pilot.v1.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+        "version": "1",
+        "sha256": "f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664"
+      },
+      "inputRefs": [
+        {
+          "owner": "src/data/real/industry-robotics.generated.json",
+          "locator": "/observations/9",
+          "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT:2026-07:monthly:14cb3c2f8eaadbec92b9eb7f3d30495308444cfd17b7b87d2f4178f3394d8ae1",
+          "version": "1",
+          "sha256": "37c1151527d7cf6044c56969caa9dade0884be8b420d9cf6e12eaacc097dbbc2"
+        },
+        {
+          "owner": "src/data/real/industry-robotics.generated.json",
+          "locator": "/observations/11",
+          "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT:2026-08:monthly:0f6d42bf7229268008f7970694d7295ec05cf0f509e23975daa36574651475e3",
+          "version": "1",
+          "sha256": "37c1151527d7cf6044c56969caa9dade0884be8b420d9cf6e12eaacc097dbbc2"
+        }
+      ],
+      "previousPeriod": "2026-07",
+      "currentPeriod": "2026-08",
+      "basis": "monthly",
+      "fixedInputCount": 2
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:week_ending:2026-09-11:absolute-difference:v1:inputs",
+      "revision": "1",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "definitionRef": {
+        "owner": "config/industry/eia-commercial-crude-stocks.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+        "version": "1",
+        "sha256": "fbfcaf825afaf6dc9849d6cae9b90102f04a4d8efc85a0eb7664348e2d6239ae"
+      },
+      "inputRefs": [
+        {
+          "owner": "src/data/real/industry-eia-commercial-crude-stocks.generated.json",
+          "locator": "/observations/9",
+          "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-09-04:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "0972a05f42c8de453baaa1421d89de6f8f771bec09b3a41bf8106a95fe782526"
+        },
+        {
+          "owner": "src/data/real/industry-eia-commercial-crude-stocks.generated.json",
+          "locator": "/observations/10",
+          "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS:2026-09-11:week_ending:3ef8db67185f696b7d7188291e39309d4c6feac3a97aa360c4c5e99f862d4fb6",
+          "version": "1",
+          "sha256": "0972a05f42c8de453baaa1421d89de6f8f771bec09b3a41bf8106a95fe782526"
+        }
+      ],
+      "previousPeriod": "2026-09-04",
+      "currentPeriod": "2026-09-11",
+      "basis": "week_ending",
+      "fixedInputCount": 2
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:inputs",
+      "revision": "1",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "definitionRef": {
+        "owner": "config/industry/eia-exports.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_CRUDE_EXPORTS",
+        "version": "1",
+        "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+      },
+      "inputRefs": [
+        {
+          "owner": "src/data/real/industry-eia-exports.generated.json",
+          "locator": "/observations/9",
+          "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+        },
+        {
+          "owner": "src/data/real/industry-eia-exports.generated.json",
+          "locator": "/observations/10",
+          "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+        }
+      ],
+      "previousPeriod": "2026-09-04",
+      "currentPeriod": "2026-09-11",
+      "basis": "week_ending",
+      "fixedInputCount": 2
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:week_ending:2026-09-11:absolute-difference:v1:inputs",
+      "revision": "1",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "definitionRef": {
+        "owner": "config/industry/eia-production.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_CRUDE_PRODUCTION",
+        "version": "1",
+        "sha256": "0f094f5a39098954eb734beb488e585f1a83b458a8154f108c3f61efa5f70305"
+      },
+      "inputRefs": [
+        {
+          "owner": "src/data/real/industry-eia-production.generated.json",
+          "locator": "/observations/9",
+          "objectId": "US_EIA_CRUDE_PRODUCTION:2026-09-04:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "ceae16dcce7e49984fb719587408133774461965341006226cda96e7bec982a5"
+        },
+        {
+          "owner": "src/data/real/industry-eia-production.generated.json",
+          "locator": "/observations/10",
+          "objectId": "US_EIA_CRUDE_PRODUCTION:2026-09-11:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "ceae16dcce7e49984fb719587408133774461965341006226cda96e7bec982a5"
+        }
+      ],
+      "previousPeriod": "2026-09-04",
+      "currentPeriod": "2026-09-11",
+      "basis": "week_ending",
+      "fixedInputCount": 2
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:week_ending:2026-09-11:absolute-difference:v1:inputs",
+      "revision": "1",
+      "formulaRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/formula",
+        "objectId": "retained-absolute-difference",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "definitionRef": {
+        "owner": "config/industry/eia-refinery-input.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_REFINERY_CRUDE_INPUT",
+        "version": "1",
+        "sha256": "3d0bc37fbbd9929caf6d004aa7f41e41a5d2c59c894626e89a1ae2592b889818"
+      },
+      "inputRefs": [
+        {
+          "owner": "src/data/real/industry-eia-refinery-input.generated.json",
+          "locator": "/observations/9",
+          "objectId": "US_EIA_REFINERY_CRUDE_INPUT:2026-09-04:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "5137866536ef50dd128d3ae9f971675ddaad7df311ac7d8fe7cb72010320e29c"
+        },
+        {
+          "owner": "src/data/real/industry-eia-refinery-input.generated.json",
+          "locator": "/observations/10",
+          "objectId": "US_EIA_REFINERY_CRUDE_INPUT:2026-09-11:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "5137866536ef50dd128d3ae9f971675ddaad7df311ac7d8fe7cb72010320e29c"
+        }
+      ],
+      "previousPeriod": "2026-09-04",
+      "currentPeriod": "2026-09-11",
+      "basis": "week_ending",
+      "fixedInputCount": 2
+    }
+  ],
+  "claims": [
+    {
+      "id": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT:monthly:2026-08:absolute-difference:v1:claim",
+      "revision": "1",
+      "status": "CANDIDATE",
+      "origin": "ai_draft",
+      "generation": "TEMPLATE",
+      "templateRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/template",
+        "objectId": "retained-absolute-change-zh",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "signalId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT:monthly:2026-08:absolute-difference:v1",
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+      "industryId": "robotics",
+      "text": "当前留存快照中，工业机器人产量在2026-08较上一留存期2026-07减少 2503 套。",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "releaseAvailableAt": null,
+      "supportingSignalIds": [
+        "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT:monthly:2026-08:absolute-difference:v1"
+      ],
+      "contradictingSignalIds": []
+    },
+    {
+      "id": "US_EIA_COMMERCIAL_CRUDE_STOCKS:week_ending:2026-09-11:absolute-difference:v1:claim",
+      "revision": "1",
+      "status": "CANDIDATE",
+      "origin": "ai_draft",
+      "generation": "TEMPLATE",
+      "templateRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/template",
+        "objectId": "retained-absolute-change-zh",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "signalId": "US_EIA_COMMERCIAL_CRUDE_STOCKS:week_ending:2026-09-11:absolute-difference:v1",
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "text": "当前留存快照中，美国商业原油期末库存（不含 SPR）在2026-09-11较上一留存期2026-09-04减少 640 千桶。",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "releaseAvailableAt": null,
+      "supportingSignalIds": [
+        "US_EIA_COMMERCIAL_CRUDE_STOCKS:week_ending:2026-09-11:absolute-difference:v1"
+      ],
+      "contradictingSignalIds": []
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+      "revision": "1",
+      "status": "CANDIDATE",
+      "origin": "ai_draft",
+      "generation": "TEMPLATE",
+      "templateRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/template",
+        "objectId": "retained-absolute-change-zh",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "signalId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "text": "当前留存快照中，美国原油出口（周度日均）在2026-09-11较上一留存期2026-09-04增加 1414 千桶/日。",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "releaseAvailableAt": null,
+      "supportingSignalIds": [
+        "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1"
+      ],
+      "contradictingSignalIds": []
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:week_ending:2026-09-11:absolute-difference:v1:claim",
+      "revision": "1",
+      "status": "CANDIDATE",
+      "origin": "ai_draft",
+      "generation": "TEMPLATE",
+      "templateRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/template",
+        "objectId": "retained-absolute-change-zh",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "signalId": "US_EIA_CRUDE_PRODUCTION:week_ending:2026-09-11:absolute-difference:v1",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "text": "当前留存快照中，美国原油产量（周度日均）在2026-09-11较上一留存期2026-09-04减少 3 千桶/日。",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "releaseAvailableAt": null,
+      "supportingSignalIds": [
+        "US_EIA_CRUDE_PRODUCTION:week_ending:2026-09-11:absolute-difference:v1"
+      ],
+      "contradictingSignalIds": []
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:week_ending:2026-09-11:absolute-difference:v1:claim",
+      "revision": "1",
+      "status": "CANDIDATE",
+      "origin": "ai_draft",
+      "generation": "TEMPLATE",
+      "templateRef": {
+        "owner": "config/industry/industry-signal-policy.v1.json",
+        "locator": "/template",
+        "objectId": "retained-absolute-change-zh",
+        "version": "1",
+        "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+      },
+      "signalId": "US_EIA_REFINERY_CRUDE_INPUT:week_ending:2026-09-11:absolute-difference:v1",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "text": "当前留存快照中，美国炼厂原油净投入（周度日均）在2026-09-11较上一留存期2026-09-04减少 256 千桶/日。",
+      "conditions": [
+        "not_admitted",
+        "partial",
+        "unknown"
+      ],
+      "releaseAvailableAt": null,
+      "supportingSignalIds": [
+        "US_EIA_REFINERY_CRUDE_INPUT:week_ending:2026-09-11:absolute-difference:v1"
+      ],
+      "contradictingSignalIds": []
+    }
+  ]
+}

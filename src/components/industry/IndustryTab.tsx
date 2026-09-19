@@ -8,6 +8,7 @@ import { DashboardCard, MetricCard, SectionHeader } from "../common/terminal";
 import { RoboticsStockSection } from "./RoboticsStockSection";
 import { IndustryMetricPanel } from "./IndustryMetricPanel";
 import { IndustrySnapshotPanel } from "./IndustrySnapshotPanel";
+import { IndustrySignalClaimPanel } from "./IndustrySignalClaimPanel";
 import { IndustryChainDiagram } from "./IndustryChainDiagram";
 import { IndustryChangePanel } from "./IndustryChangePanel";
 import { ProductShell } from "../layout/ProductShell";
@@ -98,6 +99,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
         <div role="tabpanel" id={`${panelId}-overview`} aria-labelledby={`${panelId}-tab-overview`} hidden={activeView !== "overview"} className="space-y-4">
           <IndustryChangePanel key={`events-${activeIndustry.id}`} industryId={activeIndustry.id} />
           <IndustrySnapshotPanel key={`snapshot-${activeIndustry.id}`} industryId={activeIndustry.id} />
+          <IndustrySignalClaimPanel key={`signal-claim-${activeIndustry.id}`} industryId={activeIndustry.id} />
           <IndustryMetricPanel key={activeIndustry.id} industryId={activeIndustry.id} />
           {activeView === "overview" ? <IndustryChainDiagram industry={activeIndustry} stocks={industryStocks} onOpenStock={onOpenStock} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} /> : null}
           <IndustryOverview industry={activeIndustry} />

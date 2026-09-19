@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "industry-signal-policy.v1",
+  "id": "industry-signal-policy",
+  "revision": "1",
+  "assertedAt": "2026-09-19T13:10:00Z",
+  "formula": {
+    "id": "retained-absolute-difference",
+    "revision": "1",
+    "version": "1",
+    "operation": "current_minus_previous",
+    "selection": "declared_window_last_two_adjacent_periods",
+    "missing": "no_fill",
+    "conflict": "suppress",
+    "rounding": "none",
+    "admission": "preview_only"
+  },
+  "template": {
+    "id": "retained-absolute-change-zh",
+    "revision": "1",
+    "version": "1",
+    "generation": "TEMPLATE",
+    "text": "当前留存快照中，{name}在{current}较上一留存期{previous}{change} {value} {unit}。",
+    "status": "CANDIDATE"
+  },
+  "gate": {
+    "id": "industry-prosperity-eligibility",
+    "revision": "1",
+    "version": "1",
+    "requiredDimensions": {
+      "oil-shipping": [
+        "demand",
+        "inventory",
+        "price",
+        "supply",
+        "trade_flow"
+      ],
+      "robotics": [
+        "demand",
+        "margin",
+        "price",
+        "supply"
+      ]
+    },
+    "scopeCoverageProof": null,
+    "formalMethodAdmission": "NOT_ADMITTED"
+  },
+  "entries": [
+    {
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+      "industryId": "robotics",
+      "definitionRef": {
+        "owner": "config/industry/nbs-robotics-pilot.v1.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+        "version": "1",
+        "sha256": "f1df61268372e3d435d8ede1c874aefef08e61e8b978ab74f06a3b14b779d664"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-robotics.generated.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT",
+        "version": "1",
+        "sha256": "37c1151527d7cf6044c56969caa9dade0884be8b420d9cf6e12eaacc097dbbc2"
+      },
+      "basis": "monthly",
+      "formulaId": "retained-absolute-difference",
+      "formulaVersion": "1",
+      "unit": "套",
+      "displayUnit": "套"
+    },
+    {
+      "metricId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+      "industryId": "robotics",
+      "definitionRef": {
+        "owner": "config/industry/nbs-robotics-yoy.v1.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+        "version": "1",
+        "sha256": "b9b2c47a75d077db34902bbcb7f859d82816ab577b58d3502fa2cd5e9db51bfd"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-robotics-yoy.generated.json",
+        "locator": "/definition",
+        "objectId": "CN_NBS_INDUSTRIAL_ROBOT_OUTPUT_YOY",
+        "version": "1",
+        "sha256": "6d8e791793ed611c28767837e51e2b15792db52cfecb35388e7665fc89f6a224"
+      },
+      "basis": "monthly",
+      "formulaId": null,
+      "formulaVersion": null,
+      "unit": "%",
+      "displayUnit": "%"
+    },
+    {
+      "metricId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+      "industryId": "oil-shipping",
+      "definitionRef": {
+        "owner": "config/industry/eia-commercial-crude-stocks.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+        "version": "1",
+        "sha256": "fbfcaf825afaf6dc9849d6cae9b90102f04a4d8efc85a0eb7664348e2d6239ae"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-eia-commercial-crude-stocks.generated.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_COMMERCIAL_CRUDE_STOCKS",
+        "version": "1",
+        "sha256": "0972a05f42c8de453baaa1421d89de6f8f771bec09b3a41bf8106a95fe782526"
+      },
+      "basis": "week_ending",
+      "formulaId": "retained-absolute-difference",
+      "formulaVersion": "1",
+      "unit": "Thousand Barrels",
+      "displayUnit": "千桶"
+    },
+    {
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "definitionRef": {
+        "owner": "config/industry/eia-exports.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_CRUDE_EXPORTS",
+        "version": "1",
+        "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-eia-exports.generated.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_CRUDE_EXPORTS",
+        "version": "1",
+        "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+      },
+      "basis": "week_ending",
+      "formulaId": "retained-absolute-difference",
+      "formulaVersion": "1",
+      "unit": "Thousand Barrels per Day",
+      "displayUnit": "千桶/日"
+    },
+    {
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "definitionRef": {
+        "owner": "config/industry/eia-production.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_CRUDE_PRODUCTION",
+        "version": "1",
+        "sha256": "0f094f5a39098954eb734beb488e585f1a83b458a8154f108c3f61efa5f70305"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-eia-production.generated.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_CRUDE_PRODUCTION",
+        "version": "1",
+        "sha256": "ceae16dcce7e49984fb719587408133774461965341006226cda96e7bec982a5"
+      },
+      "basis": "week_ending",
+      "formulaId": "retained-absolute-difference",
+      "formulaVersion": "1",
+      "unit": "Thousand Barrels per Day",
+      "displayUnit": "千桶/日"
+    },
+    {
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "definitionRef": {
+        "owner": "config/industry/eia-refinery-input.v1.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_REFINERY_CRUDE_INPUT",
+        "version": "1",
+        "sha256": "3d0bc37fbbd9929caf6d004aa7f41e41a5d2c59c894626e89a1ae2592b889818"
+      },
+      "artifactRef": {
+        "owner": "src/data/real/industry-eia-refinery-input.generated.json",
+        "locator": "/definition",
+        "objectId": "US_EIA_REFINERY_CRUDE_INPUT",
+        "version": "1",
+        "sha256": "5137866536ef50dd128d3ae9f971675ddaad7df311ac7d8fe7cb72010320e29c"
+      },
+      "basis": "week_ending",
+      "formulaId": "retained-absolute-difference",
+      "formulaVersion": "1",
+      "unit": "Thousand Barrels per Day",
+      "displayUnit": "千桶/日"
+    }
+  ]
+}

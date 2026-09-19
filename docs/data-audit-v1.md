@@ -1,10 +1,10 @@
 # 数据真实性审计与数据源注册表 V1
 
-- 执行时间：2026-09-18T14:33:20.516Z
-- 扫描文件：396
+- 执行时间：2026-09-19T13:34:21.837Z
+- 扫描文件：410
 - 注册表条目：35
-- P0：0；P1：20；P2：14；P3：0
-- errors：0；warnings：34；skipped 目录：10；allowlist 命中：36
+- P0：0；P1：20；P2：16；P3：0
+- errors：0；warnings：36；skipped 目录：10；allowlist 命中：36
 - 退出码：0
 
 ## 结论
@@ -20,9 +20,9 @@
 ## 状态与风险统计
 
 - 状态分布：{"partial":12,"generated_real":6,"not_implemented":4,"manual_unverified":9,"manual_verified":1,"static_reference":1,"inferred":2}
-- 风险分布：{"P0":0,"P1":20,"P2":14,"P3":0}
+- 风险分布：{"P0":0,"P1":20,"P2":16,"P3":0}
 - 阻断风险：0
-- 非阻断风险：34
+- 非阻断风险：36
 
 ## 风险清单
 
@@ -35,6 +35,8 @@
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(match[1]), minor: Number(match[2] ?? 0), patch: Number(match[3] ?? 0) | scripts/dev-health.mjs | 230 | - |
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(manifest.partial ?? 0) | scripts/dev-health.mjs | 747 | - |
 | missing-to-zero | P2 | no | missing-value | Missing value coercion: Number(manifest.error ?? 0) | scripts/dev-health.mjs | 748 | - |
+| missing-to-zero | P2 | no | missing-value | Missing value coercion: \|\| 0 | src/services/evidenceGraphValidator.generated.mjs | 259 | - |
+| missing-to-zero | P2 | no | missing-value | Missing value coercion: \|\| 0 | src/services/evidenceGraphValidator.generated.mjs | 260 | - |
 | data-limitation | P1 | no | limitation | Data limitation: industry-eia-production | src/data/data-source-registry.ts | - | industry-eia-production |
 | data-limitation | P1 | no | limitation | Data limitation: industry-eia-exports | src/data/data-source-registry.ts | - | industry-eia-exports |
 | data-limitation | P1 | no | limitation | Data limitation: industry-eia-refinery-input | src/data/data-source-registry.ts | - | industry-eia-refinery-input |
