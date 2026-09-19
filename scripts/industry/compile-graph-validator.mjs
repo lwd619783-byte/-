@@ -6,7 +6,8 @@ import standaloneCode from 'ajv/dist/standalone/index.js';
 import { createHash } from 'node:crypto';
 import { build } from 'esbuild';
 const paths = ['contracts/financial-research/v1/evidence-graph.v1.schema.json', 'contracts/financial-research/v1/shared.schema.json', 'contracts/v1/research-asset-os.contracts.v1.schema.json'];
-const raw = paths.map(p => fs.readFileSync(p, 'utf8'));
+// Normalize checkout EOLs before hashing/compilation so generated validator bytes are OS-independent.
+const raw = paths.map(p => fs.readFileSync(p, 'utf8').replaceAll('\r\n', '\n'));
 const [graph, shared, asset] = raw.map(JSON.parse);
 const ajv = new Ajv2020({ strict: true, strictRequired: false, ownProperties: true, code: { source: true, esm: true, lines: true } });
 addFormats(ajv);
