@@ -23,7 +23,8 @@ const target = 'src/services/evidenceGraphValidator.generated.mjs';
 if (process.argv.includes('--write')) fs.writeFileSync(target, output);
 else if (fs.readFileSync(target, 'utf8') !== output) {
   console.error('F2_GENERATED_VALIDATOR_EXPECTED_BASE64_BEGIN');
-  console.error(Buffer.from(output, 'utf8').toString('base64'));
+  const encoded = Buffer.from(output, 'utf8').toString('base64');
+  for (let i = 0; i < encoded.length; i += 3000) console.error(`F2_GENERATED_VALIDATOR_CHUNK:${encoded.slice(i, i + 3000)}`);
   console.error('F2_GENERATED_VALIDATOR_EXPECTED_BASE64_END');
   throw new Error('F2_GENERATED_VALIDATOR_DRIFT');
 }
