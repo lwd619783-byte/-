@@ -1,6 +1,6 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-19 CURRENT — **Stage 4.2 Slice 6 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。六个既有 owners → 5 个 reviewed 相邻留存绝对差 → 5 个固定模板事实性候选 → 原 `evidence-graph.v1` 引用链 → Prosperity Eligibility。oil-shipping / robotics 均 **ABSTAIN / NOT_ELIGIBLE**；不输出景气评分或方向。F3 新增独立 Industry 5-case suite（真实 retained inputs / 明确负例 mutation），复用原 Harness；Frozen Foundation 33-case 仍 reference 33/33、actual service 0/33，不合并分母。详见 [Slice 6 冻结方案与验证](stage-4-2-slice-6-plan.md)。只普通功能分支 commit/push；本切片 Hosted CI NOT_RUN、审计 PENDING，不创建 PR/merge，不提升 admission。
+> 2026-09-19 CURRENT — **Stage 4.2 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS**。Slice 6 独立审计通过；最终 PR head `8cc62168681719e1eedfe3b1974f5b35844df2cb`，PR [#64](https://github.com/lwd619783-byte/-/pull/64) Hosted CI [35447795829](https://github.com/lwd619783-byte/-/actions/runs/35447795829) completed/success；merge/main `05ffb33ce4edee81f174253ccbad4ee697ed974a`，main push CI [35448015019](https://github.com/lwd619783-byte/-/actions/runs/35448015019) completed/success。六个既有 owners → 5 个 reviewed 相邻留存绝对差 → 5 个固定模板事实性候选 → 原 `evidence-graph.v1` 引用链 → Prosperity Eligibility；oil-shipping / robotics 均 **ABSTAIN / NOT_ELIGIBLE**。F3 独立 Industry 5-case suite 已进入 Hosted CI；Frozen Foundation 33-case 口径不合并分母。DATA / PRODUCTION admission、严格 PIT、release/revision continuity、正式景气评分/方向、Verified Claim、Thesis 均未提升。首次 PR CI 暴露的 generated-validator CRLF/LF source-digest 漂移已收敛；本次 closeout sync 将 compiler 输入换行标准化，不改变 F2 schema 或 validator 语义。详见 [Slice 6 冻结方案与验证](stage-4-2-slice-6-plan.md)。
 
 > Slice 5 CURRENT 事实补齐（本次实时核验）：PR [#63](https://github.com/lwd619783-byte/-/pull/63) 已合入，PR branch head `dfc54f1d0437774387869e75696681a5791082cb`，merge/main `dc8f5ec36d9626e92acc3fc91088c1b8c42ce753`。PR CI [35442595473](https://github.com/lwd619783-byte/-/actions/runs/35442595473) 与 main CI [35442791153](https://github.com/lwd619783-byte/-/actions/runs/35442791153) 均 completed/success。此事实只适用于 Slice 5；以下较早交付状态保留其时点意义。
 
@@ -182,9 +182,9 @@
 | Cloud business database / cross-device sync | DEFERRED | P0 | 当前 Local-first freeze 已覆盖旧 Cloud Store 假设；若未来改变方向须重新冻结 scope，不是现行 Stage 4 默认任务；Research Bridge 自身的 Auth / scope 仍属于 Stage 4.5 缺口 |
 | Browser LocalStorage workflow migration | NOT STARTED | P0 | Watchlist / Expectation 仍使用 LocalStorage；迁往 Local Core 或其他目标尚无冻结实施范围，不得写成已迁移 |
 | Valuation Center | NOT STARTED | P1 | 当前 V2 路线列入 Stage 4.6+ Advanced Valuation |
-| Industry Metric Registry / Provider / Dimensions / Snapshot | Slice 1–4 MERGED；Slice 5 VERIFIED / PENDING REVIEW | P1 | 6 owners / NBS + EIA；robotics 双指标与 oil-shipping 四维；独立 mapping + 只读 snapshot，exact pins/adapter/replay；空维度 missing，无评分/新 delta，准入未提升 |
-| Industry Signal / Change Event / Chain Diagram | Slice 3–4 MERGED / MAIN CI PASS | P1 | **Stage 4.2 Slice 3**：latest 双 Signal 聚合一个 release event、Inbox/Evidence 导航、研究结构图与独立 Provider overlay；freshness 见专项交付；不产生景气判断 |
-| Industry Prosperity Score | NOT STARTED | P1 | Stage 4.2；先建立正式 metric/provider/history，再讨论评分/景气派生 |
+| Industry Metric Registry / Provider / Dimensions / Snapshot | Stage 4.2 CLOSED / MERGED / MAIN CI PASS | P1 | 6 owners / NBS + EIA；robotics 双指标与 oil-shipping 四维；独立 mapping + 只读 snapshot，exact pins/adapter/replay；Slice 6 增加 reviewed 相邻期绝对差与证据门禁，准入未提升 |
+| Industry Signal / Change Event / Chain Diagram | Stage 4.2 CLOSED / MERGED / MAIN CI PASS | P1 | Slice 3–6 已形成 Signal / Event / Inbox / Evidence、研究结构图、描述型 Derived Signal、固定模板 Claim Candidate 与 F2 引用链；正式景气判断仍由资格门禁 fail-closed |
+| Industry Prosperity Eligibility / Formal Score | ELIGIBILITY V1 DONE；FORMAL SCORE NOT STARTED | P1 | Stage 4.2 以 ABSTAIN / NOT_ELIGIBLE 门禁收口；正式 score/direction 延后，须先闭合 scope、PIT、release/revision continuity、Entity、evidence support 与正式方法准入 |
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |
 
