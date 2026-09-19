@@ -1,6 +1,8 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
-> 2026-09-19 CURRENT Slice 6 scope：Slice 1–5 已合入，核验基线 main `dc8f5ec36d9626e92acc3fc91088c1b8c42ce753`（PR #63，PR/main CI success）。本轮在原 Snapshot/Registry 上接入描述型派生、固定模板事实性候选、F2 V1 引用链与资格门禁；这是对下方 Slice 5 “不进入 Claim/F2”暂缓范围的明确后续授权，不改变 Stage 4.3–4.6 顺序。正式景气判断/评分/Thesis/Portfolio/Agent 不进入本轮；准入/PIT 不提升。详见 [Slice 6](stage-4-2-slice-6-plan.md)。本切片待独立审计，只可评为 Stage 4.2 closeout candidate，不登记 CLOSED/MERGED/MAIN CI PASS。
+> 2026-09-19 CURRENT — **Stage 4.2 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY**。Slice 6 初始独立审计 HEAD `d264f47a542aa46c358804dfbd709be19c16936c` 通过；PR CI 首轮发现生成的 F2 validator 文件头存在冻结 schema digest 漂移，净修复仅校准 1 行来源摘要，最终 PR head `8cc62168681719e1eedfe3b1974f5b35844df2cb`。PR [#64](https://github.com/lwd619783-byte/-/pull/64) CI [35447795829](https://github.com/lwd619783-byte/-/actions/runs/35447795829) completed/success；squash merge/main `05ffb33ce4edee81f174253ccbad4ee697ed974a`，main CI [35448015019](https://github.com/lwd619783-byte/-/actions/runs/35448015019) completed/success；Vercel production `dpl_GPXjUVZtDeAXKBjts3cesQprPEjc` READY。Stage 4.2 以 6 个 Industry Metric owners、reviewed dimensions/snapshot、5 个描述型派生、5 个事实性 Claim Candidates、F2 引用链、Industry F3 5-case 与 Prosperity Eligibility abstention gate 收口；oil-shipping / robotics 仍 **ABSTAIN / NOT_ELIGIBLE**。DATA / PRODUCTION admission、PIT、release/revision continuity、Entity 与正式景气方法均未提升；不输出正式景气方向/评分、Verified Claim、Thesis 或买卖建议。CURRENT 主开发线进入 **Stage 4.3 — Top-down Research Workflow / Claim / Thesis / Research Memory**。详见 [Stage 4.2 closeout](stage-4-2-closeout.md)。
+
+> 2026-09-19 Slice 6 冻结范围（历史）：Slice 1–5 已合入，核验基线 main `dc8f5ec36d9626e92acc3fc91088c1b8c42ce753`（PR #63，PR/main CI success）。本轮在原 Snapshot/Registry 上接入描述型派生、固定模板事实性候选、F2 V1 引用链与资格门禁；这是对下方 Slice 5 “不进入 Claim/F2”暂缓范围的明确后续授权，不改变 Stage 4.3–4.6 顺序。正式景气判断/评分/Thesis/Portfolio/Agent 不进入本轮；准入/PIT 不提升。详见 [Slice 6](stage-4-2-slice-6-plan.md)。本切片待独立审计，只可评为 Stage 4.2 closeout candidate，不登记 CLOSED/MERGED/MAIN CI PASS。
 
 > 2026-09-18 CURRENT Slice 5 scope：Stage 4.1B 与 Stage 4.2 Slice 1–4 已合入；当前核验 main 为 `8497ac9199def1fbec420eecc6ad7b7305ce160d`（PR #62，PR/main CI success，Vercel Production READY）。本轮只完成 Metric → Industry Dimension → Multi-factor Snapshot，不进入 Prosperity/Regime/Claim/Thesis；具体冻结边界与验证见 [Slice 5 plan](stage-4-2-slice-5-plan.md)，较早阶段记录保留时点意义。
 
@@ -38,6 +40,8 @@ Stage 4.1 已停留较久，后续不再以“把所有 23 个指标都做成 RE
 Stage 4.1 形成的 F1 Semantic Runtime、PIT、Evidence、Admission、Readiness 与 Eval 能力，后续主要职责是保证上层产品“知道什么能用、什么不能用”，而不是无限延迟用户可见能力。
 
 ## 2. CURRENT 主开发路径
+
+> 2026-09-19：Stage 4.2 已关闭；CURRENT 主开发线从 **Stage 4.3** 开始。下图保留完整阶段顺序。
 
 4.1-G 收口后的默认顺序：
 
@@ -77,6 +81,8 @@ Stage 4.1B 完成后，用户应能完成：
 `打开看板 → 看今天发生什么 → 查看证据 → 标记需要研究 / 复盘 → 进入相关行业或公司`
 
 ## 4. Stage 4.2 — Industry Data Platform
+
+> **CLOSED / MERGED / MAIN CI PASS（2026-09-19）**。本节以下内容保留 Stage 4.2 的目标与冻结范围；实际收口事实见 [Stage 4.2 closeout](stage-4-2-closeout.md)。
 
 目标：把行业研究从“股价和新闻展示”升级成正式的基本面景气研究。
 
