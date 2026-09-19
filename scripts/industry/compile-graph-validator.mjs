@@ -21,5 +21,10 @@ const output = '// Generated from unchanged F2 V1 schemas by scripts/industry/co
   + compiled.outputFiles[0].text;
 const target = 'src/services/evidenceGraphValidator.generated.mjs';
 if (process.argv.includes('--write')) fs.writeFileSync(target, output);
-else if (fs.readFileSync(target, 'utf8') !== output) throw new Error('F2_GENERATED_VALIDATOR_DRIFT');
+else if (fs.readFileSync(target, 'utf8') !== output) {
+  console.error('F2_GENERATED_VALIDATOR_EXPECTED_BASE64_BEGIN');
+  console.error(Buffer.from(output, 'utf8').toString('base64'));
+  console.error('F2_GENERATED_VALIDATOR_EXPECTED_BASE64_END');
+  throw new Error('F2_GENERATED_VALIDATOR_DRIFT');
+}
 console.log('F2 generated validator: PASS');
