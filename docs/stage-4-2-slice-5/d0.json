@@ -1,0 +1,371 @@
+{
+  "status": "GO",
+  "scope": "Official EIA Petroleum weekly history, retained HTML replay; XLS corroboration only",
+  "series": [
+    {
+      "status": "GO",
+      "series": "WCRFPUS2",
+      "source": {
+        "dataset": "EIA Petroleum / Weekly Supply Estimates",
+        "series": "WCRFPUS2",
+        "frequency": "W",
+        "title": "Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+        "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "downloadUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCRFPUS2w.xls",
+        "publicationDateOnSnapshot": "2026-09-16",
+        "snapshotMeaning": "Current history, not historical vintages; date-only page release is not per-observation publicationDateTime",
+        "periodMeaning": "week_ending is the official weekly end-date label for the daily rate; referencePeriod start=end stores that label, not an accumulation interval"
+      },
+      "definition": {
+        "id": "US_EIA_CRUDE_PRODUCTION",
+        "revision": "1",
+        "canonicalName": "美国原油产量（周度日均）",
+        "industryId": "oil-shipping",
+        "entity": null,
+        "geography": "US",
+        "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+        "unit": "Thousand Barrels per Day",
+        "nativeFrequency": "weekly",
+        "basis": [
+          "week_ending"
+        ],
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+        "window": {
+          "start": "2026-07-03",
+          "end": "2026-09-11"
+        },
+        "missingPeriods": [],
+        "freshness": "unknown",
+        "staleAfter": null
+      },
+      "registryEntry": {
+        "metricId": "US_EIA_CRUDE_PRODUCTION",
+        "industryId": "oil-shipping",
+        "definitionRef": {
+          "owner": "config/industry/eia-production.v1.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_CRUDE_PRODUCTION",
+          "version": "1",
+          "sha256": "0f094f5a39098954eb734beb488e585f1a83b458a8154f108c3f61efa5f70305"
+        },
+        "artifactRef": {
+          "owner": "src/data/real/industry-eia-production.generated.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_CRUDE_PRODUCTION",
+          "version": "1",
+          "sha256": "ceae16dcce7e49984fb719587408133774461965341006226cda96e7bec982a5"
+        },
+        "bindingRef": {
+          "owner": "config/industry/eia-production-semantic-binding.v2.json",
+          "locator": "/bindingId",
+          "objectId": "eia-production.v1",
+          "version": "1",
+          "sha256": "47072d3437015b984da1e3c6a11b72120e7746beeb7b79de7656f3791a2023ef"
+        },
+        "policyRef": {
+          "owner": "config/industry/eia-production.v1.json",
+          "locator": "/policy",
+          "objectId": "industry-metric-eia-production-policy",
+          "version": "1",
+          "sha256": "0f094f5a39098954eb734beb488e585f1a83b458a8154f108c3f61efa5f70305"
+        },
+        "presentation": {
+          "delta": "none",
+          "basisLabels": {
+            "week_ending": "周度日均（周末标签）"
+          },
+          "note": "官方周频日均速率，单位千桶/日；周末为观测标签，不是周累计，不换算、不计算周变化或趋势；不代表油运需求或景气。"
+        }
+      },
+      "dimensionMapping": {
+        "industryId": "oil-shipping",
+        "metricId": "US_EIA_CRUDE_PRODUCTION",
+        "definitionRef": {
+          "owner": "config/industry/eia-production.v1.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_CRUDE_PRODUCTION",
+          "version": "1",
+          "sha256": "0f094f5a39098954eb734beb488e585f1a83b458a8154f108c3f61efa5f70305"
+        },
+        "dimension": "supply",
+        "subdimension": "crude_production"
+      },
+      "manifest": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+      "captures": [
+        {
+          "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "finalUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "status": 200,
+          "path": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+          "sha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "byteLength": 237357,
+          "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+          "role": "SERIES_HISTORY"
+        },
+        {
+          "url": "https://www.eia.gov/dnav/pet/hist_xls/WCRFPUS2w.xls",
+          "finalUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCRFPUS2w.xls",
+          "status": 200,
+          "path": "research-data/industry/eia-petroleum-production-v1/raw/8487f90eac9e970a4a7b4dead82f31d88c4451ad4966e7a3dd17882a984d9b53.xls",
+          "sha256": "8487f90eac9e970a4a7b4dead82f31d88c4451ad4966e7a3dd17882a984d9b53",
+          "byteLength": 129024,
+          "acquiredAt": "2026-09-18T11:00:50.094286+00:00",
+          "role": "OFFICIAL_DOWNLOAD"
+        }
+      ],
+      "observations": 11,
+      "first": 13860,
+      "last": 13944,
+      "parser": "scripts/industry/eia-parser.mjs",
+      "replay": "scripts/industry/eia-artifact.mjs"
+    },
+    {
+      "status": "GO",
+      "series": "WCREXUS2",
+      "source": {
+        "dataset": "EIA Petroleum / Weekly Supply Estimates",
+        "series": "WCREXUS2",
+        "frequency": "W",
+        "title": "Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+        "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "downloadUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCREXUS2w.xls",
+        "publicationDateOnSnapshot": "2026-09-16",
+        "snapshotMeaning": "Current history, not historical vintages; date-only page release is not per-observation publicationDateTime",
+        "periodMeaning": "week_ending is the official weekly end-date label for the daily rate; referencePeriod start=end stores that label, not an accumulation interval"
+      },
+      "definition": {
+        "id": "US_EIA_CRUDE_EXPORTS",
+        "revision": "1",
+        "canonicalName": "美国原油出口（周度日均）",
+        "industryId": "oil-shipping",
+        "entity": null,
+        "geography": "US",
+        "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+        "unit": "Thousand Barrels per Day",
+        "nativeFrequency": "weekly",
+        "basis": [
+          "week_ending"
+        ],
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+        "window": {
+          "start": "2026-07-03",
+          "end": "2026-09-11"
+        },
+        "missingPeriods": [],
+        "freshness": "unknown",
+        "staleAfter": null
+      },
+      "registryEntry": {
+        "metricId": "US_EIA_CRUDE_EXPORTS",
+        "industryId": "oil-shipping",
+        "definitionRef": {
+          "owner": "config/industry/eia-exports.v1.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_CRUDE_EXPORTS",
+          "version": "1",
+          "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+        },
+        "artifactRef": {
+          "owner": "src/data/real/industry-eia-exports.generated.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_CRUDE_EXPORTS",
+          "version": "1",
+          "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+        },
+        "bindingRef": {
+          "owner": "config/industry/eia-exports-semantic-binding.v2.json",
+          "locator": "/bindingId",
+          "objectId": "eia-exports.v1",
+          "version": "1",
+          "sha256": "4114412a63541b13919782e0a3a20d6edbbef27079e77cf22aca7b64bf1c3e8b"
+        },
+        "policyRef": {
+          "owner": "config/industry/eia-exports.v1.json",
+          "locator": "/policy",
+          "objectId": "industry-metric-eia-exports-policy",
+          "version": "1",
+          "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+        },
+        "presentation": {
+          "delta": "none",
+          "basisLabels": {
+            "week_ending": "周度日均（周末标签）"
+          },
+          "note": "官方周频日均速率，单位千桶/日；周末为观测标签，不是周累计，不换算、不计算周变化或趋势；不代表油运需求或景气。"
+        }
+      },
+      "dimensionMapping": {
+        "industryId": "oil-shipping",
+        "metricId": "US_EIA_CRUDE_EXPORTS",
+        "definitionRef": {
+          "owner": "config/industry/eia-exports.v1.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_CRUDE_EXPORTS",
+          "version": "1",
+          "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+        },
+        "dimension": "trade_flow",
+        "subdimension": "crude_exports"
+      },
+      "manifest": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+      "captures": [
+        {
+          "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "finalUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "status": 200,
+          "path": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+          "sha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "byteLength": 190518,
+          "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+          "role": "SERIES_HISTORY"
+        },
+        {
+          "url": "https://www.eia.gov/dnav/pet/hist_xls/WCREXUS2w.xls",
+          "finalUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCREXUS2w.xls",
+          "status": 200,
+          "path": "research-data/industry/eia-petroleum-exports-v1/raw/c7ead51f455b9be3a5573ad381e33f5e4447380dcfc497e07be5e1df82c1d555.xls",
+          "sha256": "c7ead51f455b9be3a5573ad381e33f5e4447380dcfc497e07be5e1df82c1d555",
+          "byteLength": 105472,
+          "acquiredAt": "2026-09-18T11:00:46.336719+00:00",
+          "role": "OFFICIAL_DOWNLOAD"
+        }
+      ],
+      "observations": 11,
+      "first": 3262,
+      "last": 4831,
+      "parser": "scripts/industry/eia-parser.mjs",
+      "replay": "scripts/industry/eia-artifact.mjs"
+    },
+    {
+      "status": "GO",
+      "series": "WCRRIUS2",
+      "source": {
+        "dataset": "EIA Petroleum / Weekly Supply Estimates",
+        "series": "WCRRIUS2",
+        "frequency": "W",
+        "title": "Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+        "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "downloadUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCRRIUS2w.xls",
+        "publicationDateOnSnapshot": "2026-09-16",
+        "snapshotMeaning": "Current history, not historical vintages; date-only page release is not per-observation publicationDateTime",
+        "periodMeaning": "week_ending is the official weekly end-date label for the daily rate; referencePeriod start=end stores that label, not an accumulation interval"
+      },
+      "definition": {
+        "id": "US_EIA_REFINERY_CRUDE_INPUT",
+        "revision": "1",
+        "canonicalName": "美国炼厂原油净投入（周度日均）",
+        "industryId": "oil-shipping",
+        "entity": null,
+        "geography": "US",
+        "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+        "unit": "Thousand Barrels per Day",
+        "nativeFrequency": "weekly",
+        "basis": [
+          "week_ending"
+        ],
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+        "window": {
+          "start": "2026-07-03",
+          "end": "2026-09-11"
+        },
+        "missingPeriods": [],
+        "freshness": "unknown",
+        "staleAfter": null
+      },
+      "registryEntry": {
+        "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+        "industryId": "oil-shipping",
+        "definitionRef": {
+          "owner": "config/industry/eia-refinery-input.v1.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_REFINERY_CRUDE_INPUT",
+          "version": "1",
+          "sha256": "3d0bc37fbbd9929caf6d004aa7f41e41a5d2c59c894626e89a1ae2592b889818"
+        },
+        "artifactRef": {
+          "owner": "src/data/real/industry-eia-refinery-input.generated.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_REFINERY_CRUDE_INPUT",
+          "version": "1",
+          "sha256": "5137866536ef50dd128d3ae9f971675ddaad7df311ac7d8fe7cb72010320e29c"
+        },
+        "bindingRef": {
+          "owner": "config/industry/eia-refinery-input-semantic-binding.v2.json",
+          "locator": "/bindingId",
+          "objectId": "eia-refinery-input.v1",
+          "version": "1",
+          "sha256": "4c250993831854c6aadfe1bd9efd07eadcfecdbdde28cfb7d4be86167dd01407"
+        },
+        "policyRef": {
+          "owner": "config/industry/eia-refinery-input.v1.json",
+          "locator": "/policy",
+          "objectId": "industry-metric-eia-refinery-input-policy",
+          "version": "1",
+          "sha256": "3d0bc37fbbd9929caf6d004aa7f41e41a5d2c59c894626e89a1ae2592b889818"
+        },
+        "presentation": {
+          "delta": "none",
+          "basisLabels": {
+            "week_ending": "周度日均（周末标签）"
+          },
+          "note": "官方周频日均速率，单位千桶/日；周末为观测标签，不是周累计，不换算、不计算周变化或趋势；不代表油运需求或景气。"
+        }
+      },
+      "dimensionMapping": {
+        "industryId": "oil-shipping",
+        "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+        "definitionRef": {
+          "owner": "config/industry/eia-refinery-input.v1.json",
+          "locator": "/definition",
+          "objectId": "US_EIA_REFINERY_CRUDE_INPUT",
+          "version": "1",
+          "sha256": "3d0bc37fbbd9929caf6d004aa7f41e41a5d2c59c894626e89a1ae2592b889818"
+        },
+        "dimension": "demand",
+        "subdimension": "refinery_input"
+      },
+      "manifest": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+      "captures": [
+        {
+          "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "finalUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "status": 200,
+          "path": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+          "sha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "byteLength": 241511,
+          "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+          "role": "SERIES_HISTORY"
+        },
+        {
+          "url": "https://www.eia.gov/dnav/pet/hist_xls/WCRRIUS2w.xls",
+          "finalUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCRRIUS2w.xls",
+          "status": 200,
+          "path": "research-data/industry/eia-petroleum-refinery-input-v1/raw/828dc0779fd77fc75d2f4825dcf94a4c630a66a7aec65268b206a7fd5c97b780.xls",
+          "sha256": "828dc0779fd77fc75d2f4825dcf94a4c630a66a7aec65268b206a7fd5c97b780",
+          "byteLength": 130048,
+          "acquiredAt": "2026-09-18T11:00:46.249586+00:00",
+          "role": "OFFICIAL_DOWNLOAD"
+        }
+      ],
+      "observations": 11,
+      "first": 17024,
+      "last": 17330,
+      "parser": "scripts/industry/eia-parser.mjs",
+      "replay": "scripts/industry/eia-artifact.mjs"
+    }
+  ],
+  "noGo": [],
+  "deferred": [
+    "crude imports",
+    "refinery utilization"
+  ]
+}

@@ -7,7 +7,7 @@
     "data:fetch:industry": "python scripts/industry/fetch_nbs.py",
     "data:build:industry": "node scripts/industry/source-adapters.mjs --write",
     "data:validate:industry": "node scripts/industry/registry.mjs",
-    "test:industry": "npm run test:industry:freshness && node --test scripts/tests/industry-metric.node.mjs scripts/tests/industry-registry.node.mjs scripts/tests/industry-eia.node.mjs && vitest run src/services/industryCrossSource.test.ts src/types/industryMetric.contract.test.ts src/services/industryMetricProvider.test.ts src/components/industry/IndustryMetricPanel.test.tsx src/components/industry/IndustryTab.ui-v1.test.tsx src/services/industrySignals.test.ts src/services/industryChain.test.ts src/components/industry/IndustryChangePanel.test.tsx src/components/industry/IndustryChainDiagram.test.tsx",
+    "test:industry": "npm run test:industry:freshness && node --test scripts/tests/industry-metric.node.mjs scripts/tests/industry-registry.node.mjs scripts/tests/industry-eia.node.mjs scripts/tests/industry-eia-dimensions.node.mjs scripts/tests/industry-dimensions.node.mjs && vitest run src/services/industrySnapshot.test.ts src/components/industry/IndustrySnapshotPanel.test.tsx src/services/industryCrossSource.test.ts src/types/industryMetric.contract.test.ts src/services/industryMetricProvider.test.ts src/components/industry/IndustryMetricPanel.test.tsx src/components/industry/IndustryTab.ui-v1.test.tsx src/services/industrySignals.test.ts src/services/industryChain.test.ts src/components/industry/IndustryChangePanel.test.tsx src/components/industry/IndustryChainDiagram.test.tsx",
     "dev": "vite",
     "env:check": "node scripts/dev-health.mjs",
     "env:check:json": "node scripts/dev-health.mjs --json",

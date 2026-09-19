@@ -1,5 +1,9 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-18 CURRENT — Stage 4.2 Slice 5：**D0 GO / IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。独立版本化 exact dimension mapping + 多因子只读快照；新增 EIA 原油产量/出口/炼厂净投入 3 owners，总计 6 owners，oil-shipping 覆盖 supply/demand/trade_flow/inventory 四维，robotics 原双 owner 保持。原 21 文件字节与 3 Registry pins/entries 不变。8 Python / 63 Node / 87 Industry Vitest、全量887 tests、6-owner replay、build、contracts、1038 browser checks PASS；data audit 0 errors / 34 非阻断 warnings。PIT/Entity/F1/F2/F3/admission 不提升；不生成新 delta/score/trend/Claim/Thesis。只普通 commit/push 后停止；本切片 Hosted CI NOT_RUN，独立审计 PENDING。[冻结方案与实测证据](stage-4-2-slice-5-plan.md)。
+
+> 2026-09-18 CURRENT 基线核验：PR [#62](https://github.com/lwd619783-byte/-/pull/62) 已 MERGED；main `8497ac9199def1fbec420eecc6ad7b7305ce160d`，PR CI [35335279897](https://github.com/lwd619783-byte/-/actions/runs/35335279897) / main CI [35335680417](https://github.com/lwd619783-byte/-/actions/runs/35335680417) completed/success。Vercel Production deployment `6522548855`（同一 main SHA）success / READY，核验于本轮；中文化切片与 Slice 4 均已合入。以下旧交付段落保留原时点，准入/PIT/F1/F3 不提升。当前 Slice 5 仅 Metric → Dimension → Multi-factor Snapshot，冻结方案见 [Slice 5](stage-4-2-slice-5-plan.md)，不授权 Prosperity/Regime/Claim/Thesis。
+
 > 2026-09-18 中文化审计修复增量：从 `2fd51dba9b42fc99f7bf2b3415f5c831727edbec` 修复 Industry Change / Inbox / 证据摘要的 EIA 标题展示，以及复盘任务 pending 的“待处理”上下文翻译；全局 pending 仍为“待核验”，原始事件标题与任务状态不变。相关36 tests、全量875 tests、build PASS；PENDING INDEPENDENT RE-REVIEW。仅原分支普通 commit/push，不建 PR、不 merge。[记录](chinese-ui-evidence-display-2026-09-18.md#独立审计修复增量)。
 
 > 2026-09-18 CURRENT — 中文化与证据展示降噪：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。精确基线 `01b246a25bbe304ceb9c121e92eb91bedbdcf478`；仅显示层中文标签、证据摘要与默认折叠高级审计信息。Evidence / Chart Audit / Inbox / Industry / 产业链及首页、宏观、个股、预期主要文案已同步；原始审计字段完整保留。869 Vitest、8 Industry Python、35 Industry Node、73 Industry Vitest、build、三主题三尺寸508 browser checks PASS。Provider / Registry / Contract / PIT / Evidence owner / pins / 原始数据无差异；准入不提升。本分支普通 commit/push 后停止，不创建 PR/merge；本切片 Hosted CI 未核验。[交付记录](chinese-ui-evidence-display-2026-09-18.md)。
@@ -86,7 +90,7 @@
 | --- | --- | --- | --- |
 | 研究终端 UI | DONE | 暗色终端、KPI、Card、Chart、Table、Filter、响应式 | 后续仅随新 Feature 演进 |
 | 宏观看板 | PARTIAL | `MacroTab`、宏观静态/生成数据 | 接入 Stage 4.1 Metric Registry、频率/发布时间/修订/stale 体系 |
-| 行业研究 | PARTIAL | 既有研究资料、细分、产业链、公司池；Registry 驱动 NBS 双 metric + EIA weekly inventory/history/审计 preview | **Slice 3 CLOSED；Slice 4 VERIFIED LOCALLY / PENDING REVIEW；NOT_ADMITTED；prosperity 未实现** |
+| 行业研究 | PARTIAL | 既有研究资料、细分、产业链、公司池；Registry 驱动 6 owners，独立 Dimension mapping 与四维 EIA snapshot/history/审计 preview | **Slice 1–4 MERGED；Slice 5 VERIFIED LOCALLY / PENDING REVIEW；NOT_ADMITTED；prosperity 未实现** |
 | 个股池 | DONE | A/H 股研究池、筛选、排序、详情 | 后续扩 stock universe 与估值维度 |
 | 个股详情 | DONE | 行情、财务、公告、研究事件、预期等聚合 | 后续加入估值、持仓、研究 thesis |
 | 观察清单 | DONE | Watchlist V2、复盘、任务、备份 | 云同步、跨设备、账户化 |
@@ -141,7 +145,7 @@
 | Data Audit | DONE V1 | P0 / blocking risk / mock fallback / zero coercion 等 | 随新 domain 扩规则 |
 | Provider Stability Gate | DONE FRAMEWORK | observation / provenance / resolution / threshold | 当前样本不足，资格仍 NO_GO |
 | Developer Health Gate | DONE V1 | env check / json output | 可逐步模块化 |
-| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F/G 门禁、Stage 4.1B Slice 1/2 完整 workflow 均已在对应 PR/main CI 通过；Slice 3 F3 两个 direct gates 已在 PR #54 / main push completed/success | Slice 1 industry gates 已随 PR #56/main CI 通过；Slice 2 PR #58/main CI PASS；Slice 3 PR #59/main CI PASS；Slice 4 Hosted NOT_RUN |
+| GitHub Actions CI | DONE | 离线验证、tests、build、artifact checks；Stage 4.1-F/G 门禁、Stage 4.1B Slice 1/2 完整 workflow 均已在对应 PR/main CI 通过；Slice 3 F3 两个 direct gates 已在 PR #54 / main push completed/success | Slice 1 industry gates 已随 PR #56/main CI 通过；Slice 2 PR #58/main CI PASS；Slice 3 PR #59/main CI PASS；Slice 4 PR #61/main CI PASS；中文化 PR #62/main CI PASS；Slice 5 Hosted NOT_RUN |
 | Bundle Gate | DONE | 财务等重数据不进入 initial bundle | 新重数据功能继续遵守 |
 | UI Audit | DONE | UI 扫描 | 后续随页面扩展 |
 
@@ -174,8 +178,8 @@
 | Cloud business database / cross-device sync | DEFERRED | P0 | 当前 Local-first freeze 已覆盖旧 Cloud Store 假设；若未来改变方向须重新冻结 scope，不是现行 Stage 4 默认任务；Research Bridge 自身的 Auth / scope 仍属于 Stage 4.5 缺口 |
 | Browser LocalStorage workflow migration | NOT STARTED | P0 | Watchlist / Expectation 仍使用 LocalStorage；迁往 Local Core 或其他目标尚无冻结实施范围，不得写成已迁移 |
 | Valuation Center | NOT STARTED | P1 | 当前 V2 路线列入 Stage 4.6+ Advanced Valuation |
-| Industry Metric Registry / Provider | Slice 2 MERGED；Slice 4 VERIFIED / PENDING REVIEW | P1 | 3 owners / NBS + EIA；robotics + oil-shipping；月度产量/官方同比 + 周度库存；显式 Source Adapter 分派、exact pins/replay；其他行业 unavailable，准入未提升 |
-| Industry Signal / Change Event / Chain Diagram | Slice 3 MERGED / MAIN CI PASS；Slice 4 PENDING REVIEW | P1 | **Stage 4.2 Slice 3**：latest 双 Signal 聚合一个 release event、Inbox/Evidence 导航、研究结构图与独立 Provider overlay；freshness 见专项交付；不产生景气判断 |
+| Industry Metric Registry / Provider / Dimensions / Snapshot | Slice 1–4 MERGED；Slice 5 VERIFIED / PENDING REVIEW | P1 | 6 owners / NBS + EIA；robotics 双指标与 oil-shipping 四维；独立 mapping + 只读 snapshot，exact pins/adapter/replay；空维度 missing，无评分/新 delta，准入未提升 |
+| Industry Signal / Change Event / Chain Diagram | Slice 3–4 MERGED / MAIN CI PASS | P1 | **Stage 4.2 Slice 3**：latest 双 Signal 聚合一个 release event、Inbox/Evidence 导航、研究结构图与独立 Provider overlay；freshness 见专项交付；不产生景气判断 |
 | Industry Prosperity Score | NOT STARTED | P1 | Stage 4.2；先建立正式 metric/provider/history，再讨论评分/景气派生 |
 | Full HK Research Chain | NOT STARTED | P1 | Stage 4.6+ |
 | Research Copilot / Auto Review | NOT STARTED | P2 | Stage 4.6+；先依赖可信 What Changed / Market Regime / Research workflow 输出 |

@@ -1,0 +1,906 @@
+{
+  "schemaVersion": "industry-metric.v1",
+  "generatedAt": "2026-09-18T14:14:19.740Z",
+  "definition": {
+    "id": "US_EIA_REFINERY_CRUDE_INPUT",
+    "revision": "1",
+    "canonicalName": "美国炼厂原油净投入（周度日均）",
+    "industryId": "oil-shipping",
+    "entity": null,
+    "geography": "US",
+    "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+    "unit": "Thousand Barrels per Day",
+    "nativeFrequency": "weekly",
+    "basis": [
+      "week_ending"
+    ],
+    "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+    "sourceOwner": "U.S. Energy Information Administration",
+    "acquisitionAdapter": "eia-petroleum-history-html.v1",
+    "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+    "window": {
+      "start": "2026-07-03",
+      "end": "2026-09-11"
+    },
+    "missingPeriods": [],
+    "freshness": "unknown",
+    "staleAfter": null
+  },
+  "policy": {
+    "id": "industry-metric-eia-refinery-input-policy",
+    "revision": "1",
+    "entityResolution": "UNRESOLVED",
+    "dataAdmission": "NOT_ADMITTED",
+    "productionAdmission": "NOT_ADMITTED",
+    "allowedUses": [],
+    "forbiddenUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "previewUse": "显式 NOT_ADMITTED 的只读来源核对；不进入正式语义检索、评分或交易"
+  },
+  "definitionRef": {
+    "owner": "config/industry/eia-refinery-input.v1.json",
+    "locator": "/definition",
+    "objectId": "US_EIA_REFINERY_CRUDE_INPUT",
+    "version": "1",
+    "sha256": "3d0bc37fbbd9929caf6d004aa7f41e41a5d2c59c894626e89a1ae2592b889818"
+  },
+  "observations": [
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-07-03:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-03",
+      "referencePeriod": {
+        "start": "2026-07-03",
+        "end": "2026-07-03"
+      },
+      "value": 17024,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "17,024",
+          "07/10",
+          "17,123",
+          "07/17",
+          "17,065",
+          "07/24",
+          "17,336",
+          "07/31",
+          "17,153"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[3]",
+          "title": "2026-07-03 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-07-10:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-10",
+      "referencePeriod": {
+        "start": "2026-07-10",
+        "end": "2026-07-10"
+      },
+      "value": 17123,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "17,024",
+          "07/10",
+          "17,123",
+          "07/17",
+          "17,065",
+          "07/24",
+          "17,336",
+          "07/31",
+          "17,153"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[5]",
+          "title": "2026-07-10 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-07-17:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-17",
+      "referencePeriod": {
+        "start": "2026-07-17",
+        "end": "2026-07-17"
+      },
+      "value": 17065,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[7]",
+        "column": 6,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "17,024",
+          "07/10",
+          "17,123",
+          "07/17",
+          "17,065",
+          "07/24",
+          "17,336",
+          "07/31",
+          "17,153"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[7]",
+          "title": "2026-07-17 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-07-24:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-24",
+      "referencePeriod": {
+        "start": "2026-07-24",
+        "end": "2026-07-24"
+      },
+      "value": 17336,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[9]",
+        "column": 8,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "17,024",
+          "07/10",
+          "17,123",
+          "07/17",
+          "17,065",
+          "07/24",
+          "17,336",
+          "07/31",
+          "17,153"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[9]",
+          "title": "2026-07-24 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-07-31:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-31",
+      "referencePeriod": {
+        "start": "2026-07-31",
+        "end": "2026-07-31"
+      },
+      "value": 17153,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[11]",
+        "column": 10,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "17,024",
+          "07/10",
+          "17,123",
+          "07/17",
+          "17,065",
+          "07/24",
+          "17,336",
+          "07/31",
+          "17,153"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[11]",
+          "title": "2026-07-31 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-08-07:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-07",
+      "referencePeriod": {
+        "start": "2026-08-07",
+        "end": "2026-08-07"
+      },
+      "value": 17179,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "17,179",
+          "08/14",
+          "17,395",
+          "08/21",
+          "17,393",
+          "08/28",
+          "17,496",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[3]",
+          "title": "2026-08-07 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-08-14:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-14",
+      "referencePeriod": {
+        "start": "2026-08-14",
+        "end": "2026-08-14"
+      },
+      "value": 17395,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "17,179",
+          "08/14",
+          "17,395",
+          "08/21",
+          "17,393",
+          "08/28",
+          "17,496",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[5]",
+          "title": "2026-08-14 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-08-21:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-21",
+      "referencePeriod": {
+        "start": "2026-08-21",
+        "end": "2026-08-21"
+      },
+      "value": 17393,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[7]",
+        "column": 6,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "17,179",
+          "08/14",
+          "17,395",
+          "08/21",
+          "17,393",
+          "08/28",
+          "17,496",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[7]",
+          "title": "2026-08-21 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-08-28:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-28",
+      "referencePeriod": {
+        "start": "2026-08-28",
+        "end": "2026-08-28"
+      },
+      "value": 17496,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[9]",
+        "column": 8,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "17,179",
+          "08/14",
+          "17,395",
+          "08/21",
+          "17,393",
+          "08/28",
+          "17,496",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[9]",
+          "title": "2026-08-28 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-09-04:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-09-04",
+      "referencePeriod": {
+        "start": "2026-09-04",
+        "end": "2026-09-04"
+      },
+      "value": 17586,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Sep",
+          "09/04",
+          "17,586",
+          "09/11",
+          "17,330",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+          "title": "2026-09-04 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_REFINERY_CRUDE_INPUT:2026-09-11:week_ending:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "metricId": "US_EIA_REFINERY_CRUDE_INPUT",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-09-11",
+      "referencePeriod": {
+        "start": "2026-09-11",
+        "end": "2026-09-11"
+      },
+      "value": 17330,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "generatedAt": "2026-09-18T14:14:19.740Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRRIUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+        "rawSha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-refinery-input-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRRIUS2:5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+          "version": "1",
+          "sha256": "7d8087de31902269b821b25a71792ad8257ae7877862989c559ab9f227099d5d"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Sep",
+          "09/04",
+          "17,586",
+          "09/11",
+          "17,330",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+          "title": "2026-09-11 Weekly U.S. Refiner Net Input of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+          "quality": "candidate"
+        }
+      }
+    }
+  ],
+  "completeness": {
+    "scope": "declared_window_only",
+    "availableCount": 11,
+    "targetCount": 11,
+    "missingPeriods": [],
+    "historicalCoverage": "partial"
+  }
+}

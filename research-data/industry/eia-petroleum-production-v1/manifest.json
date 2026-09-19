@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "eia-petroleum-capture.v1",
+  "id": "eia-petroleum-production-v1",
+  "revision": "1",
+  "series": "WCRFPUS2",
+  "frequency": "W",
+  "captures": [
+    {
+      "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+      "finalUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+      "status": 200,
+      "path": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+      "sha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "byteLength": 237357,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "role": "SERIES_HISTORY"
+    },
+    {
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WCRFPUS2w.xls",
+      "finalUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCRFPUS2w.xls",
+      "status": 200,
+      "path": "research-data/industry/eia-petroleum-production-v1/raw/8487f90eac9e970a4a7b4dead82f31d88c4451ad4966e7a3dd17882a984d9b53.xls",
+      "sha256": "8487f90eac9e970a4a7b4dead82f31d88c4451ad4966e7a3dd17882a984d9b53",
+      "byteLength": 129024,
+      "acquiredAt": "2026-09-18T11:00:50.094286+00:00",
+      "role": "OFFICIAL_DOWNLOAD"
+    }
+  ]
+}

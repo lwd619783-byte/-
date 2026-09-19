@@ -1,0 +1,906 @@
+{
+  "schemaVersion": "industry-metric.v1",
+  "generatedAt": "2026-09-18T14:14:19.084Z",
+  "definition": {
+    "id": "US_EIA_CRUDE_PRODUCTION",
+    "revision": "1",
+    "canonicalName": "美国原油产量（周度日均）",
+    "industryId": "oil-shipping",
+    "entity": null,
+    "geography": "US",
+    "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+    "unit": "Thousand Barrels per Day",
+    "nativeFrequency": "weekly",
+    "basis": [
+      "week_ending"
+    ],
+    "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+    "sourceOwner": "U.S. Energy Information Administration",
+    "acquisitionAdapter": "eia-petroleum-history-html.v1",
+    "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+    "window": {
+      "start": "2026-07-03",
+      "end": "2026-09-11"
+    },
+    "missingPeriods": [],
+    "freshness": "unknown",
+    "staleAfter": null
+  },
+  "policy": {
+    "id": "industry-metric-eia-production-policy",
+    "revision": "1",
+    "entityResolution": "UNRESOLVED",
+    "dataAdmission": "NOT_ADMITTED",
+    "productionAdmission": "NOT_ADMITTED",
+    "allowedUses": [],
+    "forbiddenUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "previewUse": "显式 NOT_ADMITTED 的只读来源核对；不进入正式语义检索、评分或交易"
+  },
+  "definitionRef": {
+    "owner": "config/industry/eia-production.v1.json",
+    "locator": "/definition",
+    "objectId": "US_EIA_CRUDE_PRODUCTION",
+    "version": "1",
+    "sha256": "0f094f5a39098954eb734beb488e585f1a83b458a8154f108c3f61efa5f70305"
+  },
+  "observations": [
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-07-03:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-03",
+      "referencePeriod": {
+        "start": "2026-07-03",
+        "end": "2026-07-03"
+      },
+      "value": 13860,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "13,860",
+          "07/10",
+          "13,861",
+          "07/17",
+          "13,798",
+          "07/24",
+          "13,796",
+          "07/31",
+          "13,804"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[3]",
+          "title": "2026-07-03 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-07-10:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-10",
+      "referencePeriod": {
+        "start": "2026-07-10",
+        "end": "2026-07-10"
+      },
+      "value": 13861,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "13,860",
+          "07/10",
+          "13,861",
+          "07/17",
+          "13,798",
+          "07/24",
+          "13,796",
+          "07/31",
+          "13,804"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[5]",
+          "title": "2026-07-10 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-07-17:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-17",
+      "referencePeriod": {
+        "start": "2026-07-17",
+        "end": "2026-07-17"
+      },
+      "value": 13798,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[7]",
+        "column": 6,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "13,860",
+          "07/10",
+          "13,861",
+          "07/17",
+          "13,798",
+          "07/24",
+          "13,796",
+          "07/31",
+          "13,804"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[7]",
+          "title": "2026-07-17 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-07-24:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-24",
+      "referencePeriod": {
+        "start": "2026-07-24",
+        "end": "2026-07-24"
+      },
+      "value": 13796,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[9]",
+        "column": 8,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "13,860",
+          "07/10",
+          "13,861",
+          "07/17",
+          "13,798",
+          "07/24",
+          "13,796",
+          "07/31",
+          "13,804"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[9]",
+          "title": "2026-07-24 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-07-31:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-31",
+      "referencePeriod": {
+        "start": "2026-07-31",
+        "end": "2026-07-31"
+      },
+      "value": 13804,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[11]",
+        "column": 10,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "13,860",
+          "07/10",
+          "13,861",
+          "07/17",
+          "13,798",
+          "07/24",
+          "13,796",
+          "07/31",
+          "13,804"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[11]",
+          "title": "2026-07-31 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-08-07:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-07",
+      "referencePeriod": {
+        "start": "2026-08-07",
+        "end": "2026-08-07"
+      },
+      "value": 13805,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "13,805",
+          "08/14",
+          "13,830",
+          "08/21",
+          "13,843",
+          "08/28",
+          "13,862",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[3]",
+          "title": "2026-08-07 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-08-14:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-14",
+      "referencePeriod": {
+        "start": "2026-08-14",
+        "end": "2026-08-14"
+      },
+      "value": 13830,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "13,805",
+          "08/14",
+          "13,830",
+          "08/21",
+          "13,843",
+          "08/28",
+          "13,862",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[5]",
+          "title": "2026-08-14 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-08-21:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-21",
+      "referencePeriod": {
+        "start": "2026-08-21",
+        "end": "2026-08-21"
+      },
+      "value": 13843,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[7]",
+        "column": 6,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "13,805",
+          "08/14",
+          "13,830",
+          "08/21",
+          "13,843",
+          "08/28",
+          "13,862",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[7]",
+          "title": "2026-08-21 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-08-28:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-28",
+      "referencePeriod": {
+        "start": "2026-08-28",
+        "end": "2026-08-28"
+      },
+      "value": 13862,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[9]",
+        "column": 8,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "13,805",
+          "08/14",
+          "13,830",
+          "08/21",
+          "13,843",
+          "08/28",
+          "13,862",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[9]",
+          "title": "2026-08-28 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-09-04:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-09-04",
+      "referencePeriod": {
+        "start": "2026-09-04",
+        "end": "2026-09-04"
+      },
+      "value": 13947,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Sep",
+          "09/04",
+          "13,947",
+          "09/11",
+          "13,944",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+          "title": "2026-09-04 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_PRODUCTION:2026-09-11:week_ending:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+      "metricId": "US_EIA_CRUDE_PRODUCTION",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-09-11",
+      "referencePeriod": {
+        "start": "2026-09-11",
+        "end": "2026-09-11"
+      },
+      "value": 13944,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:39.048032+00:00",
+      "generatedAt": "2026-09-18T14:14:19.084Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCRFPUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-production-v1/raw/69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a.html",
+        "rawSha256": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-production-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCRFPUS2:69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a",
+          "version": "1",
+          "sha256": "81b5aab7659fa53f31bff661a114a169a4f02bfa016bc3ccaa847916a3d01370"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Sep",
+          "09/04",
+          "13,947",
+          "09/11",
+          "13,944",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "69b993b68e7d49d0d675f066372357344176656b01b3d7e084d41cbbbbaf055a:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+          "title": "2026-09-11 Weekly U.S. Field Production of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRFPUS2",
+          "quality": "candidate"
+        }
+      }
+    }
+  ],
+  "completeness": {
+    "scope": "declared_window_only",
+    "availableCount": 11,
+    "targetCount": 11,
+    "missingPeriods": [],
+    "historicalCoverage": "partial"
+  }
+}

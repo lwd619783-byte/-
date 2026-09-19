@@ -5,6 +5,7 @@ import { setImmediate } from 'node:timers/promises';
 import { Ajv2020 } from 'ajv/dist/2020.js';
 import { ROOT, read, bytes, sha256 } from '../semantic-runtime/common.mjs';
 import { createIndustryMetricProvider } from '../../src/services/industryMetricRegistry.mjs';
+import { createIndustryDimensions } from '../../src/services/industryDimensions.mjs';
 import { validateIndustryMetric } from './metric-artifact.mjs';
 import { sourceAdapter } from './source-adapters.mjs';
 import { validateBinding } from '../contracts/financial-research.mjs';
@@ -14,6 +15,7 @@ const ajv = new Ajv2020({ strict: true });
 const shared = read('contracts/financial-research/v1/shared.schema.json');
 ajv.addSchema({ $id: shared.$id, $defs: { Pin: shared.$defs.Pin } });
 export const validateRegistry = ajv.compile(read('contracts/industry/industry-metric-registry.v1.schema.json'));
+export const validateDimensionMapping = ajv.compile(read('contracts/industry/industry-dimension-mapping.v1.schema.json'));
 export function registryResources(registry = read(REGISTRY), root = ROOT) {
   const paths = new Set(registry.entries.flatMap(e => [e.definitionRef.owner, e.artifactRef.owner, e.bindingRef.owner, e.policyRef.owner]));
   for (const file of readdirSync(path.join(root, 'src/data/real'))) if (/^industry-.*\.generated\.json$/.test(file)) paths.add(`src/data/real/${file}`);
@@ -24,6 +26,10 @@ export async function checkRegistry(root = ROOT) {
   const registry = read(REGISTRY, root);
   if (!validateRegistry(registry)) throw new Error(`REGISTRY_SCHEMA: ${ajv.errorsText(validateRegistry.errors)}`);
   const provider = await createIndustryMetricProvider(registry, registryResources(registry, root), sha256);
+  const mapping = read('config/industry/industry-dimension-mapping.v1.json', root);
+  if (!validateDimensionMapping(mapping)) throw new Error('DIMENSION_MAPPING_SCHEMA');
+  const dimensions = await createIndustryDimensions(mapping, provider, sha256);
+  for (const industryId of new Set(registry.entries.map(e => e.industryId))) dimensions.list(industryId);
   for (const entry of registry.entries) {
     const { owner, binding } = provider.get(entry.industryId, entry.metricId);
     if (!validateIndustryMetric(owner)) throw new Error('OWNER_SCHEMA');

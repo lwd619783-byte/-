@@ -52,7 +52,7 @@ export function reviewTaskStatusDisplayLabel(value: ReviewTask["status"]) {
 
 /** Presentation only: never write these labels back to data owners. */
 export function unitDisplayLabel(value: string) {
-  return ({ "Thousand Barrels": "千桶", CNY: "人民币", HKD: "港元", USD: "美元", percent: "%", ratio: "比率", yuan: "元", ten_thousand_yuan: "万元", million_yuan: "百万元", hundred_million_yuan: "亿元", currency_per_share: "每股" } as Record<string, string>)[value] ?? value;
+  return ({ "Thousand Barrels per Day": "千桶/日", "Thousand Barrels": "千桶", CNY: "人民币", HKD: "港元", USD: "美元", percent: "%", ratio: "比率", yuan: "元", ten_thousand_yuan: "万元", million_yuan: "百万元", hundred_million_yuan: "亿元", currency_per_share: "每股" } as Record<string, string>)[value] ?? value;
 }
 
 export function financialMetricLabel(value: string) {
@@ -68,6 +68,10 @@ export function auditDisplayText(value: string): string {
     'U.S. Energy Information Administration': '美国能源信息署（EIA）',
     '更新oil-shipping ': '更新油运行业 ',
     'U.S. Ending Stocks excluding SPR of Crude Oil; commercial stocks excluding lease stock': '美国商业原油期末库存（不含战略石油储备及租赁库存）',
+    'Thousand Barrels per Day': '千桶/日',
+    'U.S. field production of crude oil; weekly daily rate, not a weekly total or seaborne volume': '美国原油产量的周频日均速率，不是周累计或海运量',
+    'U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume': '美国原油出口的周频日均速率，涵盖所有运输方式，不等同于海运量',
+    'U.S. refiner net input of crude oil; weekly daily rate, not total end-use or oil-shipping demand': '美国炼厂原油净投入的周频日均速率，不代表终端总需求或油运需求',
     'Thousand Barrels': '千桶', '未提供 / unknown': '未提供 / 未确认',
     'Evidence Graph / revision continuity': '证据关联 / 修订连续性',
     '只读来源核对；沿用 Metric 准入和候选 Evidence，不创建正式 Evidence / ResearchEvent / Entity；无景气或交易判断': '只读来源核对；沿用指标准入与候选证据，不生成正式证据、研究事件或研究对象；不作景气或交易判断',

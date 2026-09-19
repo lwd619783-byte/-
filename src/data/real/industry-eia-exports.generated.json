@@ -1,0 +1,906 @@
+{
+  "schemaVersion": "industry-metric.v1",
+  "generatedAt": "2026-09-18T14:14:19.485Z",
+  "definition": {
+    "id": "US_EIA_CRUDE_EXPORTS",
+    "revision": "1",
+    "canonicalName": "美国原油出口（周度日均）",
+    "industryId": "oil-shipping",
+    "entity": null,
+    "geography": "US",
+    "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+    "unit": "Thousand Barrels per Day",
+    "nativeFrequency": "weekly",
+    "basis": [
+      "week_ending"
+    ],
+    "sourceId": "EIA_PETROLEUM_WCREXUS2",
+    "sourceOwner": "U.S. Energy Information Administration",
+    "acquisitionAdapter": "eia-petroleum-history-html.v1",
+    "revisionPolicy": "Retained current history snapshot; historical revision continuity unknown; never select by acquisition time",
+    "window": {
+      "start": "2026-07-03",
+      "end": "2026-09-11"
+    },
+    "missingPeriods": [],
+    "freshness": "unknown",
+    "staleAfter": null
+  },
+  "policy": {
+    "id": "industry-metric-eia-exports-policy",
+    "revision": "1",
+    "entityResolution": "UNRESOLVED",
+    "dataAdmission": "NOT_ADMITTED",
+    "productionAdmission": "NOT_ADMITTED",
+    "allowedUses": [],
+    "forbiddenUses": [
+      "strict_pit",
+      "research",
+      "display"
+    ],
+    "previewUse": "显式 NOT_ADMITTED 的只读来源核对；不进入正式语义检索、评分或交易"
+  },
+  "definitionRef": {
+    "owner": "config/industry/eia-exports.v1.json",
+    "locator": "/definition",
+    "objectId": "US_EIA_CRUDE_EXPORTS",
+    "version": "1",
+    "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+  },
+  "observations": [
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-07-03:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-03",
+      "referencePeriod": {
+        "start": "2026-07-03",
+        "end": "2026-07-03"
+      },
+      "value": 3262,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "3,262",
+          "07/10",
+          "3,721",
+          "07/17",
+          "3,353",
+          "07/24",
+          "3,467",
+          "07/31",
+          "3,685"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[3]",
+          "title": "2026-07-03 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-07-10:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-10",
+      "referencePeriod": {
+        "start": "2026-07-10",
+        "end": "2026-07-10"
+      },
+      "value": 3721,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "3,262",
+          "07/10",
+          "3,721",
+          "07/17",
+          "3,353",
+          "07/24",
+          "3,467",
+          "07/31",
+          "3,685"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[5]",
+          "title": "2026-07-10 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-07-17:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-17",
+      "referencePeriod": {
+        "start": "2026-07-17",
+        "end": "2026-07-17"
+      },
+      "value": 3353,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[7]",
+        "column": 6,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "3,262",
+          "07/10",
+          "3,721",
+          "07/17",
+          "3,353",
+          "07/24",
+          "3,467",
+          "07/31",
+          "3,685"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[7]",
+          "title": "2026-07-17 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-07-24:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-24",
+      "referencePeriod": {
+        "start": "2026-07-24",
+        "end": "2026-07-24"
+      },
+      "value": 3467,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[9]",
+        "column": 8,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "3,262",
+          "07/10",
+          "3,721",
+          "07/17",
+          "3,353",
+          "07/24",
+          "3,467",
+          "07/31",
+          "3,685"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[9]",
+          "title": "2026-07-24 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-07-31:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-07-31",
+      "referencePeriod": {
+        "start": "2026-07-31",
+        "end": "2026-07-31"
+      },
+      "value": 3685,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[11]",
+        "column": 10,
+        "rawRow": [
+          "2026-Jul",
+          "07/03",
+          "3,262",
+          "07/10",
+          "3,721",
+          "07/17",
+          "3,353",
+          "07/24",
+          "3,467",
+          "07/31",
+          "3,685"
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Jul\"]/td[11]",
+          "title": "2026-07-31 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-08-07:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-07",
+      "referencePeriod": {
+        "start": "2026-08-07",
+        "end": "2026-08-07"
+      },
+      "value": 3058,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "3,058",
+          "08/14",
+          "4,066",
+          "08/21",
+          "3,792",
+          "08/28",
+          "4,483",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[3]",
+          "title": "2026-08-07 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-08-14:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-14",
+      "referencePeriod": {
+        "start": "2026-08-14",
+        "end": "2026-08-14"
+      },
+      "value": 4066,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "3,058",
+          "08/14",
+          "4,066",
+          "08/21",
+          "3,792",
+          "08/28",
+          "4,483",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[5]",
+          "title": "2026-08-14 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-08-21:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-21",
+      "referencePeriod": {
+        "start": "2026-08-21",
+        "end": "2026-08-21"
+      },
+      "value": 3792,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[7]",
+        "column": 6,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "3,058",
+          "08/14",
+          "4,066",
+          "08/21",
+          "3,792",
+          "08/28",
+          "4,483",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[7]",
+          "title": "2026-08-21 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-08-28:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-08-28",
+      "referencePeriod": {
+        "start": "2026-08-28",
+        "end": "2026-08-28"
+      },
+      "value": 4483,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[9]",
+        "column": 8,
+        "rawRow": [
+          "2026-Aug",
+          "08/07",
+          "3,058",
+          "08/14",
+          "4,066",
+          "08/21",
+          "3,792",
+          "08/28",
+          "4,483",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Aug\"]/td[9]",
+          "title": "2026-08-28 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-09-04",
+      "referencePeriod": {
+        "start": "2026-09-04",
+        "end": "2026-09-04"
+      },
+      "value": 3417,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+        "column": 2,
+        "rawRow": [
+          "2026-Sep",
+          "09/04",
+          "3,417",
+          "09/11",
+          "4,831",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+          "title": "2026-09-04 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    },
+    {
+      "id": "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+      "metricId": "US_EIA_CRUDE_EXPORTS",
+      "industryId": "oil-shipping",
+      "geography": "US",
+      "scope": "U.S. exports of crude oil; weekly daily rate, all transport modes, not seaborne-only volume",
+      "unit": "Thousand Barrels per Day",
+      "frequency": "weekly",
+      "basis": "week_ending",
+      "valueDate": "2026-09-11",
+      "referencePeriod": {
+        "start": "2026-09-11",
+        "end": "2026-09-11"
+      },
+      "value": 4831,
+      "publicationDateTime": null,
+      "releaseAvailableAt": null,
+      "acquiredAt": "2026-09-18T11:00:37.409491+00:00",
+      "generatedAt": "2026-09-18T14:14:19.485Z",
+      "revision": {
+        "status": "unknown",
+        "sequence": null,
+        "supersedes": null,
+        "retainedVintage": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+      },
+      "quality": {
+        "source": "U.S. Energy Information Administration",
+        "sourceLayer": "official",
+        "sourceEndpoint": "eia-petroleum-history-html.v1",
+        "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+        "status": "real"
+      },
+      "conditions": [
+        "not_admitted",
+        "unknown"
+      ],
+      "pit": "UNPROVED",
+      "dataAdmission": "NOT_ADMITTED",
+      "productionAdmission": "NOT_ADMITTED",
+      "provenance": {
+        "sourceId": "EIA_PETROLEUM_WCREXUS2",
+        "sourceOwner": "U.S. Energy Information Administration",
+        "acquisitionAdapter": "eia-petroleum-history-html.v1",
+        "rawPath": "research-data/industry/eia-petroleum-exports-v1/raw/81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd.html",
+        "rawSha256": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+        "captureRef": {
+          "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+          "locator": "/captures/0",
+          "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "version": "1",
+          "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+        },
+        "locator": "table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+        "column": 4,
+        "rawRow": [
+          "2026-Sep",
+          "09/04",
+          "3,417",
+          "09/11",
+          "4,831",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "transformVersion": "eia-petroleum-history-html.v1",
+        "evidence": {
+          "refType": "web_source",
+          "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+          "title": "2026-09-11 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+          "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+          "quality": "candidate"
+        }
+      }
+    }
+  ],
+  "completeness": {
+    "scope": "declared_window_only",
+    "availableCount": 11,
+    "targetCount": 11,
+    "missingPeriods": [],
+    "historicalCoverage": "partial"
+  }
+}

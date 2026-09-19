@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "eia-petroleum-capture.v1",
+  "id": "eia-petroleum-refinery-input-v1",
+  "revision": "1",
+  "series": "WCRRIUS2",
+  "frequency": "W",
+  "captures": [
+    {
+      "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+      "finalUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCRRIUS2",
+      "status": 200,
+      "path": "research-data/industry/eia-petroleum-refinery-input-v1/raw/5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678.html",
+      "sha256": "5a574df59f0103966ea85777a7efc0851656c0f3e0d9d070595c6f82b9119678",
+      "byteLength": 241511,
+      "acquiredAt": "2026-09-18T11:00:37.245926+00:00",
+      "role": "SERIES_HISTORY"
+    },
+    {
+      "url": "https://www.eia.gov/dnav/pet/hist_xls/WCRRIUS2w.xls",
+      "finalUrl": "https://www.eia.gov/dnav/pet/hist_xls/WCRRIUS2w.xls",
+      "status": 200,
+      "path": "research-data/industry/eia-petroleum-refinery-input-v1/raw/828dc0779fd77fc75d2f4825dcf94a4c630a66a7aec65268b206a7fd5c97b780.xls",
+      "sha256": "828dc0779fd77fc75d2f4825dcf94a4c630a66a7aec65268b206a7fd5c97b780",
+      "byteLength": 130048,
+      "acquiredAt": "2026-09-18T11:00:46.249586+00:00",
+      "role": "OFFICIAL_DOWNLOAD"
+    }
+  ]
+}
