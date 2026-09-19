@@ -1,5 +1,15 @@
 # 投资研究看板架构基线
 
+## 2026-09-19 Industry Slice 6 runtime 增量
+
+Registry / Generic Provider 与 reviewed dimension mapping 仍是唯一发现/映射 owner。原 `industryHistory` 提取为共享纯模块（TS 页面与 Node 重放共用，行为不变）；`industrySignalClaim.mjs` 读取 immutable resources 与 reviewed `industry-signal-policy.v1`，计算相邻留存绝对差、输入 manifest 和固定模板 Claim Candidate。浏览器惰性加载，只读、无新 Store/数据库/事件持久化；离线保留 `research-data/industry/signal-claim-v1/derived.json` 与 `graphs.json`，校验重放且禁止同路径覆盖不同内容。
+
+F2 核心从原 offline contract checker 提取到 `evidenceGraph.mjs`，原 checker 和 Industry runtime 共用 typed-edge、revision、condition union、cycle/dangling/pin 门禁。Industry adapter 额外核对 exact owner、formula/manifest、Evidence→Fact 对应关系、origin、不可丢弃的 owner conditions。浏览器校验器从**原 F2 schema**离线编译，完整保留格式/Unicode 校验；只 bundle standalone helper，不带 Ajv compiler 或 Node-only 依赖。`data:validate:industry` 检查生成物与原合同一致。F2 schema/relation policy/原33个Golden不改。
+
+`Industry Workspace → IndustrySignalClaimPanel → 原 EvidenceDrawer/ChartAuditPanel`：Candidate → Signal → input pins → exact observation/EvidenceRef → capture/raw SHA/locator/official URL。`candidateGraph` 仅声明候选引用结构存在；原 chart linkage 仍 null，正式支持资格均 blocked，不伪造历史 Entity/revision/PIT closure。
+
+Prosperity V1 只返回 eligibility/abstention + blocker refs，无 score/direction。固定必需维度及额外行业范围/判断方法准入门禁由同一 reviewed policy 持有。F3 独立 Industry suite 使用原 evaluateRequest/Result/semanticDiff 执行真实同一服务；新增5个向量与原Frozen33个分开报告。没有新 Provider、Thesis/Portfolio/Agent、业务写入或网络采集。实现/验证/独立审计与数据生产准入始终分开；[Slice 6 方案](stage-4-2-slice-6-plan.md)。
+
 > UI V1.0 设计入口：[NEON-RC1-20260909 获批事实源](ui-redesign/v1/README.md)与[D0–D5 执行索引](ui-redesign/v1/execution-index.md)。2026-09-09 APPROVED / FROZEN；D0 仅文档归档，D1–D5 未派发，不表示 UI 已实现或业务准入。
 
 > 文档状态：CURRENT IMPLEMENTATION SNAPSHOT / NOT CURRENT PRODUCT ROADMAP  

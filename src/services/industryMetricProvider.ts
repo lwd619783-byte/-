@@ -1,8 +1,10 @@
+import { industryHistory } from './industryHistory.mjs';
+export { industryHistory } from './industryHistory.mjs';
 import registry from '../../config/industry/industry-metric-registry.v1.json';
 import { createIndustryMetricProvider } from './industryMetricRegistry.mjs';
 import type { IndustryMetricProvider, IndustryMetricRegistryEntry } from './industryMetricRegistry.mjs';
-import type { IndustryMetricBasis, IndustryMetricDataset, IndustryMetricObservation } from '../types/industryMetric';
-import { chartNumericValue, orderedStates, type ChartAuditView } from './chartAudit';
+import type { IndustryMetricBasis, IndustryMetricDataset } from '../types/industryMetric';
+import { type ChartAuditView } from './chartAudit';
 import { safeEvidenceUrl } from '../utils/evidenceUrl';
 
 // Registry is the only discovery index. Glob resources are bytes, never positional owner matches.
@@ -12,64 +14,6 @@ let loaded: Promise<IndustryProviderState> | undefined;
 export function loadIndustryMetrics(): Promise<IndustryProviderState> {
   return loaded ??= createIndustryMetricProvider(registry, Object.entries(bundled).map(([path, raw]) => ({ path: path.slice(1), raw })))
     .then(provider => ({ status: 'available' as const, provider }), error => ({ status: 'blocked' as const, reason: error instanceof Error ? error.message : 'REGISTRY_UNAVAILABLE' }));
-}
-const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
-function months(start: string, end: string) {
-  if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(start) || !/^\d{4}-(0[1-9]|1[0-2])$/.test(end) || start > end) return [];
-  const result: string[] = [];
-  for (let cursor = start; cursor <= end && result.length < 1200;) {
-    result.push(cursor);
-    const [year, month] = cursor.split('-').map(Number);
-    cursor = month === 12 ? `${year + 1}-01` : `${year}-${String(month + 1).padStart(2, '0')}`;
-  }
-  return result;
-}
-function periods(d: IndustryMetricDataset['definition']) {
-  if (d.nativeFrequency === 'monthly') return months(d.window.start, d.window.end);
-  if (d.nativeFrequency !== 'weekly') return [];
-  const { start, end } = d.window;
-  const valid = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s) && Number.isFinite(Date.parse(s)) && new Date(s).toISOString().slice(0, 10) === s;
-  if (!valid(start) || !valid(end) || start > end) return [];
-  const step = 7 * 86400000, count = (Date.parse(end) - Date.parse(start)) / step + 1;
-  if (!Number.isInteger(count) || count > 1200) return [];
-  return Array.from({ length: count }, (_, i) => new Date(Date.parse(start) + i * step).toISOString().slice(0, 10));
-}
-function belongs(o: IndustryMetricObservation, owner: IndustryMetricDataset) {
-  const d = owner.definition;
-  return o.metricId === d.id && o.industryId === d.industryId && o.geography === d.geography && o.scope === d.scope
-    && o.unit === d.unit && o.frequency === d.nativeFrequency && d.basis.includes(o.basis)
-    && o.provenance.sourceId === d.sourceId && o.provenance.sourceOwner === d.sourceOwner
-    && o.provenance.acquisitionAdapter === d.acquisitionAdapter
-    && ((d.nativeFrequency === 'monthly' && ['monthly', 'year_to_date'].includes(o.basis)) || (d.nativeFrequency === 'weekly' && o.basis === 'week_ending'))
-    && o.referencePeriod.end === o.valueDate && o.referencePeriod.start === (o.basis === 'year_to_date' ? `${o.valueDate.slice(0, 4)}-01` : o.valueDate)
-    && periods(d).includes(o.valueDate);
-}
-/** Diagnostic display only. This never returns an F1 eligible value or a PIT vintage. */
-export function industryHistory(owner: IndustryMetricDataset, basis: IndustryMetricBasis) {
-  const rejected = owner.observations.filter(o => !belongs(o, owner));
-  const idCounts = new Map<string, number>();
-  for (const o of owner.observations) idCounts.set(o.id, (idCounts.get(o.id) ?? 0) + 1);
-  const history = periods(owner.definition).map(period => {
-    const records = owner.observations.filter(o => belongs(o, owner) && o.basis === basis && o.valueDate === period)
-      .sort((a, b) => compare(a.id, b.id) || compare(JSON.stringify(a), JSON.stringify(b)));
-    // Unknown revision chain: retain every record; do not choose by arrival/acquisition time.
-    const conflicted = rejected.length > 0 || records.length > 1 || records.some(o => idCounts.get(o.id)! > 1 || o.conditions.includes('conflicted') || o.quality.status === 'conflicted');
-    const value = !conflicted && records.length === 1 ? chartNumericValue(records[0].value) : null;
-    const states = orderedStates([
-      ...records.flatMap(o => [o.quality.status, ...o.conditions, ...(o.pit !== 'PROVEN' || o.revision.status === 'unknown' ? ['unknown'] : []),
-        ...(o.dataAdmission !== 'ADMITTED' || o.productionAdmission !== 'ADMITTED' ? ['not_admitted'] : [])]),
-      ...(!records.length || value === null ? ['missing'] : []), ...(conflicted ? ['conflicted'] : []),
-    ]);
-    return { period, value, records, states };
-  });
-  const available = history.filter(p => p.value !== null).length;
-  const states = orderedStates([...history.flatMap(p => p.states), owner.definition.freshness,
-    ...(available < history.length ? ['partial'] : []), ...(!available ? ['missing'] : []),
-    ...(owner.policy.dataAdmission !== 'ADMITTED' || owner.policy.productionAdmission !== 'ADMITTED' ? ['not_admitted'] : [])]);
-  const latest = history.at(-1) ?? null, previous = history.at(-2) ?? null;
-  const delta = owner.definition.unit !== '%' && basis === 'monthly' && latest?.value !== null && latest?.value !== undefined && previous?.value !== null && previous?.value !== undefined
-    && latest.period.slice(0, 4) === previous.period.slice(0, 4) ? latest.value - previous.value : null;
-  return { history, latest, previous, delta, states, available, target: history.length, rejectedCount: rejected.length };
 }
 
 export function industryChartAudit(owner: IndustryMetricDataset, basis: IndustryMetricBasis, entry?: IndustryMetricRegistryEntry): ChartAuditView {

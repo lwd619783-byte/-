@@ -9,6 +9,8 @@ export interface ChartAuditView {
   rows: Array<{ label: string; value: string; href?: string }>;
   records: Array<{ title: string; rows: ChartAuditView["rows"] }>;
   linkage: null;
+  /** F2 candidate reference structure exists; no supported/admitted claim implied. */
+  candidateGraph?: boolean;
 }
 const unknown = "未提供 / unknown";
 const text = (value: string | number | boolean | null | undefined) => value === null || value === undefined || value === "" ? unknown : String(value);

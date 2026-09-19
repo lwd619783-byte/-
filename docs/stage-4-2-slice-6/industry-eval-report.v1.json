@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "industry-research-eval-report.v1",
+  "suiteId": "industry-signal-claim",
+  "version": 1,
+  "targetId": "industry-signal-claim-service",
+  "targetVersion": "1",
+  "targetKind": "deterministic_service",
+  "scope": "RETAINED_INDUSTRY_PREVIEW_AND_EXPLICIT_MUTATIONS",
+  "productionAdmission": "NOT_ADMITTED",
+  "frozenFoundationCoverage": "UNCHANGED_0_OF_33",
+  "caseDigest": "b45222b2336c4f23ee4b2cac920e918896b465e852bc8fa90879f5978a60e62c",
+  "count": 5,
+  "passed": 5,
+  "status": "PASS",
+  "cases": [
+    {
+      "caseId": "industry-conflict-propagation",
+      "version": 1,
+      "inputKind": "SYNTHETIC_MUTATION_OF_RETAINED_REAL",
+      "fixtureRef": {
+        "owner": "contracts/industry/eval/industry-inputs.v1.json",
+        "objectId": "industry-conflict-propagation",
+        "version": "1",
+        "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+        "locator": "/industry-conflict-propagation"
+      },
+      "expected": {
+        "outcome": "conflicted",
+        "value": null,
+        "unit": null,
+        "exAnte": null,
+        "reproducible": null,
+        "selectedRefs": [],
+        "citationRefs": [],
+        "conditions": [
+          "conflicted",
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "actual": {
+        "outcome": "conflicted",
+        "value": null,
+        "unit": null,
+        "exAnte": null,
+        "reproducible": null,
+        "selectedRefs": [],
+        "citationRefs": [],
+        "conditions": [
+          "conflicted",
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "semanticDiff": [],
+      "status": "PASS"
+    },
+    {
+      "caseId": "industry-deterministic-derived-signal",
+      "version": 1,
+      "inputKind": "RETAINED_REAL",
+      "fixtureRef": {
+        "owner": "contracts/industry/eval/industry-inputs.v1.json",
+        "objectId": "industry-deterministic-derived-signal",
+        "version": "1",
+        "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+        "locator": "/industry-deterministic-derived-signal"
+      },
+      "expected": {
+        "outcome": "blocked",
+        "value": 1414,
+        "unit": "Thousand Barrels per Day",
+        "exAnte": null,
+        "reproducible": true,
+        "selectedRefs": [
+          "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+        ],
+        "citationRefs": [
+          "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "retained-absolute-difference"
+        ],
+        "conditions": [
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "actual": {
+        "outcome": "blocked",
+        "value": 1414,
+        "unit": "Thousand Barrels per Day",
+        "exAnte": null,
+        "reproducible": true,
+        "selectedRefs": [
+          "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd"
+        ],
+        "citationRefs": [
+          "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+          "retained-absolute-difference"
+        ],
+        "conditions": [
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "semanticDiff": [],
+      "status": "PASS"
+    },
+    {
+      "caseId": "industry-missing-evidence",
+      "version": 1,
+      "inputKind": "SYNTHETIC_MUTATION_OF_RETAINED_REAL",
+      "fixtureRef": {
+        "owner": "contracts/industry/eval/industry-inputs.v1.json",
+        "objectId": "industry-missing-evidence",
+        "version": "1",
+        "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+        "locator": "/industry-missing-evidence"
+      },
+      "expected": {
+        "outcome": "blocked",
+        "value": null,
+        "unit": null,
+        "exAnte": null,
+        "reproducible": null,
+        "selectedRefs": [],
+        "citationRefs": [],
+        "conditions": [
+          "missing_evidence",
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "actual": {
+        "outcome": "blocked",
+        "value": null,
+        "unit": null,
+        "exAnte": null,
+        "reproducible": null,
+        "selectedRefs": [],
+        "citationRefs": [],
+        "conditions": [
+          "missing_evidence",
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "semanticDiff": [],
+      "status": "PASS"
+    },
+    {
+      "caseId": "industry-prosperity-abstention",
+      "version": 1,
+      "inputKind": "RETAINED_REAL",
+      "fixtureRef": {
+        "owner": "contracts/industry/eval/industry-inputs.v1.json",
+        "objectId": "industry-prosperity-abstention",
+        "version": "1",
+        "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+        "locator": "/industry-prosperity-abstention"
+      },
+      "expected": {
+        "outcome": "blocked",
+        "value": null,
+        "unit": null,
+        "exAnte": null,
+        "reproducible": true,
+        "selectedRefs": [],
+        "citationRefs": [
+          "industry-prosperity-eligibility"
+        ],
+        "conditions": [
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "actual": {
+        "outcome": "blocked",
+        "value": null,
+        "unit": null,
+        "exAnte": null,
+        "reproducible": true,
+        "selectedRefs": [],
+        "citationRefs": [
+          "industry-prosperity-eligibility"
+        ],
+        "conditions": [
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "semanticDiff": [],
+      "status": "PASS"
+    },
+    {
+      "caseId": "industry-unsupported-claim",
+      "version": 1,
+      "inputKind": "SYNTHETIC_MUTATION_OF_RETAINED_REAL",
+      "fixtureRef": {
+        "owner": "contracts/industry/eval/industry-inputs.v1.json",
+        "objectId": "industry-unsupported-claim",
+        "version": "1",
+        "sha256": "c966876a151ba2bdeacbd2f6591cac880048fd4773525b28045c4e6ffc77e656",
+        "locator": "/industry-unsupported-claim"
+      },
+      "expected": {
+        "outcome": "blocked",
+        "value": null,
+        "unit": null,
+        "exAnte": null,
+        "reproducible": null,
+        "selectedRefs": [],
+        "citationRefs": [],
+        "conditions": [
+          "missing_evidence",
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "actual": {
+        "outcome": "blocked",
+        "value": null,
+        "unit": null,
+        "exAnte": null,
+        "reproducible": null,
+        "selectedRefs": [],
+        "citationRefs": [],
+        "conditions": [
+          "missing_evidence",
+          "not_admitted",
+          "partial",
+          "unknown"
+        ]
+      },
+      "semanticDiff": [],
+      "status": "PASS"
+    }
+  ]
+}

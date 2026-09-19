@@ -1,0 +1,1112 @@
+{
+  "industry-deterministic-derived-signal": {
+    "id": "industry-deterministic-derived-signal",
+    "revision": "1",
+    "kind": "industry_difference",
+    "industryId": "oil-shipping",
+    "metricId": "US_EIA_CRUDE_EXPORTS",
+    "artifactRef": {
+      "owner": "src/data/real/industry-eia-exports.generated.json",
+      "locator": "/definition",
+      "objectId": "US_EIA_CRUDE_EXPORTS",
+      "version": "1",
+      "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+    },
+    "formulaRef": {
+      "owner": "config/industry/industry-signal-policy.v1.json",
+      "locator": "/formula",
+      "objectId": "retained-absolute-difference",
+      "version": "1",
+      "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+    }
+  },
+  "industry-unsupported-claim": {
+    "id": "industry-unsupported-claim",
+    "revision": "1",
+    "kind": "industry_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:graph",
+      "revision": 1,
+      "asOf": "2026-09-19T13:10:00Z",
+      "nodes": [
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "kind": "source",
+          "ref": {
+            "owner": "config/industry/eia-exports.v1.json",
+            "locator": "/definition",
+            "objectId": "US_EIA_CRUDE_EXPORTS",
+            "version": "1",
+            "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "config/industry/eia-exports.v1.json",
+              "locator": "/definition",
+              "objectId": "US_EIA_CRUDE_EXPORTS",
+              "version": "1",
+              "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+            },
+            {
+              "owner": "config/industry/eia-exports.v1.json",
+              "locator": "/policy",
+              "objectId": "industry-metric-eia-exports-policy",
+              "version": "1",
+              "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+            },
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/definition",
+              "objectId": "US_EIA_CRUDE_EXPORTS",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/signals/2"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/signal-claim-v1/derived.json",
+              "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+              "version": "1",
+              "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+              "locator": "/signals/2"
+            }
+          ],
+          "formulaRef": {
+            "owner": "config/industry/industry-signal-policy.v1.json",
+            "locator": "/formula",
+            "objectId": "retained-absolute-difference",
+            "version": "1",
+            "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+          },
+          "inputManifestRef": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:inputs",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/manifests/2"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "kind": "artifact",
+          "ref": {
+            "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+            "locator": "/captures/0",
+            "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+              "locator": "/captures/0",
+              "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "kind": "evidence",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/9/provenance/evidence",
+            "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/9/provenance/evidence",
+              "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "web_source",
+            "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+            "title": "2026-09-04 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+            "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+            "quality": "candidate"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "kind": "fact",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/9",
+            "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/9",
+              "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "kind": "artifact",
+          "ref": {
+            "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+            "locator": "/captures/0",
+            "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+              "locator": "/captures/0",
+              "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "kind": "evidence",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/10/provenance/evidence",
+            "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/10/provenance/evidence",
+              "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "web_source",
+            "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+            "title": "2026-09-11 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+            "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+            "quality": "candidate"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "kind": "fact",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/10",
+            "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/10",
+              "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/claims/2"
+          },
+          "origin": "ai_draft",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/signal-claim-v1/derived.json",
+              "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+              "version": "1",
+              "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+              "locator": "/claims/2"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source:publishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "type": "publishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0:locates:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "type": "locates",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0:establishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "type": "establishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0:input_to:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "type": "input_to",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source:publishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "type": "publishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1:locates:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "type": "locates",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1:establishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "type": "establishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1:input_to:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "type": "input_to",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "industry-conflict-propagation": {
+    "id": "industry-conflict-propagation",
+    "revision": "1",
+    "kind": "industry_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:graph",
+      "revision": 1,
+      "asOf": "2026-09-19T13:10:00Z",
+      "nodes": [
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "kind": "source",
+          "ref": {
+            "owner": "config/industry/eia-exports.v1.json",
+            "locator": "/definition",
+            "objectId": "US_EIA_CRUDE_EXPORTS",
+            "version": "1",
+            "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "config/industry/eia-exports.v1.json",
+              "locator": "/definition",
+              "objectId": "US_EIA_CRUDE_EXPORTS",
+              "version": "1",
+              "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+            },
+            {
+              "owner": "config/industry/eia-exports.v1.json",
+              "locator": "/policy",
+              "objectId": "industry-metric-eia-exports-policy",
+              "version": "1",
+              "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+            },
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/definition",
+              "objectId": "US_EIA_CRUDE_EXPORTS",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/signals/2"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/signal-claim-v1/derived.json",
+              "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+              "version": "1",
+              "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+              "locator": "/signals/2"
+            }
+          ],
+          "formulaRef": {
+            "owner": "config/industry/industry-signal-policy.v1.json",
+            "locator": "/formula",
+            "objectId": "retained-absolute-difference",
+            "version": "1",
+            "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+          },
+          "inputManifestRef": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:inputs",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/manifests/2"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "kind": "artifact",
+          "ref": {
+            "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+            "locator": "/captures/0",
+            "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+              "locator": "/captures/0",
+              "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "kind": "evidence",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/9/provenance/evidence",
+            "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/9/provenance/evidence",
+              "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "web_source",
+            "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+            "title": "2026-09-04 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+            "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+            "quality": "candidate"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "kind": "fact",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/9",
+            "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/9",
+              "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "kind": "artifact",
+          "ref": {
+            "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+            "locator": "/captures/0",
+            "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+              "locator": "/captures/0",
+              "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "kind": "evidence",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/10/provenance/evidence",
+            "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/10/provenance/evidence",
+              "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "web_source",
+            "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+            "title": "2026-09-11 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+            "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+            "quality": "candidate"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "kind": "fact",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/10",
+            "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/10",
+              "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/claims/2"
+          },
+          "origin": "ai_draft",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/signal-claim-v1/derived.json",
+              "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+              "version": "1",
+              "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+              "locator": "/claims/2"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source:publishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "type": "publishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0:locates:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "type": "locates",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0:establishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "type": "establishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0:input_to:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "type": "input_to",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source:publishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "type": "publishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1:locates:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "type": "locates",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1:establishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "type": "establishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1:input_to:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "type": "input_to",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:supports:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+          "type": "supports",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "synthetic-contradiction",
+          "type": "contradicts",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "industry-missing-evidence": {
+    "id": "industry-missing-evidence",
+    "revision": "1",
+    "kind": "industry_graph",
+    "graph": {
+      "schemaVersion": "evidence-graph.v1",
+      "graphId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:graph",
+      "revision": 1,
+      "asOf": "2026-09-19T13:10:00Z",
+      "nodes": [
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "kind": "source",
+          "ref": {
+            "owner": "config/industry/eia-exports.v1.json",
+            "locator": "/definition",
+            "objectId": "US_EIA_CRUDE_EXPORTS",
+            "version": "1",
+            "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "config/industry/eia-exports.v1.json",
+              "locator": "/definition",
+              "objectId": "US_EIA_CRUDE_EXPORTS",
+              "version": "1",
+              "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+            },
+            {
+              "owner": "config/industry/eia-exports.v1.json",
+              "locator": "/policy",
+              "objectId": "industry-metric-eia-exports-policy",
+              "version": "1",
+              "sha256": "0cc2e783a7137d6be0136793ee9511d583569b037ce560a302df9683b1074c11"
+            },
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/definition",
+              "objectId": "US_EIA_CRUDE_EXPORTS",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "kind": "derived_metric",
+          "ref": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/signals/2"
+          },
+          "origin": "derived_result",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/signal-claim-v1/derived.json",
+              "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+              "version": "1",
+              "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+              "locator": "/signals/2"
+            }
+          ],
+          "formulaRef": {
+            "owner": "config/industry/industry-signal-policy.v1.json",
+            "locator": "/formula",
+            "objectId": "retained-absolute-difference",
+            "version": "1",
+            "sha256": "0d43cb89c5b86fa70a359c2a2628aa690627b2bdf486740c0d33bb1568c3522f"
+          },
+          "inputManifestRef": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:inputs",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/manifests/2"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "kind": "artifact",
+          "ref": {
+            "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+            "locator": "/captures/0",
+            "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+              "locator": "/captures/0",
+              "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "kind": "evidence",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/9/provenance/evidence",
+            "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/9/provenance/evidence",
+              "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "web_source",
+            "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[3]",
+            "title": "2026-09-04 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+            "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+            "quality": "candidate"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "kind": "fact",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/9",
+            "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/9",
+              "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-04:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "kind": "artifact",
+          "ref": {
+            "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+            "locator": "/captures/0",
+            "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/eia-petroleum-exports-v1/manifest.json",
+              "locator": "/captures/0",
+              "objectId": "WCREXUS2:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "b4ea69a95b80e3e8a601b24d46bfd3b6e07c9377fea40f2cc59cb08fb8fda1a6"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "kind": "evidence",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/10/provenance/evidence",
+            "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "source_material",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/10/provenance/evidence",
+              "objectId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ],
+          "nativeEvidenceRef": {
+            "refType": "web_source",
+            "refId": "81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd:table.FloatTitle/tr[td.B6=\"2026-Sep\"]/td[5]",
+            "title": "2026-09-11 Weekly U.S. Exports of Crude Oil (Thousand Barrels per Day)",
+            "sourceUrl": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=W&n=PET&s=WCREXUS2",
+            "quality": "candidate"
+          }
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "kind": "fact",
+          "ref": {
+            "owner": "src/data/real/industry-eia-exports.generated.json",
+            "locator": "/observations/10",
+            "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+            "version": "1",
+            "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+          },
+          "origin": "provider_fact",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "src/data/real/industry-eia-exports.generated.json",
+              "locator": "/observations/10",
+              "objectId": "US_EIA_CRUDE_EXPORTS:2026-09-11:week_ending:81bd962fbf947e9e1a0b79edd7955b35c62b435569fa786057f0b347416acdcd",
+              "version": "1",
+              "sha256": "30b10442ecb1f05c475a5b6789bb5b7604faffb21df978a62b62b53bf32e0d53"
+            }
+          ]
+        },
+        {
+          "nodeId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+          "kind": "claim",
+          "ref": {
+            "owner": "research-data/industry/signal-claim-v1/derived.json",
+            "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+            "version": "1",
+            "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+            "locator": "/claims/2"
+          },
+          "origin": "ai_draft",
+          "releaseAvailableAt": null,
+          "conditions": [
+            "not_admitted",
+            "partial",
+            "unknown"
+          ],
+          "conditionSourceRefs": [
+            {
+              "owner": "research-data/industry/signal-claim-v1/derived.json",
+              "objectId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+              "version": "1",
+              "sha256": "a00cefc6ba7f8cbe0c831afd9857f9124366490ada121849bbbdd66dc330e30d",
+              "locator": "/claims/2"
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source:publishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "type": "publishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0:locates:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:0",
+          "type": "locates",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0:input_to:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:0",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "type": "input_to",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source:publishes:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:source",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "type": "publishes",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1:locates:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:artifact:1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:evidence:1",
+          "type": "locates",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1:input_to:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:fact:1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "type": "input_to",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        },
+        {
+          "relationId": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:supports:US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+          "from": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1",
+          "to": "US_EIA_CRUDE_EXPORTS:week_ending:2026-09-11:absolute-difference:v1:claim",
+          "type": "supports",
+          "assertedAt": "2026-09-19T13:10:00Z",
+          "supersedesRelationId": null
+        }
+      ]
+    }
+  },
+  "industry-prosperity-abstention": {
+    "id": "industry-prosperity-abstention",
+    "revision": "1",
+    "kind": "industry_eligibility",
+    "industryId": "oil-shipping",
+    "policyVersion": "1"
+  }
+}
