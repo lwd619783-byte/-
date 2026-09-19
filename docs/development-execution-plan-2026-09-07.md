@@ -1,6 +1,8 @@
 # 当前开发执行索引 · 2026-09-07
 
-> 2026-09-19 CURRENT — **Stage 4.2 Slice 6 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。六个既有 owners → 5 个 reviewed 相邻留存绝对差 → 5 个固定模板事实性候选 → 原 `evidence-graph.v1` 引用链 → Prosperity Eligibility。oil-shipping / robotics 均 **ABSTAIN / NOT_ELIGIBLE**；不输出景气评分或方向。F3 新增独立 Industry 5-case suite（真实 retained inputs / 明确负例 mutation），复用原 Harness；Frozen Foundation 33-case 仍 reference 33/33、actual service 0/33，不合并分母。详见 [Slice 6 冻结方案与验证](stage-4-2-slice-6-plan.md)。只普通功能分支 commit/push；本切片 Hosted CI NOT_RUN、审计 PENDING，不创建 PR/merge，不提升 admission。
+> 2026-09-19 CURRENT — **Stage 4.2 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY**。Slice 6 初始独立审计 HEAD `d264f47a542aa46c358804dfbd709be19c16936c` 通过；PR CI 首轮发现生成的 F2 validator 文件头存在冻结 schema digest 漂移，净修复仅校准 1 行来源摘要，最终 PR head `8cc62168681719e1eedfe3b1974f5b35844df2cb`。PR [#64](https://github.com/lwd619783-byte/-/pull/64) CI [35447795829](https://github.com/lwd619783-byte/-/actions/runs/35447795829) completed/success；squash merge/main `05ffb33ce4edee81f174253ccbad4ee697ed974a`，main CI [35448015019](https://github.com/lwd619783-byte/-/actions/runs/35448015019) completed/success；Vercel production `dpl_GPXjUVZtDeAXKBjts3cesQprPEjc` READY。Stage 4.2 以 6 个 Industry Metric owners、reviewed dimensions/snapshot、5 个描述型派生、5 个事实性 Claim Candidates、F2 引用链、Industry F3 5-case 与 Prosperity Eligibility abstention gate 收口；oil-shipping / robotics 仍 **ABSTAIN / NOT_ELIGIBLE**。DATA / PRODUCTION admission、PIT、release/revision continuity、Entity 与正式景气方法均未提升；不输出正式景气方向/评分、Verified Claim、Thesis 或买卖建议。CURRENT 主开发线进入 **Stage 4.3 — Top-down Research Workflow / Claim / Thesis / Research Memory**。详见 [Stage 4.2 closeout](stage-4-2-closeout.md)。
+
+> 2026-09-19 Slice 6 交付时点记录 — **Stage 4.2 Slice 6 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。六个既有 owners → 5 个 reviewed 相邻留存绝对差 → 5 个固定模板事实性候选 → 原 `evidence-graph.v1` 引用链 → Prosperity Eligibility。oil-shipping / robotics 均 **ABSTAIN / NOT_ELIGIBLE**；不输出景气评分或方向。F3 新增独立 Industry 5-case suite（真实 retained inputs / 明确负例 mutation），复用原 Harness；Frozen Foundation 33-case 仍 reference 33/33、actual service 0/33，不合并分母。详见 [Slice 6 冻结方案与验证](stage-4-2-slice-6-plan.md)。只普通功能分支 commit/push；本切片 Hosted CI NOT_RUN、审计 PENDING，不创建 PR/merge，不提升 admission。
 
 > Slice 5 CURRENT 事实补齐（本次实时核验）：PR [#63](https://github.com/lwd619783-byte/-/pull/63) 已合入，PR branch head `dfc54f1d0437774387869e75696681a5791082cb`，merge/main `dc8f5ec36d9626e92acc3fc91088c1b8c42ce753`。PR CI [35442595473](https://github.com/lwd619783-byte/-/actions/runs/35442595473) 与 main CI [35442791153](https://github.com/lwd619783-byte/-/actions/runs/35442791153) 均 completed/success。此事实只适用于 Slice 5；以下较早交付状态保留其时点意义。
 
@@ -118,8 +120,8 @@
 
 1. **Stage 4.1-G — CLOSED / MERGED / MAIN CI PASS**：独立审计 HEAD `5489e3f77e284c69d492cfccb7242e2bd9e504d8`；PR #48 CI `34820778498` completed/success；merge/main `f1b85a28dbe83a1ae7875f0b7a80d8b56e25b123`；main push CI `34821083781` completed/success。数据 / production admission 仍未提升。未闭合的单指标、Provider、历史覆盖率及 normalization/backtest 等任务转为并行数据支线；仅当满足最新方向 §1.1 的主线正确性/安全阻断条件时重新评估。
 2. **Stage 4.1B — CLOSED / MERGED / MAIN CI PASS**：Slice 1 PR #50、Slice 2 PR #52、Slice 3 PR #54 均已完成独立审计、PR/main CI 与合并。最终 Slice 3 audited HEAD `f4d43844cf17005bcf46c9818474acdece6b47ea`，merge/main `93b577d599d9a1ebf187dc4388f4bcd983916850`。Research Inbox / Evidence Drawer / Auditable Chart / Product Shell / F3 Eval Harness 均已进入 main；production/data admission 未因此提升。
-3. **Stage 4.2 — CURRENT MAINLINE：Industry Data Platform**：Slice 1–5 已合入；Slice 6 派生/事实性候选/F2 引用链/资格门禁已本地验证，待独立审计。正式 Prosperity / Regime / Verified Claim / Thesis deferred；不提升数据准入。
-4. **Stage 4.3 — Top-down Research Workflow**：Macro → Industry、Claim ↔ Evidence、Industry Thesis / revision、Investment Expression、Research Memory。
+3. **Stage 4.2 — CLOSED / MERGED / MAIN CI PASS：Industry Data Platform**：Slice 1–6 已合入；描述型派生、事实性候选、F2 引用链、Industry F3 与资格弃权门禁已收口。正式 Prosperity Score / Verified Claim / Thesis 仍 deferred；DATA/PRODUCTION/PIT 未提升。
+4. **Stage 4.3 — CURRENT MAINLINE：Top-down Research Workflow**：Macro → Industry、Claim ↔ Evidence、Industry Thesis / revision、Investment Expression、Research Memory。
 5. **Stage 4.4 — Portfolio Exposure MVP**：复用 Phase 1B Local Core，补 thesis ↔ position、macro / industry exposure、target allocation、rebalance、read model / UI。
 6. **Stage 4.5 — Research MCP Gateway / Controlled Tool Layer**：Local-first Domain Tools、Auth/scope/confirmation/Audit、Agent tool-use Evals；不暴露 raw DB / SQL。
 7. **Stage 4.6 — ChatGPT-connected Research Agent / LLM Wiki / Artifact / Global Coverage**：以 ChatGPT Web / LLM Client 与受控 MCP 连接本地研究底座，研究写回继续 prepare-preview-confirm-commit；具体范围及后续扩展以最新方向为准，Agent production 受 F3 Eval 门槛约束。
@@ -153,7 +155,7 @@
 - R2-B 原 sealed archive 对账后提交一条原生 M2 YoY graph 和两份 RAW_SOURCE，positive replay PASS；full graph BLOCKED（1/894 committed），source/data/production 未提升。
 - V1 发布内容与报告保留；V2 重新推导全部 23 metrics，normalization / PIT backtest / overall 各 READY 0 / BLOCKED 23。368 条 gate delta 保留原 full-scope 状态；独立 canary capability BLOCKED→PASS。all-A D3/CSRC 不变。
 - 专项 27 Node + 14 Python、原 semantic 37、contracts 106+78、应用 725、build 与 validators 本地通过；PR/main Hosted CI 完整工作流均 completed/success。
-- Stage G 已关闭；该段保留 2026-09-14 时点“主线进入 Stage 4.1B”的历史事实；CURRENT 主线见本文顶部，现已进入 Stage 4.2。未闭合单指标数据任务继续作为并行数据支线，不重新成为产品主线 blocker，除非满足最新方向 §1.1 的真实正确性/安全阻断条件。
+- Stage G 已关闭；该段保留 2026-09-14 时点“主线进入 Stage 4.1B”的历史事实；CURRENT 主线见本文顶部，现已进入 Stage 4.3。未闭合单指标数据任务继续作为并行数据支线，不重新成为产品主线 blocker，除非满足最新方向 §1.1 的真实正确性/安全阻断条件。
 
 ## Stage 4.1-F — Semantic Runtime / Readiness（2026-09-12 已合入的 V1 发布事实）
 
