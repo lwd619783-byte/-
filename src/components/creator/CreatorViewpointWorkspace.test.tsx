@@ -3,11 +3,11 @@ import { cleanup, fireEvent, render, screen, within } from '@testing-library/rea
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { CreatorViewpointWorkspace } from './CreatorViewpointWorkspace';
 import { creatorViewpointFixture, fixtureTime } from '../../services/creatorViewpoint.fixture';
-import { BrowserCreatorViewpointRepository, CREATOR_VIEWPOINT_STORAGE_KEY } from '../../services/creatorViewpointRepository';
+import { BrowserCreatorViewpointRepository, CREATOR_VIEWPOINT_STORAGE_KEY, CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX } from '../../services/creatorViewpointRepository';
 import { CreatorEntryForm } from './CreatorEntryForm';
 import { EvidenceDrawer } from '../research/EvidenceDrawer';
 
-afterEach(() => { cleanup(); vi.restoreAllMocks(); });
+afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 function setup(corrupt = false) {
   const data = creatorViewpointFixture();
   const values = new Map<string, string>([[CREATOR_VIEWPOINT_STORAGE_KEY, corrupt ? '{bad' : JSON.stringify(data)]]);
@@ -85,7 +85,8 @@ describe('Creator Viewpoint Workspace', () => {
   });
   it('shows changed conditions even when stance is unchanged and retains earlier pending reviews', () => {
     const { data, storage } = setup();
-    data.observations.push({ ...data.observations[0], id: 'condition-change', recordedAt: fixtureTime(4), trigger: '新的成立条件', summary: '合成条件变化' });
+    data.sources.push({ ...data.sources[0], id: 'source-condition-change', publishedAt: fixtureTime(4), capturedAt: fixtureTime(4), recordedAt: fixtureTime(4) });
+    data.observations.push({ ...data.observations[0], id: 'condition-change', sourceId: 'source-condition-change', recordedAt: fixtureTime(4), trigger: '新的成立条件', summary: '合成条件变化' });
     data.approvals.push({ id: 'condition-approval', observationId: 'condition-change', decision: 'reviewed', recordedAt: fixtureTime(5), note: '合成审核' });
     data.reviews.push({ id: 'review-inconclusive', observationId: 'observation-1', offsetDays: 5, recordedAt: fixtureTime(9), status: 'inconclusive', triggerOccurred: 'unknown', invalidationOccurred: 'unknown', actualOutcome: null, evidence: null, evidenceUrl: null, supersedesId: null });
     storage.setItem(CREATOR_VIEWPOINT_STORAGE_KEY, JSON.stringify(data));
@@ -118,5 +119,91 @@ describe('Creator Viewpoint Workspace', () => {
     expect(saved.approvals).toHaveLength(3);
     expect(JSON.stringify(saved.observations)).toBe(original);
     expect(screen.queryByRole('button', { name: '审核记录' })).toBeNull();
+  });
+  it('exports corrupt bytes, validates without writes, confirms scoped recovery and unlocks the UI', () => {
+    const { data, storage, values, repository } = setup(true);
+    values.set('unrelated-record', 'preserve');
+    const backup = repository.export(data);
+    const downloads: Blob[] = [];
+    vi.stubGlobal('URL', class extends URL { static createObjectURL(blob: Blob) { downloads.push(blob); return 'blob:fixture'; } static revokeObjectURL() {} });
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+    render(<CreatorViewpointWorkspace repository={repository} />);
+    fireEvent.click(screen.getByRole('button', { name: '导出原文并打开灾难恢复' }));
+    expect(downloads).toHaveLength(1);
+    const dialog = screen.getByRole('dialog', { name: '灾难恢复观点备份' });
+    fireEvent.change(within(dialog).getByLabelText('JSON 内容'), { target: { value: '{bad backup' } });
+    fireEvent.click(within(dialog).getByRole('button', { name: '校验并预览' }));
+    expect(within(dialog).getByRole('alert')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: '确认备份损坏原文并替换观点存储' })).toBeNull();
+    expect(storage.setItem).not.toHaveBeenCalled();
+    fireEvent.change(within(dialog).getByLabelText('JSON 内容'), { target: { value: backup } });
+    fireEvent.click(within(dialog).getByRole('button', { name: '校验并预览' }));
+    expect(storage.setItem).not.toHaveBeenCalled();
+    expect(values.get(CREATOR_VIEWPOINT_STORAGE_KEY)).toBe('{bad');
+    fireEvent.click(within(dialog).getByRole('button', { name: '确认备份损坏原文并替换观点存储' }));
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect((screen.getByRole('button', { name: '新增博主' }) as HTMLButtonElement).disabled).toBe(false);
+    expect(screen.queryByRole('button', { name: '导出原文并打开灾难恢复' })).toBeNull();
+    expect(values.get('unrelated-record')).toBe('preserve');
+    const rawBackup = [...values].find(([key]) => key.startsWith(CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX));
+    expect(rawBackup?.[1]).toBe('{bad');
+    expect(JSON.parse(values.get(CREATOR_VIEWPOINT_STORAGE_KEY)!)).toEqual(data);
+  });
+  it('keeps future-schema recovery locked and read-only corrupt export disabled', () => {
+    const { data, storage } = setup();
+    storage.setItem(CREATOR_VIEWPOINT_STORAGE_KEY, JSON.stringify({ ...data, schemaVersion: 99 }));
+    const { unmount } = render(<CreatorViewpointWorkspace repository={new BrowserCreatorViewpointRepository(storage)} />);
+    expect(screen.queryByRole('button', { name: '导出原文并打开灾难恢复' })).toBeNull();
+    expect(screen.getByText(/禁止降级恢复/)).toBeTruthy();
+    unmount();
+    const corrupt = setup(true);
+    render(<CreatorViewpointWorkspace repository={corrupt.repository} readOnly />);
+    for (const name of ['导出损坏原文', '导出原文并打开灾难恢复']) expect((screen.getByRole('button', { name }) as HTMLButtonElement).disabled).toBe(true);
+    expect(corrupt.storage.setItem).not.toHaveBeenCalled();
+  });
+  it('keeps unknown creator time unresolved and review dates uncomputed after approval', () => {
+    const { data, storage } = setup();
+    data.sources[0].publishedAt = null; data.sources[0].publishedAtLabel = '昨日（时区未知）';
+    storage.setItem(CREATOR_VIEWPOINT_STORAGE_KEY, JSON.stringify(data));
+    render(<CreatorViewpointWorkspace repository={new BrowserCreatorViewpointRepository(storage)} />);
+    expect(screen.queryByRole('button', { name: '合成观点 1' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '观点时间轴' }));
+    expect(screen.getByText('unresolved · 来源时间未知，不参与 Current View / 状态转换')).toBeTruthy();
+    expect(screen.getAllByText(/unresolved · 到期日不可计算/)).toHaveLength(3);
+    const card = screen.getByRole('button', { name: '合成观点 1' }).closest('article')!;
+    fireEvent.click(within(card).getAllByRole('button', { name: '填写复盘' })[0]);
+    expect(screen.getByText(/来源发布时间锚点 unknown · 到期 unresolved/)).toBeTruthy();
+    expect((screen.getByLabelText('复盘状态') as HTMLSelectElement).value).toBe('pending');
+  });
+  it('orders backfilled observations by creator time while showing separate local audit times', () => {
+    const { data, storage } = setup();
+    data.sources[0].publishedAt = fixtureTime(5); data.sources[0].capturedAt = fixtureTime(5); data.sources[0].recordedAt = fixtureTime(5);
+    data.observations[0].recordedAt = fixtureTime(6); data.approvals[0].recordedAt = fixtureTime(7);
+    data.sources.push({ ...data.sources[0], id: 'backfill-source', publishedAt: fixtureTime(1), recordedAt: fixtureTime(10), capturedAt: fixtureTime(10) });
+    data.observations.push({ ...data.observations[0], id: 'backfill', sourceId: 'backfill-source', summary: '补录旧观点', recordedAt: fixtureTime(10), stance: 'negative' });
+    data.approvals.push({ id: 'backfill-approval', observationId: 'backfill', recordedAt: fixtureTime(11), note: '合成补录审核', decision: 'reviewed' });
+    data.approvals.sort((a, b) => a.recordedAt.localeCompare(b.recordedAt));
+    storage.setItem(CREATOR_VIEWPOINT_STORAGE_KEY, JSON.stringify(data));
+    render(<CreatorViewpointWorkspace repository={new BrowserCreatorViewpointRepository(storage)} />);
+    expect(screen.getByRole('button', { name: '合成观点 1' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: '补录旧观点' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '观点时间轴' }));
+    fireEvent.change(screen.getByLabelText('筛选博主'), { target: { value: 'creator-1' } });
+    const cards = screen.getAllByRole('article');
+    expect(cards[0].textContent).toContain('补录旧观点');
+    expect(cards[0].textContent).toContain(`Creator time ${fixtureTime(1)}`);
+    expect(cards[0].textContent).toContain(`本地审核 ${fixtureTime(11)}`);
+    expect(cards[1].textContent).toContain('合成观点 1');
+  });
+  it('allows verified external-event transcription with explicit non-admission language', () => {
+    const { data } = setup(); const onAppend = vi.fn();
+    render(<CreatorEntryForm request={{ kind: 'event' }} data={data} onAppend={onAppend} onClose={vi.fn()} />);
+    fireEvent.change(screen.getByLabelText('事件名称'), { target: { value: '合成已核验事件' } });
+    fireEvent.change(screen.getByLabelText('事件摘要'), { target: { value: '合成摘要' } });
+    fireEvent.change(screen.getByLabelText('事件来源 URL'), { target: { value: 'https://example.com/verified' } });
+    fireEvent.change(screen.getByLabelText('核验状态'), { target: { value: 'verified' } });
+    expect(screen.getByText(/不代表 Provider Fact 准入、Verified Claim 或正式 Thesis/)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '追加保存' }));
+    expect(onAppend.mock.calls[0][0].events[0].verificationStatus).toBe('verified');
   });
 });

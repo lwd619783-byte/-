@@ -435,3 +435,10 @@ future MCP/Agent 需审核并注册 adapter 后复用同一 Harness/Result，当
 `ResearchEventCore` 从既有 `src/types/researchEvent.ts` 提取，保留公司ResearchEvent原字段；ExternalResearchEvent用external scope独立表达宏观背景，不伪造stockId，不建立第二个Provider。它由tracker envelope拥有，一次存储、多Observation引用。原ResearchInbox的公司WatchItem/ReviewTask owner不变；本功能没有伪造观察清单以挂接博主复盘。Timeline/Comparison节点复用原EvidenceDrawer（外部commentary分支）与Modal，来源链接走safeEvidenceUrl。App沿用Workspace导航，ui-review使用内存adapter隔离业务存储。
 
 Node-only Local Core / SQLite / Research Bridge / contracts/v1 / F2 Evidence Graph无新增写入口或准入；External Commentary不能自动晋升为Provider Fact、Verified Claim、User Judgment、Thesis。As-of按本地记录/审核可得时点，不声称外部strict PIT。详细接口、历史/恢复语义和限制见[当前交付](stage-4-2-5-creator-viewpoint-tracker.md)。
+
+
+### Stage 4.2.5 audit remediation: chronology and recovery
+
+同一 envelope 保持 append-only；knowledge As-of 先过滤本地可见历史，再按来源 publishedAt 派生 Creator Timeline/Current View/Transition，T+ 也使用该来源锚点。未知或冲突 chronology 不以审批时间冒充，UI/Excel 分开显示两类时间。ExternalResearchEvent 的来源级 verified 复用 ResearchVerificationStatus，不改变正式事实/Claim/Thesis 准入。
+
+Browser repository 新增受控灾难恢复 seam：观测并绑定损坏原字节、导出、完整校验备份、显式确认、独立 pre-recovery 原字节备份与读回校验、最终基线检查、仅替换 tracker key、reload/semantic validation。普通 append/import 在 corruption 下继续锁定；显式未知/future schema 不可走该恢复入口。现有 PersistedBaseGuard、Local-first/Node-only 边界不变，不增加云或 SQLite 写入口。

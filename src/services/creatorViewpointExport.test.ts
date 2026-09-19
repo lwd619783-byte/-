@@ -49,6 +49,22 @@ function unzip(bytes: Uint8Array): Map<string, string> {
 }
 
 describe('Creator viewpoint Excel analysis copy', () => {
+  it('exports creator, knowledge and review anchor times separately without replacing unknown anchors', () => {
+    const data = fixture(); data.approvals[0].recordedAt = '2026-09-19T08:00:00.000Z';
+    const files = unzip(exportCreatorViewpointExcel(data, later));
+    expect(files.get('xl/worksheets/sheet2.xml')).toContain('Creator effective at');
+    expect(files.get('xl/worksheets/sheet2.xml')).toContain('Reviewed at (knowledge)');
+    expect(files.get('xl/worksheets/sheet3.xml')).toContain('Transition creator time');
+    expect(files.get('xl/worksheets/sheet3.xml')).toContain('Transition approval time');
+    const reviews = files.get('xl/worksheets/sheet6.xml')!;
+    expect(reviews).toContain('2026-09-06T08:00:00.000Z');
+    expect(reviews).not.toContain('2026-09-24T08:00:00.000Z');
+    data.sources[0].publishedAt = null; data.reviews = [];
+    const unknown = unzip(exportCreatorViewpointExcel(data, later));
+    expect(unknown.get('xl/worksheets/sheet3.xml')).toContain('unknown_time');
+    expect(unknown.get('xl/worksheets/sheet6.xml')).toContain('unresolved');
+    expect(unknown.get('xl/worksheets/sheet6.xml')).not.toContain('2026-09-24T08:00:00.000Z');
+  });
   it('writes a real six-sheet OOXML workbook with text cells and all semantic boundaries', () => {
     const files = unzip(exportCreatorViewpointExcel(fixture(), later));
     const workbook = files.get('xl/workbook.xml')!;

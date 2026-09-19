@@ -1,6 +1,6 @@
 # Stage 4.2.5 — Creator Viewpoint Tracker V1
 
-> 2026-09-19 CURRENT · IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW。
+> 2026-09-19 CURRENT · AUDIT REMEDIATION IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW。
 > 路线：Stage 4.2 CLOSED → **Stage 4.2.5 CURRENT** → Stage 4.3 NEXT。
 > 开始前 fetch 的精确基线：`8860c943919f90daa125934fde0f385707ea7028`；分支 `codex/stage-4-2-5-creator-viewpoint-tracker`。
 
@@ -8,7 +8,7 @@
 
 Creator Viewpoint 是 `external_commentary`，人工审核只确认摘录和观点整理，不赋予 Provider Fact、Verified Claim、User Judgment 或正式 Thesis 资格。判断后来正确也不改变这一分类。Stage 4.3 未实施。
 
-现有公司 `ResearchEvent` 要求 stock/industry/market，不能给 Fed/人民币事件编造公司身份。本次从原 owner `src/types/researchEvent.ts` 提取 `ResearchEventCore`，既有公司事件继续继承完全相同字段；增加 `ExternalResearchEvent` 明确 `scope: external` / `macro_external`。事件在 tracker envelope 中只存一份，多位 Creator 的 Observation 通过精确 eventId 引用。没有创建公司 ResearchEvent 的镜像、第二个宏观事实 Provider 或事件评分。外部事件可保留 unverified/partial，录入或被引用不等于事实核验。
+现有公司 `ResearchEvent` 要求 stock/industry/market，不能给 Fed/人民币事件编造公司身份。本次从原 owner `src/types/researchEvent.ts` 提取 `ResearchEventCore`，既有公司事件继续继承完全相同字段；增加 `ExternalResearchEvent` 明确 `scope: external` / `macro_external`。事件在 tracker envelope 中只存一份，多位 Creator 的 Observation 通过精确 eventId 引用。没有创建公司 ResearchEvent 的镜像、第二个宏观事实 Provider 或事件评分。外部事件支持 unverified/partial/verified；verified 复用 ResearchVerificationStatus 的来源级核对标签，要求来源名称与 URL，仅表示原始来源已核对。verified external event ≠ Provider Fact admission ≠ Verified Claim ≠ Thesis；录入或被引用不自动核验。
 
 既有 Research Inbox 是公司 WatchItem/ReviewTask 的投影；ReviewTask 要求 watchItemId，不能为博主伪造 WatchItem。本专项的 T+5/20/60 到期项是已审核重要 Observation 的临时投影，只有人工复盘结果是 append-only 记录，不新增任务存储。Evidence Drawer 增加外部观点分支，复用原 Modal/focus/Escape、safeEvidenceUrl 和原 Workspace 导航。浏览器 adapter 复用 StorageLike / PersistedBaseGuard；不接 SQLite、Node Local Core、云库、Research Bridge 或任意写入口。
 
@@ -22,10 +22,11 @@ Creator Viewpoint 是 `external_commentary`，人工审核只确认摘录和观�
 - 原文完整性和评论覆盖分别保留 FULL/PARTIAL/UNVERIFIED。展示的综合覆盖取当前来源及其父级最弱值；评论未抓全/未观察到回复不能解释为没有发表。
 - Observation 不可变，审核另追加 Approval（reviewed/rejected），每条只审核一次。更正须新 Observation + supersedesId + revisionReason，旧记录和旧审批保留。Draft/rejected 不改变 Current View。
 - State vector = stance + conditional + horizon + trigger + confirmation + invalidation。Summary/reasoning 的补充不自动产生 Transition。首次无前态是 initialization，不能称为已证明的历史观点变化。
-- Current View 与 Transition 都是已审核 Observation 的确定性投影，没有第二份可漂移 current/transition 存储。Transition 保留 previous/next Observation、审批时间；来源、改变理由和 event links 从对应不可变 Observation 读取。
-- 修订在新审批时才生效，不回写旧时点。As-of 是本地记录/审核可得时点视图，结合 source published/captured/recordedAt 与关联对象的可见性；它不是外部历史 strict PIT 认证。晚录入的旧帖子不会倒灌到录入前，未来审批与修订不影响过去 Current View。同一审批时刻保持 append 顺序。
+- Current View 与 Transition 都是已审核 Observation 的确定性投影，没有第二份可漂移 current/transition 存储。Transition 分别保留 previous/next Observation、Creator effectiveAt 和本地审批 recordedAt；来源、改变理由和 event links 从对应不可变 Observation 读取。
+- Creator chronology 使用来源带时区的 publishedAt；Timeline 按该时间升序，Current View 与 Transition 按该时间派生。先审核 9/18 新观点、后补录 8/29 旧观点，显示 8/29 → 9/18，Current View 保持 9/18。publishedAt=null 时显式 unknown_time，不以审批时间补齐，也不进入有序状态投影；同一 Creator/Topic/真实时刻存在冲突状态时标 ambiguous_time，不按审批顺序选赢家。
+- Knowledge As-of 先按 source published/captured/recordedAt、Observation/Approval 和关联对象可见性过滤，再计算 Creator chronology。晚录入的旧帖在其录入/审核前不可见；新审核修订只在该 knowledge 时点后替代其祖先，历史记录不删除，旧 As-of 不变。修订旧帖子也不覆盖后来的新观点。此视图不是外部历史 strict PIT 认证。
 - 宏观事件关系逐条声明 explicit（作者明确解释）/inferred（研究者推断）/temporal（时间背景）。前两者须文字依据；explicit 仍只是作者因果陈述，不是系统验证的因果。
-- T+5/20/60 明确为 **calendar days，UTC，以人工审核时刻为锚点**。不声称交易日，不自动获取价格。重要 Observation 可有三个独立复盘结果；未满周期不能 completed，完成须实际表现及证据。结果修订必须指向同周期当前结果并保留旧记录。
+- T+5/20/60 明确为 **calendar days，以来源可证明的 Creator 发布时间为锚点，按 UTC 加日**。不声称交易日，不自动获取价格。锚点未知时 anchorAt/dueAt=null、chronology=unresolved；不能制造审核日锚点。未满周期或锚点未知时 completed / inconclusive 均拒绝，只可保存 pending。历史回填已过期的周期可以补复盘，但 Review.recordedAt 始终保存真实人工复盘时间，不能回写历史。完成仍须实际表现及证据；结果修订必须指向同周期当前结果并保留旧记录。
 
 ## 持久化、恢复与分析副本
 
@@ -33,9 +34,9 @@ V1 envelope 保存 creators/topics/sources/events/observations/approvals/reviews
 
 普通写入仅 append，duplicate ID 拒绝；load 时精确原字节与独立快照防止旧标签页/调用者原地改写。损坏原数据原样保留，写入锁定，不自动 reset。浏览器 localStorage 没有跨标签页 CAS：最终同步写前检查可检测已发生的基线变化，不宣称解决同时写竞争。
 
-JSON 是完整可恢复备份，恢复先严格预览/引用验证，显式确认后保存 exact pre-import backup，再合并追加。相同 ID/相同内容 skip；相同 ID/不同内容拒绝，绝不覆盖历史。不自动重排已有审批；若合并来自分叉备份的旧审批导致时间顺序矛盾，拒绝导入，需人工处理。Corrupt store 不经本功能自动替换。
+JSON 是完整可恢复备份，恢复先严格预览/引用验证，显式确认后保存 exact pre-import backup，再合并追加。相同 ID/相同内容 skip；相同 ID/不同内容拒绝，绝不覆盖历史。不自动重排已有审批；若合并来自分叉备份的旧审批导致时间顺序矛盾，拒绝导入，需人工处理。损坏库的普通 append/import 继续锁定。独立灾难恢复 seam 为：观测并绑定 exact corrupt bytes → 导出原字节 → 完整 schema/graph 预检备份 → 显式确认 → 独立 pre-recovery key 保存并读回核对原字节 → 再检查原基线 → 仅替换 tracker key → reload + semantic validation。预览无写入；备份、确认、基线或重载校验失败均报错，不静默 reset。显式不支持的 schemaVersion（包括 future schema）不归类为普通 corruption，不允许通过此 seam 覆盖。
 
-Excel 为标准 `.xlsx` OOXML，6 张表：Creators、Current Views、Timeline、Sources、External Events、Reviews。保留来源和关系标签、未知与草稿、修订及审核信息；所有文本使用 inline string 避免公式执行，长文本续列避免静默截断。Excel 只是分析副本，不支持反向导入。JSON 才是完整恢复格式。
+Excel 为标准 `.xlsx` OOXML，6 张表：Creators、Current Views、Timeline、Sources、External Events、Reviews。保留来源和关系标签、未知与草稿、修订及审核信息，分别导出 Creator 时间、knowledge 审核时间、复盘锚点/未知状态与实际人工 recordedAt；所有文本使用 inline string 避免公式执行，长文本续列避免静默截断。Excel 只是分析副本，不支持反向导入。JSON 才是完整恢复格式。
 
 ## 真实样本与证据限制
 
@@ -43,9 +44,9 @@ Excel 为标准 `.xlsx` OOXML，6 张表：Creators、Current Views、Timeline�
 
 没有取得该 Creator 此前已审核状态，故真实样本不能证明 A股“从某个状态改变到另一个状态”；只能作为首次录入，真实状态变化验收有证据缺口。合成测试另验证真正的 previous→new transition，不混用为真实研究结论。真实样本与核验记录仅存 gitignored 运行时 data-cache，不将真实原文/用户数据固化到测试 fixture 或正式页面 seed。仓库 fixture 只有明确合成内容。
 
-## 验证与停止点
+## 初始交付验证快照（7f1d3b2，保留历史）
 
-最终本地结果：
+以下是独立审计前的初始交付结果，不代表本轮修复验证：
 
 | 检查 | 实测结果 |
 | --- | --- |
@@ -68,3 +69,30 @@ Excel 为标准 `.xlsx` OOXML，6 张表：Creators、Current Views、Timeline�
 16项验收中，N Creator、来源分类、多Topic、Observation/Transition分离、append-only、draft、共享事件和三类关系、Timeline、三人比较、复盘、JSON、Excel、owner复用、三主题与build/test均有合成和/或运行时证据。真实“旧A股状态→新A股状态”仍无前态来源，不将这项真实历史证据标PASS；需补充此前原帖后经人工审核建立。
 
 最后 fetch 的 origin/main 仍为上述精确基线，无漂移。交付只 commit / 普通 push 功能分支；独立审计 PENDING，不创建 PR、不 merge、不部署、不宣称 production admission。
+
+
+## 独立审计修复与针对性复审（2026-09-19）
+
+本轮仅处理 Creator/knowledge 时间分离、T+ 锚点及提前结果拒绝、受控 corrupt-store recovery、来源级事件 verified。输入 HEAD 为 `7f1d3b2cce7dbd72830292e99cfb83e93268733b`，继续原功能分支；main 基线仍为 `8860c943919f90daa125934fde0f385707ea7028`。
+
+| 检查 | 本轮实测结果 |
+| --- | --- |
+| 受影响专项 | domain 41 + chronology 13 + repository 31 + export 6 + workspace 16 + Evidence Drawer 13 + UI review 4 = 124 tests PASS，均包含在全量中 |
+| 全量 Vitest | 80 files / 997 tests PASS |
+| Build | TypeScript + Local Core typecheck + Vite + financial bundle boundary PASS |
+| 真实浏览器 | 321 checks PASS，0 runtime/console errors，0 external requests；目标源码运行前后摘要一致 |
+| 布局 | neon/pro/light × 1536/1280/390/320、reduced-motion、Drawer 与焦点通过 |
+| 时间链路 | 历史乱序回填、knowledge As-of、revision、unknown chronology、历史 T+ 锚点、early completed/inconclusive 拒绝通过 |
+| JSON recovery | exact 损坏原字节导出、坏备份/断链拒绝、预览无写入、确认及原字节备份、仅 tracker 替换、reload 语义一致；future schema 拒绝通过 |
+| Excel | 实际浏览器下载，ZIP CRC / openpyxl 六表及拆分时间列通过 |
+| Hosted CI | NOT_RUN；workflow 仅监听 PR/main，未创建 PR |
+
+可审查的检查清单与源码摘要见 [remediation-validation.json](stage-4-2-5-remediation-validation.json)。初始 validation.json 不回写。截图/下载/完整日志仍只在 gitignored data-cache；仅现存 favicon.ico 404 warning。CURRENT 为 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW，普通 commit/push 后停止。
+
+### 仍存在的限制
+
+- Creator chronology 依赖人工提供、带明确时区的来源时间；不是独立 strict PIT 认证。原冰冰小美样本缺少明确时区和旧状态来源，继续保留 Draft/unknown，不能据此证明真实历史转换或计算 T+。
+- 同一 Creator/Topic/精确时刻的冲突观点保持 chronology unresolved；不会用本地审核先后制造真实顺序。
+- localStorage 无跨标签页原子 CAS；恢复会核对原字节并保留灾前备份，但不宣称解决所有同时写竞争。
+- 原实现曾接受的提前 inconclusive 或无锚点终结结果，在新校验下会 fail closed。原字节仍保留，恢复必须提供完整有效备份；不自动修改或删除旧 Review。
+- 事件 verified 仅为来源核对，没有自动行情验证、Provider/Claim/Thesis 晋升或生产准入。

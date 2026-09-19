@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { CreatorViewpointData } from '../types/creatorViewpoint';
 import type { StorageLike } from './watchlistRepository';
 import { buildCreatorCurrentViews, buildViewpointReviews, buildViewpointTimeline, createEmptyCreatorViewpointData } from './creatorViewpoint';
-import { BrowserCreatorViewpointRepository, CREATOR_VIEWPOINT_BACKUP_PREFIX, CREATOR_VIEWPOINT_STORAGE_KEY, migrateCreatorViewpointData } from './creatorViewpointRepository';
+import { BrowserCreatorViewpointRepository, CREATOR_VIEWPOINT_BACKUP_PREFIX, CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX, CREATOR_VIEWPOINT_STORAGE_KEY, migrateCreatorViewpointData } from './creatorViewpointRepository';
 
 const at = '2026-09-01T08:00:00.000Z';
 class MemoryStorage implements StorageLike {
@@ -140,5 +140,161 @@ describe('Creator viewpoint browser repository', () => {
   it('fails closed when storage is unavailable', () => {
     const repo = new BrowserCreatorViewpointRepository(null); const result = repo.load();
     expect(result.error).toBeTruthy(); expect(() => repo.append(result.data, {})).toThrow();
+  });
+});
+
+describe('Creator viewpoint explicit corrupt-store recovery', () => {
+  function corruptSetup(raw = '{ broken\r\n  exact original bytes ') {
+    const storage = new MemoryStorage();
+    storage.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, raw);
+    storage.values.set('unrelated.business.data', 'preserve me');
+    const repo = new BrowserCreatorViewpointRepository(storage, () => new Date(at));
+    const loaded = repo.load();
+    const backup = repo.export(fixture());
+    return { storage, repo, loaded, raw, backup };
+  }
+
+  it.each(['malformed JSON', 'valid JSON with invalid graph'])('recovers %s only after preview and confirmation, retaining exact corrupt bytes', kind => {
+    const invalid = fixture(); invalid.observations[0].sourceId = 'missing-source';
+    const original = kind === 'malformed JSON' ? '{ broken\r\n  exact original bytes ' : JSON.stringify(invalid, null, 2);
+    const { storage, repo, loaded, raw, backup } = corruptSetup(original);
+    expect(loaded.recoveryStatus).toBe('corrupt');
+    const before = [...storage.values];
+    const preview = repo.previewRecovery(backup, raw);
+    expect(preview.data).toEqual(fixture());
+    expect(preview.skipCount).toBe(0); expect(preview.addCount).toBeGreaterThan(0);
+    expect([...storage.values]).toEqual(before);
+    expect(() => repo.append(loaded.data, {})).toThrow();
+    expect(() => repo.recoverCorrupt(backup, raw, false)).toThrow(/确认/);
+    expect([...storage.values]).toEqual(before);
+    const recovered = repo.recoverCorrupt(backup, raw, true);
+    expect(recovered).toEqual(fixture());
+    expect(repo.load().recoveryStatus).toBeNull();
+    expect(storage.getItem('unrelated.business.data')).toBe('preserve me');
+    const keys = [...storage.values.keys()].filter(key => key.startsWith(CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX));
+    expect(keys).toHaveLength(1); expect(storage.getItem(keys[0])).toBe(original);
+    expect(repo.append(recovered, {}).creators).toHaveLength(3);
+  });
+
+  it('rejects recovery without load, with invented corrupt bytes, and against an ordinary valid store', () => {
+    const { storage, repo, raw, backup } = corruptSetup();
+    const unseen = new BrowserCreatorViewpointRepository(storage);
+    expect(() => unseen.previewRecovery(backup, raw)).toThrow(/实际读取/);
+    expect(() => unseen.recoverCorrupt(backup, raw, true)).toThrow(/实际读取/);
+    expect(() => repo.previewRecovery(backup, `${raw}tamper`)).toThrow(/实际读取/);
+    storage.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, JSON.stringify(fixture()));
+    const validLoad = repo.load(); expect(validLoad.recoveryStatus).toBeNull();
+    expect(() => repo.recoverCorrupt(backup, JSON.stringify(fixture()), true)).toThrow(/实际读取/);
+    expect([...storage.values.keys()].some(key => key.startsWith(CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX))).toBe(false);
+  });
+
+  it.each([0, 2, 99, '1', null])('does not recover unsupported stored schemaVersion %s, even if its graph is malformed', schemaVersion => {
+    const unsupportedRaw = JSON.stringify({ schemaVersion, observations: 'also corrupt' });
+    const { storage, repo, loaded, backup } = corruptSetup(unsupportedRaw);
+    expect(loaded.recoveryStatus).toBe('unsupported_version');
+    expect(() => repo.previewRecovery(backup, unsupportedRaw)).toThrow(/实际读取/);
+    expect(() => repo.recoverCorrupt(backup, unsupportedRaw, true)).toThrow(/实际读取/);
+    expect(storage.getItem(CREATOR_VIEWPOINT_STORAGE_KEY)).toBe(unsupportedRaw);
+    expect(storage.values.size).toBe(2);
+  });
+
+  it.each(['malformed', 'wrong-format', 'invalid-graph', 'future-schema'])('rejects %s recovery backups before any write', variant => {
+    const { storage, repo, raw, backup } = corruptSetup();
+    const parsed = JSON.parse(backup) as { format: string; data: CreatorViewpointData & { schemaVersion: number } };
+    if (variant === 'wrong-format') parsed.format = 'not a tracker backup';
+    if (variant === 'invalid-graph') parsed.data.observations[0].sourceId = 'missing';
+    const invalidBackup = variant === 'malformed' ? '{broken' : variant === 'future-schema' ? JSON.stringify({ ...parsed, data: { ...parsed.data, schemaVersion: 99 } }) : JSON.stringify(parsed);
+    const before = [...storage.values];
+    expect(() => repo.previewRecovery(invalidBackup, raw)).toThrow();
+    expect(() => repo.recoverCorrupt(invalidBackup, raw, true)).toThrow();
+    expect([...storage.values]).toEqual(before);
+  });
+
+  it('rejects stale corruption after another tab changes it, including between preview and confirmation', () => {
+    const { storage, repo, raw, backup } = corruptSetup();
+    repo.previewRecovery(backup, raw);
+    storage.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, '{new corruption}');
+    expect(() => repo.recoverCorrupt(backup, raw, true)).toThrow(/已变化/);
+    expect(storage.getItem(CREATOR_VIEWPOINT_STORAGE_KEY)).toBe('{new corruption}');
+    // Restoring the old string does not resurrect the invalidated observation.
+    storage.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, raw);
+    expect(() => repo.previewRecovery(backup, raw)).toThrow(/实际读取/);
+    expect(storage.values.size).toBe(2);
+  });
+
+  it('rechecks corruption after writing the pre-recovery backup, before touching the live key', () => {
+    class ConcurrentStorage extends MemoryStorage {
+      override setItem(key: string, value: string) {
+        super.setItem(key, value);
+        if (key.startsWith(CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX)) this.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, 'other-tab-write');
+      }
+    }
+    const storage = new ConcurrentStorage(); const raw = '{corrupt';
+    storage.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, raw);
+    const repo = new BrowserCreatorViewpointRepository(storage); repo.load();
+    expect(() => repo.recoverCorrupt(repo.export(fixture()), raw, true)).toThrow(/已变化/);
+    expect(storage.getItem(CREATOR_VIEWPOINT_STORAGE_KEY)).toBe('other-tab-write');
+  });
+
+  it('stops on pre-backup quota errors and verifies backup readback before replacing live bytes', () => {
+    const { storage, repo, raw, backup } = corruptSetup();
+    storage.failKey = CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX;
+    expect(() => repo.recoverCorrupt(backup, raw, true)).toThrow('quota');
+    expect(storage.getItem(CREATOR_VIEWPOINT_STORAGE_KEY)).toBe(raw);
+    class SilentBackupStorage extends MemoryStorage {
+      override setItem(key: string, value: string) { if (!key.startsWith(CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX)) super.setItem(key, value); }
+    }
+    const silent = new SilentBackupStorage(); silent.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, raw);
+    const silentRepo = new BrowserCreatorViewpointRepository(silent); silentRepo.load();
+    expect(() => silentRepo.recoverCorrupt(backup, raw, true)).toThrow(/备份校验失败/);
+    expect(silent.getItem(CREATOR_VIEWPOINT_STORAGE_KEY)).toBe(raw);
+  });
+
+  it('retains the corrupt live bytes and their backup when replacement hits quota', () => {
+    class ReplaceFailureStorage extends MemoryStorage {
+      override setItem(key: string, value: string) { if (key === CREATOR_VIEWPOINT_STORAGE_KEY) throw new Error('replacement quota'); super.setItem(key, value); }
+    }
+    const storage = new ReplaceFailureStorage(); const raw = '{corrupt';
+    storage.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, raw);
+    const repo = new BrowserCreatorViewpointRepository(storage); const loaded = repo.load();
+    expect(() => repo.recoverCorrupt(repo.export(fixture()), raw, true)).toThrow('replacement quota');
+    expect(storage.getItem(CREATOR_VIEWPOINT_STORAGE_KEY)).toBe(raw);
+    const backupKey = [...storage.values.keys()].find(key => key.startsWith(CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX))!;
+    expect(storage.getItem(backupKey)).toBe(raw);
+    expect(() => repo.append(loaded.data, {})).toThrow();
+  });
+
+  it('does not claim recovery success when live readback is corrupt or semantically different', () => {
+    class CorruptingWriteStorage extends MemoryStorage {
+      override setItem(key: string, value: string) { super.setItem(key, key === CREATOR_VIEWPOINT_STORAGE_KEY ? JSON.stringify(createEmptyCreatorViewpointData()) : value); }
+    }
+    const storage = new CorruptingWriteStorage(); const raw = '{corrupt'; storage.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, raw);
+    const repo = new BrowserCreatorViewpointRepository(storage); repo.load();
+    expect(() => repo.recoverCorrupt(repo.export(fixture()), raw, true)).toThrow(/重读校验失败/);
+    expect([...storage.values.values()]).toContain(raw);
+  });
+
+  it('uses unique backup keys with a frozen clock and preserves JSON round-trip read models', () => {
+    const { storage, repo, raw, backup } = corruptSetup();
+    const first = repo.recoverCorrupt(backup, raw, true);
+    const exportAfterRecovery = repo.export(first);
+    expect(buildCreatorCurrentViews(first)).toEqual(buildCreatorCurrentViews(fixture()));
+    expect(buildViewpointTimeline(first)).toEqual(buildViewpointTimeline(fixture()));
+    expect(buildViewpointReviews(first)).toEqual(buildViewpointReviews(fixture()));
+    const secondRaw = '{different corruption}'; storage.values.set(CREATOR_VIEWPOINT_STORAGE_KEY, secondRaw); repo.load();
+    const second = repo.recoverCorrupt(exportAfterRecovery, secondRaw, true);
+    expect(second).toEqual(first);
+    const keys = [...storage.values.keys()].filter(key => key.startsWith(CREATOR_VIEWPOINT_RECOVERY_BACKUP_PREFIX));
+    expect(keys).toHaveLength(2);
+    expect(storage.getItem(keys[0])).toBe(raw); expect(storage.getItem(keys[1])).toBe(secondRaw);
+  });
+
+  it('keeps unavailable storage ineligible for recovery', () => {
+    const repo = new BrowserCreatorViewpointRepository(null);
+    expect(repo.load().recoveryStatus).toBe('unavailable');
+    expect(() => repo.recoverCorrupt(repo.export(fixture()), '{corrupt', true)).toThrow(/实际读取/);
+    class ReadFailureStorage extends MemoryStorage { override getItem(): string | null { throw new Error('read denied'); } }
+    const denied = new BrowserCreatorViewpointRepository(new ReadFailureStorage());
+    expect(denied.load().recoveryStatus).toBe('unavailable');
   });
 });

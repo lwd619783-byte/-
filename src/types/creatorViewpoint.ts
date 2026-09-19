@@ -41,14 +41,15 @@ export interface CreatorViewpointData {
   approvals: ViewpointApproval[]; reviews: ViewpointReview[];
 }
 export interface ViewpointTransition {
-  id: string; creatorId: string; topicId: string; recordedAt: string;
+  id: string; creatorId: string; topicId: string; recordedAt: string; effectiveAt: string;
   previous: ViewpointObservation | null; next: ViewpointObservation; approvalId: string;
 }
 export interface ViewpointCurrent {
   creatorId: string; topicId: string; observation: ViewpointObservation;
-  reviewedAt: string; lastTransition: ViewpointTransition | null; coverage: Coverage;
+  effectiveAt: string; reviewedAt: string; lastTransition: ViewpointTransition | null; coverage: Coverage;
 }
 export interface ViewpointReviewDue {
-  observationId: string; offsetDays: 5 | 20 | 60; dueAt: string; basis: 'calendar_days';
+  observationId: string; offsetDays: 5 | 20 | 60; anchorAt: string | null;
+  dueAt: string | null; chronology: 'resolved' | 'unresolved'; basis: 'calendar_days';
   result: ViewpointReview | null;
 }

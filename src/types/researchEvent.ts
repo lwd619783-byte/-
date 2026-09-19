@@ -49,7 +49,8 @@ export interface ExternalResearchEvent extends ResearchEventCore {
   eventType: 'macro_external';
   eventOccurredAt: string | null;
   recordedAt: string;
-  verificationStatus: 'unverified' | 'partial';
+  /** Source inspection only; no Provider, Claim or Thesis admission. */
+  verificationStatus: Extract<ResearchVerificationStatus, 'verified' | 'partial'> | 'unverified';
   supersedesId: string | null;
 }
 

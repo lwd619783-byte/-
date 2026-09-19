@@ -83,7 +83,8 @@ export function validateCreatorViewpointData(value: unknown): asserts value is C
     for (const key of ['title', 'summary', 'sourceName']) text(row[key], key);
     instant(row.publishedAt, 'event.publishedAt', true); instant(row.eventOccurredAt, 'eventOccurredAt', true); url(row.sourceUrl, 'event.sourceUrl');
     oneOf(row.scope, ['external'], 'event.scope'); oneOf(row.eventType, ['macro_external'], 'eventType');
-    oneOf(row.verificationStatus, ['unverified', 'partial'], 'event.verificationStatus'); text(row.supersedesId, 'event.supersedesId', true);
+    oneOf(row.verificationStatus, ['unverified', 'partial', 'verified'], 'event.verificationStatus'); text(row.supersedesId, 'event.supersedesId', true);
+    requireThat(row.verificationStatus !== 'verified' || (row.sourceUrl !== null && row.sourceName !== 'unknown'), '来源级 verified 事件必须有已核对的来源名称与 URL；不代表正式准入');
   }
   for (const row of value.observations as unknown[]) {
     base(row, 'id creatorId topicId sourceId recordedAt summary reasoning eventLinks supersedesId revisionReason important stance conditional horizon trigger confirmation invalidation', 'observation');
@@ -179,7 +180,9 @@ export function validateCreatorViewpointData(value: unknown): asserts value is C
     const key = JSON.stringify([review.observationId, review.offsetDays]);
     requireThat((reviewHeads.get(key) ?? null) === review.supersedesId, '复盘须追加到同一周期的当前修订，不得分叉或覆盖');
     if (review.supersedesId) { const prior = reviews.get(review.supersedesId); requireThat(prior && before(prior.recordedAt, review.recordedAt), '复盘修订时间倒置'); }
-    requireThat(review.status !== 'completed' || time(review.recordedAt) >= time(approval.recordedAt) + review.offsetDays * 86_400_000, '观察周期未满，不能标记完成');
+    const anchor = creatorEffectiveAt(data, observation);
+    requireThat(review.status === 'pending' || anchor !== null, '博主观点时间未知，不能计算或保存 T+ 周期评价');
+    requireThat(review.status === 'pending' || time(review.recordedAt) >= time(anchor!) + review.offsetDays * 86_400_000, '观察周期未满，只能 pending；不能保存 completed / inconclusive');
     reviews.set(review.id, review); reviewHeads.set(key, review.id);
   }
 }
@@ -198,6 +201,10 @@ export function visibleViewpointObservations(data: CreatorViewpointData, asOf?: 
       && data.creators.some(x => x.id === observation.creatorId && before(x.recordedAt, end))
       && data.topics.some(x => x.id === observation.topicId && before(x.recordedAt, end))
       && observation.eventLinks.every(link => data.events.some(x => x.id === link.eventId && before(x.recordedAt, end) && (!x.publishedAt || before(x.publishedAt, end))));
+  }).sort((a, b) => {
+    const aTime = creatorEffectiveAt(data, a); const bTime = creatorEffectiveAt(data, b);
+    // Unknown chronology has its own tail; audit time never substitutes for creator time.
+    return aTime && bTime ? time(aTime) - time(bTime) : aTime ? -1 : bTime ? 1 : 0;
   });
 }
 export function observationStatus(data: CreatorViewpointData, observationId: string, asOf?: string): 'draft' | 'reviewed' | 'rejected' {
@@ -218,28 +225,60 @@ export function sourceCoverage(data: CreatorViewpointData, sourceId: string): Co
 function stateKey(observation: ViewpointState): string {
   return JSON.stringify([observation.stance, observation.conditional, observation.horizon, observation.trigger, observation.confirmation, observation.invalidation]);
 }
+/** Creator time is source-owned. Unknown zones/labels and local audit timestamps are not fallbacks. */
+export function creatorEffectiveAt(data: CreatorViewpointData, observation: ViewpointObservation): string | null {
+  return data.sources.find(source => source.id === observation.sourceId)?.publishedAt ?? null;
+}
 function reviewed(data: CreatorViewpointData, asOf?: string) {
   const end = cutoff(asOf); const observations = new Map(visibleViewpointObservations(data, end).map(x => [x.id, x]));
-  // Equal audit instants retain append order, independent of ids and publication time.
   return data.approvals.map((approval, index) => ({ approval, index, observation: observations.get(approval.observationId) }))
-    .filter((row): row is typeof row & { observation: ViewpointObservation } => !!row.observation && row.approval.decision === 'reviewed' && before(row.approval.recordedAt, end))
-    .sort((a, b) => time(a.approval.recordedAt) - time(b.approval.recordedAt) || a.index - b.index);
+    .filter((row): row is typeof row & { observation: ViewpointObservation } => !!row.observation && row.approval.decision === 'reviewed' && before(row.approval.recordedAt, end));
+}
+function chronology(data: CreatorViewpointData, asOf?: string) {
+  const rows = reviewed(data, asOf);
+  const superseded = new Set<string>();
+  for (const { observation } of rows) {
+    let previous = observation.supersedesId;
+    while (previous) { superseded.add(previous); previous = data.observations.find(x => x.id === previous)!.supersedesId; }
+  }
+  const active = rows.filter(row => !superseded.has(row.observation.id));
+  const groups = new Map<string, Array<typeof active[number] & { effectiveAt: string }>>();
+  for (const row of active) {
+    const effectiveAt = creatorEffectiveAt(data, row.observation);
+    if (!effectiveAt) continue;
+    const key = JSON.stringify([row.observation.creatorId, row.observation.topicId, time(effectiveAt)]);
+    groups.set(key, [...(groups.get(key) ?? []), { ...row, effectiveAt }]);
+  }
+  // Same-instant conflicting states have no proven ordering. Audit order cannot settle that conflict.
+  // Identical states may share a source; latest reviewed detail is merely a representative, not a transition.
+  const buckets = [...groups.values()].map(group => ({ ...group[group.length - 1], ambiguous: new Set(group.map(row => stateKey(row.observation))).size > 1, ids: group.map(row => row.observation.id) }))
+    .sort((a, b) => time(a.effectiveAt) - time(b.effectiveAt));
+  return { superseded, buckets };
+}
+export function viewpointChronologyStatus(data: CreatorViewpointData, observation: ViewpointObservation, asOf?: string): 'resolved' | 'unknown_time' | 'ambiguous_time' | 'superseded' {
+  const { superseded, buckets } = chronology(data, asOf);
+  if (superseded.has(observation.id)) return 'superseded';
+  if (!creatorEffectiveAt(data, observation)) return 'unknown_time';
+  return buckets.some(bucket => bucket.ambiguous && bucket.ids.includes(observation.id)) ? 'ambiguous_time' : 'resolved';
 }
 export function buildViewpointTimeline(data: CreatorViewpointData, asOf?: string): ViewpointTransition[] {
   const previous = new Map<string, ViewpointObservation>(); const transitions: ViewpointTransition[] = [];
-  for (const { observation, approval } of reviewed(data, asOf)) {
-    const key = JSON.stringify([observation.creatorId, observation.topicId]); const prior = previous.get(key) ?? null;
-    if (!prior || stateKey(prior) !== stateKey(observation)) transitions.push({ id: `transition:${approval.id}`, creatorId: observation.creatorId, topicId: observation.topicId, recordedAt: approval.recordedAt, previous: prior, next: observation, approvalId: approval.id });
+  for (const { observation, approval, effectiveAt, ambiguous } of chronology(data, asOf).buckets) {
+    const key = JSON.stringify([observation.creatorId, observation.topicId]);
+    if (ambiguous) { previous.delete(key); continue; }
+    const prior = previous.get(key) ?? null;
+    if (!prior || stateKey(prior) !== stateKey(observation)) transitions.push({ id: 'transition:' + approval.id, creatorId: observation.creatorId, topicId: observation.topicId, effectiveAt, recordedAt: approval.recordedAt, previous: prior, next: observation, approvalId: approval.id });
     previous.set(key, observation);
   }
   return transitions;
 }
 export function buildCreatorCurrentViews(data: CreatorViewpointData, asOf?: string): ViewpointCurrent[] {
   const transitions = buildViewpointTimeline(data, asOf); const views = new Map<string, ViewpointCurrent>();
-  for (const { observation, approval } of reviewed(data, asOf)) {
+  for (const { observation, approval, effectiveAt, ambiguous } of chronology(data, asOf).buckets) {
     const key = JSON.stringify([observation.creatorId, observation.topicId]);
+    if (ambiguous) { views.delete(key); continue; }
     const matchingTransitions = transitions.filter(x => x.creatorId === observation.creatorId && x.topicId === observation.topicId);
-    views.set(key, { creatorId: observation.creatorId, topicId: observation.topicId, observation, reviewedAt: approval.recordedAt,
+    views.set(key, { creatorId: observation.creatorId, topicId: observation.topicId, observation, effectiveAt, reviewedAt: approval.recordedAt,
       lastTransition: matchingTransitions[matchingTransitions.length - 1] ?? null,
       coverage: sourceCoverage(data, observation.sourceId) });
   }
@@ -247,9 +286,12 @@ export function buildCreatorCurrentViews(data: CreatorViewpointData, asOf?: stri
 }
 export function buildViewpointReviews(data: CreatorViewpointData, asOf?: string): ViewpointReviewDue[] {
   const end = cutoff(asOf);
-  return reviewed(data, end).filter(x => x.observation.important).flatMap(({ observation, approval }) => ([5, 20, 60] as const).map(offsetDays => {
+  // Review records continue to refer to their exact immutable observation, including superseded revisions.
+  return reviewed(data, end).filter(x => x.observation.important).flatMap(({ observation }) => ([5, 20, 60] as const).map(offsetDays => {
+    const anchorAt = creatorEffectiveAt(data, observation);
     const results = data.reviews.filter(x => x.observationId === observation.id && x.offsetDays === offsetDays && before(x.recordedAt, end));
-    return { observationId: observation.id, offsetDays, dueAt: new Date(time(approval.recordedAt) + offsetDays * 86_400_000).toISOString(), basis: 'calendar_days' as const, result: results[results.length - 1] ?? null };
+    return { observationId: observation.id, offsetDays, anchorAt, dueAt: anchorAt ? new Date(time(anchorAt) + offsetDays * 86_400_000).toISOString() : null,
+      chronology: anchorAt ? 'resolved' as const : 'unresolved' as const, basis: 'calendar_days' as const, result: results[results.length - 1] ?? null };
   }));
 }
 export function approveViewpoint(data: CreatorViewpointData, observationId: string, decision: ViewpointApproval['decision'], note: string, now = new Date()): ViewpointApproval {

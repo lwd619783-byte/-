@@ -38,7 +38,7 @@ export default function UiReviewApp({ initialProfile }: { initialProfile: UiRevi
   const creatorRepository = useMemo<CreatorViewpointRepository>(() => {
     const data = profile === 'empty' ? createEmptyCreatorViewpointData() : creatorViewpointFixture();
     const forbidden = (): never => { throw new Error(BLOCKED); };
-    return { load: () => ({ data, error: profile === 'degraded' ? '合成存储损坏场景；未读取或覆盖业务存储。' : null, corruptedRaw: null }), append: forbidden, export: forbidden, previewImport: forbidden, import: forbidden };
+    return { load: () => ({ data, error: profile === 'degraded' ? '合成存储损坏场景；未读取或覆盖业务存储。' : null, corruptedRaw: null }), append: forbidden, export: forbidden, previewImport: forbidden, import: forbidden, previewRecovery: forbidden, recoverCorrupt: forbidden };
   }, [profile]);
   const { companies, industries, watchItems, tasks, reviewEntries, snapshot: baseSnapshot, expectations, macro, details } = fixture;
   // Pure existing comparison engine; no data loader, registry or persistence path.
