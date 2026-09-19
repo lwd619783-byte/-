@@ -1,5 +1,5 @@
 // Generated from unchanged F2 V1 schemas by scripts/industry/compile-graph-validator.mjs.
-// Source digests: c7c5eb72b0f4007a993025ddbe3d39db6b7f965d64912a0790734de68c671f6e 7194f50bfa2a0b3cb3fbcf54ad7acc5525674351bf29c7645ad48e272e0b52eb ce73889ae1b28eef24c4537ec99c594676073907eec96febcd4b8416276c1def
+// Source digests: c7c5eb72b0f4007a993025ddbe3d39db6b7f965d64912a0790734de68c671f6e 7194f50bfa2a0b3cb3fbcf54ad7acc5525674351bf29c7645ad48e272e0b52eb a39cda6f04679e91000f4dd77e5595c77f8c0d9209b0c6d9f01dfa3aa43f943c
 /*! ajv runtime helper license
 The MIT License (MIT)
 
