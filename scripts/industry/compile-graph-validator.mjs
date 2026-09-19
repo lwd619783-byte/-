@@ -22,10 +22,25 @@ const output = '// Generated from unchanged F2 V1 schemas by scripts/industry/co
 const target = 'src/services/evidenceGraphValidator.generated.mjs';
 if (process.argv.includes('--write')) fs.writeFileSync(target, output);
 else if (fs.readFileSync(target, 'utf8') !== output) {
-  console.error('F2_GENERATED_VALIDATOR_EXPECTED_BASE64_BEGIN');
-  const encoded = Buffer.from(output, 'utf8').toString('base64');
-  for (let i = 0; i < encoded.length; i += 3000) console.error(`F2_GENERATED_VALIDATOR_CHUNK:${encoded.slice(i, i + 3000)}`);
-  console.error('F2_GENERATED_VALIDATOR_EXPECTED_BASE64_END');
+  const actual = fs.readFileSync(target, 'utf8');
+  let prefix = 0;
+  while (prefix < actual.length && prefix < output.length && actual[prefix] === output[prefix]) prefix++;
+  let suffix = 0;
+  while (suffix < actual.length - prefix && suffix < output.length - prefix
+    && actual[actual.length - 1 - suffix] === output[output.length - 1 - suffix]) suffix++;
+  const version = name => JSON.parse(fs.readFileSync(`node_modules/${name}/package.json`, 'utf8')).version;
+  console.error(JSON.stringify({
+    code: 'F2_GENERATED_VALIDATOR_DRIFT',
+    actualSha256: createHash('sha256').update(actual).digest('hex'),
+    expectedSha256: createHash('sha256').update(output).digest('hex'),
+    actualLength: actual.length,
+    expectedLength: output.length,
+    commonPrefix: prefix,
+    commonSuffix: suffix,
+    versions: { ajv: version('ajv'), ajvFormats: version('ajv-formats'), fastDeepEqual: version('fast-deep-equal'), esbuild: version('esbuild') },
+    actualAroundFirstDiff: actual.slice(Math.max(0, prefix - 160), prefix + 320),
+    expectedAroundFirstDiff: output.slice(Math.max(0, prefix - 160), prefix + 320),
+  }));
   throw new Error('F2_GENERATED_VALIDATOR_DRIFT');
 }
 console.log('F2 generated validator: PASS');
