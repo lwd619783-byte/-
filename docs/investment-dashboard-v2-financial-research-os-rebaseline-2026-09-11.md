@@ -327,7 +327,11 @@ Artifact 是研究输出，不反向成为事实源；如需回写 Research Enti
 - F2 连接 raw metric → derived signal → industry claim；
 - 对应 Eval cases。
 
-### Stage 4.3 — Top-down Research Workflow
+### Stage 4.2.5 — Creator Viewpoint Tracker V1（CURRENT）
+
+2026-09-19 用户决定在已 CLOSED 的 Stage 4.2 与 NEXT Stage 4.3 之间插入独立专项：外部事件 → 原始来源 → 多 Topic 观点 → 已审核状态演化 → 条件 → 人工复盘。支持 N 个 Creator；复用事件公共 owner、证据抽屉和浏览器 Local-first 边界。只形成 External Commentary 结构化输入，不产生正式 Claim/Thesis、赢家评分或生产准入。具体语义、真实样本限制与验证见 [Stage 4.2.5](stage-4-2-5-creator-viewpoint-tracker.md)。
+
+### Stage 4.3 — Top-down Research Workflow（NEXT）
 
 交付：
 

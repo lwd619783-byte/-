@@ -39,6 +39,7 @@ import { DashboardCard, KpiCard, SectionHeader } from "./components/common/termi
 import { formatPercent } from "./utils/normalize";
 import { loadIndustryMetrics, type IndustryProviderState } from './services/industryMetricProvider';
 import { buildIndustryChanges } from './services/industrySignals';
+import { CreatorViewpointWorkspace } from './components/creator/CreatorViewpointWorkspace';
 
 type MainTab = "首页" | ResearchDestination;
 
@@ -50,6 +51,7 @@ const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
   { id: "观察清单", icon: Binoculars },
   { id: "验证中心", icon: FlaskConical },
   { id: "预期证据", icon: ScrollText },
+  { id: "观点追踪", icon: ScrollText },
 ];
 
 export default function App() {
@@ -381,6 +383,7 @@ export default function App() {
 
           {workflowMessage ? <div role="status" className="rounded-md border border-success/35 bg-success/10 px-3 py-2 text-sm text-success">{workflowMessage}</div> : null}
 
+          {visitedTabs.has("观点追踪") && <div hidden={activeTab !== "观点追踪"}><CreatorViewpointWorkspace /></div>}
           {visitedTabs.has("宏观") && <div hidden={activeTab !== "宏观"}><MacroTab indicators={macroIndicators} generatedAt={dataUpdatedAt} /></div>}
           {visitedTabs.has("行业") && (<div hidden={activeTab !== "行业"}>
             <IndustryTab

@@ -1,5 +1,9 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-19 CURRENT — **Stage 4.2 CLOSED → Stage 4.2.5 Creator Viewpoint Tracker V1 CURRENT → Stage 4.3 NEXT**。本专项新增外部观点记录、独立 Topic 状态历史、人工审核/复盘、四视图 Workspace、JSON 完整恢复和 Excel 分析副本；Current View/Transition/到期项均为已审核历史投影。复用 ResearchEvent 公共 owner、Evidence Drawer、Workspace 导航和 PersistedBaseGuard；不接 SQLite/云，不提前实现 Claim/Thesis。精确开发基线 `8860c943919f90daa125934fde0f385707ea7028`。本地 959 tests / build / 287 browser checks / JSON round-trip / Excel 独立读取 PASS；IMPLEMENTED / VERIFIED LOCALLY。真实样本旧状态与明确失效条件仍未证明，未伪造转换。完整交付与限制见 [Stage 4.2.5 当前方案与交付](stage-4-2-5-creator-viewpoint-tracker.md)。独立审计 PENDING，Hosted CI NOT_RUN；仅功能分支普通 commit/push，不创建 PR/merge/部署。
+
+> 以下 Stage 4.2 closeout 及更早 CURRENT 条目保留其记录时点；本轮顺序以上述 Stage 4.2.5 增量为准。
+
 > 2026-09-19 CURRENT — **Stage 4.2 已正式 CLOSED / MERGED / MAIN CI PASS，主开发线进入 Stage 4.3**。Slice 6 独立审计通过；最终 PR head `8cc62168681719e1eedfe3b1974f5b35844df2cb`，PR [#64](https://github.com/lwd619783-byte/-/pull/64) CI [35447795829](https://github.com/lwd619783-byte/-/actions/runs/35447795829) completed/success；merge/main `05ffb33ce4edee81f174253ccbad4ee697ed974a`，main CI [35448015019](https://github.com/lwd619783-byte/-/actions/runs/35448015019) completed/success。Stage 4.2 最终交付包括 Industry Registry/Provider、跨来源 owners、Dimensions/Snapshot、描述型相邻期派生、固定模板事实性 Claim Candidate、F2 V1 引用链与 Prosperity Eligibility/ABSTAIN。正式景气 score/direction、Verified Claim、Thesis、Portfolio、Agent 以及 DATA/PRODUCTION admission、严格 PIT/release/revision closure 均未因此获得授权。详见 [Slice 6](stage-4-2-slice-6-plan.md)。
 
 > 2026-09-18 CURRENT Slice 5 scope：Stage 4.1B 与 Stage 4.2 Slice 1–4 已合入；当前核验 main 为 `8497ac9199def1fbec420eecc6ad7b7305ce160d`（PR #62，PR/main CI success，Vercel Production READY）。本轮只完成 Metric → Industry Dimension → Multi-factor Snapshot，不进入 Prosperity/Regime/Claim/Thesis；具体冻结边界与验证见 [Slice 5 plan](stage-4-2-slice-5-plan.md)，较早阶段记录保留时点意义。
@@ -46,7 +50,9 @@ Stage 4.1-G  收口 Stage 4.1 基础设施
       ↓
 Stage 4.1B   Product Shell / Research Inbox / Evidence Surface
       ↓
-Stage 4.2    Industry Data Platform
+Stage 4.2    Industry Data Platform（CLOSED）
+      ↓
+Stage 4.2.5  Creator Viewpoint Tracker V1（CURRENT）
       ↓
 Stage 4.3    Top-down Research Workflow / Claim / Thesis / Research Memory
       ↓

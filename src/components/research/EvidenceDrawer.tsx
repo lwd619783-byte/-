@@ -6,6 +6,7 @@ import { Modal } from "../common/Modal";
 import { ResearchEventEvidence } from "./ResearchEventEvidence";
 import type { ChartAuditView } from "../../services/chartAudit";
 import { ChartAuditPanel } from "../charts/ChartAuditPanel";
+import { CreatorEvidence, type CreatorEvidenceSelection } from '../creator/CreatorEvidence';
 
 export interface EvidenceDrawerProps {
   events: ResearchEvent[];
@@ -20,7 +21,8 @@ export interface EvidenceDrawerProps {
   onStartReview?: (item: WatchItem) => void;
 }
 
-export function EvidenceDrawer(props: EvidenceDrawerProps | { audit: ChartAuditView; onClose: () => void }) {
+export function EvidenceDrawer(props: EvidenceDrawerProps | { audit: ChartAuditView; onClose: () => void } | { creatorEvidence: CreatorEvidenceSelection; onClose: () => void }) {
+  if ('creatorEvidence' in props) return <Modal title="观点来源核对" size="drawer" onClose={props.onClose} description="核对外部评论、来源身份与覆盖范围。"><CreatorEvidence {...props.creatorEvidence} /></Modal>;
   if ('audit' in props) return <Modal title="证据核对" size="drawer" onClose={props.onClose} description="留存来源核对；候选证据不代表历史时点可得性（PIT） 或生产准入。"><ChartAuditPanel audit={props.audit} expanded /></Modal>;
   return <EventEvidenceDrawer {...props} />;
 }

@@ -1,0 +1,1210 @@
+{
+  "schemaVersion": 1,
+  "stage": "4.2.5",
+  "baseline": "8860c943919f90daa125934fde0f385707ea7028",
+  "scope": "Local branch validation, not independent audit or production admission",
+  "browser": {
+    "generatedAt": "2026-09-19T15:15:06.706Z",
+    "checks": [
+      {
+        "ok": true,
+        "name": "no Vite error overlay"
+      },
+      {
+        "ok": true,
+        "name": "empty-state onboarding"
+      },
+      {
+        "ok": true,
+        "name": "empty read does not seed business data"
+      },
+      {
+        "ok": true,
+        "name": "UI Draft does not enter Current View"
+      },
+      {
+        "ok": true,
+        "name": "real forms creator/source/observation/approval persist across reload"
+      },
+      {
+        "ok": true,
+        "name": "UI condition fields persist"
+      },
+      {
+        "ok": true,
+        "name": "no Vite error overlay"
+      },
+      {
+        "ok": true,
+        "name": "three creators and independent topic states"
+      },
+      {
+        "ok": true,
+        "name": "fixture Draft does not affect current"
+      },
+      {
+        "ok": true,
+        "name": "additional reasoning does not fabricate transition"
+      },
+      {
+        "ok": true,
+        "name": "timeline answers when and why stance changed"
+      },
+      {
+        "ok": true,
+        "name": "timeline node 01 外部事件"
+      },
+      {
+        "ok": true,
+        "name": "timeline node 02 原始来源"
+      },
+      {
+        "ok": true,
+        "name": "timeline node 03 观点"
+      },
+      {
+        "ok": true,
+        "name": "timeline node 04 状态历史"
+      },
+      {
+        "ok": true,
+        "name": "timeline node 05 待验证条件"
+      },
+      {
+        "ok": true,
+        "name": "timeline node 06 后续 Review"
+      },
+      {
+        "ok": true,
+        "name": "unverified self-reply identity and inherited partial coverage"
+      },
+      {
+        "ok": true,
+        "name": "comment source differs from post and self-reply"
+      },
+      {
+        "ok": true,
+        "name": "As-of timeline hides future observation and approval"
+      },
+      {
+        "ok": true,
+        "name": "As-of view is read only"
+      },
+      {
+        "ok": true,
+        "name": "T+5 original viewpoint and calendar-day disclosure"
+      },
+      {
+        "ok": true,
+        "name": "T+5 review saves"
+      },
+      {
+        "ok": true,
+        "name": "T+20 original viewpoint and calendar-day disclosure"
+      },
+      {
+        "ok": true,
+        "name": "T+20 review saves"
+      },
+      {
+        "ok": true,
+        "name": "T+60 original viewpoint and calendar-day disclosure"
+      },
+      {
+        "ok": true,
+        "name": "T+60 review saves"
+      },
+      {
+        "ok": true,
+        "name": "draft revision leaves current unchanged"
+      },
+      {
+        "ok": true,
+        "name": "approved revision retains all original observations unchanged"
+      },
+      {
+        "ok": true,
+        "name": "timeline marks retained superseded record"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored neon-1536"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored neon-1280"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion neon-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-neon-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-neon-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-neon-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 neon-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 neon-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 neon-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-neon-390"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards neon-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison neon-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison neon-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison neon-390"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews neon-390"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics neon-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link neon-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-neon-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap neon-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored neon-390"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion neon-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-neon-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-neon-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-neon-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 neon-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 neon-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 neon-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-neon-320"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards neon-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison neon-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison neon-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison neon-320"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews neon-320"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics neon-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link neon-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-neon-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap neon-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored neon-320"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored pro-1536"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored pro-1280"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion pro-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-pro-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-pro-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-pro-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 pro-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 pro-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 pro-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-pro-390"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards pro-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison pro-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison pro-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison pro-390"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews pro-390"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics pro-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link pro-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-pro-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap pro-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored pro-390"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion pro-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-pro-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-pro-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-pro-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 pro-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 pro-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 pro-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-pro-320"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards pro-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison pro-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison pro-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison pro-320"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews pro-320"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics pro-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link pro-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-pro-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap pro-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored pro-320"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion light-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-light-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-light-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-light-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 light-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 light-1536"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 light-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-light-1536"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards light-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison light-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison light-1536"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison light-1536"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews light-1536"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics light-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link light-1536"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-light-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap light-1536"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored light-1536"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion light-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-light-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-light-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-light-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 light-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 light-1280"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 light-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-light-1280"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards light-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison light-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison light-1280"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison light-1280"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews light-1280"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics light-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link light-1280"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-light-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap light-1280"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored light-1280"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion light-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-light-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-light-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-light-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 light-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 light-390"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 light-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-light-390"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards light-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison light-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison light-390"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison light-390"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews light-390"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics light-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link light-390"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-light-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap light-390"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored light-390"
+      },
+      {
+        "ok": true,
+        "name": "reduced-motion light-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主概览-light-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 观点时间轴-light-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 事件对照-light-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 本人明确说明因果 light-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 系统 / 研究者推断 light-320"
+      },
+      {
+        "ok": true,
+        "name": "event relationship 仅时间背景相关 light-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: 博主比较-light-320"
+      },
+      {
+        "ok": true,
+        "name": "three parallel creator cards light-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 1 comparison light-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 2 comparison light-320"
+      },
+      {
+        "ok": true,
+        "name": "合成研究者 3 comparison light-320"
+      },
+      {
+        "ok": true,
+        "name": "comparison reasons and pending reviews light-320"
+      },
+      {
+        "ok": true,
+        "name": "shared Evidence Drawer semantics light-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer exact source link light-320"
+      },
+      {
+        "ok": true,
+        "name": "no horizontal overflow: drawer-light-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus trap light-320"
+      },
+      {
+        "ok": true,
+        "name": "drawer focus restored light-320"
+      },
+      {
+        "ok": true,
+        "name": "creator-viewpoints-backup.json download completes"
+      },
+      {
+        "ok": true,
+        "name": "JSON backup includes complete append-only history"
+      },
+      {
+        "ok": true,
+        "name": "creator-viewpoints.xlsx download completes"
+      },
+      {
+        "ok": true,
+        "name": "Excel downloads a ZIP OOXML workbook"
+      },
+      {
+        "ok": true,
+        "name": "Excel sheet Creators"
+      },
+      {
+        "ok": true,
+        "name": "Excel sheet Current Views"
+      },
+      {
+        "ok": true,
+        "name": "Excel sheet Timeline"
+      },
+      {
+        "ok": true,
+        "name": "Excel sheet Sources"
+      },
+      {
+        "ok": true,
+        "name": "Excel sheet External Events"
+      },
+      {
+        "ok": true,
+        "name": "Excel sheet Reviews"
+      },
+      {
+        "ok": true,
+        "name": "no Vite error overlay"
+      },
+      {
+        "ok": true,
+        "name": "roundtrip preview has zero business write"
+      },
+      {
+        "ok": true,
+        "name": "roundtrip pre-restore backup downloaded"
+      },
+      {
+        "ok": true,
+        "name": "roundtrip local pre-import backup retained"
+      },
+      {
+        "ok": true,
+        "name": "JSON fresh-context restore and reload preserves complete data"
+      },
+      {
+        "ok": true,
+        "name": "JSON round-trip preserves derived Current View semantics"
+      },
+      {
+        "ok": true,
+        "name": "restored UI retains revisions and review results"
+      },
+      {
+        "ok": true,
+        "name": "no Vite error overlay"
+      },
+      {
+        "ok": true,
+        "name": "corruption visible fail-closed error"
+      },
+      {
+        "ok": true,
+        "name": "corruption disables 新增博主"
+      },
+      {
+        "ok": true,
+        "name": "corruption disables 新增来源"
+      },
+      {
+        "ok": true,
+        "name": "corruption disables 记录观点"
+      },
+      {
+        "ok": true,
+        "name": "corruption disables 恢复 JSON"
+      },
+      {
+        "ok": true,
+        "name": "corruption disables JSON 完整备份"
+      },
+      {
+        "ok": true,
+        "name": "corruption disables Excel 分析副本"
+      },
+      {
+        "ok": true,
+        "name": "corruption keeps original raw storage bytes"
+      },
+      {
+        "ok": true,
+        "name": "corruption reload performs no tracker write"
+      },
+      {
+        "ok": true,
+        "name": "no Vite error overlay"
+      },
+      {
+        "ok": true,
+        "name": "real-sample preview has zero business write"
+      },
+      {
+        "ok": true,
+        "name": "real-sample pre-restore backup downloaded"
+      },
+      {
+        "ok": true,
+        "name": "real-sample local pre-import backup retained"
+      },
+      {
+        "ok": true,
+        "name": "real sample remains draft and does not invent historical transition"
+      },
+      {
+        "ok": true,
+        "name": "no external network requests during acceptance"
+      },
+      {
+        "ok": true,
+        "name": "tested source stable during run: src/components/creator/CreatorViewpointWorkspace.tsx"
+      },
+      {
+        "ok": true,
+        "name": "tested source stable during run: src/components/creator/CreatorEntryForm.tsx"
+      },
+      {
+        "ok": true,
+        "name": "tested source stable during run: src/components/creator/CreatorEvidence.tsx"
+      },
+      {
+        "ok": true,
+        "name": "tested source stable during run: src/services/creatorViewpoint.ts"
+      },
+      {
+        "ok": true,
+        "name": "tested source stable during run: src/services/creatorViewpointRepository.ts"
+      },
+      {
+        "ok": true,
+        "name": "tested source stable during run: src/services/creatorViewpointExport.ts"
+      },
+      {
+        "ok": true,
+        "name": "tested source stable during run: src/services/creatorViewpoint.fixture.ts"
+      },
+      {
+        "ok": true,
+        "name": "no browser runtime or console errors"
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      "Existing favicon.ico 404"
+    ],
+    "externalRequestCount": 0,
+    "sourceSha256": {
+      "src/components/creator/CreatorViewpointWorkspace.tsx": "e324cbde0edfd8fae5faa0862b7f315ca05f9e50600e551d358691174e38d4c3",
+      "src/components/creator/CreatorEntryForm.tsx": "af966cc4892f618ca78b497a01e536b5826a96686b129adfa0849fa3385c7e8f",
+      "src/components/creator/CreatorEvidence.tsx": "f788146ff73de98a86e6556e431df12d76eb1a6d6120e1b9e90363b0a667c48b",
+      "src/services/creatorViewpoint.ts": "2c372b440641e12f75c4416e3b79d8704492385ec87e87d624a9ae6566e01b43",
+      "src/services/creatorViewpointRepository.ts": "b78458339d20680df4fe89e6d3d9b08a25de72f35d708b6b9d10d30651f37abd",
+      "src/services/creatorViewpointExport.ts": "8dbb92a45af7024889b76b7bcee5c842ce36612d63d9816bab96152e8765859a",
+      "src/services/creatorViewpoint.fixture.ts": "54d457f40d6f52b34f74705aedfd310e911ce0a9fbb9e41c9e16f1ee089cdf19"
+    },
+    "screenshots": [
+      "comparison-neon-1536.png",
+      "drawer-neon-1536.png",
+      "comparison-pro-1280.png",
+      "comparison-pro-320.png",
+      "comparison-light-390.png",
+      "drawer-light-390.png",
+      "corruption-fail-closed.png",
+      "real-sample-draft-timeline.png"
+    ]
+  },
+  "vitest": {
+    "files": 79,
+    "tests": 959,
+    "status": "PASS"
+  },
+  "build": "PASS",
+  "contractValidation": "PASS",
+  "testDiscovery": "PASS: 79 formal suites",
+  "excel": {
+    "status": "PASS: independent openpyxl read and ZIP CRC",
+    "sheets": [
+      "Creators",
+      "Current Views",
+      "Timeline",
+      "Sources",
+      "External Events",
+      "Reviews"
+    ]
+  },
+  "hostedCI": "NOT_RUN: workflow triggers pull_request or main push",
+  "realSample": {
+    "status": "Draft runtime import verified",
+    "priorState": "UNPROVEN",
+    "invalidation": "unknown",
+    "commentCoverage": "PARTIAL",
+    "historyTransition": "NOT_CLAIMED"
+  }
+}

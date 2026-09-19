@@ -34,8 +34,26 @@ export interface ResearchEventMetric {
   sourceFinancialPeriod: string | null;
 }
 
-export interface ResearchEvent {
+/** Shared event owner fields; macro commentary must not fabricate a company identity. */
+export interface ResearchEventCore {
   id: string;
+  title: string;
+  summary: string;
+  publishedAt: string | null;
+  sourceName: string;
+  sourceUrl: string | null;
+}
+
+export interface ExternalResearchEvent extends ResearchEventCore {
+  scope: 'external';
+  eventType: 'macro_external';
+  eventOccurredAt: string | null;
+  recordedAt: string;
+  verificationStatus: 'unverified' | 'partial';
+  supersedesId: string | null;
+}
+
+export interface ResearchEvent extends ResearchEventCore {
   stockId: string;
   stockName: string;
   stockCode: string;
@@ -43,7 +61,6 @@ export interface ResearchEvent {
   market: Market;
   eventType: ResearchEventType;
   eventDate: string | null;
-  publishedAt: string | null;
   /** Business occurrence time; never replaced with a warning detection or audit time. */
   eventOccurredAt?: string | null;
   /** Persisted/normalized business date used for grouping and display fallback. */
@@ -56,11 +73,7 @@ export interface ResearchEvent {
   /** Stable structured identity for one continuous warning lifecycle. */
   warningEpisodeKey?: string | null;
   reportPeriod: string | null;
-  title: string;
-  summary: string;
   sourceType: ResearchEventSourceType;
-  sourceName: string;
-  sourceUrl: string | null;
   pdfUrl: string | null;
   verificationStatus: ResearchVerificationStatus;
   parseStatus: ResearchParseStatus;
