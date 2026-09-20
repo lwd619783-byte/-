@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { createHash } from 'node:crypto';
 import { posix } from 'node:path';
 import { renderWikiVault, inspectWikiVault, normalizeWikiPath, WIKI_GENERATED_MARKER } from './wikiProjection';
 import { wikiFixture, wikiFixtureOwners, wikiRevision, wikiReview, wikiTime as at } from './wiki.fixture';
@@ -26,9 +27,26 @@ describe('deterministic one-way Markdown Vault', () => {
     expect(renamed.manifest.pages[0].path).toBe('research-wiki/frameworks/新 名称.md');
   });
   it.each(['../wiki.md', '/research-wiki/x/a.md', 'research-wiki/../x.md', 'research-wiki/x/CON.md', 'research-wiki/x/com1.md', 'research-wiki/x/lpt¹.md', 'research-wiki/x/a?.md', 'research-wiki/x/a:.md', 'research-wiki/x/a\\b.md', 'research-wiki/x/%2e%2e.md', 'research-wiki//a.md', 'research-wiki/x/a.md.', 'research-wiki/x/.hidden.md', 'research-wiki/x/a.md ', 'research-wiki/x/a\u0000.md', 'elsewhere/x/a.md', 'research-wiki/x/a.txt'])('rejects unsafe path %s', path => { expect(() => normalizeWikiPath(path)).toThrow(); });
+  it.each(['index.md', 'INDEX.md', 'ｉｎｄｅｘ.md', 'manifest.json', 'MANIFEST.json', 'ｍａｎｉｆｅｓｔ.json'])('reserves generated file %s and its directory aliases', async name => {
+    const path = `research-wiki/${name}`, data = wikiFixture(), owners = wikiFixtureOwners();
+    await expect(renderWikiVault(data, owners, at(8), { 'wiki-one': path })).rejects.toThrow();
+    await expect(renderWikiVault(data, owners, at(8), { 'wiki-one': `${path}/child.md` })).rejects.toThrow(/COLLISION/);
+  });
+  it.each([false, true])('hashes final page and file bytes with complete manifest coverage (custom paths: %s)', async custom => {
+    const data = wikiFixture(); data.entries.push({ ...data.entries[0], wikiId: 'wiki-two' }); const r = wikiRevision('wiki-two', 'revision-two'); data.revisions.push(r); data.reviews.push(wikiReview(r));
+    const paths: Record<string, string> = custom ? { 'wiki-one': 'research-wiki/custom/e\u0301.md', 'wiki-two': 'research-wiki/notes/自定义.md' } : {};
+    const vault = await renderWikiVault(data, wikiFixtureOwners(), at(8), paths);
+    expect(vault.manifest.pages.map(page => page.path)).toEqual(custom ? ['research-wiki/custom/é.md', 'research-wiki/notes/自定义.md'] : ['research-wiki/frameworks/wiki-one.md', 'research-wiki/frameworks/wiki-two.md']);
+    expect(vault.manifest.files.map(file => file.path).sort()).toEqual(Object.keys(vault.files).filter(path => path !== 'research-wiki/manifest.json').sort());
+    for (const record of [...vault.manifest.pages, ...vault.manifest.files]) {
+      expect(Object.prototype.hasOwnProperty.call(vault.files, record.path)).toBe(true);
+      expect(createHash('sha256').update(vault.files[record.path], 'utf8').digest('hex')).toBe(record.sha256);
+    }
+    expect(JSON.parse(vault.files['research-wiki/manifest.json'])).toEqual(vault.manifest);
+  });
   it('rejects collisions across case and Unicode normalization; refuses foreign path IDs', async () => {
     const data = wikiFixture(); data.entries.push({ ...data.entries[0], wikiId: 'wiki-two' }); const r = wikiRevision('wiki-two', 'revision-two'); data.revisions.push(r); data.reviews.push(wikiReview(r));
-    for (const [a, b] of [['Name', 'name'], ['é', 'e\u0301']]) await expect(renderWikiVault(data, wikiFixtureOwners(), at(8), { 'wiki-one': `research-wiki/x/${a}.md`, 'wiki-two': `research-wiki/x/${b}.md` })).rejects.toThrow(/COLLISION/);
+    for (const [a, b] of [['Name', 'name'], ['é', 'e\u0301'], ['Name', 'Ｎａｍｅ']]) await expect(renderWikiVault(data, wikiFixtureOwners(), at(8), { 'wiki-one': `research-wiki/x/${a}.md`, 'wiki-two': `research-wiki/x/${b}.md` })).rejects.toThrow(/COLLISION/);
     await expect(renderWikiVault(data, wikiFixtureOwners(), at(8), { 'wiki-one': 'research-wiki/x/page.md', 'wiki-two': 'research-wiki/x/page.md/child.md' })).rejects.toThrow(/COLLISION/);
     await expect(renderWikiVault(data, wikiFixtureOwners(), at(8), { foreign: 'research-wiki/x/a.md' })).rejects.toThrow(/UNKNOWN_ID/);
   });

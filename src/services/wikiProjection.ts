@@ -4,6 +4,7 @@ import { buildWikiReadModel, compareWikiText, resolveWikiRevision, wikiRequire }
 import { safeEvidenceUrl } from '../utils/evidenceUrl';
 
 const folders: Record<WikiType, string> = { ENTITY: 'entities', CONCEPT: 'concepts', FRAMEWORK: 'frameworks', TOPIC: 'topics', CREATOR_FRAMEWORK: 'creators', INDUSTRY_KNOWLEDGE: 'industries', MACRO_KNOWLEDGE: 'macro', RESEARCH_CONVENTION: 'conventions' };
+const generatedPaths = { index: 'research-wiki/index.md', manifest: 'research-wiki/manifest.json' };
 export const WIKI_GENERATED_MARKER = '<!-- generated: research-wiki.v1; source-of-truth: structured-wiki-domain; read-only -->';
 export interface WikiVaultManifest {
   schemaVersion: 'wiki-vault.v1'; sourceOfTruth: 'structured-wiki-domain'; asOf: string; domainDigest: string;
@@ -39,7 +40,7 @@ export async function renderWikiVault(data: WikiData, owners: WikiOwners, asOf: 
   const model = buildWikiReadModel(data, owners, asOf);
   const ids = new Set(model.pages.map(page => page.entry.wikiId));
   wikiRequire(Object.keys(paths).every(id => ids.has(id)), 'WIKI_PATH_UNKNOWN_ID');
-  const mapping = new Map<string, string>(), used = new Set<string>();
+  const mapping = new Map<string, string>(), used = new Set(Object.values(generatedPaths).map(path => path.normalize('NFKC').toLowerCase()));
   for (const page of model.pages) {
     const path = normalizeWikiPath(Object.prototype.hasOwnProperty.call(paths, page.entry.wikiId) ? paths[page.entry.wikiId] : `research-wiki/${folders[page.entry.type]}/${page.entry.wikiId}.md`);
     const portable = path.normalize('NFKC').toLowerCase();
@@ -71,11 +72,11 @@ export async function renderWikiVault(data: WikiData, owners: WikiOwners, asOf: 
     files[path] = markdown;
     pages.push({ wikiId: page.entry.wikiId, revisionId: r.revisionId, path, sha256: await wikiSha256(markdown) });
   }
-  files['research-wiki/index.md'] = WIKI_GENERATED_MARKER + '\n\n# Research Wiki\n\nGenerated read-only projection. Rebuild from structured Wiki Domain. This Vault is not a full backup.\n\n'
-    + `Knowledge cutoff: ${asOf}\n\n` + model.pages.map(page => `- ${link('research-wiki/index.md', page.entry.wikiId)} · ${page.entry.type} · ${page.origin}`).join('\n') + '\n';
+  files[generatedPaths.index] = WIKI_GENERATED_MARKER + '\n\n# Research Wiki\n\nGenerated read-only projection. Rebuild from structured Wiki Domain. This Vault is not a full backup.\n\n'
+    + `Knowledge cutoff: ${asOf}\n\n` + model.pages.map(page => `- ${link(generatedPaths.index, page.entry.wikiId)} · ${page.entry.type} · ${page.origin}`).join('\n') + '\n';
   const hashes = await Promise.all(Object.keys(files).sort(compareWikiText).map(async path => ({ path, sha256: await wikiSha256(files[path]) })));
   const manifest: WikiVaultManifest = { schemaVersion: 'wiki-vault.v1', sourceOfTruth: 'structured-wiki-domain', asOf, domainDigest: await wikiSha256(canonicalJson({ asOf, pages })), pages, files: hashes };
-  files['research-wiki/manifest.json'] = JSON.stringify(manifest, null, 2) + '\n';
+  files[generatedPaths.manifest] = JSON.stringify(manifest, null, 2) + '\n';
   return { manifest, files: Object.fromEntries(Object.entries(files).sort(([a], [b]) => compareWikiText(a, b))) };
 }
 
@@ -85,6 +86,6 @@ export async function inspectWikiVault(expected: WikiVault, actual: Record<strin
   const changed = Object.keys(expected.files).filter(path => path in actual && actual[path] !== expected.files[path]).sort(compareWikiText);
   const unexpected = Object.keys(actual).filter(path => !(path in expected.files)).sort(compareWikiText);
   let stale = false;
-  try { const manifest = JSON.parse(actual['research-wiki/manifest.json']); stale = manifest.domainDigest !== expected.manifest.domainDigest; } catch { /* missing/corrupt is already a difference */ }
+  try { const manifest = JSON.parse(actual[generatedPaths.manifest]); stale = manifest.domainDigest !== expected.manifest.domainDigest; } catch { /* missing/corrupt is already a difference */ }
   return { status: missing.length || changed.length || unexpected.length ? stale ? 'stale' as const : 'edited_or_incomplete' as const : 'current' as const, missing, changed, unexpected };
 }

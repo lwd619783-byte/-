@@ -1,8 +1,37 @@
 # Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown / Obsidian Projection
 
-> 状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW
+> 状态：IMPLEMENTED / VERIFIED LOCALLY / P1 REMEDIATION / PENDING TARGETED RE-REVIEW
 > 日期：2026-09-20  
 > 实施基线：fetch 后 `origin/main @ 1d883414fe7828b682c8cd888223ccf7bd729834`（Slice 1 CLOSED）；分支 `codex/stage-4-3-slice-2-llm-wiki-obsidian`
+
+## P1 remediation — 固定 Vault 路径保留（2026-09-20）
+
+原独立审计 HEAD `188f1adcd2a5662f24dc9a57c861ae6e95934394`，结果 **P0=0 / P1=1**。本次仅修复 generated path collision；独立针对性复审仍 **PENDING**，本地验证不等于独立审计通过。
+
+`renderWikiVault()` 在任何页面写入之前，把 `research-wiki/index.md` 与 `research-wiki/manifest.json` 统一加入 collision set；固定输出也复用同一组路径定义。沿用 NFC path normalization、NFKC + case-insensitive 比较以及双向文件/目录前缀碰撞规则，全部 fail closed，不静默改名或 repair。原 traversal / Windows reserved names / illegal chars / 层级 / 扩展名规则不变。
+
+基线复核发现，该 HEAD 的 `parts.length >= 3` 已拒绝直接根级 `index.md`；实际可重现的缺口是固定文件未参与 collision gate，`index.md/child.md`、`manifest.json/child.md` 及其 portable 等价路径仍被接受。本次保留现有层级校验，并显式保留两个固定文件，不依赖 `.md` 扩展名间接保护 manifest。新增 6 组 fixed path / 大小写 / NFKC 及目录前缀回归，修复前 6 项失败，修复后全部通过；另新增默认/合法自定义路径的完整 `manifest.pages` / `manifest.files` 最终 UTF-8 字节独立 SHA-256 校验，并补充 page ↔ page NFKC collision。manifest 本身继续不包含在其 `files` 摘要列表内，schema 不变。
+
+| 本轮 Gate | 结果 |
+| --- | --- |
+| Wiki projection 专项 | 29/29 PASS（原 21 + 新增 8） |
+| 全部 Wiki 专项 | 78/78 tests，6/6 files PASS |
+| `npm test` | 1136/1136 tests，88/88 files PASS |
+| `npm run build` | PASS；Local Core browser boundary 2391 graph modules / 5 chunks / 0 forbidden；financial bundle gate PASS |
+| `npm run contracts:validate` | PASS；既有 frozen contracts、Source/Extraction、Wiki standalone validator |
+| `npm run test:contracts` | Local Core 106/106、financial 78/78、Slice 1/Wiki Vitest 29/29 PASS |
+| `npm run research:eval:check` | PASS；F3 reference 33/33 REFERENCE_ONLY；actual deterministic service 0/33 NOT_IMPLEMENTED；Industry F3 5/5 |
+| `npm run test:research-eval` | 51/51 PASS |
+| `npm run test:local-core` | 261/261 PASS |
+| `node scripts/wiki-browser-check.mjs` | 90/90 checks PASS，三主题 × 1536/1280/390/320，13 screenshots；0 runtime/console errors、0 external requests |
+| `npm run test:discovery` | 1/1 PASS；88 正式 Vitest 路径，nested checkout 隔离保持 |
+| 审计 HEAD → 修复后的 byte comparison | 默认路径与合法 Unicode 自定义路径的 Markdown、manifest 完全相同，ZIP SHA-256 相同；现有重复导出 deterministic 测试 PASS |
+
+本轮日志与 byte comparison 位于 gitignored `data-cache/stage-4-3-slice-2/p1/`，浏览器报告在其 `browser/report.json`（含源文件 SHA-256）；验收数据仍为 synthetic。既有非阻断提示：Vite chunk >500 kB、favicon.ico 404、jsdom window.scrollTo。首次 build 发现新增测试的 `Object.hasOwn` 超出现有 TypeScript lib，已改用既有 `hasOwnProperty.call` 写法，复跑 projection / Wiki / 全量 / build 全部通过，未修改编译配置。
+
+structured Wiki Domain 唯一 authority、schema、Entry/Revision/Review、owner/admission/PIT、Entity browser bridge、F3 结果均未改变；没有 Markdown ingestion/write-back 或双向 Obsidian sync。**Hosted CI NOT_RUN；PENDING TARGETED RE-REVIEW**。仅原功能分支普通 commit/push 后停止，不创建 PR、不 merge、不修改 main、不部署 Production，不提升 Production/Data admission。
+
+下方 D0、初始交付验证和冻结设计保留原时点；当前 remediation 状态以上述记录为准。
 
 ## D0 — Reuse / Delta Map 与实现冻结
 
