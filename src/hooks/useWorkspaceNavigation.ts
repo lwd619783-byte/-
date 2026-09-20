@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export const pages = { home: "首页", macro: "宏观", industry: "行业", stocks: "个股池", watchlist: "观察清单", verification: "验证中心", expectations: "预期证据", creators: "观点追踪" } as const;
+export const pages = { home: "首页", macro: "宏观", industry: "行业", stocks: "个股池", watchlist: "观察清单", verification: "验证中心", expectations: "预期证据", creators: "观点追踪", memory: "研究记忆" } as const;
 export type PageId = keyof typeof pages;
 export type MainPage = typeof pages[PageId];
 export const companyTabs = ["overview", "financials", "valuation", "expectations", "evidence"] as const;

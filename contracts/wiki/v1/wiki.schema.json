@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/wiki/v1/wiki.schema.json",
+  "$ref": "#/$defs/Data",
+  "$defs": {
+    "Id": {"type":"string","pattern":"^[a-z0-9][a-z0-9-]{0,95}$"},
+    "Text": {"type":"string","minLength":1,"pattern":"\\S"},
+    "Time": {"type":"string","format":"date-time"},
+    "Entry": {
+      "type":"object","additionalProperties":false,
+      "required":["schemaVersion","wikiId","type","createdAt"],
+      "properties": {
+        "schemaVersion":{"const":"wiki-entry.v1"},"wikiId":{"$ref":"#/$defs/Id"},
+        "type":{"enum":["ENTITY","CONCEPT","FRAMEWORK","TOPIC","CREATOR_FRAMEWORK","INDUSTRY_KNOWLEDGE","MACRO_KNOWLEDGE","RESEARCH_CONVENTION"]},
+        "createdAt":{"$ref":"#/$defs/Time"}
+      }
+    },
+    "Revision": {
+      "type":"object","additionalProperties":false,
+      "required":["schemaVersion","wikiId","revisionId","title","summary","bodyMarkdown","sourceRefs","extractionRefs","evidenceRefs","wikiRefs","relatedRefs","tags","aliases","authorType","createdAt","asOf","supersedes","revisionReason"],
+      "properties": {
+        "schemaVersion":{"const":"wiki-revision.v1"},"wikiId":{"$ref":"#/$defs/Id"},"revisionId":{"$ref":"#/$defs/Id"},
+        "title":{"$ref":"#/$defs/Text"},"summary":{"type":"string"},"bodyMarkdown":{"$ref":"#/$defs/Text"},
+        "sourceRefs":{"type":"array","uniqueItems":true,"items":{"$ref":"https://investment-dashboard.local/contracts/research-extraction/v1/research-extraction.schema.json#/$defs/ResearchSourceRef"}},
+        "extractionRefs":{"type":"array","uniqueItems":true,"items":{"$ref":"https://investment-dashboard.local/contracts/research-extraction/v1/research-extraction.schema.json#/$defs/ResearchExtractionRef"}},
+        "evidenceRefs":{"type":"array","uniqueItems":true,"items":{"$ref":"https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"}},
+        "wikiRefs":{"type":"array","uniqueItems":true,"items":{"type":"object","additionalProperties":false,"required":["wikiId"],"properties":{"wikiId":{"$ref":"#/$defs/Id"}}}},
+        "relatedRefs":{"$ref":"https://investment-dashboard.local/contracts/research-extraction/v1/research-extraction.schema.json#/$defs/RelatedRefs"},
+        "tags":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/Text"}},
+        "aliases":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/Text"}},
+        "authorType":{"enum":["user","ai"]},"createdAt":{"$ref":"#/$defs/Time"},"asOf":{"$ref":"#/$defs/Time"},
+        "supersedes":{"anyOf":[{"$ref":"#/$defs/Id"},{"type":"null"}]},"revisionReason":{"$ref":"#/$defs/Text"}
+      }
+    },
+    "Review": {
+      "type":"object","additionalProperties":false,
+      "required":["schemaVersion","reviewId","wikiId","revisionId","decision","reviewerType","approvalRef","createdAt","note","supersedes"],
+      "properties": {
+        "schemaVersion":{"const":"wiki-review.v1"},"reviewId":{"$ref":"#/$defs/Id"},"wikiId":{"$ref":"#/$defs/Id"},"revisionId":{"$ref":"#/$defs/Id"},
+        "decision":{"enum":["reviewed","rejected","archived"]},"reviewerType":{"const":"user"},
+        "approvalRef":{"type":"object","additionalProperties":false,"required":["owner","approvalId"],"properties":{"owner":{"const":"WikiReview"},"approvalId":{"$ref":"#/$defs/Id"}}},
+        "createdAt":{"$ref":"#/$defs/Time"},"note":{"$ref":"#/$defs/Text"},"supersedes":{"anyOf":[{"$ref":"#/$defs/Id"},{"type":"null"}]}
+      }
+    },
+    "Data": {
+      "type":"object","additionalProperties":false,"required":["schemaVersion","entries","revisions","reviews"],
+      "properties": {
+        "schemaVersion":{"const":"wiki.v1"},
+        "entries":{"type":"array","items":{"$ref":"#/$defs/Entry"}},
+        "revisions":{"type":"array","items":{"$ref":"#/$defs/Revision"}},
+        "reviews":{"type":"array","items":{"$ref":"#/$defs/Review"}}
+      }
+    }
+  }
+}

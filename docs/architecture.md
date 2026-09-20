@@ -463,3 +463,12 @@ Creator Tracker 是首个真实 adapter：`CreatorSource` 对应 L0，`Viewpoint
 LLM Wiki 属于 L2 Research Memory：Entry / revision 必须保留 sourceRefs / extractionRefs / evidenceRefs；可检索和综合，但不能变成 Provider Fact authority。L3 Verified Claim 继续复用既有 F2 Evidence Graph / Evidence Drawer，不建立第二个 Claim Graph。L4 Thesis 与 L5 Investment Expression 均为 revision-aware research objects；Portfolio、MCP 和 Agent 分别留在 Stage 4.4、4.5、4.6+。
 
 Browser/Local-first 边界继续有效；Stage 4.3 不因 Wiki 引入 cloud business DB、浏览器直连 SQLite、Vector DB/Graph DB 强制迁移或自动网页抓取。详细计划见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+
+
+### Stage 4.3 Slice 2 runtime boundary（2026-09-20 分支实现）
+
+`#/memory` → ResearchMemoryWorkspace → WikiRepository (`wiki.v1` localStorage envelope)；Wiki authority 仅 Entry/append-only Revision/Review。`WikiOwners` 在 revision cutoff 上复用 Slice 1 Creator adapter 与 Industry Registry retained-byte Evidence；不存 Raw Source/Extraction/Evidence 副本。Current/search/backlinks/orphans 从历史派生；Node-only Entity Registry 无浏览器 bridge，未知 owner 拒绝。
+
+`Reviewed Wiki read model → wikiProjection → ZIP STORE / research-wiki/*.md + manifest.json` 是单向可重建投影。目录校验只比较外部字节与 Domain 输出，repository 无 Markdown 写回方法。Wiki JSON 为完整 Wiki 历史备份，原 owner 仍独立备份。Future schema/corrupt lock、显式恢复确认、pre-write byte backup 和 PersistedBaseGuard 沿用既有边界。
+
+Pure canonical JSON 算法提取至 `shared/canonical-json.mjs` 供 Node/browser 共同使用；Local Core wrapper 保留原错误类型，原 browser boundary 插件未放宽。ZIP STORE 通用编码从 Creator XLSX 提取，原导出格式不变。无 Local Core browser bridge、云 DB、Claim/Thesis 或 Agent runtime。详见 [Slice 2 D0、合同与限制](stage-4-3-slice-2-llm-wiki.md)。

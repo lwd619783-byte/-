@@ -1,5 +1,9 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-20 CURRENT — **Stage 4.3 / Slice 2 LLM Wiki V1 + Markdown/Obsidian Projection：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。从 fetch 后精确 `origin/main @ 1d883414fe7828b682c8cd888223ccf7bd729834` 创建 `codex/stage-4-3-slice-2-llm-wiki-obsidian`。L2 Entry/append-only Revision/Review、historical Current、exact refs/trace、search/backlinks/orphans、Local-first Wiki JSON backup/recovery、`#/memory` 三视图与单向可重建 Vault 已实现；Markdown 不是真源，AI origin 不升级。70 Wiki 专项 / 1128 全量 Vitest、build、contracts、F3、261 Local Core tests、90 browser checks PASS。F3 actual service 仍 0/33，admission 不提升。Hosted CI NOT_RUN；本切片普通 commit/push 后停止等待独立审计，不创建 PR/merge/部署。[D0、验证及真实限制](stage-4-3-slice-2-llm-wiki.md)。
+
+> 下方较早带日期的记录保留原时点；本次 CURRENT 状态以本条及对应 Slice 2 交付记录为准。
+
 > 2026-09-20 CURRENT — **Stage 4.3 / Slice 1 Source + Extraction 正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown/Obsidian Projection 进入 CURRENT PLAN / NOT_IMPLEMENTED。** Slice 1 初审 HEAD `b5b548a2e6308a2603d6603fbd0afca315cb1727` 为 P0=0/P1=1；第三方作者归因修复 HEAD `a716b2205d3056e99198852224bf56ad71026a36` 最终复审 PASS（P0=0/P1=0）；PR [#69](https://github.com/lwd619783-byte/-/pull/69) exact-head CI [35512099983](https://github.com/lwd619783-byte/-/actions/runs/35512099983) completed/success；merge/main `f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`，main push CI [35512366207](https://github.com/lwd619783-byte/-/actions/runs/35512366207) completed/success；Vercel Production `dpl_CmeXXfaEqc2BwXBBnuByMcZb7DNE` READY。Production 只表示应用部署成功，不提升 Provider/Data admission 或 strict PIT。Slice 2 冻结为“结构化 Wiki Domain 真源 → deterministic Markdown projection → Obsidian-compatible read-only Vault”；Obsidian 不成为数据库，生成 Markdown 不形成第二真源。详见 [Slice 2 冻结方案](stage-4-3-slice-2-llm-wiki.md)。
 
 > 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 1 Source + Extraction 已 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW；L2–L5 仍未实现。** Stage 4.2.5 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
@@ -326,7 +330,7 @@ R2 已实现切片与剩余工作：
 - 语义边界：External Commentary；不自动晋升 Provider Fact / Verified Claim / Thesis。
 - Stage 4.3 复用方式：作为第一条 L0/L1 Research Memory adapter，不复制第二套 Creator 真源。
 
-### Stage 4.3 — Research Memory & Thesis Compiler V1（Slice 1 CLOSED / Slice 2 CURRENT PLAN）
+### Stage 4.3 — Research Memory & Thesis Compiler V1（Slice 1 CLOSED / Slice 2 IMPLEMENTED，待独立审计）
 
 状态：**Slice 1 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；Slice 2 CURRENT PLAN / NOT_IMPLEMENTED；Slice 3–6 NOT IMPLEMENTED**。
 
@@ -334,7 +338,7 @@ R2 已实现切片与剩余工作：
 | --- | --- | --- |
 | L0 | Raw Source / Evidence adapters | SLICE 1 CLOSED：公共 SourceRef/Source 合同 + CreatorSource adapter；其他 source runtime 未实现 |
 | L1 | Structured Extraction | SLICE 1 CLOSED：公共 ResearchExtraction V1 + Creator Observation projection / review / revision；native AI store 未实现 |
-| L2 | Reviewed Research Memory / LLM Wiki | CURRENT PLAN：结构化 WikiEntry/Revision + deterministic Markdown projection + Obsidian-compatible read-only Vault；尚未实现 |
+| L2 | Reviewed Research Memory / LLM Wiki | IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW：结构化 WikiEntry/Revision/Review + deterministic Markdown/Vault + Sources/Extractions/Wiki Workspace；不提升 Claim/Thesis authority |
 | L3 | Verified Claim | PARTIAL FOUNDATION：已有 Stage 4.2 factual Claim Candidate + F2 graph；正式通用 lifecycle 未实现 |
 | L4 | Thesis | NOT IMPLEMENTED |
 | L5 | Investment Expression | NOT IMPLEMENTED |
@@ -348,4 +352,4 @@ R2 已实现切片与剩余工作：
 5. Thesis + Macro → Industry；
 6. Investment Expression + Closeout。
 
-统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 1 CLOSED；NEXT = Slice 2 LLM Wiki V1 + Markdown/Obsidian Projection**。[交付与限制](stage-4-3-slice-1-source-extraction.md)。详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 2 普通 push 后等待独立审计；未 CLOSED / MERGED**。[Slice 2 交付与限制](stage-4-3-slice-2-llm-wiki.md)。详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。

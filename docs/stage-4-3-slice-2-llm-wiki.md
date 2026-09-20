@@ -1,8 +1,75 @@
 # Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown / Obsidian Projection
 
-> 状态：CURRENT PLAN / DESIGN FROZEN / NOT IMPLEMENTED  
+> 状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW
 > 日期：2026-09-20  
-> 起点：`main @ f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`（Slice 1 CLOSED）
+> 实施基线：fetch 后 `origin/main @ 1d883414fe7828b682c8cd888223ccf7bd729834`（Slice 1 CLOSED）；分支 `codex/stage-4-3-slice-2-llm-wiki-obsidian`
+
+## D0 — Reuse / Delta Map 与实现冻结
+
+此表在实现前完成；下方原设计冻结继续生效。
+
+| 层 | 直接复用 | 本 Slice 新增 / 不复制的 authority |
+| --- | --- | --- |
+| L0/L1 | `ResearchSourceRef`、`ResearchExtractionRef`、`CreatorResearchExtractionRepository`、Creator adapter 的精确 trace | 只存 refs；不复制 Raw Source、Extraction、Creator 原文/Current View/approval |
+| Evidence / F2 | `IndustryMetricPin`、F2 shared `Pin` schema、已校验字节的 Industry Registry provider、`industryChartAudit` / Evidence Drawer | 原 owner/sha256/version/observationId/locator 精确引用；保留 native Evidence 与准入状态；不建立 Evidence/Claim graph |
+| Identity | Slice 1 `ResearchRelatedRefs`、现有 Industry ID、Creator topic owner、Entity Registry 类型 | 不由字符串或 Topic 名推断 Entity。Node-only Entity Registry 未连接时 refs fail closed |
+| L2 | precise instant、canonical finite JSON | 单一 `wiki.v1` envelope：Entry/Revision/Review；8 类型；Current、search、backlinks、orphan 都派生 |
+| Local-first | `PersistedBaseGuard`、Creator append/import/recovery 模式 | WikiRepository seam 与 Browser adapter，独立 Wiki 历史 key；不新增 SQL/云/Bridge 写入口 |
+| UI | Workspace hash navigation、Modal、Evidence Drawer、三主题/reduced-motion | `#/memory` 的 Sources/Extractions/Wiki；App 只增加导航和挂载 |
+| Export | 原 Creator XLSX 的 ZIP STORE 算法提取到 `src/utils/zip.ts` | deterministic UTF-8 Markdown Vault 和 manifest；没有 MD ingestion/write-back |
+
+### Path scheme
+
+默认 `research-wiki/<type-folder>/<wikiId>.md`，目录固定：`entities/concepts/frameworks/topics/creators/industries/macro/conventions`，另有 `index.md` 与 `manifest.json`。标题改名不改变默认路径；显式 `paths[wikiId]` 覆盖仅改变投影。NFC 规范化；大小写/NFKC 和文件/目录前缀碰撞拒绝；traversal、绝对路径、反斜杠、保留名、非法符号、点目录、尾点/空格拒绝。默认无 Wikilink、`.obsidian`、插件或 Sync。
+
+Manifest 保存 stable ID / revision / path / SHA-256，以及全部生成文件摘要。相同 Domain、cutoff 和路径输入产生相同 Markdown/manifest/ZIP 字节。frontmatter 属性顺序固定，只含字符串、布尔和字符串数组；复杂引用在正文 References。正式 backlink/orphan 只读 `wikiRefs`，正文 Markdown 链接不会反写 Domain。Obsidian 自己的图可识别正文链接，但不具有审核或领域引用 authority。
+
+兼容依据：[Obsidian 原生 Markdown links](https://obsidian.md/help/links)、[扁平 Properties 与支持类型](https://obsidian.md/help/properties)。本地标准 YAML parser 与实际解压目录/相对链接测试通过；未宣称运行 Obsidian 桌面客户端。
+
+### History / review / owner gates
+
+Revision 为单根线性追加链；首次 quality review 为 reviewed/rejected，已审核记录可追加 archive；重新审核须追加新 Revision。Current 选 cutoff 可见的最新 approved chain member；Draft/Rejected 不取代 Current；最新 approved 被归档后不回退复活旧页。所有时间为本地 knowledge/audit 语义，不替代 publication 或 strict PIT。每个 revision 的外部 refs 按其自身 `asOf` 精确解析；历史查询不解析未来 revision 的外部材料。
+
+Review 只产生 `research_memory`，作者为 AI 时 Current/Markdown 仍为 `ai_draft`。Source completeness/uncertainty、Extraction 未审核状态和 Evidence 质量状态向页面传播。审核至少要求 Source/Extraction/Evidence 中一项；Wiki orphan 表示没有正式 Wiki 邻接，不表示无支持材料。broken/foreign/missing refs 关闭 Current 与投影；不跳过坏引用拼出完整页面。
+
+Slice 1 adapter 首次进入浏览器时，原 `local-core/domain/canonical-json.ts` 触发已有 Node-only 门禁。纯编码算法因此提取至 `shared/canonical-json.mjs`；Local Core 薄包装继续抛相同 `LocalCoreError`，浏览器不导入 Local Core。门禁本身未放宽，Local Core 全套测试与构建边界检查均通过。
+
+### Repository / Workspace
+
+`BrowserWikiRepository` 只追加 Entry/Revision/Review；闭合 schema、finite plain JSON、snapshot mutation check、exact persisted base guard、重复 ID/冲突拒绝。完整 Wiki JSON 包括 drafts/rejections/archives；普通 import 是相同 ID 跳过、不同内容拒绝、显式确认的追加合并。恢复限于本次实际观测的同一 corrupt raw bytes，先保留并读回 pre-recovery 原字节，再替换 Wiki key 并重读校验。未来 schema 永久锁定本版本的恢复入口。
+
+Workspace 支持新建/追加草稿、独立审核/拒绝/归档、历史只读、稳定排序搜索、每版历史及原文/Evidence 下钻、ZIP 导出、目录漂移检查、完整 JSON 下载、预览导入和受控损坏恢复。目录选择只将不可信字节用于比较；当前文件可报告 current，旧 cutoff/domain 报 stale，改动/缺失/额外文件报 drift；不产生 Wiki write-back。跨页返回或显式刷新重新读取 owner；跨 tab storage event 失效缓存。
+
+### 已知限制
+
+- Browser `localStorage` 是同步且按 origin 共享配额，未测定一个通用可用容量。全历史和 pre-import/pre-recovery 备份会增长；quota error 拒绝写入，用户须保留外部完整 JSON。现有 guard 不提供跨 tab 原子 CAS；未来事务型 adapter 留在 `WikiRepository`，本轮没有实现 bridge/cloud migration。
+- Wiki 完整备份仅覆盖 Wiki authority；Creator/其他 Source/Evidence 的原 owner 备份必须单独保留，缺失 owner 时 Wiki 导入/投影 fail closed。Vault 不替代任何正式备份。
+- 当前浏览器 Source/Extraction adapter 只有 Creator；Evidence 接已注册的 Industry retained-byte owner，全部 pin 维度必须精确匹配。Entity 形状复用既有 Registry，但本浏览器无 Node Registry bridge，非空 Entity refs 拒绝；Industry/topic refs 由原 owner 校验。其他 owner 必须新增经审查 adapter。
+- 没有 LLM runtime、自动维护、真实三位 Creator 灌入、Verified Claim、Thesis、Expression、MCP、Agent 或双向同步。Obsidian User Note 未来只能走 L0→L1→L2 review。
+- Workspace 正文原样显示 Markdown 文本；Vault 可用 Markdown reader 渲染。目录校验最多读取 20 MiB，忽略用户 `.obsidian/` 配置。生成文件的 read-only 是应用/流程边界，用户仍可在外部编辑，随后被检测为 drift。
+- public fixtures 全部 synthetic；`research-wiki/`、`.wiki-data/`、`.obsidian/` gitignored。浏览器验收使用临时 profile，未触碰用户实际 Wiki 或 Creator 资料。
+
+### 本地验证与停止点
+
+| Gate | 结果 |
+| --- | --- |
+| Wiki Domain / Repository / Projection / contract / owner / Workspace 专项 | 70/70 PASS（包含在全量 Vitest） |
+| `npm test` | 1128/1128 tests，88/88 files PASS；含 Slice 1 / Creator / Evidence |
+| `npm run build` | PASS；Local Core browser boundary 2391 graph modules、5 chunks、0 forbidden；金融数据 bundle gate PASS |
+| `npm run contracts:validate` | PASS；既有 frozen contracts + Slice 1 + Wiki standalone validator drift check |
+| `npm run test:contracts` | Local Core contracts 106/106、financial contracts 78/78、Slice 1/Wiki Vitest 29/29 PASS |
+| `npm run research:eval:check` / `npm run test:research-eval` | PASS；51/51 Node tests；F3 reference 33/33、actual service 0/33 NOT_IMPLEMENTED 保持；Industry F3 5/5 |
+| `npm run test:local-core` | 261/261 PASS，验证纯 JSON encoder 提取后 LocalCoreError/Node 边界不回归 |
+| `node scripts/wiki-browser-check.mjs` | 90/90 checks，三主题 × 1536/1280/390/320，13 screenshots；0 runtime/console errors、0 external requests |
+| `npm run ui:audit` | PASS（既有静态扫描；新界面以 browser evidence 为准；仅时间戳产物未纳入 diff） |
+| `npm run test:discovery` | PASS；88 正式测试路径保持，nested checkout 隔离仍有效 |
+
+浏览器在独立临时 profile 内真实执行创建 Draft→review→拒绝修订→审核改名→related/backlink→historical asOf→重复 ZIP 下载→解压并校验目录→外部编辑检测→JSON 完整备份→corrupt recovery→future schema lock。原 Creator key 字节在这些流程中保持不变；ZIP 经 Python `zipfile.testzip` 独立读取，两次输出字节相同。Refs 在 canonical persistence 后的修订表单中保留。复查修正了长 Evidence 标识的窄屏换行。
+
+可重放入口：`scripts/wiki-browser-check.mjs`；使用既有 Playwright runtime（通过 `UI_REVIEW_PLAYWRIGHT_MODULE` 指定），不新增 browser runtime 依赖或用户 profile。本地报告与合成导出在 gitignored `data-cache/stage-4-3-slice-2/browser/`。源文件 SHA-256 保存在 report.json，真实个人资料未进入 Git。既有非阻断提示：Vite chunk >500 kB、favicon.ico 404、jsdom window.scrollTo 提示。
+
+Hosted CI：**NOT_RUN**（检查当前 `.github/workflows/ci.yml`，仅 PR 与 main push 触发）；本功能分支未触发 PR/main workflow。独立审计 PENDING；普通 push 后停止；PR / merge / main CI / Production deploy / admission 均未在本切片发生。
+
 
 ## 1. 本 Slice 解决的问题
 

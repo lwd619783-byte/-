@@ -2,7 +2,7 @@ import type { CreatorViewpointData, CreatorSource } from '../types/creatorViewpo
 import type { CreatorResearchExtraction as ResearchExtraction, ResearchExtractionRef, ResearchRelatedRefs, CreatorResearchSource as ResearchSource,
   ResearchSourceAdapter, ResearchSourceRef, ResearchUncertainty } from '../types/researchExtraction';
 import { DRAFT_EXTRACTION_REVIEW } from '../types/researchExtraction';
-import { canonicalJson } from '../../local-core/domain/canonical-json';
+import { canonicalJson } from '../../shared/canonical-json.mjs';
 import { isPreciseInstant } from '../utils/dateTime';
 import { buildCreatorCurrentViews, creatorEffectiveAt, observationStatus, sourceCoverage,
   validateCreatorViewpointData, viewpointChronologyStatus, visibleCreatorSources, visibleViewpointObservations } from './creatorViewpoint';

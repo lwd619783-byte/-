@@ -98,9 +98,9 @@
     "agent:skills:check": "node scripts/setup-codex-skills.mjs --check",
     "local:typecheck": "tsc -p tsconfig.local-core.json --noEmit",
     "local:db:verify": "node scripts/run-local-core.mjs verify",
-    "test:contracts": "node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs && vitest run src/services/researchExtraction.contract.test.ts",
+    "test:contracts": "node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs && vitest run src/services/researchExtraction.contract.test.ts src/services/wiki.contract.test.ts",
     "local:db:init": "node scripts/run-local-core.mjs init",
-    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs",
+    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs && node scripts/contracts/wiki.mjs",
     "test:local-core": "node scripts/run-local-core.mjs test-local-core",
     "test:assets": "node scripts/run-local-core.mjs test-assets",
     "test:semantic-runtime": "node --test scripts/tests/semantic-runtime.node.mjs scripts/tests/semantic-readiness.node.mjs",
@@ -146,7 +146,8 @@
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
     "vite": "^6.0.1",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.6",
+    "yaml": "2.9.1"
   },
   "engines": {
     "node": ">=22"
