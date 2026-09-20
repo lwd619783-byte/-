@@ -1,6 +1,6 @@
 # Stage 4.3 / Slice 1 — Source + Extraction
 
-状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW。开发基线：`98f92f9f1386d88e3baf890058c07ffc9c718fb5`。功能分支：`codex/stage-4-3-slice-1-source-extraction-contract`。独立审计反馈为 P0=0 / P1=1；本轮仅修复第三方作者误归因，修复基线 `b5b548a2e6308a2603d6603fbd0afca315cb1727`，最终针对性复审待定。本轮停止点是普通 commit/push；Hosted CI NOT_RUN，不创建 PR、不 merge、不部署。
+状态：IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS / PENDING PR-HOSTED CI。开发基线：`98f92f9f1386d88e3baf890058c07ffc9c718fb5`。功能分支：`codex/stage-4-3-slice-1-source-extraction-contract`。初次独立审计为 P0=0 / P1=1；第三方作者误归因已在 `a716b2205d3056e99198852224bf56ad71026a36` 定向修复，最终针对性复审结论 PASS（P0=0 / P1=0）。Hosted CI 尚未运行；PR/merge/main CI/Production admission 仍未发生。
 
 ## Reuse / Delta Map（实现前决定）
 
@@ -100,4 +100,4 @@ types 使用判别联合；common/profile schema 用 identity 条件约束作者
 | `npm run contracts:validate` / `npm run test:contracts` | PASS，106 V1 + 78 foundations + 19 新合同 tests |
 | `npm run test:research-eval` / `npm run research:eval:check` | PASS，51 F3 tests、committed report read-only replay、Industry 5/5；Frozen V1 service coverage 仍 0/33 |
 
-原 chunk 大小提示和 jsdom `window.scrollTo` 输出仍为非阻断 WARN。最终针对性复审 PENDING；Hosted CI NOT_RUN。仅当前功能分支普通 commit/push 后停止；无 PR/merge/main 修改/Production 部署。
+原 chunk 大小提示和 jsdom `window.scrollTo` 输出仍为非阻断 WARN。最终针对性复审已 PASS（P0=0 / P1=0）。Hosted CI NOT_RUN；当前仅允许进入 PR / exact-head Hosted CI 门禁，尚未 merge、未修改 main、未声明 Production admission。

@@ -1,12 +1,12 @@
 # 当前开发执行索引 · 2026-09-07
 
-> 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 1 Source + Extraction 已 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW；L2–L5 仍未实现。** Stage 4.2.5 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+> 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 1 Source + Extraction 已 IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS / PENDING PR-HOSTED CI；L2–L5 仍未实现。** Stage 4.2.5 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
 
-> 下方 Stage 4.2.5 功能分支验证与更早记录保留其时点意义；当前执行主线为 Stage 4.3 / Slice 1；第三方作者误归因 P1 已定向修复并本地验证，普通 push 后等待最终针对性复审。
+> 下方 Stage 4.2.5 功能分支验证与更早记录保留其时点意义；当前执行主线为 Stage 4.3 / Slice 1；第三方作者误归因 P1 已定向修复并通过最终针对性复审（P0=0 / P1=0），下一门禁为 PR / exact-head Hosted CI。
 
 ## CURRENT — Stage 4.3 Research Memory & Thesis Compiler V1
 
-状态：**Slice 1 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW；Slice 2–6 NOT_IMPLEMENTED**。正式起点为 `main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`。
+状态：**Slice 1 IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS / PENDING PR-HOSTED CI；Slice 2–6 NOT_IMPLEMENTED**。正式起点为 `main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`。
 
 统一研究链：
 
