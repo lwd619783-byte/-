@@ -1,6 +1,6 @@
 # Stage 4.3 / Slice 2.5 — AI Knowledge Ingestion Foundation V1
 
-状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；远程验收独立登记。基线 `812e7551e67b0b8af4f673524e2578ecf2e19335`（Wiki Infrastructure V1 — independent review PASS）；分支 `codex/stage-4-3-slice-2-5-knowledge-ingestion-v1`。
+状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；远程端到端状态 PARTIAL（owner/OAuth 八工具及 ChatGPT 账号连接未完成验收）。基线 `812e7551e67b0b8af4f673524e2578ecf2e19335`（Wiki Infrastructure V1 — independent review PASS）；分支 `codex/stage-4-3-slice-2-5-knowledge-ingestion-v1`。
 
 ## D0 Reuse / Delta / Architecture Map（实现前冻结）
 
@@ -39,11 +39,12 @@ CREATE / UPDATE 必须带完整文章（核心判断、产业/主题结构、近
 | contracts validate / test:contracts | PASS；additive knowledge contract 引用原 Source/Extraction；原 frozen contracts 不变 |
 | F3 check / research-eval tests | PASS；reference 33/33，actual deterministic service 仍 0/33；Industry 5/5，未提高 admission |
 | discovery / UI audit | PASS；无新增未登记测试 |
-| 新首用浏览器验收 | 80/80：空 profile、10文件同批、PDF两页/MD/TXT、reload、10个 digest、下载原件字节一致、无假 AI、导入前后权限、修改后接受 UPDATE 单 Wiki 双完整版本、三主题 × 1536/1280/390/320 × 四入口无横向溢出；0 runtime errors / 0未授权外部请求，12截图 |
+| 原 Wiki 浏览器回归 | 99/99：手工文章、审核/拒绝、稳定身份、历史查询、引用、Evidence Drawer、ZIP 字节一致、Markdown 禁止回写、完整备份、reload、损坏恢复前备份、未来 schema 锁定、三主题四宽四入口；0 runtime/console errors / 0外部请求，13截图；已知 favicon 404 单列警告 |
+| 新首用浏览器验收 | 81/81：空 profile、10文件同批、PDF两页及内嵌中文 Unicode 映射/MD/TXT、reload、10个 digest、下载原件字节一致、无假 AI、导入前后权限、修改后接受 UPDATE 单 Wiki 双完整版本、三主题 × 1536/1280/390/320 × 四入口无横向溢出；0 runtime errors / 0未授权外部请求，12截图 |
 
 原件上限25 MiB/份、100 MiB/批、30份；PDF普通文本最多500页，不做 OCR/密码解锁/复杂字体资源下载；MD/TXT 严格 UTF-8。浏览器清理站点数据、换 profile/origin 会失去该处本地资料；Wiki backup 不含 IndexedDB 原件，原件需单独下载保留。贡献包导入上限10 MiB，完整文章六章仅结构校验，内容正确性仍需人工审核。尚无全库原件备份或语义检索。
 
-Vercel private Blob 与当前分支认证配置已完成；真实部署/远程验收及 ChatGPT 账号连接必须分别核验，不能由6个离线测试推定通过。[Bridge 连接/限制/验收](research-bridge-readonly-v1.md)、[贡献合同](../contracts/knowledge-ingestion/v1/README.md)、[中文产品冻结](research-memory-chinese-first-use-v1.md)。独立审计 PENDING；无 PR / merge / Production 声明。
+Vercel private Blob 与当前分支认证配置已完成，真实 SDK 写/读/禁止覆盖通过；Preview 公网 OAuth discovery 200、匿名 owner/MCP 401 已验证。只为指定 Preview 设置访问例外，没有关闭项目保护。owner/OAuth 八工具与 ChatGPT 账号连接仍 PENDING，因此远程端到端为 PARTIAL，不能由6个离线测试推定通过。[Bridge 连接/限制/验收](research-bridge-readonly-v1.md)、[贡献合同](../contracts/knowledge-ingestion/v1/README.md)、[中文产品冻结](research-memory-chinese-first-use-v1.md)。独立审计 PENDING；无 PR / merge / Production 声明。
 
 ## D0 增量决定：Read-only Research Bridge（2026-09-21）
 
@@ -55,3 +56,5 @@ Vercel private Blob 与当前分支认证配置已完成；真实部署/远程�
 - Vercel Node Functions + MCP 官方 SDK Streamable HTTP，严格八个只读工具。固定实体 ID 与有界页/文本窗口；无通用路径、SQL、写工具或任意查询。
 - 单用户 V1：部署环境提供 owner secret、OAuth signing secret、固定 OAuth client ID 与回调白名单。ChatGPT OAuth authorization-code + S256 PKCE；显式 owner 登录及同意，短期 access token 严格核验 issuer/resource/scope/expiry。环境未配置则 503 fail closed；不提供匿名 MCP。
 - 所有 secret 仅环境配置，UI owner secret 仅页面内存、不落 browser storage；请求不输出原文/凭据日志。代码与 synthetic integration tests 可完成，真实远程可达性仍取决于 Vercel 配置权限、private store 与 ChatGPT connector 授权。
+
+依赖检查：npm audit 报告9项（最高 critical，Vitest），相关既有工具链版本与基线相同；未擅自扩大范围升级。新增 PDF/Blob/MCP 包未列入该报告。没有将本地测试、Preview READY 或独立复审状态提升为 Production admission。

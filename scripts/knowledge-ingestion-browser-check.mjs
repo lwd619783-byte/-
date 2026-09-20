@@ -18,12 +18,13 @@ const nav = name => page.getByRole('navigation', { name: '研究记忆视图' })
 const state = () => page.evaluate(async () => { const db = await new Promise((resolve, reject) => { const r = indexedDB.open('investment-research-dashboard.knowledge-ingestion.v1', 1); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); const value = await new Promise(resolve => { const r = db.transaction('state').objectStore('state').get('current'); r.onsuccess = () => resolve(r.result); }); db.close(); return value; });
 const wiki = () => page.evaluate(() => JSON.parse(localStorage.getItem('investment-research-dashboard.wiki.v1')));
 function pdf() {
-  const stream1 = deflateSync(Buffer.from('BT /F1 16 Tf 50 700 Td (Synthetic optical first page) Tj ET'));
+  const stream1 = deflateSync(Buffer.from('BT /F1 16 Tf 50 700 Td (Synthetic optical first page) Tj /F2 16 Tf 0 -24 Td <414243> Tj ET'));
   const stream2 = deflateSync(Buffer.from('BT /F1 16 Tf 50 700 Td (Second page evidence) Tj ET'));
-  const objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>', '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 6 0 R >>', '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 7 0 R >>', '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>', ...[stream1, stream2].map(b => Buffer.concat([Buffer.from(`<< /Length ${b.length} /Filter /FlateDecode >>\nstream\n`), b, Buffer.from('\nendstream')]))];
+  const cmap = Buffer.from('/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CIDSystemInfo << /Registry (Synthetic) /Ordering (UCS) /Supplement 0 >> def /CMapName /SyntheticUnicode def /CMapType 2 def 1 begincodespacerange <00> <ff> endcodespacerange 3 beginbfchar <41> <5149> <42> <901a> <43> <4fe1> endbfchar endcmap CMapName currentdict /CMap defineresource pop end end');
+  const objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>', '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 8 0 R >> >> /Contents 6 0 R >>', '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 7 0 R >>', '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>', ...[stream1, stream2].map(b => Buffer.concat([Buffer.from(`<< /Length ${b.length} /Filter /FlateDecode >>\nstream\n`), b, Buffer.from('\nendstream')])), '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /FirstChar 65 /LastChar 67 /Widths [600 600 600] /ToUnicode 9 0 R >>', Buffer.concat([Buffer.from(`<< /Length ${cmap.length} >>\nstream\n`), cmap, Buffer.from('\nendstream')])];
   const pieces = [Buffer.from('%PDF-1.4\n')], offsets = [0]; let size = pieces[0].length;
   objects.forEach((obj, i) => { offsets.push(size); const chunk = Buffer.concat([Buffer.from(`${i + 1} 0 obj\n`), Buffer.from(obj), Buffer.from('\nendobj\n')]); pieces.push(chunk); size += chunk.length; });
-  pieces.push(Buffer.from(`xref\n0 8\n0000000000 65535 f \n${offsets.slice(1).map(n => `${String(n).padStart(10, '0')} 00000 n \n`).join('')}trailer\n<< /Size 8 /Root 1 0 R >>\nstartxref\n${size}\n%%EOF`)); return Buffer.concat(pieces);
+  pieces.push(Buffer.from(`xref\n0 ${objects.length + 1}\n0000000000 65535 f \n${offsets.slice(1).map(n => `${String(n).padStart(10, '0')} 00000 n \n`).join('')}trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${size}\n%%EOF`)); return Buffer.concat(pieces);
 }
 const headings = ['核心判断', '产业与主题结构', '近期变化', '关键公司与环节', '风险与待验证问题', '来源'];
 function bundle(s, id = 'browser-create', previous) {
@@ -50,6 +51,7 @@ try {
   let s = await state(); check(s.batches.length === 1 && s.sources.length === 10, 'ten files form one batch');
   check(s.sources.every(row => row.parse.status === 'parsed'), 'PDF MD TXT parsed successfully');
   check(s.sources[0].parse.segments.length === 2 && s.sources[0].parse.segments[1].locator === 'page:2' && s.sources[0].parse.segments[1].text.includes('Second page'), 'compressed PDF page extraction locators');
+  check(s.sources[0].parse.segments[0].text.replace(/\s/g, '').includes('光通信'), 'embedded Unicode mapping extracts Chinese PDF text');
   for (let i = 0; i < files.length; i++) check(s.sources[i].sha256 === createHash('sha256').update(files[i].buffer).digest('hex'), `exact raw byte digest ${i}`);
   await page.reload(); await page.getByText('two-pages.pdf', { exact: true }).waitFor(); s = await state(); check(s.sources.length === 10, 'raw originals retained after reload');
   const download = page.waitForEvent('download'); await page.getByRole('button', { name: '下载原件', exact: true }).first().click(); const d = await download; const downloaded = await d.path(); check((await fs.readFile(downloaded)).equals(files[0].buffer), 'downloaded PDF byte equality after reload');

@@ -1,6 +1,6 @@
 # Research Bridge + Read-only MCP V1
 
-状态：IMPLEMENTED / LOCAL CONTRACT & HTTP INTEGRATION VERIFIED / REMOTE ACCEPTANCE PENDING。本文件仅说明本切片 Preview；不授权 Production。
+状态：远程端到端 **PARTIAL**；IMPLEMENTED / LOCAL CONTRACT & HTTP INTEGRATION VERIFIED / REMOTE DISCOVERY & ANONYMOUS DENIAL VERIFIED；真实 owner/OAuth/staging 工具全链验收和 ChatGPT 账号连接仍分别 PENDING。本文件仅说明本切片 Preview；不授权 Production。
 
 ## 边界
 
@@ -18,7 +18,7 @@ ChatGPT 使用 OAuth authorization-code + S256 PKCE，预注册 public client `r
 
 OAuth metadata 声明 RFC 9207 issuer identification，每次成功授权返回 `iss`。默认允许 `https://chatgpt.com/connector_platform_oauth_redirect`；若 ChatGPT 管理页面实际显示 callback-ID URI，必须把**那个精确地址**加入 `BRIDGE_OAUTH_REDIRECT_URIS`，不允许任意网站或宽泛通配符。不要把 ChatGPT connector callback URL 当 Vercel 登录回调。
 
-Runtime 不记录请求体、原文、token、secret 或 SDK 原始错误。返回错误经过固定文案处理。所有读写端点 `Cache-Control: no-store`。代码不更改 Vercel Deployment Protection；如启用保护使 ChatGPT 无法连接，必须单独解决该访问门禁，不能匿名降级或擅自解除全项目保护。
+Runtime 不记录请求体、原文、token、secret 或 SDK 原始错误。返回错误经过固定文案处理。所有读写端点 `Cache-Control: no-store`。部署实测发现 Vercel SSO 返回302，已按本轮远程 MCP 授权仅对验收 Preview 的 exact deployment 配置 protection exception；全项目保护未关闭，旧的失败 Preview 例外已撤销。例外仅允许抵达应用 OAuth/认证入口；资料与 MCP 仍要求凭据，无匿名降级。后续部署需单独核验例外，不能误用项目级 automation bypass 作为 ChatGPT 密钥。
 
 ## 路由与工具
 
@@ -53,5 +53,9 @@ ChatGPT 开发者模式创建自定义 MCP：URL 为最终 Preview `/api/mcp`，
 5. “撤销 ChatGPT 访问”后再次调用该批工具，必须拒读；未主动发送的本地资料始终不可见。
 
 离线复现：`npm run test:bridge`（包含真实本地 HTTP + 官方 MCP client，无外部服务）；浏览器：`node scripts/knowledge-ingestion-browser-check.mjs`。Hosted 验证与 exact deployment 在最终交付报告单列，未实际执行则标 PENDING/BLOCKED。
+
+真实远程可重复验收：项目 PowerShell 中运行 `& ./scripts/verify-research-bridge-preview.ps1 -PreviewUrl 'https://<exact-preview-host>'`，安全输入 owner 密钥，不回显、不持久化；执行真实 OAuth 授权/PKCE/防重放、10份合成投影暂存、官方 MCP client 八工具、PDF 指定页、原件/文本 digest、完整文章双版本、未 staged 隔离、拒写与撤销。原件 PDF 实际解析由浏览器验收覆盖；这里明确使用合成解析投影，不冒充真实研报。脚本结束撤销合成批次，安全报告写入 gitignored `data-cache/stage-4-3-slice-2-5/remote-acceptance.json`。该脚本不代表已在 ChatGPT 账号内建立连接。
+
+2026-09-21 Preview checkpoint `9e82cdc6591d47d0c983d574b01d313ad156e49f`（`investment-research-dashboard-ouaeatc1t-lkdmkl.vercel.app`）实测 OAuth metadata/resource metadata 均200 JSON，匿名 MCP/owner status 均401。修复了 Vite 下动态 `.mjs` API 被 SPA fallback 吞掉的问题：明确 rewrite 至单一静态 dispatcher。真实 private Blob SDK 探针已验证写入、uncached read 原值一致、并发覆盖已有键均拒绝；没有返回公开 URL。该探针只含合成状态，不代替 owner OAuth 八工具验收。最终 SHA 的 exact Preview 单独在交付报告给出；不能把中间 checkpoint 当最终版本。
 
 官方依据：[Vercel private Blob](https://vercel.com/docs/vercel-blob/private-storage)、[consistent reads](https://vercel.com/changelog/vercel-blob-now-supports-consistent-reads-on-private-storage)、[OpenAI OAuth/PKCE 与回调规范](https://developers.openai.com/plugins/build/auth)。
