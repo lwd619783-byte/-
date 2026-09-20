@@ -1,0 +1,347 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/research-extraction/v1/creator-projection.schema.json",
+  "$comment": "Read model only. Schema validity is not owner equality, admission or PIT. Re-resolve through CreatorResearchAdapter.validateSource/validateExtraction.",
+  "$defs": {
+    "ResearchSourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "sourceDomain", "sourceId"],
+      "properties": {
+        "schemaVersion": {"const": "research-source-ref.v1"},
+        "sourceDomain": {"const": "creator"},
+        "sourceId": {"type": "string", "minLength": 1, "pattern": "\\S"}
+      }
+    },
+    "ResearchExtractionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "sourceDomain", "extractionId"],
+      "properties": {
+        "schemaVersion": {"const": "research-extraction-ref.v1"},
+        "sourceDomain": {"const": "creator"},
+        "extractionId": {"type": "string", "minLength": 1, "pattern": "\\S"}
+      }
+    },
+    "ResearchTopicRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "topicId"],
+      "properties": {"owner": {"const": "creator_viewpoint_topic"}, "topicId": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+    },
+    "RelatedRefs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entities", "industryIds", "topicRefs", "identityMapping"],
+      "properties": {
+        "entities": {"type": "array", "maxItems": 0},
+        "industryIds": {"type": "array", "maxItems": 0},
+        "topicRefs": {"type": "array", "items": {"$ref": "#/$defs/ResearchTopicRef"}, "uniqueItems": true},
+        "identityMapping": {"const": "not_provided"}
+      }
+    },
+    "Uncertainty": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "unknown_publication",
+          "author_unverified",
+          "other_author",
+          "partial_source",
+          "unverified_source",
+          "extractor_unknown",
+          "ambiguous_chronology",
+          "incomplete_chronology"
+        ]
+      }
+    },
+    "ResearchSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "ref",
+        "sourceType",
+        "semanticClass",
+        "relatedRefs",
+        "provenance",
+        "publishedAt",
+        "publishedAtLabel",
+        "capturedAt",
+        "recordedAt",
+        "asOf",
+        "completeness",
+        "commentCoverage",
+        "effectiveCoverage",
+        "uncertainty",
+        "contentRef",
+        "digest",
+        "parentRef",
+        "revision"
+      ],
+      "properties": {
+        "schemaVersion": {"const": "research-source.v1"},
+        "ref": {"$ref": "#/$defs/ResearchSourceRef"},
+        "sourceType": {"enum": ["post", "article", "comment", "self_reply", "repost"]},
+        "semanticClass": {"const": "external_commentary"},
+        "relatedRefs": {"$ref": "#/$defs/RelatedRefs"},
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["owner", "creatorId", "url", "authorIdentity", "identityEvidence", "authorRef"],
+          "properties": {
+            "owner": {"const": "CreatorSource"},
+            "creatorId": {"type": "string", "minLength": 1, "pattern": "\\S", "description": "Tracked Creator discussion context; not actual author attribution."},
+            "url": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
+            "authorIdentity": {"enum": ["verified_self", "unverified", "other"]},
+            "identityEvidence": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
+            "authorRef": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["owner", "id"],
+                  "properties": {"owner": {"const": "Creator"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+                },
+                {"type": "null"}
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {"required": ["authorIdentity"], "properties": {"authorIdentity": {"const": "other"}}},
+              "then": {"properties": {"authorRef": {"const": null}}}
+            },
+            {
+              "if": {"required": ["authorIdentity"], "properties": {"authorIdentity": {"enum": ["verified_self", "unverified"]}}},
+              "then": {
+                "properties": {
+                  "authorRef": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["owner", "id"],
+                    "properties": {"owner": {"const": "Creator"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "publishedAt": {"anyOf": [{"type": "string", "format": "date-time"}, {"type": "null"}]},
+        "publishedAtLabel": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
+        "capturedAt": {"type": "string", "format": "date-time"},
+        "recordedAt": {"type": "string", "format": "date-time"},
+        "asOf": {"type": "string", "format": "date-time"},
+        "completeness": {"enum": ["FULL", "PARTIAL", "UNVERIFIED"]},
+        "commentCoverage": {"enum": ["FULL", "PARTIAL", "UNVERIFIED"]},
+        "effectiveCoverage": {"enum": ["FULL", "PARTIAL", "UNVERIFIED"]},
+        "uncertainty": {"$ref": "#/$defs/Uncertainty"},
+        "contentRef": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["sourceRef", "field"],
+              "properties": {"sourceRef": {"$ref": "#/$defs/ResearchSourceRef"}, "field": {"const": "content"}}
+            },
+            {"type": "null"}
+          ]
+        },
+        "digest": {"const": null},
+        "parentRef": {"anyOf": [{"$ref": "#/$defs/ResearchSourceRef"}, {"type": "null"}]},
+        "revision": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["supersedes", "successor"],
+          "properties": {
+            "supersedes": {"anyOf": [{"$ref": "#/$defs/ResearchSourceRef"}, {"type": "null"}]},
+            "successor": {"anyOf": [{"$ref": "#/$defs/ResearchSourceRef"}, {"type": "null"}]}
+          }
+        }
+      }
+    },
+    "Finding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "summary", "reasoning", "state"],
+          "properties": {
+            "kind": {"const": "viewpoint"},
+            "summary": {"type": "string", "minLength": 1, "pattern": "\\S"},
+            "reasoning": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
+            "state": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["stance", "conditional", "horizon", "trigger", "confirmation", "invalidation"],
+              "properties": {
+                "stance": {"enum": ["positive", "neutral", "cautious", "negative", "mixed", "unknown"]},
+                "conditional": {"enum": ["yes", "no", "unknown"]},
+                "horizon": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
+                "trigger": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
+                "confirmation": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
+                "invalidation": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]}
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "target", "relation", "explanation"],
+          "properties": {
+            "kind": {"const": "relationship"},
+            "target": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["owner", "eventId"],
+              "properties": {"owner": {"const": "ExternalResearchEvent"}, "eventId": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+            },
+            "relation": {"enum": ["explicit", "inferred", "temporal"]},
+            "explanation": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]}
+          }
+        }
+      ]
+    },
+    "Review": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "approvalRef", "reviewedAt"],
+          "properties": {"status": {"const": "draft"}, "approvalRef": {"const": null}, "reviewedAt": {"const": null}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "approvalRef", "reviewedAt"],
+          "properties": {
+            "status": {"enum": ["reviewed", "rejected"]},
+            "approvalRef": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["owner", "approvalId"],
+              "properties": {"owner": {"const": "ViewpointApproval"}, "approvalId": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+            },
+            "reviewedAt": {"type": "string", "format": "date-time"}
+          }
+        }
+      ]
+    },
+    "ResearchExtraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "ref",
+        "sourceRefs",
+        "semanticClass",
+        "relatedRefs",
+        "author",
+        "extractor",
+        "adapterVersion",
+        "createdAt",
+        "effectiveAt",
+        "asOf",
+        "findings",
+        "completeness",
+        "uncertainty",
+        "review",
+        "revision",
+        "creatorContext"
+      ],
+      "properties": {
+        "schemaVersion": {"const": "research-extraction.v1"},
+        "ref": {"$ref": "#/$defs/ResearchExtractionRef"},
+        "sourceRefs": {"type": "array", "items": {"$ref": "#/$defs/ResearchSourceRef"}, "minItems": 1, "maxItems": 1},
+        "semanticClass": {"const": "external_commentary"},
+        "relatedRefs": {"$ref": "#/$defs/RelatedRefs"},
+        "author": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "identity", "ref"],
+          "properties": {
+            "type": {"enum": ["external_creator", "unknown"]},
+            "creatorId": {"type": "string", "minLength": 1, "pattern": "\\S"},
+            "identity": {"enum": ["verified_self", "unverified", "other"]},
+            "ref": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["owner", "id"],
+                  "properties": {"owner": {"const": "Creator"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+                },
+                {"type": "null"}
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {"required": ["identity"], "properties": {"identity": {"const": "other"}}},
+              "then": {"properties": {"type": {"const": "unknown"}, "ref": {"const": null}}, "not": {"required": ["creatorId"]}}
+            },
+            {
+              "if": {"required": ["identity"], "properties": {"identity": {"enum": ["verified_self", "unverified"]}}},
+              "then": {
+                "required": ["creatorId"],
+                "properties": {
+                  "type": {"const": "external_creator"},
+                  "ref": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["owner", "id"],
+                    "properties": {"owner": {"const": "Creator"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "extractor": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "method", "version"],
+          "properties": {"type": {"const": "unknown"}, "method": {"const": null}, "version": {"const": null}}
+        },
+        "adapterVersion": {"const": "creator-research-adapter.v1"},
+        "createdAt": {"type": "string", "format": "date-time"},
+        "effectiveAt": {"anyOf": [{"type": "string", "format": "date-time"}, {"type": "null"}]},
+        "asOf": {"type": "string", "format": "date-time"},
+        "findings": {"type": "array", "items": {"$ref": "#/$defs/Finding"}, "minItems": 1},
+        "completeness": {"enum": ["FULL", "PARTIAL", "UNVERIFIED"]},
+        "uncertainty": {"$ref": "#/$defs/Uncertainty"},
+        "review": {"$ref": "#/$defs/Review"},
+        "revision": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["supersedes", "successor", "reason"],
+          "properties": {
+            "supersedes": {"anyOf": [{"$ref": "#/$defs/ResearchExtractionRef"}, {"type": "null"}]},
+            "successor": {"anyOf": [{"$ref": "#/$defs/ResearchExtractionRef"}, {"type": "null"}]},
+            "reason": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]}
+          }
+        },
+        "creatorContext": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["creatorId", "chronology", "chronologyHealth", "unresolvedExtractionRefs"],
+          "properties": {
+            "creatorId": {"type": "string", "minLength": 1, "pattern": "\\S", "description": "Tracked Creator context, independent of actual author."},
+            "chronology": {"enum": ["resolved", "unknown_time", "ambiguous_time", "superseded"]},
+            "chronologyHealth": {"enum": ["resolved", "incomplete", null]},
+            "unresolvedExtractionRefs": {"type": "array", "items": {"$ref": "#/$defs/ResearchExtractionRef"}}
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"author": {"type": "object", "required": ["identity"], "properties": {"identity": {"const": "other"}}}}},
+          "then": {"properties": {"review": {"type": "object", "properties": {"status": {"enum": ["draft", "rejected"]}}}}}
+        }
+      ]
+    }
+  },
+  "oneOf": [{"$ref": "#/$defs/ResearchSource"}, {"$ref": "#/$defs/ResearchExtraction"}]
+}
