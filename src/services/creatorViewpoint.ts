@@ -193,6 +193,11 @@ function sourceVisible(data: CreatorViewpointData, source: CreatorSource, asOf: 
   const parent = source.parentSourceId ? data.sources.find(x => x.id === source.parentSourceId) : null;
   return !source.parentSourceId || (!!parent && sourceVisible(data, parent, asOf));
 }
+/** Shared L0 visibility; callers validate the owner envelope before projecting it. */
+export function visibleCreatorSources(data: CreatorViewpointData, asOf: string): CreatorSource[] {
+  const end = cutoff(asOf);
+  return data.sources.filter(source => sourceVisible(data, source, end));
+}
 export function visibleViewpointObservations(data: CreatorViewpointData, asOf?: string): ViewpointObservation[] {
   const end = cutoff(asOf);
   return data.observations.filter(observation => {
