@@ -1,8 +1,8 @@
 # Stage 4.3 — Research Memory & Thesis Compiler V1
 
-> 状态：CURRENT PLAN / DESIGN FROZEN / NOT IMPLEMENTED  
+> 状态：Slice 1 CLOSED / Slice 2 CURRENT PLAN / DESIGN FROZEN  
 > 日期：2026-09-20  
-> 正式起点：`main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`（Stage 4.2.5 CLOSED）  
+> 当前基线：`main @ f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`（Stage 4.3 Slice 1 CLOSED）  
 > 目的：把 Research Memory / LLM Wiki、Evidence / Claim、Thesis 与 Investment Expression 统一成一条可审计、可修订、可回溯的研究编译链。
 
 ## 1. 核心决定
@@ -234,27 +234,44 @@ Stage 4.3 负责接收/映射到 Source / Extraction / Wiki / Claim / Thesis 等
 - 调真实 LLM 作为通过测试的必要条件；
 - 自动生成 Wiki / Claim / Thesis。
 
-### Slice 2 — LLM Wiki V1
+### Slice 2 — LLM Wiki V1 + Markdown / Obsidian Projection
 
-目标：建立可真正日常使用的长期知识层。
+目标：建立可真正日常使用的 L2 长期知识层，同时保持结构化 Research OS authority 与 Markdown/Obsidian 可移植浏览能力。
+
+权威边界：
+
+- `WikiEntry / WikiRevision / WikiReview`（或等价 append-only domain objects）是正式 L2 authority；
+- Markdown 文件是由当前 reviewed Wiki projection **确定性生成**的可重建视图，不是第二真源；
+- Obsidian 是可选的 read-only 人类浏览器，不是数据库、review authority 或同步服务；
+- 人工若未来在 Obsidian 中写新笔记，应作为新的 L0 User Note 显式 ingestion，不能直接改写 L2 authority。
 
 交付：
 
-- WikiEntry / WikiRevision；
-- sourceRefs / extractionRefs / evidenceRefs；
-- Entity / Concept / Framework / Topic 等 entry type；
-- deterministic search / filter / read model；
-- append-only revision / archive；
-- Sources / Extractions / Wiki Workspace；
-- 从 Wiki 一键下钻 Extraction / Raw Source / Evidence；
-- JSON backup / recovery 与 Local-first 持久化；
-- 无 Vector DB 也能工作的 V1 搜索。
+- WikiEntry identity + append-only WikiRevision / review / archive 语义；
+- sourceRefs / extractionRefs / evidenceRefs 与 Wiki-to-Wiki refs；
+- Entity / Concept / Framework / Topic / Creator Framework / Industry / Macro / Research Convention 等 entry type；
+- deterministic current/read model、backlinks、orphan/ref validation；
+- deterministic keyword search / filter，不依赖 Vector DB；
+- Sources / Extractions / Wiki Workspace，并能从 Wiki 下钻 Extraction / Raw Source / Evidence；
+- Local-first repository + backup/recovery；不建立 cloud DB；
+- **Markdown-native projection**：每个 reviewed Wiki page 可确定性渲染为 UTF-8 `.md`；
+- **YAML frontmatter** 使用扁平、原子、可移植字段（例如 wikiId/type/title/revision/status/asOf/tags/aliases），复杂 nested domain object 不塞进 frontmatter；
+- **链接兼容**：authority 使用 wikiId/ref；Markdown 默认生成标准相对 Markdown links（Obsidian 可识别，且跨 GitHub/VS Code/普通 Markdown 更可移植），不得让文件名成为实体 identity；
+- **Obsidian-compatible Vault projection**：生成 index + typed folders/pages；不要求任何 community plugin，不生成或提交用户的 `.obsidian/` 配置；
+- generated file 带明确 marker / manifest，使编辑漂移可检测；外部编辑不得自动回写 Domain；
+- 文件路径/标题变化不得改变 wikiId；碰撞、非法路径、path traversal fail closed；
+- public repo 只保存 synthetic fixture；真实个人 Wiki/Vault 默认运行时/gitignored。
+
+参考兼容行为：Obsidian 原生识别 YAML properties、标准 Markdown links 与 Wikilinks；本项目默认选择标准 Markdown links 以兼顾 Obsidian 与其他 Markdown 工具。
 
 不得：
 
 - 用 Wiki 反写 Provider Facts；
+- Markdown/Obsidian 与结构化 repository 双向自动同步；
+- 把手工改过的 generated MD 当 authority；
 - 默认向量化所有资料；
-- 无引用生成“孤儿知识”。
+- 无引用生成“孤儿知识”；
+- 在本 Slice 引入真实 LLM runtime、MCP、Agent、Claim/Thesis 或 Obsidian plugin。
 
 ### Slice 3 — Creator → Wiki + 三位真实博主
 
@@ -373,6 +390,6 @@ Stage 4.5 应暴露 `search_wiki / get_wiki_entry / get_claim / get_thesis` 等�
 
 ## 9. 下一停止点
 
-Stage 4.3 的 **NEXT IMPLEMENTATION 固定为 Slice 1 — Research Source + Structured Extraction Contract**。
+Stage 4.3 的 **NEXT IMPLEMENTATION 固定为 Slice 2 — LLM Wiki V1 + Markdown / Obsidian Projection**。
 
-Slice 1 开工前必须从最新 main 重新读取 `AGENTS.md`、CURRENT、Feature Registry、Execution Plan、Architecture、contracts/v1、Evidence/F2、Creator Tracker 与现有 Local Core/browser persistence；先产出 Reuse / Delta Map，再决定最小 contract。
+Slice 2 开工前必须从最新 main 重新读取 `AGENTS.md`、CURRENT、Feature Registry、Execution Plan、Slice 1 L0/L1 contracts、Creator adapter、Evidence/F2、Local-first repository/backup 以及现有 Workspace 组件；先产出 Reuse / Delta Map，再冻结最小 Wiki domain 与 Markdown projection contract。
