@@ -198,7 +198,7 @@ describe('knowledge As-of and append-only revision', () => {
     const beforeReview = createCreatorResearchAdapter(data, at(4));
     expect(beforeReview.resolveExtraction(er('observation-1')).creatorContext.chronologyHealth).toBe('resolved');
     const unresolved = createCreatorResearchAdapter(data, at(5));
-    expect(unresolved.resolveExtraction(er('observation-1')).creatorContext).toEqual({ chronology: 'resolved', chronologyHealth: 'incomplete', unresolvedExtractionRefs: [er('unknown-view')] });
+    expect(unresolved.resolveExtraction(er('observation-1')).creatorContext).toEqual({ creatorId: 'creator-1', chronology: 'resolved', chronologyHealth: 'incomplete', unresolvedExtractionRefs: [er('unknown-view')] });
     expect(unresolved.resolveExtraction(er('unknown-view')).creatorContext.chronology).toBe('unknown_time');
     data.sources.push({ ...data.sources[3], id: 'fixed-source', supersedesId: 'unknown-source', publishedAt: at(4), capturedAt: at(6), recordedAt: at(6) });
     data.observations.push({ ...data.observations[3], id: 'fixed-view', sourceId: 'fixed-source', supersedesId: 'unknown-view', revisionReason: 'synthetic time correction', recordedAt: at(6) });

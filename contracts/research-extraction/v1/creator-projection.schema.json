@@ -92,17 +92,41 @@
           "required": ["owner", "creatorId", "url", "authorIdentity", "identityEvidence", "authorRef"],
           "properties": {
             "owner": {"const": "CreatorSource"},
-            "creatorId": {"type": "string", "minLength": 1, "pattern": "\\S"},
+            "creatorId": {"type": "string", "minLength": 1, "pattern": "\\S", "description": "Tracked Creator discussion context; not actual author attribution."},
             "url": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
             "authorIdentity": {"enum": ["verified_self", "unverified", "other"]},
             "identityEvidence": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
             "authorRef": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["owner", "id"],
-              "properties": {"owner": {"type": "string", "minLength": 1, "pattern": "\\S"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["owner", "id"],
+                  "properties": {"owner": {"const": "Creator"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+                },
+                {"type": "null"}
+              ]
             }
-          }
+          },
+          "allOf": [
+            {
+              "if": {"required": ["authorIdentity"], "properties": {"authorIdentity": {"const": "other"}}},
+              "then": {"properties": {"authorRef": {"const": null}}}
+            },
+            {
+              "if": {"required": ["authorIdentity"], "properties": {"authorIdentity": {"enum": ["verified_self", "unverified"]}}},
+              "then": {
+                "properties": {
+                  "authorRef": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["owner", "id"],
+                    "properties": {"owner": {"const": "Creator"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+                  }
+                }
+              }
+            }
+          ]
         },
         "publishedAt": {"anyOf": [{"type": "string", "format": "date-time"}, {"type": "null"}]},
         "publishedAtLabel": {"anyOf": [{"type": "string", "minLength": 1, "pattern": "\\S"}, {"type": "null"}]},
@@ -236,18 +260,44 @@
         "author": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["type", "creatorId", "identity", "ref"],
+          "required": ["type", "identity", "ref"],
           "properties": {
-            "type": {"const": "external_creator"},
+            "type": {"enum": ["external_creator", "unknown"]},
             "creatorId": {"type": "string", "minLength": 1, "pattern": "\\S"},
             "identity": {"enum": ["verified_self", "unverified", "other"]},
             "ref": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": ["owner", "id"],
-              "properties": {"owner": {"type": "string", "minLength": 1, "pattern": "\\S"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["owner", "id"],
+                  "properties": {"owner": {"const": "Creator"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+                },
+                {"type": "null"}
+              ]
             }
-          }
+          },
+          "allOf": [
+            {
+              "if": {"required": ["identity"], "properties": {"identity": {"const": "other"}}},
+              "then": {"properties": {"type": {"const": "unknown"}, "ref": {"const": null}}, "not": {"required": ["creatorId"]}}
+            },
+            {
+              "if": {"required": ["identity"], "properties": {"identity": {"enum": ["verified_self", "unverified"]}}},
+              "then": {
+                "required": ["creatorId"],
+                "properties": {
+                  "type": {"const": "external_creator"},
+                  "ref": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["owner", "id"],
+                    "properties": {"owner": {"const": "Creator"}, "id": {"type": "string", "minLength": 1, "pattern": "\\S"}}
+                  }
+                }
+              }
+            }
+          ]
         },
         "extractor": {
           "type": "object",
@@ -276,14 +326,21 @@
         "creatorContext": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["chronology", "chronologyHealth", "unresolvedExtractionRefs"],
+          "required": ["creatorId", "chronology", "chronologyHealth", "unresolvedExtractionRefs"],
           "properties": {
+            "creatorId": {"type": "string", "minLength": 1, "pattern": "\\S", "description": "Tracked Creator context, independent of actual author."},
             "chronology": {"enum": ["resolved", "unknown_time", "ambiguous_time", "superseded"]},
             "chronologyHealth": {"enum": ["resolved", "incomplete", null]},
             "unresolvedExtractionRefs": {"type": "array", "items": {"$ref": "#/$defs/ResearchExtractionRef"}}
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"author": {"type": "object", "required": ["identity"], "properties": {"identity": {"const": "other"}}}}},
+          "then": {"properties": {"review": {"type": "object", "properties": {"status": {"enum": ["draft", "rejected"]}}}}}
+        }
+      ]
     }
   },
   "oneOf": [{"$ref": "#/$defs/ResearchSource"}, {"$ref": "#/$defs/ResearchExtraction"}]

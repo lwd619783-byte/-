@@ -7,13 +7,114 @@ import entitySchema from '../../contracts/v1/entity-resolution.v1.schema.json';
 import { DRAFT_EXTRACTION_REVIEW, type ResearchExtraction, type ResearchSource } from '../types/researchExtraction';
 import { creatorViewpointFixture, fixtureTime as at } from './creatorViewpoint.fixture';
 import { createCreatorResearchAdapter, creatorExtractionRef as er, creatorSourceRef as sr } from './creatorResearchAdapter';
+import { validateCreatorViewpointData } from './creatorViewpoint';
+import type { CreatorSource } from '../types/creatorViewpoint';
 
 // Existing Entity schema uses parent declarations for conditional required fields, as in the V1 registry.
 const ajv = new Ajv2020({ strict: true, strictRequired: false, allErrors: true, ownProperties: true });
 addFormats(ajv); ajv.addSchema(entitySchema);
 const common = ajv.compile(commonSchema); const validate = ajv.compile(schema);
 
+function authorFixture(identity: CreatorSource['authorIdentity'], status: 'draft' | 'reviewed' | 'rejected') {
+  const data = creatorViewpointFixture();
+  const source = data.sources[0];
+  // Synthetic third-party comment in a tracked Creator's discussion chain.
+  data.sources.unshift({ ...source, id: 'discussion-parent' });
+  source.kind = 'comment'; source.parentSourceId = 'discussion-parent'; source.authorIdentity = identity;
+  source.identityEvidence = identity === 'verified_self' ? 'Synthetic self-identity check' : null;
+  data.approvals = data.approvals.filter(row => row.observationId !== 'observation-1');
+  if (status !== 'draft') data.approvals.push({ id: 'author-review', observationId: 'observation-1', decision: status, recordedAt: at(4), note: 'Synthetic review' });
+  return data;
+}
+
 describe('versioned L0/L1 machine-readable contract', () => {
+  it.each(['draft', 'rejected'] as const)('leaves other + %s actual author unassigned while preserving tracked Creator context', status => {
+    const data = authorFixture('other', status);
+    const adapter = createCreatorResearchAdapter(data, at(10));
+    const source = adapter.resolveSource(sr('source-1')); const extraction = adapter.resolveExtraction(er('observation-1'));
+    expect(source.provenance).toMatchObject({ creatorId: 'creator-1', authorIdentity: 'other', authorRef: null });
+    expect(extraction.author).toEqual({ type: 'unknown', ref: null, identity: 'other' });
+    expect(extraction.creatorContext.creatorId).toBe('creator-1'); expect(extraction.review.status).toBe(status);
+    expect(source.uncertainty).toContain('other_author'); expect(extraction.uncertainty).toContain('other_author');
+    for (const row of [source, extraction]) { expect(common(row)).toBe(true); expect(validate(row)).toBe(true); }
+    adapter.validateSource(source); adapter.validateExtraction(extraction);
+    expect(adapter.traceExtraction(extraction.ref)).toMatchObject({ creator: { id: 'creator-1' }, source: { id: 'source-1', authorIdentity: 'other', parentSourceId: 'discussion-parent' } });
+    for (const authorRef of [{ owner: 'Creator', id: 'creator-1' }, { owner: 'ThirdParty', id: 'invented' }]) {
+      const forged = { ...source, provenance: { ...source.provenance, authorRef } };
+      expect(common(forged)).toBe(false); expect(validate(forged)).toBe(false);
+      expect(() => adapter.validateSource(forged)).toThrow(/OWNER_MISMATCH/);
+    }
+    for (const author of [
+      { ...extraction.author, type: 'external_creator' },
+      { ...extraction.author, ref: { owner: 'Creator', id: 'creator-1' } },
+      { ...extraction.author, creatorId: 'creator-1' },
+    ]) {
+      const forged = { ...extraction, author };
+      expect(common(forged)).toBe(false); expect(validate(forged)).toBe(false);
+      expect(() => adapter.validateExtraction(forged)).toThrow(/OWNER_MISMATCH/);
+    }
+    // A coherent but forged identity can pass shape validation; the owner remains authoritative.
+    const relabeledSource = { ...source, provenance: { ...source.provenance, authorIdentity: 'unverified', authorRef: { owner: 'Creator', id: 'creator-1' } } };
+    const relabeledExtraction = { ...extraction, author: { type: 'external_creator', identity: 'unverified', creatorId: 'creator-1', ref: { owner: 'Creator', id: 'creator-1' } } };
+    for (const row of [relabeledSource, relabeledExtraction]) { expect(common(row)).toBe(true); expect(validate(row)).toBe(true); }
+    expect(() => adapter.validateSource(relabeledSource)).toThrow(/OWNER_MISMATCH/);
+    expect(() => adapter.validateExtraction(relabeledExtraction)).toThrow(/OWNER_MISMATCH/);
+    expect(() => adapter.validateExtraction({ ...extraction, creatorContext: { ...extraction.creatorContext, creatorId: 'creator-2' } })).toThrow(/OWNER_MISMATCH/);
+  });
+
+  it.each(['verified_self', 'unverified'] as const)('preserves %s author projection and rejects schema-valid identity forgery', identity => {
+    const adapter = createCreatorResearchAdapter(authorFixture(identity, 'reviewed'), at(10));
+    const source = adapter.resolveSource(sr('source-1')); const extraction = adapter.resolveExtraction(er('observation-1'));
+    expect(source.provenance.authorRef).toEqual({ owner: 'Creator', id: 'creator-1' });
+    expect(extraction.author).toEqual({ type: 'external_creator', ref: { owner: 'Creator', id: 'creator-1' }, creatorId: 'creator-1', identity });
+    expect(extraction.creatorContext.creatorId).toBe('creator-1');
+    for (const row of [source, extraction]) { expect(common(row)).toBe(true); expect(validate(row)).toBe(true); }
+    for (const row of [{ ...source, provenance: { ...source.provenance, authorRef: null } }, { ...extraction, author: { ...extraction.author, type: 'unknown', ref: null } }]) {
+      expect(common(row)).toBe(false); expect(validate(row)).toBe(false);
+    }
+    const forgedSource = { ...source, provenance: { ...source.provenance, authorRef: { owner: 'Creator', id: 'creator-2' } } };
+    const forgedExtraction = { ...extraction, author: { ...extraction.author, ref: { owner: 'Creator', id: 'creator-2' } } };
+    for (const row of [forgedSource, forgedExtraction]) { expect(common(row)).toBe(true); expect(validate(row)).toBe(true); }
+    expect(() => adapter.validateSource(forgedSource)).toThrow(/OWNER_MISMATCH/);
+    expect(() => adapter.validateExtraction(forgedExtraction)).toThrow(/OWNER_MISMATCH/);
+  });
+
+  it('retains owner rejection of other + reviewed and also rejects relabeled projection review', () => {
+    const data = authorFixture('other', 'reviewed');
+    expect(() => validateCreatorViewpointData(data)).toThrow(/他人评论不能审核/);
+    expect(() => createCreatorResearchAdapter(data, at(10))).toThrow(/他人评论不能审核/);
+    const adapter = createCreatorResearchAdapter(authorFixture('other', 'rejected'), at(10));
+    const extraction = adapter.resolveExtraction(er('observation-1'));
+    const forged = { ...extraction, review: { ...extraction.review, status: 'reviewed' } };
+    expect(common(forged)).toBe(false); expect(validate(forged)).toBe(false);
+    expect(() => adapter.validateExtraction(forged)).toThrow(/OWNER_MISMATCH/);
+  });
+
+  it('preserves other-author As-of, exact trace, parent source and immutable revisions', () => {
+    const data = authorFixture('other', 'rejected');
+    const source = data.sources.find(row => row.id === 'source-1')!;
+    source.publishedAt = null;
+    data.sources.push({ ...source, id: 'other-revision', supersedesId: source.id, capturedAt: at(5), recordedAt: at(5) });
+    data.observations.push({ ...data.observations[0], id: 'other-extraction-revision', sourceId: 'other-revision', supersedesId: 'observation-1', revisionReason: 'Synthetic correction', recordedAt: at(5) });
+    data.approvals.push({ id: 'other-revision-review', observationId: 'other-extraction-revision', decision: 'rejected', recordedAt: at(6), note: 'Synthetic rejection' });
+    const before = JSON.stringify(data);
+    const past = createCreatorResearchAdapter(data, at(3));
+    expect(past.resolveExtraction(er('observation-1'))).toMatchObject({ author: { type: 'unknown', ref: null }, effectiveAt: null, review: { status: 'draft' }, revision: { successor: null } });
+    expect(past.traceExtraction(er('observation-1')).approval).toBeNull();
+    expect(() => past.traceSource(sr('other-revision'))).toThrow(/NOT_VISIBLE/);
+    const draftRevision = createCreatorResearchAdapter(data, at(5));
+    expect(draftRevision.resolveExtraction(er('other-extraction-revision')).review.status).toBe('draft');
+    const current = createCreatorResearchAdapter(data, at(6));
+    expect(current.resolveSource(sr('other-revision'))).toMatchObject({ parentRef: sr('discussion-parent'), revision: { supersedes: sr('source-1') }, provenance: { creatorId: 'creator-1', authorRef: null } });
+    expect(current.resolveExtraction(er('other-extraction-revision'))).toMatchObject({ author: { type: 'unknown', ref: null }, review: { status: 'rejected' }, effectiveAt: null,
+      revision: { supersedes: er('observation-1') }, creatorContext: { creatorId: 'creator-1' } });
+    expect(current.traceExtraction(er('observation-1')).source.id).toBe('source-1');
+    expect(current.traceExtraction(er('other-extraction-revision')).source.id).toBe('other-revision');
+    expect(current.traceSource(sr('discussion-parent')).source.authorIdentity).toBe('unverified');
+    for (const row of [...current.listSources(), ...current.listExtractions()]) { expect(common(row)).toBe(true); expect(validate(row)).toBe(true); }
+    expect(JSON.stringify(data)).toBe(before);
+  });
+
   it.each(['draft', 'reviewed', 'rejected'] as const)('validates actual %s owner projections', status => {
     const data = creatorViewpointFixture();
     data.approvals = status === 'draft' ? [] : data.approvals.map(row => ({ ...row, decision: status }));

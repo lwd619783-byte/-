@@ -1,6 +1,6 @@
 # Stage 4.3 / Slice 1 — Source + Extraction
 
-状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW。开发基线：`98f92f9f1386d88e3baf890058c07ffc9c718fb5`。功能分支：`codex/stage-4-3-slice-1-source-extraction-contract`。本轮停止点是普通 commit/push；Hosted CI NOT_RUN，不创建 PR、不 merge、不部署。
+状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW。开发基线：`98f92f9f1386d88e3baf890058c07ffc9c718fb5`。功能分支：`codex/stage-4-3-slice-1-source-extraction-contract`。独立审计反馈为 P0=0 / P1=1；本轮仅修复第三方作者误归因，修复基线 `b5b548a2e6308a2603d6603fbd0afca315cb1727`，最终针对性复审待定。本轮停止点是普通 commit/push；Hosted CI NOT_RUN，不创建 PR、不 merge、不部署。
 
 ## Reuse / Delta Map（实现前决定）
 
@@ -27,7 +27,7 @@ Slice 1 不处理：native extraction 写入、其他来源正式 adapter、Wiki
 
 公共 L1 的 finding 使用有限 discriminated union：viewpoint、relationship、fact_candidate、driver、catalyst、risk、invalidation、open_question。AI author/extractor 必须保留 `ai_draft` semantic class；`DRAFT_EXTRACTION_REVIEW` 是冻结的默认审核状态。质量 review 需要原 owner 的 append-only approval ref/time，不能改变 AI origin，更不能生成 Provider Fact / Verified Claim / Thesis。公共 schema 表达这些语义不代表已经创建 native AI extraction owner、存储或 LLM runtime。
 
-Creator profile 只产生 ViewpointObservation 实际提供的 viewpoint 与 event relationship；reasoning 保留原语义，不伪装成证实的驱动因素。extractor type/method/version 均保持 unknown/null。author ref 直接引用原 Creator；authorIdentity、commentCoverage、parent source 和 combined sourceCoverage 原样保留。Creator Topic 没有正式 Entity/Industry mapping，故数组为空并标记 `not_provided`。公共 Entity identity 的 enum 引用原 RegistryEntry，不使用名字映射，不把 `macro_metric` 改成 `macro`。
+Creator profile 只产生 ViewpointObservation 实际提供的 viewpoint 与 event relationship；reasoning 保留原语义，不伪装成证实的驱动因素。extractor type/method/version 均保持 unknown/null。`verified_self / unverified` 的 author ref 引用原 Creator；`other` 的 L0 authorRef 为 null，L1 author 为 unknown/null，不能归因给 tracked Creator。Source 的 `provenance.creatorId` 与 Extraction 的 `creatorContext.creatorId` 保留讨论链上下文，与 actual author 分离；authorIdentity、commentCoverage、parent source 和 combined sourceCoverage 原样保留。Creator Topic 没有正式 Entity/Industry mapping，故数组为空并标记 `not_provided`。公共 Entity identity 的 enum 引用原 RegistryEntry，不使用名字映射，不把 `macro_metric` 改成 `macro`。
 
 ## 时间、审核、revision 与反查
 
@@ -46,7 +46,7 @@ Creator profile 只产生 ViewpointObservation 实际提供的 viewpoint 与 eve
 
 本轮没有必须新建持久化的 native extraction，所以不增加 browser store、SQLite migration 或 Local Core port。泛型读合同与 read repository interface 为未来 owner 保留同一 seam，但不授予新 owner 写权限。应用路由、生产接线、数据库与架构持久化边界没有变化，因此不机械修改 `docs/architecture.md` 或战略路线。
 
-## 验收对应与实际验证（2026-09-20）
+## 初始交付验收（2026-09-20，b5b548a 时点）
 
 | 验收 | 可重放证据 |
 | --- | --- |
@@ -77,3 +77,27 @@ F3 Frozen V1 不改 roster/digests/expected：reference 33/33（REFERENCE_ONLY�
 WARN：build 报告 >500 kB chunk 提示；全量测试有既有 jsdom `window.scrollTo` 未实现输出，测试仍全部通过。未降低检查阈值或修改这些相邻模块。Hosted CI NOT_RUN；独立审计 PENDING；没有生产准入或 strict PIT 提升。
 
 真实限制：当前正式 adapter 仅 Creator；AI/native/其他 source 只有公共合同表达与 synthetic contract tests，尚无真实 ingestion/store/runtime。SourceRef 是 owner 引用而非 F2 retained-byte pin；不能把它当作历史发表证明、releaseAvailableAt 或 graph closure。Slice 2–6 未实现。
+
+## P1 作者归因修复与针对性复审（2026-09-20 CURRENT）
+
+审计发现 `authorIdentity=other` 的 draft/rejected 评论仍被投影为 Creator 作者。本次仅修复该误归因，不新增作者 registry、不猜测第三方身份，不改变原 CreatorSource/Observation/Approval、存储、时间或 revision 真源。
+
+| owner identity | L0 actual author | L1 actual author | tracked Creator context |
+| --- | --- | --- | --- |
+| verified_self / unverified | 原 Creator ref | 原 external_creator / Creator ref，原 author.creatorId 保留 | provenance.creatorId / creatorContext.creatorId |
+| other | null | unknown / null ref，identity=other；不带 author.creatorId | provenance.creatorId / creatorContext.creatorId |
+
+types 使用判别联合；common/profile schema 用 identity 条件约束作者组合，不允许 `other` 携带 Creator 或猜测的第三方 ref，也不允许 other + reviewed。原 owner validator 继续首先拒绝 other + reviewed。schema-valid 的整体身份伪造（other 改标 unverified，同时伪造 Creator ref）仍由 owner-equivalence validation 拒绝。`trace*.creator` 返回 tracked context，actual identity 继续从原 Source 与投影 author 读取。
+
+这是待审 V1 read model 的定向修正，不迁移持久化 owner。旧 serialized projection 须从原 owner 重建并重新校验；不能继续信任旧错误归因。原 self/unverified 作者字段、As-of、source parent、unknown 时间、精确 trace 和 revision/supersedes 保留。
+
+| 本轮验证 | 结果 |
+| --- | --- |
+| 受影响 Source/Extraction + Creator domain/chronology/repository | PASS，144 tests；新增 6 个参数化/组合验收项 |
+| Source/Extraction domain + contract | PASS，36 + 19 = 55 tests；包括两份 schema、身份伪造/错误 ref 与 owner equivalence |
+| 全量 `npm test` | PASS，1058 tests / 82 files |
+| `npm run build` | PASS，TypeScript / Local Core typecheck / Vite / browser boundary / bundle gate |
+| `npm run contracts:validate` / `npm run test:contracts` | PASS，106 V1 + 78 foundations + 19 新合同 tests |
+| `npm run test:research-eval` / `npm run research:eval:check` | PASS，51 F3 tests、committed report read-only replay、Industry 5/5；Frozen V1 service coverage 仍 0/33 |
+
+原 chunk 大小提示和 jsdom `window.scrollTo` 输出仍为非阻断 WARN。最终针对性复审 PENDING；Hosted CI NOT_RUN。仅当前功能分支普通 commit/push 后停止；无 PR/merge/main 修改/Production 部署。

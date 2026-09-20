@@ -1,12 +1,12 @@
 # 当前开发执行索引 · 2026-09-07
 
-> 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 1 Source + Extraction 已 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；L2–L5 仍未实现。** Stage 4.2.5 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+> 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 1 Source + Extraction 已 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW；L2–L5 仍未实现。** Stage 4.2.5 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
 
-> 下方 Stage 4.2.5 功能分支验证与更早记录保留其时点意义；当前执行主线为 Stage 4.3 / Slice 1，已完成本地实现与验证，普通 push 后等待独立审计。
+> 下方 Stage 4.2.5 功能分支验证与更早记录保留其时点意义；当前执行主线为 Stage 4.3 / Slice 1；第三方作者误归因 P1 已定向修复并本地验证，普通 push 后等待最终针对性复审。
 
 ## CURRENT — Stage 4.3 Research Memory & Thesis Compiler V1
 
-状态：**Slice 1 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；Slice 2–6 NOT_IMPLEMENTED**。正式起点为 `main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`。
+状态：**Slice 1 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW；Slice 2–6 NOT_IMPLEMENTED**。正式起点为 `main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`。
 
 统一研究链：
 
@@ -21,7 +21,7 @@
 5. **Slice 5 — Thesis + Macro → Industry**：Macro Driver mapping、Thesis revision、bull/base/bear、catalyst/risk/invalidation。
 6. **Slice 6 — Investment Expression + Closeout**：Thesis → ETF / Index / Fund / Equity，并完成 L0→L5 trace。
 
-**CURRENT STOP：Slice 1 普通 commit/push 后等待独立审计。** 公共 L0/L1 contract、Creator adapter、owner trace、双时间轴/revision/fail-closed 与只读 repository seam 完成；49 新增 / 1052 全量 tests、build、contracts、F3 PASS。Hosted CI NOT_RUN；没有 native extraction store、生产接线或准入提升。[Slice 1 设计、验证与限制](stage-4-3-slice-1-source-extraction.md)。 Stage 4.3 不实施 Portfolio、MCP、Research Agent、自动交易、cloud DB、强制 Vector/Graph DB 或自动网页抓取。详细冻结方案：[Stage 4.3 Research Memory & Thesis Compiler V1](stage-4-3-research-memory-wiki-thesis-plan.md)。
+**CURRENT STOP：Slice 1 普通 commit/push 后等待最终针对性复审。** 公共 L0/L1 contract、Creator adapter、owner trace、双时间轴/revision/fail-closed 与只读 repository seam 完成；55 专项 / 1058 全量 tests、build、contracts、F3 PASS。Hosted CI NOT_RUN；没有 native extraction store、生产接线或准入提升。[Slice 1 设计、验证与限制](stage-4-3-slice-1-source-extraction.md)。 Stage 4.3 不实施 Portfolio、MCP、Research Agent、自动交易、cloud DB、强制 Vector/Graph DB 或自动网页抓取。详细冻结方案：[Stage 4.3 Research Memory & Thesis Compiler V1](stage-4-3-research-memory-wiki-thesis-plan.md)。
 
 > 2026-09-20 CURRENT · Stage 4.2.5 剩余 P1 修复：Current View 按 knowledge-visible、reviewed、active 的未知时间观点及 capturedAt 上界派生 chronologyHealth；Overview / Comparison / Excel 显示“最近可确定状态，当前状态不完整”。可靠时间修订审核后自动恢复确定，Creator time / audit time 不混用，无持久化 schema 变化。专项 113、全量 1003 tests / 80 files、build、329 browser checks、实际 Excel 独立读取 PASS；PENDING FINAL TARGETED RE-REVIEW，Hosted CI NOT_RUN。路线与分支边界不变。[当前交付](stage-4-2-5-creator-viewpoint-tracker.md)。
 

@@ -36,6 +36,7 @@ export interface ResearchSource {
   schemaVersion: 'research-source.v1'; ref: ResearchSourceRef; sourceType: string;
   semanticClass: 'source_material' | 'external_commentary' | 'user_judgement' | 'ai_draft';
   relatedRefs: ResearchRelatedRefs;
+  /** authorRef identifies the actual author, never merely a tracked discussion context. */
   provenance: { owner: string; authorRef: ResearchOwnerRef | null; url: string | null };
   publishedAt: string | null; capturedAt: string | null; recordedAt: string; asOf: string;
   completeness: Coverage; uncertainty: ResearchUncertainty[];
@@ -49,9 +50,11 @@ export interface CreatorResearchSource extends ResearchSource {
   schemaVersion: 'research-source.v1'; ref: ResearchSourceRef; sourceType: CreatorSource['kind'];
   semanticClass: 'external_commentary'; relatedRefs: ResearchRelatedRefs;
   provenance: {
-    owner: 'CreatorSource'; authorRef: ResearchOwnerRef; creatorId: string; url: string | null;
-    authorIdentity: CreatorSource['authorIdentity']; identityEvidence: string | null;
-  };
+    owner: 'CreatorSource';
+    /** Tracked discussion context, not an assertion about the actual author. */
+    creatorId: string; url: string | null; identityEvidence: string | null;
+  } & ({ authorIdentity: 'other'; authorRef: null }
+    | { authorIdentity: 'verified_self' | 'unverified'; authorRef: { owner: 'Creator'; id: string } });
   publishedAt: string | null; publishedAtLabel: string | null; capturedAt: string; recordedAt: string;
   /** Query cutoff in local knowledge time, never a publication-time replacement. */
   asOf: string;
@@ -82,6 +85,7 @@ export type ResearchFinding = CreatorResearchFinding | {
 export interface ResearchExtraction {
   schemaVersion: 'research-extraction.v1'; ref: ResearchExtractionRef; sourceRefs: ResearchSourceRef[];
   semanticClass: 'external_commentary' | 'user_judgement' | 'ai_draft'; relatedRefs: ResearchRelatedRefs;
+  /** Actual attribution; unknown + null leaves the source author unassigned. */
   author: { type: 'external_creator' | 'user' | 'ai' | 'unknown'; ref: ResearchOwnerRef | null };
   extractor: { type: 'human' | 'ai' | 'unknown'; method: string | null; version: string | null };
   adapterVersion: string; createdAt: string; effectiveAt: string | null; asOf: string;
@@ -94,7 +98,8 @@ export interface ResearchExtraction {
 export interface CreatorResearchExtraction extends ResearchExtraction {
   schemaVersion: 'research-extraction.v1'; ref: ResearchExtractionRef; sourceRefs: ResearchSourceRef[];
   semanticClass: 'external_commentary'; relatedRefs: ResearchRelatedRefs;
-  author: { type: 'external_creator'; ref: ResearchOwnerRef; creatorId: string; identity: CreatorSource['authorIdentity'] };
+  author: { type: 'external_creator'; ref: { owner: 'Creator'; id: string }; creatorId: string; identity: 'verified_self' | 'unverified' }
+    | { type: 'unknown'; ref: null; identity: 'other' };
   /** The owner does not record human/AI attribution or extraction method. Do not guess. */
   extractor: { type: 'unknown'; method: null; version: null };
   adapterVersion: 'creator-research-adapter.v1';
@@ -105,6 +110,8 @@ export interface CreatorResearchExtraction extends ResearchExtraction {
     approvalRef: { owner: 'ViewpointApproval'; approvalId: string } | null; reviewedAt: string | null };
   revision: { supersedes: ResearchExtractionRef | null; successor: ResearchExtractionRef | null; reason: string | null };
   creatorContext: {
+    /** Tracked Creator, even when the source author is explicitly someone else. */
+    creatorId: string;
     chronology: 'resolved' | 'unknown_time' | 'ambiguous_time' | 'superseded';
     /** Null means the original Current View service cannot produce a resolved current state. */
     chronologyHealth: 'resolved' | 'incomplete' | null;

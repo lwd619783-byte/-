@@ -65,11 +65,14 @@ export function createCreatorResearchAdapter(input: CreatorViewpointData, asOf: 
   for (const source of visibleSources) {
     const effectiveCoverage = sourceCoverage(data, source.id);
     const successor = visibleSources.find(row => row.supersedesId === source.id);
+    const attribution = source.authorIdentity === 'other'
+      ? { authorIdentity: 'other' as const, authorRef: null }
+      : { authorIdentity: source.authorIdentity, authorRef: { owner: 'Creator' as const, id: source.creatorId } };
     sourceModels.set(source.id, freeze({
       schemaVersion: 'research-source.v1', ref: creatorSourceRef(source.id), sourceType: source.kind,
       semanticClass: 'external_commentary', relatedRefs: related(observations.filter(row => row.sourceId === source.id).map(row => row.topicId)),
-      provenance: { owner: 'CreatorSource', authorRef: { owner: 'Creator', id: source.creatorId }, creatorId: source.creatorId, url: source.url,
-        authorIdentity: source.authorIdentity, identityEvidence: source.identityEvidence },
+      provenance: { owner: 'CreatorSource', ...attribution, creatorId: source.creatorId, url: source.url,
+        identityEvidence: source.identityEvidence },
       publishedAt: source.publishedAt, publishedAtLabel: source.publishedAtLabel, capturedAt: source.capturedAt, recordedAt: source.recordedAt, asOf,
       completeness: source.completeness, commentCoverage: source.commentCoverage, effectiveCoverage,
       uncertainty: uncertainty(source, effectiveCoverage),
@@ -93,7 +96,8 @@ export function createCreatorResearchAdapter(input: CreatorViewpointData, asOf: 
     extractionModels.set(observation.id, freeze({
       schemaVersion: 'research-extraction.v1', ref: creatorExtractionRef(observation.id), sourceRefs: [sourceModel.ref],
       semanticClass: 'external_commentary', relatedRefs: related([observation.topicId]),
-      author: { type: 'external_creator', ref: { owner: 'Creator', id: observation.creatorId }, creatorId: observation.creatorId, identity: source.authorIdentity },
+      author: source.authorIdentity === 'other' ? { type: 'unknown', ref: null, identity: 'other' }
+        : { type: 'external_creator', ref: { owner: 'Creator', id: observation.creatorId }, creatorId: observation.creatorId, identity: source.authorIdentity },
       extractor: { type: 'unknown', method: null, version: null }, adapterVersion: 'creator-research-adapter.v1',
       createdAt: observation.recordedAt, effectiveAt: creatorEffectiveAt(data, observation), asOf,
       findings: [{ kind: 'viewpoint', summary: observation.summary, reasoning: observation.reasoning,
@@ -106,7 +110,7 @@ export function createCreatorResearchAdapter(input: CreatorViewpointData, asOf: 
         reviewedAt: approval.recordedAt } : { ...DRAFT_EXTRACTION_REVIEW },
       revision: { supersedes: observation.supersedesId ? creatorExtractionRef(observation.supersedesId) : null,
         successor: successor ? creatorExtractionRef(successor.id) : null, reason: observation.revisionReason },
-      creatorContext: { chronology, chronologyHealth: current?.chronologyHealth ?? null,
+      creatorContext: { creatorId: observation.creatorId, chronology, chronologyHealth: current?.chronologyHealth ?? null,
         unresolvedExtractionRefs: (current?.unresolvedObservationIds ?? []).map(creatorExtractionRef) },
     }));
   }
