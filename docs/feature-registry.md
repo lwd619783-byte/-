@@ -316,6 +316,34 @@ R2 已实现切片与剩余工作：
 - `docs/market-regime/observation-catalog-r1.md`（已随 PR #13 合入 `main`）
 
 
+### Stage 4.2.5 — Creator Viewpoint Tracker V1（CLOSED）
+
+- 状态：**IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY**。
+- final audited HEAD：`025352f5bb7879ce6e1e2130fb9cd43788409928`；PR #67；PR CI `35489459196` success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`；main CI `35489619887` success。
+- 正式能力：CreatorSource、ViewpointObservation、reviewed chronology/current、Transition、T+ Review、Event links、JSON recovery、Excel analysis copy。
+- 语义边界：External Commentary；不自动晋升 Provider Fact / Verified Claim / Thesis。
+- Stage 4.3 复用方式：作为第一条 L0/L1 Research Memory adapter，不复制第二套 Creator 真源。
+
 ### Stage 4.3 — Research Memory & Thesis Compiler V1（CURRENT PLAN）
 
-详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。统一链：Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression；当前 NEXT IMPLEMENTATION 为 Slice 1。
+状态：**DESIGN FROZEN / NOT IMPLEMENTED**。
+
+| Layer | Planned capability | Current status |
+| --- | --- | --- |
+| L0 | Raw Source / Evidence adapters | PARTIAL FOUNDATION：已有 Provider Evidence / CreatorSource owners；统一 adapter 未实现 |
+| L1 | Structured Extraction | PARTIAL FOUNDATION：Creator Viewpoint 已实现特定域 extraction；通用 ResearchExtraction 未实现 |
+| L2 | Reviewed Research Memory / LLM Wiki | NOT IMPLEMENTED |
+| L3 | Verified Claim | PARTIAL FOUNDATION：已有 Stage 4.2 factual Claim Candidate + F2 graph；正式通用 lifecycle 未实现 |
+| L4 | Thesis | NOT IMPLEMENTED |
+| L5 | Investment Expression | NOT IMPLEMENTED |
+
+计划 Slice：
+
+1. Source + Extraction Contract；
+2. LLM Wiki V1；
+3. Creator → Wiki + 三位真实博主；
+4. Evidence → Verified Claim；
+5. Thesis + Macro → Industry；
+6. Investment Expression + Closeout。
+
+统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**NEXT IMPLEMENTATION = Slice 1**。详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。

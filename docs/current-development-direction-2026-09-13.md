@@ -259,9 +259,9 @@ Local-first 仍为正式边界。MCP 是受控适配层，不意味着迁移到 
 
 本地 SQLite、Evidence Store、Wiki、Portfolio 等仍可作为事实与研究底座；对外只暴露经过认证、scope、confirmation、Audit 的 Research MCP Gateway。
 
-## 9. Stage 4.6 — ChatGPT-connected Research Agent + LLM Wiki
+## 9. Stage 4.6 — ChatGPT-connected Research Agent + Artifact Integration
 
-Stage 4.6 不以“在投研看板里再造一个封闭聊天框”作为核心目标。
+Stage 4.6 不以“在投研看板里再造一个封闭聊天框”作为核心目标，也不重新建设 LLM Wiki Domain Model。LLM Wiki / Research Memory 已在 Stage 4.3 建立；本阶段只通过 Stage 4.5 的受控 MCP / Domain Tools 让 Research Agent 读取、研究、提出 revision，并生成 Research Artifact。
 
 正式目标：
 
