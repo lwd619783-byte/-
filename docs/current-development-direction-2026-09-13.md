@@ -1,5 +1,9 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 — Research Memory & Thesis Compiler V1 进入 CURRENT PLANNING / NOT_IMPLEMENTED。** 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+
+> 下方 Stage 4.2.5 功能分支及更早 CURRENT 记录保留其时点状态；本轮 CURRENT 以上述 2026-09-20 收口与 Stage 4.3 重基线为准。
+
 > 2026-09-19 CURRENT — **Stage 4.2 CLOSED → Stage 4.2.5 Creator Viewpoint Tracker V1 CURRENT → Stage 4.3 NEXT**。本专项新增外部观点记录、独立 Topic 状态历史、人工审核/复盘、四视图 Workspace、JSON 完整恢复和 Excel 分析副本；Current View/Transition/到期项均为已审核历史投影。复用 ResearchEvent 公共 owner、Evidence Drawer、Workspace 导航和 PersistedBaseGuard；不接 SQLite/云，不提前实现 Claim/Thesis。精确开发基线 `8860c943919f90daa125934fde0f385707ea7028`。本地 959 tests / build / 287 browser checks / JSON round-trip / Excel 独立读取 PASS；IMPLEMENTED / VERIFIED LOCALLY。真实样本旧状态与明确失效条件仍未证明，未伪造转换。完整交付与限制见 [Stage 4.2.5 当前方案与交付](stage-4-2-5-creator-viewpoint-tracker.md)。独立审计 PENDING，Hosted CI NOT_RUN；仅功能分支普通 commit/push，不创建 PR/merge/部署。
 
 > 以下 Stage 4.2 closeout 及更早 CURRENT 条目保留其记录时点；本轮顺序以上述 Stage 4.2.5 增量为准。
@@ -52,15 +56,15 @@ Stage 4.1B   Product Shell / Research Inbox / Evidence Surface
       ↓
 Stage 4.2    Industry Data Platform（CLOSED）
       ↓
-Stage 4.2.5  Creator Viewpoint Tracker V1（CURRENT）
+Stage 4.2.5  Creator Viewpoint Tracker V1（CLOSED）
       ↓
-Stage 4.3    Top-down Research Workflow / Claim / Thesis / Research Memory
+Stage 4.3    Research Memory & Thesis Compiler V1（CURRENT）
       ↓
 Stage 4.4    Portfolio Exposure MVP
       ↓
 Stage 4.5    Research MCP Gateway / Controlled Tool Layer
       ↓
-Stage 4.6    ChatGPT-connected Research Agent / LLM Wiki / Artifact / Global Coverage
+Stage 4.6    ChatGPT-connected Research Agent / Artifact / Global Coverage
 ```
 
 Market Regime 数据完善、PBC / CSRC / all-A admission、Normalization、Backtest 等继续推进，但从 4.1-G 后原则上转为**与产品主线并行的数据支线**。当某个指标真实 READY 时接入产品；产品主线不等待所有指标 READY。
@@ -101,34 +105,51 @@ Stage 4.1B 完成后，用户应能完成：
 
 行业结论不得只用公司涨跌代理行业基本面。
 
-## 5. Stage 4.3 — Top-down Research Workflow + LLM Wiki 基础
+## 5. Stage 4.3 — Research Memory & Thesis Compiler V1
 
-目标：形成真正的研究对象与长期研究记忆。
+**状态（2026-09-20）：CURRENT PLANNING / DESIGN FROZEN / NOT_IMPLEMENTED。** Stage 4.2.5 已 CLOSED，Creator Tracker 作为 Stage 4.3 的第一条真实 Research Memory 输入域继续复用，不复制第二套 Creator 原文或 Viewpoint 数据。
 
-核心链：
+Stage 4.3 的正式研究编译链：
 
-`Macro → Industry → Evidence → Claim → Thesis → Investment Expression`
+```text
+L0 Raw Source / Evidence
+        ↓
+L1 Structured Extraction
+        ↓
+L2 Reviewed Research Memory / LLM Wiki
+        ↓
+L3 Verified Claim
+        ↓
+L4 Thesis
+        ↓
+L5 Investment Expression
+```
 
-交付：
+横向治理平面贯穿所有层：Schema、Entity Identity、Provenance、PIT / asOf、Revision、Verification / Review、Audit，以及 missing / partial / stale / conflicted / unknown 传播。
 
-- Macro → Industry mapping；
-- Claim ↔ Evidence；
-- Industry / Company Thesis 与 revision；
-- catalyst / risk / invalidation condition；
-- Investment Expression / Instrument mapping；
-- Research Memory V1；
-- **LLM Wiki V1**：作为显式、版本化、可检索的长期研究知识库。
+关键边界：
 
-LLM Wiki 不等于模型隐藏记忆。必须区分：
+- L0 保存或引用原始材料与 provenance；不被 AI 摘要覆盖。
+- L1 是可持久化、可修订、可审核的结构化提取层；AI 输出默认 `AI_DRAFT`，不能自动晋升 Wiki / Claim / Thesis。
+- L2 LLM Wiki 是显式、版本化、可检索的长期研究记忆；每个知识结论必须可反查 Extraction 与 Raw Source，Wiki 本身不是 Provider Fact。
+- L3 Verified Claim 必须复用既有 Evidence / F2 Evidence Graph 语义，不建立平行 Claim Graph；Creator Commentary 单独不能把外部判断变成 Verified Claim。
+- L4 Thesis 组合 Claims / Evidence，具备 bull/base/bear、drivers、catalysts、risks、invalidation、confidence、asOf 与 append-only revision。
+- L5 Investment Expression 将 Thesis 映射到 ETF / Index / Fund / Equity 等表达，记录 directness / liquidity / valuation / thesis sensitivity / company-specific risk；不进入 Portfolio 或交易。
 
-- Provider Fact；
-- Derived Metric / Signal；
-- User Judgment；
-- AI Draft；
-- Verified Claim；
-- Thesis。
+Stage 4.3 分六个 Slice：
 
-AI 回答或研究报告默认不能自动升级为 Provider Fact 或正式 Thesis。
+1. **Source + Extraction Contract**：冻结统一 Research Source Reference / Adapter 与 ResearchExtraction，首个正式 adapter 复用 CreatorSource / ViewpointObservation。
+2. **LLM Wiki V1**：版本化 Wiki Entry、引用链、搜索 / read model 与 Sources / Extractions / Wiki 工作区。
+3. **Creator → Wiki + 三位真实博主**：用 4.2.5 的真实运行时数据形成第一批 Creator Framework Wiki；真实原文不提交公共仓库。
+4. **Evidence → Verified Claim**：复用 F2 Evidence Graph，把 Research Memory 与正式可验证主张连接起来。
+5. **Thesis + Macro → Industry**：建立 Macro Driver → Industry mapping、Thesis revision、catalyst / risk / invalidation。
+6. **Investment Expression + Closeout**：Thesis → ETF / 指数 / 个股等表达，完成 L0→L5 可回溯闭环并收口 Stage 4.3。
+
+前端最终形成 Research Memory Workspace，至少可在 Sources / Extractions / Wiki / Claim & Thesis 之间逐层下钻，并继续复用 Evidence Drawer。
+
+Stage 4.3 不实施正式 MCP、Research Agent、Portfolio、自动交易、全量 Vector DB / Graph DB 迁移、cloud business DB 或自动网页爬虫。Stage 4.5 负责把已稳定的 Wiki / Claim / Thesis Domain Tools 暴露给 MCP；Stage 4.6 的 Agent 消费这些能力并生成 / 修订 Research Artifact，而不是重新建设一套 Wiki。
+
+完整字段边界、Slice 验收与非目标见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
 
 ## 6. Stage 4.4 — Portfolio Exposure MVP
 
@@ -238,9 +259,9 @@ Local-first 仍为正式边界。MCP 是受控适配层，不意味着迁移到 
 
 本地 SQLite、Evidence Store、Wiki、Portfolio 等仍可作为事实与研究底座；对外只暴露经过认证、scope、confirmation、Audit 的 Research MCP Gateway。
 
-## 9. Stage 4.6 — ChatGPT-connected Research Agent + LLM Wiki
+## 9. Stage 4.6 — ChatGPT-connected Research Agent + Artifact Integration
 
-Stage 4.6 不以“在投研看板里再造一个封闭聊天框”作为核心目标。
+Stage 4.6 不以“在投研看板里再造一个封闭聊天框”作为核心目标，也不重新建设 LLM Wiki Domain Model。LLM Wiki / Research Memory 已在 Stage 4.3 建立；本阶段只通过 Stage 4.5 的受控 MCP / Domain Tools 让 Research Agent 读取、研究、提出 revision，并生成 Research Artifact。
 
 正式目标：
 

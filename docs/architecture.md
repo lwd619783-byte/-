@@ -442,3 +442,24 @@ Node-only Local Core / SQLite / Research Bridge / contracts/v1 / F2 Evidence Gra
 同一 envelope 保持 append-only；knowledge As-of 先过滤本地可见历史，再按来源 publishedAt 派生 Creator Timeline/Current View/Transition，T+ 也使用该来源锚点。未知或冲突 chronology 不以审批时间冒充，UI/Excel 分开显示两类时间。ExternalResearchEvent 的来源级 verified 复用 ResearchVerificationStatus，不改变正式事实/Claim/Thesis 准入。
 
 Browser repository 新增受控灾难恢复 seam：观测并绑定损坏原字节、导出、完整校验备份、显式确认、独立 pre-recovery 原字节备份与读回校验、最终基线检查、仅替换 tracker key、reload/semantic validation。普通 append/import 在 corruption 下继续锁定；显式未知/future schema 不可走该恢复入口。现有 PersistedBaseGuard、Local-first/Node-only 边界不变，不增加云或 SQLite 写入口。
+
+## Stage 4.3 Research Memory & Thesis Compiler boundary（2026-09-20 设计冻结）
+
+Stage 4.3 不建立“一个万能 Wiki 数据库”，而是在既有 owner 之上增加稳定 adapter / domain contract。统一研究链为：
+
+```text
+L0 Raw Source / Evidence
+  → L1 Structured Extraction
+  → L2 Reviewed Research Memory / LLM Wiki
+  → L3 Verified Claim
+  → L4 Thesis
+  → L5 Investment Expression
+```
+
+治理平面 Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 横跨各层。Source owner 继续拥有原始内容：CreatorSource、Provider Evidence、未来 PDF/Article/User Note 等不迁入一张通用表；Stage 4.3 只定义 `ResearchSourceRef/Adapter` 供统一引用。Structured Extraction 是独立一等对象，保存 extractor/author type、source refs、entity/topic refs、结构化输出、uncertainty、status 与 revision；AI 默认 draft。
+
+Creator Tracker 是首个真实 adapter：`CreatorSource` 对应 L0，`ViewpointObservation` 对应 L1 的 creator-specific extraction，Transition/Review 提供时间演化与事后验证；Wiki 通过 ID 引用这些对象，不复制原文或维护第二份 Current View。
+
+LLM Wiki 属于 L2 Research Memory：Entry / revision 必须保留 sourceRefs / extractionRefs / evidenceRefs；可检索和综合，但不能变成 Provider Fact authority。L3 Verified Claim 继续复用既有 F2 Evidence Graph / Evidence Drawer，不建立第二个 Claim Graph。L4 Thesis 与 L5 Investment Expression 均为 revision-aware research objects；Portfolio、MCP 和 Agent 分别留在 Stage 4.4、4.5、4.6+。
+
+Browser/Local-first 边界继续有效；Stage 4.3 不因 Wiki 引入 cloud business DB、浏览器直连 SQLite、Vector DB/Graph DB 强制迁移或自动网页抓取。详细计划见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
