@@ -1,6 +1,6 @@
 # Stage 4.3 / Slice 2.5 — AI Knowledge Ingestion Foundation V1
 
-状态：D0 COMPLETE / IMPLEMENTATION IN PROGRESS。基线 `812e7551e67b0b8af4f673524e2578ecf2e19335`；分支 `codex/stage-4-3-slice-2-5-knowledge-ingestion-v1`。
+状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；远程验收独立登记。基线 `812e7551e67b0b8af4f673524e2578ecf2e19335`（Wiki Infrastructure V1 — independent review PASS）；分支 `codex/stage-4-3-slice-2-5-knowledge-ingestion-v1`。
 
 ## D0 Reuse / Delta / Architecture Map（实现前冻结）
 
@@ -28,7 +28,22 @@ CREATE / UPDATE 必须带完整文章（核心判断、产业/主题结构、近
 
 ## 验证与交付
 
-待实施与验证后追加实际结果。独立审计 PENDING；无 PR / merge / Production 声明。
+已实现中文首用、稳定批次、IndexedDB exact bytes、PDF 页/UTF-8 行解析、贡献包 round-trip、建议队列与完整文章审核，更新追加完整历史、不新增重复 Wiki。Provider 正常运行未连接；测试 fixture 不进入真实流程。LINK / CONFLICT 沿用完整修订与原关联机制。
+
+| 本地验证 | 实际结果 |
+| --- | --- |
+| Ingestion + 原 Wiki UI 专项 | 26/26（21 domain/repository + 5 UI） |
+| MCP contract / 真实本地 HTTP + 官方 client | 6/6，包括认证、PKCE、单次码、发布、分页、digest、未授权隔离、过期、撤销、拒写 |
+| 全量 Vitest | 1157/89 files PASS（含配额回滚与引用隔离） |
+| build / TypeScript / Local Core typecheck / bundle gate | PASS；PDF worker 惰性本地打包；原大 chunk 警告保留 |
+| contracts validate / test:contracts | PASS；additive knowledge contract 引用原 Source/Extraction；原 frozen contracts 不变 |
+| F3 check / research-eval tests | PASS；reference 33/33，actual deterministic service 仍 0/33；Industry 5/5，未提高 admission |
+| discovery / UI audit | PASS；无新增未登记测试 |
+| 新首用浏览器验收 | 80/80：空 profile、10文件同批、PDF两页/MD/TXT、reload、10个 digest、下载原件字节一致、无假 AI、导入前后权限、修改后接受 UPDATE 单 Wiki 双完整版本、三主题 × 1536/1280/390/320 × 四入口无横向溢出；0 runtime errors / 0未授权外部请求，12截图 |
+
+原件上限25 MiB/份、100 MiB/批、30份；PDF普通文本最多500页，不做 OCR/密码解锁/复杂字体资源下载；MD/TXT 严格 UTF-8。浏览器清理站点数据、换 profile/origin 会失去该处本地资料；Wiki backup 不含 IndexedDB 原件，原件需单独下载保留。贡献包导入上限10 MiB，完整文章六章仅结构校验，内容正确性仍需人工审核。尚无全库原件备份或语义检索。
+
+Vercel private Blob 与当前分支认证配置已完成；真实部署/远程验收及 ChatGPT 账号连接必须分别核验，不能由6个离线测试推定通过。[Bridge 连接/限制/验收](research-bridge-readonly-v1.md)、[贡献合同](../contracts/knowledge-ingestion/v1/README.md)、[中文产品冻结](research-memory-chinese-first-use-v1.md)。独立审计 PENDING；无 PR / merge / Production 声明。
 
 ## D0 增量决定：Read-only Research Bridge（2026-09-21）
 

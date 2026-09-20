@@ -351,10 +351,11 @@ Artifact 是研究输出，不反向成为事实源；如需回写 Research Enti
 
 ### Stage 4.3 — Research Memory & Thesis Compiler V1（CURRENT）
 
-Stage 4.3 内部顺序正式冻结为六个 Slice：
+Stage 4.3 内部保留六个主 Slice，并于 2026-09-21 插入用户授权的 Slice 2.5：Slice 2 `812e7551e67b0b8af4f673524e2578ecf2e19335` 为 **Wiki Infrastructure V1 — independent review PASS**；当前 Slice 2.5 已实现并完成本地验证，等待独立审计与单列的远程验收。顺序：
 
 1. Source + Extraction Contract；
 2. LLM Wiki V1；
+   2.5. AI Knowledge Ingestion Foundation V1：中文首用、多文件本地原件、完整文章贡献建议与人工审核；private staging + OAuth 只读 MCP，贡献包手工回传；
 3. Creator → Wiki + 三位真实博主；
 4. Evidence → Verified Claim；
 5. Thesis + Macro → Industry；
@@ -362,7 +363,7 @@ Stage 4.3 内部顺序正式冻结为六个 Slice：
 
 核心链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。Creator Tracker 通过 adapter 复用，不迁移为统一大表；Claim 复用现有 F2 Evidence Graph；Wiki/AI Draft 不自动升级。
 
-Stage 4.3 最终需要形成可从 Investment Expression 逐层回溯到 Thesis → Claim → Wiki/Extraction → Raw Evidence 的研究链。Portfolio 留给 4.4；MCP 暴露留给 4.5；ChatGPT-connected Agent / Artifact 留给 4.6+。
+Stage 4.3 最终需要形成可从 Investment Expression 逐层回溯到 Thesis → Claim → Wiki/Extraction → Raw Evidence 的研究链。Portfolio 留给 4.4；完整 MCP Gateway / write 留给 4.5，仅选定临时副本的认证只读工具按用户要求提前到 Slice 2.5；ChatGPT-connected Agent / Artifact 留给 4.6+。Local-first authority、人工 review 和无默认同步保持。[Slice 2.5 D0 与验收](stage-4-3-slice-2-5-knowledge-ingestion.md)。
 
 详细合同边界、UI、验收与非目标见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
 

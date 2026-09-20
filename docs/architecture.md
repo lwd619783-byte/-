@@ -1,5 +1,11 @@
 # 投资研究看板架构基线
 
+## 2026-09-21 Stage 4.3 / Slice 2.5 runtime 增量
+
+`File/paste → BrowserSourceRepository (IndexedDB state + exact original Uint8Array) → local PDF.js page / UTF-8 line parsing → browser-source adapter → 原 ResearchSource / ResearchExtraction`。批次与原件同事务写入，先保存后解析；读回核验 digest，重复/配额/冲突 fail closed。无默认 AI provider，fake 仅测试。新 Contribution Bundle 是 transport contract，findings 复用 Slice 1；导入只持久化候选。接受在浏览器锁下读取最新基线，通过原 WikiRepository 一次追加完整 Revision + Review；拒绝只记候选处置，接受状态从正式 Review 派生。Wiki 完整文章、版本演化和证据视图继续使用同一 owner；Obsidian 单向 projection。
+
+远程层独立于本地 authority：明确发送选定 batch 和逐项选定 reviewed knowledge → Vercel Node Functions owner staging API → private Blob immutable manifest/解析文本/文章快照 → publish → OAuth/S256 + Streamable HTTP 八个只读 MCP tools → ChatGPT → 用户手工导入相同 Bundle。没有浏览器直连文件读取、全库默认同步、公开原文 URL 或 MCP write。原件不复制，远程保留原件 digest 身份与独立 parsed-text digest；24h 逻辑 TTL / revoke 每读核验，物理清理未实现。Secrets 仅环境；配置不足 503，无匿名回退。接口与实际支持边界见 [D0](stage-4-3-slice-2-5-knowledge-ingestion.md)、[Bridge](research-bridge-readonly-v1.md)、[中文首用规范](research-memory-chinese-first-use-v1.md)。
+
 ## 2026-09-19 Industry Slice 6 runtime 增量
 
 Registry / Generic Provider 与 reviewed dimension mapping 仍是唯一发现/映射 owner。原 `industryHistory` 提取为共享纯模块（TS 页面与 Node 重放共用，行为不变）；`industrySignalClaim.mjs` 读取 immutable resources 与 reviewed `industry-signal-policy.v1`，计算相邻留存绝对差、输入 manifest 和固定模板 Claim Candidate。浏览器惰性加载，只读、无新 Store/数据库/事件持久化；离线保留 `research-data/industry/signal-claim-v1/derived.json` 与 `graphs.json`，校验重放且禁止同路径覆盖不同内容。

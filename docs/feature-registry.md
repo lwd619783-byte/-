@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-21 CURRENT：**Slice 2 — Wiki Infrastructure V1 — independent review PASS；Slice 2.5 — AI Knowledge Ingestion Foundation V1 + authenticated Read-only Research Bridge，IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW**。沿用基线 `812e7551e67b0b8af4f673524e2578ecf2e19335` 的 Source/Extraction/Wiki/Revision/Review。中文首次使用、原件 IndexedDB、完整文章候选审核、用户选择后 private staging 与 OAuth 只读 MCP；贡献包仍人工回传。远程与 ChatGPT 账号连接按实际验收单列。[Slice 2.5 CURRENT](stage-4-3-slice-2-5-knowledge-ingestion.md)。后续旧条目只保留其时点；本次仅功能分支 commit/push 与 Preview，停止等待独立审计，不创建 PR/merge/Production。
+
 > 2026-09-20 CURRENT — **Stage 4.3 / Slice 2 P1 remediation：IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW**。原独立审计 HEAD `188f1adcd2a5662f24dc9a57c861ae6e95934394` 为 P0=0 / P1=1；固定 `research-wiki/index.md` / `research-wiki/manifest.json` 已统一预留，沿用 NFC / NFKC / case-insensitive 与文件/目录 collision fail-closed。Projection 29、全部 Wiki 78、全量 1136 tests、build、contracts、F3、261 Local Core、discovery PASS；本轮 90/90 browser checks、13 screenshots，0 runtime/console errors、0 external requests。正常 Markdown/manifest/ZIP 字节与审计 HEAD 相同。F3 actual deterministic service 仍 0/33 NOT_IMPLEMENTED，authority/PIT/admission 不变。Hosted CI NOT_RUN；仅原分支普通 commit/push 后等待针对性复审，不创建 PR/merge，不修改 main 或部署 Production。[P1 修复与本轮验证](stage-4-3-slice-2-llm-wiki.md#p1-remediation--固定-vault-路径保留2026-09-20)。
 
 > 2026-09-20 CURRENT — **Stage 4.3 / Slice 2 LLM Wiki V1 + Markdown/Obsidian Projection：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。从 fetch 后精确 `origin/main @ 1d883414fe7828b682c8cd888223ccf7bd729834` 创建 `codex/stage-4-3-slice-2-llm-wiki-obsidian`。L2 Entry/append-only Revision/Review、historical Current、exact refs/trace、search/backlinks/orphans、Local-first Wiki JSON backup/recovery、`#/memory` 三视图与单向可重建 Vault 已实现；Markdown 不是真源，AI origin 不升级。70 Wiki 专项 / 1128 全量 Vitest、build、contracts、F3、261 Local Core tests、90 browser checks PASS。F3 actual service 仍 0/33，admission 不提升。Hosted CI NOT_RUN；本切片普通 commit/push 后停止等待独立审计，不创建 PR/merge/部署。[D0、验证及真实限制](stage-4-3-slice-2-llm-wiki.md)。
@@ -334,7 +336,7 @@ R2 已实现切片与剩余工作：
 
 ### Stage 4.3 — Research Memory & Thesis Compiler V1（Slice 1 CLOSED / Slice 2 P1 REMEDIATED，待针对性复审）
 
-状态：**Slice 1 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；Slice 2 IMPLEMENTED / VERIFIED LOCALLY / P1 REMEDIATED / PENDING TARGETED RE-REVIEW；Slice 3–6 NOT IMPLEMENTED**。
+状态：**Slice 1 CLOSED / MERGED / MAIN CI PASS；Slice 2 Wiki Infrastructure V1 — independent review PASS；Slice 2.5 CURRENT / IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW；Slice 3–6 NOT IMPLEMENTED**。
 
 | Layer | Planned capability | Current status |
 | --- | --- | --- |
@@ -354,4 +356,6 @@ R2 已实现切片与剩余工作：
 5. Thesis + Macro → Industry；
 6. Investment Expression + Closeout。
 
-统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 2 P1 remediation 普通 push 后等待针对性复审；原审计 P0=0 / P1=1，未 CLOSED / MERGED**。[Slice 2 交付与限制](stage-4-3-slice-2-llm-wiki.md)。详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+Slice 2.5 新增：中文四入口与首次使用引导；IndexedDB exact bytes / SHA-256 / 稳定批次；PDF 文本页、MD/TXT 行；版本化贡献包、完整文章建议和人工审核；选定资料及已审核知识的私有临时副本；OAuth + 八个只读 MCP 工具。无收费模型、无 MCP write；本地 Source 与原 Wiki/Revision/Review authority 不变。远程验收与 ChatGPT 账号连接分开报告。
+
+统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 2.5 普通 push 后等待独立审计；无 PR/merge/Production**。[Slice 2.5 交付与限制](stage-4-3-slice-2-5-knowledge-ingestion.md)、[Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。

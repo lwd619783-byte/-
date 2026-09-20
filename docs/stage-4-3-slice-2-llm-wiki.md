@@ -1,5 +1,7 @@
 # Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown / Obsidian Projection
 
+> 2026-09-21 CURRENT：**Wiki Infrastructure V1 — independent review PASS**。用户确认针对性独立复审通过的精确基线为 `812e7551e67b0b8af4f673524e2578ecf2e19335`；Slice 2.5 从该基线继续。未据此声明 Slice 2 MERGED 或 Production。以下保留修复时点记录，其 PENDING 不再代表当前复审状态。
+
 > 状态：IMPLEMENTED / VERIFIED LOCALLY / P1 REMEDIATION / PENDING TARGETED RE-REVIEW
 > 日期：2026-09-20  
 > 实施基线：fetch 后 `origin/main @ 1d883414fe7828b682c8cd888223ccf7bd729834`（Slice 1 CLOSED）；分支 `codex/stage-4-3-slice-2-llm-wiki-obsidian`
