@@ -29,3 +29,14 @@ CREATE / UPDATE 必须带完整文章（核心判断、产业/主题结构、近
 ## 验证与交付
 
 待实施与验证后追加实际结果。独立审计 PENDING；无 PR / merge / Production 声明。
+
+## D0 增量决定：Read-only Research Bridge（2026-09-21）
+
+用户追加授权覆盖上文“本轮无远端端点”的范围限制；原 Local-first authority、贡献包人工回传、人工审核和无 MCP write 保持。继续同一实现与分支。
+
+- 用户点击“交给 ChatGPT 整理”后，仅发送选定批次的元数据与逐页/逐行解析文本；本轮 MCP 文本研究无需复制大原件，原件 exact bytes 仍仅在浏览器。远端带本地原件 SHA-256 作为身份绑定，不能声称远端保存了未经复制的原件。
+- staging 使用 Vercel **private** Blob；拒绝 public store/public fallback。批次显式 publish 前不可读，部分上传不可见；只读请求每次重新核验 publication、TTL 与撤销 tombstone（`useCache: false`）。24 小时逻辑 TTL；撤销不删除本地原件，也无法收回 ChatGPT 已读取内容。
+- 既有知识由用户在发送面板逐项选择；只上传选定文章的 reviewed 完整版本快照和其 reviewed 历史。无默认全库同步。它们是临时 read model，不是远端 Wiki authority。
+- Vercel Node Functions + MCP 官方 SDK Streamable HTTP，严格八个只读工具。固定实体 ID 与有界页/文本窗口；无通用路径、SQL、写工具或任意查询。
+- 单用户 V1：部署环境提供 owner secret、OAuth signing secret、固定 OAuth client ID 与回调白名单。ChatGPT OAuth authorization-code + S256 PKCE；显式 owner 登录及同意，短期 access token 严格核验 issuer/resource/scope/expiry。环境未配置则 503 fail closed；不提供匿名 MCP。
+- 所有 secret 仅环境配置，UI owner secret 仅页面内存、不落 browser storage；请求不输出原文/凭据日志。代码与 synthetic integration tests 可完成，真实远程可达性仍取决于 Vercel 配置权限、private store 与 ChatGPT connector 授权。
