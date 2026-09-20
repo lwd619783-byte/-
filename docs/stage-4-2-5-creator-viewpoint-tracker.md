@@ -1,7 +1,7 @@
 # Stage 4.2.5 — Creator Viewpoint Tracker V1
 
-> 2026-09-20 CURRENT · CHRONOLOGY HEALTH P1 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW。
-> 路线：Stage 4.2 CLOSED → **Stage 4.2.5 CURRENT** → Stage 4.3 NEXT。
+> 2026-09-20 CLOSED · **IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY**。
+> 路线：Stage 4.2 CLOSED → **Stage 4.2.5 CLOSED** → Stage 4.3 Research Memory & Thesis Compiler V1 CURRENT。
 > 开始前 fetch 的精确基线：`8860c943919f90daa125934fde0f385707ea7028`；分支 `codex/stage-4-2-5-creator-viewpoint-tracker`。
 
 ## 领域范围与复用决定
@@ -120,3 +120,19 @@ Excel 为标准 `.xlsx` OOXML，6 张表：Creators、Current Views、Timeline�
 重放入口仍为原浏览器脚本；本轮证据见 [chronology-health-validation.json](stage-4-2-5-chronology-health-validation.json)。本轮全量初次发现旧文案断言未同步；随后发现原恢复 UI 测试的下载延时回调在 URL mock 清理后运行，已仅在该测试中使用受控定时器并在撤销 mock 前执行回调。最终全量无失败或 unhandled error。此前 959/997 tests、287/321 browser checks 保留为各自历史快照，不回写。
 
 限制保持：此 health 仅描述已录入、已审核历史的 chronology 完整性，resolved 不代表抓取覆盖完整或 Provider/Claim/Thesis 核验；capture 上界可靠性依赖原始记录。未知 Creator 时间仍不可计算 T+。未改变 source-level verified、早期复盘拒绝、受控损坏恢复或既有 localStorage CAS 限制。普通 commit/push 后停止，等待最后针对性复审。
+
+## Final closeout（2026-09-20）
+
+Stage 4.2.5 已完成正式收口：
+
+- 独立审计最终 HEAD：`025352f5bb7879ce6e1e2130fb9cd43788409928`，结论 PASS（P0=0 / P1=0）；
+- PR：[#67](https://github.com/lwd619783-byte/-/pull/67)；
+- exact-head Hosted CI：[`35489459196`](https://github.com/lwd619783-byte/-/actions/runs/35489459196)，completed/success；
+- merge/main：`2cea477105d3e63242e65b7f3eec0b658a87ce17`；
+- main push CI：[`35489619887`](https://github.com/lwd619783-byte/-/actions/runs/35489619887)，completed/success；
+- Vercel Production：`dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE`，READY / production。
+
+Production deployment 只表示当前应用构建部署成功，不提升 Provider/Data admission、严格 PIT、Verified Claim 或 Thesis 权限。
+
+最终能力边界保持：CreatorSource / Observation / Transition / Review 是 External Commentary 账本；Current View 与 chronologyHealth 为 reviewed history 的派生投影；Creator time 与 knowledge/audit time 分离；T+ 使用可证明的 Creator source time；corrupt-store recovery 受控且 future schema fail closed。Creator Tracker 从此作为 Stage 4.3 的第一条真实 Research Memory 输入管道，由 adapter 接入后续 L0/L1/L2，不复制第二套原文或 Viewpoint 真源。
+

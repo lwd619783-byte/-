@@ -257,16 +257,34 @@ Research Inbox 优先回答“今天什么变了、什么需要研究”，而�
 
 ### 9.1 Research Memory V1
 
-进入 Stage 4.3 后建设显式、版本化、可审计的 Research Memory，而不是隐藏模型记忆。可以记录：
+Stage 4.3 将 Research Memory 明确为一条可审计研究编译链，而不是隐藏模型记忆或“把原文直接总结成 Wiki”：
 
-- entity / industry metric mapping；
-- research convention；
-- caveat；
-- historical correction；
-- thesis / invalidation history；
-- evidence-backed user judgement。
+```text
+L0 Raw Source / Evidence
+        ↓
+L1 Structured Extraction
+        ↓
+L2 Reviewed Research Memory / LLM Wiki
+        ↓
+L3 Verified Claim
+        ↓
+L4 Thesis
+        ↓
+L5 Investment Expression
+```
 
-Memory 必须有来源、版本、修订与删除/归档语义，不能覆盖正式 Provider Fact。
+- L0 保存或引用原始材料与 provenance；不让 AI 摘要覆盖源材料。
+- L1 将原本可能只是 ingestion 中间过程的实体/主题/观点/驱动/风险/失效条件提取正式持久化；AI 默认 `AI_DRAFT`，必须支持 review/reject/revision。
+- L2 Wiki 是版本化长期知识；每个重要知识陈述必须可回溯 Extraction → Source。Wiki 不是 Provider Fact，也不能自动成为 Claim / Thesis。
+- L3 Verified Claim 必须复用现有 Evidence / F2 Evidence Graph 语义和验证门禁。
+- L4 Thesis 记录 bull/base/bear、drivers、catalysts、risks、invalidation、confidence、asOf 与 append-only revision。
+- L5 Investment Expression 负责把 Thesis 映射到 ETF / Index / Fund / Equity 等，不进入 Portfolio 或交易执行。
+
+Schema、Entity Identity、Provenance、PIT/asOf、Revision、Verification、Audit 与缺失/冲突状态贯穿全链。
+
+Stage 4.2.5 Creator Tracker 是首个真实输入域：`CreatorSource → ViewpointObservation → Transition/Review` 通过 adapter 接入 L0/L1/L2，不复制第二套 Creator 原文或观点真源。
+
+Memory 仍必须有来源、版本、修订与删除/归档语义，不能覆盖正式 Provider Fact。
 
 ### 9.2 Research Artifact Center
 
@@ -327,24 +345,26 @@ Artifact 是研究输出，不反向成为事实源；如需回写 Research Enti
 - F2 连接 raw metric → derived signal → industry claim；
 - 对应 Eval cases。
 
-### Stage 4.2.5 — Creator Viewpoint Tracker V1（CURRENT）
+### Stage 4.2.5 — Creator Viewpoint Tracker V1（CLOSED）
 
-2026-09-19 用户决定在已 CLOSED 的 Stage 4.2 与 NEXT Stage 4.3 之间插入独立专项：外部事件 → 原始来源 → 多 Topic 观点 → 已审核状态演化 → 条件 → 人工复盘。支持 N 个 Creator；复用事件公共 owner、证据抽屉和浏览器 Local-first 边界。只形成 External Commentary 结构化输入，不产生正式 Claim/Thesis、赢家评分或生产准入。具体语义、真实样本限制与验证见 [Stage 4.2.5](stage-4-2-5-creator-viewpoint-tracker.md)。
+2026-09-20 收口事实：独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`；PR #67 CI `35489459196` success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`；main CI `35489619887` success；Vercel Production READY。Creator Tracker 继续作为 External Commentary / Research Memory 输入域，不产生正式 Claim/Thesis 或数据准入。
 
-### Stage 4.3 — Top-down Research Workflow（NEXT）
+### Stage 4.3 — Research Memory & Thesis Compiler V1（CURRENT）
 
-交付：
+Stage 4.3 内部顺序正式冻结为六个 Slice：
 
-- Macro → Industry mapping；
-- Industry Thesis / revision；
-- Claim ↔ Evidence；
-- Instrument / expression mapping；
-- Research Workflow 合并；
-- Research Memory V1。
+1. Source + Extraction Contract；
+2. LLM Wiki V1；
+3. Creator → Wiki + 三位真实博主；
+4. Evidence → Verified Claim；
+5. Thesis + Macro → Industry；
+6. Investment Expression + Closeout。
 
-此阶段开始形成完整：
+核心链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。Creator Tracker 通过 adapter 复用，不迁移为统一大表；Claim 复用现有 F2 Evidence Graph；Wiki/AI Draft 不自动升级。
 
-`Evidence → Claim → Thesis → Investment Expression`
+Stage 4.3 最终需要形成可从 Investment Expression 逐层回溯到 Thesis → Claim → Wiki/Extraction → Raw Evidence 的研究链。Portfolio 留给 4.4；MCP 暴露留给 4.5；ChatGPT-connected Agent / Artifact 留给 4.6+。
+
+详细合同边界、UI、验收与非目标见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
 
 ### Stage 4.4 — Portfolio Exposure MVP
 

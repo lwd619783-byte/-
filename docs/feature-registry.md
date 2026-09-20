@@ -1,5 +1,9 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 — Research Memory & Thesis Compiler V1 进入 CURRENT PLANNING / NOT_IMPLEMENTED。** 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+
+> Feature 状态：Creator Viewpoint Tracker V1 已 CLOSED；Research Memory / LLM Wiki / Verified Claim / Thesis / Investment Expression 仍为 Stage 4.3 计划能力，除 Creator Tracker 外不得标 IMPLEMENTED。
+
 > 2026-09-20 CURRENT · Stage 4.2.5 剩余 P1 修复：Current View 按 knowledge-visible、reviewed、active 的未知时间观点及 capturedAt 上界派生 chronologyHealth；Overview / Comparison / Excel 显示“最近可确定状态，当前状态不完整”。可靠时间修订审核后自动恢复确定，Creator time / audit time 不混用，无持久化 schema 变化。专项 113、全量 1003 tests / 80 files、build、329 browser checks、实际 Excel 独立读取 PASS；PENDING FINAL TARGETED RE-REVIEW，Hosted CI NOT_RUN。路线与分支边界不变。[当前交付](stage-4-2-5-creator-viewpoint-tracker.md)。
 
 > 2026-09-19 CURRENT · Stage 4.2.5 独立审计修复：Creator 发布时间与本地 knowledge/audit 时间分离；历史回填不回退 Current View，T+ 使用来源锚点，未到期 completed/inconclusive 均拒绝。增加 exact corrupt bytes 保留、完整备份校验、显式确认和 reload 的受控灾难恢复；future schema 继续锁定。外部事件 verified 仅表示来源核对。124 项受影响测试、全量 997 tests / 80 files、build、321 browser checks、JSON recovery round-trip、Excel 独立读取 PASS；PENDING TARGETED RE-REVIEW，Hosted CI NOT_RUN。路线保持 Stage 4.2 CLOSED → Stage 4.2.5 CURRENT → Stage 4.3 NEXT。[当前语义与限制](stage-4-2-5-creator-viewpoint-tracker.md#独立审计修复与针对性复审2026-09-19)。
@@ -310,3 +314,8 @@ R2 已实现切片与剩余工作：
 - `docs/market-regime/backtest-dataset-design-v1.md`
 - `docs/market-regime/p0-source-probe-v1.md`
 - `docs/market-regime/observation-catalog-r1.md`（已随 PR #13 合入 `main`）
+
+
+### Stage 4.3 — Research Memory & Thesis Compiler V1（CURRENT PLAN）
+
+详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。统一链：Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression；当前 NEXT IMPLEMENTATION 为 Slice 1。
