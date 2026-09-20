@@ -324,15 +324,15 @@ R2 已实现切片与剩余工作：
 - 语义边界：External Commentary；不自动晋升 Provider Fact / Verified Claim / Thesis。
 - Stage 4.3 复用方式：作为第一条 L0/L1 Research Memory adapter，不复制第二套 Creator 真源。
 
-### Stage 4.3 — Research Memory & Thesis Compiler V1（Slice 1 INDEPENDENT REVIEW PASS）
+### Stage 4.3 — Research Memory & Thesis Compiler V1（Slice 1 CLOSED / Slice 2 NEXT）
 
-状态：**Slice 1 IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS / PENDING PR-HOSTED CI；Slice 2–6 NOT IMPLEMENTED**。
+状态：**Slice 1 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Slice 2 NEXT / DESIGN FROZEN；Slice 3–6 NOT_IMPLEMENTED**。
 
 | Layer | Planned capability | Current status |
 | --- | --- | --- |
-| L0 | Raw Source / Evidence adapters | IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS：公共 SourceRef/Source 合同 + CreatorSource adapter；其他 source runtime 未实现 |
-| L1 | Structured Extraction | IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS：公共 ResearchExtraction V1 + Creator Observation projection / review / revision；native AI store 未实现 |
-| L2 | Reviewed Research Memory / LLM Wiki | NOT IMPLEMENTED |
+| L0 | Raw Source / Evidence adapters | CLOSED / MERGED / MAIN CI PASS：公共 SourceRef/Source 合同 + CreatorSource adapter；其他 source runtime 未实现 |
+| L1 | Structured Extraction | CLOSED / MERGED / MAIN CI PASS：公共 ResearchExtraction V1 + Creator Observation projection / review / revision；native AI store 未实现 |
+| L2 | Reviewed Research Memory / LLM Wiki | NEXT / DESIGN FROZEN：结构化 Wiki 真源 + Markdown/Obsidian read-first projection；尚未实现 |
 | L3 | Verified Claim | PARTIAL FOUNDATION：已有 Stage 4.2 factual Claim Candidate + F2 graph；正式通用 lifecycle 未实现 |
 | L4 | Thesis | NOT IMPLEMENTED |
 | L5 | Investment Expression | NOT IMPLEMENTED |
@@ -346,4 +346,4 @@ R2 已实现切片与剩余工作：
 5. Thesis + Macro → Industry；
 6. Investment Expression + Closeout。
 
-统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 1 独立审计通过，等待 PR / exact-head Hosted CI**。[交付与限制](stage-4-3-slice-1-source-extraction.md)。详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 1 CLOSED；NEXT = Slice 2 LLM Wiki V1**。[交付与限制](stage-4-3-slice-1-source-extraction.md)。详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。

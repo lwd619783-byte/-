@@ -1,8 +1,8 @@
 # Stage 4.3 — Research Memory & Thesis Compiler V1
 
-> 状态：CURRENT PLAN / DESIGN FROZEN / NOT IMPLEMENTED  
+> 状态：CURRENT · SLICE 1 CLOSED / SLICE 2 NEXT DESIGN FROZEN  
 > 日期：2026-09-20  
-> 正式起点：`main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`（Stage 4.2.5 CLOSED）  
+> Stage 4.3 正式起点：`main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`；CURRENT main：`f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`（Slice 1 CLOSED）  
 > 目的：把 Research Memory / LLM Wiki、Evidence / Claim、Thesis 与 Investment Expression 统一成一条可审计、可修订、可回溯的研究编译链。
 
 ## 1. 核心决定
@@ -210,9 +210,9 @@ Stage 4.3 负责接收/映射到 Source / Extraction / Wiki / Claim / Thesis 等
 
 ## 5. Stage 4.3 六个 Slice
 
-### Slice 1 — Research Source + Structured Extraction Contract
+### Slice 1 — Research Source + Structured Extraction Contract（CLOSED）
 
-目标：冻结 L0/L1 的稳定 Domain Contract 与 adapter seam。
+状态：PR #69 / PR CI success / merge main `f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186` / main CI success / Production READY。目标：冻结 L0/L1 的稳定 Domain Contract 与 adapter seam。
 
 交付：
 
@@ -234,27 +234,60 @@ Stage 4.3 负责接收/映射到 Source / Extraction / Wiki / Claim / Thesis 等
 - 调真实 LLM 作为通过测试的必要条件；
 - 自动生成 Wiki / Claim / Thesis。
 
-### Slice 2 — LLM Wiki V1
+### Slice 2 — LLM Wiki V1（NEXT / DESIGN FROZEN）
 
-目标：建立可真正日常使用的长期知识层。
+目标：建立可真正日常使用的 L2 长期知识层，并从第一版就具备开放、可移植的 Markdown / Obsidian 浏览能力。
+
+**Authority 决策：**
+
+```text
+WikiEntry / WikiRevision（结构化 Domain Owner，唯一真源）
+                    ↓ deterministic render
+          Markdown Vault Projection
+                    ↓
+        Dashboard / Obsidian / VS Code
+```
+
+Markdown 与 Obsidian Vault 是派生视图，不是第二份业务真源。文件被手工修改后不得直接反向覆盖 WikiEntry / WikiRevision。未来需要把 Obsidian 手记带回系统时，应作为新的 L0 `user_note` Source 重新走 Source → Extraction → Wiki，而不是绕过审核改写 L2。
 
 交付：
 
-- WikiEntry / WikiRevision；
-- sourceRefs / extractionRefs / evidenceRefs；
-- Entity / Concept / Framework / Topic 等 entry type；
-- deterministic search / filter / read model；
-- append-only revision / archive；
+- WikiEntry / WikiRevision / WikiReview 最小 versioned contract；
+- stable WikiRef / wikiId：标题、slug、文件名变化不得改变知识身份；
+- sourceRefs / extractionRefs / evidenceRefs 与 relatedWikiRefs；
+- AI 生成或 AI 作者的 Wiki 内容默认 draft；review/publish/reject/archive/revision 可审计；
+- append-only revision + knowledge As-of；未来 revision/review 不泄漏到过去视图；
+- Entity / Concept / Framework / Topic / Creator Framework / Industry / Macro 等有限 entry type；
+- deterministic lexical search / filter / read model，V1 不依赖 Vector DB；
 - Sources / Extractions / Wiki Workspace；
-- 从 Wiki 一键下钻 Extraction / Raw Source / Evidence；
-- JSON backup / recovery 与 Local-first 持久化；
-- 无 Vector DB 也能工作的 V1 搜索。
+- Wiki → Extraction → Raw Source / Evidence 一键下钻；
+- Local-first Wiki repository、JSON backup / preview / recovery；Markdown 不作为恢复权威；
+- **Markdown-native projection**：每个 reviewed/publishable Wiki revision 可确定性渲染 UTF-8 Markdown；
+- **Obsidian-compatible Vault export**：浏览器端导出可解压后直接作为 Vault 打开的 Markdown 包；
+- YAML frontmatter 至少稳定表达 wikiId、revisionId、entryType、title/aliases、asOf、status、projectionVersion、source/extraction/evidence refs；
+- explicit `relatedWikiRefs` 确定性渲染为 Obsidian `[[wikilinks]]`，支持 backlinks / Graph View；renderer 不从自由文本猜关系；
+- Vault 文件路径以稳定 wikiId 为身份基础，不用可变 title 当主键；title 改名不能破坏链接；
+- 生成 index / navigation Markdown，便于 Obsidian 与普通文件浏览器使用；
+- deterministic renderer tests：同一 revision → byte-identical Markdown/Vault；frontmatter escaping、Unicode、path traversal、特殊字符和长文本安全；
+- UI 明确标记 “Obsidian/Markdown 为只读投影”；V1 不做双向实时同步。
+
+Obsidian V1 边界：
+
+- 不要求安装 Obsidian 才能使用投研看板；
+- 不向公共仓库提交用户真实 Vault、私有 Wiki 或大段版权原文；
+- 不生成或管理用户个人 `.obsidian/` 配置作为业务状态；
+- Browser SPA 不直接写用户任意本地目录；通过显式导出完成 Vault materialization；
+- 不把 Markdown 文件修改时间当 Wiki revision/asOf/PIT；
+- 不把 Obsidian backlink/Graph 推断当正式 Evidence、Claim 或 Thesis；
+- 不实现 Markdown → Wiki 的无审核反向导入。
 
 不得：
 
 - 用 Wiki 反写 Provider Facts；
 - 默认向量化所有资料；
-- 无引用生成“孤儿知识”。
+- 无引用生成“孤儿知识”；
+- 把 Markdown/Obsidian 变成第二业务数据库；
+- 自动把 Wiki 晋升为 Verified Claim / Thesis。
 
 ### Slice 3 — Creator → Wiki + 三位真实博主
 
@@ -373,6 +406,6 @@ Stage 4.5 应暴露 `search_wiki / get_wiki_entry / get_claim / get_thesis` 等�
 
 ## 9. 下一停止点
 
-Stage 4.3 的 **NEXT IMPLEMENTATION 固定为 Slice 1 — Research Source + Structured Extraction Contract**。
+Stage 4.3 的 **NEXT IMPLEMENTATION 固定为 Slice 2 — LLM Wiki V1（含 Markdown-native / Obsidian-compatible Vault projection）**。
 
-Slice 1 开工前必须从最新 main 重新读取 `AGENTS.md`、CURRENT、Feature Registry、Execution Plan、Architecture、contracts/v1、Evidence/F2、Creator Tracker 与现有 Local Core/browser persistence；先产出 Reuse / Delta Map，再决定最小 contract。
+Slice 2 开工前从最新 main 读取 `AGENTS.md`、本计划、CURRENT、Feature Registry、Execution Plan、Slice 1 contract/adapter、Creator Tracker、Evidence Drawer 与现有 Local-first browser persistence。先做 Reuse / Delta Map，明确 Wiki owner、revision/review、search、projection 与 backup seam；不得为 Obsidian 建第二套真源。

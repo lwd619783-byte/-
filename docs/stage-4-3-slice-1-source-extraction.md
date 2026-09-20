@@ -1,6 +1,6 @@
 # Stage 4.3 / Slice 1 — Source + Extraction
 
-状态：IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS / PENDING PR-HOSTED CI。开发基线：`98f92f9f1386d88e3baf890058c07ffc9c718fb5`。功能分支：`codex/stage-4-3-slice-1-source-extraction-contract`。初次独立审计为 P0=0 / P1=1；第三方作者误归因已在 `a716b2205d3056e99198852224bf56ad71026a36` 定向修复，最终针对性复审结论 PASS（P0=0 / P1=0）。Hosted CI 尚未运行；PR/merge/main CI/Production admission 仍未发生。
+状态：CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY。开发基线：`98f92f9f1386d88e3baf890058c07ffc9c718fb5`。功能分支：`codex/stage-4-3-slice-1-source-extraction-contract`。初次独立审计 P0=0 / P1=1；第三方作者误归因在 `a716b2205d3056e99198852224bf56ad71026a36` 修复，最终针对性复审 PASS（P0=0 / P1=0）。PR #69 exact-head CI `35512099983` success；merge/main `f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`；main CI `35512366207` success；Vercel Production `dpl_CmeXXfaEqc2BwXBBnuByMcZb7DNE` READY。
 
 ## Reuse / Delta Map（实现前决定）
 
@@ -101,3 +101,15 @@ types 使用判别联合；common/profile schema 用 identity 条件约束作者
 | `npm run test:research-eval` / `npm run research:eval:check` | PASS，51 F3 tests、committed report read-only replay、Industry 5/5；Frozen V1 service coverage 仍 0/33 |
 
 原 chunk 大小提示和 jsdom `window.scrollTo` 输出仍为非阻断 WARN。最终针对性复审已 PASS（P0=0 / P1=0）。Hosted CI NOT_RUN；当前仅允许进入 PR / exact-head Hosted CI 门禁，尚未 merge、未修改 main、未声明 Production admission。
+
+## Final closeout（2026-09-20）
+
+- 最终实现审计 HEAD：`a716b2205d3056e99198852224bf56ad71026a36`，P0=0 / P1=0；
+- 状态同步后 PR head：`8e55f58dd2285d2b71914cc1287137938c692284`；
+- PR：[#69](https://github.com/lwd619783-byte/-/pull/69)；
+- PR Hosted CI：[`35512099983`](https://github.com/lwd619783-byte/-/actions/runs/35512099983)，completed/success；
+- merge/main：`f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`；
+- main push CI：[`35512366207`](https://github.com/lwd619783-byte/-/actions/runs/35512366207)，completed/success；
+- Vercel Production：`dpl_CmeXXfaEqc2BwXBBnuByMcZb7DNE`，READY / production。
+
+Slice 1 正式关闭。L0/L1 合同、Creator adapter、owner trace、时间/revision/authority 边界进入 main；仍不代表其他 source adapter、native AI extraction store、strict PIT 或 Provider/Data admission 已完成。下一主线进入 Slice 2 — LLM Wiki V1。
