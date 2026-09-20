@@ -11,7 +11,7 @@ import { RelatedResearchEvidence } from "../research/RelatedResearchEvidence";
 import { describeDataTime } from "../../utils/dataTrustDisplay";
 import { dataModeDisplayLabel, localizeDataSourceNote } from "../../utils/displayLabels";
 import { useDisplayNow } from "../../hooks/useDisplayNow";
-export type ResearchDestination = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心" | "预期证据";
+export type ResearchDestination = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心" | "预期证据" | "观点追踪";
 interface HomeStats {
   segments: number;
   highRisk: number;
@@ -54,7 +54,7 @@ interface HomePageProps {
 }
 
 
-const destinations: ResearchDestination[] = ["宏观", "行业", "个股池", "观察清单", "验证中心", "预期证据"];
+const destinations: ResearchDestination[] = ["宏观", "行业", "个股池", "观察清单", "验证中心", "预期证据", "观点追踪"];
 export function HomePage({ dataMode, modeLabel, updatedAt, sourceNote, coverageSummary, stats, focusStocks, quoteStocks, activeWatchCount, onNavigate, onOpenStock, now, watchItems=[], tasks=[], events=[], onStartReview, onOpenEvent, timeZone = "Asia/Shanghai", inboxSourceNotice, expectationSnapshots, industryEvents }: HomePageProps) {
   const displayNow=useDisplayNow(now);
   const pending=tasks.filter(task=>task.status==="pending");

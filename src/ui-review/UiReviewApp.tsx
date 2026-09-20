@@ -20,8 +20,12 @@ import type { Stock } from "../types";
 import { createReviewFixtures, REVIEW_AT, REVIEW_NOW } from "./fixtures";
 import { UI_REVIEW_LABEL, type UiReviewProfile } from "./config";
 import { ChartAuditStateReview } from "./ChartAuditStateReview";
+import { CreatorViewpointWorkspace } from '../components/creator/CreatorViewpointWorkspace';
+import { creatorViewpointFixture } from '../services/creatorViewpoint.fixture';
+import { createEmptyCreatorViewpointData } from '../services/creatorViewpoint';
+import type { CreatorViewpointRepository } from '../services/creatorViewpointRepository';
 
-const tabs = [{ id: "首页", icon: House }, { id: "宏观", icon: LineChart }, { id: "行业", icon: Building2 }, { id: "个股池", icon: BarChart3 }, { id: "观察清单", icon: Binoculars }, { id: "验证中心", icon: FlaskConical }, { id: "预期证据", icon: ScrollText }] as const;
+const tabs = [{ id: "首页", icon: House }, { id: "宏观", icon: LineChart }, { id: "行业", icon: Building2 }, { id: "个股池", icon: BarChart3 }, { id: "观察清单", icon: Binoculars }, { id: "验证中心", icon: FlaskConical }, { id: "预期证据", icon: ScrollText }, { id: "观点追踪", icon: ScrollText }] as const;
 const BLOCKED = "界面验收模式仅支持浏览、筛选和导航；业务写入、导入、导出与真实数据重试均已隔离。";
 export default function UiReviewApp({ initialProfile }: { initialProfile: UiReviewProfile }) {
   const [profile, setProfile] = useState(initialProfile);
@@ -31,6 +35,11 @@ export default function UiReviewApp({ initialProfile }: { initialProfile: UiRevi
   const navigation = useWorkspaceNavigation();
   const route = navigation.route;
   const fixture = useMemo(()=>createReviewFixtures(profile),[profile]);
+  const creatorRepository = useMemo<CreatorViewpointRepository>(() => {
+    const data = profile === 'empty' ? createEmptyCreatorViewpointData() : creatorViewpointFixture();
+    const forbidden = (): never => { throw new Error(BLOCKED); };
+    return { load: () => ({ data, error: profile === 'degraded' ? '合成存储损坏场景；未读取或覆盖业务存储。' : null, corruptedRaw: null }), append: forbidden, export: forbidden, previewImport: forbidden, import: forbidden, previewRecovery: forbidden, recoverCorrupt: forbidden };
+  }, [profile]);
   const { companies, industries, watchItems, tasks, reviewEntries, snapshot: baseSnapshot, expectations, macro, details } = fixture;
   // Pure existing comparison engine; no data loader, registry or persistence path.
   const comparisons = useMemo(()=>buildEarningsExpectationComparisons(expectations, baseSnapshot.events, { timeZone: "Asia/Shanghai", revisionReminderThreshold: .1, nearZeroThreshold: 1, roundingTolerance: .01 }),[expectations, baseSnapshot]);
@@ -49,6 +58,7 @@ export default function UiReviewApp({ initialProfile }: { initialProfile: UiRevi
   if (route.kind === "invalid" || (route.kind === "company" && !company)) content = <p className="p-5">未找到验收对象。<button className="min-h-11 text-accent" onClick={()=>navigation.navigatePage("首页")}>返回首页</button></p>;
   else if (company) content = <StockDetailDrawer presentation="page" stock={company} stocks={companies} industries={industries} activeTab={route.tab} onTabChange={navigation.changeCompanyTab} onClose={navigation.back} onOpenStock={openCompany} presentationDetails={details[company.id]} watchItems={watchItems} reviewEntries={reviewEntries} reviewTasks={tasks} researchEvents={snapshot.events} earningsExpectationSnapshots={expectations} companyGuidanceLoadStatus={degraded ? "error" : "idle"} companyGuidanceLoadError={error} earningsExpectationTimeZone="Asia/Shanghai" onAddToWatchlist={blocked} onEditWatchItem={blocked} onStartReview={blocked} onCorrectReview={blocked} onRestoreWatchItem={blocked} onAddEarningsExpectation={blocked} onCorrectEarningsExpectation={blocked} />;
   else switch(route.page) {
+    case "creators": content = <CreatorViewpointWorkspace key={profile} repository={creatorRepository} readOnly />; break;
     case "home": content = <HomePage expectationSnapshots={expectations} inboxSourceNotice={error ?? undefined} modeLabel={UI_REVIEW_LABEL} updatedAt={REVIEW_AT} sourceNote={UI_REVIEW_LABEL} coverageSummary={profile==="empty" ? "空场景：尚无价格、待办和事件。" : degraded ? "退化样例：来源失败、时点缺失与价格缺口。" : "完整样例：仅供检查排版、交互与图表，未接入真实数据。"} industriesCount={industries.length} stocksCount={companies.length} activeWatchCount={watchItems.length} expectationCount={expectations.length} macroCount={macro.length} stats={{segments:4,highRisk:0,recentEvents:snapshot.events.filter(event=>(event.eventDate ?? "")>="2026-09-03").length,verificationChains:snapshot.chains.length,todayReview:tasks.length,overdueReview:tasks.length,quoteStatusRealCovered:0,quoteCoverageTotal:companies.filter(stock=>stock.market==="A股").length,pendingExpectationSources:degraded ? expectations.length : 0}} focusStocks={companies} quoteStocks={companies} watchItems={watchItems} tasks={tasks} events={snapshot.events} now={REVIEW_NOW} onDataModeChange={blocked} onNavigate={navigation.navigatePage} onOpenStock={openCompany} onStartReview={blocked} onOpenEvent={event=>navigation.openEvent(event.id)} />; break;
     case "macro": content = <MacroTab indicators={macro} generatedAt={REVIEW_AT} now={REVIEW_NOW} />; break;
     case "industry": content = <IndustryTab industries={industries} stocks={profile==="empty" ? [] : companies} globalSearch={search} onOpenStock={openCompany} initialIndustryId={route.industryId} initialSegmentId={route.segmentId} onSelectionChange={navigation.selectIndustry} />; break;
