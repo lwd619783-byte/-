@@ -3,10 +3,10 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
-    { "source": "/.well-known/oauth-protected-resource/:path*", "destination": "/api/bridge/resource-metadata" },
-    { "source": "/.well-known/oauth-protected-resource", "destination": "/api/bridge/resource-metadata" },
-    { "source": "/.well-known/oauth-authorization-server", "destination": "/api/bridge/oauth-metadata" },
-    { "source": "/api/:path*", "destination": "/api/:path*" },
+    { "source": "/.well-known/oauth-protected-resource/:path*", "destination": "/api/research-bridge?action=resource-metadata" },
+    { "source": "/.well-known/oauth-protected-resource", "destination": "/api/research-bridge?action=resource-metadata" },
+    { "source": "/.well-known/oauth-authorization-server", "destination": "/api/research-bridge?action=oauth-metadata" },
+    { "source": "/api/bridge/:action", "destination": "/api/research-bridge?action=:action" },
     {
       "source": "/(.*)",
       "destination": "/index.html"
