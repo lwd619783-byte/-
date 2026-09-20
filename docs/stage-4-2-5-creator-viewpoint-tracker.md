@@ -1,6 +1,6 @@
 # Stage 4.2.5 — Creator Viewpoint Tracker V1
 
-> 2026-09-19 CURRENT · AUDIT REMEDIATION IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW。
+> 2026-09-20 CURRENT · CHRONOLOGY HEALTH P1 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW。
 > 路线：Stage 4.2 CLOSED → **Stage 4.2.5 CURRENT** → Stage 4.3 NEXT。
 > 开始前 fetch 的精确基线：`8860c943919f90daa125934fde0f385707ea7028`；分支 `codex/stage-4-2-5-creator-viewpoint-tracker`。
 
@@ -96,3 +96,27 @@ Excel 为标准 `.xlsx` OOXML，6 张表：Creators、Current Views、Timeline�
 - localStorage 无跨标签页原子 CAS；恢复会核对原字节并保留灾前备份，但不宣称解决所有同时写竞争。
 - 原实现曾接受的提前 inconclusive 或无锚点终结结果，在新校验下会 fail closed。原字节仍保留，恢复必须提供完整有效备份；不自动修改或删除旧 Review。
 - 事件 verified 仅为来源核对，没有自动行情验证、Provider/Claim/Thesis 晋升或生产准入。
+
+
+## Current chronology uncertainty P1（2026-09-20）
+
+输入 HEAD `065dd8421ada9a3c2ddb1a1c32ceddd9cb10e396`；继续原功能分支，main 仍为 `8860c943919f90daa125934fde0f385707ea7028`。仅修复已审核 unknown_time 观点被旧 Current View 掩盖的问题；状态为 IMPLEMENTED / VERIFIED LOCALLY / PENDING FINAL TARGETED RE-REVIEW。
+
+- Current View 新增纯派生 chronologyHealth（resolved/incomplete）和 unresolvedObservationIds，不增加持久化字段或第二份 current 状态，不修改 V1 envelope。
+- 在同一 knowledge As-of 内，只检查已审核、active、未被已审核修订 supersede 的同 Creator × Topic 观点。若来源 publishedAt=null 且 capturedAt 晚于最近确定状态 effectiveAt，返回最近可确定状态并标 incomplete。capturedAt 仅作来源时间上界，不显示成 Creator time；recordedAt/approval time 仍只用于本地可见性。
+- 若来源 capturedAt 早于或等于后续确定状态的 effectiveAt，不因此阻断该状态。Draft、rejected、未来录入/审核记录不影响当前 health。来源时间校正须追加 source/observation revision 并审核；之后自动重新派生 Current View，旧 knowledge As-of 继续保留原有 uncertainty。
+- Overview 和 Comparison 共享状态卡，明确显示“最近可确定状态 + 未解析观点数量，当前状态不完整 / 无法确认”。Excel Current Views 同步 health、未解析 ID 与解释文案；Timeline 保持 unknown_time，不伪造转换。没有任何可确定状态时，原有 unknown / unresolved 空态不变。
+
+| 本轮检查 | 真实结果 |
+| --- | --- |
+| 受影响专项 | 5 files / 113 tests PASS（含新增 chronology 4、UI 1、Excel 1） |
+| 全量 | 80 files / 1003 tests PASS，退出码 0 |
+| Build | TypeScript、Local Core typecheck、Vite、bundle boundary PASS |
+| 浏览器 | 329 checks PASS，0 runtime/console errors、0 external requests；三主题、四尺寸、reduced-motion、原回填/T+/JSON recovery 回归通过 |
+| Current health 实机 | Overview / Comparison / knowledge As-of / historical capture upper bound / reviewed correction / 320px 警示均通过 |
+| Excel | 实际下载六表，独立 openpyxl + ZIP CRC 校验通过；health=incomplete、准确 unresolved ID、原 Creator time 均保留 |
+| Hosted CI | NOT_RUN；未创建 PR，普通功能分支 push 不触发现有 workflow |
+
+重放入口仍为原浏览器脚本；本轮证据见 [chronology-health-validation.json](stage-4-2-5-chronology-health-validation.json)。本轮全量初次发现旧文案断言未同步；随后发现原恢复 UI 测试的下载延时回调在 URL mock 清理后运行，已仅在该测试中使用受控定时器并在撤销 mock 前执行回调。最终全量无失败或 unhandled error。此前 959/997 tests、287/321 browser checks 保留为各自历史快照，不回写。
+
+限制保持：此 health 仅描述已录入、已审核历史的 chronology 完整性，resolved 不代表抓取覆盖完整或 Provider/Claim/Thesis 核验；capture 上界可靠性依赖原始记录。未知 Creator 时间仍不可计算 T+。未改变 source-level verified、早期复盘拒绝、受控损坏恢复或既有 localStorage CAS 限制。普通 commit/push 后停止，等待最后针对性复审。

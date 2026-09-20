@@ -44,7 +44,7 @@ const capture = async (page, name) => { await page.screenshot({ path: path.join(
 const dataFrom = page => page.evaluate(key => JSON.parse(localStorage.getItem(key)), storageKey);
 const currentFrom = page => page.evaluate(async key => {
   const { buildCreatorCurrentViews } = await import('/src/services/creatorViewpoint.ts');
-  return buildCreatorCurrentViews(JSON.parse(localStorage.getItem(key))).map(row => ({ creatorId: row.creatorId, topicId: row.topicId, observationId: row.observation.id, stance: row.observation.stance, coverage: row.coverage }));
+  return buildCreatorCurrentViews(JSON.parse(localStorage.getItem(key))).map(row => ({ creatorId: row.creatorId, topicId: row.topicId, observationId: row.observation.id, stance: row.observation.stance, coverage: row.coverage, chronologyHealth: row.chronologyHealth, unresolvedObservationIds: row.unresolvedObservationIds }));
 }, storageKey);
 const download = async (page, label, filename) => {
   const pending = page.waitForEvent('download');
@@ -185,6 +185,44 @@ try {
   check(await chronology.getByRole('button', { name: 'backfilled-august-29', exact: true }).count() === 0, 'UI knowledge As-of hides unrecorded historical backfill');
   await chronology.getByRole('button', { name: '回到当前', exact: true }).click();
   await capture(chronologyPage, 'source-chronology-backfill-unresolved');
+
+  await nav(chronologyPage, '博主概览');
+  check(await chronology.getByText(/最近可确定状态 · 存在 1 条未解析观点/).count() === 1, 'Overview qualifies old resolved state when reviewed unresolved source may be newer');
+  check((await currentFrom(chronologyPage))[0].chronologyHealth === 'incomplete', 'Current projection propagates incomplete chronology health');
+  await nav(chronologyPage, '博主比较');
+  check(await chronology.getByText(/当前状态不完整 \/ 无法确认/).count() === 1, 'Comparison propagates Current View uncertainty');
+  await chronology.getByLabel('As-of 本地时间（按记录 / 审核可得时点）', { exact: true }).fill('2026-09-19T05:30');
+  check(await chronology.getByText(/最近可确定状态/).count() === 0, 'Current health As-of hides not-yet-approved unresolved viewpoint');
+  await chronology.getByRole('button', { name: '回到当前', exact: true }).click();
+  const uncertainDownload = await Promise.all([chronologyPage.waitForEvent('download'), chronology.getByRole('button', { name: 'Excel 分析副本', exact: true }).click()]);
+  const uncertainPath = path.join(output, 'uncertain-current.xlsx'); await uncertainDownload[0].saveAs(uncertainPath);
+  const uncertainBytes = await fs.readFile(uncertainPath);
+  check(uncertainBytes.includes(Buffer.from('Current chronology health')) && uncertainBytes.includes(Buffer.from('incomplete')) && uncertainBytes.includes(Buffer.from('最近可确定状态')), 'actual Excel download carries Current View uncertainty');
+  await chronologyPage.setViewportSize({ width: 320, height: 960 });
+  await fits(chronologyPage, 'uncertain-current-comparison-320'); await chronology.getByText(/最近可确定状态/).scrollIntoViewIfNeeded(); await capture(chronologyPage, 'uncertain-current-comparison-320');
+  const uncertainHistory = await dataFrom(chronologyPage);
+  await chronologyPage.evaluate(async key => {
+    const data = JSON.parse(localStorage.getItem(key));
+    data.sources.find(x => x.id === 'source-unknown-publication-time').capturedAt = '2026-09-17T00:00:00.000Z';
+    const { validateCreatorViewpointData } = await import('/src/services/creatorViewpoint.ts'); validateCreatorViewpointData(data);
+    localStorage.setItem(key, JSON.stringify(data));
+  }, storageKey);
+  await chronologyPage.reload();
+  check((await currentFrom(chronologyPage))[0].chronologyHealth === 'resolved' && await workspace(chronologyPage).getByText(/最近可确定状态/).count() === 0, 'historical capture upper bound does not block a later resolved Current View');
+  await chronologyPage.evaluate(async ({key, data}) => {
+    const recordedAt = '2026-09-19T09:00:00.000Z';
+    const original = data.observations.find(x => x.id === 'unknown-publication-time');
+    const source = data.sources.find(x => x.id === original.sourceId);
+    data.sources.push({ ...source, id: 'source-time-corrected', supersedesId: source.id, publishedAt: '2026-09-19T04:00:00.000Z', capturedAt: recordedAt, recordedAt });
+    data.observations.push({ ...original, id: 'time-corrected', sourceId: 'source-time-corrected', supersedesId: original.id, revisionReason: '可靠来源时间已核对', recordedAt });
+    data.approvals.push({ id: 'time-corrected-approval', observationId: 'time-corrected', decision: 'reviewed', note: '时间校正审核', recordedAt });
+    const { validateCreatorViewpointData } = await import('/src/services/creatorViewpoint.ts'); validateCreatorViewpointData(data);
+    localStorage.setItem(key, JSON.stringify(data));
+  }, { key: storageKey, data: uncertainHistory });
+  await chronologyPage.reload();
+  const correctedCurrent = (await currentFrom(chronologyPage))[0];
+  check(correctedCurrent.chronologyHealth === 'resolved' && correctedCurrent.observationId === 'time-corrected' && correctedCurrent.unresolvedObservationIds.length === 0, 'reviewed time correction resolves uncertainty and re-derives Current View');
+
 
   const page = await createPage();
   await page.evaluate(async key => {

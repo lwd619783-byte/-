@@ -253,7 +253,7 @@ function chronology(data: CreatorViewpointData, asOf?: string) {
   // Identical states may share a source; latest reviewed detail is merely a representative, not a transition.
   const buckets = [...groups.values()].map(group => ({ ...group[group.length - 1], ambiguous: new Set(group.map(row => stateKey(row.observation))).size > 1, ids: group.map(row => row.observation.id) }))
     .sort((a, b) => time(a.effectiveAt) - time(b.effectiveAt));
-  return { superseded, buckets };
+  return { superseded, buckets, active };
 }
 export function viewpointChronologyStatus(data: CreatorViewpointData, observation: ViewpointObservation, asOf?: string): 'resolved' | 'unknown_time' | 'ambiguous_time' | 'superseded' {
   const { superseded, buckets } = chronology(data, asOf);
@@ -274,15 +274,25 @@ export function buildViewpointTimeline(data: CreatorViewpointData, asOf?: string
 }
 export function buildCreatorCurrentViews(data: CreatorViewpointData, asOf?: string): ViewpointCurrent[] {
   const transitions = buildViewpointTimeline(data, asOf); const views = new Map<string, ViewpointCurrent>();
-  for (const { observation, approval, effectiveAt, ambiguous } of chronology(data, asOf).buckets) {
+  const { buckets, active } = chronology(data, asOf);
+  for (const { observation, approval, effectiveAt, ambiguous } of buckets) {
     const key = JSON.stringify([observation.creatorId, observation.topicId]);
     if (ambiguous) { views.delete(key); continue; }
     const matchingTransitions = transitions.filter(x => x.creatorId === observation.creatorId && x.topicId === observation.topicId);
     views.set(key, { creatorId: observation.creatorId, topicId: observation.topicId, observation, effectiveAt, reviewedAt: approval.recordedAt,
       lastTransition: matchingTransitions[matchingTransitions.length - 1] ?? null,
-      coverage: sourceCoverage(data, observation.sourceId) });
+      coverage: sourceCoverage(data, observation.sourceId), chronologyHealth: 'resolved', unresolvedObservationIds: [] });
   }
-  return [...views.values()];
+  return [...views.values()].map((view): ViewpointCurrent => {
+    // Only knowledge-visible reviewed active observations affect health. An unknown
+    // publication captured before this state cannot be newer; capture is not effective time.
+    const unresolvedObservationIds = active.filter(({ observation }) => {
+      if (observation.creatorId !== view.creatorId || observation.topicId !== view.topicId) return false;
+      const source = data.sources.find(item => item.id === observation.sourceId)!;
+      return source.publishedAt === null && time(source.capturedAt) > time(view.effectiveAt);
+    }).map(({ observation }) => observation.id);
+    return { ...view, chronologyHealth: unresolvedObservationIds.length ? 'incomplete' : 'resolved', unresolvedObservationIds };
+  });
 }
 export function buildViewpointReviews(data: CreatorViewpointData, asOf?: string): ViewpointReviewDue[] {
   const end = cutoff(asOf);

@@ -7,7 +7,12 @@ import { BrowserCreatorViewpointRepository, CREATOR_VIEWPOINT_STORAGE_KEY, CREAT
 import { CreatorEntryForm } from './CreatorEntryForm';
 import { EvidenceDrawer } from '../research/EvidenceDrawer';
 
-afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
+afterEach(() => {
+  cleanup();
+  // Finish download URL cleanup before removing the browser URL mock.
+  if (vi.isFakeTimers()) { vi.runOnlyPendingTimers(); vi.useRealTimers(); }
+  vi.restoreAllMocks(); vi.unstubAllGlobals();
+});
 function setup(corrupt = false) {
   const data = creatorViewpointFixture();
   const values = new Map<string, string>([[CREATOR_VIEWPOINT_STORAGE_KEY, corrupt ? '{bad' : JSON.stringify(data)]]);
@@ -16,6 +21,20 @@ function setup(corrupt = false) {
   return { data, values, storage, repository };
 }
 describe('Creator Viewpoint Workspace', () => {
+  it('propagates unresolved current-state health to Overview and Comparison with knowledge As-of', () => {
+    const { data, values, repository } = setup();
+    const later = '2026-09-18T08:00:00.000Z';
+    data.sources.push({ ...data.sources[0], id: 'uncertain-source', publishedAt: null, capturedAt: later, recordedAt: later });
+    data.observations.push({ ...data.observations[0], id: 'uncertain', sourceId: 'uncertain-source', recordedAt: later });
+    data.approvals.push({ id: 'uncertain-approval', observationId: 'uncertain', decision: 'reviewed', recordedAt: later, note: '来源时间未证实' });
+    values.set(CREATOR_VIEWPOINT_STORAGE_KEY, JSON.stringify(data));
+    render(<CreatorViewpointWorkspace repository={repository} />);
+    expect(screen.getByText(/最近可确定状态 · 存在 1 条未解析观点/)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: '博主比较' }));
+    expect(screen.getAllByText(/当前状态不完整 \/ 无法确认/)).toHaveLength(1);
+    fireEvent.change(screen.getByLabelText('As-of 本地时间（按记录 / 审核可得时点）'), { target: { value: '2026-09-17T08:00' } });
+    expect(screen.queryByText(/当前状态不完整 \/ 无法确认/)).toBeNull();
+  });
   it('compares three independent creators with reasons, conditions and due reviews', () => {
     const { repository } = setup(); render(<CreatorViewpointWorkspace repository={repository} />);
     fireEvent.click(screen.getByRole('button', { name: '博主比较' }));
@@ -121,6 +140,7 @@ describe('Creator Viewpoint Workspace', () => {
     expect(screen.queryByRole('button', { name: '审核记录' })).toBeNull();
   });
   it('exports corrupt bytes, validates without writes, confirms scoped recovery and unlocks the UI', () => {
+    vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
     const { data, storage, values, repository } = setup(true);
     values.set('unrelated-record', 'preserve');
     const backup = repository.export(data);
@@ -168,7 +188,7 @@ describe('Creator Viewpoint Workspace', () => {
     render(<CreatorViewpointWorkspace repository={new BrowserCreatorViewpointRepository(storage)} />);
     expect(screen.queryByRole('button', { name: '合成观点 1' })).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: '观点时间轴' }));
-    expect(screen.getByText('unresolved · 来源时间未知，不参与 Current View / 状态转换')).toBeTruthy();
+    expect(screen.getByText('unresolved · 来源时间未知，不参与有序状态转换，可能影响 Current View 完整性')).toBeTruthy();
     expect(screen.getAllByText(/unresolved · 到期日不可计算/)).toHaveLength(3);
     const card = screen.getByRole('button', { name: '合成观点 1' }).closest('article')!;
     fireEvent.click(within(card).getAllByRole('button', { name: '填写复盘' })[0]);

@@ -30,6 +30,39 @@ function review(observationId: string, status: ViewpointReview['status'], record
     triggerOccurred: 'unknown', invalidationOccurred: 'unknown', actualOutcome: '人工记录的后续表现', evidence: '人工核对依据', evidenceUrl: null, supersedesId: null };
 }
 describe('Creator chronology vs local knowledge chronology', () => {
+  it('marks latest resolved state incomplete when an active unknown-time viewpoint may be newer', () => {
+    const data = history(); data.sources[1].publishedAt = null; validateCreatorViewpointData(data);
+    expect(buildCreatorCurrentViews(data, backfillApproved)[0]).toMatchObject({ observation: { id: 'new' }, effectiveAt: newerTime, chronologyHealth: 'incomplete', unresolvedObservationIds: ['old'] });
+    expect(creatorEffectiveAt(data, data.observations[1])).toBeNull();
+    expect(buildViewpointTimeline(data, backfillApproved).map(x => x.next.id)).toEqual(['new']);
+  });
+  it('does not block a later resolved state when capture upper bound proves unknown-time source older', () => {
+    const data = history(); data.sources[1].publishedAt = null; data.sources[1].capturedAt = olderTime; validateCreatorViewpointData(data);
+    expect(buildCreatorCurrentViews(data, backfillApproved)[0]).toMatchObject({ observation: { id: 'new' }, chronologyHealth: 'resolved', unresolvedObservationIds: [] });
+    data.sources[1].capturedAt = newerTime;
+    expect(buildCreatorCurrentViews(data, backfillApproved)[0].chronologyHealth).toBe('resolved');
+  });
+  it('resolves uncertainty only after reviewed source-time correction and retains earlier knowledge health', () => {
+    const data = history(); data.sources[1].publishedAt = null;
+    data.sources.push({ ...data.sources[1], id: 'corrected-source', supersedesId: 'old-source', publishedAt: backfillAt, capturedAt: correctionAt, recordedAt: correctionAt });
+    data.observations.push({ ...data.observations[1], id: 'corrected', sourceId: 'corrected-source', supersedesId: 'old', revisionReason: '核对来源时区和时间', recordedAt: correctionAt });
+    validateCreatorViewpointData(data);
+    expect(buildCreatorCurrentViews(data, correctionAt)[0].chronologyHealth).toBe('incomplete');
+    data.approvals.push({ id: 'correction-approval', observationId: 'corrected', decision: 'reviewed', recordedAt: correctionAt, note: '来源时间已核对' });
+    validateCreatorViewpointData(data);
+    expect(buildCreatorCurrentViews(data, correctionAt)[0]).toMatchObject({ observation: { id: 'corrected' }, effectiveAt: backfillAt, chronologyHealth: 'resolved', unresolvedObservationIds: [] });
+    expect(buildCreatorCurrentViews(data, backfillApproved)[0].chronologyHealth).toBe('incomplete');
+    expect(data.observations).toHaveLength(3);
+  });
+  it('does not leak uncertainty from future capture, recording, approval or rejected observations', () => {
+    const data = history(); data.sources[1].publishedAt = null;
+    for (const asOf of [newerTime, '2026-09-18T23:00:00Z', backfillAt]) {
+      expect(buildCreatorCurrentViews(data, asOf).every(row => row.chronologyHealth === 'resolved' && row.unresolvedObservationIds.length === 0)).toBe(true);
+    }
+    expect(buildCreatorCurrentViews(data, backfillApproved)[0].chronologyHealth).toBe('incomplete');
+    data.approvals[1].decision = 'rejected'; validateCreatorViewpointData(data);
+    expect(buildCreatorCurrentViews(data, correctionAt)[0].chronologyHealth).toBe('resolved');
+  });
   it('backfills Aug29 after Sep18 approval without rolling Current View back', () => {
     const data = history(); validateCreatorViewpointData(data);
     const end = '2026-09-21T00:00:00Z';

@@ -49,6 +49,17 @@ function unzip(bytes: Uint8Array): Map<string, string> {
 }
 
 describe('Creator viewpoint Excel analysis copy', () => {
+  it('exports Current View uncertainty and exact unresolved IDs without leaking future knowledge', () => {
+    const data = fixture();
+    data.sources.push({ ...data.sources[0], id: 'uncertain-source', publishedAt: null, capturedAt: later, recordedAt: later });
+    data.observations.push({ ...data.observations[0], id: 'uncertain-view', sourceId: 'uncertain-source', recordedAt: later });
+    data.approvals.push({ ...data.approvals[0], id: 'uncertain-approval', observationId: 'uncertain-view', recordedAt: later });
+    const current = unzip(exportCreatorViewpointExcel(data, later)).get('xl/worksheets/sheet2.xml')!;
+    expect(current).toContain('Current chronology health'); expect(current).toContain('incomplete');
+    expect(current).toContain('uncertain-view'); expect(current).toContain('最近可确定状态');
+    const before = unzip(exportCreatorViewpointExcel(data, at)).get('xl/worksheets/sheet2.xml')!;
+    expect(before).not.toContain('uncertain-view'); expect(before).not.toContain('incomplete');
+  });
   it('exports creator, knowledge and review anchor times separately without replacing unknown anchors', () => {
     const data = fixture(); data.approvals[0].recordedAt = '2026-09-19T08:00:00.000Z';
     const files = unzip(exportCreatorViewpointExcel(data, later));

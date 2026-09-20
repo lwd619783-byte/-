@@ -47,6 +47,8 @@ export interface ViewpointTransition {
 export interface ViewpointCurrent {
   creatorId: string; topicId: string; observation: ViewpointObservation;
   effectiveAt: string; reviewedAt: string; lastTransition: ViewpointTransition | null; coverage: Coverage;
+  /** Latest resolved state may be incomplete; capture is only an upper bound, never creator time. */
+  chronologyHealth: 'resolved' | 'incomplete'; unresolvedObservationIds: string[];
 }
 export interface ViewpointReviewDue {
   observationId: string; offsetDays: 5 | 20 | 60; anchorAt: string | null;
