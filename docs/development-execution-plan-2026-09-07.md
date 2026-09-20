@@ -1,12 +1,14 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-20 CURRENT — **Stage 4.3 / Slice 1 Source + Extraction 正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown/Obsidian Projection 进入 CURRENT PLAN / NOT_IMPLEMENTED。** Slice 1 初审 HEAD `b5b548a2e6308a2603d6603fbd0afca315cb1727` 为 P0=0/P1=1；第三方作者归因修复 HEAD `a716b2205d3056e99198852224bf56ad71026a36` 最终复审 PASS（P0=0/P1=0）；PR [#69](https://github.com/lwd619783-byte/-/pull/69) exact-head CI [35512099983](https://github.com/lwd619783-byte/-/actions/runs/35512099983) completed/success；merge/main `f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`，main push CI [35512366207](https://github.com/lwd619783-byte/-/actions/runs/35512366207) completed/success；Vercel Production `dpl_CmeXXfaEqc2BwXBBnuByMcZb7DNE` READY。Production 只表示应用部署成功，不提升 Provider/Data admission 或 strict PIT。Slice 2 冻结为“结构化 Wiki Domain 真源 → deterministic Markdown projection → Obsidian-compatible read-only Vault”；Obsidian 不成为数据库，生成 Markdown 不形成第二真源。详见 [Slice 2 冻结方案](stage-4-3-slice-2-llm-wiki.md)。
+
 > 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 1 Source + Extraction 已 IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS / PENDING PR-HOSTED CI；L2–L5 仍未实现。** Stage 4.2.5 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
 
 > 下方 Stage 4.2.5 功能分支验证与更早记录保留其时点意义；当前执行主线为 Stage 4.3 / Slice 1；第三方作者误归因 P1 已定向修复并通过最终针对性复审（P0=0 / P1=0），下一门禁为 PR / exact-head Hosted CI。
 
 ## CURRENT — Stage 4.3 Research Memory & Thesis Compiler V1
 
-状态：**Slice 1 IMPLEMENTED / VERIFIED LOCALLY / INDEPENDENT REVIEW PASS / PENDING PR-HOSTED CI；Slice 2–6 NOT_IMPLEMENTED**。正式起点为 `main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`。
+状态：**Slice 1 CLOSED / MERGED / MAIN CI PASS；Slice 2 CURRENT PLAN / NOT_IMPLEMENTED；Slice 3–6 NOT_IMPLEMENTED**。正式起点为 `main @ 2cea477105d3e63242e65b7f3eec0b658a87ce17`。
 
 统一研究链：
 
@@ -14,14 +16,14 @@
 
 执行顺序：
 
-1. **Slice 1 — Source + Extraction Contract**：ResearchSourceRef / Adapter + ResearchExtraction V1；CreatorSource / ViewpointObservation 为首个 adapter。
-2. **Slice 2 — LLM Wiki V1**：WikiEntry / revision / refs / search / Sources-Extractions-Wiki UI。
+1. **Slice 1 — Source + Extraction Contract（CLOSED）**：ResearchSourceRef / Adapter + ResearchExtraction V1；CreatorSource / ViewpointObservation 为首个 adapter。
+2. **Slice 2 — LLM Wiki V1 + Markdown/Obsidian Projection（CURRENT PLAN）**：WikiEntry / WikiRevision / refs / search / Sources-Extractions-Wiki UI；结构化 Wiki 真源确定性生成 Markdown/YAML，兼容 Obsidian Vault 的只读浏览。
 3. **Slice 3 — Creator → Wiki + 三位真实博主**：运行时真实资料验证 Raw→Extraction→Wiki；公共仓库不提交私有或大段版权原文。
 4. **Slice 4 — Evidence → Verified Claim**：复用 F2 Evidence Graph，Research Memory 不自动升级。
 5. **Slice 5 — Thesis + Macro → Industry**：Macro Driver mapping、Thesis revision、bull/base/bear、catalyst/risk/invalidation。
 6. **Slice 6 — Investment Expression + Closeout**：Thesis → ETF / Index / Fund / Equity，并完成 L0→L5 trace。
 
-**CURRENT STOP：Slice 1 普通 commit/push 后等待最终针对性复审。** 公共 L0/L1 contract、Creator adapter、owner trace、双时间轴/revision/fail-closed 与只读 repository seam 完成；55 专项 / 1058 全量 tests、build、contracts、F3 PASS。Hosted CI NOT_RUN；没有 native extraction store、生产接线或准入提升。[Slice 1 设计、验证与限制](stage-4-3-slice-1-source-extraction.md)。 Stage 4.3 不实施 Portfolio、MCP、Research Agent、自动交易、cloud DB、强制 Vector/Graph DB 或自动网页抓取。详细冻结方案：[Stage 4.3 Research Memory & Thesis Compiler V1](stage-4-3-research-memory-wiki-thesis-plan.md)。
+**CURRENT STOP：Slice 1 已正式 CLOSED；NEXT IMPLEMENTATION = Slice 2。** Slice 1 PR #69、PR CI `35512099983`、merge/main `f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`、main CI `35512366207` 与 Vercel Production READY 均已核验。Slice 2 不把 Markdown/Obsidian 变成数据库：结构化 WikiEntry/Revision 是 authority，Markdown 是可重建 projection；Obsidian 默认 read-only。详细冻结方案：[Stage 4.3 Research Memory & Thesis Compiler V1](stage-4-3-research-memory-wiki-thesis-plan.md)，[Slice 2](stage-4-3-slice-2-llm-wiki.md)。
 
 > 2026-09-20 CURRENT · Stage 4.2.5 剩余 P1 修复：Current View 按 knowledge-visible、reviewed、active 的未知时间观点及 capturedAt 上界派生 chronologyHealth；Overview / Comparison / Excel 显示“最近可确定状态，当前状态不完整”。可靠时间修订审核后自动恢复确定，Creator time / audit time 不混用，无持久化 schema 变化。专项 113、全量 1003 tests / 80 files、build、329 browser checks、实际 Excel 独立读取 PASS；PENDING FINAL TARGETED RE-REVIEW，Hosted CI NOT_RUN。路线与分支边界不变。[当前交付](stage-4-2-5-creator-viewpoint-tracker.md)。
 
