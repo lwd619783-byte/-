@@ -44,6 +44,7 @@ interface StockDetailDrawerProps {
   onClose: () => void;
   onOpenStock?: (stock: Stock) => void;
   watchItems?: WatchItem[];
+  watchlistReadError?: string | null;
   reviewEntries?: ReviewEntry[];
   reviewTasks?: ReviewTask[];
   researchEvents?: ResearchEvent[];
@@ -66,7 +67,7 @@ interface StockDetailDrawerProps {
 const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
-export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation, presentation = "drawer", activeTab, onTabChange, presentationDetails }: StockDetailDrawerProps) {
+export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchlistReadError, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation, presentation = "drawer", activeTab, onTabChange, presentationDetails }: StockDetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
   const tabsRef = useRef<HTMLDivElement>(null);
   const chapterRef = useRef<HTMLElement>(null);
@@ -194,7 +195,9 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
       <article ref={drawerRef} className={presentation === "drawer" ? "ml-auto flex h-full w-full max-w-[1180px] flex-col overflow-y-auto border-l border-borderGlow/50 bg-bg2 shadow-2xl" : "min-w-0 space-y-4"}>
         <ResearchHeader section={`公司研究 / ${researchTabs.find(item => item.id === tab)?.label}`} relatedAction={<RelatedResearchEvidence stock={stock} events={researchEvents} expectationSnapshots={earningsExpectationSnapshots} onOpenStock={switchStock} />} stock={stock} industryName={industryName} segmentName={segmentName} onClose={onClose} presentation={presentation}
           action={activeWatchItem ? () => onStartReview?.(activeWatchItem) : archivedWatchItem ? () => onRestoreWatchItem?.(archivedWatchItem) : () => onAddToWatchlist?.(stock)}
-          actionLabel={activeWatchItem ? "开始复盘" : archivedWatchItem ? "恢复已归档观察项" : "加入观察清单"} />
+          actionDisabled={Boolean(watchlistReadError)}
+          actionLabel={watchlistReadError ? "观察记录已锁定" : activeWatchItem ? "开始复盘" : archivedWatchItem ? "恢复已归档观察项" : "加入观察清单"} />
+        {watchlistReadError ? <p role="alert" className="text-sm text-warning">观察记录不可读取：{watchlistReadError}</p> : null}
         {companyGuidanceLoadError ? <p role="alert" className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm text-warning">公司指引加载限制：{companyGuidanceLoadError}；本地独立快照仍按原资格展示。</p> : null}
         <div ref={tabsRef} className={`${presentation === "page" ? "company-page-tabs" : "flex-wrap"} flex min-w-0 gap-1 rounded-lg border border-borderSoft bg-bg2 p-1`} role="tablist" aria-label="公司研究章节">
           {researchTabs.map((item, index) => <button key={item.id} id={`company-tab-${item.id}`} role="tab" aria-selected={tab === item.id} aria-controls={`company-panel-${item.id}`} tabIndex={tab === item.id ? 0 : -1}
@@ -305,6 +308,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
           {tab === "evidence" ? <>
             <Section title="观察清单与复盘" icon={<Binoculars className="h-4 w-4" />}>
             <StockWatchlistPanel
+              readError={watchlistReadError}
               activeItem={activeWatchItem}
               archivedItem={archivedWatchItem}
               tasks={reviewTasks}
@@ -357,14 +361,14 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
   );
 }
 
-function ResearchHeader({ stock, industryName, segmentName, onClose, presentation, action, actionLabel, section, relatedAction }: {
+function ResearchHeader({ stock, industryName, segmentName, onClose, presentation, action, actionDisabled, actionLabel, section, relatedAction }: {
   section: string; relatedAction: ReactNode;
-  stock: Stock; industryName: string; segmentName: string; onClose: () => void; presentation: "page" | "drawer"; action: () => void; actionLabel: string;
+  stock: Stock; industryName: string; segmentName: string; onClose: () => void; presentation: "page" | "drawer"; action: () => void; actionDisabled?: boolean; actionLabel: string;
 }) {
   return <ProductShell className={`research-header ${presentation === "drawer" ? "z-20 sm:sticky sm:top-[72px]" : ""}`} section={section} title={stock.name} scope={`${stock.market} · ${stock.code} · ${industryName} / ${segmentName}`}
     actions={<>{relatedAction}<button type="button" onClick={onClose} aria-label={presentation === "page" ? "返回研究入口" : "关闭详情"} className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded border border-control px-3 text-sm text-textMuted">{presentation === "page" ? <ArrowLeft className="h-4 w-4" /> : <X className="h-4 w-4" />}{presentation === "page" ? "返回" : "关闭"}</button></>}
     quality="公司相关证据是研究导航，不代表图表的精确证据关联。">
-    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2"><span className="text-2xl font-semibold tabular-nums text-textStrong">{numberToDisplay(stock.quote?.latestPrice)} <span className="text-xs font-normal">币种：源字段未提供</span></span><PriceChange value={stock.quote?.pctChange} /><DataQualityBadge quality={stock.dataQuality} /><span className="text-sm text-warning">风险等级 {stock.riskLevel}</span><button type="button" onClick={action} className="min-h-11 rounded border border-control bg-selected px-3 text-sm font-semibold text-accent">{actionLabel}</button></div>
+    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2"><span className="text-2xl font-semibold tabular-nums text-textStrong">{numberToDisplay(stock.quote?.latestPrice)} <span className="text-xs font-normal">币种：源字段未提供</span></span><PriceChange value={stock.quote?.pctChange} /><DataQualityBadge quality={stock.dataQuality} /><span className="text-sm text-warning">风险等级 {stock.riskLevel}</span><button type="button" onClick={action} disabled={actionDisabled} className="min-h-11 rounded border border-control bg-selected px-3 text-sm font-semibold text-accent">{actionLabel}</button></div>
     <div className="mt-2"><QuoteTrust quote={stock.quote} /></div>
     <details className="mt-2 text-xs text-textMuted"><summary className="cursor-pointer">行情/财务字段 {formatStockFieldCoverage(stock.dataCoverageDetails)}</summary><p className="mt-2">{formatStockModuleCoverage(stock.dataCoverageDetails)}</p></details>
     {stock.verificationStatus === "待验证" ? <p className="mt-2 text-xs text-warning">研究关系待验证，不得写成确定供货关系。</p> : null}

@@ -353,6 +353,7 @@ export default function App() {
         stock={activeSelectedStock}
         stocks={dataset.stocks}
         industries={dataset.industries}
+        watchlistReadError={storageError}
         watchItems={readableWatchItems}
         reviewEntries={watchlistData.reviewEntries}
         reviewTasks={reviewTasks}
@@ -542,6 +543,7 @@ export default function App() {
             />
           </div>)}
           <details hidden={!["研究", "设置与帮助"].includes(activeTab)} className="workspace-context"><summary>工作台概况与数据健康</summary>
+          {researchDataMessage ? <p role="alert" className="text-sm text-warning">范围不完整：{researchDataMessage}</p> : null}
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
               <div className="min-w-0">
@@ -565,7 +567,7 @@ export default function App() {
                 </div>
                 <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
                   <p className="text-xs text-textMuted">观察项</p>
-                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{watchlistData.watchItems.filter((item) => !item.archivedAt).length}</p>
+                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{storageError ? "已锁定" : watchlistData.watchItems.filter((item) => !item.archivedAt).length}</p>
                 </div>
               </div>
             </div>
@@ -574,7 +576,7 @@ export default function App() {
           <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
             <KpiCard
               label="今日待复盘"
-              value={dashboardStats.todayReview}
+              value={storageError ? "已锁定" : expectationStorageError ? `当前可读 ${dashboardStats.todayReview}` : dashboardStats.todayReview}
               delta="用户观察项"
               description="复盘日期已到或任务今日到期"
               tone="info"
@@ -582,7 +584,7 @@ export default function App() {
             />
             <KpiCard
               label="已逾期复盘"
-              value={dashboardStats.overdueReview}
+              value={storageError ? "已锁定" : expectationStorageError ? `当前可读 ${dashboardStats.overdueReview}` : dashboardStats.overdueReview}
               delta="只读提醒"
               description="不会自动改变观察状态"
               tone={dashboardStats.overdueReview ? "warning" : "positive"}
@@ -590,7 +592,7 @@ export default function App() {
             />
             <KpiCard
               label="新事件提醒"
-              value={dashboardStats.newEventReminder}
+              value={storageError ? "已锁定" : expectationStorageError ? `当前可读 ${dashboardStats.newEventReminder}` : dashboardStats.newEventReminder}
               delta="研究事件"
               description="上次复盘后新增真实事件"
               tone="info"
@@ -598,7 +600,7 @@ export default function App() {
             />
             <KpiCard
               label="高优先级观察"
-              value={dashboardStats.highPriorityWatch}
+              value={storageError ? "已锁定" : dashboardStats.highPriorityWatch}
               delta="用户数据"
               description="示例模板不计入"
               tone={dashboardStats.highPriorityWatch ? "warning" : "positive"}
@@ -608,12 +610,12 @@ export default function App() {
 
           <DashboardCard className="p-3">
             <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-6" aria-label="业绩预期行动指标">
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增业绩预期：<strong className="text-textStrong">{dashboardStats.recentExpectationSnapshots}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">数据更正：<strong className="text-cyan">{dashboardStats.expectationCorrections}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期上修：<strong className="text-success">{dashboardStats.expectationRevisionUp}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期下修：<strong className="text-warning">{dashboardStats.expectationRevisionDown}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增可复盘实际结果：<strong className="text-textStrong">{dashboardStats.reviewableExpectationActuals}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">来源待核验：<strong className="text-warning">{dashboardStats.pendingExpectationSources}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增业绩预期：<strong className="text-textStrong">{expectationStorageError ? `当前可读 ${dashboardStats.recentExpectationSnapshots}` : dashboardStats.recentExpectationSnapshots}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">数据更正：<strong className="text-cyan">{expectationStorageError ? `当前可读 ${dashboardStats.expectationCorrections}` : dashboardStats.expectationCorrections}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期上修：<strong className="text-success">{expectationStorageError ? `当前可读 ${dashboardStats.expectationRevisionUp}` : dashboardStats.expectationRevisionUp}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期下修：<strong className="text-warning">{expectationStorageError ? `当前可读 ${dashboardStats.expectationRevisionDown}` : dashboardStats.expectationRevisionDown}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增可复盘实际结果：<strong className="text-textStrong">{expectationStorageError ? `当前可读 ${dashboardStats.reviewableExpectationActuals}` : dashboardStats.reviewableExpectationActuals}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">来源待核验：<strong className="text-warning">{expectationStorageError ? `当前可读 ${dashboardStats.pendingExpectationSources}` : dashboardStats.pendingExpectationSources}</strong></button>
             </div>
           </DashboardCard>
 

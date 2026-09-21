@@ -117,6 +117,16 @@ describe('App owner health remains distinct from ordinary action rejection', () 
     expect.soft(visible.rows.length).toBeGreaterThan(0);
     if (owner === 'expectation') expect.soft(visible.observations).toBe(1);
     else expect.soft(visible.observations).toBe(0);
+    await route('#/research');
+    const context = document.querySelector('details.workspace-context')!;
+    expect(context.textContent).toContain('范围不完整');
+    if (owner === 'watch') {
+      expect(context.textContent).toMatch(/观察项已锁定/);
+      await route(`#/company/${encodeURIComponent(stocks[0].id)}/evidence?from=research`);
+      expect(screen.getByRole('button', { name: '观察记录已锁定' })).toBeDisabled();
+      expect(screen.queryByText('尚未加入观察清单')).toBeNull();
+      expect(screen.getByText(/无法判断是否已加入观察清单/)).toBeVisible();
+    } else expect(context.textContent).toContain('当前可读');
     if (owner === 'watch') {
       await route('#/watchlist'); fireEvent.click(screen.getByRole('button', { name: '添加观察项' }));
       change('公司', stocks[1].id); change('关注理由', '不得覆盖锁定owner');
