@@ -1,6 +1,6 @@
 # 投研 OS 前端 V2
 
-状态：IMPLEMENTED / VALIDATION IN PROGRESS / PENDING INDEPENDENT AUDIT。本次只交功能分支与受保护 Preview。最终 runtime 与部署证据追加在本目录验收报告，不把文档 HEAD 当作被测构建。
+状态：IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT AUDIT。本次只交功能分支与受保护 Preview。精确 runtime 与部署证据见 [验收报告](acceptance.md)，不把文档 HEAD 当作被测构建。
 
 ## 基线与原范围结账
 

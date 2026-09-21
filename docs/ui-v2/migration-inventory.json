@@ -2,7 +2,7 @@
   "schemaVersion": "ui-v2-migration-inventory.v1",
   "baselineSha": "a029b1e3b96f8b8d28ec123cd741eadc09c12e3d",
   "recordedAt": "2026-09-21T13:37:25Z",
-  "status": "IMPLEMENTED_PENDING_FINAL_RUNTIME_VERIFICATION",
+  "status": "IMPLEMENTED_LOCAL_REGRESSION_VERIFIED_PENDING_INDEPENDENT_AUDIT",
   "rules": [
     "Old hashes and object IDs remain compatible",
     "wired must only change after code verification",
@@ -20,7 +20,16 @@
       "persistence": "presentation only; task actions delegate WatchlistRepository",
       "newLocation": "工作台 #/home；原ResearchInbox/数据概况 #/research，任务 #/tasks",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/home/HomePage.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -33,7 +42,16 @@
       "persistence": "React state and browser history",
       "newLocation": "AppShell / 工作台 / 研究导航",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/App.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -46,7 +64,16 @@
       "persistence": "read-only provider artifacts; UI selection in React",
       "newLocation": "研究 / 宏观 #/macro",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/dashboard/MacroTab.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -59,7 +86,16 @@
       "persistence": "provider artifacts; selected IDs in hash",
       "newLocation": "研究 / 行业 #/industry (same query)",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/industry/IndustryTab.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -72,7 +108,16 @@
       "persistence": "read-only catalog, no new graph owner",
       "newLocation": "研究 / 行业 / 产业链和细分",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/industry/IndustryTab.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -85,7 +130,16 @@
       "persistence": "retained provider artifacts; no derived authority writes",
       "newLocation": "研究 / 行业 / 指标与证据",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/industry/IndustryMetricPanel.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -98,7 +152,16 @@
       "persistence": "provider artifacts; session filter state",
       "newLocation": "研究 / 公司 #/stocks",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/stock/StockPool.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -111,7 +174,16 @@
       "persistence": "same stockId and browser history",
       "newLocation": "研究 / 公司 / 概览 (same hash)",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/stock/StockDetailDrawer.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -124,7 +196,16 @@
       "persistence": "read-only provider artifacts and request cache",
       "newLocation": "研究 / 公司 / 经营与财务 (same hash)",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/stock/StockDetailDrawer.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -137,7 +218,16 @@
       "persistence": "read-only exact-ID price owner",
       "newLocation": "研究 / 公司 / 价格与估值 (same hash)",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/stock/StockDetailDrawer.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -150,7 +240,16 @@
       "persistence": "official artifacts + earnings-expectation.v1 localStorage",
       "newLocation": "研究 / 公司 / 预期与验证 (same hash)",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/stock/StockDetailDrawer.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -163,7 +262,16 @@
       "persistence": "provider artifacts + watchlist.v2 localStorage",
       "newLocation": "研究 / 公司 / 证据与复盘 (same hash)",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/stock/StockDetailDrawer.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -176,7 +284,16 @@
       "persistence": "hash / history.state uiV1 / presentation only",
       "newLocation": "所有公司页面兼容原路径",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/hooks/useWorkspaceNavigation.ts",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -189,7 +306,16 @@
       "persistence": "localStorage investment-research-dashboard.watchlist.v2",
       "newLocation": "研究 / 论点与观察 #/watchlist (正式Thesis未实现)",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/watchlist/WatchlistTab.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -202,7 +328,16 @@
       "persistence": "watchlist.v2 reviewTaskStates; explicit sample import only",
       "newLocation": "研究 / 观察；任务入口 #/tasks 关联既有待办",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/App.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -215,7 +350,16 @@
       "persistence": "watchlist.v2 and existing backup keys",
       "newLocation": "研究 / 论点与观察 #/watchlist 内备份与恢复",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/services/watchlistRepository.ts",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -228,7 +372,16 @@
       "persistence": "derived read model + delegated watchlist actions; event hash",
       "newLocation": "研究 / 验证 #/verification (same event query)",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research/ResearchEventCenter.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -241,7 +394,16 @@
       "persistence": "official artifacts + local snapshots",
       "newLocation": "研究 / 预期证据 #/expectations",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/expectation/EarningsExpectationCenter.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -254,7 +416,16 @@
       "persistence": "localStorage investment-research-dashboard.earnings-expectation.v1",
       "newLocation": "研究 / 预期证据 #/expectations 内导入导出",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/expectation/EarningsExpectationImportModal.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -267,7 +438,16 @@
       "persistence": "localStorage investment-research-dashboard.creator-viewpoint.v1",
       "newLocation": "研究 / 观点追踪 #/creators",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/creator/CreatorViewpointWorkspace.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -280,7 +460,16 @@
       "persistence": "creator-viewpoint.v1 / pre-import / pre-recovery",
       "newLocation": "研究 / 观点追踪 #/creators 内JSON备份与XLSX导出",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/creator/CreatorViewpointWorkspace.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -293,7 +482,17 @@
       "persistence": "IndexedDB knowledge-ingestion.v1 state/current + originals",
       "newLocation": "资料与连接 #/sources；#/memory 原入口兼容",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "ingestion-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -306,7 +505,17 @@
       "persistence": "IndexedDB contributions; export is derived artifact",
       "newLocation": "资料与连接 / AI整理；#/memory 兼容",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "ingestion-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -319,7 +528,17 @@
       "persistence": "private staged copy + local stageId hint only",
       "newLocation": "资料与连接 #/sources；无自动提交写工具",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "ingestion-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research-memory/BridgeStagingPanel.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -332,7 +551,17 @@
       "persistence": "Wiki append-only + IndexedDB disposition; existing guards",
       "newLocation": "任务 #/tasks 待审；#/memory 兼容",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "ingestion-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -345,7 +574,17 @@
       "persistence": "localStorage investment-research-dashboard.wiki.v1",
       "newLocation": "知识库 #/knowledge?wiki=:wikiId；兼容 #/memory?view=wiki",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research-memory/WikiLibrary.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -358,7 +597,17 @@
       "persistence": "same Wiki IDs; append-only revisions/reviews; guarded writes",
       "newLocation": "知识库 / 同文章修订与历史",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research-memory/WikiRevisionForm.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -371,7 +620,17 @@
       "persistence": "wiki.v1 only; does not include IndexedDB originals",
       "newLocation": "知识库 / 备份；设置提供入口",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research-memory/WikiBackupModal.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -384,7 +643,17 @@
       "persistence": "derived download only; no second authority",
       "newLocation": "知识库 / 单向导出；设置提供入口",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/services/wikiProjection.ts",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -397,7 +666,17 @@
       "persistence": "read-only presentation of original authoritative bytes",
       "newLocation": "共享阅读、来源卡片与EvidenceDrawer",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/components/research-memory/KnowledgeDocument.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     },
@@ -410,7 +689,16 @@
       "persistence": "none",
       "newLocation": "组合 #/portfolio",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "capability": "NOT_CONNECTED",
       "source": "docs/investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
@@ -424,7 +712,16 @@
       "persistence": "delegate existing owners",
       "newLocation": "任务 #/tasks",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "capability": "EXISTING_REVIEW_ONLY",
       "source": "src/App.tsx",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
@@ -438,7 +735,16 @@
       "persistence": "existing presentation preference only; no business migration",
       "newLocation": "全站单一浅色",
       "wired": true,
-      "regressionEvidence": [],
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
       "source": "src/styles/theme-tokens.css",
       "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
     }
