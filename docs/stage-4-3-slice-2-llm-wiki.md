@@ -1,5 +1,8 @@
 # Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown / Obsidian Projection
 
+> 2026-09-21 CURRENT 阅读兼容增量：Slice 2.5 的 `KnowledgeDocument` 安全渲染 Markdown/GFM，供贡献审核、Wiki 当前文章及历史正文共用；长表格局部滚动。raw HTML/脚本/MDX不执行，远程图片不加载，危险链接协议过滤；正文原字节、Wiki模型/版本/Review、合同与单向投影保持不变。真实首轮CREATE仍待本人接受，真实增量双版本闭环延期至Knowledge V2；[最终收口及测试绑定](stage-4-3-slice-2-5-preview-cutover.md#currentcontract--delta-最终收口)。原基础设施独立复审PASS不覆盖此新增差异。
+
+
 > 2026-09-21 CURRENT：**Wiki Infrastructure V1 — independent review PASS**。用户确认针对性独立复审通过的精确基线为 `812e7551e67b0b8af4f673524e2578ecf2e19335`；Slice 2.5 从该基线继续。未据此声明 Slice 2 MERGED 或 Production。以下保留修复时点记录，其 PENDING 不再代表当前复审状态。
 
 > 状态：IMPLEMENTED / VERIFIED LOCALLY / P1 REMEDIATION / PENDING TARGETED RE-REVIEW

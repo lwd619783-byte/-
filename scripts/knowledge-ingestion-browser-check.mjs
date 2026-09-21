@@ -13,7 +13,7 @@ const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4175';
 const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-3-slice-2-5/browser'); await fs.mkdir(output, { recursive: true });
 const report = { checks: [], errors: [], externalRequests: [], screenshots: [] };
 const check = (ok, name) => { report.checks.push({ ok, name }); if (!ok) throw new Error(name); };
-const browser = await chromium.launch({ channel: 'msedge', headless: true });
+const browser = await chromium.launch({ channel: process.env.UI_REVIEW_BROWSER_CHANNEL || 'msedge', headless: true });
 const context = await browser.newContext({ viewport: { width: 1536, height: 960 }, acceptDownloads: true });
 const page = await context.newPage(); page.setDefaultTimeout(15000);
 let bridgeServer;
@@ -32,17 +32,32 @@ function pdf() {
   pieces.push(Buffer.from(`xref\n0 ${objects.length + 1}\n0000000000 65535 f \n${offsets.slice(1).map(n => `${String(n).padStart(10, '0')} 00000 n \n`).join('')}trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${size}\n%%EOF`)); return Buffer.concat(pieces);
 }
 const headings = ['核心判断', '产业与主题结构', '近期变化', '关键公司与环节', '风险与待验证问题', '来源'];
+const markdownFixture = '\n\n**中文重点**与*待验证假设*。\n\n- 材料环节\n- 光电器件\n\n1. 核对来源\n2. 保留未知\n\n> 这是合成引用。\n\n[公开链接](https://example.com/source) 与 `inline < code`\n\n```js\nwindow.__wikiExecuted = true;\n```\n\n<script>window.__wikiExecuted = true</script>\n\n<img src="https://example.com/tracker" onerror="window.__wikiExecuted=true">\n\n![图片说明](https://example.com/image.png)\n\n| ' + Array.from({ length: 12 }, (_, i) => `指标${i}`).join(' | ') + ' |\n| ' + Array(12).fill('---').join(' | ') + ' |\n| ' + Array(12).fill('很长的中文证据').join(' | ') + ' |';
 function bundle(s, id = 'browser-create', previous) {
   const source = s.sources[0], at = new Date().toISOString(), ref = { schemaVersion: 'research-source-ref.v1', sourceDomain: 'browser-source', sourceId: source.sourceId };
   const citation = { sourceRef: ref, locator: source.parse.segments[0].locator, quote: source.parse.segments[0].text };
   return { schemaVersion: 'knowledge-contribution.v1', bundleId: id, batchId: s.batches[0].batchId, createdAt: at, sourceRefs: [{ sourceRef: ref, sha256: source.sha256 }], extractions: [], knowledgeAtoms: [], conflicts: [], uncertainty: ['合成资料，不作投资依据'],
-    proposals: [{ proposalId: 'proposal-1', action: previous ? 'UPDATE' : 'CREATE', wikiId: previous?.wikiId ?? null, baseRevisionId: previous?.revisionId ?? null, wikiType: 'INDUSTRY_KNOWLEDGE', document: { title: '光通信产业链', summary: id, bodyMarkdown: headings.map(h => `## ${h}\n\n${id} 完整研究内容，来自合成测试资料，需要进一步核验。`).join('\n\n') }, changes: [{ section: '核心判断', kind: previous ? 'MODIFY' : 'ADD', summary: '整理完整文章', citations: [citation] }], citations: [citation], extractionIds: [], linkedWikiIds: [], uncertainty: ['尚未核验'], rationale: '合成浏览器验收' }] };
+    proposals: [{ proposalId: 'proposal-1', action: previous ? 'UPDATE' : 'CREATE', wikiId: previous?.wikiId ?? null, baseRevisionId: previous?.revisionId ?? null, wikiType: 'INDUSTRY_KNOWLEDGE', document: { title: '光通信产业链', summary: id, bodyMarkdown: headings.map((h, i) => `## ${h}\n\n${id} 完整研究内容，来自合成测试资料，需要进一步核验。${i === 0 ? markdownFixture : ''}`).join('\n\n') }, changes: [{ section: '核心判断', kind: previous ? 'MODIFY' : 'ADD', summary: '整理完整文章', citations: [citation] }], citations: [citation], extractionIds: [], linkedWikiIds: [], uncertainty: ['尚未核验'], rationale: '合成浏览器验收' }] };
+}
+async function checkMarkdown(container, label) {
+  check(await container.getByRole('heading', { name: '核心判断', exact: true }).count() > 0, `${label} Markdown heading`);
+  check(await container.locator('strong').filter({ hasText: '中文重点' }).count() > 0 && await container.locator('em').filter({ hasText: '待验证假设' }).count() > 0, `${label} Chinese emphasis`);
+  check(await container.locator('ul li').count() >= 2 && await container.locator('ol li').count() >= 2, `${label} semantic lists`);
+  check(await container.locator('blockquote').filter({ hasText: '这是合成引用' }).count() > 0 && await container.locator('pre code').count() > 0, `${label} quote and code`);
+  check(await container.locator('img, iframe, script').count() === 0 && await page.evaluate(() => !window.__wikiExecuted), `${label} hostile HTML and code inert`);
+  const region = container.getByRole('region', { name: '正文表格（可横向滚动）' }).first();
+  check(await region.getByRole('columnheader').count() === 12, `${label} GFM table`);
+  await page.setViewportSize({ width: 390, height: 844 });
+  check(await region.evaluate(el => el.scrollWidth > el.clientWidth && getComputedStyle(el).overflowX === 'auto'), `${label} table scrolls independently`);
+  check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${label} narrow page stays within viewport`);
+  await page.setViewportSize({ width: 1536, height: 960 });
 }
 const importBundle = async value => { await nav('AI 整理'); await page.getByLabel('选择研究贡献包').setInputFiles({ name: 'contribution-bundle.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(value)) }); await page.getByRole('heading', { name: '审核 AI 建议' }).waitFor(); };
 const accept = async (edit = false) => {
   await page.getByRole('button', { name: '查看与审核', exact: true }).click(); const dialog = page.getByRole('dialog');
   check(await dialog.getByRole('heading', { name: 'AI 建议的完整新版本' }).isVisible(), 'full proposed article shown');
   check(await dialog.getByRole('button', { name: '接受', exact: true }).isDisabled(), 'review requires note');
+  await checkMarkdown(dialog, edit ? 'UPDATE review' : 'CREATE review');
   if (edit) { await dialog.getByRole('button', { name: '修改后接受', exact: true }).click(); await dialog.getByLabel('文章摘要', { exact: true }).fill('用户核对后的完整新版本'); }
   await dialog.getByLabel('审核说明').fill('已核对合成原文与文章'); await dialog.getByRole('button', { name: edit ? '接受修改后的版本' : '接受', exact: true }).click(); await dialog.waitFor({ state: 'hidden' });
 };
@@ -67,6 +82,9 @@ try {
   const second = bundle(s, 'browser-update', w.revisions[0]); await importBundle(second); await accept(true); w = await wiki();
   check(w.entries.length === 1 && w.revisions.length === 2 && w.reviews.length === 2, 'UPDATE preserves identity and full history'); check(w.revisions[1].summary === '用户核对后的完整新版本' && w.revisions[0].bodyMarkdown === first.proposals[0].document.bodyMarkdown, 'edit then accept retains old complete document');
   await nav('我的知识库'); await page.getByRole('heading', { name: '时间与版本演化' }).waitFor();
+  await checkMarkdown(page.getByRole('article', { name: '文章详情' }), 'Wiki detail');
+  const history = page.getByRole('article', { name: '文章详情' }).locator('details').filter({ has: page.locator('summary', { hasText: '光通信产业链 · 已审核' }) }).first();
+  await history.locator('summary').click(); await checkMarkdown(history, 'Wiki history'); await history.locator('summary').click();
   for (const theme of ['neon', 'pro', 'light']) for (const width of [1536, 1280, 390, 320]) {
     await page.setViewportSize({ width, height: 960 }); await page.getByLabel('外观', { exact: true }).selectOption(theme);
     for (const name of ['原始资料', 'AI 整理', '待审核', '我的知识库']) { await nav(name); check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width}/${name} no horizontal overflow`); }
