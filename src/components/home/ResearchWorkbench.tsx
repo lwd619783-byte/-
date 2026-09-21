@@ -1,115 +1,81 @@
-import { useState } from "react";
-import { ArrowRight, BookOpen, ChevronRight, Search, Upload } from "lucide-react";
+import { useMemo, useState, type ReactNode } from "react";
+import { ArrowRight, ChartNoAxesCombined, Factory, Building2, Plus } from "lucide-react";
 import type { EarningsExpectationSnapshot, ResearchEvent, ReviewTask, Stock, WatchItem } from "../../types";
 import type { IndustryChangeEvent } from "../../services/industrySignals";
+import { buildResearchInbox } from "../../services/researchInbox";
+import { needsDataReview } from "../../services/researchEventReview";
 import { useDisplayNow } from "../../hooks/useDisplayNow";
 import type { ResearchDestination } from "./HomePage";
-import { ResearchInbox } from "./ResearchInbox";
+import { ResearchInbox, type ResearchDataState } from "./ResearchInbox";
 import "./ResearchWorkbench.css";
 
 export interface ResearchWorkspaceDataProps {
-  stocks: Stock[];
-  watchItems?: WatchItem[];
-  tasks?: ReviewTask[];
-  events?: ResearchEvent[];
-  expectationSnapshots?: EarningsExpectationSnapshot[];
-  industryEvents?: IndustryChangeEvent[];
-  now?: Date;
-  timeZone?: string;
-  inboxSourceNotice?: string;
+  stocks: Stock[]; watchItems?: WatchItem[]; tasks?: ReviewTask[]; events?: ResearchEvent[];
+  expectationSnapshots?: EarningsExpectationSnapshot[]; industryEvents?: IndustryChangeEvent[];
+  now?: Date; timeZone?: string; inboxSourceNotice?: string;
+  dataState?: ResearchDataState; dataMessage?: string;
   onOpenStock: (stock: Stock) => void;
   onStartReview?: (item: WatchItem) => void;
   onOpenEvent?: (event: ResearchEvent) => void;
 }
-
 export interface ResearchWorkbenchProps extends ResearchWorkspaceDataProps {
   onNavigate: (destination: ResearchDestination) => void;
-  onOpenKnowledge: () => void;
-  onOpenTasks: () => void;
+  onOpenKnowledge: () => void; onOpenTasks: () => void;
   onResearchQuery?: (query: string) => void;
-  onOpenSources?: () => void;
+  onOpenSources?: () => void; onOpenResearch?: () => void;
 }
 
-/** A view of the existing owners. This page creates no tasks or reading history. */
-export function ResearchWorkbench({ stocks, watchItems = [], tasks = [], inboxSourceNotice, onNavigate, onOpenStock, onStartReview, onOpenKnowledge, onOpenTasks, onResearchQuery, onOpenSources }: ResearchWorkbenchProps) {
-  const [question, setQuestion] = useState("");
+/** Existing observations and inbox projection only; no invented research or reading history. */
+export function ResearchWorkbench({ stocks, watchItems = [], tasks = [], events = [], industryEvents, expectationSnapshots, now, timeZone = "Asia/Shanghai", inboxSourceNotice, dataState = "ready", dataMessage, onNavigate, onOpenStock, onStartReview, onOpenEvent, onOpenTasks, onOpenSources, onOpenResearch }: ResearchWorkbenchProps) {
+  const displayNow = useDisplayNow(now);
   const watched = watchItems.filter(item => !item.archivedAt);
-  const pending = tasks.filter(task => task.status === "pending");
-
+  const pending = useMemo(() => buildResearchInbox({ events, tasks, watchItems, now: displayNow, timeZone }).filter(row => row.tasks.length), [events, tasks, watchItems, displayNow, timeZone]);
+  const showSide = dataState === "ready" && pending.length > 0;
   return <section className="ui-v2-workbench" aria-label="工作台">
-    <header className="ui-v2-hero">
-      <div className="ui-v2-overline">研究工作台</div>
-      <h1>从一个问题，开始研究。</h1>
-      <p>补齐基础知识，连接产业与公司，把新资料变成可持续更新的认识。</p>
-      <form className="ui-v2-questionbox" onSubmit={event => { event.preventDefault(); const query = question.trim(); if (query && onResearchQuery) onResearchQuery(query); else onNavigate("个股池"); }}>
-        <Search aria-hidden="true" size={20} />
-        <input aria-label="输入研究主题" placeholder="输入你感兴趣的行业、公司或问题" maxLength={120} value={question} onChange={event => setQuestion(event.target.value)} />
-        <button type="submit" className="ui-v2-workbench-button ui-v2-primary">开始研究 <ArrowRight aria-hidden="true" size={20} /></button>
-      </form>
-      <div className="ui-v2-input-caption">
-        {onOpenSources ? <button type="button" onClick={onOpenSources}><Upload aria-hidden="true" size={20} />添加资料</button> : null}
-        <span>当前支持公司研究池检索</span><span>正式更新需本人审核</span>
-      </div>
-    </header>
-
-    <div className="ui-v2-home-grid">
-      <section aria-labelledby="workbench-continue-title" className="ui-v2-home-main">
-        <div className="ui-v2-sectiontitle"><h2 id="workbench-continue-title">继续研究</h2><button type="button" className="ui-v2-workbench-text" onClick={() => onNavigate("观察清单")}>全部观察 <ArrowRight aria-hidden="true" size={20} /></button></div>
-        <div className="ui-v2-panel">
-          {watched.length ? <ul>{watched.slice(0, 5).map(item => {
-            const stock = stocks.find(value => value.id === item.stockId);
-            return <li key={item.id}><button type="button" className="ui-v2-listitem" aria-label={stock ? `继续研究：${stock.name}` : "查看观察记录"} onClick={() => stock ? onOpenStock(stock) : onNavigate("观察清单")}>
-              <span className="ui-v2-listicon"><BookOpen aria-hidden="true" size={20} /></span>
-              <span className="ui-v2-listbody"><strong>{stock ? `${stock.name} · ${stock.code}` : "研究对象未载入"}</strong><span>{item.thesis || "尚未记录研究论点，可继续补充验证条件。"}</span></span>
-              <span className="ui-v2-workbench-badge">{item.status}</span><ChevronRight className="ui-v2-rightchev" aria-hidden="true" size={20} />
-            </button></li>;
-          })}</ul> : <div className="ui-v2-home-empty"><BookOpen aria-hidden="true" size={33} /><h3>从你的第一项研究开始</h3><p>尚无未归档的观察项。选择研究对象后，可沿用观察清单记录论点与验证条件。</p></div>}
-        </div>
-        <p className="ui-v2-inline-note">来自当前观察清单，保留原有排列；不代表最近阅读顺序。</p>
-        <section className="ui-v2-home-spaced" aria-labelledby="workbench-path-title">
-          <div className="ui-v2-sectiontitle"><h2 id="workbench-path-title">研究路径</h2></div>
-          <div className="ui-v2-home-paths">
-            <button type="button" className="ui-v2-panel ui-v2-panel-pad ui-v2-path" onClick={() => onNavigate("宏观")}><span><strong>从宏观到产业</strong><ArrowRight aria-hidden="true" size={20} /></span><p>从指标变化提出问题，再到行业中验证影响。</p></button>
-            <button type="button" className="ui-v2-panel ui-v2-panel-pad ui-v2-path" onClick={() => onNavigate("个股池")}><span><strong>从产业到公司</strong><ArrowRight aria-hidden="true" size={20} /></span><p>按业务角色、产品能力与证据进行比较。</p></button>
-          </div>
-        </section>
+    <header className="ui-v21-workbench-head"><h1>工作台</h1>{onOpenSources ? <button type="button" className="inbox-action" onClick={onOpenSources}><Plus size={16} aria-hidden="true" />添加资料</button> : null}</header>
+    <nav aria-label="研究快捷入口" className="ui-v21-quicklinks">
+      {([{ title: "宏观指标", description: "观测与来源", destination: "宏观", Icon: ChartNoAxesCombined }, { title: "行业研究", description: "产业链与公司", destination: "行业", Icon: Factory }, { title: "公司研究", description: "业务、财务与估值", destination: "个股池", Icon: Building2 }] as const).map(({ title, description, destination, Icon }) => <button key={destination} type="button" onClick={() => onNavigate(destination)}><Icon size={20} aria-hidden="true" /><span><strong>{title}</strong><small>{description}</small></span><ArrowRight size={16} aria-hidden="true" /></button>)}
+    </nav>
+    <div className={`ui-v21-home-columns ${showSide ? "has-tasks" : ""}`} data-columns={showSide ? "2" : "1"}>
+      <section aria-labelledby="workbench-observations-title" className="ui-v21-observations">
+        <div className="ui-v21-section-heading"><h2 id="workbench-observations-title">我的观察</h2><button type="button" className="ui-v21-text-button" onClick={() => onNavigate("观察清单")}>全部观察 <ArrowRight size={16} aria-hidden="true" /></button></div>
+        {dataState !== "ready" ? <p role={dataState === "loading" ? "status" : "alert"} className="ui-v21-quiet-strip">{dataMessage ?? ({ loading: "正在载入观察记录，数量尚未确定。", error: "观察记录读取失败，不能判断是否为空。", locked: "观察记录已锁定，请先处理存储或权限问题。" })[dataState]}</p> : watched.length ? <ul className="ui-v21-watch-list">{watched.slice(0, 4).map(item => {
+          const stock = stocks.find(value => value.id === item.stockId);
+          return <li key={item.id}><button type="button" aria-label={stock ? `继续研究：${stock.name}` : "查看观察记录"} onClick={() => stock ? onOpenStock(stock) : onNavigate("观察清单")}><span className="ui-v21-watch-body"><strong>{stock?.name ?? "研究对象未载入"}<small>{stock?.code}</small></strong><span>{item.thesis || "尚未记录论点"}</span></span><span className="ui-v21-status">{item.status}</span><ArrowRight size={16} aria-hidden="true" /></button></li>;
+        })}</ul> : <div className="ui-v21-quiet-strip"><div><h3>还没有观察项</h3><p>从公司研究中选择对象，加入观察清单。</p></div><button type="button" className="inbox-action" onClick={() => onNavigate("个股池")}>查看公司</button></div>}
       </section>
-      <aside className="ui-v2-home-side">
-        <section aria-labelledby="workbench-pending-title">
-          <div className="ui-v2-sectiontitle"><h2 id="workbench-pending-title">待我处理</h2><span className="ui-v2-workbench-badge ui-v2-badge-outline">{pending.length} 项复盘</span></div>
-          <div className="ui-v2-panel ui-v2-panel-pad">
-            <span className="ui-v2-overline">研究复盘</span>
-            {inboxSourceNotice ? <p role="status" className="ui-v2-home-source-notice">{inboxSourceNotice}</p> : null}
-            {pending.length ? pending.slice(0, 2).map(task => {
-              const item = watchItems.find(value => value.id === task.watchItemId && !value.archivedAt);
-              return <div key={task.id} className="ui-v2-taskcall"><h3>{task.title}</h3><p>待处理 · 计划日期：{task.dueAt ?? "未提供"}</p>{item && onStartReview ? <button type="button" className="ui-v2-workbench-text" onClick={() => onStartReview(item)}>开始复盘 <ArrowRight aria-hidden="true" size={20} /></button> : null}</div>;
-            }) : <div className="ui-v2-taskcall"><h3>当前没有待处理复盘</h3><p>仅统计已载入的复盘任务。事件核验与知识待审稿在任务页分别查看。</p></div>}
-            {pending.length > 2 ? <p className="ui-v2-inline-note">另有 {pending.length - 2} 项待处理。</p> : null}
-            <button type="button" className="ui-v2-workbench-button ui-v2-button-small" onClick={onOpenTasks}>打开任务 <ArrowRight aria-hidden="true" size={20} /></button>
-          </div>
-        </section>
-        <section aria-labelledby="workbench-reading-title" className="ui-v2-home-spaced">
-          <div className="ui-v2-sectiontitle"><h2 id="workbench-reading-title">最近阅读</h2></div>
-          <p className="ui-v2-reading-empty">当前尚未记录阅读历史。可前往知识库查看已有条目和修订历史。</p>
-          <button type="button" className="ui-v2-linkline" onClick={onOpenKnowledge}>打开知识库 <ArrowRight aria-hidden="true" size={20} /></button>
-          <p className="ui-v2-inline-note">证据在需要时展开。技术标识不占用正文阅读空间。</p>
-        </section>
-      </aside>
+      {showSide ? <aside className="ui-v21-home-tasks" aria-label="待处理复盘"><div className="ui-v21-section-heading"><h2>研究复盘</h2><span>{pending.reduce((sum, row) => sum + row.tasks.length, 0)} 项</span></div>{pending.slice(0, 2).map(row => <div key={row.id} className="ui-v21-task-mini"><p>{row.tasks[0].title}</p><span>最早任务日期：{row.date ?? "未提供"}</span>{row.watchItem && onStartReview ? <button type="button" className="ui-v21-text-button" onClick={() => onStartReview(row.watchItem!)}>开始复盘</button> : null}</div>)}<button type="button" className="ui-v21-text-button" onClick={onOpenTasks}>查看任务 <ArrowRight size={16} aria-hidden="true" /></button></aside> : null}
     </div>
+    <ResearchInbox compact initialLimit={3} stocks={stocks} events={events} tasks={tasks} watchItems={watchItems} industryEvents={industryEvents} expectationSnapshots={expectationSnapshots} now={displayNow} timeZone={timeZone} sourceNotice={inboxSourceNotice} dataState={dataState} dataMessage={dataMessage} onOpenStock={onOpenStock} onStartReview={onStartReview} onOpenEvent={onOpenEvent} onOpenAll={onOpenResearch ?? (() => onNavigate("验证中心"))} />
+    {!showSide && dataState === "ready" ? <button type="button" className="ui-v21-text-button ui-v21-task-link" onClick={onOpenTasks}>查看待办分类 <ArrowRight size={16} aria-hidden="true" /></button> : null}
   </section>;
 }
 
+export type TaskQueue = "knowledge" | "review" | "verification";
 export interface TaskWorkspaceProps extends ResearchWorkspaceDataProps {
   onOpenReview: () => void;
+  activeQueue?: TaskQueue; onQueueChange?: (queue: TaskQueue) => void;
+  knowledgeState?: { status: ResearchDataState; count?: number; message?: string };
+  knowledgeReview?: ReactNode;
 }
 
-export function TaskWorkspace({ stocks, watchItems = [], tasks = [], events = [], expectationSnapshots, industryEvents, now, timeZone = "Asia/Shanghai", inboxSourceNotice, onOpenStock, onStartReview, onOpenEvent, onOpenReview }: TaskWorkspaceProps) {
+export function TaskWorkspace({ stocks, watchItems = [], tasks = [], events = [], expectationSnapshots, now, timeZone = "Asia/Shanghai", inboxSourceNotice, dataState = "ready", dataMessage, onOpenStock, onStartReview, onOpenEvent, onOpenReview, activeQueue, onQueueChange, knowledgeState, knowledgeReview }: TaskWorkspaceProps) {
   const displayNow = useDisplayNow(now);
-  return <section className="ui-v2-task-workspace space-y-5" aria-label="任务工作区">
-    <header className="flex flex-wrap items-center justify-between gap-4 border-b border-borderSoft pb-5">
-      <div><h1 className="text-2xl font-semibold">任务</h1><p className="mt-2 text-sm leading-6 text-textMuted">处理复盘提醒、核验证据，以及阅读和审核知识稿件。</p></div>
-      <button type="button" className="inbox-action" onClick={onOpenReview}>打开知识待审</button>
-    </header>
-    <ResearchInbox stocks={stocks} watchItems={watchItems} tasks={tasks} events={events} expectationSnapshots={expectationSnapshots} industryEvents={industryEvents} now={displayNow} timeZone={timeZone} sourceNotice={inboxSourceNotice} onOpenStock={onOpenStock} onStartReview={onStartReview} onOpenEvent={onOpenEvent} />
+  const [localQueue, setLocalQueue] = useState<TaskQueue>("review");
+  const queue = activeQueue ?? localQueue;
+  const reviewRows = useMemo(() => buildResearchInbox({ events, tasks, watchItems, now: displayNow, timeZone }).filter(row => row.tasks.length), [events, tasks, watchItems, displayNow, timeZone]);
+  const verificationEvents = useMemo(() => events.filter(needsDataReview), [events]);
+  const chooseQueue = (value: TaskQueue) => { setLocalQueue(value); onQueueChange?.(value); if (value === "knowledge" && !onQueueChange && !knowledgeReview) onOpenReview(); };
+  const count = (value: TaskQueue) => {
+    if (value === "knowledge") return knowledgeState?.status === "ready" && knowledgeState.count !== undefined ? String(knowledgeState.count) : knowledgeState?.status === "error" ? "读取失败" : knowledgeState?.status === "locked" ? "已锁定" : "待载入";
+    return dataState === "ready" ? String(value === "review" ? reviewRows.reduce((sum, row) => sum + row.tasks.length, 0) : verificationEvents.length) : dataState === "loading" ? "载入中" : dataState === "locked" ? "已锁定" : "读取失败";
+  };
+  const queues = [{ key: "knowledge", label: "知识待审" }, { key: "review", label: "研究复盘" }, { key: "verification", label: "事件核验" }] as const;
+  return <section className="ui-v2-task-workspace" aria-label="任务工作区">
+    <header className="ui-v21-workbench-head"><h1>任务</h1></header>
+    <div role="tablist" aria-label="任务类别" className="ui-v21-task-tabs">{queues.map((item, index) => <button key={item.key} id={`task-tab-${item.key}`} type="button" role="tab" aria-selected={queue === item.key} tabIndex={queue === item.key ? 0 : -1} aria-controls={`task-panel-${item.key}`} onClick={() => chooseQueue(item.key)} onKeyDown={event => { const next = event.key === "ArrowRight" ? (index + 1) % 3 : event.key === "ArrowLeft" ? (index + 2) % 3 : event.key === "Home" ? 0 : event.key === "End" ? 2 : -1; if (next >= 0) { event.preventDefault(); chooseQueue(queues[next].key); document.getElementById(`task-tab-${queues[next].key}`)?.focus(); } }}>{item.label}<span>{count(item.key)}</span></button>)}</div>
+    {queue === "knowledge" ? knowledgeReview ? <div role="tabpanel" id="task-panel-knowledge" aria-labelledby="task-tab-knowledge">{knowledgeReview}</div> : null : <div role="tabpanel" id={`task-panel-${queue}`} aria-labelledby={`task-tab-${queue}`}>
+      <ResearchInbox key={queue} mode={queue} stocks={stocks} watchItems={watchItems} tasks={queue === "review" ? tasks : []} events={queue === "verification" ? verificationEvents : events} expectationSnapshots={expectationSnapshots} now={displayNow} timeZone={timeZone} sourceNotice={inboxSourceNotice} dataState={dataState} dataMessage={dataMessage} onOpenStock={onOpenStock} onStartReview={onStartReview} onOpenEvent={onOpenEvent} />
+    </div>}
   </section>;
 }

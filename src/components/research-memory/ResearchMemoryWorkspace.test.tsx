@@ -65,18 +65,21 @@ describe('Research Memory Workspace', () => {
   });
   it('opens empty Workspace with no seed or business writes', () => {
     const { repository, owners, values } = setup(false); render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);
-    expect(screen.getByRole('heading', { name: '从可反查的材料建立研究记忆' })).toBeInTheDocument(); expect(values.size).toBe(0);
+    expect(screen.getByRole('heading', { name: '还没有文章' })).toBeInTheDocument(); expect(values.size).toBe(0);
   });
   it('shows reviewed Wiki, preserved AI origin, exact source/extraction drilldown and historical read-only', () => {
     const { repository, owners, values } = setup(); const before = [...values]; render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);
+    fireEvent.click(screen.getByRole('button', { name: /合成框架/ }));
     expect(screen.getByText(/当前已审核文章/)).toBeInTheDocument(); expect(screen.getByText(/ai_draft/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: '提取内容 · 已保存研究记录' }));
     const drawer = screen.getByRole('dialog', { name: '观点来源核对' }); expect(within(drawer).getByText('合成测试摘录，不是任何真实博主观点。')).toBeInTheDocument(); fireEvent.click(within(drawer).getByRole('button', { name: '关闭' }));
+    fireEvent.click(screen.getByRole('button', { name: '更多操作' }));
     fireEvent.change(screen.getByRole('textbox', { name: /历史查询时间/ }), { target: { value: '2026-01-04T10:00:00.000Z' } }); fireEvent.click(screen.getByRole('button', { name: '应用时间视图' }));
     expect(screen.queryByText(/当前已审核文章 ·/)).not.toBeInTheDocument(); expect(screen.getByRole('button', { name: '手工新建文章' })).toBeDisabled(); expect([...values]).toEqual(before);
   });
   it('mounts history Markdown only while expanded and keeps current uncertainty outside audit details', async () => {
     const { repository, owners } = setup(); render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);
+    fireEvent.click(screen.getByRole('button', { name: /合成框架/ }));
     const body = 'Synthetic body. No investment claim.';
     expect(screen.getAllByText(body)).toHaveLength(1);
     const history = screen.getByText(/合成框架 · 已审核/).closest('details')!;
@@ -99,6 +102,7 @@ describe('Research Memory Workspace', () => {
     fireEvent.click(screen.getByText(/UI synthetic Wiki · 待审核/)); fireEvent.click(screen.getByRole('button', { name: '审核此修订' })); expect(screen.getByRole('button', { name: '确认追加审核记录' })).toBeDisabled();
     fireEvent.change(screen.getByLabelText('审核说明'), { target: { value: 'Synthetic quality check' } }); fireEvent.click(screen.getByRole('button', { name: '确认追加审核记录' }));
     expect(screen.getByText(/当前已审核文章/)).toBeInTheDocument(); expect(screen.getByText(/ai_draft/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '更多操作' }));
     fireEvent.click(screen.getByRole('button', { name: '刷新历史' })); expect(repository.load().data.reviews).toHaveLength(1); expect(values.has(WIKI_STORAGE_KEY)).toBe(true);
     expect(onSelectWiki).toHaveBeenCalledTimes(1);
   });
@@ -111,16 +115,38 @@ describe('Research Memory Workspace', () => {
     const { rerender } = render(view('wiki-two'));
     expect(within(screen.getByRole('article', { name: '文章详情' })).getByRole('heading', { name: '另一篇合成文章' })).toBeVisible();
     rerender(view(undefined));
-    expect(within(screen.getByRole('article', { name: '文章详情' })).getByRole('heading', { name: '合成框架' })).toBeVisible();
-    expect(within(screen.getByRole('article', { name: '文章详情' })).queryByRole('heading', { name: '另一篇合成文章' })).toBeNull();
+    expect(screen.queryByRole('article', { name: '文章详情' })).toBeNull();
+    expect(screen.getByRole('heading', { name: '文章库' })).toBeVisible();
+    expect(screen.getByRole('button', { name: /合成框架/ })).toBeVisible();
     expect(onSelectWiki).not.toHaveBeenCalled(); expect([...values]).toEqual(before);
+  });
+  it('keeps list filters when opening and returning from an exact article, with maintenance off by default', () => {
+    const { repository, owners, values } = setup(); const before = [...values]; const onSelectWiki = vi.fn(), onBackToLibrary = vi.fn();
+    render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} onSelectWiki={onSelectWiki} onBackToLibrary={onBackToLibrary} />);
+    expect(screen.queryByRole('article', { name: '文章详情' })).toBeNull();
+    fireEvent.change(screen.getByLabelText('搜索知识库'), { target: { value: '不存在的词' } });
+    expect(screen.getByRole('heading', { name: '没有匹配的文章' })).toBeVisible();
+    expect(screen.queryByLabelText('文章列表')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '清除筛选' }));
+    fireEvent.change(screen.getByLabelText('搜索知识库'), { target: { value: '合成' } });
+    fireEvent.click(screen.getByRole('button', { name: /合成框架/ }));
+    expect(onSelectWiki).toHaveBeenCalledWith('wiki-one');
+    expect(screen.queryByLabelText('文章列表')).toBeNull();
+    expect(screen.getByRole('article', { name: '文章详情' })).toHaveTextContent('Synthetic body. No investment claim.');
+    fireEvent.click(screen.getByRole('button', { name: '返回文章列表' }));
+    expect(onBackToLibrary).toHaveBeenCalledTimes(1);
+    expect(screen.getByLabelText('搜索知识库')).toHaveValue('合成');
+    expect(screen.queryByRole('region', { name: '文章维护' })).toBeNull();
+    expect([...values]).toEqual(before);
   });
   it('corruption/future schema lock writes and keep raw export; future recovery stays disabled', () => {
     const { repository, owners, storage } = setup(false); storage.setItem(WIKI_STORAGE_KEY, '{"schemaVersion":"wiki.v9"}'); render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);
+    fireEvent.click(screen.getByRole('button', { name: '更多操作' }));
     expect(screen.getByRole('button', { name: '手工新建文章' })).toBeDisabled(); expect(screen.getByRole('button', { name: '导入文章备份' })).toBeDisabled(); expect(screen.getByRole('button', { name: '导出锁定原字节' })).toBeEnabled();
   });
   it('missing owner blocks current and export, while JSON history remains exportable', () => {
     const { repository } = setup(); const owners = { ...wikiFixtureOwners(), research: () => { throw new Error('OWNER_UNAVAILABLE'); } }; render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);
+    fireEvent.click(screen.getByRole('button', { name: '更多操作' }));
     expect(screen.getByRole('alert')).toHaveTextContent('OWNER_UNAVAILABLE'); expect(screen.getByRole('button', { name: '导出到 Obsidian' })).toBeDisabled(); expect(screen.getByRole('button', { name: '备份全部文章历史' })).toBeEnabled();
   });
 });

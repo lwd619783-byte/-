@@ -19,7 +19,14 @@ const page = await context.newPage(); page.setDefaultTimeout(15000);
 let bridgeServer;
 page.on('pageerror', e => report.errors.push(e.message));
 page.on('request', req => { if (!req.url().startsWith(origin) && !/^(blob:|data:)/.test(req.url())) report.externalRequests.push(req.url()); });
-const nav = name => page.getByRole('navigation', { name: '研究记忆视图' }).getByRole('button', { name, exact: true }).click();
+const nav = async name => {
+  const routes = { '原始资料': '#/sources', 'AI 整理': '#/sources?view=organize', '研究桥': '#/sources?view=bridge', '待审核': '#/tasks?view=review', '我的知识库': '#/knowledge' };
+  await page.evaluate(hash => { window.location.hash = hash; }, routes[name]);
+  if (name === '我的知识库') { await page.getByRole('heading', { name: '文章库', exact: true }).waitFor(); const article = page.getByLabel('文章列表', { exact: true }).getByRole('button', { name: /光通信产业链/ }); await article.click(); await page.getByRole('article', { name: '文章详情' }).waitFor(); }
+  else if (name === '待审核') await page.getByRole('heading', { name: '审核 AI 建议' }).waitFor();
+  else await page.getByRole('navigation', { name: '资料分类' }).getByRole('button', { name, exact: true }).and(page.locator('[aria-pressed=true]')).waitFor();
+};
+const upload = async files => { if (!await page.getByRole('dialog', { name: '添加资料' }).count()) await page.getByRole('button', { name: '添加资料', exact: true }).click(); await page.getByLabel('选择多份文件').setInputFiles(files); };
 const state = () => page.evaluate(async () => { const db = await new Promise((resolve, reject) => { const r = indexedDB.open('investment-research-dashboard.knowledge-ingestion.v1', 1); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); const value = await new Promise(resolve => { const r = db.transaction('state').objectStore('state').get('current'); r.onsuccess = () => resolve(r.result); }); db.close(); return value; });
 const wiki = () => page.evaluate(() => JSON.parse(localStorage.getItem('investment-research-dashboard.wiki.v1')));
 function pdf() {
@@ -63,12 +70,12 @@ const accept = async (edit = false) => {
   await dialog.getByLabel('审核说明').fill('已核对合成原文与文章'); await dialog.getByRole('button', { name: edit ? '接受修改后的版本' : '接受', exact: true }).click(); await dialog.waitFor({ state: 'hidden' });
 };
 try {
-  await page.goto(`${origin}/#/memory`); await page.getByLabel('选择多份文件').waitFor();
-  check(await page.getByText('还没有资料。点击“选择多份文件”，即可开始建立知识库。', { exact: true }).isVisible()
-    && await page.getByRole('navigation', { name: '研究记忆视图' }).getByRole('button').count() === 4, 'empty profile material guidance and four workflow views visible');
-  check(await page.getByRole('heading', { name: '添加资料', exact: true }).isVisible(), 'add material is primary first action');
+  await page.goto(`${origin}/#/memory`); await page.getByRole('button', { name: '添加资料', exact: true }).waitFor();
+  check(await page.getByRole('heading', { name: '还没有资料', exact: true }).isVisible()
+    && await page.getByRole('navigation', { name: '资料分类' }).getByRole('button').count() === 3, 'empty profile material guidance and source workflow views visible');
+  check(await page.getByRole('button', { name: '添加资料', exact: true }).isVisible(), 'add material is primary first action');
   const files = [{ name: 'two-pages.pdf', mimeType: 'application/pdf', buffer: pdf() }, ...Array.from({ length: 9 }, (_, i) => ({ name: `中文研究-${i}.${i % 2 ? 'txt' : 'md'}`, mimeType: i % 2 ? 'text/plain' : 'text/markdown', buffer: Buffer.from(`合成资料 ${i}\r\n光通信测试内容`) }))];
-  await page.getByLabel('选择多份文件').setInputFiles(files);
+  await upload(files);
   await page.getByText('已保存 10 份原件。', { exact: false }).waitFor({ timeout: 60000 });
   let s = await state(); check(s.batches.length === 1 && s.sources.length === 10, 'ten files form one batch');
   check(s.sources.every(row => row.parse.status === 'parsed'), 'PDF MD TXT parsed successfully');
@@ -77,7 +84,7 @@ try {
   for (let i = 0; i < files.length; i++) check(s.sources[i].sha256 === createHash('sha256').update(files[i].buffer).digest('hex'), `exact raw byte digest ${i}`);
   await page.reload(); await page.getByText('two-pages.pdf', { exact: true }).waitFor(); s = await state(); check(s.sources.length === 10, 'raw originals retained after reload');
   const download = page.waitForEvent('download'); await page.getByRole('button', { name: '下载原件', exact: true }).first().click(); const d = await download; const downloaded = await d.path(); check((await fs.readFile(downloaded)).equals(files[0].buffer), 'downloaded PDF byte equality after reload');
-  await nav('AI 整理'); check(await page.getByText('AI 分析服务尚未连接', { exact: true }).isVisible(), 'no fake provider results'); check(await page.getByRole('button', { name: '发送给 ChatGPT', exact: true }).isDisabled(), 'staging requires explicit credential and click');
+  await nav('AI 整理'); check(await page.getByText('自动分析执行器尚未连接', { exact: true }).isVisible(), 'no fake provider results'); await nav('研究桥'); check(await page.getByRole('button', { name: '发送给 ChatGPT', exact: true }).isDisabled(), 'staging requires explicit credential and click');
   const first = bundle(s); await importBundle(first); check((await wiki()) === null, 'unreviewed proposal never creates Wiki'); await accept();
   let w = await wiki(); check(w.entries.length === 1 && w.revisions.length === 1 && w.reviews.length === 1, 'accept uses existing revision/review authority');
   await nav('我的知识库'); await page.getByRole('heading', { name: '光通信产业链', exact: true }).waitFor(); check(await page.getByRole('heading', { name: '核心判断', exact: true }).isVisible(), 'full article readable');
@@ -89,15 +96,15 @@ try {
   await history.locator(':scope > summary').click(); await checkMarkdown(history, 'Wiki history'); await history.locator(':scope > summary').click();
   for (const theme of ['light']) for (const width of [1536, 1280, 390, 320]) {
     await page.setViewportSize({ width, height: 960 }); check(await page.evaluate(() => document.documentElement.dataset.theme === 'light'), `${theme}/${width} single light appearance`); check(await page.getByLabel('外观', { exact: true }).count() === 0, `${theme}/${width} no appearance switch`);
-    for (const name of ['原始资料', 'AI 整理', '待审核', '我的知识库']) { await nav(name); check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width}/${name} no horizontal overflow`); }
+    for (const name of ['原始资料', 'AI 整理', '研究桥', '待审核', '我的知识库']) { await nav(name); check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width}/${name} no horizontal overflow`); }
     const filename = `${theme}-${width}.png`; await page.screenshot({ path: path.join(output, filename), fullPage: true }); report.screenshots.push(filename);
   }
-  await page.setViewportSize({ width: 1280, height: 960 }); await nav('原始资料'); await page.getByLabel('选择多份文件').setInputFiles(files[0]); await page.getByRole('alert').filter({ hasText: '重复' }).waitFor(); check((await state()).sources.length === 10, 'duplicate upload no partial write');
-  await page.getByLabel('选择多份文件').setInputFiles({ name: 'corrupt.pdf', mimeType: 'application/pdf', buffer: Buffer.from('invalid PDF synthetic') }); await page.getByText('解析失败，原件已保存', { exact: false }).waitFor(); check((await state()).sources.length === 11, 'failed parsing retains original');
+  await page.setViewportSize({ width: 1280, height: 960 }); await nav('原始资料'); await upload(files[0]); await page.getByRole('dialog', { name: '添加资料' }).getByRole('alert').filter({ hasText: '重复' }).waitFor(); check((await state()).sources.length === 10, 'duplicate upload no partial write');
+  await upload({ name: 'corrupt.pdf', mimeType: 'application/pdf', buffer: Buffer.from('invalid PDF synthetic') }); await page.getByText('解析失败，原件已保存', { exact: false }).waitFor(); check((await state()).sources.length === 11, 'failed parsing retains original');
   // Audit R2: real UI + IndexedDB + production HTTP/domain/repository with isolated synthetic Blob transport.
   const mixedFiles = [...Array.from({ length: 9 }, (_, i) => ({ name: `混合资料-${i}.txt`, mimeType: 'text/plain', buffer: Buffer.from(`混合恢复研究 ${i} 光通信😀`) })), { name: '混合失败.pdf', mimeType: 'application/pdf', buffer: Buffer.from('mixed invalid PDF synthetic') }];
   mixedFiles[0] = { name: '混合资料-0.pdf', mimeType: 'application/pdf', buffer: Buffer.concat([pdf(), Buffer.from('\n% distinct synthetic original')]) };
-  await page.getByLabel('选择多份文件').setInputFiles(mixedFiles); await page.getByText('已保存 10 份原件。', { exact: false }).waitFor();
+  await upload(mixedFiles); await page.getByText('已保存 10 份原件。', { exact: false }).waitFor();
   s = await state(); const mixedBatch = s.batches.at(-1), mixedSources = s.sources.filter(row => row.batchId === mixedBatch.batchId);
   check(mixedSources.filter(row => row.parse.status === 'parsed').length === 9 && mixedSources[9].parse.status === 'failed', 'mixed batch nine parsed one failed');
   await page.reload(); await page.getByText('混合失败.pdf', { exact: true }).waitFor();
@@ -114,7 +121,7 @@ try {
     if (!response.ok) report.bridgeFailedAction = url.pathname;
     await route.fulfill({ status: response.status, contentType: 'application/json', body: await response.text() });
   });
-  await nav('AI 整理'); await page.getByLabel('研究桥访问密钥', { exact: true }).fill(syntheticSecret);
+  await nav('研究桥'); await page.getByLabel('研究桥访问密钥', { exact: true }).fill(syntheticSecret);
   check(await page.getByRole('button', { name: '发送给 ChatGPT', exact: true }).isDisabled(), 'selection is explicit even with valid credential');
   await page.getByRole('button', { name: '选择全部已解析资料', exact: true }).click();
   check(await page.getByRole('checkbox', { name: '混合失败.pdf（解析失败，原件保留）', exact: true }).isDisabled(), 'failed PDF cannot be selected');
@@ -134,7 +141,7 @@ try {
   await importBundle(returned); check((await wiki()).revisions.length === 2, 'subset contribution remains pending'); await accept();
   check((await wiki()).entries.length === 1 && (await wiki()).revisions.length === 3, 'subset contribution accepted with original identity and full revision');
   check((await state()).sources.filter(row => row.batchId === mixedBatch.batchId).length === 10, 'subset sending and accepting preserve all ten originals');
-  await nav('AI 整理'); await page.getByLabel('研究桥访问密钥', { exact: true }).fill(syntheticSecret);
+  await nav('研究桥'); await page.getByLabel('研究桥访问密钥', { exact: true }).fill(syntheticSecret);
   await page.getByRole('button', { name: '撤销 ChatGPT 访问', exact: true }).click(); await page.getByText('已撤销本批此前全部暂存的资料与知识访问。', { exact: false }).waitFor();
   check((await staging.status(stageId)).status === 'revoked' && sent.some(row => row.action.endsWith('/revoke-batch')), 'real user revoke-batch action denies known stage');
   for (const theme of ['light']) for (const width of [1536, 1280, 390, 320]) {

@@ -108,9 +108,10 @@ describe("HomePage", () => {
   it("明确展示 A 股行情覆盖口径和中文核心区域", () => {
     const { container } = renderHome();
 
-    expect(screen.getByRole("heading", { name: "首页 / 研究工作台" })).toBeTruthy();
-    expect(screen.getByRole("heading", { name: /今日优先事项/ })).toBeTruthy();
-    expect(screen.getByRole("heading", { name: /最近研究事件/ })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "研究总览" })).toBeTruthy();
+    expect(screen.queryByLabelText("待处理事项")).toBeNull();
+    expect(screen.getByRole("heading", { name: "近期研究事件" })).toBeTruthy();
+    fireEvent.click(screen.getByText("行情、关注公司与研究辅助"));
     expect(screen.getByRole("heading", { name: "关注公司" })).toBeTruthy();
     expect(container.textContent).toContain("A 股行情覆盖（质量状态为真实数据 且有价格）：56 / 56");
     expect(container.textContent).toContain("数据源：A 股数据");
@@ -131,13 +132,18 @@ describe("HomePage", () => {
       fireEvent.click(screen.getByRole("button",{name})); expect(onNavigate).toHaveBeenCalledWith(name);
     }
     expect(screen.getByText("尚无用户观察项。示例模板不会自动成为个人观察记录。")).toBeTruthy();
-    expect(screen.getByText("暂无待处理研究任务。")).toBeTruthy();
+    expect(screen.queryByLabelText("待处理事项")).toBeNull();
   });
   it("没有价格历史时保留任务、来源和空图说明", () => {
-    const {container}=renderHome(); expect(screen.getByText("图表数据暂缺")).toBeTruthy();
+    const {container}=renderHome();
+    expect(screen.queryByText("图表数据暂缺")).toBeNull();
+    fireEvent.click(screen.getByText("行情、关注公司与研究辅助"));
+    const price = screen.getByText("查看价格脉络").closest("details")!;
+    price.open = true; fireEvent(price, new Event("toggle"));
+    expect(screen.getByText("图表数据暂缺")).toBeTruthy();
     expect(container.querySelector(".home-orbit-stage")).toBeNull();
     expect(container.querySelector(".recharts-line-curve")).toBeNull();
-    expect(screen.getByRole("heading",{name:/今日优先事项/})).toBeTruthy();
+    expect(screen.queryByLabelText("待处理事项")).toBeNull();
   });
   it("keeps a real manifest out of the Mock home and missing quote-time summary", () => {
     const realTimestamp = "2026-08-01T10:00:00+08:00";

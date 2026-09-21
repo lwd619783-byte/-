@@ -19,10 +19,48 @@ function props() {
 }
 
 describe("Research Inbox interactions", () => {
+  it("removes the empty review track rather than retaining a half-width column", () => {
+    const data = props();
+    const { container } = render(<ResearchInbox {...data} tasks={[]} />);
+    expect(screen.queryByLabelText("待处理事项")).toBeNull();
+    expect(container.querySelector('.inbox-tracks')?.getAttribute('data-columns')).toBe('1');
+    expect(container.querySelector('.has-review-track')).toBeNull();
+    expect(screen.getByRole('table', { name: '研究事件列表' })).toBeTruthy();
+  });
+  it("keeps data and verification states distinct and preserves incremental loading and denominator", () => {
+    const data = props();
+    const events = Array.from({ length: 9 }, (_, index) => ({ ...data.events[0], id: `compact-${index}`, title: `合成事件 ${index}`, eventDate: '2026-09-08', reviewStatus: 'not_required' as const, parseStatus: 'metadata_only' as const, verificationStatus: 'verified' as const, reviewReasons: [] }));
+    render(<ResearchInbox {...data} tasks={[]} events={events} initialLimit={2} />);
+    const table = screen.getByRole('table', { name: '研究事件列表' });
+    expect(within(table).getAllByRole('row')).toHaveLength(3);
+    expect(screen.getByText('显示 2 / 9 项 · 未合并事件共 9 项')).toBeTruthy();
+    expect(within(table).getAllByText('仅元数据 / 已核验')).toHaveLength(2);
+    fireEvent.click(screen.getByRole('button', { name: '显示更多事件（剩余 7）' }));
+    expect(within(table).getAllByRole('row')).toHaveLength(5);
+    expect(screen.getByText('显示 4 / 9 项 · 未合并事件共 9 项')).toBeTruthy();
+  });
+  it("does not publish an empty denominator during loading, error, or lock", () => {
+    const data = props(); const { rerender } = render(<ResearchInbox {...data} dataState="loading" />);
+    expect(screen.getByRole('status').textContent).toContain('尚不能确定队列数量');
+    expect(screen.queryByRole('table')).toBeNull();
+    rerender(<ResearchInbox {...data} dataState="error" />);
+    expect(screen.getByRole('alert').textContent).toContain('读取失败');
+    expect(screen.queryByText(/显示 0/)).toBeNull();
+    rerender(<ResearchInbox {...data} dataState="locked" />);
+    expect(screen.getByRole('alert').textContent).toContain('已锁定');
+  });
+  it("keeps a long row title complete in the evidence drawer", () => {
+    const data = props();
+    const title = '合成完整研究标题'.repeat(20);
+    render(<ResearchInbox {...data} tasks={[]} events={[{ ...data.events[0], title }]} />);
+    fireEvent.click(screen.getByRole('button', { name: /查看证据/ }));
+    expect(within(screen.getByRole('dialog')).getByRole('heading', { name: title })).toBeTruthy();
+  });
   it("shows empty and source failure states without claiming no data exists", () => {
     render(<ResearchInbox {...props()} events={[]} tasks={[]} watchItems={[]} sourceNotice="预期索引 error；范围不完整" />);
     expect(screen.getByRole("status").textContent).toContain("范围不完整");
-    expect(screen.getByText("暂无待处理研究任务。")).toBeTruthy();
+    expect(screen.queryByLabelText("待处理事项")).toBeNull();
+    expect(screen.getByText("当前已载入范围内没有未合并研究事件。")).toBeTruthy();
     expect(screen.queryByRole("button", { name: /查看证据/ })).toBeNull();
   });
   it("shows old and unknown-date events only after an explicit date expansion", () => {
@@ -35,10 +73,10 @@ describe("Research Inbox interactions", () => {
   it("keeps historical pending events out of today's task lane and exposes the full count", () => {
     const data = props(); const events = [{ ...data.events[0], eventDate: "2020-01-01", reviewStatus: "pending" as const }];
     render(<ResearchInbox {...data} events={events} tasks={[]} />);
-    expect(within(screen.getByLabelText("待处理事项")).queryByRole("button", { name: /查看证据/ })).toBeNull();
+    expect(screen.queryByLabelText("待处理事项")).toBeNull();
     expect(screen.getByText(/另有 1 条记录不在近 30 天范围/)).toBeTruthy();
     fireEvent.change(screen.getByRole("combobox", { name: "日期范围" }), { target: { value: "all" } });
-    expect(within(screen.getByLabelText("近期变化")).getByText("待核验")).toBeTruthy();
+    expect(within(screen.getByLabelText("近期变化")).getByText("待复盘")).toBeTruthy();
   });
   it("opens evidence with all task reasons and restores keyboard focus when closed", () => {
     render(<ResearchInbox {...props()} />);

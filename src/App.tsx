@@ -41,7 +41,7 @@ import { DashboardCard, KpiCard, SectionHeader } from "./components/common/termi
 import { formatPercent } from "./utils/normalize";
 import { loadIndustryMetrics, type IndustryProviderState } from './services/industryMetricProvider';
 import { buildIndustryChanges } from './services/industrySignals';
-import { ResearchMemoryWorkspace } from './components/research-memory/ResearchMemoryWorkspace';
+import { ResearchMemoryWorkspace, type KnowledgeReviewState } from './components/research-memory/ResearchMemoryWorkspace';
 import { CreatorViewpointWorkspace } from './components/creator/CreatorViewpointWorkspace';
 
 type MainTab = MainPage;
@@ -51,8 +51,10 @@ export default function App() {
   const navigation = useWorkspaceNavigation();
   const activeTab = pages[navigation.route.page];
   const navigatePageId = (page: PageId) => navigation.navigatePage(pages[page]);
-  const memoryActive = ['memory', 'knowledge', 'sources', 'tasks'].includes(navigation.route.page);
-  const memoryView = navigation.route.view === 'organize' ? 'AI 整理' : navigation.route.view === 'review' ? '待审核' : navigation.route.view === 'wiki' || navigation.route.page === 'knowledge' ? '我的知识库' : navigation.route.page === 'tasks' ? '待审核' : '原始资料';
+  const taskQueue = navigation.route.view === 'review' ? 'knowledge' : navigation.route.view === 'verify' ? 'verification' : 'review';
+  const memoryActive = ['memory', 'knowledge', 'sources'].includes(navigation.route.page) || (navigation.route.page === 'tasks' && taskQueue === 'knowledge');
+  const memoryView = navigation.route.view === 'bridge' ? '研究桥' : navigation.route.view === 'organize' ? 'AI 整理' : navigation.route.view === 'review' ? '待审核' : navigation.route.view === 'wiki' || navigation.route.page === 'knowledge' ? '我的知识库' : navigation.route.page === 'tasks' ? '待审核' : '原始资料';
+  const [knowledgeReviewState, setKnowledgeReviewState] = useState<KnowledgeReviewState>({ status: 'loading' });
   const industryLocation = useRef<{ industryId?: string; segmentId?: string }>({});
   if (navigation.route.kind === "page" && navigation.route.page === "industry") industryLocation.current = navigation.route;
   const eventLocation = useRef<{ eventId?: string }>({});
@@ -289,6 +291,10 @@ export default function App() {
     applyExpectationAction(result, correctsSnapshotId ? "纠正快照已追加，原快照保持不变。" : "业绩预期不可变快照已保存。");
   };
 
+  const researchDataState = storageError || expectationStorageError ? 'locked' as const : 'ready' as const;
+  const researchDataMessage = storageError ?? expectationStorageError ?? undefined;
+  const researchSourceNotice = [dataMode !== 'mock' && industryMetricState?.status !== 'available' ? `正式行业指标：${industryMetricState?.status === 'blocked' ? industryMetricState.reason : '校验中'}；行业变化范围尚不完整。` : null, storageError, expectationStorageError, companyGuidanceWorkflowStatus !== 'success' && dataMode !== 'mock' ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? '载入完成前，预期事件范围尚不完整。'}` : null].filter(Boolean).join('；');
+
   return (
     <div className="workspace min-h-screen text-text">
       <a className="skip-link" href="#workspace-main" onClick={event => { event.preventDefault(); document.getElementById("workspace-main")?.focus(); }}>跳到主要内容</a>
@@ -347,17 +353,17 @@ export default function App() {
           <div hidden={navigation.route.kind !== "page"} className="space-y-4">
 
 
-          {activeTab === '首页' && <ResearchWorkbench stocks={dataset.stocks} watchItems={watchlistData.watchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={storageError ?? expectationStorageError ?? undefined} onNavigate={navigateToTab} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenKnowledge={() => navigatePageId('knowledge')} onOpenTasks={() => navigatePageId('tasks')} onOpenSources={() => navigatePageId('sources')} onResearchQuery={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
-          {activeTab === '任务' && <TaskWorkspace stocks={dataset.stocks} watchItems={watchlistData.watchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={storageError ?? expectationStorageError ?? undefined} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenReview={() => document.getElementById('knowledge-review-workspace')?.scrollIntoView({ behavior: 'auto' })} />}
+          {activeTab === '首页' && <ResearchWorkbench stocks={dataset.stocks} watchItems={watchlistData.watchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} onNavigate={navigateToTab} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenKnowledge={() => navigatePageId('knowledge')} onOpenTasks={() => navigatePageId('tasks')} onOpenSources={() => navigation.navigateHash('#/sources?view=add')} onOpenResearch={() => navigatePageId('research')} onResearchQuery={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
+          {activeTab === '任务' && <TaskWorkspace stocks={dataset.stocks} watchItems={watchlistData.watchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} activeQueue={taskQueue} onQueueChange={queue => navigation.navigateHash(queue === 'knowledge' ? '#/tasks?view=review' : queue === 'verification' ? '#/tasks?view=verify' : '#/tasks?view=replay')} knowledgeState={knowledgeReviewState} onOpenReview={() => navigation.navigateHash('#/tasks?view=review')} />}
           {activeTab === '组合' && <PortfolioBoundary />}
-          {activeTab === '设置与帮助' && <WorkspaceSettings openKnowledge={() => navigatePageId('knowledge')} openSources={() => navigatePageId('sources')} />}
+          {activeTab === '设置与帮助' && <WorkspaceSettings openKnowledge={() => navigation.navigateHash('#/knowledge?view=maintenance')} openSources={() => navigatePageId('sources')} />}
           {visitedTabs.has("研究") && (<div hidden={activeTab !== "研究"}>
         <HomePage
           industryEvents={industryEvents}
           now={displayNow}
           expectationSnapshots={aggregatedExpectationEvidence.snapshots}
           timeZone={expectationData.settings.timeZone}
-          inboxSourceNotice={[dataMode !== 'mock' && industryMetricState?.status !== 'available' ? `正式行业指标：${industryMetricState?.status === 'blocked' ? industryMetricState.reason : '校验中'}；行业变化范围尚不完整。` : null, storageError, expectationStorageError, companyGuidanceWorkflowStatus !== "success" && dataMode !== "mock" ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? "载入完成前，预期事件范围尚不完整。"}` : null].filter(Boolean).join("；")}
+          inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage}
           watchItems={watchlistData.watchItems}
           tasks={reviewTasks}
           events={researchSnapshot.events}
@@ -385,7 +391,7 @@ export default function App() {
 
           {workflowMessage ? <div role="status" className="rounded-md border border-success/35 bg-success/10 px-3 py-2 text-sm text-success">{workflowMessage}</div> : null}
 
-          {['研究记忆', '知识库', '资料与连接', '任务'].some(tab => visitedTabs.has(tab as MainTab)) && <div id="knowledge-review-workspace" hidden={!memoryActive}><ResearchMemoryWorkspace active={memoryActive} requestedView={memoryView} routeKey={`${navigation.route.page}:${navigation.route.view ?? ''}`} selectedWikiId={navigation.route.wikiId} onSelectWiki={wikiId => navigation.navigateHash(`#/knowledge?wiki=${encodeURIComponent(wikiId)}`)} onViewChange={view => { if (navigation.route.page !== 'memory') navigation.navigateHash(view === '我的知识库' ? '#/knowledge' : view === '待审核' ? '#/tasks?view=review' : view === 'AI 整理' ? '#/sources?view=organize' : '#/sources'); }} /></div>}
+          {['研究记忆', '知识库', '资料与连接', '任务'].some(tab => visitedTabs.has(tab as MainTab)) && <div id="task-panel-knowledge" role={navigation.route.page === "tasks" ? "tabpanel" : undefined} aria-labelledby={navigation.route.page === "tasks" ? "task-tab-knowledge" : undefined} hidden={!memoryActive}><ResearchMemoryWorkspace active={memoryActive} requestedView={memoryView} routeKey={`${navigation.route.page}:${navigation.route.view ?? ''}`} selectedWikiId={navigation.route.wikiId} onReviewStateChange={setKnowledgeReviewState} maintenanceOpen={navigation.route.view === 'maintenance'} requestedAddMaterial={navigation.route.page === 'sources' && navigation.route.view === 'add'} onBackToLibrary={() => navigation.navigateHash('#/knowledge')} onAddMaterial={() => navigation.navigateHash('#/sources?view=add')} onSelectWiki={wikiId => navigation.navigateHash(`#/knowledge?wiki=${encodeURIComponent(wikiId)}`)} onViewChange={view => navigation.navigateHash(view === '我的知识库' ? '#/knowledge' : view === '待审核' ? '#/tasks?view=review' : view === 'AI 整理' ? '#/sources?view=organize' : view === '研究桥' ? '#/sources?view=bridge' : '#/sources')} /></div>}
           {visitedTabs.has("观点追踪") && <div hidden={activeTab !== "观点追踪"}><CreatorViewpointWorkspace /></div>}
           {visitedTabs.has("宏观") && <div hidden={activeTab !== "宏观"}><MacroTab indicators={macroIndicators} generatedAt={dataUpdatedAt} /></div>}
           {visitedTabs.has("行业") && (<div hidden={activeTab !== "行业"}>
