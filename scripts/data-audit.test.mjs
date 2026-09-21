@@ -84,6 +84,31 @@ describe("scan and zero-fallback rules", () => {
     expect(result.findings[0]).toMatchObject({ severity: "P0", blocking: true, category: "missing-value" });
   });
 
+  it("recognizes only the pinned generated schema timezone helpers", () => {
+    for (const name of ["wikiValidator", "contributionValidator"]) {
+      const relative = `src/services/${name}.generated.mjs`;
+      const source = fs.readFileSync(new URL(`../${relative}`, import.meta.url), "utf8");
+      const result = detectZeroFallbacks([write(relative, source.replace(/\r?\n/g, "\r\n"))], root);
+      expect(result.findings).toHaveLength(0);
+      expect(result.allowlisted.filter(row => row.id === "pinned-schema-timezone-capture")).toHaveLength(2);
+    }
+  });
+
+  it("fails closed if a generated validator is edited, including a same-line financial fallback", () => {
+    const relative = "src/services/wikiValidator.generated.mjs";
+    const source = fs.readFileSync(new URL(`../${relative}`, import.meta.url), "utf8").trimEnd() + ";const revenue = row.revenue || 0;\n";
+    const result = detectZeroFallbacks([write(relative, source)], root);
+    expect(result.allowlisted.filter(row => row.id === "pinned-schema-timezone-capture")).toHaveLength(0);
+    expect(result.findings.filter(row => row.severity === "P0" && row.blocking)).toHaveLength(3);
+  });
+
+  it("does not exempt a copied helper outside its exact generated path", () => {
+    const source = fs.readFileSync(new URL('../src/services/wikiValidator.generated.mjs', import.meta.url), "utf8");
+    const result = detectZeroFallbacks([write("src/copied-validator.mjs", source)], root);
+    expect(result.allowlisted.filter(row => row.id === "pinned-schema-timezone-capture")).toHaveLength(0);
+    expect(result.findings).toHaveLength(2);
+  });
+
   it("keeps an unclassified numeric fallback as a non-blocking warning", () => {
     const result = detectZeroFallbacks([write("src/value.ts", "const value = row.value ?? 0;\n")], root);
     expect(result.findings[0]).toMatchObject({ severity: "P2", blocking: false });
