@@ -21,7 +21,7 @@
 .inbox-event-controls { font-size:12px; color:var(--ui-muted); }
 .inbox-event-controls select { min-height:34px; margin-left:8px; border:1px solid var(--ui-border); border-radius:5px; }
 .inbox-range { font-size:12px; line-height:1.75; color:var(--ui-muted); }
-.inbox-event-table { border:1px solid var(--ui-border); border-radius:7px; background:var(--ui-panel); }
+.inbox-event-table { border:1px solid var(--ui-border); border-radius:7px; background:var(--ui-panel); container:research-event-table / inline-size; }
 .inbox-event-header,.inbox-event-row { display:grid; grid-template-columns:108px minmax(80px,.7fr) minmax(160px,2.5fr) minmax(110px,1fr) 56px; gap:12px; align-items:center; padding:12px 14px; }
 .inbox-event-header { font-size:12px; color:var(--ui-muted); background:var(--ui-raised); border-radius:7px 7px 0 0; }
 .inbox-event-row { min-height:72px; border-top:1px solid var(--ui-border); font-size:13px; line-height:1.55; }
@@ -35,8 +35,8 @@
 .inbox-empty { font-size:14px; line-height:1.8; padding:20px 16px; color:var(--ui-muted); border:1px solid var(--ui-border); border-radius:7px; }
 .inbox-tracks.has-review-track .inbox-event-header,.inbox-tracks.has-review-track .inbox-event-row { grid-template-columns:90px minmax(70px,.7fr) minmax(100px,2fr) minmax(90px,1fr) 50px; gap:8px; padding:10px; }
 @media(max-width:1200px) { .inbox-tracks.has-review-track { grid-template-columns:minmax(0,1fr); } }
-/* The desktop rail consumes 210px: switch before a five-column row outgrows its content area. */
-@media(max-width:1000px) {
+/* Use the actual column width, including the rail and zoom, instead of only the viewport. */
+@container research-event-table (max-width:650px) {
   .inbox-event-header { display:none; }
   .inbox-event-row,.inbox-tracks.has-review-track .inbox-event-row { grid-template-columns:minmax(0,1fr) auto; gap:6px 12px; padding:12px; }
   .inbox-event-date { grid-column:1; font-size:12px; color:var(--ui-muted); }
@@ -45,5 +45,5 @@
   .inbox-event-status { grid-column:1; }
   .inbox-event-row > .inbox-row-actions { grid-column:2; grid-row:1 / 3; }
   .inbox-mobile-label { display:inline; margin-right:6px; }
-  .inbox-event-controls label { display:flex; align-items:center; }
 }
+@media(max-width:760px) { .inbox-event-controls label { display:flex; align-items:center; } }

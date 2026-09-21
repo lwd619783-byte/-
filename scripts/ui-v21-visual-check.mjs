@@ -48,7 +48,7 @@ try{
  for(const width of [1440,390]){
   await page.setViewportSize({width,height:width===1440?900:844});
   for(const route of populated){await visit(route);await shot(route.replaceAll(/[?=&/]/g,'-'),'populated-synthetic',route);}
-  await visit('tasks?view=review');const open=page.getByRole('button',{name:'查看与审核',exact:true});if(await open.count()){await open.first().click();await page.getByRole('dialog').waitFor();await shot('knowledge-draft','populated-synthetic','tasks?view=review');await page.keyboard.press('Escape');}
+  await visit('tasks?view=review');const open=page.getByRole('button',{name:'查看与审核',exact:true});await open.first().waitFor();await open.first().click();await page.getByRole('dialog').waitFor();await shot('knowledge-draft','populated-synthetic','tasks?view=review');await page.keyboard.press('Escape');
  }
  for(const state of ['locked-wiki','error-source']){
   await page.evaluate(state=>{
