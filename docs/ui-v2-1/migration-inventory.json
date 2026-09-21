@@ -5,7 +5,7 @@
   "baselineSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
   "mainBaselineSha": "a029b1e3b96f8b8d28ec123cd741eadc09c12e3d",
   "runtimeSha": "884192d93b78367b0b062a10e1fc4b773c757c76",
-  "status": "LOCAL_VERIFIED_PENDING_PROTECTED_PREVIEW_AND_INDEPENDENT_AUDIT",
+  "status": "LOCAL_AND_PROTECTED_PREVIEW_VERIFIED_PENDING_INDEPENDENT_AUDIT",
   "rules": [
     "Preserve all 33 inherited IDs and oldRoute values; old history file is unchanged.",
     "wired describes a real code path, not final runtime acceptance or authorization to approve user content.",
@@ -2353,6 +2353,8 @@
     "closures": {
       "M02": "768px and 200% CSS reflow failure fixed and retested 198/198",
       "M31": "94 actual App after captures complete; component geometry and source hash reports attached"
-    }
+    },
+    "protectedPreview": "evidence/remote-ui-browser.json",
+    "remoteRuntimeSha": "26267b085b2c9ce9bc21eb31e578acab1dbfc2ed"
   }
 }

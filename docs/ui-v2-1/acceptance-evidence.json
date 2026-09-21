@@ -1,6 +1,6 @@
 {
   "schemaVersion": "ui-v2-1-acceptance.v1",
-  "status": "LOCAL_VERIFIED_PENDING_PROTECTED_PREVIEW_AND_INDEPENDENT_AUDIT",
+  "status": "LOCAL_AND_PROTECTED_PREVIEW_VERIFIED_PENDING_INDEPENDENT_AUDIT",
   "baselineSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
   "mainBaseline": "a029b1e3b96f8b8d28ec123cd741eadc09c12e3d",
   "runtimeSha": "884192d93b78367b0b062a10e1fc4b773c757c76",
@@ -148,7 +148,8 @@
     "knowledge-navigation": "evidence/knowledge-navigation.json",
     "knowledge-states": "evidence/knowledge-states.json",
     "density-comparison": "evidence/density-comparison.json",
-    "performance": "evidence/performance.json"
+    "performance": "evidence/performance.json",
+    "remote-ui-browser": "evidence/remote-ui-browser.json"
   },
   "sourceBindings": [
     {
@@ -193,5 +194,27 @@
     "Component harness screenshots have their own shell and are not protected Preview or real-user workspace evidence.",
     "Preview origin cannot automatically read another origin IndexedDB; no personal data migration performed.",
     "No PR, merge, main modification or Production deployment."
-  ]
+  ],
+  "preview": {
+    "deploymentId": "dpl_9WTDbQbGPbzZM3HYu79phXAsc6S5",
+    "runtimeSha": "26267b085b2c9ce9bc21eb31e578acab1dbfc2ed",
+    "applicationCodeSha": "884192d93b78367b0b062a10e1fc4b773c757c76",
+    "origin": "https://investment-research-dashboard-ap5ric62k-lkdmkl.vercel.app",
+    "state": "READY",
+    "target": null,
+    "branch": "codex/ui-v2-clear-research-workspace",
+    "testedAt": "2026-09-21T15:59:14.070Z",
+    "checks": 198,
+    "passed": 198,
+    "errors": 0,
+    "externalRequests": 0,
+    "anonymousProtection": {
+      "testedAt": "2026-09-21T15:59:20.641Z",
+      "status": 302,
+      "redirectHost": "vercel.com"
+    },
+    "applicationDiffFromLocalCode": [],
+    "profile": "temporary exact-origin platform session in memory; disposable browser context; no personal cookies/profile",
+    "documentFollowup": "Final evidence-only commit follows this verified runtime; no app/server/contract/dependency changes."
+  }
 }

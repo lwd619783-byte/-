@@ -1,0 +1,931 @@
+{
+  "runtimeSha": "26267b085b2c9ce9bc21eb31e578acab1dbfc2ed",
+  "deploymentId": "dpl_9WTDbQbGPbzZM3HYu79phXAsc6S5",
+  "origin": "https://investment-research-dashboard-ap5ric62k-lkdmkl.vercel.app",
+  "testedAt": "2026-09-21T15:59:14.070Z",
+  "inputType": "isolated-synthetic",
+  "profile": "temporary exact-origin platform session in memory; disposable browser context; no personal cookies/profile",
+  "checks": [
+    {
+      "ok": true,
+      "name": "legacy neon preference renders light"
+    },
+    {
+      "ok": true,
+      "name": "legacy neon and unrelated storage bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "legacy pro preference renders light"
+    },
+    {
+      "ok": true,
+      "name": "legacy pro and unrelated storage bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "appearance selector removed"
+    },
+    {
+      "ok": true,
+      "name": "one add-material main action"
+    },
+    {
+      "ok": true,
+      "name": "unimplemented reading history and research hero absent"
+    },
+    {
+      "ok": true,
+      "name": "add material opens actual source flow"
+    },
+    {
+      "ok": true,
+      "name": "route home renders content"
+    },
+    {
+      "ok": true,
+      "name": "route home is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route home survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route macro renders content"
+    },
+    {
+      "ok": true,
+      "name": "route macro is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route macro survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route industry renders content"
+    },
+    {
+      "ok": true,
+      "name": "route industry is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route industry survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route stocks renders content"
+    },
+    {
+      "ok": true,
+      "name": "route stocks is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route stocks survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route watchlist renders content"
+    },
+    {
+      "ok": true,
+      "name": "route watchlist is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route watchlist survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route verification renders content"
+    },
+    {
+      "ok": true,
+      "name": "route verification is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route verification survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route expectations renders content"
+    },
+    {
+      "ok": true,
+      "name": "route expectations is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route expectations survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route creators renders content"
+    },
+    {
+      "ok": true,
+      "name": "route creators is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route creators survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route memory renders content"
+    },
+    {
+      "ok": true,
+      "name": "route memory is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route memory survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route research renders content"
+    },
+    {
+      "ok": true,
+      "name": "route research is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route research survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route knowledge renders content"
+    },
+    {
+      "ok": true,
+      "name": "route knowledge is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route knowledge survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route portfolio renders content"
+    },
+    {
+      "ok": true,
+      "name": "route portfolio is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route portfolio survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route tasks renders content"
+    },
+    {
+      "ok": true,
+      "name": "route tasks is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route tasks survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route sources renders content"
+    },
+    {
+      "ok": true,
+      "name": "route sources is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route sources survives reload"
+    },
+    {
+      "ok": true,
+      "name": "route settings renders content"
+    },
+    {
+      "ok": true,
+      "name": "route settings is recognized"
+    },
+    {
+      "ok": true,
+      "name": "route settings survives reload"
+    },
+    {
+      "ok": true,
+      "name": "legacy memory retains upload through add-material flow"
+    },
+    {
+      "ok": true,
+      "name": "deep link preserves exact encoded query #/industry?industry=synthetic%2Findustry&segment=synthetic%3Fsegment"
+    },
+    {
+      "ok": true,
+      "name": "deep link preserves exact encoded query #/verification?event=synthetic%2Fevent%3Fone"
+    },
+    {
+      "ok": true,
+      "name": "deep link preserves exact encoded query #/memory?view=sources&wiki=synthetic%2Fwiki"
+    },
+    {
+      "ok": true,
+      "name": "company identity obtained from loaded research pool"
+    },
+    {
+      "ok": true,
+      "name": "quick preview retains selected company identity"
+    },
+    {
+      "ok": true,
+      "name": "company action preserves exact identity and return origin"
+    },
+    {
+      "ok": true,
+      "name": "company overview keeps identity"
+    },
+    {
+      "ok": true,
+      "name": "company overview remains selected after reload"
+    },
+    {
+      "ok": true,
+      "name": "company financials keeps identity"
+    },
+    {
+      "ok": true,
+      "name": "company financials remains selected after reload"
+    },
+    {
+      "ok": true,
+      "name": "company valuation keeps identity"
+    },
+    {
+      "ok": true,
+      "name": "company valuation remains selected after reload"
+    },
+    {
+      "ok": true,
+      "name": "company expectations keeps identity"
+    },
+    {
+      "ok": true,
+      "name": "company expectations remains selected after reload"
+    },
+    {
+      "ok": true,
+      "name": "company evidence keeps identity"
+    },
+    {
+      "ok": true,
+      "name": "company evidence remains selected after reload"
+    },
+    {
+      "ok": true,
+      "name": "company returns to original research page after reload"
+    },
+    {
+      "ok": true,
+      "name": "search modal receives keyboard focus"
+    },
+    {
+      "ok": true,
+      "name": "search input receives initial focus"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 1"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 2"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 3"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 4"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 5"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 6"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 7"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 8"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 9"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 10"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 11"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 12"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 13"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 14"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 15"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 16"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 17"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 18"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 19"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 20"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 21"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 22"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 23"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 24"
+    },
+    {
+      "ok": true,
+      "name": "search Tab focus remains within modal 25"
+    },
+    {
+      "ok": true,
+      "name": "search reverse Tab remains in modal"
+    },
+    {
+      "ok": true,
+      "name": "search Esc returns focus to trigger"
+    },
+    {
+      "ok": true,
+      "name": "search result supports keyboard navigation"
+    },
+    {
+      "ok": true,
+      "name": "unmatched global company search has no company rows"
+    },
+    {
+      "ok": true,
+      "name": "clearing global company filter restores loaded companies"
+    },
+    {
+      "ok": true,
+      "name": "320/home no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/macro no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/industry no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/stocks no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/watchlist no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/verification no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/expectations no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/creators no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/knowledge no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/tasks no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/sources no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/portfolio no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320/settings no page horizontal overflow (320/320)"
+    },
+    {
+      "ok": true,
+      "name": "320 reduced motion requested"
+    },
+    {
+      "ok": true,
+      "name": "320 keyboard opens navigation"
+    },
+    {
+      "ok": true,
+      "name": "320 Esc closes navigation"
+    },
+    {
+      "ok": true,
+      "name": "320 navigation returns focus"
+    },
+    {
+      "ok": true,
+      "name": "390/home no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/macro no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/industry no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/stocks no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/watchlist no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/verification no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/expectations no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/creators no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/knowledge no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/tasks no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/sources no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/portfolio no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390/settings no page horizontal overflow (390/390)"
+    },
+    {
+      "ok": true,
+      "name": "390 reduced motion requested"
+    },
+    {
+      "ok": true,
+      "name": "390 keyboard opens navigation"
+    },
+    {
+      "ok": true,
+      "name": "390 Esc closes navigation"
+    },
+    {
+      "ok": true,
+      "name": "390 navigation returns focus"
+    },
+    {
+      "ok": true,
+      "name": "768/home no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/macro no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/industry no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/stocks no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/watchlist no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/verification no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/expectations no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/creators no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/knowledge no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/tasks no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/sources no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/portfolio no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768/settings no page horizontal overflow (768/768)"
+    },
+    {
+      "ok": true,
+      "name": "768 reduced motion requested"
+    },
+    {
+      "ok": true,
+      "name": "1024/home no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/macro no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/industry no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/stocks no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/watchlist no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/verification no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/expectations no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/creators no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/knowledge no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/tasks no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/sources no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/portfolio no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024/settings no page horizontal overflow (1024/1024)"
+    },
+    {
+      "ok": true,
+      "name": "1024 reduced motion requested"
+    },
+    {
+      "ok": true,
+      "name": "1440/home no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/macro no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/industry no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/stocks no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/watchlist no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/verification no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/expectations no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/creators no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/knowledge no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/tasks no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/sources no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/portfolio no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440/settings no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "1440 reduced motion requested"
+    },
+    {
+      "ok": true,
+      "name": "1920/home no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/macro no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/industry no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/stocks no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/watchlist no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/verification no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/expectations no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/creators no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/knowledge no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/tasks no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/sources no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/portfolio no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920/settings no page horizontal overflow (1920/1920)"
+    },
+    {
+      "ok": true,
+      "name": "1920 reduced motion requested"
+    },
+    {
+      "ok": true,
+      "name": "home 200 percent CSS zoom no page horizontal overflow (1440/1440)"
+    },
+    {
+      "ok": true,
+      "name": "portfolio exposes unavailable capability honestly"
+    },
+    {
+      "ok": true,
+      "name": "no unimplemented Agent execution action"
+    },
+    {
+      "ok": true,
+      "name": "source access retains its three contextual views"
+    },
+    {
+      "ok": true,
+      "name": "no browser runtime errors"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "home-320.png",
+    "home-390.png",
+    "home-768.png",
+    "home-1024.png",
+    "home-1440.png",
+    "home-1920.png",
+    "home-css-zoom-200.png"
+  ],
+  "routes": [
+    "#/home",
+    "#/home",
+    "#/macro",
+    "#/industry",
+    "#/stocks",
+    "#/watchlist",
+    "#/verification",
+    "#/expectations",
+    "#/creators",
+    "#/memory",
+    "#/research",
+    "#/knowledge",
+    "#/portfolio",
+    "#/tasks",
+    "#/sources",
+    "#/settings",
+    "#/memory",
+    "#/industry?industry=synthetic%2Findustry&segment=synthetic%3Fsegment",
+    "#/verification?event=synthetic%2Fevent%3Fone",
+    "#/memory?view=sources&wiki=synthetic%2Fwiki",
+    "#/stocks",
+    "#/home",
+    "#/home",
+    "#/macro",
+    "#/industry",
+    "#/stocks",
+    "#/watchlist",
+    "#/verification",
+    "#/expectations",
+    "#/creators",
+    "#/knowledge",
+    "#/tasks",
+    "#/sources",
+    "#/portfolio",
+    "#/settings",
+    "#/home",
+    "#/home",
+    "#/macro",
+    "#/industry",
+    "#/stocks",
+    "#/watchlist",
+    "#/verification",
+    "#/expectations",
+    "#/creators",
+    "#/knowledge",
+    "#/tasks",
+    "#/sources",
+    "#/portfolio",
+    "#/settings",
+    "#/home",
+    "#/home",
+    "#/macro",
+    "#/industry",
+    "#/stocks",
+    "#/watchlist",
+    "#/verification",
+    "#/expectations",
+    "#/creators",
+    "#/knowledge",
+    "#/tasks",
+    "#/sources",
+    "#/portfolio",
+    "#/settings",
+    "#/home",
+    "#/home",
+    "#/macro",
+    "#/industry",
+    "#/stocks",
+    "#/watchlist",
+    "#/verification",
+    "#/expectations",
+    "#/creators",
+    "#/knowledge",
+    "#/tasks",
+    "#/sources",
+    "#/portfolio",
+    "#/settings",
+    "#/home",
+    "#/home",
+    "#/macro",
+    "#/industry",
+    "#/stocks",
+    "#/watchlist",
+    "#/verification",
+    "#/expectations",
+    "#/creators",
+    "#/knowledge",
+    "#/tasks",
+    "#/sources",
+    "#/portfolio",
+    "#/settings",
+    "#/home",
+    "#/home",
+    "#/macro",
+    "#/industry",
+    "#/stocks",
+    "#/watchlist",
+    "#/verification",
+    "#/expectations",
+    "#/creators",
+    "#/knowledge",
+    "#/tasks",
+    "#/sources",
+    "#/portfolio",
+    "#/settings",
+    "#/home",
+    "#/home",
+    "#/portfolio",
+    "#/tasks",
+    "#/sources"
+  ],
+  "externalRequests": [],
+  "limits": [
+    "Browser checks do not establish full WCAG conformance.",
+    "CSS zoom and 320 CSS px reflow are recorded separately from native browser zoom.",
+    "Formal knowledge approval and authenticated remote Bridge acceptance are not performed."
+  ],
+  "outputNote": "Screenshots remain local in data-cache/ui-v2-1/remote-ui-browser; report contains no access URL or auth cookie."
+}

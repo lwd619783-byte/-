@@ -82,4 +82,8 @@ UI回退可在本功能分支普通revert本轮呈现提交，或本地独立检
 
 ## Preview与独立审计
 
-当前本地完成，目标功能分支普通push后的immutable Preview、deployment ID及远程实际验证将在此追加。原光通信正式审核仍由用户决定；本轮新增UI及差异等待ChatGPT独立审计，不创建PR、不merge、不修改main、不部署Production。
+2026-09-22（北京时间）补录：普通push `26267b085b2c9ce9bc21eb31e578acab1dbfc2ed` 后，受保护[immutable Preview](https://investment-research-dashboard-ap5ric62k-lkdmkl.vercel.app) READY；deployment ID `dpl_9WTDbQbGPbzZM3HYu79phXAsc6S5`，target=null，功能分支正确。应用代码与 `884192d` 无差异，仅文档/截图/测试准备脚本不同。
+
+在该exact origin以全新context实际运行全站浏览器 **198/198 PASS**，无runtime error、无意外外部请求；testedAt `2026-09-21T15:59:14.070Z`。匿名请求于 `15:59:20.641Z` 返回302并跳转 `vercel.com`，证明没有取消平台保护。临时平台访问仅保存在内存，不复制个人登录cookies，结束后context关闭。远程首页1440截图已亲看；正文与知识负向门禁仍按各自本地合成runtime登记，不升级为真实用户资料远程验收。见[远程报告](evidence/remote-ui-browser.json)。
+
+本节补录为后续仅文档commit，交付Final SHA与被测Preview runtime分别报告。功能分支相对 `origin/main @ a029b1e` 为ahead，main未变；未创建PR。原光通信正式审核仍由用户决定；本轮新增UI及差异等待ChatGPT独立审计，不merge、不修改main、不部署Production。
