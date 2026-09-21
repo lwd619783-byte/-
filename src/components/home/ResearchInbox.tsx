@@ -9,7 +9,8 @@ import { industryEventAudit, type IndustryChangeEvent } from "../../services/ind
 import { IndustryChangeSummary } from "../industry/IndustryChangePanel";
 import "./ResearchInbox.css";
 
-export type ResearchDataState = "ready" | "loading" | "error" | "locked";
+export type ResearchDataState = "ready" | "partial" | "loading" | "error" | "locked";
+export const isReadableResearchState = (state: ResearchDataState): state is "ready" | "partial" => state === "ready" || state === "partial";
 export interface ResearchInboxProps {
   events: ResearchEvent[]; tasks: ReviewTask[]; watchItems: WatchItem[]; stocks: Stock[];
   now: Date; timeZone: string;
@@ -64,9 +65,10 @@ export function ResearchInbox({ events, industryEvents, tasks, watchItems, stock
   }
   const title = mode === "review" ? "研究复盘" : mode === "verification" ? "事件核验" : "近期研究事件";
   return <section className={`research-inbox ${compact ? "is-compact" : ""}`} aria-label="研究收件箱" data-state={dataState} data-mode={mode}>
-    <div className="inbox-toolbar"><h2>{title}</h2>{onOpenAll ? <button type="button" className="inbox-action" onClick={onOpenAll}>查看全部研究</button> : null}{dataState === "ready" && !compact ? <details className="inbox-scope"><summary>排序与数据范围</summary><div><p>逾期任务 → 今日任务 → 其他待处理任务 → 待复盘事件 → 近期变化。各组按原始严重程度 / 影响程度、任务日期升序或事件日期降序、稳定标识排序。同一观察项合并展示所有待处理任务。</p><p>{mode === "verification" ? "核验队列采用原有数据核验规则，包含符合条件的任务关联事件，不等于全部普通事件。" : "已关联任务的事件不重复列出，包括已确认、忽略和稍后处理的任务。"}</p><p>行业日期为原记录标注发布时间，不证明公开可得时间；其他事件日期可能为报告期。更新、检测与记录时间不作为新事件日期。历史时点可得性与准入仍须独立核验。</p><p>{today} · {timeZone} · 当前已载入范围；不是实时新闻或投资评分。</p></div></details> : null}</div>
+    <div className="inbox-toolbar"><h2>{title}</h2>{onOpenAll ? <button type="button" className="inbox-action" onClick={onOpenAll}>查看全部研究</button> : null}{isReadableResearchState(dataState) && !compact ? <details className="inbox-scope"><summary>排序与数据范围</summary><div><p>逾期任务 → 今日任务 → 其他待处理任务 → 待复盘事件 → 近期变化。各组按原始严重程度 / 影响程度、任务日期升序或事件日期降序、稳定标识排序。同一观察项合并展示所有待处理任务。</p><p>{mode === "verification" ? "核验队列采用原有数据核验规则，包含符合条件的任务关联事件，不等于全部普通事件。" : "已关联任务的事件不重复列出，包括已确认、忽略和稍后处理的任务。"}</p><p>行业日期为原记录标注发布时间，不证明公开可得时间；其他事件日期可能为报告期。更新、检测与记录时间不作为新事件日期。历史时点可得性与准入仍须独立核验。</p><p>{today} · {timeZone} · 当前已载入范围；不是实时新闻或投资评分。</p></div></details> : null}</div>
+    {dataState === "partial" ? <p role="status" className="inbox-source-notice">范围不完整：以下列表与数量仅代表当前可读取部分。{!sourceNotice ? dataMessage : null}</p> : null}
     {sourceNotice ? <p role="status" className="inbox-source-notice">{sourceNotice}</p> : null}
-    {dataState !== "ready" ? <p role={dataState === "error" || dataState === "locked" ? "alert" : "status"} className="inbox-empty">{dataMessage ?? ({ loading: "正在载入研究数据，尚不能确定队列数量。", error: "研究数据读取失败，当前范围不完整。", locked: "研究数据已锁定，请先处理存储或权限问题。" })[dataState]}</p> : <>
+    {!isReadableResearchState(dataState) ? <p role={dataState === "error" || dataState === "locked" ? "alert" : "status"} className="inbox-empty">{dataMessage ?? ({ loading: "正在载入研究数据，尚不能确定队列数量。", error: "研究数据读取失败，当前范围不完整。", locked: "研究数据已锁定，请先处理存储或权限问题。" })[dataState]}</p> : <>
       <div className={`inbox-tracks ${hasTwoTracks ? "has-review-track" : ""}`} data-columns={hasTwoTracks ? "2" : "1"}>
         {showPending ? <section aria-label="待处理事项" className="inbox-review-track"><h3>研究复盘 <span>{pending.length} 个观察项 · {pending.reduce((sum, row) => sum + row.tasks.length, 0)} 项任务</span></h3>{pending.slice(0, limit).map(renderTask)}{!pending.length ? <p className="inbox-empty">暂无待处理研究任务。后续复盘提醒会在这里显示。</p> : null}{pending.length > limit ? <button type="button" className="inbox-action" onClick={() => setLimit(value => value + 6)}>显示更多待处理（剩余 {pending.length - limit}）</button> : null}</section> : null}
         {showEvents ? <section aria-label="近期变化" className="inbox-events-track">

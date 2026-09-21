@@ -110,6 +110,12 @@ export class WatchlistRepository {
     }
   }
 
+  /** Read-only check of the captured base; never rebinds it or authorizes a write. */
+  currentBaseError(base: WatchlistStoreEnvelope): string | null {
+    try { this.persistedBase.assertCurrent(base); return null; }
+    catch (error) { return `当前读取基线不可用：${errorMessage(error)}`; }
+  }
+
   save(data: WatchlistStoreEnvelope, base = data): RepositoryWriteResult {
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法保存。" };
     const errors = validateEnvelope(data);

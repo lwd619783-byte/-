@@ -71,6 +71,7 @@ export default function App() {
   const initialWatchlistLoad = useMemo(() => repository.load(), [repository]);
   const [watchlistData, setWatchlistData] = useState(initialWatchlistLoad.data);
   const [storageError, setStorageError] = useState<string | null>(initialWatchlistLoad.error);
+  const [watchActionError, setWatchActionError] = useState<string | null>(null);
   const [corruptedRaw, setCorruptedRaw] = useState<string | null>(initialWatchlistLoad.corruptedRaw);
   const [workflowMessage, setWorkflowMessage] = useState<string | null>(null);
   const [watchForm, setWatchForm] = useState<{ itemId?: string; stockId?: string } | null>(null);
@@ -81,6 +82,7 @@ export default function App() {
   const initialExpectationLoad = useMemo(() => expectationRepository.load(), [expectationRepository]);
   const [expectationData, setExpectationData] = useState(initialExpectationLoad.data);
   const [expectationStorageError, setExpectationStorageError] = useState<string | null>(initialExpectationLoad.error);
+  const [expectationActionError, setExpectationActionError] = useState<string | null>(null);
   const [expectationCorruptedRaw, setExpectationCorruptedRaw] = useState<string | null>(initialExpectationLoad.corruptedRaw);
   const [expectationForm, setExpectationForm] = useState<{ stockId?: string; correctionId?: string } | null>(null);
   const [expectationImportOpen, setExpectationImportOpen] = useState(false);
@@ -98,22 +100,24 @@ export default function App() {
   const industryEvents = useMemo(() => dataMode !== 'mock' && industryMetricState?.status === 'available'
     ? dataset.industries.flatMap(industry => buildIndustryChanges(industryMetricState.provider, industry.id).events) : [], [dataMode, dataset.industries, industryMetricState]);
   const providerRecords = useMemo(() => selectActiveCompanyGuidanceProviderRecords(dataMode, companyGuidanceWorkflowStatus, companyGuidanceWorkflow), [companyGuidanceWorkflow, companyGuidanceWorkflowStatus, dataMode]);
-  const aggregatedExpectationEvidence = useMemo(() => aggregateEarningsExpectationEvidence({ providerSnapshots: providerRecords, localSnapshots: expectationData.snapshots }), [expectationData.snapshots, providerRecords]);
+  const readableLocalExpectations = useMemo(() => expectationStorageError ? [] : expectationData.snapshots, [expectationStorageError, expectationData.snapshots]);
+  const readableWatchItems = useMemo(() => storageError ? [] : watchlistData.watchItems, [storageError, watchlistData.watchItems]);
+  const aggregatedExpectationEvidence = useMemo(() => aggregateEarningsExpectationEvidence({ providerSnapshots: providerRecords, localSnapshots: readableLocalExpectations }), [readableLocalExpectations, providerRecords]);
   const baseResearchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
   const expectationComparisons = useMemo(() => buildEarningsExpectationComparisons(aggregatedExpectationEvidence.comparisonSnapshots, baseResearchSnapshot.events, expectationData.settings), [aggregatedExpectationEvidence.comparisonSnapshots, baseResearchSnapshot.events, expectationData.settings]);
   const expectationEvents = useMemo(() => buildEarningsExpectationResearchEvents(aggregatedExpectationEvidence.comparisonSnapshots, expectationComparisons, dataset.stocks, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone), [aggregatedExpectationEvidence.comparisonSnapshots, dataset.stocks, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone]);
-  const providerConflictEvents = useMemo(() => buildProviderContentConflictEvents(aggregatedExpectationEvidence, expectationData.snapshots, dataset.stocks), [aggregatedExpectationEvidence, dataset.stocks, expectationData.snapshots]);
+  const providerConflictEvents = useMemo(() => buildProviderContentConflictEvents(aggregatedExpectationEvidence, readableLocalExpectations, dataset.stocks), [aggregatedExpectationEvidence, dataset.stocks, readableLocalExpectations]);
   const researchSnapshot = useMemo(() => ({ ...baseResearchSnapshot, events: sortResearchEvents(deduplicateResearchEvents([...baseResearchSnapshot.events, ...expectationEvents, ...providerConflictEvents]), expectationData.settings.timeZone) }), [baseResearchSnapshot, expectationData.settings.timeZone, expectationEvents, providerConflictEvents]);
   const reviewTasks = useMemo(() => buildReviewTasks({
     now: displayNow,
-    watchItems: watchlistData.watchItems,
+    watchItems: readableWatchItems,
     events: researchSnapshot.events,
     chains: researchSnapshot.chains,
     taskStates: watchlistData.reviewTaskStates,
     longUnreviewedDays: watchlistData.settings.longUnreviewedDays,
     expectationRevisionThreshold: expectationData.settings.revisionReminderThreshold,
     timeZone: expectationData.settings.timeZone,
-  }), [displayNow, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, researchSnapshot, watchlistData]);
+  }), [displayNow, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, researchSnapshot, watchlistData, readableWatchItems]);
   const exportJson = useMemo(() => repository.export(watchlistData), [repository, watchlistData]);
   const expectationExportJson = useMemo(() => expectationRepository.export(expectationData), [expectationData, expectationRepository]);
   const expectationExportCsv = useMemo(() => exportEarningsExpectationCsv(expectationData.snapshots), [expectationData.snapshots]);
@@ -252,13 +256,32 @@ export default function App() {
     };
   }, [displayNow, aggregatedExpectationEvidence.snapshots, dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
 
+  // Mutation results do not classify owner health. Re-read through the existing
+  // repository and verify its captured base without replacing the UI snapshot.
+  // Quota/write rejection can leave reads healthy; corruption, access denial and
+  // changed/missing bases remain locked. No error-message keyword classification.
+  const reportWatchFailure = (error: string | null, base = watchlistData) => {
+    const loaded = repository.load();
+    setStorageError(loaded.error ?? repository.currentBaseError(base));
+    setCorruptedRaw(loaded.corruptedRaw);
+    setWatchActionError(error);
+    setWorkflowMessage(null);
+  };
+  const reportExpectationFailure = (error: string | null) => {
+    const loaded = expectationRepository.load();
+    setExpectationStorageError(loaded.error ?? expectationRepository.currentBaseError(expectationData));
+    setExpectationCorruptedRaw(loaded.corruptedRaw);
+    setExpectationActionError(error);
+    setWorkflowMessage(null);
+  };
+
   const applyAction = (result: WatchlistActionResult, successMessage: string) => {
     if (result.ok) {
       setWatchlistData(result.data);
-      setStorageError(null);
+      setStorageError(null); setWatchActionError(null);
       setWorkflowMessage(successMessage);
     } else {
-      setStorageError(result.error);
+      reportWatchFailure(result.error);
       setWorkflowMessage(null);
     }
     return result.ok;
@@ -276,11 +299,11 @@ export default function App() {
   const applyExpectationAction = (result: EarningsExpectationActionResult, message: string) => {
     if (result.ok) {
       setExpectationData(result.data);
-      setExpectationStorageError(null);
+      setExpectationStorageError(null); setExpectationActionError(null);
       setWorkflowMessage(message);
       setExpectationForm(null);
     } else {
-      setExpectationStorageError(result.error);
+      reportExpectationFailure(result.error);
       setWorkflowMessage(null);
     }
   };
@@ -291,9 +314,10 @@ export default function App() {
     applyExpectationAction(result, correctsSnapshotId ? "纠正快照已追加，原快照保持不变。" : "业绩预期不可变快照已保存。");
   };
 
-  const researchDataState = storageError || expectationStorageError ? 'locked' as const : 'ready' as const;
-  const researchDataMessage = storageError ?? expectationStorageError ?? undefined;
-  const researchSourceNotice = [dataMode !== 'mock' && industryMetricState?.status !== 'available' ? `正式行业指标：${industryMetricState?.status === 'blocked' ? industryMetricState.reason : '校验中'}；行业变化范围尚不完整。` : null, storageError, expectationStorageError, companyGuidanceWorkflowStatus !== 'success' && dataMode !== 'mock' ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? '载入完成前，预期事件范围尚不完整。'}` : null].filter(Boolean).join('；');
+  const observationState = storageError ? 'locked' as const : 'ready' as const;
+  const researchDataState = storageError || expectationStorageError ? 'partial' as const : 'ready' as const;
+  const researchDataMessage = [storageError ? `观察与复盘记录已锁定：${storageError}` : null, expectationStorageError ? `本地业绩预期已锁定：${expectationStorageError}` : null].filter(Boolean).join('；') || undefined;
+  const researchSourceNotice = [dataMode !== 'mock' && industryMetricState?.status !== 'available' ? `正式行业指标：${industryMetricState?.status === 'blocked' ? industryMetricState.reason : '校验中'}；行业变化范围尚不完整。` : null, researchDataMessage ? `当前范围不完整；仅显示可读取来源。${researchDataMessage}` : null, companyGuidanceWorkflowStatus !== 'success' && dataMode !== 'mock' ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? '载入完成前，预期事件范围尚不完整。'}` : null].filter(Boolean).join('；');
 
   return (
     <div className="workspace min-h-screen text-text">
@@ -329,7 +353,7 @@ export default function App() {
         stock={activeSelectedStock}
         stocks={dataset.stocks}
         industries={dataset.industries}
-        watchItems={watchlistData.watchItems}
+        watchItems={readableWatchItems}
         reviewEntries={watchlistData.reviewEntries}
         reviewTasks={reviewTasks}
         researchEvents={researchSnapshot.events}
@@ -353,8 +377,8 @@ export default function App() {
           <div hidden={navigation.route.kind !== "page"} className="space-y-4">
 
 
-          {activeTab === '首页' && <ResearchWorkbench stocks={dataset.stocks} watchItems={watchlistData.watchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} onNavigate={navigateToTab} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenKnowledge={() => navigatePageId('knowledge')} onOpenTasks={() => navigatePageId('tasks')} onOpenSources={() => navigation.navigateHash('#/sources?view=add')} onOpenResearch={() => navigatePageId('research')} onResearchQuery={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
-          {activeTab === '任务' && <TaskWorkspace stocks={dataset.stocks} watchItems={watchlistData.watchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} activeQueue={taskQueue} onQueueChange={queue => navigation.navigateHash(queue === 'knowledge' ? '#/tasks?view=review' : queue === 'verification' ? '#/tasks?view=verify' : '#/tasks?view=replay')} knowledgeState={knowledgeReviewState} onOpenReview={() => navigation.navigateHash('#/tasks?view=review')} />}
+          {activeTab === '首页' && <ResearchWorkbench stocks={dataset.stocks} watchItems={readableWatchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} observationState={observationState} observationMessage={storageError ?? undefined} onNavigate={navigateToTab} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenKnowledge={() => navigatePageId('knowledge')} onOpenTasks={() => navigatePageId('tasks')} onOpenSources={() => navigation.navigateHash('#/sources?view=add')} onOpenResearch={() => navigatePageId('research')} onResearchQuery={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
+          {activeTab === '任务' && <TaskWorkspace stocks={dataset.stocks} watchItems={readableWatchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} observationState={observationState} observationMessage={storageError ?? undefined} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} activeQueue={taskQueue} onQueueChange={queue => navigation.navigateHash(queue === 'knowledge' ? '#/tasks?view=review' : queue === 'verification' ? '#/tasks?view=verify' : '#/tasks?view=replay')} knowledgeState={knowledgeReviewState} onOpenReview={() => navigation.navigateHash('#/tasks?view=review')} />}
           {activeTab === '组合' && <PortfolioBoundary />}
           {activeTab === '设置与帮助' && <WorkspaceSettings openKnowledge={() => navigation.navigateHash('#/knowledge?view=maintenance')} openSources={() => navigatePageId('sources')} />}
           {visitedTabs.has("研究") && (<div hidden={activeTab !== "研究"}>
@@ -363,8 +387,8 @@ export default function App() {
           now={displayNow}
           expectationSnapshots={aggregatedExpectationEvidence.snapshots}
           timeZone={expectationData.settings.timeZone}
-          inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage}
-          watchItems={watchlistData.watchItems}
+          inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} observationState={observationState} observationMessage={storageError ?? undefined}
+          watchItems={readableWatchItems}
           tasks={reviewTasks}
           events={researchSnapshot.events}
           onStartReview={startReview}
@@ -416,7 +440,7 @@ export default function App() {
           </div>)}
           {visitedTabs.has("观察清单") && (<div hidden={activeTab !== "观察清单"}>
             <WatchlistTab
-              watchItems={watchlistData.watchItems}
+              watchItems={readableWatchItems}
               samples={watchlistSamples}
               reviewEntries={watchlistData.reviewEntries}
               tasks={reviewTasks}
@@ -424,25 +448,26 @@ export default function App() {
               industries={dataset.industries}
               events={researchSnapshot.events}
               storageError={storageError}
+              operationError={watchForm || reviewItemId ? null : watchActionError}
               corruptedRaw={corruptedRaw}
               exportJson={exportJson}
               onValidateImport={(raw) => repository.validateImport(raw, watchlistData)}
               onMergeImport={(raw) => {
                 const result = repository.mergeImport(raw, watchlistData);
-                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setWorkflowMessage(`合并完成：新增 ${result.preview.addCount}，跳过 ${result.preview.skipCount}。`); }
-                else setStorageError(result.error);
+                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setWatchActionError(null); setWorkflowMessage(`合并完成：新增 ${result.preview.addCount}，跳过 ${result.preview.skipCount}。`); }
+                else reportWatchFailure(result.error);
                 return result.ok;
               }}
               onReplaceImport={(raw) => {
                 const result = repository.replaceImport(raw, watchlistData);
-                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setCorruptedRaw(null); setWorkflowMessage(`替换完成，备份键：${result.backupKey ?? "已创建"}`); }
-                else setStorageError(result.error);
+                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setWatchActionError(null); setCorruptedRaw(null); setWorkflowMessage(`替换完成，备份键：${result.backupKey ?? "已创建"}`); }
+                else reportWatchFailure(result.error);
                 return result.ok;
               }}
               onReset={() => {
                 const result = repository.reset();
-                if (result.ok) { const loaded = repository.load(); setWatchlistData(loaded.data); setStorageError(loaded.error); setCorruptedRaw(loaded.corruptedRaw); setWorkflowMessage("本地观察清单已重置为空状态。"); }
-                else setStorageError(result.error);
+                if (result.ok) { const loaded = repository.load(); setWatchlistData(loaded.data); setStorageError(loaded.error); setWatchActionError(null); setCorruptedRaw(loaded.corruptedRaw); setWorkflowMessage("本地观察清单已重置为空状态。"); }
+                else reportWatchFailure(result.error);
                 return result.ok;
               }}
               onAdd={() => setWatchForm({})}
@@ -457,13 +482,14 @@ export default function App() {
                 let loaded = 0;
                 let loadError: string | null = null;
                 for (const sample of watchlistSamples) {
+                  if (next.watchItems.some(item => item.stockId === sample.stockId && !item.archivedAt)) continue;
                   const result = watchlistStore.loadSample(next, sample);
                   if (result.ok) { next = result.data; loaded += 1; }
-                  else if (!result.error?.includes("已经存在")) loadError = result.error;
+                  else { loadError = result.error; break; }
                 }
                 setWatchlistData(next);
-                if (loadError) setStorageError(loadError);
-                setWorkflowMessage(`已载入 ${loaded} 个示例；重复公司已跳过。`);
+                if (loadError) reportWatchFailure(loadError, next);
+                else { setWatchActionError(null); setWorkflowMessage(`已载入 ${loaded} 个示例；重复公司已跳过。`); }
               }}
               onTaskState={(taskId, status, snoozedUntil) => applyAction(watchlistStore.setTaskState(watchlistData, taskId, status, snoozedUntil), status === "snoozed" ? "任务已暂缓。" : status === "dismissed" ? "任务已忽略。" : "任务已确认。")}
               onOpenStock={setSelectedStock}
@@ -476,7 +502,7 @@ export default function App() {
               snapshot={researchSnapshot}
               stocks={dataset.stocks}
               industries={dataset.industries}
-              watchItems={watchlistData.watchItems}
+              watchItems={readableWatchItems}
               reviewTasks={reviewTasks}
               timeZone={expectationData.settings.timeZone}
               onStartReview={startReview}
@@ -491,8 +517,9 @@ export default function App() {
               importHistory={expectationData.importHistory}
               stocks={dataset.stocks}
               industries={dataset.industries}
-              watchItems={watchlistData.watchItems}
+              watchItems={readableWatchItems}
               storageError={expectationStorageError}
+              operationError={expectationForm || expectationImportOpen ? null : expectationActionError}
               providerLoadStatus={companyGuidanceWorkflowStatus}
               providerLoadError={companyGuidanceWorkflowError}
               providerDetailLoadStatus={companyGuidanceLoadStatus}
@@ -621,7 +648,7 @@ export default function App() {
       {activePreviewStock ? <StockQuickPreview stock={activePreviewStock} onClose={() => setSelectedStock(null)} onOpenResearch={openResearch} /> : null}
 
       {watchForm ? <WatchItemFormModal
-        error={storageError}
+        error={storageError ?? watchActionError}
         stocks={dataset.stocks}
         item={watchForm.itemId ? watchlistData.watchItems.find((item) => item.id === watchForm.itemId) : null}
         initialStockId={watchForm.stockId}
@@ -631,7 +658,7 @@ export default function App() {
       /> : null}
 
       {reviewItemId && watchlistData.watchItems.some((item) => item.id === reviewItemId) ? <ReviewFormModal
-        error={storageError}
+        error={storageError ?? watchActionError}
         watchItem={watchlistData.watchItems.find((item) => item.id === reviewItemId) as WatchItem}
         events={researchSnapshot.events}
         tasks={reviewTasks.filter((task) => task.watchItemId === reviewItemId)}
@@ -643,7 +670,7 @@ export default function App() {
       /> : null}
 
       {expectationForm ? <EarningsExpectationFormModal
-        error={expectationStorageError}
+        error={expectationStorageError ?? expectationActionError}
         stocks={dataset.stocks}
         initialStockId={expectationForm.stockId}
         correctionTarget={expectationForm.correctionId ? expectationData.snapshots.find((snapshot) => snapshot.id === expectationForm.correctionId) : null}
@@ -653,7 +680,7 @@ export default function App() {
       /> : null}
 
       {expectationImportOpen ? <EarningsExpectationImportModal
-        error={expectationStorageError}
+        error={expectationStorageError ?? expectationActionError}
         exportJson={expectationExportJson}
         exportCsv={expectationExportCsv}
         csvTemplate={earningsExpectationCsvTemplate()}
@@ -664,22 +691,22 @@ export default function App() {
           const result = expectationRepository.importPreview(preview, expectationData, method, mode, fileName, partialConfirmed);
           if (result.ok && result.data) {
             setExpectationData(result.data);
-            setExpectationStorageError(null);
+            setExpectationStorageError(null); setExpectationActionError(null);
             setExpectationCorruptedRaw(null);
             setWorkflowMessage(`${mode === "replace" ? "替换" : "合并"}导入完成：新增 ${result.preview.addCount}，重复 ${result.preview.duplicateCount}。`);
             setExpectationImportOpen(false);
-          } else setExpectationStorageError(result.error);
+          } else reportExpectationFailure(result.error);
         }}
         onReset={() => {
           const result = expectationRepository.reset();
           if (result.ok) {
             const loaded = expectationRepository.load();
             setExpectationData(loaded.data);
-            setExpectationStorageError(loaded.error);
+            setExpectationStorageError(loaded.error); setExpectationActionError(null);
             setExpectationCorruptedRaw(loaded.corruptedRaw);
             setWorkflowMessage("本地业绩预期已重置为空状态。");
             setExpectationImportOpen(false);
-          } else setExpectationStorageError(result.error);
+          } else reportExpectationFailure(result.error);
         }}
         onClose={() => setExpectationImportOpen(false)}
       /> : null}

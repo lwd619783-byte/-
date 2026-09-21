@@ -17,6 +17,7 @@ interface WatchlistTabProps {
   industries: Industry[];
   events?: ResearchEvent[];
   storageError?: string | null;
+  operationError?: string | null;
   corruptedRaw?: string | null;
   exportJson: string;
   onValidateImport: (raw: string) => ImportValidationResult;
@@ -103,6 +104,7 @@ export function WatchlistTab(props: WatchlistTabProps) {
   return <section className="min-w-0 space-y-4" aria-label="观察清单与投研复盘工作流">
     <SectionHeader className="page-heading" title="观察清单 / 待办与复盘" description="提醒、判断和复盘分开；确认提醒不会改变当前投资假设。"
       action={<><button type="button" onClick={openBackup} className={buttonClass}><DatabaseBackup className="h-4 w-4" />备份 / 导入</button><button type="button" onClick={props.onAdd} className={`${buttonClass} bg-selected text-accent`}><Plus className="h-4 w-4" />添加观察项</button></>} />
+    {props.operationError ? <p role="alert" className="text-sm text-warning">{props.operationError}</p> : null}
     {props.storageError ? <div role="alert" className="rounded-md border border-warning/40 bg-warning/10 p-3 text-sm text-warning">{props.storageError}<button type="button" className="ml-3 min-h-11 underline" onClick={openBackup}>打开备份与恢复</button></div> : null}
     {props.corruptedRaw && !props.storageError ? <div role="status" className="rounded-md border border-warning/40 p-3 text-sm text-warning">存在待恢复的原始存储内容。<button type="button" className="ml-3 min-h-11 underline" onClick={openBackup}>导出损坏原始数据</button></div> : null}
     {watchItems.length > 0 && !props.storageError ? <section className="flex flex-wrap gap-x-6 gap-y-3 border-b border-borderSoft pb-3" aria-label="观察清单指标">
@@ -147,7 +149,7 @@ export function WatchlistTab(props: WatchlistTabProps) {
     </div>}
 
     {samples.length ? <details className="min-w-0 rounded-lg border border-control bg-bg2 p-4"><summary className="cursor-pointer text-sm font-semibold text-accent">示例模板（不计入用户数据）</summary><div className="mt-4"><div className="flex flex-wrap items-center justify-between gap-3"><p className="text-xs leading-5 text-textMuted">仅主动载入后才成为用户观察项；已有公司不会重复创建。</p><button type="button" onClick={props.onLoadAllSamples} className={buttonClass}>载入全部示例</button></div><div className="mt-3 grid gap-3 md:grid-cols-2">{samples.map((sample) => { const stock = stocks.find((item) => item.id === sample.stockId); return <article key={sample.id} className="min-w-0 rounded border border-borderSoft p-3"><p className="break-words text-sm font-semibold text-textStrong">示例 · {stock?.name ?? sample.stockId}</p><p className="mt-1 break-words text-xs leading-5 text-textMuted">{sample.reason}</p><button type="button" onClick={() => props.onLoadSample(sample)} className="mt-3 min-h-11 text-sm text-accent underline">载入此示例</button></article>; })}</div></div></details> : null}
-    {backupOpen ? <WatchlistBackupModal exportJson={props.exportJson} corruptedRaw={props.corruptedRaw} error={props.storageError} onValidate={props.onValidateImport} onMerge={props.onMergeImport} onReplace={props.onReplaceImport} onReset={props.onReset} onClose={() => setBackupOpen(false)} /> : null}
+    {backupOpen ? <WatchlistBackupModal exportJson={props.exportJson} corruptedRaw={props.corruptedRaw} error={props.storageError ?? props.operationError} onValidate={props.onValidateImport} onMerge={props.onMergeImport} onReplace={props.onReplaceImport} onReset={props.onReset} onClose={() => setBackupOpen(false)} /> : null}
   </section>;
 }
 

@@ -30,6 +30,7 @@ interface EarningsExpectationCenterProps {
   industries: Industry[];
   watchItems: WatchItem[];
   storageError?: string | null;
+  operationError?: string | null;
   providerLoadStatus?: CompanyGuidanceExpectationLoadStatus;
   providerLoadError?: string | null;
   providerDetailLoadStatus?: CompanyGuidanceExpectationLoadStatus;
@@ -147,6 +148,7 @@ export function EarningsExpectationCenter(props: EarningsExpectationCenterProps)
         <div className="min-w-0"><p className="text-xs tracking-[0.16em] text-cyan">预期证据 / 同口径对照</p><h1 className="mt-1 text-2xl font-semibold text-textStrong">业绩预期证据中心</h1><p className="mt-2 max-w-3xl text-sm leading-6 text-textMuted">公司指引、单家机构、机构一致预期与用户预测分别比较。来源核验、事前有效与数值可比性独立判断。</p></div>
         <div className="flex flex-wrap gap-2"><button type="button" onClick={props.onImport} className={buttonClass}><DatabaseBackup className="h-4 w-4" />导出 / 快照导入</button><button type="button" onClick={props.onAdd} className={`${buttonClass} border-cyan/50 text-cyan`}><Plus className="h-4 w-4" />添加业绩预期</button></div>
       </header>
+    {props.operationError ? <p role="alert" className="text-sm text-warning">{props.operationError}</p> : null}
       {props.storageError ? <div role="alert" className={riskClass}>{props.storageError}</div> : null}
       <details className="rounded border border-borderSoft px-3 py-2"><summary className="cursor-pointer py-1 text-sm text-accent">官方来源状态与加载明细</summary>
         <div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0"><h2 className="text-sm font-semibold text-textStrong">公司官方指引 · 巨潮官方公告</h2><p className="mt-1 text-xs leading-5 text-textMuted">数据提供方记录只读，不写入用户本地存储，也不覆盖人工、JSON 或 CSV 快照。</p></div><div className="min-w-0 text-xs leading-5 text-textMuted"><p>全局状态：{props.providerLoadStatus === "loading" ? "索引校验中" : props.providerLoadStatus === "error" ? "已关闭（校验失败）" : props.providerLoadStatus === "success" ? "已验证并启用" : "未启用"}</p><p>明细状态：{statusDisplayLabel(props.providerDetailLoadStatus ?? "idle")} · {props.providerLoadedCompanyCount === undefined ? "尚未完成明细加载" : `成功 ${props.providerLoadedCompanyCount} / 失败 ${props.providerFailedStockIds?.length ?? 0}`}</p></div></div>
