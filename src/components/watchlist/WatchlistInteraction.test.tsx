@@ -91,7 +91,7 @@ describe("watchlist list and detail workflow", () => {
     selectCompany(stockB.name);
     fireEvent.click(screen.getByRole("button", { name: "仅看逾期" }));
     expect(screen.queryByText("乙当前判断")).toBeNull();
-    expect(screen.getByText("请选择一个观察项查看详情。")).toBeTruthy();
+    expect(screen.queryByRole("region", { name: "观察项详情" })).toBeNull();
     expect(document.activeElement).toBe(screen.getByRole("heading", { name: /个人观察清单/ }));
     fireEvent.click(screen.getByRole("button", { name: "仅看新事件" }));
     expect(screen.getAllByRole("button", { name: /查看观察项/ })).toHaveLength(1);
@@ -150,7 +150,9 @@ describe("watchlist list and detail workflow", () => {
     render(<WatchlistTab {...callbacks} watchItems={[]} reviewEntries={[]} tasks={[]} />);
     expect(screen.getByText("示例模板（不计入用户数据）").closest("details")?.open).toBe(false);
     expect(screen.getByRole("button", { name: "载入此示例" }).closest("details")?.open).toBe(false);
-    expect(screen.getByRole("region", { name: "观察清单指标" }).textContent).toContain("正在观察0");
+    expect(screen.queryByRole("region", { name: "观察清单指标" })).toBeNull();
+    expect(screen.queryByRole("region", { name: "观察项详情" })).toBeNull();
+    expect(screen.queryByLabelText("观察公司")).toBeNull();
     expect(callbacks.onLoadSample).not.toHaveBeenCalled();
     expect(callbacks.onLoadAllSamples).not.toHaveBeenCalled();
     openDetails("示例模板（不计入用户数据）");
@@ -165,7 +167,7 @@ describe("watchlist list and detail workflow", () => {
     render(<WatchlistTab {...callbacks} watchItems={[{ ...itemA, stockId: "missing-stock" }]} storageError="存储写入失败，已保留原记录" corruptedRaw="damaged original contents" />);
     expect(screen.getByRole("alert").textContent).toContain("存储写入失败，已保留原记录");
     expect(screen.getByText(/1 条观察记录无法匹配当前研究池公司/)).toBeTruthy();
-    expect(screen.getByText("没有匹配的用户观察项")).toBeTruthy();
+    expect(screen.queryByText("没有匹配的用户观察项")).toBeNull();
     openDetails("查看未匹配记录");
     expect(screen.getByText(/公司 ID：missing-stock/)).toBeTruthy();
     expect(screen.getByText("投资假设：甲当前判断")).toBeTruthy();

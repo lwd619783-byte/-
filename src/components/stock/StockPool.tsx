@@ -47,8 +47,8 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const mobileFiltersId = useId();
   const moreFiltersId = useId();
-  const moreFilterCount = Number(Boolean(filters.search.trim())) + Number(filters.riskLevel !== "全部");
-  const activeFilterCount = moreFilterCount + Number(filters.industryId !== "全部") + Number(filters.segmentId !== "全部") + Number(filters.market !== "全部") + Number(qualityFilter !== "全部");
+  const moreFilterCount = Number(Boolean(filters.search.trim())) + Number(filters.riskLevel !== "全部") + Number(qualityFilter !== "全部");
+  const activeFilterCount = moreFilterCount + Number(filters.industryId !== "全部") + Number(filters.segmentId !== "全部") + Number(filters.market !== "全部");
 
   const mergedFilters = { ...filters, search: [globalSearch, filters.search].filter(Boolean).join(" ") };
   const visibleStocks = useMemo(() => {
@@ -89,7 +89,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
       </div>
       <div id={mobileFiltersId} className={mobileFiltersOpen ? "space-y-3" : "hidden space-y-3 sm:block"}>
       <FilterBar
-        className="[&>div]:xl:flex-col [&>div]:xl:items-stretch [&>div>div:first-child]:xl:grid-cols-5"
+        className="[&>div]:xl:flex-col [&>div]:xl:items-stretch [&>div>div:first-child]:xl:grid-cols-4"
         action={
           <div className="flex flex-wrap items-center gap-2">
             <button type="button" aria-expanded={showMoreFilters} aria-controls={moreFiltersId}
@@ -98,7 +98,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
               <SlidersHorizontal className="h-4 w-4" />更多筛选{moreFilterCount ? `（${moreFilterCount}）` : ""}
             </button>
             {moreFilterCount ? <button type="button" className="min-h-11 rounded-md border border-control px-3 text-sm text-accent sm:min-h-10"
-              onClick={() => setFilters((current) => ({ ...current, search: "", riskLevel: "全部" }))}>清除更多筛选</button> : null}
+              onClick={() => { setFilters((current) => ({ ...current, search: "", riskLevel: "全部" })); setQualityFilter("全部"); }}>清除更多筛选</button> : null}
           <div className="flex rounded-md border border-borderSoft bg-bg2 p-1" aria-label="研究池展示方式">
             <TabButton active={view === "table"} onClick={() => setView("table")}>
               <Table2 className="h-4 w-4" />
@@ -135,13 +135,6 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
             </option>
           ))}
         </FilterSelect>
-        <FilterSelect label="数据质量" value={qualityFilter} onChange={(value) => setQualityFilter(value as QualityFilter)}>
-          {["全部", "行情状态为真实", "缺失项", "暂不支持", "行情采集24小时内"].map((item) => (
-            <option key={item} value={item}>
-              {item === "PE" ? "市盈率（PE）" : item}
-            </option>
-          ))}
-        </FilterSelect>
         <FilterSelect label="排序" value={sortMode} onChange={(value) => setSortMode(value as SortMode)}>
           {["默认", "覆盖率高到低", "覆盖率低到高", "涨跌幅", "市值", "PE"].map((item) => (
             <option key={item} value={item}>
@@ -152,6 +145,13 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
       </FilterBar>
       <div id={moreFiltersId} hidden={!showMoreFilters} className="rounded-lg border border-borderSoft bg-panel p-4">
         <div className="grid gap-3 sm:grid-cols-2">
+        <FilterSelect label="数据质量" value={qualityFilter} onChange={(value) => setQualityFilter(value as QualityFilter)}>
+          {["全部", "行情状态为真实", "缺失项", "暂不支持", "行情采集24小时内"].map((item) => (
+            <option key={item} value={item}>
+              {item === "PE" ? "市盈率（PE）" : item}
+            </option>
+          ))}
+        </FilterSelect>
           <FilterInput label="池内搜索" value={filters.search} onChange={(value) => updateFilter("search", value)} />
           <FilterSelect label="风险等级" value={filters.riskLevel} onChange={(value) => updateFilter("riskLevel", value as "全部" | RiskLevel)}>
             {["全部", "低", "中", "高"].map((item) => <option key={item} value={item}>{item}</option>)}
@@ -159,6 +159,7 @@ export function StockPool({ stocks, industries, globalSearch, onOpenStock, onOpe
         </div>
       </div>
       </div>
+      {activeFilterCount ? <div className="flex flex-wrap items-center gap-2 text-xs text-textMuted" aria-label="已启用池内筛选"><span>已启用 {activeFilterCount} 项池内条件</span>{qualityFilter !== "全部" ? <span>质量：{qualityFilter}</span> : null}{filters.riskLevel !== "全部" ? <span>风险：{filters.riskLevel}</span> : null}{filters.search ? <span>池内搜索：{filters.search}</span> : null}<button type="button" className="min-h-10 text-accent underline" onClick={() => { setFilters({ ...defaultStockFilters }); setQualityFilter("全部"); }}>清除全部池内筛选</button></div> : null}
       {globalSearch ? <p className="text-xs text-textMuted">当前研究池顶栏搜索：{globalSearch}；此条件在顶栏修改。</p> : null}
 
       {visibleStocks.length === 0 ? (

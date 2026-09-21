@@ -24,9 +24,9 @@ interface IndustryTabProps {
   onSelectionChange?: (selection: IndustrySelection) => void;
 }
 
-type IndustryView = "overview" | "compare" | "chain";
+type IndustryView = "overview" | "metrics" | "compare" | "chain";
 const industryViews: Array<{ id: IndustryView; label: string }> = [
-  { id: "overview", label: "研究概览" }, { id: "compare", label: "细分比较" }, { id: "chain", label: "产业链" },
+  { id: "overview", label: "研究概览" }, { id: "metrics", label: "指标与变化" }, { id: "compare", label: "细分比较" }, { id: "chain", label: "产业链" },
 ];
 function defaultSegment(industry?: Industry) { return industry?.id === "robotics" ? "__all__" : industry?.segments[0]?.id ?? ""; }
 function initialSelection(industries: Industry[], industryId?: string, segmentId?: string): IndustrySelection {
@@ -97,13 +97,14 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
             onClick={() => setActiveView(view.id)} onKeyDown={(event) => { const direction = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0; if (!direction && event.key !== "Home" && event.key !== "End") return; event.preventDefault(); const next = event.key === "Home" ? 0 : event.key === "End" ? industryViews.length - 1 : (index + direction + industryViews.length) % industryViews.length; setActiveView(industryViews[next].id); document.getElementById(`${panelId}-tab-${industryViews[next].id}`)?.focus(); }}>{view.label}</button>)}</div>
         </ProductShell>
         <div role="tabpanel" id={`${panelId}-overview`} aria-labelledby={`${panelId}-tab-overview`} hidden={activeView !== "overview"} className="space-y-4">
+          <IndustryOverview industry={activeIndustry} />
+          <PoolDistribution industry={activeIndustry} stocks={industryStocks} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} />
+        </div>
+        <div role="tabpanel" id={`${panelId}-metrics`} aria-labelledby={`${panelId}-tab-metrics`} hidden={activeView !== "metrics"} className="space-y-4">
           <IndustryChangePanel key={`events-${activeIndustry.id}`} industryId={activeIndustry.id} />
           <IndustrySnapshotPanel key={`snapshot-${activeIndustry.id}`} industryId={activeIndustry.id} />
           <IndustrySignalClaimPanel key={`signal-claim-${activeIndustry.id}`} industryId={activeIndustry.id} />
           <IndustryMetricPanel key={activeIndustry.id} industryId={activeIndustry.id} />
-          {activeView === "overview" ? <IndustryChainDiagram industry={activeIndustry} stocks={industryStocks} onOpenStock={onOpenStock} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} /> : null}
-          <IndustryOverview industry={activeIndustry} />
-          <PoolDistribution industry={activeIndustry} stocks={industryStocks} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} />
         </div>
         <div role="tabpanel" id={`${panelId}-compare`} aria-labelledby={`${panelId}-tab-compare`} hidden={activeView !== "compare"} className="space-y-4">
           <DashboardCard className="p-4">

@@ -1,13 +1,14 @@
 import { ResearchEventEvidence, ResearchEventStatusBadge } from "./ResearchEventEvidence";
 export { ResearchEventStatusBadge } from "./ResearchEventEvidence";
 import { useId, useMemo, useRef, useState } from "react";
-import { AlertTriangle, CalendarDays, CheckSquare, FileCheck2, Link2 } from "lucide-react";
+import { Link2 } from "lucide-react";
 import type { EarningsVerificationChain, EarningsVerificationStage, Industry, ResearchEvent, ResearchEventSnapshot, ResearchEventType, ReviewTask, Stock, WatchItem } from "../../types";
 import { eventTypeLabel, stageLabel } from "../../services/researchEventProvider";
+import { needsDataReview } from "../../services/researchEventReview";
 import { statusDisplayLabel } from "../../utils/displayLabels";
 import { formatFinancialAmount } from "../../utils/financialDisplay";
 import { getCalendarToday, getTemporalCalendarDate, isPreciseInstant, resolveTimeZone } from "../../utils/dateTime";
-import { DashboardCard, EmptyState, KpiCard, SectionHeader } from "../common/terminal";
+import { DashboardCard, EmptyState, SectionHeader } from "../common/terminal";
 
 interface ResearchEventCenterProps {
   snapshot: ResearchEventSnapshot;
@@ -89,14 +90,8 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
           title="投研事件与业绩验证中心"
           description="先选择事件，再核对来源、事前资格与既有比较结果；全量历史和差异明细在打开公司后按需加载。"
         />
-        <p className="mt-2 text-xs text-textMuted">工作流时区：{timeZone}</p>
-
-      <section className="grid grid-cols-2 gap-3 2xl:grid-cols-4" aria-label="验证中心指标">
-        <KpiCard label="最近 7 天事件" value={recentCount} delta="现有事件摘要" description="按公告日期或财务更新时间统计" tone="info" icon={<CalendarDays className="h-4 w-4" />} />
-        <KpiCard label="待复盘公司" value={pendingCompanies} delta="需人工判断" description="至少有一项待复盘或数据缺口" tone={pendingCompanies ? "warning" : "positive"} icon={<CheckSquare className="h-4 w-4" />} />
-        <KpiCard label="业绩验证事件" value={performanceCount} delta="预告 / 快报 / 报告" description="不与机构一致预期进行比较" tone="positive" icon={<FileCheck2 className="h-4 w-4" />} />
-        <KpiCard label="数据核验" value={queue.length} delta="部分解析或缺失" description="保留仅元数据、过期与错误状态" tone={queue.length ? "warning" : "positive"} icon={<AlertTriangle className="h-4 w-4" />} />
-      </section>
+      <section className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-textMuted" aria-label="验证中心指标"><span>最近 7 天事件 <strong className="text-textStrong">{recentCount}</strong></span><span>待复盘公司 {pendingCompanies}</span><span>业绩验证事件 {performanceCount}</span><span className={queue.length ? "text-warning" : ""}>数据核验 {queue.length}</span></section>
+      <details className="text-xs text-textMuted"><summary className="cursor-pointer py-2 text-accent">统计口径</summary><p>最近事件按公告日期或财务更新时间统计；待复盘公司按待复盘事件去重。业绩验证事件不与机构一致预期进行比较。工作流时区：{timeZone}</p></details>
 
       <DashboardCard className="p-4">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -124,7 +119,7 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
       </div>
 
       <div role="tabpanel" id={`${tabId}-events`} aria-labelledby={`${tabId}-tab-events`} hidden={activeView !== "events"}>
-        <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.2fr)]">
+        <div className={`grid min-w-0 items-start gap-4 ${selectedEvent || invalidSelection ? "xl:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.2fr)]" : ""}`}>
           <DashboardCard className={`min-w-0 p-4 ${mobileDetail ? "hidden xl:block" : ""}`}>
             <h2 id={`${tabId}-list-title`} tabIndex={-1} className="text-base font-semibold text-textStrong">最近事件</h2>
             <p className="mt-1 text-xs leading-5 text-textMuted">筛选后共 {filteredEvents.length} 条，当前显示 {Math.min(filteredEvents.length, eventLimit)} 条。选择事件查看完整依据。</p>
@@ -139,13 +134,13 @@ export function ResearchEventCenter({ snapshot, stocks, industries, onOpenStock,
             </div>
             {eventLimit < filteredEvents.length ? <button type="button" className="mt-3 min-h-11 w-full rounded-md border border-control text-sm text-accent" onClick={() => setEventLimit((limit) => limit + 80)}>显示更多事件（剩余 {filteredEvents.length - eventLimit} 条）</button> : null}
           </DashboardCard>
-          <div ref={detailsRef} tabIndex={-1} aria-label="选中事件详情" className={`min-w-0 space-y-3 ${mobileDetail ? "" : "hidden xl:block"}`}>
+          {selectedEvent || invalidSelection ? <div ref={detailsRef} tabIndex={-1} aria-label="选中事件详情" className={`min-w-0 space-y-3 ${mobileDetail ? "" : "hidden xl:block"}`}>
             <button type="button" className="min-h-11 rounded-md border border-control px-3 text-sm text-accent xl:hidden" onClick={() => { setMobileDetail(false); requestAnimationFrame(() => { if (selectedTrigger.current?.isConnected && selectedTrigger.current.getClientRects().length) selectedTrigger.current.focus(); else document.getElementById(`${tabId}-list-title`)?.focus(); }); }}>返回事件列表</button>
             {invalidSelection ? <EmptyState title="找不到所选事件" description="该事件不在当前有效数据集中，可能已因模式或来源状态变化被关闭；请重新选择列表中的事件。" /> : selectedEvent ? <>
               {outsideFilter ? <p className="rounded-md border border-warning bg-warning/10 p-3 text-xs leading-5 text-warning">所选事件不在当前筛选结果中；以下保留显式选定的事件详情，筛选范围未被修改。</p> : null}
               <ResearchEventEvidence event={selectedEvent} stock={stocks.find((stock) => stock.id === selectedEvent.stockId)} watchItem={watchItems.find((item) => item.stockId === selectedEvent.stockId && !item.archivedAt)} tasks={reviewTasks} onOpenStock={onOpenStock} onStartReview={onStartReview} />
             </> : <EmptyState title="请选择研究事件" description="选择列表中的事件后查看依据、来源和比较条件。" />}
-          </div>
+          </div> : null}
         </div>
       </div>
 
@@ -227,9 +222,3 @@ function dateCutoff(now: Date, window: DateWindow, timeZone: string) {
   return value.toISOString().slice(0, 10);
 }
 
-function needsDataReview(event: ResearchEvent) {
-  return event.eventType === "data_warning" || event.eventType === "earnings_expectation_data_warning"
-    || ["parse_partial", "metadata_only", "parse_unavailable", "missing", "stale", "error"].includes(event.parseStatus)
-    || event.metrics.some((metric) => metric.value === null)
-    || event.reviewReasons.some((reason) => reason.includes("无法匹配"));
-}

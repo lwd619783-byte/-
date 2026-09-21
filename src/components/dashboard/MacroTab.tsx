@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { BarChart3, Radar } from "lucide-react";
+import { Radar } from "lucide-react";
 import { useDisplayNow } from "../../hooks/useDisplayNow";
 import { describeDataTime, summarizeDataTimes, summarizeQualityStatuses, type DisplayTimeKind } from "../../utils/dataTrustDisplay";
 import type { DataSourceStatus, MacroIndicator } from "../../types";
@@ -72,26 +72,21 @@ export function MacroTab({ indicators, generatedAt, now }: { indicators: MacroIn
       {selectedGroup.rows.length ? <label className="flex min-w-0 max-w-full items-center gap-2 text-xs text-textMuted"><span className="shrink-0">所选指标</span><select aria-label="所选宏观指标" className="min-h-11 min-w-0 max-w-full rounded-md border border-control bg-bg2 px-3 text-sm text-textStrong" value={selectedRow.key} onChange={(event) => setSelectionByGroup((current) => ({ ...current, [selectedGroup.key]: event.target.value }))}>{selectedGroup.rows.map((row) => <option key={row.key} value={row.key}>{row.label} · {displayValue(row.value)}</option>)}</select></label> : null}
     </div>
 
-    {selectedRow ? <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.7fr)_minmax(280px,1fr)]">
-      <DashboardCard className="min-w-0 p-4 sm:p-5">
-        <div className="grid min-w-0 gap-5 md:grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)]">
-          <MacroReadout row={selectedRow} now={displayNow} />
-          <div className="flex min-h-48 min-w-0 flex-col justify-center rounded-lg border border-borderSoft bg-surface p-4">
-            <BarChart3 className="mb-3 h-6 w-6 text-textWeak" aria-hidden="true" /><h3 className="text-base font-semibold text-textStrong">历史序列尚未接入当前页面</h3><p className="mt-2 text-sm leading-6 text-textMuted">当前可查看快照读数与来源口径；尚无可用的连续历史趋势。</p>
-          </div>
+    {selectedRow ? <DashboardCard className="min-w-0 p-4">
+      <div className="grid min-w-0 items-start gap-4 md:grid-cols-2">
+        <MacroReadout row={selectedRow} now={displayNow} />
+        <div className="min-w-0 text-sm leading-6 text-textMuted">
+          <p className="break-words">来源：{selectedRow.sourceDisplayName}</p>
+          <p className="mt-2">{selectedRow.value === null ? "该条目缺少可用数值，保留来源原有状态。" : "已有一条原始观测；数值存在不等于来源与时效均已核验。"}</p>
+          <p className="mt-2">时效待核验；文件生成时间不是全部指标的发布时间。</p>
+          <details className="mt-3"><summary className="cursor-pointer py-2 text-accent">查看来源与口径</summary><div className="space-y-2 text-xs leading-5"><p className="break-all">原始字段标识：{selectedRow.rawKey}</p><p className="break-all">原始来源：{selectedRow.source || "未提供"}</p><p className="break-words">{selectedRow.description ? "原始说明：" + selectedRow.description : "原始说明未提供。"}</p></div></details>
         </div>
-      </DashboardCard>
-      <DashboardCard className="min-w-0 p-4 sm:p-5">
-        <h3 className="text-base font-semibold text-textStrong">当前可确认什么</h3>
-        <dl className="mt-4 space-y-4 text-sm"><div><dt className="font-medium text-accent">观测与质量</dt><dd className="mt-1 leading-6 text-textMuted">{selectedRow.value === null ? "该条目缺少可用数值，保留来源原有状态。" : "已有一条原始观测；数值存在不等于来源与时效均已核验。"}</dd></div><div><dt className="font-medium text-accent">来源</dt><dd className="mt-1 break-words leading-6 text-textMuted">来源：{selectedRow.sourceDisplayName}</dd></div><div><dt className="font-medium text-accent">时效</dt><dd className="mt-1 leading-6 text-textMuted">时效待核验；文件生成时间不是全部指标的发布时间。</dd></div></dl>
-        <details className="mt-4 rounded-md border border-control bg-bg2"><summary className="cursor-pointer px-3 py-3 text-sm text-accent">查看来源与口径</summary><div className="space-y-2 px-3 pb-3 text-xs leading-5 text-textMuted"><p className="break-all">原始字段标识：{selectedRow.rawKey}</p><p className="break-all">原始来源：{selectedRow.source || "未提供"}</p>{selectedRow.description ? <p className="break-words">原始说明：{selectedRow.description}</p> : <p>原始说明未提供。</p>}</div></details>
-      </DashboardCard>
-    </div> : <DashboardCard className="min-w-0 p-5"><Radar className="mb-3 h-6 w-6 text-textWeak" aria-hidden="true" /><h3 className="font-semibold text-textStrong">该分类数据待接入</h3><p className="mt-2 text-sm leading-6 text-textMuted">该分类暂未接入可用指标；可切换其他分类，全部已有条目仍保留在下方明细中。</p></DashboardCard>}
-
-    <div className="min-w-0 rounded-lg border border-borderSoft bg-bg2 px-4 py-3"><h3 className="text-sm font-semibold text-textStrong">宏观指标观测 · 模型尚未接入</h3><p className="mt-1 text-xs leading-5 text-textMuted">当前不输出方向分或宏观结论。方向判断需要验证指标口径、发布时间、修订记录与正式模型。</p></div>
+      </div>
+    </DashboardCard> : <DashboardCard className="min-w-0 p-4"><Radar className="mb-2 h-5 w-5 text-textWeak" aria-hidden="true" /><h3 className="font-semibold text-textStrong">该分类数据待接入</h3><p className="mt-1 text-sm leading-6 text-textMuted">该分类暂未接入可用指标；可切换其他分类，全部已有条目仍保留在下方明细中。</p></DashboardCard>}
+    <p className="text-xs text-textMuted">当前仅提供快照观测；历史序列与方向模型尚未接入。</p>
     <details className="min-w-0 rounded-lg border border-control bg-bg2">
       <summary className="cursor-pointer px-4 py-3 text-sm text-accent"><span>数值覆盖</span> {coveredCount}/{totalMetricCount} · 覆盖与时间口径</summary>
-      <div className="grid gap-3 border-t border-borderSoft p-4 text-xs leading-5 text-textMuted sm:grid-cols-2"><p>按展示条目统计，重复指标未去重；仅表示有值，不表示经济强弱。数值缺失 {totalMetricCount - coveredCount}/{totalMetricCount}。</p><p>质量状态为真实数据：{statusRealMetricCount}/{totalMetricCount}；{summarizeQualityStatuses(rows.map((row) => row.status))}</p><p>时间语义：报告期 {times.period}；仅日期 {times.dateOnly}；精确时间 {times.recent + times.older}；缺失 {times.missing}；异常 {times.invalid + times.future}；未知 {times.unknown}。分母 {times.total}，逐项核验。</p><p className="break-words">{describeDataTime(generatedAt, "generated", displayNow).text}。文件生成不代表全部指标已更新。</p></div>
+      <div className="grid gap-3 border-t border-borderSoft p-4 text-xs leading-5 text-textMuted sm:grid-cols-2"><div><h3 className="font-semibold">宏观指标观测 · 模型尚未接入</h3><p>当前不输出方向分或宏观结论。方向判断需要验证指标口径、发布时间、修订记录与正式模型。</p></div><p>按展示条目统计，重复指标未去重；仅表示有值，不表示经济强弱。数值缺失 {totalMetricCount - coveredCount}/{totalMetricCount}。</p><p>质量状态为真实数据：{statusRealMetricCount}/{totalMetricCount}；{summarizeQualityStatuses(rows.map((row) => row.status))}</p><p>时间语义：报告期 {times.period}；仅日期 {times.dateOnly}；精确时间 {times.recent + times.older}；缺失 {times.missing}；异常 {times.invalid + times.future}；未知 {times.unknown}。分母 {times.total}，逐项核验。</p><p className="break-words">{describeDataTime(generatedAt, "generated", displayNow).text}。文件生成不代表全部指标已更新。</p></div>
     </details>
     <MacroDetailTable rows={rows} now={displayNow} />
   </section>;
@@ -103,7 +98,7 @@ function MacroReadout({ row, now }: { row: MacroIndicatorRow; now: Date }) {
   return <section className="min-w-0" aria-label="当前宏观指标读数">
     <h3 className="break-words text-base font-semibold text-textStrong">{row.label}</h3>
     <p className="mt-1 text-xs text-textMuted">单位：{row.unit || "源字段未提供"}</p>
-    <p className="my-5 break-words font-mono text-4xl font-semibold leading-tight text-accent">{displayValue(row.value)}</p>
+    <p className="my-3 break-words font-mono text-3xl font-semibold leading-tight text-accent">{displayValue(row.value)}</p>
     <p className="text-xs text-textMuted">质量状态：<StatusBadge status={row.status} /></p>
     <p role={invalidTime ? "alert" : undefined} className={`mt-3 break-words text-sm leading-6 ${invalidTime ? "text-warning" : "text-textMuted"}`}>{time.text}</p>
     {row.timeKind !== "period" ? <p className="mt-1 text-xs leading-5 text-textMuted">观察期：源字段未单独提供</p> : null}
