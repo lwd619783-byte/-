@@ -1,5 +1,8 @@
 # Stage 4.3 / Slice 2.5 — AI Knowledge Ingestion Foundation V1
 
+> 2026-09-21 CURRENT 安全切换：沿用已复审代码 `47612e1`（用户提供 PASS），新增验收辅助脚本仍待独立复审。两项密钥仅轮换本分支 Preview；6 个旧部署及分支 alias 的 21 次公网保护检查通过。公开资料 8 + 2 与持久验收环境准备中；最终部署/真实 ChatGPT 调用/本人 CREATE 与 UPDATE 审核分别记账。以[本轮切换记录](stage-4-3-slice-2-5-preview-cutover.md)为最新状态，下方旧记录保留原时点。无 PR / merge / Production。
+
+
 > 2026-09-21 CURRENT 更新：独立审计 `81c7663` 为 REQUEST_CHANGES；本次 R1/R2/R3 定向修复与正式回归见 [修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。保持同一功能分支，等待绑定新 SHA 的独立复审；远程 owner/OAuth 验收与 ChatGPT 账号连接分别记账，未取得证据不升级 PASS。下方原验收数字保留其历史时点。
 
 状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；远程端到端状态 PARTIAL（owner/OAuth 八工具及 ChatGPT 账号连接未完成验收）。基线 `812e7551e67b0b8af4f673524e2578ecf2e19335`（Wiki Infrastructure V1 — independent review PASS）；分支 `codex/stage-4-3-slice-2-5-knowledge-ingestion-v1`。

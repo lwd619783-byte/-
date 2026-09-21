@@ -1,5 +1,8 @@
 # Research Bridge + Read-only MCP V1
 
+> 2026-09-21 CURRENT 安全切换：沿用已复审代码 `47612e1`（用户提供 PASS），新增验收辅助脚本仍待独立复审。两项密钥仅轮换本分支 Preview；6 个旧部署及分支 alias 的 21 次公网保护检查通过。公开资料 8 + 2 与持久验收环境准备中；最终部署/真实 ChatGPT 调用/本人 CREATE 与 UPDATE 审核分别记账。以[本轮切换记录](stage-4-3-slice-2-5-preview-cutover.md)为最新状态，下方旧记录保留原时点。无 PR / merge / Production。
+
+
 状态：远程端到端 **PARTIAL**；IMPLEMENTED / LOCAL CONTRACT & HTTP INTEGRATION VERIFIED / REMOTE DISCOVERY & ANONYMOUS DENIAL VERIFIED；真实 owner/OAuth/staging 工具全链验收和 ChatGPT 账号连接仍分别 PENDING。本文件仅说明本切片 Preview；不授权 Production。
 
 ## 边界

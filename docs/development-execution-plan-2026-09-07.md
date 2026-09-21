@@ -1,5 +1,8 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-21 CURRENT 安全切换：沿用已复审代码 `47612e1`（用户提供 PASS），新增验收辅助脚本仍待独立复审。两项密钥仅轮换本分支 Preview；6 个旧部署及分支 alias 的 21 次公网保护检查通过。公开资料 8 + 2 与持久验收环境准备中；最终部署/真实 ChatGPT 调用/本人 CREATE 与 UPDATE 审核分别记账。以[本轮切换记录](stage-4-3-slice-2-5-preview-cutover.md)为最新状态，下方旧记录保留原时点。无 PR / merge / Production。
+
+
 > 2026-09-21 CURRENT 更新：独立审计 `81c7663` 为 REQUEST_CHANGES；本次 R1/R2/R3 定向修复、原生浏览器 OAuth 授权修正与正式回归见 [修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。保持同一功能分支，等待绑定新 SHA 的独立复审；远程 owner/OAuth 验收与 ChatGPT 账号连接分别记账，未取得证据不升级 PASS。下方原验收数字保留其历史时点。
 
 > 2026-09-21 CURRENT — **Slice 2：Wiki Infrastructure V1 — independent review PASS；Slice 2.5：AI Knowledge Ingestion Foundation V1 + Research Bridge / Read-only MCP V1，IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW**。精确基线 `812e7551e67b0b8af4f673524e2578ecf2e19335`。中文四入口、多文件 exact bytes IndexedDB、页/行解析、贡献包候选、完整文章人工审核复用原 Wiki Revision/Review；用户明确发送后才进入 private Blob，八个 OAuth 只读 MCP 工具，人工 JSON 回传。真实远程部署与账号连接结果单独登记，不由本地测试推定。[本切片及验收](stage-4-3-slice-2-5-knowledge-ingestion.md)、[远程边界与连接](research-bridge-readonly-v1.md)。旧条目保留历史时点；当前停止点为 Slice 2.5 普通 commit/push 后等待独立审计，无 PR/merge/Production。
