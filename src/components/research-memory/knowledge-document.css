@@ -31,18 +31,18 @@
 .knowledge-document__toc a:hover, .knowledge-document__toc a:focus-visible { color: var(--ui-accent); border-left: 2px solid var(--ui-accent); }
 .knowledge-document__toc-child { margin-left: 1em; }
 .knowledge-document__citation-note { margin-block: .8rem; font-size: 13px; line-height: 1.7; color: var(--ui-muted); }
-.wiki-reading-article { min-width: 0; width: 100%; max-width: 880px; margin-inline: auto; padding: 42px 40px; background: var(--ui-panel); border: 1px solid var(--ui-border); border-radius: 10px; }
-.wiki-reading-title { font-size: 32px; line-height: 1.4; font-weight: 650; letter-spacing: -.8px; margin: 8px 0 17px; }
+.wiki-reading-article { min-width: 0; width: 100%; max-width: 900px; margin-inline: auto; padding: 32px 42px; background: var(--ui-panel); border: 1px solid var(--ui-border); border-radius: 10px; }
+.wiki-reading-title { font-size: 28px; line-height: 1.5; font-weight: 650; letter-spacing: -.5px; margin: 0 0 11px; }
 .wiki-reading-content { margin-top: 16px; }
 .wiki-reading-content > * + * { margin-top: 16px; }
-.wiki-reading-summary { padding: 20px 22px; margin-block: 29px 34px; background: #f4f6ee; border: 1px solid #e6eadd; border-radius: 7px; font-size: 15px; line-height: 1.85; white-space: pre-wrap; overflow-wrap: anywhere; }
+.wiki-reading-summary { padding: 16px 0; margin-block: 6px 20px; border-bottom: 1px solid var(--ui-border); color: var(--ui-muted); font-size: 15px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
 .wiki-reading-limitation { border-left: 3px solid #d5cbaa; padding: 13px 17px; background: #faf9f4; font-size: 12px; line-height: 1.9; }
 @media (max-width: 768px) { .wiki-reading-article { padding: 32px; } }
 @media (max-width: 540px) {
   .wiki-reading-article { padding: 25px 20px; border-radius: 8px; }
   .wiki-reading-title, .knowledge-document__body h1 { font-size: 27px; }
   .knowledge-document__body h2 { font-size: 20px; }
-  .wiki-reading-summary { padding: 17px 16px; font-size: 14px; }
+  .wiki-reading-summary { padding: 16px 0; font-size: 15px; }
 }
 @media (prefers-reduced-motion: reduce) { .knowledge-document * { scroll-behavior: auto; } }
 

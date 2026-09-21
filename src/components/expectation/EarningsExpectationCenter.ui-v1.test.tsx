@@ -42,6 +42,18 @@ describe("EarningsExpectationCenter UI V1 workflows", () => {
     expect((screen.getByLabelText("公司", { exact: true }) as HTMLInputElement).value).toBe("Synthetic");
   });
 
+  it("keeps provider failure visible outside closed technical details and does not report unloaded counts as zero", () => {
+    render(<EarningsExpectationCenter {...props({ providerLoadStatus: "error", providerLoadError: "合成索引错误" })} />);
+    const technical = screen.getByText("官方来源状态与加载明细").closest("details");
+    expect(technical?.open).toBe(false);
+    expect(technical?.textContent).toContain("尚未完成明细加载");
+    expect(technical?.textContent).not.toContain("成功 0 / 失败 0");
+    const failure = screen.getByRole("alert");
+    expect(failure.closest("details")).toBeNull();
+    expect(failure.textContent).toContain("合成索引错误");
+    expect(screen.getByRole("button", { name: "重试数据加载" })).toBeTruthy();
+  });
+
   it("keeps display groups separate for different period scope, currency, unit and accounting basis", () => {
     const values = [snapshot(), snapshot({ id: "scope", sourceName: "Synthetic scope", periodScope: "year_to_date" }), snapshot({ id: "currency", sourceName: "Synthetic currency", currency: "HKD" }), snapshot({ id: "unit", sourceName: "Synthetic unit", unit: "million_yuan" }), snapshot({ id: "basis", sourceName: "Synthetic basis", accountingBasis: "IFRS" })];
     render(<EarningsExpectationCenter {...props({ snapshots: values })} />);

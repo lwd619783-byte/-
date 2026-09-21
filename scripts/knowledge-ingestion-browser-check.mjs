@@ -97,7 +97,7 @@ try {
   for (const theme of ['light']) for (const width of [1536, 1280, 390, 320]) {
     await page.setViewportSize({ width, height: 960 }); check(await page.evaluate(() => document.documentElement.dataset.theme === 'light'), `${theme}/${width} single light appearance`); check(await page.getByLabel('外观', { exact: true }).count() === 0, `${theme}/${width} no appearance switch`);
     for (const name of ['原始资料', 'AI 整理', '研究桥', '待审核', '我的知识库']) { await nav(name); check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width}/${name} no horizontal overflow`); }
-    const filename = `${theme}-${width}.png`; await page.screenshot({ path: path.join(output, filename), fullPage: true }); report.screenshots.push(filename);
+    const filename = `${theme}-${width}.png`; await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' })); await page.screenshot({ path: path.join(output, filename), fullPage: true }); report.screenshots.push(filename);
   }
   await page.setViewportSize({ width: 1280, height: 960 }); await nav('原始资料'); await upload(files[0]); await page.getByRole('dialog', { name: '添加资料' }).getByRole('alert').filter({ hasText: '重复' }).waitFor(); check((await state()).sources.length === 10, 'duplicate upload no partial write');
   await upload({ name: 'corrupt.pdf', mimeType: 'application/pdf', buffer: Buffer.from('invalid PDF synthetic') }); await page.getByText('解析失败，原件已保存', { exact: false }).waitFor(); check((await state()).sources.length === 11, 'failed parsing retains original');
@@ -147,7 +147,7 @@ try {
   for (const theme of ['light']) for (const width of [1536, 1280, 390, 320]) {
     await page.setViewportSize({ width, height: 960 }); check(await page.evaluate(() => document.documentElement.dataset.theme === 'light'), `${theme}/${width} single light appearance`); check(await page.getByLabel('外观', { exact: true }).count() === 0, `${theme}/${width} no appearance switch`);
     check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width} mixed selection no horizontal overflow`);
-    const filename = `mixed-${theme}-${width}.png`; await page.screenshot({ path: path.join(output, filename), fullPage: true }); report.screenshots.push(filename);
+    const filename = `mixed-${theme}-${width}.png`; await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' })); await page.screenshot({ path: path.join(output, filename), fullPage: true }); report.screenshots.push(filename);
   }
   check(report.errors.length === 0, 'no runtime errors'); check(report.externalRequests.length === 0, 'no external requests without explicit staging');
 } catch (error) { report.failure = String(error); await page.screenshot({ path: path.join(output, 'failure.png'), fullPage: true }); report.failureUi = await page.locator('body').innerText(); throw error; }

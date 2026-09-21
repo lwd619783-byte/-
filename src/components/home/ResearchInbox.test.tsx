@@ -39,6 +39,14 @@ describe("Research Inbox interactions", () => {
     expect(within(table).getAllByRole('row')).toHaveLength(5);
     expect(screen.getByText('显示 4 / 9 项 · 未合并事件共 9 项')).toBeTruthy();
   });
+  it("deduplicates equal status wording without losing parse and verification dimensions", () => {
+    const data = props(), event = { ...data.events[0], parseStatus: 'metadata_only' as const, verificationStatus: 'metadata_only' as const };
+    const { rerender } = render(<ResearchInbox {...data} tasks={[]} events={[event]} />);
+    expect(screen.getByLabelText('解析：仅元数据；核验：仅元数据').textContent).toBe('仅元数据');
+    expect(screen.queryByText('仅元数据 / 仅元数据')).toBeNull();
+    rerender(<ResearchInbox {...data} tasks={[]} events={[{ ...event, verificationStatus: 'verified' }]} />);
+    expect(screen.getByLabelText('解析：仅元数据；核验：已核验').textContent).toBe('仅元数据 / 已核验');
+  });
   it("does not publish an empty denominator during loading, error, or lock", () => {
     const data = props(); const { rerender } = render(<ResearchInbox {...data} dataState="loading" />);
     expect(screen.getByRole('status').textContent).toContain('尚不能确定队列数量');

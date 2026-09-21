@@ -32,7 +32,7 @@ export function ResearchWorkbench({ stocks, watchItems = [], tasks = [], events 
   const pending = useMemo(() => buildResearchInbox({ events, tasks, watchItems, now: displayNow, timeZone }).filter(row => row.tasks.length), [events, tasks, watchItems, displayNow, timeZone]);
   const showSide = dataState === "ready" && pending.length > 0;
   return <section className="ui-v2-workbench" aria-label="工作台">
-    <header className="ui-v21-workbench-head"><h1>工作台</h1>{onOpenSources ? <button type="button" className="inbox-action" onClick={onOpenSources}><Plus size={16} aria-hidden="true" />添加资料</button> : null}</header>
+    <header className="ui-v21-workbench-head"><h1>工作台</h1>{onOpenSources ? <button type="button" className="ui-v2-primary" onClick={onOpenSources}><Plus size={16} aria-hidden="true" />添加资料</button> : null}</header>
     <nav aria-label="研究快捷入口" className="ui-v21-quicklinks">
       {([{ title: "宏观指标", description: "观测与来源", destination: "宏观", Icon: ChartNoAxesCombined }, { title: "行业研究", description: "产业链与公司", destination: "行业", Icon: Factory }, { title: "公司研究", description: "业务、财务与估值", destination: "个股池", Icon: Building2 }] as const).map(({ title, description, destination, Icon }) => <button key={destination} type="button" onClick={() => onNavigate(destination)}><Icon size={20} aria-hidden="true" /><span><strong>{title}</strong><small>{description}</small></span><ArrowRight size={16} aria-hidden="true" /></button>)}
     </nav>

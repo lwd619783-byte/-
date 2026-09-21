@@ -35,7 +35,8 @@
 .inbox-empty { font-size:14px; line-height:1.8; padding:20px 16px; color:var(--ui-muted); border:1px solid var(--ui-border); border-radius:7px; }
 .inbox-tracks.has-review-track .inbox-event-header,.inbox-tracks.has-review-track .inbox-event-row { grid-template-columns:90px minmax(70px,.7fr) minmax(100px,2fr) minmax(90px,1fr) 50px; gap:8px; padding:10px; }
 @media(max-width:1200px) { .inbox-tracks.has-review-track { grid-template-columns:minmax(0,1fr); } }
-@media(max-width:760px) {
+/* The desktop rail consumes 210px: switch before a five-column row outgrows its content area. */
+@media(max-width:1000px) {
   .inbox-event-header { display:none; }
   .inbox-event-row,.inbox-tracks.has-review-track .inbox-event-row { grid-template-columns:minmax(0,1fr) auto; gap:6px 12px; padding:12px; }
   .inbox-event-date { grid-column:1; font-size:12px; color:var(--ui-muted); }

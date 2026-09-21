@@ -29,10 +29,12 @@ try {
     check(await page.evaluate(({ appearanceKey, sentinelKey, theme }) => localStorage.getItem(appearanceKey) === theme && localStorage.getItem(sentinelKey) === 'retained synthetic bytes', { appearanceKey, sentinelKey, theme }), `legacy ${theme} and unrelated storage bytes retained`);
   }
   check(await page.getByLabel('外观', { exact: true }).count() === 0, 'appearance selector removed');
-  check(await page.getByRole('button', { name: '开始研究', exact: true }).count() === 1, 'one start-research main action');
-  check(await page.getByText(/当前尚未记录阅读历史/).count() === 1, 'no invented reading history');
-  await page.getByRole('button', { name: '开始研究', exact: true }).click();
-  check(new URL(page.url()).hash === '#/stocks', 'start research opens existing company pool');
+  check(await page.getByRole('button', { name: '添加资料', exact: true }).count() === 1, 'one add-material main action');
+  check(await page.getByText(/当前尚未记录阅读历史|最近阅读|从一个问题/).count() === 0, 'unimplemented reading history and research hero absent');
+  await page.getByRole('button', { name: '添加资料', exact: true }).click();
+  await page.getByRole('dialog', { name: '添加资料', exact: true }).waitFor();
+  check(new URL(page.url()).hash === '#/sources?view=add', 'add material opens actual source flow');
+  await page.keyboard.press('Escape');
 
   const routes = ['home', 'macro', 'industry', 'stocks', 'watchlist', 'verification', 'expectations', 'creators', 'memory', 'research', 'knowledge', 'portfolio', 'tasks', 'sources', 'settings'];
   for (const route of routes) {
@@ -43,7 +45,9 @@ try {
     check(new URL(page.url()).hash === `#/${route}`, `route ${route} survives reload`);
   }
   await visit('#/memory');
-  check(await page.getByLabel('选择多份文件').isVisible(), 'legacy memory defaults to original sources');
+  await page.getByRole('button', { name: '添加资料', exact: true }).click();
+  check(await page.getByLabel('选择多份文件').count() === 1, 'legacy memory retains upload through add-material flow');
+  await page.keyboard.press('Escape');
   for (const hash of ['#/industry?industry=synthetic%2Findustry&segment=synthetic%3Fsegment', '#/verification?event=synthetic%2Fevent%3Fone', '#/memory?view=sources&wiki=synthetic%2Fwiki']) {
     await visit(hash); await page.reload(); await ready();
     check(new URL(page.url()).hash === hash, `deep link preserves exact encoded query ${hash}`);
@@ -76,7 +80,7 @@ try {
   for (let i = 0; i < 25; i++) { await page.keyboard.press('Tab'); check(await dialog.evaluate(element => element.contains(document.activeElement)), `search Tab focus remains within modal ${i + 1}`); }
   await page.keyboard.press('Shift+Tab'); check(await dialog.evaluate(element => element.contains(document.activeElement)), 'search reverse Tab remains in modal');
   await page.keyboard.press('Escape'); await dialog.waitFor({ state: 'hidden' });
-  check(await page.getByRole('button', { name: /搜索页面与研究对象/ }).evaluate(element => element === document.activeElement), 'search Esc returns focus to trigger');
+  check(await page.getByRole('button', { name: /搜索页面或公司/ }).evaluate(element => element === document.activeElement), 'search Esc returns focus to trigger');
   await page.keyboard.press('Control+k'); await dialog.getByLabel('搜索页面、公司或代码').fill('宏观');
   const result = dialog.getByRole('button').filter({ has: page.locator('strong', { hasText: '宏观' }) }); await result.focus(); await page.keyboard.press('Enter');
   check(new URL(page.url()).hash === '#/macro', 'search result supports keyboard navigation');
@@ -108,7 +112,7 @@ try {
   await page.evaluate(() => { document.documentElement.style.zoom = ''; });
   await visit('#/portfolio'); check(await page.locator('main').innerText().then(text => /未连接|尚未|尚无/.test(text)), 'portfolio exposes unavailable capability honestly');
   await visit('#/tasks'); check(await page.getByRole('button', { name: /运行 Agent|启动 Agent|开始执行/ }).count() === 0, 'no unimplemented Agent execution action');
-  await visit('#/sources'); check(await page.getByRole('navigation', { name: '研究记忆视图' }).count() === 1, 'source access retains existing research-memory owner interface');
+  await visit('#/sources'); check(await page.getByRole('navigation', { name: '资料分类' }).count() === 1, 'source access retains its three contextual views');
   check(report.errors.length === 0, 'no browser runtime errors');
 } catch (error) { report.errors.push(error.message); process.exitCode = 1; await page.screenshot({ path: path.join(output, 'failure.png'), fullPage: true }).catch(() => {}); }
 finally { await context.close(); await browser.close(); await fs.writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2)); console.log(JSON.stringify({ output, checks: report.checks.length, passed: report.checks.filter(row => row.ok).length, errors: report.errors })); }

@@ -30,7 +30,7 @@ describe("explicit isolated UI review",()=>{
     const read=vi.spyOn(Storage.prototype,"getItem");const write=vi.spyOn(Storage.prototype,"setItem");const remove=vi.spyOn(Storage.prototype,"removeItem");const clear=vi.spyOn(Storage.prototype,"clear");
     const fetch=vi.spyOn(globalThis,"fetch").mockRejectedValue(new Error("review must not fetch"));
     render(<Application search="?ui-review=1"/>);
-    await screen.findByRole("heading",{name:"首页 / 研究工作台"}, {timeout:10000});
+    await screen.findByRole("heading",{name:"研究总览"}, {timeout:10000});
     const nav=()=>within(screen.getByRole("navigation",{name:"主要导航"}));
     for(const profile of ["full","empty","degraded"]) {
       fireEvent.change(screen.getByLabelText("验收场景"),{target:{value:profile}});

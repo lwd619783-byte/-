@@ -62,7 +62,7 @@ describe('Creator Viewpoint Workspace', () => {
     expect(screen.queryByText('未来积极草稿')).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: '观点时间轴' }));
     expect(screen.getByRole('button', { name: '未来积极草稿' })).toBeTruthy();
-    expect(screen.getByText('Draft · 不改变正式 Current View')).toBeTruthy();
+    expect(screen.getByText('草稿 · 不改变正式当前观点')).toBeTruthy();
     fireEvent.change(screen.getByLabelText(/As-of 本地时间/), { target: { value: '2026-01-01T00:00' } });
     expect(screen.queryByRole('button', { name: '未来积极草稿' })).toBeNull();
     expect(screen.queryByRole('button', { name: '合成观点 1' })).toBeNull();
@@ -112,8 +112,8 @@ describe('Creator Viewpoint Workspace', () => {
     render(<CreatorViewpointWorkspace repository={new BrowserCreatorViewpointRepository(storage)} />);
     expect(screen.getByText(/待复盘 T\+5（待继续核验）/)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: '观点时间轴' }));
-    expect(screen.getByText('Trigger：合成条件成立 → 新的成立条件')).toBeTruthy();
-    expect(screen.getByText(/inconclusive · 待继续核验/)).toBeTruthy();
+    expect(screen.getByText('触发条件：合成条件成立 → 新的成立条件')).toBeTruthy();
+    expect(screen.getByText(/待继续核验/)).toBeTruthy();
   });
   it('reports invalid import inside the modal without exposing a confirm action or writing', () => {
     const { repository, storage } = setup(); render(<CreatorViewpointWorkspace repository={repository} />);
@@ -188,8 +188,8 @@ describe('Creator Viewpoint Workspace', () => {
     render(<CreatorViewpointWorkspace repository={new BrowserCreatorViewpointRepository(storage)} />);
     expect(screen.queryByRole('button', { name: '合成观点 1' })).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: '观点时间轴' }));
-    expect(screen.getByText('unresolved · 来源时间未知，不参与有序状态转换，可能影响 Current View 完整性')).toBeTruthy();
-    expect(screen.getAllByText(/unresolved · 到期日不可计算/)).toHaveLength(3);
+    expect(screen.getByText('待确定 · 来源时间未知，不参与有序状态转换，可能影响当前观点完整性')).toBeTruthy();
+    expect(screen.getAllByText(/待确定 · 到期日不可计算/)).toHaveLength(3);
     const card = screen.getByRole('button', { name: '合成观点 1' }).closest('article')!;
     fireEvent.click(within(card).getAllByRole('button', { name: '填写复盘' })[0]);
     expect(screen.getByText(/来源发布时间锚点 unknown · 到期 unresolved/)).toBeTruthy();
@@ -211,7 +211,7 @@ describe('Creator Viewpoint Workspace', () => {
     fireEvent.change(screen.getByLabelText('筛选博主'), { target: { value: 'creator-1' } });
     const cards = screen.getAllByRole('article');
     expect(cards[0].textContent).toContain('补录旧观点');
-    expect(cards[0].textContent).toContain(`Creator time ${fixtureTime(1)}`);
+    expect(cards[0].textContent).toContain(`来源有效时间 ${fixtureTime(1)}`);
     expect(cards[0].textContent).toContain(`本地审核 ${fixtureTime(11)}`);
     expect(cards[1].textContent).toContain('合成观点 1');
   });
