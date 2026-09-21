@@ -37,7 +37,7 @@ export function Header({onHome,onStartResearch,workspaceSearch,search,onSearchCh
         {coverageSummary ? <p>{coverageSummary}</p> : null}
       </div>
     </details>
-        {onStartResearch && <button className="ui-v2-primary ui-v2-header-start" onClick={onStartResearch}>发起研究</button>}
+        {onStartResearch && <button className="ui-v2-primary ui-v2-header-start" onClick={onStartResearch}>查找公司</button>}
       </div>
     </div>
     {workspaceSearch && search && <div className="ui-v2-active-filter" role="status"><span>研究池筛选：{search}</span><button type="button" className="inbox-action" onClick={() => onSearchChange('')}>清除研究池筛选</button></div>}

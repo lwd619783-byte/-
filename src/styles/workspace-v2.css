@@ -1,10 +1,11 @@
 /* Geometry, colors and controls follow research-os-ui-v2.html; no prototype data. */
 :root { --workspace-side:210px; --workspace-top:70px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
 body { font-size:15px; line-height:1.6; }
+html { scroll-padding-top:90px; }
 button { cursor:pointer; }
 button:disabled { cursor:not-allowed; }
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible { outline:3px solid #729980; outline-offset:4px; }
-.workspace-header { position:sticky; top:0; z-index:25; height:var(--workspace-top); margin-left:var(--workspace-side); padding:0 40px; border-bottom:1px solid var(--ui-border); background:#ffffffed; }
+.workspace-header { position:sticky; top:0; z-index:25; min-height:var(--workspace-top); margin-left:var(--workspace-side); padding:0 30px; border-bottom:1px solid var(--ui-border); background:#ffffffed; }
 .workspace-topbar { min-height:var(--workspace-top); height:100%; gap:18px; flex-wrap:nowrap; padding:0; }
 .workspace-brand { display:none; }
 .ui-v2-header-actions { display:flex; align-items:center; justify-content:flex-end; gap:14px; margin-left:auto; }
@@ -14,9 +15,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .workspace-data-status summary { padding:6px 0; min-height:34px; cursor:pointer; display:flex; align-items:center; }
 .workspace-data-status summary > span:first-child { display:none; }
 .workspace-data-status > div { position:absolute; top:42px; right:0; background:var(--ui-panel); border:1px solid var(--ui-border); border-radius:10px; padding:20px; width:min(440px,calc(100vw - 32px)); box-shadow:0 8px 30px #18231314; }
-.ui-v2-active-filter { position:absolute; right:40px; top:calc(var(--workspace-top) + 8px); z-index:24; display:flex; align-items:center; flex-wrap:wrap; gap:12px; padding:6px 12px; max-width:calc(100% - 32px); border:1px solid var(--ui-border); border-radius:6px; background:var(--ui-panel); box-shadow:var(--ui-shadow); font-size:12px; }
-.dashboard-shell { display:block; max-width:none; margin:0 0 0 var(--workspace-side); padding:40px 40px 60px; }
-.dashboard-main { width:100%; max-width:1220px; margin:auto; }
+.ui-v2-active-filter { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:0 0 10px; overflow-wrap:anywhere; font-size:12px; }
+.dashboard-shell { display:block; max-width:none; margin:0 0 0 var(--workspace-side); padding:26px 30px 48px; }
+.dashboard-main { width:100%; max-width:1320px; margin:auto; }
+.dashboard-main :is(h1,h2,h3,[tabindex="-1"]) { scroll-margin-top:90px; }
 .dashboard-sidebar { position:fixed; inset:0 auto 0 0; width:var(--workspace-side); z-index:35; padding:30px 18px 20px; background:var(--prototype-rail); border-right:1px solid var(--ui-border); }
 .ui-v2-navigation { display:flex; flex-direction:column; height:100%; }
 .ui-v2-sidebar-brand { display:flex; align-items:center; gap:12px; padding:0 12px 35px; font-size:19px; font-weight:650; letter-spacing:-.5px; }
@@ -36,7 +38,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .ui-v2-nav-footnote small { display:block; font-size:10px; }
 .ui-v2-avatar { display:grid; place-items:center; width:29px; height:29px; flex-shrink:0; border-radius:50%; background:#e1e6d8; color:#46553b; font-size:11px; }
 .ui-v2-menu-toggle { display:none; }
-.ui-v2-tabs { display:flex; gap:25px; border-bottom:1px solid var(--ui-border); margin:-7px 0 30px; overflow-x:auto; scrollbar-width:thin; white-space:nowrap; }
+.ui-v2-tabs { display:flex; gap:25px; border-bottom:1px solid var(--ui-border); margin:-7px 0 20px; overflow-x:auto; scrollbar-width:thin; white-space:nowrap; }
 .ui-v2-tabs a { font-size:13px; color:var(--ui-muted); padding:13px 0 14px; border-bottom:2px solid transparent; min-height:45px; }
 .ui-v2-tabs a[aria-current] { color:var(--ui-accent); border-color:var(--ui-accent); font-weight:650; }
 .ui-v2-search-trigger { color:var(--ui-muted); font-size:13px; display:flex; align-items:center; gap:11px; background:transparent; border:0; text-align:left; min-width:0; padding:8px 0; }
@@ -54,24 +56,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .ui-v2-surface,.ui-v2-empty { background:var(--ui-panel); border:1px solid var(--ui-border); border-radius:10px; padding:22px; }
 .ui-v2-surface h2 { font-size:18px; font-weight:600; margin-bottom:16px; }
 .ui-v2-surface p,.ui-v2-empty p { line-height:1.9; margin:12px 0; max-width:800px; font-size:13px; }
-.ui-v2-empty { padding:54px 24px; text-align:center; }
-.ui-v2-empty p { margin:12px auto 22px; max-width:480px; color:var(--ui-muted); }
-.ui-v2-empty h1 { font-size:25px; font-weight:600; }
-.ui-v2-empty details { margin-top:24px; }
+.ui-v2-empty { padding:24px; text-align:left; }
+.ui-v2-empty p { margin:8px 0 12px; max-width:760px; color:var(--ui-muted); }
+.ui-v2-empty h1 { font-size:21px; font-weight:600; }
+.ui-v2-empty details { margin-top:12px; }
 .ui-panel { background:var(--ui-panel); background-image:none; box-shadow:none; border-radius:10px; }
 .workspace h1,.workspace h2 { letter-spacing:-.5px; }
-.workspace .page-heading h2 { font-size:29px; font-weight:650; }
+.workspace .page-heading h2 { font-size:23px; font-weight:650; }
 .workspace input,.workspace textarea { background:var(--ui-panel); }
 .workspace select,.workspace input,.workspace textarea { border-radius:6px; }
 .workspace table { font-size:13px; }
-.workspace th { font-size:11px; font-weight:500; color:var(--ui-muted); background:#fafbf8; border-bottom-color:var(--ui-border); }
+.workspace th { font-size:12px; font-weight:500; color:var(--ui-muted); background:#fafbf8; border-bottom-color:var(--ui-border); }
 .workspace tbody tr:hover { background:#fcfcfa; }
 .workspace [class*="backdrop-blur"] { backdrop-filter:none; }
 .workspace [class*="bg-gradient"] { background-image:none; }
 .company-page-tabs { position:static; }
 .workspace [aria-label="研究记忆工作区"] > header { background:transparent; border:0; padding:0 0 6px; }
 .workspace [aria-label="研究记忆工作区"] > header > p:first-child { letter-spacing:1.8px; font-size:11px; }
-.workspace [aria-label="研究记忆工作区"] > header > h2 { font-size:29px; font-weight:650; margin-top:10px; }
+.workspace [aria-label="研究记忆工作区"] > header > h2 { font-size:24px; font-weight:650; margin-top:0; }
 .workspace [aria-label="研究记忆视图"] { gap:25px; border-bottom:1px solid var(--ui-border); margin-bottom:24px; }
 .workspace [aria-label="研究记忆视图"] button { background:transparent; border:0; border-bottom:2px solid transparent; border-radius:0; padding:13px 0; font-size:13px; }
 .workspace [aria-label="研究记忆视图"] button[aria-pressed="true"] { border-color:var(--ui-accent); color:var(--ui-accent); font-weight:650; }
@@ -82,10 +84,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .modal-content { padding:24px 26px; }
 .modal-footer { padding:17px 26px 22px; }
 .modal-drawer .modal-panel { border-radius:0; box-shadow:-10px 0 50px #17281814; }
-@media (min-width:1600px) { .dashboard-shell { padding:45px 55px 60px; } .workspace-header { padding:0 55px; } }
+@media (min-width:1600px) { .dashboard-shell { padding:28px 32px 48px; } .workspace-header { padding:0 32px; } }
 @media (max-width:1200px) {
  :root { --workspace-side:188px; }
- .dashboard-shell { padding:30px 28px 50px; }
+ .dashboard-shell { padding:24px 28px 44px; }
  .workspace-header { padding:0 28px; }
  .ui-v2-sidebar-brand { padding-left:6px; gap:8px; }
  .ui-v2-sidebar-brand small { font-size:8px; }

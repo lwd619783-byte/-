@@ -38,14 +38,14 @@ describe('UI V2 navigation and search', () => {
     expect(dialog.contains(document.activeElement)).toBe(true);
     fireEvent.keyDown(dialog, { key: 'Escape' });
     expect(screen.queryByRole('dialog')).toBeNull();
-    expect(screen.getByRole('button', { name: /搜索页面与研究对象/ })).toHaveFocus();
+    expect(screen.getByRole('button', { name: /搜索页面或公司/ })).toHaveFocus();
     expect(read).not.toHaveBeenCalled();expect(fetch).not.toHaveBeenCalled();
   });
 
   it('passes the typed company query explicitly and never interprets it as HTML or a route', () => {
     const navigate = vi.fn(), search = vi.fn();
     render(<WorkspaceSearch navigate={navigate} onCompanySearch={search} />);
-    fireEvent.click(screen.getByRole('button', { name: /搜索页面与研究对象/ }));
+    fireEvent.click(screen.getByRole('button', { name: /搜索页面或公司/ }));
     const text = '<script>bad</script>/stock';
     fireEvent.change(screen.getByLabelText('搜索页面、公司或代码'), { target: { value: text } });
     expect(screen.getByRole('status')).toHaveTextContent('没有匹配的页面');

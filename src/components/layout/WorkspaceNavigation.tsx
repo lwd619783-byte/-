@@ -40,7 +40,7 @@ export function WorkspaceSearch({ navigate, onCompanySearch }: { navigate: (page
     window.addEventListener('keydown', key); return () => window.removeEventListener('keydown', key);
   }, []);
   const items = [...primaryPages, ...researchPages.filter(item => item.page !== 'research'), ...utilityPages].filter(item => `${item.label}${item.description}`.includes(query.trim()));
-  return <><button ref={trigger} className="ui-v2-search-trigger" onClick={() => setOpen(true)}><Search size={17} aria-hidden="true" /><span>搜索页面与研究对象</span><kbd>Ctrl K</kbd></button>
+  return <><button ref={trigger} className="ui-v2-search-trigger" onClick={() => setOpen(true)}><Search size={17} aria-hidden="true" /><span>搜索页面或公司</span><kbd>Ctrl K</kbd></button>
     {open && <Modal title="搜索" size="compact" initialFocusRef={input} onClose={() => setOpen(false)}><label className="block">搜索页面、公司或代码<input ref={input} value={query} onChange={event => setQuery(event.target.value)} className="ui-v2-search-input" /></label>
       <div className="ui-v2-search-results">{items.map(item => <button key={item.page} onClick={() => { setOpen(false); navigate(item.page); }}><strong>{item.label}</strong><span>{item.description}</span></button>)}</div>
       {query.trim() && <button className="inbox-action mt-4" onClick={() => { onCompanySearch(query.trim()); setOpen(false); }}>在公司研究池查找“{query.trim()}”</button>}
