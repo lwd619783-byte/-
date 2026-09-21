@@ -13,12 +13,16 @@ const stock={id:"synthetic-ui",name:"测试公司",code:"000001",market:"A股"} 
 const watch:WatchItem={id:"synthetic-watch",stockId:stock.id,createdAt:"2026-06-01",updatedAt:"2026-06-01",status:"观察",priority:"high",tags:[],reason:"",thesis:"原判断",validationCriteria:[],riskCriteria:[],nextReviewAt:null,lastReviewedAt:null,archivedAt:null,source:"user",schemaVersion:2};
 afterEach(()=>{cleanup();localStorage.clear();vi.restoreAllMocks();window.history.replaceState(null,"","/");});
 describe("UI form lifecycle",()=>{
- it("keeps review input across appearance switches and cancelled close; submits once",async()=>{
+ it("keeps review input with the single light appearance through rerender and cancelled close; submits once",async()=>{
   const submit=vi.fn();const close=vi.fn();vi.spyOn(window,"confirm").mockReturnValue(false);
-  render(<AppearanceProvider><ReviewFormModal watchItem={watch} events={[]} tasks={[]} onSubmit={submit} onClose={close}/></AppearanceProvider>);
+  const view=()=> <AppearanceProvider><ReviewFormModal watchItem={watch} events={[]} tasks={[]} onSubmit={submit} onClose={close}/></AppearanceProvider>;
+  const {rerender}=render(view());
   fireEvent.change(screen.getByLabelText("本次新证据"),{target:{value:"用户填写到一半的证据"}});
-  for(const theme of ["pro","light","neon"]){fireEvent.change(screen.getByLabelText("外观"),{target:{value:theme}});expect((screen.getByLabelText("本次新证据") as HTMLTextAreaElement).value).toBe("用户填写到一半的证据");}
+  rerender(view());
+  expect(screen.queryByLabelText("外观")).toBeNull();expect(document.documentElement.dataset.theme).toBe("light");
+  expect((screen.getByLabelText("本次新证据") as HTMLTextAreaElement).value).toBe("用户填写到一半的证据");
   fireEvent.click(screen.getByText("取消"));expect(close).not.toHaveBeenCalled();
+  expect((screen.getByLabelText("本次新证据") as HTMLTextAreaElement).value).toBe("用户填写到一半的证据");
   await act(async()=>{fireEvent.click(screen.getByText("提交复盘"));});
   expect(submit).toHaveBeenCalledTimes(1);expect(submit.mock.calls[0][0].summary).toBe("用户填写到一半的证据");
  });

@@ -1,14 +1,16 @@
 import { useDisplayNow } from "./hooks/useDisplayNow";
-import { pages, useWorkspaceNavigation } from "./hooks/useWorkspaceNavigation";
+import { pages, useWorkspaceNavigation, type MainPage, type PageId } from "./hooks/useWorkspaceNavigation";
 import { StockQuickPreview } from "./components/stock/StockQuickPreview";
 import { QuoteTrustSummary } from "./components/common/QuoteTrust";
 import { summarizeQuotes } from "./utils/dataTrustDisplay";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, House, LineChart, Plus, ScrollText, RefreshCw, type LucideIcon } from "lucide-react";
+import { AlertTriangle, CheckSquare, FileCheck2, Plus, RefreshCw } from "lucide-react";
 import { Header } from "./components/layout/Header";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { RightRail } from "./components/layout/RightRail";
-import { Sidebar } from "./components/layout/Sidebar";
+import { WorkspaceNavigation, ResearchNavigation, WorkspaceSearch } from './components/layout/WorkspaceNavigation';
+import { PortfolioBoundary, WorkspaceSettings } from './components/layout/WorkspaceSettings';
+import { ResearchWorkbench, TaskWorkspace } from './components/home/ResearchWorkbench';
 import { MacroTab } from "./components/dashboard/MacroTab";
 import { IndustryTab } from "./components/industry/IndustryTab";
 import { StockPool } from "./components/stock/StockPool";
@@ -20,7 +22,7 @@ import { ResearchEventCenter } from "./components/research/ResearchEventCenter";
 import { EarningsExpectationCenter } from "./components/expectation/EarningsExpectationCenter";
 import { EarningsExpectationFormModal } from "./components/expectation/EarningsExpectationFormModal";
 import { EarningsExpectationImportModal } from "./components/expectation/EarningsExpectationImportModal";
-import { HomePage, type ResearchDestination } from "./components/home/HomePage";
+import { HomePage } from "./components/home/HomePage";
 import { dataSourceNote, dataUpdatedAt, macroIndicators } from "./data/macroData";
 import { watchlistSamples } from "./data/watchlist";
 import { buildDashboardDataset } from "./services/dataProvider";
@@ -42,24 +44,15 @@ import { buildIndustryChanges } from './services/industrySignals';
 import { ResearchMemoryWorkspace } from './components/research-memory/ResearchMemoryWorkspace';
 import { CreatorViewpointWorkspace } from './components/creator/CreatorViewpointWorkspace';
 
-type MainTab = "首页" | ResearchDestination;
-
-const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
-  { id: "首页", icon: House },
-  { id: "宏观", icon: LineChart },
-  { id: "行业", icon: Building2 },
-  { id: "个股池", icon: BarChart3 },
-  { id: "观察清单", icon: Binoculars },
-  { id: "验证中心", icon: FlaskConical },
-  { id: "预期证据", icon: ScrollText },
-  { id: "观点追踪", icon: ScrollText },
-  { id: "研究记忆", icon: ScrollText },
-];
+type MainTab = MainPage;
 
 export default function App() {
   const displayNow = useDisplayNow();
   const navigation = useWorkspaceNavigation();
   const activeTab = pages[navigation.route.page];
+  const navigatePageId = (page: PageId) => navigation.navigatePage(pages[page]);
+  const memoryActive = ['memory', 'knowledge', 'sources', 'tasks'].includes(navigation.route.page);
+  const memoryView = navigation.route.view === 'organize' ? 'AI 整理' : navigation.route.view === 'review' ? '待审核' : navigation.route.view === 'wiki' || navigation.route.page === 'knowledge' ? '我的知识库' : navigation.route.page === 'tasks' ? '待审核' : '原始资料';
   const industryLocation = useRef<{ industryId?: string; segmentId?: string }>({});
   if (navigation.route.kind === "page" && navigation.route.page === "industry") industryLocation.current = navigation.route;
   const eventLocation = useRef<{ eventId?: string }>({});
@@ -303,6 +296,8 @@ export default function App() {
         onHome={() => navigateToTab("首页")}
         search={globalSearch}
         onSearchChange={setGlobalSearch}
+        onStartResearch={activeTab === '首页' ? undefined : () => navigatePageId('stocks')}
+        workspaceSearch={<WorkspaceSearch navigate={navigatePageId} onCompanySearch={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
         updatedAt={dataset.dataUpdatedAt}
         sourceNote={dataMode === "mock" ? dataSourceNote : dataset.dataSourceNote}
         dataMode={dataMode}
@@ -312,13 +307,14 @@ export default function App() {
       />
 
       <DashboardLayout
-        sidebar={<Sidebar tabs={tabs} activeTab={activeTab} onChange={navigateToTab} />}
+        sidebar={<WorkspaceNavigation page={navigation.route.page} navigate={navigatePageId} />}
         main={
           <section className="min-w-0 space-y-4">
-          <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引数据状态">
+          <ResearchNavigation page={navigation.route.page} navigate={navigatePageId} />
+          {companyGuidanceWorkflowError && <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引数据状态">
             <div className="min-w-0 text-xs"><span className="font-semibold text-textStrong">公司指引数据</span><span className="ml-2 text-textMuted">{dataMode === "mock" ? "模拟数据模式已严格隔离真实数据提供方" : companyGuidanceWorkflowStatus === "loading" ? "全局索引校验中" : companyGuidanceWorkflowStatus === "success" ? `已验证 ${providerRecords.length} 条当前版本，导航切换不改变工作流` : companyGuidanceWorkflowStatus === "error" ? "全局索引失败，正式数据提供方已关闭" : "等待加载"}</span></div>
             {companyGuidanceWorkflowError ? <div className="flex min-w-0 items-center gap-2"><span role="alert" className="max-w-xl break-words text-xs text-warning" title={companyGuidanceWorkflowError}>{companyGuidanceWorkflowError}</span><button type="button" onClick={retryCompanyGuidance} className="rounded border border-warning/50 px-2 py-1 text-xs text-warning">重试</button></div> : null}
-          </DashboardCard>
+          </DashboardCard>}
           {navigation.route.kind === "invalid" || (navigation.route.kind === "company" && !activeSelectedStock) ? <section className="ui-panel rounded-lg border border-warning p-6" role="status"><h1 className="text-2xl font-semibold">找不到研究对象或页面</h1><p className="my-4 text-textMuted">链接中的对象不存在于当前研究池，请返回入口重新选择。</p><button type="button" onClick={() => navigateToTab("个股池")} className="rounded-md border border-control px-4 py-2">返回个股池</button></section> : null}
                 <StockDetailDrawer
         presentation="page"
@@ -351,7 +347,11 @@ export default function App() {
           <div hidden={navigation.route.kind !== "page"} className="space-y-4">
 
 
-          {visitedTabs.has("首页") && (<div hidden={activeTab !== "首页"}>
+          {activeTab === '首页' && <ResearchWorkbench stocks={dataset.stocks} watchItems={watchlistData.watchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={storageError ?? expectationStorageError ?? undefined} onNavigate={navigateToTab} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenKnowledge={() => navigatePageId('knowledge')} onOpenTasks={() => navigatePageId('tasks')} onOpenSources={() => navigatePageId('sources')} onResearchQuery={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
+          {activeTab === '任务' && <TaskWorkspace stocks={dataset.stocks} watchItems={watchlistData.watchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={storageError ?? expectationStorageError ?? undefined} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenReview={() => document.getElementById('knowledge-review-workspace')?.scrollIntoView({ behavior: 'auto' })} />}
+          {activeTab === '组合' && <PortfolioBoundary />}
+          {activeTab === '设置与帮助' && <WorkspaceSettings openKnowledge={() => navigatePageId('knowledge')} openSources={() => navigatePageId('sources')} />}
+          {visitedTabs.has("研究") && (<div hidden={activeTab !== "研究"}>
         <HomePage
           industryEvents={industryEvents}
           now={displayNow}
@@ -385,7 +385,7 @@ export default function App() {
 
           {workflowMessage ? <div role="status" className="rounded-md border border-success/35 bg-success/10 px-3 py-2 text-sm text-success">{workflowMessage}</div> : null}
 
-          {visitedTabs.has("研究记忆") && <div hidden={activeTab !== "研究记忆"}><ResearchMemoryWorkspace active={activeTab === "研究记忆"} /></div>}
+          {['研究记忆', '知识库', '资料与连接', '任务'].some(tab => visitedTabs.has(tab as MainTab)) && <div id="knowledge-review-workspace" hidden={!memoryActive}><ResearchMemoryWorkspace active={memoryActive} requestedView={memoryView} routeKey={`${navigation.route.page}:${navigation.route.view ?? ''}`} selectedWikiId={navigation.route.wikiId} onSelectWiki={wikiId => navigation.navigateHash(`#/knowledge?wiki=${encodeURIComponent(wikiId)}`)} onViewChange={view => { if (navigation.route.page !== 'memory') navigation.navigateHash(view === '我的知识库' ? '#/knowledge' : view === '待审核' ? '#/tasks?view=review' : view === 'AI 整理' ? '#/sources?view=organize' : '#/sources'); }} /></div>}
           {visitedTabs.has("观点追踪") && <div hidden={activeTab !== "观点追踪"}><CreatorViewpointWorkspace /></div>}
           {visitedTabs.has("宏观") && <div hidden={activeTab !== "宏观"}><MacroTab indicators={macroIndicators} generatedAt={dataUpdatedAt} /></div>}
           {visitedTabs.has("行业") && (<div hidden={activeTab !== "行业"}>
@@ -508,7 +508,7 @@ export default function App() {
               onOpenStock={setSelectedStock}
             />
           </div>)}
-          <details className="workspace-context"><summary>工作台概况与数据健康</summary>
+          <details hidden={!["研究", "设置与帮助"].includes(activeTab)} className="workspace-context"><summary>工作台概况与数据健康</summary>
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
               <div className="min-w-0">

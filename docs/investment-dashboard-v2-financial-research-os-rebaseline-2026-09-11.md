@@ -1,5 +1,8 @@
 # Investment Research Dashboard V2 · Financial Research OS Rebaseline
 
+> 2026-09-21 CURRENT 增量：Slice 2/2.5 代码已由 PR #72 合入 main `a029b1e`（CI35603915441 success）；真实原范围验收仍保留本人CREATE审核、同Wiki UPDATE/history/revoke拒读的PENDING账单，不据此关闭整个Stage4.3。按用户本次指令，在当前切片后插入跨模块 **UI V2 Clear Research Workspace**：重组访问路径与统一阅读，领域owner、公式、PIT、权限、只读Bridge及正式版本规则不变。后续Slice3–6、4.4 Portfolio Exposure MVP、4.5 Research Bridge / Controlled Tool Layer、4.6+ Research Agent / Artifact / Global Coverage保持下文原名/顺序/范围；不以导航预留宣布实现。[UI V2冻结与迁移](ui-v2/implementation.md)。
+
+
 > 状态：CURRENT STRATEGIC ROADMAP REBASELINE V1  
 > 日期：2026-09-11  
 > 设计输入：`origin/main @ 087c52a7962ed08c3f550d79987e0282be5607cf`  

@@ -9,7 +9,7 @@ const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4173';
 const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-3-slice-2/browser');
 await fs.mkdir(output, { recursive: true });
 const key = 'investment-research-dashboard.wiki.v1', creatorKey = 'investment-research-dashboard.creator-viewpoint.v1';
-const report = { checks: [], errors: [], warnings: [], externalRequests: [], screenshots: [], downloads: [], sourceSha256: {} };
+const report = { runtimeSha: process.env.UI_REVIEW_RUNTIME_SHA || null, deploymentId: process.env.UI_REVIEW_DEPLOYMENT_ID || null, origin, testedAt: new Date().toISOString(), inputType: 'isolated-synthetic', checks: [], errors: [], warnings: [], externalRequests: [], screenshots: [], downloads: [], sourceSha256: {} };
 for (const file of ['src/services/wiki.ts', 'src/services/wikiRepository.ts', 'src/services/wikiProjection.ts', 'src/services/wikiOwners.ts', 'src/components/research-memory/ResearchMemoryWorkspace.tsx', 'src/components/research-memory/WikiRevisionForm.tsx', 'src/components/research-memory/WikiBackupModal.tsx']) report.sourceSha256[file] = createHash('sha256').update((await fs.readFile(file, 'utf8')).replaceAll('\r\n', '\n')).digest('hex');
 const check = (ok, name) => { console.log(`${ok ? 'PASS' : 'FAIL'} ${name}`); report.checks.push({ ok, name }); if (!ok) throw new Error(name); };
 const browser = await chromium.launch({ channel: process.env.UI_REVIEW_BROWSER_CHANNEL || 'msedge', headless: true });
@@ -61,6 +61,19 @@ try {
   await w.getByRole('button', { name: '手工新建文章', exact: true }).click({ noWaitAfter: true }); dialog = page.getByRole('dialog', { name: '新建 文章草稿' }); await dialog.getByLabel('文章标题').fill('UI 关联概念'); await dialog.getByLabel('完整正文').fill('Synthetic related concept'); await dialog.getByRole('group', { name: '原始资料', exact: true }).getByRole('checkbox').first().check(); await dialog.getByRole('group', { name: '关联文章' }).getByRole('checkbox').check(); await dialog.getByRole('button', { name: '保存文章草稿' }).click({ noWaitAfter: true }); await dialog.waitFor({ state: 'hidden' }); await reviewDraft(page, 'UI 关联概念');
   await details(page).getByRole('button', { name: '关联 · UI 已审核改名', exact: true }).click({ noWaitAfter: true }); check(await details(page).getByRole('button', { name: '反向引用 · UI 关联概念' }).count() === 1, 'formal backlink derived');
   await w.getByLabel('搜索知识库').fill('查找别名'); check(await w.getByRole('complementary', { name: '文章列表' }).getByRole('button').count() === 1, 'alias search'); await w.getByLabel('搜索知识库').fill('');
+  const firstArticle = w.getByRole('complementary', { name: '文章列表' }).getByRole('button', { name: /UI 已审核改名/ });
+  const secondArticle = w.getByRole('complementary', { name: '文章列表' }).getByRole('button', { name: /UI 关联概念/ });
+  const secondWikiId = (await read(page)).revisions.find(row => row.title === 'UI 关联概念').wikiId;
+  await firstArticle.click({ noWaitAfter: true }); await page.waitForURL(url => url.hash === `#/knowledge?wiki=${encodeURIComponent(wikiId)}`);
+  check(await firstArticle.getAttribute('aria-pressed') === 'true', 'first article selection has exact Wiki deep link');
+  await secondArticle.click({ noWaitAfter: true }); await page.waitForURL(url => url.hash === `#/knowledge?wiki=${encodeURIComponent(secondWikiId)}`);
+  check(await secondArticle.getAttribute('aria-pressed') === 'true', 'second article selection has distinct exact Wiki deep link');
+  await page.goBack({ waitUntil: 'domcontentloaded' }); await page.waitForURL(url => url.hash === `#/knowledge?wiki=${encodeURIComponent(wikiId)}`);
+  await details(page).getByRole('heading', { name: 'UI 已审核改名', exact: true }).waitFor();
+  check(await firstArticle.getAttribute('aria-pressed') === 'true', 'browser Back restores first Wiki object');
+  await page.reload({ waitUntil: 'domcontentloaded' }); await details(page).getByRole('heading', { name: 'UI 已审核改名', exact: true }).waitFor();
+  check(new URL(page.url()).hash === `#/knowledge?wiki=${encodeURIComponent(wikiId)}` && await firstArticle.getAttribute('aria-pressed') === 'true', 'reload preserves selected Wiki identity');
+  await w.getByText('更多操作', { exact: true }).click({ noWaitAfter: true });
   await w.getByRole('textbox', { name: /历史查询时间/ }).fill(firstCutoff); await w.getByRole('button', { name: '应用时间视图' }).click({ noWaitAfter: true }); check(await details(page).getByText(new RegExp(firstRevision)).count() >= 1, 'historical exact first reviewed revision'); check(await w.getByRole('button', { name: '手工新建文章' }).isDisabled(), 'historical writes disabled');
   await w.getByRole('textbox', { name: /历史查询时间/ }).fill(''); await w.getByRole('button', { name: '应用时间视图' }).click({ noWaitAfter: true });
   const firstZip = await download(page, '导出到 Obsidian', 'wiki-vault-a.zip'); const secondZip = await download(page, '导出到 Obsidian', 'wiki-vault-b.zip'); check((await fs.readFile(firstZip)).equals(await fs.readFile(secondZip)), 'same read model byte-stable ZIP');
@@ -71,8 +84,8 @@ try {
   const actualPage = path.join(extracted, manifest.pages[0].path); await fs.appendFile(actualPage, '\nExternal edit\n'); const domainBeforeEdit = JSON.stringify(await read(page)); await inspectInput.evaluate(input => { input.value = ''; }); await inspectInput.setInputFiles(path.join(extracted, 'research-wiki')); await w.getByText(/文件已修改或不完整/).waitFor(); check(JSON.stringify(await read(page)) === domainBeforeEdit, 'edited Markdown cannot write back');
   const backupPath = await download(page, '备份全部文章历史', 'wiki-full-backup.json'); const backupRaw = await fs.readFile(backupPath, 'utf8');
   await page.reload({ waitUntil: 'domcontentloaded' }); await page.waitForLoadState('load'); await navigate(page, '我的知识库'); await w.waitFor(); check((await read(page)).revisions.length === 4, 'all revision history survives reload');
-  for (const theme of ['neon', 'pro', 'light']) for (const width of [1536, 1280, 390, 320]) {
-    await page.setViewportSize({ width, height: 960 }); await page.getByLabel('外观', { exact: true }).selectOption(theme);
+  for (const theme of ['light']) for (const width of [1536, 1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 960 }); check(await page.evaluate(() => document.documentElement.dataset.theme === 'light'), `${theme}/${width} single light appearance`); check(await page.getByLabel('外观', { exact: true }).count() === 0, `${theme}/${width} no appearance switch`);
     for (const view of ['原始资料', 'AI 整理', '待审核', '我的知识库']) { await navigate(page, view); check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width}/${view} no horizontal overflow`); }
     check(await page.evaluate(() => matchMedia('(prefers-reduced-motion: reduce)').matches), `${theme}/${width} reduced-motion retained`); await shot(page, `${theme}-${width}`);
   }

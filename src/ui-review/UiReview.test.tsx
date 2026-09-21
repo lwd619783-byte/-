@@ -48,7 +48,8 @@ describe("explicit isolated UI review",()=>{
         fireEvent.click(screen.getByRole("tab",{name:tab}));
         expect(screen.getByRole("tabpanel")).toBeTruthy();
       }
-      for(const theme of ["pro","light","neon"]) fireEvent.change(screen.getByLabelText("外观"),{target:{value:theme}});
+      expect(screen.queryByLabelText("外观")).toBeNull();
+      expect(document.documentElement.dataset.theme).toBe("light");
     }
     expect(businessImport).not.toHaveBeenCalled();expect(read).not.toHaveBeenCalled();expect(write).not.toHaveBeenCalled();expect(remove).not.toHaveBeenCalled();expect(clear).not.toHaveBeenCalled();expect(fetch).not.toHaveBeenCalled();expect(loadAShareFinancial).not.toHaveBeenCalled();expect(loadAShareAnnouncements).not.toHaveBeenCalled();
     read.mockRestore();expect(storageSnapshot()).toEqual(before);

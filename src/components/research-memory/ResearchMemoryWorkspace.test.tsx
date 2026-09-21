@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/vitest';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { WikiLibrary as ResearchMemoryWorkspace } from './WikiLibrary';
 import { BrowserWikiRepository, WIKI_STORAGE_KEY } from '../../services/wikiRepository';
-import { wikiFixture, wikiFixtureOwners } from '../../services/wiki.fixture';
+import { wikiFixture, wikiFixtureOwners, wikiRevision, wikiReview } from '../../services/wiki.fixture';
 import { creatorViewpointFixture } from '../../services/creatorViewpoint.fixture';
 import { createWikiOwners } from '../../services/wikiOwners';
 import type { CreatorViewpointRepository } from '../../services/creatorViewpointRepository';
@@ -75,16 +75,45 @@ describe('Research Memory Workspace', () => {
     fireEvent.change(screen.getByRole('textbox', { name: /历史查询时间/ }), { target: { value: '2026-01-04T10:00:00.000Z' } }); fireEvent.click(screen.getByRole('button', { name: '应用时间视图' }));
     expect(screen.queryByText(/当前已审核文章 ·/)).not.toBeInTheDocument(); expect(screen.getByRole('button', { name: '手工新建文章' })).toBeDisabled(); expect([...values]).toEqual(before);
   });
+  it('mounts history Markdown only while expanded and keeps current uncertainty outside audit details', async () => {
+    const { repository, owners } = setup(); render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);
+    const body = 'Synthetic body. No investment claim.';
+    expect(screen.getAllByText(body)).toHaveLength(1);
+    const history = screen.getByText(/合成框架 · 已审核/).closest('details')!;
+    history.open = true; fireEvent(history, new Event('toggle'));
+    await waitFor(() => expect(screen.getAllByText(body)).toHaveLength(2));
+    history.open = false; fireEvent(history, new Event('toggle'));
+    await waitFor(() => expect(screen.getAllByText(body)).toHaveLength(1));
+    const limitation = screen.queryByLabelText('文章重要限制');
+    expect(limitation).not.toBeNull();
+    expect(limitation!.closest('details')).toBeNull();
+    expect(limitation).toBeVisible();
+  });
   it('creates draft, requires explicit quality review, then retains both after reload', () => {
-    const { repository, owners, values } = setup(false); render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);
+    const { repository, owners, values } = setup(false); const onSelectWiki = vi.fn(); render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} onSelectWiki={onSelectWiki} />);
     fireEvent.click(screen.getByRole('button', { name: '手工新建文章' }));
     fireEvent.change(screen.getByLabelText('文章标题'), { target: { value: 'UI synthetic Wiki' } }); fireEvent.change(screen.getByLabelText('完整正文'), { target: { value: 'Synthetic Markdown' } });
     fireEvent.change(screen.getByLabelText('作者来源'), { target: { value: 'ai' } }); fireEvent.click(screen.getAllByRole('checkbox').find(input => input.getAttribute('value') === 'observation-1')!); fireEvent.click(screen.getByRole('button', { name: '保存文章草稿' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument(); expect(repository.load().data.reviews).toHaveLength(0);
+    expect(onSelectWiki).toHaveBeenCalledTimes(1); expect(onSelectWiki).toHaveBeenCalledWith(repository.load().data.revisions[0].wikiId);
     fireEvent.click(screen.getByText(/UI synthetic Wiki · 待审核/)); fireEvent.click(screen.getByRole('button', { name: '审核此修订' })); expect(screen.getByRole('button', { name: '确认追加审核记录' })).toBeDisabled();
     fireEvent.change(screen.getByLabelText('审核说明'), { target: { value: 'Synthetic quality check' } }); fireEvent.click(screen.getByRole('button', { name: '确认追加审核记录' }));
     expect(screen.getByText(/当前已审核文章/)).toBeInTheDocument(); expect(screen.getByText(/ai_draft/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: '刷新历史' })); expect(repository.load().data.reviews).toHaveLength(1); expect(values.has(WIKI_STORAGE_KEY)).toBe(true);
+    expect(onSelectWiki).toHaveBeenCalledTimes(1);
+  });
+  it('clears route-selected Wiki state when selectedWikiId becomes undefined without changing stored articles', () => {
+    const { repository, owners, values } = setup();
+    const second = { ...wikiRevision('wiki-two', 'revision-two'), title: '另一篇合成文章' };
+    repository.append(repository.load().data, { entries: [{ schemaVersion: 'wiki-entry.v1', wikiId: second.wikiId, type: 'FRAMEWORK', createdAt: second.createdAt }], revisions: [second], reviews: [wikiReview(second)] });
+    const before = [...values]; const onSelectWiki = vi.fn();
+    const view = (selectedWikiId?: string) => <ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} selectedWikiId={selectedWikiId} onSelectWiki={onSelectWiki} />;
+    const { rerender } = render(view('wiki-two'));
+    expect(within(screen.getByRole('article', { name: '文章详情' })).getByRole('heading', { name: '另一篇合成文章' })).toBeVisible();
+    rerender(view(undefined));
+    expect(within(screen.getByRole('article', { name: '文章详情' })).getByRole('heading', { name: '合成框架' })).toBeVisible();
+    expect(within(screen.getByRole('article', { name: '文章详情' })).queryByRole('heading', { name: '另一篇合成文章' })).toBeNull();
+    expect(onSelectWiki).not.toHaveBeenCalled(); expect([...values]).toEqual(before);
   });
   it('corruption/future schema lock writes and keep raw export; future recovery stays disabled', () => {
     const { repository, owners, storage } = setup(false); storage.setItem(WIKI_STORAGE_KEY, '{"schemaVersion":"wiki.v9"}'); render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);

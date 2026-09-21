@@ -17,13 +17,14 @@ import { WikiLibrary, type WikiLibraryProps } from './WikiLibrary';
 import { wikiInputClass } from './WikiRevisionForm';
 import { downloadWikiFile } from './WikiBackupModal';
 import { KnowledgeDocument } from './KnowledgeDocument';
+import { CitationList } from './CitationList';
 import { Modal } from '../common/Modal';
 import { BridgeStagingPanel } from './BridgeStagingPanel';
 
 const actionClass = 'inbox-action !whitespace-normal max-w-full';
 const tabs = ['原始资料', 'AI 整理', '待审核', '我的知识库'] as const;
 type Tab = typeof tabs[number];
-type Props = WikiLibraryProps & { sourceRepository?: BrowserSourceRepository };
+type Props = WikiLibraryProps & { sourceRepository?: BrowserSourceRepository; requestedView?: Tab; routeKey?: string; onViewChange?: (view: Tab) => void };
 export function ResearchMemoryWorkspace(props: Props) {
   const sources = useMemo(() => props.sourceRepository ?? new IndexedDbBrowserSourceRepository(), [props.sourceRepository]);
   const creator = useMemo(() => props.creatorRepository ?? createBrowserCreatorViewpointRepository(), [props.creatorRepository]);
@@ -41,7 +42,9 @@ export function ResearchMemoryWorkspace(props: Props) {
     let storage: Storage | null = null; try { storage = window.localStorage; } catch { /* repository reports lock */ }
     return new BrowserWikiRepository(storage, owners);
   }, [props.repository, owners]);
-  const [tab, setTab] = useState<Tab>('原始资料'), [message, setMessage] = useState(''), [error, setError] = useState(''), [busy, setBusy] = useState(false);
+  const [tab, setCurrentTab] = useState<Tab>(props.requestedView ?? '原始资料'), [message, setMessage] = useState(''), [error, setError] = useState(''), [busy, setBusy] = useState(false);
+  const setTab = (view: Tab) => { setCurrentTab(view); props.onViewChange?.(view); };
+  useEffect(() => { if (props.active !== false && props.requestedView) setCurrentTab(props.requestedView); }, [props.routeKey, props.active, props.requestedView]);
   const [batchTitle, setBatchTitle] = useState(''), [paste, setPaste] = useState(''), [pasteName, setPasteName] = useState('粘贴资料.txt');
   const [rawBundle, setRawBundle] = useState(''), [selectedBatchId, setSelectedBatchId] = useState('');
   const [material, setMaterial] = useState<BrowserSource | null>(null), [epoch, setEpoch] = useState(0);
@@ -81,7 +84,7 @@ export function ResearchMemoryWorkspace(props: Props) {
   });
   const chooseProposal = (bundleId: string, proposal: KnowledgeProposal) => { setSelectedProposal({ bundleId, proposal }); setNote(''); setEditing(false); setEdited(proposal.document); };
   return <section aria-label="研究记忆工作区" className="min-w-0 space-y-4 [overflow-wrap:anywhere]">
-    <header className="rounded-lg border border-borderSoft bg-bg2 p-4"><p className="text-xs text-cyan">个人研究知识库</p><h2 className="mt-1 text-xl font-semibold">研究记忆</h2><p className="mt-2 text-sm text-textMuted">保存原始资料，审核 AI 建议，积累有来源、可回溯的完整文章。</p><p className="mt-4 rounded bg-bg3 p-3 text-sm leading-7">① 添加资料 → ② AI 整理 → ③ 审核建议 → ④ 进入知识库</p>
+    <header className="rounded-lg border border-borderSoft bg-bg2 p-4"><p className="text-xs text-cyan">个人研究知识库</p><h2 className="mt-1 text-xl font-semibold">{tab === '我的知识库' ? '知识库' : tab === '待审核' ? '知识审核' : '资料与连接'}</h2><p className="mt-2 text-sm text-textMuted">保存原始资料，审核 AI 建议，积累有来源、可回溯的完整文章。</p>
       <nav aria-label="研究记忆视图" className="mt-4 flex flex-wrap gap-2">{tabs.map(value => <button key={value} className={actionClass} aria-pressed={tab === value} onClick={() => { setTab(value); void refresh(); }}>{value}{value === '待审核' && pending.length ? `（${pending.length}）` : ''}</button>)}</nav></header>
     {message && <p role="status" className="text-sm text-cyan">{message}</p>}{error && <p role="alert" className="rounded border border-danger/40 p-3 text-sm text-danger">操作未完成：{error}</p>}
     {!snapshot && !error && <p role="status">正在核验本地原件…</p>}
@@ -109,7 +112,7 @@ export function ResearchMemoryWorkspace(props: Props) {
       <div className="space-y-5"><section><h3 className="font-semibold">当前知识</h3>{wikiRead.model?.pages.find(p => p.entry.wikiId === selectedProposal.proposal.wikiId) ? <KnowledgeDocument text={wikiRead.model.pages.find(p => p.entry.wikiId === selectedProposal.proposal.wikiId)!.revision.bodyMarkdown} /> : <p className="mt-2 text-sm text-textMuted">尚无对应的已审核文章</p>}</section>
         <section><h3 className="font-semibold">AI 建议的完整新版本</h3>{editing && edited ? <div className="space-y-2"><label className="block text-sm">文章标题<input aria-label="文章标题" className={wikiInputClass} value={edited.title} onChange={e => setEdited({ ...edited, title: e.target.value })} /></label><label className="block text-sm">文章摘要<textarea aria-label="文章摘要" className={wikiInputClass} value={edited.summary} onChange={e => setEdited({ ...edited, summary: e.target.value })} /></label><label className="block text-sm">完整文章正文<textarea aria-label="完整文章正文" className={wikiInputClass} rows={18} value={edited.bodyMarkdown} onChange={e => setEdited({ ...edited, bodyMarkdown: e.target.value })} /></label></div> : selectedProposal.proposal.document ? <><p className="mt-2 text-sm text-textMuted">{selectedProposal.proposal.document.summary}</p><KnowledgeDocument text={selectedProposal.proposal.document.bodyMarkdown} /></> : <p className="text-sm">本建议不修改文章。</p>}</section>
         <section><h3 className="font-semibold">逐节变化摘要</h3>{selectedProposal.proposal.changes.map((c, i) => <p key={i} className="mt-2 text-sm">{{ ADD: '新增', MODIFY: '修改', REMOVE: '删除', LOWER_CONFIDENCE: '降低确信度' }[c.kind]} · {c.section}：{c.summary}</p>)}</section>
-        <section><h3 className="font-semibold">来源及原文定位</h3>{[...selectedProposal.proposal.citations, ...selectedProposal.proposal.changes.flatMap(c => c.citations)].map((c, i) => { const s = snapshot?.sources.find(s => s.sourceId === c.sourceRef.sourceId); return <div className="mt-2 rounded border border-borderSoft p-3" key={i}><p className="text-xs text-cyan">{s?.filename} · {s?.parse.segments.find(row => row.locator === c.locator)?.label}</p><blockquote className="mt-2 whitespace-pre-wrap text-sm">{c.quote}</blockquote></div>; })}</section>
+        <section><h3 className="font-semibold">来源及原文定位</h3><CitationList citations={selectedProposal.proposal.citations} sources={snapshot?.sources ?? []} onOpenSource={source => setMaterial(source)} />{selectedProposal.proposal.changes.map((change, index) => <CitationList key={index} context={`${change.section}：${change.summary}`} citations={change.citations} sources={snapshot?.sources ?? []} onOpenSource={source => setMaterial(source)} />)}</section>
         <section><h3 className="font-semibold">不确定性与冲突</h3><p className="mt-2 text-sm text-warning">{[...selectedRow.imported.bundle.uncertainty, ...selectedProposal.proposal.uncertainty, ...selectedRow.imported.bundle.conflicts.map(c => c.description)].join('；') || '未另行说明；请自行核对来源和结论。'}</p></section>
         <label className="block text-sm">审核说明<textarea className={wikiInputClass} value={note} onChange={e => setNote(e.target.value)} /></label><div className="flex flex-wrap gap-2">{selectedProposal.proposal.action === 'NO_ACTION' ? <button className={actionClass} disabled={busy || !note.trim()} onClick={() => void decide('no_action')}>确认无需修改</button> : <><button className={actionClass} disabled={busy || !note.trim()} onClick={() => void decide('accept')}>{editing ? '接受修改后的版本' : '接受'}</button><button className={actionClass} disabled={busy} onClick={() => setEditing(true)}>修改后接受</button></>}<button className={actionClass} disabled={busy || !note.trim()} onClick={() => void decide('reject')}>拒绝</button></div>
       </div></Modal>}

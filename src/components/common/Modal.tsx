@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import { AppearanceControl } from "../layout/Appearance";
 import { FormFeedback } from "./FormField";
@@ -7,8 +7,9 @@ interface ModalProps {
   title: string; description?: string; onClose: () => void; children: ReactNode; footer?: ReactNode;
   size?: "compact" | "research" | "import" | "drawer";
   error?: string | null; busy?: boolean; hasUnsavedChanges?: boolean; onDiscard?: () => void;
+  initialFocusRef?: RefObject<HTMLElement>;
 }
-export function Modal({ title, description, onClose, children, footer, size="research", error, busy=false, hasUnsavedChanges=false, onDiscard=onClose }: ModalProps) {
+export function Modal({ title, description, onClose, children, footer, size="research", error, busy=false, hasUnsavedChanges=false, onDiscard=onClose, initialFocusRef }: ModalProps) {
   const panelRef=useRef<HTMLDivElement>(null); const onCloseRef=useRef(onClose); onCloseRef.current=onClose;
   const lifecycle = useRef({ busy, hasUnsavedChanges, onDiscard }); lifecycle.current = { busy, hasUnsavedChanges, onDiscard };
   const errorRef=useRef<HTMLDivElement>(null);
@@ -20,7 +21,7 @@ export function Modal({ title, description, onClose, children, footer, size="res
     const panel=panelRef.current; const root=document.getElementById("root"); const oldInert=root?.inert; const oldOverflow=document.body.style.overflow;
     if(root)root.inert=true; document.body.style.overflow="hidden";
     const focusables=()=>[...panel!.querySelectorAll<HTMLElement>("button,input,select,textarea,a[href],summary,[tabindex]:not([tabindex='-1'])")].filter(el=>!el.hasAttribute("disabled")&&!el.closest("[hidden]")&&el.getClientRects().length>0);
-    (focusables()[0] ?? panel)?.focus();
+    (initialFocusRef?.current && panel?.contains(initialFocusRef.current) ? initialFocusRef.current : focusables()[0] ?? panel)?.focus();
     const key=(event:KeyboardEvent)=>{
       if([...document.querySelectorAll('[data-workspace-modal]')].pop()!==panel)return;
       if(event.key==="Escape"){event.preventDefault();event.stopPropagation();requestClose();}

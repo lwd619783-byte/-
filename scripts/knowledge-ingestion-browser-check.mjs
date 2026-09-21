@@ -11,7 +11,7 @@ import { privateStoreFixture } from './tests/private-blob.fixture.mjs';
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4175';
 const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-3-slice-2-5/browser'); await fs.mkdir(output, { recursive: true });
-const report = { checks: [], errors: [], externalRequests: [], screenshots: [] };
+const report = { runtimeSha: process.env.UI_REVIEW_RUNTIME_SHA || null, deploymentId: process.env.UI_REVIEW_DEPLOYMENT_ID || null, origin, testedAt: new Date().toISOString(), inputType: 'isolated-synthetic', checks: [], errors: [], externalRequests: [], screenshots: [] };
 const check = (ok, name) => { report.checks.push({ ok, name }); if (!ok) throw new Error(name); };
 const browser = await chromium.launch({ channel: process.env.UI_REVIEW_BROWSER_CHANNEL || 'msedge', headless: true });
 const context = await browser.newContext({ viewport: { width: 1536, height: 960 }, acceptDownloads: true });
@@ -85,8 +85,8 @@ try {
   await checkMarkdown(page.getByRole('article', { name: '文章详情' }), 'Wiki detail');
   const history = page.getByRole('article', { name: '文章详情' }).locator('details').filter({ has: page.locator('summary', { hasText: '光通信产业链 · 已审核' }) }).first();
   await history.locator('summary').click(); await checkMarkdown(history, 'Wiki history'); await history.locator('summary').click();
-  for (const theme of ['neon', 'pro', 'light']) for (const width of [1536, 1280, 390, 320]) {
-    await page.setViewportSize({ width, height: 960 }); await page.getByLabel('外观', { exact: true }).selectOption(theme);
+  for (const theme of ['light']) for (const width of [1536, 1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 960 }); check(await page.evaluate(() => document.documentElement.dataset.theme === 'light'), `${theme}/${width} single light appearance`); check(await page.getByLabel('外观', { exact: true }).count() === 0, `${theme}/${width} no appearance switch`);
     for (const name of ['原始资料', 'AI 整理', '待审核', '我的知识库']) { await nav(name); check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width}/${name} no horizontal overflow`); }
     const filename = `${theme}-${width}.png`; await page.screenshot({ path: path.join(output, filename), fullPage: true }); report.screenshots.push(filename);
   }
@@ -135,8 +135,8 @@ try {
   await nav('AI 整理'); await page.getByLabel('研究桥访问密钥', { exact: true }).fill(syntheticSecret);
   await page.getByRole('button', { name: '撤销 ChatGPT 访问', exact: true }).click(); await page.getByText('已撤销本批此前全部暂存的资料与知识访问。', { exact: false }).waitFor();
   check((await staging.status(stageId)).status === 'revoked' && sent.some(row => row.action.endsWith('/revoke-batch')), 'real user revoke-batch action denies known stage');
-  for (const theme of ['neon', 'pro', 'light']) for (const width of [1536, 1280, 390, 320]) {
-    await page.setViewportSize({ width, height: 960 }); await page.getByLabel('外观', { exact: true }).selectOption(theme);
+  for (const theme of ['light']) for (const width of [1536, 1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 960 }); check(await page.evaluate(() => document.documentElement.dataset.theme === 'light'), `${theme}/${width} single light appearance`); check(await page.getByLabel('外观', { exact: true }).count() === 0, `${theme}/${width} no appearance switch`);
     check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width} mixed selection no horizontal overflow`);
     const filename = `mixed-${theme}-${width}.png`; await page.screenshot({ path: path.join(output, filename), fullPage: true }); report.screenshots.push(filename);
   }
