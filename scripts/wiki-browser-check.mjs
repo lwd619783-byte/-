@@ -4,11 +4,16 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
+import { build } from 'esbuild';
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4173';
 const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-3-slice-2/browser');
 await fs.mkdir(output, { recursive: true });
 const key = 'investment-research-dashboard.wiki.v1', creatorKey = 'investment-research-dashboard.creator-viewpoint.v1';
+// Compile the existing synthetic fixture locally so acceptance works on a static build too.
+// Only its data crosses into the disposable browser; no development modules are injected.
+const fixtureModule = await build({ entryPoints: ['src/services/creatorViewpoint.fixture.ts'], bundle: true, write: false, platform: 'node', format: 'esm' });
+const { creatorViewpointFixture } = await import(`data:text/javascript;base64,${Buffer.from(fixtureModule.outputFiles[0].text).toString('base64')}`);
 const report = { runtimeSha: process.env.UI_REVIEW_RUNTIME_SHA || null, deploymentId: process.env.UI_REVIEW_DEPLOYMENT_ID || null, origin, testedAt: new Date().toISOString(), inputType: 'isolated-synthetic', checks: [], errors: [], warnings: [], externalRequests: [], screenshots: [], downloads: [], sourceSha256: {} };
 for (const file of ['src/services/wiki.ts', 'src/services/wikiRepository.ts', 'src/services/wikiProjection.ts', 'src/services/wikiOwners.ts', 'src/components/research-memory/ResearchMemoryWorkspace.tsx', 'src/components/research-memory/WikiRevisionForm.tsx', 'src/components/research-memory/WikiBackupModal.tsx']) report.sourceSha256[file] = createHash('sha256').update((await fs.readFile(file, 'utf8')).replaceAll('\r\n', '\n')).digest('hex');
 const check = (ok, name) => { console.log(`${ok ? 'PASS' : 'FAIL'} ${name}`); report.checks.push({ ok, name }); if (!ok) throw new Error(name); };
@@ -41,7 +46,7 @@ const reviewDraft = async (page, title, decision = 'reviewed') => {
 try {
   const page = await fresh(), w = workspace(page);
   check(await page.evaluate(key => localStorage.getItem(key) === null, key), 'empty read has no Wiki seed');
-  await page.evaluate(async creatorKey => { const { creatorViewpointFixture } = await import('/src/services/creatorViewpoint.fixture.ts'); localStorage.setItem(creatorKey, JSON.stringify(creatorViewpointFixture())); }, creatorKey);
+  await page.evaluate(({ creatorKey, fixture }) => { localStorage.setItem(creatorKey, JSON.stringify(fixture)); }, { creatorKey, fixture: creatorViewpointFixture() });
   const creatorBefore = await page.evaluate(key => localStorage.getItem(key), creatorKey); await refresh(page);
   await w.getByRole('button', { name: '手工新建文章', exact: true }).click({ noWaitAfter: true }); let dialog = page.getByRole('dialog', { name: '新建 文章草稿' });
   await dialog.getByLabel('文章标题', { exact: true }).fill('UI 合成框架'); await dialog.getByLabel('条目类型', { exact: true }).selectOption('FRAMEWORK'); await dialog.getByLabel('摘要', { exact: true }).fill('合成摘要，仅用于验收');

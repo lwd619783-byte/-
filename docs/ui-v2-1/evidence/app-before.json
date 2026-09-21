@@ -1,0 +1,8636 @@
+{
+  "schemaVersion": "ui-v21-visual.v1",
+  "phase": "before",
+  "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+  "deploymentId": null,
+  "origin": "http://127.0.0.1:4200",
+  "testedAt": "2026-09-21T15:28:32.243Z",
+  "inputType": "disposable-profile; bundled-public-defaults plus explicitly synthetic local records",
+  "screenshots": [
+    {
+      "file": "default-local-empty-owners-home-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "home",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 761.5,
+          "top": 110,
+          "right": 1400,
+          "bottom": 871.5,
+          "left": 250
+        },
+        "columns": [],
+        "rows": []
+      }
+    },
+    {
+      "file": "default-local-empty-owners-research-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "research",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 2477.984375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2580.984375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 482.796875,
+              "width": 1116,
+              "height": 1032,
+              "top": 482.796875,
+              "right": 1383,
+              "bottom": 1514.796875,
+              "left": 267
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 538.796875,
+            "width": 548,
+            "height": 208,
+            "top": 538.796875,
+            "right": 1383,
+            "bottom": 746.796875,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 758.796875,
+            "width": 548,
+            "height": 228,
+            "top": 758.796875,
+            "right": 1383,
+            "bottom": 986.796875,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 998.796875,
+            "width": 548,
+            "height": 208,
+            "top": 998.796875,
+            "right": 1383,
+            "bottom": 1206.796875,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1218.796875,
+            "width": 548,
+            "height": 208,
+            "top": 1218.796875,
+            "right": 1383,
+            "bottom": 1426.796875,
+            "left": 835
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-knowledge-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "knowledge",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 723.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 833.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "898px 240px",
+            "rect": {
+              "x": 250,
+              "y": 389.796875,
+              "width": 1150,
+              "height": 64,
+              "top": 389.796875,
+              "right": 1400,
+              "bottom": 453.796875,
+              "left": 250
+            }
+          },
+          {
+            "template": "240px 894px",
+            "rect": {
+              "x": 250,
+              "y": 469.796875,
+              "width": 1150,
+              "height": 190,
+              "top": 469.796875,
+              "right": 1400,
+              "bottom": 659.796875,
+              "left": 250
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-tasks-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "tasks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 1666.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 1776.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 336,
+              "width": 1116,
+              "height": 1032,
+              "top": 336,
+              "right": 1383,
+              "bottom": 1368,
+              "left": 267
+            }
+          },
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 392,
+            "width": 548,
+            "height": 208,
+            "top": 392,
+            "right": 1383,
+            "bottom": 600,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 612,
+            "width": 548,
+            "height": 228,
+            "top": 612,
+            "right": 1383,
+            "bottom": 840,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 852,
+            "width": 548,
+            "height": 208,
+            "top": 852,
+            "right": 1383,
+            "bottom": 1060,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1072,
+            "width": 548,
+            "height": 208,
+            "top": 1072,
+            "right": 1383,
+            "bottom": 1280,
+            "left": 835
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-sources-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "sources",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 563.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 673.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-settings-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "settings",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 760.984375,
+          "top": 110,
+          "right": 1400,
+          "bottom": 870.984375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-portfolio-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "portfolio",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 293.375,
+          "top": 110,
+          "right": 1400,
+          "bottom": 403.375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-macro-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "macro",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 1431.9375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 1534.9375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-industry-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "industry",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 2591.40625,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2694.40625,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-stocks-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "stocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 9585.9375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 9688.9375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-watchlist-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "watchlist",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 762.734375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 865.734375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-verification-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "verification",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 13013.9375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 13116.9375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-expectations-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "expectations",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 1969.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2072.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-creators-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "creators",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 898.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 1001.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-sources-view-organize-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "sources?view=organize",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 660.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 770.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-sources-view-bridge-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "sources?view=bridge",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 563.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 673.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-tasks-view-review-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "tasks?view=review",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 1666.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 1776.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 336,
+              "width": 1116,
+              "height": 1032,
+              "top": 336,
+              "right": 1383,
+              "bottom": 1368,
+              "left": 267
+            }
+          },
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 392,
+            "width": 548,
+            "height": 208,
+            "top": 392,
+            "right": 1383,
+            "bottom": 600,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 612,
+            "width": 548,
+            "height": 228,
+            "top": 612,
+            "right": 1383,
+            "bottom": 840,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 852,
+            "width": 548,
+            "height": 208,
+            "top": 852,
+            "right": 1383,
+            "bottom": 1060,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1072,
+            "width": 548,
+            "height": 208,
+            "top": 1072,
+            "right": 1383,
+            "bottom": 1280,
+            "left": 835
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-tasks-view-replay-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "tasks?view=replay",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 1666.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 1776.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 336,
+              "width": 1116,
+              "height": 1032,
+              "top": 336,
+              "right": 1383,
+              "bottom": 1368,
+              "left": 267
+            }
+          },
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 392,
+            "width": 548,
+            "height": 208,
+            "top": 392,
+            "right": 1383,
+            "bottom": 600,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 612,
+            "width": 548,
+            "height": 228,
+            "top": 612,
+            "right": 1383,
+            "bottom": 840,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 852,
+            "width": 548,
+            "height": 208,
+            "top": 852,
+            "right": 1383,
+            "bottom": 1060,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1072,
+            "width": 548,
+            "height": 208,
+            "top": 1072,
+            "right": 1383,
+            "bottom": 1280,
+            "left": 835
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-tasks-view-verify-1440.png",
+      "scenario": "default-local-empty-owners",
+      "route": "tasks?view=verify",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 1666.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 1776.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 336,
+              "width": 1116,
+              "height": 1032,
+              "top": 336,
+              "right": 1383,
+              "bottom": 1368,
+              "left": 267
+            }
+          },
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 392,
+            "width": 548,
+            "height": 208,
+            "top": 392,
+            "right": 1383,
+            "bottom": 600,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 612,
+            "width": 548,
+            "height": 228,
+            "top": 612,
+            "right": 1383,
+            "bottom": 840,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 852,
+            "width": 548,
+            "height": 208,
+            "top": 852,
+            "right": 1383,
+            "bottom": 1060,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1072,
+            "width": 548,
+            "height": 208,
+            "top": 1072,
+            "right": 1383,
+            "bottom": 1280,
+            "left": 835
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-home-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "home",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 1311.171875,
+          "top": 86,
+          "right": 374,
+          "bottom": 1397.171875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-research-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "research",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3483.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 3562.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 634.796875,
+              "width": 324,
+              "height": 1236,
+              "top": 634.796875,
+              "right": 357,
+              "bottom": 1870.796875,
+              "left": 33
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 850.796875,
+            "width": 324,
+            "height": 228,
+            "top": 850.796875,
+            "right": 357,
+            "bottom": 1078.796875,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1090.796875,
+            "width": 324,
+            "height": 228,
+            "top": 1090.796875,
+            "right": 357,
+            "bottom": 1318.796875,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1330.796875,
+            "width": 324,
+            "height": 208,
+            "top": 1330.796875,
+            "right": 357,
+            "bottom": 1538.796875,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1550.796875,
+            "width": 324,
+            "height": 208,
+            "top": 1550.796875,
+            "right": 357,
+            "bottom": 1758.796875,
+            "left": 33
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-knowledge-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "knowledge",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 901.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 987.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "358px",
+            "rect": {
+              "x": 16,
+              "y": 385.796875,
+              "width": 358,
+              "height": 140,
+              "top": 385.796875,
+              "right": 374,
+              "bottom": 525.796875,
+              "left": 16
+            }
+          },
+          {
+            "template": "358px",
+            "rect": {
+              "x": 16,
+              "y": 541.796875,
+              "width": 358,
+              "height": 192,
+              "top": 541.796875,
+              "right": 374,
+              "bottom": 733.796875,
+              "left": 16
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-tasks-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "tasks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 2054.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 2140.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 436,
+              "width": 324,
+              "height": 1236,
+              "top": 436,
+              "right": 357,
+              "bottom": 1672,
+              "left": 33
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 652,
+            "width": 324,
+            "height": 228,
+            "top": 652,
+            "right": 357,
+            "bottom": 880,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 892,
+            "width": 324,
+            "height": 228,
+            "top": 892,
+            "right": 357,
+            "bottom": 1120,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1132,
+            "width": 324,
+            "height": 208,
+            "top": 1132,
+            "right": 357,
+            "bottom": 1340,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1352,
+            "width": 324,
+            "height": 208,
+            "top": 1352,
+            "right": 357,
+            "bottom": 1560,
+            "left": 33
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-sources-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "sources",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 659.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 745.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-settings-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 979.296875,
+          "top": 86,
+          "right": 374,
+          "bottom": 1065.296875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-portfolio-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "portfolio",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 270.0625,
+          "top": 86,
+          "right": 374,
+          "bottom": 356.0625,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-macro-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "macro",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 2164.9375,
+          "top": 79,
+          "right": 374,
+          "bottom": 2243.9375,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-industry-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "industry",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3853.40625,
+          "top": 79,
+          "right": 374,
+          "bottom": 3932.40625,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-stocks-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "stocks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 70569.9375,
+          "top": 79,
+          "right": 374,
+          "bottom": 70648.9375,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-watchlist-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "watchlist",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 1308.328125,
+          "top": 79,
+          "right": 374,
+          "bottom": 1387.328125,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-verification-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "verification",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 13793.9375,
+          "top": 79,
+          "right": 374,
+          "bottom": 13872.9375,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-expectations-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "expectations",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3414.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 3493.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-creators-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "creators",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 1620.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 1699.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-sources-view-organize-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "sources?view=organize",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 720.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 806.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-sources-view-bridge-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "sources?view=bridge",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 659.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 745.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-tasks-view-review-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "tasks?view=review",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 2054.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 2140.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 436,
+              "width": 324,
+              "height": 1236,
+              "top": 436,
+              "right": 357,
+              "bottom": 1672,
+              "left": 33
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 652,
+            "width": 324,
+            "height": 228,
+            "top": 652,
+            "right": 357,
+            "bottom": 880,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 892,
+            "width": 324,
+            "height": 228,
+            "top": 892,
+            "right": 357,
+            "bottom": 1120,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1132,
+            "width": 324,
+            "height": 208,
+            "top": 1132,
+            "right": 357,
+            "bottom": 1340,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1352,
+            "width": 324,
+            "height": 208,
+            "top": 1352,
+            "right": 357,
+            "bottom": 1560,
+            "left": 33
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-tasks-view-replay-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "tasks?view=replay",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 2054.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 2140.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 436,
+              "width": 324,
+              "height": 1236,
+              "top": 436,
+              "right": 357,
+              "bottom": 1672,
+              "left": 33
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 652,
+            "width": 324,
+            "height": 228,
+            "top": 652,
+            "right": 357,
+            "bottom": 880,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 892,
+            "width": 324,
+            "height": 228,
+            "top": 892,
+            "right": 357,
+            "bottom": 1120,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1132,
+            "width": 324,
+            "height": 208,
+            "top": 1132,
+            "right": 357,
+            "bottom": 1340,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1352,
+            "width": 324,
+            "height": 208,
+            "top": 1352,
+            "right": 357,
+            "bottom": 1560,
+            "left": 33
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "default-local-empty-owners-tasks-view-verify-390.png",
+      "scenario": "default-local-empty-owners",
+      "route": "tasks?view=verify",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 2054.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 2140.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 436,
+              "width": 324,
+              "height": 1236,
+              "top": 436,
+              "right": 357,
+              "bottom": 1672,
+              "left": 33
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 652,
+            "width": 324,
+            "height": 228,
+            "top": 652,
+            "right": 357,
+            "bottom": 880,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 892,
+            "width": 324,
+            "height": 228,
+            "top": 892,
+            "right": 357,
+            "bottom": 1120,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1132,
+            "width": 324,
+            "height": 208,
+            "top": 1132,
+            "right": 357,
+            "bottom": 1340,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1352,
+            "width": 324,
+            "height": 208,
+            "top": 1352,
+            "right": 357,
+            "bottom": 1560,
+            "left": 33
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-home-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "home",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 761.5,
+          "top": 110,
+          "right": 1400,
+          "bottom": 871.5,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-research-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "research",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 2477.984375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2580.984375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 482.796875,
+              "width": 1116,
+              "height": 1032,
+              "top": 482.796875,
+              "right": 1383,
+              "bottom": 1514.796875,
+              "left": 267
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 538.796875,
+            "width": 548,
+            "height": 208,
+            "top": 538.796875,
+            "right": 1383,
+            "bottom": 746.796875,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 758.796875,
+            "width": 548,
+            "height": 228,
+            "top": 758.796875,
+            "right": 1383,
+            "bottom": 986.796875,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 998.796875,
+            "width": 548,
+            "height": 208,
+            "top": 998.796875,
+            "right": 1383,
+            "bottom": 1206.796875,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1218.796875,
+            "width": 548,
+            "height": 208,
+            "top": 1218.796875,
+            "right": 1383,
+            "bottom": 1426.796875,
+            "left": 835
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-knowledge-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "knowledge",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 4582.0625,
+          "top": 110,
+          "right": 1400,
+          "bottom": 4692.0625,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "898px 240px",
+            "rect": {
+              "x": 250,
+              "y": 389.796875,
+              "width": 1150,
+              "height": 64,
+              "top": 389.796875,
+              "right": 1400,
+              "bottom": 453.796875,
+              "left": 250
+            }
+          },
+          {
+            "template": "240px 894px",
+            "rect": {
+              "x": 250,
+              "y": 469.796875,
+              "width": 1150,
+              "height": 4048.265625,
+              "top": 469.796875,
+              "right": 1400,
+              "bottom": 4518.0625,
+              "left": 250
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-tasks-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "tasks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 1666.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 1776.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 336,
+              "width": 1116,
+              "height": 1032,
+              "top": 336,
+              "right": 1383,
+              "bottom": 1368,
+              "left": 267
+            }
+          },
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 392,
+            "width": 548,
+            "height": 208,
+            "top": 392,
+            "right": 1383,
+            "bottom": 600,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 612,
+            "width": 548,
+            "height": 228,
+            "top": 612,
+            "right": 1383,
+            "bottom": 840,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 852,
+            "width": 548,
+            "height": 208,
+            "top": 852,
+            "right": 1383,
+            "bottom": 1060,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1072,
+            "width": 548,
+            "height": 208,
+            "top": 1072,
+            "right": 1383,
+            "bottom": 1280,
+            "left": 835
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-sources-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "sources",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 563.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 673.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-settings-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "settings",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 760.984375,
+          "top": 110,
+          "right": 1400,
+          "bottom": 870.984375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-portfolio-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "portfolio",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 293.375,
+          "top": 110,
+          "right": 1400,
+          "bottom": 403.375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-macro-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "macro",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 1431.9375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 1534.9375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-industry-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "industry",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 2591.40625,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2694.40625,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-stocks-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "stocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 9585.9375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 9688.9375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-watchlist-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "watchlist",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 762.734375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 865.734375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-verification-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "verification",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 13013.9375,
+          "top": 103,
+          "right": 1400,
+          "bottom": 13116.9375,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-expectations-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "expectations",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 1969.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2072.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-creators-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "creators",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 898.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 1001.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-sources-view-organize-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "sources?view=organize",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 660.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 770.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-sources-view-bridge-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "sources?view=bridge",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 563.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 673.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-tasks-view-review-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "tasks?view=review",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 1666.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 1776.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 336,
+              "width": 1116,
+              "height": 1032,
+              "top": 336,
+              "right": 1383,
+              "bottom": 1368,
+              "left": 267
+            }
+          },
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 392,
+            "width": 548,
+            "height": 208,
+            "top": 392,
+            "right": 1383,
+            "bottom": 600,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 612,
+            "width": 548,
+            "height": 228,
+            "top": 612,
+            "right": 1383,
+            "bottom": 840,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 852,
+            "width": 548,
+            "height": 208,
+            "top": 852,
+            "right": 1383,
+            "bottom": 1060,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1072,
+            "width": 548,
+            "height": 208,
+            "top": 1072,
+            "right": 1383,
+            "bottom": 1280,
+            "left": 835
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-tasks-view-replay-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "tasks?view=replay",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 1666.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 1776.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 336,
+              "width": 1116,
+              "height": 1032,
+              "top": 336,
+              "right": 1383,
+              "bottom": 1368,
+              "left": 267
+            }
+          },
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 392,
+            "width": 548,
+            "height": 208,
+            "top": 392,
+            "right": 1383,
+            "bottom": 600,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 612,
+            "width": 548,
+            "height": 228,
+            "top": 612,
+            "right": 1383,
+            "bottom": 840,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 852,
+            "width": 548,
+            "height": 208,
+            "top": 852,
+            "right": 1383,
+            "bottom": 1060,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1072,
+            "width": 548,
+            "height": 208,
+            "top": 1072,
+            "right": 1383,
+            "bottom": 1280,
+            "left": 835
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-tasks-view-verify-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "tasks?view=verify",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 1666.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 1776.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "548px 548px",
+            "rect": {
+              "x": 267,
+              "y": 336,
+              "width": 1116,
+              "height": 1032,
+              "top": 336,
+              "right": 1383,
+              "bottom": 1368,
+              "left": 267
+            }
+          },
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 835,
+            "y": 392,
+            "width": 548,
+            "height": 208,
+            "top": 392,
+            "right": 1383,
+            "bottom": 600,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 612,
+            "width": 548,
+            "height": 228,
+            "top": 612,
+            "right": 1383,
+            "bottom": 840,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 852,
+            "width": 548,
+            "height": 208,
+            "top": 852,
+            "right": 1383,
+            "bottom": 1060,
+            "left": 835
+          },
+          {
+            "x": 835,
+            "y": 1072,
+            "width": 548,
+            "height": 208,
+            "top": 1072,
+            "right": 1383,
+            "bottom": 1280,
+            "left": 835
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-knowledge-wiki-wiki-one-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "knowledge?wiki=wiki-one",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 4582.0625,
+          "top": 110,
+          "right": 1400,
+          "bottom": 4692.0625,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "898px 240px",
+            "rect": {
+              "x": 250,
+              "y": 389.796875,
+              "width": 1150,
+              "height": 64,
+              "top": 389.796875,
+              "right": 1400,
+              "bottom": 453.796875,
+              "left": 250
+            }
+          },
+          {
+            "template": "240px 894px",
+            "rect": {
+              "x": 250,
+              "y": 469.796875,
+              "width": 1150,
+              "height": 4048.265625,
+              "top": 469.796875,
+              "right": 1400,
+              "bottom": 4518.0625,
+              "left": 250
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-overview-from-stocks-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/overview?from=stocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 1862.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 1965.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "1fr 240px",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "240px minmax(0px, 1fr)",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-financials-from-stocks-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/financials?from=stocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 2745.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2848.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "1fr 240px",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "240px minmax(0px, 1fr)",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-valuation-from-stocks-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/valuation?from=stocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 2000.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2103.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "1fr 240px",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "240px minmax(0px, 1fr)",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-expectations-from-stocks-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/expectations?from=stocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 1778.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 1881.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "1fr 240px",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "240px minmax(0px, 1fr)",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-evidence-from-stocks-1440.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/evidence?from=stocks",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 103,
+          "width": 1150,
+          "height": 2770.796875,
+          "top": 103,
+          "right": 1400,
+          "bottom": 2873.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "1fr 240px",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "240px minmax(0px, 1fr)",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-home-390.png",
+      "scenario": "populated-synthetic",
+      "route": "home",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 1311.171875,
+          "top": 86,
+          "right": 374,
+          "bottom": 1397.171875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-research-390.png",
+      "scenario": "populated-synthetic",
+      "route": "research",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3483.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 3562.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 634.796875,
+              "width": 324,
+              "height": 1236,
+              "top": 634.796875,
+              "right": 357,
+              "bottom": 1870.796875,
+              "left": 33
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 850.796875,
+            "width": 324,
+            "height": 228,
+            "top": 850.796875,
+            "right": 357,
+            "bottom": 1078.796875,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1090.796875,
+            "width": 324,
+            "height": 228,
+            "top": 1090.796875,
+            "right": 357,
+            "bottom": 1318.796875,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1330.796875,
+            "width": 324,
+            "height": 208,
+            "top": 1330.796875,
+            "right": 357,
+            "bottom": 1538.796875,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1550.796875,
+            "width": 324,
+            "height": 208,
+            "top": 1550.796875,
+            "right": 357,
+            "bottom": 1758.796875,
+            "left": 33
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-knowledge-390.png",
+      "scenario": "populated-synthetic",
+      "route": "knowledge",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 6664.15625,
+          "top": 86,
+          "right": 374,
+          "bottom": 6750.15625,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "358px",
+            "rect": {
+              "x": 16,
+              "y": 385.796875,
+              "width": 358,
+              "height": 140,
+              "top": 385.796875,
+              "right": 374,
+              "bottom": 525.796875,
+              "left": 16
+            }
+          },
+          {
+            "template": "358px",
+            "rect": {
+              "x": 16,
+              "y": 541.796875,
+              "width": 358,
+              "height": 5954.359375,
+              "top": 541.796875,
+              "right": 374,
+              "bottom": 6496.15625,
+              "left": 16
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-tasks-390.png",
+      "scenario": "populated-synthetic",
+      "route": "tasks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 2054.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 2140.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 436,
+              "width": 324,
+              "height": 1236,
+              "top": 436,
+              "right": 357,
+              "bottom": 1672,
+              "left": 33
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 652,
+            "width": 324,
+            "height": 228,
+            "top": 652,
+            "right": 357,
+            "bottom": 880,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 892,
+            "width": 324,
+            "height": 228,
+            "top": 892,
+            "right": 357,
+            "bottom": 1120,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1132,
+            "width": 324,
+            "height": 208,
+            "top": 1132,
+            "right": 357,
+            "bottom": 1340,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1352,
+            "width": 324,
+            "height": 208,
+            "top": 1352,
+            "right": 357,
+            "bottom": 1560,
+            "left": 33
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-sources-390.png",
+      "scenario": "populated-synthetic",
+      "route": "sources",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 659.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 745.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-settings-390.png",
+      "scenario": "populated-synthetic",
+      "route": "settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 979.296875,
+          "top": 86,
+          "right": 374,
+          "bottom": 1065.296875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-portfolio-390.png",
+      "scenario": "populated-synthetic",
+      "route": "portfolio",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 270.0625,
+          "top": 86,
+          "right": 374,
+          "bottom": 356.0625,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-macro-390.png",
+      "scenario": "populated-synthetic",
+      "route": "macro",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 2164.9375,
+          "top": 79,
+          "right": 374,
+          "bottom": 2243.9375,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-industry-390.png",
+      "scenario": "populated-synthetic",
+      "route": "industry",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3853.40625,
+          "top": 79,
+          "right": 374,
+          "bottom": 3932.40625,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-stocks-390.png",
+      "scenario": "populated-synthetic",
+      "route": "stocks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 70569.9375,
+          "top": 79,
+          "right": 374,
+          "bottom": 70648.9375,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-watchlist-390.png",
+      "scenario": "populated-synthetic",
+      "route": "watchlist",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 1308.328125,
+          "top": 79,
+          "right": 374,
+          "bottom": 1387.328125,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-verification-390.png",
+      "scenario": "populated-synthetic",
+      "route": "verification",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 13793.9375,
+          "top": 79,
+          "right": 374,
+          "bottom": 13872.9375,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-expectations-390.png",
+      "scenario": "populated-synthetic",
+      "route": "expectations",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3414.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 3493.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-creators-390.png",
+      "scenario": "populated-synthetic",
+      "route": "creators",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 1620.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 1699.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-sources-view-organize-390.png",
+      "scenario": "populated-synthetic",
+      "route": "sources?view=organize",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 720.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 806.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-sources-view-bridge-390.png",
+      "scenario": "populated-synthetic",
+      "route": "sources?view=bridge",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 659.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 745.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-tasks-view-review-390.png",
+      "scenario": "populated-synthetic",
+      "route": "tasks?view=review",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 2054.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 2140.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 436,
+              "width": 324,
+              "height": 1236,
+              "top": 436,
+              "right": 357,
+              "bottom": 1672,
+              "left": 33
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 652,
+            "width": 324,
+            "height": 228,
+            "top": 652,
+            "right": 357,
+            "bottom": 880,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 892,
+            "width": 324,
+            "height": 228,
+            "top": 892,
+            "right": 357,
+            "bottom": 1120,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1132,
+            "width": 324,
+            "height": 208,
+            "top": 1132,
+            "right": 357,
+            "bottom": 1340,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1352,
+            "width": 324,
+            "height": 208,
+            "top": 1352,
+            "right": 357,
+            "bottom": 1560,
+            "left": 33
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-tasks-view-replay-390.png",
+      "scenario": "populated-synthetic",
+      "route": "tasks?view=replay",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 2054.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 2140.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 436,
+              "width": 324,
+              "height": 1236,
+              "top": 436,
+              "right": 357,
+              "bottom": 1672,
+              "left": 33
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 652,
+            "width": 324,
+            "height": 228,
+            "top": 652,
+            "right": 357,
+            "bottom": 880,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 892,
+            "width": 324,
+            "height": 228,
+            "top": 892,
+            "right": 357,
+            "bottom": 1120,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1132,
+            "width": 324,
+            "height": 208,
+            "top": 1132,
+            "right": 357,
+            "bottom": 1340,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1352,
+            "width": 324,
+            "height": 208,
+            "top": 1352,
+            "right": 357,
+            "bottom": 1560,
+            "left": 33
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-tasks-view-verify-390.png",
+      "scenario": "populated-synthetic",
+      "route": "tasks?view=verify",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 2054.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 2140.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "324px",
+            "rect": {
+              "x": 33,
+              "y": 436,
+              "width": 324,
+              "height": 1236,
+              "top": 436,
+              "right": 357,
+              "bottom": 1672,
+              "left": 33
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 33,
+            "y": 652,
+            "width": 324,
+            "height": 228,
+            "top": 652,
+            "right": 357,
+            "bottom": 880,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 892,
+            "width": 324,
+            "height": 228,
+            "top": 892,
+            "right": 357,
+            "bottom": 1120,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1132,
+            "width": 324,
+            "height": 208,
+            "top": 1132,
+            "right": 357,
+            "bottom": 1340,
+            "left": 33
+          },
+          {
+            "x": 33,
+            "y": 1352,
+            "width": 324,
+            "height": 208,
+            "top": 1352,
+            "right": 357,
+            "bottom": 1560,
+            "left": 33
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-knowledge-wiki-wiki-one-390.png",
+      "scenario": "populated-synthetic",
+      "route": "knowledge?wiki=wiki-one",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 6664.15625,
+          "top": 86,
+          "right": 374,
+          "bottom": 6750.15625,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "358px",
+            "rect": {
+              "x": 16,
+              "y": 385.796875,
+              "width": 358,
+              "height": 140,
+              "top": 385.796875,
+              "right": 374,
+              "bottom": 525.796875,
+              "left": 16
+            }
+          },
+          {
+            "template": "358px",
+            "rect": {
+              "x": 16,
+              "y": 541.796875,
+              "width": 358,
+              "height": 5954.359375,
+              "top": 541.796875,
+              "right": 374,
+              "bottom": 6496.15625,
+              "left": 16
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-overview-from-stocks-390.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/overview?from=stocks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3276.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 3355.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-financials-from-stocks-390.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/financials?from=stocks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 4950.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 5029.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-valuation-from-stocks-390.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/valuation?from=stocks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3094.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 3173.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-expectations-from-stocks-390.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/expectations?from=stocks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3590.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 3669.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "populated-synthetic-company-sugon-evidence-from-stocks-390.png",
+      "scenario": "populated-synthetic",
+      "route": "company/sugon/evidence?from=stocks",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 79,
+          "width": 358,
+          "height": 3840.796875,
+          "top": 79,
+          "right": 374,
+          "bottom": 3919.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "locked-wiki-knowledge-1440.png",
+      "scenario": "locked-wiki",
+      "route": "knowledge",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 785.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 895.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "898px 240px",
+            "rect": {
+              "x": 250,
+              "y": 451.796875,
+              "width": 1150,
+              "height": 64,
+              "top": 451.796875,
+              "right": 1400,
+              "bottom": 515.796875,
+              "left": 250
+            }
+          },
+          {
+            "template": "240px 894px",
+            "rect": {
+              "x": 250,
+              "y": 531.796875,
+              "width": 1150,
+              "height": 190,
+              "top": 531.796875,
+              "right": 1400,
+              "bottom": 721.796875,
+              "left": 250
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "locked-wiki-knowledge-390.png",
+      "scenario": "locked-wiki",
+      "route": "knowledge",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 1031.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 1117.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          },
+          {
+            "template": "358px",
+            "rect": {
+              "x": 16,
+              "y": 467.796875,
+              "width": 358,
+              "height": 140,
+              "top": 467.796875,
+              "right": 374,
+              "bottom": 607.796875,
+              "left": 16
+            }
+          },
+          {
+            "template": "358px",
+            "rect": {
+              "x": 16,
+              "y": 623.796875,
+              "width": 358,
+              "height": 192,
+              "top": 623.796875,
+              "right": 374,
+              "bottom": 815.796875,
+              "left": 16
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "error-source-sources-1440.png",
+      "scenario": "error-source",
+      "route": "sources",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 110,
+          "width": 1150,
+          "height": 563.796875,
+          "top": 110,
+          "right": 1400,
+          "bottom": 673.796875,
+          "left": 250
+        },
+        "columns": [
+          {
+            "template": "repeat(2, minmax(0px, 1fr))",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    },
+    {
+      "file": "error-source-sources-390.png",
+      "scenario": "error-source",
+      "route": "sources",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 86,
+          "width": 358,
+          "height": 659.796875,
+          "top": 86,
+          "right": 374,
+          "bottom": 745.796875,
+          "left": 16
+        },
+        "columns": [
+          {
+            "template": "none",
+            "rect": {
+              "x": 0,
+              "y": 0,
+              "width": 0,
+              "height": 0,
+              "top": 0,
+              "right": 0,
+              "bottom": 0,
+              "left": 0
+            }
+          }
+        ],
+        "rows": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "checks": [],
+  "status": "CAPTURED",
+  "finishedAt": "2026-09-21T15:29:58.915Z"
+}

@@ -1,0 +1,194 @@
+{
+  "kind": "component-harness",
+  "runtimeSha": null,
+  "sourceHead": "884192d93b78367b0b062a10e1fc4b773c757c76",
+  "origin": "http://127.0.0.1:4201",
+  "testedAt": "2026-09-21T15:51:31.330Z",
+  "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+  "sourceHashes": {
+    "src/components/research-memory/ResearchMemoryWorkspace.tsx": "84046fb679728b8741517eb564d175a6b8a516ebec67212ca097a5f204e20bc5",
+    "src/components/research-memory/WikiLibrary.tsx": "cb9fa5d4e70d940492611e47e76fff6a78fae8358073032c90ae23519f56e6b6",
+    "src/components/research-memory/research-memory-workspace.css": "4e8b46661380cea2f1d85eff57ad0be0e1e41351a897423483e1a9392b3457b1",
+    "src/styles/workspace-v2.css": "87136123d860f4f417a3c5a152822dbbb34a62cfb7e62324655ab7ed3e387ed9"
+  },
+  "screenshots": [
+    {
+      "file": "loading-1440.png",
+      "state": "loading",
+      "width": 1440
+    },
+    {
+      "file": "error-1440.png",
+      "state": "error",
+      "width": 1440
+    },
+    {
+      "file": "locked-1440.png",
+      "state": "locked",
+      "width": 1440
+    },
+    {
+      "file": "filtered-empty-1440.png",
+      "state": "filtered-empty",
+      "width": 1440
+    },
+    {
+      "file": "loading-390.png",
+      "state": "loading",
+      "width": 390
+    },
+    {
+      "file": "error-390.png",
+      "state": "error",
+      "width": 390
+    },
+    {
+      "file": "locked-390.png",
+      "state": "locked",
+      "width": 390
+    },
+    {
+      "file": "filtered-empty-390.png",
+      "state": "filtered-empty",
+      "width": 390
+    }
+  ],
+  "checks": [
+    {
+      "state": "loading",
+      "width": 1440,
+      "pass": true,
+      "bounds": {
+        "x": 144,
+        "y": 178.171875,
+        "width": 1152,
+        "height": 24
+      },
+      "reviewState": {
+        "status": "loading"
+      },
+      "writes": [],
+      "text": "组件状态验收 · 隔离合成输入 · 非运行状态证据\n\n资料与连接\n原始资料\nAI 整理\n研究桥\n\n正在核验本地原件…"
+    },
+    {
+      "state": "error",
+      "width": 1440,
+      "pass": true,
+      "bounds": {
+        "x": 144,
+        "y": 178.171875,
+        "width": 1152,
+        "height": 46
+      },
+      "reviewState": {
+        "status": "error",
+        "message": "Error: ORIGINAL_UNREADABLE — 合成错误，原件状态未知"
+      },
+      "writes": [],
+      "text": "组件状态验收 · 隔离合成输入 · 非运行状态证据\n\n资料与连接\n原始资料\nAI 整理\n研究桥\n\n操作未完成：Error: ORIGINAL_UNREADABLE — 合成错误，原件状态未知"
+    },
+    {
+      "state": "locked",
+      "width": 1440,
+      "pass": true,
+      "bounds": {
+        "x": 144,
+        "y": 123.1875,
+        "width": 1152,
+        "height": 46
+      },
+      "reviewState": {
+        "status": "locked",
+        "message": "Error: WIKI_FUTURE_SCHEMA_LOCKED"
+      },
+      "writes": [],
+      "text": "组件状态验收 · 隔离合成输入 · 非运行状态证据\n\n文章库\n更多操作\nError: WIKI_FUTURE_SCHEMA_LOCKED。引用或存储未通过核验时，当前文章与导出保持关闭。"
+    },
+    {
+      "state": "filtered-empty",
+      "width": 1440,
+      "pass": true,
+      "bounds": {
+        "x": 169,
+        "y": 230.1875,
+        "width": 169,
+        "height": 25.59375
+      },
+      "reviewState": {
+        "status": "ready",
+        "count": 0
+      },
+      "writes": [],
+      "text": "组件状态验收 · 隔离合成输入 · 非运行状态证据\n\n文章库\n更多操作\n搜索知识库\n类型筛选\n全部类型\n实体\n概念\n框架\n主题\n作者研究框架\n行业知识\n宏观知识\n研究约定\n没有匹配的文章\n\n调整搜索或类型筛选后重试。\n\n清除筛选"
+    },
+    {
+      "state": "loading",
+      "width": 390,
+      "pass": true,
+      "bounds": {
+        "x": 24,
+        "y": 178.171875,
+        "width": 342,
+        "height": 24
+      },
+      "reviewState": {
+        "status": "loading"
+      },
+      "writes": [],
+      "text": "组件状态验收 · 隔离合成输入 · 非运行状态证据\n\n资料与连接\n原始资料\nAI 整理\n研究桥\n\n正在核验本地原件…"
+    },
+    {
+      "state": "error",
+      "width": 390,
+      "pass": true,
+      "bounds": {
+        "x": 24,
+        "y": 178.171875,
+        "width": 342,
+        "height": 66
+      },
+      "reviewState": {
+        "status": "error",
+        "message": "Error: ORIGINAL_UNREADABLE — 合成错误，原件状态未知"
+      },
+      "writes": [],
+      "text": "组件状态验收 · 隔离合成输入 · 非运行状态证据\n\n资料与连接\n原始资料\nAI 整理\n研究桥\n\n操作未完成：Error: ORIGINAL_UNREADABLE — 合成错误，原件状态未知"
+    },
+    {
+      "state": "locked",
+      "width": 390,
+      "pass": true,
+      "bounds": {
+        "x": 24,
+        "y": 123.1875,
+        "width": 342,
+        "height": 66
+      },
+      "reviewState": {
+        "status": "locked",
+        "message": "Error: WIKI_FUTURE_SCHEMA_LOCKED"
+      },
+      "writes": [],
+      "text": "组件状态验收 · 隔离合成输入 · 非运行状态证据\n\n文章库\n更多操作\nError: WIKI_FUTURE_SCHEMA_LOCKED。引用或存储未通过核验时，当前文章与导出保持关闭。"
+    },
+    {
+      "state": "filtered-empty",
+      "width": 390,
+      "pass": true,
+      "bounds": {
+        "x": 43,
+        "y": 304.1875,
+        "width": 169,
+        "height": 25.59375
+      },
+      "reviewState": {
+        "status": "ready",
+        "count": 0
+      },
+      "writes": [],
+      "text": "组件状态验收 · 隔离合成输入 · 非运行状态证据\n\n文章库\n更多操作\n搜索知识库\n类型筛选\n全部类型\n实体\n概念\n框架\n主题\n作者研究框架\n行业知识\n宏观知识\n研究约定\n没有匹配的文章\n\n调整搜索或类型筛选后重试。\n\n清除筛选"
+    }
+  ],
+  "errors": [],
+  "result": "PASS"
+}

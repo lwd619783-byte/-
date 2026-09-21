@@ -1,0 +1,981 @@
+{
+  "runtimeSha": null,
+  "origin": "http://127.0.0.1:4201",
+  "testedAt": "2026-09-21T15:35:00.931Z",
+  "inputType": "isolated-ui-review-synthetic-production-components",
+  "screenshots": [
+    {
+      "file": "full-macro-1440.png",
+      "profile": "full",
+      "route": "macro",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1023.546875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1202.546875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-industry-1440.png",
+      "profile": "full",
+      "route": "industry",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 805.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 984.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-industry-指标与变化-1440.png",
+      "profile": "full",
+      "route": "industry",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1159.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1338.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-industry-公司比较-1440.png",
+      "profile": "full",
+      "route": "industry",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1059.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1238.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-industry-产业链-1440.png",
+      "profile": "full",
+      "route": "industry",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 900.515625,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1079.515625,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-stocks-1440.png",
+      "profile": "full",
+      "route": "stocks",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1235.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1414.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-watchlist-1440.png",
+      "profile": "full",
+      "route": "watchlist",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1192.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1371.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-verification-1440.png",
+      "profile": "full",
+      "route": "verification",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1747.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1926.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-expectations-1440.png",
+      "profile": "full",
+      "route": "expectations",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 2253,
+          "top": 179,
+          "right": 1410,
+          "bottom": 2432,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-creators-1440.png",
+      "profile": "full",
+      "route": "creators",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 839,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1018,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "empty-macro-1440.png",
+      "profile": "empty",
+      "route": "macro",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 616.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 795.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "empty-industry-1440.png",
+      "profile": "empty",
+      "route": "industry",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 130,
+          "top": 179,
+          "right": 1410,
+          "bottom": 309,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "empty-stocks-1440.png",
+      "profile": "empty",
+      "route": "stocks",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 470.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 649.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "empty-watchlist-1440.png",
+      "profile": "empty",
+      "route": "watchlist",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 213.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 392.046875,
+          "left": 240
+        }
+      },
+      "testedAt": "2026-09-21T15:38:14.893Z"
+    },
+    {
+      "file": "empty-verification-1440.png",
+      "profile": "empty",
+      "route": "verification",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 657.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 836.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "empty-expectations-1440.png",
+      "profile": "empty",
+      "route": "expectations",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1138,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1317,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "empty-creators-1440.png",
+      "profile": "empty",
+      "route": "creators",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 496,
+          "top": 179,
+          "right": 1410,
+          "bottom": 675,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "degraded-macro-1440.png",
+      "profile": "degraded",
+      "route": "macro",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 999.546875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1178.546875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "degraded-industry-1440.png",
+      "profile": "degraded",
+      "route": "industry",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 805.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 984.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "degraded-stocks-1440.png",
+      "profile": "degraded",
+      "route": "stocks",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1235.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1414.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "degraded-watchlist-1440.png",
+      "profile": "degraded",
+      "route": "watchlist",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1205.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1384.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "degraded-verification-1440.png",
+      "profile": "degraded",
+      "route": "verification",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1711.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1890.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "degraded-expectations-1440.png",
+      "profile": "degraded",
+      "route": "expectations",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 2327,
+          "top": 179,
+          "right": 1410,
+          "bottom": 2506,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "degraded-creators-1440.png",
+      "profile": "degraded",
+      "route": "creators",
+      "width": 1440,
+      "geometry": {
+        "scrollWidth": 1440,
+        "width": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 963,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1142,
+          "left": 240
+        }
+      }
+    },
+    {
+      "file": "full-macro-390.png",
+      "profile": "full",
+      "route": "macro",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1411.546875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1664.546875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-industry-390.png",
+      "profile": "full",
+      "route": "industry",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1317.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1570.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-industry-指标与变化-390.png",
+      "profile": "full",
+      "route": "industry",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1537.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1790.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-industry-公司比较-390.png",
+      "profile": "full",
+      "route": "industry",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1769.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 2022.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-industry-产业链-390.png",
+      "profile": "full",
+      "route": "industry",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1684.3125,
+          "top": 253,
+          "right": 374,
+          "bottom": 1937.3125,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-stocks-390.png",
+      "profile": "full",
+      "route": "stocks",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 7255.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 7508.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-watchlist-390.png",
+      "profile": "full",
+      "route": "watchlist",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1339.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1592.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-verification-390.png",
+      "profile": "full",
+      "route": "verification",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 2039.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 2292.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-expectations-390.png",
+      "profile": "full",
+      "route": "expectations",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 3889,
+          "top": 253,
+          "right": 374,
+          "bottom": 4142,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "full-creators-390.png",
+      "profile": "full",
+      "route": "creators",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1364,
+          "top": 253,
+          "right": 374,
+          "bottom": 1617,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "empty-macro-390.png",
+      "profile": "empty",
+      "route": "macro",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 764.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1017.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "empty-industry-390.png",
+      "profile": "empty",
+      "route": "industry",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 130,
+          "top": 253,
+          "right": 374,
+          "bottom": 383,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "empty-stocks-390.png",
+      "profile": "empty",
+      "route": "stocks",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1269.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1522.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "empty-watchlist-390.png",
+      "profile": "empty",
+      "route": "watchlist",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 293.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 546.046875,
+          "left": 16
+        }
+      },
+      "testedAt": "2026-09-21T15:38:14.946Z"
+    },
+    {
+      "file": "empty-verification-390.png",
+      "profile": "empty",
+      "route": "verification",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 949.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1202.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "empty-expectations-390.png",
+      "profile": "empty",
+      "route": "expectations",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1634,
+          "top": 253,
+          "right": 374,
+          "bottom": 1887,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "empty-creators-390.png",
+      "profile": "empty",
+      "route": "creators",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 756,
+          "top": 253,
+          "right": 374,
+          "bottom": 1009,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "degraded-macro-390.png",
+      "profile": "degraded",
+      "route": "macro",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1387.546875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1640.546875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "degraded-industry-390.png",
+      "profile": "degraded",
+      "route": "industry",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1317.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1570.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "degraded-stocks-390.png",
+      "profile": "degraded",
+      "route": "stocks",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 7283.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 7536.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "degraded-watchlist-390.png",
+      "profile": "degraded",
+      "route": "watchlist",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1192.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1445.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "degraded-verification-390.png",
+      "profile": "degraded",
+      "route": "verification",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 2003.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 2256.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "degraded-expectations-390.png",
+      "profile": "degraded",
+      "route": "expectations",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 3879,
+          "top": 253,
+          "right": 374,
+          "bottom": 4132,
+          "left": 16
+        }
+      }
+    },
+    {
+      "file": "degraded-creators-390.png",
+      "profile": "degraded",
+      "route": "creators",
+      "width": 390,
+      "geometry": {
+        "scrollWidth": 390,
+        "width": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1508,
+          "top": 253,
+          "right": 374,
+          "bottom": 1761,
+          "left": 16
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "sourceSha256": {
+    "src/components/dashboard/MacroTab.tsx": "5bad6b1beb8103f3ce8c3ea490ec243897c733030b84787e9f65bc8a187334d4",
+    "src/components/industry/IndustryTab.tsx": "4c79600b8d47c3dba798e0938722141f630a3a9f32b996074da470340788a17b",
+    "src/components/stock/StockPool.tsx": "26d951d892ecee99715e3674e9e61c7c7c3706c4c8fe9ea34655ceaaefa5f1a8",
+    "src/components/watchlist/WatchlistTab.tsx": "850a1c3fe68c1c972963a96719fcf7e3190e99aec4802dac928b7e024970e414",
+    "src/components/research/ResearchEventCenter.tsx": "90a369a7708891d8484ddc04ab5d6f0217582c152943ed72a36943b474ee2095",
+    "src/components/expectation/EarningsExpectationCenter.tsx": "608c6b184c654a319b0a000f673dbc1e0c450fe8602599b90ee12051325dd586",
+    "src/components/creator/CreatorViewpointWorkspace.tsx": "334735da993b54d673f5264179ef816932f7f590673a18ac3ce06cd28aa48750"
+  },
+  "finishedAt": "2026-09-21T15:38:15.162Z"
+}

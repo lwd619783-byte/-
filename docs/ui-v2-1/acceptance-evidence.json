@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "ui-v2-1-acceptance.v1",
+  "status": "LOCAL_VERIFIED_PENDING_PROTECTED_PREVIEW_AND_INDEPENDENT_AUDIT",
+  "baselineSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+  "mainBaseline": "a029b1e3b96f8b8d28ec123cd741eadc09c12e3d",
+  "runtimeSha": "884192d93b78367b0b062a10e1fc4b773c757c76",
+  "codeTestRuntimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+  "postUnitRuntimeDelta": "Only ResearchInbox.css container-based reflow; screenshot script preparation. Relevant final browser checks rerun; domain/component TSX unchanged.",
+  "suites": [
+    {
+      "name": "environment",
+      "command": "npm run env:check",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:15:32.840603+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "49 PASS / 9 WARN / 0 FAIL / 4 SKIP",
+      "logSha256": "bce96c8c61796f74663d58462f5c74a7697fdebcbf7c790c954ea744b0776444",
+      "localLog": "data-cache/ui-v2-1/env-d0.log"
+    },
+    {
+      "name": "unit",
+      "command": "npx vitest run --maxWorkers=2 --minWorkers=1",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:43:59.535177+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "95 files / 1211 tests PASS",
+      "logSha256": "b0a29a5b28363bfcd3b101fedd7004cf35d5d351bfc958525f509fe35a6a5677",
+      "localLog": "data-cache/ui-v2-1/unit-final.log"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "runtimeSha": "884192d93b78367b0b062a10e1fc4b773c757c76",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:49:54.982678+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "PASS; TypeScript, local typecheck, Vite, financial bundle gate",
+      "logSha256": "b0066a39c383783efafe6e35f75eeee045da34553798abe2447a70ae653c7a52",
+      "localLog": "data-cache/ui-v2-1/build-reflow.log"
+    },
+    {
+      "name": "contracts",
+      "command": "npm run contracts:validate",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:34:07.375843+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "PASS; no admission claim",
+      "logSha256": "2798f8e0b4d6dbeea36e974d00ee10d8e42e0bca672cbd4fd04dea2a1c43a9b5",
+      "localLog": "data-cache/ui-v2-1/contracts.log"
+    },
+    {
+      "name": "test-contracts",
+      "command": "npm run test:contracts",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:34:51.480300+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "PASS",
+      "logSha256": "12db7ff93f0a28c803c1eac4a6108814909a97585c25394360ca42a68d57fc49",
+      "localLog": "data-cache/ui-v2-1/test-contracts.log"
+    },
+    {
+      "name": "discovery",
+      "command": "npm run test:discovery",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:35:34.647749+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "PASS; 95 formal suite paths",
+      "logSha256": "efaa7a6fe81a4016c91a227dbbcabcaee0e29a5d669d98b8307a52c5d6a6adaf",
+      "localLog": "data-cache/ui-v2-1/discovery.log"
+    },
+    {
+      "name": "research-eval",
+      "command": "npm run research:eval:check",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:34:11.128911+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "PASS; reference readiness remains distinct from executable runtime",
+      "logSha256": "4d51869ab462f00333f9dae8f807b253e4832424ab92fe04347e960d80e5068d",
+      "localLog": "data-cache/ui-v2-1/research-eval.log"
+    },
+    {
+      "name": "research-eval-tests",
+      "command": "npm run test:research-eval",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:35:39.851825+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "51/51 PASS",
+      "logSha256": "6bfa5aa96a6a8d952c7063759443c0f93ab9bd108ada2f7863138ca29adb30c9",
+      "localLog": "data-cache/ui-v2-1/test-research-eval.log"
+    },
+    {
+      "name": "bridge",
+      "command": "npm run test:bridge",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "deploymentId": null,
+      "origin": "local CLI (no deployment)",
+      "testedAt": "2026-09-21T15:34:14.058949+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "11/11 PASS",
+      "logSha256": "e4d4e5ac6f8afb92334a1d99a11dc3a9185a3aca57402920a2211860eb8fb74f",
+      "localLog": "data-cache/ui-v2-1/bridge.log"
+    },
+    {
+      "name": "bridge-browser",
+      "command": "npm run test:bridge:browser",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "deploymentId": null,
+      "origin": "https://bridge.synthetic.test mapped to ephemeral loopback server",
+      "testedAt": "2026-09-21T15:40:54.832511+00:00",
+      "timeMeaning": "log completion timestamp",
+      "inputType": "isolated fixtures / repository retained data; no personal profile",
+      "result": "PASS; synthetic local OAuth form, PKCE, replay and foreign/null Origin denial",
+      "logSha256": "252352324d88524ae4376a2173f426dffa7c3924ae8054f046b94120d8438339",
+      "localLog": "data-cache/ui-v2-1/bridge-browser.log"
+    }
+  ],
+  "browserReports": {
+    "wiki": "evidence/wiki.json",
+    "ingestion": "evidence/ingestion.json",
+    "ui-browser": "evidence/ui-browser.json",
+    "research-geometry": "evidence/research-geometry.json",
+    "workbench": "evidence/workbench.json",
+    "knowledge-reading": "evidence/knowledge-reading.json",
+    "knowledge-navigation": "evidence/knowledge-navigation.json",
+    "knowledge-states": "evidence/knowledge-states.json",
+    "density-comparison": "evidence/density-comparison.json",
+    "performance": "evidence/performance.json"
+  },
+  "sourceBindings": [
+    {
+      "report": "wiki",
+      "recordedRuntimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "comparisonTarget": "884192d93b78367b0b062a10e1fc4b773c757c76",
+      "matchedSourceFiles": 7,
+      "mismatches": [],
+      "interpretation": "Original capture metadata retained. Shared Inbox CSS and home primary-action styling received subsequent fixes; final whole-App browser run verifies those changes."
+    },
+    {
+      "report": "workbench",
+      "recordedRuntimeSha": null,
+      "comparisonTarget": "884192d93b78367b0b062a10e1fc4b773c757c76",
+      "matchedSourceFiles": 5,
+      "mismatches": [
+        "src/components/home/ResearchWorkbench.tsx",
+        "src/components/home/ResearchInbox.css"
+      ],
+      "interpretation": "Original capture metadata retained. Shared Inbox CSS and home primary-action styling received subsequent fixes; final whole-App browser run verifies those changes."
+    },
+    {
+      "report": "knowledge-navigation",
+      "recordedRuntimeSha": null,
+      "comparisonTarget": "884192d93b78367b0b062a10e1fc4b773c757c76",
+      "matchedSourceFiles": 6,
+      "mismatches": [],
+      "interpretation": "Original capture metadata retained. Shared Inbox CSS and home primary-action styling received subsequent fixes; final whole-App browser run verifies those changes."
+    },
+    {
+      "report": "knowledge-states",
+      "recordedRuntimeSha": null,
+      "comparisonTarget": "884192d93b78367b0b062a10e1fc4b773c757c76",
+      "matchedSourceFiles": 4,
+      "mismatches": [],
+      "interpretation": "Original capture metadata retained. Shared Inbox CSS and home primary-action styling received subsequent fixes; final whole-App browser run verifies those changes."
+    }
+  ],
+  "realUserAcceptance": "Original optical pending proposal remains PENDING; real CREATE review / same-Wiki UPDATE/history / authenticated ChatGPT revoke denial not promoted by synthetic tests.",
+  "limits": [
+    "No complete WCAG conformance claim; CSS 200% zoom and CSS reflow are not native browser zoom certification.",
+    "Component harness screenshots have their own shell and are not protected Preview or real-user workspace evidence.",
+    "Preview origin cannot automatically read another origin IndexedDB; no personal data migration performed.",
+    "No PR, merge, main modification or Production deployment."
+  ]
+}

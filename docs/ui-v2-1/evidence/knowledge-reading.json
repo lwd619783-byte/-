@@ -1,0 +1,61 @@
+{
+  "origin": "http://127.0.0.1:4201",
+  "runtimeSha": null,
+  "status": "uncommitted-dev",
+  "testedAt": "2026-09-21T15:43:15.352Z",
+  "inputType": "new disposable profile; synthetic wiki and creator fixture; no saved review",
+  "checks": [
+    {
+      "name": "TOC keyboard focus and no obscured heading 1440",
+      "pass": true,
+      "details": {
+        "tag": "H2",
+        "text": "产业与主题结构",
+        "top": 180.328125,
+        "headerBottom": 71,
+        "scrollWidth": 1440,
+        "width": 1440,
+        "tableScroll": 1536,
+        "tableWidth": 798
+      }
+    },
+    {
+      "name": "TOC keyboard focus and no obscured heading 390",
+      "pass": true,
+      "details": {
+        "tag": "H2",
+        "text": "产业与主题结构",
+        "top": 179.71875,
+        "headerBottom": 63,
+        "scrollWidth": 390,
+        "width": 390,
+        "tableScroll": 1536,
+        "tableWidth": 314
+      }
+    },
+    {
+      "name": "modal focus inside",
+      "pass": true
+    },
+    {
+      "name": "dirty cancel preserves field",
+      "pass": true
+    },
+    {
+      "name": "escape restores trigger focus",
+      "pass": true
+    },
+    {
+      "name": "no owner write after discarded form",
+      "pass": true
+    },
+    {
+      "name": "browser back restores library filter",
+      "pass": true
+    },
+    {
+      "name": "explicit return preserves filter",
+      "pass": true
+    }
+  ]
+}

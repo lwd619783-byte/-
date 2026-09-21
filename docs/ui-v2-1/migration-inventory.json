@@ -1,0 +1,2358 @@
+{
+  "schemaVersion": "ui-v2-1-migration-inventory.v1",
+  "inheritedInventory": "docs/ui-v2/migration-inventory.json",
+  "inheritedItemCount": 33,
+  "baselineSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+  "mainBaselineSha": "a029b1e3b96f8b8d28ec123cd741eadc09c12e3d",
+  "runtimeSha": "884192d93b78367b0b062a10e1fc4b773c757c76",
+  "status": "LOCAL_VERIFIED_PENDING_PROTECTED_PREVIEW_AND_INDEPENDENT_AUDIT",
+  "rules": [
+    "Preserve all 33 inherited IDs and oldRoute values; old history file is unchanged.",
+    "wired describes a real code path, not final runtime acceptance or authorization to approve user content.",
+    "Synthetic CREATE/UPDATE/history/revoke checks never promote the still-pending real optical contribution.",
+    "No Source/Wiki/Claim/Thesis/account owner, IDs, storage, permission, computation or revision semantics changed.",
+    "Preview origin isolation remains; Wiki backup excludes IndexedDB originals.",
+    "Each item lists its own implementation/action surface and targeted assertion files; final runtime evidence remains pending."
+  ],
+  "items": [
+    {
+      "id": "M01",
+      "oldRoute": "#/home",
+      "entry": "HomePage / 首页",
+      "action": "开始研究、研究入口、观察提醒、公司快速预览、Research Inbox",
+      "owner": "HomePage / researchInbox / existing provider read models",
+      "persistence": "presentation only; task actions delegate WatchlistRepository",
+      "newLocation": "工作台 #/home：添加资料、宏观/行业/公司、我的观察、最多3条近期变化；研究总览 #/research：完整事件与行情辅助",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/home/ResearchWorkbench.test.tsx",
+            "src/components/home/HomePage.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/workbench-after/index.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/home/ResearchWorkbench.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/home/ResearchWorkbench.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/home/ResearchInbox.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/home/HomePage.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/home/ResearchWorkbench.tsx",
+        "src/components/home/ResearchInbox.tsx",
+        "src/components/home/HomePage.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M02",
+      "oldRoute": "all",
+      "entry": "Header / Sidebar / RightRail",
+      "action": "全局导航、搜索公司、数据模式选择、来源状态",
+      "owner": "App / useWorkspaceNavigation / dataProvider",
+      "persistence": "React state and browser history",
+      "newLocation": "顶部“搜索页面或公司”、模式；侧栏五入口+资料/设置；研究子导航",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/layout/Header.test.tsx",
+            "src/components/layout/WorkspaceNavigation.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/d1-tests.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/layout/Header.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/layout/Header.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/layout/Sidebar.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/layout/workspaceV2.ts",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/layout/Header.tsx",
+        "src/components/layout/Sidebar.tsx",
+        "src/components/layout/workspaceV2.ts"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC",
+      "pendingChecks": [
+        {
+          "scope": "Whole-app 768px reflow rerun",
+          "status": "PENDING_NOT_VERIFIED",
+          "reason": "ui-browser.log contains a 768/home 793px overflow failure; integration owner is correcting/retesting it. Research harness reflow PASS does not supersede whole-app failure."
+        }
+      ]
+    },
+    {
+      "id": "M03",
+      "oldRoute": "#/macro",
+      "entry": "MacroTab",
+      "action": "九分类切换、指标选择、完整明细、来源与时间阅读",
+      "owner": "macroData / MacroTab",
+      "persistence": "read-only provider artifacts; UI selection in React",
+      "newLocation": "研究 / 宏观 #/macro：九分类、所选宏观指标、紧凑读数、全量表；来源口径和数值覆盖details",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/dashboard/MacroTab.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/dashboard/MacroTab.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/dashboard/MacroTab.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/dashboard/MacroTab.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M04",
+      "oldRoute": "#/industry?industry=:industryId&segment=:segmentId",
+      "entry": "IndustryTab / IndustryOverview",
+      "action": "选择行业和细分、概览驱动风险、原行情摘要、细分比较",
+      "owner": "industry catalog / dataProvider / IndustryTab",
+      "persistence": "provider artifacts; selected IDs in hash",
+      "newLocation": "研究 / 行业：研究概览保留驱动/催化/风险/池分布；公司比较保留细分选择、逻辑与行情摘要、公司比较表、公司列表",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/industry/IndustryTab.ui-v1.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/industry/IndustryTab.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/industry/IndustryTab.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/industry/IndustryTab.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M05",
+      "oldRoute": "#/industry?industry=:industryId&segment=:segmentId",
+      "entry": "产业链 / 机器人 / 未上市公司",
+      "action": "产业链关系、核心池观察池、全量筛选、公司预览与详情",
+      "owner": "industryChainResearch / existing company catalog",
+      "persistence": "read-only catalog, no new graph owner",
+      "newLocation": "行业 / 产业链；点击细分转同对象公司比较；机器人核心/观察池在公司比较→公司列表，未上市线索在产业链",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/industry/IndustryTab.ui-v1.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-after/index.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/industry/IndustryChainDiagram.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/industry/IndustryChainDiagram.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/industry/IndustryTab.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/industry/RoboticsStockSection.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/industry/IndustryChainDiagram.tsx",
+        "src/components/industry/IndustryTab.tsx",
+        "src/components/industry/RoboticsStockSection.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M06",
+      "oldRoute": "#/industry",
+      "entry": "IndustryMetric / Snapshot / Change / SignalClaim panels",
+      "action": "查指标原值、留存差异、维度快照、候选与Eligibility、Evidence Drawer",
+      "owner": "industryMetricProvider / industrySignals / industrySnapshot / F2",
+      "persistence": "retained provider artifacts; no derived authority writes",
+      "newLocation": "行业 / 指标与变化：变化→快照→派生信号/资格→正式指标；原Evidence Drawer与门禁保留",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/industry/IndustryTab.ui-v1.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/industry/IndustryTab.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/industry/IndustryTab.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/industry/IndustryChangePanel.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/industry/IndustrySnapshotPanel.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/industry/IndustrySignalClaimPanel.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/industry/IndustryMetricPanel.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/industry/IndustryTab.tsx",
+        "src/components/industry/IndustryChangePanel.tsx",
+        "src/components/industry/IndustrySnapshotPanel.tsx",
+        "src/components/industry/IndustrySignalClaimPanel.tsx",
+        "src/components/industry/IndustryMetricPanel.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M07",
+      "oldRoute": "#/stocks",
+      "entry": "StockPool",
+      "action": "全部筛选排序、列表卡片、公司预览、打开完整研究",
+      "owner": "dataProvider / StockPool",
+      "persistence": "provider artifacts; session filter state",
+      "newLocation": "研究 / 公司 #/stocks：行业/细分/市场/排序；更多筛选→质量/池内搜索/风险；激活摘要可清除；表格/卡片/快速预览/完整研究",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/stock/StockPool.ui-v1.test.tsx",
+            "src/components/stock/StockPool.trust.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/stock/StockPool.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/stock/StockPool.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/stock/StockCard.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/stock/StockPool.tsx",
+        "src/components/stock/StockCard.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M08",
+      "oldRoute": "#/company/:stockId/overview?from=:page",
+      "entry": "公司研究概览",
+      "action": "公司身份、业务定位、原投资逻辑、宏观行业、产业链、关联公司、分类",
+      "owner": "Stock / StockDetailDrawer",
+      "persistence": "same stockId and browser history",
+      "newLocation": "同公司 #/company/:stockId/overview：研究概览；证据摘要链接证据与复盘",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/stock/StockDetailDrawer.test.ts"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/unit.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/stock/StockDetailDrawer.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/stock/StockDetailDrawer.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M09",
+      "oldRoute": "#/company/:stockId/financials?from=:page",
+      "entry": "经营与财务",
+      "action": "业务拆解、财务表、财务历史、F10原文与按需加载重试",
+      "owner": "Stock / A-share financial provider",
+      "persistence": "read-only provider artifacts and request cache",
+      "newLocation": "同公司 /financials：经营与财务，原财务/分部/历史与加载重试",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/stock/StockDetailDrawer.test.ts"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/unit.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/stock/StockDetailDrawer.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/stock/StockDetailDrawer.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M10",
+      "oldRoute": "#/company/:stockId/valuation?from=:page",
+      "entry": "价格与估值",
+      "action": "行情/估值/价格历史、信号雷达、来源核验",
+      "owner": "Stock.priceHistorySource / stockCoverage / chartAudit",
+      "persistence": "read-only exact-ID price owner",
+      "newLocation": "同公司 /valuation：价格与估值，原价格历史、估值与来源",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/stock/StockDetailDrawer.test.ts"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/unit.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/stock/StockDetailDrawer.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/stock/StockPriceHistoryChart.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/stock/StockDetailDrawer.tsx",
+        "src/components/stock/StockPriceHistoryChart.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M11",
+      "oldRoute": "#/company/:stockId/expectations?from=:page",
+      "entry": "预期与验证",
+      "action": "官方/本地预期、比较和验证链、来源状态",
+      "owner": "companyGuidanceExpectationProvider / EarningsExpectationStore",
+      "persistence": "official artifacts + earnings-expectation.v1 localStorage",
+      "newLocation": "同公司 /expectations：预期与验证，保留正式/本地预期与比较链",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/expectation/CompanyGuidanceExpectationWorkflow.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-legacy-regression.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/stock/StockDetailDrawer.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/expectation/StockEarningsExpectationPanel.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/stock/StockDetailDrawer.tsx",
+        "src/components/expectation/StockEarningsExpectationPanel.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M12",
+      "oldRoute": "#/company/:stockId/evidence?from=:page",
+      "entry": "证据与复盘",
+      "action": "研报、公告、数据质量、观察添加编辑复盘修正恢复、Evidence Drawer",
+      "owner": "announcement provider / WatchlistStore / EvidenceDrawer",
+      "persistence": "provider artifacts + watchlist.v2 localStorage",
+      "newLocation": "同公司 /evidence：证据与复盘，公告/研报/观察动作与原Evidence Drawer",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/stock/StockDetailDrawer.watchlist.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/unit.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/stock/StockDetailDrawer.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/watchlist/StockWatchlistPanel.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/research/EvidenceDrawer.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/stock/StockDetailDrawer.tsx",
+        "src/components/watchlist/StockWatchlistPanel.tsx",
+        "src/components/research/EvidenceDrawer.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M13",
+      "oldRoute": "#/company/:stockId/:tab?from=:page",
+      "entry": "公司返回与刷新",
+      "action": "返回原页面、行业和事件查询保留、前进后退、刷新同公司同标签",
+      "owner": "useWorkspaceNavigation",
+      "persistence": "hash / history.state uiV1 / presentation only",
+      "newLocation": "原公司五章hash及from/industry/segment/event参数；返回/刷新/浏览器历史保持同对象",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/layout/WorkspaceNavigation.test.tsx",
+            "src/hooks/useWorkspaceNavigation.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/d1-tests.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/../hooks/useWorkspaceNavigation.ts",
+      "wiringEvidence": [
+        {
+          "file": "src/components/../hooks/useWorkspaceNavigation.ts",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/stock/StockDetailDrawer.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/../hooks/useWorkspaceNavigation.ts",
+        "src/components/stock/StockDetailDrawer.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M14",
+      "oldRoute": "#/watchlist",
+      "entry": "观察清单",
+      "action": "添加、筛选排序、元数据编辑、复盘、修正、归档、恢复、历史",
+      "owner": "WatchlistStore / WatchlistRepository",
+      "persistence": "localStorage investment-research-dashboard.watchlist.v2",
+      "newLocation": "研究 / 论点与观察：空数据无KPI/筛选/详情轨道；列表对象/论点/复盘日期；选中后原判断、元数据、归档/恢复、复盘历史",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/watchlist/WatchlistInteraction.test.tsx",
+            "src/components/watchlist/WatchlistWorkflow.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/watchlist/WatchlistTab.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/watchlist/WatchlistTab.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/watchlist/ReviewTimeline.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/watchlist/WatchlistTab.tsx",
+        "src/components/watchlist/ReviewTimeline.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M15",
+      "oldRoute": "#/watchlist",
+      "entry": "观察提醒与示例",
+      "action": "确认、暂缓、忽略、复盘任务、主动加载单个或全部示例",
+      "owner": "reviewTaskProvider / WatchlistStore",
+      "persistence": "watchlist.v2 reviewTaskStates; explicit sample import only",
+      "newLocation": "观察详情→复盘提醒（确认/暂缓/忽略）；示例模板details仅显式载入；任务→研究复盘沿用任务关联",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/watchlist/WatchlistInteraction.test.tsx",
+            "src/components/home/ResearchWorkbench.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/workbench-after/index.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/watchlist/WatchlistTab.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/watchlist/WatchlistTab.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/home/ResearchWorkbench.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/home/ResearchInbox.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/watchlist/WatchlistTab.tsx",
+        "src/components/home/ResearchWorkbench.tsx",
+        "src/components/home/ResearchInbox.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M16",
+      "oldRoute": "#/watchlist",
+      "entry": "观察清单备份",
+      "action": "JSON导出、预检、合并、替换、重置、损坏原文导出",
+      "owner": "WatchlistRepository / PersistedBaseGuard",
+      "persistence": "watchlist.v2 and existing backup keys",
+      "newLocation": "观察清单页头→备份/导入；错误就近提供恢复和损坏原文导出入口",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/watchlist/WatchlistInteraction.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/watchlist/WatchlistBackupModal.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/watchlist/WatchlistBackupModal.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/watchlist/WatchlistTab.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/watchlistRepository.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/watchlist/WatchlistBackupModal.tsx",
+        "src/components/watchlist/WatchlistTab.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M17",
+      "oldRoute": "#/verification?event=:eventId",
+      "entry": "验证中心 / ResearchEventCenter",
+      "action": "事件筛选、全局核验队列、业绩验证链、选事件、Evidence Drawer、开始复盘",
+      "owner": "researchEventProvider / reviewTaskProvider / F2",
+      "persistence": "derived read model + delegated watchlist actions; event hash",
+      "newLocation": "研究 / 验证：事件对账、全局核验队列、业绩验证链；选定event深链与原开始复盘；范围不同显式说明",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research/ResearchEventCenter.ui-v1.test.tsx",
+            "src/components/research/ResearchEventCenter.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research/ResearchEventCenter.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research/ResearchEventCenter.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/research/ResearchEventEvidence.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/researchEventReview.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research/ResearchEventCenter.tsx",
+        "src/components/research/ResearchEventEvidence.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M18",
+      "oldRoute": "#/expectations",
+      "entry": "预期证据",
+      "action": "十类筛选、官方索引与公司明细、重复/冲突/排除、业务次序和时间审计",
+      "owner": "companyGuidanceExpectationProvider / comparison provider",
+      "persistence": "official artifacts + local snapshots",
+      "newLocation": "研究 / 预期证据：同口径来源表为主、区间图details；官方状态details；冲突/不可比/失败一级可见；全部原筛选与时间审计",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/expectation/EarningsExpectationCenter.ui-v1.test.tsx",
+            "src/components/expectation/EarningsExpectationWorkflow.test.tsx",
+            "src/components/expectation/CompanyGuidanceExpectationWorkflow.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/expectation/EarningsExpectationCenter.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/expectation/EarningsExpectationCenter.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/expectation/EarningsExpectationCenter.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M19",
+      "oldRoute": "#/expectations",
+      "entry": "新增预期 / 修正 / 导入导出",
+      "action": "本地预期追加纠错、CSV/JSON预检导入导出、历史、损坏恢复",
+      "owner": "EarningsExpectationStore / EarningsExpectationRepository",
+      "persistence": "localStorage investment-research-dashboard.earnings-expectation.v1",
+      "newLocation": "预期页头→导出/快照导入、添加业绩预期；原快照创建纠正；导入记录视图",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/expectation/EarningsExpectationWorkflow.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/expectation/EarningsExpectationImportModal.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/expectation/EarningsExpectationImportModal.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/expectation/EarningsExpectationCenter.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/earningsExpectationRepository.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/expectation/EarningsExpectationImportModal.tsx",
+        "src/components/expectation/EarningsExpectationCenter.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M20",
+      "oldRoute": "#/creators",
+      "entry": "观点追踪四视图",
+      "action": "博主概览、观点时间轴、事件对照、博主比较、asOf、来源与观点追加审核复盘",
+      "owner": "CreatorViewpointRepository / creatorViewpoint",
+      "persistence": "localStorage investment-research-dashboard.creator-viewpoint.v1",
+      "newLocation": "研究 / 观点：四视图及As-of保留；理由/验证条件details；来源有效时间、变化、未解析状态一级可见；证据Drawer/原审核与追加复盘",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/creator/CreatorViewpointWorkspace.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/creator/CreatorViewpointWorkspace.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/creator/CreatorViewpointWorkspace.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/creator/CreatorEntryForm.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/creator/CreatorEvidence.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/creator/CreatorViewpointWorkspace.tsx",
+        "src/components/creator/CreatorEntryForm.tsx",
+        "src/components/creator/CreatorEvidence.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M21",
+      "oldRoute": "#/creators",
+      "entry": "Creator备份与导出",
+      "action": "JSON完整备份、预检恢复、损坏恢复、XLSX分析副本",
+      "owner": "CreatorViewpointRepository / creatorViewpointExport",
+      "persistence": "creator-viewpoint.v1 / pre-import / pre-recovery",
+      "newLocation": "观点→录入与备份工具→JSON完整备份/恢复JSON/Excel分析副本；损坏恢复仍就近可见",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/creator/CreatorViewpointWorkspace.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-tests-verified.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/creator/CreatorViewpointWorkspace.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/creator/CreatorViewpointWorkspace.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/creatorViewpointRepository.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        },
+        {
+          "file": "src/services/creatorViewpointExport.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/creator/CreatorViewpointWorkspace.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M22",
+      "oldRoute": "#/memory",
+      "entry": "研究记忆 / 原始资料",
+      "action": "PDF/MD/TXT和粘贴导入、批次、摘要核验、解析状态、原件下载、全文定位",
+      "owner": "IndexedDbBrowserSourceRepository",
+      "persistence": "IndexedDB knowledge-ingestion.v1 state/current + originals",
+      "newLocation": "资料与连接 #/sources →原始资料；#/sources?view=add 打开添加流程；文件列表原件下载/解析/全文定位；旧memory别名保留",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/ResearchMemoryWorkspace.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/ingestion-d2-warm/report.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/common/Modal.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/browserSourceRepository.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+        "src/components/common/Modal.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M23",
+      "oldRoute": "#/memory",
+      "entry": "AI整理 / 研究任务导出",
+      "action": "选择批次、导出任务与schema、手工贡献包回传与验证",
+      "owner": "knowledge-contribution.v1 / source repository",
+      "persistence": "IndexedDB contributions; export is derived artifact",
+      "newLocation": "资料与连接 #/sources?view=organize →AI整理，选批次/任务导出/贡献回传；不新增自动执行器",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/ResearchMemoryWorkspace.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/ingestion-d2-warm/report.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/ResearchMemoryWorkspace.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M24",
+      "oldRoute": "#/memory",
+      "entry": "BridgeStagingPanel",
+      "action": "显式选择来源/知识后发送、授权、状态读取、到期、撤销",
+      "owner": "authenticated read-only Research Bridge / existing permissions",
+      "persistence": "private staged copy + local stageId hint only",
+      "newLocation": "资料与连接 #/sources?view=bridge →研究桥，显式选择与发送、读取状态、授权/过期/撤销；无自动上传",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/ResearchMemoryWorkspace.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/bridge.log"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/BridgeStagingPanel.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/BridgeStagingPanel.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "scripts/tests/research-bridge.node.mjs",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/BridgeStagingPanel.tsx",
+        "src/components/research-memory/ResearchMemoryWorkspace.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "PENDING_NOT_VERIFIED",
+      "pendingChecks": [
+        {
+          "status": "PENDING_NOT_VERIFIED",
+          "scope": "Real authorized ChatGPT read/revoke-refusal path",
+          "reason": "No new real-user authorization or human knowledge decision in this presentation task."
+        }
+      ]
+    },
+    {
+      "id": "M25",
+      "oldRoute": "#/memory",
+      "entry": "待审核贡献",
+      "action": "提议列表、完整正文、变化摘要、引文、冲突、人工接受/修改后接受/拒绝/NO_ACTION",
+      "owner": "knowledgeReview / BrowserWikiRepository / source dispositions",
+      "persistence": "Wiki append-only + IndexedDB disposition; existing guards",
+      "newLocation": "任务 #/tasks?view=review →知识待审；完整提议/正文/差异/引用/原接受拒绝no_action；共享owner常驻而不复制状态",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/ResearchMemoryWorkspace.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/ingestion-d2-warm/report.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/home/ResearchWorkbench.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/research-memory/KnowledgeDocument.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/knowledgeReview.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+        "src/components/home/ResearchWorkbench.tsx",
+        "src/components/research-memory/KnowledgeDocument.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "PENDING_NOT_VERIFIED",
+      "pendingChecks": [
+        {
+          "status": "PENDING_NOT_VERIFIED",
+          "scope": "Real optical contribution decision by the user; no synthetic acceptance substitutes",
+          "reason": "No new real-user authorization or human knowledge decision in this presentation task."
+        }
+      ]
+    },
+    {
+      "id": "M26",
+      "oldRoute": "#/memory",
+      "entry": "我的知识库 / WikiLibrary",
+      "action": "类型与全文搜索、正文、摘要、来源、backlinks/orphans、草稿与归档",
+      "owner": "Wiki Entry / Revision / Review / buildWikiReadModel",
+      "persistence": "localStorage investment-research-dashboard.wiki.v1",
+      "newLocation": "知识库 #/knowledge：搜索/类型/文章列表；#/knowledge?wiki=:wikiId 完整详情+返回文章列表；草稿归档进入更多操作",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/ResearchMemoryWorkspace.test.tsx",
+            "src/components/research-memory/KnowledgeDocument.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/wiki-d2-warm/report.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/WikiLibrary.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/WikiLibrary.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/wikiRepository.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/WikiLibrary.tsx",
+        "src/components/research-memory/ResearchMemoryWorkspace.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M27",
+      "oldRoute": "#/memory",
+      "entry": "Wiki修订与历史",
+      "action": "手工新建、修订、审核、刷新历史、asOf、当前/历史全文",
+      "owner": "BrowserWikiRepository / wiki.v1",
+      "persistence": "same Wiki IDs; append-only revisions/reviews; guarded writes",
+      "newLocation": "知识库→更多操作→手工新建/刷新历史/历史查询；文章详情→追加修订/时间与版本演化/原审核按钮",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/ResearchMemoryWorkspace.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/wiki-d2-warm/report.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/WikiRevisionForm.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/WikiRevisionForm.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/research-memory/WikiLibrary.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/wikiRepository.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/WikiRevisionForm.tsx",
+        "src/components/research-memory/WikiLibrary.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "PENDING_NOT_VERIFIED",
+      "pendingChecks": [
+        {
+          "status": "PENDING_NOT_VERIFIED",
+          "scope": "Real same-Wiki UPDATE, history and reload after genuine user review",
+          "reason": "No new real-user authorization or human knowledge decision in this presentation task."
+        }
+      ]
+    },
+    {
+      "id": "M28",
+      "oldRoute": "#/memory",
+      "entry": "Wiki完整备份与恢复",
+      "action": "Wiki JSON导出、导入预检、确认、pre-restore、损坏恢复",
+      "owner": "BrowserWikiRepository / WikiBackupModal",
+      "persistence": "wiki.v1 only; does not include IndexedDB originals",
+      "newLocation": "知识库→更多操作→备份全部文章历史/导入文章备份/导出锁定原字节；设置→管理文章备份→knowledge?view=maintenance",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/ResearchMemoryWorkspace.test.tsx",
+            "src/components/layout/WorkspaceSettings.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/wiki-d2-warm/report.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/WikiBackupModal.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/WikiBackupModal.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/research-memory/WikiLibrary.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/layout/WorkspaceSettings.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/wikiRepository.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/WikiBackupModal.tsx",
+        "src/components/research-memory/WikiLibrary.tsx",
+        "src/components/layout/WorkspaceSettings.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M29",
+      "oldRoute": "#/memory",
+      "entry": "Markdown / Obsidian projection",
+      "action": "生成deterministic Vault ZIP、目录对比、stale/edited提示、禁止回写",
+      "owner": "wikiProjection / Wiki authority",
+      "persistence": "derived download only; no second authority",
+      "newLocation": "知识库→更多操作→导出到Obsidian/校验已导出的目录；设置→导出与目录校验；外部编辑不回写",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/ResearchMemoryWorkspace.test.tsx",
+            "src/components/layout/WorkspaceSettings.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/wiki-d2-warm/report.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/WikiLibrary.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/WikiLibrary.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/layout/WorkspaceSettings.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/wikiProjection.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/WikiLibrary.tsx",
+        "src/components/layout/WorkspaceSettings.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M30",
+      "oldRoute": "all evidence actions",
+      "entry": "EvidenceDrawer / 来源全文 / KnowledgeDocument",
+      "action": "安全全文、引用/定位、source/extraction/evidence追溯、关闭返回焦点",
+      "owner": "existing exact refs / source adapters / safe Markdown renderer",
+      "persistence": "read-only presentation of original authoritative bytes",
+      "newLocation": "文章/待审/版本全文安全阅读；来源按钮→ResearchMemoryWorkspace 内原件 Modal，研究证据→EvidenceDrawer；未关联引用不猜绑定",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/research-memory/KnowledgeDocument.test.tsx",
+            "src/components/creator/CreatorViewpointWorkspace.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/wiki-d2-warm/report.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/research-memory/KnowledgeDocument.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/research-memory/KnowledgeDocument.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/common/Modal.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/research/EvidenceDrawer.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/research-memory/KnowledgeDocument.tsx",
+        "src/components/common/Modal.tsx",
+        "src/components/research/EvidenceDrawer.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M31",
+      "oldRoute": null,
+      "entry": "组合（新增未来入口）",
+      "action": "明确未连接；不显示虚假收益、持仓或暴露",
+      "owner": "future Stage4.4 Local Core adapter; none connected",
+      "persistence": "none",
+      "newLocation": "组合 #/portfolio →PortfolioBoundary紧凑未连接说明；后续接入范围details，无假数字",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/layout/WorkspaceSettings.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/after/index.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "capability": "NOT_CONNECTED",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/layout/WorkspaceSettings.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/layout/WorkspaceSettings.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "PENDING_NOT_VERIFIED",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC",
+      "pendingChecks": [
+        {
+          "scope": "Integrated final-runtime portfolio empty-state capture",
+          "status": "PENDING_NOT_VERIFIED",
+          "reason": "Code path exists; referenced after/index.json is not completed at this inventory write. No portfolio capability is claimed."
+        }
+      ]
+    },
+    {
+      "id": "M32",
+      "oldRoute": null,
+      "entry": "任务（新增整合入口）",
+      "action": "连接既有待审与Research Inbox；未实现Agent执行隐藏或明确未连接",
+      "owner": "existing review/task projections; no Agent executor",
+      "persistence": "delegate existing owners",
+      "newLocation": "任务三类：#/tasks?view=review 知识待审；?view=replay 研究复盘；?view=verify 事件核验；计数按owner就绪状态显示",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/home/ResearchWorkbench.test.tsx",
+            "src/components/home/ResearchInbox.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/workbench-after/index.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "capability": "EXISTING_REVIEW_ONLY",
+      "source": "src/components/home/ResearchWorkbench.tsx",
+      "wiringEvidence": [
+        {
+          "file": "src/components/home/ResearchWorkbench.tsx",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/home/ResearchInbox.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        },
+        {
+          "file": "src/services/researchEventReview.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        },
+        {
+          "file": "src/services/researchInbox.ts",
+          "role": "preserved owner / guard / selector; no rule change"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/home/ResearchWorkbench.tsx",
+        "src/components/home/ResearchInbox.tsx",
+        "src/components/research-memory/ResearchMemoryWorkspace.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    },
+    {
+      "id": "M33",
+      "oldRoute": "global appearance menu",
+      "entry": "原三套外观",
+      "action": "按本轮明确授权停用多皮肤，映射单一浅色；不清业务存储",
+      "owner": "presentation tokens only",
+      "persistence": "existing presentation preference only; no business migration",
+      "newLocation": "全站维持既有暖灰背景/灰绿侧栏/深绿强调；此次仅密度/布局，不再切换皮肤",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "docs/ui-v2-1/visual-audit.md",
+          "status": "CURRENT_LOCAL_AUDIT",
+          "testSources": [
+            "src/components/layout/WorkspaceNavigation.test.tsx",
+            "src/components/layout/Appearance.test.tsx"
+          ],
+          "localArtifacts": [
+            "data-cache/ui-v2-1/research-after/index.json"
+          ],
+          "scope": "Listed local synthetic/component assertions only; not every button individually browser-automated. Overall unit.log retains historical failures, resolved by targeted logs; it is not an overall PASS."
+        },
+        {
+          "report": "docs/ui-v2-1/acceptance-evidence.json",
+          "status": "PLANNED_FINAL_RUNTIME_BINDING",
+          "runtimeSha": null,
+          "scope": "Final integrated runtime/deployment/origin/testedAt and final suite outcomes must be bound by integration owner."
+        }
+      ],
+      "source": "src/components/../styles/workspace-v2.css",
+      "wiringEvidence": [
+        {
+          "file": "src/components/../styles/workspace-v2.css",
+          "role": "direct implementation"
+        },
+        {
+          "file": "src/components/layout/Appearance.tsx",
+          "role": "preserved child / action surface"
+        },
+        {
+          "file": "src/App.tsx",
+          "role": "existing owner props, callbacks and route context; no second store"
+        }
+      ],
+      "sourceFiles": [
+        "src/components/../styles/workspace-v2.css",
+        "src/components/layout/Appearance.tsx"
+      ],
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "realUserAcceptance": "NOT_APPLICABLE_READONLY_OR_SYNTHETIC"
+    }
+  ],
+  "pageEntries": [
+    {
+      "entry": "工作台",
+      "route": "#/home",
+      "action": "添加资料→sources?view=add；三研究入口；我的观察最多4条；真实待复盘才生成侧列；近期变化最多3条→研究总览",
+      "source": "src/components/home/ResearchWorkbench.tsx",
+      "inheritedItems": [
+        "M01",
+        "M15"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/home/ResearchWorkbench.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "研究总览",
+      "route": "#/research",
+      "action": "事件排序/日期筛选/范围分母/逐步加载/精确事件打开；行情、关注公司与研究辅助details中保留价格脉络、对象选择、关注公司、覆盖与来源明细、关联证据；研究快捷入口保持",
+      "source": "src/components/home/HomePage.tsx",
+      "inheritedItems": [
+        "M01",
+        "M17"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/home/HomePage.test.tsx",
+          "src/components/home/ResearchInbox.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "知识库",
+      "route": "#/knowledge",
+      "action": "文章搜索/类型/列表→同Wiki详情；返回文章列表；更多操作收纳手工新建/草稿归档/刷新历史/历史时点/备份/恢复/Obsidian/目录校验",
+      "source": "src/components/research-memory/WikiLibrary.tsx",
+      "inheritedItems": [
+        "M26",
+        "M27",
+        "M28",
+        "M29",
+        "M30"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/research-memory/ResearchMemoryWorkspace.test.tsx",
+          "scripts/wiki-browser-check.mjs"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "任务",
+      "route": "#/tasks",
+      "action": "知识待审、研究复盘、事件核验三类真实队列；读取中/错误/锁定不报0；Agent执行器未连接",
+      "source": "src/components/home/ResearchWorkbench.tsx",
+      "inheritedItems": [
+        "M25",
+        "M32"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/home/ResearchWorkbench.test.tsx",
+          "src/components/home/ResearchInbox.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "资料与连接",
+      "route": "#/sources",
+      "action": "原始资料、AI整理、研究桥三分类；文件列表为主，添加资料流程弹窗内保留批次/粘贴/格式限制",
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "inheritedItems": [
+        "M22",
+        "M23",
+        "M24"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/research-memory/ResearchMemoryWorkspace.test.tsx",
+          "scripts/knowledge-ingestion-browser-check.mjs"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "设置与帮助",
+      "route": "#/settings",
+      "action": "七设置行；文章备份和Obsidian跳knowledge?view=maintenance，原件跳sources；无新整库迁移",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "inheritedItems": [
+        "M28",
+        "M29",
+        "M33"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/layout/WorkspaceSettings.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    }
+  ],
+  "taskQueues": [
+    {
+      "entry": "知识待审",
+      "route": "#/tasks?view=review",
+      "action": "ResearchMemoryWorkspace.pending contribution proposals；owner回报loading/ready/error/locked和数量",
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "inheritedItems": [
+        "M25"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/research-memory/ResearchMemoryWorkspace.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "研究复盘",
+      "route": "#/tasks?view=replay",
+      "action": "buildResearchInbox既有任务关联，仅row.tasks.length；提醒处理不改投资假设",
+      "source": "src/components/home/ResearchWorkbench.tsx",
+      "inheritedItems": [
+        "M15",
+        "M32"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/home/ResearchWorkbench.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "事件核验",
+      "route": "#/tasks?view=verify",
+      "action": "events.filter(needsDataReview)；原metadata/partial/stale/error/null/无法匹配规则，不展示所有普通公告",
+      "source": "src/services/researchEventReview.ts",
+      "inheritedItems": [
+        "M17",
+        "M32"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/home/ResearchWorkbench.test.tsx",
+          "src/components/research/ResearchEventCenter.ui-v1.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    }
+  ],
+  "sourceCategories": [
+    {
+      "entry": "原始资料",
+      "route": "#/sources",
+      "action": "添加文件/粘贴→原件保存→解析；批次/文件列表→原文定位/下载/摘要核验",
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "inheritedItems": [
+        "M22"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/research-memory/ResearchMemoryWorkspace.test.tsx",
+          "scripts/knowledge-ingestion-browser-check.mjs"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "AI 整理",
+      "route": "#/sources?view=organize",
+      "action": "选真实批次、核对原件→研究桥或导出任务/schema→贡献包导入→任务待审",
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "inheritedItems": [
+        "M23"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/research-memory/ResearchMemoryWorkspace.test.tsx",
+          "scripts/knowledge-ingestion-browser-check.mjs"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "研究桥",
+      "route": "#/sources?view=bridge",
+      "action": "显式选择source/Wiki副本，既有授权/过期/撤销；连接不等于自动执行",
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "inheritedItems": [
+        "M24"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/research-memory/ResearchMemoryWorkspace.test.tsx",
+          "scripts/knowledge-ingestion-browser-check.mjs"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    }
+  ],
+  "settingsRows": [
+    {
+      "entry": "存储位置",
+      "route": "#/settings",
+      "action": "就地位置与迁移详情；IndexedDB原件/批次/贡献与localStorage文章分开；不同origin/profile不共享",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "inheritedItems": [
+        "M22",
+        "M26"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/layout/WorkspaceSettings.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "文章备份与恢复",
+      "route": "#/settings",
+      "action": "管理文章备份→#/knowledge?view=maintenance；不含原件警告一级可见",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "inheritedItems": [
+        "M28"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/layout/WorkspaceSettings.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "原件下载",
+      "route": "#/settings",
+      "action": "查看与下载原件→#/sources；按批次文件下载",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "inheritedItems": [
+        "M22"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/layout/WorkspaceSettings.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "Obsidian 单向导出",
+      "route": "#/settings",
+      "action": "导出与目录校验→#/knowledge?view=maintenance；外部编辑不回写",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "inheritedItems": [
+        "M29"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/layout/WorkspaceSettings.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "数据模式",
+      "route": "#/settings",
+      "action": "指向页顶已有模拟/混合/真实切换，不创建第二数据模式owner",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "inheritedItems": [
+        "M02"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/layout/WorkspaceSettings.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "快捷键",
+      "route": "#/settings",
+      "action": "展示Ctrl/⌘K搜索、Esc关闭、Tab导航；行为由Header/Modal既有实现负责",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "inheritedItems": [
+        "M02",
+        "M30"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/layout/WorkspaceSettings.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    },
+    {
+      "entry": "研究、审核与连接帮助",
+      "route": "#/settings",
+      "action": "details解释提审/审核/研究桥边界，旧偏好字节保留，不清研究数据",
+      "source": "src/components/layout/WorkspaceSettings.tsx",
+      "inheritedItems": [
+        "M24",
+        "M25",
+        "M33"
+      ],
+      "wired": true,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING",
+      "runtimeSha": null,
+      "regressionEvidence": {
+        "testSources": [
+          "src/components/layout/WorkspaceSettings.test.tsx"
+        ],
+        "reports": [
+          "docs/ui-v2-1/visual-audit.md",
+          "docs/ui-v2-1/acceptance-evidence.json"
+        ],
+        "finalReportStatus": "PLANNED_FINAL_RUNTIME_BINDING"
+      }
+    }
+  ],
+  "companyChapters": [
+    {
+      "tab": "overview",
+      "route": "#/company/:stockId/overview?from=:page",
+      "entry": "研究概览",
+      "inheritedItem": "M08",
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING"
+    },
+    {
+      "tab": "financials",
+      "route": "#/company/:stockId/financials?from=:page",
+      "entry": "经营与财务",
+      "inheritedItem": "M09",
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING"
+    },
+    {
+      "tab": "valuation",
+      "route": "#/company/:stockId/valuation?from=:page",
+      "entry": "价格与估值",
+      "inheritedItem": "M10",
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING"
+    },
+    {
+      "tab": "expectations",
+      "route": "#/company/:stockId/expectations?from=:page",
+      "entry": "预期与验证",
+      "inheritedItem": "M11",
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING"
+    },
+    {
+      "tab": "evidence",
+      "route": "#/company/:stockId/evidence?from=:page",
+      "entry": "证据与复盘",
+      "inheritedItem": "M12",
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "runtimeSha": null,
+      "status": "LOCAL_VERIFIED_PENDING_FINAL_RUNTIME_BINDING"
+    }
+  ],
+  "preservedCompatibility": {
+    "source": "src/hooks/useWorkspaceNavigation.ts",
+    "memoryAliasRouting": "src/App.tsx",
+    "oldHashesAndObjectIds": true,
+    "legacyMemoryViews": [
+      "#/memory",
+      "#/memory?view=wiki",
+      "#/memory?view=review",
+      "#/memory?view=organize"
+    ],
+    "wikiIdDeepLink": "#/knowledge?wiki=:wikiId",
+    "scope": "These identify existing presentation routes. Object permissions and historical read guards remain in owners; invalid IDs are not redirected to a different object."
+  },
+  "finalRuntimeEvidence": {
+    "wholeApp": "evidence/ui-browser.json",
+    "runtimeSha": "884192d93b78367b0b062a10e1fc4b773c757c76",
+    "checks": "198/198",
+    "actualAppScreenshots": "evidence/app-after-final.json",
+    "originalUnitAndWikiRuntimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+    "runtimeDelta": "Only event-container reflow; final 198 whole-App checks rerun. Original reports are retained with their measured SHA.",
+    "closures": {
+      "M02": "768px and 200% CSS reflow failure fixed and retested 198/198",
+      "M31": "94 actual App after captures complete; component geometry and source hash reports attached"
+    }
+  }
+}

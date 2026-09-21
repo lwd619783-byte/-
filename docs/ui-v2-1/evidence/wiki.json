@@ -1,0 +1,339 @@
+{
+  "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+  "deploymentId": null,
+  "origin": "http://127.0.0.1:4202",
+  "testedAt": "2026-09-21T15:47:22.786Z",
+  "inputType": "isolated-synthetic",
+  "checks": [
+    {
+      "ok": true,
+      "name": "no Vite overlay"
+    },
+    {
+      "ok": true,
+      "name": "empty read has no Wiki seed"
+    },
+    {
+      "ok": true,
+      "name": "new revision is Draft"
+    },
+    {
+      "ok": true,
+      "name": "draft cannot become Current"
+    },
+    {
+      "ok": true,
+      "name": "review needs explicit note"
+    },
+    {
+      "ok": true,
+      "name": "reviewed Current rendered"
+    },
+    {
+      "ok": true,
+      "name": "AI origin survives review"
+    },
+    {
+      "ok": true,
+      "name": "Wiki to Extraction to Raw Source"
+    },
+    {
+      "ok": true,
+      "name": "existing Evidence Drawer reused"
+    },
+    {
+      "ok": true,
+      "name": "draft preserves previous title"
+    },
+    {
+      "ok": true,
+      "name": "review needs explicit note"
+    },
+    {
+      "ok": true,
+      "name": "rejection preserves Current"
+    },
+    {
+      "ok": true,
+      "name": "review needs explicit note"
+    },
+    {
+      "ok": true,
+      "name": "rename preserves stable Wiki ID"
+    },
+    {
+      "ok": true,
+      "name": "revision form preserves exact Evidence refs after canonical persistence"
+    },
+    {
+      "ok": true,
+      "name": "review needs explicit note"
+    },
+    {
+      "ok": true,
+      "name": "formal backlink derived"
+    },
+    {
+      "ok": true,
+      "name": "alias search"
+    },
+    {
+      "ok": true,
+      "name": "first article selection has exact Wiki deep link"
+    },
+    {
+      "ok": true,
+      "name": "second article selection has distinct exact Wiki deep link"
+    },
+    {
+      "ok": true,
+      "name": "browser Back restores article list"
+    },
+    {
+      "ok": true,
+      "name": "browser Back restores first Wiki object"
+    },
+    {
+      "ok": true,
+      "name": "reload preserves selected Wiki identity"
+    },
+    {
+      "ok": true,
+      "name": "historical exact first reviewed revision"
+    },
+    {
+      "ok": true,
+      "name": "historical writes disabled"
+    },
+    {
+      "ok": true,
+      "name": "wiki-vault-a.zip downloaded"
+    },
+    {
+      "ok": true,
+      "name": "wiki-vault-b.zip downloaded"
+    },
+    {
+      "ok": true,
+      "name": "same read model byte-stable ZIP"
+    },
+    {
+      "ok": true,
+      "name": "manifest maps both stable IDs"
+    },
+    {
+      "ok": true,
+      "name": "actual exported directory matches Domain"
+    },
+    {
+      "ok": true,
+      "name": "edited Markdown cannot write back"
+    },
+    {
+      "ok": true,
+      "name": "wiki-full-backup.json downloaded"
+    },
+    {
+      "ok": true,
+      "name": "all revision history survives reload"
+    },
+    {
+      "ok": true,
+      "name": "light/1536 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/1536 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/原始资料 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/AI 整理 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/研究桥 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/待审核 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/我的知识库 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536 reduced-motion retained"
+    },
+    {
+      "ok": true,
+      "name": "light/1280 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/1280 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/原始资料 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/AI 整理 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/研究桥 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/待审核 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/我的知识库 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280 reduced-motion retained"
+    },
+    {
+      "ok": true,
+      "name": "light/390 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/390 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/390/原始资料 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390/AI 整理 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390/研究桥 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390/待审核 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390/我的知识库 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390 reduced-motion retained"
+    },
+    {
+      "ok": true,
+      "name": "light/320 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/320 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/320/原始资料 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320/AI 整理 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320/研究桥 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320/待审核 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320/我的知识库 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320 reduced-motion retained"
+    },
+    {
+      "ok": true,
+      "name": "Wiki never writes Source/Extraction/Creator authority"
+    },
+    {
+      "ok": true,
+      "name": "corrupt storage locks writes"
+    },
+    {
+      "ok": true,
+      "name": "recovery preview no write"
+    },
+    {
+      "ok": true,
+      "name": "JSON recovery restores full history"
+    },
+    {
+      "ok": true,
+      "name": "corrupt original bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "future schema cannot be recovered over"
+    },
+    {
+      "ok": true,
+      "name": "future raw bytes remain exportable"
+    },
+    {
+      "ok": true,
+      "name": "no Vite overlay"
+    },
+    {
+      "ok": true,
+      "name": "home route remains usable"
+    },
+    {
+      "ok": true,
+      "name": "no browser runtime/console errors"
+    },
+    {
+      "ok": true,
+      "name": "no external requests"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "existing favicon.ico 404"
+  ],
+  "externalRequests": [],
+  "screenshots": [
+    "evidence.png",
+    "light-1536.png",
+    "light-1280.png",
+    "light-390.png",
+    "light-320.png"
+  ],
+  "downloads": [
+    "wiki-vault-a.zip",
+    "wiki-vault-b.zip",
+    "wiki-full-backup.json"
+  ],
+  "sourceSha256": {
+    "src/services/wiki.ts": "14776675dfd2f249d58ed7c3ebd7ca2ab274a5dd05b19856f69117f1f68d82e7",
+    "src/services/wikiRepository.ts": "57513e86e9762a625f1aecf91e3f2b0f1490b6b76417266feadf9057f1e34317",
+    "src/services/wikiProjection.ts": "d0e271ef2f35c71e460b450264e2746f3f6199ab542d28e90a62ae02b5013da0",
+    "src/services/wikiOwners.ts": "8e0955efc54476954060a048544547a80e68f106c5a5ee7b11bb36dbf1a7c1f2",
+    "src/components/research-memory/ResearchMemoryWorkspace.tsx": "301dd2fdb04cdbdcae8639b5497762f65288b2718f4397672c03aa69d3371357",
+    "src/components/research-memory/WikiRevisionForm.tsx": "9c17d313b449b35b5dcaed501f62c4ed81c48a4f713325edd468a503bc9e25fd",
+    "src/components/research-memory/WikiBackupModal.tsx": "e72984225411c104838ac214ce958c6f821068f8822155cdc894c3cffe4cb7e0"
+  }
+}

@@ -1,0 +1,982 @@
+{
+  "runtimeSha": null,
+  "runtimeKind": "working-tree-vite",
+  "origin": "http://127.0.0.1:4201",
+  "testedAt": "2026-09-21T15:34:26.041Z",
+  "inputType": "isolated-ui-review-synthetic-production-components",
+  "checks": [
+    {
+      "name": "macro reflow 320",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "page": 320,
+        "main": {
+          "x": 16,
+          "y": 349,
+          "width": 288,
+          "height": 1483.546875,
+          "top": 349,
+          "right": 304,
+          "bottom": 1832.546875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "industry reflow 320",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "page": 320,
+        "main": {
+          "x": 16,
+          "y": 349,
+          "width": 288,
+          "height": 1357.046875,
+          "top": 349,
+          "right": 304,
+          "bottom": 1706.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "stocks reflow 320",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "page": 320,
+        "main": {
+          "x": 16,
+          "y": 349,
+          "width": 288,
+          "height": 7939.046875,
+          "top": 349,
+          "right": 304,
+          "bottom": 8288.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "watchlist reflow 320",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "page": 320,
+        "main": {
+          "x": 16,
+          "y": 349,
+          "width": 288,
+          "height": 1339.046875,
+          "top": 349,
+          "right": 304,
+          "bottom": 1688.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "verification reflow 320",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "page": 320,
+        "main": {
+          "x": 16,
+          "y": 349,
+          "width": 288,
+          "height": 2155.046875,
+          "top": 349,
+          "right": 304,
+          "bottom": 2504.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "expectations reflow 320",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "page": 320,
+        "main": {
+          "x": 16,
+          "y": 349,
+          "width": 288,
+          "height": 4309,
+          "top": 349,
+          "right": 304,
+          "bottom": 4658,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "creators reflow 320",
+      "pass": true,
+      "detail": {
+        "viewport": 320,
+        "page": 320,
+        "main": {
+          "x": 16,
+          "y": 349,
+          "width": 288,
+          "height": 1496,
+          "top": 349,
+          "right": 304,
+          "bottom": 1845,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "macro reflow 390",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "page": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1411.546875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1664.546875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "industry reflow 390",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "page": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1317.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1570.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "stocks reflow 390",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "page": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 7255.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 7508.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "watchlist reflow 390",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "page": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1339.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 1592.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "verification reflow 390",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "page": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 2039.046875,
+          "top": 253,
+          "right": 374,
+          "bottom": 2292.046875,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "expectations reflow 390",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "page": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 3889,
+          "top": 253,
+          "right": 374,
+          "bottom": 4142,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "creators reflow 390",
+      "pass": true,
+      "detail": {
+        "viewport": 390,
+        "page": 390,
+        "main": {
+          "x": 16,
+          "y": 253,
+          "width": 358,
+          "height": 1364,
+          "top": 253,
+          "right": 374,
+          "bottom": 1617,
+          "left": 16
+        }
+      }
+    },
+    {
+      "name": "macro reflow 768",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "page": 768,
+        "main": {
+          "x": 216,
+          "y": 233,
+          "width": 524,
+          "height": 1099.546875,
+          "top": 233,
+          "right": 740,
+          "bottom": 1332.546875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "industry reflow 768",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "page": 768,
+        "main": {
+          "x": 216,
+          "y": 233,
+          "width": 524,
+          "height": 1145.046875,
+          "top": 233,
+          "right": 740,
+          "bottom": 1378.046875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "stocks reflow 768",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "page": 768,
+        "main": {
+          "x": 216,
+          "y": 233,
+          "width": 524,
+          "height": 6063.046875,
+          "top": 233,
+          "right": 740,
+          "bottom": 6296.046875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "watchlist reflow 768",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "page": 768,
+        "main": {
+          "x": 216,
+          "y": 233,
+          "width": 524,
+          "height": 1007.046875,
+          "top": 233,
+          "right": 740,
+          "bottom": 1240.046875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "verification reflow 768",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "page": 768,
+        "main": {
+          "x": 216,
+          "y": 233,
+          "width": 524,
+          "height": 1847.046875,
+          "top": 233,
+          "right": 740,
+          "bottom": 2080.046875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "expectations reflow 768",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "page": 768,
+        "main": {
+          "x": 216,
+          "y": 233,
+          "width": 524,
+          "height": 2845,
+          "top": 233,
+          "right": 740,
+          "bottom": 3078,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "creators reflow 768",
+      "pass": true,
+      "detail": {
+        "viewport": 768,
+        "page": 768,
+        "main": {
+          "x": 216,
+          "y": 233,
+          "width": 524,
+          "height": 1065,
+          "top": 233,
+          "right": 740,
+          "bottom": 1298,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "macro reflow 1024",
+      "pass": true,
+      "detail": {
+        "viewport": 1024,
+        "page": 1024,
+        "main": {
+          "x": 216,
+          "y": 177,
+          "width": 780,
+          "height": 1023.546875,
+          "top": 177,
+          "right": 996,
+          "bottom": 1200.546875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "industry reflow 1024",
+      "pass": true,
+      "detail": {
+        "viewport": 1024,
+        "page": 1024,
+        "main": {
+          "x": 216,
+          "y": 177,
+          "width": 780,
+          "height": 895.046875,
+          "top": 177,
+          "right": 996,
+          "bottom": 1072.046875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "stocks reflow 1024",
+      "pass": true,
+      "detail": {
+        "viewport": 1024,
+        "page": 1024,
+        "main": {
+          "x": 216,
+          "y": 177,
+          "width": 780,
+          "height": 1315.046875,
+          "top": 177,
+          "right": 996,
+          "bottom": 1492.046875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "watchlist reflow 1024",
+      "pass": true,
+      "detail": {
+        "viewport": 1024,
+        "page": 1024,
+        "main": {
+          "x": 216,
+          "y": 177,
+          "width": 780,
+          "height": 867.046875,
+          "top": 177,
+          "right": 996,
+          "bottom": 1044.046875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "verification reflow 1024",
+      "pass": true,
+      "detail": {
+        "viewport": 1024,
+        "page": 1024,
+        "main": {
+          "x": 216,
+          "y": 177,
+          "width": 780,
+          "height": 1823.046875,
+          "top": 177,
+          "right": 996,
+          "bottom": 2000.046875,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "expectations reflow 1024",
+      "pass": true,
+      "detail": {
+        "viewport": 1024,
+        "page": 1024,
+        "main": {
+          "x": 216,
+          "y": 177,
+          "width": 780,
+          "height": 2637,
+          "top": 177,
+          "right": 996,
+          "bottom": 2814,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "creators reflow 1024",
+      "pass": true,
+      "detail": {
+        "viewport": 1024,
+        "page": 1024,
+        "main": {
+          "x": 216,
+          "y": 177,
+          "width": 780,
+          "height": 941,
+          "top": 177,
+          "right": 996,
+          "bottom": 1118,
+          "left": 216
+        }
+      }
+    },
+    {
+      "name": "macro reflow 1440",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "page": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1023.546875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1202.546875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "name": "industry reflow 1440",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "page": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 805.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 984.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "name": "stocks reflow 1440",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "page": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1235.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1414.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "name": "watchlist reflow 1440",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "page": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1192.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1371.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "name": "verification reflow 1440",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "page": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 1747.046875,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1926.046875,
+          "left": 240
+        }
+      }
+    },
+    {
+      "name": "expectations reflow 1440",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "page": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 2253,
+          "top": 179,
+          "right": 1410,
+          "bottom": 2432,
+          "left": 240
+        }
+      }
+    },
+    {
+      "name": "creators reflow 1440",
+      "pass": true,
+      "detail": {
+        "viewport": 1440,
+        "page": 1440,
+        "main": {
+          "x": 240,
+          "y": 179,
+          "width": 1170,
+          "height": 839,
+          "top": 179,
+          "right": 1410,
+          "bottom": 1018,
+          "left": 240
+        }
+      }
+    },
+    {
+      "name": "macro reflow 1920",
+      "pass": true,
+      "detail": {
+        "viewport": 1920,
+        "page": 1920,
+        "main": {
+          "x": 405,
+          "y": 181,
+          "width": 1320,
+          "height": 999.546875,
+          "top": 181,
+          "right": 1725,
+          "bottom": 1180.546875,
+          "left": 405
+        }
+      }
+    },
+    {
+      "name": "industry reflow 1920",
+      "pass": true,
+      "detail": {
+        "viewport": 1920,
+        "page": 1920,
+        "main": {
+          "x": 405,
+          "y": 181,
+          "width": 1320,
+          "height": 805.046875,
+          "top": 181,
+          "right": 1725,
+          "bottom": 986.046875,
+          "left": 405
+        }
+      }
+    },
+    {
+      "name": "stocks reflow 1920",
+      "pass": true,
+      "detail": {
+        "viewport": 1920,
+        "page": 1920,
+        "main": {
+          "x": 405,
+          "y": 181,
+          "width": 1320,
+          "height": 1235.046875,
+          "top": 181,
+          "right": 1725,
+          "bottom": 1416.046875,
+          "left": 405
+        }
+      }
+    },
+    {
+      "name": "watchlist reflow 1920",
+      "pass": true,
+      "detail": {
+        "viewport": 1920,
+        "page": 1920,
+        "main": {
+          "x": 405,
+          "y": 181,
+          "width": 1320,
+          "height": 1192.046875,
+          "top": 181,
+          "right": 1725,
+          "bottom": 1373.046875,
+          "left": 405
+        }
+      }
+    },
+    {
+      "name": "verification reflow 1920",
+      "pass": true,
+      "detail": {
+        "viewport": 1920,
+        "page": 1920,
+        "main": {
+          "x": 405,
+          "y": 181,
+          "width": 1320,
+          "height": 1747.046875,
+          "top": 181,
+          "right": 1725,
+          "bottom": 1928.046875,
+          "left": 405
+        }
+      }
+    },
+    {
+      "name": "expectations reflow 1920",
+      "pass": true,
+      "detail": {
+        "viewport": 1920,
+        "page": 1920,
+        "main": {
+          "x": 405,
+          "y": 181,
+          "width": 1320,
+          "height": 2253,
+          "top": 181,
+          "right": 1725,
+          "bottom": 2434,
+          "left": 405
+        }
+      }
+    },
+    {
+      "name": "creators reflow 1920",
+      "pass": true,
+      "detail": {
+        "viewport": 1920,
+        "page": 1920,
+        "main": {
+          "x": 405,
+          "y": 181,
+          "width": 1320,
+          "height": 839,
+          "top": 181,
+          "right": 1725,
+          "bottom": 1020,
+          "left": 405
+        }
+      }
+    },
+    {
+      "name": "macro 200% zoom",
+      "pass": true,
+      "detail": {
+        "page": 1440,
+        "scroll": 1440,
+        "inner": 1440,
+        "main": {
+          "x": 480,
+          "y": 470,
+          "width": 900,
+          "height": 2287.09375,
+          "top": 470,
+          "right": 1380,
+          "bottom": 2757.09375,
+          "left": 480
+        }
+      }
+    },
+    {
+      "name": "industry 200% zoom",
+      "pass": true,
+      "detail": {
+        "page": 1440,
+        "scroll": 1440,
+        "inner": 1440,
+        "main": {
+          "x": 480,
+          "y": 470,
+          "width": 900,
+          "height": 2566.09375,
+          "top": 470,
+          "right": 1380,
+          "bottom": 3036.09375,
+          "left": 480
+        }
+      }
+    },
+    {
+      "name": "stocks 200% zoom",
+      "pass": true,
+      "detail": {
+        "page": 1440,
+        "scroll": 1440,
+        "inner": 1440,
+        "main": {
+          "x": 480,
+          "y": 470,
+          "width": 900,
+          "height": 2518.09375,
+          "top": 470,
+          "right": 1380,
+          "bottom": 2988.09375,
+          "left": 480
+        }
+      }
+    },
+    {
+      "name": "watchlist 200% zoom",
+      "pass": true,
+      "detail": {
+        "page": 1440,
+        "scroll": 1440,
+        "inner": 1440,
+        "main": {
+          "x": 480,
+          "y": 470,
+          "width": 900,
+          "height": 3716.09375,
+          "top": 470,
+          "right": 1380,
+          "bottom": 4186.09375,
+          "left": 480
+        }
+      }
+    },
+    {
+      "name": "verification 200% zoom",
+      "pass": true,
+      "detail": {
+        "page": 1440,
+        "scroll": 1440,
+        "inner": 1440,
+        "main": {
+          "x": 480,
+          "y": 470,
+          "width": 900,
+          "height": 7486.09375,
+          "top": 470,
+          "right": 1380,
+          "bottom": 7956.09375,
+          "left": 480
+        }
+      }
+    },
+    {
+      "name": "expectations 200% zoom",
+      "pass": true,
+      "detail": {
+        "page": 1440,
+        "scroll": 1440,
+        "inner": 1440,
+        "main": {
+          "x": 480,
+          "y": 470,
+          "width": 900,
+          "height": 6242,
+          "top": 470,
+          "right": 1380,
+          "bottom": 6712,
+          "left": 480
+        }
+      }
+    },
+    {
+      "name": "creators 200% zoom",
+      "pass": true,
+      "detail": {
+        "page": 1440,
+        "scroll": 1440,
+        "inner": 1440,
+        "main": {
+          "x": 480,
+          "y": 470,
+          "width": 900,
+          "height": 2319,
+          "top": 470,
+          "right": 1380,
+          "bottom": 2789,
+          "left": 480
+        }
+      }
+    },
+    {
+      "name": "empty watch no KPI",
+      "pass": true
+    },
+    {
+      "name": "empty watch no detail track",
+      "pass": true
+    },
+    {
+      "name": "empty watch no unused filters",
+      "pass": true
+    },
+    {
+      "name": "empty watch compact",
+      "pass": true,
+      "detail": {
+        "x": 240,
+        "y": 258.046875,
+        "width": 1170,
+        "height": 134
+      }
+    },
+    {
+      "name": "watch storage failure visible",
+      "pass": true
+    },
+    {
+      "name": "watch storage failure no zero stats",
+      "pass": true
+    },
+    {
+      "name": "empty verification no details",
+      "pass": true
+    },
+    {
+      "name": "industry keyboard selects metrics",
+      "pass": true
+    },
+    {
+      "name": "industry focus follows active tab",
+      "pass": true
+    },
+    {
+      "name": "industry metric owners accessible",
+      "pass": true
+    },
+    {
+      "name": "industry End selects chain",
+      "pass": true
+    },
+    {
+      "name": "collapsed quality still explicit",
+      "pass": true
+    },
+    {
+      "name": "quality clear restores rows",
+      "pass": true
+    },
+    {
+      "name": "provider failure visible with details closed",
+      "pass": true
+    },
+    {
+      "name": "same-definition comparison table visible",
+      "pass": true
+    },
+    {
+      "name": "chart optional without fake missing plot",
+      "pass": true
+    },
+    {
+      "name": "creator rationale keyboard opens",
+      "pass": true
+    },
+    {
+      "name": "creator evidence Esc closes",
+      "pass": true
+    },
+    {
+      "name": "creator evidence returns focus",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "finishedAt": "2026-09-21T15:34:34.544Z"
+}

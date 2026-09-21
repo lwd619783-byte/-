@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-21 CURRENT · UI V2.1：用户确认后在原 UI 功能分支继续完成信息层级与空状态校正。暖灰/灰绿/深绿视觉保持；工作台、研究事件、三类任务、知识列表/完整正文、资料三分类、设置行和七个研究子页已接线。代码 `884192d`；1,211 项测试与 build 通过，最终全站浏览器 198/198，Wiki 76/76、ingestion 131/131（具体 runtime 分别记录）。[本轮审计与回滚](ui-v2-1/visual-audit.md)、[33 项迁移映射](ui-v2-1/migration-inventory.json)、[机器证据](ui-v2-1/acceptance-evidence.json)。仅普通功能分支 push / 受保护 Preview，PENDING INDEPENDENT AUDIT；无 PR/merge/main/Production 授权扩大，真实光通信人工验收状态不变。
+
 > 2026-09-21 CURRENT — 原 Slice 2/2.5 代码已由 PR #72 合入 `main @ a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，exact main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success（本轮只读核实，非本任务执行 merge）。原光通信验收 13:48Z 实查仍待审核、正式 Wiki/Revision/Review 为0；真实 UPDATE/history/revoke 拒读按本次明确范围保留 PENDING/NOT_VERIFIED，不以旧延期条目或代码合入宣布完整验收PASS。Stage 4.3 后续3–6仍未实现。
 >
 > UI V2 作为跨模块增强插入本切片之后：从上述最新 main 建立 `codex/ui-v2-clear-research-workspace`，五入口、单浅色、旧路由兼容、共享网页阅读与原有模块接线已实现；最终验证/Preview绑定与人工缺口见 [UI V2交付](ui-v2/implementation.md) 和 [D0](ui-v2/d0.md)。仅功能分支普通push，PENDING INDEPENDENT AUDIT；不宣称本轮PR/merge/Production或后续阶段完成。以下历史CURRENT条目保留其时点，本条只覆盖当前范围及合入事实。

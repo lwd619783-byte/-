@@ -1,0 +1,506 @@
+{
+  "schemaVersion": "ui-v21-company-visual.v1",
+  "phase": "before",
+  "origin": "http://127.0.0.1:4200",
+  "exactOrigin": "http://127.0.0.1:4200",
+  "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+  "deploymentId": null,
+  "runtimeKind": "frozen-source-vite",
+  "testedAt": "2026-09-21T15:51:19.273Z",
+  "inputType": "component harness",
+  "fixture": "UiReviewApp full / ui-review-company-1",
+  "scope": "Synthetic company five-chapter visual capture only; not real owner persistence or user acceptance.",
+  "screenshots": [
+    {
+      "file": "ui-review-company-1-overview-1440.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/overview?from=stocks",
+      "tab": "overview",
+      "label": "研究概览",
+      "testedAt": "2026-09-21T15:51:20.721Z",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 192,
+          "width": 1150,
+          "height": 1746,
+          "top": 192,
+          "right": 1400,
+          "bottom": 1938,
+          "left": 250
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 267,
+              "y": 229,
+              "width": 875.015625,
+              "height": 32,
+              "top": 229,
+              "right": 1142.015625,
+              "bottom": 261,
+              "left": 267
+            }
+          },
+          {
+            "text": "价格脉络",
+            "rect": {
+              "x": 906.6875,
+              "y": 633,
+              "width": 448.9375,
+              "height": 28,
+              "top": 633,
+              "right": 1355.625,
+              "bottom": 661,
+              "left": 906.6875
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-financials-1440.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/financials?from=stocks",
+      "tab": "financials",
+      "label": "经营与财务",
+      "testedAt": "2026-09-21T15:51:20.948Z",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 192,
+          "width": 1150,
+          "height": 2549,
+          "top": 192,
+          "right": 1400,
+          "bottom": 2741,
+          "left": 250
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 267,
+              "y": 229,
+              "width": 875.015625,
+              "height": 32,
+              "top": 229,
+              "right": 1142.015625,
+              "bottom": 261,
+              "left": 267
+            }
+          },
+          {
+            "text": "分期经营读数",
+            "rect": {
+              "x": 267,
+              "y": 1386,
+              "width": 398.546875,
+              "height": 28,
+              "top": 1386,
+              "right": 665.546875,
+              "bottom": 1414,
+              "left": 267
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-valuation-1440.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/valuation?from=stocks",
+      "tab": "valuation",
+      "label": "价格与估值",
+      "testedAt": "2026-09-21T15:51:21.107Z",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 192,
+          "width": 1150,
+          "height": 1920,
+          "top": 192,
+          "right": 1400,
+          "bottom": 2112,
+          "left": 250
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 267,
+              "y": 229,
+              "width": 875.015625,
+              "height": 32,
+              "top": 229,
+              "right": 1142.015625,
+              "bottom": 261,
+              "left": 267
+            }
+          },
+          {
+            "text": "价格走势",
+            "rect": {
+              "x": 267,
+              "y": 959,
+              "width": 448.9375,
+              "height": 28,
+              "top": 959,
+              "right": 715.9375,
+              "bottom": 987,
+              "left": 267
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-expectations-1440.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/expectations?from=stocks",
+      "tab": "expectations",
+      "label": "预期与验证",
+      "testedAt": "2026-09-21T15:51:21.339Z",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 192,
+          "width": 1150,
+          "height": 3280,
+          "top": 192,
+          "right": 1400,
+          "bottom": 3472,
+          "left": 250
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 267,
+              "y": 229,
+              "width": 875.015625,
+              "height": 32,
+              "top": 229,
+              "right": 1142.015625,
+              "bottom": 261,
+              "left": 267
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-evidence-1440.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/evidence?from=stocks",
+      "tab": "evidence",
+      "label": "证据与复盘",
+      "testedAt": "2026-09-21T15:51:21.542Z",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "geometry": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "main": {
+          "x": 250,
+          "y": 192,
+          "width": 1150,
+          "height": 3386,
+          "top": 192,
+          "right": 1400,
+          "bottom": 3578,
+          "left": 250
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 267,
+              "y": 229,
+              "width": 875.015625,
+              "height": 32,
+              "top": 229,
+              "right": 1142.015625,
+              "bottom": 261,
+              "left": 267
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-overview-390.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/overview?from=stocks",
+      "tab": "overview",
+      "label": "研究概览",
+      "testedAt": "2026-09-21T15:51:21.691Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 252,
+          "width": 358,
+          "height": 3108,
+          "top": 252,
+          "right": 374,
+          "bottom": 3360,
+          "left": 16
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 33,
+              "y": 289,
+              "width": 83.015625,
+              "height": 64,
+              "top": 289,
+              "right": 116.015625,
+              "bottom": 353,
+              "left": 33
+            }
+          },
+          {
+            "text": "价格脉络",
+            "rect": {
+              "x": 33,
+              "y": 1531,
+              "width": 324,
+              "height": 28,
+              "top": 1531,
+              "right": 357,
+              "bottom": 1559,
+              "left": 33
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-financials-390.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/financials?from=stocks",
+      "tab": "financials",
+      "label": "经营与财务",
+      "testedAt": "2026-09-21T15:51:21.858Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 252,
+          "width": 358,
+          "height": 4350,
+          "top": 252,
+          "right": 374,
+          "bottom": 4602,
+          "left": 16
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 33,
+              "y": 289,
+              "width": 83.015625,
+              "height": 64,
+              "top": 289,
+              "right": 116.015625,
+              "bottom": 353,
+              "left": 33
+            }
+          },
+          {
+            "text": "分期经营读数",
+            "rect": {
+              "x": 33,
+              "y": 2695,
+              "width": 324,
+              "height": 28,
+              "top": 2695,
+              "right": 357,
+              "bottom": 2723,
+              "left": 33
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-valuation-390.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/valuation?from=stocks",
+      "tab": "valuation",
+      "label": "价格与估值",
+      "testedAt": "2026-09-21T15:51:21.964Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 252,
+          "width": 358,
+          "height": 2878,
+          "top": 252,
+          "right": 374,
+          "bottom": 3130,
+          "left": 16
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 33,
+              "y": 289,
+              "width": 83.015625,
+              "height": 64,
+              "top": 289,
+              "right": 116.015625,
+              "bottom": 353,
+              "left": 33
+            }
+          },
+          {
+            "text": "价格走势",
+            "rect": {
+              "x": 33,
+              "y": 1351,
+              "width": 324,
+              "height": 28,
+              "top": 1351,
+              "right": 357,
+              "bottom": 1379,
+              "left": 33
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-expectations-390.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/expectations?from=stocks",
+      "tab": "expectations",
+      "label": "预期与验证",
+      "testedAt": "2026-09-21T15:51:22.128Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 252,
+          "width": 358,
+          "height": 7218,
+          "top": 252,
+          "right": 374,
+          "bottom": 7470,
+          "left": 16
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 33,
+              "y": 289,
+              "width": 83.015625,
+              "height": 64,
+              "top": 289,
+              "right": 116.015625,
+              "bottom": 353,
+              "left": 33
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    },
+    {
+      "file": "ui-review-company-1-evidence-390.png",
+      "url": "http://127.0.0.1:4200/?ui-review=1&profile=full#/company/ui-review-company-1/evidence?from=stocks",
+      "tab": "evidence",
+      "label": "证据与复盘",
+      "testedAt": "2026-09-21T15:51:22.246Z",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "geometry": {
+        "width": 390,
+        "scrollWidth": 390,
+        "main": {
+          "x": 16,
+          "y": 252,
+          "width": 358,
+          "height": 4708,
+          "top": 252,
+          "right": 374,
+          "bottom": 4960,
+          "left": 16
+        },
+        "title": [
+          {
+            "text": "样例星河制造",
+            "rect": {
+              "x": 33,
+              "y": 289,
+              "width": 83.015625,
+              "height": 64,
+              "top": 289,
+              "right": 116.015625,
+              "bottom": 353,
+              "left": 33
+            }
+          }
+        ]
+      },
+      "noPageHorizontalOverflow": true
+    }
+  ],
+  "errors": [],
+  "status": "CAPTURED",
+  "finishedAt": "2026-09-21T15:51:22.246Z"
+}
