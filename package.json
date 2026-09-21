@@ -98,9 +98,9 @@
     "agent:skills:check": "node scripts/setup-codex-skills.mjs --check",
     "local:typecheck": "tsc -p tsconfig.local-core.json --noEmit",
     "local:db:verify": "node scripts/run-local-core.mjs verify",
-    "test:contracts": "node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs && vitest run src/services/researchExtraction.contract.test.ts",
+    "test:contracts": "node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs && vitest run src/services/researchExtraction.contract.test.ts src/services/wiki.contract.test.ts src/services/knowledgeIngestion.test.ts",
     "local:db:init": "node scripts/run-local-core.mjs init",
-    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs",
+    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs && node scripts/contracts/wiki.mjs && node scripts/contracts/knowledge-ingestion.mjs",
     "test:local-core": "node scripts/run-local-core.mjs test-local-core",
     "test:assets": "node scripts/run-local-core.mjs test-assets",
     "test:semantic-runtime": "node --test scripts/tests/semantic-runtime.node.mjs scripts/tests/semantic-readiness.node.mjs",
@@ -121,17 +121,26 @@
     "test:industry:freshness": "python -m unittest scripts.tests.test_industry_freshness",
     "data:probe:listing": "python scripts/listing/probe_listing.py",
     "test:a-stock:targeted": "python -m unittest scripts.tests.test_a_stock_targeted_refresh",
-    "test:listing": "python -m unittest scripts.tests.test_listing_reconciliation && vitest run src/data/unitreeListing.test.ts src/services/listingIdentity.test.ts"
+    "test:listing": "python -m unittest scripts.tests.test_listing_reconciliation && vitest run src/data/unitreeListing.test.ts src/services/listingIdentity.test.ts",
+    "test:knowledge": "vitest run src/services/knowledgeIngestion.test.ts src/components/research-memory/ResearchMemoryWorkspace.test.tsx && node --test scripts/tests/research-bridge.node.mjs",
+    "test:bridge": "node --test scripts/tests/research-bridge.node.mjs",
+    "test:bridge:browser": "node scripts/research-bridge-oauth-browser-check.mjs"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "@vercel/blob": "2.8.0",
     "@vitejs/plugin-react": "^4.3.4",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
     "better-sqlite3": "13.0.3",
     "lucide-react": "^0.468.0",
+    "pdfjs-dist": "6.3.289",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "recharts": "^2.13.3"
+    "react-markdown": "10.1.0",
+    "recharts": "^2.13.3",
+    "remark-gfm": "4.0.1",
+    "zod": "3.25.76"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
@@ -141,12 +150,14 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
+    "fake-indexeddb": "6.2.5",
     "jsdom": "^26.1.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
     "vite": "^6.0.1",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.6",
+    "yaml": "2.9.1"
   },
   "engines": {
     "node": ">=22"

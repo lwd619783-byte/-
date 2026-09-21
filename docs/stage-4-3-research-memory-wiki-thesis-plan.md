@@ -1,11 +1,15 @@
 # Stage 4.3 — Research Memory & Thesis Compiler V1
 
-> 状态：Slice 1 CLOSED / Slice 2 CURRENT PLAN / DESIGN FROZEN  
+> 2026-09-21 CURRENT 更新：独立审计 `81c7663` 为 REQUEST_CHANGES；本次 R1/R2/R3 定向修复与正式回归见 [修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。保持同一功能分支，等待绑定新 SHA 的独立复审；远程 owner/OAuth 验收与 ChatGPT 账号连接分别记账，未取得证据不升级 PASS。下方原验收数字保留其历史时点。
+
+> 状态：Slice 1 CLOSED / Slice 2 Wiki Infrastructure V1 — independent review PASS / Slice 2.5 CURRENT，IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW
 > 日期：2026-09-20  
 > 当前基线：`main @ f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`（Stage 4.3 Slice 1 CLOSED）  
 > 目的：把 Research Memory / LLM Wiki、Evidence / Claim、Thesis 与 Investment Expression 统一成一条可审计、可修订、可回溯的研究编译链。
 
 ## 1. 核心决定
+
+2026-09-21 增量冻结：从独立复审通过的 `812e7551e67b0b8af4f673524e2578ecf2e19335` 插入 [Slice 2.5](stage-4-3-slice-2-5-knowledge-ingestion.md)，完成中文资料摄取、完整文章建议审核与版本历史。按用户追加授权，Stage 4.5 的远程能力仅提前 **selected private staging + authenticated read-only MCP V1**；不提前 MCP write、Agent、全库同步或云业务真源迁移。其余下文原切片设计保持；旧基线是历史记录。
 
 Stage 4.3 不把 LLM Wiki 定义成“AI 总结文章集合”，也不把所有原文迁入一张万能数据库。正式链路为：
 
@@ -376,7 +380,7 @@ Stage 4.3 只有同时满足下列条件才能 CLOSED：
 Stage 4.3 明确不做：
 
 - Portfolio / Position / Transaction（Stage 4.4）；
-- Research MCP Gateway / remote Domain Tools（Stage 4.5）；
+- 完整 Research MCP Gateway / remote write Domain Tools（Stage 4.5）；Slice 2.5 仅提前用户授权的 staging 只读工具；
 - ChatGPT-connected autonomous Research Agent（Stage 4.6+）；
 - 自动交易；
 - cloud business DB 全迁移；
@@ -390,6 +394,4 @@ Stage 4.5 应暴露 `search_wiki / get_wiki_entry / get_claim / get_thesis` 等�
 
 ## 9. 下一停止点
 
-Stage 4.3 的 **NEXT IMPLEMENTATION 固定为 Slice 2 — LLM Wiki V1 + Markdown / Obsidian Projection**。
-
-Slice 2 开工前必须从最新 main 重新读取 `AGENTS.md`、CURRENT、Feature Registry、Execution Plan、Slice 1 L0/L1 contracts、Creator adapter、Evidence/F2、Local-first repository/backup 以及现有 Workspace 组件；先产出 Reuse / Delta Map，再冻结最小 Wiki domain 与 Markdown projection contract。
+Stage 4.3 的 **CURRENT 为 Slice 2.5 — AI Knowledge Ingestion Foundation V1 + Read-only Research Bridge**。Slice 2 已 independent review PASS。Slice 2.5 完成必要验证、CURRENT 同步与普通 commit/push 后停止等待独立审计；无 PR/merge/Production，后续 Slice 3–6 尚未实现。

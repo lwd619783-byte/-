@@ -1,5 +1,13 @@
 # 投资研究看板架构基线
 
+## 2026-09-21 Stage 4.3 / Slice 2.5 runtime 增量
+
+独立审计 R1–R3 定向修复：原批次内显式资料子集 → 固定字段顺序解析文本摘要 → 私有不可变暂存；批次访问代次由有界 Blob ETag CAS 推进，所有已知 stage 读路径核验，旧数据 null 代次兼容，撤销不再依赖500键发现扫描。不可变撤销事件链保留审计；无物理清理或第二套 Source/Wiki authority。HTTP raw stream 在3 MiB字节界限内一次 UTF-8 解码。[修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。
+
+`File/paste → BrowserSourceRepository (IndexedDB state + exact original Uint8Array) → local PDF.js page / UTF-8 line parsing → browser-source adapter → 原 ResearchSource / ResearchExtraction`。批次与原件同事务写入，先保存后解析；读回核验 digest，重复/配额/冲突 fail closed。无默认 AI provider，fake 仅测试。新 Contribution Bundle 是 transport contract，findings 复用 Slice 1；导入只持久化候选。接受在浏览器锁下读取最新基线，通过原 WikiRepository 一次追加完整 Revision + Review；拒绝只记候选处置，接受状态从正式 Review 派生。Wiki 完整文章、版本演化和证据视图继续使用同一 owner；Obsidian 单向 projection。
+
+远程层独立于本地 authority：明确发送选定 batch 和逐项选定 reviewed knowledge → Vercel Node Functions owner staging API → private Blob immutable manifest/解析文本/文章快照 → publish → OAuth/S256 + Streamable HTTP 八个只读 MCP tools → ChatGPT → 用户手工导入相同 Bundle。没有浏览器直连文件读取、全库默认同步、公开原文 URL 或 MCP write。原件不复制，远程保留原件 digest 身份与独立 parsed-text digest；24h 逻辑 TTL / revoke 每读核验，物理清理未实现。Secrets 仅环境；配置不足 503，无匿名回退。接口与实际支持边界见 [D0](stage-4-3-slice-2-5-knowledge-ingestion.md)、[Bridge](research-bridge-readonly-v1.md)、[中文首用规范](research-memory-chinese-first-use-v1.md)。
+
 ## 2026-09-19 Industry Slice 6 runtime 增量
 
 Registry / Generic Provider 与 reviewed dimension mapping 仍是唯一发现/映射 owner。原 `industryHistory` 提取为共享纯模块（TS 页面与 Node 重放共用，行为不变）；`industrySignalClaim.mjs` 读取 immutable resources 与 reviewed `industry-signal-policy.v1`，计算相邻留存绝对差、输入 manifest 和固定模板 Claim Candidate。浏览器惰性加载，只读、无新 Store/数据库/事件持久化；离线保留 `research-data/industry/signal-claim-v1/derived.json` 与 `graphs.json`，校验重放且禁止同路径覆盖不同内容。
@@ -463,3 +471,12 @@ Creator Tracker 是首个真实 adapter：`CreatorSource` 对应 L0，`Viewpoint
 LLM Wiki 属于 L2 Research Memory：Entry / revision 必须保留 sourceRefs / extractionRefs / evidenceRefs；可检索和综合，但不能变成 Provider Fact authority。L3 Verified Claim 继续复用既有 F2 Evidence Graph / Evidence Drawer，不建立第二个 Claim Graph。L4 Thesis 与 L5 Investment Expression 均为 revision-aware research objects；Portfolio、MCP 和 Agent 分别留在 Stage 4.4、4.5、4.6+。
 
 Browser/Local-first 边界继续有效；Stage 4.3 不因 Wiki 引入 cloud business DB、浏览器直连 SQLite、Vector DB/Graph DB 强制迁移或自动网页抓取。详细计划见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+
+
+### Stage 4.3 Slice 2 runtime boundary（2026-09-20 分支实现）
+
+`#/memory` → ResearchMemoryWorkspace → WikiRepository (`wiki.v1` localStorage envelope)；Wiki authority 仅 Entry/append-only Revision/Review。`WikiOwners` 在 revision cutoff 上复用 Slice 1 Creator adapter 与 Industry Registry retained-byte Evidence；不存 Raw Source/Extraction/Evidence 副本。Current/search/backlinks/orphans 从历史派生；Node-only Entity Registry 无浏览器 bridge，未知 owner 拒绝。
+
+`Reviewed Wiki read model → wikiProjection → ZIP STORE / research-wiki/*.md + manifest.json` 是单向可重建投影。目录校验只比较外部字节与 Domain 输出，repository 无 Markdown 写回方法。Wiki JSON 为完整 Wiki 历史备份，原 owner 仍独立备份。Future schema/corrupt lock、显式恢复确认、pre-write byte backup 和 PersistedBaseGuard 沿用既有边界。
+
+Pure canonical JSON 算法提取至 `shared/canonical-json.mjs` 供 Node/browser 共同使用；Local Core wrapper 保留原错误类型，原 browser boundary 插件未放宽。ZIP STORE 通用编码从 Creator XLSX 提取，原导出格式不变。无 Local Core browser bridge、云 DB、Claim/Thesis 或 Agent runtime。详见 [Slice 2 D0、合同与限制](stage-4-3-slice-2-llm-wiki.md)。

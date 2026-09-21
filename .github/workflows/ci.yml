@@ -45,6 +45,9 @@ jobs:
       - name: Test V1 contracts offline
         run: npm run test:contracts
 
+      - name: Test private Research Bridge and read-only MCP offline
+        run: npm run test:bridge
+
       - name: Test F3 Research Eval Harness offline
         run: npm run test:research-eval
 

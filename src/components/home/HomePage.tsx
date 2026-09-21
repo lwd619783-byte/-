@@ -11,7 +11,7 @@ import { RelatedResearchEvidence } from "../research/RelatedResearchEvidence";
 import { describeDataTime } from "../../utils/dataTrustDisplay";
 import { dataModeDisplayLabel, localizeDataSourceNote } from "../../utils/displayLabels";
 import { useDisplayNow } from "../../hooks/useDisplayNow";
-export type ResearchDestination = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心" | "预期证据" | "观点追踪";
+export type ResearchDestination = "宏观" | "行业" | "个股池" | "观察清单" | "验证中心" | "预期证据" | "观点追踪" | "研究记忆";
 interface HomeStats {
   segments: number;
   highRisk: number;

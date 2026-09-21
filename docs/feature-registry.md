@@ -1,5 +1,21 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-21 CURRENT · Contract + Delta 最终收口：R1/R2/R3 @ `47612e1` 独立复审 PASS（用户确认）；本次共用正文 Markdown/GFM 安全阅读修复及其余新增差异 PENDING FINAL INDEPENDENT AUDIT。真实 ChatGPT MCP 首轮研究 / 8-source CREATE 为 PASS（用户确认并有真实贡献文件），正式 importer 与 reload 核验 PASS；本人审核仍 PENDING，正式 Wiki/Revision/Review 均0。真实 +2 UPDATE/full history 与 accepted UPDATE 后 ChatGPT revoke-denial 明确 DEFERRED / NOT_ATTEMPTED 至 Knowledge V2，不强迫接受或制造版本。安全切换只读复核 PASS；最终回归按交付 HEAD 单独绑定，不继承历史计数。详见[最终状态与验收边界](stage-4-3-slice-2-5-preview-cutover.md#currentcontract--delta-最终收口)。仅当前分支普通 commit/push 后停等独立审计，无 PR/merge/Production；Frontend V2 必须另开分支。
+
+
+> 2026-09-21 CURRENT 安全切换：沿用已复审代码 `47612e1`（用户提供 PASS），新增验收辅助脚本仍待独立复审。两项密钥仅轮换本分支 Preview；6 个旧部署及分支 alias 的 21 次公网保护检查通过。最终 Preview 安全负向 6/6、远程 synthetic smoke 17/17、公开原件 UI 10/10 通过；首轮 8 份已发布，2 份未发送，持久 profile 已保留。当前停在 HUMAN_RESEARCH；真实 ChatGPT 调用与本人 CREATE / UPDATE 审核 PENDING。以[本轮切换记录](stage-4-3-slice-2-5-preview-cutover.md)为最新状态，下方旧记录保留原时点。无 PR / merge / Production。
+
+
+> 2026-09-21 CURRENT 更新：独立审计 `81c7663` 为 REQUEST_CHANGES；本次 R1/R2/R3 定向修复、原生浏览器 OAuth 授权修正与正式回归见 [修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。保持同一功能分支，等待绑定新 SHA 的独立复审；远程 owner/OAuth 验收与 ChatGPT 账号连接分别记账，未取得证据不升级 PASS。下方原验收数字保留其历史时点。
+
+> 2026-09-21 CURRENT：**Slice 2 — Wiki Infrastructure V1 — independent review PASS；Slice 2.5 — AI Knowledge Ingestion Foundation V1 + authenticated Read-only Research Bridge，IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW**。沿用基线 `812e7551e67b0b8af4f673524e2578ecf2e19335` 的 Source/Extraction/Wiki/Revision/Review。中文首次使用、原件 IndexedDB、完整文章候选审核、用户选择后 private staging 与 OAuth 只读 MCP；贡献包仍人工回传。远程与 ChatGPT 账号连接按实际验收单列。[Slice 2.5 CURRENT](stage-4-3-slice-2-5-knowledge-ingestion.md)。后续旧条目只保留其时点；本次仅功能分支 commit/push 与 Preview，停止等待独立审计，不创建 PR/merge/Production。
+
+> 2026-09-20 CURRENT — **Stage 4.3 / Slice 2 P1 remediation：IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW**。原独立审计 HEAD `188f1adcd2a5662f24dc9a57c861ae6e95934394` 为 P0=0 / P1=1；固定 `research-wiki/index.md` / `research-wiki/manifest.json` 已统一预留，沿用 NFC / NFKC / case-insensitive 与文件/目录 collision fail-closed。Projection 29、全部 Wiki 78、全量 1136 tests、build、contracts、F3、261 Local Core、discovery PASS；本轮 90/90 browser checks、13 screenshots，0 runtime/console errors、0 external requests。正常 Markdown/manifest/ZIP 字节与审计 HEAD 相同。F3 actual deterministic service 仍 0/33 NOT_IMPLEMENTED，authority/PIT/admission 不变。Hosted CI NOT_RUN；仅原分支普通 commit/push 后等待针对性复审，不创建 PR/merge，不修改 main 或部署 Production。[P1 修复与本轮验证](stage-4-3-slice-2-llm-wiki.md#p1-remediation--固定-vault-路径保留2026-09-20)。
+
+> 2026-09-20 CURRENT — **Stage 4.3 / Slice 2 LLM Wiki V1 + Markdown/Obsidian Projection：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW**。从 fetch 后精确 `origin/main @ 1d883414fe7828b682c8cd888223ccf7bd729834` 创建 `codex/stage-4-3-slice-2-llm-wiki-obsidian`。L2 Entry/append-only Revision/Review、historical Current、exact refs/trace、search/backlinks/orphans、Local-first Wiki JSON backup/recovery、`#/memory` 三视图与单向可重建 Vault 已实现；Markdown 不是真源，AI origin 不升级。70 Wiki 专项 / 1128 全量 Vitest、build、contracts、F3、261 Local Core tests、90 browser checks PASS。F3 actual service 仍 0/33，admission 不提升。Hosted CI NOT_RUN；本切片普通 commit/push 后停止等待独立审计，不创建 PR/merge/部署。[D0、验证及真实限制](stage-4-3-slice-2-llm-wiki.md)。
+
+> Slice 2 初始交付及下方较早记录保留原时点；本次 CURRENT 状态以顶部 P1 remediation 条目及对应记录为准。
+
 > 2026-09-20 CURRENT — **Stage 4.3 / Slice 1 Source + Extraction 正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown/Obsidian Projection 进入 CURRENT PLAN / NOT_IMPLEMENTED。** Slice 1 初审 HEAD `b5b548a2e6308a2603d6603fbd0afca315cb1727` 为 P0=0/P1=1；第三方作者归因修复 HEAD `a716b2205d3056e99198852224bf56ad71026a36` 最终复审 PASS（P0=0/P1=0）；PR [#69](https://github.com/lwd619783-byte/-/pull/69) exact-head CI [35512099983](https://github.com/lwd619783-byte/-/actions/runs/35512099983) completed/success；merge/main `f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`，main push CI [35512366207](https://github.com/lwd619783-byte/-/actions/runs/35512366207) completed/success；Vercel Production `dpl_CmeXXfaEqc2BwXBBnuByMcZb7DNE` READY。Production 只表示应用部署成功，不提升 Provider/Data admission 或 strict PIT。Slice 2 冻结为“结构化 Wiki Domain 真源 → deterministic Markdown projection → Obsidian-compatible read-only Vault”；Obsidian 不成为数据库，生成 Markdown 不形成第二真源。详见 [Slice 2 冻结方案](stage-4-3-slice-2-llm-wiki.md)。
 
 > 2026-09-20 CURRENT — **Stage 4.2.5 Creator Viewpoint Tracker V1 已正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 1 Source + Extraction 已 IMPLEMENTED / VERIFIED LOCALLY / PENDING TARGETED RE-REVIEW；L2–L5 仍未实现。** Stage 4.2.5 独立审计最终 HEAD `025352f5bb7879ce6e1e2130fb9cd43788409928`（P0=0 / P1=0）；PR [#67](https://github.com/lwd619783-byte/-/pull/67) exact-head CI [35489459196](https://github.com/lwd619783-byte/-/actions/runs/35489459196) completed/success；merge/main `2cea477105d3e63242e65b7f3eec0b658a87ce17`，main push CI [35489619887](https://github.com/lwd619783-byte/-/actions/runs/35489619887) completed/success；Vercel Production `dpl_ExmoiCEYa2EXRfmuqnRxEAE5AfrE` READY。Production deployment 不提升 Provider/Data admission。Stage 4.3 最新冻结路线为 `L0 Raw Source/Evidence → L1 Structured Extraction → L2 Reviewed Research Memory/LLM Wiki → L3 Verified Claim → L4 Thesis → L5 Investment Expression`，Schema / Entity Identity / Provenance / PIT-asOf / Revision / Verification / Audit 贯穿全链；详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
@@ -326,15 +342,15 @@ R2 已实现切片与剩余工作：
 - 语义边界：External Commentary；不自动晋升 Provider Fact / Verified Claim / Thesis。
 - Stage 4.3 复用方式：作为第一条 L0/L1 Research Memory adapter，不复制第二套 Creator 真源。
 
-### Stage 4.3 — Research Memory & Thesis Compiler V1（Slice 1 CLOSED / Slice 2 CURRENT PLAN）
+### Stage 4.3 — Research Memory & Thesis Compiler V1（Slice 1 CLOSED / Slice 2 P1 REMEDIATED，待针对性复审）
 
-状态：**Slice 1 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS；Slice 2 CURRENT PLAN / NOT_IMPLEMENTED；Slice 3–6 NOT IMPLEMENTED**。
+状态：**Slice 1 CLOSED / MERGED / MAIN CI PASS；Slice 2 Wiki Infrastructure V1 — independent review PASS；Slice 2.5 CURRENT / IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW；Slice 3–6 NOT IMPLEMENTED**。
 
 | Layer | Planned capability | Current status |
 | --- | --- | --- |
 | L0 | Raw Source / Evidence adapters | SLICE 1 CLOSED：公共 SourceRef/Source 合同 + CreatorSource adapter；其他 source runtime 未实现 |
 | L1 | Structured Extraction | SLICE 1 CLOSED：公共 ResearchExtraction V1 + Creator Observation projection / review / revision；native AI store 未实现 |
-| L2 | Reviewed Research Memory / LLM Wiki | CURRENT PLAN：结构化 WikiEntry/Revision + deterministic Markdown projection + Obsidian-compatible read-only Vault；尚未实现 |
+| L2 | Reviewed Research Memory / LLM Wiki | IMPLEMENTED / P1 REMEDIATED / PENDING TARGETED RE-REVIEW：固定 generated path collision fail closed；结构化 WikiEntry/Revision/Review + deterministic Markdown/Vault + Sources/Extractions/Wiki Workspace；不提升 Claim/Thesis authority |
 | L3 | Verified Claim | PARTIAL FOUNDATION：已有 Stage 4.2 factual Claim Candidate + F2 graph；正式通用 lifecycle 未实现 |
 | L4 | Thesis | NOT IMPLEMENTED |
 | L5 | Investment Expression | NOT IMPLEMENTED |
@@ -348,4 +364,6 @@ R2 已实现切片与剩余工作：
 5. Thesis + Macro → Industry；
 6. Investment Expression + Closeout。
 
-统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 1 CLOSED；NEXT = Slice 2 LLM Wiki V1 + Markdown/Obsidian Projection**。[交付与限制](stage-4-3-slice-1-source-extraction.md)。详见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+Slice 2.5 新增：中文四入口与首次使用引导；IndexedDB exact bytes / SHA-256 / 稳定批次；PDF 文本页、MD/TXT 行；版本化贡献包、完整文章建议和人工审核；选定资料及已审核知识的私有临时副本；OAuth + 八个只读 MCP 工具。无收费模型、无 MCP write；本地 Source 与原 Wiki/Revision/Review authority 不变。远程验收与 ChatGPT 账号连接分开报告。
+
+统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 2.5 普通 push 后等待独立审计；无 PR/merge/Production**。[Slice 2.5 交付与限制](stage-4-3-slice-2-5-knowledge-ingestion.md)、[Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
