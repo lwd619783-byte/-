@@ -7,7 +7,14 @@ const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', 
 const send = (res, status, value) => { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(value)); };
 async function body(req) {
   if (req.body !== undefined) { const value = typeof req.body === 'string' ? req.body : String(req.headers['content-type']).startsWith('application/x-www-form-urlencoded') ? new URLSearchParams(req.body).toString() : JSON.stringify(req.body); if (Buffer.byteLength(value) > 3 * 1024 * 1024) throw new Error('BODY_TOO_LARGE'); return value; }
-  let raw = ''; for await (const chunk of req) { raw += chunk; if (Buffer.byteLength(raw) > 3 * 1024 * 1024) throw new Error('BODY_TOO_LARGE'); } return raw;
+  const chunks = []; let bytes = 0;
+  for await (const chunk of req) {
+    const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+    bytes += buffer.length;
+    if (bytes > 3 * 1024 * 1024) throw new Error('BODY_TOO_LARGE');
+    chunks.push(buffer);
+  }
+  return Buffer.concat(chunks, bytes).toString('utf8');
 }
 
 /** No request body/header/token/raw error logging in this server. */

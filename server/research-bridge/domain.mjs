@@ -19,18 +19,31 @@ const keyId = value => createHash('sha256').update(value).digest('hex');
 export class ResearchStaging {
   constructor(store, subject, now = () => Date.now()) { this.store = store; this.subject = subject; this.now = now; this.root = `research-bridge/v1/${keyId(subject)}/`; }
   path(stageId, suffix) { id.parse(stageId); return `${this.root}stages/${stageId}/${suffix}.json`; }
+  batchPath(batchId) { id.parse(batchId); return `${this.root}batches/${keyId(batchId)}/access.json`; }
+  async batchAccess(batchId) {
+    const row = await this.store.versioned(this.batchPath(batchId));
+    if (row) requireValue(row.value.batchId === batchId && id.safeParse(row.value.generation).success, 'STAGING_ACCESS_INVALID');
+    return row;
+  }
+  async batchRevoked(manifest) {
+    const access = await this.batchAccess(manifest.batchId);
+    return (manifest.accessGeneration ?? null) !== (access?.value.generation ?? null);
+  }
   async begin(input) {
     const value = beginInput.parse(input);
     requireValue(new Set(value.sourceMetadata.map(s => s.sourceId)).size === value.sourceMetadata.length && new Set(value.knowledgeIds).size === value.knowledgeIds.length && value.sourceMetadata.every(s => s.batchId === value.batchId), 'STAGING_ID_CONFLICT');
     const stageId = `stage-${randomUUID()}`, createdAt = new Date(this.now()).toISOString(), expiresAt = new Date(this.now() + STAGING_TTL_MS).toISOString();
-    const manifest = { schemaVersion: 'research-staging.v1', stageId, ...value, createdAt, expiresAt, authority: 'temporary_processing_copy', originalsCopied: false };
+    const accessGeneration = (await this.batchAccess(value.batchId))?.value.generation ?? null;
+    const manifest = { schemaVersion: 'research-staging.v1', stageId, ...value, accessGeneration, createdAt, expiresAt, authority: 'temporary_processing_copy', originalsCopied: false };
     await this.store.putNew(this.path(stageId, 'manifest'), manifest);
+    await this.manifest(stageId, false);
     return { stageId, batchId: value.batchId, createdAt, expiresAt, status: 'uploading' };
   }
   async manifest(stageId, published = true) {
     const manifest = await this.store.get(this.path(stageId, 'manifest'));
     requireValue(manifest && manifest.stageId === stageId && Date.parse(manifest.expiresAt) > this.now(), 'STAGING_NOT_AVAILABLE');
     requireValue(!await this.store.get(this.path(stageId, 'revoked')), 'STAGING_NOT_AVAILABLE');
+    requireValue(!await this.batchRevoked(manifest), 'STAGING_NOT_AVAILABLE');
     if (published) requireValue(await this.store.get(this.path(stageId, 'published')), 'STAGING_NOT_AVAILABLE');
     return manifest;
   }
@@ -65,16 +78,19 @@ export class ResearchStaging {
     return { stageId, status: 'revoked' };
   }
   async revokeBatch(batchId) {
-    id.parse(batchId); let count = 0;
-    for (const key of await this.store.keys(`${this.root}stages/`)) if (key.endsWith('/manifest.json')) {
-      const manifest = await this.store.get(key);
-      if (manifest.batchId === batchId) { await this.revoke(manifest.stageId); count++; }
+    // Bounded regardless of expired/revoked stage accumulation. CAS orders concurrent revokes.
+    const key = this.batchPath(batchId);
+    for (let attempt = 0; attempt < 8; attempt++) {
+      const previous = await this.batchAccess(batchId), generation = `revoke-${randomUUID()}`;
+      const event = { batchId, generation, previousGeneration: previous?.value.generation ?? null, revokedAt: new Date(this.now()).toISOString() };
+      await this.store.putNew(`${this.root}batches/${keyId(batchId)}/events/${generation}.json`, event);
+      if (await this.store.compareExchange(key, previous?.etag ?? null, event)) return { batchId, status: 'revoked', revokedAt: event.revokedAt, generation };
     }
-    return { batchId, status: 'revoked', count };
+    throw new Error('STAGING_REVOKE_CONFLICT');
   }
   async status(stageId) {
     const m = await this.store.get(this.path(stageId, 'manifest')); requireValue(m, 'STAGING_NOT_AVAILABLE');
-    return { stageId, batchId: m.batchId, createdAt: m.createdAt, expiresAt: m.expiresAt, status: await this.store.get(this.path(stageId, 'revoked')) ? 'revoked' : Date.parse(m.expiresAt) <= this.now() ? 'expired' : await this.store.get(this.path(stageId, 'published')) ? 'readable' : 'uploading' };
+    return { stageId, batchId: m.batchId, createdAt: m.createdAt, expiresAt: m.expiresAt, status: await this.store.get(this.path(stageId, 'revoked')) || await this.batchRevoked(m) ? 'revoked' : Date.parse(m.expiresAt) <= this.now() ? 'expired' : await this.store.get(this.path(stageId, 'published')) ? 'readable' : 'uploading' };
   }
   async list() {
     const rows = [];

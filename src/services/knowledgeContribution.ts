@@ -33,6 +33,8 @@ export function validateContribution(value: unknown, state: IngestionSnapshot, i
   const batch = state.batches.find(row => row.batchId === bundle.batchId);
   wikiRequire(batch && Date.parse(batch.capturedAt) <= Date.parse(bundle.createdAt), '批次不存在或贡献早于资料保存');
   unique(bundle.sourceRefs.map(row => row.sourceRef.sourceId), '贡献包存在重复资料引用');
+  // A contribution may cover an explicitly selected subset of its original batch.
+  // Citations still must belong to this declared subset; remote staging is not local authority.
   const allowed = new Set(bundle.sourceRefs.map(row => row.sourceRef.sourceId));
   bundle.sourceRefs.forEach(row => {
     const source = state.sources.find(s => canonicalJson(sourceRef(s.sourceId)) === canonicalJson(row.sourceRef));

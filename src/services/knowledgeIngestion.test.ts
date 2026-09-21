@@ -20,6 +20,23 @@ async function setup() {
   return { factory, repository, files, batch, state: await repository.load() };
 }
 describe('browser source and contribution authority', () => {
+  it('retains a mixed 9 parsed / 1 failed batch after reload and imports a subset with original identities', async () => {
+    const factory = new IDBFactory(), repo = new IndexedDbBrowserSourceRepository(factory, 'mixed', async (source, bytes) => { if (source.kind === 'pdf') throw new Error('invalid PDF'); return parseSourceBytes(source, bytes); });
+    const files = [...Array.from({ length: 9 }, (_, i) => new File([`研究资料 ${i}`], `${i}.txt`)), new File(['broken PDF'], 'failed.pdf')];
+    const batch = await repo.saveBatch(files, '混合批次'); await repo.parseBatch(batch.batchId);
+    const reloaded = new IndexedDbBrowserSourceRepository(factory, 'mixed'), state = await reloaded.load();
+    expect(state.sources.filter(s => s.parse.status === 'parsed')).toHaveLength(9);
+    expect(state.sources[9].parse.status).toBe('failed');
+    expect(await reloaded.readRaw(state.sources[9].sourceId)).toEqual(new TextEncoder().encode('broken PDF'));
+    await expect(reloaded.saveBatch(files.slice(0, 9), '不要重复上传')).rejects.toThrow(/重复/);
+    const bundle = contributionFixture(state); await reloaded.importBundle(JSON.stringify(bundle));
+    expect(bundle.batchId).toBe(batch.batchId); expect(bundle.sourceRefs[0].sha256).toBe(state.sources[0].sha256);
+    expect((await reloaded.load()).sources).toEqual(state.sources);
+    const failedRef = structuredClone(bundle); failedRef.sourceRefs.push({ sourceRef: sourceRef(state.sources[9].sourceId), sha256: state.sources[9].sha256 });
+    expect(() => validateContribution(failedRef, state, new Date().toISOString())).toThrow();
+    const undeclared = structuredClone(bundle); undeclared.proposals[0].citations[0].sourceRef = sourceRef(state.sources[1].sourceId);
+    expect(() => validateContribution(undeclared, state, new Date().toISOString())).toThrow();
+  });
   it('atomically retains multiple exact UTF-8 byte originals across reload and verifies digests', async () => {
     const { factory, state, files } = await setup(), reloaded = new IndexedDbBrowserSourceRepository(factory, 'synthetic');
     expect((await reloaded.load()).batches).toHaveLength(1);

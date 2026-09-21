@@ -1,5 +1,7 @@
 # Stage 4.3 — Research Memory & Thesis Compiler V1
 
+> 2026-09-21 CURRENT 更新：独立审计 `81c7663` 为 REQUEST_CHANGES；本次 R1/R2/R3 定向修复与正式回归见 [修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。保持同一功能分支，等待绑定新 SHA 的独立复审；远程 owner/OAuth 验收与 ChatGPT 账号连接分别记账，未取得证据不升级 PASS。下方原验收数字保留其历史时点。
+
 > 状态：Slice 1 CLOSED / Slice 2 Wiki Infrastructure V1 — independent review PASS / Slice 2.5 CURRENT，IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW
 > 日期：2026-09-20  
 > 当前基线：`main @ f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`（Stage 4.3 Slice 1 CLOSED）  

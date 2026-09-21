@@ -6,6 +6,8 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
 const origin = new URL(process.argv[2]).origin;
+const callback = process.argv[3];
+assert.match(callback ?? '', /^https:\/\/chatgpt\.com\/(connector_platform_oauth_redirect|connector\/oauth\/[a-zA-Z0-9_-]+)$/, 'Provide the exact management-page redirect URI.');
 assert.match(origin, /^https:\/\/[a-z0-9-]+\.vercel\.app$/);
 const owner = process.env.BRIDGE_OWNER_SECRET;
 delete process.env.BRIDGE_OWNER_SECRET;
@@ -37,7 +39,6 @@ try {
   assert.equal(metadata.issuer, origin); passed(step);
   step = 'OAuth owner consent and PKCE';
   const verifier = randomBytes(32).toString('base64url'), state = randomBytes(16).toString('hex');
-  const callback = 'https://chatgpt.com/connector_platform_oauth_redirect';
   const params = new URLSearchParams({ client_id: 'research-os-chatgpt', redirect_uri: callback, response_type: 'code', code_challenge_method: 'S256', code_challenge: createHash('sha256').update(verifier).digest('base64url'), state, resource: resource.resource, scope: 'research:read' });
   const consent = await request(`/api/bridge/authorize?${params}`);
   assert.equal(consent.status, 200);
@@ -54,37 +55,39 @@ try {
   step = 'ten-source private staging';
   const suffix = randomBytes(6).toString('hex'); batchId = `remote-test-${suffix}`;
   // PDF segments are an explicitly synthetic parsed projection; actual PDF byte parsing is covered by browser acceptance.
-  const sources = Array.from({ length: 10 }, (_, i) => {
+  const localSources = Array.from({ length: 11 }, (_, i) => {
     const kind = i === 0 ? 'pdf' : i % 2 ? 'markdown' : 'text';
     const segments = [1, 2].map(n => ({ locator: `${kind === 'pdf' ? 'page' : 'line'}:${n}`, label: `合成验收 ${n}`, text: `Synthetic evidence ${i} optical page ${n}.` }));
     const raw = Buffer.from(segments.map(s => s.text).join('\n'));
     return { metadata: { sourceId: `remote-source-${suffix}-${i}`, batchId, filename: `synthetic-${i}.${kind === 'pdf' ? 'pdf' : kind === 'markdown' ? 'md' : 'txt'}`, mime: kind === 'pdf' ? 'application/pdf' : 'text/plain', size: raw.length, sha256: sha(raw), capturedAt: new Date().toISOString(), kind, parsedTextSha256: sha(JSON.stringify(segments)) }, segments };
   });
+  const sources = localSources.slice(0, 10), omitted = localSources[10];
   const wikiId = `remote-wiki-${suffix}`;
   ({ stageId } = await ownerCall('begin', { batchId, title: '可重复远程验收（合成资料）', sourceMetadata: sources.map(s => s.metadata), knowledgeIds: [wikiId], consent: 'stage-selected-batch-and-knowledge' }));
   client = new Client({ name: 'research-os-remote-acceptance', version: '1' });
   await client.connect(new StreamableHTTPClientTransport(new URL(resource.resource), { requestInit: { headers: { Authorization: `Bearer ${token.access_token}` } } }));
   assert.ok(!(await call('list_pending_batches')).batches.some(b => b.stageId === stageId)); passed('unpublished batch hidden');
   for (const source of sources) await ownerCall('source', { stageId, source });
-  const previous = { revisionId: 'remote-history-1', title: 'Synthetic optical article', summary: 'Synthetic', bodyMarkdown: 'Previous complete optical article.', createdAt: '2026-01-01T00:00:00Z', asOf: '2026-01-01T00:00:00Z', sourceRefs: [], reviewId: 'remote-review-1' };
-  await ownerCall('knowledge', { stageId, document: { wikiId, currentRevisionId: 'remote-history-2', revisions: [previous, { ...previous, revisionId: 'remote-history-2', bodyMarkdown: 'Current complete optical article.', reviewId: 'remote-review-2' }] } });
+  const article = version => ['核心判断', '产业与主题结构', '近期变化', '关键公司与环节', '风险与待验证问题', '来源'].map(title => `## ${title}\n\n${version} synthetic optical research. Unverified test evidence.`).join('\n\n');
+  const previous = { revisionId: 'remote-history-1', title: 'Synthetic optical article', summary: 'Synthetic', bodyMarkdown: article('Previous'), createdAt: '2026-01-01T00:00:00Z', asOf: '2026-01-01T00:00:00Z', sourceRefs: [], reviewId: 'remote-review-1' };
+  await ownerCall('knowledge', { stageId, document: { wikiId, currentRevisionId: 'remote-history-2', revisions: [previous, { ...previous, revisionId: 'remote-history-2', bodyMarkdown: article('Current'), reviewId: 'remote-review-2' }] } });
   await ownerCall('publish', { stageId }); passed('ten-source private staging');
   step = 'only eight read-only tools';
   const tools = (await client.listTools()).tools;
   assert.deepEqual(tools.map(t => t.name).sort(), ['list_pending_batches', 'get_batch_manifest', 'get_source_metadata', 'read_source_pages', 'search_source', 'search_knowledge', 'get_knowledge_document', 'get_knowledge_history'].sort());
   assert.ok(tools.every(t => t.annotations.readOnlyHint && !t.annotations.destructiveHint)); passed(step);
   assert.ok((await call('list_pending_batches')).batches.some(b => b.stageId === stageId)); passed('published batch listed');
-  const manifest = await call('get_batch_manifest', { stageId }); assert.equal(manifest.originalsCopied, false); passed('manifest and transport contract');
+  const manifest = await call('get_batch_manifest', { stageId }); assert.equal(manifest.originalsCopied, false); assert.equal(manifest.sourceMetadata.length, 10); assert.ok(!JSON.stringify(manifest).includes(omitted.metadata.sourceId)); passed('manifest and selected subset transport contract');
   const sourceArgs = { stageId, sourceId: sources[0].metadata.sourceId };
   assert.equal((await call('get_source_metadata', sourceArgs)).sha256, sources[0].metadata.sha256); passed('source digest retained');
   const pages = await call('read_source_pages', { ...sourceArgs, start: 2, count: 1 }); assert.equal(pages.segments[0].locator, 'page:2'); assert.equal(pages.segments[0].text, sources[0].segments[1].text); passed('selected PDF page and locator');
   assert.ok((await call('search_source', { ...sourceArgs, query: 'optical' })).hits.length); passed('source text search');
   assert.ok((await call('search_knowledge', { stageId, query: 'optical' })).matches.length); passed('selected knowledge search');
-  assert.equal((await call('get_knowledge_document', { stageId, wikiId })).bodyMarkdown, 'Current complete optical article.'); passed('complete knowledge document');
+  assert.equal((await call('get_knowledge_document', { stageId, wikiId })).bodyMarkdown, article('Current')); passed('complete knowledge document');
   assert.equal((await call('get_knowledge_history', { stageId, wikiId })).revisions.length, 2);
   assert.equal((await call('get_knowledge_document', { stageId, wikiId, revisionId: previous.revisionId })).bodyMarkdown, previous.bodyMarkdown); passed('complete historical revision');
   step = 'unstaged source and write denied';
-  assert.equal((await client.callTool({ name: 'get_source_metadata', arguments: { stageId, sourceId: 'local-only-not-staged' } })).isError, true);
+  assert.equal((await client.callTool({ name: 'get_source_metadata', arguments: { stageId, sourceId: omitted.metadata.sourceId } })).isError, true);
   assert.equal((await client.callTool({ name: 'submit_contribution_bundle', arguments: {} })).isError, true); passed(step);
   step = 'batch revoke immediately denies source and knowledge';
   await ownerCall('revoke-batch', { batchId });

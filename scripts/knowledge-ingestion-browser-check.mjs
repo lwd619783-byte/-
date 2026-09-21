@@ -4,6 +4,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { deflateSync } from 'node:zlib';
+import { createServer } from 'node:http';
+import { createBridgeHandler } from '../server/research-bridge/http.mjs';
+import { ResearchStaging } from '../server/research-bridge/domain.mjs';
+import { privateStoreFixture } from './tests/private-blob.fixture.mjs';
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4175';
 const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-3-slice-2-5/browser'); await fs.mkdir(output, { recursive: true });
@@ -12,6 +16,7 @@ const check = (ok, name) => { report.checks.push({ ok, name }); if (!ok) throw n
 const browser = await chromium.launch({ channel: 'msedge', headless: true });
 const context = await browser.newContext({ viewport: { width: 1536, height: 960 }, acceptDownloads: true });
 const page = await context.newPage(); page.setDefaultTimeout(15000);
+let bridgeServer;
 page.on('pageerror', e => report.errors.push(e.message));
 page.on('request', req => { if (!req.url().startsWith(origin) && !/^(blob:|data:)/.test(req.url())) report.externalRequests.push(req.url()); });
 const nav = name => page.getByRole('navigation', { name: '研究记忆视图' }).getByRole('button', { name, exact: true }).click();
@@ -69,6 +74,54 @@ try {
   }
   await page.setViewportSize({ width: 1280, height: 960 }); await nav('原始资料'); await page.getByLabel('选择多份文件').setInputFiles(files[0]); await page.getByRole('alert').filter({ hasText: '重复' }).waitFor(); check((await state()).sources.length === 10, 'duplicate upload no partial write');
   await page.getByLabel('选择多份文件').setInputFiles({ name: 'corrupt.pdf', mimeType: 'application/pdf', buffer: Buffer.from('invalid PDF synthetic') }); await page.getByText('解析失败，原件已保存', { exact: false }).waitFor(); check((await state()).sources.length === 11, 'failed parsing retains original');
+  // Audit R2: real UI + IndexedDB + production HTTP/domain/repository with isolated synthetic Blob transport.
+  const mixedFiles = [...Array.from({ length: 9 }, (_, i) => ({ name: `混合资料-${i}.txt`, mimeType: 'text/plain', buffer: Buffer.from(`混合恢复研究 ${i} 光通信😀`) })), { name: '混合失败.pdf', mimeType: 'application/pdf', buffer: Buffer.from('mixed invalid PDF synthetic') }];
+  mixedFiles[0] = { name: '混合资料-0.pdf', mimeType: 'application/pdf', buffer: Buffer.concat([pdf(), Buffer.from('\n% distinct synthetic original')]) };
+  await page.getByLabel('选择多份文件').setInputFiles(mixedFiles); await page.getByText('已保存 10 份原件。', { exact: false }).waitFor();
+  s = await state(); const mixedBatch = s.batches.at(-1), mixedSources = s.sources.filter(row => row.batchId === mixedBatch.batchId);
+  check(mixedSources.filter(row => row.parse.status === 'parsed').length === 9 && mixedSources[9].parse.status === 'failed', 'mixed batch nine parsed one failed');
+  await page.reload(); await page.getByText('混合失败.pdf', { exact: true }).waitFor();
+  const failedDownload = page.waitForEvent('download'); await page.getByRole('listitem').filter({ has: page.getByRole('button', { name: '混合失败.pdf', exact: true }) }).getByRole('button', { name: '下载原件', exact: true }).click({ noWaitAfter: true });
+  check((await fs.readFile(await (await failedDownload).path())).equals(mixedFiles[9].buffer), 'failed PDF exact bytes downloadable after reopening');
+  const { store } = privateStoreFixture(), staging = new ResearchStaging(store, 'personal-owner');
+  const syntheticSecret = 'synthetic-browser-only-owner-secret-32';
+  const testEnv = { BRIDGE_ENABLED: 'true', BRIDGE_ORIGIN: 'https://synthetic.example', BRIDGE_OWNER_SECRET: syntheticSecret, BRIDGE_SIGNING_SECRET: 'synthetic-browser-only-signing-secret-32', BLOB_STORE_ID: 'synthetic', BRIDGE_OAUTH_REDIRECT_URIS: 'https://chatgpt.com/connector/oauth/synthetic-test' };
+  bridgeServer = createServer(createBridgeHandler({ env: testEnv, store })); await new Promise(resolve => bridgeServer.listen(0, '127.0.0.1', resolve));
+  const sent = [];
+  await page.route('**/api/bridge/**', async route => {
+    const req = route.request(), url = new URL(req.url()); sent.push({ action: url.pathname, value: req.postDataJSON() });
+    const response = await fetch(`http://127.0.0.1:${bridgeServer.address().port}${url.pathname}${url.search}`, { method: req.method(), headers: { 'content-type': 'application/json', 'x-bridge-owner-secret': syntheticSecret }, body: req.postData() ?? undefined });
+    if (!response.ok) report.bridgeFailedAction = url.pathname;
+    await route.fulfill({ status: response.status, contentType: 'application/json', body: await response.text() });
+  });
+  await nav('AI 整理'); await page.getByLabel('研究桥访问密钥', { exact: true }).fill(syntheticSecret);
+  check(await page.getByRole('button', { name: '发送给 ChatGPT', exact: true }).isDisabled(), 'selection is explicit even with valid credential');
+  await page.getByRole('button', { name: '选择全部已解析资料', exact: true }).click();
+  check(await page.getByRole('checkbox', { name: '混合失败.pdf（解析失败，原件保留）', exact: true }).isDisabled(), 'failed PDF cannot be selected');
+  await page.getByRole('checkbox', { name: '混合资料-8.txt（已解析）', exact: true }).uncheck();
+  await page.getByRole('checkbox', { name: '光通信产业链（含已审核历史版本）', exact: true }).check();
+  check(await page.getByText('未发送清单：混合资料-8.txt、混合失败.pdf', { exact: true }).isVisible(), 'omitted successful and failed files explicitly disclosed');
+  check(sent.length === 0 && await page.getByRole('button', { name: '发送给 ChatGPT', exact: true }).isDisabled(), 'nothing sent before list confirmation');
+  await page.getByRole('checkbox', { name: '我已核对清单，仅发送所选 8 份资料，保留 2 份不发送', exact: true }).check();
+  await page.getByRole('button', { name: '发送给 ChatGPT', exact: true }).click(); await page.getByText('所选 8 份资料已可供 ChatGPT 只读研究；2 份未发送。', { exact: false }).waitFor();
+  const stageId = await page.evaluate(id => localStorage.getItem(`research-bridge.stage.v1:${id}`), mixedBatch.batchId), manifest = await staging.manifest(stageId);
+  check(manifest.batchId === mixedBatch.batchId && manifest.sourceMetadata.length === 8 && manifest.sourceMetadata.every(m => mixedSources.some(s => s.sourceId === m.sourceId && s.sha256 === m.sha256)), 'subset manifest preserves original batch source identities and digest');
+  check((await staging.source(stageId, mixedSources[0].sourceId)).segments[1].locator === 'page:2', 'actual browser parsed PDF page survives staging digest validation');
+  check(!JSON.stringify(sent).includes(mixedSources[8].sourceId) && !JSON.stringify(sent).includes(mixedSources[9].sourceId), 'unselected source identities and content never transmitted');
+  for (const source of mixedSources.slice(8)) { let denied = false; try { await staging.source(stageId, source.sourceId); } catch { denied = true; } check(denied, `omitted source unreadable ${source.filename}`); }
+  check((await staging.knowledge(stageId, w.entries[0].wikiId)).revisions.length === 2, 'selected knowledge includes full reviewed history');
+  const returned = bundle({ sources: mixedSources, batches: [mixedBatch] }, 'mixed-return', w.revisions[1]);
+  await importBundle(returned); check((await wiki()).revisions.length === 2, 'subset contribution remains pending'); await accept();
+  check((await wiki()).entries.length === 1 && (await wiki()).revisions.length === 3, 'subset contribution accepted with original identity and full revision');
+  check((await state()).sources.filter(row => row.batchId === mixedBatch.batchId).length === 10, 'subset sending and accepting preserve all ten originals');
+  await nav('AI 整理'); await page.getByLabel('研究桥访问密钥', { exact: true }).fill(syntheticSecret);
+  await page.getByRole('button', { name: '撤销 ChatGPT 访问', exact: true }).click(); await page.getByText('已撤销本批此前全部暂存的资料与知识访问。', { exact: false }).waitFor();
+  check((await staging.status(stageId)).status === 'revoked' && sent.some(row => row.action.endsWith('/revoke-batch')), 'real user revoke-batch action denies known stage');
+  for (const theme of ['neon', 'pro', 'light']) for (const width of [1536, 1280, 390, 320]) {
+    await page.setViewportSize({ width, height: 960 }); await page.getByLabel('外观', { exact: true }).selectOption(theme);
+    check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width} mixed selection no horizontal overflow`);
+    const filename = `mixed-${theme}-${width}.png`; await page.screenshot({ path: path.join(output, filename), fullPage: true }); report.screenshots.push(filename);
+  }
   check(report.errors.length === 0, 'no runtime errors'); check(report.externalRequests.length === 0, 'no external requests without explicit staging');
 } catch (error) { report.failure = String(error); await page.screenshot({ path: path.join(output, 'failure.png'), fullPage: true }); report.failureUi = await page.locator('body').innerText(); throw error; }
-finally { await fs.writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2)); await browser.close(); console.log(JSON.stringify({ checks: report.checks.length, passed: report.checks.filter(c => c.ok).length, errors: report.errors, failure: report.failure, output })); }
+finally { bridgeServer?.close(); await fs.writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2)); await browser.close(); console.log(JSON.stringify({ checks: report.checks.length, passed: report.checks.filter(c => c.ok).length, errors: report.errors, failure: report.failure, output })); }

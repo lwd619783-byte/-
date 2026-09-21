@@ -2,6 +2,8 @@
 
 ## 2026-09-21 Stage 4.3 / Slice 2.5 runtime 增量
 
+独立审计 R1–R3 定向修复：原批次内显式资料子集 → 固定字段顺序解析文本摘要 → 私有不可变暂存；批次访问代次由有界 Blob ETag CAS 推进，所有已知 stage 读路径核验，旧数据 null 代次兼容，撤销不再依赖500键发现扫描。不可变撤销事件链保留审计；无物理清理或第二套 Source/Wiki authority。HTTP raw stream 在3 MiB字节界限内一次 UTF-8 解码。[修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。
+
 `File/paste → BrowserSourceRepository (IndexedDB state + exact original Uint8Array) → local PDF.js page / UTF-8 line parsing → browser-source adapter → 原 ResearchSource / ResearchExtraction`。批次与原件同事务写入，先保存后解析；读回核验 digest，重复/配额/冲突 fail closed。无默认 AI provider，fake 仅测试。新 Contribution Bundle 是 transport contract，findings 复用 Slice 1；导入只持久化候选。接受在浏览器锁下读取最新基线，通过原 WikiRepository 一次追加完整 Revision + Review；拒绝只记候选处置，接受状态从正式 Review 派生。Wiki 完整文章、版本演化和证据视图继续使用同一 owner；Obsidian 单向 projection。
 
 远程层独立于本地 authority：明确发送选定 batch 和逐项选定 reviewed knowledge → Vercel Node Functions owner staging API → private Blob immutable manifest/解析文本/文章快照 → publish → OAuth/S256 + Streamable HTTP 八个只读 MCP tools → ChatGPT → 用户手工导入相同 Bundle。没有浏览器直连文件读取、全库默认同步、公开原文 URL 或 MCP write。原件不复制，远程保留原件 digest 身份与独立 parsed-text digest；24h 逻辑 TTL / revoke 每读核验，物理清理未实现。Secrets 仅环境；配置不足 503，无匿名回退。接口与实际支持边界见 [D0](stage-4-3-slice-2-5-knowledge-ingestion.md)、[Bridge](research-bridge-readonly-v1.md)、[中文首用规范](research-memory-chinese-first-use-v1.md)。

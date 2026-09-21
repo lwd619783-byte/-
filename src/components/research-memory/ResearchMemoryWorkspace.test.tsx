@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { WikiLibrary as ResearchMemoryWorkspace } from './WikiLibrary';
@@ -8,6 +8,9 @@ import { wikiFixture, wikiFixtureOwners } from '../../services/wiki.fixture';
 import { creatorViewpointFixture } from '../../services/creatorViewpoint.fixture';
 import { createWikiOwners } from '../../services/wikiOwners';
 import type { CreatorViewpointRepository } from '../../services/creatorViewpointRepository';
+import { IDBFactory } from 'fake-indexeddb';
+import { BridgeStagingPanel } from './BridgeStagingPanel';
+import { IndexedDbBrowserSourceRepository, parseSourceBytes, digestBytes } from '../../services/browserSourceRepository';
 
 const sourceOwner = { load: () => ({ data: creatorViewpointFixture(), error: null, corruptedRaw: null }) } as CreatorViewpointRepository;
 function setup(seed = true) {
@@ -16,8 +19,50 @@ function setup(seed = true) {
   if (seed) repository.import(repository.load().data, repository.export(wikiFixture()), true);
   return { values, storage, repository, owners };
 }
-afterEach(() => { cleanup(); vi.restoreAllMocks(); });
+afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 describe('Research Memory Workspace', () => {
+  it('explicitly sends a mixed batch subset after repository reload, with correct wire digest and batch-wide revoke', async () => {
+    // Test-only Node primitives via Vitest, never imported into the browser module graph.
+    const { File: NodeFile, Buffer } = await vi.importActual<typeof import('node:buffer')>('node:buffer');
+    const { webcrypto } = await vi.importActual<typeof import('node:crypto')>('node:crypto');
+    vi.stubGlobal('File', NodeFile); vi.stubGlobal('crypto', webcrypto);
+    // fake-indexeddb uses Node structuredClone; keep binary instances in that same test realm.
+    vi.stubGlobal('Uint8Array', Object.getPrototypeOf(Buffer.prototype).constructor); localStorage.clear();
+    const factory = new IDBFactory(), repo = new IndexedDbBrowserSourceRepository(factory, 'mixed-ui', async (source, bytes) => { if (source.kind === 'pdf') throw new Error('invalid'); return parseSourceBytes(source, bytes); });
+    const batch = await repo.saveBatch([...Array.from({ length: 9 }, (_, i) => new File([`中文😀 ${i}`], `${i}.txt`)), new File(['invalid PDF'], 'bad.pdf')], '混合'); await repo.parseBatch(batch.batchId);
+    const reloaded = new IndexedDbBrowserSourceRepository(factory, 'mixed-ui'), snapshot = await reloaded.load(), { repository } = setup(false);
+    const calls: Array<{ action: string; payload: Record<string, unknown> }> = [];
+    const fetcher = vi.fn(async (input: string, init: RequestInit) => {
+      const payload = JSON.parse(String(init.body)); calls.push({ action: input, payload });
+      return new Response(JSON.stringify({ stageId: 'stage-synthetic', batchId: batch.batchId, createdAt: batch.capturedAt, expiresAt: batch.capturedAt, status: input.endsWith('/publish') ? 'readable' : 'uploading' }), { headers: { 'content-type': 'application/json' } });
+    }); vi.stubGlobal('fetch', fetcher);
+    const props = { batch, snapshot, sourceRepository: reloaded, wiki: repository.load().data, model: null };
+    const first = render(<BridgeStagingPanel {...props} />); fireEvent.click(screen.getByRole('button', { name: '选择全部已解析资料' })); first.unmount();
+    render(<BridgeStagingPanel {...props} />); expect(screen.getByRole('checkbox', { name: '0.txt（已解析）' })).not.toBeChecked();
+    fireEvent.change(screen.getByLabelText('研究桥访问密钥'), { target: { value: 'synthetic-ui-owner-secret-only-32-characters' } });
+    fireEvent.click(screen.getByRole('button', { name: '选择全部已解析资料' }));
+    expect(screen.getByRole('checkbox', { name: 'bad.pdf（解析失败，原件保留）' })).toBeDisabled();
+    fireEvent.click(screen.getByRole('checkbox', { name: '8.txt（已解析）' }));
+    expect(screen.getByText('未发送清单：8.txt、bad.pdf')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '发送给 ChatGPT' })).toBeDisabled(); expect(fetcher).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('checkbox', { name: '我已核对清单，仅发送所选 8 份资料，保留 2 份不发送' }));
+    fireEvent.click(screen.getByRole('button', { name: '发送给 ChatGPT' }));
+    await screen.findByText(/所选 8 份资料已可供 ChatGPT/);
+    const uploads = calls.filter(c => c.action.endsWith('/source')); expect(uploads).toHaveLength(8);
+    for (const upload of uploads) {
+      const source = upload.payload.source as { metadata: { sourceId: string; batchId: string; sha256: string; parsedTextSha256: string }; segments: Array<{ locator: string; label: string; text: string }> };
+      expect(source.metadata.batchId).toBe(batch.batchId); expect(source.metadata.sha256).toBe(snapshot.sources.find(s => s.sourceId === source.metadata.sourceId)!.sha256);
+      expect(Object.keys(source.segments[0])).toEqual(['locator', 'label', 'text']);
+      expect(source.metadata.parsedTextSha256).toBe(await digestBytes(new TextEncoder().encode(JSON.stringify(source.segments))));
+    }
+    expect(JSON.stringify(calls)).not.toContain(snapshot.sources[8].sourceId); expect(JSON.stringify(calls)).not.toContain(snapshot.sources[9].sourceId);
+    expect(await reloaded.readRaw(snapshot.sources[9].sourceId)).toEqual(new TextEncoder().encode('invalid PDF'));
+    cleanup(); localStorage.clear(); render(<BridgeStagingPanel {...props} />);
+    fireEvent.change(screen.getByLabelText('研究桥访问密钥'), { target: { value: 'synthetic-ui-owner-secret-only-32-characters' } });
+    fireEvent.click(screen.getByRole('button', { name: '撤销 ChatGPT 访问' }));
+    await waitFor(() => expect(calls.at(-1)).toEqual({ action: '/api/bridge/revoke-batch', payload: { batchId: batch.batchId } }));
+    await screen.findByText(/已撤销本批此前全部暂存/);
+  });
   it('opens empty Workspace with no seed or business writes', () => {
     const { repository, owners, values } = setup(false); render(<ResearchMemoryWorkspace repository={repository} owners={owners} creatorRepository={sourceOwner} />);
     expect(screen.getByRole('heading', { name: '从可反查的材料建立研究记忆' })).toBeInTheDocument(); expect(values.size).toBe(0);

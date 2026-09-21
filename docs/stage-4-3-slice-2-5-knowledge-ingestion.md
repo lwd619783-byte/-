@@ -1,5 +1,7 @@
 # Stage 4.3 / Slice 2.5 — AI Knowledge Ingestion Foundation V1
 
+> 2026-09-21 CURRENT 更新：独立审计 `81c7663` 为 REQUEST_CHANGES；本次 R1/R2/R3 定向修复与正式回归见 [修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。保持同一功能分支，等待绑定新 SHA 的独立复审；远程 owner/OAuth 验收与 ChatGPT 账号连接分别记账，未取得证据不升级 PASS。下方原验收数字保留其历史时点。
+
 状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT REVIEW；远程端到端状态 PARTIAL（owner/OAuth 八工具及 ChatGPT 账号连接未完成验收）。基线 `812e7551e67b0b8af4f673524e2578ecf2e19335`（Wiki Infrastructure V1 — independent review PASS）；分支 `codex/stage-4-3-slice-2-5-knowledge-ingestion-v1`。
 
 ## D0 Reuse / Delta / Architecture Map（实现前冻结）
@@ -47,6 +49,12 @@ CREATE / UPDATE 必须带完整文章（核心判断、产业/主题结构、近
 Vercel private Blob 与当前分支认证配置已完成，真实 SDK 写/读/禁止覆盖通过；Preview 公网 OAuth discovery 200、匿名 owner/MCP 401 已验证。只为指定 Preview 设置访问例外，没有关闭项目保护。owner/OAuth 八工具与 ChatGPT 账号连接仍 PENDING，因此远程端到端为 PARTIAL，不能由6个离线测试推定通过。[Bridge 连接/限制/验收](research-bridge-readonly-v1.md)、[贡献合同](../contracts/knowledge-ingestion/v1/README.md)、[中文产品冻结](research-memory-chinese-first-use-v1.md)。独立审计 PENDING；无 PR / merge / Production 声明。
 
 ## D0 增量决定：Read-only Research Bridge（2026-09-21）
+
+### 独立审计修复冻结（2026-09-21，实现前追加）
+
+- R1：撤销以 subject + batchId 的有界访问代次为准，不枚举 stages。私有 Blob 强一致读取、ETag 条件更新；每次撤销产生不可变事件并以 CAS 推进批次指针，成功指针链为审计依据。旧 manifest 无代次视为初始代次；第一次批次撤销同时覆盖旧数据。所有发布、状态、资料、知识读取核验代次；重发使用新代次，旧 stage 永不恢复。并发 begin 读取代次是其授权边界：撤销提交前取得旧代次的发送被阻断，提交后显式开始的新发送允许。竞争重试有界，失败不报告成功。旧部署不认识新屏障，最终 Preview 切换时必须撤回旧 Preview 公网访问例外。
+- R2：覆盖先前“整批全部资料发送”粒度。用户在原批次内逐项选择已解析资料，并确认所选/未发送清单；失败与未选择原件不复制、不迁移、不删除。manifest 的 sourceMetadata 精确列出授权子集；不把未选择资料的文件名或身份上传。贡献包 sourceRefs 继续引用原 batchId/sourceId/SHA，只能引用包声明且已解析的原资料；手工离线导入不强制依赖远程 stage。无新 Source 或 Extraction authority。
+- R3：原始 HTTP 流按实际字节累计，超过 3 MiB 立即拒绝，完整 Buffer 一次 UTF-8 解码。它是 raw stream fallback 的已复现缺陷，不记作已验证的 Vercel 远程故障。
 
 用户追加授权覆盖上文“本轮无远端端点”的范围限制；原 Local-first authority、贡献包人工回传、人工审核和无 MCP write 保持。继续同一实现与分支。
 

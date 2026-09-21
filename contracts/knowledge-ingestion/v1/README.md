@@ -21,6 +21,8 @@ Additive candidate transport. No change to the frozen Phase 1 permissions, Sourc
 
 Current transports: export `research-task.json` (contract + local parse text/locators); or explicit owner-authenticated private staging → OAuth read-only MCP → ChatGPT → manual JSON import → pending → user acceptance. The MCP manifest supplies the same self-contained contribution schema. Export/import round-trip never bypasses owner/digest/locator/quote/time checks.
 
+Audit clarification: a remote stage may contain an explicitly confirmed subset of parsed sources from one original batch. `sourceMetadata` is the entire authorized set for that stage; omitted source identities/content are not uploaded. Failed originals remain local and downloadable. Bundle `sourceRefs` may cover a subset of the original batch, retaining original batch/source IDs and SHA-256; references to failed sources or citations outside the bundle's declared source set are rejected. Offline bundles do not require a remote stage. Parsed-text SHA-256 covers UTF-8 JSON of segments in fixed field order `locator`, `label`, `text`; local canonical object key sorting must not alter that wire order. Original-byte SHA-256 remains independent.
+
 Obsidian remains an existing read-only Markdown projection. Full Wiki backup does not contain original-file bytes; retain/download those independently. Origin/profile changes, browser data clearing and browser storage eviction can remove local data; this is not cloud backup.
 
 See [D0 and delivery](../../../docs/stage-4-3-slice-2-5-knowledge-ingestion.md), [private Bridge operations](../../../docs/research-bridge-readonly-v1.md), and [Chinese first-use rules](../../../docs/research-memory-chinese-first-use-v1.md).
