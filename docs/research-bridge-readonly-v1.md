@@ -63,3 +63,5 @@ ChatGPT 开发者模式创建自定义 MCP：URL 为最终 Preview `/api/mcp`，
 2026-09-21 Preview checkpoint `9e82cdc6591d47d0c983d574b01d313ad156e49f`（`investment-research-dashboard-ouaeatc1t-lkdmkl.vercel.app`）实测 OAuth metadata/resource metadata 均200 JSON，匿名 MCP/owner status 均401。修复了 Vite 下动态 `.mjs` API 被 SPA fallback 吞掉的问题：明确 rewrite 至单一静态 dispatcher。真实 private Blob SDK 探针已验证写入、uncached read 原值一致、并发覆盖已有键均拒绝；没有返回公开 URL。该探针只含合成状态，不代替 owner OAuth 八工具验收。最终 SHA 的 exact Preview 单独在交付报告给出；不能把中间 checkpoint 当最终版本。
 
 官方依据：[Vercel private Blob](https://vercel.com/docs/vercel-blob/private-storage)、[consistent reads](https://vercel.com/changelog/vercel-blob-now-supports-consistent-reads-on-private-storage)、[OpenAI OAuth/PKCE 与回调规范](https://developers.openai.com/plugins/build/auth)。
+
+授权页 GET 使用 strict-origin，仅传递来源，不泄露授权 URL 路径/查询；CSP form-action 除 self 外仅允许配置验证过的精确 ChatGPT callback，以允许原生表单303回跳。其他响应继续 no-referrer；不接受 null 或外国 Origin。正式浏览器门禁：`npm run test:bridge:browser`。c179aeb 的真实远程17项已通过，后续 Final SHA 必须重新验收，账号连接仍单列。

@@ -123,7 +123,8 @@
     "test:a-stock:targeted": "python -m unittest scripts.tests.test_a_stock_targeted_refresh",
     "test:listing": "python -m unittest scripts.tests.test_listing_reconciliation && vitest run src/data/unitreeListing.test.ts src/services/listingIdentity.test.ts",
     "test:knowledge": "vitest run src/services/knowledgeIngestion.test.ts src/components/research-memory/ResearchMemoryWorkspace.test.tsx && node --test scripts/tests/research-bridge.node.mjs",
-    "test:bridge": "node --test scripts/tests/research-bridge.node.mjs"
+    "test:bridge": "node --test scripts/tests/research-bridge.node.mjs",
+    "test:bridge:browser": "node scripts/research-bridge-oauth-browser-check.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.30.0",

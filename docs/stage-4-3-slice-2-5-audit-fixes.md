@@ -42,3 +42,15 @@ Browser 与服务器 fixture 只存在测试，不进入用户流程；这不是
 ## 仍然存在的限制
 
 24小时是逻辑 TTL；无 scheduler 或物理删除。过期/撤销/失败尝试对象会累积；发现列表仍受500个 stages键限制而 fail closed，但撤销和已知 stage 的读权限检查不受此限制。撤销不能追回已读取内容或此前通过检查的在途响应。ETag CAS 实际远程验证随 owner 脚本验收单列；合成 SDK 验证不能推定云端通过。Origin/profile 本地原件权威、浏览器存储限制、无全库原件备份等沿用既有合同。
+
+## 账号连接现场补充（2026-09-21，c179aeb 后续修复）
+
+`c179aeb` 的 exact Preview `investment-research-dashboard-o3z9t9njz-lkdmkl.vercel.app` 已通过用户安全输入后执行的真实远程17项验收，涵盖 OAuth/PKCE、重放拒绝、八工具、10份私有暂存、未选择源隔离、PDF页、完整文章/历史与 batch revoke；合成暂存已撤销。该结果仅绑定 c179aeb，不自动转移到后续部署。
+
+账号实际创建页给出的 callback 为 `https://chatgpt.com/connector_platform_oauth_redirect`，public client 为 `research-os-chatgpt`，client secret 留空。创建了同名研究桥，但账号工具发现仍未成功，不登记账号连接 PASS。
+
+现场发现此前脚本未覆盖浏览器原生表单：授权页的 `Referrer-Policy: no-referrer` 使 Chromium 的 POST 带 `Origin: null` 而被403拒绝；随后 `form-action 'self'` 还阻止303回跳 ChatGPT。正式隔离浏览器用生产 handler 与合成私有存储复现，修复仅将授权 GET 改为 `strict-origin`（不发送路径/查询），并在 CSP 中加入经过配置校验的精确 callback 地址。null/外国 Origin 继续拒绝，cookie/ticket/PKCE/issuer/resource/scope 校验不变。
+
+新增正式 `npm run test:bridge:browser` 门禁，覆盖原生表单、Origin、cookie、真实303导航、callback state/issuer、PKCE兑换及重放/外国来源拒绝。没有使用真实密钥或用户浏览器 profile 作为自动测试 fixture。最终部署与账号状态仍需按新 SHA 重新核验；旧 c179aeb 不再作为最终可连接部署。
+
+补充修复验证：全量 Vitest1159/89、Bridge11、contracts validate与106+78+51测试、build、F3、discovery、UI audit再次通过；原生OAuth浏览器门禁通过。浏览器测试以离线模式阻止所有真实ChatGPT网络流量，验证原生303发起的精确callback导航，再用生产handler完成PKCE兑换，不冒充真实账号授权。原Wiki99与新流程111的完整验收沿用本轮前述记录，文章/UI/domain未被此次授权页修正改变；最终Preview新流程另行复核。

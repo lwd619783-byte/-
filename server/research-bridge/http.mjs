@@ -37,8 +37,11 @@ export function createBridgeHandler({ env = process.env, store = new PrivateBlob
       if (action === 'authorize') {
         if (req.method === 'GET') {
           const params = authorizeParameters(url.searchParams, config), consent = newConsent(params, config);
+          // Native form navigation under no-referrer sends Origin: null. Preserve
+          // the origin without ever disclosing the consent URL path/query.
+          res.setHeader('Referrer-Policy', 'strict-origin');
           res.setHeader('Set-Cookie', `bridge_consent=${consent.nonce}; HttpOnly; Secure; SameSite=Lax; Path=/api/bridge/authorize; Max-Age=600`);
-          res.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'");
+          res.setHeader('Content-Security-Policy', `default-src 'none'; style-src 'unsafe-inline'; form-action 'self' ${config.redirects.join(' ')}; frame-ancestors 'none'; base-uri 'none'`);
           res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
           res.end(`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>授权 ChatGPT 只读研究</title><style>body{max-width:560px;margin:8vh auto;padding:24px;font:16px/1.7 system-ui;background:#101923;color:#eef4fa}input,button{box-sizing:border-box;width:100%;padding:14px;margin-top:14px}p{color:#c0cdda}</style><h1>允许 ChatGPT 读取研究资料</h1><p>仅可读取你主动发送且未过期、未撤销的批次及所选文章；不能修改知识库。授权有效一小时，资料暂存最多24小时。</p><form method="post"><input type="hidden" name="ticket" value="${escape(consent.ticket)}"><label>研究桥访问密钥<input type="password" name="ownerSecret" autocomplete="off" required minlength="32"></label><button type="submit">确认授予只读访问</button></form></html>`); return;
         }
