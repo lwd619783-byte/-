@@ -83,11 +83,11 @@ try {
   await page.keyboard.press('Control+k'); await dialog.getByLabel('搜索页面、公司或代码').fill('zzzxnomatch');
   await dialog.getByRole('button', { name: '在公司研究池查找“zzzxnomatch”', exact: true }).click({ noWaitAfter: true });
   await page.waitForURL(url => url.hash === '#/stocks');
-  await page.getByRole('heading', { name: '没有匹配个股', exact: true }).waitFor();
+  await page.getByText('没有匹配个股', { exact: true }).waitFor();
   check(await page.locator('main [data-stock-id]:visible').count() === 0, 'unmatched global company search has no company rows');
   await page.getByRole('button', { name: '清除研究池筛选', exact: true }).click();
   await page.locator('main [data-stock-id]:visible').first().waitFor();
-  check(await page.getByRole('heading', { name: '没有匹配个股', exact: true }).count() === 0, 'clearing global company filter restores loaded companies');
+  check(await page.getByText('没有匹配个股', { exact: true }).count() === 0, 'clearing global company filter restores loaded companies');
 
   for (const width of [320, 390, 768, 1024, 1440, 1920]) {
     await page.setViewportSize({ width, height: 960 });

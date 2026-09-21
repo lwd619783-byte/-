@@ -40,6 +40,7 @@ function bundle(s, id = 'browser-create', previous) {
     proposals: [{ proposalId: 'proposal-1', action: previous ? 'UPDATE' : 'CREATE', wikiId: previous?.wikiId ?? null, baseRevisionId: previous?.revisionId ?? null, wikiType: 'INDUSTRY_KNOWLEDGE', document: { title: '光通信产业链', summary: id, bodyMarkdown: headings.map((h, i) => `## ${h}\n\n${id} 完整研究内容，来自合成测试资料，需要进一步核验。${i === 0 ? markdownFixture : ''}`).join('\n\n') }, changes: [{ section: '核心判断', kind: previous ? 'MODIFY' : 'ADD', summary: '整理完整文章', citations: [citation] }], citations: [citation], extractionIds: [], linkedWikiIds: [], uncertainty: ['尚未核验'], rationale: '合成浏览器验收' }] };
 }
 async function checkMarkdown(container, label) {
+  await container.getByRole('heading', { name: '核心判断', exact: true }).first().waitFor();
   check(await container.getByRole('heading', { name: '核心判断', exact: true }).count() > 0, `${label} Markdown heading`);
   check(await container.locator('strong').filter({ hasText: '中文重点' }).count() > 0 && await container.locator('em').filter({ hasText: '待验证假设' }).count() > 0, `${label} Chinese emphasis`);
   check(await container.locator('ul li').count() >= 2 && await container.locator('ol li').count() >= 2, `${label} semantic lists`);
@@ -63,7 +64,8 @@ const accept = async (edit = false) => {
 };
 try {
   await page.goto(`${origin}/#/memory`); await page.getByLabel('选择多份文件').waitFor();
-  check(await page.getByText('① 添加资料 → ② AI 整理 → ③ 审核建议 → ④ 进入知识库').isVisible(), 'empty profile first-use steps visible');
+  check(await page.getByText('还没有资料。点击“选择多份文件”，即可开始建立知识库。', { exact: true }).isVisible()
+    && await page.getByRole('navigation', { name: '研究记忆视图' }).getByRole('button').count() === 4, 'empty profile material guidance and four workflow views visible');
   check(await page.getByRole('heading', { name: '添加资料', exact: true }).isVisible(), 'add material is primary first action');
   const files = [{ name: 'two-pages.pdf', mimeType: 'application/pdf', buffer: pdf() }, ...Array.from({ length: 9 }, (_, i) => ({ name: `中文研究-${i}.${i % 2 ? 'txt' : 'md'}`, mimeType: i % 2 ? 'text/plain' : 'text/markdown', buffer: Buffer.from(`合成资料 ${i}\r\n光通信测试内容`) }))];
   await page.getByLabel('选择多份文件').setInputFiles(files);
@@ -84,7 +86,7 @@ try {
   await nav('我的知识库'); await page.getByRole('heading', { name: '时间与版本演化' }).waitFor();
   await checkMarkdown(page.getByRole('article', { name: '文章详情' }), 'Wiki detail');
   const history = page.getByRole('article', { name: '文章详情' }).locator('details').filter({ has: page.locator('summary', { hasText: '光通信产业链 · 已审核' }) }).first();
-  await history.locator('summary').click(); await checkMarkdown(history, 'Wiki history'); await history.locator('summary').click();
+  await history.locator(':scope > summary').click(); await checkMarkdown(history, 'Wiki history'); await history.locator(':scope > summary').click();
   for (const theme of ['light']) for (const width of [1536, 1280, 390, 320]) {
     await page.setViewportSize({ width, height: 960 }); check(await page.evaluate(() => document.documentElement.dataset.theme === 'light'), `${theme}/${width} single light appearance`); check(await page.getByLabel('外观', { exact: true }).count() === 0, `${theme}/${width} no appearance switch`);
     for (const name of ['原始资料', 'AI 整理', '待审核', '我的知识库']) { await nav(name); check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${theme}/${width}/${name} no horizontal overflow`); }

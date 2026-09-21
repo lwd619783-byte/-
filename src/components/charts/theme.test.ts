@@ -4,10 +4,10 @@ import { describe, expect, it } from "vitest";
 describe("UI V2 single light palette", () => {
   // V1 theme_tokens.json is historical evidence; UI V2 deliberately supersedes its runtime palette.
   const tokens: Record<string, string> = {
-    bg: "#F6F7F8", panel: "#FFFFFF", raised: "#F0F3F4", text: "#202B31", muted: "#536581",
-    weak: "#576A82", border: "#CBD5E1", control: "#6B7E94", accent: "#356D69", secondary: "#356D69",
-    up: "#BA1A35", down: "#00755B", warning: "#865700", error: "#B41D35", info: "#356D69",
-    onaccent: "#FFFFFF", selected: "#E9F1EF",
+    bg: "#f7f8f4", panel: "#ffffff", raised: "#f0f2eb", text: "#222823", muted: "#69716b",
+    weak: "#6d766b", border: "#e4e8e1", control: "#c9d3c6", accent: "#285b44", secondary: "#69716b",
+    up: "#9b3834", down: "#285b44", warning: "#855c19", error: "#9b3834", info: "#285b44",
+    onaccent: "#ffffff", selected: "#e6eee5",
   };
   const css = readFileSync("src/styles/theme-tokens.css", "utf8");
 

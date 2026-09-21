@@ -45,3 +45,5 @@
   .wiki-reading-summary { padding: 17px 16px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .knowledge-document * { scroll-behavior: auto; } }
+
+.wiki-reading-article > .flex > button { align-self: flex-start; }

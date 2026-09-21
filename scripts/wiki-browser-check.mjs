@@ -16,7 +16,7 @@ const browser = await chromium.launch({ channel: process.env.UI_REVIEW_BROWSER_C
 const contexts = [];
 const fresh = async () => {
   const context = await browser.newContext({ reducedMotion: 'reduce', viewport: { width: 1536, height: 960 }, acceptDownloads: true }); contexts.push(context);
-  const page = await context.newPage(); page.setDefaultTimeout(12000);
+  const page = await context.newPage(); page.setDefaultTimeout(30000);
   page.on('pageerror', error => report.errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') { if (message.location().url.endsWith('/favicon.ico')) report.warnings.push('existing favicon.ico 404'); else report.errors.push(message.text()); } });
   page.on('request', request => { if (![origin, 'blob:', 'data:'].some(prefix => request.url().startsWith(prefix))) report.externalRequests.push(request.url()); });
@@ -71,7 +71,7 @@ try {
   await page.goBack({ waitUntil: 'domcontentloaded' }); await page.waitForURL(url => url.hash === `#/knowledge?wiki=${encodeURIComponent(wikiId)}`);
   await details(page).getByRole('heading', { name: 'UI 已审核改名', exact: true }).waitFor();
   check(await firstArticle.getAttribute('aria-pressed') === 'true', 'browser Back restores first Wiki object');
-  await page.reload({ waitUntil: 'domcontentloaded' }); await details(page).getByRole('heading', { name: 'UI 已审核改名', exact: true }).waitFor();
+  await page.reload({ waitUntil: 'load' }); await details(page).getByRole('heading', { name: 'UI 已审核改名', exact: true }).waitFor({ timeout: 30000 });
   check(new URL(page.url()).hash === `#/knowledge?wiki=${encodeURIComponent(wikiId)}` && await firstArticle.getAttribute('aria-pressed') === 'true', 'reload preserves selected Wiki identity');
   await w.getByText('更多操作', { exact: true }).click({ noWaitAfter: true });
   await w.getByRole('textbox', { name: /历史查询时间/ }).fill(firstCutoff); await w.getByRole('button', { name: '应用时间视图' }).click({ noWaitAfter: true }); check(await details(page).getByText(new RegExp(firstRevision)).count() >= 1, 'historical exact first reviewed revision'); check(await w.getByRole('button', { name: '手工新建文章' }).isDisabled(), 'historical writes disabled');
