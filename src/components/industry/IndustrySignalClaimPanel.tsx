@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { IndustryClaimState } from '../../services/industrySignalClaimProvider';
 import type { ChartAuditView } from '../../services/chartAudit';
 import { statusDisplayLabel, unitDisplayLabel } from '../../utils/displayLabels';
 import { AdvancedAuditDetails } from '../common/AdvancedAuditDetails';
 import { EvidenceDrawer } from '../research/EvidenceDrawer';
+import type { BrowserClaimRepository } from '../../services/verifiedClaimRepository';
+import type { ClaimBinding, ClaimOwners } from '../../types/verifiedClaim';
+const ClaimVerificationModal = lazy(() => import('../research/ClaimVerificationModal').then(module => ({ default: module.ClaimVerificationModal })));
 
 export const blockerLabels: Record<string, string> = {
   DATA_NOT_ADMITTED: '数据或生产尚未准入', PIT_UNPROVED: '历史时点可得性未证明', RELEASE_TIME_UNKNOWN: '公开可得时间未知',
@@ -16,6 +19,10 @@ const dimensionLabels: Record<string, string> = { supply: '供给', demand: '需
 export function IndustrySignalClaimPanel({ industryId }: { industryId: string }) {
   const [state, setState] = useState<IndustryClaimState | null>(null);
   const [audit, setAudit] = useState<ChartAuditView | null>(null);
+  const [verification, setVerification] = useState<{ binding: ClaimBinding; owners: ClaimOwners; repository: BrowserClaimRepository; signalId: string } | null>(null);
+  const [verificationError, setVerificationError] = useState<string | null>(null);
+  const verificationRequest = useRef(0);
+  useEffect(() => { setVerification(null); setVerificationError(null); return () => { verificationRequest.current++; }; }, [industryId]);
   useEffect(() => { let active = true; setState(null); setAudit(null); void import('../../services/industrySignalClaimProvider').then(m => m.loadIndustrySignalClaims()).then(value => { if (active) setState(value); }).catch(() => { if (active) setState({ status: 'blocked', reason: 'SIGNAL_CLAIM_UNAVAILABLE' }); }); return () => { active = false; }; }, [industryId]);
   const signals = state?.status === 'available' ? state.result.derived.signals.filter(s => s.industryId === industryId) : [];
   const gate = state?.status === 'available' ? state.result.gates.find(g => g.industryId === industryId) : null;
@@ -23,6 +30,20 @@ export function IndustrySignalClaimPanel({ industryId }: { industryId: string })
     if (state?.status !== 'available') return;
     const { industryClaimAudit } = await import('../../services/industrySignalClaimProvider');
     setAudit(industryClaimAudit(state.result, state.provider, id));
+  }
+  async function openVerification(candidateId: string, signalId: string) {
+    if (state?.status !== 'available') return;
+    const request = ++verificationRequest.current;
+    try {
+      const [{ createIndustryClaimOwners }, { BrowserClaimRepository }] = await Promise.all([
+        import('../../services/industryVerifiedClaimAdapter'), import('../../services/verifiedClaimRepository'),
+      ]);
+      const owners = await createIndustryClaimOwners(state.result);
+      if (request !== verificationRequest.current) return;
+      const binding = owners.bindings.find(b => b.candidateRef.objectId === candidateId);
+      if (!binding) throw new Error('CLAIM_CANDIDATE_UNAVAILABLE');
+      setVerification({ owners, binding, signalId, repository: new BrowserClaimRepository(window.localStorage, owners) }); setVerificationError(null);
+    } catch (error) { if (request === verificationRequest.current) setVerificationError(String(error)); }
   }
   return <section aria-label="派生信号与景气判断资格" className="min-w-0 space-y-4 rounded-lg border border-borderSoft bg-panel p-4">
     <div><h2 className="text-lg font-semibold text-textStrong">派生信号与事实性候选结论</h2>
@@ -40,6 +61,7 @@ export function IndustrySignalClaimPanel({ industryId }: { industryId: string })
           <p className="text-sm leading-6 text-textStrong">{claim?.text ?? '输入缺失或存在冲突，未生成候选结论。'}</p>
           {claim ? <p className="text-xs text-textMuted">事实性候选 · 固定模板生成 · 未核实</p> : null}
           <button type="button" className="inbox-action" onClick={() => void openEvidence(signal.id)}>查看完整证据链</button>
+          {claim && <button type="button" className="inbox-action ml-2" onClick={() => void openVerification(claim.id, signal.id)}>验证主张与历史</button>}
         </article>;
       })}</div>
       {industryId === 'robotics' ? <p className="text-xs text-textMuted">官方同比与累计值未登记派生公式，继续在原指标面板核对。</p> : null}
@@ -51,6 +73,8 @@ export function IndustrySignalClaimPanel({ industryId }: { industryId: string })
       </section>
       <AdvancedAuditDetails><pre className="whitespace-pre-wrap break-all">{JSON.stringify({ gate, signals }, null, 2)}</pre></AdvancedAuditDetails>
     </>}
+    {verificationError && <><p role="alert" className="text-sm text-warning">原始候选核对失败，未打开主张验证。</p><AdvancedAuditDetails>{verificationError}</AdvancedAuditDetails></>}
+    {verification && <Suspense fallback={<p className="text-sm text-textMuted">正在读取主张历史…</p>}><ClaimVerificationModal {...verification} onClose={() => setVerification(null)} onEvidence={() => void openEvidence(verification.signalId)} /></Suspense>}
     {audit ? <EvidenceDrawer audit={audit} onClose={() => setAudit(null)} /> : null}
   </section>;
 }

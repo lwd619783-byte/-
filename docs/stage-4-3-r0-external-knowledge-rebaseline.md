@@ -1,5 +1,10 @@
 # Stage 4.3-R0 — External Knowledge Rebaseline
 
+> R0 已实时核验：PR [#74](https://github.com/lwd619783-byte/-/pull/74)，head `44ccdd01a6d65914f2a2a8f26384fd468a71ad3b`，2026-09-22T11:50:16Z 合入 `de2107571ae5ee2189b82f7ab05b6521a4457b75`；main CI [35723692280](https://github.com/lwd619783-byte/-/actions/runs/35723692280) completed/success。登记 R0 **IMPLEMENTED / MERGED / MAIN CI PASS**；不推导 Production、data admission 或旧私人验收状态。下方较早 CURRENT 记录仅代表原时点。
+
+> 当前接续为 [R1 Verified Claim V1](stage-4-3-r1-verified-claim-v1.md)。以下 R0 原开工/交付/停止点为历史记录，冻结架构继续有效；本增量不回写原审计结论。
+
+
 > 2026-09-22 · R0 架构与执行范围冻结；实现交付待独立审计。开工已 fetch，基线 `origin/main @ 9769c46789a6efc98999fe7fabeda750710cbbb5`。本轮仅功能分支普通 commit + push，不创建 PR、不 merge、不修改 main、不部署 Production。
 
 ## 1. 决定与 supersede 范围

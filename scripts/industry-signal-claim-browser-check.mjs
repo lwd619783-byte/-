@@ -3,11 +3,12 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4173';
 const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-2-slice-6/browser');
 await fs.mkdir(output, { recursive: true });
-const report = { base: 'dc8f5ec36d9626e92acc3fc91088c1b8c42ce753', generatedAt: new Date().toISOString(), sourceHashEncoding: 'UTF-8, CRLF normalized to LF (Git text blobs); retained raw captures use exact bytes in manifests', sourceSha256: {}, checks: [], errors: [], warnings: [], screenshots: [] };
+const report = { base: execFileSync('git', ['merge-base', 'HEAD', 'origin/main'], { encoding: 'utf8' }).trim(), generatedAt: new Date().toISOString(), sourceHashEncoding: 'UTF-8, CRLF normalized to LF (Git text blobs); retained raw captures use exact bytes in manifests', sourceSha256: {}, checks: [], errors: [], warnings: [], screenshots: [] };
 const registry = JSON.parse(await fs.readFile('config/industry/industry-metric-registry.v1.json', 'utf8'));
 for (const file of ['src/services/industrySignalClaim.mjs', 'src/services/evidenceGraph.mjs', 'src/services/evidenceGraphSchema.mjs', 'src/services/evidenceGraphValidator.generated.mjs', 'src/services/industrySignalClaimProvider.ts', 'src/services/industryHistory.mjs', 'src/components/industry/IndustrySignalClaimPanel.tsx', 'config/industry/industry-signal-policy.v1.json', 'src/services/industryDimensions.mjs', 'src/services/industrySnapshot.ts', 'src/components/industry/IndustrySnapshotPanel.tsx', 'src/components/industry/IndustryTab.tsx', 'src/utils/displayLabels.ts', 'config/industry/industry-dimension-mapping.v1.json', 'config/industry/industry-metric-registry.v1.json', ...registry.entries.map(e => e.artifactRef.owner)]) report.sourceSha256[file] = createHash('sha256').update((await fs.readFile(file, 'utf8')).replace(/\r\n/g, '\n')).digest('hex');
 const owners = new Map(await Promise.all(registry.entries.map(async e => [e.metricId, JSON.parse(await fs.readFile(e.artifactRef.owner, 'utf8'))])));
@@ -30,13 +31,13 @@ try {
   page.on('request', r => { if (!r.url().startsWith(origin) && !r.url().startsWith('data:')) external.push(r.url()); });
   page.on('download', () => downloads++);
   const fits = async name => check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `fits ${name}`);
-  for (const theme of ['neon', 'pro', 'light']) for (const width of [320, 390, 1536]) {
+  for (const theme of ['light']) for (const width of [320, 390, 1536]) {
     await page.setViewportSize({ width, height: 960 });
     for (const industry of ['oil-shipping', 'robotics']) {
       const name = `${industry}-${theme}-${width}`;
       await page.goto(`${origin}/#/industry?industry=${industry}`); await page.waitForLoadState('networkidle');
-      await page.getByRole('tab', { name: '研究概览', exact: true }).click();
-      await page.getByLabel('外观', { exact: true }).selectOption(theme);
+      await page.getByRole('tab', { name: '指标与变化', exact: true }).click();
+      check(await page.locator('html').getAttribute('data-theme') === 'light', 'current single-light appearance');
       const snapshot = page.getByRole('region', { name: '多因子基本面快照', exact: true });
       await snapshot.locator('article').first().waitFor();
       const text = await snapshot.innerText();
@@ -55,7 +56,7 @@ try {
         check(!text.includes('美国'), `no oil fallback ${name}`);
       }
       await fits(name);
-      if (['neon-1536', 'light-390', 'pro-320'].includes(`${theme}-${width}`)) {
+      if (['light-1536', 'light-390', 'light-320'].includes(`${theme}-${width}`)) {
         // Normal viewport capture on mobile keeps fixed navigation in its real position.
         // Click the heading to clear the previous keyboard focus before visual capture.
         await snapshot.locator('h2').click();
@@ -92,7 +93,7 @@ try {
       check(!/bullish|bearish|景气上行|景气下行|评分[:：]\s*\d/.test(candidateText), `no formal conclusion ${name}`);
       if (industry === 'oil-shipping') for (const value of ['-640', '1,414', '-3', '-256']) check(candidateText.includes(value), `derived value ${value} ${name}`);
       else check(candidateText.includes('-2,503') && candidateText.includes('官方同比与累计值未登记派生公式'), `robotics boundary ${name}`);
-      if (['neon-1536', 'light-390', 'pro-320'].includes(`${theme}-${width}`)) {
+      if (['light-1536', 'light-390', 'light-320'].includes(`${theme}-${width}`)) {
         await signalPanel.locator('h2').click();
         if (width < 600) {
           await signalPanel.evaluate(e => window.scrollTo({ top: window.scrollY + e.getBoundingClientRect().top - 130 }));
@@ -135,7 +136,7 @@ try {
       check(await page.evaluate(() => window.__writes.length) === writes, `read only ${name}`);
     }
     await page.goto(`${origin}/#/industry?industry=innovative-drug`); await page.waitForLoadState('networkidle');
-    await page.getByRole('tab', { name: '研究概览', exact: true }).click();
+    await page.getByRole('tab', { name: '指标与变化', exact: true }).click();
     const empty = page.getByRole('region', { name: '多因子基本面快照' });
     await empty.getByText('当前行业尚无已映射的正式基本面指标。').waitFor();
     check(await empty.locator('article').count() === 0 && !(await empty.innerText()).includes('美国'), `empty industry ${theme}-${width}`);

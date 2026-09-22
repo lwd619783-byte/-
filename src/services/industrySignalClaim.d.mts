@@ -30,3 +30,5 @@ export interface IndustrySignalClaims {
   graphs: IndustryGraphResult[]; gates: ProsperityEligibility[]; resolvePin: (pin: IndustryMetricPin) => unknown;
 }
 export function buildIndustrySignalClaims(input: { provider: IndustryMetricProvider; dimensions: IndustryDimensions; resources: { path: string; raw: string }[] }): Promise<IndustrySignalClaims>;
+export function digest(raw: string): Promise<string>;
+export function assessIndustryGraph(graph: EvidenceGraph, request: { asOf: string; targetNodeId: string }, resolvePin: (pin: IndustryMetricPin) => unknown): import('../types/verifiedClaim').ClaimAssessment;
