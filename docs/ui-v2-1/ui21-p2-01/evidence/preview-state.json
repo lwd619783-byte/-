@@ -1,0 +1,565 @@
+{
+  "runtimeSha": "eefa8b5e13d52a349eb74998140b831cd3009794",
+  "deploymentId": "dpl_7CRL899ztwgEzS6gB431sqPiu2vB",
+  "origin": "https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app",
+  "testedAt": "2026-09-22T04:56:11.079Z",
+  "inputType": "isolated full production App with synthetic form entries and storage faults",
+  "scriptSha256": "a7309d71de2fb93727f81f88fccbc17dff142e3170350f2e5a13043402e87ab4",
+  "checks": [
+    {
+      "ok": true,
+      "name": "P2 healthy settled empty is a normal empty state"
+    },
+    {
+      "ok": true,
+      "name": "P2 healthy-empty 1440 no whole-page horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "P2 healthy-empty 390 no whole-page horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "P2 invalid range writes no bytes"
+    },
+    {
+      "ok": true,
+      "name": "P2 ordinary rejection does not lock company owner"
+    },
+    {
+      "ok": true,
+      "name": "P2 legitimate numeric zero remains visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 write-only rejection preserves confirmed readable company snapshot"
+    },
+    {
+      "ok": true,
+      "name": "P2 subsequent legal write succeeds without reload"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt original synthetic local record visible before fault"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after close local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after close unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after close local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 local failure has accessible concrete reason entry"
+    },
+    {
+      "ok": true,
+      "name": "P2 keyboard opens concrete local read error"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt financial chapter remains accessible"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after chapter navigation local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after chapter navigation unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after chapter navigation local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after return local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after return unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after return local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after reload local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after reload unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt after reload local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt exact source bytes preserved"
+    },
+    {
+      "ok": true,
+      "name": "P2 corrupt independent verification/watch not locked"
+    },
+    {
+      "ok": true,
+      "name": "P2 local-locked 1440 no whole-page horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "P2 local-locked 390 no whole-page horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "P2 future original synthetic local record visible before fault"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after close local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after close unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after close local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 future financial chapter remains accessible"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after chapter navigation local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after chapter navigation unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after chapter navigation local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after return local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after return unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after return local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after reload local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after reload unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 future after reload local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 future exact source bytes preserved"
+    },
+    {
+      "ok": true,
+      "name": "P2 future independent verification/watch not locked"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure original synthetic local record visible before fault"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after close local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after close unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after close local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure financial chapter remains accessible"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after chapter navigation local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after chapter navigation unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after chapter navigation local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after return local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after return unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after return local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after reload local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after reload unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure after reload local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure exact source bytes preserved"
+    },
+    {
+      "ok": true,
+      "name": "P2 read-failure independent verification/watch not locked"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base original synthetic local record visible before fault"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after close local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after close unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after close local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base financial chapter remains accessible"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after chapter navigation local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after chapter navigation unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after chapter navigation local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after return local missing scope visible"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after return unknown local count is not normal empty"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base after return local write control disabled"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base exact source bytes preserved"
+    },
+    {
+      "ok": true,
+      "name": "P2 changed-base independent verification/watch not locked"
+    },
+    {
+      "ok": true,
+      "name": "P2 official stable IDs visible through real loader"
+    },
+    {
+      "ok": true,
+      "name": "P2 healthy provider article IDs/count/source/comparisons remain byte-identical"
+    },
+    {
+      "ok": true,
+      "name": "P2 provider readable but local missing scope explicit"
+    },
+    {
+      "ok": true,
+      "name": "P2 retained provider does not enable locked local writes"
+    },
+    {
+      "ok": true,
+      "name": "P2 official provider remains read-only"
+    },
+    {
+      "ok": true,
+      "name": "P2 provider read never rewrites local bytes"
+    },
+    {
+      "ok": true,
+      "name": "P2 provider-retained 1440 no whole-page horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "P2 provider-retained 390 no whole-page horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "production source bytes unchanged throughout browser run"
+    }
+  ],
+  "errors": [],
+  "console": [],
+  "httpErrors": [],
+  "screenshots": [
+    {
+      "file": "P2-company-healthy-empty-1440.png",
+      "kind": "PROTECTED_PREVIEW",
+      "origin": "https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app",
+      "runtimeSha": "eefa8b5e13d52a349eb74998140b831cd3009794",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "#/company/beigene/expectations?from=research",
+      "state": "healthy-empty",
+      "capturedAt": "2026-09-22T04:56:20.056Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "496f0679911e0d9015c95851da5b99f91150ec668347877910984f92934f31a6"
+    },
+    {
+      "file": "P2-company-healthy-empty-390.png",
+      "kind": "PROTECTED_PREVIEW",
+      "origin": "https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app",
+      "runtimeSha": "eefa8b5e13d52a349eb74998140b831cd3009794",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "#/company/beigene/expectations?from=research",
+      "state": "healthy-empty",
+      "capturedAt": "2026-09-22T04:56:20.189Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "7d71759cad3cba05d7605b022596be53c814541c1b30d7e7ec4f83571cd853d5"
+    },
+    {
+      "file": "P2-company-local-locked-1440.png",
+      "kind": "PROTECTED_PREVIEW",
+      "origin": "https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app",
+      "runtimeSha": "eefa8b5e13d52a349eb74998140b831cd3009794",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "#/company/beigene/expectations?from=research",
+      "state": "local-locked",
+      "capturedAt": "2026-09-22T04:56:34.135Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "2ba8d3d66530cbf3d46cb3f1f9cf3ee1563b3a49f1e1bd9d7d387bd7551669cf"
+    },
+    {
+      "file": "P2-company-local-locked-390.png",
+      "kind": "PROTECTED_PREVIEW",
+      "origin": "https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app",
+      "runtimeSha": "eefa8b5e13d52a349eb74998140b831cd3009794",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "#/company/beigene/expectations?from=research",
+      "state": "local-locked",
+      "capturedAt": "2026-09-22T04:56:34.260Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "4ca8e94426cd4ef12b1c5cda3e7ed5c867842bdc7cd032fb88c7bbf22a9596fc"
+    },
+    {
+      "file": "P2-company-provider-retained-1440.png",
+      "kind": "PROTECTED_PREVIEW",
+      "origin": "https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app",
+      "runtimeSha": "eefa8b5e13d52a349eb74998140b831cd3009794",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "#/company/fii/expectations?from=research",
+      "state": "provider-retained",
+      "capturedAt": "2026-09-22T04:57:18.846Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "c3869e762817458234d8c11e88ab4e6b16bafd24c9e919882f4e30979fead255"
+    },
+    {
+      "file": "P2-company-provider-retained-390.png",
+      "kind": "PROTECTED_PREVIEW",
+      "origin": "https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app",
+      "runtimeSha": "eefa8b5e13d52a349eb74998140b831cd3009794",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "#/company/fii/expectations?from=research",
+      "state": "provider-retained",
+      "capturedAt": "2026-09-22T04:57:19.279Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "97a26294e1eae5d06bdd3e11af4b44e757a9a7c178c87ca1dd89a6f27894dcbe"
+    }
+  ],
+  "states": [
+    {
+      "scenario": "P2 corrupt",
+      "text": "业绩预期\n\n研究资料\n\n本地预期暂不可读，范围不完整。本地记录未纳入当前展示；新增和纠正暂不可用，已读取的官方指引仍可查看。\n\n查看本地预期不可读原因\n\n当前没有可展示的已读取记录；本地记录数量未知。\n\n添加业绩预期",
+      "articles": [],
+      "route": "#/company/beigene/expectations?from=research"
+    },
+    {
+      "scenario": "P2 future",
+      "text": "业绩预期\n\n研究资料\n\n本地预期暂不可读，范围不完整。本地记录未纳入当前展示；新增和纠正暂不可用，已读取的官方指引仍可查看。\n\n查看本地预期不可读原因\n\n当前没有可展示的已读取记录；本地记录数量未知。\n\n添加业绩预期",
+      "articles": [],
+      "route": "#/company/beigene/expectations?from=research"
+    },
+    {
+      "scenario": "P2 read-failure",
+      "text": "业绩预期\n\n研究资料\n\n本地预期暂不可读，范围不完整。本地记录未纳入当前展示；新增和纠正暂不可用，已读取的官方指引仍可查看。\n\n查看本地预期不可读原因\n\n当前没有可展示的已读取记录；本地记录数量未知。\n\n添加业绩预期",
+      "articles": [],
+      "route": "#/company/beigene/expectations?from=research"
+    },
+    {
+      "scenario": "P2 changed-base",
+      "text": "业绩预期\n\n研究资料\n\n本地预期暂不可读，范围不完整。本地记录未纳入当前展示；新增和纠正暂不可用，已读取的官方指引仍可查看。\n\n查看本地预期不可读原因\n\n当前没有可展示的已读取记录；本地记录数量未知。\n\n添加业绩预期",
+      "articles": [],
+      "route": "#/company/beigene/expectations?from=research"
+    },
+    {
+      "scenario": "P2 provider retained",
+      "providerIds": [
+        "company-guidance-version-03fdb5ff5b73629c84d6fea4800f2708accb5025a5066e864a5b1fd30b85d540",
+        "company-guidance-version-3c19cc781bd28ee9fd3a51ea3da373964723fd66075bf20888fd7b2b6fcb0b2a",
+        "company-guidance-version-8dde0e5787269caff3455759edcb918cd276ef7c3abccd6ed2f2e3bc7acd3acc",
+        "company-guidance-version-9d5fb3df9a5b174e580a7cd097fc3fdb4391bd0b4f197c5913759b915161604d",
+        "company-guidance-version-c940064054ce9df7f97d3c4a014c9ef5964f069a04967914bb23d6b45f1864f5",
+        "company-guidance-version-ec88c89319bc2e5d1b5f08af1d00a18776a3ac5a7481a56194865e84d5379965"
+      ],
+      "text": "业绩预期\n\n研究资料\n\n本地预期暂不可读，范围不完整。本地记录未纳入当前展示；新增和纠正暂不可用，已读取的官方指引仍可查看。\n\n查看本地预期不可读原因\n\n当前有效预期\n\n公司指引、单家机构、机构一致预期和用户预测分别展示，不合并成单一标签。\n\n添加新快照\n公司官方指引\n已核验\n数据提供方只读\n事后参考 / 待匹配\n\n扣非净利润 · 2026-06-30 · 半年度\n\n22700000000 至 23700000000 元\n\n巨潮官方公告\n官方 PDF\n公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1225417297 · 内容版本 company-guidance-version-03fdb5ff5b73629c84d6fea4800f2708accb5025a5066e864a5b1fd30b85d540\n\n来源名称\n\n工业富联\n\n原记录业务时间 / 可用时间\n\n2026-07-10 (日期)\n\n纠正后有效业务时间 / 可用时间\n\n2026-07-10 (日期)\n\n当前有效来源时间\n\n2026-07-10 (日期 · 日期)\n\n分析师 / 机构数量\n\n- / -\n\n会计口径\n\nPRC_GAAP\n\n规范化时间与证据状态\n\n预测形成时间\n\n2026-07-10 · date · date_only\n\n来源发布时间\n\n2026-07-10 · date · date_only\n\n投研可用时间\n\n2026-07-10 · date · source\n\n可用时间范围\n\n2026-07-10 日内起点 → 2026-07-10 日内终点 · overlapping_date_precision\n\n可证明业务日期\n\n2026-07-10\n\n业务日期\n\n2026-07-10\n\n记录解释时区\n\n日期精度 / 未记录\n\n当前界面显示时区\n\nAsia/Shanghai\n\n业务前序\n\n无前序（首个业务节点）\n\n模糊前序候选\n\n无\n\n决定性披露事件\n\n已确认披露 · announcement:fii:1225417297 · 2026-07-10T00:00:00+08:00\n\n审计录入时间\n\n2026-07-11 07:31:40Z · 有效\n\n结构化核验代码\n\ndisclosure_scope_uncertain\n\n不可比较\n\n实际披露后形成或来源无法核验，仅作事后参考\n\n相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）\n\n公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。\n\n本地已可靠解析实际值：229.84 亿元 · 绝对差异：暂未获取\n\n比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间\n\n计算方法：实际披露后形成或来源无法核验，仅作事后参考\n\n公司官方指引\n已核验\n数据提供方只读\n事后参考 / 待匹配\n\n归母净利润 · 2026-06-30 · 半年度\n\n23400000000 至 24400000000 元\n\n巨潮官方公告\n官方 PDF\n公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1225417297 · 内容版本 company-guidance-version-3c19cc781bd28ee9fd3a51ea3da373964723fd66075bf20888fd7b2b6fcb0b2a\n\n来源名称\n\n工业富联\n\n原记录业务时间 / 可用时间\n\n2026-07-10 (日期)\n\n纠正后有效业务时间 / 可用时间\n\n2026-07-10 (日期)\n\n当前有效来源时间\n\n2026-07-10 (日期 · 日期)\n\n分析师 / 机构数量\n\n- / -\n\n会计口径\n\nPRC_GAAP\n\n规范化时间与证据状态\n\n预测形成时间\n\n2026-07-10 · date · date_only\n\n来源发布时间\n\n2026-07-10 · date · date_only\n\n投研可用时间\n\n2026-07-10 · date · source\n\n可用时间范围\n\n2026-07-10 日内起点 → 2026-07-10 日内终点 · overlapping_date_precision\n\n可证明业务日期\n\n2026-07-10\n\n业务日期\n\n2026-07-10\n\n记录解释时区\n\n日期精度 / 未记录\n\n当前界面显示时区\n\nAsia/Shanghai\n\n业务前序\n\n无前序（首个业务节点）\n\n模糊前序候选\n\n无\n\n决定性披露事件\n\n已确认披露 · announcement:fii:1225417297 · 2026-07-10T00:00:00+08:00\n\n审计录入时间\n\n2026-07-11 07:31:40Z · 有效\n\n结构化核验代码\n\ndisclosure_scope_uncertain\n\n不可比较\n\n实际披露后形成或来源无法核验，仅作事后参考\n\n相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）\n\n公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。\n\n本地已可靠解析实际值：237.40 亿元 · 绝对差异：暂未获取\n\n比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间\n\n计算方法：实际披露后形成或来源无法核验，仅作事后参考\n\n公司官方指引\n已核验\n数据提供方只读\n事后参考 / 待匹配\n\n扣非净利润 · 2025-12-31 · 全年度\n\n12400000000 至 13000000000 元\n\n巨潮官方公告\n官方 PDF\n公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1224953921 · 内容版本 company-guidance-version-9d5fb3df9a5b174e580a7cd097fc3fdb4391bd0b4f197c5913759b915161604d\n\n来源名称\n\n工业富联\n\n原记录业务时间 / 可用时间\n\n2026-01-29 (日期)\n\n纠正后有效业务时间 / 可用时间\n\n2026-01-29 (日期)\n\n当前有效来源时间\n\n2026-01-29 (日期 · 日期)\n\n分析师 / 机构数量\n\n- / -\n\n会计口径\n\nPRC_GAAP\n\n规范化时间与证据状态\n\n预测形成时间\n\n2026-01-29 · date · date_only\n\n来源发布时间\n\n2026-01-29 · date · date_only\n\n投研可用时间\n\n2026-01-29 · date · source\n\n可用时间范围\n\n2026-01-29 日内起点 → 2026-01-29 日内终点 · overlapping_date_precision\n\n可证明业务日期\n\n2026-01-29\n\n业务日期\n\n2026-01-29\n\n记录解释时区\n\n日期精度 / 未记录\n\n当前界面显示时区\n\nAsia/Shanghai\n\n业务前序\n\n无前序（首个业务节点）\n\n模糊前序候选\n\n无\n\n决定性披露事件\n\n已确认披露 · announcement:fii:1224953921 · 2026-01-29T00:00:00+08:00\n\n审计录入时间\n\n2026-07-11 07:31:40Z · 有效\n\n结构化核验代码\n\ndisclosure_scope_uncertain\n\n不可比较\n\n实际披露后形成或来源无法核验，仅作事后参考\n\n相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）\n\n公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。\n\n本地已可靠解析实际值：341.88 亿元 · 绝对差异：暂未获取\n\n比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间\n\n计算方法：实际披露后形成或来源无法核验，仅作事后参考\n\n公司官方指引\n已核验\n数据提供方只读\n事后参考 / 待匹配\n\n归母净利润 · 2025-12-31 · 全年度\n\n12600000000 至 13200000000 元\n\n巨潮官方公告\n官方 PDF\n公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1224953921 · 内容版本 company-guidance-version-c940064054ce9df7f97d3c4a014c9ef5964f069a04967914bb23d6b45f1864f5\n\n来源名称\n\n工业富联\n\n原记录业务时间 / 可用时间\n\n2026-01-29 (日期)\n\n纠正后有效业务时间 / 可用时间\n\n2026-01-29 (日期)\n\n当前有效来源时间\n\n2026-01-29 (日期 · 日期)\n\n分析师 / 机构数量\n\n- / -\n\n会计口径\n\nPRC_GAAP\n\n规范化时间与证据状态\n\n预测形成时间\n\n2026-01-29 · date · date_only\n\n来源发布时间\n\n2026-01-29 · date · date_only\n\n投研可用时间\n\n2026-01-29 · date · source\n\n可用时间范围\n\n2026-01-29 日内起点 → 2026-01-29 日内终点 · overlapping_date_precision\n\n可证明业务日期\n\n2026-01-29\n\n业务日期\n\n2026-01-29\n\n记录解释时区\n\n日期精度 / 未记录\n\n当前界面显示时区\n\nAsia/Shanghai\n\n业务前序\n\n无前序（首个业务节点）\n\n模糊前序候选\n\n无\n\n决定性披露事件\n\n已确认披露 · announcement:fii:1224953921 · 2026-01-29T00:00:00+08:00\n\n审计录入时间\n\n2026-07-11 07:31:40Z · 有效\n\n结构化核验代码\n\ndisclosure_scope_uncertain\n\n不可比较\n\n实际披露后形成或来源无法核验，仅作事后参考\n\n相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）\n\n公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。\n\n本地已可靠解析实际值：352.86 亿元 · 绝对差异：暂未获取\n\n比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间\n\n计算方法：实际披露后形成或来源无法核验，仅作事后参考\n\n公司官方指引\n已核验\n数据提供方只读\n事后参考 / 待匹配\n\n扣非净利润 · 2025-06-30 · 半年度\n\n11597239000 至 11797239000 元\n\n巨潮官方公告\n官方 PDF\n公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1224089988 · 内容版本 company-guidance-version-ec88c89319bc2e5d1b5f08af1d00a18776a3ac5a7481a56194865e84d5379965\n\n来源名称\n\n工业富联\n\n原记录业务时间 / 可用时间\n\n2025-07-08 (日期)\n\n纠正后有效业务时间 / 可用时间\n\n2025-07-08 (日期)\n\n当前有效来源时间\n\n2025-07-08 (日期 · 日期)\n\n分析师 / 机构数量\n\n- / -\n\n会计口径\n\nPRC_GAAP\n\n规范化时间与证据状态\n\n预测形成时间\n\n2025-07-08 · date · date_only\n\n来源发布时间\n\n2025-07-08 · date · date_only\n\n投研可用时间\n\n2025-07-08 · date · source\n\n可用时间范围\n\n2025-07-08 日内起点 → 2025-07-08 日内终点 · overlapping_date_precision\n\n可证明业务日期\n\n2025-07-08\n\n业务日期\n\n2025-07-08\n\n记录解释时区\n\n日期精度 / 未记录\n\n当前界面显示时区\n\nAsia/Shanghai\n\n业务前序\n\n无前序（首个业务节点）\n\n模糊前序候选\n\n无\n\n决定性披露事件\n\n已确认披露 · announcement:fii:1224089988 · 2025-07-08T00:00:00+08:00\n\n审计录入时间\n\n2026-07-11 07:31:40Z · 有效\n\n结构化核验代码\n\ndisclosure_scope_uncertain\n\n不可比较\n\n实际披露后形成或来源无法核验，仅作事后参考\n\n相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）\n\n公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。\n\n本地已可靠解析实际值：116.68 亿元 · 绝对差异：暂未获取\n\n比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间\n\n计算方法：实际披露后形成或来源无法核验，仅作事后参考\n\n公司官方指引\n已核验\n数据提供方只读\n事后参考 / 待匹配\n\n归母净利润 · 2025-06-30 · 半年度\n\n11958195000 至 12158195000 元\n\n巨潮官方公告\n官方 PDF\n公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1224089988 · 内容版本 company-guidance-version-8dde0e5787269caff3455759edcb918cd276ef7c3abccd6ed2f2e3bc7acd3acc\n\n来源名称\n\n工业富联\n\n原记录业务时间 / 可用时间\n\n2025-07-08 (日期)\n\n纠正后有效业务时间 / 可用时间\n\n2025-07-08 (日期)\n\n当前有效来源时间\n\n2025-07-08 (日期 · 日期)\n\n分析师 / 机构数量\n\n- / -\n\n会计口径\n\nPRC_GAAP\n\n规范化时间与证据状态\n\n预测形成时间\n\n2025-07-08 · date · date_only\n\n来源发布时间\n\n2025-07-08 · date · date_only\n\n投研可用时间\n\n2025-07-08 · date · source\n\n可用时间范围\n\n2025-07-08 日内起点 → 2025-07-08 日内终点 · overlapping_date_precision\n\n可证明业务日期\n\n2025-07-08\n\n业务日期\n\n2025-07-08\n\n记录解释时区\n\n日期精度 / 未记录\n\n当前界面显示时区\n\nAsia/Shanghai\n\n业务前序\n\n无前序（首个业务节点）\n\n模糊前序候选\n\n无\n\n决定性披露事件\n\n已确认披露 · announcement:fii:1224089988 · 2025-07-08T00:00:00+08:00\n\n审计录入时间\n\n2026-07-11 07:31:40Z · 有效\n\n结构化核验代码\n\ndisclosure_scope_uncertain\n\n不可比较\n\n实际披露后形成或来源无法核验，仅作事后参考\n\n相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）\n\n公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。\n\n本地已可靠解析实际值：121.13 亿元 · 绝对差异：暂未获取\n\n比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间\n\n计算方法：实际披露后形成或来源无法核验，仅作事后参考\n\n经营现金流与利润仅在同报告期、同期间口径下分别比较；单季度与累计值不会混用。实际值缺失、部分解析、币种或会计口径不兼容时保留具体原因，不转换为 0。",
+      "articles": [
+        "公司官方指引已核验数据提供方只读事后参考 / 待匹配扣非净利润 · 2026-06-30 · 半年度22700000000 至 23700000000 元巨潮官方公告官方 PDF公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1225417297 · 内容版本 company-guidance-version-03fdb5ff5b73629c84d6fea4800f2708accb5025a5066e864a5b1fd30b85d540来源名称工业富联原记录业务时间 / 可用时间2026-07-10 (日期)纠正后有效业务时间 / 可用时间2026-07-10 (日期)当前有效来源时间2026-07-10 (日期 · 日期)分析师 / 机构数量- / -会计口径PRC_GAAP规范化时间与证据状态预测形成时间2026-07-10 · date · date_only来源发布时间2026-07-10 · date · date_only投研可用时间2026-07-10 · date · source可用时间范围2026-07-10 日内起点 → 2026-07-10 日内终点 · overlapping_date_precision可证明业务日期2026-07-10业务日期2026-07-10记录解释时区日期精度 / 未记录当前界面显示时区Asia/Shanghai业务前序无前序（首个业务节点）模糊前序候选无决定性披露事件已确认披露 · announcement:fii:1225417297 · 2026-07-10T00:00:00+08:00审计录入时间2026-07-11 07:31:40Z · 有效结构化核验代码disclosure_scope_uncertain不可比较实际披露后形成或来源无法核验，仅作事后参考相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。本地已可靠解析实际值：229.84 亿元 · 绝对差异：暂未获取比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间计算方法：实际披露后形成或来源无法核验，仅作事后参考",
+        "公司官方指引已核验数据提供方只读事后参考 / 待匹配归母净利润 · 2026-06-30 · 半年度23400000000 至 24400000000 元巨潮官方公告官方 PDF公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1225417297 · 内容版本 company-guidance-version-3c19cc781bd28ee9fd3a51ea3da373964723fd66075bf20888fd7b2b6fcb0b2a来源名称工业富联原记录业务时间 / 可用时间2026-07-10 (日期)纠正后有效业务时间 / 可用时间2026-07-10 (日期)当前有效来源时间2026-07-10 (日期 · 日期)分析师 / 机构数量- / -会计口径PRC_GAAP规范化时间与证据状态预测形成时间2026-07-10 · date · date_only来源发布时间2026-07-10 · date · date_only投研可用时间2026-07-10 · date · source可用时间范围2026-07-10 日内起点 → 2026-07-10 日内终点 · overlapping_date_precision可证明业务日期2026-07-10业务日期2026-07-10记录解释时区日期精度 / 未记录当前界面显示时区Asia/Shanghai业务前序无前序（首个业务节点）模糊前序候选无决定性披露事件已确认披露 · announcement:fii:1225417297 · 2026-07-10T00:00:00+08:00审计录入时间2026-07-11 07:31:40Z · 有效结构化核验代码disclosure_scope_uncertain不可比较实际披露后形成或来源无法核验，仅作事后参考相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。本地已可靠解析实际值：237.40 亿元 · 绝对差异：暂未获取比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间计算方法：实际披露后形成或来源无法核验，仅作事后参考",
+        "公司官方指引已核验数据提供方只读事后参考 / 待匹配扣非净利润 · 2025-12-31 · 全年度12400000000 至 13000000000 元巨潮官方公告官方 PDF公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1224953921 · 内容版本 company-guidance-version-9d5fb3df9a5b174e580a7cd097fc3fdb4391bd0b4f197c5913759b915161604d来源名称工业富联原记录业务时间 / 可用时间2026-01-29 (日期)纠正后有效业务时间 / 可用时间2026-01-29 (日期)当前有效来源时间2026-01-29 (日期 · 日期)分析师 / 机构数量- / -会计口径PRC_GAAP规范化时间与证据状态预测形成时间2026-01-29 · date · date_only来源发布时间2026-01-29 · date · date_only投研可用时间2026-01-29 · date · source可用时间范围2026-01-29 日内起点 → 2026-01-29 日内终点 · overlapping_date_precision可证明业务日期2026-01-29业务日期2026-01-29记录解释时区日期精度 / 未记录当前界面显示时区Asia/Shanghai业务前序无前序（首个业务节点）模糊前序候选无决定性披露事件已确认披露 · announcement:fii:1224953921 · 2026-01-29T00:00:00+08:00审计录入时间2026-07-11 07:31:40Z · 有效结构化核验代码disclosure_scope_uncertain不可比较实际披露后形成或来源无法核验，仅作事后参考相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。本地已可靠解析实际值：341.88 亿元 · 绝对差异：暂未获取比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间计算方法：实际披露后形成或来源无法核验，仅作事后参考",
+        "公司官方指引已核验数据提供方只读事后参考 / 待匹配归母净利润 · 2025-12-31 · 全年度12600000000 至 13200000000 元巨潮官方公告官方 PDF公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1224953921 · 内容版本 company-guidance-version-c940064054ce9df7f97d3c4a014c9ef5964f069a04967914bb23d6b45f1864f5来源名称工业富联原记录业务时间 / 可用时间2026-01-29 (日期)纠正后有效业务时间 / 可用时间2026-01-29 (日期)当前有效来源时间2026-01-29 (日期 · 日期)分析师 / 机构数量- / -会计口径PRC_GAAP规范化时间与证据状态预测形成时间2026-01-29 · date · date_only来源发布时间2026-01-29 · date · date_only投研可用时间2026-01-29 · date · source可用时间范围2026-01-29 日内起点 → 2026-01-29 日内终点 · overlapping_date_precision可证明业务日期2026-01-29业务日期2026-01-29记录解释时区日期精度 / 未记录当前界面显示时区Asia/Shanghai业务前序无前序（首个业务节点）模糊前序候选无决定性披露事件已确认披露 · announcement:fii:1224953921 · 2026-01-29T00:00:00+08:00审计录入时间2026-07-11 07:31:40Z · 有效结构化核验代码disclosure_scope_uncertain不可比较实际披露后形成或来源无法核验，仅作事后参考相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。本地已可靠解析实际值：352.86 亿元 · 绝对差异：暂未获取比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间计算方法：实际披露后形成或来源无法核验，仅作事后参考",
+        "公司官方指引已核验数据提供方只读事后参考 / 待匹配扣非净利润 · 2025-06-30 · 半年度11597239000 至 11797239000 元巨潮官方公告官方 PDF公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1224089988 · 内容版本 company-guidance-version-ec88c89319bc2e5d1b5f08af1d00a18776a3ac5a7481a56194865e84d5379965来源名称工业富联原记录业务时间 / 可用时间2025-07-08 (日期)纠正后有效业务时间 / 可用时间2025-07-08 (日期)当前有效来源时间2025-07-08 (日期 · 日期)分析师 / 机构数量- / -会计口径PRC_GAAP规范化时间与证据状态预测形成时间2025-07-08 · date · date_only来源发布时间2025-07-08 · date · date_only投研可用时间2025-07-08 · date · source可用时间范围2025-07-08 日内起点 → 2025-07-08 日内终点 · overlapping_date_precision可证明业务日期2025-07-08业务日期2025-07-08记录解释时区日期精度 / 未记录当前界面显示时区Asia/Shanghai业务前序无前序（首个业务节点）模糊前序候选无决定性披露事件已确认披露 · announcement:fii:1224089988 · 2025-07-08T00:00:00+08:00审计录入时间2026-07-11 07:31:40Z · 有效结构化核验代码disclosure_scope_uncertain不可比较实际披露后形成或来源无法核验，仅作事后参考相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。本地已可靠解析实际值：116.68 亿元 · 绝对差异：暂未获取比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间计算方法：实际披露后形成或来源无法核验，仅作事后参考",
+        "公司官方指引已核验数据提供方只读事后参考 / 待匹配归母净利润 · 2025-06-30 · 半年度11958195000 至 12158195000 元巨潮官方公告官方 PDF公司内部形成时间未知，以公开披露时间作为可用时间。数据版本 2.0.0 · 更新 2026-09-18T04:59:29Z · 公告标识 1224089988 · 内容版本 company-guidance-version-8dde0e5787269caff3455759edcb918cd276ef7c3abccd6ed2f2e3bc7acd3acc来源名称工业富联原记录业务时间 / 可用时间2025-07-08 (日期)纠正后有效业务时间 / 可用时间2025-07-08 (日期)当前有效来源时间2025-07-08 (日期 · 日期)分析师 / 机构数量- / -会计口径PRC_GAAP规范化时间与证据状态预测形成时间2025-07-08 · date · date_only来源发布时间2025-07-08 · date · date_only投研可用时间2025-07-08 · date · source可用时间范围2025-07-08 日内起点 → 2025-07-08 日内终点 · overlapping_date_precision可证明业务日期2025-07-08业务日期2025-07-08记录解释时区日期精度 / 未记录当前界面显示时区Asia/Shanghai业务前序无前序（首个业务节点）模糊前序候选无决定性披露事件已确认披露 · announcement:fii:1224089988 · 2025-07-08T00:00:00+08:00审计录入时间2026-07-11 07:31:40Z · 有效结构化核验代码disclosure_scope_uncertain不可比较实际披露后形成或来源无法核验，仅作事后参考相对实际值披露：披露前 · 相对公司业绩信息披露：先后未知（指标覆盖待核验）公司公开披露边界与本地数值解析状态分别展示；部分解析不等于公司未披露。本地已可靠解析实际值：121.13 亿元 · 绝对差异：暂未获取比较限制 / 原因：预期形成、外部来源与同指标业绩信息披露同日或缺少可确认先后顺序的精确时间计算方法：实际披露后形成或来源无法核验，仅作事后参考"
+      ],
+      "route": "#/company/fii/expectations?from=research"
+    }
+  ],
+  "storage": [
+    {
+      "scenario": "P2 corrupt",
+      "before": {
+        "bytes": 27,
+        "sha256": "697aa9a7123a5cce5864bf456d6922fae004f101a8a3c3705a946db4af4fd0c7"
+      },
+      "after": {
+        "bytes": 27,
+        "sha256": "697aa9a7123a5cce5864bf456d6922fae004f101a8a3c3705a946db4af4fd0c7"
+      }
+    },
+    {
+      "scenario": "P2 future",
+      "before": {
+        "bytes": 38,
+        "sha256": "9cb8b3a19a95a9c6173eec877d11ac76db14e3d1eb60e84426bd2dd0fbf1eb8c"
+      },
+      "after": {
+        "bytes": 38,
+        "sha256": "9cb8b3a19a95a9c6173eec877d11ac76db14e3d1eb60e84426bd2dd0fbf1eb8c"
+      }
+    },
+    {
+      "scenario": "P2 read-failure",
+      "before": {
+        "bytes": 1235,
+        "sha256": "a46c4bc37c1a0a07b9fce4c2bd2f1d0098e6e664e2c3cb376adac121bc615b41"
+      },
+      "after": {
+        "bytes": 1235,
+        "sha256": "a46c4bc37c1a0a07b9fce4c2bd2f1d0098e6e664e2c3cb376adac121bc615b41"
+      }
+    },
+    {
+      "scenario": "P2 changed-base",
+      "before": {
+        "bytes": 1235,
+        "sha256": "8d26c9bf622b84b08e73b12b30f0f3d55077ace6b9cb2864767914b377e7ab55"
+      },
+      "after": {
+        "bytes": 1235,
+        "sha256": "8d26c9bf622b84b08e73b12b30f0f3d55077ace6b9cb2864767914b377e7ab55"
+      }
+    }
+  ],
+  "limits": [
+    "No personal browser profile or formal knowledge approval.",
+    "Negative storage fixtures and setItem faults exist only in disposable contexts.",
+    "Ordinary rejection must not become global owner lock; genuine persistence faults must remain visible.",
+    "Mock provider intentionally emits no research events. Nonempty event fixtures come from legal synthetic expectation forms; healthy watch tasks come from an explicit overdue review date."
+  ],
+  "companyScenarioSha256": "371121eae2825c0d5e8e8022dd31fe8f0131755b6a9414c2b06ef8e79e4626ce",
+  "sourceSha256AtStart": {
+    "src/App.tsx": "59d22d41b366bbb17704dcc4ab4b54b8b8ceec107012fd4d3528aead5348e616",
+    "src/components/home/HomePage.tsx": "e8430a0f5c7fc6d8081ca44b153ed2b0e517284e13b8bfb53fd0b46f6ecc3a3a",
+    "src/components/stock/StockDetailDrawer.tsx": "a7be27f6098347a79fb4dc8d9d3e413da5c85ad6702513124f1062fdfd1f3172",
+    "src/components/watchlist/StockWatchlistPanel.tsx": "7a0fb7d68b5b9c81b9dca4dea4f55b4a5feaed72f4d9f3f6d4589b776e86ae06",
+    "src/components/watchlist/WatchlistTab.tsx": "94f3a35906ef2c0450de16c69a42492f4ccda3d59ecbe05a99b70cb6c3bea048",
+    "src/components/expectation/EarningsExpectationCenter.tsx": "e5c911df18aeabe991a1e2ecb1c5e099fd2c72ce9b0711ac324ad9628446d22b",
+    "src/components/home/ResearchWorkbench.tsx": "f58b50845c254d43a707e40df8e0de40362c0d068ce2f79e6178f1250c3a726c",
+    "src/components/home/ResearchInbox.tsx": "cc2f74e222115ff4dfd9150d02b2122511bf4f6a0d60f418a80e2ac962b5d247",
+    "src/services/watchlistStore.ts": "c938b01c4a9856f883f93e6acf6d741ddad7a59487b86239bdfc46d82631b3ae",
+    "src/services/watchlistRepository.ts": "1638f01d259de246cb52cafcf4a1ee0ef27e51a03787851ad74efcc3c43c8b74",
+    "src/services/earningsExpectationStore.ts": "8c91ac0d1bd7b8651a77d2f98abfb0b9f8026caa8d718acbba322d89b1e8f668",
+    "src/services/earningsExpectationRepository.ts": "cbeffc5edce1029076d94c3a3c0f072bb7a258509c67e9d5882200f23f7fce19",
+    "src/components/expectation/StockEarningsExpectationPanel.tsx": "996b5f0d26f5f4e6a55a0306bef34359695301401d4c0894a4f76a23ecc6968c"
+  },
+  "finishedAt": "2026-09-22T04:57:19.855Z",
+  "sourceSha256AtEnd": {
+    "src/App.tsx": "59d22d41b366bbb17704dcc4ab4b54b8b8ceec107012fd4d3528aead5348e616",
+    "src/components/home/HomePage.tsx": "e8430a0f5c7fc6d8081ca44b153ed2b0e517284e13b8bfb53fd0b46f6ecc3a3a",
+    "src/components/stock/StockDetailDrawer.tsx": "a7be27f6098347a79fb4dc8d9d3e413da5c85ad6702513124f1062fdfd1f3172",
+    "src/components/watchlist/StockWatchlistPanel.tsx": "7a0fb7d68b5b9c81b9dca4dea4f55b4a5feaed72f4d9f3f6d4589b776e86ae06",
+    "src/components/watchlist/WatchlistTab.tsx": "94f3a35906ef2c0450de16c69a42492f4ccda3d59ecbe05a99b70cb6c3bea048",
+    "src/components/expectation/EarningsExpectationCenter.tsx": "e5c911df18aeabe991a1e2ecb1c5e099fd2c72ce9b0711ac324ad9628446d22b",
+    "src/components/home/ResearchWorkbench.tsx": "f58b50845c254d43a707e40df8e0de40362c0d068ce2f79e6178f1250c3a726c",
+    "src/components/home/ResearchInbox.tsx": "cc2f74e222115ff4dfd9150d02b2122511bf4f6a0d60f418a80e2ac962b5d247",
+    "src/services/watchlistStore.ts": "c938b01c4a9856f883f93e6acf6d741ddad7a59487b86239bdfc46d82631b3ae",
+    "src/services/watchlistRepository.ts": "1638f01d259de246cb52cafcf4a1ee0ef27e51a03787851ad74efcc3c43c8b74",
+    "src/services/earningsExpectationStore.ts": "8c91ac0d1bd7b8651a77d2f98abfb0b9f8026caa8d718acbba322d89b1e8f668",
+    "src/services/earningsExpectationRepository.ts": "cbeffc5edce1029076d94c3a3c0f072bb7a258509c67e9d5882200f23f7fce19",
+    "src/components/expectation/StockEarningsExpectationPanel.tsx": "996b5f0d26f5f4e6a55a0306bef34359695301401d4c0894a4f76a23ecc6968c"
+  },
+  "failedAssertions": []
+}

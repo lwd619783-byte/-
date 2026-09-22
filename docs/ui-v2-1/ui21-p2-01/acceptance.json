@@ -1,6 +1,6 @@
 {
   "issue": "UI21-P2-01",
-  "status": "LOCAL VERIFIED / PENDING INDEPENDENT REVIEW",
+  "status": "LOCAL AND PROTECTED PREVIEW VERIFIED / PENDING INDEPENDENT REVIEW",
   "baseline": "ffefc4bc5f298a8d317384abeb68bfd70320d1cd",
   "applicationSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
   "main": "a029b1e3b96f8b8d28ec123cd741eadc09c12e3d",
@@ -72,5 +72,46 @@
     "No claim of full online visual review",
     "No change to real contribution review, UPDATE or revoke acceptance",
     "No PR/merge/main/Production/protection change"
-  ]
+  ],
+  "affectedPathsInFullRun": {
+    "sha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+    "files": 3,
+    "tests": 87,
+    "result": "PASS",
+    "paths": [
+      "src/App.owner-state.test.tsx",
+      "src/services/earningsExpectationRepository.test.ts",
+      "src/components/expectation/CompanyGuidanceExpectationWorkflow.test.tsx"
+    ]
+  },
+  "preview": {
+    "runtimeSha": "eefa8b5e13d52a349eb74998140b831cd3009794",
+    "applicationEquivalentSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+    "deploymentId": "dpl_7CRL899ztwgEzS6gB431sqPiu2vB",
+    "origin": "https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app",
+    "state": "READY",
+    "target": null,
+    "branch": "codex/ui-v2-clear-research-workspace",
+    "profile": "ephemeral Playwright contexts; platform temporary access in memory only; no personal cookies/profile",
+    "stateRegression": {
+      "testedAt": "2026-09-22T04:56:11.079Z",
+      "finishedAt": "2026-09-22T04:57:19.855Z",
+      "checks": 82,
+      "passed": 82,
+      "errors": [],
+      "console": []
+    },
+    "navigation": {
+      "testedAt": "2026-09-22T04:57:19.867Z",
+      "checks": 198,
+      "passed": 198,
+      "errors": []
+    },
+    "anonymousProtection": {
+      "testedAt": "2026-09-22T04:56:37.485Z",
+      "status": 302,
+      "redirectHost": "vercel.com"
+    },
+    "sourceEquality": "git diff 5f05c30 eefa8b5 -- src public server contracts package.json package-lock.json empty; only documentation/evidence commits follow"
+  }
 }

@@ -23,6 +23,7 @@ App 已正确排除不可读本地快照并保留健康官方来源，但未把�
 | 精确基线完整App浏览器 | ffefc4bc，静态4205，隔离合成owner+固定公开provider回放 | 82项：33 PASS / 49 FAIL |
 | 精确基线App集成新增5例 | ffefc4bc源码 + 5f05c30测试覆盖层 | 1 PASS / 4 FAIL；另外9例未选择，不算通过 |
 | 完整App状态浏览器（含原P1与新增P2） | 5f05c30，静态4206 | 210/210 PASS，运行期间源文件哈希未变 |
+| 受影响路径（本次全量内的App/Repository/公司预期面板） | 5f05c30 | 3文件 / 87 PASS |
 | 全量Vitest（含14项App集成） | 5f05c30 | 96文件 / 1,225 PASS |
 | 类型 / Local Core类型 / Vite / bundle检查 | 5f05c30 | PASS |
 | 既有全站导航浏览器 | 5f05c30，静态4206 | 198/198 PASS |
@@ -40,7 +41,15 @@ App 已正确排除不可读本地快照并保留健康官方来源，但未把�
 
 ZIP `research-os-v2.1-UI21-P2-01-visual-review-5f05c30.zip`，2,002,973字节，SHA256 `1870e0d9d94dfdbeae2b7e0ab2c10b9d730e4c8816842e60d824d2d0e5d27de9`。本地Downloads有可直接附带副本，仓库仅保存无敏感元数据。旧32图包不变。
 
-## 保持的边界
+## 受保护 Preview 与停止点
+
+[已测immutable Preview](https://investment-research-dashboard-df0fgw0xi-lkdmkl.vercel.app)：deployment `dpl_7CRL899ztwgEzS6gB431sqPiu2vB`，runtime `eefa8b5e13d52a349eb74998140b831cd3009794`，READY、target=null、目标功能分支正确。与本地应用5f05c30的src/public/server/contracts/package文件无差异；后续仅证据/CURRENT更新，不把Final误写为已测runtime。
+
+同一exact origin：公司状态82/82、导航198/198通过，零页面运行异常；公司状态控制台记录为空。公司测试开始于2026-09-22T04:56:11.079Z；详细时间、输入及隔离context见 [preview.json](preview.json)。匿名检查04:56:37.485Z为302至vercel.com，保护未关闭。平台临时访问只保存在内存，浏览器结束即清理，未读取个人profile/cookies。
+
+当前为 LOCAL AND PROTECTED PREVIEW VERIFIED / PENDING INDEPENDENT REVIEW。本次仅普通commit/push，Final与远端关系由最终Git核对提供；已核对main仍为a029b1e。首次push遇到TLS EOF，原命令普通重试成功，无鉴权/保护配置调整。
+
+## 不变范围
 
 仅本 P2 展示遗漏，不重定性为 P1 修复失败或新引入故障。真实旧稿、同 Wiki 人工更新、ChatGPT 实际撤销拒读保持原状态；组合与 Agent 未实现。Wiki/导入/OAuth 实现未动，未重跑的门禁继续引用其原 SHA，不算新运行。
 
