@@ -354,6 +354,7 @@ export default function App() {
         stocks={dataset.stocks}
         industries={dataset.industries}
         watchlistReadError={storageError}
+        earningsExpectationReadError={expectationStorageError}
         watchItems={readableWatchItems}
         reviewEntries={watchlistData.reviewEntries}
         reviewTasks={reviewTasks}

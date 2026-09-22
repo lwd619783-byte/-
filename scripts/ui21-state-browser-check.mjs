@@ -3,6 +3,7 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
+import { runCompanyStateScenarios } from './ui21-company-state-scenarios.mjs';
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4201';
 const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/ui21-p1-01/browser');
@@ -10,7 +11,9 @@ const WATCH = 'investment-research-dashboard.watchlist.v2', EXPECT = 'investment
 await fs.mkdir(output, { recursive: true });
 const report = { runtimeSha: process.env.UI_REVIEW_RUNTIME_SHA || null, deploymentId: process.env.UI_REVIEW_DEPLOYMENT_ID || null, origin, testedAt: new Date().toISOString(), inputType: 'isolated full production App with synthetic form entries and storage faults', scriptSha256: createHash('sha256').update(await fs.readFile(new URL(import.meta.url))).digest('hex'), checks: [], errors: [], console: [], httpErrors: [], screenshots: [], states: [], storage: [], limits: ['No personal browser profile or formal knowledge approval.', 'Negative storage fixtures and setItem faults exist only in disposable contexts.', 'Ordinary rejection must not become global owner lock; genuine persistence faults must remain visible.', 'Mock provider intentionally emits no research events. Nonempty event fixtures come from legal synthetic expectation forms; healthy watch tasks come from an explicit overdue review date.'] };
 const sourceFiles = ['src/App.tsx', 'src/components/home/HomePage.tsx', 'src/components/stock/StockDetailDrawer.tsx', 'src/components/watchlist/StockWatchlistPanel.tsx', 'src/components/watchlist/WatchlistTab.tsx', 'src/components/expectation/EarningsExpectationCenter.tsx', 'src/components/home/ResearchWorkbench.tsx', 'src/components/home/ResearchInbox.tsx', 'src/services/watchlistStore.ts', 'src/services/watchlistRepository.ts', 'src/services/earningsExpectationStore.ts', 'src/services/earningsExpectationRepository.ts'];
-const sourceHashes = async () => Object.fromEntries(await Promise.all(sourceFiles.map(async file => [file, createHash('sha256').update(await fs.readFile(file)).digest('hex')])));
+const sourceHashes = async () => Object.fromEntries(await Promise.all(sourceFiles.map(async file => [file, createHash('sha256').update(await fs.readFile(path.join(process.env.UI_REVIEW_SOURCE_ROOT || '.', file))).digest('hex')])));
+sourceFiles.push('src/components/expectation/StockEarningsExpectationPanel.tsx');
+report.companyScenarioSha256 = createHash('sha256').update(await fs.readFile('scripts/ui21-company-state-scenarios.mjs')).digest('hex');
 report.sourceSha256AtStart = await sourceHashes();
 const check = (ok, name, detail) => { report.checks.push({ ok: Boolean(ok), name, ...(detail === undefined ? {} : { detail }) }); console.log(`${ok ? 'PASS' : 'FAIL'} ${name}`); };
 const browser = await chromium.launch({ channel: process.env.UI_REVIEW_BROWSER_CHANNEL || 'chrome', headless: true });
@@ -66,6 +69,7 @@ async function addHealthyExpectation(page, stockId, title) {
 }
 async function run(name, action) { try { await action(); } catch (e) { report.errors.push({ scenario: name, message: e.message }); check(false, `${name} completed`, e.message); } await fs.writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2)); }
 let mainPage, stockId, secondStockId;
+if (process.env.UI21_P2_ONLY !== '1') {
 await run('A duplicate watch', async () => {
  mainPage = await newPage(); let d = await openWatch(mainPage); const options = await d.getByLabel('公司', { exact: true }).locator('option').evaluateAll(items => items.map(i => i.value)); stockId = options[0]; secondStockId = options[1];
  await d.getByLabel('关注理由', { exact: true }).fill('UI21 isolated synthetic observation'); await d.getByLabel('投资假设', { exact: true }).fill('Synthetic state regression; not investment research'); await d.getByRole('button', { name: '保存', exact: true }).click(); await d.waitFor({ state: 'hidden' });
@@ -109,6 +113,8 @@ if (process.env.UI21_AB_ONLY !== '1') {
   check((await p.getByRole('tab', { name: /^知识待审/ }).innerText()).trim().endsWith('0'), 'E real knowledge owner eventually confirms legitimate zero'); await shot(p, 'E-empty-knowledge');
  });
 }
+}
+await runCompanyStateScenarios({ browser, contexts, report, check, run, route, raw, fingerprint, openExpectation, origin, output });
 await Promise.all(contexts.map(c => c.close())); await browser.close();
 report.finishedAt = new Date().toISOString(); report.sourceSha256AtEnd = await sourceHashes(); check(JSON.stringify(report.sourceSha256AtStart) === JSON.stringify(report.sourceSha256AtEnd), 'production source bytes unchanged throughout browser run'); report.failedAssertions = report.checks.filter(c => !c.ok); await fs.writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2)); console.log(JSON.stringify({ checks: report.checks.length, failures: report.failedAssertions.length, errors: report.errors, output })); if (report.failedAssertions.length || report.errors.length) process.exitCode = 1;
 

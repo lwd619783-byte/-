@@ -35,11 +35,11 @@ async function projection(hash: string) {
   if (dates) fireEvent.change(dates, { target: { value: 'all' } });
   return { state: inbox.getAttribute('data-state'), rows: [...inbox.querySelectorAll('[data-inbox-id]')].map(el => el.getAttribute('data-inbox-id')), observations: within(main).queryAllByRole('button', { name: `继续研究：${stocks[0].name}` }).length };
 }
-async function addExpectation(lower: string, upper: string) {
+async function addExpectation(lower: string, upper: string, stockId = stocks[0].id) {
   await route('#/expectations');
   fireEvent.click(screen.getByRole('button', { name: '添加业绩预期' }));
   await screen.findByRole('dialog', { name: '添加业绩预期' });
-  change('公司', stocks[0].id); change('报告期', '2026-12-31'); change('期间口径', 'full_year');
+  change('公司', stockId); change('报告期', '2026-12-31'); change('期间口径', 'full_year');
   change('预测形态', 'range'); change('区间下限', lower); change('区间上限', upper);
   change('来源标题', '隔离合成预测 ' + lower + '-' + upper); change('预期形成日期', '2026-09-01');
   fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: '保存不可变快照' }));
@@ -54,6 +54,83 @@ beforeEach(() => {
   vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
   vi.spyOn(window, 'confirm').mockReturnValue(true);
 
+});
+
+// Frozen public artifacts are replayed through the real provider loader, including
+// checksum/schema validation. Only the local owner/faults are synthetic; no live IO.
+async function replayPublicProvider() {
+  const { readFileSync } = await vi.importActual<typeof import('node:fs')>('node:fs');
+  const { webcrypto } = await vi.importActual<typeof import('node:crypto')>('node:crypto');
+  vi.stubGlobal('crypto', webcrypto);
+  vi.stubGlobal('fetch', vi.fn(async (input: RequestInfo | URL) => {
+    const pathname = new URL(String(input), 'http://localhost').pathname;
+    if (!pathname.startsWith('/data/') || pathname.includes('..')) return new Response('', { status: 404 });
+    try { return new Response(new Uint8Array(readFileSync(`public${pathname}`)), { status: 200 }); }
+    catch { return new Response('', { status: 404 }); }
+  }));
+}
+const companyPath = (id = 'beigene', chapter = 'expectations') => `#/company/${id}/${chapter}?from=research`;
+const companyExpectations = () => screen.getByRole('heading', { name: '业绩预期' }).closest('section')!;
+async function settledCompany(id = 'beigene') {
+  await route(companyPath(id));
+  // A successful empty-company detail has no loading text. Workflow success is
+  // independently evidenced by a retained official snapshot at fii before this.
+  await waitFor(() => expect(companyExpectations()).not.toHaveTextContent('公司官方指引按需加载中'));
+}
+describe('UI21-P2-01 full App company expectation source health', () => {
+  it.each(['corrupt', 'future', 'read-failure'] as const)('A/D: %s local owner is not a confirmed empty company', async failure => {
+    await replayPublicProvider(); seedWatch(); render(<App />);
+    await addExpectation('100', '200', 'beigene'); await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+    await settledCompany(); expect(companyExpectations()).toHaveTextContent('100 至 200');
+    cleanup();
+    if (failure !== 'read-failure') localStorage.setItem(EARNINGS_EXPECTATION_STORAGE_KEY, failure === 'corrupt' ? '{synthetic broken json' : JSON.stringify({ schemaVersion: 999, synthetic: true }));
+    const nativeGet = Storage.prototype.getItem, bytes = nativeGet.call(localStorage, EARNINGS_EXPECTATION_STORAGE_KEY);
+    if (failure === 'read-failure') vi.spyOn(Storage.prototype, 'getItem').mockImplementation(function(this: Storage, key: string) {
+      if (key === EARNINGS_EXPECTATION_STORAGE_KEY) throw new Error('Synthetic local expectation read denied');
+      return nativeGet.call(this, key);
+    });
+    render(<App />);
+    // Real loader success, not a manually injected ready prop.
+    await settledCompany('fii'); await screen.findAllByText('数据提供方只读', {}, { timeout: 10000 });
+    await settledCompany();
+    expect.soft(companyExpectations()).toHaveTextContent('本地预期暂不可读');
+    expect.soft(companyExpectations()).toHaveTextContent('当前没有可展示的已读取记录');
+    expect.soft(companyExpectations()).not.toHaveTextContent('当前公司尚无可靠公司指引或用户业绩预期快照');
+    expect.soft(within(companyExpectations()).getByRole('button', { name: '添加业绩预期' })).toBeDisabled();
+    expect(screen.getByRole('heading', { name: '业绩验证' })).toBeVisible();
+    expect(screen.queryByRole('button', { name: '观察记录已锁定' })).toBeNull();
+    await addExpectation('150', '250', 'beigene');
+    await waitFor(() => expect(within(screen.getByRole('dialog')).getByRole('alert')).toBeVisible()); await closeDialog();
+    await route(companyPath('beigene', 'financials')); await settledCompany();
+    expect.soft(companyExpectations()).toHaveTextContent('本地预期暂不可读');
+    expect(nativeGet.call(localStorage, EARNINGS_EXPECTATION_STORAGE_KEY)).toBe(bytes);
+    expect((await projection('#/home')).observations).toBe(1);
+  }, 25000);
+  it('B: official identities/comparisons/read-only survive missing local source', async () => {
+    await replayPublicProvider(); render(<App />); await settledCompany('fii'); await screen.findAllByText('数据提供方只读', {}, { timeout: 10000 });
+    const articles = () => [...companyExpectations().querySelectorAll('article')].map(el => el.textContent);
+    const before = articles(); expect(before.length).toBeGreaterThan(0); cleanup();
+    const bytes = '{synthetic unreadable local owner'; localStorage.setItem(EARNINGS_EXPECTATION_STORAGE_KEY, bytes);
+    render(<App />); await settledCompany('fii'); await screen.findAllByText('数据提供方只读', {}, { timeout: 10000 });
+    expect(articles()).toEqual(before);
+    expect.soft(companyExpectations()).toHaveTextContent('本地预期暂不可读');
+    expect.soft(companyExpectations()).toHaveTextContent('范围不完整');
+    expect.soft(within(companyExpectations()).getByRole('button', { name: '添加新快照' })).toBeDisabled();
+    expect(within(companyExpectations()).queryByRole('button', { name: '创建纠正快照' })).toBeNull();
+    expect(localStorage.getItem(EARNINGS_EXPECTATION_STORAGE_KEY)).toBe(bytes);
+  }, 25000);
+  it('C: healthy empty, invalid range, numeric zero and later valid write stay readable', async () => {
+    await replayPublicProvider(); render(<App />); await settledCompany('fii'); await screen.findAllByText('数据提供方只读', {}, { timeout: 10000 });
+    await settledCompany(); expect(companyExpectations()).toHaveTextContent('当前公司尚无可靠公司指引');
+    await addExpectation('200', '100', 'beigene'); await waitFor(() => expect(within(screen.getByRole('dialog')).getByRole('alert')).toBeVisible()); await closeDialog();
+    await settledCompany(); expect(within(companyExpectations()).getByRole('button', { name: '添加业绩预期' })).toBeEnabled();
+    expect(companyExpectations()).not.toHaveTextContent('本地预期暂不可读');
+    await addExpectation('0', '0', 'beigene'); await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+    await settledCompany(); expect(companyExpectations()).toHaveTextContent('0 至 0');
+    await addExpectation('100', '200', 'beigene'); await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+    await settledCompany(); expect(companyExpectations()).toHaveTextContent('100 至 200');
+    expect(within(companyExpectations()).getByRole('button', { name: '添加新快照' })).toBeEnabled();
+  }, 25000);
 });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); vi.useRealTimers(); localStorage.clear(); });
 

@@ -49,6 +49,7 @@ interface StockDetailDrawerProps {
   reviewTasks?: ReviewTask[];
   researchEvents?: ResearchEvent[];
   earningsExpectationSnapshots?: EarningsExpectationSnapshot[];
+  earningsExpectationReadError?: string | null;
   earningsExpectationProviderSnapshotIds?: Set<string>;
   earningsExpectationDuplicateOfProviderByLocalId?: Map<string, string>;
   earningsExpectationProviderRecordBySnapshotId?: Map<string, EarningsExpectationProviderSnapshot>;
@@ -67,7 +68,7 @@ interface StockDetailDrawerProps {
 const EMPTY = "数据暂缺";
 const PENDING = "待接入";
 
-export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchlistReadError, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation, presentation = "drawer", activeTab, onTabChange, presentationDetails }: StockDetailDrawerProps) {
+export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onOpenStock, watchlistReadError, watchItems = [], reviewEntries = [], reviewTasks = [], researchEvents = [], earningsExpectationSnapshots = [], earningsExpectationReadError, earningsExpectationProviderSnapshotIds, earningsExpectationDuplicateOfProviderByLocalId, earningsExpectationProviderRecordBySnapshotId, companyGuidanceLoadStatus, companyGuidanceLoadError, earningsExpectationTimeZone, onAddToWatchlist, onEditWatchItem, onStartReview, onCorrectReview, onRestoreWatchItem, onAddEarningsExpectation, onCorrectEarningsExpectation, presentation = "drawer", activeTab, onTabChange, presentationDetails }: StockDetailDrawerProps) {
   const drawerRef = useRef<HTMLElement>(null);
   const tabsRef = useRef<HTMLDivElement>(null);
   const chapterRef = useRef<HTMLElement>(null);
@@ -298,6 +299,7 @@ export function StockDetailDrawer({ stock, stocks = [], industries, onClose, onO
               providerSnapshotIds={earningsExpectationProviderSnapshotIds}
               duplicateOfProviderByLocalId={earningsExpectationDuplicateOfProviderByLocalId}
               providerRecordBySnapshotId={earningsExpectationProviderRecordBySnapshotId}
+              localReadError={earningsExpectationReadError}
               providerLoadStatus={companyGuidanceLoadStatus}
               providerLoadError={companyGuidanceLoadError}
               timeZone={earningsExpectationTimeZone}
