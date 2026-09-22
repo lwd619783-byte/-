@@ -1,0 +1,99 @@
+
+> investment-research-dashboard@0.1.0 env:check
+> node scripts/dev-health.mjs
+
+============================================================
+ 投研看板开发环境健康检查 V1
+============================================================
+
+运行目录：<local>
+项目根目录：<local>
+开始时间：2026-09-22T04:33:36.649Z
+
+[基础环境]
+PASS  已定位项目根目录
+WARN  Node.js 22.23.2，与 CI 22 一致
+PASS  npm CLI 执行路径通过结构验证
+PASS  npm 10.9.8 可用；npm Windows shim detected
+WARN  Python 3.13.9，与 CI 3.13 一致
+PASS  pip 可用：pip 25.2 from <local>\Lib\site-packages\pip (python 3.13)
+WARN  Git 2.52.0 可用；发现 2 个不同目录的安装
+PASS  GitHub CLI 2.96.0 可用
+
+[项目文件与依赖]
+PASS  package.json 可解析
+PASS  package-lock.json 可解析
+PASS  node_modules 已存在
+PASS  npm 顶层依赖完整
+PASS  package.json 顶层依赖均存在于 lockfile
+PASS  发现并读取 4 个 requirements 文件
+WARN  发现 4 个未固定版本的 Python 依赖
+WARN  pip check 发现依赖问题或无法完成
+PASS  Local Core requires Node >=22
+PASS  Local Core Node config, scripts, dependencies and migration source
+PASS  better-sqlite3 native addon loads with an in-memory connection
+PASS  investment-dashboard-ui-workflow: Project workflow entrypoint verified.
+PASS  investment-dashboard-impeccable-workflow: Project workflow entrypoint verified.
+PASS  investment-dashboard-domain-workflow: Project workflow entrypoint verified.
+PASS  investment-dashboard-local-core-workflow: Project workflow entrypoint verified.
+PASS  investment-dashboard-code-minimalism: Project workflow entrypoint verified.
+PASS  redesign-existing-projects: Pinned source and content verified.
+PASS  impeccable: Pinned source and content verified.
+PASS  archify: Pinned source and content verified.
+PASS  diagram-design: Pinned source and content verified.
+
+[Git 与安全]
+PASS  Git 仓库有效
+PASS  当前分支 codex/ui-v2-clear-research-workspace，HEAD ffefc4bc5f29
+PASS  上游分支：origin/codex/ui-v2-clear-research-workspace
+PASS  origin 已配置且未发现嵌入凭据
+PASS  工作区干净
+PASS  credential.helper：manager
+PASS  未发现被 Git 跟踪的 Token/私钥类文件
+WARN  发现 6 个被跟踪的缓存、日志或构建文件
+PASS  敏感及代理环境变量仅检查存在性，未读取或输出值
+WARN  部分敏感或生成目录未被 ignore 规则覆盖
+PASS  GitHub CLI 登录状态正常
+
+[package scripts 契约]
+PASS  开发、构建、测试和数据链路 scripts 完整
+PASS  package scripts 引用的 39 个本地入口均存在
+PASS  默认 data:refresh 链路与当前约定一致
+PASS  财务、公告和观测 Provider 未进入默认刷新链路
+
+[CI 对齐]
+PASS  CI 运行时要求：Node 22，Python 3.13
+PASS  CI 工作流存在且可读取
+PASS  CI 调用的 40 个 npm scripts 均存在
+PASS  CI 未调用实时财务、公告或观测抓取
+PASS  CI 包含测试、数据审计和构建门禁
+
+[数据结构]
+PASS  当前股票池：总计 60，A股 57，港股 3
+WARN  核心生成物可解析，但部分旧格式缺少 schemaVersion
+PASS  A 股财务 Manifest、摘要和 57 个详情文件一致
+PASS  A 股财务未包含 partial/error 状态
+PASS  A 股公告 Manifest、摘要和 57 个详情文件一致
+WARN  A 股公告包含 32 个 partial 状态
+WARN  发现旧生成物或未消费聚合文件，需要人工确认保留边界
+
+[只读质量检查]
+PASS  财务 validator 通过
+PASS  公告 validator 通过
+PASS  data-audit --no-write 通过
+SKIP  未执行 validate-a-stock-data.py / data:validate:a-stock：会写验证报告或重生成股票池
+SKIP  未执行 data:health:providers：会写 Provider 本地健康摘要
+SKIP  未执行 ui:audit：会创建目录并重写 UI 审计报告
+SKIP  未执行 build:check：依赖 dist 构建产物
+
+============================================================
+汇总
+============================================================
+
+PASS：48
+WARN：10
+FAIL：0
+SKIP：4
+
+总体状态：READY WITH WARNINGS
+退出码：0

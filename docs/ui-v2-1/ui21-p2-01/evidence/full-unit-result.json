@@ -1,0 +1,8 @@
+{
+  "inputType": "isolated test fixtures",
+  "testedAt": "2026-09-22T04:49:55.5206507Z",
+  "sha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+  "exitCode": 0,
+  "command": "npx vitest run --maxWorkers=1 --minWorkers=1",
+  "finishedAt": "2026-09-22T04:53:09.7452660Z"
+}

@@ -16,7 +16,29 @@ App 已正确排除不可读本地快照并保留健康官方来源，但未把�
 
 扩展 App.owner-state.test.tsx 和 ui21-state-browser-check.mjs（公司场景拆入同目录 helper）。使用完整生产 App、真实表单、Store、Repository 和 provider loader。固定回放仓库已提交公开 provider JSON，经过原 checksum/schema 校验；不是手工传 ready 的组件 harness。损坏、未来版本、读取拒绝和并发字节变更仅在临时浏览器 context 的合成本地数据注入。公开财务/指引回放仍标明其真实公开来源，不把它改标为新生成事实。首次测试脚手架的定位词及重复来源标题错误不计通过证据。
 
-精确基线最终公司浏览器断言82项，33 PASS / 49 FAIL，无场景异常；预期的49项失败揭示缺失提示、误报空库、按钮未禁用和原因入口缺失。原始字节保持不变，官方文章内容/ID/比较不受影响。修复后运行绑定及最终矩阵随后登记。
+精确基线最终公司浏览器断言82项，33 PASS / 49 FAIL，无场景异常；预期的49项失败揭示缺失提示、误报空库、按钮未禁用和原因入口缺失。原始字节保持不变，官方文章内容/ID/比较不受影响。修复版应用代码为 `5f05c302f25d362f2543c95bf3b50b3a846b079c`。同一脚本、同序断言、同 helper 哈希的公司检查修后82/82通过，见 [红绿比较](evidence/red-green.json)。
+
+| 实际运行 | 绑定 | 结果 |
+| --- | --- | --- |
+| 精确基线完整App浏览器 | ffefc4bc，静态4205，隔离合成owner+固定公开provider回放 | 82项：33 PASS / 49 FAIL |
+| 精确基线App集成新增5例 | ffefc4bc源码 + 5f05c30测试覆盖层 | 1 PASS / 4 FAIL；另外9例未选择，不算通过 |
+| 完整App状态浏览器（含原P1与新增P2） | 5f05c30，静态4206 | 210/210 PASS，运行期间源文件哈希未变 |
+| 全量Vitest（含14项App集成） | 5f05c30 | 96文件 / 1,225 PASS |
+| 类型 / Local Core类型 / Vite / bundle检查 | 5f05c30 | PASS |
+| 既有全站导航浏览器 | 5f05c30，静态4206 | 198/198 PASS |
+| env:check | 开始时ffefc4bc | 48 PASS / 10 WARN / 0 FAIL / 4 SKIP |
+
+完整运行时间、输入类型及日志见 [acceptance.json](acceptance.json) 与 evidence。全量单测首次双worker与浏览器同时运行时为1,224 PASS/1条既有App用例20秒超时；记录保留，未改变其超时或断言，随后完整单worker重跑1,225通过。JSDOM保留既有scrollTo未实现提示；浏览器只有原favicon.ico 404，零页面运行异常。不宣称控制台完全无提示。
+
+浏览器逐项覆盖：合法保存后注入损坏/未来版本/读取拒绝；真实Store拒绝与关闭弹窗；章节切换/返回/reload；外部合法字节变化后旧App基线拒写；普通区间错误、合法数值0、配额只写失败及不刷新恢复；官方记录ID/数量/全文比较/只读保持；原始字节摘要前后相同；具体原因可用键盘展开。外部合法新基线允许新App正常重新读取，并不要求跨reload永久锁定；关闭UI不会解除旧基线锁定。
+
+未重跑的专用Wiki76、ingestion131、Bridge OAuth浏览器仍绑定e5c2dcb；contracts/discovery/F3仍绑定dcb141f。全量单测中的相关用例和既有导航本次有运行，不与上述专用浏览器门禁混淆。未修改RMW挂载、知识审核或导入实现。
+
+## 图片
+
+本次小型ZIP仅六张完整App图片：公司expectations健康空、损坏本地owner、保留官方来源，各1440×1000与390×844，长页原尺寸。逐图route/viewport/state/runtime/time/输入与文件SHA256见 [screenshot-index.json](screenshot-index.json)。全部LOCAL_BUILD/5f05c30，不混入harness或旧图。已查看锁定390与官方保留1440，保留暖灰/绿既有视觉，不作全站视觉验收声明。
+
+ZIP `research-os-v2.1-UI21-P2-01-visual-review-5f05c30.zip`，2,002,973字节，SHA256 `1870e0d9d94dfdbeae2b7e0ab2c10b9d730e4c8816842e60d824d2d0e5d27de9`。本地Downloads有可直接附带副本，仓库仅保存无敏感元数据。旧32图包不变。
 
 ## 保持的边界
 

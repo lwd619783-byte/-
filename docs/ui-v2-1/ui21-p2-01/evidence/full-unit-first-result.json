@@ -1,0 +1,8 @@
+{
+  "exitCode": 1,
+  "finishedAt": "2026-09-22T04:49:36.7902804Z",
+  "command": "npx vitest run --maxWorkers=2 --minWorkers=1",
+  "inputType": "isolated test fixtures",
+  "testedAt": "2026-09-22T04:47:31.3802564Z",
+  "sha": "5f05c302f25d362f2543c95bf3b50b3a846b079c"
+}

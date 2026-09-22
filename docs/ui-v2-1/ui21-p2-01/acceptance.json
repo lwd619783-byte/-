@@ -1,0 +1,76 @@
+{
+  "issue": "UI21-P2-01",
+  "status": "LOCAL VERIFIED / PENDING INDEPENDENT REVIEW",
+  "baseline": "ffefc4bc5f298a8d317384abeb68bfd70320d1cd",
+  "applicationSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+  "main": "a029b1e3b96f8b8d28ec123cd741eadc09c12e3d",
+  "localOrigin": "http://127.0.0.1:4206",
+  "tests": [
+    {
+      "name": "baseline full App browser P2",
+      "sha": "ffefc4bc5f298a8d317384abeb68bfd70320d1cd",
+      "testedAt": "2026-09-22T04:44:09.759Z",
+      "checks": 82,
+      "passed": 33,
+      "failed": 49
+    },
+    {
+      "name": "local full App state P1+P2",
+      "sha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "testedAt": "2026-09-22T04:48:01.928Z",
+      "checks": 210,
+      "passed": 210,
+      "failed": 0
+    },
+    {
+      "name": "full unit retry single worker",
+      "sha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "testedAt": "2026-09-22T04:49:55.5206507Z",
+      "finishedAt": "2026-09-22T04:53:09.7452660Z",
+      "files": 96,
+      "passed": 1225,
+      "failed": 0
+    },
+    {
+      "name": "navigation",
+      "sha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "testedAt": "2026-09-22T04:48:40.194Z",
+      "checks": 198,
+      "passed": 198
+    },
+    {
+      "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "command": "npm run build",
+      "result": "PASS",
+      "completedAt": "2026-09-22T04:47:08.164645+00:00",
+      "note": "tsc -b + local:typecheck + vite + bundle gate; stdout in evidence/build-final.log"
+    }
+  ],
+  "unitBaseline": {
+    "sha": "ffefc4bc5f298a8d317384abeb68bfd70320d1cd",
+    "testOverlaySha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+    "selected": 5,
+    "passed": 1,
+    "failed": 4,
+    "otherTestsNotSelected": 9
+  },
+  "unitFirstRun": {
+    "sha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+    "passed": 1224,
+    "failed": 1,
+    "cause": "existing duplicate watch App test exceeded unchanged 20s timeout; overlapped full browser runs; all assertions retained; full single-worker retry passed"
+  },
+  "browserConsole": "one existing favicon.ico 404; no page runtime errors",
+  "notRerun": [
+    "dedicated Wiki browser 76 @ e5c2dcb",
+    "dedicated ingestion browser 131 @ e5c2dcb",
+    "dedicated Bridge OAuth browser @ e5c2dcb",
+    "contract/discovery/F3 @ dcb141f"
+  ],
+  "boundaries": [
+    "P1 source/evidence review passed per current user instruction; old screenshot binding retained",
+    "No claim of full online visual review",
+    "No change to real contribution review, UPDATE or revoke acceptance",
+    "No PR/merge/main/Production/protection change"
+  ]
+}
