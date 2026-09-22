@@ -3,7 +3,7 @@ import { pages, useWorkspaceNavigation, type MainPage, type PageId } from "./hoo
 import { StockQuickPreview } from "./components/stock/StockQuickPreview";
 import { QuoteTrustSummary } from "./components/common/QuoteTrust";
 import { summarizeQuotes } from "./utils/dataTrustDisplay";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { AlertTriangle, CheckSquare, FileCheck2, Plus, RefreshCw } from "lucide-react";
 import { Header } from "./components/layout/Header";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
@@ -16,6 +16,7 @@ import { IndustryTab } from "./components/industry/IndustryTab";
 import { StockPool } from "./components/stock/StockPool";
 import { StockDetailDrawer } from "./components/stock/StockDetailDrawer";
 import { WatchlistTab } from "./components/watchlist/WatchlistTab";
+const ThesisWorkspace = lazy(() => import('./components/research/ThesisWorkspace').then(module => ({ default: module.ThesisWorkspace })));
 import { WatchItemFormModal } from "./components/watchlist/WatchItemFormModal";
 import { ReviewFormModal } from "./components/watchlist/ReviewFormModal";
 import { ResearchEventCenter } from "./components/research/ResearchEventCenter";
@@ -97,6 +98,7 @@ export default function App() {
   const [companyGuidanceFailedStockIds, setCompanyGuidanceFailedStockIds] = useState<string[]>([]);
   const [companyGuidanceRetryToken, setCompanyGuidanceRetryToken] = useState(0);
   const dataset = useMemo(() => buildDashboardDataset(dataMode), [dataMode]);
+  const thesisDataset = useMemo(() => ({ industries: dataset.industries, stocks: dataset.stocks, macroIndicators }), [dataset]);
   const industryEvents = useMemo(() => dataMode !== 'mock' && industryMetricState?.status === 'available'
     ? dataset.industries.flatMap(industry => buildIndustryChanges(industryMetricState.provider, industry.id).events) : [], [dataMode, dataset.industries, industryMetricState]);
   const providerRecords = useMemo(() => selectActiveCompanyGuidanceProviderRecords(dataMode, companyGuidanceWorkflowStatus, companyGuidanceWorkflow), [companyGuidanceWorkflow, companyGuidanceWorkflowStatus, dataMode]);
@@ -441,6 +443,7 @@ export default function App() {
             />
           </div>)}
           {visitedTabs.has("观察清单") && (<div hidden={activeTab !== "观察清单"}>
+            <Suspense fallback={<p className="text-sm text-textMuted">正在载入研究论点…</p>}><ThesisWorkspace dataset={thesisDataset} /></Suspense>
             <WatchlistTab
               watchItems={readableWatchItems}
               samples={watchlistSamples}

@@ -98,9 +98,9 @@
     "agent:skills:check": "node scripts/setup-codex-skills.mjs --check",
     "local:typecheck": "tsc -p tsconfig.local-core.json --noEmit",
     "local:db:verify": "node scripts/run-local-core.mjs verify",
-    "test:contracts": "node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs && vitest run src/services/researchExtraction.contract.test.ts src/services/wiki.contract.test.ts src/services/knowledgeIngestion.test.ts src/services/externalKnowledgeBoundary.contract.test.ts src/services/verifiedClaim.test.ts",
+    "test:contracts": "node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs && vitest run src/services/researchExtraction.contract.test.ts src/services/wiki.contract.test.ts src/services/knowledgeIngestion.test.ts src/services/externalKnowledgeBoundary.contract.test.ts src/services/verifiedClaim.test.ts src/services/thesis.test.ts",
     "local:db:init": "node scripts/run-local-core.mjs init",
-    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs && node scripts/contracts/wiki.mjs && node scripts/contracts/knowledge-ingestion.mjs && node scripts/contracts/verified-claim.mjs",
+    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs && node scripts/contracts/wiki.mjs && node scripts/contracts/knowledge-ingestion.mjs && node scripts/contracts/verified-claim.mjs && node scripts/contracts/thesis.mjs",
     "test:local-core": "node scripts/run-local-core.mjs test-local-core",
     "test:assets": "node scripts/run-local-core.mjs test-assets",
     "test:semantic-runtime": "node --test scripts/tests/semantic-runtime.node.mjs scripts/tests/semantic-readiness.node.mjs",
@@ -116,7 +116,7 @@
     "data:query:macro:v2": "node scripts/semantic-runtime/cli-v2.mjs",
     "research:eval": "node scripts/research-eval/cli.mjs",
     "research:eval:check": "node scripts/research-eval/cli.mjs --check",
-    "test:research-eval": "node --test scripts/tests/research-eval.node.mjs scripts/tests/industry-research-eval.node.mjs && vitest run src/services/verifiedClaim.eval.test.ts",
+    "test:research-eval": "node --test scripts/tests/research-eval.node.mjs scripts/tests/industry-research-eval.node.mjs && vitest run src/services/verifiedClaim.eval.test.ts src/services/thesis.eval.test.ts",
     "data:probe:industry": "python scripts/industry/probe_nbs.py",
     "test:industry:freshness": "python -m unittest scripts.tests.test_industry_freshness",
     "data:probe:listing": "python scripts/listing/probe_listing.py",
@@ -124,7 +124,10 @@
     "test:listing": "python -m unittest scripts.tests.test_listing_reconciliation && vitest run src/data/unitreeListing.test.ts src/services/listingIdentity.test.ts",
     "test:knowledge": "vitest run src/services/knowledgeIngestion.test.ts src/components/research-memory/ResearchMemoryWorkspace.test.tsx && node --test scripts/tests/research-bridge.node.mjs",
     "test:bridge": "node --test scripts/tests/research-bridge.node.mjs",
-    "test:bridge:browser": "node scripts/research-bridge-oauth-browser-check.mjs"
+    "test:bridge:browser": "node scripts/research-bridge-oauth-browser-check.mjs",
+    "test:thesis": "vitest run src/services/thesis.test.ts src/services/thesis.eval.test.ts src/components/research/ThesisWorkspace.test.tsx",
+    "test:thesis:browser": "node scripts/thesis-browser-check.mjs",
+    "test:thesis:browser:synthetic": "node scripts/thesis-synthetic-browser-check.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.30.0",

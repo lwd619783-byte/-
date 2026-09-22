@@ -6,7 +6,7 @@ export const researchPages: { page: PageId; label: string; description: string }
   { page: 'macro', label: '宏观', description: '宏观指标、时点与证据' },
   { page: 'industry', label: '行业', description: '产业链、指标与研究信号' },
   { page: 'stocks', label: '公司', description: '公司研究池、财务与估值' },
-  { page: 'watchlist', label: '论点与观察', description: '已有观察判断与复盘；正式 Thesis 编译尚未实现' },
+  { page: 'watchlist', label: '论点与观察', description: 'Thesis 草稿、本人确认与版本历史；观察判断与复盘' },
   { page: 'verification', label: '验证', description: '研究事件、预测验证与复盘' },
   { page: 'expectations', label: '预期证据', description: '业绩预期、实际结果与来源' },
   { page: 'creators', label: '观点追踪', description: '外部作者观点与历史变化' },
