@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-22 CURRENT · Research Bridge Production 定向诊断：只读配置元数据确认 Production 项目环境配置为0，认证/OAuth仅配置在旧 Slice 2.5 Preview 分支，Blob凭据仅Preview；Production status/discovery/MCP均503。staging/store/read path 已实现，保持原owner与只读边界；本轮仅拆分安全错误提示及补回归。Bridge 24、全量Vitest 1,230、原生OAuth浏览器、类型/build PASS。**Code diagnostics VERIFIED LOCALLY；本修复Preview正向BLOCKED；Production config BLOCKED；真实MLCC与ChatGPT跨系统链路NOT_RUN**。旧连接器list空数组不等于生产可用。[根因、配置名称、验证与待授权动作](research-bridge-production-staging-diagnosis-2026-09-22.md)。普通功能分支commit/push后等待独立审计，无Production写入/部署、PR或merge；既往验收保留其原部署时点。
+
 > 2026-09-22 CURRENT · UI21-P1-01 源码与交付证据复审通过（用户本轮确认）；32张图片保留原捕获绑定，不代表完整线上视觉验收。UI21-P2-01 仅补公司业绩预期的本地来源读取状态，健康官方快照继续可读。应用5f05c30：全量1,225 PASS、类型/构建PASS，完整App状态210/210、导航198/198；公司专项同82断言49 FAIL→82 PASS，六张新图片独立交付。受保护Preview eefa8b5：公司状态82/82、导航198/198，保护保留。实现及运行证据见 [本轮问题记录](ui-v2-1/ui21-p2-01/README.md)。合成验证不提升真实稿件/UPDATE/撤销验收，P2 等待独立复审。
 
 > 2026-09-22 CURRENT · UI21-P1-01：操作错误与 owner 读取健康分离，真实锁定不再把未知当0，并传播至公司/辅助统计。应用 `e5c2dcb`：全量1,220 PASS，完整App同脚本基线33 FAIL→修后129/129，导航198、Wiki76、ingestion131通过。受保护Preview `0dd9bfb` 状态129/导航198通过；32张图片ZIP已交付，历史图保留原绑定。[修法/运行证据](ui-v2-1/ui21-p1-01/README.md)。仅普通功能分支交付，PENDING INDEPENDENT REVIEW；ChatGPT未完成全站视觉验收，真实旧稿/UPDATE/撤销缺口不升级。

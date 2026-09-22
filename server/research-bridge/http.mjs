@@ -5,6 +5,13 @@ import { serveMcp } from './mcp.mjs';
 
 const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const send = (res, status, value) => { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(value)); };
+const configurationMessages = new Map([
+  ['BRIDGE_DISABLED', '研究桥尚未启用，暂不能发送资料。'],
+  ['BRIDGE_ORIGIN_NOT_CONFIGURED', '研究桥服务地址尚未配置完成，暂不能发送资料。'],
+  ['BRIDGE_AUTH_NOT_CONFIGURED', '研究桥服务端认证尚未配置完成，暂不能发送资料。'],
+  ['BRIDGE_STORAGE_NOT_CONFIGURED', '研究桥私有暂存尚未配置，暂不能发送资料。'],
+  ['BRIDGE_REDIRECT_NOT_CONFIGURED', '研究桥 ChatGPT 授权连接尚未配置完成，暂不能发送资料。'],
+]);
 async function body(req) {
   if (req.body !== undefined) { const value = typeof req.body === 'string' ? req.body : String(req.headers['content-type']).startsWith('application/x-www-form-urlencoded') ? new URLSearchParams(req.body).toString() : JSON.stringify(req.body); if (Buffer.byteLength(value) > 3 * 1024 * 1024) throw new Error('BODY_TOO_LARGE'); return value; }
   const chunks = []; let bytes = 0;
@@ -22,7 +29,8 @@ export function createBridgeHandler({ env = process.env, store = new PrivateBlob
   return async (req, res) => {
     res.setHeader('Cache-Control', 'no-store'); res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('Referrer-Policy', 'no-referrer');
     let config;
-    try { config = bridgeConfig(env); } catch { send(res, 503, { error: 'BRIDGE_NOT_CONFIGURED', message: '研究桥尚未配置私有存储与认证，暂不能发送资料。' }); return; }
+    try { config = bridgeConfig(env); }
+    catch (error) { send(res, 503, { error: 'BRIDGE_NOT_CONFIGURED', message: configurationMessages.get(error.message) ?? '研究桥暂时不可用，请稍后重试。' }); return; }
     try {
       const url = new URL(req.url, config.origin), action = req.query?.action ?? url.pathname.split('/').at(-1);
       if (req.headers.origin && req.headers.origin !== config.origin) { send(res, 403, { error: 'ORIGIN_REJECTED' }); return; }
@@ -75,7 +83,7 @@ export function createBridgeHandler({ env = process.env, store = new PrivateBlob
       }
     } catch (error) {
       // Do not reflect SDK errors (may contain private object URLs), content, or secrets.
-      if (!res.headersSent) send(res, error.message === 'UNAUTHORIZED' ? 401 : 400, { error: 'REQUEST_REJECTED', message: '请求未通过认证、资料核验或私有存储检查；未发布不完整资料。' }); else res.end();
+      if (!res.headersSent) send(res, error.message === 'UNAUTHORIZED' ? 401 : 400, { error: 'REQUEST_REJECTED', message: error.message === 'UNAUTHORIZED' ? '研究桥访问密钥不正确，请核对后重试。' : '请求未通过认证、资料核验或私有存储检查；未发布不完整资料。' }); else res.end();
     }
   };
 }

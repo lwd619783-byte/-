@@ -51,6 +51,7 @@ test('revoke, expiry, tenant isolation, unstaged refs, writes, path traversal an
   for (const [name, args] of [['get_source_metadata', { stageId: stage.stageId, sourceId: 'not-staged' }], ['get_source_metadata', { stageId: '../manifest', sourceId: 'source-one' }], ['get_knowledge_document', { stageId: stage.stageId, wikiId: 'not-staged' }], ['submit_contribution_bundle', {}], ['read_source_pages', { stageId: stage.stageId, sourceId: 'source-one', count: 6 }], ['list_pending_batches', { sql: 'SELECT' }]]) await assert.rejects(callReadTool(staging, name, args));
   await assert.rejects(new ResearchStaging(store, 'another-user').manifest(stage.stageId));
   now += STAGING_TTL_MS + 1; assert.deepEqual(await staging.list(), []); await assert.rejects(staging.source(stage.stageId, 'source-one'));
+  await assert.rejects(callReadTool(staging, 'get_batch_manifest', { stageId: stage.stageId }));
   now -= STAGING_TTL_MS + 1; await staging.revoke(stage.stageId); await assert.rejects(staging.source(stage.stageId, 'source-one')); await assert.rejects(staging.knowledge(stage.stageId, 'wiki-one')); assert.deepEqual(await staging.list(), []);
 });
 test('partial upload cannot publish and bad text digest is rejected', async () => {
@@ -96,12 +97,82 @@ test('missing remote configuration returns 503, never anonymous fallback or data
   const response = await fetch(`http://127.0.0.1:${server.address().port}/api/mcp`); assert.equal(response.status, 503); assert.equal((await response.json()).error, 'BRIDGE_NOT_CONFIGURED');
 });
 
-async function request(store, action, chunks, parsedBody) {
+for (const [label, overrides, message] of [
+  ['disabled service', { BRIDGE_ENABLED: undefined }, '研究桥尚未启用'],
+  ['missing origin', { BRIDGE_ORIGIN: undefined }, '研究桥服务地址尚未配置完成'],
+  ['invalid origin', { BRIDGE_ORIGIN: 'http://synthetic.example' }, '研究桥服务地址尚未配置完成'],
+  ['missing owner auth', { BRIDGE_OWNER_SECRET: undefined }, '研究桥服务端认证尚未配置完成'],
+  ['short owner auth', { BRIDGE_OWNER_SECRET: 'short' }, '研究桥服务端认证尚未配置完成'],
+  ['missing signing auth', { BRIDGE_SIGNING_SECRET: undefined }, '研究桥服务端认证尚未配置完成'],
+  ['short signing auth', { BRIDGE_SIGNING_SECRET: 'short' }, '研究桥服务端认证尚未配置完成'],
+  ['missing private storage', { BLOB_STORE_ID: undefined }, '研究桥私有暂存尚未配置'],
+  ['missing OAuth callback', { BRIDGE_OAUTH_REDIRECT_URIS: undefined }, '研究桥 ChatGPT 授权连接尚未配置完成'],
+  ['invalid OAuth callback', { BRIDGE_OAUTH_REDIRECT_URIS: 'https://foreign.example/callback' }, '研究桥 ChatGPT 授权连接尚未配置完成'],
+]) test(`${label}: safe 503 before staging, no store access or batch`, async () => {
+  const store = new Store(); let accessed = false;
+  const guarded = new Proxy(store, { get() { accessed = true; throw new Error('STORE_MUST_NOT_BE_ACCESSED'); } });
+  const response = await request(guarded, 'begin', [], { privateText: 'synthetic-unpublished-content' }, { env: { ...env, ...overrides } });
+  assert.equal(response.status, 503); assert.equal(response.result.error, 'BRIDGE_NOT_CONFIGURED');
+  assert.ok(response.result.message.startsWith(message)); assert.equal(accessed, false); assert.equal(store.values.size, 0);
+  assert.doesNotMatch(response.result.message, /BRIDGE_|BLOB_|synthetic|secret|https?:|research-bridge\//i);
+});
+
+test('wrong access key: safe 401, no store access, no reflected credentials', async () => {
+  const store = new Store(); let accessed = false;
+  const guarded = new Proxy(store, { get() { accessed = true; throw new Error('STORE_MUST_NOT_BE_ACCESSED'); } });
+  const response = await request(guarded, 'begin', [], {}, { ownerSecret: 'synthetic-wrong-key' });
+  assert.equal(response.status, 401); assert.equal(response.result.message, '研究桥访问密钥不正确，请核对后重试。');
+  assert.equal(accessed, false); assert.equal(store.values.size, 0);
+  assert.ok(!JSON.stringify(response.result).includes(env.BRIDGE_OWNER_SECRET)); assert.doesNotMatch(JSON.stringify(response.result), /synthetic-wrong-key/);
+});
+
+test('SDK errors containing private URLs or secrets are never reflected or logged', async () => {
+  const { metadata } = await seed(), store = new Store(), logs = [];
+  const originalError = console.error, originalLog = console.log, originalWarn = console.warn;
+  store.versioned = async () => { throw new Error(`https://synthetic.private.blob.vercel-storage.com/private ${env.BRIDGE_OWNER_SECRET}`); };
+  console.error = console.log = console.warn = (...args) => logs.push(args);
+  try {
+    const response = await request(store, 'begin', [], { batchId: metadata.batchId, title: 'Synthetic', sourceMetadata: [metadata], knowledgeIds: [], consent: 'stage-selected-batch-and-knowledge' });
+    assert.equal(response.status, 400); assert.equal(store.values.size, 0); assert.deepEqual(logs, []);
+    assert.doesNotMatch(JSON.stringify(response.result), /https:|synthetic|secret|private\.blob/);
+  } finally { console.error = originalError; console.log = originalLog; console.warn = originalWarn; }
+});
+
+test('owner HTTP staging and separate MCP handler share private store, publish only selection, manifest TTL and revoke', async t => {
+  const { store, objects } = privateStoreFixture(), { metadata, segments } = await seed();
+  // Separate handler instances mirror the two serverless entrypoints; no direct domain seeding in this store.
+  const ownerHandler = createBridgeHandler({ env, store }), mcpHandler = createBridgeHandler({ env, store });
+  const server = createServer((req, res) => (req.url.startsWith('/api/mcp') ? mcpHandler : ownerHandler)(req, res));
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve)); t.after(() => server.close());
+  const origin = `http://127.0.0.1:${server.address().port}`;
+  const post = (action, value) => fetch(`${origin}/api/bridge/${action}`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-bridge-owner-secret': env.BRIDGE_OWNER_SECRET }, body: JSON.stringify(value) });
+  const token = signToken({ kind: 'access', iss: config.origin, aud: config.resource, sub: config.subject, scope: 'research:read', exp: Math.floor(Date.now() / 1000) + 3600 }, config);
+  const client = new Client({ name: 'synthetic-staging-read-path', version: '1' }); t.after(() => client.close());
+  await client.connect(new StreamableHTTPClientTransport(new URL(`${origin}/api/mcp`), { requestInit: { headers: { Authorization: `Bearer ${token}` } } }));
+  const call = async (name, args = {}) => { const result = await client.callTool({ name, arguments: args }); assert.notEqual(result.isError, true); return JSON.parse(result.content[0].text); };
+  const begun = await post('begin', { batchId: metadata.batchId, title: 'Synthetic selected batch', sourceMetadata: [metadata], knowledgeIds: [], consent: 'stage-selected-batch-and-knowledge' });
+  assert.equal(begun.status, 200); const stage = await begun.json();
+  assert.equal(stage.status, 'uploading'); assert.equal(Date.parse(stage.expiresAt) - Date.parse(stage.createdAt), STAGING_TTL_MS);
+  assert.deepEqual((await call('list_pending_batches')).batches, []);
+  assert.equal((await client.callTool({ name: 'get_batch_manifest', arguments: { stageId: stage.stageId } })).isError, true);
+  assert.equal((await post('source', { stageId: stage.stageId, source: { metadata: { ...metadata, sourceId: 'unselected-source' }, segments } })).status, 400);
+  assert.equal((await post('source', { stageId: stage.stageId, source: { metadata, segments } })).status, 200);
+  const published = await post('publish', { stageId: stage.stageId }); assert.equal(published.status, 200); assert.equal((await published.json()).status, 'readable');
+  const batches = (await call('list_pending_batches')).batches; assert.equal(batches.length, 1); assert.equal(batches[0].stageId, stage.stageId); assert.equal(batches[0].sourceCount, 1);
+  const manifest = await call('get_batch_manifest', { stageId: stage.stageId });
+  assert.deepEqual(manifest.sourceMetadata, [metadata]); assert.equal(manifest.expiresAt, stage.expiresAt); assert.equal(manifest.originalsCopied, false);
+  assert.ok(!JSON.stringify([...objects.values()]).includes('unselected-source'));
+  assert.equal((await post('revoke-batch', { batchId: metadata.batchId })).status, 200);
+  assert.deepEqual((await call('list_pending_batches')).batches, []);
+  assert.equal((await client.callTool({ name: 'get_batch_manifest', arguments: { stageId: stage.stageId } })).isError, true);
+});
+
+async function request(store, action, chunks, parsedBody, options = {}) {
   const req = Readable.from(chunks ?? []); req.method = 'POST'; req.url = `/api/bridge/${action}`;
-  req.headers = { 'content-type': 'application/json', 'x-bridge-owner-secret': env.BRIDGE_OWNER_SECRET }; req.body = parsedBody;
+  req.headers = { 'content-type': 'application/json', 'x-bridge-owner-secret': options.ownerSecret ?? env.BRIDGE_OWNER_SECRET }; req.body = parsedBody;
   let status, result;
   const res = { setHeader() {}, writeHead(code) { status = code; }, end(value) { result = JSON.parse(value); } };
-  await createBridgeHandler({ env, store })(req, res); return { status, result };
+  await createBridgeHandler({ env: options.env ?? env, store })(req, res); return { status, result };
 }
 
 test('actual revoke-batch HTTP path bypasses 501+ objects, blocks legacy/repeated stages and knowledge, preserves other batches', async () => {

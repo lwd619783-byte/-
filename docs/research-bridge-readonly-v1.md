@@ -1,5 +1,7 @@
 # Research Bridge + Read-only MCP V1
 
+> 2026-09-22 CURRENT · Production staging 故障已定位为环境范围缺失：Production项目配置0项；旧Preview认证/OAuth为分支限定、Blob凭据仅Preview。三项Production探针均503，当前连接器list为旧Preview空列表。代码保留同一PrivateBlobStore/ResearchStaging和八工具，仅细化安全错误；24项Bridge、1,230项Vitest、原生OAuth浏览器及build PASS。**Production CONFIG BLOCKED；本修复Preview正向BLOCKED；真实MLCC create/list/manifest NOT_RUN；PENDING INDEPENDENT AUDIT**。[本轮根因与精确配置清单](research-bridge-production-staging-diagnosis-2026-09-22.md)。以下历史Preview验收不能升级为Production可用。
+
 > 2026-09-21 CURRENT · Contract + Delta 最终收口：R1/R2/R3 @ `47612e1` 独立复审 PASS（用户确认）；本次共用正文 Markdown/GFM 安全阅读修复及其余新增差异 PENDING FINAL INDEPENDENT AUDIT。真实 ChatGPT MCP 首轮研究 / 8-source CREATE 为 PASS（用户确认并有真实贡献文件），正式 importer 与 reload 核验 PASS；本人审核仍 PENDING，正式 Wiki/Revision/Review 均0。真实 +2 UPDATE/full history 与 accepted UPDATE 后 ChatGPT revoke-denial 明确 DEFERRED / NOT_ATTEMPTED 至 Knowledge V2，不强迫接受或制造版本。安全切换只读复核 PASS；最终回归按交付 HEAD 单独绑定，不继承历史计数。详见[最终状态与验收边界](stage-4-3-slice-2-5-preview-cutover.md#currentcontract--delta-最终收口)。仅当前分支普通 commit/push 后停等独立审计，无 PR/merge/Production；Frontend V2 必须另开分支。
 
 
