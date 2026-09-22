@@ -1,5 +1,8 @@
 # Investment Research Dashboard V2 · Financial Research OS Rebaseline
 
+> 2026-09-22 CURRENT — **Stage 4.3-R2 Thesis V1 + Macro → Industry：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。真实 Base `1651aa7bbf3fcdf4a59d17e7ae6e6edaf057ef7d`，分支 `codex/stage-4-3-r2-thesis-v1`。R1 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**：PR [#75](https://github.com/lwd619783-byte/-/pull/75) 于 2026-09-22T13:33:13Z 合入上述 merge/main；PR CI [35733395999](https://github.com/lwd619783-byte/-/actions/runs/35733395999)、main CI [35734221779](https://github.com/lwd619783-byte/-/actions/runs/35734221779) 已实时核验 success；Production deployment `6591911800`（同一 Base SHA）已实时核验 `success / Deployment has completed`，与用户确认的 READY 一致。真实仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis**，data admission / PIT / release blockers 不变。R2 完成后仅普通 commit/push，等待 ChatGPT 独立审计；R3 **PLANNED / NOT_IMPLEMENTED**。本条 supersede 下方旧 CURRENT 与停止点，不回写历史审计。 R2 本地全量 1,317 tests、build、contracts、research/industry/data audit、discovery 均通过；R2 real browser 49/49、synthetic browser 52/52、R1 browser 130/130（均 0 runtime errors）。详见 [R2 实现与验证](stage-4-3-r2-thesis-v1.md)。
+
+
 > 2026-09-22 CURRENT — **Stage 4.3-R0 External Knowledge Rebaseline**；默认 External Knowledge Lane（Drive → ChatGPT → Notion），OS 聚焦 Research Decision Lane；Local Wiki / Bridge 为冻结功能范围的兼容能力。下一任务 **Stage 4.3-R1 Verified Claim V1**。本轮功能分支待独立审计；普通 commit/push 后停止，无 PR/merge/Production。[Stage 4.3-R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) supersede 下方旧路线与 CURRENT 停止点，历史审计/验证数字仍仅代表原时点。
 
 > 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
@@ -343,14 +346,14 @@ OS Research Decision Lane：Provider / official Evidence / Creator structured ow
 | --- | --- |
 | 历史 Slice 1 | CLOSED；公共 Source/Extraction、Creator adapter 继续 KEEP |
 | 历史 Slice 2 / 2.5 | 代码 MERGED / MAIN CI PASS；Local Wiki / backup / Obsidian / BrowserSource / parser / read-only Bridge / Wiki UI 转 FREEZE / LEGACY COMPATIBILITY；真人验收缺口保留 |
-| R0（CURRENT） | 正式 D0、双通道 authority、文档同步、最小展示调整与边界回归；PENDING INDEPENDENT AUDIT |
-| R1（NEXT） | Verified Claim V1；复用 F2、context/verification 分离、revision/reject/supersede、unsupported fail closed；NOT_IMPLEMENTED |
-| R2 | Thesis V1 + Macro → Industry；bull/base/bear、drivers/catalysts/risks/invalidation/confidence/asOf/revision、用户确认；NOT_IMPLEMENTED |
-| R3 | Investment Expression + Closeout；ETF/Index/Fund/Equity、directness/liquidity/valuation context/thesis sensitivity/idiosyncratic risk；NOT_IMPLEMENTED |
+| R0（CLOSED） | 双通道 authority；PR #74 merged、main CI PASS |
+| R1（CLOSED） | Verified Claim V1；PR #75 merged、PR/main CI PASS、Production READY；真实 5/0/0，admission 不变 |
+| R2（CURRENT） | Thesis V1 + Macro → Industry；exact Claim revision、append-only 用户确认、定性关系与未知、Local-first；IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT |
+| R3 | Investment Expression + Closeout；ETF/Index/Fund/Equity、directness/liquidity/valuation context/thesis sensitivity/idiosyncratic risk；PLANNED / NOT_IMPLEMENTED |
 
 旧 Slice 3“Creator → Wiki + 三位真实博主”不再独立实施；Creator 保留 OS owner，长期 Wiki 交外部 Notion。旧 Slice 4–6 未实现范围由 R1–R3 承接，历史编号不改。R0 不接 Notion/Drive API、不存外部正文、不开发 Claim/Thesis/Expression、不修改 4.4；Stage 4.5 改为 OS Domain MCP，原 Bridge 仅 transitional/fallback，真实替代迁移通过前不退役。
 
-**CURRENT STOP：R0 普通 commit/push 后等待 ChatGPT 独立审计；不创建 PR、merge、修改 main 或部署 Production。** [R0 正式决定与 Git/CI 证据](stage-4-3-r0-external-knowledge-rebaseline.md)。
+**CURRENT STOP：R2 普通 commit/push 后等待 ChatGPT 独立审计；不创建 PR、merge、修改 main 或部署 Production，不开始 R3。** [R0 正式决定与 Git/CI 证据](stage-4-3-r0-external-knowledge-rebaseline.md)。
 
 ### Stage 4.4 — Portfolio Exposure MVP
 

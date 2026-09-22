@@ -1,5 +1,16 @@
 # 投资研究看板架构基线
 
+
+## 2026-09-22 Stage 4.3-R2 Thesis runtime 增量
+
+现有 Research Workspace「论点与观察」追加按需加载的 `ThesisWorkspace`，不改变 Watchlist / Review owner。`thesisWorkspace.ts` 仅组合原 Industry Candidate/F2/Claim repository 与应用 MacroIndicator/Industry/Stock identity；不是新的 Entity registry、Provider 或持久化 Evidence Graph。旧 MacroIndicator 与 Local Core macro_metric 不做隐式映射。
+
+`Verified Claim revision + exact review → previewThesis → prepareConfirmation → 本人确认 → append-only ThesisConfirmation`。`ThesisRevision` 保存完整情景、驱动/催化/风险/失效条件、confidence/asOf、exact Claim integrity pins、定性 Macro→Industry 与非权威 Research Context。Pin 中 canonical bytes 只核对原 Claim 对象，不能替代失联 owner；每次预览/正式写入重读 Claim 仓库并执行原 `previewClaim/F2`。不自动使用新 Claim head。正式 Thesis 是用户确认的研究判断，不是新增 Provider Fact 或整个自由文本已自动验证的证明。
+
+`BrowserThesisRepository → PersistedBaseGuard → LocalStorage(thesis.v1)` 沿用 loaded-object/exact raw guard、append-only merge、pre-write backup、corrupt recovery/future-schema lock；没有 SQLite/MCP/Agent 或云端新边界。最新已确认版本作为 current，后继草稿单独展示；历史按 recorded time 过滤，旧确认保留，当前支持失联显示 blocked。Macro 关系无数值、评分或方向，未知可明确保存；关联 identity/evidence 无效会阻断确认。
+
+R1 已 CLOSED（PR #75 / exact main / Production 见 CURRENT）；R2 当前功能分支交付，待独立审计，R3 **PLANNED / NOT_IMPLEMENTED**。下方增量段落保留各自历史时点。实现与验证见 [R2 交付记录](stage-4-3-r2-thesis-v1.md)。
+
 ## 2026-09-22 Stage 4.3-R1 Claim runtime 增量
 
 `Industry → 指标与变化 → IndustrySignalClaimPanel → industryVerifiedClaimAdapter → ClaimVerificationModal`，验证组件/仓库按需加载；切换行业使未完成请求失效，无一级导航。`Candidate → 原 EvidenceDrawer → F2/owner blockers → saveDraft → prepareReview → confirmReview → Claim history`。候选正文不提供自由替换输入；新版本重新绑定原 candidate/target，确认不会自动产生新版本或继承旧验证。

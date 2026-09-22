@@ -1,0 +1,75 @@
+// Isolated real-retained R2 browser acceptance. User text is synthetic; original F2 / Claim authority remains real and blocked.
+import { createRequire } from 'node:module';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
+const origin = process.env.UI_REVIEW_ORIGIN || 'http://127.0.0.1:4173';
+const output = path.resolve(process.env.UI_REVIEW_OUTPUT || 'data-cache/stage-4-3-r2/thesis-browser');
+const report = { base: execFileSync('git', ['merge-base', 'HEAD', 'origin/main'], { encoding: 'utf8' }).trim(), generatedAt: new Date().toISOString(), sourceSha256: {}, checks: [], errors: [], screenshots: [], real: null, synthetic: { scope: 'ISOLATED_USER_DRAFT_ONLY', formalThesis: 0 }, scope: 'ISOLATED_REAL_RETAINED_NO_ADMISSION' };
+for (const file of ['src/services/thesis.ts', 'src/services/thesisRepository.ts', 'src/services/thesisWorkspace.ts', 'src/components/research/ThesisWorkspace.tsx']) report.sourceSha256[file] = createHash('sha256').update((await fs.readFile(file, 'utf8')).replace(/\r\n/g, '\n')).digest('hex');
+const check = (ok, name) => { report.checks.push({ ok, name }); if (!ok) throw new Error(name); };
+const browser = await chromium.launch({ channel: 'msedge', headless: true });
+await fs.mkdir(output, { recursive: true });
+const claimKey = 'investment-research-dashboard.claim.v1', thesisKey = 'investment-research-dashboard.thesis.v1';
+try {
+  for (const width of [320, 390, 1536]) {
+    const context = await browser.newContext({ viewport: { width, height: 960 }, reducedMotion: 'reduce' });
+    const page = await context.newPage(); page.on('pageerror', error => report.errors.push(error.message));
+    await page.goto(`${origin}/#/watchlist`);
+    const panel = page.getByRole('region', { name: 'Thesis V1', exact: true });
+    await panel.getByTestId('thesis-counts').waitFor();
+    const counts = await panel.getByTestId('thesis-counts').innerText();
+    check(counts === '5 candidates / 0 verifiable / 0 verified / 0 formal Thesis', `real truthful counts ${width}`);
+    report.real = { candidates: 5, verifiable: 0, verified: 0, formalThesis: 0 };
+    check((await panel.innerText()).includes('暂无正式 Thesis'), `real empty state ${width}`);
+    check(await page.evaluate(key => localStorage.getItem(key), thesisKey) === null, `opening preserves absent Thesis storage ${width}`);
+    const claimBytes = await page.evaluate(key => localStorage.getItem(key), claimKey);
+    await panel.getByRole('button', { name: '新建 Thesis 草稿', exact: true }).click();
+    for (const label of ['论点陈述', '乐观情景 bull', '基准情景 base', '悲观情景 bear', 'Thesis 修订说明']) await panel.getByLabel(label, { exact: true }).fill(`Synthetic browser ${label}`);
+    await panel.getByLabel('关键驱动（每行一条）', { exact: true }).fill('Synthetic conditional driver');
+    await panel.getByLabel('催化剂（每行一条）', { exact: true }).fill('Synthetic catalyst');
+    await panel.getByLabel('风险（每行一条）', { exact: true }).fill('Synthetic risk');
+    await panel.getByLabel('失效条件（每行一条）', { exact: true }).fill('Synthetic invalidation');
+    await panel.getByLabel('宏观驱动', { exact: true }).selectOption({ index: 1 });
+    await panel.getByLabel('关联行业', { exact: true }).selectOption({ index: 1 });
+    await panel.getByLabel('关系理由', { exact: true }).fill('Synthetic unknown macro relationship, not a verified conclusion');
+    await panel.getByRole('button', { name: '添加结构化关系', exact: true }).click();
+    await panel.getByLabel('Thesis 背景标题', { exact: true }).fill('Synthetic context');
+    await panel.getByLabel('Thesis 背景链接', { exact: true }).fill('https://example.com/synthetic-thesis');
+    await panel.getByRole('button', { name: '添加研究背景', exact: true }).click();
+    check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `editor viewport fits ${width}`);
+    await panel.getByRole('button', { name: '保存 Thesis 草稿', exact: true }).click();
+    await panel.getByRole('button', { name: '生成 Thesis 确认预览', exact: true }).waitFor();
+    check((await panel.innerText()).includes('关系状态：未知'), `unknown macro relationship ${width}`);
+    await panel.getByRole('button', { name: '生成 Thesis 确认预览', exact: true }).click();
+    await panel.getByLabel('本人确认说明', { exact: true }).fill('Synthetic attempt cannot override real blockers');
+    check(await panel.getByRole('button', { name: '本人确认正式 Thesis', exact: true }).isDisabled(), `real evidence blocks formal confirmation ${width}`);
+    check(await page.evaluate(key => localStorage.getItem(key), claimKey) === claimBytes, `draft and preview preserve exact Claim raw bytes ${width}`);
+    const beforeHistory = await page.evaluate(key => localStorage.getItem(key), thesisKey);
+    await panel.getByText('Thesis 版本历史与 diff（1）', { exact: true }).click();
+    check(await page.evaluate(key => localStorage.getItem(key), thesisKey) === beforeHistory, `history opening exact Thesis raw bytes ${width}`);
+    check(await page.evaluate(key => localStorage.getItem(key), claimKey) === claimBytes, `history opening exact Claim raw bytes ${width}`);
+    await panel.getByText('Thesis 版本历史与 diff（1）', { exact: true }).click();
+    check(await page.evaluate(key => localStorage.getItem(key), thesisKey) === beforeHistory, `history closing exact Thesis raw bytes ${width}`);
+    await page.reload(); await panel.getByRole('button', { name: '修订为新草稿', exact: true }).waitFor();
+    check(await page.evaluate(key => localStorage.getItem(key), thesisKey) === beforeHistory, `reload exact Thesis raw bytes ${width}`);
+    check((await panel.innerText()).includes('Synthetic browser 论点陈述'), `draft survives reload ${width}`);
+    check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `read viewport fits ${width}`);
+    const file = `thesis-${width}.png`; await panel.scrollIntoViewIfNeeded(); await page.screenshot({ path: path.join(output, file) }); report.screenshots.push(file);
+    await panel.getByRole('button', { name: '修订为新草稿', exact: true }).click();
+    await panel.getByLabel('论点陈述', { exact: true }).fill('Synthetic revised statement');
+    await panel.getByLabel('Thesis 修订说明', { exact: true }).fill('Synthetic immutable revision');
+    await panel.getByRole('button', { name: '保存 Thesis 草稿', exact: true }).click();
+    await panel.getByText('Thesis 版本历史与 diff（2）', { exact: true }).waitFor();
+    const stored = await page.evaluate(key => JSON.parse(localStorage.getItem(key)), thesisKey);
+    check(stored.revisions.length === 2 && stored.confirmations.length === 0, `append-only drafts zero formal ${width}`);
+    check(JSON.stringify(stored.revisions[0]) === JSON.stringify(JSON.parse(beforeHistory).revisions[0]), `first revision unchanged ${width}`);
+    check(await page.evaluate(key => localStorage.getItem(key), claimKey) === claimBytes, `complete R2 flow exact Claim bytes ${width}`);
+    await context.close();
+  }
+  check(report.errors.length === 0, 'no runtime errors');
+} catch (error) { report.errors.push(error.message); process.exitCode = 1; }
+finally { await browser.close(); await fs.writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2) + '\n'); }
+console.log(JSON.stringify({ checks: report.checks.length, failures: report.checks.filter(c => !c.ok), errors: report.errors, real: report.real, synthetic: report.synthetic, screenshots: report.screenshots.length }));

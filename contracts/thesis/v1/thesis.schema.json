@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/thesis/v1/thesis.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "thesis.v1"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Entry"
+      }
+    },
+    "revisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Revision"
+      }
+    },
+    "confirmations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Confirmation"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "entries",
+    "revisions",
+    "confirmations"
+  ],
+  "$defs": {
+    "Identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "owner": {
+          "enum": [
+            "MacroIndicator",
+            "Industry",
+            "Stock"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "owner",
+        "id"
+      ]
+    },
+    "ClaimRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "claimId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionBytes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewBytes": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "claimId",
+        "revisionId",
+        "reviewId",
+        "revisionBytes",
+        "reviewBytes"
+      ]
+    },
+    "Context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "notion",
+            "drive",
+            "report",
+            "web"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "url"
+      ]
+    },
+    "Relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "relationshipId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "macroDriver": {
+          "$ref": "#/$defs/Identity"
+        },
+        "industry": {
+          "$ref": "#/$defs/Identity"
+        },
+        "exposure": {
+          "enum": [
+            "direct",
+            "indirect",
+            "unknown"
+          ]
+        },
+        "sensitivity": {
+          "enum": [
+            "qualitative",
+            "unknown"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "asOf": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "supportingClaims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ClaimRef"
+          }
+        }
+      },
+      "required": [
+        "relationshipId",
+        "macroDriver",
+        "industry",
+        "exposure",
+        "sensitivity",
+        "rationale",
+        "asOf",
+        "conditions",
+        "supportingClaims"
+      ]
+    },
+    "Entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "thesisId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "origin": {
+          "enum": [
+            "user_judgement",
+            "ai_draft"
+          ]
+        }
+      },
+      "required": [
+        "thesisId",
+        "createdAt",
+        "origin"
+      ]
+    },
+    "Revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "thesisId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bull": {
+          "type": "string",
+          "minLength": 1
+        },
+        "base": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bear": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "asOf": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "origin": {
+          "enum": [
+            "user_judgement",
+            "ai_draft"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "keyDrivers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "catalysts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "invalidation": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "supportingClaims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ClaimRef"
+          }
+        },
+        "relatedEntities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Identity"
+          }
+        },
+        "macroIndustry": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Relationship"
+          }
+        },
+        "contexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Context"
+          }
+        }
+      },
+      "required": [
+        "thesisId",
+        "revisionId",
+        "statement",
+        "bull",
+        "base",
+        "bear",
+        "reason",
+        "supersedes",
+        "createdAt",
+        "asOf",
+        "origin",
+        "confidence",
+        "keyDrivers",
+        "catalysts",
+        "risks",
+        "invalidation",
+        "supportingClaims",
+        "relatedEntities",
+        "macroIndustry",
+        "contexts"
+      ]
+    },
+    "Confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "confirmationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "thesisId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actor": {
+          "const": "user"
+        },
+        "userApprovalRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "owner": {
+              "const": "ThesisConfirmation"
+            },
+            "approvalId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "owner",
+            "approvalId"
+          ]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "confirmationId",
+        "thesisId",
+        "revisionId",
+        "createdAt",
+        "actor",
+        "userApprovalRef",
+        "note"
+      ]
+    }
+  }
+}

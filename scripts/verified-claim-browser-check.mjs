@@ -34,11 +34,12 @@ try {
       // Every retained candidate is exercised on the desktop; mobile covers each industry and theme.
       const count = width === 1536 ? await candidates.count() : 1;
       for (let i = 0; i < count; i++) {
+        const beforeOpen = await page.evaluate(() => localStorage.getItem('investment-research-dashboard.claim.v1'));
         await candidates.nth(i).click();
         const modal = page.getByRole('dialog', { name: '主张验证与历史' }); await modal.waitFor();
         check((await modal.innerText()).includes('阻断，不可确认为已验证'), `blocked gate ${name}-${i}`);
         check(!await modal.locator('[data-advanced-audit]').evaluate(e => e.open), `collapsed pins ${name}-${i}`);
-        check(await page.evaluate(() => localStorage.getItem('investment-research-dashboard.claim.v1')) === null || i > 0 || industry === 'robotics', `opening is read only ${name}-${i}`);
+        check(await page.evaluate(() => localStorage.getItem('investment-research-dashboard.claim.v1')) === beforeOpen, `opening preserves exact raw bytes ${name}-${i}`);
         await modal.getByRole('button', { name: '查看原始证据' }).click();
         const drawer = page.getByRole('dialog').filter({ hasNot: page.getByRole('heading', { name: '主张验证与历史', exact: true }) }); await drawer.waitFor();
         check((await drawer.innerText()).includes('候选结论 → 派生信号'), `original Drawer ${name}-${i}`);
@@ -58,10 +59,17 @@ try {
         check((await modal.innerText()).includes('当前主张：已拒绝'), `rejection history ${name}-${i}`);
         const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('investment-research-dashboard.claim.v1')));
         check(stored.reviews.every(r => r.decision === 'REJECTED') && stored.revisions.every(r => r.origin === 'ai_draft' && r.generation === 'TEMPLATE'), `zero verified and origin retained ${name}-${i}`);
+        const beforeClose = await page.evaluate(() => localStorage.getItem('investment-research-dashboard.claim.v1'));
         await page.keyboard.press('Escape');
+        await modal.waitFor({ state: 'hidden' });
+        check(await page.evaluate(() => localStorage.getItem('investment-research-dashboard.claim.v1')) === beforeClose, `closing preserves exact raw bytes ${name}-${i}`);
+        const beforeHistory = await page.evaluate(() => localStorage.getItem('investment-research-dashboard.claim.v1'));
         await candidates.nth(i).click(); await modal.waitFor();
         check((await modal.innerText()).includes('当前主张：已拒绝'), `reload history ${name}-${i}`);
+        check(await page.evaluate(() => localStorage.getItem('investment-research-dashboard.claim.v1')) === beforeHistory, `history opening preserves exact raw bytes ${name}-${i}`);
         await page.keyboard.press('Escape');
+        await modal.waitFor({ state: 'hidden' });
+        check(await page.evaluate(() => localStorage.getItem('investment-research-dashboard.claim.v1')) === beforeHistory, `history closing preserves exact raw bytes ${name}-${i}`);
       }
     }
     await context.close();
