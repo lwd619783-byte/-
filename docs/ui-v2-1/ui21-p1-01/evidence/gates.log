@@ -1,0 +1,3563 @@
+
+> investment-research-dashboard@0.1.0 contracts:validate
+> node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs && node scripts/contracts/wiki.mjs && node scripts/contracts/knowledge-ingestion.mjs
+
+{
+  "status": "passed",
+  "schemas": 5,
+  "definitions": 40,
+  "versions": [
+    "account.v1",
+    "asset-import-bundle.v1",
+    "asset-import-commit-request.v1",
+    "asset-import-plan.v1",
+    "asset.v1",
+    "backup-manifest.v1",
+    "bridge-audit-event.v1",
+    "cash-flow.v1",
+    "contribution-bundle.v1",
+    "contribution-commit-request.v1",
+    "contribution-plan.v1",
+    "conversation-archive-manifest.v1",
+    "dca-execution.v1",
+    "dca-plan.v1",
+    "entity-registry-entry.v1",
+    "entity-resolution-request.v1",
+    "entity-resolution-result.v1",
+    "historical-asset-import.v1",
+    "industry-extension.v1",
+    "industry-research-module.v1",
+    "industry-research-profile.v1",
+    "legacy-asset-import.v1",
+    "performance-snapshot.v1",
+    "position-snapshot.v1",
+    "research-bridge.v1",
+    "restore-commit-request.v1",
+    "restore-plan.v1",
+    "transaction.v1"
+  ],
+  "businessCases": [
+    {
+      "id": "R-001",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "R-002",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "R-003",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "R-004",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "R-005",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "R-006",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "A-001",
+      "status": "executable"
+    },
+    {
+      "id": "A-002",
+      "status": "executable"
+    },
+    {
+      "id": "A-003",
+      "status": "executable"
+    },
+    {
+      "id": "A-004",
+      "status": "executable"
+    },
+    {
+      "id": "A-005",
+      "status": "executable"
+    },
+    {
+      "id": "A-006",
+      "status": "executable"
+    },
+    {
+      "id": "A-007",
+      "status": "executable"
+    },
+    {
+      "id": "A-008",
+      "status": "executable"
+    },
+    {
+      "id": "P-001",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "B-001",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "B-002",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "B-003",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "B-004",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "S-001",
+      "status": "declared / not-yet-executable"
+    },
+    {
+      "id": "S-002",
+      "status": "declared / not-yet-executable"
+    }
+  ]
+}
+{"status":"PASS","cases":33,"categories":8,"runtime":"NOT_IMPLEMENTED","admission":"NOT_ADMITTED"}
+Research Source / Extraction V1: research-extraction.schema.json, 9 definitions compiled (no admission).
+Research Source / Extraction V1: creator-projection.schema.json, 9 definitions compiled (no admission).
+Wiki V1 closed schema / standalone validator: PASS (no authority promotion).
+Knowledge contribution V1 closed schema / standalone validator: PASS (draft-only transport).
+
+> investment-research-dashboard@0.1.0 test:contracts
+> node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs && vitest run src/services/researchExtraction.contract.test.ts src/services/wiki.contract.test.ts src/services/knowledgeIngestion.test.ts
+
+TAP version 13
+# Subtest: all 5 V1 schema roots and all 40 definitions compile; 27 old versions plus one additive version
+ok 1 - all 5 V1 schema roots and all 40 definitions compile; 27 old versions plus one additive version
+  ---
+  duration_ms: 2.294
+  type: 'test'
+  ...
+# Subtest: schema-only valid fixture 1: entity-registry-entry.v1
+ok 2 - schema-only valid fixture 1: entity-registry-entry.v1
+  ---
+  duration_ms: 0.6452
+  type: 'test'
+  ...
+# Subtest: schema-only invalid version rejected 1
+ok 3 - schema-only invalid version rejected 1
+  ---
+  duration_ms: 0.1685
+  type: 'test'
+  ...
+# Subtest: schema-only valid fixture 2: entity-resolution-request.v1
+ok 4 - schema-only valid fixture 2: entity-resolution-request.v1
+  ---
+  duration_ms: 0.3361
+  type: 'test'
+  ...
+# Subtest: schema-only invalid version rejected 2
+ok 5 - schema-only invalid version rejected 2
+  ---
+  duration_ms: 0.1018
+  type: 'test'
+  ...
+# Subtest: schema-only valid fixture 3: bridge-audit-event.v1
+ok 6 - schema-only valid fixture 3: bridge-audit-event.v1
+  ---
+  duration_ms: 0.6512
+  type: 'test'
+  ...
+# Subtest: schema-only invalid version rejected 3
+ok 7 - schema-only invalid version rejected 3
+  ---
+  duration_ms: 0.164
+  type: 'test'
+  ...
+# Subtest: schema-only valid fixture 4: bridge-audit-event.v1
+ok 8 - schema-only valid fixture 4: bridge-audit-event.v1
+  ---
+  duration_ms: 0.0707
+  type: 'test'
+  ...
+# Subtest: schema-only invalid version rejected 4
+ok 9 - schema-only invalid version rejected 4
+  ---
+  duration_ms: 0.5328
+  type: 'test'
+  ...
+# Subtest: schema-only valid fixture 5: entity-resolution-result.v1
+ok 10 - schema-only valid fixture 5: entity-resolution-result.v1
+  ---
+  duration_ms: 0.9786
+  type: 'test'
+  ...
+# Subtest: schema-only invalid version rejected 5
+ok 11 - schema-only invalid version rejected 5
+  ---
+  duration_ms: 0.1403
+  type: 'test'
+  ...
+# Subtest: schema-only valid fixture 6: research-bridge.v1
+ok 12 - schema-only valid fixture 6: research-bridge.v1
+  ---
+  duration_ms: 0.6581
+  type: 'test'
+  ...
+# Subtest: schema-only invalid version rejected 6
+ok 13 - schema-only invalid version rejected 6
+  ---
+  duration_ms: 0.0739
+  type: 'test'
+  ...
+# Subtest: schema-only valid fixture 7: restore-commit-request.v1
+ok 14 - schema-only valid fixture 7: restore-commit-request.v1
+  ---
+  duration_ms: 0.315
+  type: 'test'
+  ...
+# Subtest: schema-only invalid version rejected 7
+ok 15 - schema-only invalid version rejected 7
+  ---
+  duration_ms: 0.0603
+  type: 'test'
+  ...
+# Subtest: schema-only valid fixture 8: asset-import-bundle.v1
+ok 16 - schema-only valid fixture 8: asset-import-bundle.v1
+  ---
+  duration_ms: 0.6379
+  type: 'test'
+  ...
+# Subtest: schema-only invalid version rejected 8
+ok 17 - schema-only invalid version rejected 8
+  ---
+  duration_ms: 0.1356
+  type: 'test'
+  ...
+# Subtest: invalid date-time and unknown external fields fail closed without mutation
+ok 18 - invalid date-time and unknown external fields fail closed without mutation
+  ---
+  duration_ms: 0.4072
+  type: 'test'
+  ...
+# Subtest: registry rejects missing schema
+ok 19 - registry rejects missing schema
+  ---
+  duration_ms: 1.9872
+  type: 'test'
+  ...
+# Subtest: registry rejects unresolved ref in unused definition
+ok 20 - registry rejects unresolved ref in unused definition
+  ---
+  duration_ms: 78.0799
+  type: 'test'
+  ...
+# Subtest: registry rejects unknown format
+ok 21 - registry rejects unknown format
+  ---
+  duration_ms: 33.9426
+  type: 'test'
+  ...
+# Subtest: registry rejects invalid schema type
+ok 22 - registry rejects invalid schema type
+  ---
+  duration_ms: 9.646
+  type: 'test'
+  ...
+# Subtest: registry rejects module duplicate
+ok 23 - registry rejects module duplicate
+  ---
+  duration_ms: 1.73
+  type: 'test'
+  ...
+# Subtest: registry rejects module count
+ok 24 - registry rejects module count
+  ---
+  duration_ms: 1.4465
+  type: 'test'
+  ...
+# Subtest: registry rejects unknown module
+ok 25 - registry rejects unknown module
+  ---
+  duration_ms: 1.3581
+  type: 'test'
+  ...
+# Subtest: registry rejects empty canonical
+ok 26 - registry rejects empty canonical
+  ---
+  duration_ms: 1.7194
+  type: 'test'
+  ...
+# Subtest: registry rejects AI deny overlap allow
+ok 27 - registry rejects AI deny overlap allow
+  ---
+  duration_ms: 1.4188
+  type: 'test'
+  ...
+# Subtest: registry rejects AI deny overlap confirmed
+ok 28 - registry rejects AI deny overlap confirmed
+  ---
+  duration_ms: 1.3888
+  type: 'test'
+  ...
+# Subtest: registry rejects AI wildcard allow
+ok 29 - registry rejects AI wildcard allow
+  ---
+  duration_ms: 1.5122
+  type: 'test'
+  ...
+# Subtest: registry rejects AI wildcard confirmed
+ok 30 - registry rejects AI wildcard confirmed
+  ---
+  duration_ms: 1.9557
+  type: 'test'
+  ...
+# Subtest: registry rejects AI hard-deny removed
+ok 31 - registry rejects AI hard-deny removed
+  ---
+  duration_ms: 2.2736
+  type: 'test'
+  ...
+# Subtest: registry rejects case ID duplicate
+ok 32 - registry rejects case ID duplicate
+  ---
+  duration_ms: 1.4866
+  type: 'test'
+  ...
+# Subtest: registry rejects auto-create enabled
+ok 33 - registry rejects auto-create enabled
+  ---
+  duration_ms: 1.5111
+  type: 'test'
+  ...
+# Subtest: registry rejects version alias
+ok 34 - registry rejects version alias
+  ---
+  duration_ms: 1.5824
+  type: 'test'
+  ...
+# Subtest: Phase 1B case availability distinguishes executable and future work; no cached PASS
+ok 35 - Phase 1B case availability distinguishes executable and future work; no cached PASS
+  ---
+  duration_ms: 0.2009
+  type: 'test'
+  ...
+# Subtest: entity types and statuses exactly match frozen contract
+ok 36 - entity types and statuses exactly match frozen contract
+  ---
+  duration_ms: 1.5451
+  type: 'test'
+  ...
+# Subtest: backward compatibility: account.v1 unchanged payload
+ok 37 - backward compatibility: account.v1 unchanged payload
+  ---
+  duration_ms: 0.758
+  type: 'test'
+  ...
+# Subtest: backward compatibility: asset.v1 unchanged payload
+ok 38 - backward compatibility: asset.v1 unchanged payload
+  ---
+  duration_ms: 0.4881
+  type: 'test'
+  ...
+# Subtest: backward compatibility: transaction.v1 unchanged payload
+ok 39 - backward compatibility: transaction.v1 unchanged payload
+  ---
+  duration_ms: 1.0558
+  type: 'test'
+  ...
+# Subtest: backward compatibility: cash-flow.v1 unchanged payload
+ok 40 - backward compatibility: cash-flow.v1 unchanged payload
+  ---
+  duration_ms: 0.4234
+  type: 'test'
+  ...
+# Subtest: backward compatibility: position-snapshot.v1 unchanged payload
+ok 41 - backward compatibility: position-snapshot.v1 unchanged payload
+  ---
+  duration_ms: 0.5374
+  type: 'test'
+  ...
+# Subtest: backward compatibility: dca-plan.v1 unchanged payload
+ok 42 - backward compatibility: dca-plan.v1 unchanged payload
+  ---
+  duration_ms: 0.5664
+  type: 'test'
+  ...
+# Subtest: backward compatibility: dca-execution.v1 unchanged payload
+ok 43 - backward compatibility: dca-execution.v1 unchanged payload
+  ---
+  duration_ms: 0.7464
+  type: 'test'
+  ...
+# Subtest: backward compatibility: legacy-asset-import.v1 unchanged payload
+ok 44 - backward compatibility: legacy-asset-import.v1 unchanged payload
+  ---
+  duration_ms: 0.6709
+  type: 'test'
+  ...
+# Subtest: backward compatibility: asset-import-bundle.v1 unchanged payload
+ok 45 - backward compatibility: asset-import-bundle.v1 unchanged payload
+  ---
+  duration_ms: 0.2265
+  type: 'test'
+  ...
+# Subtest: backward compatibility: asset-import-plan.v1 unchanged payload
+ok 46 - backward compatibility: asset-import-plan.v1 unchanged payload
+  ---
+  duration_ms: 0.9496
+  type: 'test'
+  ...
+# Subtest: backward compatibility: asset-import-commit-request.v1 unchanged payload
+ok 47 - backward compatibility: asset-import-commit-request.v1 unchanged payload
+  ---
+  duration_ms: 0.2591
+  type: 'test'
+  ...
+# Subtest: all existing Account/Asset categories and Transaction/Position provenance enums still validate
+ok 48 - all existing Account/Asset categories and Transaction/Position provenance enums still validate
+  ---
+  duration_ms: 2.3209
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport metadata supports preview, verified ready and approved committed shapes
+ok 49 - HistoricalAssetImport metadata supports preview, verified ready and approved committed shapes
+  ---
+  duration_ms: 1.2884
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects missing sources
+ok 50 - HistoricalAssetImport rejects missing sources
+  ---
+  duration_ms: 0.1904
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects empty sources
+ok 51 - HistoricalAssetImport rejects empty sources
+  ---
+  duration_ms: 0.1203
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects wrong baseline
+ok 52 - HistoricalAssetImport rejects wrong baseline
+  ---
+  duration_ms: 0.1071
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects missing count
+ok 53 - HistoricalAssetImport rejects missing count
+  ---
+  duration_ms: 0.1124
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects negative count
+ok 54 - HistoricalAssetImport rejects negative count
+  ---
+  duration_ms: 0.105
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects parallel ledger payload
+ok 55 - HistoricalAssetImport rejects parallel ledger payload
+  ---
+  duration_ms: 0.1046
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects ready unverified
+ok 56 - HistoricalAssetImport rejects ready unverified
+  ---
+  duration_ms: 0.1018
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects ready missing quality
+ok 57 - HistoricalAssetImport rejects ready missing quality
+  ---
+  duration_ms: 0.173
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects one unverified among verified
+ok 58 - HistoricalAssetImport rejects one unverified among verified
+  ---
+  duration_ms: 0.1083
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects ready warning
+ok 59 - HistoricalAssetImport rejects ready warning
+  ---
+  duration_ms: 0.1016
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects committed without approval
+ok 60 - HistoricalAssetImport rejects committed without approval
+  ---
+  duration_ms: 0.0885
+  type: 'test'
+  ...
+# Subtest: HistoricalAssetImport rejects committed empty approval
+ok 61 - HistoricalAssetImport rejects committed empty approval
+  ---
+  duration_ms: 0.0924
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation is structured evidence separate from external contribution
+ok 62 - AccountValueObservation is structured evidence separate from external contribution
+  ---
+  duration_ms: 1.3161
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects missing accountId
+ok 63 - AccountValueObservation rejects missing accountId
+  ---
+  duration_ms: 0.3681
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects missing snapshotDate
+ok 64 - AccountValueObservation rejects missing snapshotDate
+  ---
+  duration_ms: 0.128
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects missing scope
+ok 65 - AccountValueObservation rejects missing scope
+  ---
+  duration_ms: 0.0849
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects missing totalMarketValue
+ok 66 - AccountValueObservation rejects missing totalMarketValue
+  ---
+  duration_ms: 0.0674
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects missing sourceEvidenceRefs
+ok 67 - AccountValueObservation rejects missing sourceEvidenceRefs
+  ---
+  duration_ms: 0.0713
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects invalid scope
+ok 68 - AccountValueObservation rejects invalid scope
+  ---
+  duration_ms: 0.2486
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects invalid date
+ok 69 - AccountValueObservation rejects invalid date
+  ---
+  duration_ms: 0.0882
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects missing currency
+ok 70 - AccountValueObservation rejects missing currency
+  ---
+  duration_ms: 0.0688
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects empty evidence
+ok 71 - AccountValueObservation rejects empty evidence
+  ---
+  duration_ms: 0.0656
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects blank evidence ref
+ok 72 - AccountValueObservation rejects blank evidence ref
+  ---
+  duration_ms: 0.0562
+  type: 'test'
+  ...
+# Subtest: AccountValueObservation rejects unknown field
+ok 73 - AccountValueObservation rejects unknown field
+  ---
+  duration_ms: 0.0924
+  type: 'test'
+  ...
+# Subtest: AccountValueReconciliation rejects pass without candidate total
+ok 74 - AccountValueReconciliation rejects pass without candidate total
+  ---
+  duration_ms: 0.1437
+  type: 'test'
+  ...
+# Subtest: AccountValueReconciliation rejects pass without delta
+ok 75 - AccountValueReconciliation rejects pass without delta
+  ---
+  duration_ms: 0.0888
+  type: 'test'
+  ...
+# Subtest: AccountValueReconciliation rejects pass nonzero delta
+ok 76 - AccountValueReconciliation rejects pass nonzero delta
+  ---
+  duration_ms: 0.3887
+  type: 'test'
+  ...
+# Subtest: AccountValueReconciliation rejects pass with warnings
+ok 77 - AccountValueReconciliation rejects pass with warnings
+  ---
+  duration_ms: 0.315
+  type: 'test'
+  ...
+# Subtest: AccountValueReconciliation rejects warn without reason
+ok 78 - AccountValueReconciliation rejects warn without reason
+  ---
+  duration_ms: 0.1083
+  type: 'test'
+  ...
+# Subtest: DCA period remains a free display label; explicit equal/ordered dates validate without mutation
+ok 79 - DCA period remains a free display label; explicit equal/ordered dates validate without mutation
+  ---
+  duration_ms: 0.8617
+  type: 'test'
+  ...
+# Subtest: DCA contract invariant rejects start only
+ok 80 - DCA contract invariant rejects start only
+  ---
+  duration_ms: 0.1625
+  type: 'test'
+  ...
+# Subtest: DCA contract invariant rejects end only
+ok 81 - DCA contract invariant rejects end only
+  ---
+  duration_ms: 0.0979
+  type: 'test'
+  ...
+# Subtest: DCA contract invariant rejects reverse order
+ok 82 - DCA contract invariant rejects reverse order
+  ---
+  duration_ms: 0.0712
+  type: 'test'
+  ...
+# Subtest: DCA contract invariant rejects invalid calendar date
+ok 83 - DCA contract invariant rejects invalid calendar date
+  ---
+  duration_ms: 0.0674
+  type: 'test'
+  ...
+# Subtest: DCA contract invariant rejects date-time in date field
+ok 84 - DCA contract invariant rejects date-time in date field
+  ---
+  duration_ms: 0.0801
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects historical baseline constant
+ok 85 - clarification static invariant rejects historical baseline constant
+  ---
+  duration_ms: 1.7237
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects historical baseline invariant
+ok 86 - clarification static invariant rejects historical baseline invariant
+  ---
+  duration_ms: 1.3702
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects historical missing prepare
+ok 87 - clarification static invariant rejects historical missing prepare
+  ---
+  duration_ms: 1.5478
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects historical missing confirmed commit
+ok 88 - clarification static invariant rejects historical missing confirmed commit
+  ---
+  duration_ms: 1.3753
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects historical commit unconfirmed
+ok 89 - clarification static invariant rejects historical commit unconfirmed
+  ---
+  duration_ms: 1.4093
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects historical wildcard unconfirmed
+ok 90 - clarification static invariant rejects historical wildcard unconfirmed
+  ---
+  duration_ms: 1.468
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects historical deny collision
+ok 91 - clarification static invariant rejects historical deny collision
+  ---
+  duration_ms: 1.4808
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects historical model backfill
+ok 92 - clarification static invariant rejects historical model backfill
+  ---
+  duration_ms: 1.3773
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects unverified historical evidence
+ok 93 - clarification static invariant rejects unverified historical evidence
+  ---
+  duration_ms: 1.385
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects confirmation audit disabled
+ok 94 - clarification static invariant rejects confirmation audit disabled
+  ---
+  duration_ms: 1.5228
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects new observation scope
+ok 95 - clarification static invariant rejects new observation scope
+  ---
+  duration_ms: 2.3921
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects old snapshot fallback
+ok 96 - clarification static invariant rejects old snapshot fallback
+  ---
+  duration_ms: 1.7095
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects warnings admitted
+ok 97 - clarification static invariant rejects warnings admitted
+  ---
+  duration_ms: 1.6244
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects DCA unpaired dates
+ok 98 - clarification static invariant rejects DCA unpaired dates
+  ---
+  duration_ms: 1.4535
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects DCA required new field
+ok 99 - clarification static invariant rejects DCA required new field
+  ---
+  duration_ms: 1.5009
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects DCA period parsing
+ok 100 - clarification static invariant rejects DCA period parsing
+  ---
+  duration_ms: 1.4631
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects DCA latest fallback
+ok 101 - clarification static invariant rejects DCA latest fallback
+  ---
+  duration_ms: 1.541
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects DCA amount formula
+ok 102 - clarification static invariant rejects DCA amount formula
+  ---
+  duration_ms: 1.573
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects old version renamed
+ok 103 - clarification static invariant rejects old version renamed
+  ---
+  duration_ms: 1.473
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects new version duplicates old
+ok 104 - clarification static invariant rejects new version duplicates old
+  ---
+  duration_ms: 1.4149
+  type: 'test'
+  ...
+# Subtest: clarification static invariant rejects extra version duplicates old
+ok 105 - clarification static invariant rejects extra version duplicates old
+  ---
+  duration_ms: 159.7858
+  type: 'test'
+  ...
+# Subtest: A-001/A-002/A-005 retain IDs and have executable business suites
+ok 106 - A-001/A-002/A-005 retain IDs and have executable business suites
+  ---
+  duration_ms: 7.9149
+  type: 'test'
+  ...
+1..106
+# tests 106
+# suites 0
+# pass 106
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 943.1725
+TAP version 13
+# Subtest: immediate graph revision preserves node and relation identities
+ok 1 - immediate graph revision preserves node and relation identities
+  ---
+  duration_ms: 87.5792
+  type: 'test'
+  ...
+# Subtest: graph revision rejects reused nodeId with changed ref
+ok 2 - graph revision rejects reused nodeId with changed ref
+  ---
+  duration_ms: 3.8527
+  type: 'test'
+  ...
+# Subtest: graph revision rejects reused nodeId with changed kind
+ok 3 - graph revision rejects reused nodeId with changed kind
+  ---
+  duration_ms: 1.9909
+  type: 'test'
+  ...
+# Subtest: graph revision rejects reused nodeId with changed origin
+ok 4 - graph revision rejects reused nodeId with changed origin
+  ---
+  duration_ms: 1.7155
+  type: 'test'
+  ...
+# Subtest: graph revision rejects reused nodeId with changed releaseAvailableAt
+ok 5 - graph revision rejects reused nodeId with changed releaseAvailableAt
+  ---
+  duration_ms: 1.6469
+  type: 'test'
+  ...
+# Subtest: graph revision rejects reused nodeId with changed nativeEvidenceRef
+ok 6 - graph revision rejects reused nodeId with changed nativeEvidenceRef
+  ---
+  duration_ms: 1.8301
+  type: 'test'
+  ...
+# Subtest: graph revision rejects reused nodeId with changed formulaRef
+ok 7 - graph revision rejects reused nodeId with changed formulaRef
+  ---
+  duration_ms: 2.512
+  type: 'test'
+  ...
+# Subtest: graph revision rejects reused nodeId with changed inputManifestRef
+ok 8 - graph revision rejects reused nodeId with changed inputManifestRef
+  ---
+  duration_ms: 2.4373
+  type: 'test'
+  ...
+# Subtest: graph revision cannot skip its immediate predecessor
+ok 9 - graph revision cannot skip its immediate predecessor
+  ---
+  duration_ms: 1.8044
+  type: 'test'
+  ...
+# Subtest: unchanged relationId cannot silently point at a changed endpoint object
+ok 10 - unchanged relationId cannot silently point at a changed endpoint object
+  ---
+  duration_ms: 2.9025
+  type: 'test'
+  ...
+# Subtest: conditions can be reprojected without changing immutable identity
+ok 11 - conditions can be reprojected without changing immutable identity
+  ---
+  duration_ms: 8.6892
+  type: 'test'
+  ...
+# Subtest: new node identity requires new relation identity when changing an endpoint
+ok 12 - new node identity requires new relation identity when changing an endpoint
+  ---
+  duration_ms: 5.5832
+  type: 'test'
+  ...
+# Subtest: released suite rejects delete
+ok 13 - released suite rejects delete
+  ---
+  duration_ms: 0.7975
+  type: 'test'
+  ...
+# Subtest: released suite rejects add
+ok 14 - released suite rejects add
+  ---
+  duration_ms: 0.5633
+  type: 'test'
+  ...
+# Subtest: released suite rejects version mutation
+ok 15 - released suite rejects version mutation
+  ---
+  duration_ms: 0.5445
+  type: 'test'
+  ...
+# Subtest: released suite rejects replace at same count
+ok 16 - released suite rejects replace at same count
+  ---
+  duration_ms: 0.5255
+  type: 'test'
+  ...
+# Subtest: released suite rejects duplicate identity
+ok 17 - released suite rejects duplicate identity
+  ---
+  duration_ms: 0.5392
+  type: 'test'
+  ...
+# Subtest: released suite rejects same-version expected mutation
+ok 18 - released suite rejects same-version expected mutation
+  ---
+  duration_ms: 0.7693
+  type: 'test'
+  ...
+# Subtest: released suite allows case array reordering
+ok 19 - released suite allows case array reordering
+  ---
+  duration_ms: 1.137
+  type: 'test'
+  ...
+# Subtest: every synthetic fixture pin checks identity, version, digest and locator
+ok 20 - every synthetic fixture pin checks identity, version, digest and locator
+  ---
+  duration_ms: 117.5027
+  type: 'test'
+  ...
+# Subtest: all frozen categories and Golden Cases validate without production runtime
+ok 21 - all frozen categories and Golden Cases validate without production runtime
+  ---
+  duration_ms: 236.3932
+  type: 'test'
+  ...
+# Subtest: golden semantics: past-vintage
+ok 22 - golden semantics: past-vintage
+  ---
+  duration_ms: 5.8523
+  type: 'test'
+  ...
+# Subtest: golden semantics: future-only
+ok 23 - golden semantics: future-only
+  ---
+  duration_ms: 4.2121
+  type: 'test'
+  ...
+# Subtest: golden semantics: revision-at-cutoff
+ok 24 - golden semantics: revision-at-cutoff
+  ---
+  duration_ms: 4.1129
+  type: 'test'
+  ...
+# Subtest: golden semantics: independent-chain
+ok 25 - golden semantics: independent-chain
+  ---
+  duration_ms: 4.03
+  type: 'test'
+  ...
+# Subtest: golden semantics: inferred-release
+ok 26 - golden semantics: inferred-release
+  ---
+  duration_ms: 7.1674
+  type: 'test'
+  ...
+# Subtest: golden semantics: period-key-mismatch
+ok 27 - golden semantics: period-key-mismatch
+  ---
+  duration_ms: 4.522
+  type: 'test'
+  ...
+# Subtest: golden semantics: entity-key-mismatch
+ok 28 - golden semantics: entity-key-mismatch
+  ---
+  duration_ms: 4.1558
+  type: 'test'
+  ...
+# Subtest: golden semantics: policy-deny
+ok 29 - golden semantics: policy-deny
+  ---
+  duration_ms: 4.3541
+  type: 'test'
+  ...
+# Subtest: golden semantics: retrieve-partial
+ok 30 - golden semantics: retrieve-partial
+  ---
+  duration_ms: 4.3384
+  type: 'test'
+  ...
+# Subtest: golden semantics: retrieve-stale
+ok 31 - golden semantics: retrieve-stale
+  ---
+  duration_ms: 4.2871
+  type: 'test'
+  ...
+# Subtest: golden semantics: retrieve-conflicted
+ok 32 - golden semantics: retrieve-conflicted
+  ---
+  duration_ms: 4.4123
+  type: 'test'
+  ...
+# Subtest: golden semantics: retrieve-not_admitted
+ok 33 - golden semantics: retrieve-not_admitted
+  ---
+  duration_ms: 5.3958
+  type: 'test'
+  ...
+# Subtest: golden semantics: closed-lineage
+ok 34 - golden semantics: closed-lineage
+  ---
+  duration_ms: 5.9902
+  type: 'test'
+  ...
+# Subtest: golden semantics: missing-evidence-lineage
+ok 35 - golden semantics: missing-evidence-lineage
+  ---
+  duration_ms: 3.6138
+  type: 'test'
+  ...
+# Subtest: golden semantics: ai-is-not-fact
+ok 36 - golden semantics: ai-is-not-fact
+  ---
+  duration_ms: 5.5893
+  type: 'test'
+  ...
+# Subtest: golden semantics: graph-partial
+ok 37 - golden semantics: graph-partial
+  ---
+  duration_ms: 8.8931
+  type: 'test'
+  ...
+# Subtest: golden semantics: graph-stale
+ok 38 - golden semantics: graph-stale
+  ---
+  duration_ms: 5.1097
+  type: 'test'
+  ...
+# Subtest: golden semantics: graph-conflicted
+ok 39 - golden semantics: graph-conflicted
+  ---
+  duration_ms: 4.4513
+  type: 'test'
+  ...
+# Subtest: golden semantics: graph-not_admitted
+ok 40 - golden semantics: graph-not_admitted
+  ---
+  duration_ms: 3.7833
+  type: 'test'
+  ...
+# Subtest: golden semantics: contradicting-evidence
+ok 41 - golden semantics: contradicting-evidence
+  ---
+  duration_ms: 3.4556
+  type: 'test'
+  ...
+# Subtest: golden semantics: earnings-before-all
+ok 42 - golden semantics: earnings-before-all
+  ---
+  duration_ms: 1.0899
+  type: 'test'
+  ...
+# Subtest: golden semantics: earnings-equal-bound
+ok 43 - golden semantics: earnings-equal-bound
+  ---
+  duration_ms: 0.9899
+  type: 'test'
+  ...
+# Subtest: golden semantics: earnings-unknown-formation
+ok 44 - golden semantics: earnings-unknown-formation
+  ---
+  duration_ms: 1.037
+  type: 'test'
+  ...
+# Subtest: golden semantics: recompute-fixed-inputs
+ok 45 - golden semantics: recompute-fixed-inputs
+  ---
+  duration_ms: 1.7094
+  type: 'test'
+  ...
+# Subtest: golden semantics: recompute-missing
+ok 46 - golden semantics: recompute-missing
+  ---
+  duration_ms: 1.7169
+  type: 'test'
+  ...
+# Subtest: golden semantics: recompute-unknown-denominator
+ok 47 - golden semantics: recompute-unknown-denominator
+  ---
+  duration_ms: 1.439
+  type: 'test'
+  ...
+# Subtest: golden semantics: date-safe-not-yet
+ok 48 - golden semantics: date-safe-not-yet
+  ---
+  duration_ms: 3.7431
+  type: 'test'
+  ...
+# Subtest: golden semantics: date-safe-boundary
+ok 49 - golden semantics: date-safe-boundary
+  ---
+  duration_ms: 3.8429
+  type: 'test'
+  ...
+# Subtest: golden semantics: earnings-earlier-disclosure
+ok 50 - golden semantics: earnings-earlier-disclosure
+  ---
+  duration_ms: 1.0621
+  type: 'test'
+  ...
+# Subtest: golden semantics: earnings-unknownDisclosureScope
+ok 51 - golden semantics: earnings-unknownDisclosureScope
+  ---
+  duration_ms: 1.8941
+  type: 'test'
+  ...
+# Subtest: golden semantics: earnings-sameMeasurementKey
+ok 52 - golden semantics: earnings-sameMeasurementKey
+  ---
+  duration_ms: 1.989
+  type: 'test'
+  ...
+# Subtest: golden semantics: earnings-sourceVerified
+ok 53 - golden semantics: earnings-sourceVerified
+  ---
+  duration_ms: 2.0364
+  type: 'test'
+  ...
+# Subtest: golden semantics: graph-unknown-release
+ok 54 - golden semantics: graph-unknown-release
+  ---
+  duration_ms: 7.4353
+  type: 'test'
+  ...
+# Subtest: oracle rejects fabricated value
+ok 55 - oracle rejects fabricated value
+  ---
+  duration_ms: 7.5888
+  type: 'test'
+  ...
+# Subtest: oracle rejects fabricated citationRefs
+ok 56 - oracle rejects fabricated citationRefs
+  ---
+  duration_ms: 5.7376
+  type: 'test'
+  ...
+# Subtest: oracle rejects fabricated selectedRefs
+ok 57 - oracle rejects fabricated selectedRefs
+  ---
+  duration_ms: 4.2028
+  type: 'test'
+  ...
+# Subtest: oracle rejects fabricated outcome
+ok 58 - oracle rejects fabricated outcome
+  ---
+  duration_ms: 4.8196
+  type: 'test'
+  ...
+# Subtest: oracle rejects fabricated conditions
+ok 59 - oracle rejects fabricated conditions
+  ---
+  duration_ms: 4.4955
+  type: 'test'
+  ...
+# Subtest: Agent and deterministic result citation sets share order-insensitive exact semantics
+ok 60 - Agent and deterministic result citation sets share order-insensitive exact semantics
+  ---
+  duration_ms: 9.2364
+  type: 'test'
+  ...
+# Subtest: unknown request fields and operation/request mismatches are rejected
+ok 61 - unknown request fields and operation/request mismatches are rejected
+  ---
+  duration_ms: 0.5042
+  type: 'test'
+  ...
+# Subtest: future release cannot be admitted by lying in expected output
+ok 62 - future release cannot be admitted by lying in expected output
+  ---
+  duration_ms: 4.4209
+  type: 'test'
+  ...
+# Subtest: pin digest, locator, identity and revision are independently checked
+ok 63 - pin digest, locator, identity and revision are independently checked
+  ---
+  duration_ms: 1.5553
+  type: 'test'
+  ...
+# Subtest: time roles cannot alias observation or audit fields
+ok 64 - time roles cannot alias observation or audit fields
+  ---
+  duration_ms: 5.9183
+  type: 'test'
+  ...
+# Subtest: entity display label is not part of deterministic identity
+ok 65 - entity display label is not part of deterministic identity
+  ---
+  duration_ms: 5.9217
+  type: 'test'
+  ...
+# Subtest: field mapping typo and consumer policy overlap fail closed
+ok 66 - field mapping typo and consumer policy overlap fail closed
+  ---
+  duration_ms: 2.904
+  type: 'test'
+  ...
+# Subtest: graph rejects dangling edge
+ok 67 - graph rejects dangling edge
+  ---
+  duration_ms: 0.9261
+  type: 'test'
+  ...
+# Subtest: graph rejects duplicate node
+ok 68 - graph rejects duplicate node
+  ---
+  duration_ms: 0.8083
+  type: 'test'
+  ...
+# Subtest: graph rejects duplicate relation
+ok 69 - graph rejects duplicate relation
+  ---
+  duration_ms: 0.8233
+  type: 'test'
+  ...
+# Subtest: graph rejects invalid relation type
+ok 70 - graph rejects invalid relation type
+  ---
+  duration_ms: 0.7894
+  type: 'test'
+  ...
+# Subtest: graph rejects future asserted relation
+ok 71 - graph rejects future asserted relation
+  ---
+  duration_ms: 0.8662
+  type: 'test'
+  ...
+# Subtest: graph rejects self correction
+ok 72 - graph rejects self correction
+  ---
+  duration_ms: 0.8069
+  type: 'test'
+  ...
+# Subtest: graph rejects missing predecessor
+ok 73 - graph rejects missing predecessor
+  ---
+  duration_ms: 0.7668
+  type: 'test'
+  ...
+# Subtest: graph rejects unpinned graph revision
+ok 74 - graph rejects unpinned graph revision
+  ---
+  duration_ms: 0.8336
+  type: 'test'
+  ...
+# Subtest: graph rejects cycle
+ok 75 - graph rejects cycle
+  ---
+  duration_ms: 0.9841
+  type: 'test'
+  ...
+# Subtest: missing pin, native candidate quality, formula and unproven conditions never support claims
+ok 76 - missing pin, native candidate quality, formula and unproven conditions never support claims
+  ---
+  duration_ms: 13.6524
+  type: 'test'
+  ...
+# Subtest: bad lineage propagates through expression, position association and review without rewriting ledger
+ok 77 - bad lineage propagates through expression, position association and review without rewriting ledger
+  ---
+  duration_ms: 13.4866
+  type: 'test'
+  ...
+# Subtest: existing objects are referenced, not redefined
+ok 78 - existing objects are referenced, not redefined
+  ---
+  duration_ms: 1.9471
+  type: 'test'
+  ...
+1..78
+# tests 78
+# suites 0
+# pass 78
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1168.9756
+
+ RUN  v2.1.9 <workspace>
+
+ ✓ src/services/researchExtraction.contract.test.ts (19 tests) 69ms
+ ✓ src/services/wiki.contract.test.ts (10 tests) 41ms
+ ✓ src/services/knowledgeIngestion.test.ts (22 tests) 354ms
+
+ Test Files  3 passed (3)
+      Tests  51 passed (51)
+   Start at  00:45:30
+   Duration  2.43s (transform 413ms, setup 0ms, collect 1.49s, tests 463ms, environment 0ms, prepare 464ms)
+
+
+> investment-research-dashboard@0.1.0 test:discovery
+> node --test scripts/tests/test-discovery.node.mjs
+
+TAP version 13
+# Subtest: standard npm test preserves every formal suite and excludes nested checkout copies
+ok 1 - standard npm test preserves every formal suite and excludes nested checkout copies
+  ---
+  duration_ms: 37964.7492
+  type: 'test'
+  ...
+# Preserved 96 formal Vitest suite paths; control reproduced 3 nested checkout failures; standard npm test passed.
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 38101.5517
+
+> investment-research-dashboard@0.1.0 research:eval:check
+> node scripts/research-eval/cli.mjs --check
+
+{
+  "schemaVersion": "research-eval-report.v1",
+  "suite": {
+    "suiteId": "financial-research-foundations",
+    "version": 1,
+    "schemaVersion": "investment-research-golden-suite.v1",
+    "count": 33,
+    "integrity": {
+      "status": "VERIFIED",
+      "manifestSha256": "d2b95cba7576174a576d4f7de19c0b168fc1e50accfae1f413929a84d4b63610",
+      "roster": "VERIFIED",
+      "caseDigests": "VERIFIED",
+      "fixturePins": "VERIFIED"
+    }
+  },
+  "scope": {
+    "input": "SYNTHETIC_ONLY",
+    "productionAdmission": "NOT_EVALUATED",
+    "agentRuntime": "NOT_IMPLEMENTED"
+  },
+  "goldenContractHealth": {
+    "status": "PASS",
+    "claim": "REFERENCE_ONLY",
+    "targetIds": [
+      "financial-research-contract-reference"
+    ],
+    "counts": {
+      "PASS": 33,
+      "SEMANTIC_MISMATCH": 0,
+      "NOT_IMPLEMENTED": 0,
+      "EXECUTION_ERROR": 0,
+      "INVALID_OUTPUT": 0
+    }
+  },
+  "actualServiceCoverage": {
+    "denominator": 33,
+    "registeredTargets": 0,
+    "passedCases": 0,
+    "counts": {
+      "PASS": 0,
+      "SEMANTIC_MISMATCH": 0,
+      "NOT_IMPLEMENTED": 33,
+      "EXECUTION_ERROR": 0,
+      "INVALID_OUTPUT": 0
+    },
+    "operationCoverage": [
+      {
+        "operation": "assess_graph",
+        "total": 9,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 9,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "operation": "qualify_earnings",
+        "total": 7,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 7,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "operation": "recompute",
+        "total": 3,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 3,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "operation": "retrieve",
+        "total": 14,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 14,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      }
+    ],
+    "categoryCoverage": [
+      {
+        "category": "deterministic_retrieval",
+        "total": 3,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 3,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "earnings_ex_ante",
+        "total": 7,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 7,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "lineage_citation",
+        "total": 2,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 2,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "market_regime_recompute",
+        "total": 3,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 3,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "pit",
+        "total": 4,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 4,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "quality_propagation",
+        "total": 9,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 9,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "temporal_revision",
+        "total": 3,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 3,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      {
+        "category": "unsupported_claim",
+        "total": 2,
+        "PASS": 0,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 2,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      }
+    ],
+    "cases": [
+      {
+        "caseId": "ai-is-not-fact",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "unsupported_claim",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "closed-lineage",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "lineage_citation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "contradicting-evidence",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "date-safe-boundary",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "temporal_revision",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "date-safe-not-yet",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "pit",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-before-all",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-earlier-disclosure",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-equal-bound",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-sameMeasurementKey",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-sourceVerified",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-unknown-formation",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "earnings-unknownDisclosureScope",
+        "version": 1,
+        "operation": "qualify_earnings",
+        "category": "earnings_ex_ante",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "entity-key-mismatch",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "deterministic_retrieval",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "future-only",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "pit",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-conflicted",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-not_admitted",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-partial",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-stale",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "graph-unknown-release",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "lineage_citation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "independent-chain",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "temporal_revision",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "inferred-release",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "pit",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "missing-evidence-lineage",
+        "version": 1,
+        "operation": "assess_graph",
+        "category": "unsupported_claim",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "past-vintage",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "pit",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "period-key-mismatch",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "deterministic_retrieval",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "policy-deny",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "deterministic_retrieval",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "recompute-fixed-inputs",
+        "version": 1,
+        "operation": "recompute",
+        "category": "market_regime_recompute",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "recompute-missing",
+        "version": 1,
+        "operation": "recompute",
+        "category": "market_regime_recompute",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "recompute-unknown-denominator",
+        "version": 1,
+        "operation": "recompute",
+        "category": "market_regime_recompute",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "retrieve-conflicted",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "retrieve-not_admitted",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "retrieve-partial",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "retrieve-stale",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "quality_propagation",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      },
+      {
+        "caseId": "revision-at-cutoff",
+        "version": 1,
+        "operation": "retrieve",
+        "category": "temporal_revision",
+        "status": "NOT_IMPLEMENTED",
+        "targetResults": []
+      }
+    ]
+  },
+  "capabilityAudit": [
+    {
+      "operation": "assess_graph",
+      "status": "NOT_IMPLEMENTED",
+      "reason": "NO_F2_RUNTIME",
+      "seams": [
+        "src/services/researchInbox.ts",
+        "src/services/chartAudit.ts",
+        "src/components/research/ResearchEventEvidence.tsx"
+      ],
+      "limitation": "Product read models do not execute immutable F2 graph closure or revision semantics."
+    },
+    {
+      "operation": "qualify_earnings",
+      "status": "NOT_IMPLEMENTED",
+      "reason": "FROZEN_INPUT_LACKS_DOMAIN_RECORDS",
+      "seams": [
+        "src/services/earningsExpectationComparisonProvider.ts"
+      ],
+      "limitation": "Boolean fixture summaries and generic pins cannot supply full Snapshot, ResearchEvent, measurement and disclosure-scope records."
+    },
+    {
+      "operation": "recompute",
+      "status": "NOT_IMPLEMENTED",
+      "reason": "FIXTURE_FORMULA_HAS_NO_PRODUCTION_OWNER",
+      "seams": [
+        "scripts/semantic-runtime/readiness.mjs",
+        "scripts/semantic-runtime/readiness-v2.mjs"
+      ],
+      "limitation": "Readiness evaluates gates; it does not implement the synthetic sum_divide_fixed_denominator formula as a production service."
+    },
+    {
+      "operation": "retrieve",
+      "status": "NOT_IMPLEMENTED",
+      "reason": "FROZEN_BINDING_HAS_NO_RUNTIME_OWNER",
+      "seams": [
+        "scripts/semantic-runtime/market-regime-adapter.mjs",
+        "scripts/semantic-runtime/market-regime-adapter-v2.mjs",
+        "scripts/semantic-runtime/selection.mjs"
+      ],
+      "limitation": "Macro entrypoints require owned bindings, identity and evidence context; fixture-macro is not a reviewed runtime binding. Supplying trusted selector context would invent authority."
+    }
+  ],
+  "targets": [
+    {
+      "targetId": "financial-research-contract-reference",
+      "targetVersion": "1",
+      "targetKind": "reference_oracle",
+      "supportedOperations": [
+        "assess_graph",
+        "qualify_earnings",
+        "recompute",
+        "retrieve"
+      ],
+      "claim": "REFERENCE_ONLY",
+      "counts": {
+        "PASS": 33,
+        "SEMANTIC_MISMATCH": 0,
+        "NOT_IMPLEMENTED": 0,
+        "EXECUTION_ERROR": 0,
+        "INVALID_OUTPUT": 0
+      },
+      "operationCoverage": [
+        {
+          "operation": "assess_graph",
+          "total": 9,
+          "PASS": 9,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "operation": "qualify_earnings",
+          "total": 7,
+          "PASS": 7,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "operation": "recompute",
+          "total": 3,
+          "PASS": 3,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "operation": "retrieve",
+          "total": 14,
+          "PASS": 14,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        }
+      ],
+      "categoryCoverage": [
+        {
+          "category": "deterministic_retrieval",
+          "total": 3,
+          "PASS": 3,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "earnings_ex_ante",
+          "total": 7,
+          "PASS": 7,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "lineage_citation",
+          "total": 2,
+          "PASS": 2,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "market_regime_recompute",
+          "total": 3,
+          "PASS": 3,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "pit",
+          "total": 4,
+          "PASS": 4,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "quality_propagation",
+          "total": 9,
+          "PASS": 9,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "temporal_revision",
+          "total": 3,
+          "PASS": 3,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        },
+        {
+          "category": "unsupported_claim",
+          "total": 2,
+          "PASS": 2,
+          "SEMANTIC_MISMATCH": 0,
+          "NOT_IMPLEMENTED": 0,
+          "EXECUTION_ERROR": 0,
+          "INVALID_OUTPUT": 0
+        }
+      ],
+      "cases": [
+        {
+          "caseId": "ai-is-not-fact",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "unsupported_claim",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "f41e4b0bef8408be1c42eb846c31c12577a1d946a571cc987f481f423b195be8",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "closed-lineage",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "lineage_citation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "b68b40d9e4c69ef1a74964e93bea5c569733d4a09fb7ae44c79502cd7f03fba6",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "supported",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "claim"
+            ],
+            "citationRefs": [
+              "artifact",
+              "claim",
+              "derived_metric",
+              "evidence",
+              "fact",
+              "source"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "supported",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "claim"
+            ],
+            "citationRefs": [
+              "artifact",
+              "claim",
+              "derived_metric",
+              "evidence",
+              "fact",
+              "source"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "contradicting-evidence",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "3b1ea1ffab778c01dfd441e7af5e4506c2b3e6f143aed012c3f71180d03f5614",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "actual": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "date-safe-boundary",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "temporal_revision",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "1653dacf387354ba6c4583fe59515721df68c0b2e9bc5d356d35e90acc778623",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": 10,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o1"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": 10,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o1"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "date-safe-not-yet",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "pit",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "a3accd59bd1dcca7529a284eda30638a6c485c1db8f3d5833b7f4b655ea06b98",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-before-all",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "da90df363bfe5eca6b34ac4194de71ce91d59ff9ac0665a31bd00e5131e612cd",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": null,
+            "unit": null,
+            "exAnte": true,
+            "reproducible": null,
+            "selectedRefs": [
+              "evidence",
+              "fact"
+            ],
+            "citationRefs": [
+              "evidence",
+              "fact"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": null,
+            "unit": null,
+            "exAnte": true,
+            "reproducible": null,
+            "selectedRefs": [
+              "evidence",
+              "fact"
+            ],
+            "citationRefs": [
+              "evidence",
+              "fact"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-earlier-disclosure",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "5fe2a18cd9affef4d7159061ac843422de3c454bbf131de72fd28f25ad616422",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-equal-bound",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "348ead965d1f0d7ddb1d0810f95e8c37897228d743924008c46abd21d2182319",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-sameMeasurementKey",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "57d6781d53699063fc51dcd95b6118a944177443343c84fd1ce45bd44e904cff",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-sourceVerified",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "cd69dfea1379529c1ed4de8e8c75c57e5032dc97a12d04a0abaa252e89f86a31",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-unknown-formation",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "014d7f51c10f28d0bb3abccf3f6b713aba925dd6431b455e310671219245cef8",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "earnings-unknownDisclosureScope",
+          "version": 1,
+          "operation": "qualify_earnings",
+          "category": "earnings_ex_ante",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "b1116116063f9605635b7b34a1e7e26770541bd9a37d22cfc122180133df3436",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": false,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "entity-key-mismatch",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "deterministic_retrieval",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "e0ccea2f2dfdf20a84ce062d0582b7e919a7b601621ab9f47e30a1be4fda9804",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "missing",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "missing",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "future-only",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "pit",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "7ae3abfe7e32d206af81d12b2544a9ff0cec2a4fd236bf5816da64e4e54d926b",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-conflicted",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "7e36f361692f95cb0ba87a91f4a628036635aa7e4407d48165f774300fb22e44",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "actual": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-not_admitted",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "3284b06e9fb531e9a24e960728f18bd6dfcb3cbdb4c9c4ebcfae25a6508df00b",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-partial",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "12b8d92321b73639fdae1bce41210e79ebaad69e7fc912782df0d7e2ef7f92e5",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-stale",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "b71b22555f1777cb7b8731199e0f6d37f64fceb9d7877d771b74c604b737550b",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "stale"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "stale"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "graph-unknown-release",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "lineage_citation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "bad89e21ad722471eedd443f1db0cac63975bf634bfebdd2c0de18676552fa90",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "independent-chain",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "temporal_revision",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "80c090adda08cf54f45ff4ee8d6f791f151a4dd699b81ef9a3155e897d7f2950",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "actual": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "inferred-release",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "pit",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "6a3eab4558ea4ea4786d36cf986576fed04e68cf6c59f8bc277de9e3177c6ca1",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "unknown"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "missing-evidence-lineage",
+          "version": 1,
+          "operation": "assess_graph",
+          "category": "unsupported_claim",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "6c70a0c808161f2aa024a6c2ba473d61743cd77d7dc44cf21fedb0fefa8c0766",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "missing_evidence"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "missing_evidence"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "past-vintage",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "pit",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "4b495d9be03bbddd3e0b8f5b957e5fbea26edf57bc44bb4813a5d40ccd3354c7",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": 10,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o1"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": 10,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o1"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "period-key-mismatch",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "deterministic_retrieval",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "3210c4c1e3d840fecd1f8f80ea5daac1960db60e6867e1dcda1c418ab490ac53",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "missing",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "missing",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "policy-deny",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "deterministic_retrieval",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "f8d45f7bedc5ec6f559f1227e0409d566357b9b169085dc4d65669feef6c5c44",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "recompute-fixed-inputs",
+          "version": 1,
+          "operation": "recompute",
+          "category": "market_regime_recompute",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "cfa32db96d392fe02ef98acd253af15668c63611aba26ac5cd1e75031046f1ad",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": 15,
+            "unit": "fixture-unit",
+            "exAnte": null,
+            "reproducible": true,
+            "selectedRefs": [
+              "input1",
+              "input2"
+            ],
+            "citationRefs": [
+              "calendar",
+              "formula",
+              "input1",
+              "input2",
+              "manifest",
+              "scope"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": 15,
+            "unit": "fixture-unit",
+            "exAnte": null,
+            "reproducible": true,
+            "selectedRefs": [
+              "input1",
+              "input2"
+            ],
+            "citationRefs": [
+              "calendar",
+              "formula",
+              "input1",
+              "input2",
+              "manifest",
+              "scope"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "recompute-missing",
+          "version": 1,
+          "operation": "recompute",
+          "category": "market_regime_recompute",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "f33ff274db9ea90f33055439df0ee8357cf15a62ba800f69d9aa7fb19f18e076",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": false,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": false,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "recompute-unknown-denominator",
+          "version": 1,
+          "operation": "recompute",
+          "category": "market_regime_recompute",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "5c4dde63199531ee5c6c492181d29320367802993789cceca79d3b928d23c523",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": false,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": false,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "retrieve-conflicted",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "c1fc144d1310df5eb9071325d7485b831bbb464c7a1df86dc51f22eab5d2c220",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "actual": {
+            "outcome": "conflicted",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "conflicted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "retrieve-not_admitted",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "f411084d3d7d6ee1c8ff76948fbb8ca4837bc4e4264340ede6482bf1815e8d1d",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "not_admitted"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "retrieve-partial",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "d179fee30bdbab8931318d570e01233e2a427b297f8ca4a026d9631bd2be0151",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "partial"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "retrieve-stale",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "quality_propagation",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "28b7a6c3e8e1b546eb8cb30cc3e994eb4663ba9fd7e405779562498930e1f239",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "stale"
+            ]
+          },
+          "actual": {
+            "outcome": "blocked",
+            "value": null,
+            "unit": null,
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [],
+            "citationRefs": [],
+            "conditions": [
+              "stale"
+            ]
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        },
+        {
+          "caseId": "revision-at-cutoff",
+          "version": 1,
+          "operation": "retrieve",
+          "category": "temporal_revision",
+          "integrity": {
+            "status": "VERIFIED",
+            "sha256": "ca393c57eebcc600ebe81b54d196afabf0831690455b07690c40afb337dc8d75",
+            "fixturePin": "VERIFIED"
+          },
+          "expected": {
+            "outcome": "eligible",
+            "value": 12,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o2"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "actual": {
+            "outcome": "eligible",
+            "value": 12,
+            "unit": "percent",
+            "exAnte": null,
+            "reproducible": null,
+            "selectedRefs": [
+              "o2"
+            ],
+            "citationRefs": [
+              "synthetic-artifact"
+            ],
+            "conditions": []
+          },
+          "semanticDiff": [],
+          "status": "PASS"
+        }
+      ]
+    }
+  ],
+  "evaluationStatus": "COMPLETED"
+}
+Industry F3: PASS (5/5)
+
+> investment-research-dashboard@0.1.0 test:research-eval
+> node --test scripts/tests/research-eval.node.mjs scripts/tests/industry-research-eval.node.mjs
+
+TAP version 13
+# Subtest: F3 shared Harness executes five real Industry service cases, no reference fallback
+ok 1 - F3 shared Harness executes five real Industry service cases, no reference fallback
+  ---
+  duration_ms: 89.8348
+  type: 'test'
+  ...
+# Subtest: Industry target consumes only payload and real service seams, never expected or reference execution
+ok 2 - Industry target consumes only payload and real service seams, never expected or reference execution
+  ---
+  duration_ms: 0.5048
+  type: 'test'
+  ...
+# Subtest: Industry roster/expected/pin/version drift rejects before execution
+ok 3 - Industry roster/expected/pin/version drift rejects before execution
+  ---
+  duration_ms: 0.6
+  type: 'test'
+  ...
+# Subtest: Industry roster/expected/pin/version drift rejects before execution
+ok 4 - Industry roster/expected/pin/version drift rejects before execution
+  ---
+  duration_ms: 0.2338
+  type: 'test'
+  ...
+# Subtest: Industry roster/expected/pin/version drift rejects before execution
+ok 5 - Industry roster/expected/pin/version drift rejects before execution
+  ---
+  duration_ms: 0.322
+  type: 'test'
+  ...
+# Subtest: Industry roster/expected/pin/version drift rejects before execution
+ok 6 - Industry roster/expected/pin/version drift rejects before execution
+  ---
+  duration_ms: 0.2115
+  type: 'test'
+  ...
+# Subtest: released 33-case suite, digests and contract oracle remain frozen
+ok 7 - released 33-case suite, digests and contract oracle remain frozen
+  ---
+  duration_ms: 224.1306
+  type: 'test'
+  ...
+# Subtest: harness preflight rejects delete before target execution
+ok 8 - harness preflight rejects delete before target execution
+  ---
+  duration_ms: 1.4349
+  type: 'test'
+  ...
+# Subtest: harness preflight rejects add before target execution
+ok 9 - harness preflight rejects add before target execution
+  ---
+  duration_ms: 0.9873
+  type: 'test'
+  ...
+# Subtest: harness preflight rejects replace before target execution
+ok 10 - harness preflight rejects replace before target execution
+  ---
+  duration_ms: 0.945
+  type: 'test'
+  ...
+# Subtest: harness preflight rejects version before target execution
+ok 11 - harness preflight rejects version before target execution
+  ---
+  duration_ms: 0.9689
+  type: 'test'
+  ...
+# Subtest: harness preflight rejects duplicate before target execution
+ok 12 - harness preflight rejects duplicate before target execution
+  ---
+  duration_ms: 0.8684
+  type: 'test'
+  ...
+# Subtest: harness preflight rejects expected before target execution
+ok 13 - harness preflight rejects expected before target execution
+  ---
+  duration_ms: 0.9474
+  type: 'test'
+  ...
+# Subtest: harness preflight rejects request before target execution
+ok 14 - harness preflight rejects request before target execution
+  ---
+  duration_ms: 0.8835
+  type: 'test'
+  ...
+# Subtest: harness preflight rejects fixture pin before target execution
+ok 15 - harness preflight rejects fixture pin before target execution
+  ---
+  duration_ms: 1.0799
+  type: 'test'
+  ...
+# Subtest: case and JSON key order cannot change the entire deterministic report
+ok 16 - case and JSON key order cannot change the entire deterministic report
+  ---
+  duration_ms: 122.7977
+  type: 'test'
+  ...
+# Subtest: set-valued output ordering does not change comparison or normalized actual
+ok 17 - set-valued output ordering does not change comparison or normalized actual
+  ---
+  duration_ms: 0.7626
+  type: 'test'
+  ...
+# Subtest: exact outcome drift is a structured mismatch
+ok 18 - exact outcome drift is a structured mismatch
+  ---
+  duration_ms: 0.4115
+  type: 'test'
+  ...
+# Subtest: exact value drift is a structured mismatch
+ok 19 - exact value drift is a structured mismatch
+  ---
+  duration_ms: 0.2062
+  type: 'test'
+  ...
+# Subtest: exact unit drift is a structured mismatch
+ok 20 - exact unit drift is a structured mismatch
+  ---
+  duration_ms: 0.1895
+  type: 'test'
+  ...
+# Subtest: exact exAnte drift is a structured mismatch
+ok 21 - exact exAnte drift is a structured mismatch
+  ---
+  duration_ms: 0.2018
+  type: 'test'
+  ...
+# Subtest: exact reproducible drift is a structured mismatch
+ok 22 - exact reproducible drift is a structured mismatch
+  ---
+  duration_ms: 0.1827
+  type: 'test'
+  ...
+# Subtest: conditions missing and extra items are exact set diffs
+ok 23 - conditions missing and extra items are exact set diffs
+  ---
+  duration_ms: 0.2318
+  type: 'test'
+  ...
+# Subtest: selectedRefs missing and extra items are exact set diffs
+ok 24 - selectedRefs missing and extra items are exact set diffs
+  ---
+  duration_ms: 0.1286
+  type: 'test'
+  ...
+# Subtest: citationRefs missing and extra items are exact set diffs
+ok 25 - citationRefs missing and extra items are exact set diffs
+  ---
+  duration_ms: 0.1324
+  type: 'test'
+  ...
+# Subtest: reference health is separate from zero real service coverage, not a denominator shrink
+ok 26 - reference health is separate from zero real service coverage, not a denominator shrink
+  ---
+  duration_ms: 1.5757
+  type: 'test'
+  ...
+# Subtest: reference descriptor and executor cannot be relabeled as service or agent
+ok 27 - reference descriptor and executor cannot be relabeled as service or agent
+  ---
+  duration_ms: 96.1096
+  type: 'test'
+  ...
+# Subtest: unsupported operation never executes a target or falls back to reference
+ok 28 - unsupported operation never executes a target or falls back to reference
+  ---
+  duration_ms: 0.1812
+  type: 'test'
+  ...
+# Subtest: exception and rejected promise are execution errors; messages are not retained
+ok 29 - exception and rejected promise are execution errors; messages are not retained
+  ---
+  duration_ms: 0.3011
+  type: 'test'
+  ...
+# Subtest: invalid null is INVALID_OUTPUT with no completion from expected
+ok 30 - invalid null is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.202
+  type: 'test'
+  ...
+# Subtest: invalid undefined is INVALID_OUTPUT with no completion from expected
+ok 31 - invalid undefined is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.1039
+  type: 'test'
+  ...
+# Subtest: invalid missing field is INVALID_OUTPUT with no completion from expected
+ok 32 - invalid missing field is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.0963
+  type: 'test'
+  ...
+# Subtest: invalid NaN is INVALID_OUTPUT with no completion from expected
+ok 33 - invalid NaN is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.0857
+  type: 'test'
+  ...
+# Subtest: invalid infinity is INVALID_OUTPUT with no completion from expected
+ok 34 - invalid infinity is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.0743
+  type: 'test'
+  ...
+# Subtest: invalid unknown outcome is INVALID_OUTPUT with no completion from expected
+ok 35 - invalid unknown outcome is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.0758
+  type: 'test'
+  ...
+# Subtest: invalid duplicate set is INVALID_OUTPUT with no completion from expected
+ok 36 - invalid duplicate set is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.3537
+  type: 'test'
+  ...
+# Subtest: invalid prose in result is INVALID_OUTPUT with no completion from expected
+ok 37 - invalid prose in result is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.224
+  type: 'test'
+  ...
+# Subtest: invalid numeric string is INVALID_OUTPUT with no completion from expected
+ok 38 - invalid numeric string is INVALID_OUTPUT with no completion from expected
+  ---
+  duration_ms: 0.2255
+  type: 'test'
+  ...
+# Subtest: adapter only sees frozen operation/request/input, not expected or caseId
+ok 39 - adapter only sees frozen operation/request/input, not expected or caseId
+  ---
+  duration_ms: 0.3587
+  type: 'test'
+  ...
+# Subtest: caseId matcher and expected-reader false-green adapters cannot use the seam
+ok 40 - caseId matcher and expected-reader false-green adapters cannot use the seam
+  ---
+  duration_ms: 0.4122
+  type: 'test'
+  ...
+# Subtest: unregistered oracle wrappers or metadata mutation cannot mint a service coverage report
+ok 41 - unregistered oracle wrappers or metadata mutation cannot mint a service coverage report
+  ---
+  duration_ms: 154.1132
+  type: 'test'
+  ...
+# Subtest: unknown survives reference and comparison unchanged
+ok 42 - unknown survives reference and comparison unchanged
+  ---
+  duration_ms: 3.9621
+  type: 'test'
+  ...
+# Subtest: not_admitted survives reference and comparison unchanged
+ok 43 - not_admitted survives reference and comparison unchanged
+  ---
+  duration_ms: 4.183
+  type: 'test'
+  ...
+# Subtest: conflicted survives reference and comparison unchanged
+ok 44 - conflicted survives reference and comparison unchanged
+  ---
+  duration_ms: 6.6375
+  type: 'test'
+  ...
+# Subtest: missing_evidence survives reference and comparison unchanged
+ok 45 - missing_evidence survives reference and comparison unchanged
+  ---
+  duration_ms: 3.8278
+  type: 'test'
+  ...
+# Subtest: zero is a valid semantic value and cannot silently become null
+ok 46 - zero is a valid semantic value and cannot silently become null
+  ---
+  duration_ms: 0.2857
+  type: 'test'
+  ...
+# Subtest: future agent seam uses the same exact comparison but cannot inflate service coverage
+ok 47 - future agent seam uses the same exact comparison but cannot inflate service coverage
+  ---
+  duration_ms: 45.3873
+  type: 'test'
+  ...
+# Subtest: registry rejects duplicate or invalid targets
+ok 48 - registry rejects duplicate or invalid targets
+  ---
+  duration_ms: 43.068
+  type: 'test'
+  ...
+# Subtest: default CLI is deterministic and runs with network, process launch and filesystem writes forbidden
+ok 49 - default CLI is deterministic and runs with network, process launch and filesystem writes forbidden
+  ---
+  duration_ms: 3239.0045
+  type: 'test'
+  ...
+# Subtest: reviewed eval modules have no business writes, dynamic adapter loading, case matchers or application integration
+ok 50 - reviewed eval modules have no business writes, dynamic adapter loading, case matchers or application integration
+  ---
+  duration_ms: 1.3559
+  type: 'test'
+  ...
+# Subtest: committed deterministic report reproduces exactly
+ok 51 - committed deterministic report reproduces exactly
+  ---
+  duration_ms: 0.6012
+  type: 'test'
+  ...
+1..51
+# tests 51
+# suites 0
+# pass 51
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4618.4704
+
+> investment-research-dashboard@0.1.0 test:bridge
+> node --test scripts/tests/research-bridge.node.mjs
+
+TAP version 13
+# Subtest: all eight tools honor publish, page window, digest, selected knowledge and complete history
+ok 1 - all eight tools honor publish, page window, digest, selected knowledge and complete history
+  ---
+  duration_ms: 9.2748
+  type: 'test'
+  ...
+# Subtest: revoke, expiry, tenant isolation, unstaged refs, writes, path traversal and unknown params all fail closed
+ok 2 - revoke, expiry, tenant isolation, unstaged refs, writes, path traversal and unknown params all fail closed
+  ---
+  duration_ms: 2.1722
+  type: 'test'
+  ...
+# Subtest: partial upload cannot publish and bad text digest is rejected
+ok 3 - partial upload cannot publish and bad text digest is rejected
+  ---
+  duration_ms: 0.8529
+  type: 'test'
+  ...
+# Subtest: OAuth requires owner, consent cookie, exact redirect/resource, S256 and single-use code
+ok 4 - OAuth requires owner, consent cookie, exact redirect/resource, S256 and single-use code
+  ---
+  duration_ms: 2.2404
+  type: 'test'
+  ...
+# Subtest: callback-ID allowlist is exact and preserves public-client S256 resource and scope checks
+ok 5 - callback-ID allowlist is exact and preserves public-client S256 resource and scope checks
+  ---
+  duration_ms: 0.4684
+  type: 'test'
+  ...
+# Subtest: real HTTP + official MCP client initialization/list/call, authentication and immediate revoke
+ok 6 - real HTTP + official MCP client initialization/list/call, authentication and immediate revoke
+  ---
+  duration_ms: 137.233
+  type: 'test'
+  ...
+# Subtest: missing remote configuration returns 503, never anonymous fallback or data
+ok 7 - missing remote configuration returns 503, never anonymous fallback or data
+  ---
+  duration_ms: 9.238
+  type: 'test'
+  ...
+# Subtest: actual revoke-batch HTTP path bypasses 501+ objects, blocks legacy/repeated stages and knowledge, preserves other batches
+ok 8 - actual revoke-batch HTTP path bypasses 501+ objects, blocks legacy/repeated stages and knowledge, preserves other batches
+  ---
+  duration_ms: 32.6341
+  type: 'test'
+  ...
+# Subtest: batch revoke CAS serializes competing revokes, covers in-flight sends and fails closed on storage errors
+ok 9 - batch revoke CAS serializes competing revokes, covers in-flight sends and fails closed on storage errors
+  ---
+  duration_ms: 5.6114
+  type: 'test'
+  ...
+# Subtest: raw HTTP UTF-8 decodes once at every byte boundary, preserves JSON, source digest and parsed-body paths
+ok 10 - raw HTTP UTF-8 decodes once at every byte boundary, preserves JSON, source digest and parsed-body paths
+  ---
+  duration_ms: 246.3569
+  type: 'test'
+  ...
+# Subtest: raw and parsed HTTP bodies enforce the actual 3 MiB bound before unbounded consumption
+ok 11 - raw and parsed HTTP bodies enforce the actual 3 MiB bound before unbounded consumption
+  ---
+  duration_ms: 10.1282
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1197.5556

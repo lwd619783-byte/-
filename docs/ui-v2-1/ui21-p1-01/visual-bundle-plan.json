@@ -1,0 +1,631 @@
+{
+  "schemaVersion": "ui21-p1-01.visual-bundle-plan.v1",
+  "preparedAt": "2026-09-21T16:37:08.807125+00:00",
+  "status": "BUNDLED_32_IMAGES",
+  "bundleScope": "Minimal after screenshots; actual App only. No before or component harness screenshots.",
+  "historicalInventory": {
+    "publicIndexCount": 242,
+    "actualAppPublishedCount": 66,
+    "historicalSelectedCount": 16,
+    "excludedHarnessCount": 176
+  },
+  "entries": [
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-knowledge-1440.png",
+      "file": "actual-app/historical-reused/populated-synthetic-knowledge-1440.png",
+      "category": "knowledge",
+      "captureSurface": "actual-app",
+      "route": "knowledge",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "41f3aae49cd04fe54b4fa308afd0c0daa6e02ebf02fd5c19fda8042e0fde5840",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-knowledge-390.png",
+      "file": "actual-app/historical-reused/populated-synthetic-knowledge-390.png",
+      "category": "knowledge",
+      "captureSurface": "actual-app",
+      "route": "knowledge",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "4c53e816ee0a74ffb774b98f889d7fa72f9310bdfb108c7820a1b3bf13fdfcc1",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-sources-1440.png",
+      "file": "actual-app/historical-reused/populated-synthetic-sources-1440.png",
+      "category": "sources",
+      "captureSurface": "actual-app",
+      "route": "sources",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "5b4083a51f7862f95ba59a6154f9c4703009a2316f8c39de71d870b299c0dc77",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-sources-390.png",
+      "file": "actual-app/historical-reused/populated-synthetic-sources-390.png",
+      "category": "sources",
+      "captureSurface": "actual-app",
+      "route": "sources",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "5cb602214dea980e715d1fb218f728c573e4c41e3728c9e4de666a5383506dfc",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-settings-1440.png",
+      "file": "actual-app/historical-reused/populated-synthetic-settings-1440.png",
+      "category": "settings",
+      "captureSurface": "actual-app",
+      "route": "settings",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "c38f611413a35800ab772abcc4c119555682d61c9e2aacfe7bb4ede2851a6964",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-settings-390.png",
+      "file": "actual-app/historical-reused/populated-synthetic-settings-390.png",
+      "category": "settings",
+      "captureSurface": "actual-app",
+      "route": "settings",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "71519c72ea22cba92534a2a67350f50d4d83e331cbc35234352ce8bcb8741a5f",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-knowledge-wiki-wiki-one-1440.png",
+      "file": "actual-app/historical-reused/populated-synthetic-knowledge-wiki-wiki-one-1440.png",
+      "category": "fullbody",
+      "captureSurface": "actual-app",
+      "route": "knowledge?wiki=wiki-one",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "21837ca740d4475089a64a99b0ae587e28563a864696cf68ce9b4d661191ae20",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-knowledge-wiki-wiki-one-390.png",
+      "file": "actual-app/historical-reused/populated-synthetic-knowledge-wiki-wiki-one-390.png",
+      "category": "fullbody",
+      "captureSurface": "actual-app",
+      "route": "knowledge?wiki=wiki-one",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "f03d47b497cc1963516be8735e8e05aaf75b422bac94d3e476dbf25e6c9085ae",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-tasks-view-review-1440.png",
+      "file": "actual-app/historical-reused/populated-synthetic-tasks-view-review-1440.png",
+      "category": "tasks-review",
+      "captureSurface": "actual-app",
+      "route": "tasks?view=review",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "81e6e09b5d9361cca47b829e25f8b0e74bc40cf2bf85954b4cf663e86a0d6ca5",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-tasks-view-review-390.png",
+      "file": "actual-app/historical-reused/populated-synthetic-tasks-view-review-390.png",
+      "category": "tasks-review",
+      "captureSurface": "actual-app",
+      "route": "tasks?view=review",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "c8689c38fadcfbfbbb4b5db356f6b2185847cf1df9ca6d366a93f0dee56f5651",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-knowledge-draft-1440.png",
+      "file": "actual-app/historical-reused/populated-synthetic-knowledge-draft-1440.png",
+      "category": "draft-dialog",
+      "captureSurface": "actual-app",
+      "route": "tasks?view=review",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "dc13625ab5a1efa19b06335bc1cbfb2e58f3600a3ee9fc1bc68754a14e8f13a2",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Dialog screenshot records visible scroll viewport only; fullbody category supplies complete page screenshot.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-knowledge-draft-390.png",
+      "file": "actual-app/historical-reused/populated-synthetic-knowledge-draft-390.png",
+      "category": "draft-dialog",
+      "captureSurface": "actual-app",
+      "route": "tasks?view=review",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "populated-synthetic",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "6763ca5e630accf8e5764eafae3736aa9c78114ed3fe857330011ff88d95517f",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Dialog screenshot records visible scroll viewport only; fullbody category supplies complete page screenshot.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/locked-wiki-knowledge-1440.png",
+      "file": "actual-app/historical-reused/locked-wiki-knowledge-1440.png",
+      "category": "error-knowledge",
+      "captureSurface": "actual-app",
+      "route": "knowledge",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenario": "locked-wiki",
+      "inputType": "locked-wiki; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "13dc3cbae6e841fd58342933b06583043889aa6ee14560c11c85550150fb3ffc",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/locked-wiki-knowledge-390.png",
+      "file": "actual-app/historical-reused/locked-wiki-knowledge-390.png",
+      "category": "error-knowledge",
+      "captureSurface": "actual-app",
+      "route": "knowledge",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "locked-wiki",
+      "inputType": "locked-wiki; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "b26ffb3ffc20f22eac468fabeec1502af6a53b0837dc5b207e62c35284a78f7e",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/error-source-sources-1440.png",
+      "file": "actual-app/historical-reused/error-source-sources-1440.png",
+      "category": "error-source",
+      "captureSurface": "actual-app",
+      "route": "sources",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "scenario": "error-source",
+      "inputType": "error-source; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "6792252ac5e471a84b78fe6b1834e05095e95258db1f501fb8c16ae51d4177ab",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    },
+    {
+      "source": "docs/ui-v2-1/screenshots/app-after-final/error-source-sources-390.png",
+      "file": "actual-app/historical-reused/error-source-sources-390.png",
+      "category": "error-source",
+      "captureSurface": "actual-app",
+      "route": "sources",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error-source",
+      "inputType": "error-source; disposable context, no private user data; public provider counters may appear in shell",
+      "dataClassification": "Disposable browser owners contain synthetic fixture content or intentionally invalid fixture state; bundled public provider defaults may still appear in App shell. Not an all-synthetic provider dataset.",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "runtimeBinding": "historical run-start metadata; exact per-screenshot runtime is not established",
+      "perCaptureRuntimeSha": null,
+      "runtimeDeltaNote": "Historical run began at d80f2356; late ResearchInbox.css reflow change is recorded at 884192d9. Preserve original report and consult docs/ui-v2-1/acceptance-evidence.json; do not relabel these captures as exact 884192d9 or UI21-P1-01.",
+      "exactOrigin": "http://127.0.0.1:4201",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T15:42:42.875Z",
+      "timeBinding": "historical run start; individual screenshot timestamp unavailable",
+      "sha256": "e3e7aca475414b35d5a026c368807ea5a095ed84fc78aa3ee6934599ca596caf",
+      "sourceReport": "docs/ui-v2-1/evidence/app-after-final.json",
+      "sourcePublicIndex": "docs/ui-v2-1/screenshot-index.json",
+      "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
+      "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
+      "environment": "LOCAL_DEV_HISTORICAL"
+    }
+  ],
+  "pendingRequired": [
+    {
+      "category": "home",
+      "route": "home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+    },
+    {
+      "category": "home",
+      "route": "home",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+    },
+    {
+      "category": "research",
+      "route": "research",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+    },
+    {
+      "category": "research",
+      "route": "research",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+    },
+    {
+      "category": "tasks-replay",
+      "route": "tasks?view=replay",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+    },
+    {
+      "category": "tasks-replay",
+      "route": "tasks?view=replay",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+    },
+    {
+      "category": "tasks-verify",
+      "route": "tasks?view=verify",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+    },
+    {
+      "category": "tasks-verify",
+      "route": "tasks?view=verify",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+    },
+    {
+      "category": "duplicateerror",
+      "route": "#/watchlist",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+    },
+    {
+      "category": "duplicateerror",
+      "route": "#/watchlist",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+    },
+    {
+      "category": "rangeerror",
+      "route": "#/expectations",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+    },
+    {
+      "category": "rangeerror",
+      "route": "#/expectations",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+    },
+    {
+      "category": "watchfuture-lockedhome",
+      "route": "home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+    },
+    {
+      "category": "watchfuture-lockedhome",
+      "route": "home",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+    },
+    {
+      "category": "expectationfuture-home",
+      "route": "home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+    },
+    {
+      "category": "expectationfuture-home",
+      "route": "home",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+    }
+  ],
+  "excluded": [
+    "All component harness screenshots (research/workbench/company/knowledge-states), which do not establish App integration.",
+    "Private original articles, source snapshots, contribution packages, profiles, cookies, secrets, .local artifacts.",
+    "Historical mixed-provider home/research/tasks replay/verify captures replaced by new mock-mode screenshots."
+  ],
+  "limits": [
+    "Historical selected images are reused without new execution or acceptance.",
+    "A screenshot does not establish full behavior, owner persistence, complete accessibility, or ChatGPT visual approval.",
+    "The archival runtimeSha of historical images is run-start metadata, not independently established per-image exact runtime.",
+    "Synthetic user-owner records do not turn bundled public provider data into synthetic data."
+  ],
+  "packaging": {
+    "script": "data-cache/ui21-p1-01/build-visual-bundle.py",
+    "supplementFormat": "JSON object with entries array. Each entry: source repo-relative PNG path, file archive-relative PNG path, category, captureSurface=actual-app, route, viewport, runtimeSha, exactOrigin, testedAt, inputType, sha256.",
+    "output": "data-cache/ui21-p1-01/research-os-v2.1-UI21-P1-01-visual-review.zip",
+    "buildCondition": "All sixteen pending category/width captures supplied; hashes and source paths verified. New captures LOCAL_BUILD at e5c2dcb957a325e355c30392c69ccae6258916d1 and exact origin http://127.0.0.1:4203; original historical metadata preserved."
+  },
+  "expectedNewRuntime": {
+    "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+    "exactOrigin": "http://127.0.0.1:4203",
+    "environment": "LOCAL_BUILD"
+  },
+  "completedBundle": "research-os-v2.1-UI21-P1-01-visual-review.zip"
+}

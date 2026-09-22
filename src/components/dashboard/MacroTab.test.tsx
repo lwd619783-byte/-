@@ -94,7 +94,8 @@ describe("frozen macro observation workflow", () => {
       expect(screen.getByRole("region", { name: "当前宏观指标读数" }).textContent).toContain("50.3");
     }
     expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(5);
-    expect(screen.getByText("历史序列尚未接入当前页面")).toBeTruthy();
+    expect(screen.getByText("当前仅提供快照观测；历史序列与方向模型尚未接入。")).toBeTruthy();
+    expect(screen.queryByText("历史序列尚未接入当前页面")).toBeNull();
   });
 
   it("shows future and invalid source times without changing original quality or filling publication time", () => {

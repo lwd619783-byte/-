@@ -24,6 +24,13 @@ function fixture(count = 2) {
 }
 
 describe("ResearchEventCenter UI V1", () => {
+  it("does not reserve a detail column when the event list is empty", () => {
+    render(<ResearchEventCenter {...fixture(0)} />);
+    expect(screen.getByText("暂无研究事件")).toBeTruthy();
+    expect(screen.queryByLabelText("选中事件详情")).toBeNull();
+    expect(screen.queryByText("请选择研究事件")).toBeNull();
+  });
+
   it("selects original event identity and keeps all three qualification questions independent", () => {
     const data = fixture();
     data.snapshot.events[0].expectation = { snapshotId: "synthetic-expectation", sourceCategory: "company_guidance", sourceName: "synthetic 官方指引", ingestionMethod: "provider", reportPeriod: "2026-06-30", metric: "revenue", expectedValue: null, expectedLowerBound: 10, expectedUpperBound: 20, isExAnte: false, comparisonResult: "not_comparable", sourceVerificationStatus: "verified", actualDisclosureTimingStatus: "same_time", performanceDisclosureTimingStatus: "unknown", businessOrderStatus: "uncertain", originalBusinessTime: "2026-09-08", businessTimePrecision: "date", nonComparableReasonCodes: ["source_verification_pending"] };

@@ -1,0 +1,372 @@
+{
+  "testedAt": "2026-09-21T15:45:44.408Z",
+  "browser": "153.0.8010.48",
+  "inputType": "bundled public defaults; empty personal owners; disposable contexts",
+  "environment": "same host / browser; alternating local Vite dev servers; fresh context each sample; no network throttling",
+  "definition": "navigation start until main is visible plus two animation frames; provider background completion excluded",
+  "limits": "Six samples per route/version; normal local scheduling noise; not a claim about remote Preview latency.",
+  "samples": [
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "home",
+      "sample": 1,
+      "elapsedMs": 1472.5962,
+      "nodes": 394,
+      "bodyLength": 1466,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "home",
+      "sample": 1,
+      "elapsedMs": 1139.2942000000003,
+      "nodes": 355,
+      "bodyLength": 1368,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "home",
+      "sample": 2,
+      "elapsedMs": 1200.3156,
+      "nodes": 355,
+      "bodyLength": 1368,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "home",
+      "sample": 2,
+      "elapsedMs": 1061.5373999999993,
+      "nodes": 395,
+      "bodyLength": 1498,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "home",
+      "sample": 3,
+      "elapsedMs": 1284.8325000000004,
+      "nodes": 394,
+      "bodyLength": 1466,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "home",
+      "sample": 3,
+      "elapsedMs": 1655.4079000000002,
+      "nodes": 355,
+      "bodyLength": 1368,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "home",
+      "sample": 4,
+      "elapsedMs": 1115.3639999999996,
+      "nodes": 355,
+      "bodyLength": 1368,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "home",
+      "sample": 4,
+      "elapsedMs": 1141.5107000000007,
+      "nodes": 394,
+      "bodyLength": 1466,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "home",
+      "sample": 5,
+      "elapsedMs": 1526.159499999998,
+      "nodes": 394,
+      "bodyLength": 1466,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "home",
+      "sample": 5,
+      "elapsedMs": 1344.6164000000026,
+      "nodes": 355,
+      "bodyLength": 1368,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "home",
+      "sample": 6,
+      "elapsedMs": 1111.7993999999999,
+      "nodes": 355,
+      "bodyLength": 1368,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "home",
+      "sample": 6,
+      "elapsedMs": 1090.9000000000015,
+      "nodes": 394,
+      "bodyLength": 1466,
+      "indexedDbNames": [],
+      "knowledgeMounted": false
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "knowledge",
+      "sample": 1,
+      "elapsedMs": 1716.9229000000014,
+      "nodes": 290,
+      "bodyLength": 1075,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "knowledge",
+      "sample": 1,
+      "elapsedMs": 1698.447799999998,
+      "nodes": 328,
+      "bodyLength": 1364,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "knowledge",
+      "sample": 2,
+      "elapsedMs": 1822.355300000003,
+      "nodes": 328,
+      "bodyLength": 1364,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "knowledge",
+      "sample": 2,
+      "elapsedMs": 2242.0728000000017,
+      "nodes": 290,
+      "bodyLength": 1075,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "knowledge",
+      "sample": 3,
+      "elapsedMs": 1821.0130999999965,
+      "nodes": 290,
+      "bodyLength": 1075,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "knowledge",
+      "sample": 3,
+      "elapsedMs": 1825.0743000000002,
+      "nodes": 328,
+      "bodyLength": 1364,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "knowledge",
+      "sample": 4,
+      "elapsedMs": 2314.1331999999966,
+      "nodes": 328,
+      "bodyLength": 1364,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "knowledge",
+      "sample": 4,
+      "elapsedMs": 2099.337000000007,
+      "nodes": 290,
+      "bodyLength": 1075,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "knowledge",
+      "sample": 5,
+      "elapsedMs": 2589.745999999999,
+      "nodes": 290,
+      "bodyLength": 1075,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "knowledge",
+      "sample": 5,
+      "elapsedMs": 2144.2103999999963,
+      "nodes": 328,
+      "bodyLength": 1364,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "knowledge",
+      "sample": 6,
+      "elapsedMs": 2182.126400000001,
+      "nodes": 328,
+      "bodyLength": 1364,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "knowledge",
+      "sample": 6,
+      "elapsedMs": 1677.4298999999955,
+      "nodes": 290,
+      "bodyLength": 1075,
+      "indexedDbNames": [
+        "investment-research-dashboard.knowledge-ingestion.v1"
+      ],
+      "knowledgeMounted": true
+    }
+  ],
+  "summary": [
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "home",
+      "samples": 6,
+      "medianMs": 1169.8049,
+      "minMs": 1111.7993999999999,
+      "maxMs": 1655.4079000000002,
+      "medianNodes": 355,
+      "homepageKnowledgeMounted": false
+    },
+    {
+      "name": "before",
+      "origin": "http://127.0.0.1:4200",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "route": "knowledge",
+      "samples": 6,
+      "medianMs": 1984.6423499999983,
+      "minMs": 1698.447799999998,
+      "maxMs": 2314.1331999999966,
+      "medianNodes": 328,
+      "homepageKnowledgeMounted": null
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "home",
+      "samples": 6,
+      "medianMs": 1213.1716000000006,
+      "minMs": 1061.5373999999993,
+      "maxMs": 1526.159499999998,
+      "medianNodes": 394,
+      "homepageKnowledgeMounted": false
+    },
+    {
+      "name": "after",
+      "origin": "http://127.0.0.1:4201",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "route": "knowledge",
+      "samples": 6,
+      "medianMs": 1960.1750500000016,
+      "minMs": 1677.4298999999955,
+      "maxMs": 2589.745999999999,
+      "medianNodes": 290,
+      "homepageKnowledgeMounted": null
+    }
+  ]
+}

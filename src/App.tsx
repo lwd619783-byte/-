@@ -1,14 +1,16 @@
 import { useDisplayNow } from "./hooks/useDisplayNow";
-import { pages, useWorkspaceNavigation } from "./hooks/useWorkspaceNavigation";
+import { pages, useWorkspaceNavigation, type MainPage, type PageId } from "./hooks/useWorkspaceNavigation";
 import { StockQuickPreview } from "./components/stock/StockQuickPreview";
 import { QuoteTrustSummary } from "./components/common/QuoteTrust";
 import { summarizeQuotes } from "./utils/dataTrustDisplay";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AlertTriangle, BarChart3, Binoculars, Building2, CheckSquare, FileCheck2, FlaskConical, House, LineChart, Plus, ScrollText, RefreshCw, type LucideIcon } from "lucide-react";
+import { AlertTriangle, CheckSquare, FileCheck2, Plus, RefreshCw } from "lucide-react";
 import { Header } from "./components/layout/Header";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { RightRail } from "./components/layout/RightRail";
-import { Sidebar } from "./components/layout/Sidebar";
+import { WorkspaceNavigation, ResearchNavigation, WorkspaceSearch } from './components/layout/WorkspaceNavigation';
+import { PortfolioBoundary, WorkspaceSettings } from './components/layout/WorkspaceSettings';
+import { ResearchWorkbench, TaskWorkspace } from './components/home/ResearchWorkbench';
 import { MacroTab } from "./components/dashboard/MacroTab";
 import { IndustryTab } from "./components/industry/IndustryTab";
 import { StockPool } from "./components/stock/StockPool";
@@ -20,7 +22,7 @@ import { ResearchEventCenter } from "./components/research/ResearchEventCenter";
 import { EarningsExpectationCenter } from "./components/expectation/EarningsExpectationCenter";
 import { EarningsExpectationFormModal } from "./components/expectation/EarningsExpectationFormModal";
 import { EarningsExpectationImportModal } from "./components/expectation/EarningsExpectationImportModal";
-import { HomePage, type ResearchDestination } from "./components/home/HomePage";
+import { HomePage } from "./components/home/HomePage";
 import { dataSourceNote, dataUpdatedAt, macroIndicators } from "./data/macroData";
 import { watchlistSamples } from "./data/watchlist";
 import { buildDashboardDataset } from "./services/dataProvider";
@@ -39,27 +41,20 @@ import { DashboardCard, KpiCard, SectionHeader } from "./components/common/termi
 import { formatPercent } from "./utils/normalize";
 import { loadIndustryMetrics, type IndustryProviderState } from './services/industryMetricProvider';
 import { buildIndustryChanges } from './services/industrySignals';
-import { ResearchMemoryWorkspace } from './components/research-memory/ResearchMemoryWorkspace';
+import { ResearchMemoryWorkspace, type KnowledgeReviewState } from './components/research-memory/ResearchMemoryWorkspace';
 import { CreatorViewpointWorkspace } from './components/creator/CreatorViewpointWorkspace';
 
-type MainTab = "首页" | ResearchDestination;
-
-const tabs: Array<{ id: MainTab; icon: LucideIcon }> = [
-  { id: "首页", icon: House },
-  { id: "宏观", icon: LineChart },
-  { id: "行业", icon: Building2 },
-  { id: "个股池", icon: BarChart3 },
-  { id: "观察清单", icon: Binoculars },
-  { id: "验证中心", icon: FlaskConical },
-  { id: "预期证据", icon: ScrollText },
-  { id: "观点追踪", icon: ScrollText },
-  { id: "研究记忆", icon: ScrollText },
-];
+type MainTab = MainPage;
 
 export default function App() {
   const displayNow = useDisplayNow();
   const navigation = useWorkspaceNavigation();
   const activeTab = pages[navigation.route.page];
+  const navigatePageId = (page: PageId) => navigation.navigatePage(pages[page]);
+  const taskQueue = navigation.route.view === 'review' ? 'knowledge' : navigation.route.view === 'verify' ? 'verification' : 'review';
+  const memoryActive = ['memory', 'knowledge', 'sources'].includes(navigation.route.page) || (navigation.route.page === 'tasks' && taskQueue === 'knowledge');
+  const memoryView = navigation.route.view === 'bridge' ? '研究桥' : navigation.route.view === 'organize' ? 'AI 整理' : navigation.route.view === 'review' ? '待审核' : navigation.route.view === 'wiki' || navigation.route.page === 'knowledge' ? '我的知识库' : navigation.route.page === 'tasks' ? '待审核' : '原始资料';
+  const [knowledgeReviewState, setKnowledgeReviewState] = useState<KnowledgeReviewState>({ status: 'loading' });
   const industryLocation = useRef<{ industryId?: string; segmentId?: string }>({});
   if (navigation.route.kind === "page" && navigation.route.page === "industry") industryLocation.current = navigation.route;
   const eventLocation = useRef<{ eventId?: string }>({});
@@ -76,6 +71,7 @@ export default function App() {
   const initialWatchlistLoad = useMemo(() => repository.load(), [repository]);
   const [watchlistData, setWatchlistData] = useState(initialWatchlistLoad.data);
   const [storageError, setStorageError] = useState<string | null>(initialWatchlistLoad.error);
+  const [watchActionError, setWatchActionError] = useState<string | null>(null);
   const [corruptedRaw, setCorruptedRaw] = useState<string | null>(initialWatchlistLoad.corruptedRaw);
   const [workflowMessage, setWorkflowMessage] = useState<string | null>(null);
   const [watchForm, setWatchForm] = useState<{ itemId?: string; stockId?: string } | null>(null);
@@ -86,6 +82,7 @@ export default function App() {
   const initialExpectationLoad = useMemo(() => expectationRepository.load(), [expectationRepository]);
   const [expectationData, setExpectationData] = useState(initialExpectationLoad.data);
   const [expectationStorageError, setExpectationStorageError] = useState<string | null>(initialExpectationLoad.error);
+  const [expectationActionError, setExpectationActionError] = useState<string | null>(null);
   const [expectationCorruptedRaw, setExpectationCorruptedRaw] = useState<string | null>(initialExpectationLoad.corruptedRaw);
   const [expectationForm, setExpectationForm] = useState<{ stockId?: string; correctionId?: string } | null>(null);
   const [expectationImportOpen, setExpectationImportOpen] = useState(false);
@@ -103,22 +100,24 @@ export default function App() {
   const industryEvents = useMemo(() => dataMode !== 'mock' && industryMetricState?.status === 'available'
     ? dataset.industries.flatMap(industry => buildIndustryChanges(industryMetricState.provider, industry.id).events) : [], [dataMode, dataset.industries, industryMetricState]);
   const providerRecords = useMemo(() => selectActiveCompanyGuidanceProviderRecords(dataMode, companyGuidanceWorkflowStatus, companyGuidanceWorkflow), [companyGuidanceWorkflow, companyGuidanceWorkflowStatus, dataMode]);
-  const aggregatedExpectationEvidence = useMemo(() => aggregateEarningsExpectationEvidence({ providerSnapshots: providerRecords, localSnapshots: expectationData.snapshots }), [expectationData.snapshots, providerRecords]);
+  const readableLocalExpectations = useMemo(() => expectationStorageError ? [] : expectationData.snapshots, [expectationStorageError, expectationData.snapshots]);
+  const readableWatchItems = useMemo(() => storageError ? [] : watchlistData.watchItems, [storageError, watchlistData.watchItems]);
+  const aggregatedExpectationEvidence = useMemo(() => aggregateEarningsExpectationEvidence({ providerSnapshots: providerRecords, localSnapshots: readableLocalExpectations }), [readableLocalExpectations, providerRecords]);
   const baseResearchSnapshot = useMemo(() => buildResearchEventSnapshot(dataset.stocks), [dataset.stocks]);
   const expectationComparisons = useMemo(() => buildEarningsExpectationComparisons(aggregatedExpectationEvidence.comparisonSnapshots, baseResearchSnapshot.events, expectationData.settings), [aggregatedExpectationEvidence.comparisonSnapshots, baseResearchSnapshot.events, expectationData.settings]);
   const expectationEvents = useMemo(() => buildEarningsExpectationResearchEvents(aggregatedExpectationEvidence.comparisonSnapshots, expectationComparisons, dataset.stocks, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone), [aggregatedExpectationEvidence.comparisonSnapshots, dataset.stocks, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone]);
-  const providerConflictEvents = useMemo(() => buildProviderContentConflictEvents(aggregatedExpectationEvidence, expectationData.snapshots, dataset.stocks), [aggregatedExpectationEvidence, dataset.stocks, expectationData.snapshots]);
+  const providerConflictEvents = useMemo(() => buildProviderContentConflictEvents(aggregatedExpectationEvidence, readableLocalExpectations, dataset.stocks), [aggregatedExpectationEvidence, dataset.stocks, readableLocalExpectations]);
   const researchSnapshot = useMemo(() => ({ ...baseResearchSnapshot, events: sortResearchEvents(deduplicateResearchEvents([...baseResearchSnapshot.events, ...expectationEvents, ...providerConflictEvents]), expectationData.settings.timeZone) }), [baseResearchSnapshot, expectationData.settings.timeZone, expectationEvents, providerConflictEvents]);
   const reviewTasks = useMemo(() => buildReviewTasks({
     now: displayNow,
-    watchItems: watchlistData.watchItems,
+    watchItems: readableWatchItems,
     events: researchSnapshot.events,
     chains: researchSnapshot.chains,
     taskStates: watchlistData.reviewTaskStates,
     longUnreviewedDays: watchlistData.settings.longUnreviewedDays,
     expectationRevisionThreshold: expectationData.settings.revisionReminderThreshold,
     timeZone: expectationData.settings.timeZone,
-  }), [displayNow, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, researchSnapshot, watchlistData]);
+  }), [displayNow, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, researchSnapshot, watchlistData, readableWatchItems]);
   const exportJson = useMemo(() => repository.export(watchlistData), [repository, watchlistData]);
   const expectationExportJson = useMemo(() => expectationRepository.export(expectationData), [expectationData, expectationRepository]);
   const expectationExportCsv = useMemo(() => exportEarningsExpectationCsv(expectationData.snapshots), [expectationData.snapshots]);
@@ -257,13 +256,32 @@ export default function App() {
     };
   }, [displayNow, aggregatedExpectationEvidence.snapshots, dataset, expectationComparisons, expectationData.settings.revisionReminderThreshold, expectationData.settings.timeZone, expectationEvents, researchSnapshot, reviewTasks, watchlistData.watchItems]);
 
+  // Mutation results do not classify owner health. Re-read through the existing
+  // repository and verify its captured base without replacing the UI snapshot.
+  // Quota/write rejection can leave reads healthy; corruption, access denial and
+  // changed/missing bases remain locked. No error-message keyword classification.
+  const reportWatchFailure = (error: string | null, base = watchlistData) => {
+    const loaded = repository.load();
+    setStorageError(loaded.error ?? repository.currentBaseError(base));
+    setCorruptedRaw(loaded.corruptedRaw);
+    setWatchActionError(error);
+    setWorkflowMessage(null);
+  };
+  const reportExpectationFailure = (error: string | null) => {
+    const loaded = expectationRepository.load();
+    setExpectationStorageError(loaded.error ?? expectationRepository.currentBaseError(expectationData));
+    setExpectationCorruptedRaw(loaded.corruptedRaw);
+    setExpectationActionError(error);
+    setWorkflowMessage(null);
+  };
+
   const applyAction = (result: WatchlistActionResult, successMessage: string) => {
     if (result.ok) {
       setWatchlistData(result.data);
-      setStorageError(null);
+      setStorageError(null); setWatchActionError(null);
       setWorkflowMessage(successMessage);
     } else {
-      setStorageError(result.error);
+      reportWatchFailure(result.error);
       setWorkflowMessage(null);
     }
     return result.ok;
@@ -281,11 +299,11 @@ export default function App() {
   const applyExpectationAction = (result: EarningsExpectationActionResult, message: string) => {
     if (result.ok) {
       setExpectationData(result.data);
-      setExpectationStorageError(null);
+      setExpectationStorageError(null); setExpectationActionError(null);
       setWorkflowMessage(message);
       setExpectationForm(null);
     } else {
-      setExpectationStorageError(result.error);
+      reportExpectationFailure(result.error);
       setWorkflowMessage(null);
     }
   };
@@ -296,6 +314,11 @@ export default function App() {
     applyExpectationAction(result, correctsSnapshotId ? "纠正快照已追加，原快照保持不变。" : "业绩预期不可变快照已保存。");
   };
 
+  const observationState = storageError ? 'locked' as const : 'ready' as const;
+  const researchDataState = storageError || expectationStorageError ? 'partial' as const : 'ready' as const;
+  const researchDataMessage = [storageError ? `观察与复盘记录已锁定：${storageError}` : null, expectationStorageError ? `本地业绩预期已锁定：${expectationStorageError}` : null].filter(Boolean).join('；') || undefined;
+  const researchSourceNotice = [dataMode !== 'mock' && industryMetricState?.status !== 'available' ? `正式行业指标：${industryMetricState?.status === 'blocked' ? industryMetricState.reason : '校验中'}；行业变化范围尚不完整。` : null, researchDataMessage ? `当前范围不完整；仅显示可读取来源。${researchDataMessage}` : null, companyGuidanceWorkflowStatus !== 'success' && dataMode !== 'mock' ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? '载入完成前，预期事件范围尚不完整。'}` : null].filter(Boolean).join('；');
+
   return (
     <div className="workspace min-h-screen text-text">
       <a className="skip-link" href="#workspace-main" onClick={event => { event.preventDefault(); document.getElementById("workspace-main")?.focus(); }}>跳到主要内容</a>
@@ -303,6 +326,8 @@ export default function App() {
         onHome={() => navigateToTab("首页")}
         search={globalSearch}
         onSearchChange={setGlobalSearch}
+        onStartResearch={activeTab === '首页' ? undefined : () => navigatePageId('stocks')}
+        workspaceSearch={<WorkspaceSearch navigate={navigatePageId} onCompanySearch={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
         updatedAt={dataset.dataUpdatedAt}
         sourceNote={dataMode === "mock" ? dataSourceNote : dataset.dataSourceNote}
         dataMode={dataMode}
@@ -312,13 +337,14 @@ export default function App() {
       />
 
       <DashboardLayout
-        sidebar={<Sidebar tabs={tabs} activeTab={activeTab} onChange={navigateToTab} />}
+        sidebar={<WorkspaceNavigation page={navigation.route.page} navigate={navigatePageId} />}
         main={
           <section className="min-w-0 space-y-4">
-          <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引数据状态">
+          <ResearchNavigation page={navigation.route.page} navigate={navigatePageId} />
+          {companyGuidanceWorkflowError && <DashboardCard className="flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="全局公司指引数据状态">
             <div className="min-w-0 text-xs"><span className="font-semibold text-textStrong">公司指引数据</span><span className="ml-2 text-textMuted">{dataMode === "mock" ? "模拟数据模式已严格隔离真实数据提供方" : companyGuidanceWorkflowStatus === "loading" ? "全局索引校验中" : companyGuidanceWorkflowStatus === "success" ? `已验证 ${providerRecords.length} 条当前版本，导航切换不改变工作流` : companyGuidanceWorkflowStatus === "error" ? "全局索引失败，正式数据提供方已关闭" : "等待加载"}</span></div>
             {companyGuidanceWorkflowError ? <div className="flex min-w-0 items-center gap-2"><span role="alert" className="max-w-xl break-words text-xs text-warning" title={companyGuidanceWorkflowError}>{companyGuidanceWorkflowError}</span><button type="button" onClick={retryCompanyGuidance} className="rounded border border-warning/50 px-2 py-1 text-xs text-warning">重试</button></div> : null}
-          </DashboardCard>
+          </DashboardCard>}
           {navigation.route.kind === "invalid" || (navigation.route.kind === "company" && !activeSelectedStock) ? <section className="ui-panel rounded-lg border border-warning p-6" role="status"><h1 className="text-2xl font-semibold">找不到研究对象或页面</h1><p className="my-4 text-textMuted">链接中的对象不存在于当前研究池，请返回入口重新选择。</p><button type="button" onClick={() => navigateToTab("个股池")} className="rounded-md border border-control px-4 py-2">返回个股池</button></section> : null}
                 <StockDetailDrawer
         presentation="page"
@@ -327,7 +353,9 @@ export default function App() {
         stock={activeSelectedStock}
         stocks={dataset.stocks}
         industries={dataset.industries}
-        watchItems={watchlistData.watchItems}
+        watchlistReadError={storageError}
+        earningsExpectationReadError={expectationStorageError}
+        watchItems={readableWatchItems}
         reviewEntries={watchlistData.reviewEntries}
         reviewTasks={reviewTasks}
         researchEvents={researchSnapshot.events}
@@ -351,14 +379,18 @@ export default function App() {
           <div hidden={navigation.route.kind !== "page"} className="space-y-4">
 
 
-          {visitedTabs.has("首页") && (<div hidden={activeTab !== "首页"}>
+          {activeTab === '首页' && <ResearchWorkbench stocks={dataset.stocks} watchItems={readableWatchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} observationState={observationState} observationMessage={storageError ?? undefined} onNavigate={navigateToTab} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenKnowledge={() => navigatePageId('knowledge')} onOpenTasks={() => navigatePageId('tasks')} onOpenSources={() => navigation.navigateHash('#/sources?view=add')} onOpenResearch={() => navigatePageId('research')} onResearchQuery={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
+          {activeTab === '任务' && <TaskWorkspace stocks={dataset.stocks} watchItems={readableWatchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} observationState={observationState} observationMessage={storageError ?? undefined} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} activeQueue={taskQueue} onQueueChange={queue => navigation.navigateHash(queue === 'knowledge' ? '#/tasks?view=review' : queue === 'verification' ? '#/tasks?view=verify' : '#/tasks?view=replay')} knowledgeState={knowledgeReviewState} onOpenReview={() => navigation.navigateHash('#/tasks?view=review')} />}
+          {activeTab === '组合' && <PortfolioBoundary />}
+          {activeTab === '设置与帮助' && <WorkspaceSettings openKnowledge={() => navigation.navigateHash('#/knowledge?view=maintenance')} openSources={() => navigatePageId('sources')} />}
+          {visitedTabs.has("研究") && (<div hidden={activeTab !== "研究"}>
         <HomePage
           industryEvents={industryEvents}
           now={displayNow}
           expectationSnapshots={aggregatedExpectationEvidence.snapshots}
           timeZone={expectationData.settings.timeZone}
-          inboxSourceNotice={[dataMode !== 'mock' && industryMetricState?.status !== 'available' ? `正式行业指标：${industryMetricState?.status === 'blocked' ? industryMetricState.reason : '校验中'}；行业变化范围尚不完整。` : null, storageError, expectationStorageError, companyGuidanceWorkflowStatus !== "success" && dataMode !== "mock" ? `公司指引索引：${companyGuidanceWorkflowStatus}。${companyGuidanceWorkflowError ?? "载入完成前，预期事件范围尚不完整。"}` : null].filter(Boolean).join("；")}
-          watchItems={watchlistData.watchItems}
+          inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} observationState={observationState} observationMessage={storageError ?? undefined}
+          watchItems={readableWatchItems}
           tasks={reviewTasks}
           events={researchSnapshot.events}
           onStartReview={startReview}
@@ -385,7 +417,7 @@ export default function App() {
 
           {workflowMessage ? <div role="status" className="rounded-md border border-success/35 bg-success/10 px-3 py-2 text-sm text-success">{workflowMessage}</div> : null}
 
-          {visitedTabs.has("研究记忆") && <div hidden={activeTab !== "研究记忆"}><ResearchMemoryWorkspace active={activeTab === "研究记忆"} /></div>}
+          {['研究记忆', '知识库', '资料与连接', '任务'].some(tab => visitedTabs.has(tab as MainTab)) && <div id="task-panel-knowledge" role={navigation.route.page === "tasks" ? "tabpanel" : undefined} aria-labelledby={navigation.route.page === "tasks" ? "task-tab-knowledge" : undefined} hidden={!memoryActive}><ResearchMemoryWorkspace active={memoryActive} requestedView={memoryView} routeKey={`${navigation.route.page}:${navigation.route.view ?? ''}`} selectedWikiId={navigation.route.wikiId} onReviewStateChange={setKnowledgeReviewState} maintenanceOpen={navigation.route.view === 'maintenance'} requestedAddMaterial={navigation.route.page === 'sources' && navigation.route.view === 'add'} onBackToLibrary={() => navigation.navigateHash('#/knowledge')} onAddMaterial={() => navigation.navigateHash('#/sources?view=add')} onSelectWiki={wikiId => navigation.navigateHash(`#/knowledge?wiki=${encodeURIComponent(wikiId)}`)} onViewChange={view => navigation.navigateHash(view === '我的知识库' ? '#/knowledge' : view === '待审核' ? '#/tasks?view=review' : view === 'AI 整理' ? '#/sources?view=organize' : view === '研究桥' ? '#/sources?view=bridge' : '#/sources')} /></div>}
           {visitedTabs.has("观点追踪") && <div hidden={activeTab !== "观点追踪"}><CreatorViewpointWorkspace /></div>}
           {visitedTabs.has("宏观") && <div hidden={activeTab !== "宏观"}><MacroTab indicators={macroIndicators} generatedAt={dataUpdatedAt} /></div>}
           {visitedTabs.has("行业") && (<div hidden={activeTab !== "行业"}>
@@ -410,7 +442,7 @@ export default function App() {
           </div>)}
           {visitedTabs.has("观察清单") && (<div hidden={activeTab !== "观察清单"}>
             <WatchlistTab
-              watchItems={watchlistData.watchItems}
+              watchItems={readableWatchItems}
               samples={watchlistSamples}
               reviewEntries={watchlistData.reviewEntries}
               tasks={reviewTasks}
@@ -418,25 +450,26 @@ export default function App() {
               industries={dataset.industries}
               events={researchSnapshot.events}
               storageError={storageError}
+              operationError={watchForm || reviewItemId ? null : watchActionError}
               corruptedRaw={corruptedRaw}
               exportJson={exportJson}
               onValidateImport={(raw) => repository.validateImport(raw, watchlistData)}
               onMergeImport={(raw) => {
                 const result = repository.mergeImport(raw, watchlistData);
-                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setWorkflowMessage(`合并完成：新增 ${result.preview.addCount}，跳过 ${result.preview.skipCount}。`); }
-                else setStorageError(result.error);
+                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setWatchActionError(null); setWorkflowMessage(`合并完成：新增 ${result.preview.addCount}，跳过 ${result.preview.skipCount}。`); }
+                else reportWatchFailure(result.error);
                 return result.ok;
               }}
               onReplaceImport={(raw) => {
                 const result = repository.replaceImport(raw, watchlistData);
-                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setCorruptedRaw(null); setWorkflowMessage(`替换完成，备份键：${result.backupKey ?? "已创建"}`); }
-                else setStorageError(result.error);
+                if (result.ok && result.data) { setWatchlistData(result.data); setStorageError(null); setWatchActionError(null); setCorruptedRaw(null); setWorkflowMessage(`替换完成，备份键：${result.backupKey ?? "已创建"}`); }
+                else reportWatchFailure(result.error);
                 return result.ok;
               }}
               onReset={() => {
                 const result = repository.reset();
-                if (result.ok) { const loaded = repository.load(); setWatchlistData(loaded.data); setStorageError(loaded.error); setCorruptedRaw(loaded.corruptedRaw); setWorkflowMessage("本地观察清单已重置为空状态。"); }
-                else setStorageError(result.error);
+                if (result.ok) { const loaded = repository.load(); setWatchlistData(loaded.data); setStorageError(loaded.error); setWatchActionError(null); setCorruptedRaw(loaded.corruptedRaw); setWorkflowMessage("本地观察清单已重置为空状态。"); }
+                else reportWatchFailure(result.error);
                 return result.ok;
               }}
               onAdd={() => setWatchForm({})}
@@ -451,13 +484,14 @@ export default function App() {
                 let loaded = 0;
                 let loadError: string | null = null;
                 for (const sample of watchlistSamples) {
+                  if (next.watchItems.some(item => item.stockId === sample.stockId && !item.archivedAt)) continue;
                   const result = watchlistStore.loadSample(next, sample);
                   if (result.ok) { next = result.data; loaded += 1; }
-                  else if (!result.error?.includes("已经存在")) loadError = result.error;
+                  else { loadError = result.error; break; }
                 }
                 setWatchlistData(next);
-                if (loadError) setStorageError(loadError);
-                setWorkflowMessage(`已载入 ${loaded} 个示例；重复公司已跳过。`);
+                if (loadError) reportWatchFailure(loadError, next);
+                else { setWatchActionError(null); setWorkflowMessage(`已载入 ${loaded} 个示例；重复公司已跳过。`); }
               }}
               onTaskState={(taskId, status, snoozedUntil) => applyAction(watchlistStore.setTaskState(watchlistData, taskId, status, snoozedUntil), status === "snoozed" ? "任务已暂缓。" : status === "dismissed" ? "任务已忽略。" : "任务已确认。")}
               onOpenStock={setSelectedStock}
@@ -470,7 +504,7 @@ export default function App() {
               snapshot={researchSnapshot}
               stocks={dataset.stocks}
               industries={dataset.industries}
-              watchItems={watchlistData.watchItems}
+              watchItems={readableWatchItems}
               reviewTasks={reviewTasks}
               timeZone={expectationData.settings.timeZone}
               onStartReview={startReview}
@@ -485,8 +519,9 @@ export default function App() {
               importHistory={expectationData.importHistory}
               stocks={dataset.stocks}
               industries={dataset.industries}
-              watchItems={watchlistData.watchItems}
+              watchItems={readableWatchItems}
               storageError={expectationStorageError}
+              operationError={expectationForm || expectationImportOpen ? null : expectationActionError}
               providerLoadStatus={companyGuidanceWorkflowStatus}
               providerLoadError={companyGuidanceWorkflowError}
               providerDetailLoadStatus={companyGuidanceLoadStatus}
@@ -508,7 +543,8 @@ export default function App() {
               onOpenStock={setSelectedStock}
             />
           </div>)}
-          <details className="workspace-context"><summary>工作台概况与数据健康</summary>
+          <details hidden={!["研究", "设置与帮助"].includes(activeTab)} className="workspace-context"><summary>工作台概况与数据健康</summary>
+          {researchDataMessage ? <p role="alert" className="text-sm text-warning">范围不完整：{researchDataMessage}</p> : null}
           <DashboardCard className="overflow-hidden p-5">
             <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr] xl:items-end">
               <div className="min-w-0">
@@ -532,7 +568,7 @@ export default function App() {
                 </div>
                 <div className="rounded-md border border-borderSoft bg-bg2/70 p-3">
                   <p className="text-xs text-textMuted">观察项</p>
-                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{watchlistData.watchItems.filter((item) => !item.archivedAt).length}</p>
+                  <p className="mt-1 text-xl font-semibold text-textStrong tabular-nums">{storageError ? "已锁定" : watchlistData.watchItems.filter((item) => !item.archivedAt).length}</p>
                 </div>
               </div>
             </div>
@@ -541,7 +577,7 @@ export default function App() {
           <section className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-4">
             <KpiCard
               label="今日待复盘"
-              value={dashboardStats.todayReview}
+              value={storageError ? "已锁定" : expectationStorageError ? `当前可读 ${dashboardStats.todayReview}` : dashboardStats.todayReview}
               delta="用户观察项"
               description="复盘日期已到或任务今日到期"
               tone="info"
@@ -549,7 +585,7 @@ export default function App() {
             />
             <KpiCard
               label="已逾期复盘"
-              value={dashboardStats.overdueReview}
+              value={storageError ? "已锁定" : expectationStorageError ? `当前可读 ${dashboardStats.overdueReview}` : dashboardStats.overdueReview}
               delta="只读提醒"
               description="不会自动改变观察状态"
               tone={dashboardStats.overdueReview ? "warning" : "positive"}
@@ -557,7 +593,7 @@ export default function App() {
             />
             <KpiCard
               label="新事件提醒"
-              value={dashboardStats.newEventReminder}
+              value={storageError ? "已锁定" : expectationStorageError ? `当前可读 ${dashboardStats.newEventReminder}` : dashboardStats.newEventReminder}
               delta="研究事件"
               description="上次复盘后新增真实事件"
               tone="info"
@@ -565,7 +601,7 @@ export default function App() {
             />
             <KpiCard
               label="高优先级观察"
-              value={dashboardStats.highPriorityWatch}
+              value={storageError ? "已锁定" : dashboardStats.highPriorityWatch}
               delta="用户数据"
               description="示例模板不计入"
               tone={dashboardStats.highPriorityWatch ? "warning" : "positive"}
@@ -575,12 +611,12 @@ export default function App() {
 
           <DashboardCard className="p-3">
             <div className="grid gap-2 text-xs text-textMuted sm:grid-cols-2 xl:grid-cols-6" aria-label="业绩预期行动指标">
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增业绩预期：<strong className="text-textStrong">{dashboardStats.recentExpectationSnapshots}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">数据更正：<strong className="text-cyan">{dashboardStats.expectationCorrections}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期上修：<strong className="text-success">{dashboardStats.expectationRevisionUp}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期下修：<strong className="text-warning">{dashboardStats.expectationRevisionDown}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增可复盘实际结果：<strong className="text-textStrong">{dashboardStats.reviewableExpectationActuals}</strong></button>
-              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">来源待核验：<strong className="text-warning">{dashboardStats.pendingExpectationSources}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增业绩预期：<strong className="text-textStrong">{expectationStorageError ? `当前可读 ${dashboardStats.recentExpectationSnapshots}` : dashboardStats.recentExpectationSnapshots}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">数据更正：<strong className="text-cyan">{expectationStorageError ? `当前可读 ${dashboardStats.expectationCorrections}` : dashboardStats.expectationCorrections}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期上修：<strong className="text-success">{expectationStorageError ? `当前可读 ${dashboardStats.expectationRevisionUp}` : dashboardStats.expectationRevisionUp}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">最新预期下修：<strong className="text-warning">{expectationStorageError ? `当前可读 ${dashboardStats.expectationRevisionDown}` : dashboardStats.expectationRevisionDown}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">新增可复盘实际结果：<strong className="text-textStrong">{expectationStorageError ? `当前可读 ${dashboardStats.reviewableExpectationActuals}` : dashboardStats.reviewableExpectationActuals}</strong></button>
+              <button type="button" onClick={() => setActiveTab("预期证据")} className="rounded border border-borderSoft bg-bg2/60 px-3 py-2 text-left hover:border-cyan">来源待核验：<strong className="text-warning">{expectationStorageError ? `当前可读 ${dashboardStats.pendingExpectationSources}` : dashboardStats.pendingExpectationSources}</strong></button>
             </div>
           </DashboardCard>
 
@@ -615,7 +651,7 @@ export default function App() {
       {activePreviewStock ? <StockQuickPreview stock={activePreviewStock} onClose={() => setSelectedStock(null)} onOpenResearch={openResearch} /> : null}
 
       {watchForm ? <WatchItemFormModal
-        error={storageError}
+        error={storageError ?? watchActionError}
         stocks={dataset.stocks}
         item={watchForm.itemId ? watchlistData.watchItems.find((item) => item.id === watchForm.itemId) : null}
         initialStockId={watchForm.stockId}
@@ -625,7 +661,7 @@ export default function App() {
       /> : null}
 
       {reviewItemId && watchlistData.watchItems.some((item) => item.id === reviewItemId) ? <ReviewFormModal
-        error={storageError}
+        error={storageError ?? watchActionError}
         watchItem={watchlistData.watchItems.find((item) => item.id === reviewItemId) as WatchItem}
         events={researchSnapshot.events}
         tasks={reviewTasks.filter((task) => task.watchItemId === reviewItemId)}
@@ -637,7 +673,7 @@ export default function App() {
       /> : null}
 
       {expectationForm ? <EarningsExpectationFormModal
-        error={expectationStorageError}
+        error={expectationStorageError ?? expectationActionError}
         stocks={dataset.stocks}
         initialStockId={expectationForm.stockId}
         correctionTarget={expectationForm.correctionId ? expectationData.snapshots.find((snapshot) => snapshot.id === expectationForm.correctionId) : null}
@@ -647,7 +683,7 @@ export default function App() {
       /> : null}
 
       {expectationImportOpen ? <EarningsExpectationImportModal
-        error={expectationStorageError}
+        error={expectationStorageError ?? expectationActionError}
         exportJson={expectationExportJson}
         exportCsv={expectationExportCsv}
         csvTemplate={earningsExpectationCsvTemplate()}
@@ -658,22 +694,22 @@ export default function App() {
           const result = expectationRepository.importPreview(preview, expectationData, method, mode, fileName, partialConfirmed);
           if (result.ok && result.data) {
             setExpectationData(result.data);
-            setExpectationStorageError(null);
+            setExpectationStorageError(null); setExpectationActionError(null);
             setExpectationCorruptedRaw(null);
             setWorkflowMessage(`${mode === "replace" ? "替换" : "合并"}导入完成：新增 ${result.preview.addCount}，重复 ${result.preview.duplicateCount}。`);
             setExpectationImportOpen(false);
-          } else setExpectationStorageError(result.error);
+          } else reportExpectationFailure(result.error);
         }}
         onReset={() => {
           const result = expectationRepository.reset();
           if (result.ok) {
             const loaded = expectationRepository.load();
             setExpectationData(loaded.data);
-            setExpectationStorageError(loaded.error);
+            setExpectationStorageError(loaded.error); setExpectationActionError(null);
             setExpectationCorruptedRaw(loaded.corruptedRaw);
             setWorkflowMessage("本地业绩预期已重置为空状态。");
             setExpectationImportOpen(false);
-          } else setExpectationStorageError(result.error);
+          } else reportExpectationFailure(result.error);
         }}
         onClose={() => setExpectationImportOpen(false)}
       /> : null}

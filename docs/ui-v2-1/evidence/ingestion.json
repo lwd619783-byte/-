@@ -1,0 +1,545 @@
+{
+  "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+  "deploymentId": null,
+  "origin": "http://127.0.0.1:4202",
+  "testedAt": "2026-09-21T15:46:00.401Z",
+  "inputType": "isolated-synthetic",
+  "checks": [
+    {
+      "ok": true,
+      "name": "empty profile material guidance and source workflow views visible"
+    },
+    {
+      "ok": true,
+      "name": "add material is primary first action"
+    },
+    {
+      "ok": true,
+      "name": "ten files form one batch"
+    },
+    {
+      "ok": true,
+      "name": "PDF MD TXT parsed successfully"
+    },
+    {
+      "ok": true,
+      "name": "compressed PDF page extraction locators"
+    },
+    {
+      "ok": true,
+      "name": "embedded Unicode mapping extracts Chinese PDF text"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 0"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 1"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 2"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 3"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 4"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 5"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 6"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 7"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 8"
+    },
+    {
+      "ok": true,
+      "name": "exact raw byte digest 9"
+    },
+    {
+      "ok": true,
+      "name": "raw originals retained after reload"
+    },
+    {
+      "ok": true,
+      "name": "downloaded PDF byte equality after reload"
+    },
+    {
+      "ok": true,
+      "name": "no fake provider results"
+    },
+    {
+      "ok": true,
+      "name": "staging requires explicit credential and click"
+    },
+    {
+      "ok": true,
+      "name": "unreviewed proposal never creates Wiki"
+    },
+    {
+      "ok": true,
+      "name": "full proposed article shown"
+    },
+    {
+      "ok": true,
+      "name": "review requires note"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review Markdown heading"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review Chinese emphasis"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review semantic lists"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review quote and code"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review hostile HTML and code inert"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review GFM table"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review table scrolls independently"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review narrow page stays within viewport"
+    },
+    {
+      "ok": true,
+      "name": "accept uses existing revision/review authority"
+    },
+    {
+      "ok": true,
+      "name": "full article readable"
+    },
+    {
+      "ok": true,
+      "name": "full proposed article shown"
+    },
+    {
+      "ok": true,
+      "name": "review requires note"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE review Markdown heading"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE review Chinese emphasis"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE review semantic lists"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE review quote and code"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE review hostile HTML and code inert"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE review GFM table"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE review table scrolls independently"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE review narrow page stays within viewport"
+    },
+    {
+      "ok": true,
+      "name": "UPDATE preserves identity and full history"
+    },
+    {
+      "ok": true,
+      "name": "edit then accept retains old complete document"
+    },
+    {
+      "ok": true,
+      "name": "Wiki detail Markdown heading"
+    },
+    {
+      "ok": true,
+      "name": "Wiki detail Chinese emphasis"
+    },
+    {
+      "ok": true,
+      "name": "Wiki detail semantic lists"
+    },
+    {
+      "ok": true,
+      "name": "Wiki detail quote and code"
+    },
+    {
+      "ok": true,
+      "name": "Wiki detail hostile HTML and code inert"
+    },
+    {
+      "ok": true,
+      "name": "Wiki detail GFM table"
+    },
+    {
+      "ok": true,
+      "name": "Wiki detail table scrolls independently"
+    },
+    {
+      "ok": true,
+      "name": "Wiki detail narrow page stays within viewport"
+    },
+    {
+      "ok": true,
+      "name": "Wiki history Markdown heading"
+    },
+    {
+      "ok": true,
+      "name": "Wiki history Chinese emphasis"
+    },
+    {
+      "ok": true,
+      "name": "Wiki history semantic lists"
+    },
+    {
+      "ok": true,
+      "name": "Wiki history quote and code"
+    },
+    {
+      "ok": true,
+      "name": "Wiki history hostile HTML and code inert"
+    },
+    {
+      "ok": true,
+      "name": "Wiki history GFM table"
+    },
+    {
+      "ok": true,
+      "name": "Wiki history table scrolls independently"
+    },
+    {
+      "ok": true,
+      "name": "Wiki history narrow page stays within viewport"
+    },
+    {
+      "ok": true,
+      "name": "light/1536 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/1536 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/原始资料 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/AI 整理 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/研究桥 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/待审核 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1536/我的知识库 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/1280 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/原始资料 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/AI 整理 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/研究桥 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/待审核 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280/我的知识库 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/390 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/390/原始资料 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390/AI 整理 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390/研究桥 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390/待审核 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390/我的知识库 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/320 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/320/原始资料 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320/AI 整理 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320/研究桥 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320/待审核 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320/我的知识库 no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "duplicate upload no partial write"
+    },
+    {
+      "ok": true,
+      "name": "failed parsing retains original"
+    },
+    {
+      "ok": true,
+      "name": "mixed batch nine parsed one failed"
+    },
+    {
+      "ok": true,
+      "name": "failed PDF exact bytes downloadable after reopening"
+    },
+    {
+      "ok": true,
+      "name": "selection is explicit even with valid credential"
+    },
+    {
+      "ok": true,
+      "name": "failed PDF cannot be selected"
+    },
+    {
+      "ok": true,
+      "name": "omitted successful and failed files explicitly disclosed"
+    },
+    {
+      "ok": true,
+      "name": "nothing sent before list confirmation"
+    },
+    {
+      "ok": true,
+      "name": "subset manifest preserves original batch source identities and digest"
+    },
+    {
+      "ok": true,
+      "name": "actual browser parsed PDF page survives staging digest validation"
+    },
+    {
+      "ok": true,
+      "name": "unselected source identities and content never transmitted"
+    },
+    {
+      "ok": true,
+      "name": "omitted source unreadable 混合资料-8.txt"
+    },
+    {
+      "ok": true,
+      "name": "omitted source unreadable 混合失败.pdf"
+    },
+    {
+      "ok": true,
+      "name": "selected knowledge includes full reviewed history"
+    },
+    {
+      "ok": true,
+      "name": "subset contribution remains pending"
+    },
+    {
+      "ok": true,
+      "name": "full proposed article shown"
+    },
+    {
+      "ok": true,
+      "name": "review requires note"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review Markdown heading"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review Chinese emphasis"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review semantic lists"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review quote and code"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review hostile HTML and code inert"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review GFM table"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review table scrolls independently"
+    },
+    {
+      "ok": true,
+      "name": "CREATE review narrow page stays within viewport"
+    },
+    {
+      "ok": true,
+      "name": "subset contribution accepted with original identity and full revision"
+    },
+    {
+      "ok": true,
+      "name": "subset sending and accepting preserve all ten originals"
+    },
+    {
+      "ok": true,
+      "name": "real user revoke-batch action denies known stage"
+    },
+    {
+      "ok": true,
+      "name": "light/1536 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/1536 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/1536 mixed selection no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/1280 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/1280 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/1280 mixed selection no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/390 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/390 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/390 mixed selection no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "light/320 single light appearance"
+    },
+    {
+      "ok": true,
+      "name": "light/320 no appearance switch"
+    },
+    {
+      "ok": true,
+      "name": "light/320 mixed selection no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "no runtime errors"
+    },
+    {
+      "ok": true,
+      "name": "no external requests without explicit staging"
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "screenshots": [
+    "light-1536.png",
+    "light-1280.png",
+    "light-390.png",
+    "light-320.png",
+    "mixed-light-1536.png",
+    "mixed-light-1280.png",
+    "mixed-light-390.png",
+    "mixed-light-320.png"
+  ]
+}

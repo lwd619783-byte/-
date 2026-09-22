@@ -1,0 +1,752 @@
+{
+  "schemaVersion": "ui-v2-migration-inventory.v1",
+  "baselineSha": "a029b1e3b96f8b8d28ec123cd741eadc09c12e3d",
+  "recordedAt": "2026-09-21T13:37:25Z",
+  "status": "IMPLEMENTED_LOCAL_REGRESSION_VERIFIED_PENDING_INDEPENDENT_AUDIT",
+  "rules": [
+    "Old hashes and object IDs remain compatible",
+    "wired must only change after code verification",
+    "regressionEvidence must identify runtime, origin, testedAt and inputType before claiming PASS",
+    "No new authority or browser database",
+    "Future capabilities are not existing features"
+  ],
+  "items": [
+    {
+      "id": "M01",
+      "oldRoute": "#/home",
+      "entry": "HomePage / 首页",
+      "action": "开始研究、研究入口、观察提醒、公司快速预览、Research Inbox",
+      "owner": "HomePage / researchInbox / existing provider read models",
+      "persistence": "presentation only; task actions delegate WatchlistRepository",
+      "newLocation": "工作台 #/home；原ResearchInbox/数据概况 #/research，任务 #/tasks",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/home/HomePage.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M02",
+      "oldRoute": "all",
+      "entry": "Header / Sidebar / RightRail",
+      "action": "全局导航、搜索公司、数据模式选择、来源状态",
+      "owner": "App / useWorkspaceNavigation / dataProvider",
+      "persistence": "React state and browser history",
+      "newLocation": "AppShell / 工作台 / 研究导航",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/App.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M03",
+      "oldRoute": "#/macro",
+      "entry": "MacroTab",
+      "action": "九分类切换、指标选择、完整明细、来源与时间阅读",
+      "owner": "macroData / MacroTab",
+      "persistence": "read-only provider artifacts; UI selection in React",
+      "newLocation": "研究 / 宏观 #/macro",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/dashboard/MacroTab.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M04",
+      "oldRoute": "#/industry?industry=:industryId&segment=:segmentId",
+      "entry": "IndustryTab / IndustryOverview",
+      "action": "选择行业和细分、概览驱动风险、原行情摘要、细分比较",
+      "owner": "industry catalog / dataProvider / IndustryTab",
+      "persistence": "provider artifacts; selected IDs in hash",
+      "newLocation": "研究 / 行业 #/industry (same query)",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/industry/IndustryTab.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M05",
+      "oldRoute": "#/industry?industry=:industryId&segment=:segmentId",
+      "entry": "产业链 / 机器人 / 未上市公司",
+      "action": "产业链关系、核心池观察池、全量筛选、公司预览与详情",
+      "owner": "industryChainResearch / existing company catalog",
+      "persistence": "read-only catalog, no new graph owner",
+      "newLocation": "研究 / 行业 / 产业链和细分",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/industry/IndustryTab.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M06",
+      "oldRoute": "#/industry",
+      "entry": "IndustryMetric / Snapshot / Change / SignalClaim panels",
+      "action": "查指标原值、留存差异、维度快照、候选与Eligibility、Evidence Drawer",
+      "owner": "industryMetricProvider / industrySignals / industrySnapshot / F2",
+      "persistence": "retained provider artifacts; no derived authority writes",
+      "newLocation": "研究 / 行业 / 指标与证据",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/industry/IndustryMetricPanel.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M07",
+      "oldRoute": "#/stocks",
+      "entry": "StockPool",
+      "action": "全部筛选排序、列表卡片、公司预览、打开完整研究",
+      "owner": "dataProvider / StockPool",
+      "persistence": "provider artifacts; session filter state",
+      "newLocation": "研究 / 公司 #/stocks",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/stock/StockPool.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M08",
+      "oldRoute": "#/company/:stockId/overview?from=:page",
+      "entry": "公司研究概览",
+      "action": "公司身份、业务定位、原投资逻辑、宏观行业、产业链、关联公司、分类",
+      "owner": "Stock / StockDetailDrawer",
+      "persistence": "same stockId and browser history",
+      "newLocation": "研究 / 公司 / 概览 (same hash)",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M09",
+      "oldRoute": "#/company/:stockId/financials?from=:page",
+      "entry": "经营与财务",
+      "action": "业务拆解、财务表、财务历史、F10原文与按需加载重试",
+      "owner": "Stock / A-share financial provider",
+      "persistence": "read-only provider artifacts and request cache",
+      "newLocation": "研究 / 公司 / 经营与财务 (same hash)",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M10",
+      "oldRoute": "#/company/:stockId/valuation?from=:page",
+      "entry": "价格与估值",
+      "action": "行情/估值/价格历史、信号雷达、来源核验",
+      "owner": "Stock.priceHistorySource / stockCoverage / chartAudit",
+      "persistence": "read-only exact-ID price owner",
+      "newLocation": "研究 / 公司 / 价格与估值 (same hash)",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M11",
+      "oldRoute": "#/company/:stockId/expectations?from=:page",
+      "entry": "预期与验证",
+      "action": "官方/本地预期、比较和验证链、来源状态",
+      "owner": "companyGuidanceExpectationProvider / EarningsExpectationStore",
+      "persistence": "official artifacts + earnings-expectation.v1 localStorage",
+      "newLocation": "研究 / 公司 / 预期与验证 (same hash)",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M12",
+      "oldRoute": "#/company/:stockId/evidence?from=:page",
+      "entry": "证据与复盘",
+      "action": "研报、公告、数据质量、观察添加编辑复盘修正恢复、Evidence Drawer",
+      "owner": "announcement provider / WatchlistStore / EvidenceDrawer",
+      "persistence": "provider artifacts + watchlist.v2 localStorage",
+      "newLocation": "研究 / 公司 / 证据与复盘 (same hash)",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/stock/StockDetailDrawer.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M13",
+      "oldRoute": "#/company/:stockId/:tab?from=:page",
+      "entry": "公司返回与刷新",
+      "action": "返回原页面、行业和事件查询保留、前进后退、刷新同公司同标签",
+      "owner": "useWorkspaceNavigation",
+      "persistence": "hash / history.state uiV1 / presentation only",
+      "newLocation": "所有公司页面兼容原路径",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/hooks/useWorkspaceNavigation.ts",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M14",
+      "oldRoute": "#/watchlist",
+      "entry": "观察清单",
+      "action": "添加、筛选排序、元数据编辑、复盘、修正、归档、恢复、历史",
+      "owner": "WatchlistStore / WatchlistRepository",
+      "persistence": "localStorage investment-research-dashboard.watchlist.v2",
+      "newLocation": "研究 / 论点与观察 #/watchlist (正式Thesis未实现)",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/watchlist/WatchlistTab.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M15",
+      "oldRoute": "#/watchlist",
+      "entry": "观察提醒与示例",
+      "action": "确认、暂缓、忽略、复盘任务、主动加载单个或全部示例",
+      "owner": "reviewTaskProvider / WatchlistStore",
+      "persistence": "watchlist.v2 reviewTaskStates; explicit sample import only",
+      "newLocation": "研究 / 观察；任务入口 #/tasks 关联既有待办",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/App.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M16",
+      "oldRoute": "#/watchlist",
+      "entry": "观察清单备份",
+      "action": "JSON导出、预检、合并、替换、重置、损坏原文导出",
+      "owner": "WatchlistRepository / PersistedBaseGuard",
+      "persistence": "watchlist.v2 and existing backup keys",
+      "newLocation": "研究 / 论点与观察 #/watchlist 内备份与恢复",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/services/watchlistRepository.ts",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M17",
+      "oldRoute": "#/verification?event=:eventId",
+      "entry": "验证中心 / ResearchEventCenter",
+      "action": "事件筛选、全局核验队列、业绩验证链、选事件、Evidence Drawer、开始复盘",
+      "owner": "researchEventProvider / reviewTaskProvider / F2",
+      "persistence": "derived read model + delegated watchlist actions; event hash",
+      "newLocation": "研究 / 验证 #/verification (same event query)",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research/ResearchEventCenter.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M18",
+      "oldRoute": "#/expectations",
+      "entry": "预期证据",
+      "action": "十类筛选、官方索引与公司明细、重复/冲突/排除、业务次序和时间审计",
+      "owner": "companyGuidanceExpectationProvider / comparison provider",
+      "persistence": "official artifacts + local snapshots",
+      "newLocation": "研究 / 预期证据 #/expectations",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/expectation/EarningsExpectationCenter.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M19",
+      "oldRoute": "#/expectations",
+      "entry": "新增预期 / 修正 / 导入导出",
+      "action": "本地预期追加纠错、CSV/JSON预检导入导出、历史、损坏恢复",
+      "owner": "EarningsExpectationStore / EarningsExpectationRepository",
+      "persistence": "localStorage investment-research-dashboard.earnings-expectation.v1",
+      "newLocation": "研究 / 预期证据 #/expectations 内导入导出",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/expectation/EarningsExpectationImportModal.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M20",
+      "oldRoute": "#/creators",
+      "entry": "观点追踪四视图",
+      "action": "博主概览、观点时间轴、事件对照、博主比较、asOf、来源与观点追加审核复盘",
+      "owner": "CreatorViewpointRepository / creatorViewpoint",
+      "persistence": "localStorage investment-research-dashboard.creator-viewpoint.v1",
+      "newLocation": "研究 / 观点追踪 #/creators",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/creator/CreatorViewpointWorkspace.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M21",
+      "oldRoute": "#/creators",
+      "entry": "Creator备份与导出",
+      "action": "JSON完整备份、预检恢复、损坏恢复、XLSX分析副本",
+      "owner": "CreatorViewpointRepository / creatorViewpointExport",
+      "persistence": "creator-viewpoint.v1 / pre-import / pre-recovery",
+      "newLocation": "研究 / 观点追踪 #/creators 内JSON备份与XLSX导出",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/creator/CreatorViewpointWorkspace.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M22",
+      "oldRoute": "#/memory",
+      "entry": "研究记忆 / 原始资料",
+      "action": "PDF/MD/TXT和粘贴导入、批次、摘要核验、解析状态、原件下载、全文定位",
+      "owner": "IndexedDbBrowserSourceRepository",
+      "persistence": "IndexedDB knowledge-ingestion.v1 state/current + originals",
+      "newLocation": "资料与连接 #/sources；#/memory 原入口兼容",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "ingestion-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M23",
+      "oldRoute": "#/memory",
+      "entry": "AI整理 / 研究任务导出",
+      "action": "选择批次、导出任务与schema、手工贡献包回传与验证",
+      "owner": "knowledge-contribution.v1 / source repository",
+      "persistence": "IndexedDB contributions; export is derived artifact",
+      "newLocation": "资料与连接 / AI整理；#/memory 兼容",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "ingestion-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M24",
+      "oldRoute": "#/memory",
+      "entry": "BridgeStagingPanel",
+      "action": "显式选择来源/知识后发送、授权、状态读取、到期、撤销",
+      "owner": "authenticated read-only Research Bridge / existing permissions",
+      "persistence": "private staged copy + local stageId hint only",
+      "newLocation": "资料与连接 #/sources；无自动提交写工具",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "ingestion-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research-memory/BridgeStagingPanel.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M25",
+      "oldRoute": "#/memory",
+      "entry": "待审核贡献",
+      "action": "提议列表、完整正文、变化摘要、引文、冲突、人工接受/修改后接受/拒绝/NO_ACTION",
+      "owner": "knowledgeReview / BrowserWikiRepository / source dispositions",
+      "persistence": "Wiki append-only + IndexedDB disposition; existing guards",
+      "newLocation": "任务 #/tasks 待审；#/memory 兼容",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "ingestion-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research-memory/ResearchMemoryWorkspace.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M26",
+      "oldRoute": "#/memory",
+      "entry": "我的知识库 / WikiLibrary",
+      "action": "类型与全文搜索、正文、摘要、来源、backlinks/orphans、草稿与归档",
+      "owner": "Wiki Entry / Revision / Review / buildWikiReadModel",
+      "persistence": "localStorage investment-research-dashboard.wiki.v1",
+      "newLocation": "知识库 #/knowledge?wiki=:wikiId；兼容 #/memory?view=wiki",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research-memory/WikiLibrary.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M27",
+      "oldRoute": "#/memory",
+      "entry": "Wiki修订与历史",
+      "action": "手工新建、修订、审核、刷新历史、asOf、当前/历史全文",
+      "owner": "BrowserWikiRepository / wiki.v1",
+      "persistence": "same Wiki IDs; append-only revisions/reviews; guarded writes",
+      "newLocation": "知识库 / 同文章修订与历史",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research-memory/WikiRevisionForm.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M28",
+      "oldRoute": "#/memory",
+      "entry": "Wiki完整备份与恢复",
+      "action": "Wiki JSON导出、导入预检、确认、pre-restore、损坏恢复",
+      "owner": "BrowserWikiRepository / WikiBackupModal",
+      "persistence": "wiki.v1 only; does not include IndexedDB originals",
+      "newLocation": "知识库 / 备份；设置提供入口",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research-memory/WikiBackupModal.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M29",
+      "oldRoute": "#/memory",
+      "entry": "Markdown / Obsidian projection",
+      "action": "生成deterministic Vault ZIP、目录对比、stale/edited提示、禁止回写",
+      "owner": "wikiProjection / Wiki authority",
+      "persistence": "derived download only; no second authority",
+      "newLocation": "知识库 / 单向导出；设置提供入口",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/services/wikiProjection.ts",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M30",
+      "oldRoute": "all evidence actions",
+      "entry": "EvidenceDrawer / 来源全文 / KnowledgeDocument",
+      "action": "安全全文、引用/定位、source/extraction/evidence追溯、关闭返回焦点",
+      "owner": "existing exact refs / source adapters / safe Markdown renderer",
+      "persistence": "read-only presentation of original authoritative bytes",
+      "newLocation": "共享阅读、来源卡片与EvidenceDrawer",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser",
+            "wiki-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/components/research-memory/KnowledgeDocument.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M31",
+      "oldRoute": null,
+      "entry": "组合（新增未来入口）",
+      "action": "明确未连接；不显示虚假收益、持仓或暴露",
+      "owner": "future Stage4.4 Local Core adapter; none connected",
+      "persistence": "none",
+      "newLocation": "组合 #/portfolio",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "capability": "NOT_CONNECTED",
+      "source": "docs/investment-dashboard-v2-financial-research-os-rebaseline-2026-09-11.md",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M32",
+      "oldRoute": null,
+      "entry": "任务（新增整合入口）",
+      "action": "连接既有待审与Research Inbox；未实现Agent执行隐藏或明确未连接",
+      "owner": "existing review/task projections; no Agent executor",
+      "persistence": "delegate existing owners",
+      "newLocation": "任务 #/tasks",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "capability": "EXISTING_REVIEW_ONLY",
+      "source": "src/App.tsx",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    },
+    {
+      "id": "M33",
+      "oldRoute": "global appearance menu",
+      "entry": "原三套外观",
+      "action": "按本轮明确授权停用多皮肤，映射单一浅色；不清业务存储",
+      "owner": "presentation tokens only",
+      "persistence": "existing presentation preference only; no business migration",
+      "newLocation": "全站单一浅色",
+      "wired": true,
+      "regressionEvidence": [
+        {
+          "report": "acceptance-evidence.json",
+          "suites": [
+            "unit",
+            "ui-browser"
+          ],
+          "scope": "Route and preserved-owner regression; see exact assertions. Does not claim every user action was browser-automated or real-user approval."
+        }
+      ],
+      "source": "src/styles/theme-tokens.css",
+      "wiringEvidence": "src/App.tsx; src/components/layout/workspaceV2.ts; original source file retained"
+    }
+  ]
+}

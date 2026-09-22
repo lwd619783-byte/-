@@ -1,0 +1,49 @@
+.research-inbox { min-width:0; }
+.inbox-toolbar,.inbox-event-controls { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+.inbox-toolbar h2 { font-size:16px; font-weight:650; }
+.inbox-scope { font-size:12px; color:var(--ui-muted); }
+.inbox-scope summary { cursor:pointer; min-height:32px; display:flex; align-items:center; }
+.inbox-scope[open] { width:100%; order:2; }
+.inbox-scope > div { padding:12px; border:1px solid var(--ui-border); line-height:1.8; }
+.inbox-source-notice { color:var(--ui-warning); font-size:13px; line-height:1.8; padding:10px 0; }
+.inbox-tracks { display:grid; grid-template-columns:minmax(0,1fr); align-items:start; gap:20px; }
+.inbox-tracks.has-review-track { grid-template-columns:minmax(240px,.75fr) minmax(0,1.8fr); }
+.inbox-review-track,.inbox-events-track { min-width:0; }
+.inbox-review-track > h3 { font-size:14px; margin-bottom:12px; }
+.inbox-review-track > h3 span { font-size:12px; color:var(--ui-muted); font-weight:400; }
+.inbox-review-row { padding:12px 0; border-top:1px solid var(--ui-border); display:flex; gap:12px; flex-wrap:wrap; align-items:start; }
+.inbox-review-content { flex:1; min-width:180px; }
+.inbox-review-content h4 { font-size:14px; font-weight:600; }
+.inbox-review-content p { font-size:13px; line-height:1.7; overflow-wrap:anywhere; }
+.inbox-secondary { display:block; font-size:12px; color:var(--ui-muted); }
+.inbox-row-actions { display:flex; align-items:center; flex-wrap:wrap; gap:6px; }
+.research-inbox .inbox-action { min-height:34px; padding:5px 9px; font-size:12px; }
+.inbox-event-controls { font-size:12px; color:var(--ui-muted); }
+.inbox-event-controls select { min-height:34px; margin-left:8px; border:1px solid var(--ui-border); border-radius:5px; }
+.inbox-range { font-size:12px; line-height:1.75; color:var(--ui-muted); }
+.inbox-event-table { border:1px solid var(--ui-border); border-radius:7px; background:var(--ui-panel); container:research-event-table / inline-size; }
+.inbox-event-header,.inbox-event-row { display:grid; grid-template-columns:108px minmax(80px,.7fr) minmax(160px,2.5fr) minmax(110px,1fr) 56px; gap:12px; align-items:center; padding:12px 14px; }
+.inbox-event-header { font-size:12px; color:var(--ui-muted); background:var(--ui-raised); border-radius:7px 7px 0 0; }
+.inbox-event-row { min-height:72px; border-top:1px solid var(--ui-border); font-size:13px; line-height:1.55; }
+.inbox-event-row > div { min-width:0; overflow-wrap:anywhere; }
+.inbox-event-title { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-weight:500; }
+.inbox-event-limit { font-size:12px; line-height:1.6; margin-top:3px; }
+.inbox-event-status { display:flex; flex-wrap:wrap; gap:4px; font-size:12px; }
+.inbox-event-status > span { padding:2px 5px; }
+.inbox-mobile-label { display:none; }
+.inbox-industry-row { padding:12px 14px; border-top:1px solid var(--ui-border); }
+.inbox-empty { font-size:14px; line-height:1.8; padding:20px 16px; color:var(--ui-muted); border:1px solid var(--ui-border); border-radius:7px; }
+.inbox-tracks.has-review-track .inbox-event-header,.inbox-tracks.has-review-track .inbox-event-row { grid-template-columns:90px minmax(70px,.7fr) minmax(100px,2fr) minmax(90px,1fr) 50px; gap:8px; padding:10px; }
+@media(max-width:1200px) { .inbox-tracks.has-review-track { grid-template-columns:minmax(0,1fr); } }
+/* Use the actual column width, including the rail and zoom, instead of only the viewport. */
+@container research-event-table (max-width:650px) {
+  .inbox-event-header { display:none; }
+  .inbox-event-row,.inbox-tracks.has-review-track .inbox-event-row { grid-template-columns:minmax(0,1fr) auto; gap:6px 12px; padding:12px; }
+  .inbox-event-date { grid-column:1; font-size:12px; color:var(--ui-muted); }
+  .inbox-event-company { grid-column:1; font-weight:600; }
+  .inbox-event-content { grid-column:1 / -1; }
+  .inbox-event-status { grid-column:1; }
+  .inbox-event-row > .inbox-row-actions { grid-column:2; grid-row:1 / 3; }
+  .inbox-mobile-label { display:inline; margin-right:6px; }
+}
+@media(max-width:760px) { .inbox-event-controls label { display:flex; align-items:center; } }

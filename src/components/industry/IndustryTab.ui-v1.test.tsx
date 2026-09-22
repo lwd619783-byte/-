@@ -31,6 +31,11 @@ describe("Industry UI V1 migration", () => {
     const overview = screen.getByRole("tabpanel", { name: "研究概览" });
     for (const text of ["景气：中", "阶段：左侧布局", "现有驱动", "现有催化", "现有风险", "主题"]) expect(within(overview).getByText(text)).toBeTruthy();
     expect(screen.getByText(/行业资料来源与更新时间：当前字段未提供/)).toBeTruthy();
+    for (const name of ["行业最新变化", "正式行业指标", "多因子基本面快照", "派生信号与景气判断资格"]) expect(within(overview).queryByLabelText(name)).toBeNull();
+    fireEvent.click(screen.getByRole("tab", { name: "指标与变化" }));
+    const metrics = screen.getByRole("tabpanel", { name: "指标与变化" });
+    for (const name of ["行业最新变化", "正式行业指标", "多因子基本面快照", "派生信号与景气判断资格"]) expect(within(metrics).getByLabelText(name)).toBeTruthy();
+    expect(within(metrics).queryByText("现有驱动")).toBeNull();
     const tab = screen.getByRole("tab", { name: "研究概览" });
     fireEvent.keyDown(tab, { key: "End" });
     expect(document.activeElement).toBe(screen.getByRole("tab", { name: "产业链" }));
@@ -44,7 +49,7 @@ describe("Industry UI V1 migration", () => {
     render(<IndustryTab {...data} globalSearch="" onOpenStock={vi.fn()} onSelectionChange={onSelectionChange} />);
     fireEvent.change(screen.getByRole("combobox", { name: "选择行业" }), { target: { value: "robotics" } });
     expect(onSelectionChange).toHaveBeenLastCalledWith({ industryId: "robotics", segmentId: "__all__" });
-    fireEvent.click(screen.getByRole("tab", { name: "细分比较" }));
+    fireEvent.click(screen.getByRole("tab", { name: "公司比较" }));
     expect((screen.getByRole("combobox", { name: "选择细分板块" }) as HTMLSelectElement).value).toBe("__all__");
     expect(screen.getByText("全部机器人产业链")).toBeTruthy();
     fireEvent.change(screen.getByRole("combobox", { name: "选择行业" }), { target: { value: "ordinary" } });
@@ -69,7 +74,7 @@ describe("Industry UI V1 migration", () => {
     const data = fixture();
     const onOpenStock = vi.fn();
     render(<IndustryTab {...data} initialIndustryId="robotics" globalSearch="" onOpenStock={onOpenStock} />);
-    fireEvent.click(screen.getByRole("tab", { name: "细分比较" }));
+    fireEvent.click(screen.getByRole("tab", { name: "公司比较" }));
     fireEvent.change(screen.getByRole("combobox", { name: "选择细分板块" }), { target: { value: "robotics-first" } });
     for (const value of ["既有细分逻辑全文", "既有需求", "既有供给", "既有壁垒", "既有订单趋势", "既有关键变量"]) expect(screen.getByText(value)).toBeTruthy();
     expect(screen.getByText("最近行情采集时间")).toBeTruthy();
@@ -89,7 +94,7 @@ describe("Industry UI V1 migration", () => {
   it("restores external IDs and rejects invalid IDs without leaving prior industry content", () => {
     const data = fixture();
     const { rerender } = render(<IndustryTab {...data} initialIndustryId="robotics" initialSegmentId="robotics-second" globalSearch="" onOpenStock={vi.fn()} />);
-    fireEvent.click(screen.getByRole("tab", { name: "细分比较" }));
+    fireEvent.click(screen.getByRole("tab", { name: "公司比较" }));
     expect((screen.getByRole("combobox", { name: "选择细分板块" }) as HTMLSelectElement).value).toBe("robotics-second");
     rerender(<IndustryTab {...data} initialIndustryId="robotics" initialSegmentId="ordinary-first" globalSearch="" onOpenStock={vi.fn()} />);
     expect(screen.getByText("找不到行业或细分板块")).toBeTruthy();
@@ -103,13 +108,13 @@ describe("Industry UI V1 migration", () => {
     const data = fixture();
     const props = { ...data, initialIndustryId: "robotics", globalSearch: "", onOpenStock: vi.fn() };
     const { rerender } = render(<IndustryTab {...props} />);
-    fireEvent.click(screen.getByRole("tab", { name: "细分比较" }));
+    fireEvent.click(screen.getByRole("tab", { name: "公司比较" }));
     fireEvent.click(screen.getByRole("button", { name: "公司列表" }));
     fireEvent.click(screen.getByRole("button", { name: /观察池 机构纪要/ }));
     for (const theme of ["light", "pro", "neon"]) {
       document.documentElement.dataset.theme = theme;
       rerender(<IndustryTab {...props} />);
-      expect(screen.getByRole("tab", { name: "细分比较" }).getAttribute("aria-selected")).toBe("true");
+      expect(screen.getByRole("tab", { name: "公司比较" }).getAttribute("aria-selected")).toBe("true");
       expect(screen.getByRole("button", { name: /观察池 机构纪要/ }).getAttribute("aria-expanded")).toBe("true");
       expect((screen.getByRole("combobox", { name: "选择细分板块" }) as HTMLSelectElement).value).toBe("__all__");
     }
@@ -131,7 +136,7 @@ describe("Industry UI V1 migration", () => {
     data.stocks[1].quote = { id: "b", latestPrice: null, pctChange: null, marketCap: 20, amount: 30, pe: null, pb: null, quality: { status: "stale", source: "synthetic" } };
     data.stocks[1].market = "港股";
     render(<IndustryTab {...data} initialIndustryId="robotics" globalSearch="" onOpenStock={vi.fn()} />);
-    fireEvent.click(screen.getByRole("tab", { name: "细分比较" }));
+    fireEvent.click(screen.getByRole("tab", { name: "公司比较" }));
     expect(screen.getAllByText("跨市场不可比")).toHaveLength(2);
     expect(screen.queryByText("30.0 亿")).toBeNull();
     expect(screen.getByText("池内快照平均涨跌（0/2）").parentElement?.textContent).toContain("暂无");

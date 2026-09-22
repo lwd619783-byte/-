@@ -57,10 +57,12 @@ describe("company guidance expectation workflow UI", () => {
     expect(html).not.toContain("创建纠正快照");
   });
 
-  it("uses shrinkable layout primitives at a 390px viewport", () => {
+  it("keeps the wide comparison table inside its own shrinkable scroll region", () => {
     const html = renderCenter();
     expect(html).toContain("min-w-0 space-y-4");
-    expect(html).not.toContain("min-w-[");
+    expect(html).toContain('class="mt-4 max-w-full overflow-x-auto" tabindex="0" role="region" aria-label="同口径来源对照表，可横向滚动"');
+    expect(html).toContain('<table class="w-full min-w-[760px] text-left text-sm"');
+    expect((html.match(/min-w-\[/g) ?? [])).toHaveLength(1);
   });
 
   it("renders a fail-closed global workflow error with an explicit retry", () => {

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "ui21-p1-01.preview.v1",
+  "recordedAt": "2026-09-22T04:03:19.895028+00:00",
+  "url": "https://investment-research-dashboard-77b2mhpxk-lkdmkl.vercel.app",
+  "deploymentId": "dpl_CFm4nwsY4i8VjonYq6NNYGeDovGf",
+  "readyState": "READY",
+  "target": null,
+  "branch": "codex/ui-v2-clear-research-workspace",
+  "runtimeSha": "0dd9bfbc1634109453bf0bf0ce86e9b1880b6af1",
+  "productionCodeEquals": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+  "codeComparisonPaths": [
+    "src",
+    "public",
+    "server",
+    "contracts",
+    "package.json",
+    "package-lock.json"
+  ],
+  "stateRegression": {
+    "checks": 129,
+    "pass": 129,
+    "testedAt": "2026-09-22T03:57:29.992Z",
+    "finishedAt": "2026-09-22T03:59:26.848Z",
+    "report": "evidence/remote-state.json"
+  },
+  "navigation": {
+    "checks": 198,
+    "pass": 198,
+    "testedAt": "2026-09-22T03:59:26.860Z",
+    "report": "evidence/remote-navigation.json"
+  },
+  "anonymousProtectionCheck": {
+    "testedAt": "2026-09-22T03:58:23.868Z",
+    "status": 302,
+    "redirectHost": "vercel.com"
+  },
+  "profile": "New disposable contexts; temporary exact-origin platform access held only in memory and cleared on exit; no personal login cookies or stored credentials.",
+  "finalCommitBoundary": "The following evidence-only commit is not the tested runtime; application sources remain identical.",
+  "independentChatGPTVisualApproval": "NOT_CLAIMED"
+}

@@ -10,6 +10,10 @@ const filesToScan = [
   "src/App.tsx",
   "src/index.css",
   "src/styles/theme-tokens.css",
+  "src/styles/workspace-v2.css",
+  "src/components/layout/WorkspaceNavigation.tsx",
+  "src/components/home/ResearchWorkbench.tsx",
+  "src/components/research-memory/KnowledgeDocument.tsx",
   "src/components/home/HomePage.tsx",
   "src/components/research/ResearchEventCenter.tsx",
   "src/components/expectation/EarningsExpectationCenter.tsx",
@@ -62,8 +66,8 @@ Generated: ${new Date().toISOString()}
 ## Scope limitations
 - This scan only detects the listed legacy color classes in the listed source files.
 - It does not certify contrast, focus, layout, business state, persistence, or browser behavior.
-- NEON-RC1 uses one shared component tree with neon / pro / light display tokens.
-- The frozen design and actual UI V1 browser evidence are indexed in [implementation acceptance](ui-redesign/v1/implementation/acceptance.md).
+- UI V2 uses one light palette; legacy preferences remain intact for rollback.
+- UI V2 migration and current evidence are indexed in [UI V2 delivery](ui-v2/implementation.md). Historical UI V1 evidence remains unchanged.
 - Historical drawer dimensions and expected truncation rules are not runtime findings for the new five-tab company page.
 
 ## Width Checklist
@@ -76,7 +80,7 @@ ${findings.length ? findings.join("\n") : "- No high-risk legacy light-theme cla
 
 ## Runtime checks
 - Verify the screenshot matrix, 320px, 200% zoom, keyboard, reduced motion and abnormal states in the separate acceptance evidence.
-- Verify independent theme/data modes and unchanged business exports with actual browser interactions.
+- Verify the single light appearance, independent data modes and unchanged business exports with actual browser interactions.
 - No runtime PASS is inferred from this static command.
 `;
 

@@ -1,0 +1,69 @@
+
+> investment-research-dashboard@0.1.0 build
+> tsc -b && npm run local:typecheck && vite build && node scripts/check-financial-bundle.mjs
+
+
+> investment-research-dashboard@0.1.0 local:typecheck
+> tsc -p tsconfig.local-core.json --noEmit
+
+vite v6.4.3 building for production...
+transforming...
+✓ 2670 modules transformed.
+rendering chunks...
+Local Core browser boundary: PASS (2670 graph modules, 6 chunks, 0 forbidden).
+computing gzip size...
+dist/local-core-boundary.json                            0.19 kB │ gzip:   0.15 kB
+dist/index.html                                          0.42 kB │ gzip:   0.30 kB
+dist/assets/pdf.worker.min-Dswkl-cV.mjs              1,265.41 kB
+dist/assets/App-CstrG8gw.css                            11.84 kB │ gzip:   2.57 kB
+dist/assets/CreatorViewpointWorkspace-CggG_EU-.css      14.37 kB │ gzip:   3.18 kB
+dist/assets/index-DD-GU3mv.css                          50.27 kB │ gzip:  10.34 kB
+dist/assets/UiReviewApp-Dv_S52Es.js                     24.42 kB │ gzip:  10.25 kB
+dist/assets/industrySignalClaimProvider-Bf2vH9fy.js     81.69 kB │ gzip:  17.29 kB
+dist/assets/index-DhE9Vcji.js                          146.20 kB │ gzip:  47.47 kB
+dist/assets/knowledgePdf-hwnA3F6s.js                   482.50 kB │ gzip: 144.25 kB
+dist/assets/CreatorViewpointWorkspace-DgYy2qZu.js    1,249.55 kB │ gzip: 291.12 kB
+dist/assets/App-B_UVZ5KF.js                          2,026.99 kB │ gzip: 417.07 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 9.31s
+{
+  "status": "passed",
+  "baseline": {
+    "initialJsBytes": 4841746,
+    "initialGzipBytes": 798794,
+    "maxChunkBytes": 4841746
+  },
+  "initialJsBytes": 146195,
+  "initialGzipBytes": 47474,
+  "maxChunkBytes": 2026987,
+  "allJsBytes": 4011333,
+  "entryFiles": [
+    "index-DhE9Vcji.js"
+  ],
+  "summaryBytes": 176028,
+  "detailFiles": 57,
+  "detailBytes": 4268958,
+  "averageDetailBytes": 74894,
+  "initialReductionPct": 96.98,
+  "initialGzipReductionPct": 94.06,
+  "containsFullHistoryMarker": false,
+  "announcementSummaryBytes": 249460,
+  "announcementManifestBytes": 23960,
+  "announcementDetailFiles": 57,
+  "announcementDetailBytes": 29528492,
+  "averageAnnouncementDetailBytes": 518044,
+  "containsFullAnnouncementHistoryMarker": false,
+  "companyGuidanceSummaryBytes": 22305,
+  "companyGuidanceManifestBytes": 29045,
+  "companyGuidanceWorkflowBytes": 261595,
+  "companyGuidanceWorkflowChecksum": "1d16143f604b64a98dbc5c1ff77cc5a1b131c8eee3ffe4e3103a6baa04b59568",
+  "companyGuidanceDetailFiles": 57,
+  "companyGuidanceDetailBytes": 405867,
+  "averageCompanyGuidanceDetailBytes": 7120,
+  "containsFullCompanyGuidanceDetailMarker": false,
+  "errors": []
+}

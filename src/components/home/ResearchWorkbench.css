@@ -1,0 +1,50 @@
+.ui-v2-workbench { display:grid; gap:20px; min-width:0; }
+.ui-v21-workbench-head { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.ui-v21-workbench-head h1 { font-size:26px; font-weight:650; line-height:1.4; }
+.ui-v21-quicklinks { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.ui-v21-quicklinks button { display:flex; align-items:center; gap:12px; padding:16px; border:1px solid var(--ui-border); border-radius:7px; background:var(--ui-panel); text-align:left; }
+.ui-v21-quicklinks button > svg { color:var(--ui-accent); flex-shrink:0; }
+.ui-v21-quicklinks button > span { flex:1; min-width:0; }
+.ui-v21-quicklinks strong { display:block; font-size:14px; font-weight:600; }
+.ui-v21-quicklinks small { display:block; font-size:12px; color:var(--ui-muted); margin-top:3px; }
+.ui-v21-home-columns { display:grid; grid-template-columns:minmax(0,1fr); gap:20px; align-items:start; }
+.ui-v21-home-columns.has-tasks { grid-template-columns:minmax(0,1fr) 280px; }
+.ui-v21-observations,.ui-v21-home-tasks { min-width:0; }
+.ui-v21-section-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+.ui-v21-section-heading h2 { font-size:16px; font-weight:650; }
+.ui-v21-section-heading > span { font-size:12px; color:var(--ui-muted); }
+.ui-v21-text-button { display:inline-flex; align-items:center; gap:7px; min-height:32px; color:var(--ui-accent); font-size:13px; }
+.ui-v21-watch-list { padding:0; margin:0; list-style:none; border:1px solid var(--ui-border); border-radius:7px; background:var(--ui-panel); }
+.ui-v21-watch-list li + li { border-top:1px solid var(--ui-border); }
+.ui-v21-watch-list button { display:flex; width:100%; align-items:center; gap:14px; padding:14px 16px; text-align:left; }
+.ui-v21-watch-list button:focus-visible { outline-offset:-3px; }
+.ui-v21-watch-list svg { flex-shrink:0; }
+.ui-v21-watch-body { min-width:0; flex:1; }
+.ui-v21-watch-body strong { display:block; font-size:14px; font-weight:600; }
+.ui-v21-watch-body strong small { margin-left:10px; font-size:12px; font-weight:400; color:var(--ui-muted); }
+.ui-v21-watch-body > span { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:13px; line-height:1.7; color:var(--ui-muted); margin-top:3px; overflow-wrap:anywhere; }
+.ui-v21-status { font-size:12px; border:1px solid var(--ui-border); color:var(--ui-muted); padding:2px 7px; border-radius:4px; }
+.ui-v21-quiet-strip { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; border:1px solid var(--ui-border); background:var(--ui-panel); border-radius:7px; min-height:104px; padding:20px; font-size:14px; line-height:1.8; }
+.ui-v21-quiet-strip h3 { font-size:15px; font-weight:600; }
+.ui-v21-quiet-strip p { font-size:13px; color:var(--ui-muted); margin-top:3px; }
+.ui-v21-home-tasks { padding:16px; border:1px solid var(--ui-border); background:var(--ui-panel); border-radius:7px; }
+.ui-v21-task-mini { padding:12px 0; border-top:1px solid var(--ui-border); }
+.ui-v21-task-mini p { font-size:14px; line-height:1.7; overflow-wrap:anywhere; }
+.ui-v21-task-mini > span { display:block; font-size:12px; color:var(--ui-muted); }
+.ui-v21-task-link { justify-self:end; }
+.ui-v21-task-tabs { display:flex; flex-wrap:wrap; gap:20px; border-bottom:1px solid var(--ui-border); margin:16px 0 20px; }
+.ui-v21-task-tabs button { display:flex; gap:7px; min-height:43px; align-items:center; font-size:14px; border-bottom:2px solid transparent; color:var(--ui-muted); }
+.ui-v21-task-tabs button[aria-selected=true] { color:var(--ui-accent); border-bottom-color:var(--ui-accent); font-weight:600; }
+.ui-v21-task-tabs button span { font-size:12px; font-weight:400; }
+.ui-v21-overview-tools { border-top:1px solid var(--ui-border); padding-top:14px; }
+.ui-v21-overview-tools > summary { cursor:pointer; font-size:13px; color:var(--ui-accent); min-height:34px; }
+.ui-v21-overview-tools .home-research-grid { margin-top:14px; }
+@media(max-width:960px) { .ui-v21-home-columns.has-tasks { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:600px) {
+  .ui-v21-quicklinks { grid-template-columns:1fr; gap:8px; }
+  .ui-v21-quicklinks button { padding:12px 14px; }
+  .ui-v21-watch-list button { flex-wrap:wrap; gap:8px; padding:12px; }
+  .ui-v21-watch-body { flex-basis:100%; }
+  .ui-v21-quiet-strip { padding:16px; }
+  .ui-v21-task-tabs { gap:14px; }
+}

@@ -1,0 +1,1796 @@
+{
+  "schemaVersion": "ui-v2-1-screenshots.v1",
+  "items": [
+    {
+      "file": "screenshots/research-before/degraded-creators-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "894c4a0336c7f0476d85c3a957a19b42262729bc7024c6b17223937fa3b5abfc"
+    },
+    {
+      "file": "screenshots/research-before/degraded-creators-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "4691c178fc78179445f69ed9360675e386ffb01ee55c9b469e5eeab5fa523d71"
+    },
+    {
+      "file": "screenshots/research-before/degraded-expectations-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "deed393bdd1023af90451b81ad324930a496081a13121b2347f77773fb2cf2f6"
+    },
+    {
+      "file": "screenshots/research-before/degraded-expectations-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "3d413d25a65778899b2460cfa19aa597ef713adf1565ec71f8d9e7efa440133c"
+    },
+    {
+      "file": "screenshots/research-before/degraded-industry-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "13c8b152adfd68fd3c71eebd8fc1c85b12b62ce2d7999208eead40cb2d38d430"
+    },
+    {
+      "file": "screenshots/research-before/degraded-industry-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "d3cac9fc2b271bf44185597c8526a2199341b5a26f6206c17c1eb4417c3b9b3b"
+    },
+    {
+      "file": "screenshots/research-before/degraded-macro-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "8fd2bff44b71ef6e3c7f31f70f6a44d1b6bcbe50e11597a3e3ac5ae9bde2dfcc"
+    },
+    {
+      "file": "screenshots/research-before/degraded-macro-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "4f4b0deaa011f974339ecabebdb7354ff0cb518c9cf690c69b3f2cfadd234aab"
+    },
+    {
+      "file": "screenshots/research-before/degraded-stocks-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "1f323b9cb96ad89fbaedbc636ef62ecc5e030659d7d795028f16df01c4ff3727"
+    },
+    {
+      "file": "screenshots/research-before/degraded-stocks-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "d347959eb0495755290886c858cb5152f709972e287366975864d5f043beee02"
+    },
+    {
+      "file": "screenshots/research-before/degraded-verification-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "7fb90bf036af2aca370406dc8d6d55f1bfaff20f2d516190d1fabdb90d2a8dd3"
+    },
+    {
+      "file": "screenshots/research-before/degraded-verification-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "84745d64fe219a56f759d7c9c41b09dedbcfe0c122192eb5892e37d95c16f4d3"
+    },
+    {
+      "file": "screenshots/research-before/degraded-watchlist-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "0715934cc43b8b81c2adb272e04a9f6a680e781f012618d7e2e76c7d4091d397"
+    },
+    {
+      "file": "screenshots/research-before/degraded-watchlist-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "0289643efe0b0f9cba8ed508e5741ea75f20627dbff600f517f2633353f8a1b0"
+    },
+    {
+      "file": "screenshots/research-before/empty-creators-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "4911e85af772476451559c456ad545a24b674ddf44315b2215895198c997e5f5"
+    },
+    {
+      "file": "screenshots/research-before/empty-creators-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "7026feccda528bdcb63513bed6cdf578ff0d249e6198be3cbf7e628d0f0ec36e"
+    },
+    {
+      "file": "screenshots/research-before/empty-expectations-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "3fe32dda5bf9e8f35fc5c8071fbcd3aeec1f97e9d586df1f2767585d7a519f0a"
+    },
+    {
+      "file": "screenshots/research-before/empty-expectations-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "d931181254d54f3488b609702c6a8ac4c18cb8a22e9169f0adfad253f938cbd8"
+    },
+    {
+      "file": "screenshots/research-before/empty-industry-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "c2dbae656a2fc2d2a2afbd0b073c35cbfe74e835786d4d4d51931e06d4458d4d"
+    },
+    {
+      "file": "screenshots/research-before/empty-industry-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "ef29eed5d2f7cc484d9a8a2428d957cb2314a3a228d2ea284c60fb9f8b84f910"
+    },
+    {
+      "file": "screenshots/research-before/empty-macro-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "430100a75b25f0e34ad04cd05c8a31a6587de006b40df1dfbb65380ca87e7bc1"
+    },
+    {
+      "file": "screenshots/research-before/empty-macro-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "41b75a63f8f332686853af1209823cf61617d2579389139e4185cf4a07f64976"
+    },
+    {
+      "file": "screenshots/research-before/empty-stocks-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "54e9059e08adec76ba9bbdccdacafe41a5983ba5aedeca07af3ec9dd1f96ab19"
+    },
+    {
+      "file": "screenshots/research-before/empty-stocks-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "e778f5447f7d5e97abd40f59b83620499255b070ef0fde4d9aa00a91e28686d5"
+    },
+    {
+      "file": "screenshots/research-before/empty-verification-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "c656c74e8aa64ff0f3a0d82bdff5229a18da9734bcf91aaf4b5e77eb23b23f35"
+    },
+    {
+      "file": "screenshots/research-before/empty-verification-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "487937eca9c24a338fdaaa3ce3583a06595849caab4fb0fd3c88385576cd5c56"
+    },
+    {
+      "file": "screenshots/research-before/empty-watchlist-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "ff7015b638fe3678960c69851e63dcbd342e899101413219939090f2fcdd68e0"
+    },
+    {
+      "file": "screenshots/research-before/empty-watchlist-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "51a707fef3e143713722a7f775b7e5e7368f94c8c6ee3e9c445573ffbe1df257"
+    },
+    {
+      "file": "screenshots/research-before/full-creators-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "b07a5318c3cc2f8c9021ac2fa79b7df5fa11b3427df84fbc8e37b82d8bb85a06"
+    },
+    {
+      "file": "screenshots/research-before/full-creators-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "603b8850c9ca18ca5dce7e362ee4c4a22bfda6bfa90f3c70091d9fffa64b1093"
+    },
+    {
+      "file": "screenshots/research-before/full-expectations-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "8850bbe0277a960680a7486b8cf589a71368a265ae38790f905f59e169ca93b5"
+    },
+    {
+      "file": "screenshots/research-before/full-expectations-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "6917dc9b03a0652f3c5513852324b1e58220f397075109fad7d9b7c76de3dcb9"
+    },
+    {
+      "file": "screenshots/research-before/full-industry-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "938bdcfc59c1c9330cb66a735b3b2ceba2be5268cd4cd638d2328376f9c25396"
+    },
+    {
+      "file": "screenshots/research-before/full-industry-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "295db30c8e2d3b0baa88637c3e73d6281fda6f5c340930fa4fedf2d3e3630d33"
+    },
+    {
+      "file": "screenshots/research-before/full-industry-产业链-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "2d5f301a460b77e398850068291a7be2d6dac8a05ef6a06ecf0e7f86cf08277a"
+    },
+    {
+      "file": "screenshots/research-before/full-industry-产业链-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "17b2c3c66d9c13cc5da322f709427c74c49f32fc7a7430753220b16ee888ee47"
+    },
+    {
+      "file": "screenshots/research-before/full-industry-细分比较-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "ade18fed4872b0b7a5356b29c2866d48d064804209950dc8bdda231d7667e585"
+    },
+    {
+      "file": "screenshots/research-before/full-industry-细分比较-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "564dd42dea9dd1ee803bfea9d3b452ee16d7250a3d00d42110e047d0f4fa9497"
+    },
+    {
+      "file": "screenshots/research-before/full-macro-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "463975c7f14c98648da24e4f6be7048d00913c91bd32a7312eaa0f9f3c2215d4"
+    },
+    {
+      "file": "screenshots/research-before/full-macro-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "b5b258fff05bc7fe5e5720718d81475c5e8ff6ce87de148b66abae18d3e64fcb"
+    },
+    {
+      "file": "screenshots/research-before/full-stocks-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "f8d1e188c3855a63df48ab169269bad4e14f73e32fe1a841b5563423631503a1"
+    },
+    {
+      "file": "screenshots/research-before/full-stocks-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "55ed489993448dd17f8505813776d82568028841ce9d5a426339b95291829da8"
+    },
+    {
+      "file": "screenshots/research-before/full-verification-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "965252eb7fd14278e4fe05df46d1bf3aa7f8f8af4d94c7de99b2d72f3f455448"
+    },
+    {
+      "file": "screenshots/research-before/full-verification-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "187a794f3365ec8c9d37e46e8afc15969e81b47d16611375e556c0736ed92c19"
+    },
+    {
+      "file": "screenshots/research-before/full-watchlist-1440.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "845d6ae2574970897b81480e0cc183832a5dfa25e73827e41abf43236b1c423e"
+    },
+    {
+      "file": "screenshots/research-before/full-watchlist-390.png",
+      "report": "evidence/research-before.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "90ac59674ffd92479bc9eb19e38d64654625607e09911dd5f558c3826f75421b"
+    },
+    {
+      "file": "screenshots/research-after/degraded-creators-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "67953f2373558e00d558905e8b4987cfe9970bb8f3952908b81ecf8cc5de6bb3"
+    },
+    {
+      "file": "screenshots/research-after/degraded-creators-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "9663a53005b25a78830cb715684665766f63f31b5ee6ebdb228b21eafdfe03c9"
+    },
+    {
+      "file": "screenshots/research-after/degraded-expectations-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "1a9c39cc2ce17b184e7e62266b1f3b65c9837383121c7c93f00f9a61b5688817"
+    },
+    {
+      "file": "screenshots/research-after/degraded-expectations-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "2db19d5b7581247a8d51d46277ea19c4746af6205b592e2a685d8d93a1c6da69"
+    },
+    {
+      "file": "screenshots/research-after/degraded-industry-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "4b74e1cdaae5ef98a9c22e512ecfc263fbeaf64982d38a653a73b0e8a93c02ed"
+    },
+    {
+      "file": "screenshots/research-after/degraded-industry-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "52888319e2beb4af07d217357cf253db25b1fc221cfc52fb42073639a93ef804"
+    },
+    {
+      "file": "screenshots/research-after/degraded-macro-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "484cce1fc64e2578ea3ca3a4199f8085b4f6f1db6257430225e5d289ce16843b"
+    },
+    {
+      "file": "screenshots/research-after/degraded-macro-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "7dd04769cfcc009bb46807be0bb816303cd43e4fd94a333dfafc11d74568d747"
+    },
+    {
+      "file": "screenshots/research-after/degraded-stocks-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "37e41764f4315bd1fc1b29753007e1efef4d937f052fbe549f3085588ee8cd97"
+    },
+    {
+      "file": "screenshots/research-after/degraded-stocks-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "bee05acd29aa0a3ad236eab6dc2061059dd3870304bbcd23bd0652328d17af65"
+    },
+    {
+      "file": "screenshots/research-after/degraded-verification-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "8ba015cc03eccfbe16f68c5b219880db0231a942384e5b102280bfaaa8d49715"
+    },
+    {
+      "file": "screenshots/research-after/degraded-verification-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "84e4f4b2a84f9b19d0408700fe2809ac97cce741c731025d9ab9399f44f474ce"
+    },
+    {
+      "file": "screenshots/research-after/degraded-watchlist-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "d457f9c7cc2c0687a41ea1b9158f58f00a568ad75efc6b48c06e91a30410eea5"
+    },
+    {
+      "file": "screenshots/research-after/degraded-watchlist-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "3eeb5035c9428fb304fb3e92085c1e5b34f519987e10df57ea17f12abf152647"
+    },
+    {
+      "file": "screenshots/research-after/empty-creators-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "da22fa1f36cb239ee15a2d5d7ac1b30083e446df1aff8e7858055a811eb74870"
+    },
+    {
+      "file": "screenshots/research-after/empty-creators-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "09ba7e31115e4a6556a72d59db0e64b39b04da509084f9289c5f43409e0aded2"
+    },
+    {
+      "file": "screenshots/research-after/empty-expectations-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "c32df6d4f3b33a3202da0b75643129cf82c3712436c6400ce51af920d88d8add"
+    },
+    {
+      "file": "screenshots/research-after/empty-expectations-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "f1fff015fad632a89c008af7fb9875619b8a2d3337fe9e6c8ce0bf7a9d2a9be9"
+    },
+    {
+      "file": "screenshots/research-after/empty-industry-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "b1d54144a9bc04e47cb7edd70edd962c6a809b06f3c2efd8d9e864509eef5bb8"
+    },
+    {
+      "file": "screenshots/research-after/empty-industry-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "5773c33394e0006a2574315f7a61c14ada217bca8f4e9b3b8a06aefab0e8426a"
+    },
+    {
+      "file": "screenshots/research-after/empty-macro-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "81c89f273bd5558dcaeafe695cc2b1d8af246d782e506b414eb9c7761d25cd7f"
+    },
+    {
+      "file": "screenshots/research-after/empty-macro-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "8e423411d7cd516bb63c55ba3201641104db2f52be839a131d68e2315380862d"
+    },
+    {
+      "file": "screenshots/research-after/empty-stocks-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "b7d6989796951653c6497aa08cb97d4a882794b5cd01bf41b36ec5f5beb66c4e"
+    },
+    {
+      "file": "screenshots/research-after/empty-stocks-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "22f4d001d083c878a0850a43c99f62331cd14d7fc6c7f4a1e574daaa2536b37a"
+    },
+    {
+      "file": "screenshots/research-after/empty-verification-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "39a00204eddd616d939fac2ceaf362165f581a8673ca948f8cff8b232a7b8164"
+    },
+    {
+      "file": "screenshots/research-after/empty-verification-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "73d8c9299605ba5df0b14b78cb5ff86d5023893d8b3e0c0317e85a10e7d71cb3"
+    },
+    {
+      "file": "screenshots/research-after/empty-watchlist-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "ed2bbbd236a0e282a0524db85101ed4ad7eeef8fccc010b255d8461d2a30e22b"
+    },
+    {
+      "file": "screenshots/research-after/empty-watchlist-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "73aa8e4fe02a00e7962b75a1891b38b8a9307c2c9526f95f985501d27f6546e9"
+    },
+    {
+      "file": "screenshots/research-after/full-creators-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "f0787f10b73aba1f86e0b56db731766d0f3fd06a31a602fefd70aa7c0a5735aa"
+    },
+    {
+      "file": "screenshots/research-after/full-creators-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "4a71bddaee6cb9852d50a695795e109e528832a8838ad18c0daf4a96824d78f4"
+    },
+    {
+      "file": "screenshots/research-after/full-expectations-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "8f7e3911f55b9962565e518116d28331fefb49e3a1560773fb5ef20a3f1be3c5"
+    },
+    {
+      "file": "screenshots/research-after/full-expectations-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "58f67fbcd2a21d2cfd61126f60a160b910a056ca0613680e89fac80c30e90f10"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "396f083f2088645db15cc16a5719d8473bb7de16e0e68b82ec55dbead8094897"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "8fd19c67426229e95f317043adba80229681937574f10c19336ddf6c3aa4b219"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-产业链-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "74fa29a0b00ed40de0825b3a81dc66d17b60876b770a23303e168c8d06489fca"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-产业链-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "68d5ac5eaa2b4368ea7d30e5e88e39f0ecf5b349f90384fa4e71ab5036b4d444"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-公司比较-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "91280b7fcff833529d76608763e33880d244b9a3ade5abcf266cb3e01e5d9480"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-公司比较-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "165806d57792fc40b7b916873c5333c786784a5547813d77e2e5263b5669176d"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-指标与变化-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "e2fb5ba05942a15ce7f5cbdecb4b3d7cceb32834196c128b51bab8c2ae4e4da6"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-指标与变化-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "34eaca9eb5835b5a4201a480a8be193c23e453f113f771997fddd55f11dd0c63"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-细分比较-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "85214eed225725c37526faaf249d288209c4e5c19602ccf515c9716d1be3bf9e"
+    },
+    {
+      "file": "screenshots/research-after/full-industry-细分比较-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "5e9d8c384ba35a252802d0ab8e2c7d2a593d3f3884de716f2ea88ed50baaa2a9"
+    },
+    {
+      "file": "screenshots/research-after/full-macro-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "9f24977122fdfff006a1313dd078a7c27239759e6683826a94cafd44697c7dc7"
+    },
+    {
+      "file": "screenshots/research-after/full-macro-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "1354965e7302178bfac027d2bbf887fd568e898cd45b62528d29a5428130c62a"
+    },
+    {
+      "file": "screenshots/research-after/full-stocks-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "63d0a167f4e6590f153a83c443dfb8942d88604228ca604931f34d3d2e3c3554"
+    },
+    {
+      "file": "screenshots/research-after/full-stocks-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "6c3301e46fdb21b17036b7525abbcd25e38e772d7d40377eb78793b50a972b15"
+    },
+    {
+      "file": "screenshots/research-after/full-verification-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "b89ddfa31928a460d1d3d19b52d6112fe1dd1fdbf9af6928ff310904e5088dac"
+    },
+    {
+      "file": "screenshots/research-after/full-verification-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "41ddfb07a51c91b2d6e693dfba0f5a3669bfbbc1ce60f5508928114a866f89b1"
+    },
+    {
+      "file": "screenshots/research-after/full-watchlist-1440.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "97c528a32f8a3be867d92e3d0c81cef53ca2b07e2f5b33f5323c9cec718335fa"
+    },
+    {
+      "file": "screenshots/research-after/full-watchlist-390.png",
+      "report": "evidence/research-after.json",
+      "inputType": "isolated-ui-review-synthetic-production-components",
+      "sha256": "c131e8144e10913ea7364da740688f2d1e44c5467eb47b799f987de740371dd5"
+    },
+    {
+      "file": "screenshots/workbench-before/inbox-empty-1440.png",
+      "report": "evidence/workbench-before.json",
+      "inputType": "isolated component harness",
+      "sha256": "a8a2ca6cbfbbed26ca49e0c5737d8164bb9950cd8e004b5d2b109da95171580e"
+    },
+    {
+      "file": "screenshots/workbench-before/inbox-empty-390.png",
+      "report": "evidence/workbench-before.json",
+      "inputType": "isolated component harness",
+      "sha256": "47f308877809b25b59954fd83a4766c28a67f901b6b9e5bada7896b218926091"
+    },
+    {
+      "file": "screenshots/workbench-before/inbox-full-1440.png",
+      "report": "evidence/workbench-before.json",
+      "inputType": "isolated component harness",
+      "sha256": "70f300e7007ab0ff3124d428fa0ad1dd7a01fa60a79144f5879be85d107b3152"
+    },
+    {
+      "file": "screenshots/workbench-before/inbox-full-390.png",
+      "report": "evidence/workbench-before.json",
+      "inputType": "isolated component harness",
+      "sha256": "654f1cae12f2d37c61dca59757dbd2651a5ece85b2e5717c99eaaab361b1b57d"
+    },
+    {
+      "file": "screenshots/workbench-before/workbench-empty-1440.png",
+      "report": "evidence/workbench-before.json",
+      "inputType": "isolated component harness",
+      "sha256": "f4cfd2425c17cbd15bcc88caf207c8d04985488eee5527a23d80799844046f5d"
+    },
+    {
+      "file": "screenshots/workbench-before/workbench-empty-390.png",
+      "report": "evidence/workbench-before.json",
+      "inputType": "isolated component harness",
+      "sha256": "37232e4c8fcbf186f3879eaf5f6ca85e78ae0043f26a3561e714775c7a828167"
+    },
+    {
+      "file": "screenshots/workbench-before/workbench-full-1440.png",
+      "report": "evidence/workbench-before.json",
+      "inputType": "isolated component harness",
+      "sha256": "a2d34df056b6e9f2f0581b21819a084f4618d62c4e1b3e4dcfa554d8d440baf9"
+    },
+    {
+      "file": "screenshots/workbench-before/workbench-full-390.png",
+      "report": "evidence/workbench-before.json",
+      "inputType": "isolated component harness",
+      "sha256": "a020c9ceb9b13254e00d1feecf1863d1f8facdc171bc092e119b0676526af1a4"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-empty-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "c061b289e1a01a0bc8f7f013443bd759d484b9c61c217525304350b317ce1996"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-empty-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "25b26ea96b4201fb9bda4a3198c9c7720cb096a073e99c7b0ca1937bb1bf2dd6"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-error-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "28af78a18bf3c1827bbc0fd23f32eae7c1d4f28818b2c4577b43e6d96ca10e45"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-error-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "b31d33ee3bd3d1134bc9d49245cdcc812852410f8b7d1ae3959712b210d52dc1"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-filtered-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "00cc435d9f42ea02908a25505664bf3bbd209c0ebcf4a6c957b50f249c0f53ca"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-filtered-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "31c71a0e9ef03f42ff512c691f2d7647ba59c96f973089e0f92d481985baa0eb"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-full-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "17b379264d9f877840def46e6d0be7d3e02a6b30e86b30a5779ce168749698d0"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-full-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "16e4634fb526d56ab856aa26314ad6e3f9a83b2e3d7a3fbf177990ee8f169622"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-loading-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "92e9e5de8ab41ac58d0aa71951a97285722c69e0eb7fad87ac4fef270e79dfbd"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-loading-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "67d3196bcbc4d6ebc921441e4cae1282dc7a326d0e88d32b7ca27dec6aff4969"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-locked-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "8f0eae57a4624a58413c793cb976bca3bc9d9b51998cc70ecea15f19bbd91b8e"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-locked-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "e2f7a991986ff693281acc25183d534b35893d1381ab86b0c9b360391e059cdb"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-long-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "d13bb658255b3f0660531f66def65c1e9a5f7e869a9d196b31f793f1956659c7"
+    },
+    {
+      "file": "screenshots/workbench-after/inbox-long-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "3e00c82ea73480f3b283c9f68f2ddc6e4093f22f0a31b63db6713e57c7da8aac"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-empty-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "914afdde63a279f3a7b9a7f8249bd6ad3332771db31e2be1fb63c350cc7e2722"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-empty-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "d0c70786a9012d2b135a1f5b585a3160af1715adb166cd19042e3931dac130e1"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-error-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "25c8099503f74ab963be3f08dceff4c782212bd252ca1a7e7b6596ea2366055a"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-error-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "a0453f7ca1461d7d992e7178b62f8a4c8ab69fbf2a275d0924f0d9ee35ad5da1"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-full-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "401f3c08a4b26460814120b4ab3b5a66f451ead8ce6461fbb7860d6ffe699212"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-full-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "0f4c9f1a2558f5ce795d21991808084f06db0568f45a1f848d04bc2f2ee0f01c"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-loading-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "36ae4e5e6dfeb4eb76d691b758a096e8e251b94215e99041fdec4cbfe2a89ae0"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-loading-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "04396ccc12f7787f9e10ef59978c4112f157cee0e1a52f50bfd2da1a57265c35"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-locked-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "08f1a38c4dd10ce61e9a78d413c15a9512e64e6f8569036ac0b41e7e74422fff"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-review-locked-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "e88c4e270bc3b964d901b4ce695571c69532c9be6b8b7cad7373ab67a2c2ef0b"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-verify-empty-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "0be421c94abba784a3333e2eabc63d42cb43dee154bb44b45857b9a483c62c79"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-verify-empty-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "8c0b3e7c121e0c3f34873ee87fb2c7ceaee84208423161ceb244d367693125b7"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-verify-filtered-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "3e498538622c7ceca230ef42f12b6008c775d739945f7915f4225cdb005e43e0"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-verify-filtered-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "bb92eac82c00e35890f200da92cb0210e105ee3cf1d09a0eca95a4706e1f4f16"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-verify-full-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "0da2427dca8f7fda444617fdb00584ad29399004a481d7e4a952961244256533"
+    },
+    {
+      "file": "screenshots/workbench-after/tasks-verify-full-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "267bb0e4e5d46a6b29fc5dced91c456bc390f0232c6b85c2a01372897800927b"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-empty-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "36ece3a9329f9d0da2f1fa952b40246cc45cc0f207c604cc6b702745f300189c"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-empty-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "679b909abfb9106b5b1a2eb198974d82e85d798baf1f04396c29ba0d6959b634"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-error-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "f2e3f91462535a49fb5012381164ff21884fbf23dad70d2375736ec579a60fba"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-error-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "907749db3e5c0687a7326f3fad8ef4d50225b8eb02bde83b11888f8ecb7c17bc"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-filtered-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "1883c8791372e458ad86d0765d2b88d3240bd286b5249c9d03280eb598e88648"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-filtered-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "b24edc964f2d7ba518a9b063eef11b35efda69270e9207854aa1c7486fbc73c8"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-full-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "f675f8186a4826fa9c56a9505e0fc46f982906bbd127be58e70a5da4c69c2a36"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-full-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "4d7d2acf7320423ee1570a2f078e8ff9fc724da77c89895d3296be38049d7073"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-loading-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "863609ece0b7d432917bd4080eb757a2d229dd89de362fc564da5c4372ba79dc"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-loading-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "d32b009f09ad796a64b83d62720552f1edcc97a96c6c110dfd7a7952125704f0"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-locked-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "24757578b81c8f2ba3b643e645282f75ae1914b1105aa0ca7c4b811233107631"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-locked-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "34a4749fa3a3981db25b1ad6f0ea6ecc5cfbd4788674c4d787366a197f69b0d8"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-long-1440.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "70f4883e39b687c78b40dbc31999fb17ca3518dd42da5641ea0a0b86bc861df4"
+    },
+    {
+      "file": "screenshots/workbench-after/workbench-long-390.png",
+      "report": "evidence/workbench-after.json",
+      "inputType": "isolated component harness",
+      "sha256": "b9c2d71bbb82c4e841a41844225f8298dd348ef71e386b065e3d47ebd2ba4636"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-evidence-1440.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "1de8e76a7a53f4ad15ab3661c306cc8c49b8f89cde2c69c7001d7bf4cc203682"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-evidence-390.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "ee6e54c70443ac6d7310e2459065afc4f9c793fc7c8a0035a4a3dd70c128201e"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-expectations-1440.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "1bb63348557113b872c552158552add6c530c495a593d81e53e19f585e0076ee"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-expectations-390.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "8ce38bd45e85c9bdd1d767cd3c0b512940a9a795d1be7bffdebead0ea103806f"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-financials-1440.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "a582ce9b0e1587ef40acae39fdf129702de9e3cdc2c77dcc0dbb386ed3d01499"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-financials-390.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "04fee6363f282d6961e0bd2e67b8bf831faed73ea49b0cf5c18b814e8555d0cb"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-overview-1440.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "ea83fbb51136bf8d475a16ba3e3fa4bef80b75b74916ab24e8fbd6bb5841ec90"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-overview-390.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "e1c22802a8b7912dd669134abc4956d4180d7df5c2855c99a76cbd88b1ff21b9"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-valuation-1440.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "e020de1c09a98d504075299a04f1a2f43d25b86ae63254ac349ae273347665d6"
+    },
+    {
+      "file": "screenshots/company-before/ui-review-company-1-valuation-390.png",
+      "report": "evidence/company-before.json",
+      "inputType": "component harness",
+      "sha256": "b9e1227291e1a54025cb471f4bada12e202430e3c5597d3ffdcf9a0ec1ff372c"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-evidence-1440.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "5793f01733059e8cf3b4efaaddeac18f51d44fc83b3a37348503b663c0c10f7d"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-evidence-390.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "db1d8a140cbb2ab5470da8158090f5f17fa89c80a017adcff56a63e5f4f53605"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-expectations-1440.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "cb49f213dbe183e1486525620c1824b3a287aa3bc819f6c2f382941f7d0b2044"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-expectations-390.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "337d37a09224780781bf1b01640097b252aceb8b1346a69b8188f93ea3c80284"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-financials-1440.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "37886abd94cef93423b4d8d31e62d3bb89f81ca60f9bc6ecabf18214a5c0bb50"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-financials-390.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "617116d769d217344a5d3b0e9f5b6ada10923530cce40b4a7edad33a2e503fc2"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-overview-1440.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "bad54246d459b6238f147eccdd78109c7ccc4f4e734692bc7b08846b4463ffe8"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-overview-390.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "3aa70f9418ab19071daba7f55209174688598a1e95d9cd3716fbe89b7897e083"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-valuation-1440.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "4f767c8fdd347032957e61ea7a84c8bea3b03c79af4ab35e87be438453c5a307"
+    },
+    {
+      "file": "screenshots/company-after/ui-review-company-1-valuation-390.png",
+      "report": "evidence/company-after.json",
+      "inputType": "component harness",
+      "sha256": "64622eefeb355fb324fb319fb03e2addf2b88cb58506a47ab4205577be7bc103"
+    },
+    {
+      "file": "screenshots/knowledge-states/error-1440.png",
+      "report": "evidence/knowledge-states.json",
+      "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+      "sha256": "4086ad7ffe2c2836434e1527eb46d5520b9e9927641c91cbcab00a50b0f2e714"
+    },
+    {
+      "file": "screenshots/knowledge-states/error-390.png",
+      "report": "evidence/knowledge-states.json",
+      "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+      "sha256": "e5d6a9667a2e9c36301815d474f7cacf19843707d1e5770967dd30cb11e579ea"
+    },
+    {
+      "file": "screenshots/knowledge-states/filtered-empty-1440.png",
+      "report": "evidence/knowledge-states.json",
+      "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+      "sha256": "0f1d8c8239dc67437644fc1347563e60c688c77009e36600ac4757c08c897434"
+    },
+    {
+      "file": "screenshots/knowledge-states/filtered-empty-390.png",
+      "report": "evidence/knowledge-states.json",
+      "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+      "sha256": "672ba7378b0b890476a75576740ec26b1ccbff6fe70b69151c8fe6c5276a221e"
+    },
+    {
+      "file": "screenshots/knowledge-states/loading-1440.png",
+      "report": "evidence/knowledge-states.json",
+      "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+      "sha256": "906df0de1e03c155fc1fed83068094aa80bb60c7c8a508b92b6514997e7216c3"
+    },
+    {
+      "file": "screenshots/knowledge-states/loading-390.png",
+      "report": "evidence/knowledge-states.json",
+      "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+      "sha256": "27c5d40a1985980bf98cd5cd3b6b034503d77e1e2b76efc9a19ff0cdc279fedb"
+    },
+    {
+      "file": "screenshots/knowledge-states/locked-1440.png",
+      "report": "evidence/knowledge-states.json",
+      "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+      "sha256": "10ec15869ecf8d68b7b831908e0e3ae6bcf2012c841944e3f1d69b738ff2d720"
+    },
+    {
+      "file": "screenshots/knowledge-states/locked-390.png",
+      "report": "evidence/knowledge-states.json",
+      "inputType": "read-only in-memory synthetic fixture; deferred/rejected sourceRepository.load; no business owner writes",
+      "sha256": "ed48b3f046fc9849a4b9e53f7588a6c63f8e186e787bdbe655d6343e737fbb67"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-knowledge-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "03b03fc8edb6021c5acc135cc55f0663ca45572b2546ebb0f934eac474f71f16"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-sources-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "3802e1fb99b450af164b451f85610dabf6a2e7a0f21d36c084f5e1807541a104"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-settings-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "b1f4581fc1145106d3e49134a4f55911721b984e42c69b077d285f08730a7daa"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-portfolio-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "28756c1177da3d424cd3ac1fd339527b79ad451354583068f0f02b6ff716bb25"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-sources-view-organize-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "5d80794126d7b2db336f46f1ae9d86ce851ac9f730972c508507cefb96ea9220"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-sources-view-bridge-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "3802e1fb99b450af164b451f85610dabf6a2e7a0f21d36c084f5e1807541a104"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-knowledge-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "362f782e4d61a1e4fec2319d9052a1b618daf7778898c6264a88eb9b306f6557"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-sources-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "4283d57f78753dcb49aa234ddc7a5e24bc49319fdb24884dde8232ead8832632"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-settings-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "cf325d104ea21065b2f4d9679e0406d49f01eca6ebbe5774d83f946442113676"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-portfolio-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "2953b055ea63b6a6e9866ec61269f3ce864219bd578de81cc44a7be64cb95cd5"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-sources-view-organize-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "88ddc4c902ad58d9ef294a790dff5520b7e01534f52f49781c927fba2eb9ea17"
+    },
+    {
+      "file": "screenshots/app-before/default-local-empty-owners-sources-view-bridge-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "4283d57f78753dcb49aa234ddc7a5e24bc49319fdb24884dde8232ead8832632"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-knowledge-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "63fadef3a1c019796f02ccf9162b76868369504e2f86856e490d9e19299a3fe0"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-sources-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "3802e1fb99b450af164b451f85610dabf6a2e7a0f21d36c084f5e1807541a104"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-settings-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "b1f4581fc1145106d3e49134a4f55911721b984e42c69b077d285f08730a7daa"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-portfolio-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "28756c1177da3d424cd3ac1fd339527b79ad451354583068f0f02b6ff716bb25"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-sources-view-organize-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "5d80794126d7b2db336f46f1ae9d86ce851ac9f730972c508507cefb96ea9220"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-sources-view-bridge-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "3802e1fb99b450af164b451f85610dabf6a2e7a0f21d36c084f5e1807541a104"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-tasks-view-review-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "577d26add68f94f4af41ff03c519cbc42b8fa92581d2e5721d8b02f652672467"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-knowledge-wiki-wiki-one-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "63fadef3a1c019796f02ccf9162b76868369504e2f86856e490d9e19299a3fe0"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-knowledge-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "c5b572a11d8072f4eec364625bedd845b3a946983f238360ce406ed768032c0d"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-sources-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "4283d57f78753dcb49aa234ddc7a5e24bc49319fdb24884dde8232ead8832632"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-settings-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "cf325d104ea21065b2f4d9679e0406d49f01eca6ebbe5774d83f946442113676"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-portfolio-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "2953b055ea63b6a6e9866ec61269f3ce864219bd578de81cc44a7be64cb95cd5"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-sources-view-organize-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "88ddc4c902ad58d9ef294a790dff5520b7e01534f52f49781c927fba2eb9ea17"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-sources-view-bridge-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "4283d57f78753dcb49aa234ddc7a5e24bc49319fdb24884dde8232ead8832632"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-tasks-view-review-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "c13d8dbc05d90bb8bd8e972e3a91679a323fbac60b32140095e8a62404235794"
+    },
+    {
+      "file": "screenshots/app-before/populated-synthetic-knowledge-wiki-wiki-one-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "c5b572a11d8072f4eec364625bedd845b3a946983f238360ce406ed768032c0d"
+    },
+    {
+      "file": "screenshots/app-before/locked-wiki-knowledge-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "locked-wiki; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "b75554f363e57af8c5836278bb8070b126d1378d3463bb2bd559548d887101a4"
+    },
+    {
+      "file": "screenshots/app-before/locked-wiki-knowledge-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "locked-wiki; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "19e590a7f6aee50066286f6d62c02c0ec20d397ef0f74cca08776842ad136e71"
+    },
+    {
+      "file": "screenshots/app-before/error-source-sources-1440.png",
+      "report": "evidence/app-before.json",
+      "inputType": "error-source; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "3802e1fb99b450af164b451f85610dabf6a2e7a0f21d36c084f5e1807541a104"
+    },
+    {
+      "file": "screenshots/app-before/error-source-sources-390.png",
+      "report": "evidence/app-before.json",
+      "inputType": "error-source; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "4283d57f78753dcb49aa234ddc7a5e24bc49319fdb24884dde8232ead8832632"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-knowledge-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "7bb5ee4ef29618a3a4c98c5b4c83d58efc5eac10fb139cb4e3f8e6561ccf9c12"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-sources-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "b3cebe0fab32479f94ee192835992d17df02692cf415f097e64af2971b16951a"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-settings-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "c38f611413a35800ab772abcc4c119555682d61c9e2aacfe7bb4ede2851a6964"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-portfolio-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "b176f7787df6b530f1a69b8268378de27b9c2a40d94bbec876eedef2a45c5594"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-sources-view-organize-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "4c9b429c2a793e45216a8a7ae1827208946f96e7bf64cabc902d9b459a51fca4"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-sources-view-bridge-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "bd64aa499a9a49c8a5d191beb01f9650c8f2aa3da111f41c26b2736d43b68093"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-knowledge-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "f307245ef836c43ec9c7cb3ce88162a8f519f6aa4b96133c7280b2b943fc82aa"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-sources-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "8575d1827b948d448f4fc39e109e7ab0f8622244a8fe532763748941aa17315a"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-settings-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "71519c72ea22cba92534a2a67350f50d4d83e331cbc35234352ce8bcb8741a5f"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-portfolio-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "16a91bd311ed2cb9bbd57bb85d6250773a45176dd506e18525eb2f3e7c026a3c"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-sources-view-organize-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "546c538004df1962242e43a7de31918af6e299060027ee953798b2af908d1f2f"
+    },
+    {
+      "file": "screenshots/app-after-final/default-local-empty-owners-sources-view-bridge-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "default-local-empty-owners; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "a240c97ef8f7a043df7f0d0c9f86df1948d9814276aa5048aac066fe060bf266"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-knowledge-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "41f3aae49cd04fe54b4fa308afd0c0daa6e02ebf02fd5c19fda8042e0fde5840"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-sources-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "5b4083a51f7862f95ba59a6154f9c4703009a2316f8c39de71d870b299c0dc77"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-settings-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "c38f611413a35800ab772abcc4c119555682d61c9e2aacfe7bb4ede2851a6964"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-portfolio-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "b176f7787df6b530f1a69b8268378de27b9c2a40d94bbec876eedef2a45c5594"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-sources-view-organize-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "3fa353af6610851bdad5a455b6bcddca8f4173ad63bd70bfc8792a8b52fb0ee4"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-sources-view-bridge-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "256fb011087ed94ef8c19dc7d45d7fa45202395cbd6b0a509be5ab01ccd5aca6"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-tasks-view-review-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "81e6e09b5d9361cca47b829e25f8b0e74bc40cf2bf85954b4cf663e86a0d6ca5"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-knowledge-wiki-wiki-one-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "21837ca740d4475089a64a99b0ae587e28563a864696cf68ce9b4d661191ae20"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-knowledge-draft-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "dc13625ab5a1efa19b06335bc1cbfb2e58f3600a3ee9fc1bc68754a14e8f13a2"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-knowledge-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "4c53e816ee0a74ffb774b98f889d7fa72f9310bdfb108c7820a1b3bf13fdfcc1"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-sources-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "5cb602214dea980e715d1fb218f728c573e4c41e3728c9e4de666a5383506dfc"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-settings-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "71519c72ea22cba92534a2a67350f50d4d83e331cbc35234352ce8bcb8741a5f"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-portfolio-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "16a91bd311ed2cb9bbd57bb85d6250773a45176dd506e18525eb2f3e7c026a3c"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-sources-view-organize-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "082b28259c66030ef532d2d81e4eaa48b80b05fc397794c732110d8bb3229aa8"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-sources-view-bridge-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "9fa264ef546f3c919eedbffcd6d281fb563fef80ff3d33a5b4c184b94b2c52d7"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-tasks-view-review-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "c8689c38fadcfbfbbb4b5db356f6b2185847cf1df9ca6d366a93f0dee56f5651"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-knowledge-wiki-wiki-one-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "f03d47b497cc1963516be8735e8e05aaf75b422bac94d3e476dbf25e6c9085ae"
+    },
+    {
+      "file": "screenshots/app-after-final/populated-synthetic-knowledge-draft-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "populated-synthetic; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "6763ca5e630accf8e5764eafae3736aa9c78114ed3fe857330011ff88d95517f"
+    },
+    {
+      "file": "screenshots/app-after-final/locked-wiki-knowledge-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "locked-wiki; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "13dc3cbae6e841fd58342933b06583043889aa6ee14560c11c85550150fb3ffc"
+    },
+    {
+      "file": "screenshots/app-after-final/locked-wiki-knowledge-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "locked-wiki; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "b26ffb3ffc20f22eac468fabeec1502af6a53b0837dc5b207e62c35284a78f7e"
+    },
+    {
+      "file": "screenshots/app-after-final/error-source-sources-1440.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "error-source; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "sha256": "6792252ac5e471a84b78fe6b1834e05095e95258db1f501fb8c16ae51d4177ab"
+    },
+    {
+      "file": "screenshots/app-after-final/error-source-sources-390.png",
+      "report": "evidence/app-after-final.json",
+      "inputType": "error-source; disposable context, no private user data; public provider counters may appear in shell",
+      "runtimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "e3e7aca475414b35d5a026c368807ea5a095ed84fc78aa3ee6934599ca596caf"
+    }
+  ],
+  "localFullAppRuns": [
+    "data-cache/ui-v2-1/before/index.json",
+    "data-cache/ui-v2-1/after-final/index.json"
+  ],
+  "notes": [
+    "No personal profile, original optical text, cookies, or tokens included.",
+    "Component harness versus actual App is explicitly recorded in each report.",
+    "App after capture started at d80; late container CSS fix does not change recorded 1440/390 single-track geometry. Final full-App responsive browser run targets 884."
+  ]
+}

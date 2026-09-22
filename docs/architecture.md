@@ -1,5 +1,12 @@
 # 投资研究看板架构基线
 
+## 2026-09-21 UI V2 presentation 增量
+
+`Application → 单浅色 AppearanceProvider → App / useWorkspaceNavigation → WorkspaceNavigation + ResearchNavigation + 原功能组件`。工作台用既有观察/任务read models，原HomePage完整收件箱/数据概况移到研究总览；任务页面复用ResearchInbox与同一ResearchMemoryWorkspace；知识、资料与连接共用一个挂载的workspace及原source/Wiki repositories，不创建平行知识库。旧hash/objectID/query仍可解析；新增knowledge/wiki参数仅定位同一Wiki对象，缺失对象显式不可读。搜索只索引入口并交公司/知识内搜索，不扫描首页全部原件。
+
+`document.bodyMarkdown → KnowledgeDocument → 安全Markdown/GFM + 派生目录`用于候选/当前/历史；闭合历史不解析正文。CitationList按显式sourceDomain/sourceId/locator展示，不把正文E编号猜成引用序号，不改原文本/原SHA/导出。资料库/连接/审核调用及底层门禁保持；组合和Agent无可运行执行器。完整迁移、存储隔离、回滚与实际验证见[UI V2](ui-v2/implementation.md)。
+
+
 ## 2026-09-21 Stage 4.3 / Slice 2.5 runtime 增量
 
 独立审计 R1–R3 定向修复：原批次内显式资料子集 → 固定字段顺序解析文本摘要 → 私有不可变暂存；批次访问代次由有界 Blob ETag CAS 推进，所有已知 stage 读路径核验，旧数据 null 代次兼容，撤销不再依赖500键发现扫描。不可变撤销事件链保留审计；无物理清理或第二套 Source/Wiki authority。HTTP raw stream 在3 MiB字节界限内一次 UTF-8 解码。[修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。

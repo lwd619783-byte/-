@@ -247,6 +247,12 @@ export class EarningsExpectationRepository {
     }
   }
 
+  /** Read-only check of the captured base; never rebinds it or authorizes a write. */
+  currentBaseError(base: EarningsExpectationStoreEnvelope): string | null {
+    try { this.persistedBase.assertCurrent(base); return null; }
+    catch (error) { return `当前读取基线不可用：${errorMessage(error)}`; }
+  }
+
   save(data: EarningsExpectationStoreEnvelope, base = data): EarningsExpectationWriteResult {
     if (!this.storage) return { ok: false, error: "当前环境不支持本地存储，无法保存。" };
     const errors = validateEarningsExpectationEnvelope(data, { now: this.now(), timeZone: data.settings.timeZone });

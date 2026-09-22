@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "ui21-p1-01.acceptance.v1",
+  "status": "VERIFIED_LOCAL_AND_PROTECTED_PREVIEW_PENDING_INDEPENDENT_REVIEW",
+  "auditedBaseline": "1c73243a8b552332b89d4c960e3d84b8a4cf6d81",
+  "productionRuntime": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+  "testScriptCommit": "9efc2c2ad211e2cb251697f757a4d7bd171b6f6f",
+  "scriptSha256": "90c2ffbc7f5d4124deaf3936153b7ff8e583595d9a29723c2341ca33401b6abd",
+  "sameOrderedBrowserAssertions": true,
+  "before": {
+    "checks": 129,
+    "pass": 96,
+    "fail": 33,
+    "origin": "http://127.0.0.1:4204",
+    "testedAt": "2026-09-22T03:51:45.116Z",
+    "report": "evidence/app-before.json"
+  },
+  "after": {
+    "checks": 129,
+    "pass": 129,
+    "fail": 0,
+    "origin": "http://127.0.0.1:4203",
+    "testedAt": "2026-09-21T16:55:16.767Z",
+    "report": "evidence/app-after.json"
+  },
+  "fixedAssertions": [
+    "A #/home ordinary rejection does not lock owner",
+    "A observations remain readable",
+    "A #/research ordinary rejection does not lock owner",
+    "A #/research exact healthy event identities and count retained",
+    "A #/tasks?view=replay ordinary rejection does not lock owner",
+    "A #/tasks?view=verify ordinary rejection does not lock owner",
+    "A #/tasks?view=verify exact healthy event identities and count retained",
+    "B #/home ordinary rejection does not lock owner",
+    "B observations remain readable",
+    "B #/research ordinary rejection does not lock owner",
+    "B #/tasks?view=replay ordinary rejection does not lock owner",
+    "B #/tasks?view=verify ordinary rejection does not lock owner",
+    "C-watch-corrupt #/research exact healthy event identities and count retained",
+    "C-watch-corrupt #/research unavailable owner produces partial scope, not global lock",
+    "C-watch-corrupt #/tasks?view=verify exact healthy event identities and count retained",
+    "C-watch-corrupt #/tasks?view=verify unavailable owner produces partial scope, not global lock",
+    "C-watch-future #/research exact healthy event identities and count retained",
+    "C-watch-future #/research unavailable owner produces partial scope, not global lock",
+    "C-watch-future #/tasks?view=verify exact healthy event identities and count retained",
+    "C-watch-future #/tasks?view=verify unavailable owner produces partial scope, not global lock",
+    "C-expectation-corrupt healthy observation owner remains readable",
+    "C-expectation-corrupt #/research unavailable owner produces partial scope, not global lock",
+    "C-expectation-corrupt healthy overdue review remains readable",
+    "C-expectation-corrupt #/tasks?view=verify unavailable owner produces partial scope, not global lock",
+    "C-expectation-future healthy observation owner remains readable",
+    "C-expectation-future #/research unavailable owner produces partial scope, not global lock",
+    "C-expectation-future healthy overdue review remains readable",
+    "C-expectation-future #/tasks?view=verify unavailable owner produces partial scope, not global lock",
+    "C-write #/home ordinary rejection does not lock owner",
+    "C-write observations remain readable",
+    "C-write #/research ordinary rejection does not lock owner",
+    "C-write #/tasks?view=replay ordinary rejection does not lock owner",
+    "C-write #/tasks?view=verify ordinary rejection does not lock owner"
+  ],
+  "groups": [
+    {
+      "group": "full unit incl 9 complete App integration cases",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "result": "96 files / 1220 PASS",
+      "report": "evidence/full-unit-result.json"
+    },
+    {
+      "group": "TypeScript / local-core typecheck / Vite / financial bundle",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "result": "PASS",
+      "report": "evidence/build-result.json"
+    },
+    {
+      "group": "contracts validate / contract tests / discovery / research-eval / Bridge node",
+      "runtimeSha": "dcb141f3e3f6c2c0c801a816a6e588848f90c5c4",
+      "result": "PASS; later e5c2dcb changes only company/summary presentation and App test assertions",
+      "report": "evidence/gates-result.json"
+    },
+    {
+      "group": "UI navigation browser",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "result": "198/198 PASS",
+      "report": "evidence/ui-navigation.json"
+    },
+    {
+      "group": "Wiki browser",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "result": "76/76 PASS",
+      "report": "evidence/wiki.json"
+    },
+    {
+      "group": "knowledge ingestion browser",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "result": "131/131 PASS",
+      "report": "evidence/ingestion.json"
+    },
+    {
+      "group": "Bridge native OAuth browser",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "result": "PASS; synthetic isolated server, no real authorization",
+      "report": "evidence/bridge-browser-result.json"
+    },
+    {
+      "group": "env check",
+      "runtimeSha": "1c73243a8b552332b89d4c960e3d84b8a4cf6d81",
+      "result": "49 PASS / 9 WARN / 0 FAIL / 4 SKIP",
+      "report": "evidence/env-before.log"
+    },
+    {
+      "group": "Protected Preview App state / full navigation",
+      "runtimeSha": "0dd9bfbc1634109453bf0bf0ce86e9b1880b6af1",
+      "result": "129/129 and 198/198 PASS",
+      "report": "preview.json"
+    }
+  ],
+  "consoleBoundary": "App runtime errors empty; existing favicon.ico HTTP 404 logged separately, not claimed console-clean.",
+  "visualBundle": {
+    "file": "research-os-v2.1-UI21-P1-01-visual-review.zip",
+    "screenshots": 32,
+    "sha256": "4bcb3d69c0c838d3b8b9ac476316ee67694e1086a27811da1696fe6426120e3a",
+    "manifest": "visual-bundle-manifest.json",
+    "independentChatGPTVisualApproval": "NOT_CLAIMED"
+  },
+  "preservedBoundaries": [
+    "real optical draft approval remains PENDING",
+    "real same-Wiki UPDATE/history and actual ChatGPT revoke-denial remain NOT_VERIFIED",
+    "portfolio and Agent remain unimplemented",
+    "F3 reference 33/33 is REFERENCE_ONLY; agent runtime NOT_IMPLEMENTED, not admitted",
+    "no PR/merge/main/Production/protection/secret changes"
+  ],
+  "preview": "preview.json"
+}

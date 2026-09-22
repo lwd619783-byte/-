@@ -67,7 +67,8 @@ function EventQualification({ event }: { event: ResearchEvent }) {
 export function ResearchEventStatusBadge({ event }: { event: ResearchEvent }) {
   const missingMetrics = event.metrics.filter(metric => metric.value === null || !Number.isFinite(metric.value)).length;
   const warning = missingMetrics > 0 || event.reviewStatus === "pending" || !["parse_success", "not_applicable"].includes(event.parseStatus) || event.verificationStatus !== "verified";
-  return <span className={`rounded border px-2 py-1 text-xs ${warning ? "border-warning/35 bg-warning/10 text-warning" : "border-success/30 bg-success/10 text-success"}`}>{statusDisplayLabel(event.parseStatus)} / {statusDisplayLabel(event.verificationStatus)}{missingMetrics ? ` · 数值缺失 ${missingMetrics}` : ""}</span>;
+  const parseLabel = statusDisplayLabel(event.parseStatus), verificationLabel = statusDisplayLabel(event.verificationStatus);
+  return <span aria-label={`解析：${parseLabel}；核验：${verificationLabel}${missingMetrics ? `；数值缺失 ${missingMetrics}` : ""}`} className={`rounded border px-2 py-1 text-xs ${warning ? "border-warning/35 bg-warning/10 text-warning" : "border-success/30 bg-success/10 text-success"}`}>{parseLabel === verificationLabel ? parseLabel : `${parseLabel} / ${verificationLabel}`}{missingMetrics ? ` · 数值缺失 ${missingMetrics}` : ""}</span>;
 }
 
 function formatMetric(metric: ResearchEvent["metrics"][number]) {

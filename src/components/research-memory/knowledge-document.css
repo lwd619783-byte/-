@@ -1,0 +1,49 @@
+.knowledge-document { width: 100%; max-width: 800px; min-width: 0; margin-inline: auto; overflow-wrap: anywhere; }
+.knowledge-document__body { font-size: 16px; line-height: 1.95; color: #3d443d; }
+.knowledge-document__body > * + * { margin-top: 1em; }
+.knowledge-document__body :is(h1, h2, h3, h4, h5, h6) { color: var(--ui-text); font-weight: 650; line-height: 1.6; scroll-margin-top: 96px; }
+.knowledge-document__body h1 { font-size: 32px; line-height: 1.4; letter-spacing: -.8px; margin: 8px 0 17px; }
+.knowledge-document__body h2 { font-size: 21px; margin: 35px 0 15px; padding-top: 7px; }
+.knowledge-document__body h3 { font-size: 17px; margin: 25px 0 11px; line-height: 1.7; }
+.knowledge-document__body p { white-space: pre-wrap; margin-bottom: 16px; }
+.knowledge-document__body strong { font-weight: 650; color: var(--ui-text); }
+.knowledge-document :is(ul, ol) { padding-left: 1.5em; }
+.knowledge-document ul { list-style: disc; }
+.knowledge-document ol { list-style: decimal; }
+.knowledge-document__body li { margin-block: .35em; }
+.knowledge-document a { color: var(--ui-accent); text-decoration: underline; text-underline-offset: 3px; }
+.knowledge-document :focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.knowledge-document blockquote { margin-block: 15px; padding: 16px; background: var(--ui-bg); border-left: 3px solid #a8bb9e; line-height: 1.85; }
+.knowledge-document pre { max-width: 100%; overflow-x: auto; padding: 1em; background: var(--ui-raised); border-radius: 6px; line-height: 1.6; }
+.knowledge-document code { font-family: monospace; font-size: .85em; background: var(--ui-raised); padding: .1em .25em; }
+.knowledge-document pre code { background: none; padding: 0; }
+.knowledge-document__table { border: 1px solid var(--ui-border); border-radius: 6px; }
+.knowledge-document table { min-width: 100%; border-collapse: collapse; text-align: left; }
+.knowledge-document :is(th, td) { min-width: 8rem; border-bottom: 1px solid var(--ui-border); vertical-align: top; }
+.knowledge-document td { padding: 12px 10px; font-size: 12px; line-height: 1.65; }
+.knowledge-document th { background: #fafbf8; padding: 11px 10px; color: var(--ui-muted); font-size: 11px; font-weight: 500; }
+.knowledge-document tr:last-child td { border-bottom: 0; }
+.knowledge-document__toc { margin-block: 18px 28px; padding-block: 10px; border-block: 1px solid var(--ui-border); font-size: 12px; line-height: 1.8; }
+.knowledge-document__toc summary { cursor: pointer; min-height: 32px; color: var(--ui-muted); font-size: 12px; letter-spacing: .5px; }
+.knowledge-document__toc nav { padding-block: .6rem; }
+.knowledge-document__toc ol { list-style: none; padding-left: 0; }
+.knowledge-document__toc a { display: block; padding: 8px 0 8px 12px; border-left: 1px solid var(--ui-border); color: var(--ui-muted); text-decoration: none; }
+.knowledge-document__toc a:hover, .knowledge-document__toc a:focus-visible { color: var(--ui-accent); border-left: 2px solid var(--ui-accent); }
+.knowledge-document__toc-child { margin-left: 1em; }
+.knowledge-document__citation-note { margin-block: .8rem; font-size: 13px; line-height: 1.7; color: var(--ui-muted); }
+.wiki-reading-article { min-width: 0; width: 100%; max-width: 900px; margin-inline: auto; padding: 32px 42px; background: var(--ui-panel); border: 1px solid var(--ui-border); border-radius: 10px; }
+.wiki-reading-title { font-size: 28px; line-height: 1.5; font-weight: 650; letter-spacing: -.5px; margin: 0 0 11px; }
+.wiki-reading-content { margin-top: 16px; }
+.wiki-reading-content > * + * { margin-top: 16px; }
+.wiki-reading-summary { padding: 16px 0; margin-block: 6px 20px; border-bottom: 1px solid var(--ui-border); color: var(--ui-muted); font-size: 15px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
+.wiki-reading-limitation { border-left: 3px solid #d5cbaa; padding: 13px 17px; background: #faf9f4; font-size: 12px; line-height: 1.9; }
+@media (max-width: 768px) { .wiki-reading-article { padding: 32px; } }
+@media (max-width: 540px) {
+  .wiki-reading-article { padding: 25px 20px; border-radius: 8px; }
+  .wiki-reading-title, .knowledge-document__body h1 { font-size: 27px; }
+  .knowledge-document__body h2 { font-size: 20px; }
+  .wiki-reading-summary { padding: 16px 0; font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .knowledge-document * { scroll-behavior: auto; } }
+
+.wiki-reading-article > .flex > button { align-self: flex-start; }

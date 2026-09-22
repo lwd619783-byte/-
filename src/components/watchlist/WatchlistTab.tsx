@@ -17,6 +17,7 @@ interface WatchlistTabProps {
   industries: Industry[];
   events?: ResearchEvent[];
   storageError?: string | null;
+  operationError?: string | null;
   corruptedRaw?: string | null;
   exportJson: string;
   onValidateImport: (raw: string) => ImportValidationResult;
@@ -103,21 +104,22 @@ export function WatchlistTab(props: WatchlistTabProps) {
   return <section className="min-w-0 space-y-4" aria-label="观察清单与投研复盘工作流">
     <SectionHeader className="page-heading" title="观察清单 / 待办与复盘" description="提醒、判断和复盘分开；确认提醒不会改变当前投资假设。"
       action={<><button type="button" onClick={openBackup} className={buttonClass}><DatabaseBackup className="h-4 w-4" />备份 / 导入</button><button type="button" onClick={props.onAdd} className={`${buttonClass} bg-selected text-accent`}><Plus className="h-4 w-4" />添加观察项</button></>} />
+    {props.operationError ? <p role="alert" className="text-sm text-warning">{props.operationError}</p> : null}
     {props.storageError ? <div role="alert" className="rounded-md border border-warning/40 bg-warning/10 p-3 text-sm text-warning">{props.storageError}<button type="button" className="ml-3 min-h-11 underline" onClick={openBackup}>打开备份与恢复</button></div> : null}
     {props.corruptedRaw && !props.storageError ? <div role="status" className="rounded-md border border-warning/40 p-3 text-sm text-warning">存在待恢复的原始存储内容。<button type="button" className="ml-3 min-h-11 underline" onClick={openBackup}>导出损坏原始数据</button></div> : null}
-    <section className="grid grid-cols-2 gap-3 sm:grid-cols-2 xl:grid-cols-5" aria-label="观察清单指标">
+    {watchItems.length > 0 && !props.storageError ? <section className="flex flex-wrap gap-x-6 gap-y-3 border-b border-borderSoft pb-3" aria-label="观察清单指标">
       <WatchStat label="正在观察" value={active.length} note="用户数据；示例模板不计入" />
       <WatchStat label="待复盘" value={new Set(pendingTasks.map((task) => task.watchItemId)).size} note="按观察项去重；仅为任务提醒" warning={pendingTasks.length > 0} />
       <WatchStat label="已逾期" value={overdueIds.size} note="按下次复盘日期" warning={overdueIds.size > 0} />
       <WatchStat label="新事件提醒" value={newEventIds.size} note="上次复盘后的关联事件" />
       <WatchStat label="已归档" value={archivedCount} note="可恢复，历史仍保留" />
-    </section>
+    </section> : null}
     {unmatched.length ? <div role="status" className="rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm text-warning">{unmatched.length} 条观察记录无法匹配当前研究池公司；原记录仍保留并计入用户统计。
       <details className="mt-2"><summary className="cursor-pointer py-2">查看未匹配记录</summary><div className="space-y-3">{unmatched.map((item) => <div key={item.id} className="rounded border border-borderSoft bg-bg2 p-3 text-xs text-textMuted"><p className="break-all">公司 ID：{item.stockId} · 观察项 ID：{item.id}</p><p className="mt-1">{item.status} · {item.archivedAt ? "已归档" : "活跃记录"}</p><p className="mt-2 whitespace-pre-wrap break-words">关注理由：{item.reason || "未填写"}</p><p className="mt-2 whitespace-pre-wrap break-words">投资假设：{item.thesis || "未填写"}</p></div>)}</div></details>
       <button type="button" onClick={openBackup} className="min-h-11 text-sm underline">打开备份 / 导出完整记录</button>
     </div> : null}
 
-    <DashboardCard className="min-w-0 p-4">
+    {watchItems.length || hasFilters ? <DashboardCard className="min-w-0 p-4">
       <div className="grid gap-3 sm:grid-cols-3">
         <Field label="公司"><input ref={companyInputRef} aria-label="观察公司" value={company} onChange={(event) => setCompany(event.target.value)} placeholder="名称或代码" className={inputClass} /></Field>
         <Field label="状态"><select aria-label="观察状态" value={status} onChange={(event) => setStatus(event.target.value)} className={inputClass}><option value="all">全部状态</option>{["观察", "已配置", "等回调", "等业绩验证", "剔除观察"].map((value) => <option key={value}>{value}</option>)}</select></Field>
@@ -130,28 +132,29 @@ export function WatchlistTab(props: WatchlistTabProps) {
         <Field label="标签"><select aria-label="观察标签" value={tag} onChange={(event) => setTag(event.target.value)} className={inputClass}><option value="all">全部标签</option>{tags.map((value) => <option key={value}>{value}</option>)}</select></Field>
       </div></details>
       {advancedCount ? <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-textMuted">{industry !== "all" ? <span>行业：{getIndustryName(industries, industry)}</span> : null}{priority !== "all" ? <span>优先级：{priorityLabel(priority as WatchItem["priority"])}</span> : null}{tag !== "all" ? <span>标签：{tag}</span> : null}<button type="button" onClick={clearAdvanced} className="min-h-11 text-accent underline">清除更多筛选</button></div> : null}
-    </DashboardCard>
+    </DashboardCard> : null}
 
-    {rows.length === 0 ? <EmptyState title="没有匹配的用户观察项" description={hasFilters ? "当前条件下没有匹配记录，可清除筛选后继续查看。" : unmatched.length ? "原观察记录仍在，但当前研究池没有可匹配公司；可从上方导出备份。" : "尚未添加用户观察项。可以添加公司，或主动载入下方示例模板。"} /> : <div className="grid min-w-0 items-start gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+    {rows.length === 0 && (props.storageError || props.corruptedRaw) ? null : rows.length === 0 ? <EmptyState compact title="没有匹配的用户观察项" description={hasFilters ? "当前条件下没有匹配记录，可清除筛选后继续查看。" : unmatched.length ? "原观察记录仍在，但当前研究池没有可匹配公司；可从上方导出备份。" : samples.length ? "尚未添加用户观察项。可以添加公司，或主动载入下方示例模板。" : "添加一家公司，记录关注理由与下一次复盘。"} /> : <div className={`grid min-w-0 items-start gap-4 ${selected ? "xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]" : ""}`}>
       <DashboardCard className={`min-w-0 overflow-hidden ${mobileDetailOpen && selected ? "hidden xl:block" : ""}`}>
         <div className="border-b border-borderSoft p-4"><h2 ref={listHeadingRef} tabIndex={-1} className="rounded text-base font-semibold text-textStrong">个人观察清单 <span className="ml-2 text-sm font-normal text-textMuted">{rows.length} 项</span></h2><p className="mt-1 text-xs text-textMuted">选择公司查看完整判断、提醒与复盘历史。</p></div>
         <ul aria-label="用户观察项列表" className="divide-y divide-borderSoft">{rows.map(({ item, stock }) => <li key={item.id} className={`min-w-0 p-3 ${selected?.item.id === item.id ? "bg-selected" : "hover:bg-bg2"}`}>
           <div className="flex min-w-0 flex-wrap items-center gap-2"><button type="button" aria-pressed={selected?.item.id === item.id} aria-label={`查看观察项 ${stock.name}`} className="min-h-11 min-w-0 flex-1 rounded text-left" onClick={(event) => { returnFocusRef.current = event.currentTarget; returnScrollRef.current = window.scrollY; setSelectedItemId(item.id); setMobileDetailOpen(true); }}><span className="block break-words text-sm font-semibold text-textStrong">{stock.name}</span><span className="mt-1 block break-words text-xs text-textMuted">{stock.code} · {stock.market}</span></button>{!item.archivedAt ? <button type="button" onClick={() => props.onStartReview(item)} aria-label={`开始复盘 ${stock.name}`} className={`${buttonClass} text-accent`}>开始复盘</button> : <button type="button" onClick={() => props.onRestore(item)} aria-label={`恢复 ${stock.name}`} className={`${buttonClass} text-accent`}>恢复</button>}</div>
+          <p className="mt-1 line-clamp-2 break-words text-sm text-textMuted">{item.thesis || item.reason || "尚未填写投资假设"}</p>
           <div className="mt-2 flex flex-wrap gap-x-3 gap-y-2 text-xs"><Badge value={item.archivedAt ? "已归档" : item.status} /><span className={item.priority === "high" ? "text-warning" : "text-textMuted"}>{priorityLabel(item.priority)}</span><span className={overdueIds.has(item.id) ? "text-warning" : "text-textMuted"}>复盘：{item.nextReviewAt ?? "未设置"}{overdueIds.has(item.id) ? " · 已逾期" : ""}</span><span className="text-textMuted">待处理 {tasks.filter((task) => task.watchItemId === item.id && task.status === "pending").length}</span></div>
         </li>)}</ul>
       </DashboardCard>
-      <div ref={detailRef} tabIndex={-1} role="region" aria-label="观察项详情" className={`min-w-0 rounded-lg ${mobileDetailOpen && selected ? "" : "hidden xl:block"}`}>
+      {selected ? <div ref={detailRef} tabIndex={-1} role="region" aria-label="观察项详情" className={`min-w-0 rounded-lg ${mobileDetailOpen && selected ? "" : "hidden xl:block"}`}>
         {selected ? <><button type="button" onClick={returnToList} className={`${buttonClass} mb-3 xl:hidden`}><ArrowLeft className="h-4 w-4" />返回观察列表</button><WatchDetail key={selected.item.id} item={selected.item} stock={selected.stock} props={props} overdue={overdueIds.has(selected.item.id)} /></> : <DashboardCard className="p-5"><p className="text-sm text-textMuted">请选择一个观察项查看详情。</p></DashboardCard>}
-      </div>
+      </div> : null}
     </div>}
 
-    <details className="min-w-0 rounded-lg border border-control bg-bg2 p-4"><summary className="cursor-pointer text-sm font-semibold text-accent">示例模板（不计入用户数据）</summary><div className="mt-4"><div className="flex flex-wrap items-center justify-between gap-3"><p className="text-xs leading-5 text-textMuted">仅主动载入后才成为用户观察项；已有公司不会重复创建。</p><button type="button" onClick={props.onLoadAllSamples} className={buttonClass}>载入全部示例</button></div><div className="mt-3 grid gap-3 md:grid-cols-2">{samples.map((sample) => { const stock = stocks.find((item) => item.id === sample.stockId); return <article key={sample.id} className="min-w-0 rounded border border-borderSoft p-3"><p className="break-words text-sm font-semibold text-textStrong">示例 · {stock?.name ?? sample.stockId}</p><p className="mt-1 break-words text-xs leading-5 text-textMuted">{sample.reason}</p><button type="button" onClick={() => props.onLoadSample(sample)} className="mt-3 min-h-11 text-sm text-accent underline">载入此示例</button></article>; })}</div></div></details>
-    {backupOpen ? <WatchlistBackupModal exportJson={props.exportJson} corruptedRaw={props.corruptedRaw} error={props.storageError} onValidate={props.onValidateImport} onMerge={props.onMergeImport} onReplace={props.onReplaceImport} onReset={props.onReset} onClose={() => setBackupOpen(false)} /> : null}
+    {samples.length ? <details className="min-w-0 rounded-lg border border-control bg-bg2 p-4"><summary className="cursor-pointer text-sm font-semibold text-accent">示例模板（不计入用户数据）</summary><div className="mt-4"><div className="flex flex-wrap items-center justify-between gap-3"><p className="text-xs leading-5 text-textMuted">仅主动载入后才成为用户观察项；已有公司不会重复创建。</p><button type="button" onClick={props.onLoadAllSamples} className={buttonClass}>载入全部示例</button></div><div className="mt-3 grid gap-3 md:grid-cols-2">{samples.map((sample) => { const stock = stocks.find((item) => item.id === sample.stockId); return <article key={sample.id} className="min-w-0 rounded border border-borderSoft p-3"><p className="break-words text-sm font-semibold text-textStrong">示例 · {stock?.name ?? sample.stockId}</p><p className="mt-1 break-words text-xs leading-5 text-textMuted">{sample.reason}</p><button type="button" onClick={() => props.onLoadSample(sample)} className="mt-3 min-h-11 text-sm text-accent underline">载入此示例</button></article>; })}</div></div></details> : null}
+    {backupOpen ? <WatchlistBackupModal exportJson={props.exportJson} corruptedRaw={props.corruptedRaw} error={props.storageError ?? props.operationError} onValidate={props.onValidateImport} onMerge={props.onMergeImport} onReplace={props.onReplaceImport} onReset={props.onReset} onClose={() => setBackupOpen(false)} /> : null}
   </section>;
 }
 
 function WatchStat({ label, value, note, warning = false }: { label: string; value: number; note: string; warning?: boolean }) {
-  return <DashboardCard className="min-w-0 p-3"><p className="text-xs text-textMuted">{label}</p><p className={`mt-1 text-[28px] font-semibold tabular-nums ${warning ? "text-warning" : "text-textStrong"}`}>{value}</p><p className="mt-1 text-xs leading-5 text-textMuted">{note}</p></DashboardCard>;
+  return <div className="min-w-0"><p className="text-xs text-textMuted">{label}</p><p className={`mt-1 text-lg font-semibold tabular-nums ${warning ? "text-warning" : "text-textStrong"}`}>{value}</p><p className="mt-1 text-xs leading-5 text-textMuted">{note}</p></div>;
 }
 
 function WatchDetail({ item, stock, props, overdue }: { item: WatchItem; stock: Stock; props: WatchlistTabProps; overdue: boolean }) {

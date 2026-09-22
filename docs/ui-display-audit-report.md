@@ -1,6 +1,6 @@
 # UI Display Audit Report
 
-Generated: 2026-09-21T04:46:29.337Z
+Generated: 2026-09-21T13:52:22.928Z
 
 ## Scope
 - Planned responsive checklist (not measured by this command): 1920, 1600, 1440, 1280, 1024, 768, 390, 320.
@@ -11,8 +11,8 @@ Generated: 2026-09-21T04:46:29.337Z
 ## Scope limitations
 - This scan only detects the listed legacy color classes in the listed source files.
 - It does not certify contrast, focus, layout, business state, persistence, or browser behavior.
-- NEON-RC1 uses one shared component tree with neon / pro / light display tokens.
-- The frozen design and actual UI V1 browser evidence are indexed in [implementation acceptance](ui-redesign/v1/implementation/acceptance.md).
+- UI V2 uses one light palette; legacy preferences remain intact for rollback.
+- UI V2 migration and current evidence are indexed in [UI V2 delivery](ui-v2/implementation.md). Historical UI V1 evidence remains unchanged.
 - Historical drawer dimensions and expected truncation rules are not runtime findings for the new five-tab company page.
 
 ## Width Checklist
@@ -32,5 +32,5 @@ Generated: 2026-09-21T04:46:29.337Z
 
 ## Runtime checks
 - Verify the screenshot matrix, 320px, 200% zoom, keyboard, reduced motion and abnormal states in the separate acceptance evidence.
-- Verify independent theme/data modes and unchanged business exports with actual browser interactions.
+- Verify the single light appearance, independent data modes and unchanged business exports with actual browser interactions.
 - No runtime PASS is inferred from this static command.

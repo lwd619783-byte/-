@@ -30,7 +30,7 @@ describe("explicit isolated UI review",()=>{
     const read=vi.spyOn(Storage.prototype,"getItem");const write=vi.spyOn(Storage.prototype,"setItem");const remove=vi.spyOn(Storage.prototype,"removeItem");const clear=vi.spyOn(Storage.prototype,"clear");
     const fetch=vi.spyOn(globalThis,"fetch").mockRejectedValue(new Error("review must not fetch"));
     render(<Application search="?ui-review=1"/>);
-    await screen.findByRole("heading",{name:"首页 / 研究工作台"}, {timeout:10000});
+    await screen.findByRole("heading",{name:"研究总览"}, {timeout:10000});
     const nav=()=>within(screen.getByRole("navigation",{name:"主要导航"}));
     for(const profile of ["full","empty","degraded"]) {
       fireEvent.change(screen.getByLabelText("验收场景"),{target:{value:profile}});
@@ -48,7 +48,8 @@ describe("explicit isolated UI review",()=>{
         fireEvent.click(screen.getByRole("tab",{name:tab}));
         expect(screen.getByRole("tabpanel")).toBeTruthy();
       }
-      for(const theme of ["pro","light","neon"]) fireEvent.change(screen.getByLabelText("外观"),{target:{value:theme}});
+      expect(screen.queryByLabelText("外观")).toBeNull();
+      expect(document.documentElement.dataset.theme).toBe("light");
     }
     expect(businessImport).not.toHaveBeenCalled();expect(read).not.toHaveBeenCalled();expect(write).not.toHaveBeenCalled();expect(remove).not.toHaveBeenCalled();expect(clear).not.toHaveBeenCalled();expect(fetch).not.toHaveBeenCalled();expect(loadAShareFinancial).not.toHaveBeenCalled();expect(loadAShareAnnouncements).not.toHaveBeenCalled();
     read.mockRestore();expect(storageSnapshot()).toEqual(before);

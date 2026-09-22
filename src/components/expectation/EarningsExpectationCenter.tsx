@@ -17,7 +17,7 @@ import { formatFinancialAmount } from "../../utils/financialDisplay";
 import { getIndustryName } from "../../utils/filters";
 import { resolveSafeWorkflowTimeZone } from "../../utils/dateTime";
 import { statusDisplayLabel, unitDisplayLabel } from "../../utils/displayLabels";
-import { DashboardCard, EmptyState, KpiCard, TabButton } from "../common/terminal";
+import { DashboardCard, EmptyState, TabButton } from "../common/terminal";
 import { EarningsExpectationTemporalAudit } from "./EarningsExpectationTemporalAudit";
 import { EarningsExpectationBusinessOrderWarning } from "./EarningsExpectationBusinessOrderWarning";
 
@@ -30,6 +30,7 @@ interface EarningsExpectationCenterProps {
   industries: Industry[];
   watchItems: WatchItem[];
   storageError?: string | null;
+  operationError?: string | null;
   providerLoadStatus?: CompanyGuidanceExpectationLoadStatus;
   providerLoadError?: string | null;
   providerDetailLoadStatus?: CompanyGuidanceExpectationLoadStatus;
@@ -147,24 +148,24 @@ export function EarningsExpectationCenter(props: EarningsExpectationCenterProps)
         <div className="min-w-0"><p className="text-xs tracking-[0.16em] text-cyan">预期证据 / 同口径对照</p><h1 className="mt-1 text-2xl font-semibold text-textStrong">业绩预期证据中心</h1><p className="mt-2 max-w-3xl text-sm leading-6 text-textMuted">公司指引、单家机构、机构一致预期与用户预测分别比较。来源核验、事前有效与数值可比性独立判断。</p></div>
         <div className="flex flex-wrap gap-2"><button type="button" onClick={props.onImport} className={buttonClass}><DatabaseBackup className="h-4 w-4" />导出 / 快照导入</button><button type="button" onClick={props.onAdd} className={`${buttonClass} border-cyan/50 text-cyan`}><Plus className="h-4 w-4" />添加业绩预期</button></div>
       </header>
+    {props.operationError ? <p role="alert" className="text-sm text-warning">{props.operationError}</p> : null}
       {props.storageError ? <div role="alert" className={riskClass}>{props.storageError}</div> : null}
-      <DashboardCard className="p-4">
-        <div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0"><h2 className="text-sm font-semibold text-textStrong">公司官方指引 · 巨潮官方公告</h2><p className="mt-1 text-xs leading-5 text-textMuted">数据提供方记录只读，不写入用户本地存储，也不覆盖人工、JSON 或 CSV 快照。</p></div><div className="min-w-0 text-xs leading-5 text-textMuted"><p>全局状态：{props.providerLoadStatus === "loading" ? "索引校验中" : props.providerLoadStatus === "error" ? "已关闭（校验失败）" : props.providerLoadStatus === "success" ? "已验证并启用" : "未启用"}</p><p>明细状态：{statusDisplayLabel(props.providerDetailLoadStatus ?? "idle")} · 成功 {props.providerLoadedCompanyCount ?? 0} / 失败 {props.providerFailedStockIds?.length ?? 0}</p></div></div>
+      <details className="rounded border border-borderSoft px-3 py-2"><summary className="cursor-pointer py-1 text-sm text-accent">官方来源状态与加载明细</summary>
+        <div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0"><h2 className="text-sm font-semibold text-textStrong">公司官方指引 · 巨潮官方公告</h2><p className="mt-1 text-xs leading-5 text-textMuted">数据提供方记录只读，不写入用户本地存储，也不覆盖人工、JSON 或 CSV 快照。</p></div><div className="min-w-0 text-xs leading-5 text-textMuted"><p>全局状态：{props.providerLoadStatus === "loading" ? "索引校验中" : props.providerLoadStatus === "error" ? "已关闭（校验失败）" : props.providerLoadStatus === "success" ? "已验证并启用" : "未启用"}</p><p>明细状态：{statusDisplayLabel(props.providerDetailLoadStatus ?? "idle")} · {props.providerLoadedCompanyCount === undefined ? "尚未完成明细加载" : `成功 ${props.providerLoadedCompanyCount} / 失败 ${props.providerFailedStockIds?.length ?? 0}`}</p></div></div>
+        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs text-textMuted"><span>全局数据快照 <strong className="text-textStrong">{kpis.providerSnapshots}</strong></span><span>已加载公司 <strong className="text-textStrong">{kpis.providerCompanies}</strong></span><span>本地重复/元数据差异 <strong className="text-textStrong">{kpis.providerDuplicates}</strong></span><span>内容冲突 <strong className={kpis.providerConflicts ? "text-warning" : "text-textStrong"}>{kpis.providerConflicts}</strong></span><span>排除 / 警告 <strong className="text-textStrong">{props.providerExclusions?.length ?? 0} / {props.providerWarnings?.length ?? 0}</strong></span></div>
+      </details>
+      <div className="space-y-2">
+
         {props.providerLoadStatus === "error" || props.providerLoadError ? <p role="alert" className={`${riskClass} mt-3`}>全局索引加载或校验失败：{props.providerLoadError || "索引未通过验证"}。正式数据提供方已全局关闭，本地快照仍可使用。</p> : null}
         {props.providerDetailLoadError ? <p role="alert" className={`${riskClass} mt-3`}>明细部分失败：{props.providerDetailLoadError}。成功公司仍保留，失败结果不缓存。</p> : null}
         {(props.providerLoadStatus === "error" || props.providerLoadError || props.providerDetailLoadError) && props.onRetryProvider ? <button type="button" onClick={props.onRetryProvider} className={`${buttonClass} mt-3`}>重试数据加载</button> : null}
-        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs text-textMuted"><span>全局数据快照 <strong className="text-textStrong">{kpis.providerSnapshots}</strong></span><span>已加载公司 <strong className="text-textStrong">{kpis.providerCompanies}</strong></span><span>本地重复/元数据差异 <strong className="text-textStrong">{kpis.providerDuplicates}</strong></span><span>内容冲突 <strong className={kpis.providerConflicts ? "text-warning" : "text-textStrong"}>{kpis.providerConflicts}</strong></span><span>排除 / 警告 <strong className="text-textStrong">{props.providerExclusions?.length ?? 0} / {props.providerWarnings?.length ?? 0}</strong></span></div>
+
         {props.duplicateOfProviderByLocalId?.size ? <p role="status" className={`${riskClass} mt-3`}>与官方数据记录重复 / 元数据不同：保留 {props.duplicateOfProviderByLocalId.size} 条本地记录用于审计；比较、研究事件与复盘任务只计对应官方数据版本。</p> : null}
         {conflicts.length ? <div role="alert" className={`${riskClass} mt-3`}><p className="font-medium">发现 {conflicts.length} 条同一官方证据的财务内容冲突；本地记录保留可见，但不进入比较链，需按冲突字段复核。</p><ul className="mt-2 space-y-1">{conflicts.map((record) => <li key={record.localSnapshotId} className="break-all">{record.localSnapshotId}：{record.conflictingFields.join("、") || "冲突字段待核验"}</li>)}</ul><button type="button" onClick={showAudit} className={`${buttonClass} mt-2`}>查看冲突详情</button></div> : null}
         {props.providerExclusions?.length || props.providerWarnings?.length ? <div className="mt-3 space-y-1 text-xs text-warning"><p>排除与警告仍按原来源判定保留，未形成可靠数值的记录不补 0。</p>{exclusionReasons.length ? <p className="break-words">排除原因：{exclusionReasons.join("；")}</p> : null}{props.providerWarnings?.map((item) => <p key={`${item.sourceAnnouncementId}-${item.code}`} className="break-words">[{item.code}] {item.message}</p>)}<button type="button" onClick={showAudit} className={`${buttonClass} mt-2`}>查看来源排除与核验队列</button></div> : null}
-      </DashboardCard>
+      </div>
 
-      <section className="grid grid-cols-2 gap-3 xl:grid-cols-4" aria-label="预期证据指标">
-        <KpiCard label="有快照公司" value={kpis.companies} description="全部来源，不等于机构覆盖" tone="info" />
-        <KpiCard label="事前有效报告期" value={kpis.exAntePeriods} description="早于任何同指标披露" tone="info" />
-        <KpiCard label="可比较结果" value={kpis.comparisons} description="来源与实际值严格同口径" tone="info" />
-        <KpiCard label="不可比较" value={kpis.nonComparable} description="保留具体原因，不强行计算" tone={kpis.nonComparable ? "warning" : "neutral"} />
-      </section>
+      <section className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-textMuted" aria-label="预期证据指标"><span>有快照公司 {kpis.companies}</span><span>事前有效报告期 {kpis.exAntePeriods}</span><span>可比较结果 {kpis.comparisons}</span><span className={kpis.nonComparable ? "text-warning" : ""}>不可比较 {kpis.nonComparable} · 保留具体原因，不强行计算</span></section>
       <details className="min-w-0 rounded border border-borderSoft bg-surface/40 px-3 py-2"><summary className="cursor-pointer text-xs text-textMuted">更多统计与来源版本</summary><div className="mt-3 grid gap-2 sm:grid-cols-3 xl:grid-cols-6"><Value label="高于对应预测" value={String(kpis.above)} /><Value label="处于预测区间" value={String(kpis.within)} /><Value label="低于对应预测" value={String(kpis.below)} /><Value label="来源待核验" value={String(kpis.pendingSources)} /><Value label="业务预测修订" value={String(kpis.businessRevisions)} /><Value label="数据更正" value={String(kpis.corrections)} /></div><p className="mt-3 break-words text-xs text-textMuted">版本：{props.providerSummary?.providerVersion ?? "-"} · 更新：{props.providerSummary?.generatedAt ?? "-"} · 工作流时区：{timeZone}</p><p className="mt-1 text-xs leading-5 text-textMuted">“事前有效”严格指快照形成与外部来源发布均早于任何同指标业绩信息披露；数据更正不表示业务上调/下调。</p></details>
 
       <DashboardCard className="p-4">
@@ -233,6 +234,18 @@ function SourceComparison({ snapshots, comparisons, relations, onAudit }: { snap
   return <DashboardCard className="p-4">
     <div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0"><h2 className="text-base font-semibold text-textStrong">预期与实际 / {metricLabel(first.metric)}</h2><p className="mt-1 break-words text-xs leading-5 text-textMuted">{first.reportPeriod} · {periodScopeLabel(first.periodScope)} · {unitDisplayLabel(first.currency)} · {statusDisplayLabel(first.accountingBasis)}</p></div><button type="button" onClick={onAudit} className={buttonClass}>查看来源与时间线</button></div>
     <p className="mt-2 text-xs leading-5 text-textMuted">每种来源独立比较；高于用户预测不等于高于机构一致预期。</p>
+    <div className="mt-4 max-w-full overflow-x-auto" tabIndex={0} role="region" aria-label="同口径来源对照表，可横向滚动">
+      <table className="w-full min-w-[760px] text-left text-sm"><caption className="sr-only">同一公司、报告期和口径的不同来源，分别核验与比较</caption><thead><tr>{["来源", "预期值", "实际值", "核验与事前资格", "结果与限制"].map(label => <th key={label} className="border-b border-borderSoft px-3 py-3 font-medium text-textMuted">{label}</th>)}</tr></thead>
+        <tbody>{rows.map(({ snapshot, comparison, relation, plot }) => <tr key={snapshot.id}>
+          <td className="max-w-48 border-b border-borderSoft px-3 py-3 align-top"><strong className="block font-medium">{sourceCategoryLabel(snapshot.sourceCategory)}</strong><span className="break-words text-xs text-textMuted">{snapshot.sourceName || "来源缺失"}</span></td>
+          <td className="border-b border-borderSoft px-3 py-3 align-top tabular-nums">{formatSnapshot(snapshot)}</td>
+          <td className="border-b border-borderSoft px-3 py-3 align-top tabular-nums">{comparison?.actualValue === null || comparison?.actualValue === undefined ? "缺少可靠实际值" : first.metric === "eps" ? `${comparison.actualValue} ${unitDisplayLabel(first.currency)}/股` : formatFinancialAmount(comparison.actualValue)}</td>
+          <td className="border-b border-borderSoft px-3 py-3 align-top text-xs leading-5"><p>来源：{statusDisplayLabel(snapshot.sourceVerificationStatus)}</p><p className={!comparison?.isExAnte ? "text-warning" : ""}>事前有效：{comparison?.isExAnte ? "已证明" : "未认定 / 待匹配"}</p></td>
+          <td className={`max-w-sm border-b border-borderSoft px-3 py-3 align-top text-xs leading-5 ${!plot ? "text-warning" : "text-textStrong"}`}>{relation?.relation === "content_conflict" ? `内容冲突 · 不进入比较：${relation.conflictingFields.join("、")}` : relation && relation.relation !== "independent" ? "与官方记录重复 / 元数据差异 · 不重复计入比较" : <>{comparison ? comparisonResultLabel(comparison, snapshot) : "尚未生成比较"}{!plot ? <p>{comparison?.nonComparableReasons.join("；") || "缺少可靠实际值或比较资格"}</p> : null}</>}</td>
+        </tr>)}</tbody>
+      </table>
+    </div>
+    <details className="mt-3"><summary className="cursor-pointer py-2 text-sm text-accent">查看同轴区间图</summary>
     <section aria-label="来源区间对照" className="mt-4 space-y-3">{rows.map(({ snapshot, comparison, relation, plot }) => <article key={snapshot.id} className="min-w-0 rounded border border-borderSoft bg-surface/50 p-3" aria-label={`${sourceCategoryLabel(snapshot.sourceCategory)} ${snapshot.sourceName}`}>
       <div className="grid min-w-0 gap-3 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]"><div className="min-w-0"><h3 className="break-words text-sm font-semibold text-textStrong">{sourceCategoryLabel(snapshot.sourceCategory)}</h3><p className="mt-1 break-words text-xs text-textMuted">{snapshot.sourceName || "来源缺失"}</p><p className="mt-2 break-words text-sm tabular-nums text-textStrong">{formatSnapshot(snapshot)}</p></div><div className="min-w-0">
         {plot ? <><svg viewBox="0 0 360 50" className="h-12 w-full" role="img" aria-label={`${sourceCategoryLabel(snapshot.sourceCategory)}：${formatSnapshot(snapshot)}；实际值 ${plot.actual} ${unitDisplayLabel(first.currency)} ${first.metric === "eps" ? "/股" : "元"}`}><line x1="18" x2="342" y1="25" y2="25" stroke="var(--ui-control)" strokeWidth="1" />{snapshot.estimateShape === "range" ? <><line x1={x(plot.low)} x2={x(plot.high)} y1="25" y2="25" stroke="var(--ui-accent)" strokeWidth="8" strokeLinecap="round" /><line x1={x(plot.low)} x2={x(plot.low)} y1="17" y2="33" stroke="var(--ui-accent)" strokeWidth="2" /><line x1={x(plot.high)} x2={x(plot.high)} y1="17" y2="33" stroke="var(--ui-accent)" strokeWidth="2" /></> : <rect x={x(plot.low) - 5} y="20" width="10" height="10" fill="var(--ui-accent)" />}<circle cx={x(plot.actual)} cy="25" r="5" fill="var(--ui-secondary)" stroke="var(--ui-panel)" strokeWidth="2" /></svg><p className="break-words text-xs text-textMuted">已校验实际值：{first.metric === "eps" ? `${plot.actual} ${unitDisplayLabel(first.currency)}/股` : formatFinancialAmount(plot.actual)}</p></> : <p className="rounded border border-warning/30 bg-warning/10 p-3 text-xs leading-5 text-warning">{relation?.relation === "content_conflict" ? `内容冲突 · 不进入比较：${relation.conflictingFields.join("、")}` : relation && relation.relation !== "independent" ? "与官方记录重复 / 元数据差异 · 不重复计入比较" : comparison?.nonComparableReasons.join("；") || "缺少可靠实际值或比较资格，暂不绘制对照。"}</p>}
@@ -241,6 +254,7 @@ function SourceComparison({ snapshots, comparisons, relations, onAudit }: { snap
       {comparison && (!relation || relation.relation === "independent") ? <p className="mt-2 break-words text-xs text-textStrong">{comparisonResultLabel(comparison, snapshot)}</p> : null}
     </article>)}</section>
     {values.length ? <div className="mt-3 text-xs text-textMuted"><div className="flex justify-between gap-2 tabular-nums"><span>{axisNumber(start)}</span><span>{axisNumber(end)}</span></div><p className="mt-2 leading-5">图形共用数轴 · {unitDisplayLabel(first.currency)}{first.metric === "eps" ? "/股" : " 元"} · 横段为区间，方块为点预测，圆点为实际值。仅绘制现有引擎确认可比较的记录。</p></div> : <p className="mt-3 text-xs leading-5 text-textMuted">当前没有可绘制的可靠比较；缺值、事后记录与冲突不会补 0 或生成假区间。</p>}
+    </details>
   </DashboardCard>;
 }
 

@@ -4,6 +4,7 @@ import { ReviewTimeline } from "./ReviewTimeline";
 
 interface StockWatchlistPanelProps {
   activeItem?: WatchItem;
+  readError?: string | null;
   archivedItem?: WatchItem;
   tasks: ReviewTask[];
   entries: ReviewEntry[];
@@ -15,7 +16,8 @@ interface StockWatchlistPanelProps {
   onRestore: (item: WatchItem) => void;
 }
 
-export function StockWatchlistPanel({ activeItem, archivedItem, tasks, entries, events, onAdd, onEdit, onStartReview, onCorrectReview, onRestore }: StockWatchlistPanelProps) {
+export function StockWatchlistPanel({ readError, activeItem, archivedItem, tasks, entries, events, onAdd, onEdit, onStartReview, onCorrectReview, onRestore }: StockWatchlistPanelProps) {
+  if (readError) return <p role="alert" className="rounded-lg border border-warning/40 p-4 text-sm text-warning">观察记录已锁定，无法判断是否已加入观察清单。{readError}</p>;
   if (!activeItem) return <div className="rounded-lg border border-borderSoft bg-bg2/60 p-4"><p className="inline-flex items-center gap-2 text-sm font-semibold text-textStrong"><Binoculars className="h-4 w-4 text-cyan" />尚未加入观察清单</p><p className="mt-2 text-sm text-textMuted">加入后可记录投资假设、接收只读事件提醒并形成复盘时间线。</p>{archivedItem ? <button type="button" onClick={() => onRestore(archivedItem)} className="mt-3 inline-flex h-9 items-center gap-2 rounded border border-cyan/50 px-3 text-sm text-cyan"><RotateCcw className="h-4 w-4" />恢复已归档观察项</button> : <button type="button" onClick={onAdd} className="mt-3 inline-flex h-9 items-center gap-2 rounded border border-cyan/50 px-3 text-sm text-cyan"><Plus className="h-4 w-4" />加入观察清单</button>}</div>;
   const pending = tasks.filter((task) => task.watchItemId === activeItem.id && task.status === "pending");
   return <div className="space-y-4">

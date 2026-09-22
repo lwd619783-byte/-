@@ -24,10 +24,13 @@ describe("StockPool UI V1 migration", () => {
     render(<StockPool {...data} globalSearch="" onOpenStock={vi.fn()} />);
     expect(screen.getByRole("button", { name: "表格" }).getAttribute("aria-pressed")).toBe("true");
     expect(screen.getByRole("table")).toBeTruthy();
+    expect(screen.queryByRole("combobox", { name: "数据质量" })).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "更多筛选" }));
     expect(within(screen.getByRole("combobox", { name: "数据质量" })).getAllByRole("option").map((node) => node.textContent))
       .toEqual(["全部", "行情状态为真实", "缺失项", "暂不支持", "行情采集24小时内"]);
     expect(within(screen.getByRole("combobox", { name: "排序" })).getAllByRole("option").map((node) => node.textContent))
       .toEqual(["默认", "覆盖率高到低", "覆盖率低到高", "涨跌幅", "市值", "市盈率（PE）"]);
+    fireEvent.click(screen.getByRole("button", { name: "更多筛选" }));
     expect(screen.queryByRole("textbox", { name: "池内搜索" })).toBeNull();
     expect(screen.queryByRole("combobox", { name: "风险等级" })).toBeNull();
   });
@@ -46,6 +49,19 @@ describe("StockPool UI V1 migration", () => {
     expect(screen.getByRole("button", { name: "更多筛选" }).getAttribute("aria-expanded")).toBe("false");
     expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(4);
     expect((screen.getByRole("combobox", { name: "排序" }) as HTMLSelectElement).value).toBe("PE");
+  });
+
+  it("exposes an active quality filter after collapse and clears it without changing global search", () => {
+    const data = fixture();
+    render(<StockPool {...data} globalSearch="syntheticA" onOpenStock={vi.fn()} />);
+    fireEvent.click(screen.getByRole("button", { name: "更多筛选" }));
+    fireEvent.change(screen.getByRole("combobox", { name: "数据质量" }), { target: { value: "行情状态为真实" } });
+    fireEvent.click(screen.getByRole("button", { name: "更多筛选（1）" }));
+    expect(screen.getByLabelText("已启用池内筛选").textContent).toContain("质量：行情状态为真实");
+    expect(screen.getByText("没有匹配个股")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "清除全部池内筛选" }));
+    expect(within(screen.getByRole("table")).getAllByRole("row")).toHaveLength(2);
+    expect(screen.getByText(/当前研究池顶栏搜索：syntheticA/)).toBeTruthy();
   });
 
   it("uses the same sorted objects in table, responsive cards and explicit card view", () => {

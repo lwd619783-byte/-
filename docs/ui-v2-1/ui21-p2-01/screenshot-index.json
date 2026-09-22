@@ -1,0 +1,105 @@
+{
+  "issue": "UI21-P2-01",
+  "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+  "origin": "http://127.0.0.1:4206",
+  "testedAt": "2026-09-22T04:48:01.928Z",
+  "screenshots": [
+    {
+      "file": "P2-company-healthy-empty-1440.png",
+      "kind": "LOCAL_BUILD",
+      "origin": "http://127.0.0.1:4206",
+      "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "#/company/beigene/expectations?from=research",
+      "state": "healthy-empty",
+      "capturedAt": "2026-09-22T04:48:45.806Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "496f0679911e0d9015c95851da5b99f91150ec668347877910984f92934f31a6"
+    },
+    {
+      "file": "P2-company-healthy-empty-390.png",
+      "kind": "LOCAL_BUILD",
+      "origin": "http://127.0.0.1:4206",
+      "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "#/company/beigene/expectations?from=research",
+      "state": "healthy-empty",
+      "capturedAt": "2026-09-22T04:48:46.031Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "7d71759cad3cba05d7605b022596be53c814541c1b30d7e7ec4f83571cd853d5"
+    },
+    {
+      "file": "P2-company-local-locked-1440.png",
+      "kind": "LOCAL_BUILD",
+      "origin": "http://127.0.0.1:4206",
+      "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "#/company/beigene/expectations?from=research",
+      "state": "local-locked",
+      "capturedAt": "2026-09-22T04:48:54.703Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "2ba8d3d66530cbf3d46cb3f1f9cf3ee1563b3a49f1e1bd9d7d387bd7551669cf"
+    },
+    {
+      "file": "P2-company-local-locked-390.png",
+      "kind": "LOCAL_BUILD",
+      "origin": "http://127.0.0.1:4206",
+      "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "#/company/beigene/expectations?from=research",
+      "state": "local-locked",
+      "capturedAt": "2026-09-22T04:48:54.930Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "4ca8e94426cd4ef12b1c5cda3e7ed5c867842bdc7cd032fb88c7bbf22a9596fc"
+    },
+    {
+      "file": "P2-company-provider-retained-1440.png",
+      "kind": "LOCAL_BUILD",
+      "origin": "http://127.0.0.1:4206",
+      "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "route": "#/company/fii/expectations?from=research",
+      "state": "provider-retained",
+      "capturedAt": "2026-09-22T04:49:09.823Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "c3869e762817458234d8c11e88ab4e6b16bafd24c9e919882f4e30979fead255"
+    },
+    {
+      "file": "P2-company-provider-retained-390.png",
+      "kind": "LOCAL_BUILD",
+      "origin": "http://127.0.0.1:4206",
+      "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "#/company/fii/expectations?from=research",
+      "state": "provider-retained",
+      "capturedAt": "2026-09-22T04:49:10.441Z",
+      "input": "isolated synthetic local owner; committed public provider fixture replay; mixed mode; no personal profile",
+      "sha256": "97a26294e1eae5d06bdd3e11af4b44e757a9a7c178c87ca1dd89a6f27894dcbe"
+    }
+  ],
+  "classification": "six full production App captures; LOCAL_BUILD; public fixture replay and isolated synthetic local storage; no personal profile",
+  "priorDelivery": "UI21-P1-01 32 images remain unchanged; no historical image relabeled",
+  "zip": {
+    "filename": "research-os-v2.1-UI21-P2-01-visual-review-5f05c30.zip",
+    "sha256": "1870e0d9d94dfdbeae2b7e0ab2c10b9d730e4c8816842e60d824d2d0e5d27de9",
+    "bytes": 2002973
+  }
+}

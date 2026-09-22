@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-export const pages = { home: "首页", macro: "宏观", industry: "行业", stocks: "个股池", watchlist: "观察清单", verification: "验证中心", expectations: "预期证据", creators: "观点追踪", memory: "研究记忆" } as const;
+export const pages = { home: "首页", macro: "宏观", industry: "行业", stocks: "个股池", watchlist: "观察清单", verification: "验证中心", expectations: "预期证据", creators: "观点追踪", memory: "研究记忆", research: "研究", knowledge: "知识库", portfolio: "组合", tasks: "任务", sources: "资料与连接", settings: "设置与帮助" } as const;
 export type PageId = keyof typeof pages;
 export type MainPage = typeof pages[PageId];
 export const companyTabs = ["overview", "financials", "valuation", "expectations", "evidence"] as const;
 export type CompanyTab = typeof companyTabs[number];
-export interface WorkspaceRoute { kind: "page" | "company" | "invalid"; page: PageId; stockId?: string; tab?: CompanyTab; industryId?: string; segmentId?: string; eventId?: string }
+export interface WorkspaceRoute { kind: "page" | "company" | "invalid"; page: PageId; stockId?: string; tab?: CompanyTab; industryId?: string; segmentId?: string; eventId?: string; view?: string; wikiId?: string }
 const validPage = (value: string | null): value is PageId => !!value && Object.prototype.hasOwnProperty.call(pages, value);
 export function parseWorkspaceHash(hash: string): WorkspaceRoute {
   if (!hash || hash === "#" || hash === "#/") return { kind: "page", page: "home" };
@@ -20,7 +20,7 @@ export function parseWorkspaceHash(hash: string): WorkspaceRoute {
       return { kind: "company", page: validPage(origin) ? origin : "stocks", stockId: parts[1], tab: tab as CompanyTab };
     }
     if (parts.length !== 1 || !validPage(parts[0])) return { kind: "invalid", page: "home" };
-    return { kind: "page", page: parts[0], industryId: params.get("industry") ?? undefined, segmentId: params.get("segment") ?? undefined, eventId: params.get("event") ?? undefined };
+    return { kind: "page", page: parts[0], industryId: params.get("industry") ?? undefined, segmentId: params.get("segment") ?? undefined, eventId: params.get("event") ?? undefined, view: params.get("view") ?? undefined, wikiId: params.get("wiki") ?? undefined };
   } catch { return { kind: "invalid", page: "home" }; }
 }
 
@@ -69,5 +69,5 @@ export function useWorkspaceNavigation() {
   const selectIndustry = ({ industryId, segmentId }: { industryId: string; segmentId: string }) => {
     if(routeRef.current.kind === "page" && routeRef.current.page === "industry") go(`#/industry?industry=${encodeURIComponent(industryId)}&segment=${encodeURIComponent(segmentId)}`, true);
   };
-  return { route, navigatePage, openCompany, changeCompanyTab, back, openEvent, selectIndustry, selectEvent };
+  return { route, navigatePage, openCompany, changeCompanyTab, back, openEvent, selectIndustry, selectEvent, navigateHash: go };
 }

@@ -1,0 +1,7 @@
+{
+  "runtimeSha": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+  "command": "npm run build",
+  "result": "PASS",
+  "completedAt": "2026-09-22T04:47:08.164645+00:00",
+  "note": "tsc -b + local:typecheck + vite + bundle gate; stdout in evidence/build-final.log"
+}

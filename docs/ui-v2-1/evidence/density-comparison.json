@@ -1,0 +1,349 @@
+{
+  "inputType": "isolated component harness",
+  "beforeSha": "cebe97fda751c58c3d2c5a14e167452226e53cbe",
+  "afterRuntimeSha": null,
+  "afterSourceSha256": {
+    "src/components/home/ResearchWorkbench.tsx": "7057d6e5370445ec2132f76ce46827914c0c4ae760284c059ad4f7596095beb4",
+    "src/components/home/ResearchWorkbench.css": "de89189b6de5ded113749e71e0a0861316021ca9c34ab4febfbeeb9ad8091dcc",
+    "src/components/home/ResearchInbox.tsx": "b01de42f0b4e0aec1f3469d8f9ec228063d4d36cc54bc2f12918ada79c437090",
+    "src/components/home/ResearchInbox.css": "370715d0f517644dd566341b2d90260d7a511c7649b77b1e19d51292a7c1eb34",
+    "src/styles/workspace-v2.css": "87136123d860f4f417a3c5a152822dbbb34a62cfb7e62324655ab7ed3e387ed9",
+    "src/components/research/ResearchEventEvidence.tsx": "39a4666364583bf6b7b80fb59882db1335d33c2376785607347cdba1d2c53fd2",
+    "src/ui-review/fixtures.ts": "c87ff2ae5cf8e22bcc6d4241cd4a31f958c9000397428c77ae151a2c372c4e4d"
+  },
+  "testedAt": "2026-09-21T15:41:50.607Z",
+  "fixtureSha256": "c87ff2ae5cf8e22bcc6d4241cd4a31f958c9000397428c77ae151a2c372c4e4d",
+  "fixtureMatchesBaseline": true,
+  "comparisons": [
+    {
+      "surface": "workbench",
+      "profile": "full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "before": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 3,
+        "watchRowHeights": [
+          82.875,
+          82.875,
+          82.875
+        ],
+        "homeTracks": "947px 285px",
+        "inboxTracks": null,
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": null,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 0
+      },
+      "after": {
+        "firstScreenEventRows": 2,
+        "renderedEventRows": 3,
+        "eventRowHeights": [
+          85.921875,
+          85.921875,
+          85.921875
+        ],
+        "firstScreenWatchRows": 3,
+        "watchRowHeights": [
+          75.484375,
+          76.484375,
+          76.484375
+        ],
+        "homeTracks": "960px 280px",
+        "inboxTracks": "1260px",
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 0
+      }
+    },
+    {
+      "surface": "workbench",
+      "profile": "full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "before": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 3,
+        "watchRowHeights": [
+          111.46875,
+          111.46875,
+          111.46875
+        ],
+        "homeTracks": "358px",
+        "inboxTracks": null,
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": null,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 0
+      },
+      "after": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 3,
+        "eventRowHeights": [
+          164.65625,
+          164.65625,
+          164.65625
+        ],
+        "firstScreenWatchRows": 3,
+        "watchRowHeights": [
+          104.671875,
+          105.671875,
+          105.671875
+        ],
+        "homeTracks": "358px",
+        "inboxTracks": "358px",
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 0
+      }
+    },
+    {
+      "surface": "workbench",
+      "profile": "empty",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "before": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": "947px 285px",
+        "inboxTracks": null,
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": null,
+        "emptyObservationHeight": 219.484375,
+        "viewportBelowComponent": 78.3125
+      },
+      "after": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": "1260px",
+        "inboxTracks": "1260px",
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": 104,
+        "viewportBelowComponent": 269.859375
+      }
+    },
+    {
+      "surface": "workbench",
+      "profile": "empty",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "before": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": "358px",
+        "inboxTracks": null,
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": null,
+        "emptyObservationHeight": 208.171875,
+        "viewportBelowComponent": 0
+      },
+      "after": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": "358px",
+        "inboxTracks": "358px",
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": 142.78125,
+        "viewportBelowComponent": 53.921875
+      }
+    },
+    {
+      "surface": "inbox",
+      "profile": "full",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "before": {
+        "firstScreenEventRows": 3,
+        "renderedEventRows": 4,
+        "eventRowHeights": [
+          208,
+          208,
+          208,
+          208
+        ],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": null,
+        "inboxTracks": "603px 603px",
+        "reservedEmptyPendingTrack": true,
+        "blankBelowPendingTrackLastChild": 888,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 0
+      },
+      "after": {
+        "firstScreenEventRows": 8,
+        "renderedEventRows": 8,
+        "eventRowHeights": [
+          85.921875,
+          85.921875,
+          85.921875,
+          85.921875,
+          85.921875,
+          85.921875,
+          85.921875,
+          85.921875
+        ],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": null,
+        "inboxTracks": "1260px",
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 17.25
+      }
+    },
+    {
+      "surface": "inbox",
+      "profile": "full",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "before": {
+        "firstScreenEventRows": 1,
+        "renderedEventRows": 4,
+        "eventRowHeights": [
+          232,
+          232,
+          232,
+          232
+        ],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": null,
+        "inboxTracks": "324px",
+        "reservedEmptyPendingTrack": true,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 0
+      },
+      "after": {
+        "firstScreenEventRows": 3,
+        "renderedEventRows": 8,
+        "eventRowHeights": [
+          164.65625,
+          164.65625,
+          164.65625,
+          164.65625,
+          164.65625,
+          164.65625,
+          164.65625,
+          164.65625
+        ],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": null,
+        "inboxTracks": "358px",
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 0
+      }
+    },
+    {
+      "surface": "inbox",
+      "profile": "empty",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "before": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": null,
+        "inboxTracks": "603px 603px",
+        "reservedEmptyPendingTrack": true,
+        "blankBelowPendingTrackLastChild": 48,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 565.8125
+      },
+      "after": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": null,
+        "inboxTracks": "1260px",
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 637.4375
+      }
+    },
+    {
+      "surface": "inbox",
+      "profile": "empty",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "before": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": null,
+        "inboxTracks": "324px",
+        "reservedEmptyPendingTrack": true,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 242.625
+      },
+      "after": {
+        "firstScreenEventRows": 0,
+        "renderedEventRows": 0,
+        "eventRowHeights": [],
+        "firstScreenWatchRows": 0,
+        "watchRowHeights": [],
+        "homeTracks": null,
+        "inboxTracks": "358px",
+        "reservedEmptyPendingTrack": false,
+        "blankBelowPendingTrackLastChild": 0,
+        "emptyObservationHeight": null,
+        "viewportBelowComponent": 576.4375
+      }
+    }
+  ],
+  "limits": [
+    "Same fixture, browser channel, viewport and harness geometry; each version retains its real component CSS and default pagination.",
+    "Baseline workbench contains no event list; its zero event count is a feature difference, not an event density measurement.",
+    "Viewport whitespace below a short page is natural and is not treated as a reserved empty column.",
+    "No claim about full App/sidebar integration, remote deployment, real user data or formal knowledge review."
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "origin": "http://127.0.0.1:4201",
+  "runtimeSha": null,
+  "status": "uncommitted-dev; source hashes attached for final runtime mapping",
+  "testedAt": "2026-09-21T15:46:18.898Z",
+  "inputType": "new disposable browser context; 60 synthetic Wiki revisions/reviews via BrowserWikiRepository; no real user records",
+  "sourceHashes": {
+    "src/App.tsx": "cfd095ee8fbf95fbd34f12c19c496934c7860c8109d7f92b18d991d839f71fe5",
+    "src/hooks/useWorkspaceNavigation.ts": "ac8f9799d846252e3fa8bf9cf7f1eaf9afea124d8400628109ee0c18f096a06e",
+    "src/components/research-memory/WikiLibrary.tsx": "cb9fa5d4e70d940492611e47e76fff6a78fae8358073032c90ae23519f56e6b6",
+    "src/components/research-memory/ResearchMemoryWorkspace.tsx": "84046fb679728b8741517eb564d175a6b8a516ebec67212ca097a5f204e20bc5",
+    "src/components/research-memory/KnowledgeDocument.tsx": "09bebfe7fe86ee05e06860d59d595c31dddf516ac96f8dee9922fd8bda6d689e",
+    "src/components/research-memory/knowledge-document.css": "3d4431ea0d0a5891560a8f51792834d4ee2a3dd73b03895f3c2cf7f10e92edc8"
+  },
+  "checks": [
+    {
+      "name": "filtered list contains exactly 50 synthetic articles",
+      "pass": true,
+      "details": {
+        "total": 50
+      }
+    },
+    {
+      "name": "list scroll positioned in lower half",
+      "pass": true,
+      "details": {
+        "listY": 2511
+      }
+    },
+    {
+      "name": "list opens same Wiki ID",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:4201/#/knowledge?wiki=synthetic-scroll-wiki-38"
+      }
+    },
+    {
+      "name": "browser Back restores list filter",
+      "pass": true
+    },
+    {
+      "name": "browser Back restores lower-list scroll",
+      "pass": true,
+      "details": {
+        "expectedY": 2511,
+        "actual": {
+          "y": 2511,
+          "state": {
+            "uiV1": {
+              "scrollY": 2511
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "main navigation home starts at top",
+      "pass": true,
+      "details": {
+        "y": 0,
+        "url": "http://127.0.0.1:4201/#/home"
+      }
+    },
+    {
+      "name": "browser Back restores same article",
+      "pass": true
+    },
+    {
+      "name": "browser Back restores reading position",
+      "pass": true,
+      "details": {
+        "expectedY": 2566,
+        "actual": {
+          "y": 2566,
+          "state": {
+            "uiV1": {
+              "parent": "#/knowledge",
+              "scrollY": 2566
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "deep-link reload renders exact title and complete article",
+      "pass": true,
+      "details": {
+        "paragraphs": 54,
+        "url": "http://127.0.0.1:4201/#/knowledge?wiki=synthetic-scroll-wiki-38"
+      }
+    }
+  ],
+  "errors": [],
+  "finishedAt": "2026-09-21T15:46:32.366Z",
+  "result": "PASS",
+  "sourceMapping": {
+    "candidateRuntimeSha": "d80f2356ed66fe2db8a716f72d60c0ec6d4cd5ef",
+    "verification": "git diff against candidate runtime SHA is empty for the six captured source files; dev origin was directly tested",
+    "sourceFilesUnchanged": true,
+    "gitDiffEmpty": true
+  }
+}

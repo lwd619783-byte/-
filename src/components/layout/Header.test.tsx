@@ -3,6 +3,7 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Header } from "./Header";
+import { useState } from "react";
 
 afterEach(cleanup);
 
@@ -23,6 +24,21 @@ function renderHeader(overrides: Partial<Parameters<typeof Header>[0]> = {}) {
 }
 
 describe("Header 中文展示", () => {
+  it("shows and clears an existing research-pool filter when workspace search replaces the old input", () => {
+    const onSearchChange = vi.fn();
+    function Harness() {
+      const [search, setSearch] = useState("光通信 <待核验>");
+      return <Header search={search} onSearchChange={value => { onSearchChange(value); setSearch(value); }} workspaceSearch={<button>搜索页面与研究对象</button>} updatedAt="" sourceNote="" dataMode="real" modeLabel="Real Data" onDataModeChange={vi.fn()} />;
+    }
+    render(<Harness />);
+    expect(screen.getByRole("status").textContent).toContain("研究池筛选：光通信 <待核验>");
+    expect(screen.queryByLabelText("搜索当前研究池")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "清除研究池筛选" }));
+    expect(onSearchChange).toHaveBeenCalledTimes(1);expect(onSearchChange).toHaveBeenCalledWith("");
+    expect(screen.queryByRole("button", { name: "清除研究池筛选" })).toBeNull();
+    expect(screen.getByRole("button", { name: "搜索页面与研究对象" })).toBeTruthy();
+    expect(screen.getByRole("combobox", { name: "数据模式" })).toBeTruthy();
+  });
   it("缺失时间不会回退到今天或被称为交易日", () => {
     const { container } = renderHeader({ updatedAt: "" });
     expect(container.textContent).toContain("数据包更新时间：未知");

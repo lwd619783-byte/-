@@ -1,0 +1,11 @@
+{
+  "baseline": "ffefc4bc5f298a8d317384abeb68bfd70320d1cd",
+  "after": "5f05c302f25d362f2543c95bf3b50b3a846b079c",
+  "sameScript": true,
+  "sameOrderedAssertions": true,
+  "assertions": 82,
+  "beforeFailures": 49,
+  "afterFailures": 0,
+  "beforeTestedAt": "2026-09-22T04:44:09.759Z",
+  "afterTestedAt": "2026-09-22T04:48:01.928Z"
+}
