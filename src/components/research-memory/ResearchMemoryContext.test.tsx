@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ResearchMemoryWorkspace } from './ResearchMemoryWorkspace';
 import { BrowserWikiRepository, WIKI_STORAGE_KEY } from '../../services/wikiRepository';
 import { emptyIngestion } from '../../services/browserSourceRepository';
-import { wikiFixtureOwners } from '../../services/wiki.fixture';
+import { wikiFixture, wikiFixtureOwners } from '../../services/wiki.fixture';
 import { creatorViewpointFixture } from '../../services/creatorViewpoint.fixture';
 import type { CreatorViewpointRepository } from '../../services/creatorViewpointRepository';
 import type { BrowserSourceRepository, IngestionSnapshot } from '../../types/knowledgeIngestion';
@@ -20,9 +20,11 @@ function fixture(load: () => Promise<IngestionSnapshot> = async () => emptyInges
   return { owners, repository, creatorRepository, sourceRepository, storage };
 }
 describe('route-specific knowledge and material presentation', () => {
-  it('shows only the article library on knowledge routes with no fixed empty list or maintenance panels', async () => {
+  it('shows the external default and legacy article library on knowledge routes without opening maintenance', async () => {
     const props = fixture(); render(<ResearchMemoryWorkspace {...props} requestedView="我的知识库" />);
     await screen.findByRole('heading', { name: '还没有文章' });
+    expect(screen.getByRole('heading', { name: 'External Knowledge Lane（默认）' })).toBeVisible();
+    expect(screen.getByRole('heading', { name: 'Legacy Local Wiki / Bridge（兼容）' })).toBeVisible();
     expect(screen.queryByRole('navigation', { name: '资料分类' })).toBeNull();
     expect(screen.queryByLabelText('文章列表')).toBeNull();
     expect(screen.queryByRole('article', { name: '文章详情' })).toBeNull();
@@ -32,6 +34,46 @@ describe('route-specific knowledge and material presentation', () => {
     expect(screen.getByRole('button', { name: '备份全部文章历史' })).toBeVisible();
     expect(screen.getByText(/文章备份不包含原件/)).toBeVisible();
     expect(screen.getByRole('button', { name: '导出到 Obsidian' })).toBeVisible();
+  });
+
+  it.each(['原始资料', '我的知识库', '研究桥'] as const)('keeps both lanes explicit on %s without writing, syncing or creating a second knowledge store', async requestedView => {
+    const props = fixture();
+    const fetch = vi.spyOn(globalThis, 'fetch');
+    const persist = vi.spyOn(Storage.prototype, 'setItem');
+    render(<ResearchMemoryWorkspace {...props} requestedView={requestedView} />);
+    await waitFor(() => expect(props.sourceRepository.load).toHaveBeenCalled());
+    const external = screen.getByRole('region', { name: 'External Knowledge Lane（默认）' });
+    expect(within(external).getByText('Google Drive 原件 → ChatGPT 分析 → Notion Wiki')).toBeVisible();
+    expect(external).toHaveTextContent('未连接 Google Drive / Notion API，不自动同步，也不保存 Notion Wiki 正文');
+    expect(external).toHaveTextContent('不能单独成为已验证主张（Verified Claim）');
+    expect(screen.getByRole('heading', { name: 'Legacy Local Wiki / Bridge（兼容）' })).toBeVisible();
+    expect(within(external).queryByRole('link')).toBeNull();
+    expect(fetch).not.toHaveBeenCalled();
+    expect(persist).not.toHaveBeenCalled();
+    expect(props.storage.setItem).not.toHaveBeenCalled();
+    expect(props.storage.removeItem).not.toHaveBeenCalled();
+    expect(props.sourceRepository.saveBatch).not.toHaveBeenCalled();
+    expect(props.sourceRepository.parseBatch).not.toHaveBeenCalled();
+    expect(props.sourceRepository.importBundle).not.toHaveBeenCalled();
+    expect(props.sourceRepository.dispose).not.toHaveBeenCalled();
+  });
+
+  it('reads an existing legacy article deep link and revision history without changing stored bytes', async () => {
+    const raw = JSON.stringify(wikiFixture()), props = fixture(undefined, raw);
+    render(<ResearchMemoryWorkspace {...props} requestedView="我的知识库" selectedWikiId="wiki-one" routeKey="knowledge:wiki" />);
+    const article = await screen.findByRole('article', { name: '文章详情' });
+    await waitFor(() => expect(article).toBeVisible());
+    expect(within(article).getByRole('heading', { name: '合成框架' })).toBeVisible();
+    expect(article).toHaveTextContent('Synthetic body. No investment claim.');
+    const history = within(article).getByText(/合成框架 · 已审核/).closest('details')!;
+    history.open = true; fireEvent(history, new Event('toggle'));
+    await waitFor(() => expect(within(article).getAllByText('Synthetic body. No investment claim.')).toHaveLength(2));
+    fireEvent.click(screen.getByRole('button', { name: '更多操作' }));
+    expect(screen.getByRole('button', { name: '备份全部文章历史' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: '导出到 Obsidian' })).toBeEnabled();
+    expect(props.storage.getItem(WIKI_STORAGE_KEY)).toBe(raw);
+    expect(props.storage.setItem).not.toHaveBeenCalled();
+    expect(props.storage.removeItem).not.toHaveBeenCalled();
   });
 
   it('distinguishes source loading from ready-empty and only reports a zero queue once owners are ready', async () => {

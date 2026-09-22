@@ -1,5 +1,7 @@
 # Wiki Domain V1
 
+> 2026-09-22 [R0](../../../docs/stage-4-3-r0-external-knowledge-rebaseline.md)：FREEZE / LEGACY COMPATIBILITY：V1 local authority 仅管理 Legacy lane 的本地对象（含经既有审核流程新增/修订）；不镜像 Notion 正文。现有 schema、permissions、persistence 与审核规则不变；外部 context 不能单独晋升 Verified Claim。
+
 Additive L2 Research Memory contract. `wiki.schema.json` references the unchanged Slice 1 Source/Extraction/RelatedRefs definitions and F2 `Pin`. The eight entry types share one versioned envelope. This does not change `contracts/v1` permissions, Evidence, Verified Claim, Thesis, Creator or production admission.
 
 - `WikiEntry`: immutable `wikiId`, type and creation instant. Identity is independent of title and projected filename.

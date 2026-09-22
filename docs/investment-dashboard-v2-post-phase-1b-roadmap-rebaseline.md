@@ -1,5 +1,9 @@
 # Investment Research Dashboard V2 · Post-Phase-1B Roadmap Rebaseline
 
+> 2026-09-22 CURRENT — **Stage 4.3-R0 External Knowledge Rebaseline**；默认 External Knowledge Lane（Drive → ChatGPT → Notion），OS 聚焦 Research Decision Lane；Local Wiki / Bridge 为冻结功能范围的兼容能力。下一任务 **Stage 4.3-R1 Verified Claim V1**。本轮功能分支待独立审计；普通 commit/push 后停止，无 PR/merge/Production。[Stage 4.3-R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) supersede 下方旧路线与 CURRENT 停止点，历史审计/验证数字仍仅代表原时点。
+
+本文保留早期路线时点；当前 Stage 4.3/4.5 以 R0 为准，Stage 4.4范围不变。
+
 > 2026-09-18 CURRENT Slice 5 scope：Stage 4.1B 与 Stage 4.2 Slice 1–4 已合入；当前核验 main 为 `8497ac9199def1fbec420eecc6ad7b7305ce160d`（PR #62，PR/main CI success，Vercel Production READY）。本轮只完成 Metric → Industry Dimension → Multi-factor Snapshot，不进入 Prosperity/Regime/Claim/Thesis；具体冻结边界与验证见 [Slice 5 plan](stage-4-2-slice-5-plan.md)，较早阶段记录保留时点意义。
 
 > 状态：CURRENT ROADMAP REBASELINE V1（Master Audit 后更新）

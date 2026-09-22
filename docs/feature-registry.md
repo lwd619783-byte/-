@@ -1,5 +1,9 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-22 CURRENT — **Stage 4.3-R0 External Knowledge Rebaseline**；默认 External Knowledge Lane（Drive → ChatGPT → Notion），OS 聚焦 Research Decision Lane；Local Wiki / Bridge 为冻结功能范围的兼容能力。下一任务 **Stage 4.3-R1 Verified Claim V1**。本轮功能分支待独立审计；普通 commit/push 后停止，无 PR/merge/Production。[Stage 4.3-R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) supersede 下方旧路线与 CURRENT 停止点，历史审计/验证数字仍仅代表原时点。
+
+> 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
+
 > 2026-09-22 CURRENT · UI21-P1-01 源码与交付证据复审通过（用户本轮确认）；32张图片保留原捕获绑定，不代表完整线上视觉验收。UI21-P2-01 仅补公司业绩预期的本地来源读取状态，健康官方快照继续可读。应用5f05c30：全量1,225 PASS、类型/构建PASS，完整App状态210/210、导航198/198；公司专项同82断言49 FAIL→82 PASS，六张新图片独立交付。受保护Preview eefa8b5：公司状态82/82、导航198/198，保护保留。实现及运行证据见 [本轮问题记录](ui-v2-1/ui21-p2-01/README.md)。合成验证不提升真实稿件/UPDATE/撤销验收，P2 等待独立复审。
 
 > 2026-09-22 CURRENT · UI21-P1-01：操作错误与 owner 读取健康分离，真实锁定不再把未知当0，并传播至公司/辅助统计。应用 `e5c2dcb`：全量1,220 PASS，完整App同脚本基线33 FAIL→修后129/129，导航198、Wiki76、ingestion131通过。受保护Preview `0dd9bfb` 状态129/导航198通过；32张图片ZIP已交付，历史图保留原绑定。[修法/运行证据](ui-v2-1/ui21-p1-01/README.md)。仅普通功能分支交付，PENDING INDEPENDENT REVIEW；ChatGPT未完成全站视觉验收，真实旧稿/UPDATE/撤销缺口不升级。
@@ -221,7 +225,7 @@
 | Portfolio aggregate / Exposure / read model / UI | NOT STARTED | P0 | Stage 4.4；复用 Phase 1B Local Core，补组合聚合、macro / industry exposure 与浏览器读模型，不重建账本 |
 | Research Thesis ↔ Position Mapping | NOT STARTED | P0 | Stage 4.4 |
 | Target Allocation / Rebalance Task / Performance Attribution | NOT STARTED | P0 | Stage 4.4；XIRR / TWR 等仍需独立 methodology / admission |
-| Research Bridge / controlled remote access | NOT STARTED | P0 | Stage 4.5；须复用 Domain API、最小权限、确认与 Audit，不暴露 raw DB |
+| Research Bridge / controlled remote access | READ-ONLY LEGACY IMPLEMENTED；DOMAIN MCP PLANNED | P0 | Slice 2.5 只读 Bridge 保留 fallback；Stage 4.5 面向 Creator/Evidence/Claim/Thesis/Expression，复用权限/确认/Audit，不默认代理 Wiki |
 | Cloud business database / cross-device sync | DEFERRED | P0 | 当前 Local-first freeze 已覆盖旧 Cloud Store 假设；若未来改变方向须重新冻结 scope，不是现行 Stage 4 默认任务；Research Bridge 自身的 Auth / scope 仍属于 Stage 4.5 缺口 |
 | Browser LocalStorage workflow migration | NOT STARTED | P0 | Watchlist / Expectation 仍使用 LocalStorage；迁往 Local Core 或其他目标尚无冻结实施范围，不得写成已迁移 |
 | Valuation Center | NOT STARTED | P1 | 当前 V2 路线列入 Stage 4.6+ Advanced Valuation |
@@ -353,28 +357,22 @@ R2 已实现切片与剩余工作：
 - 语义边界：External Commentary；不自动晋升 Provider Fact / Verified Claim / Thesis。
 - Stage 4.3 复用方式：作为第一条 L0/L1 Research Memory adapter，不复制第二套 Creator 真源。
 
-### Stage 4.3 — Research Memory & Thesis Compiler V1（Slice 1 CLOSED / Slice 2 P1 REMEDIATED，待针对性复审）
+### Stage 4.3 — External Knowledge + Research Decision（R0）
 
-状态：**Slice 1 CLOSED / MERGED / MAIN CI PASS；Slice 2 Wiki Infrastructure V1 — independent review PASS；Slice 2.5 CURRENT / IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW；Slice 3–6 NOT IMPLEMENTED**。
+Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不等于代码关闭。R0 为当前交付，等待独立审计；R1 Verified Claim V1 为 NEXT。
 
-| Layer | Planned capability | Current status |
+| Capability | Classification / current status | Authority / boundary |
 | --- | --- | --- |
-| L0 | Raw Source / Evidence adapters | SLICE 1 CLOSED：公共 SourceRef/Source 合同 + CreatorSource adapter；其他 source runtime 未实现 |
-| L1 | Structured Extraction | SLICE 1 CLOSED：公共 ResearchExtraction V1 + Creator Observation projection / review / revision；native AI store 未实现 |
-| L2 | Reviewed Research Memory / LLM Wiki | IMPLEMENTED / P1 REMEDIATED / PENDING TARGETED RE-REVIEW：固定 generated path collision fail closed；结构化 WikiEntry/Revision/Review + deterministic Markdown/Vault + Sources/Extractions/Wiki Workspace；不提升 Claim/Thesis authority |
-| L3 | Verified Claim | PARTIAL FOUNDATION：已有 Stage 4.2 factual Claim Candidate + F2 graph；正式通用 lifecycle 未实现 |
-| L4 | Thesis | NOT IMPLEMENTED |
-| L5 | Investment Expression | NOT IMPLEMENTED |
+| External Knowledge Lane | DEFAULT WORKFLOW；用户报告真实 POC 可用，OS API NOT_CONNECTED | Drive L0 durable archive → ChatGPT AI draft → Notion L2；来源/版本/变化原因/review；不是 Provider Fact/Verified Claim |
+| ResearchSourceRef / ResearchExtraction / Creator adapters | KEEP / IMPLEMENTED | 复用原 Creator owner，unknown domain fail closed；不复制原文/Current View |
+| Evidence / F2 Graph / Evidence Drawer | KEEP：既有 Evidence / Industry F2 实现 / Drawer；通用 F2 runtime 仍 NOT_IMPLEMENTED | 原 pins/PIT/admission/revision，不建立第二 Claim Graph |
+| knowledge-contribution.v1 | KEEP / COMPATIBILITY INTERCHANGE | fallback transport；候选导入与正式审核分开 |
+| Legacy Local Wiki / Bridge | FREEZE / LEGACY COMPATIBILITY / IMPLEMENTED / MERGED | WikiEntry/Revision/Review、JSON backup/recovery、Markdown/Obsidian、IndexedDB原件、PDF/MD/TXT解析、八个认证只读MCP、编辑/历史UI全部保留 |
+| OS 自研 Wiki 默认阅读中心 / 浏览器上传→staging→JSON 日常链 / OS Wiki MCP 默认代理 | DEPRECATE AS PRIMARY WORKFLOW | 默认转外部知识路线；不删除已有能力、不退役 Bridge |
+| Verified Claim V1 | R1 NEXT / NOT_IMPLEMENTED | 已有 Claim Candidate + F2 基础；正式 revision/reject/supersede 待实现 |
+| Thesis V1 + Macro → Industry | R2 PLANNED / NOT_IMPLEMENTED | scenario/drivers/catalysts/risks/invalidation/confidence/asOf/revision/用户确认 |
+| Investment Expression + Closeout | R3 PLANNED / NOT_IMPLEMENTED | ETF/Index/Fund/Equity；不进入 Portfolio/Position/Transaction |
 
-计划 Slice：
+两条 lane 可以引用，但 Notion/券商研报/AI Draft/Creator Commentary 不能单独产生 Verified Claim。OS 不建立 Notion 正文镜像或新的云业务库；V1 contracts、legacy storage/backup/review保持兼容。旧 Slice 3 不再独立建设 Creator Wiki；后续 Stage 4.5 提供 Creator context/Evidence/Claim/Thesis/Expression Domain Tools，不重复代理 Drive/Notion。
 
-1. Source + Extraction Contract；
-2. LLM Wiki V1 + Markdown/Obsidian Projection；
-3. Creator → Wiki + 三位真实博主；
-4. Evidence → Verified Claim；
-5. Thesis + Macro → Industry；
-6. Investment Expression + Closeout。
-
-Slice 2.5 新增：中文四入口与首次使用引导；IndexedDB exact bytes / SHA-256 / 稳定批次；PDF 文本页、MD/TXT 行；版本化贡献包、完整文章建议和人工审核；选定资料及已审核知识的私有临时副本；OAuth + 八个只读 MCP 工具。无收费模型、无 MCP write；本地 Source 与原 Wiki/Revision/Review authority 不变。远程验收与 ChatGPT 账号连接分开报告。
-
-统一链：`Raw Source/Evidence → Structured Extraction → Reviewed Research Memory/LLM Wiki → Verified Claim → Thesis → Investment Expression`。**CURRENT STOP = Slice 2.5 普通 push 后等待独立审计；无 PR/merge/Production**。[Slice 2.5 交付与限制](stage-4-3-slice-2-5-knowledge-ingestion.md)、[Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+完整分类、源文件地图、真实验收缺口与新版关闭条件见 [R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md)。

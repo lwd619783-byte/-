@@ -1,5 +1,25 @@
 # Stage 4.3 — Research Memory & Thesis Compiler V1
 
+> 2026-09-22 CURRENT — **Stage 4.3-R0 External Knowledge Rebaseline**；默认 External Knowledge Lane（Drive → ChatGPT → Notion），OS 聚焦 Research Decision Lane；Local Wiki / Bridge 为冻结功能范围的兼容能力。下一任务 **Stage 4.3-R1 Verified Claim V1**。本轮功能分支待独立审计；普通 commit/push 后停止，无 PR/merge/Production。[Stage 4.3-R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) supersede 下方旧路线与 CURRENT 停止点，历史审计/验证数字仍仅代表原时点。
+
+> 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
+
+## R0 CURRENT — 双通道、执行与关闭边界
+
+正式新事实源为 [Stage 4.3-R0 External Knowledge Rebaseline](stage-4-3-r0-external-knowledge-rebaseline.md)。本节与该决定 supersede 下方旧规划 §1/2 的默认本地 L0/L2 路线、§5 的未来 Slice 3–6 执行顺序、§6 的默认自研 Wiki 阅读中心、§7 的旧关闭前置条件、§8 的默认 Wiki MCP 与 §9 的停止点；安全、PIT、review、revision、权限和历史实现合同保持。
+
+- External Knowledge Lane（默认）：Drive durable 原件 → ChatGPT draft analysis/extraction → Notion 人类可读 L2 Wiki，保留来源/版本/变化原因/审核状态。
+- Research Decision Lane：原 Provider / official Evidence / Creator owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Stage 4.4；外部 context 不单独验证 claim。
+- KEEP：公共 Source/Extraction、Creator adapters、Evidence/F2/Drawer、provenance/asOf/revision/review/fail-closed、knowledge-contribution.v1 interchange。
+- FREEZE / LEGACY：Wiki V1 local authority、JSON backup/recovery、Markdown/Obsidian、BrowserSource/parser、只读 Bridge、Wiki editor。数据和功能保留，OS 不镜像 Notion 正文。
+- 新序列：**R0（CURRENT）→ R1 Verified Claim V1（NEXT）→ R2 Thesis V1 + Macro → Industry → R3 Investment Expression + Closeout**。R1–R3尚未实现。旧 Slice 1/2/2.5 历史不改；旧 Slice 3不再独立扩建，Creator Wiki外置，Stage 4.5提供Creator context。
+- Stage 4.5 聚焦 OS Domain MCP 和 prepare/preview/confirm/commit；不重复代理 Drive/Notion。Bridge 只有替代完成且真实迁移通过才讨论退役。
+- 新关闭条件见 R0 §4；Stage 4.3未CLOSED，旧真实验收缺口不记PASS。本轮commit/push后等待独立审计，无PR/merge/Production。
+
+## 历史冻结与交付记录（2026-09-20～21）
+
+以下保留旧 Slice 编号、字段约束、审计与实现事实；其中 CURRENT/PENDING 是记录时点，新主线以上方 R0 为准。
+
 > 2026-09-21 CURRENT 更新：独立审计 `81c7663` 为 REQUEST_CHANGES；本次 R1/R2/R3 定向修复与正式回归见 [修复交付记录](stage-4-3-slice-2-5-audit-fixes.md)。保持同一功能分支，等待绑定新 SHA 的独立复审；远程 owner/OAuth 验收与 ChatGPT 账号连接分别记账，未取得证据不升级 PASS。下方原验收数字保留其历史时点。
 
 > 状态：Slice 1 CLOSED / Slice 2 Wiki Infrastructure V1 — independent review PASS / Slice 2.5 CURRENT，IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW

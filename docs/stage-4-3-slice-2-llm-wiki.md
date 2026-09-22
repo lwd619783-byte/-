@@ -1,5 +1,9 @@
 # Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown / Obsidian Projection
 
+> 2026-09-22 R0 定位：**FREEZE / LEGACY COMPATIBILITY**。以下 V1 行为、历史数据、审核/备份/解析/只读权限保持；不再是默认长期知识路线，不继续扩大功能范围。默认 Drive → ChatGPT → Notion；OS 不建立 Notion 正文镜像。[R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) 覆盖旧 CURRENT 停止点，不覆盖历史验证记录。
+
+> 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
+
 > 2026-09-21 CURRENT 阅读兼容增量：Slice 2.5 的 `KnowledgeDocument` 安全渲染 Markdown/GFM，供贡献审核、Wiki 当前文章及历史正文共用；长表格局部滚动。raw HTML/脚本/MDX不执行，远程图片不加载，危险链接协议过滤；正文原字节、Wiki模型/版本/Review、合同与单向投影保持不变。真实首轮CREATE仍待本人接受，真实增量双版本闭环延期至Knowledge V2；[最终收口及测试绑定](stage-4-3-slice-2-5-preview-cutover.md#currentcontract--delta-最终收口)。原基础设施独立复审PASS不覆盖此新增差异。
 
 

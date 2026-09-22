@@ -1,5 +1,9 @@
 # 研究记忆：中文与首次使用 V1
 
+> 2026-09-22 R0 定位：**FREEZE / LEGACY COMPATIBILITY**。以下 V1 行为、历史数据、审核/备份/解析/只读权限保持；不再是默认长期知识路线，不继续扩大功能范围。默认 Drive → ChatGPT → Notion；OS 不建立 Notion 正文镜像。[R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) 覆盖旧 CURRENT 停止点，不覆盖历史验证记录。
+
+以下首用流程只约束 Legacy 本地入口；当前主入口先说明 External Knowledge Lane（默认）与 Legacy Local Wiki / Bridge（兼容），不显示虚构连接成功或私人外部链接。
+
 普通用户以“资料、整理建议、文章、版本、来源”理解知识库。首屏固定提供：① 添加资料 → ② AI 整理 → ③ 审核建议 → ④ 进入知识库。一级入口为“原始资料 / AI 整理 / 待审核 / 我的知识库”；空库直接展示添加资料，多文件选择为主操作，粘贴为辅助操作。
 
 Source、Extraction、Revision、Current、Reviewed、Backlinks、owner、wikiId 等技术字段不能作为普通页面的导航、状态或主操作。需要保留的 ID、摘要、时间原值与权限诊断收进“高级信息 / 审计详情”。资料标题应显示文件名，文章应显示中文标题，状态应显示“等待解析 / 文本已提取 / 解析失败，原件已保存 / 待审核 / 已审核”。PDF、Markdown、TXT、AI、ChatGPT、Obsidian 等格式或产品名称可以保留。

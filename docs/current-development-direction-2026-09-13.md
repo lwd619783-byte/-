@@ -1,5 +1,9 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-22 CURRENT — **Stage 4.3-R0 External Knowledge Rebaseline**；默认 External Knowledge Lane（Drive → ChatGPT → Notion），OS 聚焦 Research Decision Lane；Local Wiki / Bridge 为冻结功能范围的兼容能力。下一任务 **Stage 4.3-R1 Verified Claim V1**。本轮功能分支待独立审计；普通 commit/push 后停止，无 PR/merge/Production。[Stage 4.3-R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) supersede 下方旧路线与 CURRENT 停止点，历史审计/验证数字仍仅代表原时点。
+
+> 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
+
 > 2026-09-21 CURRENT：**Slice 2 — Wiki Infrastructure V1 — independent review PASS；Slice 2.5 — AI Knowledge Ingestion Foundation V1 + authenticated Read-only Research Bridge，IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT REVIEW**。沿用基线 `812e7551e67b0b8af4f673524e2578ecf2e19335` 的 Source/Extraction/Wiki/Revision/Review。中文首次使用、原件 IndexedDB、完整文章候选审核、用户选择后 private staging 与 OAuth 只读 MCP；贡献包仍人工回传。远程与 ChatGPT 账号连接按实际验收单列。[Slice 2.5 CURRENT](stage-4-3-slice-2-5-knowledge-ingestion.md)。后续旧条目只保留其时点；本次仅功能分支 commit/push 与 Preview，停止等待独立审计，不创建 PR/merge/Production。
 
 > 2026-09-20 CURRENT — **Stage 4.3 / Slice 1 Source + Extraction 正式 CLOSED / IMPLEMENTED / VERIFIED / MERGED / MAIN CI PASS / VERCEL PRODUCTION READY；Stage 4.3 / Slice 2 — LLM Wiki V1 + Markdown/Obsidian Projection 进入 CURRENT PLAN / NOT_IMPLEMENTED。** Slice 1 初审 HEAD `b5b548a2e6308a2603d6603fbd0afca315cb1727` 为 P0=0/P1=1；第三方作者归因修复 HEAD `a716b2205d3056e99198852224bf56ad71026a36` 最终复审 PASS（P0=0/P1=0）；PR [#69](https://github.com/lwd619783-byte/-/pull/69) exact-head CI [35512099983](https://github.com/lwd619783-byte/-/actions/runs/35512099983) completed/success；merge/main `f9b9026a52c7e47c6a1d6a88eb9e9d22953b0186`，main push CI [35512366207](https://github.com/lwd619783-byte/-/actions/runs/35512366207) completed/success；Vercel Production `dpl_CmeXXfaEqc2BwXBBnuByMcZb7DNE` READY。Production 只表示应用部署成功，不提升 Provider/Data admission 或 strict PIT。Slice 2 冻结为“结构化 Wiki Domain 真源 → deterministic Markdown projection → Obsidian-compatible read-only Vault”；Obsidian 不成为数据库，生成 Markdown 不形成第二真源。详见 [Slice 2 冻结方案](stage-4-3-slice-2-llm-wiki.md)。
@@ -62,7 +66,7 @@ Stage 4.2    Industry Data Platform（CLOSED）
       ↓
 Stage 4.2.5  Creator Viewpoint Tracker V1（CLOSED）
       ↓
-Stage 4.3    Research Memory & Thesis Compiler V1（CURRENT）
+Stage 4.3    R0 → R1 Verified Claim → R2 Thesis → R3 Expression（CURRENT）
       ↓
 Stage 4.4    Portfolio Exposure MVP
       ↓
@@ -109,51 +113,18 @@ Stage 4.1B 完成后，用户应能完成：
 
 行业结论不得只用公司涨跌代理行业基本面。
 
-## 5. Stage 4.3 — Research Memory & Thesis Compiler V1
+## 5. Stage 4.3 — External Knowledge + Research Decision
 
-**状态（2026-09-20）：CURRENT PLANNING / DESIGN FROZEN / NOT_IMPLEMENTED。** Stage 4.2.5 已 CLOSED，Creator Tracker 作为 Stage 4.3 的第一条真实 Research Memory 输入域继续复用，不复制第二套 Creator 原文或 Viewpoint 数据。
+2026-09-22 冻结双通道：
 
-Stage 4.3 的正式研究编译链：
+- **External Knowledge Lane（默认）**：Google Drive L0 durable archive → ChatGPT analysis/extraction（AI draft）→ Notion L2 Wiki。原件 identity/URL/文件名/大小/SHA-256/归档路径和不可改写版本必须保留；Notion 保留来源、版本、变化原因、AI草稿/待审核/已审核状态。
+- **Research Decision Lane**：Provider / official Evidence / Creator structured owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Stage 4.4 Portfolio。Creator Commentary、Wiki、券商研报与 AI Draft 仅为 context，不能单独产生 Verified Claim。
 
-```text
-L0 Raw Source / Evidence
-        ↓
-L1 Structured Extraction
-        ↓
-L2 Reviewed Research Memory / LLM Wiki
-        ↓
-L3 Verified Claim
-        ↓
-L4 Thesis
-        ↓
-L5 Investment Expression
-```
+OS 不再扩建完整自研 Wiki，也不保存 Notion Wiki 正文副本。已有 Slice 1 公共 Source/Extraction 与 Creator adapters 保留；Slice 2/2.5 代码已合入并通过 main CI，其 Local Wiki/backup/Obsidian/parser/Bridge/UI 冻结为 Legacy compatibility，历史真人验收缺口继续如实保留。
 
-横向治理平面贯穿所有层：Schema、Entity Identity、Provenance、PIT / asOf、Revision、Verification / Review、Audit，以及 missing / partial / stale / conflicted / unknown 传播。
+执行顺序：**R0 External Knowledge Rebaseline → R1 Verified Claim V1 → R2 Thesis V1 + Macro → Industry → R3 Investment Expression + Closeout**。R1 复用 F2、revision/reject/supersede、unsupported fail closed；R2 保留 bull/base/bear、drivers/catalysts/risks/invalidation/confidence/asOf/revision/用户确认；R3 支持 ETF/Index/Fund/Equity 及 directness/liquidity/valuation context/thesis sensitivity/idiosyncratic risk，不进入 Portfolio/Position/Transaction。
 
-关键边界：
-
-- L0 保存或引用原始材料与 provenance；不被 AI 摘要覆盖。
-- L1 是可持久化、可修订、可审核的结构化提取层；AI 输出默认 `AI_DRAFT`，不能自动晋升 Wiki / Claim / Thesis。
-- L2 LLM Wiki 是显式、版本化、可检索的长期研究记忆；每个知识结论必须可反查 Extraction 与 Raw Source，Wiki 本身不是 Provider Fact。
-- L3 Verified Claim 必须复用既有 Evidence / F2 Evidence Graph 语义，不建立平行 Claim Graph；Creator Commentary 单独不能把外部判断变成 Verified Claim。
-- L4 Thesis 组合 Claims / Evidence，具备 bull/base/bear、drivers、catalysts、risks、invalidation、confidence、asOf 与 append-only revision。
-- L5 Investment Expression 将 Thesis 映射到 ETF / Index / Fund / Equity 等表达，记录 directness / liquidity / valuation / thesis sensitivity / company-specific risk；不进入 Portfolio 或交易。
-
-Stage 4.3 分六个 Slice：
-
-1. **Source + Extraction Contract**：冻结统一 Research Source Reference / Adapter 与 ResearchExtraction，首个正式 adapter 复用 CreatorSource / ViewpointObservation。
-2. **LLM Wiki V1**：版本化 Wiki Entry、引用链、搜索 / read model 与 Sources / Extractions / Wiki 工作区。
-3. **Creator → Wiki + 三位真实博主**：用 4.2.5 的真实运行时数据形成第一批 Creator Framework Wiki；真实原文不提交公共仓库。
-4. **Evidence → Verified Claim**：复用 F2 Evidence Graph，把 Research Memory 与正式可验证主张连接起来。
-5. **Thesis + Macro → Industry**：建立 Macro Driver → Industry mapping、Thesis revision、catalyst / risk / invalidation。
-6. **Investment Expression + Closeout**：Thesis → ETF / 指数 / 个股等表达，完成 L0→L5 可回溯闭环并收口 Stage 4.3。
-
-前端最终形成 Research Memory Workspace，至少可在 Sources / Extractions / Wiki / Claim & Thesis 之间逐层下钻，并继续复用 Evidence Drawer。
-
-Stage 4.3 不实施正式 MCP、Research Agent、Portfolio、自动交易、全量 Vector DB / Graph DB 迁移、cloud business DB 或自动网页爬虫。Slice 2 的 Obsidian 兼容仅是 Markdown 投影/导出契约，不引入 Obsidian 插件依赖、双向同步或第二写入口。Stage 4.5 负责把已稳定的 Wiki / Claim / Thesis Domain Tools 暴露给 MCP；Stage 4.6 的 Agent 消费这些能力并生成 / 修订 Research Artifact，而不是重新建设一套 Wiki。
-
-完整字段边界、Slice 验收与非目标见 [Stage 4.3 冻结方案](stage-4-3-research-memory-wiki-thesis-plan.md)。
+旧 Slice 3 不再独立扩建 Creator Wiki；Creator Tracker 仍为 OS structured owner，长期 Wiki 在外部 Notion，未来 Stage 4.5 暴露 Creator context。Slice 1/2/2.5 历史编号不重写。R1–R3 尚未实现，Stage 4.3 未 CLOSED。完整 D0、supersede 范围与验收见 [R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md)。
 
 ## 6. Stage 4.4 — Portfolio Exposure MVP
 
@@ -205,71 +176,21 @@ UI V2.0 统一收口
 
 **UI V2.0 的大规模视觉与信息架构收口默认放在 Stage 4.3～4.4 产品需求稳定后，而不是现在提前猜测 4.6 界面。**
 
-## 8. Stage 4.5 — Research MCP Gateway
+## 8. Stage 4.5 — OS Domain MCP / Controlled Tool Layer
 
-Stage 4.5 的正式方向从泛化的 Research Bridge 进一步收敛为：
+未来主要 tools 面向 OS 独有的 Creator context、Evidence、Verified Claim、Thesis、Investment Expression，并保留既有结构化事实与完成后的 Portfolio 领域入口。Notion Wiki、Google Drive 原件由其外部工具读取，OS 不默认代理 `search_wiki / get_wiki_entry`。
 
-> **Research MCP Gateway + Controlled Domain Tool Layer**
+正式写入遵守 `prepare → preview → user confirm → commit`；F1/F2、Entity、unit/currency/period/basis、PIT/release/revision、Provider/admission、missing/stale/conflict、Auth/scope/Audit 一并保留，禁止 raw SQL / 任意写入 / 真实交易。
 
-目标不是让模型直接访问数据库，而是把投研系统能力包装成稳定、可审计的 Domain Tools。
-
-### 8.1 工具层原则
-
-禁止向 LLM 暴露 raw DB / unrestricted SQL。
-
-结构化事实使用 deterministic Domain API，例如：
-
-- `search_entities()`；
-- `get_metric(entity, metric, period, asOf)`；
-- `get_macro_snapshot()`；
-- `get_industry_snapshot()`；
-- `get_company_snapshot()`；
-- `get_portfolio_exposure()`；
-- `get_evidence()`；
-- `get_claim()`；
-- `get_thesis()`；
-- `search_wiki()`；
-- `get_wiki_entry()`；
-- `get_what_changed()`。
-
-所有工具继续服从：
-
-- F1 semantic validation；
-- Entity / universe；
-- unit / currency / period / basis；
-- PIT / release；
-- revision；
-- provider / admission；
-- stale / conflict / missing propagation；
-- Audit。
-
-### 8.2 写入工具
-
-研究写回继续使用：
-
-`prepare → preview → user confirm → commit`
-
-例如：
-
-- `prepare_wiki_entry()` / `commit_wiki_entry()`；
-- `prepare_claim()` / `commit_claim()`；
-- `prepare_thesis_revision()` / `commit_thesis_revision()`。
-
-客户端或套餐暂不支持某类远程 write action 时，也不得破坏这一 Domain Contract；只需保持 write tools / confirmation seam 可用，在受支持客户端启用。
-
-### 8.3 Local-first
-
-Local-first 仍为正式边界。MCP 是受控适配层，不意味着迁移到 cloud business database。
-
-本地 SQLite、Evidence Store、Wiki、Portfolio 等仍可作为事实与研究底座；对外只暴露经过认证、scope、confirmation、Audit 的 Research MCP Gateway。
+OS Local-first 边界不变。现有 authenticated read-only Research Bridge 为 transitional / fallback compatibility；只有 Domain MCP 替代完成且真实迁移通过，才另行讨论退役。本轮不移除、不新增 write tool。
 
 ## 9. Stage 4.6 — ChatGPT-connected Research Agent + Artifact Integration
 
-Stage 4.6 不以“在投研看板里再造一个封闭聊天框”作为核心目标，也不重新建设 LLM Wiki Domain Model。LLM Wiki / Research Memory 已在 Stage 4.3 建立；本阶段只通过 Stage 4.5 的受控 MCP / Domain Tools 让 Research Agent 读取、研究、提出 revision，并生成 Research Artifact。
+Stage 4.6 通过 Stage 4.5 OS Domain Tools 消费结构化状态、Evidence、Claim/Thesis/Expression/Portfolio；通过外部知识工具使用 Drive 原件与 Notion Wiki。AI 研究和 Wiki revision 保留 draft/review 状态，不绕过 OS Evidence Gate 或正式用户确认。
 
 正式目标：
 
-> **ChatGPT Web（以及未来兼容的高能力 LLM Client）作为主要推理 / Research Agent；投研看板作为可信事实、证据、研究记忆与组合底座；MCP 作为二者之间的受控能力接口。**
+> **ChatGPT Web（以及未来兼容的高能力 LLM Client）作为主要推理 / Research Agent；投研看板作为可信事实、证据、决策状态与组合底座；MCP 作为二者之间的受控能力接口。**
 
 目标架构：
 
@@ -288,13 +209,13 @@ Stage 4.6 不以“在投研看板里再造一个封闭聊天框”作为核心�
               │ Evidence                        │
               │ Claim / Thesis                  │
               │ Portfolio                       │
-              │ LLM Wiki                        │
+              │ Investment Expression           │
               └────────────────┬────────────────┘
                                │
        ┌───────────────────────▼────────────────────────┐
        │ Local-first Research OS                        │
        │ Registry / Providers / Evidence / SQLite /     │
-       │ Research Memory / Portfolio / Audit / Evals    │
+       │ Decision State / Portfolio / Audit / Evals     │
        └────────────────────────────────────────────────┘
 ```
 
@@ -316,11 +237,11 @@ Agent 可以：
 
 1. 通过 MCP 查询 Industry / Company / Valuation；
 2. 查询 Portfolio Exposure；
-3. 搜索 LLM Wiki 中历史 Thesis；
+3. 通过外部工具读取 Notion Wiki context，并通过 OS Domain Tools 查询正式 Thesis；
 4. 拉取对应 Evidence；
 5. 必要时使用 Web Search 查询最新外部事件；
 6. 完成分析；
-7. 用户确认后，把研究结果写入 LLM Wiki / Claim / Thesis revision。
+7. Wiki 建议经外部知识流程写入 Notion；正式 Claim/Thesis revision 经 OS Evidence Gate 和用户确认写入原领域。
 
 形成：
 
@@ -342,7 +263,7 @@ ChatGPT 生成的研究内容默认保存为 `AI_DRAFT`，并至少记录：
 - revision；
 - verification status。
 
-用户确认或后续验证后，才允许升级成 Verified Claim、User Judgment 或 Thesis revision。
+Wiki 质量审核不能单独升级 Verified Claim 或 Thesis；正式对象必须另行通过对应 Evidence / F2 / Provider / PIT / admission / revision / 用户确认门禁。
 
 ## 10. Stage 4.6 完成后的目标产品能力
 
@@ -416,6 +337,10 @@ LLM Wiki
 - 不因 Agent 能调用工具就跳过 admission / Evidence / Eval。
 
 ## 13. 当前停止点与下一步
+
+2026-09-22：R0 普通 commit/push 后等待 ChatGPT 独立审计；下一任务 Stage 4.3-R1 Verified Claim V1。本任务无 PR、merge 或 Production。
+
+### 历史停止点（2026-09-13，已被上述路线 supersede）
 
 记录时点：`origin/main @ ee7f2e35d967f58812706c2ee06255cc82ea4094`。
 
