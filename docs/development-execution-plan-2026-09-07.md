@@ -1,6 +1,6 @@
 # 当前开发执行索引 · 2026-09-07
 
-> 2026-09-22 CURRENT · UI21-P1-01：独立源码审计指出普通操作拒绝误用为全局读取锁定。本功能分支已分离操作错误与 owner 健康，原完整 App 用例先红后绿（9 项定向通过）；全量/构建/静态浏览器及 Preview 绑定待本次收口。仅修此项，视觉不变；ChatGPT 尚未完成全站视觉验收。[修法与证据](ui-v2-1/ui21-p1-01/README.md)。真实旧稿审核、真实 UPDATE 与撤销拒读状态不升级。
+> 2026-09-22 CURRENT · UI21-P1-01：操作错误与 owner 读取健康分离，真实锁定不再把未知当0，并传播至公司/辅助统计。应用 `e5c2dcb`：全量1,220 PASS，完整App同脚本基线33 FAIL→修后129/129，导航198、Wiki76、ingestion131通过。32张图片ZIP已准备，历史图保留原绑定。[修法/运行证据](ui-v2-1/ui21-p1-01/README.md)。仅普通功能分支交付，PENDING INDEPENDENT REVIEW；ChatGPT未完成全站视觉验收，真实旧稿/UPDATE/撤销缺口不升级。
 
 > 2026-09-21 CURRENT · UI V2.1：用户确认后在原 UI 功能分支继续完成信息层级与空状态校正。暖灰/灰绿/深绿视觉保持；工作台、研究事件、三类任务、知识列表/完整正文、资料三分类、设置行和七个研究子页已接线。代码 `884192d`；1,211 项测试与 build 通过，本地及受保护 Preview 全站浏览器各 198/198，Wiki 76/76、ingestion 131/131（具体 runtime 分别记录）。[本轮审计与回滚](ui-v2-1/visual-audit.md)、[33 项迁移映射](ui-v2-1/migration-inventory.json)、[机器证据](ui-v2-1/acceptance-evidence.json)。仅普通功能分支 push / 受保护 Preview，PENDING INDEPENDENT AUDIT；无 PR/merge/main/Production 授权扩大，真实光通信人工验收状态不变。
 

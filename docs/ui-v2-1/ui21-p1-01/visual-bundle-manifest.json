@@ -1,14 +1,5 @@
 {
-  "schemaVersion": "ui21-p1-01.visual-bundle-plan.v1",
-  "preparedAt": "2026-09-21T16:37:08.807125+00:00",
-  "status": "BUNDLED_32_IMAGES",
-  "bundleScope": "Minimal after screenshots; actual App only. No before or component harness screenshots.",
-  "historicalInventory": {
-    "publicIndexCount": 242,
-    "actualAppPublishedCount": 66,
-    "historicalSelectedCount": 16,
-    "excludedHarnessCount": 176
-  },
+  "schemaVersion": "ui21-p1-01.visual-bundle.v1",
   "entries": [
     {
       "source": "docs/ui-v2-1/screenshots/app-after-final/populated-synthetic-knowledge-1440.png",
@@ -457,158 +448,327 @@
       "reuseStatus": "HISTORICAL_CAPTURE_NOT_REVALIDATED_FOR_UI21_P1_01",
       "scopeNote": "Visual artifact only; no user acceptance, owner persistence, or independent ChatGPT audit implied.",
       "environment": "LOCAL_DEV_HISTORICAL"
-    }
-  ],
-  "pendingRequired": [
+    },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A---home-1440.png",
+      "file": "actual-app/ui21-p1-01/A---home-1440.png",
       "category": "home",
-      "route": "home",
+      "captureSurface": "actual-app",
+      "route": "#/home",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
-      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "42699df879ac9a88405d7f5ae3b40710ebbbcc7604efd6b18296e3cda02df768",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A---home-390.png",
+      "file": "actual-app/ui21-p1-01/A---home-390.png",
       "category": "home",
-      "route": "home",
+      "captureSurface": "actual-app",
+      "route": "#/home",
       "viewport": {
         "width": 390,
         "height": 844
       },
-      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "1f9f580d4733e0c6b451fff73fdfead7606e5eb5217f267640e657530475de4f",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A---research-1440.png",
+      "file": "actual-app/ui21-p1-01/A---research-1440.png",
       "category": "research",
-      "route": "research",
+      "captureSurface": "actual-app",
+      "route": "#/research",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
-      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "bb1b21db5e084dec6e92302be538f1c28dd4622087ed0b35954a560152ab13b7",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A---research-390.png",
+      "file": "actual-app/ui21-p1-01/A---research-390.png",
       "category": "research",
-      "route": "research",
+      "captureSurface": "actual-app",
+      "route": "#/research",
       "viewport": {
         "width": 390,
         "height": 844
       },
-      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "a878892b9c9c329cebc2cea18c7ef722ede44bb382a60acf30270862a75c6c3a",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A---tasks-view-replay-1440.png",
+      "file": "actual-app/ui21-p1-01/A---tasks-view-replay-1440.png",
       "category": "tasks-replay",
-      "route": "tasks?view=replay",
+      "captureSurface": "actual-app",
+      "route": "#/tasks?view=replay",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
-      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "5a9b0fb978102fc0b314a6d77d240f19a01028ad32e3907219d73caed4436f74",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A---tasks-view-replay-390.png",
+      "file": "actual-app/ui21-p1-01/A---tasks-view-replay-390.png",
       "category": "tasks-replay",
-      "route": "tasks?view=replay",
+      "captureSurface": "actual-app",
+      "route": "#/tasks?view=replay",
       "viewport": {
         "width": 390,
         "height": 844
       },
-      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "319d6918dfebea9d256ed6e8a53d62bff6119f4a8ef25195182564f345908ee4",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A---tasks-view-verify-1440.png",
+      "file": "actual-app/ui21-p1-01/A---tasks-view-verify-1440.png",
       "category": "tasks-verify",
-      "route": "tasks?view=verify",
+      "captureSurface": "actual-app",
+      "route": "#/tasks?view=verify",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
-      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "54cc62a3aab1011fd1c9c28309edcba339327c77f4e0c3a488ab42ec86d91922",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A---tasks-view-verify-390.png",
+      "file": "actual-app/ui21-p1-01/A---tasks-view-verify-390.png",
       "category": "tasks-verify",
-      "route": "tasks?view=verify",
+      "captureSurface": "actual-app",
+      "route": "#/tasks?view=verify",
       "viewport": {
         "width": 390,
         "height": 844
       },
-      "reason": "Affected by UI21-P1-01 fix; must use new actual App capture with isolated synthetic local records and mock provider mode, retain exact source SHA and origin."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "c7692ef8e2cffd00e9554a76dfcc9af9335d1455bb1bbfbe143a340cad3ff37d",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A-duplicate-inline-error-1440.png",
+      "file": "actual-app/ui21-p1-01/A-duplicate-inline-error-1440.png",
       "category": "duplicateerror",
+      "captureSurface": "actual-app",
       "route": "#/watchlist",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
-      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "57a14cde5fba6604318bd2ecfaab8ab9ec60a14765071abbd9b90879558b42a0",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/A-duplicate-inline-error-390.png",
+      "file": "actual-app/ui21-p1-01/A-duplicate-inline-error-390.png",
       "category": "duplicateerror",
+      "captureSurface": "actual-app",
       "route": "#/watchlist",
       "viewport": {
         "width": 390,
         "height": 844
       },
-      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "b25c60589677acc14c495c70a13b7ddf623664eba14303d77ca6ba7f98aae7ef",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/B-range-inline-error-1440.png",
+      "file": "actual-app/ui21-p1-01/B-range-inline-error-1440.png",
       "category": "rangeerror",
+      "captureSurface": "actual-app",
       "route": "#/expectations",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
-      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "f140b656846f16cac0747b06b63189e1db38232f5b0a03beec95c25487ae2c04",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/B-range-inline-error-390.png",
+      "file": "actual-app/ui21-p1-01/B-range-inline-error-390.png",
       "category": "rangeerror",
+      "captureSurface": "actual-app",
       "route": "#/expectations",
       "viewport": {
         "width": 390,
         "height": 844
       },
-      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "1f3446a436f7526564d1f4576419b6efdc3af1fed19b63ee702ebce87b486eab",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/C-watch-future---home-1440.png",
+      "file": "actual-app/ui21-p1-01/C-watch-future---home-1440.png",
       "category": "watchfuture-lockedhome",
-      "route": "home",
+      "captureSurface": "actual-app",
+      "route": "#/home",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
-      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "dddf7994bc6d9015946850a04a623cd8e612c92bf608bd80a6331a81fa1171fc",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/C-watch-future---home-390.png",
+      "file": "actual-app/ui21-p1-01/C-watch-future---home-390.png",
       "category": "watchfuture-lockedhome",
-      "route": "home",
+      "captureSurface": "actual-app",
+      "route": "#/home",
       "viewport": {
         "width": 390,
         "height": 844
       },
-      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "8f798c230102c896f2f07cf0c5804b000c85f79114ae3636eade720a8072f2d6",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/C-expectation-future---home-1440.png",
+      "file": "actual-app/ui21-p1-01/C-expectation-future---home-1440.png",
       "category": "expectationfuture-home",
-      "route": "home",
+      "captureSurface": "actual-app",
+      "route": "#/home",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
-      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "5b08510d0e92075f0e2abbfaa3696a9c561b5cb331a33ca3b5cfa04a4064c405",
+      "sourceReport": "evidence/app-after.json"
     },
     {
+      "source": "data-cache/ui21-p1-01/after-final/C-expectation-future---home-390.png",
+      "file": "actual-app/ui21-p1-01/C-expectation-future---home-390.png",
       "category": "expectationfuture-home",
-      "route": "home",
+      "captureSurface": "actual-app",
+      "route": "#/home",
       "viewport": {
         "width": 390,
         "height": 844
       },
-      "reason": "New UI21-P1-01 scenario; select matching actual capture and preserve exact route from report."
+      "environment": "LOCAL_BUILD",
+      "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
+      "exactOrigin": "http://127.0.0.1:4203",
+      "deploymentId": null,
+      "testedAt": "2026-09-21T16:55:16.767Z",
+      "timeBinding": "run start; individual capture timestamp not recorded",
+      "inputType": "isolated synthetic form entries and storage-fault fixtures; explicit mock provider mode verified before each capture",
+      "sha256": "738b8e77d4d1418e55b44ef1d1d5b165b8f3224e30a4403b87cae4bbd979cfd7",
+      "sourceReport": "evidence/app-after.json"
     }
-  ],
-  "excluded": [
-    "All component harness screenshots (research/workbench/company/knowledge-states), which do not establish App integration.",
-    "Private original articles, source snapshots, contribution packages, profiles, cookies, secrets, .local artifacts.",
-    "Historical mixed-provider home/research/tasks replay/verify captures replaced by new mock-mode screenshots."
   ],
   "limits": [
     "Historical selected images are reused without new execution or acceptance.",
@@ -616,16 +776,5 @@
     "The archival runtimeSha of historical images is run-start metadata, not independently established per-image exact runtime.",
     "Synthetic user-owner records do not turn bundled public provider data into synthetic data."
   ],
-  "packaging": {
-    "script": "data-cache/ui21-p1-01/build-visual-bundle.py",
-    "supplementFormat": "JSON object with entries array. Each entry: source repo-relative PNG path, file archive-relative PNG path, category, captureSurface=actual-app, route, viewport, runtimeSha, exactOrigin, testedAt, inputType, sha256.",
-    "output": "data-cache/ui21-p1-01/research-os-v2.1-UI21-P1-01-visual-review.zip",
-    "buildCondition": "All sixteen pending category/width captures supplied; hashes and source paths verified. New captures LOCAL_BUILD at e5c2dcb957a325e355c30392c69ccae6258916d1 and exact origin http://127.0.0.1:4203; original historical metadata preserved."
-  },
-  "expectedNewRuntime": {
-    "runtimeSha": "e5c2dcb957a325e355c30392c69ccae6258916d1",
-    "exactOrigin": "http://127.0.0.1:4203",
-    "environment": "LOCAL_BUILD"
-  },
-  "completedBundle": "research-os-v2.1-UI21-P1-01-visual-review.zip"
+  "independentChatGPTVisualApproval": "NOT_CLAIMED"
 }
