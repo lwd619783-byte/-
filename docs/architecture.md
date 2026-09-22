@@ -1,5 +1,16 @@
 # 投资研究看板架构基线
 
+## 2026-09-22 Stage 4.3-R1 Claim runtime 增量
+
+`Industry → 指标与变化 → IndustrySignalClaimPanel → industryVerifiedClaimAdapter → ClaimVerificationModal`，验证组件/仓库按需加载；切换行业使未完成请求失效，无一级导航。`Candidate → 原 EvidenceDrawer → F2/owner blockers → saveDraft → prepareReview → confirmReview → Claim history`。候选正文不提供自由替换输入；新版本重新绑定原 candidate/target，确认不会自动产生新版本或继承旧验证。
+
+`verifiedClaim.ts → 原 assessEvidenceGraph + assessIndustryGraph → BrowserClaimRepository → PersistedBaseGuard/localStorage`。新 Claim owner 仅持有 identity、revision、review 和 graph/candidate exact 引用；schema 引用原 F2 Pin，不复制图或 Evidence。Graph digest 是原 owner graph 的 canonical JSON SHA-256，adapter 同时核对 immutable graph 内容、candidate pin/正文、origin/scope/generation；不使用 UI 缓存的 supported 结果作为写入许可。
+
+Claim recordedAt（字段 createdAt）/asOf/精确 revision 用户决定用于历史读模型。原 graph/owner 缺失时历史记录仍可审计，但当前可用状态 BLOCKED；用户不可覆盖 F2 blocker。Local-first JSON 导入只追加无冲突历史，确认后先备份当前原字节；corrupt recovery 只接受已观察且未变化的坏字节，future schema 锁定。没有 SQLite/MCP/云端写入。
+
+Research Context 的 kind/title/URL 只在 Claim revision 展示研究背景，不传入 F2，不拥有 Notion/Drive 对象、正文或文件。R1 已实现/本地验证，等待独立审计；R2/R3未实现。完整 [D0、合同与限制](stage-4-3-r1-verified-claim-v1.md)。下方 R0 与旧 Slice 描述保留其时点范围。
+
+
 ## 2026-09-22 Stage 4.3-R0 authority 重基线
 
 默认 External Knowledge Lane：`Google Drive L0 → ChatGPT AI draft analysis/extraction → Notion L2 Wiki`；它是用户外部工具工作流，R0 没有 Notion/Drive API、自动同步、外部配置或正文存储。

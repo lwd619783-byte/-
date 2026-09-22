@@ -1,5 +1,10 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-22 CURRENT — **Stage 4.3-R1 Verified Claim V1：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。基于本轮 fetch 的 `origin/main @ de2107571ae5ee2189b82f7ab05b6521a4457b75`。复用原 Industry candidate / F2 Graph / Evidence Drawer；新增 exact revision 用户确认、append-only Claim/history、非权威 Research Context 与 Local-first JSON backup/recovery。真实留存 5 candidates / 0 verifiable / 0 verified；admission、PIT、release 与原始数据不变。普通 commit/push 后等待 ChatGPT 独立审计，无 PR/merge/Production；R2/R3仍未实现。[R1 D0、实现与验证](stage-4-3-r1-verified-claim-v1.md)。
+
+> R0 已实时核验：PR [#74](https://github.com/lwd619783-byte/-/pull/74)，head `44ccdd01a6d65914f2a2a8f26384fd468a71ad3b`，2026-09-22T11:50:16Z 合入 `de2107571ae5ee2189b82f7ab05b6521a4457b75`；main CI [35723692280](https://github.com/lwd619783-byte/-/actions/runs/35723692280) completed/success。登记 R0 **IMPLEMENTED / MERGED / MAIN CI PASS**；不推导 Production、data admission 或旧私人验收状态。下方较早 CURRENT 记录仅代表原时点。
+
+
 > 2026-09-22 CURRENT — **Stage 4.3-R0 External Knowledge Rebaseline**；默认 External Knowledge Lane（Drive → ChatGPT → Notion），OS 聚焦 Research Decision Lane；Local Wiki / Bridge 为冻结功能范围的兼容能力。下一任务 **Stage 4.3-R1 Verified Claim V1**。本轮功能分支待独立审计；普通 commit/push 后停止，无 PR/merge/Production。[Stage 4.3-R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) supersede 下方旧路线与 CURRENT 停止点，历史审计/验证数字仍仅代表原时点。
 
 > 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
@@ -357,9 +362,9 @@ R2 已实现切片与剩余工作：
 - 语义边界：External Commentary；不自动晋升 Provider Fact / Verified Claim / Thesis。
 - Stage 4.3 复用方式：作为第一条 L0/L1 Research Memory adapter，不复制第二套 Creator 真源。
 
-### Stage 4.3 — External Knowledge + Research Decision（R0）
+### Stage 4.3 — External Knowledge + Research Decision（R1）
 
-Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不等于代码关闭。R0 为当前交付，等待独立审计；R1 Verified Claim V1 为 NEXT。
+Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不等于代码关闭。R0 已 MERGED / MAIN CI PASS；R1 Verified Claim V1 已本地实现与验证，等待独立审计。
 
 | Capability | Classification / current status | Authority / boundary |
 | --- | --- | --- |
@@ -369,7 +374,8 @@ Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不�
 | knowledge-contribution.v1 | KEEP / COMPATIBILITY INTERCHANGE | fallback transport；候选导入与正式审核分开 |
 | Legacy Local Wiki / Bridge | FREEZE / LEGACY COMPATIBILITY / IMPLEMENTED / MERGED | WikiEntry/Revision/Review、JSON backup/recovery、Markdown/Obsidian、IndexedDB原件、PDF/MD/TXT解析、八个认证只读MCP、编辑/历史UI全部保留 |
 | OS 自研 Wiki 默认阅读中心 / 浏览器上传→staging→JSON 日常链 / OS Wiki MCP 默认代理 | DEPRECATE AS PRIMARY WORKFLOW | 默认转外部知识路线；不删除已有能力、不退役 Bridge |
-| Verified Claim V1 | R1 NEXT / NOT_IMPLEMENTED | 已有 Claim Candidate + F2 基础；正式 revision/reject/supersede 待实现 |
+| Verified Claim V1 | R1 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT | 原 candidate pin + graph digest/target 精确绑定；双 F2/owner 校验、用户确认、append-only revision/rejection/history；0 real verified |
+| Research Context | R1 IMPLEMENTED / LOCAL ONLY | kind/title/URL 非权威背景；不进入 F2、不保存外部正文或调用 API |
 | Thesis V1 + Macro → Industry | R2 PLANNED / NOT_IMPLEMENTED | scenario/drivers/catalysts/risks/invalidation/confidence/asOf/revision/用户确认 |
 | Investment Expression + Closeout | R3 PLANNED / NOT_IMPLEMENTED | ETF/Index/Fund/Equity；不进入 Portfolio/Position/Transaction |
 

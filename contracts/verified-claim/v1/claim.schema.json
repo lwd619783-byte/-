@@ -1,0 +1,292 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/verified-claim/v1/claim.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "verified-claim.v1"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Entry"
+      }
+    },
+    "revisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Revision"
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Review"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "entries",
+    "revisions",
+    "reviews"
+  ],
+  "$defs": {
+    "Context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "notion",
+            "drive",
+            "report",
+            "web"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "url"
+      ]
+    },
+    "Binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "adapter": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidateRef": {
+          "$ref": "https://investment-dashboard.local/contracts/financial-research/v1/shared.schema.json#/$defs/Pin"
+        },
+        "graphId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "graphRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "graphSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "targetNodeId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "adapter",
+        "candidateRef",
+        "graphId",
+        "graphRevision",
+        "graphSha256",
+        "targetNodeId"
+      ]
+    },
+    "Entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "claimId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adapter": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "enum": [
+            "ai_draft",
+            "user_judgement"
+          ]
+        },
+        "generation": {
+          "enum": [
+            "TEMPLATE",
+            "AI",
+            "USER"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "claimId",
+        "adapter",
+        "candidateId",
+        "origin",
+        "generation",
+        "createdAt"
+      ]
+    },
+    "Revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "claimId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "asOf": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "enum": [
+            "ai_draft",
+            "user_judgement"
+          ]
+        },
+        "generation": {
+          "enum": [
+            "TEMPLATE",
+            "AI",
+            "USER"
+          ]
+        },
+        "binding": {
+          "$ref": "#/$defs/Binding"
+        },
+        "contexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Context"
+          }
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "claimId",
+        "revisionId",
+        "supersedes",
+        "createdAt",
+        "asOf",
+        "statement",
+        "scope",
+        "origin",
+        "generation",
+        "binding",
+        "contexts",
+        "reason"
+      ]
+    },
+    "Review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reviewId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claimId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "enum": [
+            "VERIFIED",
+            "REJECTED"
+          ]
+        },
+        "reviewerType": {
+          "const": "user"
+        },
+        "userApprovalRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "owner": {
+              "const": "ClaimReview"
+            },
+            "approvalId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "owner",
+            "approvalId"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "reviewId",
+        "claimId",
+        "revisionId",
+        "decision",
+        "reviewerType",
+        "userApprovalRef",
+        "createdAt",
+        "note"
+      ]
+    }
+  }
+}
