@@ -1,0 +1,365 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://investment-dashboard.local/contracts/investment-expression/v1/expression.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "investment-expression.v1"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Entry"
+      }
+    },
+    "revisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Revision"
+      }
+    },
+    "confirmations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Confirmation"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "entries",
+    "revisions",
+    "confirmations"
+  ],
+  "$defs": {
+    "Instrument": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "owner": {
+          "enum": [
+            "Stock",
+            "Entity",
+            "Asset"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "Index",
+            "ETF",
+            "Fund",
+            "Equity",
+            "CommodityProxy"
+          ]
+        },
+        "market": {
+          "enum": [
+            "A",
+            "H",
+            "US",
+            "global",
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "owner",
+        "id",
+        "type",
+        "market"
+      ]
+    },
+    "ThesisRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "thesisId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionBytes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirmationBytes": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "thesisId",
+        "revisionId",
+        "confirmationId",
+        "revisionBytes",
+        "confirmationBytes"
+      ]
+    },
+    "Context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "unknown",
+            "research_judgement"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "status",
+        "rationale"
+      ]
+    },
+    "ResearchContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "notion",
+            "drive",
+            "report",
+            "web"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      "required": [
+        "kind",
+        "title",
+        "url"
+      ]
+    },
+    "Entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "expressionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "origin": {
+          "enum": [
+            "user_judgement",
+            "ai_draft"
+          ]
+        },
+        "scope": {
+          "enum": [
+            "real",
+            "synthetic"
+          ]
+        }
+      },
+      "required": [
+        "expressionId",
+        "createdAt",
+        "origin",
+        "scope"
+      ]
+    },
+    "Revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "expressionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "asOf": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "scope": {
+          "enum": [
+            "real",
+            "synthetic"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "user_judgement",
+            "ai_draft"
+          ]
+        },
+        "thesis": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ThesisRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "instrument": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Instrument"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "role": {
+          "enum": [
+            "direct",
+            "leader",
+            "high_beta",
+            "defensive",
+            "unknown"
+          ]
+        },
+        "directness": {
+          "$ref": "#/$defs/Context"
+        },
+        "correlation": {
+          "$ref": "#/$defs/Context"
+        },
+        "liquidity": {
+          "$ref": "#/$defs/Context"
+        },
+        "valuation": {
+          "$ref": "#/$defs/Context"
+        },
+        "sensitivity": {
+          "$ref": "#/$defs/Context"
+        },
+        "idiosyncraticRisk": {
+          "$ref": "#/$defs/Context"
+        },
+        "contexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ResearchContext"
+          }
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "expressionId",
+        "revisionId",
+        "supersedes",
+        "createdAt",
+        "asOf",
+        "scope",
+        "origin",
+        "thesis",
+        "instrument",
+        "role",
+        "directness",
+        "correlation",
+        "liquidity",
+        "valuation",
+        "sensitivity",
+        "idiosyncraticRisk",
+        "contexts",
+        "reason"
+      ]
+    },
+    "Confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "confirmationId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expressionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revisionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "actor": {
+          "const": "user"
+        },
+        "userApprovalRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "owner": {
+              "const": "ExpressionConfirmation"
+            },
+            "approvalId": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "owner",
+            "approvalId"
+          ]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "confirmationId",
+        "expressionId",
+        "revisionId",
+        "createdAt",
+        "actor",
+        "userApprovalRef",
+        "note"
+      ]
+    }
+  }
+}

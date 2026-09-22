@@ -1,5 +1,8 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
+
+
 
 > 2026-09-22 CURRENT 增量：R2 基于 `8505b607be998dc8313bfc2feeea3c004669ed57` 完成 superseded Claim asOf 定向修复；**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT RE-REVIEW**。新 Thesis 必须引用其 asOf 时的 Claim head；历史 pin 保持并提示后续版本需复核。R1 CLOSED、真实 5/0/0/0 与原 admission/PIT/release blockers 不变；R3 PLANNED / NOT_IMPLEMENTED。[修复与验证](stage-4-3-r2-thesis-v1.md#p1--p2-定向修复)，普通 commit/push 后等 ChatGPT 复审。
 
@@ -368,9 +371,9 @@ R2 已实现切片与剩余工作：
 - 语义边界：External Commentary；不自动晋升 Provider Fact / Verified Claim / Thesis。
 - Stage 4.3 复用方式：作为第一条 L0/L1 Research Memory adapter，不复制第二套 Creator 真源。
 
-### Stage 4.3 — External Knowledge + Research Decision（R1）
+### Stage 4.3 — External Knowledge + Research Decision（R3 Closeout）
 
-Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不等于代码关闭。R0 已 MERGED / MAIN CI PASS；R1 Verified Claim V1 已本地实现与验证，等待独立审计。
+Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不等于代码关闭。R0 已 MERGED / MAIN CI PASS；R1 Verified Claim V1、R2 Thesis V1 已 CLOSED；R3 IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT。
 
 | Capability | Classification / current status | Authority / boundary |
 | --- | --- | --- |
@@ -380,10 +383,10 @@ Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不�
 | knowledge-contribution.v1 | KEEP / COMPATIBILITY INTERCHANGE | fallback transport；候选导入与正式审核分开 |
 | Legacy Local Wiki / Bridge | FREEZE / LEGACY COMPATIBILITY / IMPLEMENTED / MERGED | WikiEntry/Revision/Review、JSON backup/recovery、Markdown/Obsidian、IndexedDB原件、PDF/MD/TXT解析、八个认证只读MCP、编辑/历史UI全部保留 |
 | OS 自研 Wiki 默认阅读中心 / 浏览器上传→staging→JSON 日常链 / OS Wiki MCP 默认代理 | DEPRECATE AS PRIMARY WORKFLOW | 默认转外部知识路线；不删除已有能力、不退役 Bridge |
-| Verified Claim V1 | R1 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT | 原 candidate pin + graph digest/target 精确绑定；双 F2/owner 校验、用户确认、append-only revision/rejection/history；0 real verified |
+| Verified Claim V1 | R1 CLOSED / MERGED / MAIN CI PASS | 原 candidate pin + graph digest/target 精确绑定；双 F2/owner 校验、用户确认、append-only revision/rejection/history；0 real verified |
 | Research Context | R1 IMPLEMENTED / LOCAL ONLY | kind/title/URL 非权威背景；不进入 F2、不保存外部正文或调用 API |
-| Thesis V1 + Macro → Industry | R2 PLANNED / NOT_IMPLEMENTED | scenario/drivers/catalysts/risks/invalidation/confidence/asOf/revision/用户确认 |
-| Investment Expression + Closeout | R3 PLANNED / NOT_IMPLEMENTED | ETF/Index/Fund/Equity；不进入 Portfolio/Position/Transaction |
+| Thesis V1 + Macro → Industry | R2 CLOSED / MERGED / MAIN CI PASS | scenario/drivers/catalysts/risks/invalidation/confidence/asOf/revision/用户确认 |
+| Investment Expression + Closeout | R3 IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT | exact Thesis revision、用户确认、append-only、trace、backup/recovery；ETF/Index/Equity 正向仅 synthetic；真实 0 formal |
 
 两条 lane 可以引用，但 Notion/券商研报/AI Draft/Creator Commentary 不能单独产生 Verified Claim。OS 不建立 Notion 正文镜像或新的云业务库；V1 contracts、legacy storage/backup/review保持兼容。旧 Slice 3 不再独立建设 Creator Wiki；后续 Stage 4.5 提供 Creator context/Evidence/Claim/Thesis/Expression Domain Tools，不重复代理 Drive/Notion。
 
