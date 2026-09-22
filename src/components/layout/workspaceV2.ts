@@ -14,12 +14,12 @@ export const researchPages: { page: PageId; label: string; description: string }
 export const primaryPages: { page: PageId; label: string; description: string }[] = [
   { page: 'home', label: '工作台', description: '开始与继续研究' },
   { page: 'research', label: '研究', description: '宏观、行业、公司与验证' },
-  { page: 'knowledge', label: '知识库', description: '完整文章、来源与修订历史' },
+  { page: 'knowledge', label: '知识库', description: 'External Knowledge Lane（默认）；Legacy Local Wiki / Bridge（兼容）' },
   { page: 'portfolio', label: '组合', description: '组合暴露接入位置，尚未连接' },
   { page: 'tasks', label: '任务', description: '待审核建议与待处理研究事项' },
 ];
 export const utilityPages: typeof primaryPages = [
-  { page: 'sources', label: '资料与连接', description: '本地原件、AI 整理与只读研究桥' },
+  { page: 'sources', label: '资料与连接', description: '兼容本地原件、AI 整理与只读研究桥；外部知识路线未连接 API' },
   { page: 'settings', label: '设置与帮助', description: '数据模式、备份与使用边界' },
 ];
 export function primaryPage(page: PageId): PageId {

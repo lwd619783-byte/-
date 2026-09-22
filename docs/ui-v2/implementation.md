@@ -1,5 +1,9 @@
 # 投研 OS 前端 V2
 
+> 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
+
+默认知识路线已由 [R0](../stage-4-3-r0-external-knowledge-rebaseline.md) 调整；下方为 UI V2 历史实现/验收记录，旧分支 PENDING 不再代表代码合入状态。
+
 状态：IMPLEMENTED / LOCAL VERIFIED / PENDING INDEPENDENT AUDIT。本次只交功能分支与受保护 Preview。精确 runtime 与部署证据见 [验收报告](acceptance.md)，不把文档 HEAD 当作被测构建。
 
 ## 基线与原范围结账

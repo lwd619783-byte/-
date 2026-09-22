@@ -1,5 +1,7 @@
 # Research Source / Extraction V1
 
+> 2026-09-22 R0：KEEP common contracts / Creator adapter；Slice 1 已 CLOSED / MERGED / MAIN CI PASS，以下 PENDING 为早期修复时点。Slice 2.5 已另增 browser-source adapter，未注册外部域仍 fail closed；此处 Creator profile 不因此接受外部对象。参见 [R0 当前分类与证据](../../../docs/stage-4-3-r0-external-knowledge-rebaseline.md)。
+
 Additive L0/L1 **read contract**, PENDING TARGETED RE-REVIEW after the third-party author attribution fix. Does not modify `contracts/v1`, F2, permissions, Provider authority or frozen F3 V1.
 
 - `research-extraction.schema.json`: owner-neutral, closed, versioned SourceRef / ExtractionRef / Source / Extraction shapes. Registry identity references the existing `RegistryEntry.entityType`, including `macro_metric`.

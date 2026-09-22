@@ -93,6 +93,13 @@ export function ResearchMemoryWorkspace(props: Props) {
   });
   const chooseProposal = (bundleId: string, proposal: KnowledgeProposal) => { setSelectedProposal({ bundleId, proposal }); setNote(''); setEditing(false); setEdited(proposal.document); };
   return <section aria-label="研究记忆工作区" className="min-w-0 space-y-4 [overflow-wrap:anywhere]">
+    <section aria-label="External Knowledge Lane（默认）" className="space-y-2 rounded border border-borderSoft bg-bg2 p-4">
+      <h2 className="text-lg font-semibold">External Knowledge Lane（默认）</h2>
+      <p>Google Drive 原件 → ChatGPT 分析 → Notion Wiki</p>
+      <p className="text-sm text-textMuted">在外部工具中手工使用这条知识路线。Research OS 未连接 Google Drive / Notion API，不自动同步，也不保存 Notion Wiki 正文。</p>
+      <p className="text-sm text-warning">Notion Wiki、券商研报与 AI Draft 仅作研究背景，不能单独成为已验证主张（Verified Claim）；仍须通过既有 Evidence、Provider、PIT 与审核边界。</p>
+    </section>
+    <header className="space-y-1"><h2 className="font-semibold">Legacy Local Wiki / Bridge（兼容）</h2><p className="text-sm text-textMuted">以下保留本地资料、文章历史、编辑、备份与只读研究桥，供既有工作流兼容使用；新知识默认使用上方外部路线。</p></header>
     {tab !== '我的知识库' && <header className="memory-context-header"><h2>{tab === '待审核' ? '知识待审' : '资料与连接'}</h2>{tab !== '待审核' && <nav aria-label="资料分类" className="memory-source-tabs">{(['原始资料', 'AI 整理', '研究桥'] as const).map(value => <button key={value} aria-pressed={tab === value} onClick={() => setTab(value)}>{value}</button>)}</nav>}</header>}
 
     {message && <p role="status" className="text-sm text-cyan">{message}</p>}{error && <p role="alert" className="rounded border border-danger/40 p-3 text-sm text-danger">操作未完成：{error}</p>}

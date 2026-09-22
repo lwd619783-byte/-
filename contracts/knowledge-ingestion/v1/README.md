@@ -1,5 +1,7 @@
 # AI Knowledge Ingestion V1
 
+> 2026-09-22 [R0](../../../docs/stage-4-3-r0-external-knowledge-rebaseline.md)：KEEP knowledge-contribution.v1 interchange / fallback transport；BrowserSource/parser/read-only Bridge 为 FREEZE / LEGACY COMPATIBILITY。现有 schema、permissions、persistence 与审核规则不变；外部 context 不能单独晋升 Verified Claim。
+
 Additive candidate transport. No change to the frozen Phase 1 permissions, Source/Extraction common schema, Creator authority, or Wiki schema. `contribution.schema.json` references Slice 1 ResearchExtraction; the browser's generated validator is reproducibly checked by `contracts:validate`.
 
 ## Authority and review

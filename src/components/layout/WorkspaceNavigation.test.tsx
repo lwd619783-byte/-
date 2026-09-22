@@ -29,6 +29,16 @@ describe('UI V2 navigation and search', () => {
     expect(toggle).toHaveAttribute('aria-expanded', 'false');expect(toggle).toHaveFocus();
   });
 
+  it('describes the external default and legacy compatibility while retaining the knowledge destination', () => {
+    const navigate = vi.fn();
+    render(<WorkspaceSearch navigate={navigate} onCompanySearch={vi.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: /搜索页面或公司/ }));
+    const entry = screen.getByRole('button', { name: '知识库 External Knowledge Lane（默认）；Legacy Local Wiki / Bridge（兼容）' });
+    fireEvent.click(entry);
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith('knowledge');
+  });
+
   it('opens search from the keyboard and restores trigger focus on Escape without storage or network access', () => {
     const read = vi.spyOn(Storage.prototype, 'getItem');
     const fetch = vi.spyOn(globalThis, 'fetch');

@@ -1,5 +1,15 @@
 # 投资研究看板架构基线
 
+## 2026-09-22 Stage 4.3-R0 authority 重基线
+
+默认 External Knowledge Lane：`Google Drive L0 → ChatGPT AI draft analysis/extraction → Notion L2 Wiki`；它是用户外部工具工作流，R0 没有 Notion/Drive API、自动同步、外部配置或正文存储。
+
+Research Decision Lane：`Provider / official Evidence / Creator structured owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Stage 4.4 Portfolio`。R1–R3 尚未实现；复用现有 F2，不建第二 Claim Graph，Notion/券商研报/AI/Creator Commentary不能单独晋升事实。
+
+运行时只在原 ResearchMemoryWorkspace / Workspace navigation 展示 External 默认与 Legacy 兼容身份。`#/memory`/`#/knowledge`/`#/sources` 继续指向同一原 repository，无数据迁移或 mirror；Wiki V1/原件/解析/backup/Obsidian/只读 Bridge 均保留既有语义。Local Wiki 仅管理 Legacy lane 的本地对象（含经既有审核流程新增/修订），不拥有 Notion 对象或正文。Stage 4.5改为OS独有领域tools与受控写入，不重复代理外部知识。完整 [D0与边界决定](stage-4-3-r0-external-knowledge-rebaseline.md)。
+
+下方旧 Slice runtime 记录继续描述兼容实现，不再表示默认长期知识路线。
+
 ## 2026-09-21 UI V2 presentation 增量
 
 `Application → 单浅色 AppearanceProvider → App / useWorkspaceNavigation → WorkspaceNavigation + ResearchNavigation + 原功能组件`。工作台用既有观察/任务read models，原HomePage完整收件箱/数据概况移到研究总览；任务页面复用ResearchInbox与同一ResearchMemoryWorkspace；知识、资料与连接共用一个挂载的workspace及原source/Wiki repositories，不创建平行知识库。旧hash/objectID/query仍可解析；新增knowledge/wiki参数仅定位同一Wiki对象，缺失对象显式不可读。搜索只索引入口并交公司/知识内搜索，不扫描首页全部原件。
@@ -458,7 +468,7 @@ Node-only Local Core / SQLite / Research Bridge / contracts/v1 / F2 Evidence Gra
 
 Browser repository 新增受控灾难恢复 seam：观测并绑定损坏原字节、导出、完整校验备份、显式确认、独立 pre-recovery 原字节备份与读回校验、最终基线检查、仅替换 tracker key、reload/semantic validation。普通 append/import 在 corruption 下继续锁定；显式未知/future schema 不可走该恢复入口。现有 PersistedBaseGuard、Local-first/Node-only 边界不变，不增加云或 SQLite 写入口。
 
-## Stage 4.3 Research Memory & Thesis Compiler boundary（2026-09-20 设计冻结）
+## Stage 4.3 历史设计 boundary（2026-09-20；默认路线已由 R0 supersede）
 
 Stage 4.3 不建立“一个万能 Wiki 数据库”，而是在既有 owner 之上增加稳定 adapter / domain contract。统一研究链为：
 

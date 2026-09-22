@@ -27,6 +27,8 @@ Phase 1B 已通过 [PR #24](https://github.com/lwd619783-byte/-/pull/24) 合入�
 
 ### V2 产品与架构决策
 
+- [`docs/stage-4-3-r0-external-knowledge-rebaseline.md`](docs/stage-4-3-r0-external-knowledge-rebaseline.md)：Stage 4.3 当前双通道与 R0–R3 顺序；外部知识默认、Local Wiki/Bridge 兼容、Stage 4.5 OS Domain MCP
+
 - [`docs/investment-dashboard-v2-research-os-and-bridge-design.md`](docs/investment-dashboard-v2-research-os-and-bridge-design.md)：Research OS 与 Research Bridge / MCP 设计基线
 - [`docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md`](docs/investment-dashboard-v2-chatgpt-ingestion-and-asset-management-addendum.md)：ChatGPT 入库、资产管理与 DCA 补充设计
 - [`docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md`](docs/investment-dashboard-v2-contract-freeze-decisions-local-first-backup.md)：冻结决策、Local-first 与备份恢复边界
