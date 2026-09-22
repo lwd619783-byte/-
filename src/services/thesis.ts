@@ -1,6 +1,6 @@
 import { canonicalJson } from '../../shared/canonical-json.mjs';
 import { isPreciseInstant } from '../utils/dateTime';
-import type { ClaimRevision, ClaimReview } from '../types/verifiedClaim';
+import type { ClaimData, ClaimRevision, ClaimReview } from '../types/verifiedClaim';
 import type { ThesisData, ThesisRevision, ThesisOwners, ThesisPreview, VerifiedClaimRef, ThesisIdentity, ThesisClaimAssessment } from '../types/thesis';
 import { claimRequire, cloneClaim, previewClaim, validateClaimData, validateResearchContext } from './verifiedClaim';
 import validateSchema from './thesisValidator.generated.mjs';
@@ -14,6 +14,19 @@ const claimKey = (ref: VerifiedClaimRef) => `${ref.claimId}\u0000${ref.revisionI
 export function pinVerifiedClaim(revision: ClaimRevision, review: ClaimReview): VerifiedClaimRef {
   claimRequire(review.claimId === revision.claimId && review.revisionId === revision.revisionId && review.decision === 'VERIFIED', 'THESIS_CLAIM_NOT_VERIFIED');
   return { claimId: revision.claimId, revisionId: revision.revisionId, reviewId: review.reviewId, revisionBytes: canonicalJson(revision), reviewBytes: canonicalJson(review) };
+}
+// Claim history is validated by each caller; head is determined by recorded creation time, not review outcome.
+function claimHeadAsOf(data: ClaimData, claimId: string, asOf: string) {
+  return data.revisions.filter(r => r.claimId === claimId && before(r.createdAt, asOf)).at(-1);
+}
+export function thesisClaimChoices(owners: ThesisOwners, asOf: string) {
+  instant(asOf);
+  const { data, owners: claimOwners } = owners.claims(); validateClaimData(data);
+  return data.reviews.filter(review => review.decision === 'VERIFIED' && before(review.createdAt, asOf)).flatMap(review => {
+    const revision = claimHeadAsOf(data, review.claimId, asOf);
+    return revision?.revisionId === review.revisionId && before(revision.asOf, asOf) && previewClaim(revision, claimOwners).verifiable
+      ? [{ ref: pinVerifiedClaim(revision, review), statement: revision.statement }] : [];
+  });
 }
 /** Structural/history validation never promotes a persisted draft or supplies missing owners. */
 export function validateThesisData(value: unknown): asserts value is ThesisData {
@@ -77,6 +90,8 @@ export function previewThesis(revision: ThesisRevision, owners: ThesisOwners): T
       if (!r || !review || canonicalJson(r) !== ref.revisionBytes || canonicalJson(review) !== ref.reviewBytes) errors.push('THESIS_CLAIM_EXACT_REF_UNAVAILABLE');
       else {
         if (review.decision !== 'VERIFIED') errors.push('THESIS_CLAIM_NOT_VERIFIED');
+        const head = claimHeadAsOf(source.data, ref.claimId, copy.asOf);
+        if (head && before(r.createdAt, copy.asOf) && head.revisionId !== ref.revisionId) errors.push('THESIS_CLAIM_SUPERSEDED_ASOF');
         if (!before(r.asOf, copy.asOf) || !before(r.createdAt, copy.asOf) || !before(review.createdAt, copy.asOf)) errors.push('THESIS_CLAIM_NOT_AVAILABLE_ASOF');
         const gate = previewClaim(r, source.owners); if (!gate.verifiable) errors.push(...gate.blockers);
       }
@@ -111,7 +126,15 @@ export function thesisReadModel(data: ThesisData, owners: ThesisOwners, asOf: st
     const confirmations = data.confirmations.filter(c => c.thesisId === entry.thesisId && before(c.createdAt, asOf));
     const current = history.filter(r => confirmations.some(c => c.revisionId === r.revisionId)).at(-1) ?? null;
     const head = history.at(-1)!, draft = confirmations.some(c => c.revisionId === head.revisionId) ? null : head;
-    return [{ entry, current, draft, history, confirmations, gate: current ? previewThesis(current, owners) : null }];
+    // A later Claim revision prompts review today without invalidating the historical Thesis asOf or changing pins.
+    let supportUpdates: VerifiedClaimRef[] = [];
+    if (current) {
+      try {
+        const { data: claims } = owners.claims(); validateClaimData(claims);
+        supportUpdates = current.supportingClaims.filter(ref => claims.revisions.some(r => r.claimId === ref.claimId && r.supersedes === ref.revisionId && before(r.createdAt, asOf)));
+      } catch { /* Original authority failure is exposed by the gate below; never infer a successor. */ }
+    }
+    return [{ entry, current, draft, history, confirmations, supportUpdates, gate: current ? previewThesis(current, owners) : null }];
   });
 }
 export function thesisDiff(before: ThesisRevision | null, after: ThesisRevision) {

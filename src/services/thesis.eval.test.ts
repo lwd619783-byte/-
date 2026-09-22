@@ -15,6 +15,8 @@ const blocked: EvalResult = { ...common, conditions: ['missing_evidence'] };
 
 it.each([
   { name: 'synthetic-explicit-formal-confirmation', variant: 'supported', projection: 'thesis', expected: supported },
+  { name: 'synthetic-superseded-asof-blocked', variant: 'superseded', projection: 'thesis', expected: blocked },
+  { name: 'synthetic-successor-after-historical-asof', variant: 'historical', projection: 'thesis', expected: supported },
   { name: 'synthetic-context-isolation', variant: 'context', projection: 'thesis', expected: supported },
   { name: 'synthetic-supported-macro-industry', variant: 'supported', projection: 'relationship', expected: supported },
   { name: 'synthetic-unknown-edge-remains-unknown', variant: 'unknown', projection: 'relationship', expected: { ...common, conditions: ['unknown'] } },
@@ -26,6 +28,11 @@ it.each([
   { name: 'synthetic-original-f2-unavailable', variant: 'evidence', projection: 'thesis', expected: blocked },
 ])('Thesis service independent R2 F3: $name', async ({ variant, projection, expected }) => {
   const fixture = await thesisFixture(), revision = cloneClaim(fixture.revision);
+  if (variant === 'superseded' || variant === 'historical') {
+    fixture.tickClaim(11);
+    fixture.claimRepo.saveDraft(fixture.claimRepo.load().data, { ...cloneClaim(fixture.claim.revision), revisionId: 'synthetic-successor', supersedes: fixture.claim.revision.revisionId, createdAt: at(10), asOf: at(10) });
+    if (variant === 'superseded') { revision.asOf = at(12); revision.createdAt = at(12); }
+  }
   if (variant === 'context') revision.contexts = [{ kind: 'drive', title: 'Synthetic context only', url: 'https://example.com/synthetic-context' }];
   if (variant === 'unknown') { revision.macroIndustry[0].exposure = 'unknown'; revision.macroIndustry[0].sensitivity = 'unknown'; revision.macroIndustry[0].supportingClaims = []; }
   if (variant === 'early') { revision.asOf = at(6); revision.macroIndustry = []; }

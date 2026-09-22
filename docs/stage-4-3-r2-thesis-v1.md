@@ -77,3 +77,30 @@ LocalStorage 键 `investment-research-dashboard.thesis.v1`；JSON 备份键 form
 - Identity 是现有应用 owner 精确 ID；不是新增 Local Core identity bridge、历史身份别名库或宏观准入。
 - 自由 Thesis 文本和定性关系是用户研究判断；门禁核对支持引用与可得性，不证明文本因果关系或作投资评分。
 - 不提供 AI runtime、自动 publish、远程正文读取、Provider admission、Portfolio、MCP、Agent 或 R3。R2 本地 PASS 不替代独立审计、Hosted CI 或 Production admission。
+
+
+## P1 / P2 定向修复
+
+基于已审计 `8505b607be998dc8313bfc2feeea3c004669ed57`，仅继续原功能分支。此段更新当前修复语义；前文原交付计数和历史记录保留原时点。
+
+- 新 preview/confirmation 以 Thesis asOf 对 Claim revisions.createdAt（含相等时刻）选 head；若 pin 已由后继 draft/VERIFIED/REJECTED 版本替代，返回 `THESIS_CLAIM_SUPERSEDED_ASOF`，不能再作新正式支持。确认时重读原 Claim owner，再检查 head；preview 后变化不能绕过。
+- successor 晚于 Thesis asOf 时，旧 Claim exact pin 继续合法。既存正式 Thesis 只读视图提示“支持主张已有后续版本/需复核”；不改变 pin、revision、confirmation 或存储字节。
+- UI 当前支持数按 now，编辑 choices 按 editor.asOf；仅提供当时 head 且审核可得/F2通过的 VERIFIED revision。调整 asOf 后不合资格的已选旧 pin 明确显示阻断并允许用户从新草稿移除，不静默替换。
+- 补齐 `current-development-direction-2026-09-13.md` 顶部 CURRENT：R1 CLOSED/merged/CI/Production；R2 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT RE-REVIEW；R3 PLANNED / NOT_IMPLEMENTED。同步 Feature Registry 与 Execution Plan 的修复事实，不修改历史审计。
+
+本轮修复验证（最终 runtime 源码与三组 browser 报告的16项 SHA-256 pins已按暂存区原字节核对）：
+
+| 检查 | 结果 |
+| --- | --- |
+| Thesis domain/repository / UI / R2 F3 | 29 / 8 / 12 PASS；三种 successor 状态、相等 cutoff、晚于历史 cutoff、preview 后 head 改变、原字节与 choices 回归 |
+| R1 domain / UI / F3 | 30 / 3 / 4 PASS；R1业务源码未改 |
+| contracts validate / tests | PASS；106 Local Core + 78 Financial Research Node + 119 Vitest |
+| research eval check / tests | PASS；Foundation reference 33/33、service 0/33，Industry 5/5 不变；51 Node + 16 Vitest |
+| full `npm test -- --maxWorkers=1 --minWorkers=1` | PASS：103 files / 1,325 tests；无跳过、无 timeout/断言放宽 |
+| build | PASS：TypeScript、Local Core boundary、Vite、financial bundle；保留原大 chunk warning |
+| R2 real / synthetic browser，R1 browser | 49/49、76/76、130/130 PASS，均0 runtime errors，三种宽度；synthetic覆盖后继 draft/VERIFIED/REJECTED 后历史只读和新确认阻断 |
+| data audit `--no-write` | exit 0，0 errors、40 warnings（P1=20 / P2=20），未新增豁免 |
+
+最终边界收尾后，与 build/browser 并发的双 worker 全量运行出现既有 App.owner-state 的2个20秒timeout和1个后续dialog定位失败；停止辅助服务后，单 worker完整1,325项全部通过，未修改旧测试、断言或超时。失败运行与最终通过日志均保留于 `data-cache/stage-4-3-r2/fix-p1/`。synthetic harness仍有1条resource 404 console消息，不是page runtime error。
+
+真实留存仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis**；synthetic 正向正式路径单独记账。没有改写历史 pin/history/confirmation，没有修改 Claim repository、Frozen F2、Provider、真实数据或 admission/PIT/release 配置。状态 **IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT RE-REVIEW**；普通 commit/push 原分支后停止，等待 ChatGPT 复审。

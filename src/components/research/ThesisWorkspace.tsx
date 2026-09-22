@@ -3,7 +3,7 @@ import type { ThesisPreview, ThesisRevision, VerifiedClaimRef } from '../../type
 import type { ClaimBinding, ClaimRevision, ClaimReview } from '../../types/verifiedClaim';
 import { canonicalJson } from '../../../shared/canonical-json.mjs';
 import type { ChartAuditView } from '../../services/chartAudit';
-import { pinVerifiedClaim, previewThesis, thesisDiff, thesisReadModel } from '../../services/thesis';
+import { thesisClaimChoices, previewThesis, thesisDiff, thesisReadModel } from '../../services/thesis';
 import { draftClaim, previewClaim } from '../../services/verifiedClaim';
 import { createThesisWorkspace, type ThesisWorkspaceDataset, type ThesisWorkspaceRuntime } from '../../services/thesisWorkspace';
 import { ClaimVerificationModal } from './ClaimVerificationModal';
@@ -40,6 +40,7 @@ function RevisionContent({ revision, runtime, onClaim }: { revision: ThesisRevis
       <p>关系状态：{({ supported: '支持主张可用', unknown: '未知', blocked: '阻断' })[gate.relationships.find(r => r.relationshipId === edge.relationshipId)?.status ?? 'blocked']}</p><p className="text-xs text-textMuted">用户定性关系；主张可用不等于关系理由已经得到独立验证。</p>
     </div>)}</section>
     <section aria-label="Research Context"><strong>Research Context（仅背景，不是验证依据）</strong>{revision.contexts.map((context, i) => <p key={i}><a className="underline" href={context.url} target="_blank" rel="noreferrer">{context.title}</a> · {context.kind}</p>)}</section>
+    {gate.blockers.includes('THESIS_CLAIM_SUPERSEDED_ASOF') && <p className="text-warning">支持主张在论点 asOf 时已被后续版本替代，正式确认已阻断；原精确引用未改变。</p>}
     <p className={gate.publishable ? 'text-textMuted' : 'text-warning'}>当前证据支持：{gate.publishable ? '可供本人确认' : '阻断'}</p>
     <AdvancedAuditDetails><pre className="whitespace-pre-wrap break-all">{JSON.stringify({ revisionId: revision.revisionId, blockers: gate.blockers, claims: gate.claims, relationships: gate.relationships }, null, 2)}</pre></AdvancedAuditDetails>
   </div>;
@@ -64,12 +65,13 @@ export function ThesisWorkspacePanel({ runtime }: { runtime: ThesisWorkspaceRunt
   const [contextTitle, setContextTitle] = useState(''), [contextUrl, setContextUrl] = useState('');
   const now = new Date().toISOString();
   const rows = thesisReadModel(loaded.data, runtime.owners, now);
-  let claimError: string | null = null;
-  const choices: { ref: VerifiedClaimRef; statement: string }[] = [];
-  try { const claims = runtime.owners.claims(); for (const review of claims.data.reviews.filter(r => r.decision === 'VERIFIED')) {
-    const revision = claims.data.revisions.find(r => r.revisionId === review.revisionId);
-    if (revision && previewClaim(revision, claims.owners).verifiable) choices.push({ ref: pinVerifiedClaim(revision, review), statement: revision.statement });
-  } } catch (cause) { claimError = String(cause); }
+  let claimError: string | null = null, choiceError: string | null = null;
+  let currentChoices: ReturnType<typeof thesisClaimChoices> = [], choices: ReturnType<typeof thesisClaimChoices> = [];
+  try {
+    currentChoices = thesisClaimChoices(runtime.owners, now);
+  } catch (cause) { claimError = String(cause); }
+  try { choices = editor ? thesisClaimChoices(runtime.owners, editor.asOf) : currentChoices; }
+  catch (cause) { choiceError = String(cause); }
   const verifiable = runtime.bindings.filter(binding => { try { return previewClaim(draftClaim(binding, runtime.claimOwners, { revisionId: 'readonly-preview', createdAt: now, asOf: now, supersedes: null, reason: 'read-only', contexts: [] }), runtime.claimOwners).verifiable; } catch { return false; } }).length;
   const act = (action: () => void) => { try { action(); setError(null); } catch (cause) { setError(String(cause)); } };
   const refresh = () => { setLoaded(repository.load()); setPreview(null); };
@@ -82,12 +84,13 @@ export function ThesisWorkspacePanel({ runtime }: { runtime: ThesisWorkspaceRunt
   });
   return <section aria-label="Thesis V1" className="mb-5 min-w-0 space-y-4 rounded-lg border border-borderSoft bg-panel p-4">
     <div><h2 className="text-lg font-semibold text-textStrong">Thesis V1 · 研究论点</h2><p className="mt-1 text-xs leading-5 text-textMuted">精确引用已验证主张；正式版本须本人确认。研究背景不参与验证，未知宏观关系不产生评分或行业方向。</p></div>
-    <p className="text-sm" data-testid="thesis-counts">{runtime.bindings.length} candidates / {verifiable} verifiable / {claimError ? '读取失败' : choices.length} verified / {loaded.error ? '读取失败' : rows.filter(row => row.current).length} formal Thesis</p>
+    <p className="text-sm" data-testid="thesis-counts">{runtime.bindings.length} candidates / {verifiable} verifiable / {claimError ? '读取失败' : currentChoices.length} verified / {loaded.error ? '读取失败' : rows.filter(row => row.current).length} formal Thesis</p>
     {!loaded.error && !rows.some(row => row.current) && <p className="text-warning">暂无正式 Thesis。{!choices.length && !claimError && '暂无可用 Verified Claim，正式确认已阻断；可以保留研究草稿。'}</p>}
-    {(error || loaded.error || claimError) && <div role="alert" className="text-sm text-warning">操作或读取已阻断，未自动修复。<AdvancedAuditDetails>{error || loaded.error || claimError}</AdvancedAuditDetails></div>}
+    {(error || loaded.error || claimError || choiceError) && <div role="alert" className="text-sm text-warning">操作或读取已阻断，未自动修复。<AdvancedAuditDetails>{error || loaded.error || claimError || choiceError}</AdvancedAuditDetails></div>}
     <div className="flex flex-wrap gap-2"><button className="inbox-action" disabled={!!loaded.error} onClick={() => { setEditor(blank()); setPreview(null); }}>新建 Thesis 草稿</button><button className="inbox-action" onClick={() => { refresh(); setEditor(null); }}>重新载入 Thesis</button><button className="inbox-action" disabled={!!loaded.error} onClick={() => act(() => download(repository.export(loaded.data)))}>导出 Thesis JSON 备份</button><button className="inbox-action" disabled={loaded.recoveryStatus === 'unsupported_version' || loaded.recoveryStatus === 'unavailable'} onClick={() => setBackupOpen(!backupOpen)}>导入或恢复 Thesis 备份</button></div>
     {rows.map(row => <article key={row.entry.thesisId} className="min-w-0 space-y-3 rounded border border-borderSoft p-3">
       <h3 className="font-semibold">{row.current ? '当前正式 Thesis' : '尚无正式版本'}</h3>
+      {!!row.supportUpdates.length && <p className="text-warning">支持主张已有后续版本/需复核；历史 Thesis 的精确引用保持不变。</p>}
       {row.current && <RevisionContent revision={row.current} runtime={runtime} onClaim={openClaim} />}
       {row.draft && <section aria-label="当前 Thesis 草稿"><h3 className="mb-2 font-semibold">当前草稿 · 未确认</h3><RevisionContent revision={row.draft} runtime={runtime} onClaim={openClaim} /><button className="inbox-action mt-2" disabled={!!loaded.error} onClick={() => act(() => { setPreview(repository.prepareConfirmation(loaded.data, row.draft!.revisionId)); setNote(''); })}>生成 Thesis 确认预览</button></section>}
       <button className="inbox-action" disabled={!!loaded.error} onClick={() => { const head = row.history[row.history.length - 1]; setEditor({ ...head, supersedes: head.revisionId, revisionId: crypto.randomUUID(), createdAt: new Date().toISOString(), asOf: new Date().toISOString(), reason: '' }); setPreview(null); }}>修订为新草稿</button>
@@ -103,7 +106,7 @@ export function ThesisWorkspacePanel({ runtime }: { runtime: ThesisWorkspaceRunt
       <div className="grid min-w-0 gap-3 md:grid-cols-2">{texts.map(([key, label]) => <label className="block min-w-0 text-xs" key={key}>{label}<textarea aria-label={label} className={field} value={editor[key]} onChange={e => edit(key, e.target.value)} /></label>)}{lists.map(([key, label]) => <label className="block min-w-0 text-xs" key={key}>{label}（每行一条）<textarea aria-label={label + '（每行一条）'} className={field} value={editor[key].join('\n')} onChange={e => edit(key, e.target.value.split('\n'))} /></label>)}</div>
       <label className="block text-xs">信心<select aria-label="信心" className={field} value={editor.confidence} onChange={e => edit('confidence', e.target.value as ThesisRevision['confidence'])}>{Object.entries(confidenceLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
       <label className="block text-xs">论点 asOf（ISO 时间）<input aria-label="论点 asOf（ISO 时间）" className={field} value={editor.asOf} onChange={e => edit('asOf', e.target.value)} /></label>
-      <fieldset className="space-y-2"><legend className="text-sm">选择支持主张的精确版本</legend>{choices.length ? choices.map(choice => <label className="block break-words text-xs" key={choice.ref.revisionId}><input type="checkbox" checked={editor.supportingClaims.some(ref => ref.revisionId === choice.ref.revisionId)} onChange={e => edit('supportingClaims', e.target.checked ? [...editor.supportingClaims, choice.ref] : editor.supportingClaims.filter(ref => ref.revisionId !== choice.ref.revisionId))} /> {choice.statement} · {choice.ref.revisionId}</label>) : <p className="text-xs text-warning">无可用已验证主张；背景链接不能解除阻断。</p>}</fieldset>
+      <fieldset className="space-y-2"><legend className="text-sm">选择支持主张的精确版本</legend><p className="text-xs text-textMuted">仅列出论点 asOf 时仍为当前版本且已验证的主张。</p>{editor.supportingClaims.filter(ref => !choices.some(c => c.ref.revisionId === ref.revisionId)).map(ref => <p key={ref.revisionId} className="break-all text-xs text-warning">已保存引用在此 asOf 不可作为当前支持：{ref.revisionId}；不会自动替换。<button className="inbox-action" onClick={() => edit('supportingClaims', editor.supportingClaims.filter(r => r.revisionId !== ref.revisionId))}>从新草稿移除此主张</button></p>)}{choices.length ? choices.map(choice => <label className="block break-words text-xs" key={choice.ref.revisionId}><input type="checkbox" checked={editor.supportingClaims.some(ref => ref.revisionId === choice.ref.revisionId)} onChange={e => edit('supportingClaims', e.target.checked ? [...editor.supportingClaims, choice.ref] : editor.supportingClaims.filter(ref => ref.revisionId !== choice.ref.revisionId))} /> {choice.statement} · {choice.ref.revisionId}</label>) : <p className="text-xs text-warning">无可用已验证主张；背景链接不能解除阻断。</p>}</fieldset>
       <fieldset className="space-y-2"><legend className="text-sm">关联宏观 / 行业 / 公司</legend><div className="grid gap-2 md:grid-cols-3">{runtime.identities.map(option => <label key={identityKey(option.ref)} className="min-w-0 break-words text-xs"><input type="checkbox" checked={editor.relatedEntities.some(ref => identityKey(ref) === identityKey(option.ref))} onChange={e => edit('relatedEntities', e.target.checked ? [...editor.relatedEntities, option.ref] : editor.relatedEntities.filter(ref => identityKey(ref) !== identityKey(option.ref)))} /> {option.label} ({identityKey(option.ref)})</label>)}</div></fieldset>
       <fieldset className="space-y-2"><legend className="text-sm">Macro → Industry 关系</legend>
         {editor.macroIndustry.map(edge => <p key={edge.relationshipId} className="text-xs">{edge.macroDriver.id} → {edge.industry.id}：{edge.rationale} <button className="inbox-action" onClick={() => edit('macroIndustry', editor.macroIndustry.filter(e => e.relationshipId !== edge.relationshipId))}>从新草稿移除此关系</button></p>)}

@@ -3,7 +3,7 @@ import { afterEach, expect, it } from 'vitest';
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { ThesisWorkspacePanel } from './ThesisWorkspace';
 import { thesisFixture } from '../../services/thesis.fixture';
-import { claimStorage } from '../../services/verifiedClaim.fixture';
+import { claimStorage, claimTime as at } from '../../services/verifiedClaim.fixture';
 import { BrowserThesisRepository, THESIS_STORAGE_KEY } from '../../services/thesisRepository';
 import { CLAIM_STORAGE_KEY } from '../../services/verifiedClaimRepository';
 import type { ThesisWorkspaceRuntime } from '../../services/thesisWorkspace';
@@ -47,6 +47,7 @@ it('synthetic formal path requires exact saved draft, preview and explicit confi
   expect(f.claimStore.getItem(CLAIM_STORAGE_KEY)).toBe(beforeClaim);
   view.unmount(); render(<ThesisWorkspacePanel runtime={f.runtime} />);
   expect(screen.getByText('当前正式 Thesis')).toBeTruthy();
+  expect(screen.getByText(/支持主张已有后续版本\/需复核/)).toBeTruthy();
   expect(screen.getAllByRole('link', { name: 'Synthetic background' })[0].getAttribute('href')).toBe('https://example.com/thesis-background');
   expect(f.storage.getItem(THESIS_STORAGE_KEY)).toBe(thesisBytes);
   fireEvent.click(screen.getByRole('button', { name: '修订为新草稿' }));
@@ -99,4 +100,30 @@ it('concurrent storage change rejects stale editor without altering another writ
   fireEvent.click(screen.getByRole('button', { name: '保存 Thesis 草稿' }));
   expect(within(screen.getByRole('alert')).getByText(/操作或读取已阻断/)).toBeTruthy();
   expect(f.storage.getItem(THESIS_STORAGE_KEY)).toBe(raw);
+});
+
+it.each(['DRAFT', 'VERIFIED', 'REJECTED'] as const)('filters superseded Claim choices by editor asOf when successor is %s', async decision => {
+  const f = await fixture(); f.tickClaim(11);
+  const next = { ...f.claim.revision, revisionId: 'successor-claim', supersedes: f.claim.revision.revisionId, createdAt: at(10), asOf: at(10) };
+  let claims = f.claimRepo.saveDraft(f.claimRepo.load().data, next);
+  if (decision !== 'DRAFT') claims = f.claimRepo.confirmReview(f.claimRepo.prepareReview(claims, next.revisionId), decision, 'Synthetic decision', true);
+  const claimRaw = f.claimStore.getItem(CLAIM_STORAGE_KEY);
+  render(<ThesisWorkspacePanel runtime={f.runtime} />); fillDraft();
+  const group = within(screen.getByRole('group', { name: '选择支持主张的精确版本' }));
+  expect(group.queryByRole('checkbox', { name: /synthetic-revision-1/ })).toBeNull();
+  expect(!!group.queryByRole('checkbox', { name: /successor-claim/ })).toBe(decision === 'VERIFIED');
+  fireEvent.change(screen.getByLabelText('论点 asOf（ISO 时间）'), { target: { value: at(9) } });
+  expect(group.getByRole('checkbox', { name: /synthetic-revision-1/ })).toBeTruthy();
+  expect(group.queryByRole('checkbox', { name: /successor-claim/ })).toBeNull();
+  fireEvent.click(group.getByRole('checkbox', { name: /synthetic-revision-1/ }));
+  fireEvent.change(screen.getByLabelText('论点 asOf（ISO 时间）'), { target: { value: at(12) } });
+  expect(group.queryByRole('checkbox', { name: /synthetic-revision-1/ })).toBeNull();
+  expect(group.getByText(/已保存引用在此 asOf 不可作为当前支持/)).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', { name: '保存 Thesis 草稿' }));
+  fireEvent.click(screen.getByRole('button', { name: '生成 Thesis 确认预览' }));
+  fireEvent.change(screen.getByLabelText('本人确认说明'), { target: { value: 'Must not confirm obsolete support' } });
+  expect((screen.getByRole('button', { name: '本人确认正式 Thesis' }) as HTMLButtonElement).disabled).toBe(true);
+  expect(screen.getAllByText(/支持主张在论点 asOf 时已被后续版本替代/).length).toBeGreaterThan(0);
+  expect(f.claimStore.getItem(CLAIM_STORAGE_KEY)).toBe(claimRaw);
+  expect(f.repository.load().data.confirmations).toHaveLength(0);
 });

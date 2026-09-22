@@ -1,5 +1,8 @@
 # 当前开发执行索引 · 2026-09-07
 
+
+> 2026-09-22 CURRENT 增量：R2 基于 `8505b607be998dc8313bfc2feeea3c004669ed57` 完成 superseded Claim asOf 定向修复；**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT RE-REVIEW**。新 Thesis 必须引用其 asOf 时的 Claim head；历史 pin 保持并提示后续版本需复核。R1 CLOSED、真实 5/0/0/0 与原 admission/PIT/release blockers 不变；R3 PLANNED / NOT_IMPLEMENTED。[修复与验证](stage-4-3-r2-thesis-v1.md#p1--p2-定向修复)，普通 commit/push 后等 ChatGPT 复审。
+
 > 2026-09-22 CURRENT — **Stage 4.3-R2 Thesis V1 + Macro → Industry：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。真实 Base `1651aa7bbf3fcdf4a59d17e7ae6e6edaf057ef7d`，分支 `codex/stage-4-3-r2-thesis-v1`。R1 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**：PR [#75](https://github.com/lwd619783-byte/-/pull/75) 于 2026-09-22T13:33:13Z 合入上述 merge/main；PR CI [35733395999](https://github.com/lwd619783-byte/-/actions/runs/35733395999)、main CI [35734221779](https://github.com/lwd619783-byte/-/actions/runs/35734221779) 已实时核验 success；Production deployment `6591911800`（同一 Base SHA）已实时核验 `success / Deployment has completed`，与用户确认的 READY 一致。真实仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis**，data admission / PIT / release blockers 不变。R2 完成后仅普通 commit/push，等待 ChatGPT 独立审计；R3 **PLANNED / NOT_IMPLEMENTED**。本条 supersede 下方旧 CURRENT 与停止点，不回写历史审计。 R2 本地全量 1,317 tests、build、contracts、research/industry/data audit、discovery 均通过；R2 real browser 49/49、synthetic browser 52/52、R1 browser 130/130（均 0 runtime errors）。详见 [R2 实现与验证](stage-4-3-r2-thesis-v1.md)。
 
 

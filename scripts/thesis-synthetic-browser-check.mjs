@@ -31,7 +31,13 @@ if (!repository.load().data.entries.length) {
 }
 const runtime = { owners, repository, claimRepository, claimOwners: f.claim.owners, bindings: [f.claim.binding], identities: f.identities.map(ref => ({ ref, label: ref.id })),
   evidence: () => ({ title: 'Synthetic frozen F2 original evidence', scope: 'synthetic-only', quality: [], rows: [{ label: 'Original frozen graph', value: JSON.stringify(f.claim.graph) }], records: [], linkage: null }) };
-createRoot(document.getElementById('root')!).render(<main style={{ padding: 12 }}><p>SYNTHETIC ONLY · frozen F2 acceptance · no real admission</p><ThesisWorkspacePanel runtime={runtime} /></main>);
+function successor(decision: 'DRAFT' | 'VERIFIED' | 'REJECTED') {
+  const current = claimRepository.load().data, head = current.revisions.at(-1)!;
+  const data = claimRepository.saveDraft(current, { ...head, revisionId: 'synthetic-browser-successor', supersedes: head.revisionId, createdAt: new Date().toISOString(), reason: 'Synthetic supersession acceptance' });
+  if (decision !== 'DRAFT') claimRepository.confirmReview(claimRepository.prepareReview(data, 'synthetic-browser-successor'), decision, 'Synthetic successor review', true);
+  location.reload();
+}
+createRoot(document.getElementById('root')!).render(<main style={{ padding: 12 }}><p>SYNTHETIC ONLY · frozen F2 acceptance · no real admission</p><ThesisWorkspacePanel runtime={runtime} /><button onClick={() => successor('DRAFT')}>Synthetic successor DRAFT</button><button onClick={() => successor('VERIFIED')}>Synthetic successor VERIFIED</button><button onClick={() => successor('REJECTED')}>Synthetic successor REJECTED</button></main>);
 `);
 const report = { scope: 'SYNTHETIC_FROZEN_F2_ONLY', checks: [], errors: [], consoleErrors: [], resourceErrors: [], screenshots: [], sourceSha256: {} };
 for (const file of ['src/services/thesis.ts', 'src/services/thesisRepository.ts', 'src/components/research/ThesisWorkspace.tsx', 'src/services/thesis.fixture.ts']) report.sourceSha256[file] = createHash('sha256').update((await fs.readFile(file, 'utf8')).replace(/\r\n/g, '\n')).digest('hex');
@@ -87,6 +93,30 @@ try {
     await panel.getByText('Thesis 版本历史与 diff（2）').click();
     check((await panel.innerText()).includes('Synthetic second thesis revision'), `history contains revision diff ${width}`);
     check(JSON.stringify(await bytes(page)) === JSON.stringify(secondFormal), `two-version history read only ${width}`);
+    const decision = width === 320 ? 'DRAFT' : width === 390 ? 'VERIFIED' : 'REJECTED';
+    await page.getByRole('button', { name: `Synthetic successor ${decision}`, exact: true }).click();
+    await panel.getByText('支持主张已有后续版本/需复核；历史 Thesis 的精确引用保持不变。').waitFor();
+    const afterSuccessor = await bytes(page);
+    check(afterSuccessor.thesis === secondFormal.thesis, `successor ${decision} preserves formal Thesis exact raw bytes ${width}`);
+    await panel.getByRole('button', { name: /Claim → Evidence/ }).first().click();
+    await modal.waitFor();
+    check((await modal.innerText()).includes('主张版本：synthetic-revision-1'), `history still drills original Claim after successor ${width}`);
+    await page.keyboard.press('Escape');
+    await panel.getByRole('button', { name: '修订为新草稿' }).click();
+    const choices = panel.getByRole('group', { name: '选择支持主张的精确版本' });
+    check(await choices.getByRole('checkbox', { name: /synthetic-revision-1/ }).count() === 0, `superseded R1 absent from current choices ${decision} ${width}`);
+    check(await choices.getByRole('checkbox', { name: /synthetic-browser-successor/ }).count() === (decision === 'VERIFIED' ? 1 : 0), `successor choices follow exact review ${decision} ${width}`);
+    await panel.getByLabel('论点 asOf（ISO 时间）').fill(formal.revisions[0].asOf);
+    check(await choices.getByRole('checkbox', { name: /synthetic-revision-1/ }).count() === 1, `historical asOf still offers original R1 ${width}`);
+    await panel.getByLabel('论点 asOf（ISO 时间）').fill(new Date().toISOString());
+    await panel.getByLabel('Thesis 修订说明').fill('Synthetic obsolete support must fail');
+    await panel.getByRole('button', { name: '保存 Thesis 草稿' }).click();
+    await panel.getByRole('button', { name: '生成 Thesis 确认预览' }).click();
+    await panel.getByLabel('本人确认说明').fill('Cannot override supersession');
+    check(await panel.getByRole('button', { name: '本人确认正式 Thesis' }).isDisabled(), `new Thesis blocked for superseded R1 ${decision} ${width}`);
+    const blockedState = await bytes(page), blockedData = JSON.parse(blockedState.thesis);
+    check(blockedData.confirmations.length === 2 && JSON.stringify(blockedData.revisions.slice(0,2)) === JSON.stringify(next.revisions), `formal history immutable after blocked attempt ${width}`);
+    check(blockedState.claim === afterSuccessor.claim, `Thesis flow cannot rewrite successor Claim ${width}`);
     await context.close();
   }
   check(report.errors.length === 0, 'no runtime errors');

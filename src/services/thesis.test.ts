@@ -9,7 +9,7 @@ import { CLAIM_STORAGE_KEY } from './verifiedClaimRepository';
 import { BrowserClaimRepository } from './verifiedClaimRepository';
 import { createIndustryClaimOwners } from './industryVerifiedClaimAdapter';
 import { loadIndustrySignalClaims } from './industrySignalClaimProvider';
-import { emptyThesisData, pinVerifiedClaim, previewThesis, thesisDiff, thesisReadModel, validateThesisData } from './thesis';
+import { emptyThesisData, thesisClaimChoices, pinVerifiedClaim, previewThesis, thesisDiff, thesisReadModel, validateThesisData } from './thesis';
 import { BrowserThesisRepository, THESIS_STORAGE_KEY } from './thesisRepository';
 import type { ThesisData, ThesisOwners } from '../types/thesis';
 
@@ -54,15 +54,50 @@ describe('Thesis V1 exact Claim authority and local append-only service', () => 
     expect(JSON.stringify(second.revisions[0])).toBe(firstBytes); expect(JSON.stringify(second.confirmations[0])).toBe(confirmationBytes);
   });
 
-  it('pins exact old Claim revision and review without following a newer Claim head', async () => {
-    const f = await setup(), oldRef = cloneClaim(f.ref); f.tickClaim(11);
-    const next = draftClaim(f.claim.binding, f.claim.owners, { revisionId: 'synthetic-claim-r2', createdAt: at(10), asOf: at(10), supersedes: f.claim.revision.revisionId, reason: 'Synthetic later draft', contexts: [] });
-    const data = f.claimRepo.saveDraft(f.claimRepo.load().data, next);
-    expect(data.revisions).toHaveLength(2);
-    const gate = previewThesis(f.revision, f.owners);
-    expect(gate.publishable).toBe(true); expect(gate.claims[0].revision?.revisionId).toBe(oldRef.revisionId);
-    expect(f.revision.supportingClaims).toEqual([oldRef]);
-    expect(() => pinVerifiedClaim(next, data.reviews[0])).toThrow();
+  it.each(['DRAFT', 'VERIFIED', 'REJECTED'] as const)('blocks superseded R1 support for new Thesis when successor is %s, preserving historical pins', async decision => {
+    const f = await setup();
+    const confirmed = f.repo.confirm(f.repo.prepareConfirmation(f.data, f.revision.revisionId), 'Historical confirmation', true);
+    const historicRaw = f.storage.getItem(THESIS_STORAGE_KEY), history = cloneClaim(confirmed), oldRef = cloneClaim(f.ref);
+    f.tickClaim(11);
+    const next = draftClaim(f.claim.binding, f.claim.owners, { revisionId: 'synthetic-claim-r2', createdAt: at(10), asOf: at(10), supersedes: f.claim.revision.revisionId, reason: 'Synthetic successor', contexts: [] });
+    let claims = f.claimRepo.saveDraft(f.claimRepo.load().data, next);
+    if (decision !== 'DRAFT') claims = f.claimRepo.confirmReview(f.claimRepo.prepareReview(claims, next.revisionId), decision, 'Synthetic successor decision', true);
+    for (const cutoff of [at(10), at(12)]) {
+      const fresh = { ...cloneClaim(f.revision), thesisId: 'new-thesis', revisionId: 'new-thesis-r1', createdAt: at(12), asOf: cutoff };
+      const gate = previewThesis(fresh, f.owners);
+      expect(gate.publishable).toBe(false); expect(gate.blockers).toContain('THESIS_CLAIM_SUPERSEDED_ASOF');
+      expect(gate.claims[0].revision?.revisionId).toBe(oldRef.revisionId);
+      const repo = new BrowserThesisRepository(claimStorage(), f.owners, () => new Date(at(12)));
+      const draft = repo.saveDraft(repo.load().data, fresh), raw = repo.export(draft);
+      expect(() => repo.confirm(repo.prepareConfirmation(draft, fresh.revisionId), 'Must fail', true)).toThrow(/GATE_BLOCKED/);
+      expect(repo.export(repo.load().data)).toBe(raw);
+    }
+    if (decision === 'VERIFIED') {
+      const nextRef = pinVerifiedClaim(next, claims.reviews.find(r => r.revisionId === next.revisionId)!);
+      const early = previewThesis({ ...cloneClaim(f.revision), asOf: at(9), createdAt: at(12), supportingClaims: [nextRef], macroIndustry: [] }, f.owners);
+      expect(early.blockers).toContain('THESIS_CLAIM_NOT_AVAILABLE_ASOF');
+      expect(early.blockers).not.toContain('THESIS_CLAIM_SUPERSEDED_ASOF');
+    }
+    expect(thesisClaimChoices(f.owners, at(12)).map(c => c.ref.revisionId)).toEqual(decision === 'VERIFIED' ? [next.revisionId] : []);
+    expect(thesisClaimChoices(f.owners, at(9)).map(c => c.ref.revisionId)).toEqual([oldRef.revisionId]);
+    // A successor after historical asOf cannot retroactively invalidate its exact support.
+    expect(previewThesis(f.revision, f.owners).publishable).toBe(true);
+    const row = thesisReadModel(confirmed, f.owners, at(12))[0];
+    expect(row.gate?.publishable).toBe(true); expect(row.supportUpdates).toEqual([oldRef]);
+    expect(thesisReadModel(confirmed, f.owners, at(9))[0].supportUpdates).toEqual([]);
+    expect(row.current?.supportingClaims).toEqual([oldRef]);
+    expect(f.repo.load().data).toEqual(history); expect(f.storage.getItem(THESIS_STORAGE_KEY)).toBe(historicRaw);
+  });
+
+  it('rechecks Claim head on confirm even when it changes after the saved preview', async () => {
+    const f = await setup(); f.tick(12);
+    const fresh = { ...cloneClaim(f.revision), revisionId: 'later-thesis', supersedes: f.revision.revisionId, createdAt: at(12), asOf: at(12) };
+    const data = f.repo.saveDraft(f.data, fresh), preview = f.repo.prepareConfirmation(data, fresh.revisionId);
+    expect(preview.publishable).toBe(true);
+    f.tickClaim(11); f.claimRepo.saveDraft(f.claimRepo.load().data, { ...cloneClaim(f.claim.revision), revisionId: 'late-claim', supersedes: f.claim.revision.revisionId, createdAt: at(10), asOf: at(10) });
+    const raw = f.storage.getItem(THESIS_STORAGE_KEY);
+    expect(() => f.repo.confirm(preview, 'Stale Claim support', true)).toThrow(/GATE_BLOCKED/);
+    expect(f.storage.getItem(THESIS_STORAGE_KEY)).toBe(raw);
   });
 
   it.each(['claimId', 'revisionId', 'reviewId', 'revisionBytes', 'reviewBytes'] as const)('rejects substituted exact Claim %s pins', async field => {
