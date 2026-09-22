@@ -52,7 +52,13 @@ App 的样例批量入口同时去掉错误中文关键词分支：根据已有�
 
 已亲看工作台1440、重复提示390、真实锁定仍保留独立事件1440；这是有限图片复核，不是全站视觉验收或WCAG合规声明。ChatGPT仍需亲自复核交付ZIP。
 
-受保护Preview的最终绑定将在普通push后单独登记；当前为 VERIFIED LOCAL / PENDING INDEPENDENT REVIEW。
+## 受保护 Preview 与最终交付边界
+
+普通push后：[immutable Preview](https://investment-research-dashboard-77b2mhpxk-lkdmkl.vercel.app) READY；deployment `dpl_CFm4nwsY4i8VjonYq6NNYGeDovGf`，runtime `0dd9bfbc1634109453bf0bf0ce86e9b1880b6af1`，target=null，功能分支正确。该runtime与本地e5c2dcb的src/public/server/contracts/package字节无差异；后续Final只补证据，不把Final SHA伪称为已运行runtime。
+
+同一受保护exact origin：完整App状态129/129、导航198/198通过，无page runtime error；状态回归开始于2026-09-22T03:57:29.992Z，完整绑定见 [preview.json](preview.json)。匿名请求于03:58:23.868Z返回302至vercel.com，保护没有关闭。平台临时访问仅用于隔离context，凭据留在内存并随浏览器结束清除，没有复制个人profile。
+
+状态为 VERIFIED LOCAL AND PROTECTED PREVIEW / PENDING INDEPENDENT REVIEW。截图ZIP另有Downloads交付副本，SHA256与本地证据包一致，包含32张图（约2.2MB）。所有原始日志已去除本机绝对路径，仅作为各自已记录runtime的证据。没有ChatGPT全站视觉验收、用户真实研究接受或最终发布授权。
 
 ## 不变边界与回滚
 

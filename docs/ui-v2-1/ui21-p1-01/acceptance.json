@@ -1,6 +1,6 @@
 {
   "schemaVersion": "ui21-p1-01.acceptance.v1",
-  "status": "VERIFIED_LOCAL_PENDING_INDEPENDENT_REVIEW",
+  "status": "VERIFIED_LOCAL_AND_PROTECTED_PREVIEW_PENDING_INDEPENDENT_REVIEW",
   "auditedBaseline": "1c73243a8b552332b89d4c960e3d84b8a4cf6d81",
   "productionRuntime": "e5c2dcb957a325e355c30392c69ccae6258916d1",
   "testScriptCommit": "9efc2c2ad211e2cb251697f757a4d7bd171b6f6f",
@@ -105,6 +105,12 @@
       "runtimeSha": "1c73243a8b552332b89d4c960e3d84b8a4cf6d81",
       "result": "49 PASS / 9 WARN / 0 FAIL / 4 SKIP",
       "report": "evidence/env-before.log"
+    },
+    {
+      "group": "Protected Preview App state / full navigation",
+      "runtimeSha": "0dd9bfbc1634109453bf0bf0ce86e9b1880b6af1",
+      "result": "129/129 and 198/198 PASS",
+      "report": "preview.json"
     }
   ],
   "consoleBoundary": "App runtime errors empty; existing favicon.ico HTTP 404 logged separately, not claimed console-clean.",
@@ -121,5 +127,6 @@
     "portfolio and Agent remain unimplemented",
     "F3 reference 33/33 is REFERENCE_ONLY; agent runtime NOT_IMPLEMENTED, not admitted",
     "no PR/merge/main/Production/protection/secret changes"
-  ]
+  ],
+  "preview": "preview.json"
 }

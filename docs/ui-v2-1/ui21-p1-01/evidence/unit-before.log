@@ -1,0 +1,197 @@
+
+ RUN  v2.1.9 <workspace>
+
+ × src/App.owner-state.test.tsx > App owner health remains distinct from ordinary action rejection > A/D: duplicate watch rejection preserves home/research/tasks and bytes, then a valid action succeeds 2687ms
+   → #/home: expected { state: 'locked', rows: [], …(1) } to deeply equal { Object (state, rows, ...) }
+   → #/research: expected { state: 'locked', rows: [], …(1) } to deeply equal { Object (state, rows, ...) }
+   → #/tasks: expected { state: 'locked', rows: [], …(1) } to deeply equal { state: 'ready', …(2) }
+ × src/App.owner-state.test.tsx > App owner health remains distinct from ordinary action rejection > B/D: invalid range uses the real expectation form/store, preserves owners, and permits a later valid snapshot 14435ms
+   → #/home: expected { state: 'locked', rows: [], …(1) } to deeply equal { Object (state, rows, ...) }
+   → #/research: expected { state: 'locked', rows: [], …(1) } to deeply equal { Object (state, rows, ...) }
+   → #/tasks: expected { state: 'locked', rows: [], …(1) } to deeply equal { state: 'ready', …(2) }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/App.owner-state.test.tsx > App owner health remains distinct from ordinary action rejection > A/D: duplicate watch rejection preserves home/research/tasks and bytes, then a valid action succeeds
+AssertionError: #/home: expected { state: 'locked', rows: [], …(1) } to deeply equal { Object (state, rows, ...) }
+
+- Expected
++ Received
+
+  Object {
+-   "observations": 1,
+-   "rows": Array [
+-     "event:announcement:xingyu:1225555933",
+-     "event:announcement:eoptolink:1225555965",
+-     "event:announcement:cm-energy:1225535203",
+-   ],
+-   "state": "ready",
++   "observations": 0,
++   "rows": Array [],
++   "state": "locked",
+  }
+
+ ❯ src/App.owner-state.test.tsx:72:93
+     70|     await waitFor(() => expect(within(screen.getByRole('dialog')).getB…
+     71|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(bytes); a…
+     72|     for (const [index, hash] of routes.entries()) expect.soft(await pr…
+       |                                                                                             ^
+     73|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(bytes);
+     74|     await route('#/watchlist'); fireEvent.click(screen.getByRole('butt…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  src/App.owner-state.test.tsx > App owner health remains distinct from ordinary action rejection > A/D: duplicate watch rejection preserves home/research/tasks and bytes, then a valid action succeeds
+AssertionError: #/research: expected { state: 'locked', rows: [], …(1) } to deeply equal { Object (state, rows, ...) }
+
+- Expected
++ Received
+
+  Object {
+    "observations": 0,
+-   "rows": Array [
+-     "watch:watch-16685a5e-2efe-41f5-821a-70b83efe7c4a",
+-     "event:announcement:xingyu:1225555933",
+-     "event:announcement:eoptolink:1225555965",
+-     "event:announcement:cm-energy:1225535203",
+-     "event:announcement:cosco-energy:1225526156",
+-     "event:announcement:daimei:1225526038",
+-     "event:announcement:hanwei:1225525230",
+-     "event:announcement:inovance:1225524610",
+-     "event:announcement:cm-nanjing:1225520365",
+-   ],
+-   "state": "ready",
++   "rows": Array [],
++   "state": "locked",
+  }
+
+ ❯ src/App.owner-state.test.tsx:72:93
+     70|     await waitFor(() => expect(within(screen.getByRole('dialog')).getB…
+     71|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(bytes); a…
+     72|     for (const [index, hash] of routes.entries()) expect.soft(await pr…
+       |                                                                                             ^
+     73|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(bytes);
+     74|     await route('#/watchlist'); fireEvent.click(screen.getByRole('butt…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  src/App.owner-state.test.tsx > App owner health remains distinct from ordinary action rejection > A/D: duplicate watch rejection preserves home/research/tasks and bytes, then a valid action succeeds
+AssertionError: #/tasks: expected { state: 'locked', rows: [], …(1) } to deeply equal { state: 'ready', …(2) }
+
+- Expected
++ Received
+
+  Object {
+    "observations": 0,
+-   "rows": Array [
+-     "watch:watch-16685a5e-2efe-41f5-821a-70b83efe7c4a",
+-   ],
+-   "state": "ready",
++   "rows": Array [],
++   "state": "locked",
+  }
+
+ ❯ src/App.owner-state.test.tsx:72:93
+     70|     await waitFor(() => expect(within(screen.getByRole('dialog')).getB…
+     71|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(bytes); a…
+     72|     for (const [index, hash] of routes.entries()) expect.soft(await pr…
+       |                                                                                             ^
+     73|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(bytes);
+     74|     await route('#/watchlist'); fireEvent.click(screen.getByRole('butt…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  src/App.owner-state.test.tsx > App owner health remains distinct from ordinary action rejection > B/D: invalid range uses the real expectation form/store, preserves owners, and permits a later valid snapshot
+AssertionError: #/home: expected { state: 'locked', rows: [], …(1) } to deeply equal { Object (state, rows, ...) }
+
+- Expected
++ Received
+
+  Object {
+-   "observations": 1,
+-   "rows": Array [
+-     "event:announcement:xingyu:1225555933",
+-     "event:announcement:eoptolink:1225555965",
+-     "event:announcement:cm-energy:1225535203",
+-   ],
+-   "state": "ready",
++   "observations": 0,
++   "rows": Array [],
++   "state": "locked",
+  }
+
+ ❯ src/App.owner-state.test.tsx:89:93
+     87|     await waitFor(() => expect(within(screen.getByRole('dialog')).getB…
+     88|     expect(localStorage.getItem(EARNINGS_EXPECTATION_STORAGE_KEY)).toB…
+     89|     for (const [index, hash] of routes.entries()) expect.soft(await pr…
+       |                                                                                             ^
+     90|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(watchByte…
+     91|     expect(localStorage.getItem(EARNINGS_EXPECTATION_STORAGE_KEY)).toB…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  src/App.owner-state.test.tsx > App owner health remains distinct from ordinary action rejection > B/D: invalid range uses the real expectation form/store, preserves owners, and permits a later valid snapshot
+AssertionError: #/research: expected { state: 'locked', rows: [], …(1) } to deeply equal { Object (state, rows, ...) }
+
+- Expected
++ Received
+
+  Object {
+    "observations": 0,
+-   "rows": Array [
+-     "watch:watch-04fe6fdc-8328-4abf-9968-9f392108bbc9",
+-     "event:announcement:xingyu:1225555933",
+-     "event:announcement:eoptolink:1225555965",
+-     "event:announcement:cm-energy:1225535203",
+-     "event:announcement:cosco-energy:1225526156",
+-     "event:announcement:daimei:1225526038",
+-     "event:announcement:hanwei:1225525230",
+-     "event:announcement:inovance:1225524610",
+-     "event:announcement:cm-nanjing:1225520365",
+-   ],
+-   "state": "ready",
++   "rows": Array [],
++   "state": "locked",
+  }
+
+ ❯ src/App.owner-state.test.tsx:89:93
+     87|     await waitFor(() => expect(within(screen.getByRole('dialog')).getB…
+     88|     expect(localStorage.getItem(EARNINGS_EXPECTATION_STORAGE_KEY)).toB…
+     89|     for (const [index, hash] of routes.entries()) expect.soft(await pr…
+       |                                                                                             ^
+     90|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(watchByte…
+     91|     expect(localStorage.getItem(EARNINGS_EXPECTATION_STORAGE_KEY)).toB…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  src/App.owner-state.test.tsx > App owner health remains distinct from ordinary action rejection > B/D: invalid range uses the real expectation form/store, preserves owners, and permits a later valid snapshot
+AssertionError: #/tasks: expected { state: 'locked', rows: [], …(1) } to deeply equal { state: 'ready', …(2) }
+
+- Expected
++ Received
+
+  Object {
+    "observations": 0,
+-   "rows": Array [
+-     "watch:watch-04fe6fdc-8328-4abf-9968-9f392108bbc9",
+-   ],
+-   "state": "ready",
++   "rows": Array [],
++   "state": "locked",
+  }
+
+ ❯ src/App.owner-state.test.tsx:89:93
+     87|     await waitFor(() => expect(within(screen.getByRole('dialog')).getB…
+     88|     expect(localStorage.getItem(EARNINGS_EXPECTATION_STORAGE_KEY)).toB…
+     89|     for (const [index, hash] of routes.entries()) expect.soft(await pr…
+       |                                                                                             ^
+     90|     expect(localStorage.getItem(WATCHLIST_STORAGE_KEY)).toBe(watchByte…
+     91|     expect(localStorage.getItem(EARNINGS_EXPECTATION_STORAGE_KEY)).toB…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  00:37:26
+   Duration  25.51s (transform 2.46s, setup 0ms, collect 5.17s, tests 17.12s, environment 1.28s, prepare 119ms)
+

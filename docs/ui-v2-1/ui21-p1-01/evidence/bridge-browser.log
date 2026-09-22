@@ -1,0 +1,5 @@
+
+> investment-research-dashboard@0.1.0 test:bridge:browser
+> node scripts/research-bridge-oauth-browser-check.mjs
+
+PASS browser native OAuth form, exact Origin, cookie consent, PKCE, callback issuer/state, replay and foreign/null Origin denial

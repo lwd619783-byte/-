@@ -1,0 +1,1178 @@
+{
+  "runtimeSha": "0dd9bfbc1634109453bf0bf0ce86e9b1880b6af1",
+  "deploymentId": "dpl_CFm4nwsY4i8VjonYq6NNYGeDovGf",
+  "origin": "https://investment-research-dashboard-77b2mhpxk-lkdmkl.vercel.app",
+  "testedAt": "2026-09-22T03:57:29.992Z",
+  "inputType": "isolated full production App with synthetic form entries and storage faults",
+  "scriptSha256": "90c2ffbc7f5d4124deaf3936153b7ff8e583595d9a29723c2341ca33401b6abd",
+  "checks": [
+    {
+      "ok": true,
+      "name": "A real form creates one observation"
+    },
+    {
+      "ok": true,
+      "name": "UI21 A independent healthy synthetic expectation real App derives nonempty research events from legal form input"
+    },
+    {
+      "ok": true,
+      "name": "UI21 A independent healthy synthetic expectation real selector exposes actual verification events"
+    },
+    {
+      "ok": true,
+      "name": "A-duplicate-inline-error screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "A rejected duplicate preserves exact owner bytes"
+    },
+    {
+      "ok": true,
+      "name": "A #/home ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "A observations remain readable"
+    },
+    {
+      "ok": true,
+      "name": "A---home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "A #/research ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "A #/research exact healthy event identities and count retained",
+      "detail": {
+        "expected": [
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc"
+        ],
+        "actual": [
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc"
+        ]
+      }
+    },
+    {
+      "ok": true,
+      "name": "A---research screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "A #/tasks?view=replay ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "A---tasks-view-replay screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "A #/tasks?view=verify ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "A #/tasks?view=verify exact healthy event identities and count retained",
+      "detail": {
+        "expected": [
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc",
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc"
+        ],
+        "actual": [
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc",
+          "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc"
+        ]
+      }
+    },
+    {
+      "ok": true,
+      "name": "A---tasks-view-verify screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "A unrelated healthy expectation bytes unchanged"
+    },
+    {
+      "ok": true,
+      "name": "A SPA navigation preserves owner bytes"
+    },
+    {
+      "ok": true,
+      "name": "B-range-inline-error screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "B rejected range preserves exact expectation bytes"
+    },
+    {
+      "ok": true,
+      "name": "B #/home ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "B observations remain readable"
+    },
+    {
+      "ok": true,
+      "name": "B---home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "B #/research ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "B---research screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "B #/tasks?view=replay ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "B---tasks-view-replay screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "B #/tasks?view=verify ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "B---tasks-view-verify screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "B unrelated observations bytes unchanged"
+    },
+    {
+      "ok": true,
+      "name": "D subsequent legitimate watch create succeeds"
+    },
+    {
+      "ok": true,
+      "name": "D subsequent legitimate expectation succeeds"
+    },
+    {
+      "ok": true,
+      "name": "D #/home ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "D observations remain readable"
+    },
+    {
+      "ok": true,
+      "name": "D---home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "D #/research ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "D---research screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "D #/tasks?view=replay ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "D---tasks-view-replay screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "D #/tasks?view=verify ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "D---tasks-view-verify screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "UI21 C corrupt independent healthy expectation real App derives nonempty research events from legal form input"
+    },
+    {
+      "ok": true,
+      "name": "UI21 C corrupt independent healthy expectation real selector exposes actual verification events"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt #/home real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt---home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt #/research real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt #/research exact healthy event identities and count retained",
+      "detail": {
+        "expected": [
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:business",
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc"
+        ],
+        "actual": [
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:business",
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc"
+        ]
+      }
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt #/research unavailable owner produces partial scope, not global lock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt---research screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt #/tasks?view=replay real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt unreadable watch owner does not report false zero review count"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt---tasks-view-replay screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt #/tasks?view=verify real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt #/tasks?view=verify exact healthy event identities and count retained",
+      "detail": {
+        "expected": [
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:business",
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc",
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc"
+        ],
+        "actual": [
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:business",
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc",
+          "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc"
+        ]
+      }
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt #/tasks?view=verify unavailable owner produces partial scope, not global lock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-corrupt---tasks-view-verify screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C watch corrupt original bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "C watch corrupt independent healthy owner bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "UI21 C future independent healthy expectation real App derives nonempty research events from legal form input"
+    },
+    {
+      "ok": true,
+      "name": "UI21 C future independent healthy expectation real selector exposes actual verification events"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future #/home real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future---home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future #/research real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future #/research exact healthy event identities and count retained",
+      "detail": {
+        "expected": [
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:business",
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4"
+        ],
+        "actual": [
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:business",
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4"
+        ]
+      }
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future #/research unavailable owner produces partial scope, not global lock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future---research screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future #/tasks?view=replay real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future unreadable watch owner does not report false zero review count"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future---tasks-view-replay screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future #/tasks?view=verify real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future #/tasks?view=verify exact healthy event identities and count retained",
+      "detail": {
+        "expected": [
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:business",
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4",
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4"
+        ],
+        "actual": [
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:business",
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4",
+          "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4"
+        ]
+      }
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future #/tasks?view=verify unavailable owner produces partial scope, not global lock"
+    },
+    {
+      "ok": true,
+      "name": "C-watch-future---tasks-view-verify screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C watch future original bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "C watch future independent healthy owner bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "C expectation corrupt mock provider honestly has zero events before fault"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt #/home real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt healthy observation owner remains readable"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt---home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt #/research real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt #/research exact healthy event identities and count retained",
+      "detail": {
+        "expected": [],
+        "actual": []
+      }
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt #/research unavailable owner produces partial scope, not global lock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt---research screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt #/tasks?view=replay real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt healthy overdue review remains readable"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt---tasks-view-replay screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt #/tasks?view=verify real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt #/tasks?view=verify exact healthy event identities and count retained",
+      "detail": {
+        "expected": [],
+        "actual": []
+      }
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt #/tasks?view=verify unavailable owner produces partial scope, not global lock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-corrupt---tasks-view-verify screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C expectation corrupt original bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "C expectation corrupt independent healthy owner bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "C expectation future mock provider honestly has zero events before fault"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future #/home real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future healthy observation owner remains readable"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future---home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future #/research real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future #/research exact healthy event identities and count retained",
+      "detail": {
+        "expected": [],
+        "actual": []
+      }
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future #/research unavailable owner produces partial scope, not global lock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future---research screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future #/tasks?view=replay real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future healthy overdue review remains readable"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future---tasks-view-replay screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future #/tasks?view=verify real storage fault visible"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future #/tasks?view=verify exact healthy event identities and count retained",
+      "detail": {
+        "expected": [],
+        "actual": []
+      }
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future #/tasks?view=verify unavailable owner produces partial scope, not global lock"
+    },
+    {
+      "ok": true,
+      "name": "C-expectation-future---tasks-view-verify screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C expectation future original bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "C expectation future independent healthy owner bytes retained"
+    },
+    {
+      "ok": true,
+      "name": "C-write-error screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C failed write preserves exact bytes"
+    },
+    {
+      "ok": true,
+      "name": "C-write #/home ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "C-write observations remain readable"
+    },
+    {
+      "ok": true,
+      "name": "C-write---home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-write #/research ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "C-write---research screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-write #/tasks?view=replay ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "C-write---tasks-view-replay screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C-write #/tasks?view=verify ordinary rejection does not lock owner"
+    },
+    {
+      "ok": true,
+      "name": "C-write---tasks-view-verify screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "C recovery succeeds through legal write after fault removal with no reload"
+    },
+    {
+      "ok": true,
+      "name": "E local owners start with absent persisted bytes"
+    },
+    {
+      "ok": true,
+      "name": "E readable empty watch owner has explicit empty state"
+    },
+    {
+      "ok": true,
+      "name": "E empty owner does not fabricate observations"
+    },
+    {
+      "ok": true,
+      "name": "E-empty-home screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "E known empty review queue reports legitimate zero"
+    },
+    {
+      "ok": true,
+      "name": "E real knowledge owner eventually confirms legitimate zero"
+    },
+    {
+      "ok": true,
+      "name": "E-empty-knowledge screenshot provider input remains explicitly mock"
+    },
+    {
+      "ok": true,
+      "name": "production source bytes unchanged throughout browser run"
+    }
+  ],
+  "errors": [],
+  "console": [],
+  "httpErrors": [],
+  "screenshots": [
+    "A-duplicate-inline-error-1440.png",
+    "A-duplicate-inline-error-390.png",
+    "A---home-1440.png",
+    "A---home-390.png",
+    "A---research-1440.png",
+    "A---research-390.png",
+    "A---tasks-view-replay-1440.png",
+    "A---tasks-view-replay-390.png",
+    "A---tasks-view-verify-1440.png",
+    "A---tasks-view-verify-390.png",
+    "B-range-inline-error-1440.png",
+    "B-range-inline-error-390.png",
+    "B---home-1440.png",
+    "B---home-390.png",
+    "B---research-1440.png",
+    "B---research-390.png",
+    "B---tasks-view-replay-1440.png",
+    "B---tasks-view-replay-390.png",
+    "B---tasks-view-verify-1440.png",
+    "B---tasks-view-verify-390.png",
+    "D---home-1440.png",
+    "D---home-390.png",
+    "D---research-1440.png",
+    "D---research-390.png",
+    "D---tasks-view-replay-1440.png",
+    "D---tasks-view-replay-390.png",
+    "D---tasks-view-verify-1440.png",
+    "D---tasks-view-verify-390.png",
+    "C-watch-corrupt---home-1440.png",
+    "C-watch-corrupt---home-390.png",
+    "C-watch-corrupt---research-1440.png",
+    "C-watch-corrupt---research-390.png",
+    "C-watch-corrupt---tasks-view-replay-1440.png",
+    "C-watch-corrupt---tasks-view-replay-390.png",
+    "C-watch-corrupt---tasks-view-verify-1440.png",
+    "C-watch-corrupt---tasks-view-verify-390.png",
+    "C-watch-future---home-1440.png",
+    "C-watch-future---home-390.png",
+    "C-watch-future---research-1440.png",
+    "C-watch-future---research-390.png",
+    "C-watch-future---tasks-view-replay-1440.png",
+    "C-watch-future---tasks-view-replay-390.png",
+    "C-watch-future---tasks-view-verify-1440.png",
+    "C-watch-future---tasks-view-verify-390.png",
+    "C-expectation-corrupt---home-1440.png",
+    "C-expectation-corrupt---home-390.png",
+    "C-expectation-corrupt---research-1440.png",
+    "C-expectation-corrupt---research-390.png",
+    "C-expectation-corrupt---tasks-view-replay-1440.png",
+    "C-expectation-corrupt---tasks-view-replay-390.png",
+    "C-expectation-corrupt---tasks-view-verify-1440.png",
+    "C-expectation-corrupt---tasks-view-verify-390.png",
+    "C-expectation-future---home-1440.png",
+    "C-expectation-future---home-390.png",
+    "C-expectation-future---research-1440.png",
+    "C-expectation-future---research-390.png",
+    "C-expectation-future---tasks-view-replay-1440.png",
+    "C-expectation-future---tasks-view-replay-390.png",
+    "C-expectation-future---tasks-view-verify-1440.png",
+    "C-expectation-future---tasks-view-verify-390.png",
+    "C-write-error-1440.png",
+    "C-write-error-390.png",
+    "C-write---home-1440.png",
+    "C-write---home-390.png",
+    "C-write---research-1440.png",
+    "C-write---research-390.png",
+    "C-write---tasks-view-replay-1440.png",
+    "C-write---tasks-view-replay-390.png",
+    "C-write---tasks-view-verify-1440.png",
+    "C-write---tasks-view-verify-390.png",
+    "E-empty-home-1440.png",
+    "E-empty-home-390.png",
+    "E-empty-knowledge-1440.png",
+    "E-empty-knowledge-390.png"
+  ],
+  "states": [
+    {
+      "prefix": "A",
+      "hash": "#/home",
+      "alerts": [
+        "该公司已经存在活跃观察项，请打开现有记录。"
+      ],
+      "lock": false,
+      "rows": 5,
+      "eventIds": [
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc",
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc"
+      ],
+      "dataState": "ready",
+      "text": "工作台\n添加资料\n宏观指标\n观测与来源\n行业研究\n产业链与公司\n公司研究\n业务、财务与估值\n我的观察\n全部观察\n中科曙光603019\nSynthetic state regression; not investment research\n观察\n近期研究事件\n查看全部研究\n\n显示 2 / 2 项 · 未合并事件共 2 项\n\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看\n2026-09-01\n工业富联\n用户个人预测新增 · 营业收入\n不适用 / 已核验\n查看\n查看待办分类"
+    },
+    {
+      "prefix": "A",
+      "hash": "#/research",
+      "alerts": [
+        "该公司已经存在活跃观察项，请打开现有记录。"
+      ],
+      "lock": false,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc"
+      ],
+      "dataState": "ready",
+      "text": "研究总览\n宏观\n行业\n公司\n论点与观察\n验证\n预期证据\n观点追踪\n研究总览\n\n研究池的事件与变化；个人待办按类型在任务中处理。\n\n打开观察清单\n近期研究事件\n排序与数据范围\n\n显示 2 / 2 项 · 未合并事件共 2 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看\n2026-09-01\n工业富联\n用户个人预测新增 · 营业收入\n不适用 / 已核验\n查看\n行情、关注公司与研究辅助\n宏观\n行业\n个股池\n观察清单\n验证中心\n预期证据\n观点追踪\n工作台概况与数据健康"
+    },
+    {
+      "prefix": "A",
+      "hash": "#/tasks?view=replay",
+      "alerts": [
+        "该公司已经存在活跃观察项，请打开现有记录。"
+      ],
+      "lock": false,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc"
+      ],
+      "dataState": "ready",
+      "text": "任务\n知识待审\n0\n研究复盘\n0\n事件核验\n1\n研究复盘\n排序与数据范围\n研究复盘 0 个观察项 · 0 项任务\n\n暂无待处理研究任务。后续复盘提醒会在这里显示。"
+    },
+    {
+      "prefix": "A",
+      "hash": "#/tasks?view=verify",
+      "alerts": [
+        "该公司已经存在活跃观察项，请打开现有记录。"
+      ],
+      "lock": false,
+      "rows": 3,
+      "eventIds": [
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:business",
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc",
+        "event:expectation-event:expectation-889e8172-845e-4cda-a94f-13f751cd1c8f:warning:pgj8rc"
+      ],
+      "dataState": "ready",
+      "text": "任务\n知识待审\n0\n研究复盘\n0\n事件核验\n1\n事件核验\n排序与数据范围\n\n显示 1 / 1 项 · 核验队列共 1 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看"
+    },
+    {
+      "prefix": "B",
+      "hash": "#/home",
+      "alerts": [
+        "区间下限不得大于上限。"
+      ],
+      "lock": false,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "工作台\n添加资料\n宏观指标\n观测与来源\n行业研究\n产业链与公司\n公司研究\n业务、财务与估值\n我的观察\n全部观察\n中科曙光603019\n尚未记录论点\n观察\n近期研究事件\n查看全部研究\n\n显示 0 / 0 项 · 未合并事件共 0 项\n\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有未合并研究事件。\n\n查看待办分类"
+    },
+    {
+      "prefix": "B",
+      "hash": "#/research",
+      "alerts": [
+        "区间下限不得大于上限。"
+      ],
+      "lock": false,
+      "rows": 0,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "研究总览\n宏观\n行业\n公司\n论点与观察\n验证\n预期证据\n观点追踪\n研究总览\n\n研究池的事件与变化；个人待办按类型在任务中处理。\n\n打开观察清单\n近期研究事件\n排序与数据范围\n\n显示 0 / 0 项 · 未合并事件共 0 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有未合并研究事件。\n\n行情、关注公司与研究辅助\n宏观\n行业\n个股池\n观察清单\n验证中心\n预期证据\n观点追踪\n工作台概况与数据健康"
+    },
+    {
+      "prefix": "B",
+      "hash": "#/tasks?view=replay",
+      "alerts": [
+        "区间下限不得大于上限。"
+      ],
+      "lock": false,
+      "rows": 0,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "任务\n知识待审\n待载入\n研究复盘\n0\n事件核验\n0\n研究复盘\n排序与数据范围\n研究复盘 0 个观察项 · 0 项任务\n\n暂无待处理研究任务。后续复盘提醒会在这里显示。"
+    },
+    {
+      "prefix": "B",
+      "hash": "#/tasks?view=verify",
+      "alerts": [
+        "区间下限不得大于上限。"
+      ],
+      "lock": false,
+      "rows": 0,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "任务\n知识待审\n0\n研究复盘\n0\n事件核验\n0\n事件核验\n排序与数据范围\n\n显示 0 / 0 项 · 核验队列共 0 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有需数据核验的事件。"
+    },
+    {
+      "prefix": "D",
+      "hash": "#/home",
+      "alerts": [],
+      "lock": false,
+      "rows": 3,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "工作台\n添加资料\n宏观指标\n观测与来源\n行业研究\n产业链与公司\n公司研究\n业务、财务与估值\n我的观察\n全部观察\n中科曙光603019\n尚未记录论点\n观察\n工业富联601138\n尚未记录论点\n观察\n研究复盘\n1 项\n\n业绩预期证据需要核验\n\n最早任务日期：2026-09-22\n开始复盘\n查看任务\n近期研究事件\n查看全部研究\n\n显示 0 / 0 项 · 未合并事件共 1 项\n\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n此日期范围没有未合并研究事件。任务关联事件已归入复盘事项；可切换全部日期查看历史记录与未知日期。\n\n另有 1 条记录不在近 30 天范围（含历史、未来或日期未知），进入研究查看完整范围。\n\n业绩预期不可变快照已保存。"
+    },
+    {
+      "prefix": "D",
+      "hash": "#/research",
+      "alerts": [],
+      "lock": false,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "研究总览\n宏观\n行业\n公司\n论点与观察\n验证\n预期证据\n观点追踪\n研究总览\n\n研究池的事件与变化；个人待办按类型在任务中处理。\n\n打开观察清单\n近期研究事件\n排序与数据范围\n研究复盘 1 个观察项 · 1 项任务\n中科曙光\n\n业绩预期证据需要核验\n\n最早任务日期：2026-09-22 · 待处理 1 项\n查看证据\n开始复盘\n\n显示 0 / 0 项 · 未合并事件共 1 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n此日期范围没有未合并研究事件。任务关联事件已归入复盘事项；可切换全部日期查看历史记录与未知日期。\n\n另有 1 条记录不在近 30 天范围（含历史、未来或日期未知），可切换全部日期核对。\n\n行情、关注公司与研究辅助\n宏观\n行业\n个股池\n观察清单\n验证中心\n预期证据\n观点追踪\n业绩预期不可变快照已保存。\n工作台概况与数据健康"
+    },
+    {
+      "prefix": "D",
+      "hash": "#/tasks?view=replay",
+      "alerts": [],
+      "lock": false,
+      "rows": 2,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "任务\n知识待审\n0\n研究复盘\n1\n事件核验\n1\n研究复盘\n排序与数据范围\n研究复盘 1 个观察项 · 1 项任务\n中科曙光\n\n业绩预期证据需要核验\n\n最早任务日期：2026-09-22 · 待处理 1 项\n查看证据\n开始复盘\n业绩预期不可变快照已保存。"
+    },
+    {
+      "prefix": "D",
+      "hash": "#/tasks?view=verify",
+      "alerts": [],
+      "lock": false,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-14ad018a-9139-40e1-9813-1db0747764bb:warning:tvkxj8"
+      ],
+      "dataState": "ready",
+      "text": "任务\n知识待审\n0\n研究复盘\n1\n事件核验\n1\n事件核验\n排序与数据范围\n\n显示 1 / 1 项 · 核验队列共 1 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-06-01\n中科曙光\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看\n业绩预期不可变快照已保存。"
+    },
+    {
+      "prefix": "C-watch-corrupt",
+      "hash": "#/home",
+      "alerts": [
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+        "范围不完整：观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+      ],
+      "lock": true,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:business",
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc"
+      ],
+      "dataState": "partial",
+      "text": "工作台\n添加资料\n宏观指标\n观测与来源\n行业研究\n产业链与公司\n公司研究\n业务、财务与估值\n我的观察\n全部观察\n\n本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n近期研究事件\n查看全部研究\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n显示 2 / 2 项 · 未合并事件共 2 项\n\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看\n2026-09-01\n工业富联\n用户个人预测新增 · 营业收入\n不适用 / 已核验\n查看\n查看待办分类"
+    },
+    {
+      "prefix": "C-watch-corrupt",
+      "hash": "#/research",
+      "alerts": [
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+        "范围不完整：观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+      ],
+      "lock": true,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:business",
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc"
+      ],
+      "dataState": "partial",
+      "text": "研究总览\n宏观\n行业\n公司\n论点与观察\n验证\n预期证据\n观点追踪\n研究总览\n\n研究池的事件与变化；个人待办按类型在任务中处理。\n\n打开观察清单\n近期研究事件\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n显示 2 / 2 项 · 未合并事件共 2 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看\n2026-09-01\n工业富联\n用户个人预测新增 · 营业收入\n不适用 / 已核验\n查看\n行情、关注公司与研究辅助\n宏观\n行业\n个股池\n观察清单\n验证中心\n预期证据\n观点追踪\n工作台概况与数据健康"
+    },
+    {
+      "prefix": "C-watch-corrupt",
+      "hash": "#/tasks?view=replay",
+      "alerts": [
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+        "范围不完整：观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+      ],
+      "lock": true,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:business",
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc"
+      ],
+      "dataState": "locked",
+      "text": "任务\n知识待审\n0\n研究复盘\n已锁定\n事件核验\n当前可读 1\n研究复盘\n\n当前范围不完整；仅显示可读取来源。观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+    },
+    {
+      "prefix": "C-watch-corrupt",
+      "hash": "#/tasks?view=verify",
+      "alerts": [
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+        "范围不完整：观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+      ],
+      "lock": true,
+      "rows": 3,
+      "eventIds": [
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:business",
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc",
+        "event:expectation-event:expectation-a810027b-ae8a-4060-9fb4-9c84392eb0d9:warning:1rhlnkc"
+      ],
+      "dataState": "partial",
+      "text": "任务\n知识待审\n0\n研究复盘\n已锁定\n事件核验\n当前可读 1\n事件核验\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n显示 1 / 1 项 · 核验队列共 1 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看"
+    },
+    {
+      "prefix": "C-watch-future",
+      "hash": "#/home",
+      "alerts": [
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999",
+        "范围不完整：观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999"
+      ],
+      "lock": true,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:business",
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4"
+      ],
+      "dataState": "partial",
+      "text": "工作台\n添加资料\n宏观指标\n观测与来源\n行业研究\n产业链与公司\n公司研究\n业务、财务与估值\n我的观察\n全部观察\n\n本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999\n\n近期研究事件\n查看全部研究\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999\n\n显示 2 / 2 项 · 未合并事件共 2 项\n\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看\n2026-09-01\n工业富联\n用户个人预测新增 · 营业收入\n不适用 / 已核验\n查看\n查看待办分类"
+    },
+    {
+      "prefix": "C-watch-future",
+      "hash": "#/research",
+      "alerts": [
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999",
+        "范围不完整：观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999"
+      ],
+      "lock": true,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:business",
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4"
+      ],
+      "dataState": "partial",
+      "text": "研究总览\n宏观\n行业\n公司\n论点与观察\n验证\n预期证据\n观点追踪\n研究总览\n\n研究池的事件与变化；个人待办按类型在任务中处理。\n\n打开观察清单\n近期研究事件\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999\n\n显示 2 / 2 项 · 未合并事件共 2 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看\n2026-09-01\n工业富联\n用户个人预测新增 · 营业收入\n不适用 / 已核验\n查看\n行情、关注公司与研究辅助\n宏观\n行业\n个股池\n观察清单\n验证中心\n预期证据\n观点追踪\n工作台概况与数据健康"
+    },
+    {
+      "prefix": "C-watch-future",
+      "hash": "#/tasks?view=replay",
+      "alerts": [
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999",
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999",
+        "范围不完整：观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999"
+      ],
+      "lock": true,
+      "rows": 2,
+      "eventIds": [
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:business",
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4"
+      ],
+      "dataState": "locked",
+      "text": "任务\n知识待审\n0\n研究复盘\n已锁定\n事件核验\n当前可读 1\n研究复盘\n\n当前范围不完整；仅显示可读取来源。观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999\n\n本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999"
+    },
+    {
+      "prefix": "C-watch-future",
+      "hash": "#/tasks?view=verify",
+      "alerts": [
+        "本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999",
+        "范围不完整：观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999"
+      ],
+      "lock": true,
+      "rows": 3,
+      "eventIds": [
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:business",
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4",
+        "event:expectation-event:expectation-28e4fbcb-259d-41aa-a2ac-12266f5692ea:warning:10iort4"
+      ],
+      "dataState": "partial",
+      "text": "任务\n知识待审\n0\n研究复盘\n已锁定\n事件核验\n当前可读 1\n事件核验\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。观察与复盘记录已锁定：本地观察清单已损坏，已安全回退为空状态；原始数据未被覆盖：不支持的 schemaVersion：999\n\n显示 1 / 1 项 · 核验队列共 1 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n2026-09-01\n工业富联\n业绩预期数据需要核验 · 营业收入\n待复盘\n\n无法匹配实际值\n\n不适用 / 部分可用\n查看"
+    },
+    {
+      "prefix": "C-expectation-corrupt",
+      "hash": "#/home",
+      "alerts": [
+        "范围不完整：本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+      ],
+      "lock": true,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "partial",
+      "text": "工作台\n添加资料\n宏观指标\n观测与来源\n行业研究\n产业链与公司\n公司研究\n业务、财务与估值\n我的观察\n全部观察\n中科曙光603019\n尚未记录论点\n观察\n研究复盘\n1 项\n\n复盘日期已逾期\n\n最早任务日期：2026-01-01\n开始复盘\n查看任务\n近期研究事件\n查看全部研究\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n显示 0 / 0 项 · 未合并事件共 0 项\n\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有未合并研究事件。"
+    },
+    {
+      "prefix": "C-expectation-corrupt",
+      "hash": "#/research",
+      "alerts": [
+        "范围不完整：本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+      ],
+      "lock": true,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "partial",
+      "text": "研究总览\n宏观\n行业\n公司\n论点与观察\n验证\n预期证据\n观点追踪\n研究总览\n\n研究池的事件与变化；个人待办按类型在任务中处理。\n\n打开观察清单\n近期研究事件\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n研究复盘 1 个观察项 · 1 项任务\n中科曙光\n\n复盘日期已逾期\n\n最早任务日期：2026-01-01 · 待处理 1 项\n\n未提供关联事件证据；任务提醒不代表公司新披露。\n\n查看证据\n开始复盘\n\n显示 0 / 0 项 · 未合并事件共 0 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有未合并研究事件。\n\n行情、关注公司与研究辅助\n宏观\n行业\n个股池\n观察清单\n验证中心\n预期证据\n观点追踪\n工作台概况与数据健康"
+    },
+    {
+      "prefix": "C-expectation-corrupt",
+      "hash": "#/tasks?view=replay",
+      "alerts": [
+        "范围不完整：本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+      ],
+      "lock": true,
+      "rows": 2,
+      "eventIds": [],
+      "dataState": "partial",
+      "text": "任务\n知识待审\n0\n研究复盘\n当前可读 1\n事件核验\n当前可读 0\n研究复盘\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n研究复盘 1 个观察项 · 1 项任务\n中科曙光\n\n复盘日期已逾期\n\n最早任务日期：2026-01-01 · 待处理 1 项\n\n未提供关联事件证据；任务提醒不代表公司新披露。\n\n查看证据\n开始复盘"
+    },
+    {
+      "prefix": "C-expectation-corrupt",
+      "hash": "#/tasks?view=verify",
+      "alerts": [
+        "范围不完整：本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)"
+      ],
+      "lock": true,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "partial",
+      "text": "任务\n知识待审\n0\n研究复盘\n当前可读 1\n事件核验\n当前可读 0\n事件核验\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：Expected property name or '}' in JSON at position 1 (line 1 column 2)\n\n显示 0 / 0 项 · 核验队列共 0 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有需数据核验的事件。"
+    },
+    {
+      "prefix": "C-expectation-future",
+      "hash": "#/home",
+      "alerts": [
+        "范围不完整：本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：不支持的 schemaVersion：999"
+      ],
+      "lock": true,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "partial",
+      "text": "工作台\n添加资料\n宏观指标\n观测与来源\n行业研究\n产业链与公司\n公司研究\n业务、财务与估值\n我的观察\n全部观察\n中科曙光603019\n尚未记录论点\n观察\n研究复盘\n1 项\n\n复盘日期已逾期\n\n最早任务日期：2026-01-01\n开始复盘\n查看任务\n近期研究事件\n查看全部研究\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：不支持的 schemaVersion：999\n\n显示 0 / 0 项 · 未合并事件共 0 项\n\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有未合并研究事件。"
+    },
+    {
+      "prefix": "C-expectation-future",
+      "hash": "#/research",
+      "alerts": [
+        "范围不完整：本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：不支持的 schemaVersion：999"
+      ],
+      "lock": true,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "partial",
+      "text": "研究总览\n宏观\n行业\n公司\n论点与观察\n验证\n预期证据\n观点追踪\n研究总览\n\n研究池的事件与变化；个人待办按类型在任务中处理。\n\n打开观察清单\n近期研究事件\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：不支持的 schemaVersion：999\n\n研究复盘 1 个观察项 · 1 项任务\n中科曙光\n\n复盘日期已逾期\n\n最早任务日期：2026-01-01 · 待处理 1 项\n\n未提供关联事件证据；任务提醒不代表公司新披露。\n\n查看证据\n开始复盘\n\n显示 0 / 0 项 · 未合并事件共 0 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有未合并研究事件。\n\n行情、关注公司与研究辅助\n宏观\n行业\n个股池\n观察清单\n验证中心\n预期证据\n观点追踪\n工作台概况与数据健康"
+    },
+    {
+      "prefix": "C-expectation-future",
+      "hash": "#/tasks?view=replay",
+      "alerts": [
+        "范围不完整：本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：不支持的 schemaVersion：999"
+      ],
+      "lock": true,
+      "rows": 2,
+      "eventIds": [],
+      "dataState": "partial",
+      "text": "任务\n知识待审\n0\n研究复盘\n当前可读 1\n事件核验\n当前可读 0\n研究复盘\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：不支持的 schemaVersion：999\n\n研究复盘 1 个观察项 · 1 项任务\n中科曙光\n\n复盘日期已逾期\n\n最早任务日期：2026-01-01 · 待处理 1 项\n\n未提供关联事件证据；任务提醒不代表公司新披露。\n\n查看证据\n开始复盘"
+    },
+    {
+      "prefix": "C-expectation-future",
+      "hash": "#/tasks?view=verify",
+      "alerts": [
+        "范围不完整：本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：不支持的 schemaVersion：999"
+      ],
+      "lock": true,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "partial",
+      "text": "任务\n知识待审\n0\n研究复盘\n当前可读 1\n事件核验\n当前可读 0\n事件核验\n排序与数据范围\n\n范围不完整：以下列表与数量仅代表当前可读取部分。\n\n当前范围不完整；仅显示可读取来源。本地业绩预期已锁定：本地业绩预期数据已损坏，已安全回退为空状态；原始文本未被覆盖：不支持的 schemaVersion：999\n\n显示 0 / 0 项 · 核验队列共 0 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有需数据核验的事件。"
+    },
+    {
+      "prefix": "C-write",
+      "hash": "#/home",
+      "alerts": [
+        "保存本地观察清单失败，可能是存储空间不足或浏览器禁用了存储：UI21 isolated write fault"
+      ],
+      "lock": false,
+      "rows": 1,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "工作台\n添加资料\n宏观指标\n观测与来源\n行业研究\n产业链与公司\n公司研究\n业务、财务与估值\n我的观察\n全部观察\n中科曙光603019\n尚未记录论点\n观察\n近期研究事件\n查看全部研究\n\n显示 0 / 0 项 · 未合并事件共 0 项\n\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有未合并研究事件。\n\n查看待办分类"
+    },
+    {
+      "prefix": "C-write",
+      "hash": "#/research",
+      "alerts": [
+        "保存本地观察清单失败，可能是存储空间不足或浏览器禁用了存储：UI21 isolated write fault"
+      ],
+      "lock": false,
+      "rows": 0,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "研究总览\n宏观\n行业\n公司\n论点与观察\n验证\n预期证据\n观点追踪\n研究总览\n\n研究池的事件与变化；个人待办按类型在任务中处理。\n\n打开观察清单\n近期研究事件\n排序与数据范围\n\n显示 0 / 0 项 · 未合并事件共 0 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有未合并研究事件。\n\n行情、关注公司与研究辅助\n宏观\n行业\n个股池\n观察清单\n验证中心\n预期证据\n观点追踪\n工作台概况与数据健康"
+    },
+    {
+      "prefix": "C-write",
+      "hash": "#/tasks?view=replay",
+      "alerts": [
+        "保存本地观察清单失败，可能是存储空间不足或浏览器禁用了存储：UI21 isolated write fault"
+      ],
+      "lock": false,
+      "rows": 0,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "任务\n知识待审\n待载入\n研究复盘\n0\n事件核验\n0\n研究复盘\n排序与数据范围\n研究复盘 0 个观察项 · 0 项任务\n\n暂无待处理研究任务。后续复盘提醒会在这里显示。"
+    },
+    {
+      "prefix": "C-write",
+      "hash": "#/tasks?view=verify",
+      "alerts": [
+        "保存本地观察清单失败，可能是存储空间不足或浏览器禁用了存储：UI21 isolated write fault"
+      ],
+      "lock": false,
+      "rows": 0,
+      "eventIds": [],
+      "dataState": "ready",
+      "text": "任务\n知识待审\n0\n研究复盘\n0\n事件核验\n0\n事件核验\n排序与数据范围\n\n显示 0 / 0 项 · 核验队列共 0 项\n\n日期范围\n近 30 天\n全部日期（含未知）\n记录事件日期\n公司\n标题与限制\n数据 / 核验状态\n查看\n\n当前已载入范围内没有需数据核验的事件。"
+    },
+    {
+      "prefix": "E",
+      "kind": "knowledge-before-readiness",
+      "text": "知识待审\n0",
+      "note": "Observed actual owner state; no artificial loading injected. It may already be ready."
+    }
+  ],
+  "storage": [
+    {
+      "scenario": "A",
+      "before": {
+        "bytes": 593,
+        "sha256": "e156fb9874d38ce5ef6528f1dc22a6562dc8583838a1486c51b99e8e9b95774b"
+      },
+      "after": {
+        "bytes": 593,
+        "sha256": "e156fb9874d38ce5ef6528f1dc22a6562dc8583838a1486c51b99e8e9b95774b"
+      }
+    },
+    {
+      "scenario": "B",
+      "before": null,
+      "after": null
+    }
+  ],
+  "limits": [
+    "No personal browser profile or formal knowledge approval.",
+    "Negative storage fixtures and setItem faults exist only in disposable contexts.",
+    "Ordinary rejection must not become global owner lock; genuine persistence faults must remain visible.",
+    "Mock provider intentionally emits no research events. Nonempty event fixtures come from legal synthetic expectation forms; healthy watch tasks come from an explicit overdue review date."
+  ],
+  "sourceSha256AtStart": {
+    "src/App.tsx": "cf4bda1973e336bb44143a4f5867a4082486e1f08ebed8a40a072dda325f3c82",
+    "src/components/home/HomePage.tsx": "e8430a0f5c7fc6d8081ca44b153ed2b0e517284e13b8bfb53fd0b46f6ecc3a3a",
+    "src/components/stock/StockDetailDrawer.tsx": "0364b85240c4bbc02c47fef23f0ca49881fb060b6d1e7f078c7c08f936d37f6b",
+    "src/components/watchlist/StockWatchlistPanel.tsx": "7a0fb7d68b5b9c81b9dca4dea4f55b4a5feaed72f4d9f3f6d4589b776e86ae06",
+    "src/components/watchlist/WatchlistTab.tsx": "94f3a35906ef2c0450de16c69a42492f4ccda3d59ecbe05a99b70cb6c3bea048",
+    "src/components/expectation/EarningsExpectationCenter.tsx": "e5c911df18aeabe991a1e2ecb1c5e099fd2c72ce9b0711ac324ad9628446d22b",
+    "src/components/home/ResearchWorkbench.tsx": "f58b50845c254d43a707e40df8e0de40362c0d068ce2f79e6178f1250c3a726c",
+    "src/components/home/ResearchInbox.tsx": "cc2f74e222115ff4dfd9150d02b2122511bf4f6a0d60f418a80e2ac962b5d247",
+    "src/services/watchlistStore.ts": "c938b01c4a9856f883f93e6acf6d741ddad7a59487b86239bdfc46d82631b3ae",
+    "src/services/watchlistRepository.ts": "1638f01d259de246cb52cafcf4a1ee0ef27e51a03787851ad74efcc3c43c8b74",
+    "src/services/earningsExpectationStore.ts": "8c91ac0d1bd7b8651a77d2f98abfb0b9f8026caa8d718acbba322d89b1e8f668",
+    "src/services/earningsExpectationRepository.ts": "cbeffc5edce1029076d94c3a3c0f072bb7a258509c67e9d5882200f23f7fce19"
+  },
+  "finishedAt": "2026-09-22T03:59:26.848Z",
+  "sourceSha256AtEnd": {
+    "src/App.tsx": "cf4bda1973e336bb44143a4f5867a4082486e1f08ebed8a40a072dda325f3c82",
+    "src/components/home/HomePage.tsx": "e8430a0f5c7fc6d8081ca44b153ed2b0e517284e13b8bfb53fd0b46f6ecc3a3a",
+    "src/components/stock/StockDetailDrawer.tsx": "0364b85240c4bbc02c47fef23f0ca49881fb060b6d1e7f078c7c08f936d37f6b",
+    "src/components/watchlist/StockWatchlistPanel.tsx": "7a0fb7d68b5b9c81b9dca4dea4f55b4a5feaed72f4d9f3f6d4589b776e86ae06",
+    "src/components/watchlist/WatchlistTab.tsx": "94f3a35906ef2c0450de16c69a42492f4ccda3d59ecbe05a99b70cb6c3bea048",
+    "src/components/expectation/EarningsExpectationCenter.tsx": "e5c911df18aeabe991a1e2ecb1c5e099fd2c72ce9b0711ac324ad9628446d22b",
+    "src/components/home/ResearchWorkbench.tsx": "f58b50845c254d43a707e40df8e0de40362c0d068ce2f79e6178f1250c3a726c",
+    "src/components/home/ResearchInbox.tsx": "cc2f74e222115ff4dfd9150d02b2122511bf4f6a0d60f418a80e2ac962b5d247",
+    "src/services/watchlistStore.ts": "c938b01c4a9856f883f93e6acf6d741ddad7a59487b86239bdfc46d82631b3ae",
+    "src/services/watchlistRepository.ts": "1638f01d259de246cb52cafcf4a1ee0ef27e51a03787851ad74efcc3c43c8b74",
+    "src/services/earningsExpectationStore.ts": "8c91ac0d1bd7b8651a77d2f98abfb0b9f8026caa8d718acbba322d89b1e8f668",
+    "src/services/earningsExpectationRepository.ts": "cbeffc5edce1029076d94c3a3c0f072bb7a258509c67e9d5882200f23f7fce19"
+  },
+  "failedAssertions": []
+}
