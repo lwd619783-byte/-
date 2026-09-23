@@ -1,5 +1,7 @@
 # Research Bridge + Read-only MCP V1
 
+> 2026-09-23 专项：Pre-4.4 Legacy Hardening 已实现并本地验证，等待独立审计；仅维护 Legacy / read-only / fail-closed 边界。[本轮迁移与验证](#pre-44-legacy-hardening2026-09-23)不代表线上启用或私人数据复验。下方旧 CURRENT / Preview 记录保留原时点含义；R0 双通道 authority 保持，Stage 4.3 总状态同步由下一步 B 处理。
+
 > 2026-09-22 R0 定位：**FREEZE / LEGACY COMPATIBILITY**。以下 V1 行为、历史数据、审核/备份/解析/只读权限保持；不再是默认长期知识路线，不继续扩大功能范围。默认 Drive → ChatGPT → Notion；OS 不建立 Notion 正文镜像。[R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) 覆盖旧 CURRENT 停止点，不覆盖历史验证记录。
 
 > 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
@@ -75,3 +77,38 @@ ChatGPT 开发者模式创建自定义 MCP：URL 为最终 Preview `/api/mcp`，
 官方依据：[Vercel private Blob](https://vercel.com/docs/vercel-blob/private-storage)、[consistent reads](https://vercel.com/changelog/vercel-blob-now-supports-consistent-reads-on-private-storage)、[OpenAI OAuth/PKCE 与回调规范](https://developers.openai.com/plugins/build/auth)。
 
 授权页 GET 使用 strict-origin，仅传递来源，不泄露授权 URL 路径/查询；CSP form-action 除 self 外仅允许配置验证过的精确 ChatGPT callback，以允许原生表单303回跳。其他响应继续 no-referrer；不接受 null 或外国 Origin。正式浏览器门禁：`npm run test:bridge:browser`。c179aeb 的真实远程17项已通过，后续 Final SHA 必须重新验收，账号连接仍单列。
+
+## Pre-4.4 Legacy Hardening（2026-09-23）
+
+Base 为 fetch 后的 `origin/main @ c3b2892459827a8ac060ee38031def840b56a546`，开工工作区 clean、无开放 PR。新分支 `codex/pre-4-4-research-bridge-legacy-hardening`；未 merge / cherry-pick 旧提交。逐文件比较确认五个目标文件在 Base 与 `58dc00a^` 完全相同，再按合同迁移适用 delta。
+
+| 文件 | 保留的 delta / 本轮补强 |
+| --- | --- |
+| `server/research-bridge/auth.mjs` | 将原配置合取门禁拆成 disabled、origin、owner/signing、private storage、OAuth callback 分类；原启用条件、长度与 allowlist 不变 |
+| `server/research-bridge/http.mjs` | 固定中文配置文案、错误 owner key 的安全提示；不回显 SDK 异常、凭据、private URL 或 namespace；另补 null/undefined 异常安全降级 |
+| `BridgeStagingPanel.tsx` | 非 JSON 响应改为环境中立的不可用提示，移除“检查 Preview 配置” |
+| `ResearchMemoryWorkspace.test.tsx` | 五种失败响应均只调用 begin，不继续上传、不记失败 stage、不误报成功，本地原件保持 |
+| `scripts/tests/research-bridge.node.mjs` | 配置/错误密钥 fail-before-store、安全错误与 HTTP owner → 独立 MCP handler → 同一正式 PrivateBlobStore seam 合成闭环；补充请求门禁、未知异常、获选知识、TTL 边界及撤销后全部八工具拒读/空列表 |
+
+HTTP/MCP 闭环仅替换 Blob SDK transport 为内存合成 fixture，保留正式 store/domain/handler；不访问真实 Blob、外部 OAuth 或用户资料。测试中长效签名 token 仅隔离 staging TTL 与 OAuth token expiry，生产签发时长仍一小时。未发布批次不可读；publish 后仅获选资料与知识可见；到期/撤销后 list 为空、manifest/source/knowledge 拒绝。tenant isolation、path traversal、unstaged refs、Origin、PKCE、代次 CAS 与 3 MiB 门禁保留。
+
+旧提交的四份文档均未机械迁移：execution plan / Feature Registry / 本文只追加本轮事实；`research-bridge-production-staging-diagnosis-2026-09-22.md` 不导入，旧提交仍保留当时历史诊断。旧 Preview/Production 配置判断不能充当本轮实时事实。没有覆盖 R0–R3 后续实现、修改 Wiki/Contribution authority、新增业务能力或进入 Stage 4.4；Architecture/runtime 数据流未变化，不机械更新架构文档。
+
+本地验证（日志保存在 gitignored `data-cache/pre-4-4-bridge-hardening/`）：
+
+| 命令 / 检查 | 结果 |
+| --- | --- |
+| `npm run test:bridge` | 31/31 PASS，无 skip |
+| `npx vitest run src/components/research-memory/ResearchMemoryWorkspace.test.tsx` | 14/14 PASS |
+| `npm run test:bridge:browser` | PASS；原生 OAuth form、exact Origin、cookie、PKCE、callback issuer/state、防重放、foreign/null Origin 拒绝；脚本为单流程，无用例计数输出 |
+| `node scripts/knowledge-ingestion-browser-check.mjs` | 131/131 PASS、runtime errors=[]；本地 build preview、隔离 profile 与 synthetic store，真实 IndexedDB/PDF/UI/staging 路径 |
+| `npm test` | 106 files / 1,401 tests PASS，无 skip、无 timeout 或断言放宽 |
+| `npm run build` | PASS；TypeScript / Local Core typecheck / Vite / financial bundle，errors=[]；browser boundary 2,685 modules / 14 chunks / 0 forbidden；继承大 chunk warning |
+| `npm run contracts:validate` | PASS；5 V1 schemas / 40 definitions / 28 versions；Financial Research、Source/Extraction、Wiki、Contribution、Claim、Thesis、Expression validator 全通过 |
+| `npm run test:contracts` | 106 Local Core + 78 Financial Research Node + 162 Vitest PASS；含 R0 authority / F2 / PIT boundary 9项 |
+| `node scripts/data-audit.mjs --no-write` | 0 errors / 42 warnings（P1=20、P2=22）；未改变审计规则、skip/allowlist |
+| 生产 bundle fixture 隔离扫描 | 14 个 assets、11 个 Bridge/R3 synthetic 标识均无命中；fixtures 仅测试引用 |
+
+本轮必要本地验证无环境 BLOCKED；Hosted CI、远程 Preview/Production 验收和真实 ChatGPT/私人资料验收 NOT_RUN（不在授权范围），不能由 synthetic PASS 替代。未配置/启用 Production Bridge，未修改 Preview/Production 环境变量、OAuth client/callback、MCP connector 或 private store；新增凭据/URL 均为明确 synthetic 测试值，无真实 secret/token/private URL/个人数据。
+
+继承限制：24h TTL 为逻辑过期，未实现物理清理；发现列表仍有500键上限；撤销不能收回既读内容或已完成授权检查的在途响应；旧真人 WikiReview / UPDATE/history/revoke 验收继续 PENDING / NOT_REVERIFIED。本轮不重做 Stage 4.3 closeout、不提升任何 admission。交付停止点：普通 commit/push 后等待 ChatGPT 独立审计，无 PR/merge/main 修改或 Production 部署。

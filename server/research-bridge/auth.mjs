@@ -3,8 +3,10 @@ import { createHash, createHmac, timingSafeEqual, randomBytes } from 'node:crypt
 const equal = (a, b) => timingSafeEqual(createHash('sha256').update(a).digest(), createHash('sha256').update(b).digest());
 export function bridgeConfig(env = process.env) {
   const origin = env.BRIDGE_ORIGIN || (env.VERCEL_URL ? `https://${env.VERCEL_URL}` : undefined), ownerSecret = env.BRIDGE_OWNER_SECRET, signingSecret = env.BRIDGE_SIGNING_SECRET;
-  if (env.BRIDGE_ENABLED !== 'true' || !origin || !/^https:\/\/[^/]+$/.test(origin) || !ownerSecret || ownerSecret.length < 32 || !signingSecret || signingSecret.length < 32
-    || !(env.BLOB_READ_WRITE_TOKEN || env.BLOB_STORE_ID)) throw new Error('BRIDGE_NOT_CONFIGURED');
+  if (env.BRIDGE_ENABLED !== 'true') throw new Error('BRIDGE_DISABLED');
+  if (!origin || !/^https:\/\/[^/]+$/.test(origin)) throw new Error('BRIDGE_ORIGIN_NOT_CONFIGURED');
+  if (!ownerSecret || ownerSecret.length < 32 || !signingSecret || signingSecret.length < 32) throw new Error('BRIDGE_AUTH_NOT_CONFIGURED');
+  if (!(env.BLOB_READ_WRITE_TOKEN || env.BLOB_STORE_ID)) throw new Error('BRIDGE_STORAGE_NOT_CONFIGURED');
   const redirects = (env.BRIDGE_OAUTH_REDIRECT_URIS ?? '').split(',').filter(Boolean);
   if (!redirects.length || redirects.some(uri => !/^https:\/\/chatgpt\.com\/(connector_platform_oauth_redirect|connector\/oauth\/[a-zA-Z0-9_-]+)$/.test(uri))) throw new Error('BRIDGE_REDIRECT_NOT_CONFIGURED');
   return { origin, resource: `${origin}/api/mcp`, ownerSecret, signingSecret, clientId: env.BRIDGE_OAUTH_CLIENT_ID || 'research-os-chatgpt', subject: 'personal-owner', redirects };

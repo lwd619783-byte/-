@@ -22,7 +22,7 @@ export function BridgeStagingPanel({ batch, snapshot, sourceRepository, wiki, mo
     const encoded = payload === undefined ? undefined : JSON.stringify(payload);
     wikiRequire(!encoded || new TextEncoder().encode(encoded).byteLength <= 3 * 1024 * 1024, '单份解析文本或文章历史超过 3 MiB 暂存上限，请拆分资料');
     const response = await fetch(`/api/bridge/${action}`, { method: payload ? 'POST' : 'GET', headers: { 'X-Bridge-Owner-Secret': secret, ...(payload ? { 'Content-Type': 'application/json' } : {}) }, body: encoded, cache: 'no-store', credentials: 'omit', redirect: 'error' });
-    if (!response.headers.get('content-type')?.includes('application/json')) throw new Error('研究桥端点尚不可用，请检查 Preview 配置');
+    if (!response.headers.get('content-type')?.includes('application/json')) throw new Error('研究桥暂时不可用，请稍后重试。');
     const value = await response.json();
     if (!response.ok) throw new Error(value.message ?? (response.status === 401 ? '访问密钥不正确或尚未配置' : '研究桥请求失败'));
     return value as StageStatus;
