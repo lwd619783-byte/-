@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**；R3 #77、Legacy Hardening #78 已核验。Stage 4.4 Portfolio Exposure MVP 为 **NEXT / PLANNED / NOT_IMPLEMENTED**。真实仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression**；代码关闭不制造研究对象、不升级 admission 或 Bridge authority。精确事实与限制见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)；supersede 下方旧 CURRENT/待审计状态，保留历史记录。本 docs-only 分支自身待独立审计。
+
 > 2026-09-23 Bridge 专项增量 — **Pre-4.4 Legacy Hardening / IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。基于 `c3b2892459827a8ac060ee38031def840b56a546` 选择性迁移 `58dc00a` 的配置分类、安全中文错误、环境中立提示与失败隔离/只读闭环测试；Research Bridge 继续 Legacy compatibility / read-only / fail-closed，R0 authority split 不变。无 Production / Preview / MCP / private store 真实配置写入，不宣称 Production Bridge 已启用。本条仅更新 Bridge 修复事实；已完成 R3 后的 Stage 4.3 CLOSED / Stage 4.4 NEXT 总状态同步留给下一步 B，不重做 closeout。[迁移与验证记录](research-bridge-readonly-v1.md#pre-44-legacy-hardening2026-09-23)。普通 push 后等待独立审计。
 
 > 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
@@ -238,7 +240,7 @@
 | Asset / Account Local Core | DONE V1 / LOCAL CORE | P0 | Phase 1B：Account、Asset、Transaction、CashFlow、PositionSnapshot、DCA Plan revision / Execution、rollover、append-only SQLite、confirmation、idempotency、Audit、HistoricalAssetImport、账户总额 reconciliation 与 DCA temporal binding；不是完整 Portfolio |
 | Trusted Asset Import Core | DONE V1 / LOCAL CORE | P0 | ImportTrust seam、evidence validation、prepare/plan/confirm/commit、approval binding、幂等与原子写入已实现 |
 | Trusted source adapter / OCR / confirmation UI / real historical migration | NOT STARTED | P0 | 当前只有 fail-closed core seam 与 synthetic/temp 验证；没有真实来源接入、截图解析、浏览器确认流程或真实账户迁移 |
-| Portfolio aggregate / Exposure / read model / UI | NOT STARTED | P0 | Stage 4.4；复用 Phase 1B Local Core，补组合聚合、macro / industry exposure 与浏览器读模型，不重建账本 |
+| Portfolio aggregate / Exposure / read model / UI | NEXT / PLANNED / NOT_IMPLEMENTED | P0 | Stage 4.4；复用 Phase 1B Local Core，补组合聚合、macro / industry exposure 与浏览器读模型，不重建账本；Expression 不等于持仓或交易指令，缺 owner/价格/估值/交易单位保持 unknown/unresolved/blocked |
 | Research Thesis ↔ Position Mapping | NOT STARTED | P0 | Stage 4.4 |
 | Target Allocation / Rebalance Task / Performance Attribution | NOT STARTED | P0 | Stage 4.4；XIRR / TWR 等仍需独立 methodology / admission |
 | Research Bridge / controlled remote access | READ-ONLY LEGACY IMPLEMENTED；DOMAIN MCP PLANNED | P0 | Slice 2.5 只读 Bridge 保留 fallback；Stage 4.5 面向 Creator/Evidence/Claim/Thesis/Expression，复用权限/确认/Audit，不默认代理 Wiki |
@@ -373,9 +375,9 @@ R2 已实现切片与剩余工作：
 - 语义边界：External Commentary；不自动晋升 Provider Fact / Verified Claim / Thesis。
 - Stage 4.3 复用方式：作为第一条 L0/L1 Research Memory adapter，不复制第二套 Creator 真源。
 
-### Stage 4.3 — External Knowledge + Research Decision（R3 Closeout）
+### Stage 4.3 — External Knowledge + Research Decision（CLOSED）
 
-Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不等于代码关闭。R0 已 MERGED / MAIN CI PASS；R1 Verified Claim V1、R2 Thesis V1 已 CLOSED；R3 IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT。
+Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不等于代码关闭。R0–R3 已 CLOSED；R3 #77 与 A 阶段 #78 的独立审计、PR/main CI、合入和 Production READY 见 [Final Closeout](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。
 
 | Capability | Classification / current status | Authority / boundary |
 | --- | --- | --- |
@@ -388,7 +390,8 @@ Slice 1 CLOSED；Slice 2/2.5 代码已 MERGED / MAIN CI PASS；真实验收不�
 | Verified Claim V1 | R1 CLOSED / MERGED / MAIN CI PASS | 原 candidate pin + graph digest/target 精确绑定；双 F2/owner 校验、用户确认、append-only revision/rejection/history；0 real verified |
 | Research Context | R1 IMPLEMENTED / LOCAL ONLY | kind/title/URL 非权威背景；不进入 F2、不保存外部正文或调用 API |
 | Thesis V1 + Macro → Industry | R2 CLOSED / MERGED / MAIN CI PASS | scenario/drivers/catalysts/risks/invalidation/confidence/asOf/revision/用户确认 |
-| Investment Expression + Closeout | R3 IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT | exact Thesis revision、用户确认、append-only、trace、backup/recovery；ETF/Index/Equity 正向仅 synthetic；真实 0 formal |
+| Investment Expression + Closeout | R3 CLOSED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY | exact Thesis revision、用户确认、append-only、trace、backup/recovery；ETF/Index/Equity 正向仅 synthetic；真实 0 formal |
+| Pre-4.4 Research Bridge Legacy Hardening | INDEPENDENT AUDIT PASS / PR CI PASS / MERGED / MAIN CI PASS / Production READY | 配置分类、安全诊断、fail-before-store、HTTP → MCP 与 TTL/revoke/selection/tenant isolation 回归；仍 Legacy / read-only / fail-closed，私人验收未升级 |
 
 两条 lane 可以引用，但 Notion/券商研报/AI Draft/Creator Commentary 不能单独产生 Verified Claim。OS 不建立 Notion 正文镜像或新的云业务库；V1 contracts、legacy storage/backup/review保持兼容。旧 Slice 3 不再独立建设 Creator Wiki；后续 Stage 4.5 提供 Creator context/Evidence/Claim/Thesis/Expression Domain Tools，不重复代理 Drive/Notion。
 

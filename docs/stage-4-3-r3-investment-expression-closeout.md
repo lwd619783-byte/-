@@ -1,5 +1,59 @@
 # Stage 4.3-R3 — Investment Expression V1 + Closeout
 
+## Final Closeout — 2026-09-23 CURRENT
+
+**Stage 4.3 — CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。
+本节 supersede 下方历史 CURRENT、CLOSEOUT READY、PENDING INDEPENDENT AUDIT 和旧停止点；下方 R3 实现、审计前自查与本地测试记录保留原时点含义。关闭代码阶段不等于完成旧私人资料验收或提升数据准入。
+
+本次 docs-only 开工已 fetch 并核验仓库 `lwd619783-byte/-`，Base 为 `origin/main @ 925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`，工作区 clean、开放 PR 为 0。从该 Base 新建 `docs/stage-4-3-final-closeout-stage-4-4-handoff`；未 merge / cherry-pick 旧 `codex/stage-4-3-closeout-status-sync @ a7d866da2a6c41f2bde3603f87c0d656e5ac2d7f`。
+
+### 已核验的合入与部署事实
+
+2026-09-23 通过 GitHub PR / Actions 与 Vercel deployment 只读查询重新核验以下事实。独立审计结论来自用户已确认结果与对应 PR 的 Audit 记录，不冒充本轮重新审计；PR reviews 列表为空不等于没有外部 ChatGPT 审计。
+
+| 证据 | R3 Investment Expression | A 阶段 Legacy Hardening |
+| --- | --- | --- |
+| 独立审计 Head | `0970a31ec2487ea699943afe6e881420b8ae8535` | `0901880a7382aa75ed099014b06cc0c15c51cb3b` |
+| 独立审计 | PASS / P0=0 / P1=0；PR 记录保留一项非阻断 UI 文案 P2 | PASS / P0=0 / P1=0 / P2=0 |
+| PR | [#77](https://github.com/lwd619783-byte/-/pull/77) MERGED | [#78](https://github.com/lwd619783-byte/-/pull/78) MERGED |
+| squash merge / main | `c3b2892459827a8ac060ee38031def840b56a546` | `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0` |
+| PR exact-head Hosted CI | [35804055411](https://github.com/lwd619783-byte/-/actions/runs/35804055411) completed / success；绑定上述审计 Head | [35819964450](https://github.com/lwd619783-byte/-/actions/runs/35819964450) completed / success；绑定上述审计 Head |
+| merge 后 main push CI | [35804503402](https://github.com/lwd619783-byte/-/actions/runs/35804503402) completed / success；绑定上述 merge SHA | [35820222982](https://github.com/lwd619783-byte/-/actions/runs/35820222982) completed / success；绑定上述 merge SHA |
+| Vercel Production | `dpl_6fHXcNWeFG9M1usPy7KyuZTopfyp`，READY / production，绑定 `c3b2892459827a8ac060ee38031def840b56a546`；R3 历史部署 | `dpl_hggnxDKt6agDP9Bq78qntZL66wbM`，READY / production，绑定 `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`；核验时当前生产域名亦解析到该部署 |
+
+A 阶段仅迁移旧 `58dc00a` 仍有效的配置错误分类、安全中文错误、environment-neutral 提示、fail-before-store、HTTP → MCP read-only 与 TTL / revoke / selection / tenant isolation 回归。[迁移与原本地验证](research-bridge-readonly-v1.md#pre-44-legacy-hardening2026-09-23)保持历史记录。Research Bridge 继续 **Legacy compatibility / read-only / fail-closed**；应用 Production READY 不表示 Bridge 已完成真实私人资料验收、增加 Production business authority 或 MCP 写权限，也不替代 Drive/Notion。
+
+### 双通道与真实研究状态
+
+- Research Decision Lane：`Provider / official Evidence / Creator owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression`。
+- External Knowledge Lane：`Google Drive L0 原件 → ChatGPT draft analysis / extraction → Notion L2 Wiki`。
+- 两条通道可以引用，但 authority 不混淆。Notion / AI Draft / Creator Commentary / 研报等 research context 不能单独晋升 Verified Claim；正式 Claim 继续经过原 OS Evidence / F2 / PIT / admission / revision 门禁。
+- Local Wiki、Markdown / Obsidian projection、BrowserSource/parser、Research Bridge 保留兼容能力，不再是默认长期知识主路线。
+
+正式留存/生产研究对象状态仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression**。这些数字沿用已核验的真实留存状态；本轮不刷新数据、不盘点私人 profile，也不把 synthetic 能力测试当成真实研究资产。R1/R2/R3 实现不自动产生任何正式对象。
+
+### Stage 4.4 handoff
+
+主开发线切换为 **Stage 4.4 — Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**；本轮没有实现。
+
+优先复用既有 Phase 1B 的 `Account / Asset / Transaction / CashFlow / PositionSnapshot` 及其正式 owner / repository / persistence / permissions，**不得建立第二套投资账户或持仓账本**。Phase 1B 是既有 Node-only Local Core；其完成不代表 Portfolio Exposure runtime/UI 已实现，见 [Phase 1B 交付](investment-dashboard-v2-phase-1b-implementation-alignment-validation.md)与[冻结合同入口](../contracts/v1/README.md)。
+
+`Investment Expression` 是研究层面的投资表达，不等于 Position、Target Allocation、Transaction、Rebalance、Trade Instruction 或实际账户持仓。Stage 4.4 需要建立研究表达 → Portfolio Exposure 的受控连接，不能把 Expression 直接当交易指令。资产 identity、账户 owner、价格、估值、交易单位或其他关键 owner 不完整时必须保持 **unknown / unresolved / blocked**，不能由 AI 猜值或默认补 0。
+
+### 继承限制与本轮停止点
+
+- Provider / PIT / data admission 未升级；Stage 4.3 CLOSED 不代表这些缺口已解决。
+- LocalStorage 跨标签页仍不是原子 CAS / 多写者事务。
+- ETF / Index / Fund / CommodityProxy 正式 runtime owner 仍不完整；immutable quantitative price / valuation / liquidity adapter 缺口继续保留。
+- Research Bridge TTL 仍是逻辑过期；物理清理不是本轮能力，后续 revoke 无法收回已读取内容。
+- 旧 Slice 2.5 真人 WikiReview、UPDATE / full history / accepted UPDATE 后 ChatGPT revoke-denial 继续 **PENDING / NOT_REVERIFIED**，不虚构 PASS。
+
+本轮仅同步八份文档，不修改业务代码、contracts/schema、Provider、Evidence/F2、Claim/Thesis/Expression authority、资产 runtime、数据、Production 配置或 secret、Research Bridge/MCP connector。本 docs-only 分支自身仍待独立审计；上表 MERGED/CI/Production 只描述 #77/#78，不预写本分支已合入。停止点：普通 commit/push、核对 remote HEAD 与 clean worktree，等待 ChatGPT 独立审计；不创建 PR、不 merge、不修改 main、不部署。
+
+本轮验证：8 份 docs-only diff allowlist、194 处 Markdown 本地链接/锚点、6 个新增 GitHub 证据 URL、历史日期段落与 R3/Bridge/Architecture 原正文保留检查、新增内容 secret/本机路径/URL 检查、`git diff --check` 均 PASS；`npm run contracts:validate` PASS（5 V1 schemas / 40 definitions / 28 versions 及各研究领域 validator）。全量 tests/build/browser、数据刷新、真实私人验收、本分支 Hosted CI / Production 部署均 NOT_RUN。历史 `stage:4.3:closeout` 检查器依赖 R3 本地报告和当时“等待独立审计”的停止点，本轮 NOT_RUN，不修改或降低其断言，也不冒充最终关闭 gate。
+
+## 历史 R3 实现与审计前交付记录
+
 状态：**Stage 4.3 — IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。Base `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`，独立分支 `codex/stage-4-3-r3-investment-expression-closeout`。
 
 ## R2 CLOSED / D0

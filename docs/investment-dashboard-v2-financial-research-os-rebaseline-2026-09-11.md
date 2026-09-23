@@ -1,5 +1,7 @@
 # Investment Research Dashboard V2 · Financial Research OS Rebaseline
 
+> 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**；#77/#78 与 main `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0` 已核验。主线切换 **Stage 4.4 — Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**，沿用双通道 authority、Phase 1B 正式账本与 fail-closed 边界。[Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current) supersede 下方旧 CURRENT/停止点；历史审计不回写，本轮未实现 Stage 4.4，docs-only 分支仍待独立审计。
+
 > 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
 
 
@@ -352,15 +354,16 @@ OS Research Decision Lane：Provider / official Evidence / Creator structured ow
 | R0（CLOSED） | 双通道 authority；PR #74 merged、main CI PASS |
 | R1（CLOSED） | Verified Claim V1；PR #75 merged、PR/main CI PASS、Production READY；真实 5/0/0，admission 不变 |
 | R2（CLOSED） | Thesis V1 + Macro → Industry；PR #76 / main CI / Production 已实时核验；exact Claim revision、append-only、Local-first |
-| R3（CURRENT） | Investment Expression V1 + Closeout；IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT；只普通 push 后独立审计 |
+| R3（CLOSED） | Investment Expression V1 + Closeout；INDEPENDENT AUDIT PASS / PR #77 MERGED / PR CI PASS / MAIN CI PASS / Production READY |
+| A 阶段（CLOSED） | Legacy Hardening；INDEPENDENT AUDIT PASS / PR #78 MERGED / PR CI PASS / MAIN CI PASS / Production READY；Bridge 继续只读兼容 |
 
 旧 Slice 3“Creator → Wiki + 三位真实博主”不再独立实施；Creator 保留 OS owner，长期 Wiki 交外部 Notion。旧 Slice 4–6 未实现范围由 R1–R3 承接，历史编号不改。R0 不接 Notion/Drive API、不存外部正文、不开发 Claim/Thesis/Expression、不修改 4.4；Stage 4.5 改为 OS Domain MCP，原 Bridge 仅 transitional/fallback，真实替代迁移通过前不退役。
 
-**CURRENT STOP：R2 普通 commit/push 后等待 ChatGPT 独立审计；不创建 PR、merge、修改 main 或部署 Production，不开始 R3。** [R0 正式决定与 Git/CI 证据](stage-4-3-r0-external-knowledge-rebaseline.md)。
+**CURRENT STOP：Final Closeout docs-only 分支普通 commit/push 后等待 ChatGPT 独立审计；不创建 PR、merge、修改 main、部署 Production 或实现 Stage 4.4。** [最终事实与 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。
 
 ### Stage 4.4 — Portfolio Exposure MVP
 
-继续复用 Phase 1B Local Core，不建立第二套账本。交付：
+状态：**NEXT / PLANNED / NOT_IMPLEMENTED**。优先复用 Phase 1B Account / Asset / Transaction / CashFlow / PositionSnapshot 的正式 owner / repository / persistence / permissions，不建立第二套投资账户或持仓账本。Expression 仅为研究表达，不等于实际持仓、目标配置、Transaction、Rebalance 或交易指令；必须经受控连接进入 Portfolio Exposure。关键 identity/账户 owner/价格/估值/交易单位不完整时 unknown / unresolved / blocked，不由 AI 猜值或补 0。以下为计划交付，本轮不实现：
 
 - Portfolio aggregate / read model；
 - thesis ↔ position；

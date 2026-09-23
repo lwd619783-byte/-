@@ -1,5 +1,7 @@
 # Stage 4.3 — Research Memory & Thesis Compiler V1
 
+> 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。R0–R3 主线已关闭，#78 Legacy Hardening 已完成独立审计、PR/main CI、合入与 Production READY。下一阶段 **Stage 4.4 Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**；[Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current) supersede 下方旧 CURRENT、R3 待审计和未 CLOSED 状态，不改历史审计。旧真人 WikiReview / UPDATE/history/revoke 仍 PENDING / NOT_REVERIFIED；本 docs-only 分支仍待独立审计。
+
 > 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
 
 
@@ -23,9 +25,9 @@
 - Research Decision Lane：原 Provider / official Evidence / Creator owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Stage 4.4；外部 context 不单独验证 claim。
 - KEEP：公共 Source/Extraction、Creator adapters、Evidence/F2/Drawer、provenance/asOf/revision/review/fail-closed、knowledge-contribution.v1 interchange。
 - FREEZE / LEGACY：Wiki V1 local authority、JSON backup/recovery、Markdown/Obsidian、BrowserSource/parser、只读 Bridge、Wiki editor。数据和功能保留，OS 不镜像 Notion 正文。
-- 新序列：**R0（已合入）→ R1 Verified Claim V1（CLOSED）→ R2 Thesis V1 + Macro → Industry（CLOSED）→ R3 Investment Expression + Closeout（CURRENT / PENDING INDEPENDENT AUDIT）**。R2 实现和验收见新交付文档。旧 Slice 1/2/2.5 历史不改；旧 Slice 3不再独立扩建，Creator Wiki外置，Stage 4.5提供Creator context。
+- 当前序列：**R0（CLOSED）→ R1 Verified Claim V1（CLOSED）→ R2 Thesis V1 + Macro → Industry（CLOSED）→ R3 Investment Expression + Closeout（CLOSED）→ Stage 4.4 Portfolio Exposure MVP（NEXT / PLANNED / NOT_IMPLEMENTED）**。#78 Legacy Hardening 已收口；旧 Slice 1/2/2.5 历史不改，旧 Slice 3 不再独立扩建，Creator Wiki 外置，Stage 4.5 提供 Creator context。
 - Stage 4.5 聚焦 OS Domain MCP 和 prepare/preview/confirm/commit；不重复代理 Drive/Notion。Bridge 只有替代完成且真实迁移通过才讨论退役。
-- 新关闭条件见 R0 §4；Stage 4.3未CLOSED，旧真实验收缺口不记PASS。本轮commit/push后等待独立审计，无PR/merge/Production。
+- 按 R0 §4，Stage 4.3 正式 CLOSED；旧真实验收缺口不记 PASS。精确事实、Phase 1B 复用、Expression 与持仓/交易的 authority 边界及继承限制见 [Final Closeout 与 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。本 docs-only 分支 commit/push 后等待独立审计，无 PR/merge/Production 或 Stage 4.4 实现。
 
 ## 历史冻结与交付记录（2026-09-20～21）
 
