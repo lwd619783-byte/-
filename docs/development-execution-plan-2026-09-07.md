@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-24 CURRENT · Stage 4.4 docs-only closeout：**IMPLEMENTED / TARGETED RE-REVIEW PASS / READY FOR PR**。ChatGPT targeted re-review 绑定 `5d12c97cb0342176ec82196f39502668f5d9238f`，P0=0 / P1=0 / P2=0；full projection canonical integrity binding、Account lifecycle / denominator semantics、confirmation / Audit authority 与只读边界均 PASS。该 SHA 的 Preview deployment READY，用户已完成人工验收且无新增修改要求。PR NOT_CREATED / Hosted PR CI NOT_RUN / merge NOT_DONE / main NOT_MODIFIED / Production NOT_UPDATED、NOT_VERIFIED FOR STAGE 4.4；真实 Portfolio 对象不增加。下一停止点为 ChatGPT docs-only Final SHA 极轻量复核，之后由用户另行授权创建 PR。本条 supersede 下方旧 Stage 4.4 CURRENT / 停止点，历史记录与测试数字保留原时点含义。[精确事实与收口边界](stage-4-4-portfolio-exposure.md#docs-only-closeout--2026-09-24-current)。
+
 > 2026-09-23 CURRENT · Stage 4.4 targeted audit fix：**IMPLEMENTED / PENDING TARGETED RE-REVIEW**。在已审计 `3bff8f1b52af26b812d633b9a1c66c4bad929ce6` 原分支定向修复 P1 全投影 canonical integrity binding 与 P2 Account lifecycle 传播；inactive/archived 仍计入已记录持仓分母并显式阻断/提示。冻结 Phase 1B、目标 universe、exact research pin、本机只读、交易与绩效边界不变。仅普通 commit/push，停止等待 ChatGPT targeted re-review；本条 supersede 上一条待独立审计状态，保留其历史验证数字。[定向修复与复验](stage-4-4-portfolio-exposure.md#targeted-audit-fix--2026-09-23)。
 
 > 2026-09-23 CURRENT · **Stage 4.4 Portfolio Exposure Integrated MVP — IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。最新 main Base `9e363474abc22ebb6da391dbb2c45c9e8c9358e8`；A Foundation、B Research Exposure、C Planning/Workspace/Eval 在同一功能分支完成。110 files / 1427 tests、Local Core、contracts、build、data audit 与 browser 检查通过；细目及真实限制见 [Stage 4.4 交付](stage-4-4-portfolio-exposure.md)。普通 push 后停止等待独立审计，不创建 PR/merge/部署。本条覆盖旧 Stage 4.4 NEXT 状态，历史审计不回写。
@@ -59,7 +61,7 @@
 
 > 下方 Stage 4.2.5 功能分支验证与更早记录保留其时点意义；当前执行主线为 Stage 4.3 / Slice 1；第三方作者误归因 P1 已定向修复并通过最终针对性复审（P0=0 / P1=0），下一门禁为 PR / exact-head Hosted CI。
 
-## CURRENT — Stage 4.4 待独立审计
+## CURRENT — Stage 4.4 READY FOR PR
 
 默认 External Knowledge Lane：Google Drive L0 → ChatGPT AI draft → Notion L2 Wiki。
 OS Research Decision Lane：Provider / official Evidence / Creator structured owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Stage 4.4。
@@ -73,11 +75,11 @@ OS Research Decision Lane：Provider / official Evidence / Creator structured ow
 | R2（CLOSED） | Thesis V1 + Macro → Industry；PR #76 / PR-main CI PASS / Production READY |
 | R3（CLOSED） | Investment Expression V1 + Closeout；INDEPENDENT AUDIT PASS / PR #77 MERGED / PR CI PASS / MAIN CI PASS / Production READY |
 | A 阶段（CLOSED） | Pre-4.4 Legacy Hardening；INDEPENDENT AUDIT PASS / PR #78 MERGED / PR CI PASS / MAIN CI PASS / Production READY；Bridge authority 不升级 |
-| Stage 4.4（CURRENT） | Portfolio Exposure Integrated MVP；IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT；普通 push 后停止，未创建 PR / merge / Production |
+| Stage 4.4（CURRENT） | Portfolio Exposure Integrated MVP；IMPLEMENTED / TARGETED RE-REVIEW PASS / READY FOR PR；审计/Preview 绑定 `5d12c97cb0342176ec82196f39502668f5d9238f`，Hosted PR CI NOT_RUN；待 docs-only Final SHA 复核与用户 PR 授权 |
 
 旧 Slice 3“Creator → Wiki + 三位真实博主”不再独立实施；Creator 保留 OS owner，长期 Wiki 交外部 Notion。旧 Slice 4–6 未实现范围由 R1–R3 承接，历史编号不改。R0 不接 Notion/Drive API、不存外部正文、不开发 Claim/Thesis/Expression、不修改 4.4；Stage 4.5 改为 OS Domain MCP，原 Bridge 仅 transitional/fallback，真实替代迁移通过前不退役。
 
-**CURRENT STOP：本轮 Final Closeout docs-only 分支普通 commit/push 后等待 ChatGPT 独立审计；不创建 PR、merge、修改 main、部署 Production 或实现 Stage 4.4。** [精确收口事实与 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。
+**CURRENT STOP：Stage 4.4 READY FOR PR；本轮仅在原功能分支 docs-only commit/push，停止等待 ChatGPT 对 docs-only Final SHA 极轻量复核，通过后仍需用户另行授权创建 PR。PR NOT_CREATED / Hosted PR CI NOT_RUN / merge NOT_DONE / main NOT_MODIFIED / Production NOT_UPDATED。** [Stage 4.4 收口](stage-4-4-portfolio-exposure.md#docs-only-closeout--2026-09-24-current)。
 
 > 2026-09-19 CURRENT · Stage 4.2.5 独立审计修复：Creator 发布时间与本地 knowledge/audit 时间分离；历史回填不回退 Current View，T+ 使用来源锚点，未到期 completed/inconclusive 均拒绝。增加 exact corrupt bytes 保留、完整备份校验、显式确认和 reload 的受控灾难恢复；future schema 继续锁定。外部事件 verified 仅表示来源核对。124 项受影响测试、全量 997 tests / 80 files、build、321 browser checks、JSON recovery round-trip、Excel 独立读取 PASS；PENDING TARGETED RE-REVIEW，Hosted CI NOT_RUN。路线保持 Stage 4.2 CLOSED → Stage 4.2.5 CURRENT → Stage 4.3 NEXT。[当前语义与限制](stage-4-2-5-creator-viewpoint-tracker.md#独立审计修复与针对性复审2026-09-19)。
 

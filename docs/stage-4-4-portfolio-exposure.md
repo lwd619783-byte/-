@@ -1,6 +1,44 @@
 # Stage 4.4 — Portfolio Exposure Integrated MVP
 
-状态：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。Base：`9e363474abc22ebb6da391dbb2c45c9e8c9358e8`；fetch 后开放 PR 为 0，原工作区 clean。从最新 origin/main 新建 `codex/stage-4-4-portfolio-exposure-integrated-mvp`，不改 main。
+状态：**IMPLEMENTED / TARGETED RE-REVIEW PASS / READY FOR PR**。当前事实以本节为准；下方 A/B/C 与 2026-09-23 targeted fix 的状态、停止点及测试结果保留历史时点，不作为当前仍待 targeted re-review 的声明。
+
+## Docs-only closeout — 2026-09-24 CURRENT
+
+本次仅文档收口，未修改业务代码、tests、contracts、schema、依赖或 Stage 4.4 scope。开工确认原仓库、原分支 `codex/stage-4-4-portfolio-exposure-integrated-mvp`，本地 HEAD 与远端功能分支均为 `5d12c97cb0342176ec82196f39502668f5d9238f`，worktree clean；fetch 后 `origin/main` 为 `9e363474abc22ebb6da391dbb2c45c9e8c9358e8`，ahead 4 / behind 0，main 未漂移。没有 rebase 或 merge main。
+
+### 审计与 Preview
+
+- Previous audited SHA：`3bff8f1b52af26b812d633b9a1c66c4bad929ce6`。
+- Targeted fix / ChatGPT targeted re-review PASS SHA：`5d12c97cb0342176ec82196f39502668f5d9238f`。根据本轮用户提供的已确认复审结论，P0 阻断 0 / P1 重要 0 / P2 轻微 0，未发现新的阻断、重要或轻微代码问题。
+- P1 full projection canonical integrity binding：**PASS**。
+- P2 Account lifecycle active / inactive / archived propagation / denominator semantics：**PASS**。
+- 原 confirmation / Audit authority 与本机只读边界保持：**PASS**。
+- Vercel Preview deployment：**READY**；本轮只读查询 Vercel deployment 元数据确认 `dpl_87XodK5xJJsSiRkvtrMHUH28YpHo` 对应上述完整 SHA、原功能分支，`target=null`（非 Production）。[Preview](https://investment-research-dashboard-hamjg4gz9-lkdmkl.vercel.app) / [部署记录](https://vercel.com/lkdmkl/investment-research-dashboard/87XodK5xJJsSiRkvtrMHUH28YpHo)。该 READY 仅绑定已审计代码 SHA，不是 docs-only 新 Final SHA 的部署或 Production 验证。
+- 用户已完成该 Preview 人工验收，当前无新增产品修改要求；此项依据用户本轮确认，不宣称本轮重新执行人工验收。
+
+### 当前真实边界
+
+| 项目 | 当前状态与口径 |
+| --- | --- |
+| Stage 4.4 | IMPLEMENTED / TARGETED RE-REVIEW PASS / **READY FOR PR** |
+| PR | **NOT_CREATED**；本轮按功能分支查询全部状态 PR，结果为空 |
+| Hosted GitHub PR CI | **NOT_RUN**；已审计 SHA 的 GitHub Actions runs 查询为 0，本轮不触发正式 PR CI |
+| merge | **NOT_DONE** |
+| main | **NOT_MODIFIED**；本轮只提交原功能分支 |
+| Production | **NOT_UPDATED / NOT_VERIFIED FOR STAGE 4.4**；Preview READY 不代表 Production READY |
+| 私人真实 Portfolio ledger 实接 | 本轮仍 **NOT_RUN**，未作为独立审计证据运行；未读取私人 ledger |
+| 真实 Portfolio 对象 | 本次 docs-only 创建/核验均 **0**；既有交付口径仍为 0 real Portfolio Projection / 0 real Position / 0 real Research Link / 0 real Target Allocation / 0 real Rebalance Task；私人存储未盘点部分仍 UNKNOWN |
+| 本地验证 | 下方 110 files / 1456 tests 等为已审计代码 SHA 的既有本地证据；本轮未重跑全量测试，不写成 Hosted CI |
+
+### 文档验证与下一停止点
+
+只更新本文件、`docs/development-execution-plan-2026-09-07.md`、`docs/feature-registry.md` 的 Stage 4.4 CURRENT / 执行计划 / 交付状态；不回写历史审计。`git diff --check`、docs-only 文件允许清单、非文档零变化与状态边界一致性检查通过；未新增校验脚本。
+
+本轮普通 commit/push 后停止：**READY FOR PR**。下一步由 ChatGPT 对 **docs-only Final SHA** 做极轻量复核，通过后再由用户授权创建 PR；本次不创建 PR、不运行正式 Hosted PR CI、不 merge、不修改 main、不部署 Production。新 Final SHA 以实际 Git 提交和最终报告为准，避免文档自引用 hash。
+
+---
+
+初始 A/B/C 交付时状态：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。Base：`9e363474abc22ebb6da391dbb2c45c9e8c9358e8`；fetch 后开放 PR 为 0，原工作区 clean。从最新 origin/main 新建 `codex/stage-4-4-portfolio-exposure-integrated-mvp`，不改 main。
 
 ## D0 · Reuse / Delta Map
 
