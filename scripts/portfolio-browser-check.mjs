@@ -5,14 +5,14 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 const {chromium}=createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE||'playwright');
 const real=process.env.UI_REVIEW_ORIGIN||'http://127.0.0.1:4183',dev=process.env.UI_REVIEW_SYNTHETIC_ORIGIN||'http://127.0.0.1:4184';
-const output=path.resolve('data-cache/stage-4-4/browser'),harness=path.resolve('data-cache/stage-4-4/browser-harness');
+const output=path.resolve(process.env.UI_REVIEW_OUTPUT||'data-cache/stage-4-4/browser'),harness=path.resolve('data-cache/stage-4-4/browser-harness');
 await fs.mkdir(output,{recursive:true});await fs.mkdir(harness,{recursive:true});
 await fs.writeFile(path.join(harness,'index.html'),'<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"></head><body><main id="root" style="padding:16px;max-width:1100px;margin:auto"></main><script type="module" src="./main.tsx"></script></body></html>');
 await fs.writeFile(path.join(harness,'main.tsx'),`
 import React from 'react';import {createRoot} from 'react-dom/client';import '/src/index.css';import '/src/styles/workspace-v2.css';
-import {PortfolioWorkspacePanel} from '/src/components/portfolio/PortfolioWorkspace';import {portfolioFixture} from '/src/services/portfolio.fixture';import {claimTime as at} from '/src/services/verifiedClaim.fixture';
-const f=await portfolioFixture();for(const [name,store] of [['claim',f.claimStore],['thesis',f.thesisStore],['expression',f.storage]]){const key='synthetic-portfolio-upstream-'+name;const prior=localStorage.getItem(key);if(prior){for(const [k,v] of JSON.parse(prior))store.setItem(k,v);}else localStorage.setItem(key,JSON.stringify([...store.values]));}const read=async()=>f.projection;const clock=()=>new Date(at(12));
-window.portfolioTest={bump(){f.tick(14);f.thesisRepo.saveDraft(f.thesisRepo.load().data,{...f.thesisRepo.load().data.revisions[0],revisionId:'synthetic-successor',supersedes:f.revision.revisionId,createdAt:at(13),asOf:at(13)});},unavailable(){f.owners.expressions=()=>{throw Error('OWNER_UNAVAILABLE');};}};
+import {PortfolioWorkspacePanel} from '/src/components/portfolio/PortfolioWorkspace';import {portfolioFixture,portfolioFixtureInput,portfolioFixtureProjection} from '/src/services/portfolio.fixture';import {projectPortfolio} from '/shared/portfolio.mjs';import {fetchPortfolio} from '/src/services/portfolioWorkspace';import {claimTime as at} from '/src/services/verifiedClaim.fixture';
+const f=await portfolioFixture();for(const [name,store] of [['claim',f.claimStore],['thesis',f.thesisStore],['expression',f.storage]]){const key='synthetic-portfolio-upstream-'+name;const prior=localStorage.getItem(key);if(prior){for(const [k,v] of JSON.parse(prior))store.setItem(k,v);}else localStorage.setItem(key,JSON.stringify([...store.values]));}let projection=f.projection;const read=async()=>projection;const clock=()=>new Date(at(12));
+window.portfolioTest={lifecycle(status){projection=portfolioFixtureProjection(at(12),status);},transport(){return projectPortfolio({...portfolioFixtureInput(),scope:'real'},at(12));},async seam(){try{await fetchPortfolio(at(12));return 'accepted';}catch{return 'rejected';}},bump(){f.tick(14);f.thesisRepo.saveDraft(f.thesisRepo.load().data,{...f.thesisRepo.load().data.revisions[0],revisionId:'synthetic-successor',supersedes:f.revision.revisionId,createdAt:at(13),asOf:at(13)});},unavailable(){f.owners.expressions=()=>{throw Error('OWNER_UNAVAILABLE');};}};
 createRoot(document.getElementById('root')).render(<PortfolioWorkspacePanel owners={f.owners} read={read} clock={clock} evidence={()=>({title:'Synthetic original Evidence',scope:'synthetic-only',quality:[],rows:[],records:[],linkage:null})}/>);
 `);
 const report={scope:'ISOLATED_REAL_EMPTY_AND_SYNTHETIC_CAPABILITY',checks:[],errors:[],screenshots:[],sourceSha256:{},realCreated:{projection:0,position:0,researchLink:0,target:0,rebalance:0}};
@@ -58,6 +58,35 @@ try {
   await page.goto(dev+'/data-cache/stage-4-4/browser-harness/index.html');await page.getByText(/2 个已记录仓位/).waitFor();
   await page.getByRole('combobox',{name:/^仓位/}).selectOption({index:1});await page.getByRole('combobox',{name:/^正式研究表达/}).selectOption({index:1});await page.getByLabel('关联理由',{exact:true}).fill('Synthetic stale preview');await page.getByRole('button',{name:'预览研究关联',exact:true}).click();await page.evaluate(()=>window.portfolioTest.bump());await page.getByRole('button',{name:'本人确认保存',exact:true}).click();
   await page.getByText('操作未完成，请检查输入与原始依据。').waitFor();check(await page.evaluate(k=>localStorage.getItem(k),key)===null,'upstream drift blocks confirmation');await context.close();
+  const targetedContext=await browser.newContext({viewport:{width:390,height:960}}),targeted=await targetedContext.newPage();
+  targeted.on('pageerror',e=>report.errors.push(e.message));
+  await targeted.goto(dev+'/data-cache/stage-4-4/browser-harness/index.html');await targeted.getByText(/2 个已记录仓位/).waitFor();
+  for(const status of ['active','inactive','archived']) {
+    await targeted.evaluate(status=>window.portfolioTest.lifecycle(status),status);await targeted.getByRole('button',{name:'读取组合',exact:true}).click();
+    await targeted.getByText(new RegExp('账户状态：.*'+status)).first().waitFor();
+    check(await targeted.getByText(new RegExp('账户状态：.*'+status)).count()===2,`lifecycle ${status} visible per position`);
+    check(await targeted.getByText(/持仓仍计入已记录仓位分母，账户状态阻断需复核/).count()===(status==='active'?0:2),`lifecycle ${status} denominator disclosed`);
+    check(await targeted.getByRole('heading',{name:/已记录金额 300 CNY/}).count()===1,`lifecycle ${status} recorded denominator unchanged`);
+    check(await targeted.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`lifecycle ${status} mobile viewport`);
+  }
+  await targeted.screenshot({path:path.join(output,'lifecycle-archived-390.png'),fullPage:true});report.screenshots.push('lifecycle-archived-390.png');
+  const original=await targeted.evaluate(()=>window.portfolioTest.transport());
+  let wire=structuredClone(original);
+  await targeted.route('**/__local/portfolio?**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(wire)}));
+  check(await targeted.evaluate(()=>window.portfolioTest.seam())==='accepted','browser seam accepts official projector binding (isolated synthetic transport)');
+  const mutations=[
+    ['positions.0.quantity',99],['positions.0.snapshotId','forged'],['positions.0.accountName','forged'],['positions.0.assetName','forged'],
+    ['positions.0.instrumentId','forged'],['positions.0.accountStatus','archived'],['positions.0.blockers',[]],['positions.0.blockers',['FORGED']],
+    ['status','unresolved'],['blockers',[]],['blockers',['FORGED']],['schemaVersion','portfolio-projection.v99'],
+    ['integrity',null],['integrity.version','portfolio-integrity.v99'],['integrity.canonicalPayload','corrupt'],
+    ...['snapshot','account','asset'].flatMap(owner=>[['recordedAt','2026-09-02T00:00:00.000Z'],['operationKey','forged'],['auditEventId','forged'],['payloadDigest','b'.repeat(64)]].map(([field,value])=>[`positions.0.lineage.${owner}.${field}`,value]))
+  ];
+  for(const [field,value] of mutations) {
+    wire=structuredClone(original);const parts=field.split('.');let row=wire;for(const part of parts.slice(0,-1))row=row[part];row[parts.at(-1)]=value;
+    check(JSON.stringify(wire.cohorts)===JSON.stringify(original.cohorts),`mutation preserves cohorts: ${field}`);
+    check(await targeted.evaluate(()=>window.portfolioTest.seam())==='rejected',`browser seam rejects ${field} ${JSON.stringify(value)}`);
+  }
+  await targetedContext.close();
   check(report.errors.length===0,'zero page runtime errors');report.status='PASS';
 }catch(e){report.status='FAIL';report.failure=String(e);process.exitCode=1;}finally{await browser.close();await fs.writeFile(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');}
 console.log(JSON.stringify({status:report.status,checks:report.checks.length,errors:report.errors,failure:report.failure}));

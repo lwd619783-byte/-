@@ -21,7 +21,7 @@ export function readPortfolio(reads: AssetReads, audit: Pick<AuditRepository, 'g
   const strip = ({ warnings: _warnings, ...rest }: Receipt & { warnings: string[] }): Receipt => rest;
   const input: PortfolioInput = {
     schemaVersion: 'portfolio-input.v1', scope,
-    accounts: reads.accounts().map(a => ({ accountId: a.accountId, name: a.name, receipt: strip(receipt('account', a.accountId, a)) })),
+    accounts: reads.accounts().map(a => ({ accountId: a.accountId, name: a.name, status: a.status, receipt: strip(receipt('account', a.accountId, a)) })),
     assets: reads.assets().map(a => ({ assetId: a.assetId, name: a.name, assetType: a.assetType, primaryCategory: a.primaryCategory, strategyBucket: a.strategyBucket ?? null, instrumentId: a.instrumentId ?? null, receipt: strip(receipt('asset', a.assetId, a)) })),
     snapshots: reads.positions().map(s => { const r = receipt('position_snapshot', s.snapshotId, s); return { snapshotId: s.snapshotId, snapshotDate: s.snapshotDate, accountId: s.accountId, assetId: s.assetId, quantity: s.quantity, marketValue: s.marketValue.amount, currency: s.marketValue.currency, receipt: strip(r), warnings: r.warnings }; }),
   };

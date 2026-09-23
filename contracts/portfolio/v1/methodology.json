@@ -14,5 +14,18 @@
   "execution": "blocked without FX, price, quantity, valuation, trade unit and complete coverage",
   "performance": "not_admitted",
   "lineage": ["positionId", "snapshotId", "snapshotDate", "receipt", "methodology", "asOf"],
-  "permission": "read ledger; local user-confirmed research links and planning only; no AI or MCP write"
+  "permission": "read ledger; local user-confirmed research links and planning only; no AI or MCP write",
+  "projectionIntegrity": {
+    "version": "portfolio-integrity.v1",
+    "binding": "canonical JSON of every read-model field except integrity, created only by projectPortfolio; validate raw and parsed payload before reconstruction; missing/corrupt/future binding rejects",
+    "authority": "content integrity only, not a signature; original Local Core confirmation/Audit remains authority"
+  },
+  "accountLifecycle": {
+    "owner": "Phase 1B Account.status",
+    "values": ["active", "inactive", "archived"],
+    "projectionField": "positions[].accountStatus",
+    "denominator": "all eligible recorded positions remain included regardless of lifecycle",
+    "nonActive": "partial projection; ACCOUNT_INACTIVE / ACCOUNT_ARCHIVED position blockers, account-qualified projection/cohort blockers; UI explicitly discloses inclusion; execution remains not_admitted",
+    "missingOrFuture": "reject; never default active"
+  }
 }

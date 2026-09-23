@@ -70,3 +70,48 @@ D0 未发现要求破坏冻结资产合同、建立第二账本或无法安全�
 - 所有任务为规划复核，缺价格/交易单位/完整覆盖时 `blocked`；没有买卖数量、成交状态或正式绩效值。
 
 最终停止点：**普通 push 完成后等待独立审计**。Final SHA 以 Git/最终报告绑定，避免文档自引用 hash；本分支不预写 MERGED、MAIN CI PASS、Production READY 或 Stage 4.4 CLOSED。
+
+
+## Targeted audit fix — 2026-09-23
+
+本节是原 A/B/C 交付之后的定向增量，以上审计与验证数字保留原时点含义。Previous audited SHA：`3bff8f1b52af26b812d633b9a1c66c4bad929ce6`；继续 `codex/stage-4-4-portfolio-exposure-integrated-mvp`，不重做 A/B/C、不扩 scope。状态：**IMPLEMENTED / PENDING TARGETED RE-REVIEW**；修复 commit / Final SHA 由最终 Git 报告绑定。
+
+- **P1**：仅 `projectPortfolio()` 的私有封装产生 `portfolio-integrity.v1`，绑定除 integrity 自身之外的全部 canonical read-model 内容。浏览器 `validateProjection()` 核验收到的原内容及 schema parse 后的内容，避免 trim 等规范化掩盖漂移；随后保留原 cohort/identity/lineage/time 检查，并增加完整 rebuilt Position 与 status 一致性。空结果、冲突结果同样绑定，缺失、损坏或未来版本拒绝。UI 读取入口也先验证再展示，损坏数据不产生持仓/规划表单，不进行自动修复。
+- **P2**：从原 Phase 1B `Account.status` 直接传播 `positions[].accountStatus` 与原 account receipt；active/inactive/archived 均明确展示。V1 方法学冻结：合法已记录持仓不因停用/归档被视作清仓，继续计入相同币种/快照分母；非 active 在 Position、cohort、projection 与规划中有明确 blocker，UI 说明仍计入且需复核。缺失或未知 lifecycle 拒绝，无 active 默认值。
+- **边界**：canonical binding 复用既有 exact-pin 工具，传输量增加一份 canonical read-model 内容；它与无密钥 digest 一样是内容完整性检查，并非签名，也不能认证可同时替换内容与 binding 的攻击者。真实性仍由原 Local Core confirmation/Audit 和本机只读 seam 建立。没有引入新服务、依赖、authority、账本或持久化投影；没有修改 frozen ledger contract、Account owner、target universe、FX/price/trade unit、execution/Performance admission 或 exact research pin。
+
+新增负向回归覆盖 quantity、snapshotId、accountName、assetName、instrumentId、accountStatus、Position/global blocker 删除或伪造、三类 receipt 的 recordedAt/operationKey/auditEventId/payloadDigest、status、schema/binding 缺失/损坏/future、规范化前漂移，以及 self-consistent forged binding 下的 rebuilt status 不一致。所有 mutation 检查保留 cohort 金额不变。生命周期分别覆盖正式确认回执读取、只读不改 ledger、Node 投影、Vitest planning/UI 与浏览器；真实对象数量仍为 0，浏览器 seam 篡改仅为隔离 synthetic transport fixture，不连接私人 DB。
+
+本轮实际 changed files（相对 Previous audited SHA）：
+
+- `shared/portfolio.mjs`、`shared/portfolio.d.mts`
+- `local-core/domain/portfolio-projection.ts`、`local-core/tests/portfolio.node.mjs`
+- `src/components/portfolio/PortfolioWorkspace.tsx`、`src/components/portfolio/PortfolioWorkspace.test.tsx`
+- `src/services/portfolio.fixture.ts`、`src/services/portfolioPlanning.test.ts`
+- `scripts/tests/portfolio-projection.node.mjs`、`scripts/portfolio-browser-check.mjs`、`scripts/contracts/portfolio.mjs`
+- `contracts/portfolio/v1/README.md`、`contracts/portfolio/v1/methodology.json`
+- `docs/feature-registry.md`、`docs/development-execution-plan-2026-09-07.md`、`docs/stage-4-4-portfolio-exposure.md`
+
+完整复验结果与证据见本节下表（本机日志：`data-cache/stage-4-4/targeted-fix/`，不提交生成产物）。
+
+
+| 本轮复验 | 实际结果 |
+| --- | --- |
+| Portfolio Local Core integration | 7/7 PASS；三种原 Account status 与原 confirmation/Audit receipt，ledger 字节不变 |
+| Projection / local seam Node | 44/44 PASS；最终日志 `projection-final.log` |
+| Portfolio domain / planning / UI | 51/51 PASS（6 + 36 + 9）；无删除原测试或降低断言 |
+| Portfolio F3 | 4/4 PASS；原冻结分母不变，synthetic-only |
+| Local Core 全套 | 261/261 PASS |
+| Thesis / Expression regression | 49/49 + 71/71 PASS |
+| npm test（最终单 worker 完整运行） | 110 files / 1456 tests PASS |
+| npm run build | PASS；browser graph 2702 modules / 16 chunks / 0 forbidden；既有 chunk-size warning |
+| contracts validation | PASS；包括新增 Portfolio binding/lifecycle 方法学断言；Phase 1B frozen contract 未变 |
+| data audit --no-write | PASS；0 errors / 42 warnings（P0=0 / P1=20 / P2=22），未刷新数据或回写报告 |
+| Portfolio browser | 114 checks PASS / 0 page runtime errors；包含原流程与 27 种不改变 cohort 的响应篡改、三种 lifecycle 展示/分母/手机宽度 |
+| browser boundary / fixture isolation | PASS；生产 bundle 无 fixture / Node CLI / ledger write 路径 |
+| Thesis / Expression browser | 49/49 + 43/43 PASS；两者均 0 page runtime errors |
+| git diff --check | PASS；16 个 changed files，frozen ledger / Account owner / 原 Research 实现未变 |
+
+首轮默认并发 `npm test` 与 Local Core/编译等验证并行时，`App.owner-state.test.tsx` 的 A/D 用例在原 20 秒 timeout 下失败（其他 1455 项通过）；失败证据保留于 `npm-test.log`。其他验证结束后以 `npm test -- --maxWorkers=1 --minWorkers=1` 独立完整重跑，110 files / 1456 tests 全通过（221.71s）。原 timeout 与所有断言保持，未以局部重跑替代全量证据。
+
+停止点：普通 commit/push 当前分支后等待 **ChatGPT targeted re-review**。不创建 PR、merge、修改 main 或部署 Production。Hosted CI / Production / 私人 ledger 实接仍 NOT_RUN，本轮真实 Portfolio 对象创建/核验仍为 0。

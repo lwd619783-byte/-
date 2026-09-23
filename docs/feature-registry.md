@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-23 CURRENT · Stage 4.4 targeted audit fix：**IMPLEMENTED / PENDING TARGETED RE-REVIEW**。在已审计 `3bff8f1b52af26b812d633b9a1c66c4bad929ce6` 原分支定向修复 P1 全投影 canonical integrity binding 与 P2 Account lifecycle 传播；inactive/archived 仍计入已记录持仓分母并显式阻断/提示。冻结 Phase 1B、目标 universe、exact research pin、本机只读、交易与绩效边界不变。仅普通 commit/push，停止等待 ChatGPT targeted re-review；本条 supersede 上一条待独立审计状态，保留其历史验证数字。[定向修复与复验](stage-4-4-portfolio-exposure.md#targeted-audit-fix--2026-09-23)。
+
 > 2026-09-23 CURRENT · Stage 4.4 Portfolio Exposure Integrated MVP：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。Base `9e363474abc22ebb6da391dbb2c45c9e8c9358e8`；A/B/C 同一功能分支连续完成。复用 Phase 1B 账本与 Stage 4.3 原研究 owner，新增本机只读 projection、六维结构暴露、exact 研究关联、定性研究暴露、本人确认的目标与再平衡复核、组合 Workspace/F3。真实对象本轮创建/核验均0，私人存储未盘点；不提供 FX、交易或绩效。仅普通 push 后待独立审计。[实现、验证、限制](stage-4-4-portfolio-exposure.md)。本条 supersede 旧 Stage 4.4 NEXT/NOT_IMPLEMENTED，历史审计保持原时点含义。
 
 > 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**；R3 #77、Legacy Hardening #78 已核验。Stage 4.4 Portfolio Exposure MVP 为 **NEXT / PLANNED / NOT_IMPLEMENTED**。真实仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression**；代码关闭不制造研究对象、不升级 admission 或 Bridge authority。精确事实与限制见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)；supersede 下方旧 CURRENT/待审计状态，保留历史记录。本 docs-only 分支自身待独立审计。

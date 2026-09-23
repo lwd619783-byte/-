@@ -4,8 +4,14 @@ import { methodology,dimensions,projectPortfolio,validateProjection } from '../.
 const contract=JSON.parse(fs.readFileSync('contracts/portfolio/v1/methodology.json','utf8'));
 assert.equal(contract.schemaVersion,'portfolio-methodology.v1');assert.equal(contract.methodology,methodology);
 assert.deepEqual(contract.dimensions,dimensions);assert.equal(contract.denominator,'recorded_positions_only');
+assert.equal(contract.projectionIntegrity.version,'portfolio-integrity.v1');
+assert.deepEqual(contract.accountLifecycle.values,['active','inactive','archived']);
+assert.equal(contract.accountLifecycle.projectionField,'positions[].accountStatus');
 const input={schemaVersion:'portfolio-input.v1',scope:'synthetic',accounts:[],assets:[],snapshots:[]};
 const p=projectPortfolio(input,'2026-09-23T00:00:00.000Z');assert.deepEqual(validateProjection(p),p);
 for(const bad of [{...input,schemaVersion:'future'}, {...input,transaction:[]}, {...input,snapshots:[{}]}])assert.throws(()=>projectPortfolio(bad,p.asOf));
 assert.throws(()=>validateProjection({...p,schemaVersion:'future'}));
+assert.equal(p.integrity.version,contract.projectionIntegrity.version);
+assert.throws(()=>validateProjection({...p,integrity:undefined}));
+assert.throws(()=>validateProjection({...p,integrity:{...p.integrity,version:'future'}}));
 console.log('Portfolio V1 contract/methodology: PASS; additive, no ledger permission changes.');

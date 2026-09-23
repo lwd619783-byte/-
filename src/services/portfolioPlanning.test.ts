@@ -1,8 +1,9 @@
-import { it, expect } from 'vitest';
+import { it, expect, vi } from 'vitest';
 import { canonicalJson } from '../../shared/canonical-json.mjs';
-import { validateProjection } from '../../shared/portfolio.mjs';
-import { portfolioFixture } from './portfolio.fixture';
+import { validateProjection, projectPortfolio, type PortfolioProjection } from '../../shared/portfolio.mjs';
+import { portfolioFixture, portfolioFixtureProjection, portfolioFixtureInput } from './portfolio.fixture';
 import { claimStorage, claimTime as at } from './verifiedClaim.fixture';
+import { fetchPortfolio } from './portfolioWorkspace';
 import { PortfolioRepository, PORTFOLIO_STORAGE_KEY, validatePortfolioData } from './portfolioRepository';
 import { rebalance, targetIdentity, validateTarget, type TargetAllocation } from './portfolioPlanning';
 
@@ -23,4 +24,31 @@ it('review stores exact task and history; review does not lift execution block',
 it('unknown dimension and foreign target scope block confirmation',async()=>{const f=await setup();const t={...f.target,allocations:[{value:'not-owned',basisPoints:10000}]};expect(()=>f.repo.prepare(f.repo.load().data,{kind:'target',value:t})).toThrow(/DIMENSION/);});
 it('projection corruption and future schema cannot cross the browser seam',async()=>{const f=await setup();expect(validateProjection(f.projection)).toEqual(f.projection);for(const p of [{...f.projection,schemaVersion:'future'},{...f.projection,cohorts:[]},{...f.projection,asOf:at(1)}])expect(()=>validateProjection(p)).toThrow();});
 it('history forks, duplicate approval and synthetic-to-real import rejected',async()=>{const f=await setup(),d=f.repo.confirm(f.repo.prepare(f.repo.load().data,{kind:'target',value:f.target}),true);expect(()=>validatePortfolioData(d,'real')).toThrow();expect(()=>validatePortfolioData({...d,targets:[...d.targets,{...f.target,revisionId:'target2'}]},'synthetic')).toThrow();});
-it('clock advancement alone preserves task identity and review; changed input creates a new task',async()=>{const f=await setup(),old=rebalance(f.projection,f.target,[],f.owners),later=rebalance({...f.projection,asOf:at(13)},f.target,[],f.owners);expect(later.taskId).toBe(old.taskId);expect(later.asOf).not.toBe(old.asOf);expect(rebalance({...f.projection,asOf:at(13)}, {...f.target,revisionId:'different-target'},[],f.owners).taskId).not.toBe(old.taskId);});
+it('clock advancement alone preserves task identity and review; changed input creates a new task',async()=>{const f=await setup(),old=rebalance(f.projection,f.target,[],f.owners),later=rebalance(portfolioFixtureProjection(at(13)),f.target,[],f.owners);expect(later.taskId).toBe(old.taskId);expect(later.asOf).not.toBe(old.asOf);expect(rebalance(portfolioFixtureProjection(at(13)), {...f.target,revisionId:'different-target'},[],f.owners).taskId).not.toBe(old.taskId);});
+
+const semanticMutations: [string,(p:PortfolioProjection)=>void][] = [
+  ['quantity',p=>{p.positions[0].quantity++;}],['snapshotId',p=>{p.positions[0].snapshotId='forged';}],
+  ['accountName',p=>{p.positions[0].accountName='forged';}],['assetName',p=>{p.positions[0].assetName='forged';}],
+  ['instrumentId',p=>{p.positions[0].instrumentId='forged';}],['accountStatus',p=>{p.positions[0].accountStatus='archived';}],
+  ['deleted position blocker',p=>{p.positions[0].blockers=[];}],['forged position blocker',p=>{p.positions[0].blockers.push('FORGED');}],
+  ['status',p=>{p.status='unresolved';}],['global blocker',p=>{p.blockers.push('FORGED');}],
+  ...(['snapshot','account','asset'] as const).flatMap(owner => (['recordedAt','operationKey','auditEventId','payloadDigest'] as const).map(field =>
+    [`${owner}.${field}`, (p:PortfolioProjection)=>{p.positions[0].lineage[owner][field]=field==='recordedAt'?at(2):field==='payloadDigest'?'b'.repeat(64):'forged';}] as [string,(p:PortfolioProjection)=>void]))
+];
+it.each(semanticMutations)('browser fetch rejects %s before handing projection to consumers',async(_name,mutate)=>{
+  // Synthetic transport fixture deliberately exercises the real-only browser protocol; no DB is read.
+  const original=projectPortfolio({...portfolioFixtureInput(),scope:'real'},at(12)),p=structuredClone(original);
+  vi.stubGlobal('window',{location:{hostname:'localhost'}});
+  const fetchMock=vi.fn().mockResolvedValue({ok:true,json:async()=>p});vi.stubGlobal('fetch',fetchMock);
+  try {
+    expect(await fetchPortfolio(at(12))).toEqual(original);mutate(p);expect(p.cohorts).toEqual(original.cohorts);
+    await expect(fetchPortfolio(at(12))).rejects.toThrow(/INTEGRITY/);
+    expect(fetchMock).toHaveBeenCalledWith(expect.stringContaining('/__local/portfolio?'),expect.objectContaining({cache:'no-store',redirect:'error',credentials:'omit',headers:{'X-Portfolio-Read':'1'}}));
+  } finally {vi.unstubAllGlobals();}
+});
+it.each(['active','inactive','archived'] as const)('planning carries %s blockers without removing recorded exposure',async status=>{
+  const f=await setup(),p=portfolioFixtureProjection(at(12),status),task=rebalance(p,f.target,[],f.owners);
+  expect(p.cohorts[0].total).toBe(300);expect(task.comparisons.map(c=>c.current)).toEqual([100,200]);
+  expect(task.blockers.includes(`ACCOUNT_${status.toUpperCase()}`)).toBe(status!=='active');
+  expect(task.execution).toBe('not_admitted');expect(task.status).toBe('blocked');
+});

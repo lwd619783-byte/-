@@ -1,12 +1,15 @@
 /** SYNTHETIC ONLY: no runtime imports; reuses the original F2/Claim/Thesis/Expression services. */
-import { projectPortfolio } from '../../shared/portfolio.mjs';
+import { projectPortfolio, type AccountStatus } from '../../shared/portfolio.mjs';
 import { expressionFixture } from './expression.fixture';
 import { pinExpression, type ResearchLink, type PortfolioResearchOwners } from './portfolio';
 import { claimTime as at } from './verifiedClaim.fixture';
 
-export function portfolioFixtureProjection() {
+export function portfolioFixtureInput(status: AccountStatus = 'active') {
   const receipt = { recordedAt: at(1), operationKey: 'synthetic', auditEventId: 'synthetic', payloadDigest: 'a'.repeat(64) };
-  return projectPortfolio({ schemaVersion: 'portfolio-input.v1', scope: 'synthetic', accounts: [{ accountId: 'synthetic-account', name: '合成测试账户', receipt }], assets: ['a','b'].map(assetId => ({ assetId, name: `合成资产 ${assetId}`, assetType: 'fund', primaryCategory: '合成类别', strategyBucket: '合成策略', instrumentId: null, receipt })), snapshots: ['a','b'].map((assetId,i) => ({ snapshotId: assetId, snapshotDate: at(11).slice(0,10), accountId: 'synthetic-account', assetId, quantity: 10, marketValue: (i+1)*100, currency: 'CNY', receipt, warnings: [] })) }, at(12));
+  return { schemaVersion: 'portfolio-input.v1', scope: 'synthetic', accounts: [{ accountId: 'synthetic-account', name: '合成测试账户', status, receipt }], assets: ['a','b'].map(assetId => ({ assetId, name: `合成资产 ${assetId}`, assetType: 'fund', primaryCategory: '合成类别', strategyBucket: '合成策略', instrumentId: null, receipt })), snapshots: ['a','b'].map((assetId,i) => ({ snapshotId: assetId, snapshotDate: at(11).slice(0,10), accountId: 'synthetic-account', assetId, quantity: 10, marketValue: (i+1)*100, currency: 'CNY', receipt, warnings: [] })) };
+}
+export function portfolioFixtureProjection(asOf = at(12), status: AccountStatus = 'active') {
+  return projectPortfolio(portfolioFixtureInput(status), asOf);
 }
 export async function portfolioFixture() {
   const f = await expressionFixture();

@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { context, position, approval } from './asset-fixtures.mjs';
+import { context, position, approval, account, asset } from './asset-fixtures.mjs';
 import { contracts } from './fixtures.mjs';
+import { validateProjection } from '../../shared/portfolio.mjs';
 import { readPortfolio } from '../../.local-core-build/domain/portfolio-projection.js';
 import { openLocalDatabase } from '../../.local-core-build/db/connection.js';
 import { tempDirectory } from './fixtures.mjs';
@@ -34,4 +35,19 @@ test('consistent readonly SQLite snapshot cannot write and preserves DB bytes', 
     assert.throws(()=>store.readAssetSnapshot(async()=>undefined));
   } finally {store.database.close();}
   assert.deepEqual(readFileSync(filename),bytes);
+});
+
+for (const status of ['active','inactive','archived']) test(`official Account ${status} propagates with confirmed receipt and no ledger changes`, t => {
+  const c=context(t,false);
+  c.service.createAccount(account({status}),approval('lifecycle-account'));
+  c.service.createAsset(asset(),approval('lifecycle-asset'));
+  c.service.createPosition(position(),approval('lifecycle-position'));
+  const before=JSON.stringify([c.ledger.accounts(),c.ledger.positions()]);
+  const p=readPortfolio(c.ledger,c.audit,contracts,new Date(Date.now()+1000).toISOString(),'synthetic');
+  assert.deepEqual(validateProjection(p),p); assert.equal(p.positions[0].accountStatus,status);
+  assert.equal(p.cohorts[0].total,100); assert.equal(p.status,'partial');
+  assert.equal(p.positions[0].blockers.includes(`ACCOUNT_${status.toUpperCase()}`),status!=='active');
+  assert.equal(p.positions[0].lineage.account.auditEventId,c.ledger.operation(c.ledger.fingerprint('id:account:fixture-account').operationKey).auditEventId);
+  assert.throws(()=>readPortfolio({...c.ledger,accounts:()=>[account({status:status==='active'?'archived':'active'})]},c.audit,contracts,p.asOf),/CONFIRMATION/);
+  assert.equal(JSON.stringify([c.ledger.accounts(),c.ledger.positions()]),before);
 });
