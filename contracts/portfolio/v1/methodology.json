@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "portfolio-methodology.v1",
+  "methodology": "portfolio-exposure.v1",
+  "denominator": "recorded_positions_only",
+  "asOf": "snapshot UTC day-end AND original confirmation Audit timestamp <= asOf",
+  "positionIdentity": ["accountId", "assetId"],
+  "comparability": ["currency", "snapshotDate"],
+  "dimensions": ["accountId", "assetId", "assetType", "primaryCategory", "strategyBucket", "currency"],
+  "snapshotSelection": "latest eligible per exact position; repeated date conflicts fail closed",
+  "missing": "unresolved; never derive a position from transactions",
+  "researchExposure": "qualitative only; exact Expression revision and confirmation; original Thesis/Claim/Evidence authority",
+  "supersede": "never replace historical pins; successor at or before cutoff blocks new link; existing link needs review",
+  "planning": "append-only confirmed target revisions and task reviews; no ledger writes",
+  "execution": "blocked without FX, price, quantity, valuation, trade unit and complete coverage",
+  "performance": "not_admitted",
+  "lineage": ["positionId", "snapshotId", "snapshotDate", "receipt", "methodology", "asOf"],
+  "permission": "read ledger; local user-confirmed research links and planning only; no AI or MCP write"
+}

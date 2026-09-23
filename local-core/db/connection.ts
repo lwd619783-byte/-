@@ -20,6 +20,8 @@ export interface LocalStore {
   entities: EntityRepository;
   audit: AuditRepository;
   ledger: AssetReads;
+  /** Consistent, read-only AssetReads/Audit snapshot; no write capabilities escape. */
+  readAssetSnapshot<T>(work: (reads: AssetReads, audit: Pick<AuditRepository, 'get'>) => T): T;
 }
 
 export function openLocalDatabase(options: OpenDatabaseOptions, contracts: ContractRegistry): LocalStore {
@@ -136,5 +138,14 @@ export function openLocalDatabase(options: OpenDatabaseOptions, contracts: Contr
     verify: () => verifyDatabase(db),
     close: () => { if (frames.length) fail('TRANSACTION_ROLLED_BACK', 'Cannot close an active transaction.'); db.close(); },
   };
-  return { database, entities, audit, ledger: ledgerReads };
+  return { database, entities, audit, ledger: ledgerReads,
+    readAssetSnapshot<T>(work: (reads: AssetReads, audit: Pick<AuditRepository, 'get'>) => T): T {
+      if (options.mode !== 'readonly' || work.constructor.name === 'AsyncFunction') fail('DATABASE_OPEN_FAILED', 'Asset snapshot requires readonly mode and a synchronous callback.');
+      return db.transaction(() => {
+        const result = work(ledgerReads, { get: id => audit.get(id) });
+        if (result && typeof result === 'object' && 'then' in result) fail('DATABASE_OPEN_FAILED', 'Asset snapshot cannot return a Promise.');
+        return result;
+      }).deferred();
+    },
+  };
 }
