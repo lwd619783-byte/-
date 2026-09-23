@@ -1,5 +1,8 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
+
+
 
 > 2026-09-22 CURRENT — **Stage 4.3-R2 Thesis V1 + Macro → Industry：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT RE-REVIEW**。本轮在 `codex/stage-4-3-r2-thesis-v1` 基于已审计 `8505b607be998dc8313bfc2feeea3c004669ed57` 定向修复 Claim superseded-asOf 门禁与 UI 选项/复核提示；历史 exact pins、正式 revisions/confirmations 不回写。R1 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**：PR [#75](https://github.com/lwd619783-byte/-/pull/75)，merge/main `1651aa7bbf3fcdf4a59d17e7ae6e6edaf057ef7d`，PR CI [35733395999](https://github.com/lwd619783-byte/-/actions/runs/35733395999)、main CI [35734221779](https://github.com/lwd619783-byte/-/actions/runs/35734221779) success，绑定该 SHA 的 Production deployment `6591911800` success。真实仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis**，data admission / PIT / release blockers 不变；R3 **PLANNED / NOT_IMPLEMENTED**。本条覆盖下方旧 CURRENT，历史记录保持原时点；修复验证见 [R2 定向修复](stage-4-3-r2-thesis-v1.md#p1--p2-定向修复)。普通 commit/push 后停止等待 ChatGPT 复审，无 PR/merge/main 修改或 R3。
 

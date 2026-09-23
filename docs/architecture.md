@@ -1,5 +1,13 @@
 # 投资研究看板架构基线
 
+## 2026-09-23 Stage 4.3-R3 Expression runtime 增量
+
+Research Workspace 在原 Thesis 面板后接入 `ExpressionWorkspacePanel`，沿用同一 Thesis runtime、Claim repository 与 Evidence Drawer。`expressionWorkspace.ts` 组合 exact real Stock identity 与原 Thesis owner；没有新增 Entity/Stock/Asset registry、Evidence Graph、Thesis 或资产账本。ETF/Index/Fund/CommodityProxy 合同与 domain 支持存在，实际 runtime 未接通对应正式 owner 时维持 empty/unresolved。无行情/估值 immutable adapter 时仅保留 unknown 或定性 research judgement。
+
+`ExpressionRevision → exact ThesisRevision + ThesisConfirmation → exact ClaimRevision + VERIFIED review → original Evidence/F2 owner`。canonical bytes 仅用于完整性核对，不作为原 owner 的替代。Thesis successor 在 Expression asOf 或之前出现则阻断；晚于 cutoff 的后继仅提示当前需复核，历史 pin 不替换。确认时重读上游并比较 preview authority token；UI 预览不授予写入权限。
+
+`BrowserExpressionRepository → PersistedBaseGuard → LocalStorage(expression.v1)`：append-only、用户确认、exact-byte stale guard、JSON 导入预览/确认/pre-import backup、observed corruption recovery/future-schema lock；继承跨标签页非原子 CAS 限制。real/synthetic scope 在读写/导入均隔离。Expression 不表示仓位或交易；Stage 4.4–4.6 仍 PLANNED / NOT_IMPLEMENTED。R0/R1/R2 已发生事实见 CURRENT，R3 等待独立审计；下方较早增量保留历史时点。
+
 
 ## 2026-09-22 Stage 4.3-R2 Thesis runtime 增量
 
