@@ -12,6 +12,28 @@ const asset = z.object({ assetId: id, name: id, assetType: z.enum(['stock','etf'
 const snapshot = z.object({ snapshotId: id, snapshotDate: date, accountId: id, assetId: id, quantity: amount, marketValue: amount, currency: z.string().regex(/^[A-Z]{3}$/), receipt, warnings: z.array(id) }).strict();
 export const portfolioInputSchema = z.object({ schemaVersion: z.literal('portfolio-input.v1'), scope: z.enum(['real', 'synthetic']), accounts: z.array(account), assets: z.array(asset), snapshots: z.array(snapshot) }).strict();
 export const dimensions = ['accountId', 'assetId', 'assetType', 'primaryCategory', 'strategyBucket', 'currency'];
+const dimension = z.enum(['accountId', 'assetId', 'assetType', 'primaryCategory', 'strategyBucket', 'currency']);
+export const portfolioProjectionSchema = z.object({
+  schemaVersion: z.literal('portfolio-projection.v1'), methodology: z.literal(methodology), scope: z.enum(['real','synthetic']), asOf: instant,
+  status: z.enum(['partial','unresolved','conflicted']), denominator: z.literal('recorded_positions_only'), blockers: z.array(id),
+  positions: z.array(z.object({ positionId:id, accountId:id, accountName:id, assetId:id, assetName:id, assetType:asset.shape.assetType, primaryCategory:id, strategyBucket:id.nullable(), instrumentId:id.nullable(), snapshotId:id, snapshotDate:date, quantity:amount, marketValue:amount, currency:z.string().regex(/^[A-Z]{3}$/), blockers:z.array(id), lineage:z.object({snapshot:receipt,account:receipt,asset:receipt}).strict() }).strict()),
+  cohorts:z.array(z.object({currency:z.string().regex(/^[A-Z]{3}$/),snapshotDate:date,total:amount,blockers:z.array(id),exposures:z.array(z.object({dimension,value:id.nullable(),marketValue:amount,share:z.number().finite().min(0).max(1).nullable(),positionIds:z.array(id)}).strict())}).strict()),
+}).strict();
+export function validateProjection(raw) {
+  const p = portfolioProjectionSchema.parse(raw);
+  unique(p.positions.map(p=>p.positionId));
+  if (p.status === 'conflicted') { if (p.positions.length || p.cohorts.length || !p.blockers.length) throw Error('PORTFOLIO_CONFLICT_INVALID'); return p; }
+  const accounts = new Map(), assets = new Map();
+  for (const row of p.positions) {
+    if (row.positionId !== positionIdentity(row.accountId,row.assetId)) throw Error('PORTFOLIO_POSITION_ID_INVALID');
+    const a={accountId:row.accountId,name:row.accountName,receipt:row.lineage.account};
+    const s={assetId:row.assetId,name:row.assetName,assetType:row.assetType,primaryCategory:row.primaryCategory,strategyBucket:row.strategyBucket,instrumentId:row.instrumentId,receipt:row.lineage.asset};
+    for (const [map,key,val] of [[accounts,row.accountId,a],[assets,row.assetId,s]]) { if (map.has(key) && canonicalJson(map.get(key)) !== canonicalJson(val)) throw Error('PORTFOLIO_INPUT_CONFLICT'); map.set(key,val); }
+  }
+  const rebuilt=projectPortfolio({schemaVersion:'portfolio-input.v1',scope:p.scope,accounts:[...accounts.values()],assets:[...assets.values()],snapshots:p.positions.map(row=>({snapshotId:row.snapshotId,snapshotDate:row.snapshotDate,accountId:row.accountId,assetId:row.assetId,quantity:row.quantity,marketValue:row.marketValue,currency:row.currency,receipt:row.lineage.snapshot,warnings:row.blockers}))},p.asOf);
+  if (rebuilt.positions.length !== p.positions.length || canonicalJson(rebuilt.cohorts)!==canonicalJson(p.cohorts) || rebuilt.blockers.some(b=>!p.blockers.includes(b))) throw Error('PORTFOLIO_PROJECTION_DRIFT');
+  return p;
+}
 export function positionIdentity(accountId, assetId) { return canonicalJson([accountId, assetId]); }
 const prior = (a, b) => Date.parse(a) <= Date.parse(b);
 const unique = (values) => { if (new Set(values).size !== values.length) throw Error('PORTFOLIO_DUPLICATE_ID'); };
@@ -41,13 +63,13 @@ export function projectPortfolio(raw, asOf) {
     const key = positionIdentity(s.accountId, s.assetId), values = groups.get(key) ?? [];
     values.push(s); groups.set(key, values);
   }
-  for (const [positionId, values] of [...groups].sort(([a], [b]) => a.localeCompare(b))) {
+  for (const [positionId, values] of [...groups].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)) {
     const dates = values.map(s => s.snapshotDate);
     if (new Set(dates).size !== dates.length) { blockers.push(`SNAPSHOT_CONFLICT:${positionId}`); continue; }
     const s = [...values].sort((a, b) => a.snapshotDate.localeCompare(b.snapshotDate)).at(-1);
     const a = assets.find(a => a.assetId === s.assetId), acc = accounts.find(a => a.accountId === s.accountId);
     const problems = [...s.warnings];
-    if (s.snapshotDate !== asOf.slice(0, 10)) problems.push('STALE_SNAPSHOT');
+    if (s.snapshotDate !== new Date(asOf).toISOString().slice(0, 10)) problems.push('STALE_SNAPSHOT');
     if (!a.strategyBucket) problems.push('STRATEGY_UNRESOLVED');
     positions.push({ positionId, accountId: acc.accountId, accountName: acc.name, assetId: a.assetId, assetName: a.name, assetType: a.assetType, primaryCategory: a.primaryCategory, strategyBucket: a.strategyBucket, instrumentId: a.instrumentId, snapshotId: s.snapshotId, snapshotDate: s.snapshotDate, quantity: s.quantity, marketValue: s.marketValue, currency: s.currency, blockers: problems, lineage: { snapshot: s.receipt, account: acc.receipt, asset: a.receipt } });
   }

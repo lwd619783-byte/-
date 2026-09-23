@@ -38,7 +38,8 @@ export function researchExposure(position: PortfolioPosition, link: ResearchLink
     authorityToken = canonicalJson(source.data);
     if (!r || !c || canonicalJson(pinExpression(r,c)) !== canonicalJson(link.expression)) throw Error('PORTFOLIO_EXPRESSION_AUTHORITY_UNAVAILABLE');
     if ([r.createdAt, r.asOf, c.createdAt].some(t => Date.parse(t) > Date.parse(link.asOf))) throw Error('PORTFOLIO_EXPRESSION_NOT_AVAILABLE_ASOF');
-    const successors = source.data.revisions.filter(v => v.expressionId === r.expressionId && v.revisionId !== r.revisionId && Date.parse(v.createdAt) >= Date.parse(r.createdAt));
+    const history = source.data.revisions.filter(v => v.expressionId === r.expressionId);
+    const successors = history.slice(history.findIndex(v => v.revisionId === r.revisionId) + 1);
     if (successors.some(v => Date.parse(v.createdAt) <= Date.parse(link.asOf))) blockers.push('EXPRESSION_SUPERSEDED_AT_LINK');
     expressionUpdated = successors.some(v => Date.parse(v.createdAt) <= Date.parse(asOf));
     trace = expressionTrace(r, source.owners); blockers.push(...trace.gate.blockers);

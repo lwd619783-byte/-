@@ -15,3 +15,5 @@ export const portfolioInputSchema: { parse(value: unknown): PortfolioInput };
 export function projectPortfolio(input: unknown, asOf: string): PortfolioProjection;
 export function positionIdentity(accountId: string, assetId: string): string;
 export function sumAmounts(values: number[]): number;
+export const portfolioProjectionSchema: { parse(value: unknown): PortfolioProjection };
+export function validateProjection(value: unknown): PortfolioProjection;

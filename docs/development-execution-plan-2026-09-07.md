@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-23 CURRENT · **Stage 4.4 Portfolio Exposure Integrated MVP — IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。最新 main Base `9e363474abc22ebb6da391dbb2c45c9e8c9358e8`；A Foundation、B Research Exposure、C Planning/Workspace/Eval 在同一功能分支完成。110 files / 1427 tests、Local Core、contracts、build、data audit 与 browser 检查通过；细目及真实限制见 [Stage 4.4 交付](stage-4-4-portfolio-exposure.md)。普通 push 后停止等待独立审计，不创建 PR/merge/部署。本条覆盖旧 Stage 4.4 NEXT 状态，历史审计不回写。
+
 > 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。R3 #77 与 A 阶段 #78 已关闭；Base `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`。下一主线 **Stage 4.4 — Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**，本轮仅文档同步、普通 push 后待独立审计。精确证据见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)；supersede 下方旧 CURRENT、Bridge 待审计与“下一步 B”停止点，不回写其历史验证。
 
 > 2026-09-23 Bridge 专项增量 — **Pre-4.4 Legacy Hardening / IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。基于 `c3b2892459827a8ac060ee38031def840b56a546` 选择性迁移 `58dc00a` 的配置分类、安全中文错误、环境中立提示与失败隔离/只读闭环测试；Research Bridge 继续 Legacy compatibility / read-only / fail-closed，R0 authority split 不变。无 Production / Preview / MCP / private store 真实配置写入，不宣称 Production Bridge 已启用。本条仅更新 Bridge 修复事实；已完成 R3 后的 Stage 4.3 CLOSED / Stage 4.4 NEXT 总状态同步留给下一步 B，不重做 closeout。[迁移与验证记录](research-bridge-readonly-v1.md#pre-44-legacy-hardening2026-09-23)。普通 push 后等待独立审计。
@@ -55,7 +57,7 @@
 
 > 下方 Stage 4.2.5 功能分支验证与更早记录保留其时点意义；当前执行主线为 Stage 4.3 / Slice 1；第三方作者误归因 P1 已定向修复并通过最终针对性复审（P0=0 / P1=0），下一门禁为 PR / exact-head Hosted CI。
 
-## CURRENT — Stage 4.3 CLOSED → Stage 4.4 Handoff
+## CURRENT — Stage 4.4 待独立审计
 
 默认 External Knowledge Lane：Google Drive L0 → ChatGPT AI draft → Notion L2 Wiki。
 OS Research Decision Lane：Provider / official Evidence / Creator structured owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Stage 4.4。
@@ -69,7 +71,7 @@ OS Research Decision Lane：Provider / official Evidence / Creator structured ow
 | R2（CLOSED） | Thesis V1 + Macro → Industry；PR #76 / PR-main CI PASS / Production READY |
 | R3（CLOSED） | Investment Expression V1 + Closeout；INDEPENDENT AUDIT PASS / PR #77 MERGED / PR CI PASS / MAIN CI PASS / Production READY |
 | A 阶段（CLOSED） | Pre-4.4 Legacy Hardening；INDEPENDENT AUDIT PASS / PR #78 MERGED / PR CI PASS / MAIN CI PASS / Production READY；Bridge authority 不升级 |
-| Stage 4.4（NEXT） | Portfolio Exposure MVP；PLANNED / NOT_IMPLEMENTED；复用 Phase 1B 正式 owner 与账本 |
+| Stage 4.4（CURRENT） | Portfolio Exposure Integrated MVP；IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT；普通 push 后停止，未创建 PR / merge / Production |
 
 旧 Slice 3“Creator → Wiki + 三位真实博主”不再独立实施；Creator 保留 OS owner，长期 Wiki 交外部 Notion。旧 Slice 4–6 未实现范围由 R1–R3 承接，历史编号不改。R0 不接 Notion/Drive API、不存外部正文、不开发 Claim/Thesis/Expression、不修改 4.4；Stage 4.5 改为 OS Domain MCP，原 Bridge 仅 transitional/fallback，真实替代迁移通过前不退役。
 

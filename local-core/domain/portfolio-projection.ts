@@ -13,7 +13,9 @@ export function readPortfolio(reads: AssetReads, audit: Pick<AuditRepository, 'g
     const event = op && audit.get(op.auditEventId);
     const payloadDigest = digest(value);
     if (!fingerprint || !op || !event || !op.confirmation.userApprovalRef.trim() || !op.appends.some(a => a.id === id && a.version === value.schemaVersion && a.payloadDigest === payloadDigest)
-      || event.event.confirmationState !== 'approved' || !event.event.success || event.event.idempotencyKey !== fingerprint.operationKey) throw Error('PORTFOLIO_CONFIRMATION_UNAVAILABLE');
+      || event.event.confirmationState !== 'approved' || !event.event.success || event.event.idempotencyKey !== fingerprint.operationKey
+      || event.event.operation !== op.operation || event.event.actorType !== 'user' || event.event.actor !== op.confirmation.actor
+      || event.event.client !== op.confirmation.client || event.event.scope !== op.confirmation.userApprovalRef) throw Error('PORTFOLIO_CONFIRMATION_UNAVAILABLE');
     return { recordedAt: event.event.timestamp, operationKey: fingerprint.operationKey, auditEventId: op.auditEventId, payloadDigest, warnings: op.result.warnings };
   }
   const strip = ({ warnings: _warnings, ...rest }: Receipt & { warnings: string[] }): Receipt => rest;

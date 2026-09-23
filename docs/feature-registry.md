@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-23 CURRENT · Stage 4.4 Portfolio Exposure Integrated MVP：**IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。Base `9e363474abc22ebb6da391dbb2c45c9e8c9358e8`；A/B/C 同一功能分支连续完成。复用 Phase 1B 账本与 Stage 4.3 原研究 owner，新增本机只读 projection、六维结构暴露、exact 研究关联、定性研究暴露、本人确认的目标与再平衡复核、组合 Workspace/F3。真实对象本轮创建/核验均0，私人存储未盘点；不提供 FX、交易或绩效。仅普通 push 后待独立审计。[实现、验证、限制](stage-4-4-portfolio-exposure.md)。本条 supersede 旧 Stage 4.4 NEXT/NOT_IMPLEMENTED，历史审计保持原时点含义。
+
 > 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**；R3 #77、Legacy Hardening #78 已核验。Stage 4.4 Portfolio Exposure MVP 为 **NEXT / PLANNED / NOT_IMPLEMENTED**。真实仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression**；代码关闭不制造研究对象、不升级 admission 或 Bridge authority。精确事实与限制见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)；supersede 下方旧 CURRENT/待审计状态，保留历史记录。本 docs-only 分支自身待独立审计。
 
 > 2026-09-23 Bridge 专项增量 — **Pre-4.4 Legacy Hardening / IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。基于 `c3b2892459827a8ac060ee38031def840b56a546` 选择性迁移 `58dc00a` 的配置分类、安全中文错误、环境中立提示与失败隔离/只读闭环测试；Research Bridge 继续 Legacy compatibility / read-only / fail-closed，R0 authority split 不变。无 Production / Preview / MCP / private store 真实配置写入，不宣称 Production Bridge 已启用。本条仅更新 Bridge 修复事实；已完成 R3 后的 Stage 4.3 CLOSED / Stage 4.4 NEXT 总状态同步留给下一步 B，不重做 closeout。[迁移与验证记录](research-bridge-readonly-v1.md#pre-44-legacy-hardening2026-09-23)。普通 push 后等待独立审计。
@@ -240,9 +242,10 @@
 | Asset / Account Local Core | DONE V1 / LOCAL CORE | P0 | Phase 1B：Account、Asset、Transaction、CashFlow、PositionSnapshot、DCA Plan revision / Execution、rollover、append-only SQLite、confirmation、idempotency、Audit、HistoricalAssetImport、账户总额 reconciliation 与 DCA temporal binding；不是完整 Portfolio |
 | Trusted Asset Import Core | DONE V1 / LOCAL CORE | P0 | ImportTrust seam、evidence validation、prepare/plan/confirm/commit、approval binding、幂等与原子写入已实现 |
 | Trusted source adapter / OCR / confirmation UI / real historical migration | NOT STARTED | P0 | 当前只有 fail-closed core seam 与 synthetic/temp 验证；没有真实来源接入、截图解析、浏览器确认流程或真实账户迁移 |
-| Portfolio aggregate / Exposure / read model / UI | NEXT / PLANNED / NOT_IMPLEMENTED | P0 | Stage 4.4；复用 Phase 1B Local Core，补组合聚合、macro / industry exposure 与浏览器读模型，不重建账本；Expression 不等于持仓或交易指令，缺 owner/价格/估值/交易单位保持 unknown/unresolved/blocked |
-| Research Thesis ↔ Position Mapping | NOT STARTED | P0 | Stage 4.4 |
-| Target Allocation / Rebalance Task / Performance Attribution | NOT STARTED | P0 | Stage 4.4；XIRR / TWR 等仍需独立 methodology / admission |
+| Portfolio aggregate / Exposure / read model / UI | IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT | P0 | Stage 4.4；AssetReads/Audit、local-only readonly seam，按币种/快照 cohort 的已记录仓位分母；全账户覆盖未证明 |
+| Research Thesis ↔ Position Mapping | IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT | P0 | exact Position → Expression revision/confirmation → 原 Thesis/Claim/Evidence；研究关系仅定性 |
+| Target Allocation / Rebalance Task | IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT | P0 | 本人确认、append-only history、确定性 current/target/delta、blocked 任务与复核；无 ledger 写入 |
+| Performance Attribution / XIRR / TWR | NOT_ADMITTED / NOT_IMPLEMENTED | P0 | 不生成归因、年化、Alpha 或伪绩效 |
 | Research Bridge / controlled remote access | READ-ONLY LEGACY IMPLEMENTED；DOMAIN MCP PLANNED | P0 | Slice 2.5 只读 Bridge 保留 fallback；Stage 4.5 面向 Creator/Evidence/Claim/Thesis/Expression，复用权限/确认/Audit，不默认代理 Wiki |
 | Cloud business database / cross-device sync | DEFERRED | P0 | 当前 Local-first freeze 已覆盖旧 Cloud Store 假设；若未来改变方向须重新冻结 scope，不是现行 Stage 4 默认任务；Research Bridge 自身的 Auth / scope 仍属于 Stage 4.5 缺口 |
 | Browser LocalStorage workflow migration | NOT STARTED | P0 | Watchlist / Expectation 仍使用 LocalStorage；迁往 Local Core 或其他目标尚无冻结实施范围，不得写成已迁移 |

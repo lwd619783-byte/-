@@ -9,7 +9,7 @@ import { Header } from "./components/layout/Header";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { RightRail } from "./components/layout/RightRail";
 import { WorkspaceNavigation, ResearchNavigation, WorkspaceSearch } from './components/layout/WorkspaceNavigation';
-import { PortfolioBoundary, WorkspaceSettings } from './components/layout/WorkspaceSettings';
+import { WorkspaceSettings } from './components/layout/WorkspaceSettings';
 import { ResearchWorkbench, TaskWorkspace } from './components/home/ResearchWorkbench';
 import { MacroTab } from "./components/dashboard/MacroTab";
 import { IndustryTab } from "./components/industry/IndustryTab";
@@ -17,6 +17,7 @@ import { StockPool } from "./components/stock/StockPool";
 import { StockDetailDrawer } from "./components/stock/StockDetailDrawer";
 import { WatchlistTab } from "./components/watchlist/WatchlistTab";
 const ThesisWorkspace = lazy(() => import('./components/research/ThesisWorkspace').then(module => ({ default: module.ThesisWorkspace })));
+const PortfolioWorkspace = lazy(() => import('./components/portfolio/PortfolioWorkspace').then(module => ({ default: module.PortfolioWorkspace })));
 import { WatchItemFormModal } from "./components/watchlist/WatchItemFormModal";
 import { ReviewFormModal } from "./components/watchlist/ReviewFormModal";
 import { ResearchEventCenter } from "./components/research/ResearchEventCenter";
@@ -383,7 +384,7 @@ export default function App() {
 
           {activeTab === '首页' && <ResearchWorkbench stocks={dataset.stocks} watchItems={readableWatchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} observationState={observationState} observationMessage={storageError ?? undefined} onNavigate={navigateToTab} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} onOpenKnowledge={() => navigatePageId('knowledge')} onOpenTasks={() => navigatePageId('tasks')} onOpenSources={() => navigation.navigateHash('#/sources?view=add')} onOpenResearch={() => navigatePageId('research')} onResearchQuery={query => { setGlobalSearch(query); navigatePageId('stocks'); }} />}
           {activeTab === '任务' && <TaskWorkspace stocks={dataset.stocks} watchItems={readableWatchItems} tasks={reviewTasks} events={researchSnapshot.events} expectationSnapshots={aggregatedExpectationEvidence.snapshots} industryEvents={industryEvents} now={displayNow} timeZone={expectationData.settings.timeZone} inboxSourceNotice={researchSourceNotice} dataState={researchDataState} dataMessage={researchDataMessage} observationState={observationState} observationMessage={storageError ?? undefined} onOpenStock={openResearch} onStartReview={startReview} onOpenEvent={event => navigation.openEvent(event.id)} activeQueue={taskQueue} onQueueChange={queue => navigation.navigateHash(queue === 'knowledge' ? '#/tasks?view=review' : queue === 'verification' ? '#/tasks?view=verify' : '#/tasks?view=replay')} knowledgeState={knowledgeReviewState} onOpenReview={() => navigation.navigateHash('#/tasks?view=review')} />}
-          {activeTab === '组合' && <PortfolioBoundary />}
+          {activeTab === '组合' && <Suspense fallback={<p>正在载入组合工作区…</p>}><PortfolioWorkspace dataset={thesisDataset} /></Suspense>}
           {activeTab === '设置与帮助' && <WorkspaceSettings openKnowledge={() => navigation.navigateHash('#/knowledge?view=maintenance')} openSources={() => navigatePageId('sources')} />}
           {visitedTabs.has("研究") && (<div hidden={activeTab !== "研究"}>
         <HomePage

@@ -1,0 +1,26 @@
+.portfolio-workspace { display: grid; gap: 20px; min-width: 0; color: var(--ui-text); }
+.portfolio-heading, .portfolio-position header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.portfolio-heading h1 { font-size: 25px; font-weight: 650; margin: 4px 0 8px; }
+.portfolio-workspace h2 { font-size: 18px; font-weight: 650; margin-bottom: 10px; }
+.portfolio-workspace h3 { font-size: 15px; font-weight: 600; }
+.portfolio-workspace p { font-size: 13px; line-height: 1.8; overflow-wrap: anywhere; }
+.portfolio-status { font-size: 12px; padding: 7px 10px; border: 1px solid var(--ui-border); border-radius: 8px; flex-shrink: 0; }
+.portfolio-section { border-top: 1px solid var(--ui-border); padding: 20px 0 0; min-width: 0; }
+.portfolio-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.portfolio-workspace label { display: grid; gap: 5px; font-size: 13px; min-width: 0; }
+.portfolio-workspace input, .portfolio-workspace select, .portfolio-workspace textarea { width: 100%; min-width: 0; padding: 9px; border: 1px solid var(--ui-border); border-radius: 6px; background: var(--ui-panel); color: inherit; }
+.portfolio-toolbar label { flex: 1; min-width: 230px; }
+.portfolio-form { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin: 12px 0; }
+.portfolio-position, .portfolio-cohort { border-bottom: 1px solid var(--ui-border); padding: 14px 0; }
+.portfolio-position header p { color: var(--ui-muted); }
+.portfolio-workspace details { font-size: 12px; margin: 10px 0; }
+.portfolio-workspace summary { cursor: pointer; padding: 6px 0; }
+.portfolio-workspace pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 280px; overflow-y: auto; font-size: 11px; padding: 10px; }
+.portfolio-table-scroll { overflow-x: auto; }
+.portfolio-workspace table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.portfolio-workspace td, .portfolio-workspace th { padding: 9px 12px; text-align: right; border-bottom: 1px solid var(--ui-border); white-space: nowrap; }
+.portfolio-workspace td:first-child, .portfolio-workspace th:first-child { text-align: left; }
+.portfolio-notice { border-left: 3px solid var(--ui-border); padding: 10px 14px; font-size: 13px; }
+.portfolio-confirm { border: 1px solid var(--ui-border); padding: 18px; border-radius: 10px; }
+.portfolio-workspace .inbox-action { margin: 4px 8px 4px 0; }
+@media (max-width: 640px) { .portfolio-heading, .portfolio-position header { flex-direction: column; } .portfolio-form { grid-template-columns: minmax(0,1fr); } .portfolio-heading h1 { font-size: 22px; } }
