@@ -21,6 +21,32 @@ function setup(seed = true) {
 }
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 describe('Research Memory Workspace', () => {
+  it.each([
+    [503, '研究桥私有暂存尚未配置，暂不能发送资料。'],
+    [503, '研究桥服务端认证尚未配置完成，暂不能发送资料。'],
+    [503, '研究桥尚未启用，暂不能发送资料。'],
+    [401, '研究桥访问密钥不正确，请核对后重试。'],
+    [502, null],
+  ])('failed staging (%s, %s) stops before upload and preserves local originals', async (status, message) => {
+    const { File: NodeFile, Buffer } = await vi.importActual<typeof import('node:buffer')>('node:buffer');
+    const { webcrypto } = await vi.importActual<typeof import('node:crypto')>('node:crypto');
+    vi.stubGlobal('File', NodeFile); vi.stubGlobal('crypto', webcrypto);
+    vi.stubGlobal('Uint8Array', Object.getPrototypeOf(Buffer.prototype).constructor); localStorage.clear();
+    const repo = new IndexedDbBrowserSourceRepository(new IDBFactory(), 'bridge-error');
+    const batch = await repo.saveBatch([new File(['# Synthetic MLCC'], 'synthetic.md')], 'Synthetic'); await repo.parseBatch(batch.batchId);
+    const snapshot = await repo.load(), { repository } = setup(false);
+    const fetcher = vi.fn<(input: string, init: RequestInit) => Promise<Response>>(async () => new Response(message ? JSON.stringify({ error: 'REQUEST_REJECTED', message }) : '<html>Unavailable</html>', { status, headers: { 'content-type': message ? 'application/json' : 'text/html' } }));
+    vi.stubGlobal('fetch', fetcher);
+    render(<BridgeStagingPanel batch={batch} snapshot={snapshot} sourceRepository={repo} wiki={repository.load().data} model={null} />);
+    fireEvent.change(screen.getByLabelText('研究桥访问密钥'), { target: { value: 'synthetic-ui-owner-secret-only-32-characters' } });
+    fireEvent.click(screen.getByRole('button', { name: '选择全部已解析资料' }));
+    fireEvent.click(screen.getByRole('checkbox', { name: '我已核对清单，仅发送所选 1 份资料，保留 0 份不发送' }));
+    fireEvent.click(screen.getByRole('button', { name: '发送给 ChatGPT' }));
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(message ?? '研究桥暂时不可用，请稍后重试。'));
+    expect(fetcher).toHaveBeenCalledTimes(1); expect(fetcher.mock.calls[0]?.[0]).toBe('/api/bridge/begin');
+    expect(screen.queryByText(/已可读取/)).not.toBeInTheDocument(); expect(localStorage.length).toBe(0);
+    expect(await repo.readRaw(snapshot.sources[0].sourceId)).toEqual(new TextEncoder().encode('# Synthetic MLCC'));
+  });
   it('explicitly sends a mixed batch subset after repository reload, with correct wire digest and batch-wide revoke', async () => {
     // Test-only Node primitives via Vitest, never imported into the browser module graph.
     const { File: NodeFile, Buffer } = await vi.importActual<typeof import('node:buffer')>('node:buffer');
