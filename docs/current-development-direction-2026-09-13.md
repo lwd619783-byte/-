@@ -1,5 +1,7 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。#77 与 #78 已核验，当前 main/Production 绑定 `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`；主开发线转 **Stage 4.4 — Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**。证据、双通道 authority、Phase 1B 复用与继承限制见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。本条 supersede 下方旧 CURRENT/停止点，历史审计记录不回写；本 docs-only 分支仍待独立审计。
+
 > 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
 
 
@@ -77,9 +79,9 @@ Stage 4.2    Industry Data Platform（CLOSED）
       ↓
 Stage 4.2.5  Creator Viewpoint Tracker V1（CLOSED）
       ↓
-Stage 4.3    R0 → R1 Verified Claim → R2 Thesis → R3 Expression（CURRENT）
+Stage 4.3    R0 → R1 Verified Claim → R2 Thesis → R3 Expression（CLOSED）
       ↓
-Stage 4.4    Portfolio Exposure MVP
+Stage 4.4    Portfolio Exposure MVP（NEXT / PLANNED / NOT_IMPLEMENTED）
       ↓
 Stage 4.5    Research MCP Gateway / Controlled Tool Layer
       ↓
@@ -135,13 +137,13 @@ OS 不再扩建完整自研 Wiki，也不保存 Notion Wiki 正文副本。已�
 
 执行顺序：**R0 External Knowledge Rebaseline → R1 Verified Claim V1 → R2 Thesis V1 + Macro → Industry → R3 Investment Expression + Closeout**。R1 复用 F2、revision/reject/supersede、unsupported fail closed；R2 保留 bull/base/bear、drivers/catalysts/risks/invalidation/confidence/asOf/revision/用户确认；R3 支持 ETF/Index/Fund/Equity 及 directness/liquidity/valuation context/thesis sensitivity/idiosyncratic risk，不进入 Portfolio/Position/Transaction。
 
-旧 Slice 3 不再独立扩建 Creator Wiki；Creator Tracker 仍为 OS structured owner，长期 Wiki 在外部 Notion，未来 Stage 4.5 暴露 Creator context。Slice 1/2/2.5 历史编号不重写。R1–R3 尚未实现，Stage 4.3 未 CLOSED。完整 D0、supersede 范围与验收见 [R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md)。
+旧 Slice 3 不再独立扩建 Creator Wiki；Creator Tracker 仍为 OS structured owner，长期 Wiki 在外部 Notion，未来 Stage 4.5 暴露 Creator context。Slice 1/2/2.5 历史编号不重写。R0–R3 已关闭，Stage 4.3 CLOSED；双通道决定见 [R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md)，最终事实与未解决限制见 [Final Closeout](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。
 
 ## 6. Stage 4.4 — Portfolio Exposure MVP
 
-继续复用 Phase 1B Local Core，不建立第二套账户 / 交易 / 持仓账本。
+状态：**NEXT / PLANNED / NOT_IMPLEMENTED**。复用 Phase 1B Account / Asset / Transaction / CashFlow / PositionSnapshot 及其正式 owner / repository / persistence / permissions，不建立第二套账户 / 交易 / 持仓账本。Expression 不等于 Position / Target Allocation / Transaction / Rebalance / Trade Instruction 或实际账户持仓；研究表达 → Portfolio Exposure 的受控连接尚待实现。关键 identity/账户 owner/价格/估值/交易单位不完整时 unknown / unresolved / blocked，不猜值或补 0。
 
-交付：
+计划交付（本轮不实现）：
 
 - Portfolio aggregate / browser read model；
 - thesis ↔ position；

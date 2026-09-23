@@ -1,5 +1,7 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。R3 #77 与 A 阶段 #78 已关闭；Base `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`。下一主线 **Stage 4.4 — Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**，本轮仅文档同步、普通 push 后待独立审计。精确证据见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)；supersede 下方旧 CURRENT、Bridge 待审计与“下一步 B”停止点，不回写其历史验证。
+
 > 2026-09-23 Bridge 专项增量 — **Pre-4.4 Legacy Hardening / IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。基于 `c3b2892459827a8ac060ee38031def840b56a546` 选择性迁移 `58dc00a` 的配置分类、安全中文错误、环境中立提示与失败隔离/只读闭环测试；Research Bridge 继续 Legacy compatibility / read-only / fail-closed，R0 authority split 不变。无 Production / Preview / MCP / private store 真实配置写入，不宣称 Production Bridge 已启用。本条仅更新 Bridge 修复事实；已完成 R3 后的 Stage 4.3 CLOSED / Stage 4.4 NEXT 总状态同步留给下一步 B，不重做 closeout。[迁移与验证记录](research-bridge-readonly-v1.md#pre-44-legacy-hardening2026-09-23)。普通 push 后等待独立审计。
 
 > 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
@@ -53,7 +55,7 @@
 
 > 下方 Stage 4.2.5 功能分支验证与更早记录保留其时点意义；当前执行主线为 Stage 4.3 / Slice 1；第三方作者误归因 P1 已定向修复并通过最终针对性复审（P0=0 / P1=0），下一门禁为 PR / exact-head Hosted CI。
 
-## CURRENT — Stage 4.3-R3 Investment Expression + Closeout
+## CURRENT — Stage 4.3 CLOSED → Stage 4.4 Handoff
 
 默认 External Knowledge Lane：Google Drive L0 → ChatGPT AI draft → Notion L2 Wiki。
 OS Research Decision Lane：Provider / official Evidence / Creator structured owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Stage 4.4。
@@ -65,11 +67,13 @@ OS Research Decision Lane：Provider / official Evidence / Creator structured ow
 | R0（CLOSED） | 双通道 authority；PR #74 / main CI PASS，冻结边界继续有效 |
 | R1（CLOSED） | Verified Claim V1；PR #75 / PR-main CI PASS / Production READY；真实仍 5/0/0 |
 | R2（CLOSED） | Thesis V1 + Macro → Industry；PR #76 / PR-main CI PASS / Production READY |
-| R3（CURRENT） | Investment Expression V1 + Closeout；IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT |
+| R3（CLOSED） | Investment Expression V1 + Closeout；INDEPENDENT AUDIT PASS / PR #77 MERGED / PR CI PASS / MAIN CI PASS / Production READY |
+| A 阶段（CLOSED） | Pre-4.4 Legacy Hardening；INDEPENDENT AUDIT PASS / PR #78 MERGED / PR CI PASS / MAIN CI PASS / Production READY；Bridge authority 不升级 |
+| Stage 4.4（NEXT） | Portfolio Exposure MVP；PLANNED / NOT_IMPLEMENTED；复用 Phase 1B 正式 owner 与账本 |
 
 旧 Slice 3“Creator → Wiki + 三位真实博主”不再独立实施；Creator 保留 OS owner，长期 Wiki 交外部 Notion。旧 Slice 4–6 未实现范围由 R1–R3 承接，历史编号不改。R0 不接 Notion/Drive API、不存外部正文、不开发 Claim/Thesis/Expression、不修改 4.4；Stage 4.5 改为 OS Domain MCP，原 Bridge 仅 transitional/fallback，真实替代迁移通过前不退役。
 
-**CURRENT STOP：R3 普通 commit/push 后等待 ChatGPT 独立审计；不创建 PR、merge、修改 main 或部署 Production。** [R0 正式决定与 Git/CI 证据](stage-4-3-r0-external-knowledge-rebaseline.md)。
+**CURRENT STOP：本轮 Final Closeout docs-only 分支普通 commit/push 后等待 ChatGPT 独立审计；不创建 PR、merge、修改 main、部署 Production 或实现 Stage 4.4。** [精确收口事实与 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。
 
 > 2026-09-19 CURRENT · Stage 4.2.5 独立审计修复：Creator 发布时间与本地 knowledge/audit 时间分离；历史回填不回退 Current View，T+ 使用来源锚点，未到期 completed/inconclusive 均拒绝。增加 exact corrupt bytes 保留、完整备份校验、显式确认和 reload 的受控灾难恢复；future schema 继续锁定。外部事件 verified 仅表示来源核对。124 项受影响测试、全量 997 tests / 80 files、build、321 browser checks、JSON recovery round-trip、Excel 独立读取 PASS；PENDING TARGETED RE-REVIEW，Hosted CI NOT_RUN。路线保持 Stage 4.2 CLOSED → Stage 4.2.5 CURRENT → Stage 4.3 NEXT。[当前语义与限制](stage-4-2-5-creator-viewpoint-tracker.md#独立审计修复与针对性复审2026-09-19)。
 

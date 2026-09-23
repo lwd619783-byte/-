@@ -1,5 +1,13 @@
 # 投资研究看板架构基线
 
+## 2026-09-23 Final Closeout / CURRENT
+
+Stage 4.3 **CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**；#77 R3 与 #78 Legacy Hardening 已合入，核验基线 `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`。精确 CI / deployment 及继承限制见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。本节仅 supersede 下方日期增量中 R0–R3 与 A 阶段的 CURRENT / 待审计 / 未实现状态，保留原实现与历史验证记录；本轮没有 runtime 或数据流变更。
+
+正式决策链为 `Provider / official Evidence / Creator owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression`；外部知识链为 `Google Drive L0 → ChatGPT draft analysis / extraction → Notion L2 Wiki`。两者可引用但不共享 authority，research context 不能单独晋升 Verified Claim。Local Wiki / Markdown / Obsidian / BrowserSource/parser / Research Bridge 保持 Legacy compatibility；Bridge 为 read-only / fail-closed，#78 不增加 Production business authority。
+
+下一主线 **Stage 4.4 — Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**。复用 Phase 1B Account / Asset / Transaction / CashFlow / PositionSnapshot 及原 owner / repository / persistence / permissions；不建第二套账本。Expression 是研究表达，不是实际持仓、目标配置或交易指令；受控连接尚未实现，关键 owner/价格/估值/交易单位缺失时 unknown / unresolved / blocked。
+
 ## 2026-09-23 Stage 4.3-R3 Expression runtime 增量
 
 Research Workspace 在原 Thesis 面板后接入 `ExpressionWorkspacePanel`，沿用同一 Thesis runtime、Claim repository 与 Evidence Drawer。`expressionWorkspace.ts` 组合 exact real Stock identity 与原 Thesis owner；没有新增 Entity/Stock/Asset registry、Evidence Graph、Thesis 或资产账本。ETF/Index/Fund/CommodityProxy 合同与 domain 支持存在，实际 runtime 未接通对应正式 owner 时维持 empty/unresolved。无行情/估值 immutable adapter 时仅保留 unknown 或定性 research judgement。

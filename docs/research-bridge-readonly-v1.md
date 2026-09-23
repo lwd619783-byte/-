@@ -1,5 +1,9 @@
 # Research Bridge + Read-only MCP V1
 
+> 2026-09-23 Final Closeout / CURRENT — **A 阶段 Pre-4.4 Legacy Hardening：INDEPENDENT AUDIT PASS / PR CI PASS / MERGED / MAIN CI PASS / Production READY**。独立审计 Head `0901880a7382aa75ed099014b06cc0c15c51cb3b`，PASS / P0=0 / P1=0 / P2=0；PR #78 合入 `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`。精确 CI/deployment 见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。本条 supersede 下方专项“等待独立审计 / 下一步 B”，原 Preview、配置与本地验证记录仅保留历史时点。
+
+Research Bridge 继续 **Legacy compatibility / read-only / fail-closed**，没有因此获得新的 **Production business authority**，不表示真实私人资料验收 PASS，也不替代 Drive/Notion 或授予 MCP 写权限。Stage 4.3 已 CLOSED；Stage 4.4 Portfolio Exposure MVP 为 **NEXT / PLANNED / NOT_IMPLEMENTED**。TTL 仍为逻辑过期，物理清理未实现，revoke 无法收回既读内容；旧 Slice 2.5 真人 WikiReview / UPDATE/history/revoke 保持 **PENDING / NOT_REVERIFIED**。本 docs-only 分支仍待独立审计。
+
 > 2026-09-23 专项：Pre-4.4 Legacy Hardening 已实现并本地验证，等待独立审计；仅维护 Legacy / read-only / fail-closed 边界。[本轮迁移与验证](#pre-44-legacy-hardening2026-09-23)不代表线上启用或私人数据复验。下方旧 CURRENT / Preview 记录保留原时点含义；R0 双通道 authority 保持，Stage 4.3 总状态同步由下一步 B 处理。
 
 > 2026-09-22 R0 定位：**FREEZE / LEGACY COMPATIBILITY**。以下 V1 行为、历史数据、审核/备份/解析/只读权限保持；不再是默认长期知识路线，不继续扩大功能范围。默认 Drive → ChatGPT → Notion；OS 不建立 Notion 正文镜像。[R0 正式决定](stage-4-3-r0-external-knowledge-rebaseline.md) 覆盖旧 CURRENT 停止点，不覆盖历史验证记录。
