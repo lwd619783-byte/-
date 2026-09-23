@@ -1,6 +1,12 @@
 # Stage 4.3-R3 — Investment Expression V1 + Closeout
 
-状态：**Stage 4.3 — IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。Base `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`，独立分支 `codex/stage-4-3-r3-investment-expression-closeout`。
+状态：**Stage 4.3 — CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。R3 Base `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；独立审计 head `0970a31ec2487ea699943afe6e881420b8ae8535`；PR #77 squash merge 后 `main @ c3b2892459827a8ac060ee38031def840b56a546`。
+
+## Final closeout — 2026-09-23
+
+独立审计结论为 **PASS（P0=0 / P1=0）**；保留 1 项非阻断 UI 文案 P2，不改变 authority、持久化或数据安全。PR [#77](https://github.com/lwd619783-byte/-/pull/77) exact head 为 `0970a31ec2487ea699943afe6e881420b8ae8535`，PR Hosted CI [35804055411](https://github.com/lwd619783-byte/-/actions/runs/35804055411) completed/success；随后 squash merge 生成 `c3b2892459827a8ac060ee38031def840b56a546`，与 main 0/0 一致。main push CI [35804503402](https://github.com/lwd619783-byte/-/actions/runs/35804503402) completed/success；Vercel Production `dpl_6fHXcNWeFG9M1usPy7KyuZTopfyp` 为 READY，精确绑定该 main SHA。
+
+因此 R0/R1/R2/R3 与 Stage 4.3 整体正式 CLOSED。真实状态仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression**，不提升 Provider / PIT / data admission。旧 Slice 2.5 真人验收缺口继续 PENDING / NOT_REVERIFIED；LocalStorage 非原子 CAS、真实 ETF/Index/Fund/CommodityProxy 正式 runtime owner 缺失及定量行情/估值 immutable adapter 缺失继续作为继承限制。下一主线为 **Stage 4.4 Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**。
 
 ## R2 CLOSED / D0
 
@@ -17,11 +23,11 @@
 | Research Workspace | 原 Thesis 与 Evidence Drawer | Expression editor/history/diff/exact trace；不做全站重构 |
 | F3 | 原 Foundation / Industry / R1 / R2 分母与服务 | 独立 Expression synthetic frozen suite，真实 5/0/0/0/0 分账 |
 
-新增 additive Expression V1 合同先于实现；本次合同与实现等待独立审计，不借用历史审计证明新合同已获审计。Provider、PIT、release、admission 与 Phase 1 permissions 不变。
+新增 additive Expression V1 合同先于实现；该合同与实现已在 head `0970a31ec2487ea699943afe6e881420b8ae8535` 完成独立审计并通过后续 PR/main CI。Provider、PIT、release、admission 与 Phase 1 permissions 不变。
 
 ## Closeout evidence
 
-R0/R1/R2 CLOSED；R3 本地工程验收完成，Stage 4.3 整体尚未 CLOSED，下一门禁为独立审计。旧 Slice 2.5 真人验收缺口保持 PENDING / NOT_REVERIFIED；按 R0 不再作为 R1–R3 关闭 blocker。Stage 4.4、4.5、4.6 保持 PLANNED / NOT_IMPLEMENTED。停止点：普通 commit/push、核对 remote HEAD、clean worktree 后等待独立审计；不创建 PR、不 merge、不修改 main。
+R0/R1/R2/R3 均 CLOSED；Stage 4.3 已完成独立审计、PR exact-head CI、squash merge、main CI 与 Production READY 核验。旧 Slice 2.5 真人验收缺口保持 PENDING / NOT_REVERIFIED；按 R0 不作为 Stage 4.3 关闭 blocker，也不因此升级为 PASS。Stage 4.4 为 NEXT / PLANNED / NOT_IMPLEMENTED；Stage 4.5、4.6 保持 PLANNED / NOT_IMPLEMENTED。
 
 ## 实现与 authority
 
@@ -44,7 +50,7 @@ Research Workspace 沿用「论点与观察」原入口，在 Thesis 下接 Expr
 | R0 authority split | 原双通道冻结保留；外部知识仅 context；R0 CLOSED |
 | R1 Claim | 原业务代码/合同/F2不变；R1 CLOSED，专项/浏览器回归 |
 | R2 Thesis | PR #76 / main CI / Production 实时核验，正式 CLOSED；原业务代码不变 |
-| R3 Expression | additive contract/domain/repository/UI/F3/browser；本轮独立审计尚未发生 |
+| R3 Expression | additive contract/domain/repository/UI/F3/browser；独立审计 PASS，PR #77 / PR CI / main CI / Production READY 后正式 CLOSED |
 | exact trace | 固定 Thesis+confirmation、Claim+review、原 graph/pin；不能以 pin bytes 替代 owner |
 | asOf/revision/confirmation | inclusive successor cutoff、历史合法、当前需复核；确认时重读 authority |
 | unknown/partial/stale/conflict | 不将未知转 0；原 F2 blocker 保留，定性 context 明示 unknown |
@@ -75,7 +81,7 @@ Research Workspace 沿用「论点与观察」原入口，在 Thesis 下接 Expr
 | R1 / R2 real / R2 synthetic browser | 130/130、49/49、76/76 PASS；全部0 runtime error，旧 synthetic 404另记 |
 | Stage 4.3 closeout checker | 9/9 PASS；冻结边界、closed schema、生产包fixture隔离、五组报告分母/source pins、CURRENT停止点 |
 
-上述是本地能力验证，不是 Hosted CI、独立审计或 Production/data admission。提交后在 Final SHA 重跑全部指定验证，命令、exit code、Final SHA 与 tree 绑定保存在本地 `final-verification.json`；报告源码摘要由 closeout `--head` 与 Git bytes 再核对。普通 push 后核对 remote HEAD 与 clean worktree，最终 SHA 通过 Git commit / 最终交付消息定位，避免文档的自引用 commit hash。
+上表仍记录 R3 功能分支的本地能力验证；最终关闭另有远端事实：独立审计 PASS、PR #77 exact-head Hosted CI `35804055411` success、squash merge `c3b2892459827a8ac060ee38031def840b56a546`、main CI `35804503402` success、同 SHA Vercel Production READY。上述远端事实不改变 data admission / PIT / Provider authority。
 
 新入口：`npm run test:expression`、`test:expression:browser`、`test:expression:browser:synthetic`、`stage:4.3:closeout`。浏览器脚本使用独立临时 Edge contexts，320/390/1536 宽度与 reduced-motion；真实页面用 build preview（4173），synthetic harness 用 Vite（4174）。若本地未安装 Playwright，设置既有 `UI_REVIEW_PLAYWRIGHT_MODULE` 指向可用依赖，不更改项目 dependencies。临时 harness 不进入生产 import graph。
 
@@ -83,7 +89,7 @@ Research Workspace 沿用「论点与观察」原入口，在 Thesis 下接 Expr
 
 ## 风险和继承限制
 
-- 本轮自查未发现待修复的 P0/P1；不代表独立审计已经通过。静态 data audit 仍有 inherited P1=20、P2=20，加本轮生成 date-time validator helper 的 timezone `|| 0` 两条 P2，共42 warnings、0 errors；两处只处理 timezone offset，不处理金融缺失值，未改规则/添加豁免。
+- 功能分支自查未发现待修复的 P0/P1，后续独立审计亦为 PASS（P0=0 / P1=0）；保留 1 项非阻断 UI 文案 P2。静态 data audit 仍有 inherited P1=20、P2=20，加本轮生成 date-time validator helper 的 timezone `|| 0` 两条 P2，共42 warnings、0 errors；两处只处理 timezone offset，不处理金融缺失值，未改规则/添加豁免。
 - LocalStorage 的最终同步 stale 检查不是跨标签页原子 CAS / 多写者事务锁。原 owner 失联使后续写入保守阻断，不用历史 pin 内容冒充证据。
 - 本地备份/确认沿用现有单用户信任边界，不是签名认证材料。instrument 历史别名/跨 owner 映射与 immutable liquidity/valuation adapter 不在本轮实现。
 - 研究判断文字、role 与定性关联没有自动语义证明；正式确认代表用户接受该研究表达，不提高 Provider/PIT/data admission。

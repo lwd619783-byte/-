@@ -1,5 +1,8 @@
 # Investment Research Dashboard V2 · Financial Research OS Rebaseline
 
+> 2026-09-23 FINAL CLOSEOUT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。R3 独立审计 head `0970a31ec2487ea699943afe6e881420b8ae8535`；PR [#77](https://github.com/lwd619783-byte/-/pull/77) 已 squash merge 至 `main @ c3b2892459827a8ac060ee38031def840b56a546`。PR Hosted CI [35804055411](https://github.com/lwd619783-byte/-/actions/runs/35804055411) 与 main CI [35804503402](https://github.com/lwd619783-byte/-/actions/runs/35804503402) 均 completed/success；Vercel Production `dpl_6fHXcNWeFG9M1usPy7KyuZTopfyp` READY，绑定同一 main SHA。真实研究状态仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression**；Provider / PIT / data admission 未提升，LocalStorage 跨标签页非原子 CAS、真实 ETF/Index 等正式 owner 缺失、旧 Slice 2.5 真人验收 PENDING / NOT_REVERIFIED 等限制继续保留。主开发线转入 **Stage 4.4 Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**；不得把本次收口解释为 Portfolio / Position / Transaction、allocation、rebalance 或交易能力已实现。本条 supersede 下方较早 CURRENT / R3 pending 状态，仅更新现状，不回写历史审计。
+
+
 > 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
 
 

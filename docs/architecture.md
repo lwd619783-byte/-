@@ -1,5 +1,11 @@
 # 投资研究看板架构基线
 
+## 2026-09-23 Stage 4.3 final closeout / Stage 4.4 handoff
+
+Stage 4.3 已正式 **CLOSED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。R3 审计 head 为 `0970a31ec2487ea699943afe6e881420b8ae8535`；PR #77 squash merge 后 main 为 `c3b2892459827a8ac060ee38031def840b56a546`，PR CI `35804055411`、main CI `35804503402` success，Vercel Production `dpl_6fHXcNWeFG9M1usPy7KyuZTopfyp` READY。Research Decision Lane 当前边界固定为 `Evidence/F2 → Verified Claim → Thesis → Investment Expression`，External Knowledge Lane 继续为 `Drive → ChatGPT draft analysis/extraction → Notion Wiki`，两者 authority 不混淆。
+
+下一主线为 **Stage 4.4 Portfolio Exposure MVP（NEXT / PLANNED / NOT_IMPLEMENTED）**。继续复用既有 Phase 1B Account / Asset / Transaction / CashFlow / PositionSnapshot owner，不建立第二套账本；Stage 4.3 的 Expression 不等于持仓、目标配置、调仓或交易指令。Provider / PIT / data admission、LocalStorage CAS、真实 ETF/Index 等正式 owner 缺口继续按原合同 fail-closed。
+
 ## 2026-09-23 Stage 4.3-R3 Expression runtime 增量
 
 Research Workspace 在原 Thesis 面板后接入 `ExpressionWorkspacePanel`，沿用同一 Thesis runtime、Claim repository 与 Evidence Drawer。`expressionWorkspace.ts` 组合 exact real Stock identity 与原 Thesis owner；没有新增 Entity/Stock/Asset registry、Evidence Graph、Thesis 或资产账本。ETF/Index/Fund/CommodityProxy 合同与 domain 支持存在，实际 runtime 未接通对应正式 owner 时维持 empty/unresolved。无行情/估值 immutable adapter 时仅保留 unknown 或定性 research judgement。

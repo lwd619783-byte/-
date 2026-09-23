@@ -1,5 +1,8 @@
 # Stage 4.3 — Research Memory & Thesis Compiler V1
 
+> 2026-09-23 FINAL CLOSEOUT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。R3 独立审计 head `0970a31ec2487ea699943afe6e881420b8ae8535`；PR [#77](https://github.com/lwd619783-byte/-/pull/77) 已 squash merge 至 `main @ c3b2892459827a8ac060ee38031def840b56a546`。PR Hosted CI [35804055411](https://github.com/lwd619783-byte/-/actions/runs/35804055411) 与 main CI [35804503402](https://github.com/lwd619783-byte/-/actions/runs/35804503402) 均 completed/success；Vercel Production `dpl_6fHXcNWeFG9M1usPy7KyuZTopfyp` READY，绑定同一 main SHA。真实研究状态仍为 **5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression**；Provider / PIT / data admission 未提升，LocalStorage 跨标签页非原子 CAS、真实 ETF/Index 等正式 owner 缺失、旧 Slice 2.5 真人验收 PENDING / NOT_REVERIFIED 等限制继续保留。主开发线转入 **Stage 4.4 Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**；不得把本次收口解释为 Portfolio / Position / Transaction、allocation、rebalance 或交易能力已实现。本条 supersede 下方较早 CURRENT / R3 pending 状态，仅更新现状，不回写历史审计。
+
+
 > 2026-09-23 CURRENT — R2 **CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。PR #76，merge/main `17a2e1929c1d7570e477a5e19aadbeee29aa04f5`；PR CI `35746157236`、main CI `35746962990`、同 SHA Production deployment `6594270082` 已实时核验 success。主线切换 **Stage 4.3-R3 Investment Expression V1 + Closeout：IMPLEMENTED / VERIFIED LOCALLY / CLOSEOUT READY / PENDING INDEPENDENT AUDIT**。真实 5 candidates / 0 verifiable / 0 verified / 0 formal Thesis / 0 formal Expression；Stage 4.4–4.6 PLANNED / NOT_IMPLEMENTED。本条 supersede 下方较早 CURRENT，不回写历史审计。[R3 D0 与交付](stage-4-3-r3-investment-expression-closeout.md)。
 
 
@@ -15,7 +18,7 @@
 
 > 合入事实已于 2026-09-22 重新核验：Slice 2/2.5 经 PR [#72](https://github.com/lwd619783-byte/-/pull/72) 合入 `a029b1e3b96f8b8d28ec123cd741eadc09c12e3d`，main CI [35603915441](https://github.com/lwd619783-byte/-/actions/runs/35603915441) success；UI V2.1 经 PR [#73](https://github.com/lwd619783-byte/-/pull/73) 合入开工基线 `9769c46789a6efc98999fe7fabeda750710cbbb5`，main CI [35690271399](https://github.com/lwd619783-byte/-/actions/runs/35690271399) success。代码已 MERGED / MAIN CI PASS；旧真人审核、UPDATE/history/revoke 验收仍 PENDING / NOT_VERIFIED，本轮私人数据 NOT_REVERIFIED，不能据此宣称 Slice 2.5 完整验收 CLOSED。
 
-## R0 冻结架构 / R3 CURRENT — 双通道、执行与关闭边界
+## R0 冻结架构 / Stage 4.3 CLOSED — 双通道、执行与关闭边界
 
 正式新事实源为 [Stage 4.3-R0 External Knowledge Rebaseline](stage-4-3-r0-external-knowledge-rebaseline.md)。本节与该决定 supersede 下方旧规划 §1/2 的默认本地 L0/L2 路线、§5 的未来 Slice 3–6 执行顺序、§6 的默认自研 Wiki 阅读中心、§7 的旧关闭前置条件、§8 的默认 Wiki MCP 与 §9 的停止点；安全、PIT、review、revision、权限和历史实现合同保持。
 
@@ -23,9 +26,9 @@
 - Research Decision Lane：原 Provider / official Evidence / Creator owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Stage 4.4；外部 context 不单独验证 claim。
 - KEEP：公共 Source/Extraction、Creator adapters、Evidence/F2/Drawer、provenance/asOf/revision/review/fail-closed、knowledge-contribution.v1 interchange。
 - FREEZE / LEGACY：Wiki V1 local authority、JSON backup/recovery、Markdown/Obsidian、BrowserSource/parser、只读 Bridge、Wiki editor。数据和功能保留，OS 不镜像 Notion 正文。
-- 新序列：**R0（已合入）→ R1 Verified Claim V1（CLOSED）→ R2 Thesis V1 + Macro → Industry（CLOSED）→ R3 Investment Expression + Closeout（CURRENT / PENDING INDEPENDENT AUDIT）**。R2 实现和验收见新交付文档。旧 Slice 1/2/2.5 历史不改；旧 Slice 3不再独立扩建，Creator Wiki外置，Stage 4.5提供Creator context。
+- 新序列：**R0（CLOSED）→ R1 Verified Claim V1（CLOSED）→ R2 Thesis V1 + Macro → Industry（CLOSED）→ R3 Investment Expression + Closeout（CLOSED）**。R3 已通过独立审计、PR exact-head CI、squash merge、main CI 与 Production READY 核验；旧 Slice 1/2/2.5 历史不改，旧 Slice 3 不再独立扩建，Creator Wiki 外置。下一主线为 Stage 4.4 Portfolio Exposure MVP。
 - Stage 4.5 聚焦 OS Domain MCP 和 prepare/preview/confirm/commit；不重复代理 Drive/Notion。Bridge 只有替代完成且真实迁移通过才讨论退役。
-- 新关闭条件见 R0 §4；Stage 4.3未CLOSED，旧真实验收缺口不记PASS。本轮commit/push后等待独立审计，无PR/merge/Production。
+- 新关闭条件见 R0 §4；**Stage 4.3 已 CLOSED**。旧 Slice 2.5 真人验收缺口继续保持 PENDING / NOT_REVERIFIED，不因 Stage 4.3 收口升级为 PASS；Stage 4.4 仍为 NEXT / PLANNED / NOT_IMPLEMENTED。
 
 ## 历史冻结与交付记录（2026-09-20～21）
 
