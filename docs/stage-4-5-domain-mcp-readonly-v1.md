@@ -1,5 +1,35 @@
 # Stage 4.5 — D0 Scope Freeze + Read-only OS Domain MCP V1
 
+## P1 targeted fixes — 2026-09-24 CURRENT
+
+**IMPLEMENTED / TARGETED FIX APPLIED / PENDING CHATGPT TARGETED RE-REVIEW**. Base: `cb970497da40e7d20cdc991a8c39168f62650ddd`; branch: `codex/stage-4-5-domain-mcp-readonly-v1`; fetched `origin/main`: `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e` (base ahead 3 / behind 0). This section supersedes the earlier delivery status below; historical D0, verification counts and changed-file inventory retain their original baseline meaning.
+
+- **P1-A:** `DecisionSharePanel` renders the existing `DecisionPreview.snapshot` directly, without another preview model. Claim statement/status/gate/conditions/blockers, Thesis statement/status/risks/invalidation/blockers and scenarios, and Expression instrument/role/status/unknowns/blockers/context are reviewable before confirmation. Thesis and Expression use expandable sections. Every available Portfolio position displays account name/status, asset name, quantity, market value/currency, snapshot date, category/strategy bucket when present and blockers. Portfolio unavailable still says **不可读取，不含组合数据**, with no zero-position substitution. The panel identifies the private staging / ChatGPT destination and discloses retained audit references; no raw JSON/hash copying is required.
+- **P1-B:** UI preview, publish acknowledgement and Domain OAuth consent now explicitly distinguish **24h access TTL** from a physical deletion SLA. Expiry/revoke rejects subsequent Domain reads; immutable private objects may remain stored, and physical deletion at 24 hours is not guaranteed. OAuth access-token lifetime remains one hour. No cleanup job, retention service or storage change is introduced.
+- **OAuth tool `securitySchemes`: NOT_APPLIED.** Locked and installed `@modelcontextprotocol/sdk` is `1.30.0`. Its `dist/esm/server/mcp.d.ts` `registerTool` config and `dist/esm/types.js` `ToolSchema` do not declare tool-level `securitySchemes`; `dist/esm/server/mcp.js` registration and tools/list also do not forward it. Generic `_meta: Record<string, unknown>` is not a reliable typed security contract. No invented metadata, type bypass, SDK upgrade or auth change was applied. The official-client regression checks all eight existing names and all four read-only annotations.
+- Existing owner/schema/F2/lineage, exact snapshot binding/digest/generation/CAS/asOf, 1 MiB limit, 15-minute publish freshness, current-generation-only access, `os:read`, Legacy isolation and localhost/Hosted Portfolio boundaries are unchanged. Stage 4.6 Agent remains NOT_IMPLEMENTED. No real private data was used or created.
+
+### Targeted verification
+
+| Check run for this fix | Result |
+| --- | --- |
+| `DecisionSharePanel.test.tsx` + `decisionSnapshot.test.ts` | 18 PASS (4 + 14); non-empty synthetic positions, actual research details/blockers, no publish before consent, exactly one after consent, unavailable remains explicit |
+| Domain Node suite | 14 PASS; includes actual OAuth consent HTTP response |
+| `npm run test:domain-mcp` | 14 Node + 33 Vitest PASS |
+| `npm run test:bridge` | 31 PASS; Legacy unchanged |
+| `npm run test:research-eval` | 65 Node + 57 Vitest PASS |
+| `npm run contracts:validate` | PASS |
+| `npm run build` | PASS; existing large-chunk advisory remains |
+| `npm test -- --maxWorkers=1 --minWorkers=1` | 113 files / 1489 tests PASS (224.75s) |
+| Isolated browser / official SDK / synthetic local HTTP | 33 PASS at 390 / 1440 widths; 0 page runtime errors; actual Portfolio fields, research details, TTL copy, explicit publish/revoke and owner drift |
+| `git diff --check` | PASS |
+
+The first browser attempt timed out waiting for the real-app home page, before any business assertions (0 checks, 0 page errors). An unchanged-script rerun passed all 33 checks; initial failure evidence was retained separately. This does not establish a root cause for that transient load timeout. Full synthetic Portfolio screenshots were inspected; no horizontal overflow at either viewport. Logs/screenshots are local ignored artifacts under `data-cache/stage-4-5/p1/`.
+
+**NOT_RUN / NOT_VERIFIED this round:** real private-data publication, real ChatGPT account acceptance, Hosted PR CI, final-SHA Preview status, Production runtime verification, separate discovery/data-audit and Portfolio Node/Local Core suites (their historical results below are not new evidence). No PR, merge, main edit, Production configuration/deployment, force push or history rewrite is part of this fix. Delivery stops after ordinary commit/push on the same branch, awaiting ChatGPT targeted re-review.
+
+Actual targeted changed files: `src/components/research/DecisionSharePanel.tsx`, its `.test.tsx`, `server/os-domain/http.mjs`, `scripts/tests/os-domain.node.mjs`, `scripts/domain-mcp-browser-check.mjs`, this document, and the minimal CURRENT entries in `docs/feature-registry.md`, `docs/development-execution-plan-2026-09-07.md`, `docs/current-development-direction-2026-09-13.md`. Runtime architecture is unchanged; `docs/architecture.md` needs no rewrite.
+
 ## D0 freeze — 2026-09-24
 
 Base: `e6a148d8e345e89cfbe4920d803265108e1b3e4c`; fetched main: `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`; docs base ahead 2 / behind 0. This additive contract does not modify formal-owner or Phase 1 permission semantics. Independent audit and production admission remain separate gates.

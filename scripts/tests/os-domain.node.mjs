@@ -81,6 +81,17 @@ test('concurrent publish/revoke use CAS and private namespace isolation', async 
   await assert.rejects(new DecisionStaging(store, 'different-owner', undefined, 'synthetic').read());
   assert.ok([...store.values.keys()].every(k => k.startsWith('os-domain/')));
 });
+test('Domain OAuth consent describes 24h access expiry without a physical deletion guarantee', async t => {
+  const server = createServer(createDomainHandler({ env, store: new DecisionTestStore() }));
+  await new Promise(r => server.listen(0, '127.0.0.1', r)); t.after(() => server.close());
+  const params = new URLSearchParams({ client_id: config.clientId, redirect_uri: config.redirects[0], response_type: 'code', code_challenge_method: 'S256', code_challenge: createHash('sha256').update('v'.repeat(43)).digest('base64url'), state: 'synthetic', resource: config.resource, scope: 'os:read' });
+  const response = await fetch(`http://127.0.0.1:${server.address().port}/api/os-domain/authorize?${params}`);
+  assert.equal(response.status, 200); assert.equal(response.headers.get('cache-control'), 'no-store');
+  const html = await response.text();
+  assert.match(html, /OAuth 授权有效一小时/); assert.match(html, /只读共享访问最长有效24小时/);
+  assert.match(html, /到期或撤销后 Domain MCP 将拒绝后续读取/); assert.match(html, /不代表底层私有存储对象届时一定完成物理删除/);
+  assert.doesNotMatch(html, /快照最多24小时|私有暂存最多24小时/);
+});
 test('production PrivateBlobStore transport uses private immutable content and conditional pointer writes', async () => {
   const { store, objects } = privateStoreFixture(), staging = new DecisionStaging(store, config.subject, undefined, 'synthetic');
   const snapshot = emptyDecisionFixture();
@@ -134,7 +145,8 @@ test('real HTTP official MCP SDK client and owner publish/revoke; anonymous/wron
   assert.deepEqual((await metadata.json()).authorization_servers, [config.issuer]);
   const client = new Client({ name: 'synthetic-domain-client', version: '1' }); t.after(() => client.close());
   await client.connect(new StreamableHTTPClientTransport(endpoint, { requestInit: { headers: { Authorization: `Bearer ${token()}` } } }));
-  const listed = await client.listTools(); assert.equal(listed.tools.length, 8); assert.ok(listed.tools.every(t => t.annotations.readOnlyHint && !t.annotations.destructiveHint));
+  const listed = await client.listTools(); assert.deepEqual(listed.tools.map(t => t.name), Object.keys(domainToolSchemas));
+  assert.ok(listed.tools.every(t => t.annotations.readOnlyHint === true && t.annotations.destructiveHint === false && t.annotations.idempotentHint === true && t.annotations.openWorldHint === false));
   assert.equal((await client.callTool({ name: 'decision_summary', arguments: {} })).isError, undefined);
   assert.equal((await client.callTool({ name: 'portfolio_exposure', arguments: binding })).structuredContent.result.status, 'unavailable');
   const write = await fetch(`${base}/api/os-domain/revoke`, { method: 'POST', headers: { 'content-type': 'application/json', Origin: config.origin, Authorization: `Bearer ${token()}` }, body: JSON.stringify({ expectedGeneration: 1 }) }); assert.equal(write.status, 401);
