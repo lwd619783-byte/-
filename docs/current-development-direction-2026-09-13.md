@@ -146,22 +146,28 @@ OS 不再扩建完整自研 Wiki，也不保存 Notion Wiki 正文副本。已�
 
 ## 6. Stage 4.4 — Portfolio Exposure MVP
 
-状态：**NEXT / PLANNED / NOT_IMPLEMENTED**。复用 Phase 1B Account / Asset / Transaction / CashFlow / PositionSnapshot 及其正式 owner / repository / persistence / permissions，不建立第二套账户 / 交易 / 持仓账本。Expression 不等于 Position / Target Allocation / Transaction / Rebalance / Trade Instruction 或实际账户持仓；研究表达 → Portfolio Exposure 的受控连接尚待实现。关键 identity/账户 owner/价格/估值/交易单位不完整时 unknown / unresolved / blocked，不猜值或补 0。
+状态：**CLOSED / IMPLEMENTED / TARGETED RE-REVIEW PASS / PR CI PASS / MERGED / MAIN CI PASS / Production READY**。PR #80 最终 head `056cca6bc4e83af5014dfb482b98e86e248d591e`，squash merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`；PR CI `35985508556`、main CI `35986495424` success，Production `dpl_G8cjdpD9oT3E5sN9dCckptzkc77J` READY。
 
-计划交付（本轮不实现）：
+Stage 4.4 复用 Phase 1B Account / Asset / PositionSnapshot 与原 Research Decision owners，不建立第二套账本。已交付：
 
-- Portfolio aggregate / browser read model；
-- thesis ↔ position；
-- macro / industry exposure；
-- target allocation；
-- rebalance task；
-- exposure / attribution methodology admission；
-- Portfolio UI；
-- Evidence / Thesis / Position drill-down。
+- Local-only readonly Portfolio projection / browser read model；
+- exact Position → Investment Expression → Thesis / Claim / Evidence 研究关联；
+- 按币种与快照日期 cohort 的结构暴露；
+- account lifecycle active / inactive / archived 传播；
+- 用户确认的 Target Allocation；
+- blocked Rebalance Review / history；
+- Portfolio Workspace 与 F3 eval；
+- full projection canonical integrity binding。
 
-目标是让系统能够回答：
+保留边界：
 
-> “我的仓位为什么存在、对应哪个 Thesis、暴露在哪些宏观和行业变量、哪些判断变化会影响仓位？”
+- denominator 仍为 `recorded_positions_only`，全账户覆盖未证明；
+- 缺 FX / 正式 price owner / trade unit /完整覆盖时 execution 保持 blocked；
+- Performance / XIRR / TWR / Alpha 仍 NOT_ADMITTED / NOT_IMPLEMENTED；
+- Portfolio planning 不等于实际交易或成交；
+- Local-first 与只读账本 authority 不变。
+
+完整交付与审计见 [Stage 4.4 Portfolio Exposure](stage-4-4-portfolio-exposure.md)。
 
 ## 7. 前端长期演进：Dashboard → Research Workspace
 
