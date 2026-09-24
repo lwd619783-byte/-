@@ -1,5 +1,13 @@
 # 投资研究看板架构基线
 
+## 2026-09-23 Stage 4.4 Portfolio 增量 / CURRENT
+
+状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT。原 Phase 1B `AssetReads + Audit` → readonly SQLite read transaction → Node Portfolio projection → 显式 opt-in 的本机 Vite 同源 GET → Browser Portfolio Workspace。Node/SQLite 不进入 browser graph；Hosted/static 不具有该 seam。不存在账本复制、交易写入或私人数据上传路径。
+
+新增 browser owner 仅负责 `Position Research Link / Target Allocation / Rebalance Review`，复用 PersistedBaseGuard 与显式本人确认；projection 和 Rebalance Task 是可重建派生。Position identity 仍为原 Account + Asset tuple。研究通过原 Expression → Thesis → Claim → Evidence/F2 owner 逐次解析，不复制 research graph。Task identity 绑定计算输入及 target revision；查询时钟推进但输入未变时保留已有复核，review bytes 保存当时 asOf。
+
+结构分母限定相同币种/快照日期的已记录仓位；研究暴露仅定性，缺 FX/价格/单位/完整覆盖时规划执行 blocked，正式绩效 NOT_ADMITTED。[方法学与交付](stage-4-4-portfolio-exposure.md)。本节 supersede 原架构中的 Stage 4.4 NOT_IMPLEMENTED 范围，旧审计/关闭结论保留历史时点。
+
 ## 2026-09-23 Final Closeout / CURRENT
 
 Stage 4.3 **CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**；#77 R3 与 #78 Legacy Hardening 已合入，核验基线 `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`。精确 CI / deployment 及继承限制见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。本节仅 supersede 下方日期增量中 R0–R3 与 A 阶段的 CURRENT / 待审计 / 未实现状态，保留原实现与历史验证记录；本轮没有 runtime 或数据流变更。
