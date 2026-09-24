@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-24 CURRENT · **Stage 4.5 D0 Scope Freeze + Read-only OS Domain MCP V1 — IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。Base `e6a148d8e345e89cfbe4920d803265108e1b3e4c`（含已确认 Research Memory / Formal Decision 文档）；原本地正式 owner → 经校验的 canonical decision snapshot → 本人预览确认 → 独立私有暂存 → `os:read` Domain MCP。8 个有界只读工具、TTL/digest/generation/CAS/revoke、最小发布/撤销入口与既有 F3 tool-use 已实现。Notion = Research Memory；OS = Formal Decision System；Legacy Bridge 不扩建；Slice 1 = READ-ONLY；Stage 4.6 Agent 仍 NOT_IMPLEMENTED。Portfolio 仅复用真实 localhost projection 读取路径，Hosted 保持 unavailable；私人账本/真实 ChatGPT 账号验收 NOT_RUN。113 files / 1487 tests、build/contracts/discovery、专项与隔离浏览器验证通过；[D0、合同、验证与限制](stage-4-5-domain-mcp-readonly-v1.md)。普通 push 后停止等待独立综合审计，无 PR/merge/Production 操作。本条 supersede 下方旧 Stage 4.5 仅规划状态，不回写历史。
+
 > 2026-09-24 CURRENT · **Stage 4.4 CLOSED；知识/决策职责重基线已冻结**。PR #80 / merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`，PR CI `35985508556`、main CI `35986495424` success，Production `dpl_G8cjdpD9oT3E5sN9dCckptzkc77J` READY。Notion 是长期 Research Memory，OS 不再扩建行业/公司/宏观 Wiki、Notion 镜像或 Obsidian 主知识库；OS 聚焦 Structured Fact/Evidence/Verified Claim/Thesis/Investment Expression/Portfolio 与 PIT/admission/revision/Audit/calculation。Stage 4.5 Domain MCP CURRENT；旧 Research Bridge 仅 Legacy fallback。见 [投研知识与决策工作流 V1](research-knowledge-decision-workflow-v1.md)。
 
 

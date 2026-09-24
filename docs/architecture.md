@@ -1,5 +1,13 @@
 # 投资研究看板架构基线
 
+## 2026-09-24 Stage 4.5 OS Domain MCP V1 / CURRENT
+
+IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT。正式 authority 不迁移：`BrowserClaimRepository / BrowserThesisRepository / BrowserExpressionRepository` 的 read model/F2 → 字段白名单与 exact revision/digest/citation 的 `decision-snapshot.v1` → 用户显式预览确认 → `os-domain/` private temporary Blob staging → 独立 `/api/os-mcp`（`os:read`）→ ChatGPT。Hosted 读取的只是获授权快照，不假装读取本地 owner。
+
+Portfolio 只在 localhost 原 projection 可真实读取、校验与同 asOf/scope 匹配时纳入；线上或不可读取时为 unavailable。可选 loopback 固定路由 relay 只将用户显式共享操作发送到已配置远端，不读取 SQL/文件、不传账本数据库。未进行真实私人数据验收。
+
+`server/shared/read-only-http.mjs` 复用 OAuth/PKCE、安全响应与 owner auth；PrivateBlobStore/CAS 仍复用原基础设施。Domain 与 Legacy 的 issuer/audience/scope、OAuth namespace、数据 namespace、handlers 和 tool registries 独立；旧 Wiki Bridge 保持 Legacy compatibility。摘要发现当前 binding，其余工具绑定 exact asOf/digest/generation；撤销、过期、变更后所有数据读取 fail closed。无云端业务 DB、domain writes 或交易能力；Stage 4.6 Agent 未实现。详见 [D0 / V1](stage-4-5-domain-mcp-readonly-v1.md)。
+
 ## 2026-09-24 Research Memory / Formal Decision 边界 / CURRENT
 
 正式三层分工：

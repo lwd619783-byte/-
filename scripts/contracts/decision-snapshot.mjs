@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { validateDecisionSnapshot } from '../../shared/decision-snapshot.mjs';
+import { emptyDecisionFixture } from '../tests/os-domain.fixture.mjs';
+import { domainToolSchemas } from '../../server/os-domain/tools.mjs';
+const tools = ['decision_summary', 'list_verified_claims', 'get_claim', 'list_theses', 'get_thesis', 'list_expressions', 'get_expression', 'portfolio_exposure'];
+assert.deepEqual(Object.keys(domainToolSchemas), tools);
+validateDecisionSnapshot(emptyDecisionFixture());
+assert.throws(() => validateDecisionSnapshot({ ...emptyDecisionFixture(), schemaVersion: 'decision-snapshot.v2' }));
+const routes = JSON.parse(readFileSync(new URL('../../vercel.json', import.meta.url))).rewrites;
+assert.equal(routes[0].source, '/.well-known/oauth-protected-resource/api/os-mcp');
+assert.equal(routes[1].source, '/.well-known/oauth-authorization-server/os-domain');
+console.log('Decision Snapshot V1 / 8 read-only tools / independent discovery routes: PASS (synthetic contract only)');
