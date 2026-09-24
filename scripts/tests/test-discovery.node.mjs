@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync, execFileSync } from 'node:child_process';
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
@@ -37,6 +37,7 @@ test('standard npm test preserves every formal suite and excludes nested checkou
       cwd: root, encoding: 'utf8', timeout: 90_000,
     });
     assert.ifError(result.error);
+    assert.ok(existsSync(reportPath), `${label}: reporter JSON missing; exit status=${result.status}; signal=${result.signal}\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`);
     const report = JSON.parse(readFileSync(reportPath, 'utf8'));
     const discovered = report.testResults.map(({ name }) => path.relative(root, name).replaceAll('\\', '/')).sort();
     return { result, report, discovered };
@@ -44,7 +45,7 @@ test('standard npm test preserves every formal suite and excludes nested checkou
 
   try {
     symlinkSync(path.join(repository, 'node_modules'), dependencyLink, process.platform === 'win32' ? 'junction' : 'dir');
-    for (const name of ['vite.config.ts', 'vite.config.js', 'scripts/local-core-boundary.mjs']) copy(name);
+    for (const name of ['vite.config.ts', 'vite.config.js', 'scripts/local-core-boundary.mjs', 'scripts/portfolio-seam.mjs']) copy(name);
     for (const name of formalSuites) write(name, "import { it } from 'vitest'; it('current checkout sentinel', () => {});\n");
     write(nodeSuite, "throw new Error('Node-only suite must use its dedicated runner');\n");
     const nestedSuites = [
