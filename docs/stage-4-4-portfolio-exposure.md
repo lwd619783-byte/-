@@ -1,5 +1,8 @@
 # Stage 4.4 — Portfolio Exposure Integrated MVP
 
+> 2026-09-24 FINAL CLOSEOUT / CURRENT — **CLOSED / IMPLEMENTED / TARGETED RE-REVIEW PASS / PR CI PASS / MERGED / MAIN CI PASS / Production READY**。最终 PR head `056cca6bc4e83af5014dfb482b98e86e248d591e`；PR #80 squash merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`；PR CI `35985508556`、main CI `35986495424` completed/success；Production deployment `dpl_G8cjdpD9oT3E5sN9dCckptzkc77J` READY 且绑定同一 main SHA。Stage 4.4 正式关闭，下一主线 Stage 4.5 OS Domain MCP。Portfolio 仍保持 local-first、recorded_positions_only、no execution / Performance NOT_ADMITTED 等既有边界。
+
+
 状态：**IMPLEMENTED / TARGETED RE-REVIEW PASS / READY FOR PR**。当前事实以本节为准；下方 A/B/C 与 2026-09-23 targeted fix 的状态、停止点及测试结果保留历史时点，不作为当前仍待 targeted re-review 的声明。
 
 ## Docs-only closeout — 2026-09-24 CURRENT

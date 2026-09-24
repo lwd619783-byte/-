@@ -1,5 +1,12 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-24 CURRENT · **Stage 4.5 — IMPLEMENTED / TARGETED FIX APPLIED / PENDING CHATGPT TARGETED RE-REVIEW**。Base `cb970497da40e7d20cdc991a8c39168f62650ddd`；同一功能分支定向修复：共享预览直接展示 snapshot 实际研究字段及逐个仓位，保留 unavailable；UI / OAuth 明确 24h 是访问有效期，不是物理删除 SLA。锁定 SDK 1.30.0 未可靠支持 tool-level `securitySchemes`，记为 NOT_APPLIED；8 tools / `os:read` / owner / staging / Legacy 边界不变。仅普通 commit/push 后等待 ChatGPT targeted re-review，无 PR/merge/main/Production 操作。[本轮修复与实际验证](stage-4-5-domain-mcp-readonly-v1.md#p1-targeted-fixes--2026-09-24-current)。本条 supersede 下方 Stage 4.5 旧停止点，不回写历史验证数字。
+
+> 2026-09-24 CURRENT · **Stage 4.5 D0 Scope Freeze + Read-only OS Domain MCP V1 — IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。Base `e6a148d8e345e89cfbe4920d803265108e1b3e4c`（含已确认 Research Memory / Formal Decision 文档）；原本地正式 owner → 经校验的 canonical decision snapshot → 本人预览确认 → 独立私有暂存 → `os:read` Domain MCP。8 个有界只读工具、TTL/digest/generation/CAS/revoke、最小发布/撤销入口与既有 F3 tool-use 已实现。Notion = Research Memory；OS = Formal Decision System；Legacy Bridge 不扩建；Slice 1 = READ-ONLY；Stage 4.6 Agent 仍 NOT_IMPLEMENTED。Portfolio 仅复用真实 localhost projection 读取路径，Hosted 保持 unavailable；私人账本/真实 ChatGPT 账号验收 NOT_RUN。113 files / 1487 tests、build/contracts/discovery、专项与隔离浏览器验证通过；[D0、合同、验证与限制](stage-4-5-domain-mcp-readonly-v1.md)。普通 push 后停止等待独立综合审计，无 PR/merge/Production 操作。本条 supersede 下方旧 Stage 4.5 仅规划状态，不回写历史。
+
+> 2026-09-24 CURRENT · **Research Memory / Decision System 边界重基线；Stage 4.4 CLOSED → Stage 4.5 CURRENT**。PR #80 已 squash merge，PR head `056cca6bc4e83af5014dfb482b98e86e248d591e`，merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`；PR CI `35985508556` success，main CI `35986495424` success，Production deployment `dpl_G8cjdpD9oT3E5sN9dCckptzkc77J` READY 且绑定同一 main SHA。长期边界正式冻结为：Google Drive=L0 原件；Notion=Research Memory / 长期 Wiki；OS=Formal Decision System（Structured Fact/Evidence/Verified Claim/Thesis/Investment Expression/Portfolio/Target/Review + PIT/admission/revision/Audit/calculation）；ChatGPT=Research Orchestrator。普通研究发现默认停在 Notion，仅满足正式证据/计算/决策/组合条件时晋升 OS。Stage 4.5 只建设 OS Domain MCP，不代理 Drive/Notion；旧 Local Wiki/Obsidian/Research Bridge 仅 Legacy compatibility / fallback。详见 [投研知识与决策工作流 V1](research-knowledge-decision-workflow-v1.md)。
+
+
 > 2026-09-23 CURRENT · **Stage 4.4 Portfolio Exposure Integrated MVP — IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。以最新 `origin/main @ 9e363474abc22ebb6da391dbb2c45c9e8c9358e8` 开工，A/B/C 连续完成：原 AssetReads/Audit → 本机只读 projection → exact Position Research Link → 结构/定性研究暴露 → 本人确认 Target/Rebalance review → 组合 Workspace/F3。没有新账本、原研究 owner 替代、FX 猜算或交易/绩效能力；线上静态页面保持未连接私人账本。验证、真实数量和限制见 [Stage 4.4 交付](stage-4-4-portfolio-exposure.md)。本条 supersede 旧 Stage 4.4 NEXT/NOT_IMPLEMENTED；当前停止点为普通 push 后待独立审计，未进入后续阶段，不预写 PR/合入/Production。
 
 > 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。#77 与 #78 已核验，当前 main/Production 绑定 `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`；主开发线转 **Stage 4.4 — Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**。证据、双通道 authority、Phase 1B 复用与继承限制见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。本条 supersede 下方旧 CURRENT/停止点，历史审计记录不回写；本 docs-only 分支仍待独立审计。
@@ -83,7 +90,7 @@ Stage 4.2.5  Creator Viewpoint Tracker V1（CLOSED）
       ↓
 Stage 4.3    R0 → R1 Verified Claim → R2 Thesis → R3 Expression（CLOSED）
       ↓
-Stage 4.4    Portfolio Exposure MVP（NEXT / PLANNED / NOT_IMPLEMENTED）
+Stage 4.4    Portfolio Exposure MVP（CLOSED）
       ↓
 Stage 4.5    Research MCP Gateway / Controlled Tool Layer
       ↓
@@ -143,22 +150,28 @@ OS 不再扩建完整自研 Wiki，也不保存 Notion Wiki 正文副本。已�
 
 ## 6. Stage 4.4 — Portfolio Exposure MVP
 
-状态：**NEXT / PLANNED / NOT_IMPLEMENTED**。复用 Phase 1B Account / Asset / Transaction / CashFlow / PositionSnapshot 及其正式 owner / repository / persistence / permissions，不建立第二套账户 / 交易 / 持仓账本。Expression 不等于 Position / Target Allocation / Transaction / Rebalance / Trade Instruction 或实际账户持仓；研究表达 → Portfolio Exposure 的受控连接尚待实现。关键 identity/账户 owner/价格/估值/交易单位不完整时 unknown / unresolved / blocked，不猜值或补 0。
+状态：**CLOSED / IMPLEMENTED / TARGETED RE-REVIEW PASS / PR CI PASS / MERGED / MAIN CI PASS / Production READY**。PR #80 最终 head `056cca6bc4e83af5014dfb482b98e86e248d591e`，squash merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`；PR CI `35985508556`、main CI `35986495424` success，Production `dpl_G8cjdpD9oT3E5sN9dCckptzkc77J` READY。
 
-计划交付（本轮不实现）：
+Stage 4.4 复用 Phase 1B Account / Asset / PositionSnapshot 与原 Research Decision owners，不建立第二套账本。已交付：
 
-- Portfolio aggregate / browser read model；
-- thesis ↔ position；
-- macro / industry exposure；
-- target allocation；
-- rebalance task；
-- exposure / attribution methodology admission；
-- Portfolio UI；
-- Evidence / Thesis / Position drill-down。
+- Local-only readonly Portfolio projection / browser read model；
+- exact Position → Investment Expression → Thesis / Claim / Evidence 研究关联；
+- 按币种与快照日期 cohort 的结构暴露；
+- account lifecycle active / inactive / archived 传播；
+- 用户确认的 Target Allocation；
+- blocked Rebalance Review / history；
+- Portfolio Workspace 与 F3 eval；
+- full projection canonical integrity binding。
 
-目标是让系统能够回答：
+保留边界：
 
-> “我的仓位为什么存在、对应哪个 Thesis、暴露在哪些宏观和行业变量、哪些判断变化会影响仓位？”
+- denominator 仍为 `recorded_positions_only`，全账户覆盖未证明；
+- 缺 FX / 正式 price owner / trade unit /完整覆盖时 execution 保持 blocked；
+- Performance / XIRR / TWR / Alpha 仍 NOT_ADMITTED / NOT_IMPLEMENTED；
+- Portfolio planning 不等于实际交易或成交；
+- Local-first 与只读账本 authority 不变。
+
+完整交付与审计见 [Stage 4.4 Portfolio Exposure](stage-4-4-portfolio-exposure.md)。
 
 ## 7. 前端长期演进：Dashboard → Research Workspace
 
@@ -192,6 +205,8 @@ UI V2.0 统一收口
 **UI V2.0 的大规模视觉与信息架构收口默认放在 Stage 4.3～4.4 产品需求稳定后，而不是现在提前猜测 4.6 界面。**
 
 ## 8. Stage 4.5 — OS Domain MCP / Controlled Tool Layer
+
+> 2026-09-24 scope clarification：Stage 4.5 只暴露 Formal Decision System 的受控 Domain Tools。Notion/Drive 继续由外部连接器负责；不新增 Wiki proxy / mirror。Slice 1 默认 READ-ONLY，优先 Evidence → Verified Claim → Thesis → Investment Expression → Portfolio/Exposure；未来任何写入必须另行经过 prepare → preview → explicit user confirm → commit。完整边界见 [投研知识与决策工作流 V1](research-knowledge-decision-workflow-v1.md)。
 
 未来主要 tools 面向 OS 独有的 Creator context、Evidence、Verified Claim、Thesis、Investment Expression，并保留既有结构化事实与完成后的 Portfolio 领域入口。Notion Wiki、Google Drive 原件由其外部工具读取，OS 不默认代理 `search_wiki / get_wiki_entry`。
 

@@ -1,5 +1,32 @@
 # 投资研究看板架构基线
 
+## 2026-09-24 Stage 4.5 OS Domain MCP V1 / CURRENT
+
+IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT。正式 authority 不迁移：`BrowserClaimRepository / BrowserThesisRepository / BrowserExpressionRepository` 的 read model/F2 → 字段白名单与 exact revision/digest/citation 的 `decision-snapshot.v1` → 用户显式预览确认 → `os-domain/` private temporary Blob staging → 独立 `/api/os-mcp`（`os:read`）→ ChatGPT。Hosted 读取的只是获授权快照，不假装读取本地 owner。
+
+Portfolio 只在 localhost 原 projection 可真实读取、校验与同 asOf/scope 匹配时纳入；线上或不可读取时为 unavailable。可选 loopback 固定路由 relay 只将用户显式共享操作发送到已配置远端，不读取 SQL/文件、不传账本数据库。未进行真实私人数据验收。
+
+`server/shared/read-only-http.mjs` 复用 OAuth/PKCE、安全响应与 owner auth；PrivateBlobStore/CAS 仍复用原基础设施。Domain 与 Legacy 的 issuer/audience/scope、OAuth namespace、数据 namespace、handlers 和 tool registries 独立；旧 Wiki Bridge 保持 Legacy compatibility。摘要发现当前 binding，其余工具绑定 exact asOf/digest/generation；撤销、过期、变更后所有数据读取 fail closed。无云端业务 DB、domain writes 或交易能力；Stage 4.6 Agent 未实现。详见 [D0 / V1](stage-4-5-domain-mcp-readonly-v1.md)。
+
+## 2026-09-24 Research Memory / Formal Decision 边界 / CURRENT
+
+正式三层分工：
+
+`Google Drive L0 Raw Source → ChatGPT Delta Research → Notion Research Memory`
+
+与
+
+`Provider / official Evidence / structured owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Portfolio`
+
+并行存在，authority 不混淆。
+
+Notion 是行业/公司/宏观/产业链/主题/Creator 等长期 Wiki 的默认真源；OS 不保存同一 Wiki 正文副本，不把 Obsidian 作为第二真源。ChatGPT 先用 Notion 恢复 baseline、对比新证据并更新研究记忆；大多数研究到此结束。只有需要 PIT/admission/revision、确定性计算、正式 Claim/Thesis/Expression 或 Portfolio 影响时，才进入 OS Research Decision Lane。
+
+Stage 4.5 的 MCP 因此只服务 OS Formal Decision System，不代理 Drive/Notion。旧 Research Bridge / Local Wiki / Obsidian projection 保留 Legacy compatibility / fallback，真实替代迁移前不删除。完整规则见 [投研知识与决策工作流 V1](research-knowledge-decision-workflow-v1.md)。
+
+Stage 4.4 已 CLOSED：PR #80，merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`，PR/main CI success，Production READY。
+
+
 ## 2026-09-23 Stage 4.4 Portfolio 增量 / CURRENT
 
 状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT。原 Phase 1B `AssetReads + Audit` → readonly SQLite read transaction → Node Portfolio projection → 显式 opt-in 的本机 Vite 同源 GET → Browser Portfolio Workspace。Node/SQLite 不进入 browser graph；Hosted/static 不具有该 seam。不存在账本复制、交易写入或私人数据上传路径。

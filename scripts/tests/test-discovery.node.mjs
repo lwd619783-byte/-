@@ -45,7 +45,7 @@ test('standard npm test preserves every formal suite and excludes nested checkou
 
   try {
     symlinkSync(path.join(repository, 'node_modules'), dependencyLink, process.platform === 'win32' ? 'junction' : 'dir');
-    for (const name of ['vite.config.ts', 'vite.config.js', 'scripts/local-core-boundary.mjs', 'scripts/portfolio-seam.mjs']) copy(name);
+    for (const name of ['vite.config.ts', 'vite.config.js', 'scripts/local-core-boundary.mjs', 'scripts/portfolio-seam.mjs', 'scripts/os-domain-seam.mjs']) copy(name);
     for (const name of formalSuites) write(name, "import { it } from 'vitest'; it('current checkout sentinel', () => {});\n");
     write(nodeSuite, "throw new Error('Node-only suite must use its dedicated runner');\n");
     const nestedSuites = [
