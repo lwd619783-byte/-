@@ -1,6 +1,9 @@
 # 投资研究看板 Feature Registry
 
-> 2026-09-24 CURRENT · Stage 4.4 docs-only closeout：**IMPLEMENTED / TARGETED RE-REVIEW PASS / READY FOR PR**。ChatGPT targeted re-review 绑定 `5d12c97cb0342176ec82196f39502668f5d9238f`，P0=0 / P1=0 / P2=0；full projection canonical integrity binding、Account lifecycle / denominator semantics、confirmation / Audit authority 与只读边界均 PASS。该 SHA 的 Preview deployment READY，用户已完成人工验收且无新增修改要求。PR NOT_CREATED / Hosted PR CI NOT_RUN / merge NOT_DONE / main NOT_MODIFIED / Production NOT_UPDATED、NOT_VERIFIED FOR STAGE 4.4；真实 Portfolio 对象不增加。下一停止点为 ChatGPT docs-only Final SHA 极轻量复核，之后由用户另行授权创建 PR。本条 supersede 下方旧 Stage 4.4 CURRENT / 停止点，历史记录与测试数字保留原时点含义。[精确事实与收口边界](stage-4-4-portfolio-exposure.md#docs-only-closeout--2026-09-24-current)。
+> 2026-09-24 CURRENT · **Stage 4.4 CLOSED；知识/决策职责重基线已冻结**。PR #80 / merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`，PR CI `35985508556`、main CI `35986495424` success，Production `dpl_G8cjdpD9oT3E5sN9dCckptzkc77J` READY。Notion 是长期 Research Memory，OS 不再扩建行业/公司/宏观 Wiki、Notion 镜像或 Obsidian 主知识库；OS 聚焦 Structured Fact/Evidence/Verified Claim/Thesis/Investment Expression/Portfolio 与 PIT/admission/revision/Audit/calculation。Stage 4.5 Domain MCP CURRENT；旧 Research Bridge 仅 Legacy fallback。见 [投研知识与决策工作流 V1](research-knowledge-decision-workflow-v1.md)。
+
+
+> 2026-09-24 CURRENT · Stage 4.4 docs-only closeout：**CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。ChatGPT targeted re-review 绑定 `5d12c97cb0342176ec82196f39502668f5d9238f`，P0=0 / P1=0 / P2=0；full projection canonical integrity binding、Account lifecycle / denominator semantics、confirmation / Audit authority 与只读边界均 PASS。该 SHA 的 Preview deployment READY，用户已完成人工验收且无新增修改要求。PR NOT_CREATED / Hosted PR CI NOT_RUN / merge NOT_DONE / main NOT_MODIFIED / Production NOT_UPDATED、NOT_VERIFIED FOR STAGE 4.4；真实 Portfolio 对象不增加。下一停止点为 ChatGPT docs-only Final SHA 极轻量复核，之后由用户另行授权创建 PR。本条 supersede 下方旧 Stage 4.4 CURRENT / 停止点，历史记录与测试数字保留原时点含义。[精确事实与收口边界](stage-4-4-portfolio-exposure.md#docs-only-closeout--2026-09-24-current)。
 
 > 2026-09-23 CURRENT · Stage 4.4 targeted audit fix：**IMPLEMENTED / PENDING TARGETED RE-REVIEW**。在已审计 `3bff8f1b52af26b812d633b9a1c66c4bad929ce6` 原分支定向修复 P1 全投影 canonical integrity binding 与 P2 Account lifecycle 传播；inactive/archived 仍计入已记录持仓分母并显式阻断/提示。冻结 Phase 1B、目标 universe、exact research pin、本机只读、交易与绩效边界不变。仅普通 commit/push，停止等待 ChatGPT targeted re-review；本条 supersede 上一条待独立审计状态，保留其历史验证数字。[定向修复与复验](stage-4-4-portfolio-exposure.md#targeted-audit-fix--2026-09-23)。
 
@@ -246,11 +249,12 @@
 | Asset / Account Local Core | DONE V1 / LOCAL CORE | P0 | Phase 1B：Account、Asset、Transaction、CashFlow、PositionSnapshot、DCA Plan revision / Execution、rollover、append-only SQLite、confirmation、idempotency、Audit、HistoricalAssetImport、账户总额 reconciliation 与 DCA temporal binding；不是完整 Portfolio |
 | Trusted Asset Import Core | DONE V1 / LOCAL CORE | P0 | ImportTrust seam、evidence validation、prepare/plan/confirm/commit、approval binding、幂等与原子写入已实现 |
 | Trusted source adapter / OCR / confirmation UI / real historical migration | NOT STARTED | P0 | 当前只有 fail-closed core seam 与 synthetic/temp 验证；没有真实来源接入、截图解析、浏览器确认流程或真实账户迁移 |
-| Portfolio aggregate / Exposure / read model / UI | IMPLEMENTED / TARGETED RE-REVIEW PASS / READY FOR PR | P0 | Stage 4.4；AssetReads/Audit、local-only readonly seam，按币种/快照 cohort 的已记录仓位分母；全账户覆盖未证明 |
-| Research Thesis ↔ Position Mapping | IMPLEMENTED / TARGETED RE-REVIEW PASS / READY FOR PR | P0 | exact Position → Expression revision/confirmation → 原 Thesis/Claim/Evidence；研究关系仅定性 |
-| Target Allocation / Rebalance Task | IMPLEMENTED / TARGETED RE-REVIEW PASS / READY FOR PR | P0 | 本人确认、append-only history、确定性 current/target/delta、blocked 任务与复核；无 ledger 写入 |
+| Portfolio aggregate / Exposure / read model / UI | CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY | P0 | Stage 4.4；AssetReads/Audit、local-only readonly seam，按币种/快照 cohort 的已记录仓位分母；全账户覆盖未证明 |
+| Research Thesis ↔ Position Mapping | CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY | P0 | exact Position → Expression revision/confirmation → 原 Thesis/Claim/Evidence；研究关系仅定性 |
+| Target Allocation / Rebalance Task | CLOSED / MERGED / PR CI PASS / MAIN CI PASS / Production READY | P0 | 本人确认、append-only history、确定性 current/target/delta、blocked 任务与复核；无 ledger 写入 |
 | Performance Attribution / XIRR / TWR | NOT_ADMITTED / NOT_IMPLEMENTED | P0 | 不生成归因、年化、Alpha 或伪绩效 |
-| Research Bridge / controlled remote access | READ-ONLY LEGACY IMPLEMENTED；DOMAIN MCP PLANNED | P0 | Slice 2.5 只读 Bridge 保留 fallback；Stage 4.5 面向 Creator/Evidence/Claim/Thesis/Expression，复用权限/确认/Audit，不默认代理 Wiki |
+| Research Bridge / controlled remote access | LEGACY READ-ONLY IMPLEMENTED；DOMAIN MCP CURRENT | P0 | 旧 Slice 2.5 Bridge 保留 fallback，不再扩建 Wiki/知识代理；Stage 4.5 新 Domain MCP 只暴露 OS Formal Decision System，Slice 1 默认只读 |
+| OS Domain MCP / Controlled Tool Layer | CURRENT / D0 NEXT | P0 | 候选域：Evidence、Verified Claim、Thesis、Investment Expression、Portfolio/Exposure、必要 Creator structured context；不代理 Drive/Notion，不提供 raw SQL/万能 query/write/交易 |
 | Cloud business database / cross-device sync | DEFERRED | P0 | 当前 Local-first freeze 已覆盖旧 Cloud Store 假设；若未来改变方向须重新冻结 scope，不是现行 Stage 4 默认任务；Research Bridge 自身的 Auth / scope 仍属于 Stage 4.5 缺口 |
 | Browser LocalStorage workflow migration | NOT STARTED | P0 | Watchlist / Expectation 仍使用 LocalStorage；迁往 Local Core 或其他目标尚无冻结实施范围，不得写成已迁移 |
 | Valuation Center | NOT STARTED | P1 | 当前 V2 路线列入 Stage 4.6+ Advanced Valuation |

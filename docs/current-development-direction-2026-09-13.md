@@ -1,5 +1,8 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-24 CURRENT · **Research Memory / Decision System 边界重基线；Stage 4.4 CLOSED → Stage 4.5 CURRENT**。PR #80 已 squash merge，PR head `056cca6bc4e83af5014dfb482b98e86e248d591e`，merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`；PR CI `35985508556` success，main CI `35986495424` success，Production deployment `dpl_G8cjdpD9oT3E5sN9dCckptzkc77J` READY 且绑定同一 main SHA。长期边界正式冻结为：Google Drive=L0 原件；Notion=Research Memory / 长期 Wiki；OS=Formal Decision System（Structured Fact/Evidence/Verified Claim/Thesis/Investment Expression/Portfolio/Target/Review + PIT/admission/revision/Audit/calculation）；ChatGPT=Research Orchestrator。普通研究发现默认停在 Notion，仅满足正式证据/计算/决策/组合条件时晋升 OS。Stage 4.5 只建设 OS Domain MCP，不代理 Drive/Notion；旧 Local Wiki/Obsidian/Research Bridge 仅 Legacy compatibility / fallback。详见 [投研知识与决策工作流 V1](research-knowledge-decision-workflow-v1.md)。
+
+
 > 2026-09-23 CURRENT · **Stage 4.4 Portfolio Exposure Integrated MVP — IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。以最新 `origin/main @ 9e363474abc22ebb6da391dbb2c45c9e8c9358e8` 开工，A/B/C 连续完成：原 AssetReads/Audit → 本机只读 projection → exact Position Research Link → 结构/定性研究暴露 → 本人确认 Target/Rebalance review → 组合 Workspace/F3。没有新账本、原研究 owner 替代、FX 猜算或交易/绩效能力；线上静态页面保持未连接私人账本。验证、真实数量和限制见 [Stage 4.4 交付](stage-4-4-portfolio-exposure.md)。本条 supersede 旧 Stage 4.4 NEXT/NOT_IMPLEMENTED；当前停止点为普通 push 后待独立审计，未进入后续阶段，不预写 PR/合入/Production。
 
 > 2026-09-23 Final Closeout / CURRENT — **Stage 4.3 CLOSED / IMPLEMENTED / INDEPENDENT AUDIT PASS / MERGED / PR CI PASS / MAIN CI PASS / Production READY**。#77 与 #78 已核验，当前 main/Production 绑定 `925b496e92ef7c338a248b1fb2eef5e9dabb0ee0`；主开发线转 **Stage 4.4 — Portfolio Exposure MVP：NEXT / PLANNED / NOT_IMPLEMENTED**。证据、双通道 authority、Phase 1B 复用与继承限制见 [Final Closeout 与 Stage 4.4 handoff](stage-4-3-r3-investment-expression-closeout.md#final-closeout--2026-09-23-current)。本条 supersede 下方旧 CURRENT/停止点，历史审计记录不回写；本 docs-only 分支仍待独立审计。
@@ -83,7 +86,7 @@ Stage 4.2.5  Creator Viewpoint Tracker V1（CLOSED）
       ↓
 Stage 4.3    R0 → R1 Verified Claim → R2 Thesis → R3 Expression（CLOSED）
       ↓
-Stage 4.4    Portfolio Exposure MVP（NEXT / PLANNED / NOT_IMPLEMENTED）
+Stage 4.4    Portfolio Exposure MVP（CLOSED）
       ↓
 Stage 4.5    Research MCP Gateway / Controlled Tool Layer
       ↓
@@ -192,6 +195,8 @@ UI V2.0 统一收口
 **UI V2.0 的大规模视觉与信息架构收口默认放在 Stage 4.3～4.4 产品需求稳定后，而不是现在提前猜测 4.6 界面。**
 
 ## 8. Stage 4.5 — OS Domain MCP / Controlled Tool Layer
+
+> 2026-09-24 scope clarification：Stage 4.5 只暴露 Formal Decision System 的受控 Domain Tools。Notion/Drive 继续由外部连接器负责；不新增 Wiki proxy / mirror。Slice 1 默认 READ-ONLY，优先 Evidence → Verified Claim → Thesis → Investment Expression → Portfolio/Exposure；未来任何写入必须另行经过 prepare → preview → explicit user confirm → commit。完整边界见 [投研知识与决策工作流 V1](research-knowledge-decision-workflow-v1.md)。
 
 未来主要 tools 面向 OS 独有的 Creator context、Evidence、Verified Claim、Thesis、Investment Expression，并保留既有结构化事实与完成后的 Portfolio 领域入口。Notion Wiki、Google Drive 原件由其外部工具读取，OS 不默认代理 `search_wiki / get_wiki_entry`。
 

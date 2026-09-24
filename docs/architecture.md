@@ -1,5 +1,24 @@
 # 投资研究看板架构基线
 
+## 2026-09-24 Research Memory / Formal Decision 边界 / CURRENT
+
+正式三层分工：
+
+`Google Drive L0 Raw Source → ChatGPT Delta Research → Notion Research Memory`
+
+与
+
+`Provider / official Evidence / structured owner → Evidence Gate / F2 → Verified Claim → Thesis → Investment Expression → Portfolio`
+
+并行存在，authority 不混淆。
+
+Notion 是行业/公司/宏观/产业链/主题/Creator 等长期 Wiki 的默认真源；OS 不保存同一 Wiki 正文副本，不把 Obsidian 作为第二真源。ChatGPT 先用 Notion 恢复 baseline、对比新证据并更新研究记忆；大多数研究到此结束。只有需要 PIT/admission/revision、确定性计算、正式 Claim/Thesis/Expression 或 Portfolio 影响时，才进入 OS Research Decision Lane。
+
+Stage 4.5 的 MCP 因此只服务 OS Formal Decision System，不代理 Drive/Notion。旧 Research Bridge / Local Wiki / Obsidian projection 保留 Legacy compatibility / fallback，真实替代迁移前不删除。完整规则见 [投研知识与决策工作流 V1](research-knowledge-decision-workflow-v1.md)。
+
+Stage 4.4 已 CLOSED：PR #80，merge/main `68698ae7548aeb46fe9dd95fd0fdfcb4f13d1e4e`，PR/main CI success，Production READY。
+
+
 ## 2026-09-23 Stage 4.4 Portfolio 增量 / CURRENT
 
 状态：IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT。原 Phase 1B `AssetReads + Audit` → readonly SQLite read transaction → Node Portfolio projection → 显式 opt-in 的本机 Vite 同源 GET → Browser Portfolio Workspace。Node/SQLite 不进入 browser graph；Hosted/static 不具有该 seam。不存在账本复制、交易写入或私人数据上传路径。
