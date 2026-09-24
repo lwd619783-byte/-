@@ -263,7 +263,7 @@ describe('managed Skill supply chain and project boundaries', () => {
   });
   it('validates the checked-in pin manifest without needing installed external Skills', () => {
     const real = loadRegistry();
-    expect(real.projectSkills).toHaveLength(5);
+    expect(real.projectSkills).toHaveLength(6);
     expect(real.externalSkills.map((skill) => skill.name)).toEqual(['redesign-existing-projects', 'impeccable', 'archify', 'diagram-design']);
     for (const skill of real.externalSkills) expect(skill.commit).toMatch(/^[a-f0-9]{40}$/);
     for (const name of ['redesign-existing-projects', 'impeccable']) {

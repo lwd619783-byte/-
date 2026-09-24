@@ -15,6 +15,7 @@ Codex 先发现 name / description，命中后才读完整 `SKILL.md`，引用�
 | E：画 AI CAPEX → 光通信 → 存储 → 上游设备投资逻辑图 | `diagram-design` | 区分研究事实 / 假设、日期和来源；不选 Archify |
 | F：重复 helper 最小安全重构 | `investment-dashboard-code-minimalism` | conservative / lite；不删除 contracts / Audit / PIT / tests 保障 |
 | G：小幅文案、spacing 或小 CSS 修改 | 不要求外部 Skill | 不自动进入 Impeccable facade；不额外设计、审计或画图 |
+| H：行业深度研究、真实行业 Pilot、重大行业 Delta | `investment-research-industry-workflow` | Drive L0 → Notion 当前认知；不处理 OS 开发/正式决策写入、普通行情或仅画图 |
 
 工程真实性 / 系统架构选 Archify；研究表达 / 编辑型图表选 Diagram Design。状态机、workflow、Entity、Audit 等共同词按交付物和实际改动层判断，默认不同时运行两个图表 Skill。只有任务确实跨层才补读另一个项目 workflow。普通 coding task 不无条件触发 minimalism 或外部 Skill。
 
@@ -22,7 +23,7 @@ Skill 是 workflow。项目 hard invariants、冻结合同、数据真实性、P
 
 ## 2. Tracked project Skills
 
-以下 `.agents/skills/<name>/SKILL.md` 由 Git 跟踪，版本就是本仓库提交；均为项目自有工作流，无额外安装器、runtime、网络、telemetry 或初始化动作，沿用本仓库治理，不另引入第三方许可条款。
+以下 `.agents/skills/<name>/SKILL.md` 由 Git 跟踪，版本就是本仓库提交；均为项目自有 instruction-only 工作流，无自带安装器、runtime、telemetry 或初始化动作，沿用本仓库治理，不另引入第三方许可条款。研究执行可以使用当前已授权的公开网络/connector，不代表 Skill 自带网络服务。
 
 | 名称 | 职责 | 不触发场景 |
 | --- | --- | --- |
@@ -31,8 +32,11 @@ Skill 是 workflow。项目 hard invariants、冻结合同、数据真实性、P
 | `investment-dashboard-domain-workflow` | Provider / PIT / Entity / Resolver / Evidence / Research Event / Thesis / ingestion / expectations / admission 的最小上下文 | 纯 UI、纯持久化机制、仅画图 |
 | `investment-dashboard-local-core-workflow` | 复用 Phase 1A 的 SQLite、migration、Entity / Audit Repository、transaction、CLI、local-first / Node-only boundary | UI、研究表达；不包含 Phase 1B 业务 |
 | `investment-dashboard-code-minimalism` | 当前明确任务内的保守去重 / 最小实现 | 普通 coding task；无跨任务持续模式 |
+| `investment-research-industry-workflow` | 官方基线→外部 Delta→全球公司经营验证→统一估值/压力情景；V2 全门禁及 Notion 当前认知收口 | OS 开发/正式决策写入、普通行情、仅画图；不自动 Promotion |
 
 不复制业务合同、不写易漂移的覆盖数字、不预授权 Account / Asset / DCA 或其他后续域。
+
+行业深研入口与四份 references 为本仓库自有指令，复用既有 M0—M13 taxonomy 和 [知识/决策职责](research-knowledge-decision-workflow-v1.md)。Codex 是任务执行 Agent；Drive 原件身份、Notion Research Memory 与 OS Formal Decision 保持分工。不经 Stage 4.5 Domain MCP 代理外部知识，不新增依赖/外部 Skill/MCP/hooks/service。D0 实测能力，V2 八项门禁全通过才升级；主 Wiki 留当前认知，历史进入独立档案，公司细节进入公司层。私人 ID、原件、账户与研究运行底稿不进公开仓库。静态治理验证不等于真实 Pilot 验收。
 
 ## 3. Managed external Skills 与 immutable pins
 
@@ -137,7 +141,7 @@ npm run --silent env:check:json
 
 - 显式 setup 只下载 missing copy 的 fixed commit + digest 清单。Node 内置 fetch，无新 npm dependency、不执行远端代码；六文件一批，限制 HTTPS host、大小、超时、跳转，校验后才创建 Skill 目录。仅临时网络错误 / 429 / 5xx 最多尝试三次；404、禁止 host、内容不匹配不重试。
 - 正确 copy 原样 SKIP。既有缺文件、hash 漂移、未知额外文件 / 不受管理目录均非零退出，不覆盖、不删除、不自行恢复。下载/hash 失败不产生新 Skill；磁盘写入中失败则保留不完整目录并报错，下次 preflight 拒绝，先人工核验再明确恢复。
-- `--check` 不联网、不下载、不运行 Skill、不写 cache/config/lock；检查五个项目入口、四个 external implementation（含非 discoverable vendor）、LICENSE / allowlist / digest、local engine 与 project scope。旧 discoverable Impeccable copy、symlink / junction 均被拒绝。文本仅归一 CRLF/LF，二进制逐 byte 校验。
+- `--check` 不联网、不下载、不运行 Skill、不写 cache/config/lock；检查六个项目入口、四个 external implementation（含非 discoverable vendor）、LICENSE / allowlist / digest、local engine 与 project scope。旧 discoverable Impeccable copy、symlink / junction 均被拒绝。文本仅归一 CRLF/LF，二进制逐 byte 校验。
 - env / JSON health 复用只读逻辑。缺第三方 copy 为 WARN，损坏 copy / 缺项目 Skill 为 FAIL；独立 `agent:skills:check` 对任何 missing 仍退出 1，不降低旧健康门禁。
 - CI 保持原配置；新 fixture tests 随现有 Vitest 执行，不要求外部 Skill 安装，不增加 GitHub 在线下载门禁。
 - 不操作用户全局 Skill / Codex config / 其他项目。新 Skill 未出现在客户端列表时再 reload；不宣称当前会话已重新发现所有新内容。

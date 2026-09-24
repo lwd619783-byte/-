@@ -94,6 +94,7 @@
 | 工程架构、source-grounded system map、跨模块数据流、Before / Delta / After | `archify` |
 | 产业链、投资逻辑、宏观传导、商业模式、研究流程、报告图表 | `diagram-design` |
 | Provider / PIT / Entity / Evidence / Research OS 领域语义 | `investment-dashboard-domain-workflow` |
+| 行业深度研究、真实行业 Pilot、重大行业 Delta（Drive L0 → Notion 当前认知） | `investment-research-industry-workflow`；不处理 OS 功能开发、正式决策写入、普通行情查询或仅画图 |
 | SQLite / migration / transaction / Audit / Repository 持久化底层 | `investment-dashboard-local-core-workflow` |
 | 明确要求去重或最小安全实现 | `investment-dashboard-code-minimalism` |
 | 小幅文案、spacing、孤立代码修改 | 不要求加载外部 Skill |
