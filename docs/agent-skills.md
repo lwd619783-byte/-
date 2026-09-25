@@ -15,7 +15,7 @@ Codex 先发现 name / description，命中后才读完整 `SKILL.md`，引用�
 | E：画 AI CAPEX → 光通信 → 存储 → 上游设备投资逻辑图 | `diagram-design` | 区分研究事实 / 假设、日期和来源；不选 Archify |
 | F：重复 helper 最小安全重构 | `investment-dashboard-code-minimalism` | conservative / lite；不删除 contracts / Audit / PIT / tests 保障 |
 | G：小幅文案、spacing 或小 CSS 修改 | 不要求外部 Skill | 不自动进入 Impeccable facade；不额外设计、审计或画图 |
-| H：行业深度研究、真实行业 Pilot、重大行业 Delta | `investment-research-industry-workflow` | Drive L0 → Notion 当前认知；不处理 OS 开发/正式决策写入、普通行情或仅画图 |
+| H：行业深度研究、真实行业 Pilot、重大行业 Delta 的证据交接 | `investment-research-industry-workflow` | Codex Evidence Builder → Notion Research Handoff → ChatGPT Final Writer；不处理最终 Wiki 写作、OS 开发/正式决策写入、普通行情或仅画图 |
 
 工程真实性 / 系统架构选 Archify；研究表达 / 编辑型图表选 Diagram Design。状态机、workflow、Entity、Audit 等共同词按交付物和实际改动层判断，默认不同时运行两个图表 Skill。只有任务确实跨层才补读另一个项目 workflow。普通 coding task 不无条件触发 minimalism 或外部 Skill。
 
@@ -32,11 +32,11 @@ Skill 是 workflow。项目 hard invariants、冻结合同、数据真实性、P
 | `investment-dashboard-domain-workflow` | Provider / PIT / Entity / Resolver / Evidence / Research Event / Thesis / ingestion / expectations / admission 的最小上下文 | 纯 UI、纯持久化机制、仅画图 |
 | `investment-dashboard-local-core-workflow` | 复用 Phase 1A 的 SQLite、migration、Entity / Audit Repository、transaction、CLI、local-first / Node-only boundary | UI、研究表达；不包含 Phase 1B 业务 |
 | `investment-dashboard-code-minimalism` | 当前明确任务内的保守去重 / 最小实现 | 普通 coding task；无跨任务持续模式 |
-| `investment-research-industry-workflow` | 官方基线→外部 Delta→全球公司经营验证→统一估值/压力情景；V2 全门禁及 Notion 当前认知收口 | OS 开发/正式决策写入、普通行情、仅画图；不自动 Promotion |
+| `investment-research-industry-workflow` | 官方基线/Delta、全球公司完整财报/附注与双链、L0 核验、统一估值及可复算压力数据；结构化 Research Handoff | 最终 Wiki/M0—M13 叙事、视觉与投资综合；OS 开发/正式写入、普通行情、仅画图；不自动 V2/V3 或 Promotion |
 
 不复制业务合同、不写易漂移的覆盖数字、不预授权 Account / Asset / DCA 或其他后续域。
 
-行业深研入口与四份 references 为本仓库自有指令，复用既有 M0—M13 taxonomy 和 [知识/决策职责](research-knowledge-decision-workflow-v1.md)。Codex 是任务执行 Agent；Drive 原件身份、Notion Research Memory 与 OS Formal Decision 保持分工。不经 Stage 4.5 Domain MCP 代理外部知识，不新增依赖/外部 Skill/MCP/hooks/service。D0 实测能力，V2 八项门禁全通过才升级；主 Wiki 留当前认知，历史进入独立档案，公司细节进入公司层。私人 ID、原件、账户与研究运行底稿不进公开仓库。静态治理验证不等于真实 Pilot 验收。
+行业深研入口与五份 references 为本仓库自有指令，复用既有 M0—M13 taxonomy 和 [知识/决策职责](research-knowledge-decision-workflow-v1.md)。Codex 是 Research Engineer / Evidence Builder，ChatGPT 网页端是 Final Writer；Drive 原件身份、Notion Research Memory 与 OS Formal Decision 保持分工。不经 Stage 4.5 Domain MCP 代理外部知识，不新增依赖/外部 Skill/MCP/hooks/service。Wiki Maturity、Evidence/L0 Gate、Handoff Readiness 三轴正交，L0 GAP 不回退已完成公司验证的 V1.2。Codex 交付短父页及 A—E 五子页，默认停在 READY_WITH_GAPS 或 READY_FOR_CHATGPT_SYNTHESIS；主 Wiki 仅修正明显错误状态，不执行最终写作或自动升级 V2/V3。Writer 完成最终 synthesis/成熟度判定，V2 八项门禁仍须全部通过。私人 ID、原件、账户与研究运行底稿不进公开仓库。projectSkills 数量不变；静态治理验证不等于真实 Pilot 验收。
 
 ## 3. Managed external Skills 与 immutable pins
 

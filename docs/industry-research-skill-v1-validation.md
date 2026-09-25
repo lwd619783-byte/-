@@ -1,6 +1,32 @@
-# 行业深度研究 Skill V1 与真实 Pilot 验证
+# 行业深度研究 Skill 与 Research Handoff 验证
 
-## 2026-09-25 CURRENT
+## Skill V1.1 / Handoff — 2026-09-25 CURRENT
+
+**IMPLEMENTED / VERIFIED LOCALLY / PENDING CHATGPT AUDIT AND SYNTHESIS。** 本轮 Base `1b4e3c482798c1554477192b867890184c83fd4c`；fetch 后 `origin/main @ fc0f23466777f32eb27037f6cbcbba627f5b2478` 与功能分支 HEAD 均符合指定审计基线，无未知提交。继续 `codex/industry-research-skill-v1-pilot`，未切换或修改 main。
+
+- Codex 改为 Research Engineer / Evidence Builder；ChatGPT 网页端承担最终 synthesis、Wiki 叙事/视觉与 maturity 判定。主 Wiki 只修复明确错误状态，未执行最终 Wiki 写作。
+- Wiki Maturity、Evidence/L0 Gate、Handoff Readiness 三轴正交；本 Pilot 当前为 **V1.2 公司验证 / L0 GAP / V2 BLOCKED / V3 NOT STARTED / READY_WITH_GAPS**；AI Draft 待人工审核，OS Promotion 未触发。L0 GAP 不把研究退回 V1.1。
+- 新增 Research Handoff Contract，更新入口/四份既有 references/Router/Registry。projectSkills 数量不变，lock 与 fixture 无需改动。无 dependency、runtime、service、合同、UI 或 Domain MCP 变更。
+- 复用已有原件、公司页和比较底稿，建立一份短父页及 A Evidence Ledger、B Company Fact Matrix、C Delta & Conflict Register、D Valuation & Scenario Dataset、E L0 Manifest & Gaps。父页只含 metadata、覆盖/缺口、索引和七项 Writing Brief；不是第二份长报告。
+- 私人 Notion 六页已写入并完整回读；27条重要证据、六公司各20字段、旧判断/冲突、统一价格日数据及机械情景均可追到原始来源。未知日期/精确页/指标保留明确限制，不编造定位。主 Wiki 当前核心判断及之后正文与 baseline 逐字一致；档案/gate/索引/待研究项仅同步本行业状态，历史阶段快照保留。
+- L0 引用既有已核台账，不重复上传或声称本轮重新核验原件字节。三项既有缺口（Schneider URD、IEA ETP、OCP液冷白皮书）保留，本轮不再次索取用户下载；Modine价权/盈利范围、Eaton共识、精确EV/ROIC等仍缺失，未勾选V2待研究项。
+
+| 本轮验证 | 实际结果 |
+| --- | --- |
+| `npm run agent:skills:check` | PASS；6项目入口和4个既有managed实现，无安装/升级 |
+| `npx vitest run scripts/setup-codex-skills.test.mjs` | 24/24 PASS；未修改测试 |
+| `npm run env:check` | 48 PASS / 11 WARN / 0 FAIL / 4 SKIP；未提交工作区WARN，无新增FAIL |
+| `git diff --check` | PASS |
+| 独立指令审查 | PASS；新分工/三状态轴/五页合同/停止点一致；不冒充真实执行验证 |
+| Notion回读 | 父页、五子页、主Wiki状态与正文保护、档案/gate及本行业索引/清单已核 |
+| 全量应用测试 / build | NOT_RUN；无应用runtime变更 |
+| GitHub Hosted CI | NOT_RUN |
+| Vercel Preview | READY；只读核验 `dpl_9oXH7fvD4PzczUVNoEKbRtNsmdyQ`，绑定 `1b4e3c482798c1554477192b867890184c83fd4c`，不是本轮Final SHA验收 |
+| Production | NOT_MODIFIED；未主动执行Production deployment，本轮不主动再次部署 |
+
+普通 commit/push 后停止等 ChatGPT 独立审计和正式 synthesis；不创建 PR、不 merge、不修改 main。上述 CURRENT supersede 下方 V1 的职责、错误成熟度与笼统“无部署”表述；保留原研究和本地验证历史，不把私人 Drive/Notion 身份或研究原件写入仓库。
+
+## V1 交付历史｜2026-09-25（当前状态以上方为准）
 
 **Skill IMPLEMENTED / VERIFIED LOCALLY / PENDING CHATGPT INDEPENDENT AUDIT。真实 Pilot PARTIAL / V2 BLOCKED。**
 
@@ -28,7 +54,7 @@
 | `git diff --check` | PASS |
 | 有界独立行为审查 | PASS：正常深研路由、混合价格/缺失共识不强升、Drive只读时D0停止、分拆价权不直接排名 |
 | 全量应用测试 / build / Hosted CI | NOT_RUN；instruction-only及既有fixture计数变化，无应用runtime变更 |
-| PR / merge / main写入 / 部署 | NOT_PERFORMED；普通commit/push后等待ChatGPT独立审计 |
+| PR / merge / main写入 | NOT_PERFORMED；普通commit/push后等待ChatGPT独立审计；原“无部署”表述已由上方精确Preview/Production记录更正 |
 
 行为审查是指令审查，不是合成场景被执行的证明，也不代替真实Pilot。
 
@@ -40,7 +66,7 @@
 
 六家公司经营双链、全球控制点/利润池、同为9月23日主市场收盘的条件估值、资本强度/FCF定义/稀释、明确反证及可复算下行情景已写入私人Notion。过程进入独立档案，六家公司进入子页；主Wiki按M0—M13重新收口为当前认知，整页回读无截断/未知块和施工日志，行业索引/待研究项已同步真实状态。
 
-**已验收成熟度V1.1**。V1.2公司经营研究已有完整底稿，但原件归档门禁未关闭；V2完整统一估值仍有核心可比性缺口。未将完成的比较底稿冒充V2全通过，未勾选待研究项，未转入V3；仅准备了后续Delta触发。
+**历史状态更正**：V1交付曾将已完成公司验证与L0归档门禁混写，误报成熟度V1.1；审计纠正为 **Wiki V1.2 / L0 GAP / V2 BLOCKED**。经营研究底稿保留；归档与完整估值可比性缺口未关闭，未勾选待研究项、未转V3，仅准备候选Delta触发。
 
 实际障碍包括大型官方PDF上传传输超时、部分官方原件下载/字节归档受限，以及Modine分拆前含权价格与盈利预期业务范围无法可靠桥接。缺失共识/修正序列、精确价格日股数/EV与统一ROIC保留未知；不由AI补数字。私人档案记录逐项PASS/GAP/BLOCKED、准确来源、大小/hash、失败方式和一次性补档清单。完整原件数和最终核验结果以本次交付的私人台账及用户报告为准，不把易漂移私人运行记录固化为仓库数据。
 

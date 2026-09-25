@@ -6,7 +6,9 @@
 
 Notion 或 Drive 不可用即停在 D0，完成独立的 Skill 工程后一次性报告缺失能力。连接可用但目标仍有不可消除歧义时先澄清，不能新建平行 Wiki。
 
-## 阶段与退出证据
+## 成熟度与证据工作的关系
+
+下表定义研究成熟度需要的证据，不授权 Codex 写最终文章或自动升级。Codex 从既有 baseline 准备证据，ChatGPT Final Writer 完成最终 synthesis 与成熟度判定。Wiki Maturity、Evidence/L0 Gate（PASS/GAP/BLOCKED）、Handoff Readiness（NOT_READY/READY_WITH_GAPS/READY_FOR_CHATGPT_SYNTHESIS）分别记录；归档缺口不抹去已完成研究。研究内容和 Skill 的版本号也不得混淆。
 
 | 成熟度 | 研究工作 | 可核验退出证据 |
 | --- | --- | --- |
@@ -14,14 +16,14 @@ Notion 或 Drive 不可用即停在 D0，完成独立的 Skill 工程后一次�
 | V1 公开基线 | 官方统计、政策原文、标准组织、公司披露建立行业供需/技术/经济结构 | M0—M13 当前基线、来源/日期/口径、关键未知；券商研报不作为 baseline |
 | V1.1 外部研究 Delta | 公开可靠行业研究/白皮书逐条对照 V1 | 新增/支持/冲突/无变化及受影响模块；无足够可信材料记录“没有形成实质 Delta”，保留 V1 并可继续公司验证，不伪造阶段完成 |
 | V1.2 龙头公司经营验证 | 根据行业控制点选择通常 5—8 家全球代表公司，控制数量并说明选择/排除理由 | 最新完整年报及最新季度/半年/业绩材料和附注、业务暴露、订单到现金流及产品到利润两条链 |
-| V2 全球横向比较 | 全球经营、产业控制点、统一估值和压力情景 | 全部 deep-dive-acceptance gate 通过、主 Wiki 收口、档案/公司层可回读 |
+| V2 全球横向比较 | Codex 准备全球经营、控制点、统一估值与压力底稿；ChatGPT 最终综合 | 全部 deep-dive-acceptance gate 通过，Writer 收口并判定；Codex 交付 Handoff 不等于 V2 |
 | V3 持续 Delta Research | 跟踪财报、需求、供给、技术、政策、估值重大变化 | 旧判断→新证据→变化原因→受影响模块→证伪/下一触发；不重复重写全部行业 |
 
 ## M0—M13
 
 从仓库根 `contracts/v1/industry-module-registry.v1.json` 读取 canonicalNameZh；只借用既有 taxonomy，不修改合同、不创建 OS IndustryResearchProfile。每个模块保留一次，行业细节放在对应模块内，不新增 M14/M15。Notion 旧模板别名映射到既有编号，不由 AI 另创名称。
 
-每模块包含当前判断、关键证据定位、未决/冲突与适用边界。未研究是缺口；确实不适用需解释原因，不能用 not_applicable 掩盖关键工作。M10 仅研究语境的全球公司/可投资市场映射，绝不创建正式 Investment Expression。
+Codex 仅将事实/Delta/冲突/边界映射至 impacted modules，供 Writer 组织当前认知；不重写最终 M0—M13 叙事。未研究是缺口；确实不适用需解释原因，不能用 not_applicable 掩盖关键工作。M10 仅研究语境的全球公司/可投资市场映射，绝不创建正式 Investment Expression。
 
 ## 公司经营验证
 
@@ -34,4 +36,4 @@ Notion 或 Drive 不可用即停在 D0，完成独立的 Skill 工程后一次�
 
 ## V3 触发
 
-每个触发写明来源、观察频率或事件、阈值及其依据、受影响模块、判断如何改变。阈值若为研究假设需标注。无新证据则保持当前认知；没有实际部署自动化就不能称“已自动监控”。
+Codex 可提供候选触发的数据底稿：来源、观察频率或事件、阈值及依据、受影响模块。阈值若为研究假设需标注。Writer 判定 V2 后才能进入 V3；Codex 不自行宣布已启动。无新证据不重复研究；没有实际部署自动化就不能称“已自动监控”。
