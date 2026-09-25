@@ -94,7 +94,7 @@
 | 工程架构、source-grounded system map、跨模块数据流、Before / Delta / After | `archify` |
 | 产业链、投资逻辑、宏观传导、商业模式、研究流程、报告图表 | `diagram-design` |
 | Provider / PIT / Entity / Evidence / Research OS 领域语义 | `investment-dashboard-domain-workflow` |
-| 行业深度研究、真实行业 Pilot、重大行业 Delta 的证据交接（Codex Evidence Builder → ChatGPT Final Writer） | `investment-research-industry-workflow`；Drive L0 / Notion Research Handoff；不处理最终 Wiki 写作、OS 功能开发、正式决策写入、普通行情查询或仅画图 |
+| 行业深度研究、真实行业 Pilot、重大行业 Delta 的证据交接（Codex Evidence Builder → ChatGPT Final Writer） | `investment-research-industry-workflow`：V1.1 / CURRENT / FROZEN SOP；Drive L0 / Notion Research Handoff；不处理最终 Wiki 写作、OS 功能开发、正式决策写入、普通行情查询或仅画图 |
 | SQLite / migration / transaction / Audit / Repository 持久化底层 | `investment-dashboard-local-core-workflow` |
 | 明确要求去重或最小安全实现 | `investment-dashboard-code-minimalism` |
 | 小幅文案、spacing、孤立代码修改 | 不要求加载外部 Skill |

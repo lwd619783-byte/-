@@ -6,7 +6,7 @@
 
 写入前记录原页面版本/更新时间与正文、子页链接。新建仅限本任务所需的独立研究档案、公司页和 L0 子目录；先检查同对象是否已存在。写入失败或结果不明确先回读确认，避免盲目重试创建重复页。用当前工具文档的真实参数，不照抄旧接口。
 
-Codex 读取主 Wiki baseline，保存私人快照；仅修复有证据或明确审计结论支持的错误状态标签。不得改写/重排正文、扩写 M0—M13、添加最终 callout/图标/视觉结构或自行宣布 V2/V3。将正文需要修改的事实与原因交给 Writer，历史正文、失败记录和子页保留。删除、不可恢复覆盖、工具要求丢弃子页时停止，不自动启用 allow_deleting_content。
+Codex 读取主 Wiki baseline，保存私人快照；可以发现过期状态，仅修复已明确确认的错误状态字段。不得改写/重排正文、扩写 M0—M13、在尾部追加阶段施工日志、添加最终 callout/图标/视觉结构或自行宣布 V2/V3。将正文需要修改的事实与原因交给 Writer，历史正文、失败记录和子页保留。删除、不可恢复覆盖、工具要求丢弃子页时停止，不自动启用 allow_deleting_content。
 
 ## 交接层次与写入责任
 
@@ -17,6 +17,8 @@ Codex 读取主 Wiki baseline，保存私人快照；仅修复有证据或明确
 | 独立研究档案 | 历史版本/过程、原件身份台账、失败/冲突、gate；其下 Research Handoff 短父页和五个证据子页 |
 
 Handoff 按 [合同](research-handoff-contract.md) 建立 A Evidence Ledger、B Company Fact Matrix、C Delta & Conflict Register、D Valuation & Scenario Dataset、E L0 Manifest & Gaps。父页只有 metadata、实际覆盖、关键缺口、五子页索引和简短 Writing Brief，不复制完整研究。复用已有文件/报告台账，不生成第二套原件。主 Wiki 最终应无施工日志，但本工作流只指出问题交给 Writer，不越界替其改写。
+
+ChatGPT 完成最终 synthesis 后，Handoff 继续作为审计证据包保留，不因已被消费而删除。后续新资料以 Delta 交接给 Writer 更新，不重复开展整个行业研究。
 
 ## 回读收口
 

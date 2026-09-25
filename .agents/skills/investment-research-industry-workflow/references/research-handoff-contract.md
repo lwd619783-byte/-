@@ -2,6 +2,8 @@
 
 面向 ChatGPT 网页端高级模型的证据交接，不面向普通读者。Structured first、prose minimal；不重复行业叙事，不把原文再摘要成另一篇报告。沿用 Notion Research Memory、Drive L0 与既有公司页/档案，无新增系统、runtime 或 dependency。
 
+Token 纪律：不先对几十份 PDF 全文逐份摘要再写长文；Evidence Ledger 只收录 Final Writer 真正需要的高价值证据。Writer 消费后仍保留完整 Handoff 作审计证据，不删除；后续新资料走 Delta Research。
+
 ## 父页与状态
 
 在已唯一匹配的研究档案下创建/复用 `Research Handoff｜<行业>｜<as-of>`。父页仅放 Industry、As-of/时区、Wiki baseline 与 Drive L0 链接、公司样本、Wiki Maturity、L0 Gate、V2 Gate、Handoff Readiness、实际覆盖范围、关键缺口、A—E 五子页索引及末尾 Writing Brief。不复制五子页或主 Wiki 内容。
@@ -49,7 +51,7 @@ Wiki Maturity（V0/V1/V1.1/V1.2/V2/V3）、Evidence/L0 Gate（PASS/GAP/BLOCKED�
 19. strongest counter-evidence
 20. unknown/not disclosed
 
-完整财报/关键附注支持需求→订单→交付→收入→毛利→OCF→FCF/ROIC，以及研发/产品→验证→商业化→收入→利润。缺环节明示，订单/产能/发布产品不等于收入。跨公司利润指标不兼容时不排名。名单依据生态位；转换既有 Pilot 时复用其已验证样本，不为模板再研究新公司。
+完整财报/关键附注支持需求→订单→交付→收入→毛利→OCF→FCF/ROIC，以及研发/产品→验证→商业化→收入→利润。缺环节明示，order/backlog/SRA 不等于 revenue，product announcement 不等于 commercial revenue，产能计划不等于实现收入；按行业实际解释预约/订单的法律与经济含义。跨公司利润指标不兼容时不排名，不生成最终 Investment Expression。名单依据生态位；转换既有研究时复用其已验证样本，不为模板再研究新公司。
 
 ## C. Delta & Conflict Register
 

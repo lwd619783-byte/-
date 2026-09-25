@@ -1,5 +1,18 @@
 # 行业深度研究 Skill 与 Research Handoff 验证
 
+## 正式冻结 — 2026-09-25 CURRENT
+
+**Industry Research Skill V1.1 / CURRENT / FROZEN SOP。** Original Base `fc0f23466777f32eb27037f6cbcbba627f5b2478`；Pre-freeze `a0ed5d8b6b28bda69c01230b215812afa8a68c0c`。本轮 fetch 核对 main/功能分支均无漂移，初始 ahead 2 / behind 0，worktree 干净，无已有 PR 或未知提交。用户明确授权验证后 PR + squash merge；本条不预写尚未发生的 merge/Hosted/Production 结果。
+
+- 通用 SOP 固定 Codex Research Engineer / Evidence Builder → Research Handoff → ChatGPT Final Writer / Research Synthesizer。三状态轴、五子页及简短 Writing Brief 保留；L0 GAP 不回退已完成的 V1.2，READY 不等于 V2，Research Maturity 不等于人工审核，AI Draft 不等于 OS Verified Claim。
+- 从通用验收 reference 移除电力行业的产品/样本/压力清单，改为按行业实际控制点与传导选择代表公司和可复算压力情景。行业特定历史覆盖保留在本验证记录：全球电力/DC需求、输配电与供配电、热管理、燃机/新增电源、供给周期/capex/利润池，以及六家全球公司验证；这些不是其他行业的强制模板。
+- **Pilot 链路已完成**：Codex Evidence Builder → Research Handoff → ChatGPT Final Writer → 主 Wiki 最终 synthesis。前两步已有上轮执行/回读证据；Writer 与最终 synthesis 完成按本轮用户明确确认登记，本轮未再次读取或修改私人 Wiki。本事实不自动证明 L0 缺口关闭、Wiki V2、人工审核或 OS Promotion；下方旧“等待 synthesis”仅为上轮时点。
+- Token 纪律明确只交接高价值证据，不逐份全文摘要再写第二篇长报告；Writer 消费后保留 Handoff 作审计证据，后续新资料走 Delta。
+- 仅指令/治理文档冻结；projectSkills 集合、lock、测试数量断言未变。无依赖/runtime/service/hook/MCP/contracts/schema/permissions/UI/business logic 变化；无私人 URL/身份/原件或易漂移公司研究数据入库。
+- 本轮不继续行业研究、不补文件或 A/H 样本、不修改电力 Wiki 正文、不新建 Handoff，OS Promotion 未触发；下一行业研究不在本任务自动开始。
+
+冻结提交前验证：`npm run agent:skills:check` PASS（6项目入口/4既有managed实现）；Skill frontmatter validator PASS；`npx vitest run scripts/setup-codex-skills.test.mjs` 24/24 PASS；`npm run env:check` 48 PASS / 11 WARN / 0 FAIL / 4 SKIP（无新增FAIL）；`git diff --check` PASS。generic Skill 行业/公司专属扫描零命中，Router/Registry/lock集合一致，隐私与非目标文件范围检查通过。application full test/build = NOT_RUN（无 application runtime 变化）。PR 检查实际运行则等待成功；若无 Hosted run 如实 NOT_RUN，按用户授权继续。合并后只观察 Git 集成自动 Production，不主动 deploy/rollback。
+
 ## Skill V1.1 / Handoff — 2026-09-25 CURRENT
 
 **IMPLEMENTED / VERIFIED LOCALLY / PENDING CHATGPT AUDIT AND SYNTHESIS。** 本轮 Base `1b4e3c482798c1554477192b867890184c83fd4c`；fetch 后 `origin/main @ fc0f23466777f32eb27037f6cbcbba627f5b2478` 与功能分支 HEAD 均符合指定审计基线，无未知提交。继续 `codex/industry-research-skill-v1-pilot`，未切换或修改 main。

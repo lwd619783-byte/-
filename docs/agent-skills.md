@@ -23,6 +23,8 @@ Skill 是 workflow。项目 hard invariants、冻结合同、数据真实性、P
 
 ## 2. Tracked project Skills
 
+`investment-research-industry-workflow`：**Industry Research Skill V1.1 / CURRENT / FROZEN SOP**。Codex 构建证据与标准 Handoff，ChatGPT 网页端高级模型负责 Final Writer / Research Synthesizer、最终 Wiki 与成熟度判定。Handoff 消费后保留为审计证据，后续资料走 Delta；行业专属覆盖要求仅留在独立档案/历史验证，不固化进通用 Skill。冻结不增加研究版本轴，也不改变 projectSkills 集合。
+
 以下 `.agents/skills/<name>/SKILL.md` 由 Git 跟踪，版本就是本仓库提交；均为项目自有 instruction-only 工作流，无自带安装器、runtime、telemetry 或初始化动作，沿用本仓库治理，不另引入第三方许可条款。研究执行可以使用当前已授权的公开网络/connector，不代表 Skill 自带网络服务。
 
 | 名称 | 职责 | 不触发场景 |
