@@ -92,7 +92,7 @@ Agent 的目标不是替用户做投资决策，而是帮助建立可追溯的�
    - 未解决问题
    - 是否需要人工确认
 
-## 5. 研究工作流
+## 5. Research OS 晋升边界
 
 默认流程：
 
@@ -109,6 +109,8 @@ L0 原始资料 → Research Memory → Delta Research → 必要时进入 Forma
   - 需要长期证伪跟踪。
 
 不能因为“AI认为重要”自动升级。
+
+AI-generated analysis is research context only. It cannot become Verified Claim, Thesis, Investment Expression, Portfolio state or other Formal Decision State without explicit promotion workflow and required evidence.
 
 ## 6. 工程与 Git 边界
 
