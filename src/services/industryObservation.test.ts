@@ -106,6 +106,8 @@ describe('oil observation deterministic semantics', () => {
     expect(r.states).toContain('stale');
     expect(owner.definition.nativeFrequency).toBe('weekly');
     owner.observations.push(structuredClone(owner.observations[0]));
-    expect(freightObservation(owner, owner.definition.basis[0], '2026-09-27').states).toContain('conflicted');
+    const unknownReleaseDuplicate = freightObservation(owner, owner.definition.basis[0], '2026-09-27');
+    expect(unknownReleaseDuplicate.states).toContain('blocked');
+    expect(unknownReleaseDuplicate.states).not.toContain('conflicted');
   });
 });
