@@ -1,5 +1,43 @@
 # Daily Review V1 独立审计整改
 
+## CURRENT · 2026-09-27 样本数学语义修复
+
+续工基线 `d6d480da37d55182fdc17059c3c5fe77c09b2351`，沿用 `codex/daily-review-writeback-v1`。本节替代下文历史记录中“quality state 使样本值全部为 null”的行为说明；P1-A、P1-B、OAuth P2 其余实现与门禁保持不变。
+
+**数据质量受限不等于数学不可计算。** `samplePerformance()` 仅依据非空固定样本、每只证券完整 n+1 个有限值、可计算的 observationChange、相同实际起止日返回 mean/up/down/flat；任何缺证券、窗口内 null/重复冲突或端点不一致都使整体数学值为 null，不缩小分母。stale/partial/unknown_basis/calendar_unproven 等状态完整传播，但不覆盖已有数学结果；共享投影 availability 区分 available / restricted / stale / insufficient。relationship 函数及其严格门禁未改。
+
+UI 恢复 1/5/20 期等权原 close 数学变化及涨跌平计数，并在摘要卡持续显示质量限制、非总回报/非关系判断说明。Daily Review context 自动复用相同函数，不改 source availability 映射、PIT、ref pin、Review publish 或 authority。现有来源状态为 stale/blocked 的 derived 引用仍被 `REVIEW_FACT_SOURCE_UNAVAILABLE` 拒绝；数字可读取并不代表 fresh、formal evidence 或 investable signal。
+
+真实留存源，asOf=`2026-09-27T12:00:00.000Z`，三股截止 `2026-09-17`，没有 Provider 刷新：
+
+| 样本窗口 | 实际起止日 | 等权数学变化 | 上涨 / 下跌 / 持平 |
+| --- | --- | --- | --- |
+| 1p | 09-16 → 09-17 | +6.7452379008% | 3 / 0 / 0 |
+| 5p | 09-10 → 09-17 | +1.7060184235% | 2 / 1 / 0 |
+| 20p | 08-20 → 09-17 | +20.3414673454% | 3 / 0 / 0 |
+
+三股 individual 1/5/20 继续可读；样本三个结果均保留 stale/unknown_basis/calendar_unproven、availability=stale。freight=blocked/null；relationship=unavailable/数据不足。未将原 close 称为复权收益或总回报。
+
+| 指定回归 | 本次结果 |
+| --- | --- |
+| shared observation / oil UI | 20 + 8 tests PASS |
+| `test:daily-review` | 22 Node + 6 UI PASS |
+| Review + context + Bridge + Domain | 67 Node PASS |
+| contracts validate / tests | PASS；106 + 78 Node、162 Vitest |
+| industry | 8 Python + 107 Node + 90 Vitest PASS |
+| research eval check / tests | PASS；65 Node + 57 Vitest |
+| data audit | 0 errors / 42 warnings，无增加 |
+| 原样 `npm test` | 116 files / 1523 tests PASS，54.72s |
+| test discovery | 116 正式 suites；3 个嵌套副本反例仍排除，PASS |
+| build / bundle | PASS；budget errors=[]；已有 large-chunk advisory 保留 |
+| browser 390 / 1440 | 油运 75 checks + Review 34 checks PASS；0 page runtime errors |
+
+浏览器使用原实际 App 与分离的 synthetic seam；Review 使用 local SDK→HTTP→test store，没有 live cloud 写入。油运首次移动端 tooltip 检查因图表在视口外超时；脚本增加悬停前滚动到图表，原断言和 timeout 均保留，重跑通过。最终油运报告另记录 1 条 console 404，未捕获具体资源 URL；resourceErrors=[]，未将其宣称为零 console errors。新增真实数据测试首次因测试 asOf 的 ISO 字符串格式不一致触发 pin 拒绝，统一为 `.000Z` 后通过，生产 pin 校验没有修改。
+
+[浏览器报告](daily-review-math-fix-v1/oil-browser-report.json)、[Review 浏览器报告](daily-review-math-fix-v1/review-browser-report.json)、[1440 截图](daily-review-math-fix-v1/real-1440.png)、[390 截图](daily-review-math-fix-v1/real-390.png)。执行日志位于 ignored `data-cache/daily-review-math-fix/`。
+
+未改 Vitest pool、timeout、owner-state、CI 命令、OAuth、persistence、Review authority、Formal Decision、Production。Hosted CI / Real ChatGPT 为 NOT_RUN；普通 commit + push 后的精确 Final SHA / ahead-behind / Preview 状态以最终交付核验为准。不创建 PR、不 merge，完成后等待 ChatGPT 最后一轮复审。
+
 ## 2026-09-27 冻结范围
 
 续工基线 `553fb638eefab83f3379f6b183aec98bd28a1674`，当前分支 `codex/daily-review-writeback-v1`；fetch 后 main 仍为 `0092d02e7ef13764be7877d2f56a9137685d4b8a`，工作区 clean。不新建功能分支；只做 P1-A/P1-B/P2，不接真实 ChatGPT、Tasks、新 Provider/Store/云资源或 Production。

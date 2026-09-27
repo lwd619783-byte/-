@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { createServer } from 'vite';
+import { reviewContext } from '../server/daily-review/context.mjs';
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const output = path.resolve('data-cache/oil-observation/browser');
 const harness = path.resolve('data-cache/oil-observation/harness');
@@ -39,6 +40,13 @@ try {
     check(await page.locator('vite-error-overlay').count() === 0, width + ': real app loaded without overlay');
     check(await page.getByText('运价不可用', { exact: true }).count() === 1, width + ': real freight explicitly blocked');
     check(await page.getByText('3 家公司 · 3 个证券', { exact: true }).count() === 1, width + ': real existing company pool');
+    const observation = reviewContext(new Date().toISOString()), sample = observation.selectedSample;
+    const expected = [sample.onePeriod, sample.fivePeriod, sample.twentyPeriod].map(s => (s.value >= 0 ? '+' : '') + s.value.toFixed(2) + '%');
+    check(await page.getByText('1 / 5 / 20 期：' + expected.join(' / '), { exact: true }).isVisible(), width + ': real raw-close sample math agrees with context');
+    check(await page.getByText(`上涨 ${sample.onePeriod.up} / 下跌 ${sample.onePeriod.down} / 持平 ${sample.onePeriod.flat}（证券）`, { exact: true }).isVisible(), width + ': real full denominator counts');
+    const quality = await page.getByText(/样本质量限制：/).innerText();
+    check(['过期', '复权口径未确认', '交易日覆盖未证明'].every(s => quality.includes(s)), width + ': real quality limits remain visible');
+    check(await page.getByText('数据不足', { exact: true }).isVisible(), width + ': real relationship remains unavailable');
     const layout = await page.evaluate(() => ({ viewport: innerWidth, body: document.documentElement.scrollWidth }));
     check(layout.body <= layout.viewport, width + ': real no horizontal viewport overflow');
     const shot = path.join(output, 'real-' + width + '.png'); await page.screenshot({ path: shot, fullPage: true }); report.screenshots.push(path.basename(shot));
@@ -49,6 +57,7 @@ try {
     await page.getByRole('region', { name: '公司表可横向滚动' }).getByRole('button', { name: /5期/ }).click();
     check(await page.locator('.oil-table-panel [aria-sort="descending"]').count() === 1, width + ': sort');
     const chart = page.getByRole('region', { name: '相关股票表现 · 基期 100' });
+    await chart.locator('.recharts-wrapper').scrollIntoViewIfNeeded();
     const bounds = await chart.locator('.recharts-wrapper').boundingBox();
     check(!!bounds, width + ': real price chart rendered');
     await page.mouse.move(bounds.x + bounds.width * .5, bounds.y + 80);
@@ -79,6 +88,10 @@ try {
       await p.getByRole('heading', { name: '油运 · 动态观察' }).waitFor();
       check(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), width + ': synthetic ' + mode + ' no overflow');
       check(await p.getByText('数据不足', { exact: true }).count() === 1, width + ': synthetic ' + mode + ' relation fail closed');
+      if (mode === 'stale') {
+        check(await p.getByText('上涨 3 / 下跌 0 / 持平 0（证券）', { exact: true }).isVisible(), width + ': stale complete-window counts remain visible');
+        check(await p.getByText(/样本聚合不可用/).count() === 0 && (await p.getByText(/样本质量限制：/).innerText()).includes('过期'), width + ': stale math is distinct from quality');
+      }
       if (mode === 'short' || mode === 'empty') check(await p.getByText('股票历史不足', { exact: true }).count() === 1, width + ': synthetic ' + mode + ' empty chart');
       if (mode === 'freight') check(await p.locator('.oil-chart-grid .recharts-wrapper').count() === 2, width + ': synthetic freight and stock charts');
       const name = 'synthetic-' + mode + '-' + width + '.png'; await p.screenshot({ path: path.join(output, name), fullPage: true }); report.screenshots.push(name);

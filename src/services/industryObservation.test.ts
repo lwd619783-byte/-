@@ -45,7 +45,10 @@ describe('oil observation deterministic semantics', () => {
   it('fails closed on missing, stale, partial, conflicted, unknown basis and mismatched endpoints', () => {
     const f = series(dates, [100, 110, 120]), s = series(dates, [10, 11, 12]);
     expect(observationRelationship(f, [s], dates[0], dates[2])).toBe('运价上行 / 股价上行');
-    for (const state of ['missing', 'stale', 'partial', 'conflicted', 'unknown_basis']) expect(observationRelationship({ ...f, states: [state] }, [s], dates[0], dates[2])).toBe('数据不足');
+    for (const state of ['missing', 'stale', 'partial', 'conflicted', 'unknown_basis', 'calendar_unproven', 'blocked']) {
+      expect(observationRelationship({ ...f, states: [state] }, [s], dates[0], dates[2])).toBe('数据不足');
+      expect(observationRelationship(f, [{ ...s, states: [state] }], dates[0], dates[2])).toBe('数据不足');
+    }
     expect(observationRelationship(f, [series(dates.slice(1), [10, 11])], dates[0], dates[2])).toBe('数据不足');
     expect(observationRelationship(f, [series(dates, [10, null, 11])], dates[0], dates[2])).toBe('数据不足');
     expect(observationRelationship(f, [], dates[0], dates[2])).toBe('数据不足');
@@ -62,6 +65,29 @@ describe('oil observation deterministic semantics', () => {
     expect(samplePerformance([series(dates, [10, 10, 11]), series(dates, [10, 10, 9])], 1).mean).toBeCloseTo(0);
     expect(samplePerformance([series(dates, [10, 10, 11]), series(dates, [10, null, 9])], 1).mean).toBeNull();
     expect(samplePerformance([series(dates, [10, 10, 11]), series(dates.slice(0, 2), [10, 11])], 1).mean).toBeNull();
+  });
+  it.each([
+    [['unknown_basis', 'calendar_unproven'], 'restricted'],
+    [['stale', 'unknown_basis'], 'stale'],
+    [['partial'], 'restricted'],
+  ])('keeps complete-window arithmetic with quality %j', (states, availability) => {
+    const selected = [110, 90, 100].map(value => series(dates, [null, 100, value], states as string[]));
+    const before = JSON.stringify(selected), result = samplePerformance(selected, 1);
+    expect(result.mean).toBeCloseTo(0);
+    expect([result.up, result.down, result.flat]).toEqual([1, 1, 1]);
+    expect(result.endpoints).toEqual({ start: dates[1], end: dates[2] });
+    expect(result.states).toEqual(states); expect(result.availability).toBe(availability);
+    expect(JSON.stringify(selected)).toBe(before);
+    expect(observationRelationship(series(dates, [100, 110, 120]), selected, dates[1], dates[2])).toBe('数据不足');
+  });
+  it('nulls all sample arithmetic for actual gaps, conflicts or missing selected securities', () => {
+    const duplicate = stock(); duplicate.priceHistory!.push({ ...duplicate.priceHistory![0] });
+    for (const broken of [series(dates, [10, null, 12], ['partial']), series([], [], ['missing']),
+      series(dates.slice(0, 2), [10, 11]), stockObservation(duplicate, dates[2])]) {
+      const result = samplePerformance([series(dates, [10, 11, 12]), broken], 1);
+      expect([result.mean, result.up, result.down, result.flat]).toEqual([null, null, null, null]);
+    }
+    expect(samplePerformance([], 1).mean).toBeNull();
   });
   it('excludes captured-day intraday bar, retains unknown basis, flags stale without changing source', () => {
     const s = stock(), before = JSON.stringify(s);

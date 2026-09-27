@@ -139,14 +139,14 @@ export function normalizeObservationSeries(series, start, end) {
 export function samplePerformance(series, periods) {
     const returns = series.map(s => observationChange(s.points, periods));
     const ends = series.map(s => `${s.points.at(-(periods + 1))?.date}/${s.points.at(-1)?.date}`);
-    // Fixed selected denominator; stale/partial/unknown basis never becomes a healthy aggregate.
+    // Fixed selected denominator. Quality limits admissibility, not historical arithmetic.
     const states = [...new Set(series.flatMap(s => s.states).filter(s => s !== 'real'))];
-    const available = series.length > 0 && states.length === 0 && returns.every(numeric) && new Set(ends).size === 1;
-    if (!available && !states.length) states.push('missing');
-    return { mean: available ? returns.reduce((a, b) => a + b, 0) / returns.length : null,
-        up: available ? returns.filter(v => v > 0).length : null, down: available ? returns.filter(v => v < 0).length : null,
-        flat: available ? returns.filter(v => v === 0).length : null,
-        states, availability: available ? 'available' : states.includes('stale') ? 'stale' : 'insufficient',
+    const calculable = series.length > 0 && returns.every(numeric) && new Set(ends).size === 1;
+    if (!calculable && !states.length) states.push('missing');
+    return { mean: calculable ? returns.reduce((a, b) => a + b, 0) / returns.length : null,
+        up: calculable ? returns.filter(v => v > 0).length : null, down: calculable ? returns.filter(v => v < 0).length : null,
+        flat: calculable ? returns.filter(v => v === 0).length : null,
+        states, availability: states.includes('stale') ? 'stale' : !calculable ? 'insufficient' : states.length ? 'restricted' : 'available',
         endpoints: new Set(ends).size === 1 && series[0]?.points.at(-(periods + 1)) ? { start: series[0].points.at(-(periods + 1)).date, end: series[0].points.at(-1).date } : null };
 }
 export function observationRelationship(freight, stocks, start, end) {
