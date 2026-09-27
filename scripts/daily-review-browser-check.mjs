@@ -21,7 +21,7 @@ await fs.mkdir(output,{recursive:true});await fs.mkdir(harness,{recursive:true})
 const live = process.env.REVIEW_BROWSER_LIVE_BLOB === '1';
 if(live)process.loadEnvFile('data-cache/daily-review/preview.env');
 const runtimeEnv=live?{...reviewTestEnv,DAILY_REVIEW_WORKSPACE:'browser-'+randomUUID()}:reviewTestEnv;
-const report={scope:live?'SYNTHETIC_SDK_HTTP_REAL_PRIVATE_BLOB_UI':'SYNTHETIC_LOCAL_SDK_HTTP_STORE_UI',checks:[],errors:[],screenshots:[]};
+const report={scope:live?'SYNTHETIC_SDK_HTTP_REAL_PRIVATE_BLOB_UI':'SYNTHETIC_LOCAL_SDK_HTTP_STORE_UI',workspace:runtimeEnv.DAILY_REVIEW_WORKSPACE,checks:[],errors:[],screenshots:[]};
 const check=(ok,name)=>{report.checks.push({ok,name});if(!ok)throw Error(name)};
 const store=live?new PrivateBlobStore():new DecisionTestStore(),config=reviewConfig(runtimeEnv),handler=createReviewHandler({env:runtimeEnv,store,scope:'synthetic'});
 const vite=await createServer({cacheDir:'data-cache/daily-review/vite',plugins:[{name:'isolated-review-test',enforce:'pre',configureServer(server){server.middlewares.use((req,res,next)=>{

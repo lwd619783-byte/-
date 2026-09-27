@@ -10,6 +10,7 @@ import { privateStoreFixture } from './private-blob.fixture.mjs';
 import { DailyReviewStore } from '../../server/daily-review/store.mjs';
 import { reviewConfig, reviewAuth, ownerGrant } from '../../server/daily-review/config.mjs';
 import { createReviewHandler } from '../../server/daily-review/http.mjs';
+import { PrivateBlobStore } from '../../server/research-bridge/store.mjs';
 import { callReviewTool, reviewTools } from '../../server/daily-review/mcp.mjs';
 import { validateReview } from '../../shared/daily-review.mjs';
 import { signToken, newConsent, issueCode } from '../../server/research-bridge/auth.mjs';
@@ -78,6 +79,10 @@ test('private production adapter preserves immutable objects, CAS, integrity and
   const immutable=[...objects.keys()].find(k=>k.includes('/revisions/'));assert.ok(immutable);
   const result=await Promise.allSettled([repo.publish(await next(repo,grant,p),grant),reload.repo.publish(await next(repo,grant,p),grant)]);assert.equal(result.filter(r=>r.status==='fulfilled').length,1);
   assert.equal((await repo.history({},grant)).items.length,2);
+});
+test('Blob transport requests original bytes and rejects weak ETags instead of weakening CAS',async()=>{
+  const store=new PrivateBlobStore({get:async(_key,options)=>{assert.equal(options.headers['Accept-Encoding'],'identity');return{statusCode:200,blob:{url:'https://synthetic.private.blob.vercel-storage.com/x',etag:'W/"compressed"'},stream:new Response('{}').body}}});
+  await assert.rejects(store.versioned('synthetic'),/STRONG_ETAG_REQUIRED/);
 });
 test('unknown tools, forbidden root arguments and scope config fail closed', async () => {
   const {repo,grant}=setup();
