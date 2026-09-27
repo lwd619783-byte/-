@@ -56,21 +56,59 @@ Hosted routes：`/api/review-mcp` + `/api/daily-review/{authorize,token,current,
 
 ## 验证与实际验收
 
-所有 synthetic 与 real account 结果严格分列。最终数量和精确部署事实在收口时补齐。
+所有 synthetic 与 real account 结果严格分列。以下为 2026-09-27 已执行结果；真实 ChatGPT 写回尚未验收。
 
 | 已执行检查 | 结果 |
 | --- | --- |
-| Daily Review focused | 11 Node + 5 UI PASS；schema/PIT/refs/OS blocked/幂等/CAS/concurrency/owner/revoke/expiry/SDK 与人工 exact confirmation |
+| Daily Review focused | 12 Node + 5 UI PASS；schema/PIT/refs/OS blocked/幂等/CAS/concurrency/owner/revoke/expiry/SDK、强 ETag 与人工 exact confirmation |
 | 真实现有私有 Blob | 8 PASS；synthetic workspace `acceptance-78822275-aff2-4e10-b7c2-a3d38aa584c4`，创建/重试/新 adapter reload/修订/旧版/history/revoke/withdraw；测试历史保留，无 real Review |
 | 本地 SDK→HTTP→store→真实油运 UI | 24 PASS，390/1440，空态/AI published/confirmed/历史/过期/缺失来源/长内容/空 supports/challenges，0 page errors |
+| 本地 SDK→HTTP→真实 Private Blob→真实油运 UI | 25 PASS；scope=synthetic，workspace `browser-dfde3bc9-b477-42e6-b191-b7670e7195ce`；含撤回/撤销清理，历史保留，0 page errors |
+| 全量 unit | `npm test -- --pool=forks --maxWorkers=1 --minWorkers=1`：116 files / 1514 tests PASS；默认 threads 模式的失败另列 |
 | contracts:validate | PASS，含新 daily-review 合同 |
 | test:contracts | 106 + 78 Node、162 Vitest PASS |
-| Bridge / Domain | 31 Bridge、14 Domain Node + 33 Domain Vitest PASS |
+| Bridge / Domain | 31 Bridge、14 Domain Node + 33 Domain Vitest PASS；ETag 修复后与 Review 合跑 57 Node PASS |
 | research eval | check PASS；65 Node + 57 Vitest PASS |
 | data audit | exit 0；0 errors / 42 warnings，P0=0；本轮未新增业务告警，较旧生成报告多6个已存在 generated validators 的非阻断 missing-to-zero 匹配 |
 | discovery / UI audit | PASS / PASS；UI audit 本身不证明视口验收 |
-| build / bundle budget | PASS，保留原 large-chunk advisory；最终代码再次 build 结果待收口 |
+| build / bundle budget | 最终 build PASS，budget errors=[]，保留原 large-chunk advisory |
 
-失败记录保留在 ignored `data-cache/daily-review/`：浏览器首轮导航30s超时；第二轮测试 middleware 被原 local relay 先处理，未看到卡片，已修正**测试 harness 插件顺序**，未放宽生产路由/认证。第三轮24项通过。全量单测首轮115 files通过 / 1 file失败（1511 passed / 3 failed），owner-state 两项20s超时及其后续dialog失败；原文件单独重跑14/14通过。未降低断言、修改测试超时或排除测试；最终全量串行重跑另列。并行负载为疑似原因，不宣称已经证明根因。
+失败记录保留在 ignored `data-cache/daily-review/`：浏览器首轮导航30s超时；第二轮测试 middleware 被原 local relay 先处理，未看到卡片，已修正**测试 harness 插件顺序**，未放宽生产路由/认证。第三轮24项通过。全量单测两轮默认 threads、单 worker 均为115 files通过 / 1 file失败（1511 passed / 3 failed），owner-state 两项20s超时及其后续dialog失败；原文件单独重跑14/14通过。最终仅切换 Vitest pool=forks，全部116 files / 1514 tests通过。未降低断言、修改测试超时或排除测试；默认线程模式仍有未解决的执行稳定性问题，根因未证明。
+
+真实 Blob 首轮24项页面检查通过，但大 manifest 的清理 CAS 失败。定位到 Blob GET 压缩响应产生 weak ETag `W/…`，不能用于强条件写入；现有 `PrivateBlobStore.getVersioned` 增加 `Accept-Encoding: identity`，并明确拒绝 weak ETag。未剥除 `W/`、未退化成无条件覆盖。回归证明强 ETag 正常，原失败 workspace `browser-701d8564-dd66-47ca-bc73-927b30c85a8e` 已追加 WITHDRAWN v3 / epoch1；新 workspace 的25项完整链路通过。共享 adapter 改动经 Bridge / Domain 回归验证。
 
 安全：无 SQL/CRUD/任意对象路径/数据库管理工具；无 Formal/Portfolio/交易写入。Blob 私有读写只在服务端，owner/workspace/scope 路径隔离与 token 验证，RLS 不适用（未用 Postgres/Supabase）。无 secret 进入 Git/UI/PR/log；本地下载的 Preview 配置仅 ignored 文件，Sensitive 旧认证值无法导出，未从历史日志恢复密钥。
+
+## 当前交付状态与停止点
+
+| 能力 | 结果与证据边界 |
+| --- | --- |
+| Backend write | PASS；业务 schema/auth/scope/owner/PIT/idempotency/CAS/audit 与 A–G 协议案例 |
+| Persistence | PASS；现有真实 Private Blob，独立永久 namespace；新 adapter reload、exact/history、revision/withdraw |
+| MCP SDK write | PASS；官方 SDK 经过 HTTP handler；真实 Blob 与真实 App 的 synthetic 链路 |
+| Real ChatGPT tool visibility | BLOCKED；真实 Pro 账号已检查，旧 Bridge 可见，新 Review connection 尚未建立；Preview discovery 被 Vercel Protection 302 拦截 |
+| Real ChatGPT write | BLOCKED；Create/Retry/Revision 等未在真实 ChatGPT 执行，不能把 SDK 结果替代账号验收 |
+| OS rendered result | PASS；本地真实 App + SDK + 真实 Blob，390/1440 视口；不是 Hosted/ChatGPT UI 验收 |
+| Scheduled ChatGPT write | NOT_PROVEN；未创建 Tasks，未启用计费 Agent |
+
+结论为 **BACKEND_WRITE_READY / REAL_CHATGPT_WRITE_BLOCKED**。阻断是已验证的部署访问与未完成的账号 connection/授权，**尚未证明 ChatGPT 平台禁止 write**；因此不声称达到“平台禁写已核实”的完整验收条件。后续需在独立审查后提供 ChatGPT 可正常访问 discovery 的受控 HTTPS endpoint，并由用户完成新 OAuth connection 与真实写工具授权，随后执行 Case A–G；本轮没有关闭保护、将 bypass 放进 ChatGPT URL、修改旧连接或购买资源。
+
+### Preview、CI 与 Production
+
+- 本轮只为 `codex/daily-review-writeback-v1` 的 Preview 新建配置：DAILY_REVIEW_ENABLED、DAILY_REVIEW_WORKSPACE、DAILY_REVIEW_SCOPE=synthetic，以及独立 owner/signing secret 与现有 client/callback 配置。共7个 branch-specific variables；没有新增 Storage/项目/账号或付费计划。现有 Blob 发生少量 synthetic 验证读写，不能声称云用量为零。
+- 已核验实现修复 SHA `980b627bf7168b6c30c55d7361335efd5fb492cc` 的自动 Git Preview：`dpl_33UrgqpbNboBebv8Y85HSRVYWBK2` / `https://investment-research-dashboard-dy02dcp3u-lkdmkl.vercel.app` READY。鉴权读取 discovery 返回 `/api/review-mcp`、`/daily-review` issuer 与 `review:write`。匿名 discovery/OAuth/MCP 访问为302 Protection；这不等于 OAuth/ChatGPT验收通过。
+- 验证过程中 `vercel curl` 自动创建了项目 automation bypass token（2026-09-27T11:14:56.975Z）；仅用于一次受保护 discovery 读取。已按精确创建时间/类型撤销此 token，复查 remainingTokens=0、Protection仍开启；未输出或向 ChatGPT 传递 secret。此临时安全副作用已回收，不隐瞒为“完全未改任何项目状态”。
+- 本分支 Hosted CI：**NOT_RUN**，现有 workflow 仅 main push / PR 触发；没有为了触发 CI 创建 PR。基线 main run `36298180446` SUCCESS 仅证明基线。
+- Production：本轮未部署、未修改 Production environment、未准入。基线 main Production READY 不能作为新功能证据。
+- 本地 owner credential 仅保留在 ignored `data-cache/daily-review/preview-owner-secret.txt`，不展示内容；下载的临时 Preview env 在验收后清理。以后 live smoke 需重新安全配置其 env，测试脚本不内嵌凭据。
+
+### 可复现证据
+
+- [25项 SDK/真实Blob/页面报告](daily-review-writeback-v1/browser-report.json)、[8项持久化报告](daily-review-writeback-v1/live-report.json)。两者均 synthetic，不作为正式研究历史。
+- [1440桌面截图](daily-review-writeback-v1/sdk-app-1440.png)、[390移动截图](daily-review-writeback-v1/sdk-app-390.png)：AI标签、current、历史与正式判断隔离可检查。
+- 运行入口：`npm run test:daily-review`；`node --test scripts/tests/daily-review.node.mjs scripts/tests/research-bridge.node.mjs scripts/tests/os-domain.node.mjs`；全量 unit 使用上表命令。真实 Blob smoke 必须显式 `REVIEW_LIVE_BLOB=1`；真实 Blob UI 必须 `REVIEW_BROWSER_LIVE_BLOB=1` 且提供 Playwright runtime，默认不做云写入。
+- ignored 日志：`transport-final.log`、`full-unit-forks.log`、`full-unit-first-failure.log`、`full-unit-final.log`、`owner-state-rerun.log`、`build-final.log`、`browser-live-final.log`，目录均为 `data-cache/daily-review/`。不将失败日志清洗成成功。
+
+UI 位于油运动态观察主区之后、完整辅助研究之前；连接/空态/失败/过期/撤回分别显示，默认 current，可选择 exact history。密钥需用户在页面访问设置输入，刷新后重新连接；这是 V1 单 owner 的访问方式，尚未提供完整账号登录体验。
+
+实现已按功能分支交付，等待独立审查；未创建 PR、未 merge。Final commit SHA 与 remote HEAD 以交付消息中的最新核验为准，本报告不自引用自身提交 SHA。
