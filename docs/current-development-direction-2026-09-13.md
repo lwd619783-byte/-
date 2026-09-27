@@ -1,5 +1,9 @@
 # Investment Research Dashboard V2 · CURRENT Development Direction
 
+> 2026-09-27 CURRENT · **Daily Review P1-A / P1-B / P2 整改**：Provider 提供事实 → OS 共享纯函数计算 → ChatGPT 研究解释 → 受控写回。无新 Provider/Store/权限，默认测试模式与 CI 保持一致。仅当前分支 commit/push，等待独立复审。[整改事实与验证](daily-review-remediation-v1.md)。
+
+> 2026-09-27 CURRENT · **Daily Review Writeback V1 已实现，等待独立审计与真实 ChatGPT 新 write lane 授权验收**。复用现有私有 Blob、独立永久 Review authority 和 `review:write`，油运页面展示 AI/人工状态及历史；原 Formal Decision 门禁不变。未建设无人值守 Agent、付费 API 或新数据库。[当前证据与阻断](daily-review-writeback-v1.md)。此条不将本地/合成验证提升为账号验收或 Production admission。
+
 > 2026-09-24 CURRENT · **Stage 4.5 — IMPLEMENTED / TARGETED FIX APPLIED / PENDING CHATGPT TARGETED RE-REVIEW**。Base `cb970497da40e7d20cdc991a8c39168f62650ddd`；同一功能分支定向修复：共享预览直接展示 snapshot 实际研究字段及逐个仓位，保留 unavailable；UI / OAuth 明确 24h 是访问有效期，不是物理删除 SLA。锁定 SDK 1.30.0 未可靠支持 tool-level `securitySchemes`，记为 NOT_APPLIED；8 tools / `os:read` / owner / staging / Legacy 边界不变。仅普通 commit/push 后等待 ChatGPT targeted re-review，无 PR/merge/main/Production 操作。[本轮修复与实际验证](stage-4-5-domain-mcp-readonly-v1.md#p1-targeted-fixes--2026-09-24-current)。本条 supersede 下方 Stage 4.5 旧停止点，不回写历史验证数字。
 
 > 2026-09-24 CURRENT · **Stage 4.5 D0 Scope Freeze + Read-only OS Domain MCP V1 — IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT**。Base `e6a148d8e345e89cfbe4920d803265108e1b3e4c`（含已确认 Research Memory / Formal Decision 文档）；原本地正式 owner → 经校验的 canonical decision snapshot → 本人预览确认 → 独立私有暂存 → `os:read` Domain MCP。8 个有界只读工具、TTL/digest/generation/CAS/revoke、最小发布/撤销入口与既有 F3 tool-use 已实现。Notion = Research Memory；OS = Formal Decision System；Legacy Bridge 不扩建；Slice 1 = READ-ONLY；Stage 4.6 Agent 仍 NOT_IMPLEMENTED。Portfolio 仅复用真实 localhost projection 读取路径，Hosted 保持 unavailable；私人账本/真实 ChatGPT 账号验收 NOT_RUN。113 files / 1487 tests、build/contracts/discovery、专项与隔离浏览器验证通过；[D0、合同、验证与限制](stage-4-5-domain-mcp-readonly-v1.md)。普通 push 后停止等待独立综合审计，无 PR/merge/Production 操作。本条 supersede 下方旧 Stage 4.5 仅规划状态，不回写历史。

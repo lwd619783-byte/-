@@ -1,0 +1,159 @@
+{
+  "scope": "SYNTHETIC_LOCAL_SDK_HTTP_STORE_UI",
+  "workspace": "synthetic-workspace",
+  "checks": [
+    {
+      "ok": true,
+      "name": "SDK deterministic context"
+    },
+    {
+      "ok": true,
+      "name": "SDK blocked freight is not an AI calculation"
+    },
+    {
+      "ok": true,
+      "name": "SDK create"
+    },
+    {
+      "ok": true,
+      "name": "SDK retry"
+    },
+    {
+      "ok": true,
+      "name": "SDK revision"
+    },
+    {
+      "ok": true,
+      "name": "1440: actual page reads SDK committed current"
+    },
+    {
+      "ok": true,
+      "name": "1440: exact old version history interaction"
+    },
+    {
+      "ok": true,
+      "name": "1440: full app no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: owner confirmation gate"
+    },
+    {
+      "ok": true,
+      "name": "1440: empty bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "1440: confirmed bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "1440: stale bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "1440: stale warning"
+    },
+    {
+      "ok": true,
+      "name": "1440: missing bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "1440: source display"
+    },
+    {
+      "ok": true,
+      "name": "1440: AI text is not OS verified derived"
+    },
+    {
+      "ok": true,
+      "name": "1440: long bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "1440: withdrawn bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "1440: withdrawn content hidden"
+    },
+    {
+      "ok": true,
+      "name": "390: actual page reads SDK committed current"
+    },
+    {
+      "ok": true,
+      "name": "390: exact old version history interaction"
+    },
+    {
+      "ok": true,
+      "name": "390: full app no horizontal overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: owner confirmation gate"
+    },
+    {
+      "ok": true,
+      "name": "390: empty bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "390: confirmed bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "390: stale bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "390: stale warning"
+    },
+    {
+      "ok": true,
+      "name": "390: missing bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "390: source display"
+    },
+    {
+      "ok": true,
+      "name": "390: AI text is not OS verified derived"
+    },
+    {
+      "ok": true,
+      "name": "390: long bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "390: withdrawn bounded layout"
+    },
+    {
+      "ok": true,
+      "name": "390: withdrawn content hidden"
+    },
+    {
+      "ok": true,
+      "name": "no page runtime errors"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "sdk-app-1440.png",
+    "empty-1440.png",
+    "confirmed-1440.png",
+    "stale-1440.png",
+    "missing-1440.png",
+    "long-1440.png",
+    "withdrawn-1440.png",
+    "sdk-app-390.png",
+    "empty-390.png",
+    "confirmed-390.png",
+    "stale-390.png",
+    "missing-390.png",
+    "long-390.png",
+    "withdrawn-390.png"
+  ]
+}

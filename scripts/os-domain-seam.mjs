@@ -11,6 +11,27 @@ export function domainRelayAllowed(req) {
 }
 export function osDomainSeam() {
   return { name: 'os-domain-explicit-publish', apply: 'serve', configureServer(server) {
+    // Review reads and explicit owner actions use a separate fixed destination.
+    // Never expose an unauthenticated local write lane or arbitrary proxy target.
+    server.middlewares.use('/api/daily-review', async (req, res) => {
+      res.setHeader('Cache-Control', 'no-store'); res.setHeader('Content-Type', 'application/json');
+      const fail = status => { res.statusCode = status; res.end(JSON.stringify({ error: 'REVIEW_RELAY_UNAVAILABLE' })); };
+      if (!domainRelayAllowed(req)) return fail(403);
+      const origin = process.env.DAILY_REVIEW_REMOTE_ORIGIN;
+      if (!origin || !/^https:\/\/[^/?#@]+$/.test(origin)) return fail(503);
+      const action = new URL(req.url, 'http://localhost');
+      if (!((['/current','/history'].includes(action.pathname) && req.method === 'GET') || (['/transition','/revoke'].includes(action.pathname) && req.method === 'POST'))) return fail(404);
+      try {
+        let bytes = 0; const chunks = [];
+        for await (const chunk of req) { bytes += chunk.length; if (bytes > 4096) return fail(413); chunks.push(chunk); }
+        const response = await fetch(`${origin}/api/daily-review${req.url}`, { method: req.method, redirect: 'error', signal: AbortSignal.timeout(20000),
+          headers: { Origin: origin, 'Content-Type': 'application/json', 'X-Bridge-Owner-Secret': req.headers['x-bridge-owner-secret'] },
+          ...(req.method === 'POST' ? { body: Buffer.concat(chunks) } : {}) });
+        if (!response.ok) return fail(response.status === 401 ? 401 : 503);
+        const text = await response.text(); if (text.length > 100000) return fail(503);
+        res.end(JSON.stringify(JSON.parse(text)));
+      } catch { fail(503); }
+    });
     server.middlewares.use('/api/os-domain', async (req, res) => {
       res.setHeader('Cache-Control', 'no-store'); res.setHeader('Content-Type', 'application/json');
       const fail = status => { res.statusCode = status; res.end(JSON.stringify({ error: 'DOMAIN_RELAY_UNAVAILABLE' })); };

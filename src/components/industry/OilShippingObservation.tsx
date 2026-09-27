@@ -81,6 +81,8 @@ export function OilShippingObservationContent({ stocks, onOpenStock, onOpenMetri
         <p>上涨 {display(performance[0].up)} / 下跌 {display(performance[0].down)} / 持平 {display(performance[0].flat)}（证券）</p>
         <p>1 / 5 / 20 期：{performance.map(p => percent(p.mean)).join(' / ')}</p>
         <p>同日起止样本等权变化 · 相对基准 —</p>
+        {performance.some(p => p.states.length > 0) && <p>样本质量限制：{stateText([...new Set(performance.flatMap(p => p.states))])}；原 close 数学变化，不作为总回报或关系判断。</p>}
+        {performance.some(p => p.mean === null) && <p>样本聚合不可用：{stateText([...new Set(performance.flatMap(p => p.states))])}；保留所选全部证券，不缩小分母。</p>}
         <p>有效已收盘观测；基准未接入</p>
       </Summary>
       <Summary title="运价—股价关系" value={relationship}>

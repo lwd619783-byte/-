@@ -1,4 +1,5 @@
 import type { Stock } from "../types";
+import { oilShippingPilot } from '../../shared/oil-shipping-scope.mjs';
 import { unitreeHistoricalResearch } from "./unitreeHistoricalResearch";
 import { isStrictCalendarDate, isStrictPreciseInstant } from "../utils/strictDateTime.mjs";
 
@@ -600,10 +601,7 @@ export const stocks: Stock[] = [
     chainPosition: "创新药企 / ADC",
   },
   {
-    id: "cosco-energy",
-    name: "中远海能",
-    code: "600026",
-    market: "A股",
+    ...oilShippingPilot[0],
     industryId: "oil-shipping",
     segmentId: "crude-shipping",
     leaderPosition: "油运船队龙头之一。",
@@ -618,10 +616,7 @@ export const stocks: Stock[] = [
     chainPosition: "原油运输",
   },
   {
-    id: "cm-energy",
-    name: "招商轮船",
-    code: "601872",
-    market: "A股",
+    ...oilShippingPilot[1],
     industryId: "oil-shipping",
     segmentId: "crude-shipping",
     leaderPosition: "综合航运平台。",
@@ -636,10 +631,7 @@ export const stocks: Stock[] = [
     chainPosition: "原油运输 / LNG 运输",
   },
   {
-    id: "cm-nanjing",
-    name: "招商南油",
-    code: "601975",
-    market: "A股",
+    ...oilShippingPilot[2],
     industryId: "oil-shipping",
     segmentId: "product-shipping",
     leaderPosition: "成品油和化学品运输代表公司。",

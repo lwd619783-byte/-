@@ -1,0 +1,328 @@
+{
+  "scope": "LOCAL_REAL_BUNDLED_AND_SEPARATE_SYNTHETIC_UI",
+  "checks": [
+    {
+      "ok": true,
+      "name": "1440: real app loaded without overlay"
+    },
+    {
+      "ok": true,
+      "name": "1440: real freight explicitly blocked"
+    },
+    {
+      "ok": true,
+      "name": "1440: real existing company pool"
+    },
+    {
+      "ok": true,
+      "name": "1440: real raw-close sample math agrees with context"
+    },
+    {
+      "ok": true,
+      "name": "1440: real full denominator counts"
+    },
+    {
+      "ok": true,
+      "name": "1440: real quality limits remain visible"
+    },
+    {
+      "ok": true,
+      "name": "1440: real relationship remains unavailable"
+    },
+    {
+      "ok": true,
+      "name": "1440: real no horizontal viewport overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: selection"
+    },
+    {
+      "ok": true,
+      "name": "1440: window"
+    },
+    {
+      "ok": true,
+      "name": "1440: sort"
+    },
+    {
+      "ok": true,
+      "name": "1440: real price chart rendered"
+    },
+    {
+      "ok": true,
+      "name": "1440: tooltip readable unit"
+    },
+    {
+      "ok": true,
+      "name": "1440: original Evidence Drawer"
+    },
+    {
+      "ok": true,
+      "name": "1440: stock Chart Audit"
+    },
+    {
+      "ok": true,
+      "name": "1440: auxiliary metrics retained"
+    },
+    {
+      "ok": true,
+      "name": "1440: chain retained"
+    },
+    {
+      "ok": true,
+      "name": "1440: existing company navigation"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic partial no overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic partial relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic short no overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic short relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic short empty chart"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic conflict no overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic conflict relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic stale no overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic stale relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "1440: stale complete-window counts remain visible"
+    },
+    {
+      "ok": true,
+      "name": "1440: stale math is distinct from quality"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic empty no overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic empty relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic empty empty chart"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic long no overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic long relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic freight no overflow"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic freight relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "1440: synthetic freight and stock charts"
+    },
+    {
+      "ok": true,
+      "name": "390: real app loaded without overlay"
+    },
+    {
+      "ok": true,
+      "name": "390: real freight explicitly blocked"
+    },
+    {
+      "ok": true,
+      "name": "390: real existing company pool"
+    },
+    {
+      "ok": true,
+      "name": "390: real raw-close sample math agrees with context"
+    },
+    {
+      "ok": true,
+      "name": "390: real full denominator counts"
+    },
+    {
+      "ok": true,
+      "name": "390: real quality limits remain visible"
+    },
+    {
+      "ok": true,
+      "name": "390: real relationship remains unavailable"
+    },
+    {
+      "ok": true,
+      "name": "390: real no horizontal viewport overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: selection"
+    },
+    {
+      "ok": true,
+      "name": "390: window"
+    },
+    {
+      "ok": true,
+      "name": "390: sort"
+    },
+    {
+      "ok": true,
+      "name": "390: real price chart rendered"
+    },
+    {
+      "ok": true,
+      "name": "390: tooltip readable unit"
+    },
+    {
+      "ok": true,
+      "name": "390: original Evidence Drawer"
+    },
+    {
+      "ok": true,
+      "name": "390: stock Chart Audit"
+    },
+    {
+      "ok": true,
+      "name": "390: auxiliary metrics retained"
+    },
+    {
+      "ok": true,
+      "name": "390: chain retained"
+    },
+    {
+      "ok": true,
+      "name": "390: existing company navigation"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic partial no overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic partial relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic short no overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic short relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic short empty chart"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic conflict no overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic conflict relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic stale no overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic stale relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "390: stale complete-window counts remain visible"
+    },
+    {
+      "ok": true,
+      "name": "390: stale math is distinct from quality"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic empty no overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic empty relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic empty empty chart"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic long no overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic long relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic freight no overflow"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic freight relation fail closed"
+    },
+    {
+      "ok": true,
+      "name": "390: synthetic freight and stock charts"
+    },
+    {
+      "ok": true,
+      "name": "no page runtime errors"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "resourceErrors": [],
+  "screenshots": [
+    "real-1440.png",
+    "synthetic-partial-1440.png",
+    "synthetic-short-1440.png",
+    "synthetic-conflict-1440.png",
+    "synthetic-stale-1440.png",
+    "synthetic-empty-1440.png",
+    "synthetic-long-1440.png",
+    "synthetic-freight-1440.png",
+    "real-390.png",
+    "synthetic-partial-390.png",
+    "synthetic-short-390.png",
+    "synthetic-conflict-390.png",
+    "synthetic-stale-390.png",
+    "synthetic-empty-390.png",
+    "synthetic-long-390.png",
+    "synthetic-freight-390.png"
+  ]
+}

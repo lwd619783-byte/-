@@ -48,6 +48,9 @@ jobs:
       - name: Test private Research Bridge and read-only MCP offline
         run: npm run test:bridge
 
+      - name: Test scoped Daily Review writeback offline
+        run: npm run test:daily-review
+
       - name: Test F3 Research Eval Harness offline
         run: npm run test:research-eval
 

@@ -42,6 +42,22 @@ describe('oil observation UI', () => {
     fireEvent.click(within(table).getByRole('button', { name: '招商南油' })); expect(onOpenStock.mock.calls[0][0].id).toBe('cm-nanjing');
     fireEvent.click(screen.getByRole('button', { name: '查看指标、事件与证据' })); expect(onOpenMetrics).toHaveBeenCalledOnce();
   });
+  it.each(['real', 'stale', 'partial'] as const)('shows complete sample arithmetic with %s quality and unknown basis', status => {
+    const pool = fixture(); pool[0].priceHistorySource!.quality.status = status;
+    setup(pool);
+    expect(screen.getByText('上涨 3 / 下跌 0 / 持平 0（证券）')).toBeTruthy();
+    const expected = [1, 5, 20].map(n => {
+      const mean = [33, 34, 35].reduce((sum, close) => sum + (close / (close - n) - 1) * 100, 0) / 3;
+      return `+${mean.toFixed(2)}%`;
+    });
+    expect(screen.getByText(`1 / 5 / 20 期：${expected.join(' / ')}`)).toBeTruthy();
+    const notice = screen.getByText(/样本质量限制：/);
+    expect(notice.textContent).toContain('复权口径未确认'); expect(notice.textContent).toContain('交易日覆盖未证明');
+    if (status === 'stale') expect(notice.textContent).toContain('过期');
+    if (status === 'partial') expect(notice.textContent).toContain('部分缺失');
+    expect(screen.queryByText(/样本聚合不可用/)).toBeNull();
+    expect(screen.getByText('数据不足')).toBeTruthy();
+  });
   it('opens original Evidence Drawer and audit, and keeps missing stocks visible', () => {
     const pool = fixture(); pool[1].priceHistorySource = undefined;
     setup(pool);

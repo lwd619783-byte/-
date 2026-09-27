@@ -7,11 +7,14 @@ export class PrivateBlobStore {
     return (await this.versioned(key))?.value ?? null;
   }
   async versioned(key) {
-    const result = await this.sdk.get(key, { access: 'private', useCache: false });
+    // Compression can turn the origin ETag into W/"...", which Blob ifMatch
+    // correctly rejects. Request original bytes; never strip a weak validator.
+    const result = await this.sdk.get(key, { access: 'private', useCache: false, headers: { 'Accept-Encoding': 'identity' } });
     if (!result) return null;
     if (result.statusCode !== 200) throw new Error('STAGING_READ_FAILED');
     if (!new URL(result.blob.url).hostname.endsWith('.private.blob.vercel-storage.com')) throw new Error('PRIVATE_STORE_REQUIRED');
     if (!result.blob.etag) throw new Error('STAGING_ETAG_REQUIRED');
+    if (result.blob.etag.startsWith('W/')) throw new Error('STAGING_STRONG_ETAG_REQUIRED');
     return { value: JSON.parse(await new Response(result.stream).text()), etag: result.blob.etag };
   }
   async putNew(key, value) {

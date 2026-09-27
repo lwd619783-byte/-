@@ -8,6 +8,7 @@ export function privateStoreFixture() {
   const sdk = {
     async get(key, options) {
       assert.equal(options.access, 'private'); assert.equal(options.useCache, false);
+      assert.equal(options.headers?.['Accept-Encoding'], 'identity');
       const row = objects.get(key); if (!row) return null;
       return { statusCode: 200, blob: { url: `https://synthetic.private.blob.vercel-storage.com/${key}`, etag: row.etag }, stream: new Response(row.body).body };
     },

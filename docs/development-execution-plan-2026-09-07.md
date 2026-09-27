@@ -1,5 +1,9 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-09-27 CURRENT · **Daily Review 审计整改**：共享 deterministic context、derived 精确结果引用、OAuth 文案与资源清理已实现；本轮真实账号不接入、Production 不修改。默认测试模式对照与最终交付见 [整改记录](daily-review-remediation-v1.md)。
+
+> 2026-09-27 CURRENT · **Daily Review Writeback V1**：contract / durable adapter / OAuth write lane / MCP / 油运 UI / SDK 集成已实现。真实 Blob synthetic 与本地页面通过，真实 ChatGPT 新连接验收和调度单列；仅 commit/push 后等待独立审计。[完整交付记录](daily-review-writeback-v1.md)。
+
 > 2026-09-27 CURRENT · **行业动态观察页 V1——油运 / IMPLEMENTED / PENDING INDEPENDENT AUDIT（受限数据版）**。按真实可行性先冻结页面/公式合同，改造原行业默认概览，复用原 Stock/Price History/Industry Metric/Evidence/公司详情。CTFI授权及历史准入未闭合；三只A股只读历史可核对，复权未知/过期、基准未接入和关系数据不足公开呈现。没有付费源、云库、Formal Decision写入或Stage 4.6工作。交付与验收细节见[油运观察页记录](oil-shipping-observation-v1.md)。只普通commit/push，停止等待ChatGPT独立审计；不创建PR/merge/手工部署Production。
 
 > 同日已核验 merged PR #81 / #82 / #83，main分别包含 `fc0f23466777f32eb27037f6cbcbba627f5b2478` / `7509d0ecdad530760639feadea07cb2d1d74a4cc` / `0debad7f68ba28449cf7c0c0487f012e5d09ab9f`。本条补齐旧CURRENT未登记的merge事实；不重写历史审计，也不推断Hosted/Production通过。

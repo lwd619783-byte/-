@@ -1,0 +1,14 @@
+{
+  "scope": "SYNTHETIC_EXISTING_PRIVATE_BLOB",
+  "workspace": "acceptance-78822275-aff2-4e10-b7c2-a3d38aa584c4",
+  "checks": [
+    "durable create",
+    "idempotent retry",
+    "fresh adapter exact readback",
+    "durable revision",
+    "immutable old revision",
+    "durable history",
+    "revoked writer denied",
+    "synthetic withdrawn without deletion"
+  ]
+}

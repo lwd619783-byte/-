@@ -25,16 +25,20 @@ async function body(req) {
 /** No request body/header/token/raw error logging in this server. */
 export function createAuthenticatedReadHandler({ env = process.env, store = new PrivateBlobStore(), configFactory, stagingFactory, serve, ownerAction,
   service = 'legacy',
+  credentialLabel = service === 'domain' ? '共享访问密钥' : '研究桥访问密钥',
+  unauthorizedMessage = '研究桥访问密钥不正确，请核对后重试。',
+  rejectedMessage = '请求未通过认证、资料核验或私有存储检查；未发布不完整资料。',
   consentTitle = '允许 ChatGPT 读取研究资料', consentDescription = '仅可读取你主动发送且未过期、未撤销的批次及所选文章；不能修改知识库。授权有效一小时，资料暂存最多24小时。',
+  consentAction = '确认授予只读访问', exchange = exchangeCode, authenticate = async (token, config) => verifyToken(token, config, 'access'),
 } = {}) {
   return async (req, res) => {
     res.setHeader('Cache-Control', 'no-store'); res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('Referrer-Policy', 'no-referrer');
     let config;
     try { config = configFactory(env); }
-    catch (error) { send(res, 503, service === 'domain' ? { error: 'DOMAIN_NOT_CONFIGURED', message: '正式状态共享服务尚未配置完成。' } : { error: 'BRIDGE_NOT_CONFIGURED', message: configurationMessages.get(error?.message) ?? '研究桥暂时不可用，请稍后重试。' }); return; }
+    catch (error) { send(res, 503, service === 'review' ? { error: 'REVIEW_NOT_CONFIGURED', message: '投研 OS 每日复盘服务尚未配置完成，暂不能读取或发布复盘。' } : service === 'domain' ? { error: 'DOMAIN_NOT_CONFIGURED', message: '正式状态共享服务尚未配置完成。' } : { error: 'BRIDGE_NOT_CONFIGURED', message: configurationMessages.get(error?.message) ?? '研究桥暂时不可用，请稍后重试。' }); return; }
     try {
       const scope = config.scope ?? 'research:read', issuer = config.issuer ?? config.origin, authPath = config.authPath ?? '/api/bridge';
-      const cookieName = config.scope ? 'os_domain_consent' : 'bridge_consent';
+      const cookieName = config.cookieName ?? (config.scope ? 'os_domain_consent' : 'bridge_consent');
       const url = new URL(req.url, config.origin), action = req.query?.action ?? url.pathname.split('/').at(-1);
       if (req.headers.origin && req.headers.origin !== config.origin) { send(res, 403, { error: 'ORIGIN_REJECTED' }); return; }
       if (action === 'resource-metadata' || url.pathname.startsWith('/.well-known/oauth-protected-resource')) {
@@ -54,7 +58,7 @@ export function createAuthenticatedReadHandler({ env = process.env, store = new 
           res.setHeader('Set-Cookie', `${cookieName}=${consent.nonce}; HttpOnly; Secure; SameSite=Lax; Path=${authPath}/authorize; Max-Age=600`);
           res.setHeader('Content-Security-Policy', `default-src 'none'; style-src 'unsafe-inline'; form-action 'self' ${config.redirects.join(' ')}; frame-ancestors 'none'; base-uri 'none'`);
           res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-          res.end(`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>授权 ChatGPT 只读研究</title><style>body{max-width:560px;margin:8vh auto;padding:24px;font:16px/1.7 system-ui;background:#101923;color:#eef4fa}input,button{box-sizing:border-box;width:100%;padding:14px;margin-top:14px}p{color:#c0cdda}</style><h1>${escape(consentTitle)}</h1><p>${escape(consentDescription)}</p><form method="post"><input type="hidden" name="ticket" value="${escape(consent.ticket)}"><label>${service === 'domain' ? '共享访问密钥' : '研究桥访问密钥'}<input type="password" name="ownerSecret" autocomplete="off" required minlength="32"></label><button type="submit">确认授予只读访问</button></form></html>`); return;
+          res.end(`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escape(consentTitle)}</title><style>body{max-width:560px;margin:8vh auto;padding:24px;font:16px/1.7 system-ui;background:#101923;color:#eef4fa}input,button{box-sizing:border-box;width:100%;padding:14px;margin-top:14px}p{color:#c0cdda}</style><h1>${escape(consentTitle)}</h1><p>${escape(consentDescription)}</p><form method="post"><input type="hidden" name="ticket" value="${escape(consent.ticket)}"><label>${escape(credentialLabel)}<input type="password" name="ownerSecret" autocomplete="off" required minlength="32"></label><button type="submit">${escape(consentAction)}</button></form></html>`); return;
         }
         if (req.method === 'POST') {
           if (req.headers.origin !== config.origin) throw new Error('INVALID_CONSENT');
@@ -63,18 +67,19 @@ export function createAuthenticatedReadHandler({ env = process.env, store = new 
           res.writeHead(303, { Location: redirect, 'Set-Cookie': `${cookieName}=; HttpOnly; Secure; SameSite=Lax; Path=${authPath}/authorize; Max-Age=0` }); res.end(); return;
         }
       }
-      if (action === 'token' && req.method === 'POST') { send(res, 200, await exchangeCode(new URLSearchParams(await body(req)), config, store)); return; }
+      if (action === 'token' && req.method === 'POST') { send(res, 200, await exchange(new URLSearchParams(await body(req)), config, store)); return; }
       if (action === new URL(config.resource).pathname.split('/').at(-1)) {
-        try { verifyToken(req.headers.authorization?.replace(/^Bearer /, ''), config, 'access'); }
+        let grant;
+        try { grant = await authenticate(req.headers.authorization?.replace(/^Bearer /, ''), config, store); }
         catch { res.setHeader('WWW-Authenticate', `Bearer resource_metadata="${config.origin}/.well-known/oauth-protected-resource${new URL(config.resource).pathname}", scope="${scope}"`); send(res, 401, { error: 'invalid_token' }); return; }
-        await serve(req, res, stagingFactory(store, config.subject)); return;
+        await serve(req, res, stagingFactory(store, config.subject), grant); return;
       }
       checkOwner(req.headers['x-bridge-owner-secret'], config);
       const staging = stagingFactory(store, config.subject);
       await ownerAction({ req, res, action, url, staging, config, send, body });
     } catch (error) {
       // Do not reflect SDK errors (may contain private object URLs), content, or secrets.
-      if (!res.headersSent) send(res, error?.message === 'UNAUTHORIZED' ? 401 : 400, { error: 'REQUEST_REJECTED', message: error?.message === 'UNAUTHORIZED' ? '研究桥访问密钥不正确，请核对后重试。' : '请求未通过认证、资料核验或私有存储检查；未发布不完整资料。' }); else res.end();
+      if (!res.headersSent) send(res, error?.message === 'UNAUTHORIZED' ? 401 : 400, { error: 'REQUEST_REJECTED', message: error?.message === 'UNAUTHORIZED' ? unauthorizedMessage : rejectedMessage }); else res.end();
     }
   };
 }
