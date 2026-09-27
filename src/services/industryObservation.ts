@@ -1,6 +1,7 @@
 import type { Stock } from '../types';
 import type { IndustryMetricDataset } from '../types/industryMetric';
 import { industryHistory } from './industryHistory.mjs';
+export { freightCandidate } from '../../shared/oil-shipping-scope.mjs';
 
 /** Disposable projections of existing owners. No persistence, admission or formal write. */
 export interface ObservationPoint { date: string; value: number | null }
@@ -9,12 +10,6 @@ export const observationStateLabels: Record<string, string> = {
   real: '正常', partial: '部分缺失 / 口径待核对', stale: '过期', conflicted: '数据冲突', missing: '数据不足',
   blocked: '不可用', unknown_basis: '复权口径未确认', calendar_unproven: '交易日覆盖未证明',
   unknown: '来源条件未闭合', not_admitted: '尚未准入', missing_evidence: '缺少证据',
-};
-export const freightCandidate = {
-  name: 'CT1 · 中东湾—宁波', scope: 'VLCC · 270000MT · WS',
-  sourceUrl: 'https://www.sse.net.cn/index/singleIndex?indexType=ctfi',
-  licenseUrl: 'https://www.sse.net.cn/indexIntro?indexName=copyright',
-  reason: '运价尚未接入：系统使用授权、历史覆盖及定义版本待核验。',
 };
 const dayMs = 86400000;
 const validDate = (date: string) => /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(Date.parse(date)) && new Date(date).toISOString().slice(0, 10) === date;

@@ -1,5 +1,9 @@
 # 投资研究看板架构基线
 
+## 2026-09-27 Daily Review writeback V1 增量
+
+`ChatGPT → /api/review-mcp (review:write, independent issuer/audience) → DailyReviewStore → immutable revision + CAS manifest → authenticated DailyReviewPanel`。复用现有 PrivateBlobStore / OAuth PKCE primitive，独立永久 `daily-review/v1/{real|synthetic}/{owner+workspace hash}`，不使用 DecisionStaging 的 snapshot TTL。AI_PUBLISHED 属于 Research Context；owner 对 exact Review 的确认不是 Formal Decision promotion。数据事实仍来自现有 Stock/Price History owner；运价未准入状态的常量由观察页与 Review context 共用。原 Claim/Thesis/Expression/Portfolio authority 和 os:read 8 tools 不变。[合同与验收](daily-review-writeback-v1.md)。
+
 ## 2026-09-27 油运动态观察 V1 runtime 增量
 
 `IndustryTab 原 overview → lazy OilShippingObservation → industryObservation 纯投影 → 原 Stock.priceHistorySource`。共同基日100、样本等权变化、有效观测期、缺口/冲突/过期提示只存在于只读view model，无新store、Provider、Entity或Evidence authority。原Industry/Stock研究资料和各子视图保留；EvidenceDrawer/ChartAuditPanel与公司详情callbacks复用。

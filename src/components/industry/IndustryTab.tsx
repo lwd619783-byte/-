@@ -13,6 +13,7 @@ import { IndustryChainDiagram } from "./IndustryChainDiagram";
 import { IndustryChangePanel } from "./IndustryChangePanel";
 import { ProductShell } from "../layout/ProductShell";
 const OilShippingObservation = lazy(() => import('./OilShippingObservation').then(module => ({ default: module.OilShippingObservation })));
+const DailyReviewPanel = lazy(() => import('./DailyReviewPanel').then(module => ({ default: module.DailyReviewPanel })));
 
 interface IndustrySelection { industryId: string; segmentId: string }
 interface IndustryTabProps {
@@ -100,6 +101,7 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
         </IndustryContext>
         <div role="tabpanel" id={`${panelId}-overview`} aria-labelledby={`${panelId}-tab-overview`} hidden={activeView !== "overview"} className="space-y-4">
           {activeIndustry.id === "oil-shipping" ? <Suspense fallback={<p role="status" className="rounded-lg border border-borderSoft bg-panel p-4 text-sm text-textMuted">正在加载油运动态观察…</p>}><OilShippingObservation stocks={industryStocks} onOpenStock={onOpenStock} onOpenMetrics={() => setActiveView("metrics")} /></Suspense> : null}
+          {activeIndustry.id === "oil-shipping" ? <Suspense fallback={<p role="status">正在加载每日复盘…</p>}><DailyReviewPanel /></Suspense> : null}
           {activeIndustry.id === "oil-shipping" ? <details className="min-w-0"><summary className="cursor-pointer py-2 text-sm text-accent">既有研究资料与公司研究池（辅助参考）</summary><div className="space-y-4">{legacyOverview}</div></details> : legacyOverview}
         </div>
         <div role="tabpanel" id={`${panelId}-metrics`} aria-labelledby={`${panelId}-tab-metrics`} hidden={activeView !== "metrics"} className="space-y-4">

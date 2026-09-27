@@ -100,7 +100,7 @@
     "local:db:verify": "node scripts/run-local-core.mjs verify",
     "test:contracts": "node scripts/run-local-core.mjs test-contracts && node --test scripts/tests/financial-research-contracts.node.mjs && vitest run src/services/researchExtraction.contract.test.ts src/services/wiki.contract.test.ts src/services/knowledgeIngestion.test.ts src/services/externalKnowledgeBoundary.contract.test.ts src/services/verifiedClaim.test.ts src/services/thesis.test.ts src/services/investmentExpression.test.ts",
     "local:db:init": "node scripts/run-local-core.mjs init",
-    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs && node scripts/contracts/wiki.mjs && node scripts/contracts/knowledge-ingestion.mjs && node scripts/contracts/verified-claim.mjs && node scripts/contracts/thesis.mjs && node scripts/contracts/investment-expression.mjs && node scripts/contracts/portfolio.mjs && node scripts/contracts/decision-snapshot.mjs",
+    "contracts:validate": "node scripts/run-local-core.mjs contracts && node scripts/contracts/financial-research.mjs && node scripts/contracts/research-extraction.mjs && node scripts/contracts/wiki.mjs && node scripts/contracts/knowledge-ingestion.mjs && node scripts/contracts/verified-claim.mjs && node scripts/contracts/thesis.mjs && node scripts/contracts/investment-expression.mjs && node scripts/contracts/portfolio.mjs && node scripts/contracts/decision-snapshot.mjs && node scripts/contracts/daily-review.mjs",
     "test:local-core": "node scripts/run-local-core.mjs test-local-core",
     "test:assets": "node scripts/run-local-core.mjs test-assets",
     "test:semantic-runtime": "node --test scripts/tests/semantic-runtime.node.mjs scripts/tests/semantic-readiness.node.mjs",
@@ -137,7 +137,8 @@
     "test:portfolio:browser": "node scripts/portfolio-browser-check.mjs",
     "portfolio:boundary": "node scripts/portfolio-boundary-check.mjs",
     "test:domain-mcp": "node --test scripts/tests/os-domain.node.mjs && vitest run src/services/decisionSnapshot.test.ts src/services/decisionSnapshot.eval.test.ts src/components/research/DecisionSharePanel.test.tsx",
-    "test:domain-mcp:browser": "node scripts/domain-mcp-browser-check.mjs"
+    "test:domain-mcp:browser": "node scripts/domain-mcp-browser-check.mjs",
+    "test:daily-review": "node --test scripts/tests/daily-review.node.mjs && vitest run src/components/industry/DailyReviewPanel.test.tsx"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.30.0",

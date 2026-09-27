@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-09-27 CURRENT · **Daily Review Writeback V1 / IMPLEMENTED / INDEPENDENT AUDIT PENDING**。新增独立 `review:write` MCP、永久私有 Blob revision history、CAS/幂等/撤销、油运「每日复盘」与人工 exact-review 确认。AI_PUBLISHED 不晋升 Formal Decision；os:read/原 authority 不变。真实 Blob 隔离合成持久化和本地 SDK→UI 已验证；真实 ChatGPT 新工具仍待连接授权，scheduled NOT_PROVEN。完整事实与运行记录见 [Daily Review V1](daily-review-writeback-v1.md)。本轮只 commit/push，不创建 PR/merge/手改 Production。
+
 > 2026-09-27 CURRENT · **行业动态观察页 V1 / 油运：IMPLEMENTED / PENDING INDEPENDENT AUDIT（受限数据版）**。Base `0debad7f68ba28449cf7c0c0487f012e5d09ab9f`；原行业默认概览增加四摘要卡、运价占位/来源核对、共同基日100股票图、可勾选/排序公司表；保留原EIA、事件、信号/Claim、Evidence、公司详情和产业链。三只A股复用原价格owner，排除盘中采集当日；复权未知、留存过期、基准未接入显式展示，关系fail closed。CTFI系统使用授权未闭合，未采集入库、未注册/准入新Provider；不是油运实时数据能力交付。[数据可行性、页面合同、验证与限制](oil-shipping-observation-v1.md)。只普通commit/push，等待ChatGPT独立审计；本轮PR/merge/手工部署未执行。
 
 > 2026-09-27 CURRENT 状态补齐：开工核验 GitHub merged PR #81（Stage 4.5，`fc0f23466777f32eb27037f6cbcbba627f5b2478`）、#82（Industry Research Skill V1.1，`7509d0ecdad530760639feadea07cb2d1d74a4cc`）、#83（AGENTS，当前Base）均已合入 main。仅补 merge 已发生事实，不把本轮未复验的 Hosted/Production 状态写成通过；下方历史“待PR/待merge”仅保留其交付时点含义。
