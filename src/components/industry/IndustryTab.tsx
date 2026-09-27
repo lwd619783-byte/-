@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { lazy, Suspense, useId, useState, type ReactNode } from "react";
 import { Layers3 } from "lucide-react";
 import { roboticsPrivateCompanies } from "../../data/privateCompanies";
 import type { Industry, Stock } from "../../types";
@@ -12,6 +12,7 @@ import { IndustrySignalClaimPanel } from "./IndustrySignalClaimPanel";
 import { IndustryChainDiagram } from "./IndustryChainDiagram";
 import { IndustryChangePanel } from "./IndustryChangePanel";
 import { ProductShell } from "../layout/ProductShell";
+const OilShippingObservation = lazy(() => import('./OilShippingObservation').then(module => ({ default: module.OilShippingObservation })));
 
 interface IndustrySelection { industryId: string; segmentId: string }
 interface IndustryTabProps {
@@ -71,9 +72,10 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
     [stock.name, stock.code, stock.thesis, segment?.name ?? "全部", activeIndustry.name, stock.themeTags?.join(" ") ?? ""].join(" ").toLowerCase().includes(keyword),
   ) : segmentStocks;
   const segmentOptions = isRobotics ? [{ id: "__all__", name: "全部" }, ...activeIndustry.segments] : activeIndustry.segments;
+  const legacyOverview = <><IndustryOverview industry={activeIndustry} /><PoolDistribution industry={activeIndustry} stocks={industryStocks} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} /></>;
 
   return <section className="min-w-0 space-y-4">
-    <SectionHeader className="page-heading" title="行业研究" description="按研究资料、细分比较与产业链组织；研究池公司数量不代表行业景气或全市场统计。" />
+    {activeIndustry.id !== "oil-shipping" ? <SectionHeader className="page-heading" title="行业研究" description="按研究资料、细分比较与产业链组织；研究池公司数量不代表行业景气或全市场统计。" /> : null}
     <div className="grid min-w-0 gap-4 min-[1440px]:grid-cols-[180px_minmax(0,1fr)]">
       <aside className="hidden min-w-0 self-start rounded-lg border border-borderSoft bg-card p-3 min-[1440px]:block" aria-label="行业选择">
         <label className="mb-3 block text-xs text-textMuted">搜索行业<input value={industrySearch} onChange={(event) => setIndustrySearch(event.target.value)} className="mt-1 h-10 w-full rounded-md border border-control bg-panel2 px-2 text-sm text-text" /></label>
@@ -91,14 +93,14 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
           </select></label>
           {!matchedIndustries.length ? <p className="text-xs text-textMuted">没有匹配行业；保留当前研究对象。</p> : null}
         </div>
-        <ProductShell section="行业研究" title={activeIndustry.name} scope="研究概览 / 指标与变化 / 公司比较 / 产业链" quality="行业资料来源与更新时间：当前字段未提供。景气、阶段、驱动和风险为既有研究资料，未换算为评分。">
+        <IndustryContext industry={activeIndustry}>
           <div role="tablist" aria-label="行业研究视图" className="mt-3 flex flex-wrap gap-2">{industryViews.map((view, index) => <button key={view.id} id={`${panelId}-tab-${view.id}`} type="button" role="tab" aria-selected={activeView === view.id} aria-controls={`${panelId}-${view.id}`} tabIndex={activeView === view.id ? 0 : -1}
             className={`min-h-11 rounded-md border px-3 text-sm font-medium ${activeView === view.id ? "border-accent bg-selected text-accent" : "border-control text-textMuted"}`}
             onClick={() => setActiveView(view.id)} onKeyDown={(event) => { const direction = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0; if (!direction && event.key !== "Home" && event.key !== "End") return; event.preventDefault(); const next = event.key === "Home" ? 0 : event.key === "End" ? industryViews.length - 1 : (index + direction + industryViews.length) % industryViews.length; setActiveView(industryViews[next].id); document.getElementById(`${panelId}-tab-${industryViews[next].id}`)?.focus(); }}>{view.label}</button>)}</div>
-        </ProductShell>
+        </IndustryContext>
         <div role="tabpanel" id={`${panelId}-overview`} aria-labelledby={`${panelId}-tab-overview`} hidden={activeView !== "overview"} className="space-y-4">
-          <IndustryOverview industry={activeIndustry} />
-          <PoolDistribution industry={activeIndustry} stocks={industryStocks} onSelectSegment={(segmentId) => { select({ industryId: activeIndustry.id, segmentId }); setActiveView("compare"); }} />
+          {activeIndustry.id === "oil-shipping" ? <Suspense fallback={<p role="status" className="rounded-lg border border-borderSoft bg-panel p-4 text-sm text-textMuted">正在加载油运动态观察…</p>}><OilShippingObservation stocks={industryStocks} onOpenStock={onOpenStock} onOpenMetrics={() => setActiveView("metrics")} /></Suspense> : null}
+          {activeIndustry.id === "oil-shipping" ? <details className="min-w-0"><summary className="cursor-pointer py-2 text-sm text-accent">既有研究资料与公司研究池（辅助参考）</summary><div className="space-y-4">{legacyOverview}</div></details> : legacyOverview}
         </div>
         <div role="tabpanel" id={`${panelId}-metrics`} aria-labelledby={`${panelId}-tab-metrics`} hidden={activeView !== "metrics"} className="space-y-4">
           <IndustryChangePanel key={`events-${activeIndustry.id}`} industryId={activeIndustry.id} />
@@ -120,6 +122,11 @@ export function IndustryTab({ industries, stocks, globalSearch, onOpenStock, ini
       </div>
     </div>
   </section>;
+}
+
+function IndustryContext({ industry, children }: { industry: Industry; children: ReactNode }) {
+  if (industry.id === 'oil-shipping') return <header aria-label="研究上下文" className="flex min-w-0 flex-wrap items-center justify-between gap-2 rounded-lg border border-borderSoft bg-panel px-3 pb-3"><h1 className="pt-3 text-lg font-semibold text-textStrong">油运</h1>{children}</header>;
+  return <ProductShell section="行业研究" title={industry.name} scope="研究概览 / 指标与变化 / 公司比较 / 产业链" quality="行业资料来源与更新时间：当前字段未提供。景气、阶段、驱动和风险为既有研究资料，未换算为评分。">{children}</ProductShell>;
 }
 
 function PoolDistribution({ industry, stocks, onSelectSegment }: { industry: Industry; stocks: Stock[]; onSelectSegment: (segmentId: string) => void }) {

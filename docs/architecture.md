@@ -1,5 +1,11 @@
 # 投资研究看板架构基线
 
+## 2026-09-27 油运动态观察 V1 runtime 增量
+
+`IndustryTab 原 overview → lazy OilShippingObservation → industryObservation 纯投影 → 原 Stock.priceHistorySource`。共同基日100、样本等权变化、有效观测期、缺口/冲突/过期提示只存在于只读view model，无新store、Provider、Entity或Evidence authority。原Industry/Stock研究资料和各子视图保留；EvidenceDrawer/ChartAuditPanel与公司详情callbacks复用。
+
+运价runtime固定为无owner/blocked：CTFI许可、历史、版本与准入未闭合；不从EIA推断运价。隔离测试的运价输入仍用原IndustryMetricDataset/industryHistory的owner校验、时间与状态，当前reader只支持既有月/周频，未绕过原Registry另造日频采集/解析。未来接入日频CTFI需要在原Owner/Registry路径完成定义、授权、读模型支持及准入。价格原owner未保留实际复权分支，因此原close数学归一可供核对，关系判断保持数据不足；基准仍unavailable。详见[合同与交付记录](oil-shipping-observation-v1.md)。
+
 ## 2026-09-24 Stage 4.5 OS Domain MCP V1 / CURRENT
 
 IMPLEMENTED / VERIFIED LOCALLY / PENDING INDEPENDENT AUDIT。正式 authority 不迁移：`BrowserClaimRepository / BrowserThesisRepository / BrowserExpressionRepository` 的 read model/F2 → 字段白名单与 exact revision/digest/citation 的 `decision-snapshot.v1` → 用户显式预览确认 → `os-domain/` private temporary Blob staging → 独立 `/api/os-mcp`（`os:read`）→ ChatGPT。Hosted 读取的只是获授权快照，不假装读取本地 owner。
