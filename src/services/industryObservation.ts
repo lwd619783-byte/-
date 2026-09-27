@@ -45,6 +45,31 @@ export function observationStreak(points: ObservationPoint[]) {
   return { direction, count };
 }
 
+function metricOwnerAtAsOf(owner: IndustryMetricDataset, asOf: string): IndustryMetricDataset | null {
+  if (!validDate(asOf)) return null;
+  const d = owner.definition;
+  let end: string | null = null;
+  if (d.nativeFrequency === 'monthly') {
+    if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(d.window.start) || !/^\d{4}-(0[1-9]|1[0-2])$/.test(d.window.end)) return null;
+    const cutoff = asOf.slice(0, 7);
+    end = d.window.end < cutoff ? d.window.end : cutoff;
+    if (end < d.window.start) return null;
+  } else if (d.nativeFrequency === 'weekly') {
+    if (!validDate(d.window.start) || !validDate(d.window.end)) return null;
+    const start = Date.parse(d.window.start), cutoff = Math.min(Date.parse(d.window.end), Date.parse(asOf));
+    if (cutoff < start) return null;
+    const step = 7 * dayMs;
+    end = new Date(start + Math.floor((cutoff - start) / step) * step).toISOString().slice(0, 10);
+  } else return null;
+  const valueCutoff = d.nativeFrequency === 'monthly' ? asOf.slice(0, 7) : asOf;
+  const observations = owner.observations.filter(observation => {
+    const release = observation.releaseAvailableAt;
+    const releaseDay = typeof release === 'string' && Number.isFinite(Date.parse(release)) ? release.slice(0, 10) : null;
+    return observation.valueDate <= valueCutoff && releaseDay !== null && releaseDay <= asOf;
+  });
+  return { ...owner, definition: { ...d, window: { ...d.window, end } }, observations };
+}
+
 export function stockObservation(stock: Stock, asOf: string): ObservationSeries {
   const owner = stock.priceHistorySource;
   if (!owner || owner.id !== stock.id || owner.points !== stock.priceHistory || stock.dataMode === 'mock') return { points: [], states: ['blocked'], publication: null };
@@ -74,11 +99,15 @@ export function freightObservation(owner: IndustryMetricDataset | null, basis: s
   // Reuse original exact owner, dimension, duplicate and revision validation.
   // Daily freight is not supported by that owner reader yet: never create a
   // parallel daily parser to bypass its Registry/admission requirements.
-  const view = industryHistory(owner, basis);
+  const ownerAsOf = metricOwnerAtAsOf(owner, asOf);
+  if (!ownerAsOf) return { points: [], states: ['blocked'], publication: null };
+  // Cut the owner to records actually available by asOf before industryHistory
+  // aggregates duplicates, revision state, missing periods or conflicts.
+  const view = industryHistory(ownerAsOf, basis);
   const states = view.states.filter(s => s !== 'FRESH');
   if (!owner.policy.allowedUses.includes('display') || owner.policy.forbiddenUses.includes('display') || owner.policy.dataAdmission !== 'ADMITTED' || !view.history.length) states.push('blocked');
   if (d.freshness !== 'FRESH' || !d.staleAfter || d.staleAfter.slice(0, 10) < asOf) states.push('stale');
-  const points = view.history.filter(p => p.period <= asOf).map(p => {
+  const points = view.history.map(p => {
     const available = p.records.length === 1 && p.records[0].releaseAvailableAt;
     if (!available || available.slice(0, 10) > asOf) states.push('blocked');
     return { date: p.period, value: available && available.slice(0, 10) <= asOf ? p.value : null };
