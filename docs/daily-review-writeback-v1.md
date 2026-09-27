@@ -1,5 +1,7 @@
 # ChatGPT 每日复盘结构化写回 OS V1
 
+> 2026-09-27 CURRENT · 独立审计整改：context 已从元数据扩展为共享 OS deterministic snapshot；derived 发布须校验精确计算引用，Review OAuth 文案独立，默认 CI 命令重新对照验收。下文为上一交付时点，旧“Metadata only”和 threads/forks 结论不代表整改后的状态。详见 [P1-A / P1-B / P2 整改与验证](daily-review-remediation-v1.md)。本次真实 ChatGPT visibility/write 均 NOT_RUN；不变更 Protection / Production。
+
 ## 2026-09-27 开工 / 合同冻结
 
 Base `0092d02e7ef13764be7877d2f56a9137685d4b8a`，origin `https://github.com/lwd619783-byte/-.git`；fetch 后 main 无漂移，open PR 0。原工作区 clean，原 branch `codex/oil-shipping-observation-v1` HEAD `700d13f` 相对 main 1 ahead / 1 behind；已从 origin/main 新建 `codex/daily-review-writeback-v1`，不沿用旧分支。使用现有主工作区，不动其他 worktree。

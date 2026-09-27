@@ -35,12 +35,16 @@ await vite.listen();const origin='http://127.0.0.1:4197';
 const token=signToken({kind:'access',iss:config.issuer,aud:config.resource,sub:config.subject,scope:config.scope,client_id:config.clientId,exp:Math.floor(Date.now()/1000)+3600,reviewEpoch:0,workspace:config.workspace,dataScope:'synthetic'},config);
 const client=new Client({name:'review-browser-acceptance',version:'1.0.0'});await client.connect(new StreamableHTTPClientTransport(new URL(origin+'/api/review-mcp'),{requestInit:{headers:{Authorization:`Bearer ${token}`}}}));
 const call=async(name,args)=>(await client.callTool({name,arguments:args})).structuredContent.result;
+const observation=await call('get_daily_review_context',{asOf:new Date().toISOString()});
+check(observation.schemaVersion==='oil-shipping-observation-context.v1'&&observation.stocks.length===3,'SDK deterministic context');
+check(observation.freight.value===null&&observation.relationship.state==='unavailable','SDK blocked freight is not an AI calculation');
 const p=publication();const first=await call('publish_daily_review',p);check(first.record.revision===1,'SDK create');check((await call('publish_daily_review',p)).replay,'SDK retry');
 const asOf=new Date().toISOString();const second=await call('publish_daily_review',{...p,expectedRevision:1,idempotencyKey:'browser-synthetic-revision-002',review:{...p.review,asOf,generatedAt:asOf,sources:p.review.sources.map(s=>({...s,asOf})),previousReviewId:first.record.reviewId,previousRevision:1,summary:'合成测试第二版：运价仍不可用，等待授权与来源核验。'}});check(second.record.revision===2,'SDK revision');
 await fs.writeFile(path.join(harness,'main.tsx'),`
 import React from 'react';import{createRoot}from'react-dom/client';import'/src/index.css';import{DailyReviewCard}from'/src/components/industry/DailyReviewPanel';
 const record=${JSON.stringify(first.record)};const mode=new URLSearchParams(location.search).get('mode');
 if(mode==='confirmed')record.status='USER_CONFIRMED';if(mode==='stale')record.content.asOf='2020-01-01T00:00:00Z';if(mode==='missing')record.content.sources[0].availability='missing';
+if(mode==='withdrawn')record.status='WITHDRAWN';
 if(mode==='long'){record.content.summary='有限数据的合成观察说明。'.repeat(40);record.content.supports=[{text:'支持证据仅供研究参考。'.repeat(30),sourceIds:[]}];}
 createRoot(document.getElementById('root')).render(<DailyReviewCard value={{record:mode==='empty'?null:record,effectiveStatus:mode==='empty'?null:record.status,isCurrent:true,scope:'synthetic'}}/>);
 `);
@@ -58,11 +62,17 @@ try {
     await region.scrollIntoViewIfNeeded();await page.evaluate(()=>window.scrollBy(0,-90));const shot=`sdk-app-${width}.png`;await region.screenshot({path:path.join(output,shot)});report.screenshots.push(shot);
     await region.locator('summary').filter({hasText:'人工复核'}).click();await region.getByRole('button',{name:'人工确认此版本'}).click();
     check(await region.getByRole('button',{name:'确认操作'}).isVisible(),`${width}: owner confirmation gate`);await region.getByRole('button',{name:'取消',exact:true}).click();
-    for(const mode of ['empty','confirmed','stale','missing','long']){
+    for(const mode of ['empty','confirmed','stale','missing','long','withdrawn']){
       await page.goto(origin+'/data-cache/daily-review/harness/index.html?mode='+mode);await page.locator('#root').waitFor();
-      await page.getByText(mode==='empty'?'暂无每日复盘。授权 ChatGPT 发布后会在这里展示。':mode==='confirmed'?'AI 复盘 / 已人工确认':'AI 复盘 / 未人工确认',{exact:true}).waitFor();
+      await page.getByText(mode==='empty'?'暂无每日复盘。授权 ChatGPT 发布后会在这里展示。':mode==='confirmed'?'AI 复盘 / 已人工确认':mode==='withdrawn'?'已撤回 / 历史保留':'AI 复盘 / 未人工确认',{exact:true}).waitFor();
       check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${width}: ${mode} bounded layout`);
       if(mode==='stale')check(await page.getByText(/复盘已过期/).count()===1,`${width}: stale warning`);
+      if(mode==='missing'){
+        await page.locator('summary').filter({hasText:'变化、风险与来源'}).click();
+        check(await page.getByText(/来源日期 未知/).isVisible(),`${width}: source display`);
+        check(await page.getByText(/不是 OS 已验证数值/).isVisible(),`${width}: AI text is not OS verified derived`);
+      }
+      if(mode==='withdrawn')check(await page.getByText(first.record.content.summary,{exact:true}).count()===0,`${width}: withdrawn content hidden`);
       const name=`${mode}-${width}.png`;await page.screenshot({path:path.join(output,name),fullPage:true});report.screenshots.push(name);
     }
     await context.close();

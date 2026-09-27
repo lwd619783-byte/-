@@ -23,6 +23,9 @@ export const reviewContentSchema = z.object({ schemaVersion: z.literal('daily-re
   sources: z.array(source).min(1).max(20),
   previousReviewId: z.string().regex(/^industry:oil-shipping:\d{4}-\d{2}-\d{2}$/).nullable(), previousRevision: z.number().int().positive().nullable(),
   status: z.enum(['AI_DRAFT', 'AI_PUBLISHED']), summary: text,
+  // These are AI-authored reference categories, never verified OS numbers. New
+  // derived publications additionally resolve an exact deterministic context ref
+  // server-side. Keep old stored revisions readable without reinterpreting bytes.
   observations: z.array(note.extend({ kind: z.enum(['fact', 'derived', 'interpretation']) }).strict()).max(8),
   delta: notes, supports: notes, challenges: notes, risks: notes,
   watchNext: z.array(z.object({ condition: text, metric: text, currentState: text,

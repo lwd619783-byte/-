@@ -4,7 +4,7 @@ import { dailyReviewRequest, validateReviewRead, validateReviewHistory } from '.
 import './daily-review.css';
 
 const statuses: Record<ReviewStatus, string> = { AI_DRAFT: 'AI 草稿 / 未发布', AI_PUBLISHED: 'AI 复盘 / 未人工确认', USER_CONFIRMED: 'AI 复盘 / 已人工确认', SUPERSEDED: '历史版本 / 已被后续版本替代', WITHDRAWN: '已撤回 / 历史保留' };
-const kinds = { fact: '引用事实', derived: '引用派生结果', interpretation: 'AI 解释' };
+const kinds = { fact: 'AI 引用事实', derived: 'AI 引用派生结果', interpretation: 'AI 解释' };
 const availability = { available: '可用', missing: '缺失', stale: '过期', conflicted: '冲突', blocked: '不可用' };
 const impacts = { none: '正式判断未变化', review_required: '建议人工复核', candidate_for_formal_update: '存在候选正式更新，尚未晋升' };
 const dateTime = (s: string) => new Date(s).toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
@@ -19,6 +19,7 @@ export function DailyReviewCard({ value }: { value: ReviewRead }) {
     <p className="review-muted">观察截至 {dateTime(r.asOf)} · 更新 {dateTime(record.updatedAt)}{stale ? ' · 复盘已过期，请核对新数据' : ''}</p>
     {record.status === 'WITHDRAWN' ? <p>此版本已撤回，不作为当前研究结论。可在历史中查阅原内容。</p> : <>
       <p className="review-summary">{r.summary}</p>
+      <p className="review-muted">以下为 AI 复盘文字，不是 OS 已验证数值；精确事实与确定性计算以上方动态观察区为准。</p>
       <section><h4>今日变化</h4>{r.observations.length ? <ul>{r.observations.map((o,i) => <li key={i}><span className="review-kind">{kinds[o.kind]}</span>{o.text}</li>)}</ul> : <p className="review-muted">暂无可确认的新变化</p>}</section>
       <div className="review-columns"><section><h4>支持原判断</h4>{noteList(r.supports)}</section><section><h4>挑战原判断</h4>{noteList(r.challenges)}</section></div>
       <section><h4>下一观察日</h4>{r.watchNext.length ? <ul>{r.watchNext.map((w,i) => <li key={i}><strong>{w.condition}</strong><span className="review-muted"> · {w.metric} · {w.currentState} · {w.horizon} · 方向：{{ up:'上行', down:'下行', change:'变化', available:'可用', unknown:'未知' }[w.direction]}</span></li>)}</ul> : <p className="review-muted">暂无新增观察条件</p>}</section>
@@ -36,27 +37,32 @@ export function DailyReviewPanel() {
   const [history, setHistory] = useState<ReviewHistory | null>(null), [error, setError] = useState(''), [busy, setBusy] = useState(false);
   const [selection, setSelection] = useState(''), [pending, setPending] = useState<{ action: 'confirm'|'withdraw'; date: string; revision: number }|null>(null);
   const requestId = useRef(0);
+  const requestLifetime = useRef<AbortController | null>(null);
+  const request = useCallback((action: string, input?: unknown) => dailyReviewRequest(action, secret, input, requestLifetime.current?.signal), [secret]);
   const refresh = useCallback(async (query = selection) => {
     const id = ++requestId.current; setBusy(true);
     try {
-      const [data, list] = await Promise.all([dailyReviewRequest(`current${query}`, secret), dailyReviewRequest('history', secret)]);
+      const [data, list] = await Promise.all([request(`current${query}`), request('history')]);
       const parsed = validateReviewRead(data), hist = validateReviewHistory(list);
       if (id !== requestId.current) return;
       setValue(parsed); setHistory(hist); setConnected(true); setError('');
     } catch (e) { if (id === requestId.current) { setValue(null); setHistory(null); setError(e instanceof Error ? e.message : '复盘读取失败。'); } }
     finally { if (id === requestId.current) setBusy(false); }
-  }, [secret, selection]);
+  }, [request, selection]);
   useEffect(() => {
     if (!connected) return;
     const refreshVisible = () => { if (!document.hidden) void refresh(); };
     const timer = window.setInterval(refreshVisible, 30000); window.addEventListener('focus', refreshVisible);
     return () => { window.clearInterval(timer); window.removeEventListener('focus', refreshVisible); };
   }, [connected, refresh]);
-  useEffect(() => () => { requestId.current++; }, []);
+  useEffect(() => {
+    requestLifetime.current = new AbortController();
+    return () => { requestId.current++; requestLifetime.current?.abort(); };
+  }, []);
   async function transition() {
     if (!value?.record || !pending) return;
     setBusy(true);
-    try { await dailyReviewRequest('transition', secret, { reviewDate: pending.date, expectedRevision: pending.revision, action: pending.action, confirmation: 'confirm-exact-review-only' }); setPending(null); setSelection(''); await refresh(''); }
+    try { await request('transition', { reviewDate: pending.date, expectedRevision: pending.revision, action: pending.action, confirmation: 'confirm-exact-review-only' }); setPending(null); setSelection(''); await refresh(''); }
     catch { setError('操作未完成，版本可能已变化。请刷新后核对。'); setBusy(false); }
   }
   return <section className="daily-review" aria-label="每日复盘">
@@ -64,8 +70,8 @@ export function DailyReviewPanel() {
     {!connected && <form onSubmit={e => { e.preventDefault(); void refresh(''); }} className="review-connect"><label>复盘访问密钥<input aria-label="复盘访问密钥" type="password" autoComplete="off" value={secret} onChange={e => setSecret(e.target.value)} required minLength={32}/></label><button disabled={busy}>连接复盘</button><p className="review-muted">密钥仅用于本次页面访问，不保存到浏览器。未连接时无法判断是否已有复盘。</p></form>}
     {error && <p role="alert">{error}</p>}{busy && <p role="status">正在同步复盘…</p>}
     {value && <DailyReviewCard value={value}/>}
-    {history && <details><summary>历史版本（最近 {history.items.length} 条）</summary><div className="review-history"><button onClick={() => { setSelection(''); setPending(null); void refresh(''); }}>查看当前复盘</button>{history.items.map(h => <button key={`${h.reviewId}:${h.revision}`} onClick={() => { const q = `?reviewDate=${h.reviewDate}&revision=${h.revision}`; setSelection(q); setPending(null); void refresh(q); }}>{h.reviewDate} · v{h.revision} · {statuses[h.status]}</button>)}{history.next !== null && <button disabled={busy} onClick={async () => { setBusy(true); try { const more = validateReviewHistory(await dailyReviewRequest(`history?before=${history.next}`, secret)); setHistory({ items: [...history.items, ...more.items], next: more.next }); } catch { setError('历史读取失败。'); } finally { setBusy(false); } }}>更多历史</button>}</div></details>}
+    {history && <details><summary>历史版本（最近 {history.items.length} 条）</summary><div className="review-history"><button onClick={() => { setSelection(''); setPending(null); void refresh(''); }}>查看当前复盘</button>{history.items.map(h => <button key={`${h.reviewId}:${h.revision}`} onClick={() => { const q = `?reviewDate=${h.reviewDate}&revision=${h.revision}`; setSelection(q); setPending(null); void refresh(q); }}>{h.reviewDate} · v{h.revision} · {statuses[h.status]}</button>)}{history.next !== null && <button disabled={busy} onClick={async () => { setBusy(true); try { const more = validateReviewHistory(await request(`history?before=${history.next}`)); setHistory({ items: [...history.items, ...more.items], next: more.next }); } catch { setError('历史读取失败。'); } finally { setBusy(false); } }}>更多历史</button>}</div></details>}
     {value?.record && value.isCurrent && value.record.status !== 'WITHDRAWN' && <details><summary>人工复核</summary><p>仅确认或撤回当前 Review，不晋升任何正式投资判断。</p><button disabled={busy || value.record.status === 'USER_CONFIRMED'} onClick={() => setPending({action:'confirm',date:value.record!.content.reviewDate,revision:value.record!.revision})}>人工确认此版本</button> <button disabled={busy} onClick={() => setPending({action:'withdraw',date:value.record!.content.reviewDate,revision:value.record!.revision})}>撤回复盘</button>{pending && <div role="group" aria-label="确认复盘操作"><p>确认{pending.action === 'confirm' ? '已核对' : '撤回'} {pending.date} v{pending.revision}？操作将追加新版本。</p><button disabled={busy} onClick={() => void transition()}>确认操作</button> <button onClick={() => setPending(null)}>取消</button></div>}</details>}
-    {connected && <details><summary>访问设置</summary><button disabled={busy} onClick={async () => { setBusy(true); try { await dailyReviewRequest('revoke', secret, {}); setError('已撤销现有 ChatGPT 复盘授权；再次写入需要重新授权。'); } catch { setError('撤销失败，请重试。'); } finally { setBusy(false); } }}>撤销全部 ChatGPT 复盘授权</button> <button onClick={() => { requestId.current++; setConnected(false); setSecret(''); setValue(null); setHistory(null); setError(''); setPending(null); setBusy(false); }}>断开页面访问</button></details>}
+    {connected && <details><summary>访问设置</summary><button disabled={busy} onClick={async () => { setBusy(true); try { await request('revoke', {}); setError('已撤销现有 ChatGPT 复盘授权；再次写入需要重新授权。'); } catch { setError('撤销失败，请重试。'); } finally { setBusy(false); } }}>撤销全部 ChatGPT 复盘授权</button> <button onClick={() => { requestId.current++; requestLifetime.current?.abort(); requestLifetime.current = new AbortController(); setConnected(false); setSecret(''); setValue(null); setHistory(null); setError(''); setPending(null); setBusy(false); }}>断开页面访问</button></details>}
   </section>;
 }

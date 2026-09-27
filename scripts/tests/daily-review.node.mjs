@@ -14,6 +14,11 @@ import { PrivateBlobStore } from '../../server/research-bridge/store.mjs';
 import { callReviewTool, reviewTools } from '../../server/daily-review/mcp.mjs';
 import { validateReview } from '../../shared/daily-review.mjs';
 import { signToken, newConsent, issueCode } from '../../server/research-bridge/auth.mjs';
+import { bridgeConfig } from '../../server/research-bridge/auth.mjs';
+import { createBridgeHandler } from '../../server/research-bridge/http.mjs';
+import { createDomainHandler } from '../../server/os-domain/http.mjs';
+import { domainConfig } from '../../server/os-domain/config.mjs';
+import { reviewContext } from '../../server/daily-review/context.mjs';
 const config = reviewConfig(env);
 function setup(store = new DecisionTestStore(), clock = Date.now) {
   const repo = new DailyReviewStore(store, { workspace: config.workspace, scope: 'synthetic', now: clock });
@@ -92,11 +97,11 @@ test('unknown tools, forbidden root arguments and scope config fail closed', asy
   assert.throws(()=>reviewConfig({...env,DAILY_REVIEW_WORKSPACE:''}));
   assert.equal(Object.keys(reviewTools).length,5);
 });
-test('OS blocked state cannot be upgraded; context pins stock metadata without invented prices', async () => {
+test('OS blocked state cannot be upgraded; context exposes bounded deterministic observations', async () => {
   const {repo,grant}=setup(),p=publication();
   const context=await callReviewTool(repo,grant,'get_daily_review_context',{asOf:p.review.asOf});
-  assert.equal(context.freight,'blocked');assert.equal(context.relationship,'unavailable');assert.equal(context.stocks.length,3);
-  assert.ok(context.stocks.every(s=>!Object.hasOwn(s,'price')));
+  assert.equal(context.freight.availability,'blocked');assert.equal(context.freight.value,null);assert.equal(context.relationship.state,'unavailable');assert.equal(context.stocks.length,3);
+  assert.ok(context.stocks.every(s=>!Object.hasOwn(s,'points') && Object.hasOwn(s,'latestRetainedClose')));
   for(const override of [{availability:'available',sourceDate:p.review.reviewDate,availableAt:p.review.asOf},{revision:'invented'},{locator:'os:Claim:fake'}]){
     const q=structuredClone(p);Object.assign(q.review.sources[0],override);await assert.rejects(repo.publish(q,grant),/REVIEW_/);
   }
@@ -124,7 +129,7 @@ test('SDK HTTP + OAuth PKCE create/read/retry/revise/revoke, read-only tokens re
   const result=await reviewAuth('synthetic').exchange(new URLSearchParams({grant_type:'authorization_code',client_id:config.clientId,code:url.searchParams.get('code'),redirect_uri:config.redirects[0],resource:config.resource,code_verifier:'v'.repeat(43)}),config,store);
   const access=result.access_token;
   const payload={kind:'access',iss:config.issuer,aud:config.resource,sub:config.subject,scope:config.scope,client_id:config.clientId,exp:Math.floor(Date.now()/1000)+3600,reviewEpoch:0,workspace:config.workspace,dataScope:'synthetic'};
-  for(const token of [null,'bad',signToken({...payload,scope:'os:read'},config),signToken({...payload,exp:1},config),signToken({...payload,workspace:'wrong'},config),signToken({...payload,sub:'wrong'},config)]) {
+  for(const token of [null,'bad',signToken({...payload,scope:'os:read'},config),signToken({...payload,aud:'https://wrong.invalid/api/os-mcp'},config),signToken({...payload,exp:1},config),signToken({...payload,workspace:'wrong'},config),signToken({...payload,sub:'wrong'},config)]) {
     const res=await fetch(base+'/api/review-mcp',{method:'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{})},body:'{}'});assert.equal(res.status,401);
   }
   const client=new Client({name:'synthetic-review-client',version:'1.0.0'});await client.connect(new StreamableHTTPClientTransport(new URL(base+'/api/review-mcp'),{requestInit:{headers:{Authorization:`Bearer ${access}`}}}));t.after(()=>client.close());
@@ -140,5 +145,34 @@ test('SDK HTTP + OAuth PKCE create/read/retry/revise/revoke, read-only tokens re
   const ownerRead=await fetch(base+'/api/daily-review/current',{headers:{'X-Bridge-Owner-Secret':config.ownerSecret}});assert.equal((await ownerRead.json()).record.revision,2);
   const revoke=await fetch(base+'/api/daily-review/revoke',{method:'POST',headers:{Origin:config.origin,'Content-Type':'application/json','X-Bridge-Owner-Secret':config.ownerSecret},body:'{}'});assert.equal(revoke.status,200);
   const denied=await fetch(base+'/api/review-mcp',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${access}`},body:'{}'});assert.equal(denied.status,401);
-  const html=await(await fetch(base+'/api/daily-review/authorize?'+new URLSearchParams(params))).text();assert.match(html,/授权读取与发布 AI 复盘/);assert.doesNotMatch(html,/确认授予只读访问/);
+  const html=await(await fetch(base+'/api/daily-review/authorize?'+new URLSearchParams(params))).text();assert.match(html,/授权读取与发布 AI 复盘/);assert.doesNotMatch(html,/确认授予只读访问|研究桥访问密钥/);
+  for (const text of ['投研 OS 每日复盘','ChatGPT 复盘写入授权','Review access credential','AI_PUBLISHED','一小时','撤销','Claim / Thesis / Expression / Portfolio']) assert.ok(html.includes(text));
+});
+
+test('prepare/publish enforce deterministic refs while exact history stays readable',async()=>{
+  const {repo,grant}=setup(),at=Date.parse('2026-09-18T05:00:00Z'),p=publication(at+2000),context=reviewContext(p.review.asOf);
+  const ref=context.sourceReferences.find(s=>s.id==='cosco-energy-return-5p');assert.equal(ref.availability,'available');
+  p.review.sources.push(ref);p.review.observations=[{kind:'derived',text:'AI 引用 OS 留存计算，不晋升为正式判断。',sourceIds:[ref.id]}];
+  assert.ok(await repo.preview(p,grant));assert.equal((await repo.publish(p,grant)).record.revision,1);
+  const raw=publication(at+2000);raw.review.sources.push(context.sourceReferences.find(s=>s.id==='cosco-energy'));raw.review.observations=[{kind:'derived',text:'不能冒充 OS 计算',sourceIds:['cosco-energy']}];raw.idempotencyKey='synthetic-derived-bad-ref';
+  await assert.rejects(repo.preview(raw,grant),/DETERMINISTIC_REF_REQUIRED/);await assert.rejects(repo.publish(raw,grant),/DETERMINISTIC_REF_REQUIRED/);
+  assert.equal((await repo.read({reviewDate:p.review.reviewDate,revision:1},grant)).record.content.observations[0].kind,'derived');
+});
+
+test('three OAuth surfaces retain independent consent and configuration errors',async()=>{
+  const invoke=async(handler,url,headers={})=>{let status,body;const res={setHeader(){},writeHead(s){status=s},end(b){body=b}};await handler({url,method:'GET',headers},res);return{status,body}};
+  for(const [factory,cfgFactory,serviceEnv,title,label,error] of [
+    [createBridgeHandler,bridgeConfig,{...env,BRIDGE_ENABLED:'true'},'允许 ChatGPT 读取研究资料','研究桥访问密钥','BRIDGE_NOT_CONFIGURED'],
+    [createDomainHandler,domainConfig,env,'允许 ChatGPT 只读正式投资状态','共享访问密钥','DOMAIN_NOT_CONFIGURED'],
+    [createReviewHandler,reviewConfig,env,'投研 OS 每日复盘 · ChatGPT 复盘写入授权','Review access credential','REVIEW_NOT_CONFIGURED'],
+  ]) {
+    const cfg=cfgFactory(serviceEnv),path=cfg.authPath??'/api/bridge';
+    const params=new URLSearchParams({client_id:cfg.clientId,redirect_uri:cfg.redirects[0],response_type:'code',code_challenge_method:'S256',code_challenge:'v'.repeat(43),state:'synthetic',resource:cfg.resource,scope:cfg.scope??'research:read'});
+    const handler=factory({env:serviceEnv,store:new DecisionTestStore()});
+    const response=await invoke(handler,path+'/authorize?'+params);assert.equal(response.status,200);assert.ok(response.body.includes(title));assert.ok(response.body.includes(label));
+    if(error!=='REVIEW_NOT_CONFIGURED'){assert.match(response.body,/确认授予只读访问/);assert.doesNotMatch(response.body,/AI_PUBLISHED|ChatGPT 复盘写入授权/)}
+    const failure=await invoke(factory({env:{},store:new DecisionTestStore()}),path+'/authorize');assert.equal(failure.status,503);assert.equal(JSON.parse(failure.body).error,error);
+  }
+  const invalid=await invoke(createReviewHandler({env,store:new DecisionTestStore()}),'/api/daily-review/current');
+  assert.equal(invalid.status,401);assert.match(invalid.body,/复盘访问凭据/);assert.doesNotMatch(invalid.body,/研究桥/);
 });

@@ -1,0 +1,51 @@
+{
+  "node": "v22.23.2",
+  "vitest": "2.1.9",
+  "pool": "forks",
+  "poolChanged": false,
+  "lockfileSHA256": "3a3ad4969c7de8099999acefd9c2e3560ee62e6d6ae643665cc3dff1a33db539",
+  "runs": [
+    {
+      "name": "main-default-indexed",
+      "files": "115",
+      "tests": "1509",
+      "duration": "52.10s",
+      "command": "> vitest run"
+    },
+    {
+      "name": "branch-default-before",
+      "files": "116",
+      "tests": "1514",
+      "duration": "50.60s",
+      "command": "> vitest run"
+    },
+    {
+      "name": "main-single-worker",
+      "files": "115",
+      "tests": "1509",
+      "duration": "163.07s",
+      "command": "> vitest run --maxWorkers=1 --minWorkers=1 --logHeapUsage"
+    },
+    {
+      "name": "branch-single-worker",
+      "files": "116",
+      "tests": "1514",
+      "duration": "163.90s",
+      "command": "> vitest run --maxWorkers=1 --minWorkers=1 --logHeapUsage"
+    },
+    {
+      "name": "default-full-final",
+      "files": "116",
+      "tests": "1516",
+      "duration": "53.73s",
+      "command": "> vitest run"
+    },
+    {
+      "name": "default-full-repeat",
+      "files": "116",
+      "tests": "1516",
+      "duration": "51.31s",
+      "command": "> vitest run"
+    }
+  ]
+}

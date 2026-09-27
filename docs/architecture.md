@@ -2,6 +2,8 @@
 
 ## 2026-09-27 Daily Review writeback V1 增量
 
+独立审计整改：`Provider retained structured facts → shared/oil-shipping-observation.mjs → OilShippingObservation / oil-shipping-observation-context.v1 → ChatGPT interpretation → Review writeback`。只有一份 stock/1p/5p/20p/sample/normalization/relationship 公式，源事实与 AI 引用文字分离；bounded context 不返回完整曲线，未来取得的 current owner 不证明历史可用性。derived 发布须引用同 asOf 的精确 result digest。样本聚合遇 stale/partial/conflict/unknown basis 等状态保留原 denominator 并返回 null。Review authority、正式门禁与权限范围不变。[整改记录](daily-review-remediation-v1.md)。
+
 `ChatGPT → /api/review-mcp (review:write, independent issuer/audience) → DailyReviewStore → immutable revision + CAS manifest → authenticated DailyReviewPanel`。复用现有 PrivateBlobStore / OAuth PKCE primitive，独立永久 `daily-review/v1/{real|synthetic}/{owner+workspace hash}`，不使用 DecisionStaging 的 snapshot TTL。AI_PUBLISHED 属于 Research Context；owner 对 exact Review 的确认不是 Formal Decision promotion。数据事实仍来自现有 Stock/Price History owner；运价未准入状态的常量由观察页与 Review context 共用。原 Claim/Thesis/Expression/Portfolio authority 和 os:read 8 tools 不变。[合同与验收](daily-review-writeback-v1.md)。
 
 ## 2026-09-27 油运动态观察 V1 runtime 增量

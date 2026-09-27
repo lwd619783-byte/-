@@ -138,7 +138,7 @@
     "portfolio:boundary": "node scripts/portfolio-boundary-check.mjs",
     "test:domain-mcp": "node --test scripts/tests/os-domain.node.mjs && vitest run src/services/decisionSnapshot.test.ts src/services/decisionSnapshot.eval.test.ts src/components/research/DecisionSharePanel.test.tsx",
     "test:domain-mcp:browser": "node scripts/domain-mcp-browser-check.mjs",
-    "test:daily-review": "node --test scripts/tests/daily-review.node.mjs && vitest run src/components/industry/DailyReviewPanel.test.tsx"
+    "test:daily-review": "node --test scripts/tests/daily-review.node.mjs scripts/tests/daily-review-context.node.mjs && vitest run src/components/industry/DailyReviewPanel.test.tsx"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.30.0",

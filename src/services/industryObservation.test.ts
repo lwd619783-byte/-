@@ -4,6 +4,7 @@ import type { Stock } from '../types';
 import type { IndustryMetricDataset } from '../types/industryMetric';
 import eia from '../data/real/industry-eia-exports.generated.json';
 import { syntheticFreight } from './industryObservation.fixture';
+import * as sharedObservation from '../../shared/oil-shipping-observation.mjs';
 import { freightObservation, normalizeObservationSeries, observationChange, observationRelationship, observationStreak, observedCompanyCount, samplePerformance, stockObservation, type ObservationSeries } from './industryObservation';
 
 const series = (dates: string[], values: Array<number | null>, states = ['real']): ObservationSeries => ({ points: dates.map((date, i) => ({ date, value: values[i] })), states, publication: null });
@@ -14,6 +15,13 @@ function stock() {
   return s;
 }
 describe('oil observation deterministic semantics', () => {
+  it('UI reexports the exact shared stock, sample and relationship calculation functions',()=>{
+    expect(stockObservation).toBe(sharedObservation.stockObservation);
+    expect(observationChange).toBe(sharedObservation.observationChange);
+    expect(samplePerformance).toBe(sharedObservation.samplePerformance);
+    expect(normalizeObservationSeries).toBe(sharedObservation.normalizeObservationSeries);
+    expect(observationRelationship).toBe(sharedObservation.observationRelationship);
+  });
   it('requires n+1 observations; null, NaN and zero bases never become returns', () => {
     const points = Array.from({ length: 21 }, (_, i) => ({ date: String(i), value: 100 + i }));
     expect(observationChange(points, 5)).toBeCloseTo(120 / 115 * 100 - 100);
