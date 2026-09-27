@@ -3,6 +3,7 @@ import { stocks } from '../data/stocks';
 import type { Stock } from '../types';
 import type { IndustryMetricDataset } from '../types/industryMetric';
 import eia from '../data/real/industry-eia-exports.generated.json';
+import { syntheticFreight } from './industryObservation.fixture';
 import { freightObservation, normalizeObservationSeries, observationChange, observationRelationship, observationStreak, observedCompanyCount, samplePerformance, stockObservation, type ObservationSeries } from './industryObservation';
 
 const series = (dates: string[], values: Array<number | null>, states = ['real']): ObservationSeries => ({ points: dates.map((date, i) => ({ date, value: values[i] })), states, publication: null });
@@ -76,6 +77,25 @@ describe('oil observation deterministic semantics', () => {
   it('never counts cross-listed securities as separate confirmed companies', () => {
     const s = stock(); expect(observedCompanyCount([s, s])).toBe(1);
     expect(observedCompanyCount([s, { ...s, id: 'cosco-h', market: '港股', code: '01138' }])).toBeNull();
+  });
+  it('applies freight asOf before aggregating future revisions or conflicts', () => {
+    const owner = syntheticFreight();
+    owner.definition.freshness = 'FRESH'; owner.definition.staleAfter = '2026-10-02';
+    const futureRevision = structuredClone(owner.observations[2]);
+    futureRevision.id = 'synthetic-future-revision';
+    futureRevision.value = 999;
+    futureRevision.releaseAvailableAt = '2026-09-25T09:00:00Z';
+    futureRevision.publicationDateTime = '2026-09-25T09:00:00Z';
+    futureRevision.acquiredAt = '2026-09-25T10:00:00Z';
+    futureRevision.generatedAt = '2026-09-25T11:00:00Z';
+    owner.observations.push(futureRevision);
+
+    const historical = freightObservation(owner, 'week_ending', '2026-09-18');
+    expect(historical.points.at(-1)).toEqual({ date: '2026-09-18', value: 120 });
+    expect(historical.states).not.toContain('conflicted');
+
+    const afterRelease = freightObservation(owner, 'week_ending', '2026-09-25');
+    expect(afterRelease.states).toContain('conflicted');
   });
   it('no freight owner is blocked; original metric conditions and frequency survive', () => {
     expect(freightObservation(null, 'daily', dates[2]).states).toEqual(['blocked']);
