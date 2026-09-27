@@ -1,11 +1,5 @@
 # 投资研究看板 V2 · 机器可读合同 V1
 
-## 2026-09-27 additive Daily Review V1
-
-审计整改增量 `oil-shipping-observation-context.v1`：3只既有样本的 bounded fact / deterministic result snapshot，共享原观察公式；新 derived 发布须精确绑定结果 locator/digest/asOf，普通行情 source ref 不等于计算结果。历史 Review 字节和可读性保留，不追认旧 AI 文本为 OS verified derived。[冻结语义与 PIT](../../docs/daily-review-remediation-v1.md)。
-
-`shared/daily-review.mjs` 冻结 `daily-review.v1`，`scripts/contracts/daily-review.mjs` 纳入 contracts:validate。此独立 AI Research Context 合同允许 scoped AI_PUBLISHED，**不修改下列历史 Phase 1 formal permissions**。Review authority 是独立永久 PrivateBlob 命名空间，AI write scope 为 `review:write`，不是 os:read 的权限升级。[字段、PIT、幂等、CAS 与确认边界](../../docs/daily-review-writeback-v1.md)。
-
 > 状态：CONTRACT V1 FROZEN / PHASE 1 IMPLEMENTATION ADMITTED
 >
 > 本目录不是业务代码，而是 Research Bridge、投研看板、资产账本和备份服务在 Phase 1 实现中共同遵守的数据标准。终局合同审计见 [`docs/investment-dashboard-v2-final-contract-audit-v1.md`](../../docs/investment-dashboard-v2-final-contract-audit-v1.md)。
