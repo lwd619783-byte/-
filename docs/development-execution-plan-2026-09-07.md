@@ -1,5 +1,101 @@
 # 当前开发执行索引 · 2026-09-07
 
+## 2026-10-16 合成演示重建交接（CURRENT / 父任务待审计）
+
+### 独立审计返修 R1（2026-10-16，基线 dd4cef9）
+
+- 在同一分支承接已授权返修，不重试已被拒绝的远端部署查询；不创建 PR、合并或部署。CI 新增 `npm run test:demo` 与 `npm run build:demo`，触发范围与权限未改变。
+- 动态复现旧演示：Thesis Research Context 与 portaled Claim 背景链接均是 `target=_blank` anchor。320px 下四种原生操作（click / Ctrl-click / middle-click / Enter）在两处合计产生 **8 popups / 4 outbound request attempts**；浏览器测试路由全部取消外站请求，没有访问真实站点。失败报告绑定基线与旧资产 hashes。
+- 演示专用 React navigation policy 将研究来源显示为 `aria-disabled` 文本，无 href / target，明确“演示不打开外链”，策略透传 portal；覆盖 Thesis、Claim 与图表证据来源。正式模式默认仍为原 href / target / rel；合同/schema、来源 URL、数据原件和序列化语义不改。
+- 预提交验证：正式/演示 build、Thesis 49 / Expression 71、demo 2 Node + 13 Vitest 均通过。浏览器 **102 checks PASS**，含三种宽度、两处来源链接四种操作、popup/request 计数与原有导入导出/CSP/溢出检查。首次修复后浏览器测试因 Playwright 拒绝点击 aria-disabled 元素而超时，修正测试为原生鼠标操作（force 只跳过 actionability，不注入 handler），重跑通过；失败保留。
+- 实现已普通 push / 远端回读一致：[`29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc`](https://github.com/lwd619783-byte/-/commit/29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc)。固定代码 SHA 上九条最终验收命令均从干净工作区启动；证据随后单独落盘，后续证据提交不改变该实现。
+- 固定 SHA 验收：Node **22.23.3** / npm **11.9.0** 干净 `npm ci` PASS；`npm test` **118 files / 1536 tests PASS**；`test:demo` **2 Node + 13 Vitest PASS**；`contracts:validate` PASS；`test:contracts` **106 + 78 Node / 162 Vitest PASS**；`test:discovery` PASS（118 suites，预期负向控制复现 3 nested checkout failures）；正式与演示 build PASS；CI YAML 与两个门禁检查 PASS。首次安装保留既有 Recharts / whatwg-encoding deprecated 和 devdir 环境提示。R1 不重算前阶段 Local Core 结果。
+- Chromium **154.0.8037.57** 固定产物验收 **102 checks PASS**：320 / 390 / 1536px、两处来源链接四种原生操作、导入导出、schema 拒绝、服务禁用、CSP 与宽度检查；**0 popups / 0 unexpected requests / 0 page errors / 0 unexpected console errors**。已逐张查看 8 张最终纯合成截图。产物清单覆盖 **1614 modules / 7 restricted sources / 455 long literals**，受限内容及秘密模式 0 命中。
+- 持久回执入口：[verification.json](synthetic-demo-rebuild-20261016/audit-r1/verification.json)（SHA、版本、每条命令/退出码、时间、日志 hash、失败/重试与限制）、[完整 audit JSON](synthetic-demo-rebuild-20261016/audit-r1/audit.json)、[最终浏览器机器报告及同目录截图](synthetic-demo-rebuild-20261016/audit-r1/final-browser/report.json)、[合成资产清单](synthetic-demo-rebuild-20261016/audit-r1/demo-asset-inventory.json)、[证据文件 hash 清单](synthetic-demo-rebuild-20261016/audit-r1/evidence-manifest.json)。基线失败、首次修复后的 actionability 超时、预提交成功重试均保留原机器报告，不能与最终干净 SHA 的结果混算。
+- 本次实际代码 diff（相对 dd4cef9）：`.github/workflows/ci.yml`、`package.json`、`scripts/demo-browser-check.mjs`、新增 `scripts/demo-navigation-scenarios.mjs`、新增 `src/components/common/ResearchLink.tsx` 与 `.test.tsx`、`src/components/research/{ThesisWorkspacePanel,ClaimVerificationModal}.tsx`、`src/components/charts/ChartAuditPanel.tsx`、`src/demo/main.tsx`；另更新本交接与新增上述精简证据。`contracts/`、`src/data/` 相对基线零改动。
+- 完整原始命令日志仅保留在本容器 `/tmp/os-r1`，**未持久交付**；Git 中提供退出码/摘要/hash，hash 不等于完整日志。基线及预提交截图未复制；最终 8 张合成截图已交付。没有上传正式构建产物、真实研究、账本、旧证据包或凭据。工程流程 Space 页面此前工具不可读，采用任务约定和仓库合同。
+- **发布仍阻断**：完整 `npm audit --json` 实际 exit **1**、**5 high**，braces 无补丁依赖链未消除。Hosted CI / Sites / Preview / Production 均 NOT_RUN；不重试 Forbidden 部署查询，不推断远端部署状态。下一步仅父任务按固定 SHA 独立审计；本任务不建 PR、不 merge、不部署。
+- 精简证据已 push / 回读 [`db9f0048f05df3f056b941b8f8fc468c89c750b7`](https://github.com/lwd619783-byte/-/commit/db9f0048f05df3f056b941b8f8fc468c89c750b7)，main 仍为 dbb58bc。保存时额外 staged-diff 扫描强制将 PNG 当文本，UTF-8 解码失败；shell 未启用 fail-fast，仍执行了 commit/push。此前证据 JSON 敏感扫描、八张截图逐张检查和 hash 核验均已通过；随后按九个文本文件重扫通过，17 个文件均为交接/证据、实现零变化。此次流程失败与复核结果完整记入 [post-save-check.json](synthetic-demo-rebuild-20261016/audit-r1/post-save-check.json)，不将失败扫描计为通过；本补记也仅改证据/交接。
+
+
+- 基线：`dbb58bc0b17a17f3568c72cacab89161d8d71b5f`；开工时远端 main 一致，工作区干净，最新已核 PR #85。分支：`codex/synthetic-demo-rebuild-20261016`。旧容器未推送补丁不恢复，旧测试不计入本轮。
+- 授权范围：依赖风险修复、独立纯合成演示候选、Thesis/Expression 窄屏修复、验证与阶段保存；不改真实研究、账本、权限或投资状态，不改其他仓库。实现后交父任务独立审计；本任务不建 PR、不 merge、不部署。
+- 演示计划：只复用合同与现有决策链面板，显式合成 fixture / 独立入口 / 内存存储；来源与 schema 门禁保留，SQLite、共享、Review、生产服务禁用。正式本地入口保留。此为候选，不是全平台迁移或正式状态准入。
+- 推送防部署：此分支的 `vercel.json → git.deploymentEnabled` 明确为 false；现有 Actions 只对 main push / PR 运行。依据 [Vercel 官方 Git 配置](https://vercel.com/docs/project-configuration/git-configuration)。没有改变远端项目设置或生产分支。
+
+### 阶段 1：依赖修复（本轮本地验证）
+
+- Node **22.23.3**；干净 `npm ci` 成功（`npm_config_devdir=/tmp/os-node-gyp`，npm cache 在 `/tmp/os-npm-cache`）。首次安装因默认 home 缓存不可写失败，保留失败记录；未跳过安装脚本。
+- MCP SDK 1.30.0 → 1.31.0；Vitest 2.1.9 → 4.1.12（移除旧 tinypool / 嵌套 Vite 风险）；PostCSS selector parser 6.1.4 → 7.1.6 override；更新 PostCSS、Browserslist、fast-uri、nanoid、source-map-js 等兼容子依赖。没有使用 omit-dev、审计忽略或 force 安装。
+- 官方依据：[SDK](https://github.com/advisories/GHSA-6qxp-vccf-f47h)、[Vitest](https://github.com/advisories/GHSA-82fw-gwwq-j7x9)、[Tinypool](https://github.com/advisories/GHSA-85c8-ppgw-ccpr)、[selector parser](https://github.com/advisories/GHSA-rj75-hqrm-r3gf)。完整 `npm audit --json`：33 → **5 high / 0 critical / 0 moderate**。剩余根因是 [braces <=3.0.3，无官方补丁](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)，经 chokidar / micromatch / fast-glob / Tailwind 传播。**仍为发布阻断，不宣称依赖风险清零**；大幅迁移 Tailwind 或维护私有 fork 不在本次最小修复内。
+- `npm test`：**116 files / 1523 tests PASS**。初次升级运行 11 failures，原因是 Vitest 4 的 `vi.importActual(node:...)` 不再携带 Vite SSR 标记；仅 Node 测试配置移除浏览器打包插件，正式构建和负向构建门禁不变。测试发现命令移除已不支持的 minWorkers 参数。
+- `npm run build` PASS（typecheck、Local Core typecheck、完整正式 bundle boundary / financial bundle budgets）；`contracts:validate` PASS；`test:contracts` 106 + 78 Node / 162 Vitest PASS；`test:bridge` 31 PASS；`test:daily-review` 22 Node / 6 UI PASS；`test:domain-mcp` 14 Node / 33 UI PASS；`test:discovery` PASS。
+- `test:local-core`：初次 222 PASS / 39 FAIL。环境在 `/tmp/.git` 挂只读占位，数据库安全规则因此拒绝普通 tmp 路径；不改业务规则，设置 `TMPDIR=/tmp/.local-data/os-rebuild-tests` 后 **261 PASS**（含实际 Vite 静态、动态、传递 Node 导入拒绝及 SSR 控制组）。只使用临时合成数据库。
+- 本轮日志暂存 `/tmp/os-rebuild-logs`，不推送完整日志、真实数据或旧证据包。GitHub 交付为代码、锁文件及此摘要；容器完整日志不构成持久交付。CI / Preview / Production 未运行，真实账号与真实账本未验收。
+- 阶段 1 已推送且回读一致：[`6aa3048c112cafbfca82bde35f92e0163b077540`](https://github.com/lwd619783-byte/-/commit/6aa3048c112cafbfca82bde35f92e0163b077540)。GitHub deployments 只读查询被接口拒绝（Forbidden），故远端“无部署”状态未核验；不绕过拒绝，未调用任何部署操作。
+
+### 阶段 2：纯合成候选与窄屏修复（IMPLEMENTED / VERIFIED LOCALLY）
+
+- 阶段 2 已普通推送并回读一致：[`566689157c0c5a7da5e1c2be10d43eba470eebff`](https://github.com/lwd619783-byte/-/commit/566689157c0c5a7da5e1c2be10d43eba470eebff)。父任务代码审计范围：[基线至成果真实 diff](https://github.com/lwd619783-byte/-/compare/dbb58bc0b17a17f3568c72cacab89161d8d71b5f...566689157c0c5a7da5e1c2be10d43eba470eebff)。本后续提交仅补交接，不改变已验证实现。
+
+- 入口：`npm run build:demo` → `dist-demo/`；`npm run preview:demo` 仅本地预览。原 `npm run build` / 本地正式入口不变。演示只覆盖 Thesis / Expression / 原始证据链，不声称完整 Sites 迁移；Sites 托管、PR CI、Preview 和 Production 均 NOT_RUN。
+- `vite.demo.config.mjs` 独立 HTML root，`publicDir:false`、不加载 env、不安装 SQLite/Portfolio/OS Domain 中间件；所有正式 `src/data/**`、`research-data/**`、public、server、api、Local Core 和正式 App 入口禁止进入完整依赖图（含 lazy / tree-shaken 模块）。四种真实负向构建测试通过。
+- 复用原面板与 schema/来源/revision/确认/追加导入逻辑；仅拆分纯 Thesis 面板和纯图表证据抽屉，避免 provider 被传递引入。Thesis 面板主体与基线逐字比对相同，仅增加 scoped CSS class。`src/demo/fixture.json` 是原合成合同 fixture 经原 Claim review / Thesis confirmation 服务生成的固定合成快照；固定 exact pins 支持刷新后导入。无 mock 填充真实模式。
+- 独立内存存储；不读写正式 localStorage、IndexedDB 或 SQLite。所有标的/证据均显式合成；预置合成确认状态在页面说明。共享/MCP、Research Bridge、Daily Review、本机账本入口均 disabled；无服务客户端或生产端点进入演示依赖图。CSP `connect-src 'none'` / `worker-src 'none'` / `form-action 'none'` 阻止服务与外联请求。
+- 320px 真实复现：Thesis 文档宽 334px、Expression 335px，原因是 exact-reference action 按钮。定向 scoped 换行、max-width 与 fieldset min-width 修复；不隐藏溢出。320/390/1536px 的面板、编辑、导入预览、确认预览、Expression trace / Evidence drawer 均无横向溢出；视觉检查了实际截图。
+- 本轮 `npm run test:demo`：2 Node gates / 10 runtime tests PASS（跨实例导入导出、拒绝错误 schema / scope / identity / exact-source、确认前不写入、幂等、正式存储未触碰）。`test:thesis` 49、`test:expression` 71 PASS。
+- `npm run test:demo:browser`：系统 Chromium **154.0.8037.57**、3 种宽度、**93 checks PASS**；0 page errors、0 unexpected console errors、0 unexpected requests；同源 API 与外部 fetch 的主动 CSP 拒绝演练另记为预期控制组，不计入正常流程错误。导出后刷新、拒绝错误 schema、预览不写、确认导入 exact data、确认说明必填均通过。21 张本轮纯合成截图。
+- 浏览器安装尝试曾被 CDN 403 Domain forbidden 拒绝，未改下载域或绕过限制；使用环境已有 `/usr/bin/chromium` 完成验收。复现命令：`UI_REVIEW_PLAYWRIGHT_MODULE=<已有 playwright 包路径> DEMO_BROWSER_EXECUTABLE=<已有 chromium 路径> npm run test:demo:browser`。脚本只在 loopback 启动审核后资产的临时静态服务器，无 API。
+- 最终 `npm test`：**117 files / 1533 tests PASS**；`npm run build` / `build:demo` / `contracts:validate` / `test:contracts` / `test:discovery` 均 PASS。未拼接旧轮计数。阶段 1 SDK 专项与 Local Core 结果见上文。
+- 产物全图检查 **1613 modules**；七类受限源文件原件保持未改。仅本地比较 `src/data/{industries.ts,industryChainResearch.ts,stocks.ts,unitreeHistoricalResearch.ts,privateCompanies.ts,real/research.generated.json,real/signals.generated.json}` 的 **455 条长度至少 32 字符的字面值**，0 命中；秘密模式 0 命中。结合全图禁入与 `publicDir:false`，检查不只依赖文本匹配。报告不包含受限原文。
+- 原始日志 `/tmp/os-rebuild-logs`、完整浏览器回执和 21 截图 `data-cache/synthetic-demo-browser`、构建产物 `dist-demo` **未推送**；仅当前容器留存，不保证恢复后仍在。GitHub 持久交付为可公开代码/测试/合成 fixture 和本交接摘要，可从锁文件重建。旧证据包、真实资料、凭据均未上传。
+- **阻断/下一步**：braces 链仍有 5 high 审计项；不能称安全清零、批准发布或生产准入。父任务按固定成果 SHA 独立审计，协调范围内返修；审计通过后由父任务处理已授权 PR。本任务停止在实现交付，不建 PR、不 merge、不部署。
+
+### 恢复与独立审计入口
+
+- 恢复时先核 `origin/codex/synthetic-demo-rebuild-20261016` 包含上述两个阶段 SHA，检查工作区，再使用 Node 22 执行 `npm ci`、`npm run test:demo`、`npm run build:demo`；需浏览器时使用已有 Playwright/Chromium 运行上面的本地命令。若 exact commit 缺失，不退回 main 冒充恢复成功。
+- 本轮未修改 `ops-collaboration-dashboard`。未读取或复制凭据，未新增 OAuth、密钥、外部权限。main 在阶段 2 前回读仍为基线 SHA。没有 PR/merge/部署操作。
+- 固定合成 fixture 的一次性 SSR 生成辅助进程曾对仓库其他 HTML 发出 dependency scan 错误；生成快照随后通过原 schema/来源门禁、独立构建和完整浏览器验收。该辅助进程的原始输出未保存为完整日志；不将其计为通过的构建。
+- 真实 diff 文件清单（相对基线，包含本交接文件）：
+
+```text
+.gitignore
+demo/index.html
+docs/development-execution-plan-2026-09-07.md
+package-lock.json
+package.json
+scripts/check-demo-bundle.mjs
+scripts/demo-boundary.mjs
+scripts/demo-browser-check.mjs
+scripts/tests/demo-boundary.node.mjs
+scripts/tests/test-discovery.node.mjs
+src/components/research/ChartEvidenceDrawer.tsx
+src/components/research/EvidenceDrawer.tsx
+src/components/research/ExpressionWorkspace.tsx
+src/components/research/ThesisWorkspace.tsx
+src/components/research/ThesisWorkspacePanel.tsx
+src/demo/fixture.json
+src/demo/main.tsx
+src/demo/runtime.test.ts
+src/demo/runtime.ts
+src/services/verifiedClaim.fixture.ts
+src/styles/workspace-v2.css
+vercel.json
+vite.demo.config.mjs
+vitest.config.ts
+```
+
+本轮合成资产清单（`demo-asset-inventory.json` 不自哈希；实际构建另生成该清单）：
+
+| 文件 | 字节 | SHA-256 |
+| --- | ---: | --- |
+| `assets/index-B6rqiOJ1.css` | 51448 | `e4313ed2100492e51364e8f27b24e6eb4abf26dc07980058d06be45737d780ed` |
+| `assets/index-CBBvI8VP.js` | 484599 | `0f1028d4c620c6c1a2ea3e5a9d968f834ddef365db70bc123e034d55a8c0758a` |
+| `demo-boundary.json` | 100629 | `707511c82610f9b1634c36a524e667f9343cee9dba9486aaf819eb1df9d75ca7` |
+| `index.html` | 676 | `54182d8e58071e89361619bcb4c0f25fb6c91149d8e4e4bb3d60a9363046261d` |
+
+
+
 > 2026-09-27 CURRENT · **Daily Review 审计整改**：共享 deterministic context、derived 精确结果引用、OAuth 文案与资源清理已实现；本轮真实账号不接入、Production 不修改。默认测试模式对照与最终交付见 [整改记录](daily-review-remediation-v1.md)。
 
 > 2026-09-27 CURRENT · **Daily Review Writeback V1**：contract / durable adapter / OAuth write lane / MCP / 油运 UI / SDK 集成已实现。真实 Blob synthetic 与本地页面通过，真实 ChatGPT 新连接验收和调度单列；仅 commit/push 后等待独立审计。[完整交付记录](daily-review-writeback-v1.md)。

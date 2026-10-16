@@ -160,8 +160,14 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
+      - name: Test synthetic demo isolation and original validation gates
+        run: npm run test:demo
+
       - name: Verify test discovery with isolated nested checkout fixtures
         run: npm run test:discovery
 
       - name: Build and enforce data bundle budgets
         run: npm run build
+
+      - name: Build synthetic demo and verify graph and asset isolation
+        run: npm run build:demo

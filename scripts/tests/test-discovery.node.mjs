@@ -33,7 +33,7 @@ test('standard npm test preserves every formal suite and excludes nested checkou
   const run = (label) => {
     const reportPath = path.join(root, `${label}.json`);
     const result = spawnSync(process.execPath, [process.env.npm_execpath, 'test', '--',
-      '--maxWorkers=2', '--minWorkers=1', '--reporter=json', `--outputFile=${reportPath}`], {
+      '--maxWorkers=2', '--reporter=json', `--outputFile=${reportPath}`], {
       cwd: root, encoding: 'utf8', timeout: 90_000,
     });
     assert.ifError(result.error);

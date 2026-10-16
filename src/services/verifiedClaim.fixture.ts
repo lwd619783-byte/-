@@ -1,4 +1,4 @@
-/** Test-only frozen F2 supported fixture + explicit synthetic mutations. Never imported by production. */
+/** Synthetic frozen F2 fixture for tests and the isolated demo. Never imported by the formal application. */
 import { digest } from './industrySignalClaim.mjs';
 import scenarios from '../../contracts/financial-research/v1/fixtures/scenarios.json';
 import rawOwners from '../../contracts/financial-research/v1/fixtures/owners.json?raw';

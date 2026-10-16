@@ -1,0 +1,275 @@
+{
+  "synthetic": true,
+  "description": "Frozen synthetic-only decision chain, generated with existing contract fixture and review/confirmation services. No real admission.",
+  "identities": [
+    {
+      "owner": "MacroIndicator",
+      "id": "synthetic-macro"
+    },
+    {
+      "owner": "Industry",
+      "id": "synthetic-industry"
+    },
+    {
+      "owner": "Stock",
+      "id": "synthetic-company"
+    }
+  ],
+  "instruments": [
+    {
+      "owner": "Asset",
+      "id": "synthetic-ETF",
+      "type": "ETF",
+      "market": "global"
+    },
+    {
+      "owner": "Asset",
+      "id": "synthetic-Index",
+      "type": "Index",
+      "market": "global"
+    },
+    {
+      "owner": "Stock",
+      "id": "synthetic-Equity",
+      "type": "Equity",
+      "market": "global"
+    },
+    {
+      "owner": "Asset",
+      "id": "synthetic-Fund",
+      "type": "Fund",
+      "market": "global"
+    },
+    {
+      "owner": "Asset",
+      "id": "synthetic-CommodityProxy",
+      "type": "CommodityProxy",
+      "market": "global"
+    }
+  ],
+  "claims": {
+    "entries": [
+      {
+        "adapter": "synthetic_frozen_f2",
+        "candidateId": "claim",
+        "claimId": "claim:synthetic_frozen_f2:claim",
+        "createdAt": "2026-09-06T00:00:00.000Z",
+        "generation": "TEMPLATE",
+        "origin": "ai_draft"
+      }
+    ],
+    "reviews": [
+      {
+        "claimId": "claim:synthetic_frozen_f2:claim",
+        "createdAt": "2026-09-07T00:00:00.000Z",
+        "decision": "VERIFIED",
+        "note": "Synthetic frozen F2 user review",
+        "reviewId": "9835b539-da35-461b-9e16-cecc9e3c0345",
+        "reviewerType": "user",
+        "revisionId": "synthetic-revision-1",
+        "userApprovalRef": {
+          "approvalId": "9835b539-da35-461b-9e16-cecc9e3c0345",
+          "owner": "ClaimReview"
+        }
+      }
+    ],
+    "revisions": [
+      {
+        "asOf": "2026-09-06T00:00:00.000Z",
+        "binding": {
+          "adapter": "synthetic_frozen_f2",
+          "candidateRef": {
+            "locator": "/claim",
+            "objectId": "claim",
+            "owner": "contracts/financial-research/v1/fixtures/owners.json",
+            "sha256": "b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61",
+            "version": "1"
+          },
+          "graphId": "fixture",
+          "graphRevision": 1,
+          "graphSha256": "276009328f1526428c047a4dadf16e86a77a118b05a01aa17c49b20685965479",
+          "targetNodeId": "claim"
+        },
+        "claimId": "claim:synthetic_frozen_f2:claim",
+        "contexts": [],
+        "createdAt": "2026-09-06T00:00:00.000Z",
+        "generation": "TEMPLATE",
+        "origin": "ai_draft",
+        "reason": "synthetic initial",
+        "revisionId": "synthetic-revision-1",
+        "scope": "synthetic-only",
+        "statement": "contract fixture only",
+        "supersedes": null
+      }
+    ],
+    "schemaVersion": "verified-claim.v1"
+  },
+  "theses": {
+    "confirmations": [
+      {
+        "actor": "user",
+        "confirmationId": "87d0ff2f-c31b-4025-ace4-32c0d7e86b09",
+        "createdAt": "2026-09-09T00:00:00.000Z",
+        "note": "Synthetic explicit Thesis confirmation",
+        "revisionId": "synthetic-thesis-r1",
+        "thesisId": "synthetic-thesis",
+        "userApprovalRef": {
+          "approvalId": "87d0ff2f-c31b-4025-ace4-32c0d7e86b09",
+          "owner": "ThesisConfirmation"
+        }
+      }
+    ],
+    "entries": [
+      {
+        "createdAt": "2026-09-08T00:00:00.000Z",
+        "origin": "ai_draft",
+        "thesisId": "synthetic-thesis"
+      }
+    ],
+    "revisions": [
+      {
+        "asOf": "2026-09-08T00:00:00.000Z",
+        "base": "Synthetic base scenario",
+        "bear": "Synthetic downside scenario",
+        "bull": "Synthetic upside scenario",
+        "catalysts": [
+          "Synthetic release"
+        ],
+        "confidence": "unknown",
+        "contexts": [],
+        "createdAt": "2026-09-08T00:00:00.000Z",
+        "invalidation": [
+          "Synthetic supporting condition ceases"
+        ],
+        "keyDrivers": [
+          "Synthetic demand condition"
+        ],
+        "macroIndustry": [
+          {
+            "asOf": "2026-09-08T00:00:00.000Z",
+            "conditions": [
+              "Synthetic evidence remains available"
+            ],
+            "exposure": "direct",
+            "industry": {
+              "id": "synthetic-industry",
+              "owner": "Industry"
+            },
+            "macroDriver": {
+              "id": "synthetic-macro",
+              "owner": "MacroIndicator"
+            },
+            "rationale": "Synthetic conditional exposure",
+            "relationshipId": "synthetic-macro-industry",
+            "sensitivity": "qualitative",
+            "supportingClaims": [
+              {
+                "claimId": "claim:synthetic_frozen_f2:claim",
+                "reviewBytes": "{\"claimId\":\"claim:synthetic_frozen_f2:claim\",\"createdAt\":\"2026-09-07T00:00:00.000Z\",\"decision\":\"VERIFIED\",\"note\":\"Synthetic frozen F2 user review\",\"reviewId\":\"9835b539-da35-461b-9e16-cecc9e3c0345\",\"reviewerType\":\"user\",\"revisionId\":\"synthetic-revision-1\",\"userApprovalRef\":{\"approvalId\":\"9835b539-da35-461b-9e16-cecc9e3c0345\",\"owner\":\"ClaimReview\"}}",
+                "reviewId": "9835b539-da35-461b-9e16-cecc9e3c0345",
+                "revisionBytes": "{\"asOf\":\"2026-09-06T00:00:00.000Z\",\"binding\":{\"adapter\":\"synthetic_frozen_f2\",\"candidateRef\":{\"locator\":\"/claim\",\"objectId\":\"claim\",\"owner\":\"contracts/financial-research/v1/fixtures/owners.json\",\"sha256\":\"b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61\",\"version\":\"1\"},\"graphId\":\"fixture\",\"graphRevision\":1,\"graphSha256\":\"276009328f1526428c047a4dadf16e86a77a118b05a01aa17c49b20685965479\",\"targetNodeId\":\"claim\"},\"claimId\":\"claim:synthetic_frozen_f2:claim\",\"contexts\":[],\"createdAt\":\"2026-09-06T00:00:00.000Z\",\"generation\":\"TEMPLATE\",\"origin\":\"ai_draft\",\"reason\":\"synthetic initial\",\"revisionId\":\"synthetic-revision-1\",\"scope\":\"synthetic-only\",\"statement\":\"contract fixture only\",\"supersedes\":null}",
+                "revisionId": "synthetic-revision-1"
+              }
+            ]
+          }
+        ],
+        "origin": "ai_draft",
+        "reason": "Synthetic initial draft",
+        "relatedEntities": [
+          {
+            "id": "synthetic-macro",
+            "owner": "MacroIndicator"
+          },
+          {
+            "id": "synthetic-industry",
+            "owner": "Industry"
+          },
+          {
+            "id": "synthetic-company",
+            "owner": "Stock"
+          }
+        ],
+        "revisionId": "synthetic-thesis-r1",
+        "risks": [
+          "Synthetic demand reversal"
+        ],
+        "statement": "Synthetic thesis for service acceptance only",
+        "supersedes": null,
+        "supportingClaims": [
+          {
+            "claimId": "claim:synthetic_frozen_f2:claim",
+            "reviewBytes": "{\"claimId\":\"claim:synthetic_frozen_f2:claim\",\"createdAt\":\"2026-09-07T00:00:00.000Z\",\"decision\":\"VERIFIED\",\"note\":\"Synthetic frozen F2 user review\",\"reviewId\":\"9835b539-da35-461b-9e16-cecc9e3c0345\",\"reviewerType\":\"user\",\"revisionId\":\"synthetic-revision-1\",\"userApprovalRef\":{\"approvalId\":\"9835b539-da35-461b-9e16-cecc9e3c0345\",\"owner\":\"ClaimReview\"}}",
+            "reviewId": "9835b539-da35-461b-9e16-cecc9e3c0345",
+            "revisionBytes": "{\"asOf\":\"2026-09-06T00:00:00.000Z\",\"binding\":{\"adapter\":\"synthetic_frozen_f2\",\"candidateRef\":{\"locator\":\"/claim\",\"objectId\":\"claim\",\"owner\":\"contracts/financial-research/v1/fixtures/owners.json\",\"sha256\":\"b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61\",\"version\":\"1\"},\"graphId\":\"fixture\",\"graphRevision\":1,\"graphSha256\":\"276009328f1526428c047a4dadf16e86a77a118b05a01aa17c49b20685965479\",\"targetNodeId\":\"claim\"},\"claimId\":\"claim:synthetic_frozen_f2:claim\",\"contexts\":[],\"createdAt\":\"2026-09-06T00:00:00.000Z\",\"generation\":\"TEMPLATE\",\"origin\":\"ai_draft\",\"reason\":\"synthetic initial\",\"revisionId\":\"synthetic-revision-1\",\"scope\":\"synthetic-only\",\"statement\":\"contract fixture only\",\"supersedes\":null}",
+            "revisionId": "synthetic-revision-1"
+          }
+        ],
+        "thesisId": "synthetic-thesis"
+      }
+    ],
+    "schemaVersion": "thesis.v1"
+  },
+  "expressions": {
+    "confirmations": [],
+    "entries": [
+      {
+        "createdAt": "2026-09-10T00:00:00.000Z",
+        "expressionId": "synthetic-expression-ETF",
+        "origin": "ai_draft",
+        "scope": "synthetic"
+      }
+    ],
+    "revisions": [
+      {
+        "asOf": "2026-09-10T00:00:00.000Z",
+        "contexts": [],
+        "correlation": {
+          "rationale": "Synthetic fixture: unknown, no invented numeric context",
+          "status": "unknown"
+        },
+        "createdAt": "2026-09-10T00:00:00.000Z",
+        "directness": {
+          "rationale": "Synthetic conditional directness",
+          "status": "research_judgement"
+        },
+        "expressionId": "synthetic-expression-ETF",
+        "idiosyncraticRisk": {
+          "rationale": "Synthetic fixture: unknown, no invented numeric context",
+          "status": "unknown"
+        },
+        "instrument": {
+          "id": "synthetic-ETF",
+          "market": "global",
+          "owner": "Asset",
+          "type": "ETF"
+        },
+        "liquidity": {
+          "rationale": "Synthetic fixture: unknown, no invented numeric context",
+          "status": "unknown"
+        },
+        "origin": "ai_draft",
+        "reason": "Synthetic initial expression",
+        "revisionId": "synthetic-expression-ETF-r1",
+        "role": "direct",
+        "scope": "synthetic",
+        "sensitivity": {
+          "rationale": "Synthetic fixture: unknown, no invented numeric context",
+          "status": "unknown"
+        },
+        "supersedes": null,
+        "thesis": {
+          "confirmationBytes": "{\"actor\":\"user\",\"confirmationId\":\"87d0ff2f-c31b-4025-ace4-32c0d7e86b09\",\"createdAt\":\"2026-09-09T00:00:00.000Z\",\"note\":\"Synthetic explicit Thesis confirmation\",\"revisionId\":\"synthetic-thesis-r1\",\"thesisId\":\"synthetic-thesis\",\"userApprovalRef\":{\"approvalId\":\"87d0ff2f-c31b-4025-ace4-32c0d7e86b09\",\"owner\":\"ThesisConfirmation\"}}",
+          "confirmationId": "87d0ff2f-c31b-4025-ace4-32c0d7e86b09",
+          "revisionBytes": "{\"asOf\":\"2026-09-08T00:00:00.000Z\",\"base\":\"Synthetic base scenario\",\"bear\":\"Synthetic downside scenario\",\"bull\":\"Synthetic upside scenario\",\"catalysts\":[\"Synthetic release\"],\"confidence\":\"unknown\",\"contexts\":[],\"createdAt\":\"2026-09-08T00:00:00.000Z\",\"invalidation\":[\"Synthetic supporting condition ceases\"],\"keyDrivers\":[\"Synthetic demand condition\"],\"macroIndustry\":[{\"asOf\":\"2026-09-08T00:00:00.000Z\",\"conditions\":[\"Synthetic evidence remains available\"],\"exposure\":\"direct\",\"industry\":{\"id\":\"synthetic-industry\",\"owner\":\"Industry\"},\"macroDriver\":{\"id\":\"synthetic-macro\",\"owner\":\"MacroIndicator\"},\"rationale\":\"Synthetic conditional exposure\",\"relationshipId\":\"synthetic-macro-industry\",\"sensitivity\":\"qualitative\",\"supportingClaims\":[{\"claimId\":\"claim:synthetic_frozen_f2:claim\",\"reviewBytes\":\"{\\\"claimId\\\":\\\"claim:synthetic_frozen_f2:claim\\\",\\\"createdAt\\\":\\\"2026-09-07T00:00:00.000Z\\\",\\\"decision\\\":\\\"VERIFIED\\\",\\\"note\\\":\\\"Synthetic frozen F2 user review\\\",\\\"reviewId\\\":\\\"9835b539-da35-461b-9e16-cecc9e3c0345\\\",\\\"reviewerType\\\":\\\"user\\\",\\\"revisionId\\\":\\\"synthetic-revision-1\\\",\\\"userApprovalRef\\\":{\\\"approvalId\\\":\\\"9835b539-da35-461b-9e16-cecc9e3c0345\\\",\\\"owner\\\":\\\"ClaimReview\\\"}}\",\"reviewId\":\"9835b539-da35-461b-9e16-cecc9e3c0345\",\"revisionBytes\":\"{\\\"asOf\\\":\\\"2026-09-06T00:00:00.000Z\\\",\\\"binding\\\":{\\\"adapter\\\":\\\"synthetic_frozen_f2\\\",\\\"candidateRef\\\":{\\\"locator\\\":\\\"/claim\\\",\\\"objectId\\\":\\\"claim\\\",\\\"owner\\\":\\\"contracts/financial-research/v1/fixtures/owners.json\\\",\\\"sha256\\\":\\\"b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61\\\",\\\"version\\\":\\\"1\\\"},\\\"graphId\\\":\\\"fixture\\\",\\\"graphRevision\\\":1,\\\"graphSha256\\\":\\\"276009328f1526428c047a4dadf16e86a77a118b05a01aa17c49b20685965479\\\",\\\"targetNodeId\\\":\\\"claim\\\"},\\\"claimId\\\":\\\"claim:synthetic_frozen_f2:claim\\\",\\\"contexts\\\":[],\\\"createdAt\\\":\\\"2026-09-06T00:00:00.000Z\\\",\\\"generation\\\":\\\"TEMPLATE\\\",\\\"origin\\\":\\\"ai_draft\\\",\\\"reason\\\":\\\"synthetic initial\\\",\\\"revisionId\\\":\\\"synthetic-revision-1\\\",\\\"scope\\\":\\\"synthetic-only\\\",\\\"statement\\\":\\\"contract fixture only\\\",\\\"supersedes\\\":null}\",\"revisionId\":\"synthetic-revision-1\"}]}],\"origin\":\"ai_draft\",\"reason\":\"Synthetic initial draft\",\"relatedEntities\":[{\"id\":\"synthetic-macro\",\"owner\":\"MacroIndicator\"},{\"id\":\"synthetic-industry\",\"owner\":\"Industry\"},{\"id\":\"synthetic-company\",\"owner\":\"Stock\"}],\"revisionId\":\"synthetic-thesis-r1\",\"risks\":[\"Synthetic demand reversal\"],\"statement\":\"Synthetic thesis for service acceptance only\",\"supersedes\":null,\"supportingClaims\":[{\"claimId\":\"claim:synthetic_frozen_f2:claim\",\"reviewBytes\":\"{\\\"claimId\\\":\\\"claim:synthetic_frozen_f2:claim\\\",\\\"createdAt\\\":\\\"2026-09-07T00:00:00.000Z\\\",\\\"decision\\\":\\\"VERIFIED\\\",\\\"note\\\":\\\"Synthetic frozen F2 user review\\\",\\\"reviewId\\\":\\\"9835b539-da35-461b-9e16-cecc9e3c0345\\\",\\\"reviewerType\\\":\\\"user\\\",\\\"revisionId\\\":\\\"synthetic-revision-1\\\",\\\"userApprovalRef\\\":{\\\"approvalId\\\":\\\"9835b539-da35-461b-9e16-cecc9e3c0345\\\",\\\"owner\\\":\\\"ClaimReview\\\"}}\",\"reviewId\":\"9835b539-da35-461b-9e16-cecc9e3c0345\",\"revisionBytes\":\"{\\\"asOf\\\":\\\"2026-09-06T00:00:00.000Z\\\",\\\"binding\\\":{\\\"adapter\\\":\\\"synthetic_frozen_f2\\\",\\\"candidateRef\\\":{\\\"locator\\\":\\\"/claim\\\",\\\"objectId\\\":\\\"claim\\\",\\\"owner\\\":\\\"contracts/financial-research/v1/fixtures/owners.json\\\",\\\"sha256\\\":\\\"b0035be7d692d54b047db5c56a900bcaa7fe8406c049d6383d1574751dffcc61\\\",\\\"version\\\":\\\"1\\\"},\\\"graphId\\\":\\\"fixture\\\",\\\"graphRevision\\\":1,\\\"graphSha256\\\":\\\"276009328f1526428c047a4dadf16e86a77a118b05a01aa17c49b20685965479\\\",\\\"targetNodeId\\\":\\\"claim\\\"},\\\"claimId\\\":\\\"claim:synthetic_frozen_f2:claim\\\",\\\"contexts\\\":[],\\\"createdAt\\\":\\\"2026-09-06T00:00:00.000Z\\\",\\\"generation\\\":\\\"TEMPLATE\\\",\\\"origin\\\":\\\"ai_draft\\\",\\\"reason\\\":\\\"synthetic initial\\\",\\\"revisionId\\\":\\\"synthetic-revision-1\\\",\\\"scope\\\":\\\"synthetic-only\\\",\\\"statement\\\":\\\"contract fixture only\\\",\\\"supersedes\\\":null}\",\"revisionId\":\"synthetic-revision-1\"}],\"thesisId\":\"synthetic-thesis\"}",
+          "revisionId": "synthetic-thesis-r1",
+          "thesisId": "synthetic-thesis"
+        },
+        "valuation": {
+          "rationale": "Synthetic fixture: unknown, no invented numeric context",
+          "status": "unknown"
+        }
+      }
+    ],
+    "schemaVersion": "investment-expression.v1"
+  }
+}

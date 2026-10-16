@@ -1,3 +1,4 @@
+import { ResearchLink } from '../common/ResearchLink';
 import type { ChartAuditView } from '../../services/chartAudit';
 import { safeEvidenceUrl } from '../../utils/evidenceUrl';
 import { auditDisplayText } from '../../utils/displayLabels';
@@ -24,7 +25,7 @@ const publicLabels: Record<string, string> = {
   'Evidence Graph / revision continuity': '证据关联 / 修订连续性',
 };
 function AuditRows({ rows, raw = false }: { rows: Rows; raw?: boolean }) {
-  return <dl className="grid min-w-0 gap-x-5 gap-y-3 sm:grid-cols-2">{rows.map((row, index) => <div key={`${row.label}-${index}`} className="min-w-0"><dt className="text-textMuted">{row.label}</dt><dd className="mt-1 whitespace-pre-wrap break-words [overflow-wrap:anywhere] text-textStrong">{safeEvidenceUrl(row.href) ? <a href={row.href} target="_blank" rel="noreferrer" className="text-accent underline">{raw ? row.value : '打开来源页面'}</a> : row.value}</dd></div>)}</dl>;
+  return <dl className="grid min-w-0 gap-x-5 gap-y-3 sm:grid-cols-2">{rows.map((row, index) => <div key={`${row.label}-${index}`} className="min-w-0"><dt className="text-textMuted">{row.label}</dt><dd className="mt-1 whitespace-pre-wrap break-words [overflow-wrap:anywhere] text-textStrong">{safeEvidenceUrl(row.href) ? <ResearchLink href={row.href} className="text-accent underline">{raw ? row.value : '打开来源页面'}</ResearchLink> : row.value}</dd></div>)}</dl>;
 }
 function publicRows(rows: Rows): Rows {
   return rows.flatMap(row => {
