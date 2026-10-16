@@ -38,3 +38,4 @@
 - IMPLEMENTED / VERIFIED LOCALLY / PARENT AUDIT PENDING；未创建PR、未merge、未部署、未真实交易。5 high继续阻断发布。完成后交父端独立审计修复，再处理草稿PR。
 - 保存证据时首轮文本扫描因允许列表未列 Vite 日志的公开 `rollupjs.org` 文档域而 exit1。核查只有该公共域，未发现私有链接；仅追加该域后扫描通过。初次失败记录、可复现扫描脚本及成功回执均保留；扫描覆盖455受限长字面值/秘密模式/链接域，PNG另以17张逐张目视核验。
 - 交付前只读远端复核：原PR86分支仍 `f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce`，main仍 `dbb58bc0b17a17f3568c72cacab89161d8d71b5f`，本分支实现为 `d2f3eebcb6ae55be62b966720a56a871bc4e8d39`；没有覆盖原分支或将PR86假定为已合并。
+- 第一份证据提交 `518dcb2` 保存后核查发现仓库通用 `.log` ignore 导致30份已扫描日志未被Git跟踪（之前hash检查只检查磁盘）。现通过后续普通提交定向加入这些公开合成验收日志，保留原提交，并增加manifest逐文件Git跟踪校验；不改应用代码。完整原因见 [保存修正记录](evidence/evidence-save-correction.json)。

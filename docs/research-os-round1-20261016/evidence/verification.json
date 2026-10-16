@@ -294,5 +294,6 @@
     "failures/public-content-scan-first.json"
   ],
   "evidenceSaving": "Evidence-only commit follows testedCodeSha; no application or verification code changes after fixed SHA.",
-  "remoteRead": "delivery-remote-read.json"
+  "remoteRead": "delivery-remote-read.json",
+  "evidenceSaveCorrection": "evidence-save-correction.json"
 }

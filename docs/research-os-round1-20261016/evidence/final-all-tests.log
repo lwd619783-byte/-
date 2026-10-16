@@ -1,0 +1,36 @@
+
+> investment-research-dashboard@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 /workspace/-
+
+
+ Test Files  120 passed (120)
+      Tests  1569 passed (1569)
+   Start at  16:41:39
+   Duration  63.67s (transform 13.22s, setup 0ms, import 39.53s, tests 101.38s, environment 22.82s)
+
+Error: Not implemented: window.scrollTo
+    at module.exports (/workspace/-/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at /workspace/-/node_modules/jsdom/lib/jsdom/browser/Window.js:960:7
+    at /workspace/-/src/hooks/useWorkspaceNavigation.ts:55:54
+    at invokeTheCallbackFunction (/workspace/-/node_modules/jsdom/lib/jsdom/living/generated/Function.js:19:26)
+    at runAnimationFrameCallbacks (/workspace/-/node_modules/jsdom/lib/jsdom/browser/Window.js:662:13)
+    at Timeout._onTimeout (/workspace/-/node_modules/jsdom/lib/jsdom/browser/Window.js:640:11)
+    at listOnTimeout (node:internal/timers:635:17)
+    at processTimers (node:internal/timers:571:7) undefined
+Error: Not implemented: window.scrollTo
+    at module.exports (/workspace/-/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at /workspace/-/node_modules/jsdom/lib/jsdom/browser/Window.js:960:7
+    at /workspace/-/src/hooks/useWorkspaceNavigation.ts:55:54
+    at invokeTheCallbackFunction (/workspace/-/node_modules/jsdom/lib/jsdom/living/generated/Function.js:19:26)
+    at runAnimationFrameCallbacks (/workspace/-/node_modules/jsdom/lib/jsdom/browser/Window.js:662:13)
+    at Timeout.<anonymous> (/workspace/-/node_modules/jsdom/lib/jsdom/browser/Window.js:640:11)
+    at listOnTimeout (node:internal/timers:635:17)
+    at processTimers (node:internal/timers:571:7) undefined
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

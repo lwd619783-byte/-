@@ -1,0 +1,8 @@
+{
+  "firstEvidenceCommit": "518dcb2eb266e9b3a63b050571620756d53fb9d9",
+  "failure": "Filesystem manifest hashes passed, but the first evidence commit omitted 30 .log files because of the existing generic ignore rule. Git-tracked coverage was not checked before that commit.",
+  "detection": "Post-push git ls-files compared to evidence-manifest.json found exactly 30 missing .log paths.",
+  "correction": "Explicitly stage only the 30 already-scanned evidence logs using git add -f; preserve initial commit, add a normal follow-up commit; require every manifest path in git index and verify all hashes.",
+  "applicationCodeChanged": false,
+  "testedCodeSha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39"
+}

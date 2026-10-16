@@ -99,6 +99,11 @@
       "sha256": "0b60576039db26df5bb7a61a9f33b6aadafa0ee22ed89080c5ceaca310193d67"
     },
     {
+      "file": "evidence-save-correction.json",
+      "bytes": 704,
+      "sha256": "502cb8d5a91fd34d171b75c3485bb4df8bf4be94ac27db9cb8a071c22a495825"
+    },
+    {
       "file": "failures/legacy-browser-first.json",
       "bytes": 4118,
       "sha256": "17d7d58ca1c27a97ff910425310d88e8ec0eedd31200f895e6c48875ecbacf08"
@@ -406,7 +411,7 @@
     {
       "file": "public-content-scan.json",
       "bytes": 484,
-      "sha256": "b00ec59a846494a523d612ba9596bca109fc10dc86c16a2f53344efc622a060d"
+      "sha256": "f09e597a10e558d3c30465547d9881d349f7fa9d6d4bfc49509c3b03881e967c"
     },
     {
       "file": "public-content-scan.mjs",
@@ -430,8 +435,8 @@
     },
     {
       "file": "verification.json",
-      "bytes": 9401,
-      "sha256": "630a5f9376c017a76012d07af27194f84bef2116947d9bd3f88e65e266ece3c5"
+      "bytes": 9462,
+      "sha256": "65430880b738af561fa328566be52f6965d267d21351b046a87d8d0418e57db4"
     },
     {
       "file": "visual-fix-demo-build.json",
