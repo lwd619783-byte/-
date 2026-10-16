@@ -1,0 +1,82 @@
+{
+  "scope": "public-safe R1 receipts and synthetic screenshots",
+  "testedImplementationSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+  "excludesSelf": "evidence-manifest.json",
+  "files": [
+    {
+      "file": "audit.json",
+      "bytes": 2869,
+      "sha256": "00c3f8f1298c4467fc27372ed3908ef944062d731b9dae46386034a0bfbc7fc4"
+    },
+    {
+      "file": "baseline-browser/report.json",
+      "bytes": 4892,
+      "sha256": "0466d0b0accede8c034f955682f02e776f863a9e3b8ef6bdd4aba5cd0230a6c4"
+    },
+    {
+      "file": "demo-asset-inventory.json",
+      "bytes": 910,
+      "sha256": "2c525aa2055bf4e5ee1bd871796a0c849f3b5d94bafa1d76a5526aff41f12def"
+    },
+    {
+      "file": "final-browser/1536-Expression-initial.png",
+      "bytes": 198745,
+      "sha256": "539a51661a2faf6933e427e190ceb5bef261474cfeb810ac67481f918b862385"
+    },
+    {
+      "file": "final-browser/1536-Thesis-initial.png",
+      "bytes": 221618,
+      "sha256": "04deaebad3ae477f2e60d24ab7c9b3d5136988370eafe5ff3e93f2242e36240d"
+    },
+    {
+      "file": "final-browser/320-Claim-context-policy.png",
+      "bytes": 198966,
+      "sha256": "cb37c4db87586f50691d4031e9a6ba94745bddc77141a9dda6dcb7077e194e51"
+    },
+    {
+      "file": "final-browser/320-Expression-initial.png",
+      "bytes": 192168,
+      "sha256": "c1e1d3eeef7816636d6fc650bb8e815e7a7399c39cf011fb6a938c561c955217"
+    },
+    {
+      "file": "final-browser/320-Thesis-context-policy.png",
+      "bytes": 329605,
+      "sha256": "9a70da8cf0b7df1ca86e3b067ed0112be574ab5b612c7c413bb3e344b5d457c9"
+    },
+    {
+      "file": "final-browser/320-Thesis-initial.png",
+      "bytes": 211698,
+      "sha256": "84d2b51cdf4f2dc5d41c74e2c881e2a3ff954625683b9852e3ed620f62db4fcf"
+    },
+    {
+      "file": "final-browser/390-Expression-initial.png",
+      "bytes": 188459,
+      "sha256": "bc625da704ece525ca847578991ed3a2ae045e893f3744cfc1ef2c92ac88c28c"
+    },
+    {
+      "file": "final-browser/390-Thesis-initial.png",
+      "bytes": 205716,
+      "sha256": "a8ec872044c7676215c4c89755adb012dda34ee2b4767650be54b15abbccdf58"
+    },
+    {
+      "file": "final-browser/report.json",
+      "bytes": 12334,
+      "sha256": "029affa873835f1e65c89ac5f98d421375fe944387af2756026a691c587aa946"
+    },
+    {
+      "file": "fix-browser/report.json",
+      "bytes": 4752,
+      "sha256": "c0aa98735d38627dd6989cf849fe3f1bf634a11c5e352c84f53dc374ad467eb0"
+    },
+    {
+      "file": "fix-browser-retry/report.json",
+      "bytes": 12785,
+      "sha256": "43e5f7300f58fc77e7e8c775d3f4fcc59542fb0c69de1d02417e603510bd2475"
+    },
+    {
+      "file": "verification.json",
+      "bytes": 16670,
+      "sha256": "e85efd7c4154b4a1c6ef0f7d2dd3477502bb68944134f8aebba7143b4f95d067"
+    }
+  ]
+}

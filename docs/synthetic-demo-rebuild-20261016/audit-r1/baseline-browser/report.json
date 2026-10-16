@@ -1,0 +1,219 @@
+{
+  "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+  "node": "v22.23.3",
+  "navigationCases": [
+    {
+      "width": 320,
+      "links": [
+        {
+          "surface": "Thesis-context-policy",
+          "tag": "A",
+          "href": "https://example.invalid/synthetic-thesis",
+          "target": "_blank",
+          "disabled": null,
+          "samePage": true
+        },
+        {
+          "surface": "Claim-context-policy",
+          "tag": "A",
+          "href": "https://example.invalid/synthetic-claim",
+          "target": "_blank",
+          "disabled": null,
+          "samePage": true
+        }
+      ]
+    }
+  ],
+  "popups": [
+    {
+      "width": 320
+    },
+    {
+      "width": 320
+    },
+    {
+      "width": 320
+    },
+    {
+      "width": 320
+    },
+    {
+      "width": 320
+    },
+    {
+      "width": 320
+    },
+    {
+      "width": 320
+    },
+    {
+      "width": 320
+    }
+  ],
+  "scope": "synthetic-only-built-artifacts",
+  "checks": [
+    {
+      "name": "Thesis: all service actions disabled at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis initial: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis editor: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: edited revision saved at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: reload resets memory at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: invalid schema blocked at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: rejected import preserves bytes at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: preview has no write at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis import preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: confirmed import roundtrips exact data at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: explicit confirmation note required at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis confirmation preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: all service actions disabled at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression initial: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression trace: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "original synthetic evidence opens at 320",
+      "ok": true
+    },
+    {
+      "name": "Evidence drawer: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression editor: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: edited revision saved at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: reload resets memory at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: invalid schema blocked at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: rejected import preserves bytes at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: preview has no write at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression import preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: confirmed import roundtrips exact data at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: explicit confirmation note required at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression confirmation preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis and portaled Claim links are non-navigational at 320",
+      "ok": false
+    }
+  ],
+  "pageErrors": [],
+  "unexpectedRequests": [
+    {
+      "width": 320,
+      "path": "external"
+    },
+    {
+      "width": 320,
+      "path": "external"
+    },
+    {
+      "width": 320,
+      "path": "external"
+    },
+    {
+      "width": 320,
+      "path": "external"
+    }
+  ],
+  "consoleErrors": [],
+  "screenshots": [
+    "320-Thesis-initial.png",
+    "320-Expression-initial.png",
+    "320-Thesis-context-policy.png",
+    "320-Claim-context-policy.png"
+  ],
+  "assets": [
+    {
+      "file": "assets/index-B6rqiOJ1.css",
+      "bytes": 51448,
+      "sha256": "e4313ed2100492e51364e8f27b24e6eb4abf26dc07980058d06be45737d780ed"
+    },
+    {
+      "file": "assets/index-CBBvI8VP.js",
+      "bytes": 484599,
+      "sha256": "0f1028d4c620c6c1a2ea3e5a9d968f834ddef365db70bc123e034d55a8c0758a"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 100629,
+      "sha256": "707511c82610f9b1634c36a524e667f9343cee9dba9486aaf819eb1df9d75ca7"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "54182d8e58071e89361619bcb4c0f25fb6c91149d8e4e4bb3d60a9363046261d"
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: Thesis and portaled Claim links are non-navigational at 320"
+}

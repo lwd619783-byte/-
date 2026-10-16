@@ -1,0 +1,149 @@
+{
+  "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+  "node": "v22.23.3",
+  "navigationCases": [],
+  "popups": [],
+  "scope": "synthetic-only-built-artifacts",
+  "checks": [
+    {
+      "name": "Thesis: all service actions disabled at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis initial: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis editor: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: edited revision saved at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: reload resets memory at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: invalid schema blocked at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: rejected import preserves bytes at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: preview has no write at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis import preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: confirmed import roundtrips exact data at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: explicit confirmation note required at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis confirmation preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: all service actions disabled at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression initial: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression trace: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "original synthetic evidence opens at 320",
+      "ok": true
+    },
+    {
+      "name": "Evidence drawer: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression editor: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: edited revision saved at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: reload resets memory at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: invalid schema blocked at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: rejected import preserves bytes at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: preview has no write at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression import preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: confirmed import roundtrips exact data at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: explicit confirmation note required at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression confirmation preview: no horizontal overflow at 320",
+      "ok": true
+    }
+  ],
+  "pageErrors": [],
+  "unexpectedRequests": [],
+  "consoleErrors": [],
+  "screenshots": [
+    "320-Thesis-initial.png",
+    "320-Expression-initial.png"
+  ],
+  "assets": [
+    {
+      "file": "assets/index-B6rqiOJ1.css",
+      "bytes": 51448,
+      "sha256": "e4313ed2100492e51364e8f27b24e6eb4abf26dc07980058d06be45737d780ed"
+    },
+    {
+      "file": "assets/index-khG3D85F.js",
+      "bytes": 484883,
+      "sha256": "602bbed1e77e206b07dd2bc9ea4e1baf3e8128866ad3e3bbbde110e20f2c8c3a"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 100675,
+      "sha256": "d3bd8b69f8ad1550061c672218818b802b35433aaf8ee46bb4c758c2252cb827"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "7d2009449234c0af251e042de0928b37d3c28759aab2ca5d6ddd7399729a201f"
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "status": "failed",
+  "failure": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: /^Synthetic Thesis Context/ }).first()\u001b[22m\n\u001b[2m    - locator resolved to <span role=\"link\" tabindex=\"0\" class=\"underline\" aria-disabled=\"true\" title=\"演示模式不打开外链：https://example.invalid/synthetic-thesis\">Synthetic Thesis Context（演示不打开外链）</span>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+}

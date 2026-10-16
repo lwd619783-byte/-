@@ -1,0 +1,400 @@
+{
+  "scope": "R1 synthetic demo navigation and CI remediation; local verification only",
+  "createdAt": "2026-10-16T13:47:06.830486+00:00",
+  "baselineSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+  "testedImplementationSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+  "finalVerificationWorktree": "clean at the start of all nine final commands; evidence generated only afterward",
+  "node": "v22.23.3",
+  "npm": "11.9.0",
+  "browser": "154.0.8037.57",
+  "commands": [
+    {
+      "label": "baseline-build",
+      "command": "npm run build:demo",
+      "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+      "worktreeBefore": [
+        "M scripts/demo-browser-check.mjs",
+        "?? scripts/demo-navigation-scenarios.mjs"
+      ],
+      "startedAt": "2026-10-16T13:37:54.466887+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:38:12.043786+00:00",
+      "logSha256": "2fefd6c1753c65675b1d91b16ad3aa0d8f02e579525118cf4155b9cd93e78b07"
+    },
+    {
+      "label": "baseline-navigation",
+      "command": "DEMO_BROWSER_COMPACT=1 DEMO_BROWSER_OUTPUT=/tmp/os-r1/baseline-browser npm run test:demo:browser",
+      "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+      "worktreeBefore": [
+        "M scripts/demo-browser-check.mjs",
+        "?? scripts/demo-navigation-scenarios.mjs"
+      ],
+      "startedAt": "2026-10-16T13:38:12.081147+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 1,
+      "finishedAt": "2026-10-16T13:38:16.907124+00:00",
+      "logSha256": "99c5d9661ae9e725bdbe7857111ffed727363fe934a58ec63d52c3b3fb349f50"
+    },
+    {
+      "label": "fix-tests",
+      "command": "npm run test:demo",
+      "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+      "worktreeBefore": [
+        "M .github/workflows/ci.yml",
+        " M package.json",
+        " M scripts/demo-browser-check.mjs",
+        " M src/components/charts/ChartAuditPanel.tsx",
+        " M src/components/research/ClaimVerificationModal.tsx",
+        " M src/components/research/ThesisWorkspacePanel.tsx",
+        " M src/demo/main.tsx",
+        "?? scripts/demo-navigation-scenarios.mjs",
+        "?? src/components/common/ResearchLink.test.tsx",
+        "?? src/components/common/ResearchLink.tsx"
+      ],
+      "startedAt": "2026-10-16T13:38:59.237880+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:39:01.113333+00:00",
+      "logSha256": "82913391005a23fd8eaaab70421c5cd89596ef2e0617cf47b6fa5d30248a9c23"
+    },
+    {
+      "label": "fix-build",
+      "command": "npm run build:demo",
+      "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+      "worktreeBefore": [
+        "M .github/workflows/ci.yml",
+        " M package.json",
+        " M scripts/demo-browser-check.mjs",
+        " M src/components/charts/ChartAuditPanel.tsx",
+        " M src/components/research/ClaimVerificationModal.tsx",
+        " M src/components/research/ThesisWorkspacePanel.tsx",
+        " M src/demo/main.tsx",
+        "?? scripts/demo-navigation-scenarios.mjs",
+        "?? src/components/common/ResearchLink.test.tsx",
+        "?? src/components/common/ResearchLink.tsx"
+      ],
+      "startedAt": "2026-10-16T13:39:01.155002+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:39:18.418816+00:00",
+      "logSha256": "d8d84dbc28a934b7c0c8c770b45ed659800bb5aa5a1c5d898af5862108d4fc67"
+    },
+    {
+      "label": "fix-browser",
+      "command": "DEMO_BROWSER_COMPACT=1 DEMO_BROWSER_OUTPUT=/tmp/os-r1/fix-browser npm run test:demo:browser",
+      "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+      "worktreeBefore": [
+        "M .github/workflows/ci.yml",
+        " M package.json",
+        " M scripts/demo-browser-check.mjs",
+        " M src/components/charts/ChartAuditPanel.tsx",
+        " M src/components/research/ClaimVerificationModal.tsx",
+        " M src/components/research/ThesisWorkspacePanel.tsx",
+        " M src/demo/main.tsx",
+        "?? scripts/demo-navigation-scenarios.mjs",
+        "?? src/components/common/ResearchLink.test.tsx",
+        "?? src/components/common/ResearchLink.tsx"
+      ],
+      "startedAt": "2026-10-16T13:39:18.457663+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 1,
+      "finishedAt": "2026-10-16T13:39:51.825096+00:00",
+      "logSha256": "f19986a651570867ff356669e800fa34163980af1b32bd30af816adec0bf8f48"
+    },
+    {
+      "label": "fix-browser-retry",
+      "command": "DEMO_BROWSER_COMPACT=1 DEMO_BROWSER_OUTPUT=/tmp/os-r1/fix-browser-retry npm run test:demo:browser",
+      "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+      "worktreeBefore": [
+        "M .github/workflows/ci.yml",
+        " M package.json",
+        " M scripts/demo-browser-check.mjs",
+        " M src/components/charts/ChartAuditPanel.tsx",
+        " M src/components/research/ClaimVerificationModal.tsx",
+        " M src/components/research/ThesisWorkspacePanel.tsx",
+        " M src/demo/main.tsx",
+        "?? scripts/demo-navigation-scenarios.mjs",
+        "?? src/components/common/ResearchLink.test.tsx",
+        "?? src/components/common/ResearchLink.tsx"
+      ],
+      "startedAt": "2026-10-16T13:40:19.783939+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:40:34.208014+00:00",
+      "logSha256": "2d067c69095566ed30d2aa63861819a1d3a4a691b15d5fcb83ad37c0d281ff9f"
+    },
+    {
+      "label": "precommit-build",
+      "command": "npm run build",
+      "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+      "worktreeBefore": [
+        "M .github/workflows/ci.yml",
+        " M package.json",
+        " M scripts/demo-browser-check.mjs",
+        " M src/components/charts/ChartAuditPanel.tsx",
+        " M src/components/research/ClaimVerificationModal.tsx",
+        " M src/components/research/ThesisWorkspacePanel.tsx",
+        " M src/demo/main.tsx",
+        "?? scripts/demo-navigation-scenarios.mjs",
+        "?? src/components/common/ResearchLink.test.tsx",
+        "?? src/components/common/ResearchLink.tsx"
+      ],
+      "startedAt": "2026-10-16T13:40:21.155912+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:40:47.982258+00:00",
+      "logSha256": "78ac51843df358b129a6d35ef8865dc66045ec254aff127acbf90ae3d7e3ac1e"
+    },
+    {
+      "label": "precommit-targeted",
+      "command": "npm run test:thesis && npm run test:expression && npm run test:demo",
+      "testedSha": "dd4cef9f66de0532ffa2f990945e497210a35632",
+      "worktreeBefore": [
+        "M .github/workflows/ci.yml",
+        " M package.json",
+        " M scripts/demo-browser-check.mjs",
+        " M src/components/charts/ChartAuditPanel.tsx",
+        " M src/components/research/ClaimVerificationModal.tsx",
+        " M src/components/research/ThesisWorkspacePanel.tsx",
+        " M src/demo/main.tsx",
+        "?? scripts/demo-navigation-scenarios.mjs",
+        "?? src/components/common/ResearchLink.test.tsx",
+        "?? src/components/common/ResearchLink.tsx"
+      ],
+      "startedAt": "2026-10-16T13:40:48.022509+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:40:55.272866+00:00",
+      "logSha256": "dbdaf5a563aad87e2c73dcf56f5e6c57f187d1f75b11e98287e354268b27e2cc"
+    },
+    {
+      "label": "final-install",
+      "command": "npm_config_devdir=/tmp/os-node-gyp npm ci",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:43:43.495870+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:43:49.083002+00:00",
+      "logSha256": "35b9282da5f11359b23c11ea251de5877fe3bb09e41e8c8b4689b20c4db9fdd1"
+    },
+    {
+      "label": "final-audit",
+      "command": "npm audit --json > /tmp/os-r1/audit.json",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:43:59.607896+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 1,
+      "finishedAt": "2026-10-16T13:44:04.345736+00:00",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-contracts",
+      "command": "TMPDIR=/tmp/.local-data/os-rebuild-tests npm run contracts:validate && TMPDIR=/tmp/.local-data/os-rebuild-tests npm run test:contracts",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:43:59.607367+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:44:35.855798+00:00",
+      "logSha256": "7a21b4ab8643a4482eb6d35431e587a14478531611b33ae4ef5b923ba975d67e"
+    },
+    {
+      "label": "final-demo-tests",
+      "command": "npm run test:demo && npm run test:discovery",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:43:59.589439+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:44:49.234836+00:00",
+      "logSha256": "9b5ab419787c12c2ea75ebb91682a613fa93097e58fea7b9d60abd7286a638a5"
+    },
+    {
+      "label": "final-build",
+      "command": "npm run build",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:43:59.580546+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:44:59.367486+00:00",
+      "logSha256": "3afcbf1f24641b12f5fffab78af6dddcb2186faa6d5d7ed14c60a2fbae93f644"
+    },
+    {
+      "label": "final-unit",
+      "command": "npm test",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:43:59.599480+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:45:17.645934+00:00",
+      "logSha256": "3b8ed09138ac78fd1aedac836fb3efcb6ac1c50b68f231a82a470df43969627b"
+    },
+    {
+      "label": "final-demo-build",
+      "command": "npm run build:demo",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:45:04.565386+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:45:26.381136+00:00",
+      "logSha256": "dd9d66a079393a367c5e6188666cee5a8db042d202ac1a2421b1d92f12296472"
+    },
+    {
+      "label": "final-ci-check",
+      "command": "node --input-type=module <<'JS'\nimport fs from \"node:fs\";\nimport assert from \"node:assert/strict\";\nimport YAML from \"yaml\";\nconst workflow=YAML.parse(fs.readFileSync(\".github/workflows/ci.yml\",\"utf8\"));\nconst commands=Object.values(workflow.jobs).flatMap(job=>job.steps).map(step=>step.run);\nassert(commands.includes(\"npm run test:demo\"));\nassert(commands.includes(\"npm run build:demo\"));\nassert.deepEqual(workflow.on.push.branches,[\"main\"]);\nconsole.log(\"PASS: valid YAML, demo test/build gates present, main-only push trigger preserved\");\nJS",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:45:30.104152+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:45:30.252628+00:00",
+      "logSha256": "c7e53e44701c1a15cafc3ad558c00c05934f8c335f9c331313781fe597a0335e"
+    },
+    {
+      "label": "final-browser",
+      "command": "DEMO_BROWSER_COMPACT=1 DEMO_BROWSER_OUTPUT=/tmp/os-r1/final-browser npm run test:demo:browser",
+      "testedSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+      "worktreeBefore": [],
+      "startedAt": "2026-10-16T13:45:38.141877+00:00",
+      "node": "v22.23.3",
+      "npm": "11.9.0",
+      "exitCode": 0,
+      "finishedAt": "2026-10-16T13:45:49.154739+00:00",
+      "logSha256": "b966beb8f6c56bd32a3e756b5899e1364cef6fb3dffdd9121288d53943b1a92f"
+    }
+  ],
+  "summaries": {
+    "unit": {
+      "files": 118,
+      "passed": 1536,
+      "failed": 0
+    },
+    "demo": {
+      "nodePassed": 2,
+      "vitestPassed": 13
+    },
+    "contracts": {
+      "nodePassed": [
+        106,
+        78
+      ],
+      "vitestPassed": 162
+    },
+    "testDiscovery": {
+      "passed": 1,
+      "formalSuitePaths": 118,
+      "expectedNestedCheckoutControlFailures": 3
+    },
+    "browser": {
+      "checks": 102,
+      "widths": [
+        320,
+        390,
+        1536
+      ],
+      "popups": 0,
+      "unexpectedRequests": 0,
+      "pageErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "screenshots": 8
+    }
+  },
+  "baselineReproduction": {
+    "report": "baseline-browser/report.json",
+    "expectedExitCode": 1,
+    "popups": 8,
+    "outboundRequestAttempts": 4,
+    "note": "Built dd4cef9 application with new uncommitted regression harness. All outbound requests aborted by context route; no external site visited. Baseline report predates worktreeBefore field; command receipt preserves working tree. Does not claim a clean baseline harness checkout."
+  },
+  "failedAttempt": {
+    "report": "fix-browser/report.json",
+    "exitCode": 1,
+    "reason": "Playwright refused normal click on aria-disabled span. Native pointer actions were rerun with force to bypass harness actionability without injecting a handler. This failure is not erased."
+  },
+  "precommitRetry": {
+    "report": "fix-browser-retry/report.json",
+    "exitCode": 0,
+    "checks": 102,
+    "note": "Dirty precommit verification, superseded by clean fixed-SHA final-browser/report.json."
+  },
+  "audit": {
+    "file": "audit.json",
+    "fullUnfilteredJson": true,
+    "exitCode": 1,
+    "high": 5,
+    "critical": 0,
+    "moderate": 0,
+    "releaseBlocked": true,
+    "rootAdvisory": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+    "note": "braces <=3.0.3 chain remains unresolved. No omit-dev or audit ignore used."
+  },
+  "artifactBinding": "final-browser/report.json assets equal demo-asset-inventory.json assets; browser server verifies each served asset SHA-256",
+  "privacy": "Only synthetic fixture screenshots and sanitized command/browser receipts are included. No original research files, production assets, databases, credentials or raw provider logs are copied.",
+  "visualReview": {
+    "viewedScreenshots": [
+      "320-Thesis-initial.png",
+      "320-Expression-initial.png",
+      "320-Thesis-context-policy.png",
+      "320-Claim-context-policy.png",
+      "390-Thesis-initial.png",
+      "390-Expression-initial.png",
+      "1536-Thesis-initial.png",
+      "1536-Expression-initial.png"
+    ],
+    "result": "All eight final screenshots inspected; synthetic labels, disabled services and wrapping visible; no real research or credentials visible."
+  },
+  "notRun": [
+    "hosted PR/main CI",
+    "Sites hosting",
+    "Preview deployment",
+    "Production deployment",
+    "real-account or real-ledger acceptance",
+    "Local Core full suite rerun in R1 (prior stage result is historical only)"
+  ],
+  "limitations": [
+    "Raw command logs remain only under /tmp/os-r1 and are not durable deliverables. Command exit codes, timestamps and raw-log SHA-256 values are preserved here; hashes alone are not full logs.",
+    "Baseline and precommit screenshots referenced by their reports are not included; eight final synthetic screenshots are included.",
+    "The npm install completed with existing whatwg-encoding and Recharts deprecation warnings and an npm devdir environment warning.",
+    "GitHub deployments read query remained forbidden from prior stage and was not retried. No assertion of verified remote deployment state.",
+    "The engineering workflow Space page was unavailable to tools in the initial stage; the authorized task agreement and repository contracts governed the work."
+  ],
+  "gitPolicy": {
+    "branch": "codex/synthetic-demo-rebuild-20261016",
+    "implementationPushedAndRemoteShaReadBack": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+    "prCreated": false,
+    "merged": false,
+    "deploymentInvoked": false,
+    "mainWritten": false,
+    "forcePush": false
+  },
+  "evidenceContentScan": {
+    "nonImageFilesChecked": 7,
+    "restrictedSourcesChecked": 7,
+    "restrictedLongLiteralsChecked": 455,
+    "restrictedMatches": 0,
+    "secretPatternMatches": 0,
+    "pngReview": "All eight final synthetic screenshots visually inspected; no OCR used"
+  }
+}
