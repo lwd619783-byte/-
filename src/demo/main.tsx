@@ -4,6 +4,7 @@ import { AppearanceProvider } from '../components/layout/Appearance';
 import { ThesisWorkspacePanel } from '../components/research/ThesisWorkspacePanel';
 import { ExpressionWorkspacePanel } from '../components/research/ExpressionWorkspace';
 import { createDemoRuntime } from './runtime';
+import { ResearchLinkNavigation } from '../components/common/ResearchLink';
 import '../index.css';
 import '../styles/workspace-v2.css';
 
@@ -28,6 +29,6 @@ function Demo({ runtime }: { runtime: Awaited<ReturnType<typeof createDemoRuntim
   </main></AppearanceProvider>;
 }
 
-createDemoRuntime().then(runtime => createRoot(document.getElementById('root')!).render(<Demo runtime={runtime} />)).catch(() => {
+createDemoRuntime().then(runtime => createRoot(document.getElementById('root')!).render(<ResearchLinkNavigation.Provider value={false}><Demo runtime={runtime} /></ResearchLinkNavigation.Provider>)).catch(() => {
   document.getElementById('root')!.textContent = '合成样本初始化失败。演示已阻断，不会回退到真实数据或服务。';
 });

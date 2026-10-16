@@ -1,3 +1,4 @@
+import { ResearchLink } from '../common/ResearchLink';
 import { useState } from 'react';
 import type { ThesisPreview, ThesisRevision, VerifiedClaimRef } from '../../types/thesis';
 import type { ClaimBinding, ClaimRevision, ClaimReview } from '../../types/verifiedClaim';
@@ -39,7 +40,7 @@ function RevisionContent({ revision, runtime, onClaim }: { revision: ThesisRevis
       <p>{edge.rationale} · asOf：{edge.asOf}</p><p>成立条件：{edge.conditions.join('；') || '未提供'}</p>
       <p>关系状态：{({ supported: '支持主张可用', unknown: '未知', blocked: '阻断' })[gate.relationships.find(r => r.relationshipId === edge.relationshipId)?.status ?? 'blocked']}</p><p className="text-xs text-textMuted">用户定性关系；主张可用不等于关系理由已经得到独立验证。</p>
     </div>)}</section>
-    <section aria-label="Research Context"><strong>Research Context（仅背景，不是验证依据）</strong>{revision.contexts.map((context, i) => <p key={i}><a className="underline" href={context.url} target="_blank" rel="noreferrer">{context.title}</a> · {context.kind}</p>)}</section>
+    <section aria-label="Research Context"><strong>Research Context（仅背景，不是验证依据）</strong>{revision.contexts.map((context, i) => <p key={i}><ResearchLink className="underline" href={context.url}>{context.title}</ResearchLink> · {context.kind}</p>)}</section>
     {gate.blockers.includes('THESIS_CLAIM_SUPERSEDED_ASOF') && <p className="text-warning">支持主张在论点 asOf 时已被后续版本替代，正式确认已阻断；原精确引用未改变。</p>}
     <p className={gate.publishable ? 'text-textMuted' : 'text-warning'}>当前证据支持：{gate.publishable ? '可供本人确认' : '阻断'}</p>
     <AdvancedAuditDetails><pre className="whitespace-pre-wrap break-all">{JSON.stringify({ revisionId: revision.revisionId, blockers: gate.blockers, claims: gate.claims, relationships: gate.relationships }, null, 2)}</pre></AdvancedAuditDetails>

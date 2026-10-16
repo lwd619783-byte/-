@@ -4,6 +4,8 @@ import { createServer } from 'node:http';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
+import { exerciseDemoResearchLinks } from './demo-navigation-scenarios.mjs';
+import { execFileSync } from 'node:child_process';
 
 const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
 const output = path.resolve(process.env.DEMO_BROWSER_OUTPUT || 'data-cache/synthetic-demo-browser');
@@ -24,7 +26,7 @@ const server = createServer(async (request, response) => {
 });
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const origin = `http://127.0.0.1:${server.address().port}`;
-const report = { scope: 'synthetic-only-built-artifacts', checks: [], pageErrors: [], unexpectedRequests: [], consoleErrors: [], screenshots: [], assets: inventory.assets };
+const report = { testedSha: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), node: process.version, worktreeBefore: execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim().split('\n').filter(Boolean), navigationCases: [], popups: [], scope: 'synthetic-only-built-artifacts', checks: [], pageErrors: [], unexpectedRequests: [], consoleErrors: [], screenshots: [], assets: inventory.assets };
 const check = (ok, name) => { report.checks.push({ name, ok }); assert(ok, name); };
 let browser;
 try {
@@ -44,6 +46,7 @@ try {
       return route.continue();
     });
     const page = await context.newPage();
+    context.on('page', popup => { report.popups.push({ width }); void popup.waitForLoadState().catch(() => {}).finally(() => popup.close()); });
     let probingCsp = false;
     page.on('pageerror', error => report.pageErrors.push(error.message));
     page.on('console', message => { if (message.type() === 'error' && !probingCsp) report.consoleErrors.push(message.text()); });
@@ -53,6 +56,7 @@ try {
       check(dimensions.document <= dimensions.viewport + 1 && dimensions.panels.every(p => p.scroll <= p.client + 1), `${name}: no horizontal overflow at ${width}`);
     };
     const screenshot = async name => {
+      if (process.env.DEMO_BROWSER_COMPACT === '1' && !name.endsWith('-initial') && !(width === 320 && name.endsWith('-policy'))) return;
       const file = `${width}-${name}.png`;
       await page.screenshot({ path: path.join(output, file), fullPage: true }); report.screenshots.push(file);
     };
@@ -103,6 +107,11 @@ try {
       check(await page.getByRole('button', { name: `本人确认正式 ${kind}`, exact: true }).isDisabled(), `${kind}: explicit confirmation note required at ${width}`);
       await overflow(`${kind} confirmation preview`); await screenshot(`${kind}-confirmation`);
     }
+    const navigation = await exerciseDemoResearchLinks(page, screenshot);
+    report.navigationCases.push({ width, links: navigation });
+    await overflow('Research context policy');
+    check(navigation.every(link => link.tag === 'SPAN' && link.href === null && link.target === null && link.disabled === 'true' && link.samePage), `Thesis and portaled Claim links are non-navigational at ${width}`);
+    check(report.popups.length === 0, `no popup from click, Ctrl-click, middle-click or Enter at ${width}`);
     check(await page.evaluate(() => localStorage.getItem('investment-research-dashboard.thesis.v1')) === 'SYNTHETIC_USER_STORAGE_SENTINEL', `formal browser storage untouched at ${width}`);
     check(report.unexpectedRequests.length === 0, `no unexpected requests during workflows at ${width}`);
     probingCsp = true;

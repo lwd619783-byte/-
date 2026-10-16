@@ -2,6 +2,15 @@
 
 ## 2026-10-16 合成演示重建交接（CURRENT / 父任务待审计）
 
+### 独立审计返修 R1（2026-10-16，基线 dd4cef9）
+
+- 在同一分支承接已授权返修，不重试已被拒绝的远端部署查询；不创建 PR、合并或部署。CI 新增 `npm run test:demo` 与 `npm run build:demo`，触发范围与权限未改变。
+- 动态复现旧演示：Thesis Research Context 与 portaled Claim 背景链接均是 `target=_blank` anchor。320px 下四种原生操作（click / Ctrl-click / middle-click / Enter）在两处合计产生 **8 popups / 4 outbound request attempts**；浏览器测试路由全部取消外站请求，没有访问真实站点。失败报告绑定基线与旧资产 hashes。
+- 演示专用 React navigation policy 将研究来源显示为 `aria-disabled` 文本，无 href / target，明确“演示不打开外链”，策略透传 portal；覆盖 Thesis、Claim 与图表证据来源。正式模式默认仍为原 href / target / rel；合同/schema、来源 URL、数据原件和序列化语义不改。
+- 预提交验证：正式/演示 build、Thesis 49 / Expression 71、demo 2 Node + 13 Vitest 均通过。浏览器 **102 checks PASS**，含三种宽度、两处来源链接四种操作、popup/request 计数与原有导入导出/CSP/溢出检查。首次修复后浏览器测试因 Playwright 拒绝点击 aria-disabled 元素而超时，修正测试为原生鼠标操作（force 只跳过 actionability，不注入 handler），重跑通过；失败保留。
+- 此实现阶段先普通 commit/push 并回读 SHA；随后在固定代码 SHA 上干净安装、回归、记录完整 audit JSON，并将经敏感检查的精简回执和合成截图保存到本交接链接的证据目录。braces 的无补丁依赖链继续阻断发布，不以 CI 配置或本地通过替代 hosted CI/生产准入。
+
+
 - 基线：`dbb58bc0b17a17f3568c72cacab89161d8d71b5f`；开工时远端 main 一致，工作区干净，最新已核 PR #85。分支：`codex/synthetic-demo-rebuild-20261016`。旧容器未推送补丁不恢复，旧测试不计入本轮。
 - 授权范围：依赖风险修复、独立纯合成演示候选、Thesis/Expression 窄屏修复、验证与阶段保存；不改真实研究、账本、权限或投资状态，不改其他仓库。实现后交父任务独立审计；本任务不建 PR、不 merge、不部署。
 - 演示计划：只复用合同与现有决策链面板，显式合成 fixture / 独立入口 / 内存存储；来源与 schema 门禁保留，SQLite、共享、Review、生产服务禁用。正式本地入口保留。此为候选，不是全平台迁移或正式状态准入。

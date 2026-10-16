@@ -1,3 +1,4 @@
+import { ResearchLink } from '../common/ResearchLink';
 import { useState } from 'react';
 import type { ClaimBinding, ClaimOwners, ClaimPreview, ResearchContext } from '../../types/verifiedClaim';
 import { BrowserClaimRepository, type ClaimLoad, type ClaimImportPreview } from '../../services/verifiedClaimRepository';
@@ -64,7 +65,7 @@ export function ClaimVerificationModal({ binding, owners, repository, onEvidence
         {visibleHistory.map((revision, index) => <div key={revision.revisionId} className="space-y-1 border-t border-borderSoft pt-2 text-xs">
           <p>版本 {index + 1} · {revision.createdAt} · {revision.reason}</p><p>{revision.statement}</p>
           <p>{revision.origin === 'ai_draft' ? 'AI / 模板草稿来源' : '用户判断来源'}</p>
-          {revision.contexts.map((context, i) => <p key={i}>研究背景：<a href={context.url} target="_blank" rel="noreferrer">{context.title}</a>（非验证依据）</p>)}
+          {revision.contexts.map((context, i) => <p key={i}>研究背景：<ResearchLink href={context.url}>{context.title}</ResearchLink>（非验证依据）</p>)}
           {model?.reviews.filter(r => r.revisionId === revision.revisionId && (!cutoff || Date.parse(r.createdAt) <= Date.parse(cutoff))).map(review => <p key={review.reviewId}>{stateLabels[review.decision]} · {review.createdAt} · {review.note}</p>)}
         </div>)}
       </section>
