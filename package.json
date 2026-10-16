@@ -141,7 +141,7 @@
     "test:daily-review": "node --test scripts/tests/daily-review.node.mjs scripts/tests/daily-review-context.node.mjs && vitest run src/components/industry/DailyReviewPanel.test.tsx"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.30.0",
+    "@modelcontextprotocol/sdk": "1.31.0",
     "@vercel/blob": "2.8.0",
     "@vitejs/plugin-react": "^4.3.4",
     "ajv": "8.20.0",
@@ -170,10 +170,13 @@
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
     "vite": "^6.0.1",
-    "vitest": "^2.1.6",
+    "vitest": "4.1.12",
     "yaml": "2.9.1"
   },
   "engines": {
     "node": ">=22"
+  },
+  "overrides": {
+    "postcss-selector-parser": "7.1.6"
   }
 }

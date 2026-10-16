@@ -1,5 +1,24 @@
 # 当前开发执行索引 · 2026-09-07
 
+## 2026-10-16 合成演示重建交接（CURRENT / 父任务待审计）
+
+- 基线：`dbb58bc0b17a17f3568c72cacab89161d8d71b5f`；开工时远端 main 一致，工作区干净，最新已核 PR #85。分支：`codex/synthetic-demo-rebuild-20261016`。旧容器未推送补丁不恢复，旧测试不计入本轮。
+- 授权范围：依赖风险修复、独立纯合成演示候选、Thesis/Expression 窄屏修复、验证与阶段保存；不改真实研究、账本、权限或投资状态，不改其他仓库。实现后交父任务独立审计；本任务不建 PR、不 merge、不部署。
+- 演示计划：只复用合同与现有决策链面板，显式合成 fixture / 独立入口 / 内存存储；来源与 schema 门禁保留，SQLite、共享、Review、生产服务禁用。正式本地入口保留。此为候选，不是全平台迁移或正式状态准入。
+- 推送防部署：此分支的 `vercel.json → git.deploymentEnabled` 明确为 false；现有 Actions 只对 main push / PR 运行。依据 [Vercel 官方 Git 配置](https://vercel.com/docs/project-configuration/git-configuration)。没有改变远端项目设置或生产分支。
+
+### 阶段 1：依赖修复（本轮本地验证）
+
+- Node **22.23.3**；干净 `npm ci` 成功（`npm_config_devdir=/tmp/os-node-gyp`，npm cache 在 `/tmp/os-npm-cache`）。首次安装因默认 home 缓存不可写失败，保留失败记录；未跳过安装脚本。
+- MCP SDK 1.30.0 → 1.31.0；Vitest 2.1.9 → 4.1.12（移除旧 tinypool / 嵌套 Vite 风险）；PostCSS selector parser 6.1.4 → 7.1.6 override；更新 PostCSS、Browserslist、fast-uri、nanoid、source-map-js 等兼容子依赖。没有使用 omit-dev、审计忽略或 force 安装。
+- 官方依据：[SDK](https://github.com/advisories/GHSA-6qxp-vccf-f47h)、[Vitest](https://github.com/advisories/GHSA-82fw-gwwq-j7x9)、[Tinypool](https://github.com/advisories/GHSA-85c8-ppgw-ccpr)、[selector parser](https://github.com/advisories/GHSA-rj75-hqrm-r3gf)。完整 `npm audit --json`：33 → **5 high / 0 critical / 0 moderate**。剩余根因是 [braces <=3.0.3，无官方补丁](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)，经 chokidar / micromatch / fast-glob / Tailwind 传播。**仍为发布阻断，不宣称依赖风险清零**；大幅迁移 Tailwind 或维护私有 fork 不在本次最小修复内。
+- `npm test`：**116 files / 1523 tests PASS**。初次升级运行 11 failures，原因是 Vitest 4 的 `vi.importActual(node:...)` 不再携带 Vite SSR 标记；仅 Node 测试配置移除浏览器打包插件，正式构建和负向构建门禁不变。测试发现命令移除已不支持的 minWorkers 参数。
+- `npm run build` PASS（typecheck、Local Core typecheck、完整正式 bundle boundary / financial bundle budgets）；`contracts:validate` PASS；`test:contracts` 106 + 78 Node / 162 Vitest PASS；`test:bridge` 31 PASS；`test:daily-review` 22 Node / 6 UI PASS；`test:domain-mcp` 14 Node / 33 UI PASS；`test:discovery` PASS。
+- `test:local-core`：初次 222 PASS / 39 FAIL。环境在 `/tmp/.git` 挂只读占位，数据库安全规则因此拒绝普通 tmp 路径；不改业务规则，设置 `TMPDIR=/tmp/.local-data/os-rebuild-tests` 后 **261 PASS**（含实际 Vite 静态、动态、传递 Node 导入拒绝及 SSR 控制组）。只使用临时合成数据库。
+- 本轮日志暂存 `/tmp/os-rebuild-logs`，不推送完整日志、真实数据或旧证据包。GitHub 交付为代码、锁文件及此摘要；容器完整日志不构成持久交付。CI / Preview / Production 未运行，真实账号与真实账本未验收。
+- 下一步：保存并回读本阶段 SHA；实现演示构建、导入导出/来源拒绝、资产清单和 320/390/1536px 浏览器验收，独立阶段保存。
+
+
 > 2026-09-27 CURRENT · **Daily Review 审计整改**：共享 deterministic context、derived 精确结果引用、OAuth 文案与资源清理已实现；本轮真实账号不接入、Production 不修改。默认测试模式对照与最终交付见 [整改记录](daily-review-remediation-v1.md)。
 
 > 2026-09-27 CURRENT · **Daily Review Writeback V1**：contract / durable adapter / OAuth write lane / MCP / 油运 UI / SDK 集成已实现。真实 Blob synthetic 与本地页面通过，真实 ChatGPT 新连接验收和调度单列；仅 commit/push 后等待独立审计。[完整交付记录](daily-review-writeback-v1.md)。
