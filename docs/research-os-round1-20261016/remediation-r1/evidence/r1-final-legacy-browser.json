@@ -1,0 +1,17 @@
+{
+  "label": "r1-final-legacy-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:demo:browser"
+  ],
+  "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T17:02:13.142Z",
+  "endedAt": "2026-10-16T17:02:26.611Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "r1-final-legacy-browser.log",
+  "logSha256": "b5176b8bb5a23030d55e2e9abc92b6dba94bb8c6842c0e96eb8dd2b226a112c9"
+}

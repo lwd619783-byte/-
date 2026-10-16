@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "oldEvidenceCommit": "b818a40a47a81948cc14e4db30e9c8a6f06435bd",
+  "filesPreservedByteForByte": 89,
+  "note": "Implementation-side integrity recheck; parent independently checked old hashes earlier, not a claim that parent reran tests."
+}

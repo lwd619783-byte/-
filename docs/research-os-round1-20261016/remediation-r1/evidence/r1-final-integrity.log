@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "baseline": "f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce",
+  "branch": "feat/research-os-round1-no-deploy",
+  "deploymentEnabled": false,
+  "unchanged": [
+    "dependencies",
+    "lockfile",
+    "formal-data",
+    "contracts",
+    "formal-runtime",
+    "CI-trigger-policy"
+  ],
+  "formalFilesChecked": 23,
+  "demoGraphModules": 1628,
+  "restrictedLiteralsChecked": 455,
+  "forbiddenContentMatches": 0,
+  "secretPatternMatches": 0
+}

@@ -19,3 +19,15 @@
 Node24.19.0 / npm11.9.0，未沿用PR86的Node22 CI结果；Hosted新HEAD CI待父端建立draft后验收。5 high仍为发布阻断；无重大依赖升级、私人数据或真实股票代选。
 
 预提交验证：53项专项单测、demo构建、151项浏览器检查通过。最终浏览器补充确认预览的窄屏检查与截图，以下仍需绑定修复代码SHA重跑。原分支与环境持续可用，未更改模型配置。
+
+## 固定修复 SHA 验证
+
+- 代码提交/远端已核：`c905be186d2465283f8ef0c7f57aea6ff880a818`。后续仅保存证据与交接。
+- Node24.19.0 / npm11.9.0。12条最终命令均从该SHA干净工作区启动：全量120文件/1589测试，demo 2 Node/66 Vitest，contracts校验及106+78 Node/162 Vitest、discovery、正式/demo build、UI audit、完整性检查、新浏览器154/旧链102通过。完整audit exit1 / 5 high，继续发布阻断。
+- 本轮未出现单测、构建或浏览器失败；此前失败/重试历史保留原样。全量测试本次无scrollTo stderr；构建既有chunk/static-dynamic警告和npm版本提示保留。UI audit仍只改生成时间，留patch并还原。
+- 浏览器Chromium154，320/390/1536px，无页面错误、意外console错误、意外请求或弹窗。保存19截图（11新模块+8旧链），已逐张检查11张新模块截图。Browser Back不适用；只验证索引后点击首页。
+- 原89份证据文件按旧manifest与b818a40 Git字节复核，完全不变。新证据入口：[机器回执](evidence/verification.json)、[新界面报告](evidence/browser/report.json)、[旧链报告](evidence/legacy-browser/report.json)、[资产清单](evidence/demo-asset-inventory.json)、[完整文件清单](evidence/evidence-manifest.json)。对应.log完整保存并显式加入Git，不依赖被忽略的本地文件。
+- 单独的新证据manifest逐文件检查磁盘/暂存区/提交内容及Git跟踪；公开文本扫描继续比较7类受限来源的455条长字面值、秘密模式与URL域。没有上传私人研究、账户、私有链接或凭据。
+- 仍为实施方验收，父端需独立复审；新draft建立后的新HEAD CI尚未运行，不借用PR86的Node22结果。无PR/merge/deploy/真实交易；自动部署禁用保持。
+
+关键复现命令仍使用仓库原入口：`npm test`、`npm run test:demo`、`npm run contracts:validate`、`npm run test:contracts`、`npm run test:discovery`、`npm run build`、`npm run build:demo`、`node scripts/round-one-integrity.mjs`。浏览器使用已装Playwright/Chromium运行 `npm run test:round-one:browser` 与 `npm run test:demo:browser`；完整命令参数、时间和退出码在机器回执。无新增依赖或下载浏览器。

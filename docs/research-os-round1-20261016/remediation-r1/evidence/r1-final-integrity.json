@@ -1,0 +1,16 @@
+{
+  "label": "r1-final-integrity",
+  "command": [
+    "node",
+    "scripts/round-one-integrity.mjs"
+  ],
+  "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T17:02:13.143Z",
+  "endedAt": "2026-10-16T17:02:13.257Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "r1-final-integrity.log",
+  "logSha256": "2aae0aab24a6759c6ff798bcfbaa2ae17dddee2daa468c746c4e92b8fcd487eb"
+}
