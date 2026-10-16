@@ -69,6 +69,11 @@
       "sha256": "2914f1eea66701d03986f943cdfa6c2f185e91de6834eeb6e3b11b06e580c5e5"
     },
     {
+      "file": "evidence-save-check.json",
+      "bytes": 1481,
+      "sha256": "bb257c6b3acd9a78b95d7fa32ddf2da3286a4c8af066da387fdfae05e285555c"
+    },
+    {
       "file": "legacy-browser/1536-Expression-initial.png",
       "bytes": 211273,
       "sha256": "b4ed4a34eaae2d7df4e28e9c7d24cc56304a69b6c8a11a6df32fabb49b149240"
@@ -121,7 +126,7 @@
     {
       "file": "public-content-scan.json",
       "bytes": 540,
-      "sha256": "0bcf7b9056e32bbdd7aaddef59aeaa8d559372bfcfd84e594029e6c1b5e04efd"
+      "sha256": "0e9c58b27af600aa4dc926a1f5356fa0fccd092222dc5a72559c765b80fe3893"
     },
     {
       "file": "public-content-scan.mjs",
@@ -285,8 +290,8 @@
     },
     {
       "file": "verification.json",
-      "bytes": 8739,
-      "sha256": "809667fee49ccd55456f3a77545e7cb91b941fb55960ca83bb4467fcb21878fa"
+      "bytes": 8870,
+      "sha256": "2c0c171c85908fbf322af1e23abc08f69425d459fb2bffeef9648ff6d2d90e10"
     }
   ]
 }

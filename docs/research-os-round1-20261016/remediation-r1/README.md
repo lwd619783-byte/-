@@ -31,3 +31,5 @@ Node24.19.0 / npm11.9.0，未沿用PR86的Node22 CI结果；Hosted新HEAD CI待�
 - 仍为实施方验收，父端需独立复审；新draft建立后的新HEAD CI尚未运行，不借用PR86的Node22结果。无PR/merge/deploy/真实交易；自动部署禁用保持。
 
 关键复现命令仍使用仓库原入口：`npm test`、`npm run test:demo`、`npm run contracts:validate`、`npm run test:contracts`、`npm run test:discovery`、`npm run build`、`npm run build:demo`、`node scripts/round-one-integrity.mjs`。浏览器使用已装Playwright/Chromium运行 `npm run test:round-one:browser` 与 `npm run test:demo:browser`；完整命令参数、时间和退出码在机器回执。无新增依赖或下载浏览器。
+
+保存证据时 `git diff --cached --check` 报告原始Vite日志尾空格、专项日志末尾空行和原始patch空白上下文，shell仍完成证据提交；这次检查不是PASS。为保持完整日志原字节未清洗，补存复现exit2及排除仅.log/.patch后源文件/说明文档exit0的[完整回执](evidence/evidence-save-check.json)。不影响上述测试结果，不将格式失败隐去，也不改应用代码。

@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "scope": "all round-one handoff/evidence text (PNG separately visually reviewed)",
-  "textFilesChecked": 38,
+  "textFilesChecked": 41,
   "restrictedSourceFilesCompared": 7,
   "restrictedLongLiteralsCompared": 455,
   "restrictedLiteralMatches": 0,

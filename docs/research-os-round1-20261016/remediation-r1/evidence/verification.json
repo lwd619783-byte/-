@@ -254,5 +254,6 @@
     "UI_REVIEW_PLAYWRIGHT_MODULE": "/opt/codex/cua_node/lib/node_modules/playwright",
     "DEMO_BROWSER_EXECUTABLE": "/usr/bin/chromium",
     "DEMO_BROWSER_COMPACT": "1 for legacy browser"
-  }
+  },
+  "evidenceSavingCheck": "evidence-save-check.json (raw-evidence whitespace exit2, source/prose exit0; not a test/build failure)"
 }
