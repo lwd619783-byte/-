@@ -16,7 +16,32 @@
 - `npm run build` PASS（typecheck、Local Core typecheck、完整正式 bundle boundary / financial bundle budgets）；`contracts:validate` PASS；`test:contracts` 106 + 78 Node / 162 Vitest PASS；`test:bridge` 31 PASS；`test:daily-review` 22 Node / 6 UI PASS；`test:domain-mcp` 14 Node / 33 UI PASS；`test:discovery` PASS。
 - `test:local-core`：初次 222 PASS / 39 FAIL。环境在 `/tmp/.git` 挂只读占位，数据库安全规则因此拒绝普通 tmp 路径；不改业务规则，设置 `TMPDIR=/tmp/.local-data/os-rebuild-tests` 后 **261 PASS**（含实际 Vite 静态、动态、传递 Node 导入拒绝及 SSR 控制组）。只使用临时合成数据库。
 - 本轮日志暂存 `/tmp/os-rebuild-logs`，不推送完整日志、真实数据或旧证据包。GitHub 交付为代码、锁文件及此摘要；容器完整日志不构成持久交付。CI / Preview / Production 未运行，真实账号与真实账本未验收。
-- 下一步：保存并回读本阶段 SHA；实现演示构建、导入导出/来源拒绝、资产清单和 320/390/1536px 浏览器验收，独立阶段保存。
+- 阶段 1 已推送且回读一致：[`6aa3048c112cafbfca82bde35f92e0163b077540`](https://github.com/lwd619783-byte/-/commit/6aa3048c112cafbfca82bde35f92e0163b077540)。GitHub deployments 只读查询被接口拒绝（Forbidden），故远端“无部署”状态未核验；不绕过拒绝，未调用任何部署操作。
+
+### 阶段 2：纯合成候选与窄屏修复（IMPLEMENTED / VERIFIED LOCALLY）
+
+- 入口：`npm run build:demo` → `dist-demo/`；`npm run preview:demo` 仅本地预览。原 `npm run build` / 本地正式入口不变。演示只覆盖 Thesis / Expression / 原始证据链，不声称完整 Sites 迁移；Sites 托管、PR CI、Preview 和 Production 均 NOT_RUN。
+- `vite.demo.config.mjs` 独立 HTML root，`publicDir:false`、不加载 env、不安装 SQLite/Portfolio/OS Domain 中间件；所有正式 `src/data/**`、`research-data/**`、public、server、api、Local Core 和正式 App 入口禁止进入完整依赖图（含 lazy / tree-shaken 模块）。四种真实负向构建测试通过。
+- 复用原面板与 schema/来源/revision/确认/追加导入逻辑；仅拆分纯 Thesis 面板和纯图表证据抽屉，避免 provider 被传递引入。Thesis 面板主体与基线逐字比对相同，仅增加 scoped CSS class。`src/demo/fixture.json` 是原合成合同 fixture 经原 Claim review / Thesis confirmation 服务生成的固定合成快照；固定 exact pins 支持刷新后导入。无 mock 填充真实模式。
+- 独立内存存储；不读写正式 localStorage、IndexedDB 或 SQLite。所有标的/证据均显式合成；预置合成确认状态在页面说明。共享/MCP、Research Bridge、Daily Review、本机账本入口均 disabled；无服务客户端或生产端点进入演示依赖图。CSP `connect-src 'none'` / `worker-src 'none'` / `form-action 'none'` 阻止服务与外联请求。
+- 320px 真实复现：Thesis 文档宽 334px、Expression 335px，原因是 exact-reference action 按钮。定向 scoped 换行、max-width 与 fieldset min-width 修复；不隐藏溢出。320/390/1536px 的面板、编辑、导入预览、确认预览、Expression trace / Evidence drawer 均无横向溢出；视觉检查了实际截图。
+- 本轮 `npm run test:demo`：2 Node gates / 10 runtime tests PASS（跨实例导入导出、拒绝错误 schema / scope / identity / exact-source、确认前不写入、幂等、正式存储未触碰）。`test:thesis` 49、`test:expression` 71 PASS。
+- `npm run test:demo:browser`：系统 Chromium **154.0.8037.57**、3 种宽度、**93 checks PASS**；0 page errors、0 unexpected console errors、0 unexpected requests；同源 API 与外部 fetch 的主动 CSP 拒绝演练另记为预期控制组，不计入正常流程错误。导出后刷新、拒绝错误 schema、预览不写、确认导入 exact data、确认说明必填均通过。21 张本轮纯合成截图。
+- 浏览器安装尝试曾被 CDN 403 Domain forbidden 拒绝，未改下载域或绕过限制；使用环境已有 `/usr/bin/chromium` 完成验收。复现命令：`UI_REVIEW_PLAYWRIGHT_MODULE=<已有 playwright 包路径> DEMO_BROWSER_EXECUTABLE=<已有 chromium 路径> npm run test:demo:browser`。脚本只在 loopback 启动审核后资产的临时静态服务器，无 API。
+- 最终 `npm test`：**117 files / 1533 tests PASS**；`npm run build` / `build:demo` / `contracts:validate` / `test:contracts` / `test:discovery` 均 PASS。未拼接旧轮计数。阶段 1 SDK 专项与 Local Core 结果见上文。
+- 产物全图检查 **1613 modules**；七类受限源文件原件保持未改。仅本地比较 `src/data/{industries.ts,industryChainResearch.ts,stocks.ts,unitreeHistoricalResearch.ts,privateCompanies.ts,real/research.generated.json,real/signals.generated.json}` 的 **455 条长度至少 32 字符的字面值**，0 命中；秘密模式 0 命中。结合全图禁入与 `publicDir:false`，检查不只依赖文本匹配。报告不包含受限原文。
+- 原始日志 `/tmp/os-rebuild-logs`、完整浏览器回执和 21 截图 `data-cache/synthetic-demo-browser`、构建产物 `dist-demo` **未推送**；仅当前容器留存，不保证恢复后仍在。GitHub 持久交付为可公开代码/测试/合成 fixture 和本交接摘要，可从锁文件重建。旧证据包、真实资料、凭据均未上传。
+- **阻断/下一步**：braces 链仍有 5 high 审计项；不能称安全清零、批准发布或生产准入。父任务按固定成果 SHA 独立审计，协调范围内返修；审计通过后由父任务处理已授权 PR。本任务停止在实现交付，不建 PR、不 merge、不部署。
+
+本轮合成资产清单（`demo-asset-inventory.json` 不自哈希；实际构建另生成该清单）：
+
+| 文件 | 字节 | SHA-256 |
+| --- | ---: | --- |
+| `assets/index-B6rqiOJ1.css` | 51448 | `e4313ed2100492e51364e8f27b24e6eb4abf26dc07980058d06be45737d780ed` |
+| `assets/index-CBBvI8VP.js` | 484599 | `0f1028d4c620c6c1a2ea3e5a9d968f834ddef365db70bc123e034d55a8c0758a` |
+| `demo-boundary.json` | 100629 | `707511c82610f9b1634c36a524e667f9343cee9dba9486aaf819eb1df9d75ca7` |
+| `index.html` | 676 | `54182d8e58071e89361619bcb4c0f25fb6c91149d8e4e4bb3d60a9363046261d` |
+
 
 
 > 2026-09-27 CURRENT · **Daily Review 审计整改**：共享 deterministic context、derived 精确结果引用、OAuth 文案与资源清理已实现；本轮真实账号不接入、Production 不修改。默认测试模式对照与最终交付见 [整改记录](daily-review-remediation-v1.md)。

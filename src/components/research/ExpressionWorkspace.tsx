@@ -4,7 +4,7 @@ import type { ExpressionRevision, ExpressionPreview } from '../../types/investme
 import type { ExpressionWorkspaceRuntime } from '../../services/expressionWorkspace';
 import { expressionContextFields, expressionDiff, expressionReadModel, expressionThesisChoices, expressionTrace, previewExpression } from '../../services/investmentExpression';
 import type { ChartAuditView } from '../../services/chartAudit';
-import { EvidenceDrawer } from './EvidenceDrawer';
+import { ChartEvidenceDrawer as EvidenceDrawer } from './ChartEvidenceDrawer';
 import { AdvancedAuditDetails } from '../common/AdvancedAuditDetails';
 import { Modal } from '../common/Modal';
 
@@ -43,7 +43,7 @@ export function ExpressionWorkspacePanel({ runtime }: { runtime: ExpressionWorks
   const refresh = () => { setLoaded(repository.load()); setPreview(null); setTrace(null); };
   const edit = <K extends keyof ExpressionRevision>(k: K, value: ExpressionRevision[K]) => { setEditor(old => old ? { ...old, [k]: value } : null); setPreview(null); };
   const onTrace = (r: ExpressionRevision) => act(() => setTrace(expressionTrace(r, runtime.owners)));
-  return <section aria-label="Investment Expression V1" className="mb-5 min-w-0 space-y-4 rounded-lg border border-borderSoft bg-panel p-4">
+  return <section aria-label="Investment Expression V1" className="decision-workspace mb-5 min-w-0 space-y-4 rounded-lg border border-borderSoft bg-panel p-4">
     <h2 className="text-lg font-semibold text-textStrong">Investment Expression V1 · 投资表达</h2>
     <p className="text-xs leading-5 text-textMuted">Context / Sources → Claim → Thesis → Expression。表达如何承载论点；定性理由保留研究判断与未知状态，正式版本须本人确认。</p>
     <p data-testid="expression-counts" className="text-sm">{loaded.error ? '读取失败' : rows.filter(r => r.current).length} formal Expression</p>

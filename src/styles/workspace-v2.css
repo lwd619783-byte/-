@@ -52,6 +52,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .ui-v2-primary:hover { background:#204936!important; }
 .inbox-action { display:inline-flex; gap:7px; align-items:center; justify-content:center; border:1px solid var(--ui-border); background:var(--ui-panel); border-radius:6px; min-height:40px; padding:8px 15px; font-size:13px; font-weight:550; }
 .inbox-action:hover { background:#f3f5ef; border-color:#c9d3c6; }
+/* Exact-reference actions must wrap inside 320px decision panels, not widen the page. */
+.decision-workspace { overflow-wrap:anywhere; }
+.decision-workspace .inbox-action { min-width:0; max-width:100%; white-space:normal; overflow-wrap:anywhere; }
+.decision-workspace fieldset { min-width:0; }
+.decision-workspace legend { max-width:100%; }
 .ui-v2-eyebrow { font-size:11px; color:var(--ui-accent); letter-spacing:1.8px; font-weight:650; margin-bottom:10px; }
 .ui-v2-surface,.ui-v2-empty { background:var(--ui-panel); border:1px solid var(--ui-border); border-radius:10px; padding:22px; }
 .ui-v2-surface h2 { font-size:18px; font-weight:600; margin-bottom:16px; }
