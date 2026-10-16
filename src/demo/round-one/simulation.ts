@@ -53,6 +53,8 @@ export function syntheticQuote(id: string, index: number): Quote | null {
   const open = 10 + Number(id.slice(4)) + index / 10;
   return { id, session: sessions[index], availableAt: `${sessions[index === 1 && id === 'SYN-06' ? 2 : index]}T16:00:00Z`, open, close: open + .2, status };
 }
+// Daily snapshot gate, NOT proof of tradability at the open. Both fields are
+// checked as a daily bar at 16:00; do not use this model for intraday/PIT backtests.
 export function fillBlock(quote: Quote | null, id: string, session: string, asOf: string): string | null {
   if (!quote) return '缺失行情 · 未知';
   if (quote.id !== id || quote.session !== session || !Number.isFinite(Date.parse(quote.availableAt)) || !Number.isFinite(Date.parse(asOf)) || Date.parse(quote.availableAt) > Date.parse(asOf)) return '当时不可得行情 · 禁止回填';
@@ -87,10 +89,14 @@ export function projectRound(round: Round) {
   const elapsed = lock ? tradingDaysElapsed(cursor, lock.rules) : 0;
   const due = elapsed >= 20;
   const complete = due && positions.every(p => ['exited', 'not-filled'].includes(p.status));
-  return { lock, cursor, asOf: sessions[cursor], elapsed, due, complete, positions,
+  const plannedExitIndex = lock ? (lock.rules.dayCount === 'include-entry' ? 20 : 21) : null;
+  const lastExitSession = complete ? positions.map(p => p.exitSession).filter((d): d is string => d !== null).sort().at(-1) ?? null : null;
+  return { plannedExitSession: plannedExitIndex === null ? null : sessions[plannedExitIndex],
+    finalExitSession: lastExitSession, delaySessions: plannedExitIndex === null ? 0 : Math.max(0, cursor - plannedExitIndex),
+    lock, cursor, asOf: sessions[cursor], elapsed, due, complete, positions,
     status: skipped ? 'skipped' : !lock ? 'draft' : complete ? 'completed' : due ? 'pending-exit' : 'locked',
     // Unfilled allocations remain cash, never redistributed. Until exits resolve, return is unknown.
-    netReturnPct: complete ? (positions.reduce((sum, p) => sum + p.finalValue!, 0) / 10000 - 1) * 100 : null,
+    finalLiquidationReturnPct: complete ? (positions.reduce((sum, p) => sum + p.finalValue!, 0) / 10000 - 1) * 100 : null,
     pendingExit: positions.filter(p => p.status === 'pending-exit').length,
     unfilled: positions.filter(p => p.status === 'not-filled').length };
 }
@@ -132,6 +138,7 @@ export function createSimulation() {
       requireCondition(canonical(existing) === canonical(round), '同名轮次存在差异，禁止覆盖历史或锁定'); return false;
     });
     requireCondition(rounds.length + additions.length <= 50, '最多50轮合成演练');
+    requireCondition([...rounds, ...additions].filter(r => !['completed', 'skipped'].includes(projectRound(r).status)).length <= 1, '合并后最多一个未完成轮次');
     return { parsed, additions };
   }
   return {

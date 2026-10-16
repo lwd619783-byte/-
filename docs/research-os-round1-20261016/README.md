@@ -1,5 +1,7 @@
 # 投研 OS 第一轮 · 合成候选
 
+> CURRENT：父端独立只读审计提出5项返修，现由 [R1修复对照](remediation-r1/README.md) supersede 本文旧能力与前视表述。下文保留上一阶段实施方结果；不能视为父端测试重跑或本次新HEAD验收。日级快照模型不证明开盘成交，也不保证无前视；收益口径是最终清算。
+
 基线为未合并 PR86 的指定 HEAD `f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce`，依赖 PR86；不是从已合并 main 开始。工作分支 `feat/research-os-round1-no-deploy`，仅目标仓库。Vercel Git 自动部署对此分支显式关闭；Actions 仍仅 main push / PR。不查询或修改远端部署设置。
 
 范围：仅隔离 demo 入口的决策首页 / 个股卡、独立超跌合成模拟。属于非正式研究演练，不晋升 Research Memory / Formal Decision State，不修改既有正式合同或账本。模拟使用自己的版本化合成格式及追加事件，不能作为正式投资状态导入。无真实研究迁移、真实股票代选、外部链接或账户数据。

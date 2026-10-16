@@ -2,24 +2,50 @@
 import React from 'react';
 import { afterEach, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
-import { DecisionHome, decisionFreshness } from './DecisionHome';
-afterEach(cleanup);
-it('propagates missing, stale and future data as unknown', () => {
-  expect(decisionFreshness(null, null, '2026-10-16')).toContain('未知');
-  expect(decisionFreshness('2026-09-01', '2026-09-30', '2026-10-16')).toContain('过期');
-  expect(decisionFreshness('2026-10-17', '2026-10-18', '2026-10-16')).toContain('未知');
+import { DecisionHome, decisionFreshness, decisionSamples } from './DecisionHome';
+afterEach(() => { cleanup(); vi.useRealTimers(); });
+it.each([
+  [null, null, '2026-10-16'], ['2026-09-01', '2026-09-30', '2026-10-16'],
+  ['2026-10-17', '2026-10-18', '2026-10-16'], ['bad', '2026-10-16', '2026-10-16'],
+  ['2026-02-30', '2026-10-16', '2026-10-16'], ['2026-10-15', '2026-10-14', '2026-10-16'],
+  ['2026-10-15', '2026-10-16', 'bad'], ['2026-10-15', '2026-13-01', '2026-10-16'],
+  ['2026-1-01', '2026-10-16', '2026-10-16'], ['2025-02-29', '2026-10-16', '2026-10-16'],
+])('fails closed for invalid/stale/future/contradictory dates %#', (date, until, asOf) => {
+  expect(decisionFreshness(date, until, asOf!)).toContain('未知');
 });
-it('previews, cancels and confirms reading once, without equating confirmation to fills', () => {
-  const knowledge = vi.fn();
-  render(<DecisionHome onKnowledge={knowledge} onEvidence={vi.fn()} />);
+it('allows valid leap date and inclusive expiry boundary', () => {
+  expect(decisionFreshness('2024-02-29', '2024-03-01', '2024-03-01')).not.toContain('未知');
+});
+it('derives counts from supplied samples', () => {
+  render(<DecisionHome onKnowledge={vi.fn()} onEvidence={vi.fn()} initialSamples={[decisionSamples[0]]} />);
+  expect(screen.getByText('合成样例数').previousElementSibling?.textContent).toBe('1');
+  expect(screen.getByText('当前数据未知').previousElementSibling?.textContent).toBe('0');
+});
+it('reading, cancellation and decision confirmation are separate; confirmation is version-bound and duplicate-safe', () => {
+  vi.useFakeTimers(); vi.setSystemTime(new Date('2026-10-16T18:00:00Z'));
+  render(<DecisionHome onKnowledge={vi.fn()} onEvidence={vi.fn()} />);
   const card = within(screen.getByRole('article', { name: '合成公司 01' }));
-  fireEvent.click(card.getByText('预览确认 · SYN-01'));
-  fireEvent.click(card.getByText('取消确认'));
-  expect(card.getByText('待用户确认 · 未成交')).toBeTruthy();
-  fireEvent.click(card.getByText('预览确认 · SYN-01'));
-  fireEvent.click(card.getByText('确认已阅读'));
-  expect(card.getByText('已确认阅读 · 未成交')).toBeTruthy();
-  expect((card.getByText('预览确认 · SYN-01') as HTMLButtonElement).disabled).toBe(true);
-  fireEvent.click(card.getByText('SYN-KB-01 · 需求验证笔记'));
-  expect(knowledge).toHaveBeenCalledOnce();
+  fireEvent.click(card.getByText('预览阅读 · SYN-01')); fireEvent.click(card.getByText('取消确认'));
+  expect(card.getByText('尚未阅读此版本')).toBeTruthy();
+  fireEvent.click(card.getByText('预览阅读 · SYN-01')); fireEvent.click(card.getByText('确认已阅读'));
+  expect(card.getByText('待用户决策确认 · 未成交')).toBeTruthy();
+  fireEvent.click(card.getByText('预览决策确认 · SYN-01')); fireEvent.click(card.getByText('取消确认'));
+  expect(screen.getByText('尚无决策确认记录。')).toBeTruthy();
+  fireEvent.click(card.getByText('预览决策确认 · SYN-01')); fireEvent.click(card.getByText('本人确认此版本合成建议及条件'));
+  expect(card.getByText('v1 已由用户确认（合成）· 未成交')).toBeTruthy();
+  expect(card.getByText('2026-10-16T18:00:00.000Z')).toBeTruthy();
+  expect((card.getByText('预览决策确认 · SYN-01') as HTMLButtonElement).disabled).toBe(true);
+  expect(screen.getByRole('list', { name: '决策确认历史', hidden: true }).children).toHaveLength(1);
+  fireEvent.click(card.getByText('演练建议更新 · SYN-01'));
+  expect(card.getByText('旧版本确认已过时 · 当前版本待确认 · 未成交')).toBeTruthy();
+  expect(screen.getByText('当前版本决策确认').previousElementSibling?.textContent).toBe('0');
+  expect(screen.getByText(/SYN-01 \/ 建议v1 \/ 继续观察 · 旧版本/)).toBeTruthy();
+  fireEvent.click(card.getByText('预览决策确认 · SYN-01')); fireEvent.click(card.getByText('本人确认此版本合成建议及条件'));
+  const history = screen.getByRole('list', { name: '决策确认历史', hidden: true });
+  expect(history.children).toHaveLength(2); expect(history.textContent).toContain(decisionSamples[0].condition); expect(history.textContent).toContain(decisionSamples[0].invalidation);
+});
+it('invalidates a pending preview on suggestion update', () => {
+  render(<DecisionHome onKnowledge={vi.fn()} onEvidence={vi.fn()} />);
+  fireEvent.click(screen.getByText('预览决策确认 · SYN-01')); fireEvent.click(screen.getByText('演练建议更新 · SYN-01'));
+  expect(screen.queryByRole('region', { name: '决策确认预览' })).toBeNull(); expect(screen.getByText('尚无决策确认记录。')).toBeTruthy();
 });

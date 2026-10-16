@@ -33,7 +33,7 @@ describe('synthetic round contract and immutable snapshots', () => {
     expect(() => locked({ ...defaultRules, costBps })).toThrow();
   });
 });
-describe('point-in-time execution and exchange session counting', () => {
+describe('daily snapshot constraints and synthetic session counting (not intraday execution)', () => {
   it('counts explicit sessions, excludes weekends and synthetic holiday; entry day convention is configurable', () => {
     expect(sessions).not.toContain('2026-01-10'); expect(sessions).not.toContain('2026-01-19');
     expect(sessions[10]).toBe('2026-01-20');
@@ -65,9 +65,9 @@ describe('point-in-time execution and exchange session counting', () => {
   });
   it('records blocked maturity exits and unknown return; resolves later without backdating', () => {
     const { store, id, view } = locked(); advanceTo(store, id, 20);
-    expect(view().pendingExit).toBe(4); expect(view().netReturnPct).toBeNull(); expect(view().status).toBe('pending-exit');
+    expect(view().pendingExit).toBe(4); expect(view().finalLiquidationReturnPct).toBeNull(); expect(view().status).toBe('pending-exit');
     expect(view().positions.find(p => p.id === 'SYN-09')?.exitPrice).toBeNull();
-    advanceTo(store, id, 22); expect(view().complete).toBe(true); expect(view().netReturnPct).not.toBeNull();
+    advanceTo(store, id, 22); expect(view().complete).toBe(true); expect(view().finalLiquidationReturnPct).not.toBeNull();
     expect(view().positions.find(p => p.id === 'SYN-09')?.exitSession).toBe(sessions[22]);
     expect(view().positions.find(p => p.id === 'SYN-10')?.exitSession).toBe(sessions[20]);
     expect(() => store.advance(id, 22)).toThrow();
@@ -79,8 +79,8 @@ describe('point-in-time execution and exchange session counting', () => {
     const p = withCost.view().positions[0];
     expect(p.entryPrice).toBeCloseTo(syntheticQuote(p.id, 1)!.close);
     expect(p.finalValue).toBeCloseTo(500 / (p.entryPrice! * 1.002) * p.exitPrice! * .998);
-    expect(withCost.view().netReturnPct!).toBeLessThan(noCost.view().netReturnPct!);
-    expect(withCost.view().netReturnPct).toBeCloseTo((withCost.view().positions.reduce((sum, p) => sum + p.finalValue!, 0) / 10000 - 1) * 100);
+    expect(withCost.view().finalLiquidationReturnPct!).toBeLessThan(noCost.view().finalLiquidationReturnPct!);
+    expect(withCost.view().finalLiquidationReturnPct).toBeCloseTo((withCost.view().positions.reduce((sum, p) => sum + p.finalValue!, 0) / 10000 - 1) * 100);
   });
   it('duplicate advancing from the same cursor is idempotent and future cursor is rejected', () => {
     const { store, id, view } = locked(); store.advance(id, 0); const before = store.export(); store.advance(id, 0);
@@ -118,5 +118,46 @@ describe('strict backup replay and separation', () => {
     const fetch = vi.fn(() => { throw Error('network prohibited'); }); vi.stubGlobal('fetch', fetch);
     const { store } = locked(); expect(() => store.import('x'.repeat(1000001))).toThrow(); expect(() => store.import('not json')).toThrow();
     expect(fetch).not.toHaveBeenCalled(); vi.unstubAllGlobals();
+  });
+});
+
+describe('audit remediation: global import invariant and daily model limits', () => {
+  it('rejects two imported drafts into an empty store atomically, including preview', () => {
+    const source = createSimulation(); source.create(); const raw = JSON.parse(source.export());
+    raw.rounds.push({ ...raw.rounds[0], id: 'SYN-ROUND-002' });
+    const target = createSimulation(), before = target.export();
+    expect(() => target.previewImport(JSON.stringify(raw))).toThrow('最多一个未完成');
+    expect(() => target.import(JSON.stringify(raw))).toThrow('最多一个未完成');
+    expect(target.export()).toBe(before);
+  });
+  it.each(['draft', 'locked', 'pending-exit'])('rejects another active round alongside existing %s, with no partial skipped-round import', status => {
+    const target = createSimulation(), round = target.create();
+    if (status !== 'draft') target.lock(round.id, ids, defaultRules);
+    if (status === 'pending-exit') advanceTo(target, round.id, 20);
+    const source = createSimulation(); source.create(); const raw = JSON.parse(source.export());
+    raw.rounds[0].id = 'SYN-ROUND-002'; raw.rounds.unshift({ ...raw.rounds[0], id: 'SYN-ROUND-003', events: [{ type: 'skip', reason: 'no-opportunity' }] });
+    const before = target.export(); expect(() => target.import(JSON.stringify(raw))).toThrow('最多一个未完成'); expect(target.export()).toBe(before);
+  });
+  it('rechecks global invariant on commit after a successful preview becomes stale', () => {
+    const source = createSimulation(); source.create(); const raw = JSON.parse(source.export()); raw.rounds[0].id = 'SYN-ROUND-002';
+    const target = createSimulation(), text = JSON.stringify(raw); expect(target.previewImport(text).additions).toBe(1);
+    target.create(); const before = target.export(); expect(() => target.import(text)).toThrow(); expect(target.export()).toBe(before);
+  });
+  it('permits terminal history plus one active round and duplicate imports', () => {
+    const source = createSimulation(); const first = source.create(); source.skip(first.id); source.create();
+    const target = createSimulation(); expect(target.import(source.export())).toBe(2); expect(target.import(source.export())).toBe(0);
+  });
+  it('distinguishes planned day20 from final liquidation on day22 without inventing a day20 return', () => {
+    const { store, id, view } = locked(); advanceTo(store, id, 20);
+    const day20 = store.list()[0]; expect(view().finalLiquidationReturnPct).toBeNull(); expect(view().finalExitSession).toBeNull(); expect(view().delaySessions).toBe(0);
+    advanceTo(store, id, 22); expect(view().plannedExitSession).toBe(sessions[20]); expect(view().finalExitSession).toBe(sessions[22]); expect(view().delaySessions).toBe(2);
+    expect(projectRound(day20).finalLiquidationReturnPct).toBeNull();
+  });
+  it('daily gate rejects same-day morning and only accepts daily bar at16:00; acceptance is not opening execution evidence', () => {
+    const quote = syntheticQuote('SYN-01', 1)!;
+    expect(fillBlock(quote, quote.id, quote.session, `${quote.session}T09:30:00Z`)).toBeTruthy();
+    expect(fillBlock(quote, quote.id, quote.session, `${quote.session}T15:59:59Z`)).toBeTruthy();
+    expect(fillBlock(quote, quote.id, quote.session, `${quote.session}T16:00:00Z`)).toBeNull();
+    expect(fillBlock({ ...quote, close: NaN }, quote.id, quote.session, `${quote.session}T16:00:00Z`)).toBeTruthy();
   });
 });

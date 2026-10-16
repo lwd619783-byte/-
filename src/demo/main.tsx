@@ -17,8 +17,8 @@ function Demo({ runtime }: { runtime: Awaited<ReturnType<typeof createDemoRuntim
     <header className="mb-5 space-y-3">
       <p className="text-xs font-semibold text-warning">SYNTHETIC ONLY · 纯合成演示 · 未部署候选</p>
       <h1 className="text-2xl font-semibold">投研 OS · 决策工作台</h1>
-      <p className="text-sm">全部为合成样例。建议需本人复核，确认不代表成交；不构成真实投资判断。</p>
-      <p className="text-sm text-textMuted">仅本页内存，刷新重置；请导出合成备份。正式模式保留原入口。</p>
+      <p className="text-sm">仅demo原型，尚未接入或迁移正式App。全部为合成样例；用户确认不代表成交或真实投资决定。</p>
+      <p className="text-sm text-textMuted">仅本页内存，刷新重置。超跌备份仅含超跌轮次；Thesis/Expression各自导出。首页阅读、决策确认和建议版本未提供导出。Notion仅为合成索引占位，尚未接入。</p>
       <nav aria-label="合成演示导航" className="flex flex-wrap gap-2">
         <button className="inbox-action" aria-pressed={tab === 'home'} onClick={() => setTab('home')}>决策首页</button>
         <button className="inbox-action" aria-pressed={tab === 'knowledge'} onClick={() => setTab('knowledge')}>知识库索引</button>

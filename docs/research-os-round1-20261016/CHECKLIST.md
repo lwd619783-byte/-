@@ -1,5 +1,7 @@
 # 第一轮完整性清单（父端独立审计入口）
 
+> CURRENT：父端独立只读审计提出5项返修，现由 [R1修复对照](remediation-r1/README.md) supersede 本文旧能力与前视表述。下文保留上一阶段实施方结果；不能视为父端测试重跑或本次新HEAD验收。日级快照模型不证明开盘成交，也不保证无前视；收益口径是最终清算。
+
 固定代码 SHA：`d2f3eebcb6ae55be62b966720a56a871bc4e8d39`。基线为指定 PR86 HEAD `f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce`，依赖 PR86，不能以 main 代替。
 
 状态：IMPLEMENTED / VERIFIED LOCALLY / PARENT AUDIT PENDING。没有 PR、合并、部署或真实交易；5 high 继续阻断发布。
