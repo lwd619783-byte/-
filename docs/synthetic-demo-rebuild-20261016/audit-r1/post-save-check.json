@@ -1,0 +1,32 @@
+{
+  "scope": "Evidence save verification only; no application changes",
+  "recordedAt": "2026-10-16T13:49:32.230605+00:00",
+  "testedImplementationSha": "29b4c3261be94adbf43eb3bd6c0bf5f66e376fbc",
+  "evidenceCommitPushedAndRemoteReadBack": "db9f0048f05df3f056b941b8f8fc468c89c750b7",
+  "mainReadBack": "dbb58bc0b17a17f3568c72cacab89161d8d71b5f",
+  "failedExtraDiffScan": {
+    "command": [
+      "git",
+      "diff",
+      "--cached",
+      "--no-ext-diff",
+      "--text"
+    ],
+    "pythonExitCode": 1,
+    "error": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0x89: invalid start byte",
+    "cause": "The extra staged-diff script forced binary PNGs into text output and then decoded the diff as UTF-8.",
+    "effect": "No secret-pattern result was produced by this extra script. The shell lacked fail-fast handling and continued to commit/push the evidence. This is recorded as a workflow failure, not a passed check.",
+    "priorChecks": "Before commit, all seven evidence JSON files passed restricted-literal and secret-pattern scans, all eight PNGs were visually inspected, all 15 manifest entries were hash-verified, and the docs/evidence-only file scope was inspected."
+  },
+  "correctedCheck": {
+    "command": "Python enumerated git diff HEAD^ HEAD --name-only, excluded .png, read git diff HEAD^ HEAD --no-ext-diff -- <nine text paths>, and scanned added lines; asserted 17 allowed docs/evidence files and no implementation delta from 29b4c32.",
+    "exitCode": 0,
+    "files": 17,
+    "textFilesScanned": 9,
+    "pngFilesPreviouslyVisuallyInspected": 8,
+    "secretPatternMatches": 0,
+    "implementationUnchanged": true,
+    "stdout": "PASS: 17 evidence/handoff files only, 9 text files scanned, 8 previously visually inspected PNGs, secret-pattern matches 0, implementation unchanged"
+  },
+  "limitations": "Raw tool console output for this extra failure is in the task conversation; this structured error/result receipt is the durable copy. No PR, merge or deployment was invoked."
+}

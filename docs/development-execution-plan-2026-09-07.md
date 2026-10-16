@@ -15,6 +15,7 @@
 - 本次实际代码 diff（相对 dd4cef9）：`.github/workflows/ci.yml`、`package.json`、`scripts/demo-browser-check.mjs`、新增 `scripts/demo-navigation-scenarios.mjs`、新增 `src/components/common/ResearchLink.tsx` 与 `.test.tsx`、`src/components/research/{ThesisWorkspacePanel,ClaimVerificationModal}.tsx`、`src/components/charts/ChartAuditPanel.tsx`、`src/demo/main.tsx`；另更新本交接与新增上述精简证据。`contracts/`、`src/data/` 相对基线零改动。
 - 完整原始命令日志仅保留在本容器 `/tmp/os-r1`，**未持久交付**；Git 中提供退出码/摘要/hash，hash 不等于完整日志。基线及预提交截图未复制；最终 8 张合成截图已交付。没有上传正式构建产物、真实研究、账本、旧证据包或凭据。工程流程 Space 页面此前工具不可读，采用任务约定和仓库合同。
 - **发布仍阻断**：完整 `npm audit --json` 实际 exit **1**、**5 high**，braces 无补丁依赖链未消除。Hosted CI / Sites / Preview / Production 均 NOT_RUN；不重试 Forbidden 部署查询，不推断远端部署状态。下一步仅父任务按固定 SHA 独立审计；本任务不建 PR、不 merge、不部署。
+- 精简证据已 push / 回读 [`db9f0048f05df3f056b941b8f8fc468c89c750b7`](https://github.com/lwd619783-byte/-/commit/db9f0048f05df3f056b941b8f8fc468c89c750b7)，main 仍为 dbb58bc。保存时额外 staged-diff 扫描强制将 PNG 当文本，UTF-8 解码失败；shell 未启用 fail-fast，仍执行了 commit/push。此前证据 JSON 敏感扫描、八张截图逐张检查和 hash 核验均已通过；随后按九个文本文件重扫通过，17 个文件均为交接/证据、实现零变化。此次流程失败与复核结果完整记入 [post-save-check.json](synthetic-demo-rebuild-20261016/audit-r1/post-save-check.json)，不将失败扫描计为通过；本补记也仅改证据/交接。
 
 
 - 基线：`dbb58bc0b17a17f3568c72cacab89161d8d71b5f`；开工时远端 main 一致，工作区干净，最新已核 PR #85。分支：`codex/synthetic-demo-rebuild-20261016`。旧容器未推送补丁不恢复，旧测试不计入本轮。
