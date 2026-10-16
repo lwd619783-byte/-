@@ -60,7 +60,7 @@ try {
       const file = `${width}-${name}.png`;
       await page.screenshot({ path: path.join(output, file), fullPage: true }); report.screenshots.push(file);
     };
-    const choose = async kind => { await page.getByRole('button', { name: `${kind} 演练`, exact: true }).click(); };
+    const choose = async kind => { await page.getByText('二级入口 · 证据链演练', { exact: true }).click(); await page.getByRole('button', { name: `${kind} 演练`, exact: true }).click(); };
     const exported = async kind => {
       const pending = page.waitForEvent('download');
       await page.getByRole('button', { name: `导出 ${kind} JSON 备份`, exact: true }).click();

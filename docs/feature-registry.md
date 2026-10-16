@@ -1,6 +1,6 @@
 # 投资研究看板 Feature Registry
 
-> 2026-10-16 第一轮改造候选：决策优先首页与独立超跌模拟，限合成 demo；IMPLEMENTING，正式系统 NOT_ADMITTED。依赖未合并 PR86，5 high 仍阻断发布。见 [范围与验证](research-os-round1-20261016/README.md)。
+> 2026-10-16 第一轮改造候选：决策优先首页与独立超跌模拟，限合成 demo；IMPLEMENTED / TARGETED TESTS PASS / 待完整验证与独立审计，正式系统 NOT_ADMITTED。依赖未合并 PR86，5 high 仍阻断发布。见 [范围与验证](research-os-round1-20261016/README.md)。
 
 
 > 2026-09-27 CURRENT · **Daily Review 独立审计整改 P1-A / P1-B / P2**：共享确定性 context、精确 derived 引用检查、OAuth 文案隔离；默认 unit 命令及 pool 未改；实查 Vitest 2.1.9 默认已是 forks，纠正旧报告的 threads 归因。真实 ChatGPT 本轮 NOT_RUN，Production NOT_MODIFIED。[整改验证与停止点](daily-review-remediation-v1.md)。

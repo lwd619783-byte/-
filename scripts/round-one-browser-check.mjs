@@ -1,0 +1,130 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { createServer } from 'node:http';
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+const { chromium } = createRequire(import.meta.url)(process.env.UI_REVIEW_PLAYWRIGHT_MODULE || 'playwright');
+const output = process.env.ROUND_ONE_BROWSER_OUTPUT || 'data-cache/round-one-browser';
+await mkdir(output, { recursive: true });
+const inventory = JSON.parse(await readFile('dist-demo/demo-asset-inventory.json', 'utf8'));
+const allowed = new Map(inventory.assets.map(a => ['/' + a.file, a]));
+const server = createServer(async (request, response) => {
+  const file = new URL(request.url, 'http://localhost').pathname;
+  const asset = file === '/' ? '/index.html' : file;
+  if (!allowed.has(asset)) return response.writeHead(404).end();
+  const bytes = await readFile(path.join('dist-demo', asset.slice(1)));
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), allowed.get(asset).sha256);
+  response.setHeader('Content-Type', asset.endsWith('.html') ? 'text/html; charset=utf-8' : asset.endsWith('.js') ? 'text/javascript' : asset.endsWith('.css') ? 'text/css' : 'application/json'); response.end(bytes);
+});
+await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+const origin = `http://127.0.0.1:${server.address().port}`;
+const report = { testedSha: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), worktree: execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).trim(), scope: 'synthetic-only', checks: [], pageErrors: [], consoleErrors: [], unexpectedRequests: [], popups: [], screenshots: [], assets: inventory.assets };
+const check = (condition, name) => { report.checks.push({ name, ok: !!condition }); assert(condition, name); };
+let browser;
+try {
+  browser = await chromium.launch({ headless: true, executablePath: process.env.DEMO_BROWSER_EXECUTABLE || '/usr/bin/chromium' });
+  report.browser = browser.version();
+  for (const width of [320, 390, 1536]) {
+    const context = await browser.newContext({ viewport: { width, height: 960 }, acceptDownloads: true, reducedMotion: 'reduce' });
+    await context.addInitScript(() => localStorage.setItem('formal-storage-sentinel', 'SYNTHETIC_SENTINEL'));
+    await context.route('**/*', route => {
+      const url = new URL(route.request().url());
+      if (url.origin !== origin || !(url.pathname === '/' || allowed.has(url.pathname))) { report.unexpectedRequests.push({ width, target: url.origin === origin ? url.pathname : 'external' }); return route.abort(); }
+      return route.continue();
+    });
+    const page = await context.newPage();
+    context.on('page', popup => { report.popups.push(width); void popup.close(); });
+    page.on('pageerror', error => report.pageErrors.push(error.message));
+    page.on('console', message => { if (message.type() === 'error') report.consoleErrors.push(message.text()); });
+    const overflow = async name => {
+      const dimensions = await page.evaluate(() => ({ width: innerWidth, document: document.documentElement.scrollWidth, panels: [...document.querySelectorAll('.round-one, .os-card, .os-preview')].filter(el => el.getBoundingClientRect().width > 0).map(el => ({ width: el.clientWidth, scroll: el.scrollWidth })) }));
+      check(dimensions.document <= dimensions.width + 1 && dimensions.panels.every(p => p.scroll <= p.width + 1), `${width} ${name}: no overflow`);
+    };
+    const shot = async name => { const file = `${width}-${name}.png`; await page.screenshot({ path: path.join(output, file), fullPage: true }); report.screenshots.push(file); };
+    const chooseSimulation = () => page.getByRole('button', { name: '超跌模拟', exact: true }).click();
+    const exportBackup = async () => {
+      const pending = page.waitForEvent('download'); await page.getByRole('button', { name: '导出超跌 JSON', exact: true }).click();
+      return JSON.parse(await readFile(await (await pending).path(), 'utf8'));
+    };
+    await page.goto(origin);
+    check(await page.getByRole('region', { name: '决策首页' }).isVisible(), `${width} decision home is default`);
+    check(await page.getByText('未知 · 数据已过期', { exact: true }).isVisible(), `${width} stale is unknown`);
+    check(await page.getByRole('article', { name: '合成公司 03' }).getByText(/未知 · 尚无数据/).isVisible(), `${width} missing is unknown`);
+    await overflow('home');
+    const contrast = await page.getByRole('article', { name: '合成公司 01' }).evaluate(el => {
+      const style = getComputedStyle(el);
+      const luminance = color => { const values = color.match(/\d+/g).slice(0, 3).map(Number).map(v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }); return values[0] * .2126 + values[1] * .7152 + values[2] * .0722; };
+      const a = luminance(style.color), b = luminance(style.backgroundColor); return (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+    });
+    check(contrast >= 4.5, `${width} card text contrast at least 4.5`); await shot('home');
+    await page.getByRole('button', { name: '预览确认 · SYN-01', exact: true }).click();
+    await page.getByRole('button', { name: '取消确认', exact: true }).click();
+    check(await page.getByText('待用户确认 · 未成交', { exact: true }).count() === 3, `${width} cancel reading preserves state`);
+    await page.getByRole('button', { name: '预览确认 · SYN-01', exact: true }).click(); await page.getByRole('button', { name: '确认已阅读', exact: true }).click();
+    check(await page.getByText('已确认阅读 · 未成交', { exact: true }).isVisible(), `${width} user reading separate from fills`);
+    await page.getByRole('button', { name: 'SYN-KB-01 · 需求验证笔记', exact: true }).click();
+    check(await page.getByRole('region', { name: '合成知识库索引' }).isVisible(), `${width} knowledge index`); await overflow('knowledge');
+    if (width === 1536) await shot('knowledge');
+    await chooseSimulation(); await page.getByRole('button', { name: '新建合成轮次', exact: true }).click();
+    await page.getByRole('button', { name: '没有机会 · 跳过本轮', exact: true }).click(); await page.getByRole('button', { name: '取消本轮操作', exact: true }).click();
+    check(await page.getByText('用户筛选 · 已选 0 / 20', { exact: true }).isVisible(), `${width} skip cancellation`);
+    for (let i = 1; i <= 19; i++) await page.getByRole('checkbox', { name: `选择 SYN-${String(i).padStart(2, '0')}`, exact: true }).check();
+    await page.getByLabel('我确认本轮合成参数；不表示真实交易口径已获批准', { exact: true }).check();
+    check(await page.getByRole('button', { name: '预览锁定20只', exact: true }).isDisabled(), `${width} nineteen cannot lock`);
+    await page.getByRole('checkbox', { name: '选择 SYN-20', exact: true }).check();
+    await page.getByRole('checkbox', { name: '选择 SYN-21', exact: true }).check();
+    check(await page.getByRole('button', { name: '预览锁定20只', exact: true }).isDisabled(), `${width} twenty one cannot lock`);
+    await page.getByRole('checkbox', { name: '选择 SYN-21', exact: true }).uncheck();
+    await overflow('selection'); if (width === 320) await shot('selection');
+    await page.getByRole('button', { name: '预览锁定20只', exact: true }).click(); await overflow('lock preview');
+    if (width === 320) await shot('lock-preview');
+    await page.getByRole('button', { name: '取消本轮操作', exact: true }).click();
+    check((await exportBackup()).rounds[0].events.length === 0, `${width} lock cancel writes no event`);
+    await page.getByRole('button', { name: '预览锁定20只', exact: true }).click(); await page.getByRole('button', { name: '确认本轮', exact: true }).click();
+    check(await page.getByRole('checkbox', { name: /选择 SYN/ }).count() === 0, `${width} locked selection cannot edit`);
+    const advance = page.getByRole('button', { name: '推进下一合成交易日', exact: true });
+    await advance.click();
+    check(await page.getByRole('list', { name: '模拟持仓状态' }).getByText(/· 未成交$/).count() === 5, `${width} invalid quotes no fills`);
+    for (let i = 1; i < 20; i++) await advance.click();
+    check(await page.getByRole('list', { name: '模拟持仓状态' }).getByText(/· 待退出$/).count() === 4, `${width} blocked maturity exits pending`);
+    await overflow('pending exits'); if (width === 320) await shot('pending-exits');
+    const backup = await exportBackup();
+    check(backup.rounds[0].events[0].allocation.length === 20 && backup.rounds[0].events[0].allocation.reduce((sum, a) => sum + a.weightBps, 0) === 10000, `${width} export twenty unique and total100`);
+    check(new Set(backup.rounds[0].events[0].allocation.map(a => a.id)).size === 20, `${width} export unique IDs`);
+    await advance.click(); await advance.click(); check(await advance.isDisabled(), `${width} complete cannot advance`);
+    check(await page.getByRole('list', { name: '模拟持仓状态' }).getByText(/· 待退出$/).count() === 0, `${width} later exits resolve without replacements`);
+    await overflow('complete'); if (width === 1536) await shot('complete');
+    await page.reload(); await chooseSimulation();
+    await page.getByText('导入合成轮次备份', { exact: true }).click();
+    const input = page.getByLabel('合成备份 JSON', { exact: true });
+    await input.fill(JSON.stringify({ ...backup, scope: 'formal' })); await page.getByRole('button', { name: '预览导入超跌', exact: true }).click();
+    check(await page.getByRole('button', { name: '确认导入超跌', exact: true }).count() === 0, `${width} formal scope rejected`);
+    await input.fill(JSON.stringify(backup)); await page.getByRole('button', { name: '预览导入超跌', exact: true }).click();
+    await overflow('import preview'); if (width === 320) await shot('import-preview');
+    check((await exportBackup()).rounds.length === 0, `${width} import preview no writes`);
+    await page.getByRole('button', { name: '取消导入超跌', exact: true }).click(); check((await exportBackup()).rounds.length === 0, `${width} import cancellation no writes`);
+    await page.getByRole('button', { name: '预览导入超跌', exact: true }).click(); await page.getByRole('button', { name: '确认导入超跌', exact: true }).click();
+    check(JSON.stringify(await exportBackup()) === JSON.stringify(backup), `${width} cross reload exact roundtrip`);
+    await page.getByRole('button', { name: '预览导入超跌', exact: true }).click(); await page.getByRole('button', { name: '确认导入超跌', exact: true }).click();
+    check((await exportBackup()).rounds.length === 1, `${width} duplicate import no duplicate`);
+    const conflict = structuredClone(backup); conflict.rounds[0].events[0].rules.costBps++;
+    await input.fill(JSON.stringify(conflict)); await page.getByRole('button', { name: '预览导入超跌', exact: true }).click();
+    check(await page.getByRole('button', { name: '确认导入超跌', exact: true }).count() === 0, `${width} locked conflict rejected`);
+    check(JSON.stringify(await exportBackup()) === JSON.stringify(backup), `${width} conflict preserves existing history`);
+    check(await page.evaluate(() => localStorage.length === 1 && localStorage.getItem('formal-storage-sentinel') === 'SYNTHETIC_SENTINEL'), `${width} formal storage unchanged`);
+    await page.reload(); await chooseSimulation(); await page.getByRole('button', { name: '新建合成轮次', exact: true }).click();
+    await page.getByRole('button', { name: '没有机会 · 跳过本轮', exact: true }).click(); await page.getByRole('button', { name: '确认本轮', exact: true }).click();
+    const skipped = await exportBackup(); check(skipped.rounds[0].candidates.length === 24 && skipped.rounds[0].events[0].type === 'skip', `${width} no opportunity retains pool without holdings`);
+    await context.close();
+  }
+  check(report.pageErrors.length === 0, 'zero page errors'); check(report.consoleErrors.length === 0, 'zero console errors');
+  check(report.unexpectedRequests.length === 0, 'zero unexpected requests'); check(report.popups.length === 0, 'zero popups');
+  report.status = 'passed';
+} catch (error) { report.status = 'failed'; report.error = String(error); process.exitCode = 1; }
+finally {
+  await browser?.close(); await new Promise(resolve => server.close(resolve));
+  await writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2) + '\n');
+}
+console.log(JSON.stringify({ status: report.status, checks: report.checks.length, error: report.error, output }));
