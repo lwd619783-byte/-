@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> 2026-10-16 第一轮最终交付：固定实现 `d2f3eebcb6ae55be62b966720a56a871bc4e8d39`（明确依赖PR86 HEAD f64b64a），新分支 `feat/research-os-round1-no-deploy`；120文件/1569测试，正式/demo构建、合同、隔离检查，新106/旧102浏览器检查通过。13条固定SHA命令退出码/完整日志、17合成截图与失败重试均保留。完整audit exit1仍5 high，发布阻断；仅合成演示、正式系统NOT_ADMITTED。未PR/merge/deploy，停止待父端独立审计。[完整性清单与证据](research-os-round1-20261016/CHECKLIST.md)。
+
 > 2026-10-16 第一轮改造候选：决策优先首页与独立超跌模拟，限合成 demo；IMPLEMENTED / TARGETED TESTS PASS / 待完整验证与独立审计，正式系统 NOT_ADMITTED。依赖未合并 PR86，5 high 仍阻断发布。见 [范围与验证](research-os-round1-20261016/README.md)。
 
 

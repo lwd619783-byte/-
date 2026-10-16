@@ -1,0 +1,27 @@
+{
+  "label": "integrated-demo-build-retry",
+  "command": [
+    "npm",
+    "run",
+    "build:demo"
+  ],
+  "sha": "087ccccc469869c8e2bdbf8cf48ed136af8aba11",
+  "worktree": [
+    "M docs/architecture.md",
+    " M docs/feature-registry.md",
+    " M docs/research-os-round1-20261016/README.md",
+    " M package.json",
+    " M scripts/demo-browser-check.mjs",
+    " M src/demo/main.tsx",
+    "?? scripts/round-one-browser-check.mjs",
+    "?? scripts/round-one-record.mjs",
+    "?? src/demo/round-one/"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:36:31.175Z",
+  "endedAt": "2026-10-16T16:36:48.293Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "integrated-demo-build-retry.log",
+  "logSha256": "8c3ba788084e1e1a9e5322b16265a5e8ccbd2a1b9a738b48bc7855ed6d374ce1"
+}

@@ -1,0 +1,22 @@
+{
+  "label": "delivery-public-scan",
+  "command": [
+    "node",
+    "docs/research-os-round1-20261016/evidence/public-content-scan.mjs"
+  ],
+  "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+  "worktree": [
+    "M docs/development-execution-plan-2026-09-07.md",
+    " M docs/feature-registry.md",
+    " M docs/research-os-round1-20261016/README.md",
+    "?? docs/research-os-round1-20261016/CHECKLIST.md",
+    "?? docs/research-os-round1-20261016/evidence/"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:48:14.468Z",
+  "endedAt": "2026-10-16T16:48:14.906Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "delivery-public-scan.log",
+  "logSha256": "c9c4e4f37342627a895df3607871acd57624963b0f9a6968ba8c897c8e6cffd1"
+}

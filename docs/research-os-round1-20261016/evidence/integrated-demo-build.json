@@ -1,0 +1,24 @@
+{
+  "label": "integrated-demo-build",
+  "command": [
+    "npm",
+    "run",
+    "build:demo"
+  ],
+  "sha": "087ccccc469869c8e2bdbf8cf48ed136af8aba11",
+  "worktree": [
+    "M package.json",
+    " M scripts/demo-browser-check.mjs",
+    " M src/demo/main.tsx",
+    "?? scripts/round-one-browser-check.mjs",
+    "?? scripts/round-one-record.mjs",
+    "?? src/demo/round-one/"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:35:47.317Z",
+  "endedAt": "2026-10-16T16:35:59.925Z",
+  "exitCode": 1,
+  "signal": null,
+  "log": "integrated-demo-build.log",
+  "logSha256": "32d9ee7de6318f16d3abef0e5a679bab74775e98d0d5298cffae5412e8c91469"
+}

@@ -1,0 +1,49 @@
+{
+  "testedSha": "087ccccc469869c8e2bdbf8cf48ed136af8aba11",
+  "worktree": "M docs/architecture.md\n M docs/feature-registry.md\n M docs/research-os-round1-20261016/README.md\n M package.json\n M scripts/demo-browser-check.mjs\n M src/demo/main.tsx\n?? scripts/round-one-browser-check.mjs\n?? scripts/round-one-record.mjs\n?? src/demo/round-one/",
+  "scope": "synthetic-only",
+  "checks": [
+    {
+      "name": "320 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "320 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "320 missing is unknown",
+      "ok": false
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "unexpectedRequests": [],
+  "popups": [],
+  "screenshots": [],
+  "assets": [
+    {
+      "file": "assets/index-DhgZahWI.js",
+      "bytes": 561881,
+      "sha256": "13f4e984a2dfdea0091da909076c1215c43cd98954471ab4183f594035bd001b"
+    },
+    {
+      "file": "assets/index-an67JuBx.css",
+      "bytes": 54225,
+      "sha256": "bc4c6a51ee7dc6a6576855fd389eda0407fcb4169644f4fad6f055b15999d84d"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 101259,
+      "sha256": "04d17067571f66a3fe11023266d6af114729c475e3b2d4d170edfcc7afd88f07"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "66375905934abe5c5775af2b96d6f2fb4174cbc25b2cc30dd68a70a5f4261e13"
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "status": "failed",
+  "error": "AssertionError [ERR_ASSERTION]: 320 missing is unknown"
+}

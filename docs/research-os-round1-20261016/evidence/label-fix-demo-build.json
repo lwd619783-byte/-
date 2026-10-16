@@ -1,0 +1,28 @@
+{
+  "label": "label-fix-demo-build",
+  "command": [
+    "npm",
+    "run",
+    "build:demo"
+  ],
+  "sha": "087ccccc469869c8e2bdbf8cf48ed136af8aba11",
+  "worktree": [
+    "M docs/architecture.md",
+    " M docs/feature-registry.md",
+    " M docs/research-os-round1-20261016/README.md",
+    " M package.json",
+    " M scripts/demo-browser-check.mjs",
+    " M scripts/demo-navigation-scenarios.mjs",
+    " M src/demo/main.tsx",
+    "?? scripts/round-one-browser-check.mjs",
+    "?? scripts/round-one-record.mjs",
+    "?? src/demo/round-one/"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:38:48.222Z",
+  "endedAt": "2026-10-16T16:39:04.058Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "label-fix-demo-build.log",
+  "logSha256": "cd5d88ad48b188925be2e9d8953c095ad1c2afe464c1bea853d2a8a290468513"
+}

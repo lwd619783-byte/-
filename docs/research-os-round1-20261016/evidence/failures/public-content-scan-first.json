@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "/tmp/round-one-public-scan.mjs"
+  ],
+  "exitCode": 1,
+  "source": "observed tool execution output; no raw log was written for this first scan",
+  "failure": "unexpected URL host in evidence",
+  "inspection": "Only unexpected host was rollupjs.org, the public manualChunks documentation link in Vite build warnings. No private URL was found.",
+  "correction": "Add only rollupjs.org to the explicit public URL host allowlist; persist corrected scanner and rerun."
+}

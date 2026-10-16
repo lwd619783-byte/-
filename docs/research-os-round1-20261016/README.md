@@ -26,3 +26,15 @@
 - GitHub PR状态只读 GraphQL 查询 Forbidden，未重试；PR未合并是本任务给定依赖，远端部署状态未核验。原环境启动后始终可执行本轮命令，中途收到环境断开提示后实际回读分支与测试成功，无需新环境。
 - 集成预验收：`test:demo` 2 Node / 46 Vitest PASS；`build:demo` PASS；新浏览器106 checks PASS（320/390/1536px），旧证据链102 checks PASS（其最终固定SHA重跑在后）。新界面确认/取消、19/21只阻断、20只锁定、到期待退出、导入导出/冲突/重复/取消/无机会、零外联与正式存储隔离均覆盖。已查看首页宽窄屏与锁定预览；最终截图另按固定SHA重录。
 - 预验收失败保留：测试 `it.each` 的数组参数展开导致 TypeScript 编译失败，改成对象用例后重跑33测试及构建通过；浏览器首次缺失文本定位失败、旧脚本刷新后仍假定默认Thesis导致超时；新导入 textarea 嵌套label的值污染精确名称导致二次超时，现补稳定 aria-label。随后新106/旧102通过。截图发现新卡片初版配色与现行浅色主题冲突，改复用 `--ui-*` token，并增加卡片文本4.5对比度检查，服务说明移到页尾。失败报告与重跑不混算。
+
+## 固定 SHA 最终验收与交付
+
+- 实现提交 `d2f3eebcb6ae55be62b966720a56a871bc4e8d39` 已推送、远端回读一致；后续提交仅补本轮证据和交接，不改已验证代码。
+- 在该SHA干净工作区启动13条最终验收命令：安装、全量120文件/1569测试、demo 2 Node/46 Vitest、合同校验/106+78 Node/162 Vitest、discovery、正式build、demo build、UI audit、完整性检查、新浏览器106/旧浏览器102均通过。完整npm audit exit1仍5 high，为发布阻断；所有命令及完整日志均持久交付。
+- Chromium154三种宽度（320/390/1536），新旧两组均0页面错误/0意外console错误/0意外请求/0弹窗；17张纯合成最终截图已逐张查看。demo图1628模块，7类受限源455长字面值0命中；23个正式JS/HTML文件不含新模拟标记。
+- 入口：[完整性清单](CHECKLIST.md)、[机器验收回执](evidence/verification.json)、[新浏览器报告](evidence/browser/report.json)、[旧链报告](evidence/legacy-browser/report.json)、[资产清单](evidence/demo-asset-inventory.json)、[证据hash清单](evidence/evidence-manifest.json)。预提交失败报告及完整失败/重试命令日志同在evidence，不能混为最终干净SHA验收。
+- Node24.19.0/npm11.9.0；未执行Hosted CI或Node22 CI。全量测试有2条jsdom scrollTo未实现stderr，测试仍exit0；旧npm deprecation/devdir、Vite chunk-size与正式静/动态导入警告保留。UI audit只改生成时间，已保留patch并恢复该生成报告。
+- 首页阅读确认只保留本页会话；超跌备份不包含首页阅读标记。所有备份是有限合成演练数据，不是签名的真实时点操作证据。真实行情/账户/研究未接入，参数及交易日历非真实交易口径，策略有效性未验证。
+- IMPLEMENTED / VERIFIED LOCALLY / PARENT AUDIT PENDING；未创建PR、未merge、未部署、未真实交易。5 high继续阻断发布。完成后交父端独立审计修复，再处理草稿PR。
+- 保存证据时首轮文本扫描因允许列表未列 Vite 日志的公开 `rollupjs.org` 文档域而 exit1。核查只有该公共域，未发现私有链接；仅追加该域后扫描通过。初次失败记录、可复现扫描脚本及成功回执均保留；扫描覆盖455受限长字面值/秘密模式/链接域，PNG另以17张逐张目视核验。
+- 交付前只读远端复核：原PR86分支仍 `f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce`，main仍 `dbb58bc0b17a17f3568c72cacab89161d8d71b5f`，本分支实现为 `d2f3eebcb6ae55be62b966720a56a871bc4e8d39`；没有覆盖原分支或将PR86假定为已合并。

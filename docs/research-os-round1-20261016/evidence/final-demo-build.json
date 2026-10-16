@@ -1,0 +1,17 @@
+{
+  "label": "final-demo-build",
+  "command": [
+    "npm",
+    "run",
+    "build:demo"
+  ],
+  "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:42:57.021Z",
+  "endedAt": "2026-10-16T16:43:13.568Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "final-demo-build.log",
+  "logSha256": "b9c5ba2d4563f3f5a19fb039814cc1b6c37d4b6e53202515b4696c60ac520199"
+}
