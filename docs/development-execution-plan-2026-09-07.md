@@ -20,6 +20,8 @@
 
 ### 阶段 2：纯合成候选与窄屏修复（IMPLEMENTED / VERIFIED LOCALLY）
 
+- 阶段 2 已普通推送并回读一致：[`566689157c0c5a7da5e1c2be10d43eba470eebff`](https://github.com/lwd619783-byte/-/commit/566689157c0c5a7da5e1c2be10d43eba470eebff)。父任务代码审计范围：[基线至成果真实 diff](https://github.com/lwd619783-byte/-/compare/dbb58bc0b17a17f3568c72cacab89161d8d71b5f...566689157c0c5a7da5e1c2be10d43eba470eebff)。本后续提交仅补交接，不改变已验证实现。
+
 - 入口：`npm run build:demo` → `dist-demo/`；`npm run preview:demo` 仅本地预览。原 `npm run build` / 本地正式入口不变。演示只覆盖 Thesis / Expression / 原始证据链，不声称完整 Sites 迁移；Sites 托管、PR CI、Preview 和 Production 均 NOT_RUN。
 - `vite.demo.config.mjs` 独立 HTML root，`publicDir:false`、不加载 env、不安装 SQLite/Portfolio/OS Domain 中间件；所有正式 `src/data/**`、`research-data/**`、public、server、api、Local Core 和正式 App 入口禁止进入完整依赖图（含 lazy / tree-shaken 模块）。四种真实负向构建测试通过。
 - 复用原面板与 schema/来源/revision/确认/追加导入逻辑；仅拆分纯 Thesis 面板和纯图表证据抽屉，避免 provider 被传递引入。Thesis 面板主体与基线逐字比对相同，仅增加 scoped CSS class。`src/demo/fixture.json` 是原合成合同 fixture 经原 Claim review / Thesis confirmation 服务生成的固定合成快照；固定 exact pins 支持刷新后导入。无 mock 填充真实模式。
@@ -32,6 +34,40 @@
 - 产物全图检查 **1613 modules**；七类受限源文件原件保持未改。仅本地比较 `src/data/{industries.ts,industryChainResearch.ts,stocks.ts,unitreeHistoricalResearch.ts,privateCompanies.ts,real/research.generated.json,real/signals.generated.json}` 的 **455 条长度至少 32 字符的字面值**，0 命中；秘密模式 0 命中。结合全图禁入与 `publicDir:false`，检查不只依赖文本匹配。报告不包含受限原文。
 - 原始日志 `/tmp/os-rebuild-logs`、完整浏览器回执和 21 截图 `data-cache/synthetic-demo-browser`、构建产物 `dist-demo` **未推送**；仅当前容器留存，不保证恢复后仍在。GitHub 持久交付为可公开代码/测试/合成 fixture 和本交接摘要，可从锁文件重建。旧证据包、真实资料、凭据均未上传。
 - **阻断/下一步**：braces 链仍有 5 high 审计项；不能称安全清零、批准发布或生产准入。父任务按固定成果 SHA 独立审计，协调范围内返修；审计通过后由父任务处理已授权 PR。本任务停止在实现交付，不建 PR、不 merge、不部署。
+
+### 恢复与独立审计入口
+
+- 恢复时先核 `origin/codex/synthetic-demo-rebuild-20261016` 包含上述两个阶段 SHA，检查工作区，再使用 Node 22 执行 `npm ci`、`npm run test:demo`、`npm run build:demo`；需浏览器时使用已有 Playwright/Chromium 运行上面的本地命令。若 exact commit 缺失，不退回 main 冒充恢复成功。
+- 本轮未修改 `ops-collaboration-dashboard`。未读取或复制凭据，未新增 OAuth、密钥、外部权限。main 在阶段 2 前回读仍为基线 SHA。没有 PR/merge/部署操作。
+- 固定合成 fixture 的一次性 SSR 生成辅助进程曾对仓库其他 HTML 发出 dependency scan 错误；生成快照随后通过原 schema/来源门禁、独立构建和完整浏览器验收。该辅助进程的原始输出未保存为完整日志；不将其计为通过的构建。
+- 真实 diff 文件清单（相对基线，包含本交接文件）：
+
+```text
+.gitignore
+demo/index.html
+docs/development-execution-plan-2026-09-07.md
+package-lock.json
+package.json
+scripts/check-demo-bundle.mjs
+scripts/demo-boundary.mjs
+scripts/demo-browser-check.mjs
+scripts/tests/demo-boundary.node.mjs
+scripts/tests/test-discovery.node.mjs
+src/components/research/ChartEvidenceDrawer.tsx
+src/components/research/EvidenceDrawer.tsx
+src/components/research/ExpressionWorkspace.tsx
+src/components/research/ThesisWorkspace.tsx
+src/components/research/ThesisWorkspacePanel.tsx
+src/demo/fixture.json
+src/demo/main.tsx
+src/demo/runtime.test.ts
+src/demo/runtime.ts
+src/services/verifiedClaim.fixture.ts
+src/styles/workspace-v2.css
+vercel.json
+vite.demo.config.mjs
+vitest.config.ts
+```
 
 本轮合成资产清单（`demo-asset-inventory.json` 不自哈希；实际构建另生成该清单）：
 
