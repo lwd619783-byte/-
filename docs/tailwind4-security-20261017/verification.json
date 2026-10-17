@@ -1,0 +1,676 @@
+{
+  "testedCodeSha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "baseSha": "fd0009db95148e72f6e8804b37618634274c588c",
+  "branch": "fix/tailwind4-security-no-deploy",
+  "status": "LOCAL_VALIDATION_PASSED_PENDING_PARENT_AUDIT",
+  "finalCommands": [
+    {
+      "label": "security-final-audit-gate",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm",
+        "run",
+        "security:audit"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:42.112Z",
+      "endedAt": "2026-10-17T03:26:44.769Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-audit-gate.log",
+      "logSha256": "339b7bac9b7bb89eb1c0383a5bfd694ee0495e60f609a3798ff762b1289e4612"
+    },
+    {
+      "label": "security-final-audit-production",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:34.061Z",
+      "endedAt": "2026-10-17T03:26:35.869Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-audit-production.log",
+      "logSha256": "c2e0f53e6faad2bc63fb97799999301c0d4719f58efdfac7322092d52fe25a8d"
+    },
+    {
+      "label": "security-final-audit",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:34.114Z",
+      "endedAt": "2026-10-17T03:26:36.285Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-audit.log",
+      "logSha256": "c2e0f53e6faad2bc63fb97799999301c0d4719f58efdfac7322092d52fe25a8d"
+    },
+    {
+      "label": "security-final-baseline-formal",
+      "command": [
+        "env",
+        "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+        "SECURITY_FORMAL_BASELINE_CSS=/tmp/security-baseline/index-CDWS50F9.css",
+        "SECURITY_FORMAL_OUTPUT=data-cache/security-final-baseline-formal",
+        "node",
+        "scripts/security-formal-browser.mjs"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:27:54.697Z",
+      "endedAt": "2026-10-17T03:28:02.288Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-baseline-formal.log",
+      "logSha256": "3535aa1e35fdf04ff6b8eba1f28a8a5c39a24f92faa3797616be28b6fc0ada22"
+    },
+    {
+      "label": "security-final-braces-absent",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm",
+        "explain",
+        "braces",
+        "--json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:42.177Z",
+      "endedAt": "2026-10-17T03:26:45.018Z",
+      "exitCode": 1,
+      "signal": null,
+      "log": "security-final-braces-absent.log",
+      "logSha256": "a5a3b4f919a5025634ef3d36dadddd1bf4227c8b8155378e03a5b6ec1ea35ae8"
+    },
+    {
+      "label": "security-final-build-demo",
+      "command": [
+        "npm",
+        "run",
+        "build:demo"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:27:44.925Z",
+      "endedAt": "2026-10-17T03:28:01.683Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-build-demo.log",
+      "logSha256": "63124422bc32c4f54f03a5f9ee2d494b8682329d9a9976c25eb9e716c028977d"
+    },
+    {
+      "label": "security-final-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:34.108Z",
+      "endedAt": "2026-10-17T03:27:25.945Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-build.log",
+      "logSha256": "c756c5614823e9904f9b03ead20f6243ddffacfbfeebddd386b04804735829a6"
+    },
+    {
+      "label": "security-final-ci",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm_config_devdir=/tmp/security-node-gyp",
+        "npm",
+        "ci"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:17.840Z",
+      "endedAt": "2026-10-17T03:26:23.040Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-ci.log",
+      "logSha256": "6f3b80090025be4b3f482a68c169d6797542e034b3c550aaae8befd4b0472f5b"
+    },
+    {
+      "label": "security-final-contracts-validate",
+      "command": [
+        "npm",
+        "run",
+        "contracts:validate"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:32.620Z",
+      "endedAt": "2026-10-17T03:26:48.008Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-contracts-validate.log",
+      "logSha256": "01655c4f127988dea40e58ff32c2b2fac01f611ef6849eecec683a344dba9a8b"
+    },
+    {
+      "label": "security-final-contracts",
+      "command": [
+        "env",
+        "TMPDIR=/tmp/.local-data/os-round1-tests",
+        "npm",
+        "run",
+        "test:contracts"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:32.613Z",
+      "endedAt": "2026-10-17T03:26:56.181Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-contracts.log",
+      "logSha256": "fb098c0be5eecb8391e4ff6a31f5cad1bec1ce7df5b20b52d4d2596878a60c17"
+    },
+    {
+      "label": "security-final-demo",
+      "command": [
+        "npm",
+        "run",
+        "test:demo"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:34.015Z",
+      "endedAt": "2026-10-17T03:26:43.062Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-demo.log",
+      "logSha256": "ff1a71ad7a7404b5c46328dc132a1b9d0b60df1cf2424176a8b3536b700d5439"
+    },
+    {
+      "label": "security-final-dependency-tree",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm",
+        "ls",
+        "--all",
+        "--json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:42.089Z",
+      "endedAt": "2026-10-17T03:26:45.003Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-dependency-tree.log",
+      "logSha256": "cc53829fd3d06c9c1e339c5eb62a1557b19b1c3c47ee3ce872bfe41236db941f"
+    },
+    {
+      "label": "security-final-discovery",
+      "command": [
+        "npm",
+        "run",
+        "test:discovery"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:32.630Z",
+      "endedAt": "2026-10-17T03:27:18.187Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-discovery.log",
+      "logSha256": "ddfc2acc933abfbf594d617ac6baedf3fcaff2b3957ee72289c63ded2f5fded5"
+    },
+    {
+      "label": "security-final-explain",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm",
+        "explain",
+        "@tailwindcss/postcss",
+        "--json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:42.144Z",
+      "endedAt": "2026-10-17T03:26:44.561Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-explain.log",
+      "logSha256": "a5ea81c0e1b95f7a7b3885aba0658004484ff56ebcea61255240e1551b75b42a"
+    },
+    {
+      "label": "security-final-formal-compare",
+      "command": [
+        "python3",
+        "scripts/security-compare.py",
+        "data-cache/security-final-baseline-formal",
+        "data-cache/security-final-formal",
+        "data-cache/security-final-formal-compare.json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:28:13.365Z",
+      "endedAt": "2026-10-17T03:28:22.923Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-formal-compare.log",
+      "logSha256": "3eb04816eb72f0728072ace366fd8e40cc1f2d80fcb060313c7d4955b7d04c21"
+    },
+    {
+      "label": "security-final-formal",
+      "command": [
+        "env",
+        "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+        "SECURITY_FORMAL_OUTPUT=data-cache/security-final-formal",
+        "node",
+        "scripts/security-formal-browser.mjs"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:27:44.922Z",
+      "endedAt": "2026-10-17T03:27:53.048Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-formal.log",
+      "logSha256": "1658d5964784b12ab1d8e4eb786787889569f51308050ee1fb499e1f0a297bac"
+    },
+    {
+      "label": "security-final-integrity",
+      "command": [
+        "node",
+        "scripts/desktop-integrity.mjs"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:28:13.416Z",
+      "endedAt": "2026-10-17T03:28:13.651Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-integrity.log",
+      "logSha256": "e186b512891e220874c3fefd4a60fb6a55a0efe45cecb8b447a8eeb7af0ff623"
+    },
+    {
+      "label": "security-final-legacy-browser",
+      "command": [
+        "env",
+        "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+        "DEMO_BROWSER_EXECUTABLE=/usr/bin/chromium",
+        "DEMO_BROWSER_OUTPUT=data-cache/security-final-legacy-browser",
+        "DEMO_BROWSER_SCREENSHOTS=0",
+        "npm",
+        "run",
+        "test:demo:browser"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:28:13.369Z",
+      "endedAt": "2026-10-17T03:28:30.024Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-legacy-browser.log",
+      "logSha256": "6830663ed9b09f15ac1df507c71dc1790976718cd7acb3181916be8442b35b2b"
+    },
+    {
+      "label": "security-final-production-gate",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm",
+        "run",
+        "security:audit:production"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:42.078Z",
+      "endedAt": "2026-10-17T03:26:44.997Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-production-gate.log",
+      "logSha256": "37d698178d2f32fc8680c050a757691e68e1022b32a97bc9177de039c697fd4e"
+    },
+    {
+      "label": "security-final-round-one-browser",
+      "command": [
+        "env",
+        "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+        "DEMO_BROWSER_EXECUTABLE=/usr/bin/chromium",
+        "ROUND_ONE_BROWSER_OUTPUT=data-cache/security-final-round-one-browser",
+        "npm",
+        "run",
+        "test:round-one:browser"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:28:13.361Z",
+      "endedAt": "2026-10-17T03:28:34.208Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-round-one-browser.log",
+      "logSha256": "ee23dc5de47f128302d72e8b510313d241bc939c7ad746452312f6e810d966d7"
+    },
+    {
+      "label": "security-final-runtime-versions",
+      "command": [
+        "node",
+        "-e",
+        "console.log(JSON.stringify({node:process.version,npm:require(\"node:child_process\").execFileSync(\"npm\",[\"--version\"],{encoding:\"utf8\"}).trim(),chromium:require(\"node:child_process\").execFileSync(\"/usr/bin/chromium\",[\"--version\"],{encoding:\"utf8\"}).trim(),playwright:require(\"/opt/codex/cua_node/lib/node_modules/playwright/package.json\").version,pillow:require(\"node:child_process\").execFileSync(\"python3\",[\"-c\",\"import PIL;print(PIL.__version__)\"],{encoding:\"utf8\"}).trim()}))"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:27:35.325Z",
+      "endedAt": "2026-10-17T03:27:35.639Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-runtime-versions.log",
+      "logSha256": "730a957c205e35f445d135221779e97880be33528f97a6f9fc2a51022880f1ed"
+    },
+    {
+      "label": "security-final-style-compare",
+      "command": [
+        "python3",
+        "scripts/security-compare.py",
+        "data-cache/security-baseline-style-final",
+        "data-cache/security-final-style",
+        "data-cache/security-final-style-compare.json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:28:13.358Z",
+      "endedAt": "2026-10-17T03:28:15.967Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-style-compare.log",
+      "logSha256": "74581c02d44c60187e0d9fd3650eb9a5ededefd5998d49c93de4395e1e073c07"
+    },
+    {
+      "label": "security-final-style",
+      "command": [
+        "env",
+        "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+        "SECURITY_STYLE_OUTPUT=data-cache/security-final-style",
+        "node",
+        "scripts/security-style-probe.mjs"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:27:44.922Z",
+      "endedAt": "2026-10-17T03:27:47.204Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-style.log",
+      "logSha256": "228276b997a631edcb7b07112b36ff228a46e935cae903c71037b84d11316abc"
+    },
+    {
+      "label": "security-final-test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:32.601Z",
+      "endedAt": "2026-10-17T03:27:39.621Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-test.log",
+      "logSha256": "6995bc828669e0e6a0ca0ff4c2ac138689dae749e20960463251a5f3f2b8024b"
+    },
+    {
+      "label": "security-final-toolchain",
+      "command": [
+        "env",
+        "npm_config_cache=/tmp/security-npm-cache",
+        "npm",
+        "ls",
+        "braces",
+        "chokidar",
+        "fast-glob",
+        "micromatch",
+        "tailwindcss",
+        "@tailwindcss/postcss",
+        "vite",
+        "postcss",
+        "--all",
+        "--json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:26:42.103Z",
+      "endedAt": "2026-10-17T03:26:44.905Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-toolchain.log",
+      "logSha256": "b582618b467d6a24f8c594daf5186220867f26dc0541f47f10612f903d5b946a"
+    },
+    {
+      "label": "security-final-ui-audit",
+      "command": [
+        "npm",
+        "run",
+        "ui:audit"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:27:13.092Z",
+      "endedAt": "2026-10-17T03:27:13.601Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-ui-audit.log",
+      "logSha256": "d1551ada70f4a482ba8eb52f6fabcaf01f84e44a37a68d149b1b5bff738098f4"
+    },
+    {
+      "label": "security-final-visual-compare",
+      "command": [
+        "python3",
+        "scripts/security-compare.py",
+        "data-cache/security-baseline-visual-final",
+        "data-cache/security-final-visual",
+        "data-cache/security-final-visual-compare.json"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:28:39.112Z",
+      "endedAt": "2026-10-17T03:28:54.686Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-visual-compare.log",
+      "logSha256": "84d89747be944c3318f76c68ac41983ff145dd53406366ed7f41022b50bcea7c"
+    },
+    {
+      "label": "security-final-visual",
+      "command": [
+        "env",
+        "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+        "DEMO_BROWSER_EXECUTABLE=/usr/bin/chromium",
+        "SECURITY_VISUAL_OUTPUT=data-cache/security-final-visual",
+        "node",
+        "scripts/security-visual-check.mjs"
+      ],
+      "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T03:28:13.398Z",
+      "endedAt": "2026-10-17T03:28:34.935Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "security-final-visual.log",
+      "logSha256": "b31b771432e9d4a8d7b0ad53ba5910c86463ad573c46a4b726317546c391fb4e"
+    }
+  ],
+  "allCommandReceipts": [
+    "evidence/commands/security-baseline-audit.json",
+    "evidence/commands/security-baseline-chain.json",
+    "evidence/commands/security-baseline-explain.json",
+    "evidence/commands/security-baseline-formal-detail.json",
+    "evidence/commands/security-baseline-formal.json",
+    "evidence/commands/security-baseline-production-audit.json",
+    "evidence/commands/security-baseline-style-corrected.json",
+    "evidence/commands/security-baseline-style-final.json",
+    "evidence/commands/security-baseline-style-stable.json",
+    "evidence/commands/security-baseline-style.json",
+    "evidence/commands/security-baseline-visual-final.json",
+    "evidence/commands/security-baseline-visual-stable.json",
+    "evidence/commands/security-baseline-visual.json",
+    "evidence/commands/security-final-audit-gate.json",
+    "evidence/commands/security-final-audit-production.json",
+    "evidence/commands/security-final-audit.json",
+    "evidence/commands/security-final-baseline-formal.json",
+    "evidence/commands/security-final-braces-absent.json",
+    "evidence/commands/security-final-build-demo.json",
+    "evidence/commands/security-final-build.json",
+    "evidence/commands/security-final-ci.json",
+    "evidence/commands/security-final-contracts-validate.json",
+    "evidence/commands/security-final-contracts.json",
+    "evidence/commands/security-final-demo.json",
+    "evidence/commands/security-final-dependency-tree.json",
+    "evidence/commands/security-final-discovery.json",
+    "evidence/commands/security-final-explain.json",
+    "evidence/commands/security-final-formal-compare.json",
+    "evidence/commands/security-final-formal.json",
+    "evidence/commands/security-final-integrity.json",
+    "evidence/commands/security-final-legacy-browser.json",
+    "evidence/commands/security-final-production-gate.json",
+    "evidence/commands/security-final-round-one-browser.json",
+    "evidence/commands/security-final-runtime-versions.json",
+    "evidence/commands/security-final-style-compare.json",
+    "evidence/commands/security-final-style.json",
+    "evidence/commands/security-final-test.json",
+    "evidence/commands/security-final-toolchain.json",
+    "evidence/commands/security-final-ui-audit.json",
+    "evidence/commands/security-final-visual-compare.json",
+    "evidence/commands/security-final-visual.json",
+    "evidence/commands/security-install-tailwind4.json",
+    "evidence/commands/security-package-versions-retry.json",
+    "evidence/commands/security-package-versions.json",
+    "evidence/commands/security-postcss-versions.json",
+    "evidence/commands/security-pre-audit.json",
+    "evidence/commands/security-pre-browser.json",
+    "evidence/commands/security-pre-build-compat.json",
+    "evidence/commands/security-pre-build-demo-compat.json",
+    "evidence/commands/security-pre-build-demo-opacity.json",
+    "evidence/commands/security-pre-build-demo-spacing.json",
+    "evidence/commands/security-pre-build-demo.json",
+    "evidence/commands/security-pre-build-opacity.json",
+    "evidence/commands/security-pre-build-spacing.json",
+    "evidence/commands/security-pre-build.json",
+    "evidence/commands/security-pre-ci.json",
+    "evidence/commands/security-pre-formal-bounded-compare.json",
+    "evidence/commands/security-pre-formal-compare.json",
+    "evidence/commands/security-pre-formal-detail.json",
+    "evidence/commands/security-pre-formal-fixed.json",
+    "evidence/commands/security-pre-formal-spacing-compare.json",
+    "evidence/commands/security-pre-formal-spacing-retry.json",
+    "evidence/commands/security-pre-formal-spacing.json",
+    "evidence/commands/security-pre-formal.json",
+    "evidence/commands/security-pre-integrity-final.json",
+    "evidence/commands/security-pre-integrity.json",
+    "evidence/commands/security-pre-style-compare.json",
+    "evidence/commands/security-pre-style-corrected.json",
+    "evidence/commands/security-pre-style-final.json",
+    "evidence/commands/security-pre-style-stable.json",
+    "evidence/commands/security-pre-style.json",
+    "evidence/commands/security-pre-test-demo.json",
+    "evidence/commands/security-pre-visual-compare.json",
+    "evidence/commands/security-pre-visual-final.json",
+    "evidence/commands/security-pre-visual-spacing-compare.json",
+    "evidence/commands/security-pre-visual-spacing.json",
+    "evidence/commands/security-pre-visual-stable.json",
+    "evidence/commands/security-pre-visual.json",
+    "evidence/commands/security-stage1-push.json",
+    "evidence/commands/security-stage1-remote.json",
+    "evidence/commands/security-stage2-push.json",
+    "evidence/commands/security-stage2-remote.json"
+  ],
+  "audit": {
+    "beforeHigh": 5,
+    "afterHigh": 0,
+    "afterCritical": 0,
+    "productionBeforeTotal": 0,
+    "productionAfterTotal": 0
+  },
+  "screenshots": {
+    "demo": 21,
+    "formal": 8,
+    "style": 3,
+    "beforeDesktop": 31,
+    "smallScreenDeduplication": {
+      "baselineLogicalPath": "evidence/baseline-visual/390-overview.png",
+      "storedAt": "evidence/visual/390-overview.png",
+      "sha256": "ca270aa9accd1c129bfa67488f978824ae611d78f70fdead272264248dab0c3e",
+      "reason": "identical baseline and current PNG bytes; one small-screen image stored"
+    }
+  },
+  "limits": [
+    "Only Chromium 154.0.8037.57 actually tested; Safari/Firefox not run.",
+    "Formal entry uses existing synthetic UI-review fixtures, not private data or BusinessApp workflows.",
+    "Formal CSS A/B uses same current JS and old/new CSS; not old full-build reproduction.",
+    "Formal pixel tolerance <=32 pixels with per-channel delta <=1; observed max25; demo is exact.",
+    "Existing formal UI-review banner occlusion reproduces with old CSS; not redesigned.",
+    "New Node22 hosted CI and draft PR are parent responsibilities; GraphQL Forbidden path not retried.",
+    "No merge/deploy/trade/release permission; original feature formal admission remains NOT_ADMITTED."
+  ],
+  "observedAuxiliaryFailures": [
+    {
+      "source": "tool transcript observation, not command recorder",
+      "event": "broad rg --files /opt search returned /opt/containerd: Permission denied; stopped that path, no escalation/retry"
+    },
+    {
+      "source": "tool transcript observation",
+      "event": "one cat used /workspace rather than repo working directory and returned No such file; corrected working directory"
+    }
+  ],
+  "visuallyInspectedSamples": [
+    "visual/1440-overview.png",
+    "visual/1920-decision.png",
+    "visual/1440-lock-preview.png",
+    "visual/1920-expanded.png",
+    "visual/1440-collapsed.png",
+    "visual/1920-history.png",
+    "visual/1440-pending-exit.png",
+    "visual/390-overview.png",
+    "visual/1440-knowledge.png",
+    "style/filter-focus.png",
+    "formal/1440-expectations.png",
+    "formal/1920-watchlist.png"
+  ]
+}

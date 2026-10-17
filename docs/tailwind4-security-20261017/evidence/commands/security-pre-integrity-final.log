@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "scope": "authorized Tailwind4 security profile for desktop integrity",
+  "base": "fd0009db95148e72f6e8804b37618634274c588c",
+  "branch": "fix/tailwind4-security-no-deploy",
+  "automaticDeployment": false,
+  "oldVulnerableChainAbsent": true,
+  "vite": "6.4.3",
+  "originalCIGatesPreserved": true,
+  "formalFilesChecked": 29,
+  "demoGraphModules": 1628,
+  "restrictedLiterals": 455
+}

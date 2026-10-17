@@ -1,0 +1,19 @@
+{
+  "label": "security-final-ci",
+  "command": [
+    "env",
+    "npm_config_cache=/tmp/security-npm-cache",
+    "npm_config_devdir=/tmp/security-node-gyp",
+    "npm",
+    "ci"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:26:17.840Z",
+  "endedAt": "2026-10-17T03:26:23.040Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-final-ci.log",
+  "logSha256": "6f3b80090025be4b3f482a68c169d6797542e034b3c550aaae8befd4b0472f5b"
+}

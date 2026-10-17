@@ -1,0 +1,295 @@
+{
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "baselineCss": null,
+  "scope": "formal production entry with existing ui-review=1 synthetic fixtures; BusinessApp not mounted",
+  "checks": [
+    {
+      "name": "1440/home synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "1440/home no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "1440/home no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "1440/stocks synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "1440/stocks no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "1440/stocks no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "1440/watchlist synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "1440/watchlist no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "1440/watchlist no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "1440/expectations synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "1440/expectations no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "1440/expectations no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "1920/home synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "1920/home no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "1920/home no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "1920/stocks synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "1920/stocks no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "1920/stocks no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "1920/watchlist synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "1920/watchlist no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "1920/watchlist no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "1920/expectations synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "1920/expectations no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "1920/expectations no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "390/home synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "390/home no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "390/home no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "390/stocks synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "390/stocks no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "390/stocks no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "390/watchlist synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "390/watchlist no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "390/watchlist no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "390/expectations synthetic mode visible",
+      "ok": true
+    },
+    {
+      "name": "390/expectations no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "390/expectations no business storage reads/writes",
+      "ok": true
+    },
+    {
+      "name": "zero runtime errors",
+      "ok": true
+    },
+    {
+      "name": "zero non-asset/data/service requests",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/",
+      "sha256": "ad697ab72b1432762f4de8e2e44fae561e3b2043f9f1f9cbf8a083c5cdfc1ab8"
+    },
+    {
+      "path": "/assets/index-BEAYeHLi.js",
+      "sha256": "b7d4c1f45ecc2ef36130e69763a74eea441dab8247d468406d21439a78f6d554"
+    },
+    {
+      "path": "/assets/index-BhEQ7a8u.css",
+      "sha256": "ff03852b44806d1ec8535937c310baf614bc7ea5fc2c0c7131e945533b82bc6b"
+    },
+    {
+      "path": "/assets/UiReviewApp-JsmFjLNU.js",
+      "sha256": "63ff06f8edcf4a3e23f5e75e5b8a11cc7156affd22ca6dad70ad2f34170063b8"
+    },
+    {
+      "path": "/assets/CreatorViewpointWorkspace-Ei-efDS3.js",
+      "sha256": "d5f43c51a7b1f357659b5aa91339f57ee0799b9fb23e4a0a771f3ec0135a3add"
+    },
+    {
+      "path": "/assets/CreatorViewpointWorkspace-CggG_EU-.css",
+      "sha256": "a7ba85bcf5c9643491dd2f5459066a523b3f526adec5da91749ee5f96ba1584e"
+    },
+    {
+      "path": "/",
+      "sha256": "ad697ab72b1432762f4de8e2e44fae561e3b2043f9f1f9cbf8a083c5cdfc1ab8"
+    },
+    {
+      "path": "/assets/index-BEAYeHLi.js",
+      "sha256": "b7d4c1f45ecc2ef36130e69763a74eea441dab8247d468406d21439a78f6d554"
+    },
+    {
+      "path": "/assets/index-BhEQ7a8u.css",
+      "sha256": "ff03852b44806d1ec8535937c310baf614bc7ea5fc2c0c7131e945533b82bc6b"
+    },
+    {
+      "path": "/assets/UiReviewApp-JsmFjLNU.js",
+      "sha256": "63ff06f8edcf4a3e23f5e75e5b8a11cc7156affd22ca6dad70ad2f34170063b8"
+    },
+    {
+      "path": "/assets/CreatorViewpointWorkspace-Ei-efDS3.js",
+      "sha256": "d5f43c51a7b1f357659b5aa91339f57ee0799b9fb23e4a0a771f3ec0135a3add"
+    },
+    {
+      "path": "/assets/CreatorViewpointWorkspace-CggG_EU-.css",
+      "sha256": "a7ba85bcf5c9643491dd2f5459066a523b3f526adec5da91749ee5f96ba1584e"
+    },
+    {
+      "path": "/",
+      "sha256": "ad697ab72b1432762f4de8e2e44fae561e3b2043f9f1f9cbf8a083c5cdfc1ab8"
+    },
+    {
+      "path": "/assets/index-BEAYeHLi.js",
+      "sha256": "b7d4c1f45ecc2ef36130e69763a74eea441dab8247d468406d21439a78f6d554"
+    },
+    {
+      "path": "/assets/index-BhEQ7a8u.css",
+      "sha256": "ff03852b44806d1ec8535937c310baf614bc7ea5fc2c0c7131e945533b82bc6b"
+    },
+    {
+      "path": "/assets/UiReviewApp-JsmFjLNU.js",
+      "sha256": "63ff06f8edcf4a3e23f5e75e5b8a11cc7156affd22ca6dad70ad2f34170063b8"
+    },
+    {
+      "path": "/assets/CreatorViewpointWorkspace-Ei-efDS3.js",
+      "sha256": "d5f43c51a7b1f357659b5aa91339f57ee0799b9fb23e4a0a771f3ec0135a3add"
+    },
+    {
+      "path": "/assets/CreatorViewpointWorkspace-CggG_EU-.css",
+      "sha256": "a7ba85bcf5c9643491dd2f5459066a523b3f526adec5da91749ee5f96ba1584e"
+    }
+  ],
+  "blockedRequests": [],
+  "screenshots": [
+    {
+      "file": "1440-home.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T03:22:47.337Z",
+      "sha256": "2ebe186d8ca483a43a70715fd9ec81e811cc38b09e732146854cad31849f953e"
+    },
+    {
+      "file": "1440-stocks.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T03:22:47.779Z",
+      "sha256": "a998136a4450013e1698d560a12836553cacef6e7f9fa0233816d530b40c551a"
+    },
+    {
+      "file": "1440-watchlist.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T03:22:48.129Z",
+      "sha256": "6d249cbca29656c735fcba26715bb298bc791ed8d8ae1e4522ee0d7da825b9f4"
+    },
+    {
+      "file": "1440-expectations.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T03:22:48.593Z",
+      "sha256": "4e5a5c5e77a9e7e306034f1526751e71817a70e40b11db84f5d23cbdfa51d70a"
+    },
+    {
+      "file": "1920-home.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T03:22:49.407Z",
+      "sha256": "264f5160907fac4a03c91ae49bf1c417066fcbbb2ec62ad30672d92e2f191303"
+    },
+    {
+      "file": "1920-stocks.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T03:22:49.865Z",
+      "sha256": "58bf8de964921faf8b1cf067647bf41a70637443d452c9d3be744e885a19b3fc"
+    },
+    {
+      "file": "1920-watchlist.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T03:22:50.271Z",
+      "sha256": "64e236039803e68b039bbbca436f9ac0bfb328119b66263f68db0a2ca344c862"
+    },
+    {
+      "file": "1920-expectations.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T03:22:50.731Z",
+      "sha256": "c3fd35f2bccfab8c254f7cf56f4bde0b25db5a024b194b7057fd38256db294a6"
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "status": "passed"
+}

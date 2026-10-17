@@ -1,0 +1,19 @@
+{
+  "label": "security-final-production-gate",
+  "command": [
+    "env",
+    "npm_config_cache=/tmp/security-npm-cache",
+    "npm",
+    "run",
+    "security:audit:production"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:26:42.078Z",
+  "endedAt": "2026-10-17T03:26:44.997Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-final-production-gate.log",
+  "logSha256": "37d698178d2f32fc8680c050a757691e68e1022b32a97bc9177de039c697fd4e"
+}

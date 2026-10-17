@@ -1,0 +1,8 @@
+{
+  "error": {
+    "summary": "No dependencies found matching braces",
+    "detail": ""
+  }
+}
+npm error No dependencies found matching braces
+npm error A complete log of this run can be found in: /tmp/security-npm-cache/_logs/2026-10-17T03_26_42_790Z-debug-0.log

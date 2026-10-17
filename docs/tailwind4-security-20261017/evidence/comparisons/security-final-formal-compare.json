@@ -1,0 +1,150 @@
+{
+  "baseline": "data-cache/security-final-baseline-formal",
+  "current": "data-cache/security-final-formal",
+  "status": "passed",
+  "snapshotsEqual": false,
+  "screenshots": [
+    {
+      "file": "1440-home.png",
+      "dimensions": [
+        1440,
+        1129
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "2ebe186d8ca483a43a70715fd9ec81e811cc38b09e732146854cad31849f953e",
+      "currentSha256": "2ebe186d8ca483a43a70715fd9ec81e811cc38b09e732146854cad31849f953e"
+    },
+    {
+      "file": "1440-stocks.png",
+      "dimensions": [
+        1440,
+        1462
+      ],
+      "equal": false,
+      "differentPixels": 17,
+      "maxChannelDelta": 1,
+      "bbox": [
+        1172,
+        930,
+        1428,
+        956
+      ],
+      "baselineSha256": "2de32dcfcda3a6ac20840dd9e7b33f9e66e0928f20d298d7016e143e160c3458",
+      "currentSha256": "a998136a4450013e1698d560a12836553cacef6e7f9fa0233816d530b40c551a"
+    },
+    {
+      "file": "1440-watchlist.png",
+      "dimensions": [
+        1440,
+        1419
+      ],
+      "equal": false,
+      "differentPixels": 17,
+      "maxChannelDelta": 1,
+      "bbox": [
+        1172,
+        930,
+        1428,
+        956
+      ],
+      "baselineSha256": "8a082e0885095df996093e63ff38f784e47614798491c2417678f7e65c4ab88b",
+      "currentSha256": "56bcb6250a1fc1887308fc435e2e612ba8524fa89519e7b5badbf6f764c5390e"
+    },
+    {
+      "file": "1440-expectations.png",
+      "dimensions": [
+        1440,
+        2480
+      ],
+      "equal": false,
+      "differentPixels": 25,
+      "maxChannelDelta": 1,
+      "bbox": [
+        240,
+        377,
+        1428,
+        956
+      ],
+      "baselineSha256": "30507c2eb60c79213aeb30281117d1fda93388865243ace80ea1e03cfad8cc0f",
+      "currentSha256": "bbac7f7174212e08360526aabc1a60a3c6391d89c8d69451ad82ad7e58b58437"
+    },
+    {
+      "file": "1920-home.png",
+      "dimensions": [
+        1920,
+        1131
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "264f5160907fac4a03c91ae49bf1c417066fcbbb2ec62ad30672d92e2f191303",
+      "currentSha256": "264f5160907fac4a03c91ae49bf1c417066fcbbb2ec62ad30672d92e2f191303"
+    },
+    {
+      "file": "1920-stocks.png",
+      "dimensions": [
+        1920,
+        1464
+      ],
+      "equal": false,
+      "differentPixels": 17,
+      "maxChannelDelta": 1,
+      "bbox": [
+        1652,
+        930,
+        1908,
+        956
+      ],
+      "baselineSha256": "cf05f392f75c4b8385a672b789524332f623001993b922954d5e5722f7890017",
+      "currentSha256": "58bf8de964921faf8b1cf067647bf41a70637443d452c9d3be744e885a19b3fc"
+    },
+    {
+      "file": "1920-watchlist.png",
+      "dimensions": [
+        1920,
+        1421
+      ],
+      "equal": false,
+      "differentPixels": 17,
+      "maxChannelDelta": 1,
+      "bbox": [
+        1652,
+        930,
+        1908,
+        956
+      ],
+      "baselineSha256": "d4e699136f611b4d9baa5f633e206aa9101f25d38f8c56fa86474d6dae3fa405",
+      "currentSha256": "655c158e9a210496b75a5590c74444775a3aad76d2c6dc63e2b83e6721dd51a2"
+    },
+    {
+      "file": "1920-expectations.png",
+      "dimensions": [
+        1920,
+        2482
+      ],
+      "equal": false,
+      "differentPixels": 25,
+      "maxChannelDelta": 1,
+      "bbox": [
+        405,
+        379,
+        1908,
+        956
+      ],
+      "baselineSha256": "76c34429b5524fced26f7cc91e6fc5470ef503c940818eb8b187732eec87db6a",
+      "currentSha256": "0665a105d2eee1e073ac5c07a5579b6eb7f5a86b1ffbffd4717db14206d63b0d"
+    }
+  ],
+  "geometryEqual": true,
+  "nonColorStylesEqual": true,
+  "pixelTolerance": {
+    "pixels": 32,
+    "channelDelta": 1,
+    "reason": "formal CSS color-mix/transparent-shadow rasterization; geometry and all non-color styles exact"
+  },
+  "formalProbeTolerance": null
+}

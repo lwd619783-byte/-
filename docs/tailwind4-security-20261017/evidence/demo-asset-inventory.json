@@ -1,0 +1,32 @@
+{
+  "scope": "synthetic-only",
+  "status": "passed",
+  "checkedGraphModules": 1628,
+  "restrictedSourceFilesChecked": 7,
+  "restrictedLiteralsChecked": 455,
+  "forbiddenContentMatches": 0,
+  "secretPatternMatches": 0,
+  "inventoryExcludes": "demo-asset-inventory.json",
+  "assets": [
+    {
+      "file": "assets/index-DWFERgIm.js",
+      "bytes": 569715,
+      "sha256": "4fc2821a375e7ac16c8ad084cdaeec887f8e4470bc25920e619d5bc930a4e9d3"
+    },
+    {
+      "file": "assets/index-TEAuUyr1.css",
+      "bytes": 74618,
+      "sha256": "9bebab9dcddd1bfb01f13f8907d73a6d47e6dcc04031b215dee91c7153b65661"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 101259,
+      "sha256": "b5d91fa27f2d9bd83c9ab3ddb0166f3d9f1f21144ec49fbbf5de43780ec75c47"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "f4dd96a4102d543fb7845fdba1806987f6eaa178d6378dca95f2c4e43b95b175"
+    }
+  ]
+}

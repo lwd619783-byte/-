@@ -1,0 +1,101 @@
+
+> investment-research-dashboard@0.1.0 build
+> tsc -b && npm run local:typecheck && vite build && node scripts/check-financial-bundle.mjs
+
+
+> investment-research-dashboard@0.1.0 local:typecheck
+> tsc -p tsconfig.local-core.json --noEmit
+
+vite v6.4.3 building for production...
+transforming...
+✓ 2718 modules transformed.
+rendering chunks...
+Local Core browser boundary: PASS (2718 graph modules, 22 chunks, 0 forbidden).
+computing gzip size...
+dist/local-core-boundary.json                             0.19 kB │ gzip:   0.15 kB
+dist/index.html                                           0.41 kB │ gzip:   0.29 kB
+dist/assets/pdf.worker.min-Dswkl-cV.mjs               1,265.41 kB
+dist/assets/DailyReviewPanel-1Cf70fr-.css                 1.98 kB │ gzip:   0.79 kB
+dist/assets/PortfolioWorkspace-WI0_SnpU.css               2.33 kB │ gzip:   0.77 kB
+dist/assets/OilShippingObservation-B8kpiAme.css           2.53 kB │ gzip:   0.81 kB
+dist/assets/App-CstrG8gw.css                             11.84 kB │ gzip:   2.57 kB
+dist/assets/CreatorViewpointWorkspace-CggG_EU-.css       14.37 kB │ gzip:   3.18 kB
+dist/assets/index-p-ysRlcS.css                           68.82 kB │ gzip:  12.65 kB
+dist/assets/oil-shipping-scope-DZnSV8hl.js                0.60 kB │ gzip:   0.44 kB
+dist/assets/canonical-json-5obYPygX.js                    1.10 kB │ gzip:   0.57 kB
+dist/assets/industryVerifiedClaimAdapter-DybbB1JD.js      1.53 kB │ gzip:   0.78 kB
+dist/assets/industrySignalClaimProvider-ChTflh4C.js       3.80 kB │ gzip:   1.79 kB
+dist/assets/verifiedClaimRepository-ttGjM0Fj.js           5.54 kB │ gzip:   2.28 kB
+dist/assets/ClaimVerificationModal-Gii47Vl5.js            7.32 kB │ gzip:   2.93 kB
+dist/assets/portfolioWorkspace-cMEqxW0R.js                8.58 kB │ gzip:   3.30 kB
+dist/assets/industrySignalClaim-BvBOQFL1.js              12.98 kB │ gzip:   5.21 kB
+dist/assets/DailyReviewPanel-Chp9Gcjm.js                 14.88 kB │ gzip:   6.17 kB
+dist/assets/OilShippingObservation-DIfHtiHD.js           19.68 kB │ gzip:   7.84 kB
+dist/assets/DecisionSharePanel-CkRiVtxV.js               20.26 kB │ gzip:   7.63 kB
+dist/assets/UiReviewApp-B8jc_-zV.js                      24.42 kB │ gzip:  10.25 kB
+dist/assets/PortfolioWorkspace-DTIVJeOO.js               30.80 kB │ gzip:  10.61 kB
+dist/assets/ThesisWorkspace-BTzo07Wy.js                  34.78 kB │ gzip:   9.16 kB
+dist/assets/verifiedClaim-Brqz7x2v.js                    49.96 kB │ gzip:   9.43 kB
+dist/assets/types-BVEXceS6.js                            53.43 kB │ gzip:  12.21 kB
+dist/assets/evidenceGraphSchema-DH4OKDZZ.js              65.06 kB │ gzip:  10.88 kB
+dist/assets/thesisWorkspace-D69bldJN.js                 136.28 kB │ gzip:  22.80 kB
+dist/assets/index-Dn797lPm.js                           146.28 kB │ gzip:  47.52 kB
+dist/assets/knowledgePdf-hwnA3F6s.js                    482.50 kB │ gzip: 144.25 kB
+dist/assets/CreatorViewpointWorkspace-DFwm2TE0.js     1,253.43 kB │ gzip: 292.37 kB
+dist/assets/App-BGQvfbj1.js                           2,028.13 kB │ gzip: 417.58 kB
+✓ built in 6.72s
+{
+  "status": "passed",
+  "baseline": {
+    "initialJsBytes": 4841746,
+    "initialGzipBytes": 798794,
+    "maxChunkBytes": 4841746
+  },
+  "initialJsBytes": 146275,
+  "initialGzipBytes": 47516,
+  "maxChunkBytes": 2028130,
+  "allJsBytes": 4401339,
+  "entryFiles": [
+    "index-Dn797lPm.js"
+  ],
+  "summaryBytes": 176028,
+  "detailFiles": 57,
+  "detailBytes": 4268958,
+  "averageDetailBytes": 74894,
+  "initialReductionPct": 96.98,
+  "initialGzipReductionPct": 94.05,
+  "containsFullHistoryMarker": false,
+  "announcementSummaryBytes": 249460,
+  "announcementManifestBytes": 23960,
+  "announcementDetailFiles": 57,
+  "announcementDetailBytes": 29528492,
+  "averageAnnouncementDetailBytes": 518044,
+  "containsFullAnnouncementHistoryMarker": false,
+  "companyGuidanceSummaryBytes": 22305,
+  "companyGuidanceManifestBytes": 29045,
+  "companyGuidanceWorkflowBytes": 261595,
+  "companyGuidanceWorkflowChecksum": "1d16143f604b64a98dbc5c1ff77cc5a1b131c8eee3ffe4e3103a6baa04b59568",
+  "companyGuidanceDetailFiles": 57,
+  "companyGuidanceDetailBytes": 405867,
+  "averageCompanyGuidanceDetailBytes": 7120,
+  "containsFullCompanyGuidanceDetailMarker": false,
+  "errors": []
+}
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+[plugin vite:reporter] 
+(!) /workspace/-/src/services/decisionPublish.ts is dynamically imported by /workspace/-/src/components/research/DecisionSharePanel.tsx but also statically imported by /workspace/-/src/components/research/DecisionSharePanel.tsx, dynamic import will not move module into another chunk.
+
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

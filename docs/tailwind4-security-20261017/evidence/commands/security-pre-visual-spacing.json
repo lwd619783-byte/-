@@ -1,0 +1,32 @@
+{
+  "label": "security-pre-visual-spacing",
+  "command": [
+    "node",
+    "scripts/security-visual-check.mjs"
+  ],
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "worktree": [
+    "M .github/workflows/ci.yml",
+    " M docs/development-execution-plan-2026-09-07.md",
+    " M docs/feature-registry.md",
+    " M docs/tailwind4-security-20261017/README.md",
+    " M package-lock.json",
+    " M package.json",
+    " M postcss.config.js",
+    " M scripts/desktop-integrity.mjs",
+    " M src/index.css",
+    " M tailwind.config.js",
+    "?? scripts/security-compare.py",
+    "?? scripts/security-formal-browser.mjs",
+    "?? scripts/security-integrity.mjs",
+    "?? scripts/security-style-probe.mjs",
+    "?? scripts/security-visual-check.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:25:23.065Z",
+  "endedAt": "2026-10-17T03:25:40.249Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-pre-visual-spacing.log",
+  "logSha256": "665c9a711e1ee424f70deb4676344ea0d11b0f6007e66eca0a99f1f773d890f3"
+}

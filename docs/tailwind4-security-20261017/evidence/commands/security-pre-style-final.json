@@ -1,0 +1,29 @@
+{
+  "label": "security-pre-style-final",
+  "command": [
+    "node",
+    "scripts/security-style-probe.mjs"
+  ],
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "worktree": [
+    "M .github/workflows/ci.yml",
+    " M package-lock.json",
+    " M package.json",
+    " M postcss.config.js",
+    " M scripts/desktop-integrity.mjs",
+    " M src/index.css",
+    " M tailwind.config.js",
+    "?? scripts/security-compare.py",
+    "?? scripts/security-formal-browser.mjs",
+    "?? scripts/security-integrity.mjs",
+    "?? scripts/security-style-probe.mjs",
+    "?? scripts/security-visual-check.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:19:14.036Z",
+  "endedAt": "2026-10-17T03:19:16.128Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-pre-style-final.log",
+  "logSha256": "451de3061998be0acdc58ead1caee199d44e55c4f0259e12072a8351f62cba50"
+}

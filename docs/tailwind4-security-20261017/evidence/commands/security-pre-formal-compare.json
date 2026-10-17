@@ -1,0 +1,32 @@
+{
+  "label": "security-pre-formal-compare",
+  "command": [
+    "python3",
+    "scripts/security-compare.py",
+    "data-cache/security-baseline-formal",
+    "data-cache/security-pre-formal-fixed",
+    "data-cache/security-pre-formal-compare.json"
+  ],
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "worktree": [
+    "M .github/workflows/ci.yml",
+    " M package-lock.json",
+    " M package.json",
+    " M postcss.config.js",
+    " M scripts/desktop-integrity.mjs",
+    " M src/index.css",
+    " M tailwind.config.js",
+    "?? scripts/security-compare.py",
+    "?? scripts/security-formal-browser.mjs",
+    "?? scripts/security-integrity.mjs",
+    "?? scripts/security-style-probe.mjs",
+    "?? scripts/security-visual-check.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:22:55.462Z",
+  "endedAt": "2026-10-17T03:22:58.803Z",
+  "exitCode": 1,
+  "signal": null,
+  "log": "security-pre-formal-compare.log",
+  "logSha256": "d0999781674fbd28f3bc2957f3acf35636a2a7a71605db2fb0b8a0b3310bfb7f"
+}

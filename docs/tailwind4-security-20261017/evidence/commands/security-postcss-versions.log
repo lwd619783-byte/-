@@ -1,0 +1,10 @@
+{
+  "version": "4.3.3",
+  "dependencies": {
+    "postcss": "^8.5.16",
+    "tailwindcss": "4.3.3",
+    "@alloc/quick-lru": "^5.2.0",
+    "@tailwindcss/node": "4.3.3",
+    "@tailwindcss/oxide": "4.3.3"
+  }
+}

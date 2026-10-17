@@ -1,0 +1,21 @@
+{
+  "label": "security-package-versions",
+  "command": [
+    "npm",
+    "view",
+    "tailwindcss@4.3.3",
+    "version",
+    "engines",
+    "dependencies",
+    "--json"
+  ],
+  "sha": "fd0009db95148e72f6e8804b37618634274c588c",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:08:59.502Z",
+  "endedAt": "2026-10-17T03:09:00.315Z",
+  "exitCode": 1,
+  "signal": null,
+  "log": "security-package-versions.log",
+  "logSha256": "f46281dd4f8dcde451308987304ec7cf310bc8c8289dd09982a0bbfd2e83a737"
+}

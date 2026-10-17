@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "mode": "disk",
+  "verified": [
+    {
+      "manifest": "docs/research-os-round1-20261016/evidence/evidence-manifest.json",
+      "files": 89,
+      "status": "passed"
+    },
+    {
+      "manifest": "docs/research-os-round1-20261016/remediation-r1/evidence/evidence-manifest.json",
+      "files": 58,
+      "status": "passed"
+    },
+    {
+      "manifest": "docs/research-os-desktop-20261017/evidence-manifest.json",
+      "files": 80,
+      "status": "passed"
+    },
+    {
+      "manifest": "docs/tailwind4-security-20261017/evidence-manifest.json",
+      "files": 270,
+      "status": "passed"
+    }
+  ],
+  "commandReceipts": 82,
+  "finalCleanCommands": 28,
+  "runtimeUnchangedFromTestedCode": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd"
+}

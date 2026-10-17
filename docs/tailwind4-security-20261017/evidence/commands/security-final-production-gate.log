@@ -1,0 +1,5 @@
+
+> investment-research-dashboard@0.1.0 security:audit:production
+> npm audit --omit=dev --audit-level=high
+
+found 0 vulnerabilities

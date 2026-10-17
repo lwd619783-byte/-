@@ -1,0 +1,118 @@
+[
+  {
+    "name": "braces",
+    "version": "3.0.3",
+    "location": "node_modules/braces",
+    "isWorkspace": false,
+    "dependents": [
+      {
+        "type": "prod",
+        "name": "braces",
+        "spec": "~3.0.2",
+        "from": {
+          "name": "chokidar",
+          "version": "3.6.0",
+          "location": "node_modules/chokidar",
+          "isWorkspace": false,
+          "dependents": [
+            {
+              "type": "prod",
+              "name": "chokidar",
+              "spec": "^3.6.0",
+              "from": {
+                "name": "tailwindcss",
+                "version": "3.4.19",
+                "location": "node_modules/tailwindcss",
+                "isWorkspace": false,
+                "dependents": [
+                  {
+                    "type": "dev",
+                    "name": "tailwindcss",
+                    "spec": "^3.4.15",
+                    "from": {
+                      "location": "/workspace/-"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "prod",
+        "name": "braces",
+        "spec": "^3.0.3",
+        "from": {
+          "name": "micromatch",
+          "version": "4.0.8",
+          "location": "node_modules/micromatch",
+          "isWorkspace": false,
+          "dependents": [
+            {
+              "type": "prod",
+              "name": "micromatch",
+              "spec": "^4.0.8",
+              "from": {
+                "name": "fast-glob",
+                "version": "3.3.3",
+                "location": "node_modules/fast-glob",
+                "isWorkspace": false,
+                "dependents": [
+                  {
+                    "type": "prod",
+                    "name": "fast-glob",
+                    "spec": "^3.3.2",
+                    "from": {
+                      "name": "tailwindcss",
+                      "version": "3.4.19",
+                      "location": "node_modules/tailwindcss",
+                      "isWorkspace": false,
+                      "dependents": [
+                        {
+                          "type": "dev",
+                          "name": "tailwindcss",
+                          "spec": "^3.4.15",
+                          "from": {
+                            "location": "/workspace/-"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "prod",
+              "name": "micromatch",
+              "spec": "^4.0.8",
+              "from": {
+                "name": "tailwindcss",
+                "version": "3.4.19",
+                "location": "node_modules/tailwindcss",
+                "isWorkspace": false,
+                "dependents": [
+                  {
+                    "type": "dev",
+                    "name": "tailwindcss",
+                    "spec": "^3.4.15",
+                    "from": {
+                      "location": "/workspace/-"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "dev": true,
+    "optional": false,
+    "devOptional": false,
+    "peer": false,
+    "bundled": false,
+    "overridden": false
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "label": "security-install-tailwind4",
+  "command": [
+    "npm",
+    "install",
+    "--package-lock-only"
+  ],
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "worktree": [
+    "M .github/workflows/ci.yml",
+    " M package.json",
+    " M postcss.config.js",
+    " M src/index.css",
+    " M tailwind.config.js"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:11:02.823Z",
+  "endedAt": "2026-10-17T03:11:08.508Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-install-tailwind4.log",
+  "logSha256": "afe0c3f20b349304d71f24b49d927bc22b3275999b7fe21c456584758b57e437"
+}

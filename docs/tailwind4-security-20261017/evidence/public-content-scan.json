@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "files": 273,
+  "textFiles": 207,
+  "characters": 17442656,
+  "restrictedSourceFiles": 7,
+  "restrictedLiterals": 455,
+  "restrictedMatches": 0,
+  "secretMatches": 0,
+  "urlHosts": [
+    "github.com",
+    "registry.npmjs.org",
+    "rollupjs.org",
+    "tailwindcss.com"
+  ],
+  "scope": "new public evidence only; PNGs are synthetic browser captures, separately hash-verified and visually sampled"
+}

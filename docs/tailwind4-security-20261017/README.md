@@ -4,6 +4,18 @@
 
 开工 Git transport fresh read：工作分支/PR87 为fd0009d；PR86为f64b64a；main为dbb58bc。父端提供该HEAD Node22 CI #185/run38991677421成功54/54；实施端不重试既有GraphQL Forbidden路径，新分支CI/草稿PR由父端核实。
 
+## 本地交付结果
+
+固定实现`efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd`已推送，远端回读一致；原桌面/PR87仍fd0009d，PR86仍f64b64a，main仍dbb58bc。后续证据提交不改变实现。28条固定SHA命令均从干净工作区开始，27条exit0，另1条npm explain braces预期exit1（依赖已移除）。完整audit5 high→0，production0→0；Vite6.4.3未升级。
+
+120文件1590测试、demo2+67、合同106+78 Node/162 Vitest、发现检查、两构建、ui:audit、199新/102旧浏览器检查通过。demo30状态及21帧严格一致；正式合成入口38检查、12布局状态、8帧受限像素容差通过。Chromium154.0.8037.57，Playwright1.57.0，Pillow12.3.0。
+
+见[完整性清单](CHECKLIST.md)、[28条固定SHA回执与所有82条命令索引](verification.json)、[新文件hash清单](evidence-manifest.json)。原三份历史证据清单89/58/80项保持不变。ui:audit生成报告及patch另存，本仓库历史报告已恢复。预提交/失败诊断与最终结果分开存放。
+
+桌面截图：[1440首页](evidence/visual/1440-overview.png)、[1920个股决策](evidence/visual/1920-decision.png)、[1440收起导航](evidence/visual/1440-collapsed.png)、[1920历史](evidence/visual/1920-history.png)、[1440锁定预览](evidence/visual/1440-lock-preview.png)、[1440到期待退出](evidence/visual/1440-pending-exit.png)。
+
+父端下一步：独立审计本安全差异fd0009d..HEAD与原始日志、视觉容差及完整性，再创建独立draft PR并验证新HEAD Node22 CI。实施端未创建PR，未merge/deploy/trade；本地0漏洞不代表原PR87/生产已修复或正式功能已准入。原分支5high历史阻断仍原样保留。
+
 ## 依据与边界
 
 2026-10-17重新读取[GitHub公告](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)：braces≤3.0.3，尚无修复版本，递归处理深嵌套模式可耗尽调用栈。锁文件已为3.0.3，不能以override到同版本修复。完整基线audit exit1，5 high是braces经chokidar、micromatch、fast-glob、Tailwind传播；dev标签不免责。

@@ -1,5 +1,7 @@
 # 投资研究看板 Feature Registry
 
+> CURRENT · 2026-10-17 安全迁移本地验证完成：独立分支fix/tailwind4-security-no-deploy，固定实现efc8e6c；完整audit5 high→0，production0→0，1590测试与199/102浏览器回归通过。demo21帧严格一致，正式CSS12状态几何一致、8帧微量栅格差异明确披露。原PR86/87和桌面分支不变，等待父端独立审计及新HEAD Node22 CI，无发布准入。[完整证据](tailwind4-security-20261017/README.md)。
+
 > CURRENT · 2026-10-17 独立安全迁移实现：Tailwind/PostCSS4.3.3、Vite6.4.3；新增两个audit失败门禁，业务/合同/数据及原CI不变。预检查完整audit为0，桌面demo一致；正式CSS兼容回归后进入固定SHA全套验证，尚未获发布准入。[证据与限制](tailwind4-security-20261017/README.md)。
 
 > CURRENT · 2026-10-17 独立安全修复开工：用户验收桌面版后批准Tailwind4迁移，基于fd0009d新建fix/tailwind4-security-no-deploy；原PR87不改写。基线仍5high，保持发布阻断，待实际锁文件/audit和视觉回归验证。[范围与依据](tailwind4-security-20261017/README.md)。

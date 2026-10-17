@@ -1,0 +1,20 @@
+{
+  "label": "security-final-audit-production",
+  "command": [
+    "env",
+    "npm_config_cache=/tmp/security-npm-cache",
+    "npm",
+    "audit",
+    "--omit=dev",
+    "--json"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:26:34.061Z",
+  "endedAt": "2026-10-17T03:26:35.869Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-final-audit-production.log",
+  "logSha256": "c2e0f53e6faad2bc63fb97799999301c0d4719f58efdfac7322092d52fe25a8d"
+}
