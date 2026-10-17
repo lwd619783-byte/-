@@ -143,7 +143,9 @@
     "preview:demo": "vite preview --config vite.demo.config.mjs",
     "test:demo": "node --test scripts/tests/demo-boundary.node.mjs && vitest run src/demo src/components/common/ResearchLink.test.tsx",
     "test:demo:browser": "node scripts/demo-browser-check.mjs",
-    "test:round-one:browser": "node scripts/round-one-browser-check.mjs"
+    "test:round-one:browser": "node scripts/round-one-browser-check.mjs",
+    "security:audit": "npm audit --audit-level=high",
+    "security:audit:production": "npm audit --omit=dev --audit-level=high"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.31.0",
@@ -168,15 +170,15 @@
     "@types/node": "22.20.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "autoprefixer": "^10.4.20",
     "fake-indexeddb": "6.2.5",
     "jsdom": "^26.1.0",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
+    "tailwindcss": "4.3.3",
     "typescript": "^5.6.3",
-    "vite": "^6.0.1",
+    "vite": "6.4.3",
     "vitest": "4.1.12",
-    "yaml": "2.9.1"
+    "yaml": "2.9.1",
+    "@tailwindcss/postcss": "4.3.3"
   },
   "engines": {
     "node": ">=22"
