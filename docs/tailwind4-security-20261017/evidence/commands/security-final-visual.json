@@ -1,0 +1,20 @@
+{
+  "label": "security-final-visual",
+  "command": [
+    "env",
+    "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+    "DEMO_BROWSER_EXECUTABLE=/usr/bin/chromium",
+    "SECURITY_VISUAL_OUTPUT=data-cache/security-final-visual",
+    "node",
+    "scripts/security-visual-check.mjs"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:28:13.398Z",
+  "endedAt": "2026-10-17T03:28:34.935Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-final-visual.log",
+  "logSha256": "b31b771432e9d4a8d7b0ad53ba5910c86463ad573c46a4b726317546c391fb4e"
+}

@@ -1,0 +1,27 @@
+{
+  "label": "security-evidence-disk",
+  "command": [
+    "node",
+    "docs/tailwind4-security-20261017/verify-evidence.mjs",
+    "disk"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [
+    "M docs/development-execution-plan-2026-09-07.md",
+    " M docs/feature-registry.md",
+    " M docs/tailwind4-security-20261017/README.md",
+    "?? docs/tailwind4-security-20261017/CHECKLIST.md",
+    "?? docs/tailwind4-security-20261017/evidence-manifest.json",
+    "?? docs/tailwind4-security-20261017/evidence/",
+    "?? docs/tailwind4-security-20261017/scan-public-evidence.mjs",
+    "?? docs/tailwind4-security-20261017/verification.json",
+    "?? docs/tailwind4-security-20261017/verify-evidence.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:31:37.677Z",
+  "endedAt": "2026-10-17T03:31:37.870Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-evidence-disk.log",
+  "logSha256": "4146b88ca5fc5e1b1db545bcbda064edf31b92cbd0d80c26ac77719c8afe897a"
+}

@@ -1,0 +1,65 @@
+{
+  "baseline": "data-cache/security-baseline-style-final",
+  "current": "data-cache/security-final-style",
+  "status": "passed",
+  "snapshotsEqual": null,
+  "screenshots": [
+    {
+      "file": "rest.png",
+      "dimensions": [
+        1440,
+        960
+      ],
+      "equal": false,
+      "differentPixels": 1,
+      "maxChannelDelta": 1,
+      "bbox": [
+        873,
+        135,
+        874,
+        136
+      ],
+      "baselineSha256": "75f05c406692ab1f4b3d7a67dc5e09306e4e6bfe2d82a438023af8ad3bf113e3",
+      "currentSha256": "389dba140058b845ce835a6d43716c3cf30928b43ccdd9ecefc687e533babadb"
+    },
+    {
+      "file": "filter-focus.png",
+      "dimensions": [
+        1440,
+        960
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "b0836719a4c6d664595da645b7dbda8cf82ca7961bdb918485f094842bc8e60a",
+      "currentSha256": "b0836719a4c6d664595da645b7dbda8cf82ca7961bdb918485f094842bc8e60a"
+    },
+    {
+      "file": "tab-focus.png",
+      "dimensions": [
+        1440,
+        960
+      ],
+      "equal": false,
+      "differentPixels": 1,
+      "maxChannelDelta": 1,
+      "bbox": [
+        873,
+        135,
+        874,
+        136
+      ],
+      "baselineSha256": "9b096e6cd177e95f0538d0a0d2026c7bd6121b36e40c098d90dc0655640372af",
+      "currentSha256": "8b551acb6c37fe1405d47e6de195cd38e1f40ae7dc3f8887f6fa7898d7350ba1"
+    }
+  ],
+  "geometryEqual": null,
+  "nonColorStylesEqual": null,
+  "pixelTolerance": {
+    "pixels": 1,
+    "channelDelta": 1,
+    "reason": "formal CSS probe transparent-shadow rasterization"
+  },
+  "formalProbeTolerance": "at most 1 pixel with channel delta<=1; CSS color-mix/transparent shadow serialization only"
+}

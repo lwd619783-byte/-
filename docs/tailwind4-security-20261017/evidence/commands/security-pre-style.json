@@ -1,0 +1,25 @@
+{
+  "label": "security-pre-style",
+  "command": [
+    "node",
+    "scripts/security-style-probe.mjs"
+  ],
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "worktree": [
+    "M .github/workflows/ci.yml",
+    " M package-lock.json",
+    " M package.json",
+    " M postcss.config.js",
+    " M src/index.css",
+    " M tailwind.config.js",
+    "?? scripts/security-style-probe.mjs",
+    "?? scripts/security-visual-check.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:14:30.543Z",
+  "endedAt": "2026-10-17T03:14:31.965Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-pre-style.log",
+  "logSha256": "1d82b1dd21f968e8ca78485ec705ae6628f5c831a2ee12032e1efdca1621e980"
+}

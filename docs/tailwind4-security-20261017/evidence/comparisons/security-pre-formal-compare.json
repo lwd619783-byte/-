@@ -1,0 +1,91 @@
+{
+  "baseline": "data-cache/security-baseline-formal",
+  "current": "data-cache/security-pre-formal-fixed",
+  "status": "failed",
+  "snapshotsEqual": null,
+  "screenshots": [
+    {
+      "file": "1440-home.png",
+      "dimensions": [
+        1440,
+        1129
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "2ebe186d8ca483a43a70715fd9ec81e811cc38b09e732146854cad31849f953e",
+      "currentSha256": "2ebe186d8ca483a43a70715fd9ec81e811cc38b09e732146854cad31849f953e"
+    },
+    {
+      "file": "1440-stocks.png",
+      "dimensions": [
+        1440,
+        1462
+      ],
+      "equal": false,
+      "differentPixels": 17,
+      "maxChannelDelta": 1,
+      "bbox": [
+        1172,
+        930,
+        1428,
+        956
+      ],
+      "baselineSha256": "2de32dcfcda3a6ac20840dd9e7b33f9e66e0928f20d298d7016e143e160c3458",
+      "currentSha256": "a998136a4450013e1698d560a12836553cacef6e7f9fa0233816d530b40c551a"
+    },
+    {
+      "file": "1440-watchlist.png",
+      "equal": false,
+      "reason": "dimensions changed"
+    },
+    {
+      "file": "1440-expectations.png",
+      "equal": false,
+      "reason": "dimensions changed"
+    },
+    {
+      "file": "1920-home.png",
+      "dimensions": [
+        1920,
+        1131
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "264f5160907fac4a03c91ae49bf1c417066fcbbb2ec62ad30672d92e2f191303",
+      "currentSha256": "264f5160907fac4a03c91ae49bf1c417066fcbbb2ec62ad30672d92e2f191303"
+    },
+    {
+      "file": "1920-stocks.png",
+      "dimensions": [
+        1920,
+        1464
+      ],
+      "equal": false,
+      "differentPixels": 17,
+      "maxChannelDelta": 1,
+      "bbox": [
+        1652,
+        930,
+        1908,
+        956
+      ],
+      "baselineSha256": "cf05f392f75c4b8385a672b789524332f623001993b922954d5e5722f7890017",
+      "currentSha256": "58bf8de964921faf8b1cf067647bf41a70637443d452c9d3be744e885a19b3fc"
+    },
+    {
+      "file": "1920-watchlist.png",
+      "equal": false,
+      "reason": "dimensions changed"
+    },
+    {
+      "file": "1920-expectations.png",
+      "equal": false,
+      "reason": "dimensions changed"
+    }
+  ],
+  "formalProbeTolerance": null
+}

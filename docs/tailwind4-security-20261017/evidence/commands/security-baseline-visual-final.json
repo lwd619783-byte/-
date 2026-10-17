@@ -1,0 +1,27 @@
+{
+  "label": "security-baseline-visual-final",
+  "command": [
+    "node",
+    "scripts/security-visual-check.mjs"
+  ],
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "worktree": [
+    "M .github/workflows/ci.yml",
+    " M package-lock.json",
+    " M package.json",
+    " M postcss.config.js",
+    " M scripts/desktop-integrity.mjs",
+    " M src/index.css",
+    " M tailwind.config.js",
+    "?? scripts/security-integrity.mjs",
+    "?? scripts/security-style-probe.mjs",
+    "?? scripts/security-visual-check.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:18:21.350Z",
+  "endedAt": "2026-10-17T03:18:40.655Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-baseline-visual-final.log",
+  "logSha256": "7920683215844e0f8eeed73832164ce06759312307ceddc7cd0cc9f73b53a749"
+}

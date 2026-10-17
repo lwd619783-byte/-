@@ -1,0 +1,79 @@
+{
+  "version": "0.1.0",
+  "name": "investment-research-dashboard",
+  "dependencies": {
+    "@tailwindcss/postcss": {
+      "version": "4.3.3",
+      "resolved": "https://registry.npmjs.org/@tailwindcss/postcss/-/postcss-4.3.3.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@tailwindcss/node": {
+          "version": "4.3.3",
+          "resolved": "https://registry.npmjs.org/@tailwindcss/node/-/node-4.3.3.tgz",
+          "overridden": false,
+          "dependencies": {
+            "tailwindcss": {
+              "version": "4.3.3"
+            }
+          }
+        },
+        "postcss": {
+          "version": "8.5.30"
+        },
+        "tailwindcss": {
+          "version": "4.3.3"
+        }
+      }
+    },
+    "@vitejs/plugin-react": {
+      "version": "4.7.0",
+      "resolved": "https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-4.7.0.tgz",
+      "overridden": false,
+      "dependencies": {
+        "vite": {
+          "version": "6.4.3"
+        }
+      }
+    },
+    "postcss": {
+      "version": "8.5.30",
+      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.5.30.tgz",
+      "overridden": false
+    },
+    "tailwindcss": {
+      "version": "4.3.3",
+      "resolved": "https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.3.3.tgz",
+      "overridden": false
+    },
+    "vite": {
+      "version": "6.4.3",
+      "resolved": "https://registry.npmjs.org/vite/-/vite-6.4.3.tgz",
+      "overridden": false,
+      "dependencies": {
+        "postcss": {
+          "version": "8.5.30"
+        }
+      }
+    },
+    "vitest": {
+      "version": "4.1.12",
+      "resolved": "https://registry.npmjs.org/vitest/-/vitest-4.1.12.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@vitest/mocker": {
+          "version": "4.1.12",
+          "resolved": "https://registry.npmjs.org/@vitest/mocker/-/mocker-4.1.12.tgz",
+          "overridden": false,
+          "dependencies": {
+            "vite": {
+              "version": "6.4.3"
+            }
+          }
+        },
+        "vite": {
+          "version": "6.4.3"
+        }
+      }
+    }
+  }
+}

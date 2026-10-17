@@ -2,7 +2,8 @@
   "git": {
     "deploymentEnabled": {
       "codex/synthetic-demo-rebuild-20261016": false,
-      "feat/research-os-round1-no-deploy": false
+      "feat/research-os-round1-no-deploy": false,
+      "fix/tailwind4-security-no-deploy": false
     }
   },
   "buildCommand": "npm run build",

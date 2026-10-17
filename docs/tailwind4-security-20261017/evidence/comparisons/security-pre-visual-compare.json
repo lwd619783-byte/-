@@ -1,0 +1,282 @@
+{
+  "baseline": "data-cache/security-baseline-visual-final",
+  "current": "data-cache/security-pre-visual-final",
+  "status": "passed",
+  "snapshotsEqual": true,
+  "screenshots": [
+    {
+      "file": "1440-overview.png",
+      "dimensions": [
+        1440,
+        1110
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "b14652634f22cc162cc519d3259fdd94c721df7488a45a53515df3ee735745ca",
+      "currentSha256": "b14652634f22cc162cc519d3259fdd94c721df7488a45a53515df3ee735745ca"
+    },
+    {
+      "file": "1440-expanded.png",
+      "dimensions": [
+        1440,
+        1110
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "717a32a7b063891183d782b9d281471909ccbe6c4a01e4d0382f6b746f0936f7",
+      "currentSha256": "717a32a7b063891183d782b9d281471909ccbe6c4a01e4d0382f6b746f0936f7"
+    },
+    {
+      "file": "1440-collapsed.png",
+      "dimensions": [
+        1440,
+        1110
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "601c9353383246dcb40793bed3f4700ada1df3786e3b21fa01e405848235cc73",
+      "currentSha256": "601c9353383246dcb40793bed3f4700ada1df3786e3b21fa01e405848235cc73"
+    },
+    {
+      "file": "1440-decision.png",
+      "dimensions": [
+        1440,
+        1112
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "35d152ed7d82e13b393e07910b904fd16ec0dc0ead30cdac65afd45c45775725",
+      "currentSha256": "35d152ed7d82e13b393e07910b904fd16ec0dc0ead30cdac65afd45c45775725"
+    },
+    {
+      "file": "1440-confirmation.png",
+      "dimensions": [
+        1440,
+        1338
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "ad6d493caa6134e58bb517e341a4e4af37f86cdea668396d182f120cfaf59b05",
+      "currentSha256": "ad6d493caa6134e58bb517e341a4e4af37f86cdea668396d182f120cfaf59b05"
+    },
+    {
+      "file": "1440-history.png",
+      "dimensions": [
+        1440,
+        960
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "ced299ec95f422e8c9fbd5a87ab3325545315eca103e54149cb1a3d95f59351e",
+      "currentSha256": "ced299ec95f422e8c9fbd5a87ab3325545315eca103e54149cb1a3d95f59351e"
+    },
+    {
+      "file": "1440-knowledge.png",
+      "dimensions": [
+        1440,
+        960
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "22ee9b7ac3525b12dbde6740941fec666ad83be5689bb6c103762943e5b70d7e",
+      "currentSha256": "22ee9b7ac3525b12dbde6740941fec666ad83be5689bb6c103762943e5b70d7e"
+    },
+    {
+      "file": "1440-selection.png",
+      "dimensions": [
+        1440,
+        1504
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "9a26486deac7cbf0c9d13b56d735c4ece7214a9db1517150afeef0983b4e1452",
+      "currentSha256": "9a26486deac7cbf0c9d13b56d735c4ece7214a9db1517150afeef0983b4e1452"
+    },
+    {
+      "file": "1440-lock-preview.png",
+      "dimensions": [
+        1440,
+        1687
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "3c2551f2c050578445a035564d8452077c6a07a53edd69fb4e7e31bfb531a853",
+      "currentSha256": "3c2551f2c050578445a035564d8452077c6a07a53edd69fb4e7e31bfb531a853"
+    },
+    {
+      "file": "1440-pending-exit.png",
+      "dimensions": [
+        1440,
+        2843
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "3bd3173ab6d52913932e10e0563bebd88b3e174ef25d9d7b72a95db0c7a1b8b4",
+      "currentSha256": "3bd3173ab6d52913932e10e0563bebd88b3e174ef25d9d7b72a95db0c7a1b8b4"
+    },
+    {
+      "file": "1920-overview.png",
+      "dimensions": [
+        1920,
+        1155
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "5385406e3b024129665595f680475e59aafefda7e7cf57e076220abe2805d07c",
+      "currentSha256": "5385406e3b024129665595f680475e59aafefda7e7cf57e076220abe2805d07c"
+    },
+    {
+      "file": "1920-expanded.png",
+      "dimensions": [
+        1920,
+        1155
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "c870d873011760521b5baf15b3a42f7e6012c16a94030dc623cc6689426eec49",
+      "currentSha256": "c870d873011760521b5baf15b3a42f7e6012c16a94030dc623cc6689426eec49"
+    },
+    {
+      "file": "1920-collapsed.png",
+      "dimensions": [
+        1920,
+        1155
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "7f6c9f340217dcff3b6d4d8e1a5c966abd8042bc0581e62328c251dfabe771a1",
+      "currentSha256": "7f6c9f340217dcff3b6d4d8e1a5c966abd8042bc0581e62328c251dfabe771a1"
+    },
+    {
+      "file": "1920-decision.png",
+      "dimensions": [
+        1920,
+        1119
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "746f2b459bba80d53cd8d96b7e0ca8a5f68138cf64d66a254cf46ca4d2f2ea0f",
+      "currentSha256": "746f2b459bba80d53cd8d96b7e0ca8a5f68138cf64d66a254cf46ca4d2f2ea0f"
+    },
+    {
+      "file": "1920-confirmation.png",
+      "dimensions": [
+        1920,
+        1344
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "7c13f06735068096899ec4924b4918c24075c53d70433b1e501811bd04304f47",
+      "currentSha256": "7c13f06735068096899ec4924b4918c24075c53d70433b1e501811bd04304f47"
+    },
+    {
+      "file": "1920-history.png",
+      "dimensions": [
+        1920,
+        960
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "20ca6eded4b1f8ed7046fdcfd0ac23fef91875e2b8bde09bc9b9a199d5e4152c",
+      "currentSha256": "20ca6eded4b1f8ed7046fdcfd0ac23fef91875e2b8bde09bc9b9a199d5e4152c"
+    },
+    {
+      "file": "1920-knowledge.png",
+      "dimensions": [
+        1920,
+        960
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "cba84270254bb7368be8fc51b0e58db25cb84103166dae9dae23fb5798c088c3",
+      "currentSha256": "cba84270254bb7368be8fc51b0e58db25cb84103166dae9dae23fb5798c088c3"
+    },
+    {
+      "file": "1920-selection.png",
+      "dimensions": [
+        1920,
+        1462
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "d664496cdd59a9cdffc528e1364042cbfdade101b75bc7362f5a981dd548e34d",
+      "currentSha256": "d664496cdd59a9cdffc528e1364042cbfdade101b75bc7362f5a981dd548e34d"
+    },
+    {
+      "file": "1920-lock-preview.png",
+      "dimensions": [
+        1920,
+        1645
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "db85e88b00bfee49ae7233c40738fca79358344d1e361f5c39ff18e75f6b564c",
+      "currentSha256": "db85e88b00bfee49ae7233c40738fca79358344d1e361f5c39ff18e75f6b564c"
+    },
+    {
+      "file": "1920-pending-exit.png",
+      "dimensions": [
+        1920,
+        2801
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "8596fcfd717f5b4aa62e201bdd147ca990c76e3d3acd38853e77eeb6f7cb4fa0",
+      "currentSha256": "8596fcfd717f5b4aa62e201bdd147ca990c76e3d3acd38853e77eeb6f7cb4fa0"
+    },
+    {
+      "file": "390-overview.png",
+      "dimensions": [
+        390,
+        1685
+      ],
+      "equal": true,
+      "differentPixels": 0,
+      "maxChannelDelta": 0,
+      "bbox": null,
+      "baselineSha256": "ca270aa9accd1c129bfa67488f978824ae611d78f70fdead272264248dab0c3e",
+      "currentSha256": "ca270aa9accd1c129bfa67488f978824ae611d78f70fdead272264248dab0c3e"
+    }
+  ],
+  "formalProbeTolerance": null
+}

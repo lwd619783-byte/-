@@ -36,6 +36,12 @@ jobs:
       - name: Install JavaScript dependencies
         run: npm ci
 
+      - name: Audit all dependencies including build tooling (blocks high and critical)
+        run: npm run security:audit
+
+      - name: Audit production dependency closure (blocks high and critical)
+        run: npm run security:audit:production
+
       - name: Typecheck Node-only Local Core
         run: npm run local:typecheck
 

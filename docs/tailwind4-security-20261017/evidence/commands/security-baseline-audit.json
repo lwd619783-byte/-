@@ -1,0 +1,17 @@
+{
+  "label": "security-baseline-audit",
+  "command": [
+    "npm",
+    "audit",
+    "--json"
+  ],
+  "sha": "fd0009db95148e72f6e8804b37618634274c588c",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:08:59.236Z",
+  "endedAt": "2026-10-17T03:09:01.338Z",
+  "exitCode": 1,
+  "signal": null,
+  "log": "security-baseline-audit.log",
+  "logSha256": "82624c64e9844e97919c9651bffce4313fb3951da3a4cc17892ac3a7b44bf437"
+}

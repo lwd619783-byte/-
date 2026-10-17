@@ -1,0 +1,19 @@
+{
+  "label": "security-final-style",
+  "command": [
+    "env",
+    "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+    "SECURITY_STYLE_OUTPUT=data-cache/security-final-style",
+    "node",
+    "scripts/security-style-probe.mjs"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:27:44.922Z",
+  "endedAt": "2026-10-17T03:27:47.204Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-final-style.log",
+  "logSha256": "228276b997a631edcb7b07112b36ff228a46e935cae903c71037b84d11316abc"
+}

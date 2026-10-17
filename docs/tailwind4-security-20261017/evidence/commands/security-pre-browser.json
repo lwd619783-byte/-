@@ -1,0 +1,25 @@
+{
+  "label": "security-pre-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:round-one:browser"
+  ],
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "worktree": [
+    "M .github/workflows/ci.yml",
+    " M package-lock.json",
+    " M package.json",
+    " M postcss.config.js",
+    " M src/index.css",
+    " M tailwind.config.js",
+    "?? scripts/security-visual-check.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:13:03.579Z",
+  "endedAt": "2026-10-17T03:13:25.041Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-pre-browser.log",
+  "logSha256": "2075ef0723187ee0a18284e5bd0cd535595c2183aa9dfdb572a8d367699412b0"
+}

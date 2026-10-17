@@ -1,0 +1,23 @@
+{
+  "label": "security-package-versions-retry",
+  "command": [
+    "npm",
+    "view",
+    "tailwindcss@4.3.3",
+    "version",
+    "engines",
+    "dependencies",
+    "--json"
+  ],
+  "sha": "fd0009db95148e72f6e8804b37618634274c588c",
+  "worktree": [
+    "M vercel.json"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:09:18.958Z",
+  "endedAt": "2026-10-17T03:09:20.060Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-package-versions-retry.log",
+  "logSha256": "6a9bdb0e67a883754747a15de51b93c6367db6dea1460b45f2df401b9864db53"
+}

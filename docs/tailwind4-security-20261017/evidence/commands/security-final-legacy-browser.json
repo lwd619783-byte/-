@@ -1,0 +1,22 @@
+{
+  "label": "security-final-legacy-browser",
+  "command": [
+    "env",
+    "UI_REVIEW_PLAYWRIGHT_MODULE=/opt/codex/cua_node/lib/node_modules/playwright",
+    "DEMO_BROWSER_EXECUTABLE=/usr/bin/chromium",
+    "DEMO_BROWSER_OUTPUT=data-cache/security-final-legacy-browser",
+    "DEMO_BROWSER_SCREENSHOTS=0",
+    "npm",
+    "run",
+    "test:demo:browser"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:28:13.369Z",
+  "endedAt": "2026-10-17T03:28:30.024Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-final-legacy-browser.log",
+  "logSha256": "6830663ed9b09f15ac1df507c71dc1790976718cd7acb3181916be8442b35b2b"
+}

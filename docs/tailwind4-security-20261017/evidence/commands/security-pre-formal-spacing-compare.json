@@ -1,0 +1,35 @@
+{
+  "label": "security-pre-formal-spacing-compare",
+  "command": [
+    "python3",
+    "scripts/security-compare.py",
+    "data-cache/security-baseline-formal-detail",
+    "data-cache/security-pre-formal-spacing",
+    "data-cache/security-pre-formal-spacing-compare.json"
+  ],
+  "sha": "954d2372cac308ee443e816708411b1e85e2717a",
+  "worktree": [
+    "M .github/workflows/ci.yml",
+    " M docs/development-execution-plan-2026-09-07.md",
+    " M docs/feature-registry.md",
+    " M docs/tailwind4-security-20261017/README.md",
+    " M package-lock.json",
+    " M package.json",
+    " M postcss.config.js",
+    " M scripts/desktop-integrity.mjs",
+    " M src/index.css",
+    " M tailwind.config.js",
+    "?? scripts/security-compare.py",
+    "?? scripts/security-formal-browser.mjs",
+    "?? scripts/security-integrity.mjs",
+    "?? scripts/security-style-probe.mjs",
+    "?? scripts/security-visual-check.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:24:56.130Z",
+  "endedAt": "2026-10-17T03:25:04.115Z",
+  "exitCode": 1,
+  "signal": null,
+  "log": "security-pre-formal-spacing-compare.log",
+  "logSha256": "6117c03edad4e46e380f952ca5244f0a5d2acf7d73fe6f907413c3b852f002a1"
+}

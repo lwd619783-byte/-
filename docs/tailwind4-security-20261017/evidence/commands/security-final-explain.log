@@ -1,0 +1,24 @@
+[
+  {
+    "name": "@tailwindcss/postcss",
+    "version": "4.3.3",
+    "location": "node_modules/@tailwindcss/postcss",
+    "isWorkspace": false,
+    "dependents": [
+      {
+        "type": "dev",
+        "name": "@tailwindcss/postcss",
+        "spec": "4.3.3",
+        "from": {
+          "location": "/workspace/-"
+        }
+      }
+    ],
+    "dev": true,
+    "optional": false,
+    "devOptional": false,
+    "peer": false,
+    "bundled": false,
+    "overridden": false
+  }
+]

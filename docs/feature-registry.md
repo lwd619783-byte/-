@@ -1,5 +1,11 @@
 # 投资研究看板 Feature Registry
 
+> CURRENT · 2026-10-17 安全迁移本地验证完成：独立分支fix/tailwind4-security-no-deploy，固定实现efc8e6c；完整audit5 high→0，production0→0，1590测试与199/102浏览器回归通过。demo21帧严格一致，正式CSS12状态几何一致、8帧微量栅格差异明确披露。原PR86/87和桌面分支不变，等待父端独立审计及新HEAD Node22 CI，无发布准入。[完整证据](tailwind4-security-20261017/README.md)。
+
+> CURRENT · 2026-10-17 独立安全迁移实现：Tailwind/PostCSS4.3.3、Vite6.4.3；新增两个audit失败门禁，业务/合同/数据及原CI不变。预检查完整audit为0，桌面demo一致；正式CSS兼容回归后进入固定SHA全套验证，尚未获发布准入。[证据与限制](tailwind4-security-20261017/README.md)。
+
+> CURRENT · 2026-10-17 独立安全修复开工：用户验收桌面版后批准Tailwind4迁移，基于fd0009d新建fix/tailwind4-security-no-deploy；原PR87不改写。基线仍5high，保持发布阻断，待实际锁文件/audit和视觉回归验证。[范围与依据](tailwind4-security-20261017/README.md)。
+
 > 2026-10-17 桌面布局本地验证完成：代码 `34e23a4eee12d8a84b8d3306249fe913e2a07cd4`，工作分支/PR87 Git HEAD 回读一致；120文件/1590测试，demo67+2，199新/102旧浏览器检查，1440/1920/390，11桌面+1小屏截图。仅合成UI，模拟规则未改；Node24实施方结果，待父端独立审计与新HEAD CI核实，5 high继续阻断发布。[完整回执与截图](research-os-desktop-20261017/README.md)。
 
 > CURRENT · 2026-10-17 桌面布局候选：同分支在 7cfcc0a 上改合成 demo 侧栏与独立主区，业务语义不变，待固定 SHA 验证与父端独立审计。父端已完成 R1 审计并创建 draft PR87、旧 HEAD Node22 CI 通过；实施端 Git 远端 SHA 一致，GraphQL Forbidden，未独立复核 draft/CI 状态。PR86 依赖、禁止自动部署及5 high发布阻断保留。[范围与证据](research-os-desktop-20261017/README.md)。

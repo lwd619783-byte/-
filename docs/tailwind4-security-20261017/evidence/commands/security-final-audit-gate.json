@@ -1,0 +1,19 @@
+{
+  "label": "security-final-audit-gate",
+  "command": [
+    "env",
+    "npm_config_cache=/tmp/security-npm-cache",
+    "npm",
+    "run",
+    "security:audit"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:26:42.112Z",
+  "endedAt": "2026-10-17T03:26:44.769Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-final-audit-gate.log",
+  "logSha256": "339b7bac9b7bb89eb1c0383a5bfd694ee0495e60f609a3798ff762b1289e4612"
+}

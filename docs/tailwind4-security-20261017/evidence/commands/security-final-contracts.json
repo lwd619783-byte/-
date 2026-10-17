@@ -1,0 +1,19 @@
+{
+  "label": "security-final-contracts",
+  "command": [
+    "env",
+    "TMPDIR=/tmp/.local-data/os-round1-tests",
+    "npm",
+    "run",
+    "test:contracts"
+  ],
+  "sha": "efc8e6ca8dadf4f89d5b193729acfebd2e2a41cd",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T03:26:32.613Z",
+  "endedAt": "2026-10-17T03:26:56.181Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "security-final-contracts.log",
+  "logSha256": "fb098c0be5eecb8391e4ff6a31f5cad1bec1ce7df5b20b52d4d2596878a60c17"
+}
