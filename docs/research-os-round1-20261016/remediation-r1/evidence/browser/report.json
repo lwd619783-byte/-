@@ -1,0 +1,665 @@
+{
+  "testedSha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+  "worktree": "",
+  "scope": "synthetic-only",
+  "browserBack": "NOT_APPLICABLE: in-memory tabs, no history routing; tested explicit home navigation only",
+  "checks": [
+    {
+      "name": "320 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "320 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "320 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "320 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "320 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "320 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "320 cancel decision writes nothing",
+      "ok": true
+    },
+    {
+      "name": "320 decision confirmation preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 explicit version-bound decision",
+      "ok": true
+    },
+    {
+      "name": "320 duplicate decision disabled",
+      "ok": true
+    },
+    {
+      "name": "320 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "320 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 index and home preserve decision record",
+      "ok": true
+    },
+    {
+      "name": "320 revised suggestion invalidates old confirmation",
+      "ok": true
+    },
+    {
+      "name": "320 old decision history retained",
+      "ok": true
+    },
+    {
+      "name": "320 decision revision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "320 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "320 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "320 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "320 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "320 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "320 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "320 day20 final liquidation return unknown",
+      "ok": true
+    },
+    {
+      "name": "320 day20 planned exit and no completed exit",
+      "ok": true
+    },
+    {
+      "name": "320 no intraday execution claim",
+      "ok": true
+    },
+    {
+      "name": "320 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "320 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "320 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "320 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "320 day22 final liquidation includes delayed exit",
+      "ok": true
+    },
+    {
+      "name": "320 day22 delay is explicit",
+      "ok": true
+    },
+    {
+      "name": "320 no day20 return mislabel",
+      "ok": true
+    },
+    {
+      "name": "320 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "320 global multiple-active import rejected",
+      "ok": true
+    },
+    {
+      "name": "320 invalid multi-round import atomic",
+      "ok": true
+    },
+    {
+      "name": "320 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "320 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "320 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "320 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "320 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "320 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "320 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "320 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "390 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "390 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "390 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "390 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "390 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "390 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "390 cancel decision writes nothing",
+      "ok": true
+    },
+    {
+      "name": "390 decision confirmation preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 explicit version-bound decision",
+      "ok": true
+    },
+    {
+      "name": "390 duplicate decision disabled",
+      "ok": true
+    },
+    {
+      "name": "390 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "390 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 index and home preserve decision record",
+      "ok": true
+    },
+    {
+      "name": "390 revised suggestion invalidates old confirmation",
+      "ok": true
+    },
+    {
+      "name": "390 old decision history retained",
+      "ok": true
+    },
+    {
+      "name": "390 decision revision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "390 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "390 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "390 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "390 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "390 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "390 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "390 day20 final liquidation return unknown",
+      "ok": true
+    },
+    {
+      "name": "390 day20 planned exit and no completed exit",
+      "ok": true
+    },
+    {
+      "name": "390 no intraday execution claim",
+      "ok": true
+    },
+    {
+      "name": "390 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "390 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "390 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "390 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "390 day22 final liquidation includes delayed exit",
+      "ok": true
+    },
+    {
+      "name": "390 day22 delay is explicit",
+      "ok": true
+    },
+    {
+      "name": "390 no day20 return mislabel",
+      "ok": true
+    },
+    {
+      "name": "390 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "390 global multiple-active import rejected",
+      "ok": true
+    },
+    {
+      "name": "390 invalid multi-round import atomic",
+      "ok": true
+    },
+    {
+      "name": "390 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "390 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "390 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "390 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "390 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "390 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "390 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "390 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "1536 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "1536 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "1536 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "1536 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "1536 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "1536 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "1536 cancel decision writes nothing",
+      "ok": true
+    },
+    {
+      "name": "1536 decision confirmation preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 explicit version-bound decision",
+      "ok": true
+    },
+    {
+      "name": "1536 duplicate decision disabled",
+      "ok": true
+    },
+    {
+      "name": "1536 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "1536 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 index and home preserve decision record",
+      "ok": true
+    },
+    {
+      "name": "1536 revised suggestion invalidates old confirmation",
+      "ok": true
+    },
+    {
+      "name": "1536 old decision history retained",
+      "ok": true
+    },
+    {
+      "name": "1536 decision revision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "1536 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "1536 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "1536 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "1536 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "1536 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "1536 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "1536 day20 final liquidation return unknown",
+      "ok": true
+    },
+    {
+      "name": "1536 day20 planned exit and no completed exit",
+      "ok": true
+    },
+    {
+      "name": "1536 no intraday execution claim",
+      "ok": true
+    },
+    {
+      "name": "1536 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "1536 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "1536 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "1536 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "1536 day22 final liquidation includes delayed exit",
+      "ok": true
+    },
+    {
+      "name": "1536 day22 delay is explicit",
+      "ok": true
+    },
+    {
+      "name": "1536 no day20 return mislabel",
+      "ok": true
+    },
+    {
+      "name": "1536 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "1536 global multiple-active import rejected",
+      "ok": true
+    },
+    {
+      "name": "1536 invalid multi-round import atomic",
+      "ok": true
+    },
+    {
+      "name": "1536 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "1536 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "1536 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "1536 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "1536 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "1536 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "1536 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "1536 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "zero page errors",
+      "ok": true
+    },
+    {
+      "name": "zero console errors",
+      "ok": true
+    },
+    {
+      "name": "zero unexpected requests",
+      "ok": true
+    },
+    {
+      "name": "zero popups",
+      "ok": true
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "unexpectedRequests": [],
+  "popups": [],
+  "screenshots": [
+    "320-home.png",
+    "320-decision-confirmation-preview.png",
+    "320-decision-revision.png",
+    "320-selection.png",
+    "320-lock-preview.png",
+    "320-pending-exits.png",
+    "320-import-preview.png",
+    "390-home.png",
+    "1536-home.png",
+    "1536-knowledge.png",
+    "1536-complete.png"
+  ],
+  "assets": [
+    {
+      "file": "assets/index-Pngo2J9A.js",
+      "bytes": 566269,
+      "sha256": "b7ee44e9d416bf36d099e02609bec6fb04c54c80e0617cf7cda488e3cf506115"
+    },
+    {
+      "file": "assets/index-Z6utz1fL.css",
+      "bytes": 54411,
+      "sha256": "a98fc14b2bdcb5b62774288f1f2a8da25f72dcf24b8d70ba84216f1000924cb0"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 101259,
+      "sha256": "1520d26cd9efdfb083164cdac8ccc43a147e15ef4ca1075cad8171c3c70b48a8"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "37aeb82061e21f4dc03f7cc95b539117c74d572b5d647b501faf784a4e36ec9d"
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "status": "passed"
+}

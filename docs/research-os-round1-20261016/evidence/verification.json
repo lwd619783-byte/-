@@ -1,0 +1,299 @@
+{
+  "scope": "synthetic-only",
+  "baseline": "f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce",
+  "dependsOn": "PR86 (user-specified unmerged dependency; PR API forbidden, not reverified)",
+  "branch": "feat/research-os-round1-no-deploy",
+  "testedCodeSha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+  "implementation": "IMPLEMENTED",
+  "localVerification": "PASSED_WITH_RECORDED_WARNINGS",
+  "independentAudit": "PENDING_PARENT",
+  "releaseAdmission": "BLOCKED",
+  "dependencyAudit": {
+    "exitCode": 1,
+    "high": 5
+  },
+  "merged": false,
+  "deployedByThisTask": false,
+  "hostedCI": "NOT_RUN",
+  "node": "24.19.0",
+  "npm": "11.9.0",
+  "chromium": "154.0.8037.57",
+  "tests": {
+    "vitestFiles": 120,
+    "vitestTests": 1569,
+    "demoNodeTests": 2,
+    "demoVitestTests": 46,
+    "contractNodeTests": [
+      106,
+      78
+    ],
+    "contractVitestTests": 162,
+    "roundBrowserChecks": 106,
+    "legacyBrowserChecks": 102
+  },
+  "allFinalCommandsStartedClean": true,
+  "commands": [
+    {
+      "label": "final-all-tests",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:41:38.830Z",
+      "endedAt": "2026-10-16T16:42:43.316Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-all-tests.log",
+      "logSha256": "5403d7e66d9c36875970386e00f8a7a760b35a07d2dc1595e7cb08ec945c08fa"
+    },
+    {
+      "label": "final-contract-tests",
+      "command": [
+        "npm",
+        "run",
+        "test:contracts"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:41:50.715Z",
+      "endedAt": "2026-10-16T16:42:07.736Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-contract-tests.log",
+      "logSha256": "3c9cec09c77defab8346f0561b37a0791ba54ac9688694405b17fc478a279502"
+    },
+    {
+      "label": "final-contracts",
+      "command": [
+        "npm",
+        "run",
+        "contracts:validate"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:41:38.812Z",
+      "endedAt": "2026-10-16T16:41:46.342Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-contracts.log",
+      "logSha256": "01655c4f127988dea40e58ff32c2b2fac01f611ef6849eecec683a344dba9a8b"
+    },
+    {
+      "label": "final-demo-build",
+      "command": [
+        "npm",
+        "run",
+        "build:demo"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:42:57.021Z",
+      "endedAt": "2026-10-16T16:43:13.568Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-demo-build.log",
+      "logSha256": "b9c5ba2d4563f3f5a19fb039814cc1b6c37d4b6e53202515b4696c60ac520199"
+    },
+    {
+      "label": "final-demo-tests",
+      "command": [
+        "npm",
+        "run",
+        "test:demo"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:42:21.360Z",
+      "endedAt": "2026-10-16T16:42:26.009Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-demo-tests.log",
+      "logSha256": "972a961fb88e60fd7b241496b2be970c609db28879c7f1c1094e028cba8155c7"
+    },
+    {
+      "label": "final-dependency-audit",
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:41:38.825Z",
+      "endedAt": "2026-10-16T16:41:46.101Z",
+      "exitCode": 1,
+      "signal": null,
+      "log": "final-dependency-audit.log",
+      "logSha256": "00c3f8f1298c4467fc27372ed3908ef944062d731b9dae46386034a0bfbc7fc4"
+    },
+    {
+      "label": "final-discovery",
+      "command": [
+        "npm",
+        "run",
+        "test:discovery"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:42:22.702Z",
+      "endedAt": "2026-10-16T16:42:49.196Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-discovery.log",
+      "logSha256": "411e111bfb8d0436b0d42e4a6c84d89839ec6af7a1f6d3c174fa2874c52b0320"
+    },
+    {
+      "label": "final-formal-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:41:38.807Z",
+      "endedAt": "2026-10-16T16:42:19.718Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-formal-build.log",
+      "logSha256": "b1bbd5c4346d9ee9399e4eb5f663e8eaa515465e7d666e9ede15a897eb77ff56"
+    },
+    {
+      "label": "final-install",
+      "command": [
+        "npm",
+        "ci"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:41:08.776Z",
+      "endedAt": "2026-10-16T16:41:14.228Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-install.log",
+      "logSha256": "d895c5408df673839e7a7d02e451c1f2a4aaa7b5158d5496a574041b459d5c96"
+    },
+    {
+      "label": "final-integrity",
+      "command": [
+        "node",
+        "scripts/round-one-integrity.mjs"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:43:42.024Z",
+      "endedAt": "2026-10-16T16:43:42.133Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-integrity.log",
+      "logSha256": "2aae0aab24a6759c6ff798bcfbaa2ae17dddee2daa468c746c4e92b8fcd487eb"
+    },
+    {
+      "label": "final-legacy-browser",
+      "command": [
+        "npm",
+        "run",
+        "test:demo:browser"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:43:42.038Z",
+      "endedAt": "2026-10-16T16:43:55.656Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-legacy-browser.log",
+      "logSha256": "14b95840b2815c6be183652a6ca03e1153a3d945a2f1f468935664ee9b65eac6"
+    },
+    {
+      "label": "final-round-browser",
+      "command": [
+        "npm",
+        "run",
+        "test:round-one:browser"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:43:42.044Z",
+      "endedAt": "2026-10-16T16:43:56.912Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-round-browser.log",
+      "logSha256": "503f8c12a2176922f2a2eb91385c8bcc7e1d54eaca54026503be8a365a4ff4cd"
+    },
+    {
+      "label": "final-ui-audit",
+      "command": [
+        "npm",
+        "run",
+        "ui:audit"
+      ],
+      "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T16:41:52.184Z",
+      "endedAt": "2026-10-16T16:41:53.233Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "final-ui-audit.log",
+      "logSha256": "d1551ada70f4a482ba8eb52f6fabcaf01f84e44a37a68d149b1b5bff738098f4"
+    }
+  ],
+  "environment": {
+    "install": {
+      "npm_config_cache": "/tmp/os-r1-npm",
+      "npm_config_devdir": "/tmp/os-r1-node-gyp"
+    },
+    "contractTests": {
+      "TMPDIR": "/tmp/.local-data/os-round1-tests"
+    },
+    "browser": {
+      "UI_REVIEW_PLAYWRIGHT_MODULE": "/opt/codex/cua_node/lib/node_modules/playwright",
+      "DEMO_BROWSER_EXECUTABLE": "/usr/bin/chromium",
+      "DEMO_BROWSER_COMPACT": "1 (legacy only)"
+    }
+  },
+  "screenshotsVisuallyReviewed": 17,
+  "warnings": [
+    "5 high dependencies remain release blockers",
+    "full Vitest passed with two jsdom window.scrollTo not-implemented stderr messages",
+    "Vite chunk-size warnings; formal build existing static/dynamic import warning",
+    "npm existing deprecations and devdir warning",
+    "ui:audit generated timestamp-only change; diff retained, generated tracked report restored"
+  ],
+  "limitations": [
+    "demo-only memory; no private research migration or real selections",
+    "home reading confirmations are session-only; oversold backup does not include home reading flags",
+    "finite synthetic calendar and quotes; real price/cost/session conventions remain unapproved",
+    "backup is validated but not signed or trusted evidence of real-time user execution",
+    "all rounds repeat the synthetic scenario; does not establish stable strategy efficacy",
+    "no hosted CI, preview, production or Node22 CI execution in this task; no real accounts or trading",
+    "no independent audit or PR creation performed"
+  ],
+  "failureEvidence": [
+    "integrated-demo-build.json",
+    "precommit-round-browser.json",
+    "precommit-round-browser-retry.json",
+    "precommit-legacy-browser.json",
+    "failures/round-browser-first.json",
+    "failures/round-browser-second.json",
+    "failures/legacy-browser-first.json",
+    "failures/public-content-scan-first.json"
+  ],
+  "evidenceSaving": "Evidence-only commit follows testedCodeSha; no application or verification code changes after fixed SHA.",
+  "remoteRead": "delivery-remote-read.json",
+  "evidenceSaveCorrection": "evidence-save-correction.json"
+}

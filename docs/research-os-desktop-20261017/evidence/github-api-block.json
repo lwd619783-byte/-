@@ -1,0 +1,17 @@
+{
+  "source": "transcribed from direct tool response earlier in this task; not a new API request or recorder replay",
+  "command": [
+    "gh",
+    "pr",
+    "view",
+    "87",
+    "--repo",
+    "lwd619783-byte/-",
+    "--json",
+    "number,state,isDraft,headRefOid,headRefName,baseRefName"
+  ],
+  "exitCode": 1,
+  "output": "Post \"https://api.github.com/graphql\": Forbidden",
+  "subsequentChainedRunView": "NOT_RUN because prior command exited 1",
+  "resolution": "Stopped API path. Git transport allowed and verifies refs only. Parent supplies draft status and old Node22 CI success; new HEAD CI NOT_VERIFIED."
+}

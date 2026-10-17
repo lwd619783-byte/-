@@ -1,5 +1,7 @@
 # 投资研究看板架构基线
 
+> 2026-10-16 第一轮候选：独立 demo 入口加入决策首页、合成知识索引和超跌模拟状态机（版本化合成备份/追加事件/内存隔离）。不改变正式 App、合同、存储、Provider 或服务权限。依赖未合并 PR86；[范围和时间语义](research-os-round1-20261016/README.md)。
+
 ## 2026-09-27 Daily Review writeback V1 增量
 
 独立审计整改：`Provider retained structured facts → shared/oil-shipping-observation.mjs → OilShippingObservation / oil-shipping-observation-context.v1 → ChatGPT interpretation → Review writeback`。只有一份 stock/1p/5p/20p/sample/normalization/relationship 公式，源事实与 AI 引用文字分离；bounded context 不返回完整曲线，未来取得的 current owner 不证明历史可用性。derived 发布须引用同 asOf 的精确 result digest。样本聚合保留固定 denominator；窗口内每只证券数值完整且实际起止日一致即返回原 close 数学值，质量状态独立传播；缺值、端点不一致或缺证券时返回 null。stale/blocked 来源仍不能通过 Review derived 发布门禁，relationship 仍严格 fail closed。Review authority、正式门禁与权限范围不变。[整改记录](daily-review-remediation-v1.md)。

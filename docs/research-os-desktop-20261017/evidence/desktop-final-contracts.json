@@ -1,0 +1,17 @@
+{
+  "label": "desktop-final-contracts",
+  "command": [
+    "npm",
+    "run",
+    "test:contracts"
+  ],
+  "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:33:14.223Z",
+  "endedAt": "2026-10-17T01:33:28.842Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-final-contracts.log",
+  "logSha256": "8f4e8a7cbac1e9391484b1d1d28c15bdadf1c76d3ae831215a8dcecdeecd34cd"
+}

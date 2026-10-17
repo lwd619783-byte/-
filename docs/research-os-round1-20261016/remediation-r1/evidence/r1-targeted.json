@@ -1,0 +1,26 @@
+{
+  "label": "r1-targeted",
+  "command": [
+    "npx",
+    "vitest",
+    "run",
+    "src/demo/round-one"
+  ],
+  "sha": "b818a40a47a81948cc14e4db30e9c8a6f06435bd",
+  "worktree": [
+    "M scripts/round-one-browser-check.mjs",
+    " M src/demo/main.tsx",
+    " M src/demo/round-one/DecisionHome.test.tsx",
+    " M src/demo/round-one/DecisionHome.tsx",
+    " M src/demo/round-one/SimulationWorkspace.tsx",
+    " M src/demo/round-one/simulation.test.ts",
+    " M src/demo/round-one/simulation.ts"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:57:43.732Z",
+  "endedAt": "2026-10-16T16:57:45.277Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "r1-targeted.log",
+  "logSha256": "8cf6465d4083dc6ee1d2792dd6dc9b52ab42a2e85ce1bf9411eaa87eb965f4f1"
+}

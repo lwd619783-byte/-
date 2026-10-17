@@ -1,0 +1,17 @@
+{
+  "label": "final-dependency-audit",
+  "command": [
+    "npm",
+    "audit",
+    "--json"
+  ],
+  "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:41:38.825Z",
+  "endedAt": "2026-10-16T16:41:46.101Z",
+  "exitCode": 1,
+  "signal": null,
+  "log": "final-dependency-audit.log",
+  "logSha256": "00c3f8f1298c4467fc27372ed3908ef944062d731b9dae46386034a0bfbc7fc4"
+}

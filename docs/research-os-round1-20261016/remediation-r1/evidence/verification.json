@@ -1,0 +1,259 @@
+{
+  "scope": "synthetic-only",
+  "branch": "feat/research-os-round1-no-deploy",
+  "dependsOnPR86Head": "f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce",
+  "remediationBase": "b818a40a47a81948cc14e4db30e9c8a6f06435bd",
+  "testedCodeSha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+  "status": "IMPLEMENTED / VERIFIED LOCALLY / PARENT RE-REVIEW PENDING",
+  "testExecutor": "implementing agent, not parent auditor",
+  "node": "24.19.0",
+  "npm": "11.9.0",
+  "chromium": "154.0.8037.57",
+  "commands": [
+    {
+      "label": "r1-final-all-tests",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:00:14.716Z",
+      "endedAt": "2026-10-16T17:01:26.591Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-all-tests.log",
+      "logSha256": "d2886055a172edf4fdce41da0353f9a8352501bce9518e7ee46174314702e6a1"
+    },
+    {
+      "label": "r1-final-browser",
+      "command": [
+        "npm",
+        "run",
+        "test:round-one:browser"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:02:13.165Z",
+      "endedAt": "2026-10-16T17:02:29.107Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-browser.log",
+      "logSha256": "8cc4e0a4c44eb7c4ce704f3007a2c7663e66bf2dec68ee283235250456def3d1"
+    },
+    {
+      "label": "r1-final-contract-tests",
+      "command": [
+        "npm",
+        "run",
+        "test:contracts"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:00:42.825Z",
+      "endedAt": "2026-10-16T17:00:58.098Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-contract-tests.log",
+      "logSha256": "106cf7a1d7a9aea9320c9e8870eee5435e8360f5fcc459a66e9c8e7ec0714a0a"
+    },
+    {
+      "label": "r1-final-contracts",
+      "command": [
+        "npm",
+        "run",
+        "contracts:validate"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:00:44.199Z",
+      "endedAt": "2026-10-16T17:00:55.624Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-contracts.log",
+      "logSha256": "01655c4f127988dea40e58ff32c2b2fac01f611ef6849eecec683a344dba9a8b"
+    },
+    {
+      "label": "r1-final-demo-build",
+      "command": [
+        "npm",
+        "run",
+        "build:demo"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:01:27.328Z",
+      "endedAt": "2026-10-16T17:01:45.386Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-demo-build.log",
+      "logSha256": "ae5125b15c4ec730e576fbfbd414b3b8db3c772ae87c82d70efdfe6a5f5b44a0"
+    },
+    {
+      "label": "r1-final-demo-tests",
+      "command": [
+        "npm",
+        "run",
+        "test:demo"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:00:14.715Z",
+      "endedAt": "2026-10-16T17:00:19.913Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-demo-tests.log",
+      "logSha256": "fd904cb1cc27a0c10fe9dfc80e11f90ff115049874bd02f527b9002d26ea5fa4"
+    },
+    {
+      "label": "r1-final-dependency-audit",
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:00:14.733Z",
+      "endedAt": "2026-10-16T17:00:19.514Z",
+      "exitCode": 1,
+      "signal": null,
+      "log": "r1-final-dependency-audit.log",
+      "logSha256": "00c3f8f1298c4467fc27372ed3908ef944062d731b9dae46386034a0bfbc7fc4"
+    },
+    {
+      "label": "r1-final-discovery",
+      "command": [
+        "npm",
+        "run",
+        "test:discovery"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:01:28.648Z",
+      "endedAt": "2026-10-16T17:01:47.768Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-discovery.log",
+      "logSha256": "453e1a0efd3b172f2ca61839bc574b274a5b817f7ee741ecf6782be7716d5aa0"
+    },
+    {
+      "label": "r1-final-formal-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:00:14.707Z",
+      "endedAt": "2026-10-16T17:00:51.551Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-formal-build.log",
+      "logSha256": "c0b8b906b50ae946efdc9de4dfee999ffc385209952fc4d71da990bd20a087bc"
+    },
+    {
+      "label": "r1-final-integrity",
+      "command": [
+        "node",
+        "scripts/round-one-integrity.mjs"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:02:13.143Z",
+      "endedAt": "2026-10-16T17:02:13.257Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-integrity.log",
+      "logSha256": "2aae0aab24a6759c6ff798bcfbaa2ae17dddee2daa468c746c4e92b8fcd487eb"
+    },
+    {
+      "label": "r1-final-legacy-browser",
+      "command": [
+        "npm",
+        "run",
+        "test:demo:browser"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:02:13.142Z",
+      "endedAt": "2026-10-16T17:02:26.611Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-legacy-browser.log",
+      "logSha256": "b5176b8bb5a23030d55e2e9abc92b6dba94bb8c6842c0e96eb8dd2b226a112c9"
+    },
+    {
+      "label": "r1-final-ui-audit",
+      "command": [
+        "npm",
+        "run",
+        "ui:audit"
+      ],
+      "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-16T17:04:13.320Z",
+      "endedAt": "2026-10-16T17:04:13.565Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "r1-final-ui-audit.log",
+      "logSha256": "d1551ada70f4a482ba8eb52f6fabcaf01f84e44a37a68d149b1b5bff738098f4"
+    }
+  ],
+  "tests": {
+    "vitestFiles": 120,
+    "vitestTests": 1589,
+    "demoNodeTests": 2,
+    "demoVitestTests": 66,
+    "contractNodeTests": [
+      106,
+      78
+    ],
+    "contractVitestTests": 162,
+    "browserChecks": 154,
+    "legacyBrowserChecks": 102
+  },
+  "allFinalCommandsStartedClean": true,
+  "screenshotsSaved": 19,
+  "newScreenshotsVisuallyReviewed": 11,
+  "priorEvidencePreservedFiles": 89,
+  "failureHistory": "Previous evidence/failures remains unchanged. This remediation has no test/build/browser failure; dependency audit exits1 with5high. Discovery includes intentional negative controls, not harness failure.",
+  "releaseBlocked": true,
+  "highVulnerabilities": 5,
+  "merged": false,
+  "deployedByTask": false,
+  "createdPR": false,
+  "hostedCI": "NOT_RUN; parent to establish new draft then verify new HEAD CI",
+  "node22CI": "NOT_RUN; PR86 Node22 results not reused",
+  "browserBack": "NOT_APPLICABLE: no history routing; explicit home-button return tested",
+  "executionModel": "Daily synthetic snapshot at16:00 validates full bar including close. Open field does not prove opening execution. Not an intraday/PIT backtest and no no-lookahead guarantee.",
+  "returnMetric": "Final liquidation net return includes delayed exits; day20 separate valuation snapshot NOT_IMPLEMENTED, never backfilled.",
+  "decisionConfirmation": "Session-only explicit user confirmation tied to decision ID/version/text/UTC time/applicable+invalidation conditions. Not a real investment decision or fill; conditions not certified satisfied.",
+  "exportScope": "Oversold backup excludes homepage reading/decision confirmations and suggestion versions; Thesis/Expression have separate exports.",
+  "integration": "demo only; Notion synthetic index placeholder; formal App not migrated",
+  "warnings": [
+    "Vite chunk-size and existing formal static/dynamic import warnings",
+    "npm version notice",
+    "ui:audit timestamp-only diff saved and generated tracked file restored"
+  ],
+  "environment": {
+    "TMPDIR_contract_tests": "/tmp/.local-data/os-round1-tests",
+    "UI_REVIEW_PLAYWRIGHT_MODULE": "/opt/codex/cua_node/lib/node_modules/playwright",
+    "DEMO_BROWSER_EXECUTABLE": "/usr/bin/chromium",
+    "DEMO_BROWSER_COMPACT": "1 for legacy browser"
+  },
+  "evidenceSavingCheck": "evidence-save-check.json (raw-evidence whitespace exit2, source/prose exit0; not a test/build failure)"
+}

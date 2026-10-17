@@ -1,0 +1,29 @@
+{
+  "label": "desktop-pre-build-demo-final",
+  "command": [
+    "npm",
+    "run",
+    "build:demo"
+  ],
+  "sha": "7cfcc0a4e5aae95e386beeaa0ab5d8b125a9a4b2",
+  "worktree": [
+    "M docs/development-execution-plan-2026-09-07.md",
+    " M docs/feature-registry.md",
+    " M scripts/demo-browser-check.mjs",
+    " M scripts/demo-navigation-scenarios.mjs",
+    " M scripts/round-one-browser-check.mjs",
+    " M src/demo/main.tsx",
+    " M src/demo/round-one/DecisionHome.test.tsx",
+    " M src/demo/round-one/DecisionHome.tsx",
+    " M src/demo/round-one/styles.css",
+    "?? docs/research-os-desktop-20261017/",
+    "?? scripts/demo-shell-navigation.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:31:58.061Z",
+  "endedAt": "2026-10-17T01:32:12.654Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-pre-build-demo-final.log",
+  "logSha256": "de833aacb2cf1f807542ecf679a67df7433c694d0bde6d72fd909929e3349933"
+}

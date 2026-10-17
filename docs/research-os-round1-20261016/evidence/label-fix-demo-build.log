@@ -1,0 +1,56 @@
+
+> investment-research-dashboard@0.1.0 build:demo
+> tsc -b && vite build --config vite.demo.config.mjs && node scripts/check-demo-bundle.mjs
+
+vite v6.4.3 building for production...
+transforming...
+✓ 1628 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist-demo/index.html                   0.68 kB │ gzip:   0.42 kB
+../dist-demo/demo-boundary.json         101.26 kB │ gzip:   8.48 kB
+../dist-demo/assets/index-an67JuBx.css   54.23 kB │ gzip:  11.23 kB
+../dist-demo/assets/index-BvcSo404.js   561.70 kB │ gzip: 133.65 kB
+✓ built in 3.32s
+{
+  "scope": "synthetic-only",
+  "status": "passed",
+  "checkedGraphModules": 1628,
+  "restrictedSourceFilesChecked": 7,
+  "restrictedLiteralsChecked": 455,
+  "forbiddenContentMatches": 0,
+  "secretPatternMatches": 0,
+  "inventoryExcludes": "demo-asset-inventory.json",
+  "assets": [
+    {
+      "file": "assets/index-BvcSo404.js",
+      "bytes": 561701,
+      "sha256": "7bd06ab4cd83726ae6242b471fbf020ebbaef1636906088804345c1926aa5742"
+    },
+    {
+      "file": "assets/index-an67JuBx.css",
+      "bytes": 54225,
+      "sha256": "bc4c6a51ee7dc6a6576855fd389eda0407fcb4169644f4fad6f055b15999d84d"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 101259,
+      "sha256": "f18379aa40ce1b540049a020c96def70edf15a5ed2a24db8100165d68145ed95"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "0eb21dc31afdd23c6f10a02f6b34a0fb52521fedf3b5ba63413cea197d8dc980"
+    }
+  ]
+}
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

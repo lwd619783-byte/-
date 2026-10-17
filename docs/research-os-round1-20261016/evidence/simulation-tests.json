@@ -1,0 +1,24 @@
+{
+  "label": "simulation-tests",
+  "command": [
+    "npx",
+    "vitest",
+    "run",
+    "src/demo/round-one"
+  ],
+  "sha": "087ccccc469869c8e2bdbf8cf48ed136af8aba11",
+  "worktree": [
+    "M package.json",
+    " M scripts/demo-browser-check.mjs",
+    " M src/demo/main.tsx",
+    "?? scripts/round-one-record.mjs",
+    "?? src/demo/round-one/"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:34:20.191Z",
+  "endedAt": "2026-10-16T16:34:21.604Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "simulation-tests.log",
+  "logSha256": "787555d40fbcd5203517168ed83c33a8139b41bd7e2592efa1ea0cb8c5605a73"
+}

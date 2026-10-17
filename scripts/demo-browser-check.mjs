@@ -1,3 +1,4 @@
+import { navigateDemo } from './demo-shell-navigation.mjs';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { createServer } from 'node:http';
@@ -56,11 +57,12 @@ try {
       check(dimensions.document <= dimensions.viewport + 1 && dimensions.panels.every(p => p.scroll <= p.client + 1), `${name}: no horizontal overflow at ${width}`);
     };
     const screenshot = async name => {
+      if (process.env.DEMO_BROWSER_SCREENSHOTS === '0') return;
       if (process.env.DEMO_BROWSER_COMPACT === '1' && !name.endsWith('-initial') && !(width === 320 && name.endsWith('-policy'))) return;
       const file = `${width}-${name}.png`;
       await page.screenshot({ path: path.join(output, file), fullPage: true }); report.screenshots.push(file);
     };
-    const choose = async kind => { await page.getByRole('button', { name: `${kind} 演练`, exact: true }).click(); };
+    const choose = async kind => { await navigateDemo(page, `${kind} 演练`, '历史复盘'); await page.getByText('演示范围与数据保存说明', { exact: true }).click(); };
     const exported = async kind => {
       const pending = page.waitForEvent('download');
       await page.getByRole('button', { name: `导出 ${kind} JSON 备份`, exact: true }).click();

@@ -1,0 +1,25 @@
+{
+  "label": "r1-pre-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:round-one:browser"
+  ],
+  "sha": "b818a40a47a81948cc14e4db30e9c8a6f06435bd",
+  "worktree": [
+    "M scripts/round-one-browser-check.mjs",
+    " M src/demo/main.tsx",
+    " M src/demo/round-one/DecisionHome.test.tsx",
+    " M src/demo/round-one/DecisionHome.tsx",
+    " M src/demo/round-one/SimulationWorkspace.tsx",
+    " M src/demo/round-one/simulation.test.ts",
+    " M src/demo/round-one/simulation.ts"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:59:04.727Z",
+  "endedAt": "2026-10-16T16:59:19.888Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "r1-pre-browser.log",
+  "logSha256": "28966fb352b9568e7835de8b687062c21ca216a89309bc2af72e819120c95ff7"
+}

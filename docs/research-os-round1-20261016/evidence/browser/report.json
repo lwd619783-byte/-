@@ -1,0 +1,470 @@
+{
+  "testedSha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+  "worktree": "",
+  "scope": "synthetic-only",
+  "checks": [
+    {
+      "name": "320 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "320 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "320 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "320 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "320 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "320 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "320 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "320 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "320 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "320 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "320 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "320 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "320 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "320 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "320 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "320 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "320 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "320 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "320 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "320 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "320 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "320 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "320 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "320 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "320 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "320 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "320 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "320 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "390 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "390 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "390 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "390 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "390 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "390 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "390 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "390 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "390 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "390 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "390 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "390 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "390 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "390 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "390 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "390 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "390 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "390 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "390 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "390 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "390 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "390 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "390 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "390 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "390 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "390 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "390 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "1536 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "1536 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "1536 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "1536 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "1536 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "1536 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "1536 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "1536 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "1536 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "1536 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "1536 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "1536 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "1536 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "1536 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "1536 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "1536 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "1536 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "1536 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "1536 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "1536 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1536 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "1536 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "1536 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "1536 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "1536 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "1536 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "1536 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "1536 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "zero page errors",
+      "ok": true
+    },
+    {
+      "name": "zero console errors",
+      "ok": true
+    },
+    {
+      "name": "zero unexpected requests",
+      "ok": true
+    },
+    {
+      "name": "zero popups",
+      "ok": true
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "unexpectedRequests": [],
+  "popups": [],
+  "screenshots": [
+    "320-home.png",
+    "320-selection.png",
+    "320-lock-preview.png",
+    "320-pending-exits.png",
+    "320-import-preview.png",
+    "390-home.png",
+    "1536-home.png",
+    "1536-knowledge.png",
+    "1536-complete.png"
+  ],
+  "assets": [
+    {
+      "file": "assets/index-Co4w1NmE.js",
+      "bytes": 561670,
+      "sha256": "efefa8db5bb1c5e4c2935c91ae30f058ba9011957151117fa40ff9d11254f235"
+    },
+    {
+      "file": "assets/index-Z6utz1fL.css",
+      "bytes": 54411,
+      "sha256": "a98fc14b2bdcb5b62774288f1f2a8da25f72dcf24b8d70ba84216f1000924cb0"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 101259,
+      "sha256": "4c7ddfc359b029766c3829e1236ab3fd42fc4a3787b656b910913930843c25a1"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "fa9e4808e9d2bb82d4fff00e4d0649928fe2957408840a4f67e7f27aaf208ca6"
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "status": "passed"
+}

@@ -1,0 +1,32 @@
+{
+  "evidenceCommit": "e4639e2",
+  "rawEvidenceWhitespaceCheck": {
+    "command": [
+      "git",
+      "diff",
+      "c905be1",
+      "HEAD",
+      "--check"
+    ],
+    "exitCode": 2,
+    "stdout": "docs/research-os-round1-20261016/remediation-r1/evidence/r1-final-formal-build.log:89: trailing whitespace.\n+[plugin vite:reporter] \ndocs/research-os-round1-20261016/remediation-r1/evidence/r1-targeted.log:9: new blank line at EOF.\ndocs/research-os-round1-20261016/remediation-r1/evidence/r1-ui-audit-generated.patch:7: trailing whitespace.\n+ \ndocs/research-os-round1-20261016/remediation-r1/evidence/r1-ui-audit-generated.patch:10: trailing whitespace.\n+ \n",
+    "stderr": ""
+  },
+  "sourceAndProseWhitespaceCheck": {
+    "command": [
+      "git",
+      "diff",
+      "b818a40",
+      "HEAD",
+      "--check",
+      "--",
+      ".",
+      ":(exclude)docs/research-os-round1-20261016/remediation-r1/evidence/*.log",
+      ":(exclude)docs/research-os-round1-20261016/remediation-r1/evidence/*.patch"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "explanation": "Raw Vite output has trailing space, targeted-test output has terminal blank line, and retained git patch has blank context lines. Initial staged whitespace check reported these and shell continued to commit. This is a recorded nonzero check, not a pass. Raw logs/patch retained byte-for-byte; source/prose check excluding only these raw artifact types passes. No application code changed."
+}

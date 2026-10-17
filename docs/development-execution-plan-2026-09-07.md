@@ -1,5 +1,18 @@
 # 当前开发执行索引 · 2026-09-07
 
+> 2026-10-17 桌面布局本地验证完成：代码 `34e23a4eee12d8a84b8d3306249fe913e2a07cd4`，工作分支/PR87 Git HEAD 回读一致；120文件/1590测试，demo67+2，199新/102旧浏览器检查，1440/1920/390，11桌面+1小屏截图。仅合成UI，模拟规则未改；Node24实施方结果，待父端独立审计与新HEAD CI核实，5 high继续阻断发布。[完整回执与截图](research-os-desktop-20261017/README.md)。
+
+> CURRENT · 2026-10-17 桌面布局候选：同分支在 7cfcc0a 上改合成 demo 侧栏与独立主区，业务语义不变，待固定 SHA 验证与父端独立审计。父端已完成 R1 审计并创建 draft PR87、旧 HEAD Node22 CI 通过；实施端 Git 远端 SHA 一致，GraphQL Forbidden，未独立复核 draft/CI 状态。PR86 依赖、禁止自动部署及5 high发布阻断保留。[范围与证据](research-os-desktop-20261017/README.md)。
+
+> R1返修已交付本地验证：固定代码 `c905be186d2465283f8ef0c7f57aea6ff880a818`，120文件/1589测试，demo/正式构建与隔离，新154/旧102浏览器检查通过。日级成交假设不证明盘中/PIT无前视；最终清算口径含延期收益。Node24实施方结果，待父端复审及新draft HEAD CI；5 high仍阻断发布。[本轮证据](research-os-round1-20261016/remediation-r1/README.md)。
+
+> CURRENT · 第一轮独立审计返修R1：在原分支补全全局单活动轮次、最终清算口径、日级模型限制、版本绑定用户确认和日期未知传播。实施方本地验证后仍待父端复审，无PR/merge/deploy；5 high继续阻断发布。[逐项修复与证据](research-os-round1-20261016/remediation-r1/README.md)。
+
+> 2026-10-16 第一轮最终交付：固定实现 `d2f3eebcb6ae55be62b966720a56a871bc4e8d39`（明确依赖PR86 HEAD f64b64a），新分支 `feat/research-os-round1-no-deploy`；120文件/1569测试，正式/demo构建、合同、隔离检查，新106/旧102浏览器检查通过。13条固定SHA命令退出码/完整日志、17合成截图与失败重试均保留。完整audit exit1仍5 high，发布阻断；仅合成演示、正式系统NOT_ADMITTED。未PR/merge/deploy，停止待父端独立审计。[完整性清单与证据](research-os-round1-20261016/CHECKLIST.md)。
+
+> 2026-10-16 第一轮合成实现已完成目标测试与浏览器预验收，待固定SHA全面验证和父端审计：指定 PR86 HEAD f64b64a 上新建 feat/research-os-round1-no-deploy，明确依赖 PR86；隔离合成 demo，禁止自动部署。最终父端独立审计后才考虑草稿 PR。见 [执行与证据](research-os-round1-20261016/README.md)。
+
+
 ## 2026-10-16 合成演示重建交接（CURRENT / 父任务待审计）
 
 ### 独立审计返修 R1（2026-10-16，基线 dd4cef9）

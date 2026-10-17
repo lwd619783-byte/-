@@ -141,8 +141,9 @@
     "test:daily-review": "node --test scripts/tests/daily-review.node.mjs scripts/tests/daily-review-context.node.mjs && vitest run src/components/industry/DailyReviewPanel.test.tsx",
     "build:demo": "tsc -b && vite build --config vite.demo.config.mjs && node scripts/check-demo-bundle.mjs",
     "preview:demo": "vite preview --config vite.demo.config.mjs",
-    "test:demo": "node --test scripts/tests/demo-boundary.node.mjs && vitest run src/demo/runtime.test.ts src/components/common/ResearchLink.test.tsx",
-    "test:demo:browser": "node scripts/demo-browser-check.mjs"
+    "test:demo": "node --test scripts/tests/demo-boundary.node.mjs && vitest run src/demo src/components/common/ResearchLink.test.tsx",
+    "test:demo:browser": "node scripts/demo-browser-check.mjs",
+    "test:round-one:browser": "node scripts/round-one-browser-check.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.31.0",

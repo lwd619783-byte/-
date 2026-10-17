@@ -1,0 +1,17 @@
+{
+  "label": "r1-final-contract-tests",
+  "command": [
+    "npm",
+    "run",
+    "test:contracts"
+  ],
+  "sha": "c905be186d2465283f8ef0c7f57aea6ff880a818",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T17:00:42.825Z",
+  "endedAt": "2026-10-16T17:00:58.098Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "r1-final-contract-tests.log",
+  "logSha256": "106cf7a1d7a9aea9320c9e8870eee5435e8360f5fcc459a66e9c8e7ec0714a0a"
+}

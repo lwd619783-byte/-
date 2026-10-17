@@ -1,0 +1,17 @@
+{
+  "label": "final-round-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:round-one:browser"
+  ],
+  "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:43:42.044Z",
+  "endedAt": "2026-10-16T16:43:56.912Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "final-round-browser.log",
+  "logSha256": "503f8c12a2176922f2a2eb91385c8bcc7e1d54eaca54026503be8a365a4ff4cd"
+}

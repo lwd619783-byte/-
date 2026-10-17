@@ -1,0 +1,27 @@
+{
+  "label": "precommit-round-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:round-one:browser"
+  ],
+  "sha": "087ccccc469869c8e2bdbf8cf48ed136af8aba11",
+  "worktree": [
+    "M docs/architecture.md",
+    " M docs/feature-registry.md",
+    " M docs/research-os-round1-20261016/README.md",
+    " M package.json",
+    " M scripts/demo-browser-check.mjs",
+    " M src/demo/main.tsx",
+    "?? scripts/round-one-browser-check.mjs",
+    "?? scripts/round-one-record.mjs",
+    "?? src/demo/round-one/"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:37:18.320Z",
+  "endedAt": "2026-10-16T16:37:20.435Z",
+  "exitCode": 1,
+  "signal": null,
+  "log": "precommit-round-browser.log",
+  "logSha256": "808aea45ed997bb60e79901aca30c7960434fa2c58e2cbe2cbf69e6f312ea798"
+}

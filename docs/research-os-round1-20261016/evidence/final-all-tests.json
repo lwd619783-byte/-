@@ -1,0 +1,16 @@
+{
+  "label": "final-all-tests",
+  "command": [
+    "npm",
+    "test"
+  ],
+  "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:41:38.830Z",
+  "endedAt": "2026-10-16T16:42:43.316Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "final-all-tests.log",
+  "logSha256": "5403d7e66d9c36875970386e00f8a7a760b35a07d2dc1595e7cb08ec945c08fa"
+}

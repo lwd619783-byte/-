@@ -1,0 +1,522 @@
+{
+  "testedSha": "7cfcc0a4e5aae95e386beeaa0ab5d8b125a9a4b2",
+  "node": "v24.19.0",
+  "worktreeBefore": [
+    "M docs/development-execution-plan-2026-09-07.md",
+    " M docs/feature-registry.md",
+    " M scripts/demo-browser-check.mjs",
+    " M scripts/demo-navigation-scenarios.mjs",
+    " M scripts/round-one-browser-check.mjs",
+    " M src/demo/main.tsx",
+    " M src/demo/round-one/DecisionHome.test.tsx",
+    " M src/demo/round-one/DecisionHome.tsx",
+    " M src/demo/round-one/styles.css",
+    "?? docs/research-os-desktop-20261017/",
+    "?? scripts/demo-shell-navigation.mjs"
+  ],
+  "navigationCases": [
+    {
+      "width": 320,
+      "links": [
+        {
+          "surface": "Thesis-context-policy",
+          "tag": "SPAN",
+          "href": null,
+          "target": null,
+          "disabled": "true",
+          "samePage": true
+        },
+        {
+          "surface": "Claim-context-policy",
+          "tag": "SPAN",
+          "href": null,
+          "target": null,
+          "disabled": "true",
+          "samePage": true
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "links": [
+        {
+          "surface": "Thesis-context-policy",
+          "tag": "SPAN",
+          "href": null,
+          "target": null,
+          "disabled": "true",
+          "samePage": true
+        },
+        {
+          "surface": "Claim-context-policy",
+          "tag": "SPAN",
+          "href": null,
+          "target": null,
+          "disabled": "true",
+          "samePage": true
+        }
+      ]
+    },
+    {
+      "width": 1536,
+      "links": [
+        {
+          "surface": "Thesis-context-policy",
+          "tag": "SPAN",
+          "href": null,
+          "target": null,
+          "disabled": "true",
+          "samePage": true
+        },
+        {
+          "surface": "Claim-context-policy",
+          "tag": "SPAN",
+          "href": null,
+          "target": null,
+          "disabled": "true",
+          "samePage": true
+        }
+      ]
+    }
+  ],
+  "popups": [],
+  "scope": "synthetic-only-built-artifacts",
+  "checks": [
+    {
+      "name": "Thesis: all service actions disabled at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis initial: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis editor: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: edited revision saved at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: reload resets memory at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: invalid schema blocked at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: rejected import preserves bytes at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: preview has no write at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis import preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: confirmed import roundtrips exact data at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: explicit confirmation note required at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis confirmation preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: all service actions disabled at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression initial: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression trace: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "original synthetic evidence opens at 320",
+      "ok": true
+    },
+    {
+      "name": "Evidence drawer: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression editor: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: edited revision saved at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: reload resets memory at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: invalid schema blocked at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: rejected import preserves bytes at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: preview has no write at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression import preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: confirmed import roundtrips exact data at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression: explicit confirmation note required at 320",
+      "ok": true
+    },
+    {
+      "name": "Expression confirmation preview: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Research context policy: no horizontal overflow at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis and portaled Claim links are non-navigational at 320",
+      "ok": true
+    },
+    {
+      "name": "no popup from click, Ctrl-click, middle-click or Enter at 320",
+      "ok": true
+    },
+    {
+      "name": "formal browser storage untouched at 320",
+      "ok": true
+    },
+    {
+      "name": "no unexpected requests during workflows at 320",
+      "ok": true
+    },
+    {
+      "name": "CSP prevents same-origin service and external fetch at 320",
+      "ok": true
+    },
+    {
+      "name": "Thesis: all service actions disabled at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis initial: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis editor: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis: edited revision saved at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis: reload resets memory at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis: invalid schema blocked at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis: rejected import preserves bytes at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis: preview has no write at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis import preview: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis: confirmed import roundtrips exact data at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis: explicit confirmation note required at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis confirmation preview: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression: all service actions disabled at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression initial: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression trace: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "original synthetic evidence opens at 390",
+      "ok": true
+    },
+    {
+      "name": "Evidence drawer: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression editor: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression: edited revision saved at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression: reload resets memory at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression: invalid schema blocked at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression: rejected import preserves bytes at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression: preview has no write at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression import preview: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression: confirmed import roundtrips exact data at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression: explicit confirmation note required at 390",
+      "ok": true
+    },
+    {
+      "name": "Expression confirmation preview: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Research context policy: no horizontal overflow at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis and portaled Claim links are non-navigational at 390",
+      "ok": true
+    },
+    {
+      "name": "no popup from click, Ctrl-click, middle-click or Enter at 390",
+      "ok": true
+    },
+    {
+      "name": "formal browser storage untouched at 390",
+      "ok": true
+    },
+    {
+      "name": "no unexpected requests during workflows at 390",
+      "ok": true
+    },
+    {
+      "name": "CSP prevents same-origin service and external fetch at 390",
+      "ok": true
+    },
+    {
+      "name": "Thesis: all service actions disabled at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis initial: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis editor: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis: edited revision saved at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis: reload resets memory at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis: invalid schema blocked at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis: rejected import preserves bytes at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis: preview has no write at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis import preview: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis: confirmed import roundtrips exact data at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis: explicit confirmation note required at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis confirmation preview: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression: all service actions disabled at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression initial: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression trace: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "original synthetic evidence opens at 1536",
+      "ok": true
+    },
+    {
+      "name": "Evidence drawer: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression editor: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression: edited revision saved at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression: reload resets memory at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression: invalid schema blocked at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression: rejected import preserves bytes at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression: preview has no write at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression import preview: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression: confirmed import roundtrips exact data at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression: explicit confirmation note required at 1536",
+      "ok": true
+    },
+    {
+      "name": "Expression confirmation preview: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Research context policy: no horizontal overflow at 1536",
+      "ok": true
+    },
+    {
+      "name": "Thesis and portaled Claim links are non-navigational at 1536",
+      "ok": true
+    },
+    {
+      "name": "no popup from click, Ctrl-click, middle-click or Enter at 1536",
+      "ok": true
+    },
+    {
+      "name": "formal browser storage untouched at 1536",
+      "ok": true
+    },
+    {
+      "name": "no unexpected requests during workflows at 1536",
+      "ok": true
+    },
+    {
+      "name": "CSP prevents same-origin service and external fetch at 1536",
+      "ok": true
+    },
+    {
+      "name": "zero page errors",
+      "ok": true
+    },
+    {
+      "name": "zero unexpected console errors",
+      "ok": true
+    },
+    {
+      "name": "zero unexpected request attempts",
+      "ok": true
+    }
+  ],
+  "pageErrors": [],
+  "unexpectedRequests": [],
+  "consoleErrors": [],
+  "screenshots": [],
+  "assets": [
+    {
+      "file": "assets/index-CGI58te9.js",
+      "bytes": 569579,
+      "sha256": "df223f9b8acc5e963ee4b4a5b0fdf8be884e68e68bebbb35beb8d1b54188bbb6"
+    },
+    {
+      "file": "assets/index-CgXsebfw.css",
+      "bytes": 58139,
+      "sha256": "6b10dc4f6e68e209746a4dad057cc17ce929aa26d878cfc3135c095570b91f0a"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 101259,
+      "sha256": "7cd7ca9df6b3502c1f6a5292e57454b41da313339b57f1f886cc971ab1184a16"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "c81d547ce17c47291207ecf14ecd87a386fbd292d1fc1d4f6d29caece7502aa5"
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "status": "passed"
+}

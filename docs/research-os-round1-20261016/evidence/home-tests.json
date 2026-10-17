@@ -1,0 +1,25 @@
+{
+  "label": "home-tests",
+  "command": [
+    "npx",
+    "vitest",
+    "run",
+    "src/demo/round-one/DecisionHome.test.tsx",
+    "src/demo/runtime.test.ts",
+    "src/components/common/ResearchLink.test.tsx"
+  ],
+  "sha": "087ccccc469869c8e2bdbf8cf48ed136af8aba11",
+  "worktree": [
+    "M scripts/demo-browser-check.mjs",
+    " M src/demo/main.tsx",
+    "?? scripts/round-one-record.mjs",
+    "?? src/demo/round-one/"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:29:57.489Z",
+  "endedAt": "2026-10-16T16:29:58.972Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "home-tests.log",
+  "logSha256": "97997d26f0f132546b53c6e939b1d7e1dcc7d4a91efdc84f8f22e87839ced96a"
+}

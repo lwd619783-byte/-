@@ -1,0 +1,17 @@
+{
+  "label": "final-legacy-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:demo:browser"
+  ],
+  "sha": "d2f3eebcb6ae55be62b966720a56a871bc4e8d39",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:43:42.038Z",
+  "endedAt": "2026-10-16T16:43:55.656Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "final-legacy-browser.log",
+  "logSha256": "14b95840b2815c6be183652a6ca03e1153a3d945a2f1f468935664ee9b65eac6"
+}

@@ -1,0 +1,22 @@
+{
+  "label": "home-build",
+  "command": [
+    "npm",
+    "run",
+    "build:demo"
+  ],
+  "sha": "087ccccc469869c8e2bdbf8cf48ed136af8aba11",
+  "worktree": [
+    "M scripts/demo-browser-check.mjs",
+    " M src/demo/main.tsx",
+    "?? scripts/round-one-record.mjs",
+    "?? src/demo/round-one/"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:31:38.725Z",
+  "endedAt": "2026-10-16T16:31:55.612Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "home-build.log",
+  "logSha256": "6ab68eb5e4c7a6d5e019eb6ce5d8e57f5633491e665018b9e05e6ad389888b17"
+}

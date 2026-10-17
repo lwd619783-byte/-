@@ -1,0 +1,18 @@
+
+> investment-research-dashboard@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 /workspace/-
+
+
+ Test Files  120 passed (120)
+      Tests  1590 passed (1590)
+   Start at  01:33:03
+   Duration  73.61s (transform 13.67s, setup 0ms, import 44.07s, tests 89.70s, environment 22.48s)
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

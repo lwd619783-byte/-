@@ -1,8 +1,10 @@
+import { navigateDemo } from './demo-shell-navigation.mjs';
 // Synthetic UI inputs only. The browser harness aborts every attempted outbound
 // navigation, including popup requests; reproduction never contacts a real site.
 export async function exerciseDemoResearchLinks(page, screenshot) {
   const origin = new URL(page.url()).origin;
   const links = [];
+  const openThesis = () => navigateDemo(page, 'Thesis 演练', '历史复盘');
   const probe = async (name, label) => {
     const link = page.getByRole('link', { name }).first();
     const before = page.url();
@@ -20,6 +22,7 @@ export async function exerciseDemoResearchLinks(page, screenshot) {
     await screenshot(label);
   };
   await page.goto(origin);
+  await openThesis();
   await page.getByRole('button', { name: '修订为新草稿', exact: true }).click();
   await page.getByLabel('Thesis 背景标题', { exact: true }).fill('Synthetic Thesis Context');
   await page.getByLabel('Thesis 背景链接', { exact: true }).fill('https://example.invalid/synthetic-thesis');
@@ -29,6 +32,7 @@ export async function exerciseDemoResearchLinks(page, screenshot) {
   await probe(/^Synthetic Thesis Context/, 'Thesis-context-policy');
 
   await page.reload();
+  await openThesis();
   await page.getByRole('button', { name: /^Claim → Evidence/ }).first().click();
   await page.getByRole('button', { name: '管理 Claim 当前状态与全部历史（独立于此引用）', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: '主张验证与历史', exact: true });

@@ -1,0 +1,25 @@
+{
+  "label": "r1-demo-build",
+  "command": [
+    "npm",
+    "run",
+    "build:demo"
+  ],
+  "sha": "b818a40a47a81948cc14e4db30e9c8a6f06435bd",
+  "worktree": [
+    "M scripts/round-one-browser-check.mjs",
+    " M src/demo/main.tsx",
+    " M src/demo/round-one/DecisionHome.test.tsx",
+    " M src/demo/round-one/DecisionHome.tsx",
+    " M src/demo/round-one/SimulationWorkspace.tsx",
+    " M src/demo/round-one/simulation.test.ts",
+    " M src/demo/round-one/simulation.ts"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-16T16:57:45.317Z",
+  "endedAt": "2026-10-16T16:58:02.437Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "r1-demo-build.log",
+  "logSha256": "169b4429479f7d761b1910d22cf28f36439f357fd6ee15937b7af3f086a80d10"
+}
