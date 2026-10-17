@@ -18,18 +18,23 @@ export function decisionFreshness(dataDate: string | null, validUntil: string | 
 }
 type Confirmation = { decisionId: string; version: number; suggestion: string; confirmedAt: string; appliesWhen: string; invalidWhen: string; scope: 'synthetic-only'; actor: 'explicit-user-confirmation' };
 
-export function DecisionHome({ onKnowledge, onEvidence, initialSamples = decisionSamples }: { onKnowledge: () => void; onEvidence: () => void; initialSamples?: readonly DecisionSample[] }) {
+export function DecisionHome({ onKnowledge, onEvidence, onDecision, onHistory, view = 'cards', selectedId, initialSamples = decisionSamples }: { onKnowledge: () => void; onEvidence: () => void; onDecision?: (id: string) => void; onHistory?: () => void; view?: 'overview' | 'cards' | 'history'; selectedId?: string; initialSamples?: readonly DecisionSample[] }) {
   const [cards, setCards] = useState(() => initialSamples.map(card => ({ ...card })));
   const [preview, setPreview] = useState<{ id: string; version: number; kind: 'read' | 'decision' } | null>(null);
   const [read, setRead] = useState<string[]>([]);
   const [confirmations, setConfirmations] = useState<Confirmation[]>([]);
   const unknownCount = cards.filter(card => decisionFreshness(card.dataDate, card.validUntil, OBSERVATION_DAY).startsWith('未知')).length;
   const currentCount = cards.filter(card => confirmations.some(c => c.decisionId === card.id && c.version === card.version)).length;
-  return <section className="round-one" aria-label="决策首页">
-    <div className="os-heading"><div><p className="os-eyebrow">DECISION FIRST / 合成样例</p><h2>今天先决定什么</h2></div><span>演示观察日 {OBSERVATION_DAY}</span></div>
+  return <section className="round-one" aria-label={view === 'overview' ? '决策首页' : view === 'history' ? '决策历史复盘' : '个股决策'}>
+    <div className="os-heading"><div><p className="os-eyebrow">DECISION FIRST / 合成样例</p><h2>{view === 'overview' ? '今天先决定什么' : view === 'history' ? '决策历史复盘' : '个股决策卡'}</h2></div><span>演示观察日 {OBSERVATION_DAY}</span></div>
     <p>阅读与决策确认分开。决策确认仅记录用户在合成原型中接受某一版本建议及条件，不代表成交、持仓变化或真实投资决定。确认不验证条件已经满足。</p>
-    <div className="os-summary"><div><strong>{cards.length}</strong><span>合成样例数</span></div><div><strong>{unknownCount}</strong><span>当前数据未知</span></div><div><strong>{currentCount}</strong><span>当前版本决策确认</span></div></div>
-    <div className="os-cards">{cards.map(card => {
+    {(view === 'overview' || (view === 'cards' && !selectedId)) && <div className="os-summary"><div><strong>{cards.length}</strong><span>合成样例数</span></div><div><strong>{unknownCount}</strong><span>当前数据未知</span></div><div><strong>{currentCount}</strong><span>当前版本决策确认</span></div></div>}
+    {view === 'overview' && <div className="os-overview-list">{cards.map(card => <article className="os-card os-overview-row" key={card.id} aria-label={card.name}>
+      <div><p className="os-eyebrow">{card.id} · 建议 v{card.version}</p><h3>{card.name}</h3><p className="os-conclusion">{card.suggestion}</p></div>
+      <div><p>{card.condition}</p><p className="os-status">数据日期：{card.dataDate ?? '未知 · 尚无数据'} · {decisionFreshness(card.dataDate, card.validUntil, OBSERVATION_DAY)}</p><p className="os-eyebrow">{confirmations.some(c => c.decisionId === card.id && c.version === card.version) ? '当前版本已由用户确认（合成）· 未成交' : '当前版本待用户确认 · 未成交'}</p></div>
+      <button className="inbox-action" onClick={() => onDecision?.(card.id)}>查看决策 · {card.id}</button>
+    </article>)}<div className="os-actions"><button className="os-link" onClick={onKnowledge}>查看知识库索引</button><button className="os-link" onClick={onHistory}>查看决策历史</button></div></div>}
+    {view === 'cards' && <div className={selectedId ? 'os-single-decision' : 'os-cards'}>{cards.filter(card => !selectedId || card.id === selectedId).map(card => {
       const key = `${card.id}@${card.version}`;
       const confirmation = confirmations.find(c => c.decisionId === card.id && c.version === card.version);
       const hasOlder = confirmations.some(c => c.decisionId === card.id && c.version !== card.version);
@@ -55,11 +60,12 @@ export function DecisionHome({ onKnowledge, onEvidence, initialSamples = decisio
           setPreview(null);
         }}>演练建议更新 · SYN-01</button>}
       </article>;
-    })}</div>
-    <details className="os-secondary"><summary>二级入口 · 原始证据链与历史</summary><p>保留既有 Thesis / Expression 演练、exact 来源引用、revision 与导入导出。首页不替代底层证据。</p><button className="inbox-action" onClick={onEvidence}>打开原始证据链</button>
+    })}</div>}
+    {view === 'cards' && onHistory && <button className="os-link" onClick={onHistory}>查看决策历史与原始证据链</button>}
+    {(view === 'history' || (view === 'cards' && !selectedId)) && <details className="os-secondary" open={view === 'history' || undefined}><summary>二级入口 · 原始证据链与历史</summary><p>保留既有 Thesis / Expression 演练、exact 来源引用、revision 与导入导出。首页不替代底层证据。</p><button className="inbox-action" onClick={onEvidence}>打开原始证据链</button>
       <h3>本次阅读记录</h3><ol>{read.map(key => <li key={key}>{key} · 已阅读 · 不是决策确认</li>)}</ol>
       <h3>本次用户决策确认历史（只读，未导出）</h3><ol aria-label="决策确认历史">{confirmations.map(c => <li key={`${c.decisionId}@${c.version}`}><p>{c.decisionId} / 建议v{c.version} / {c.suggestion} · {cards.some(card => card.id === c.decisionId && card.version === c.version) ? '当前版本' : '旧版本，需重新确认'} · 未成交</p><p>确认时点：{c.confirmedAt} · 显式用户确认 · synthetic-only</p><p>适用：{c.appliesWhen}</p><p>失效：{c.invalidWhen}</p></li>)}</ol>{!confirmations.length && <p>尚无决策确认记录。</p>}
-    </details>
+    </details>}
   </section>;
 }
 export function KnowledgeIndex() {

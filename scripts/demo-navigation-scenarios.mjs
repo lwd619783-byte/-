@@ -1,12 +1,10 @@
+import { navigateDemo } from './demo-shell-navigation.mjs';
 // Synthetic UI inputs only. The browser harness aborts every attempted outbound
 // navigation, including popup requests; reproduction never contacts a real site.
 export async function exerciseDemoResearchLinks(page, screenshot) {
   const origin = new URL(page.url()).origin;
   const links = [];
-  const openThesis = async () => {
-    const secondary = page.getByText('二级入口 · 证据链演练', { exact: true });
-    if (await secondary.count()) { await secondary.click(); await page.getByRole('button', { name: 'Thesis 演练', exact: true }).click(); }
-  };
+  const openThesis = () => navigateDemo(page, 'Thesis 演练', '历史复盘');
   const probe = async (name, label) => {
     const link = page.getByRole('link', { name }).first();
     const before = page.url();
