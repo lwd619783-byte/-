@@ -1,0 +1,17 @@
+{
+  "label": "desktop-final-build",
+  "command": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:33:02.520Z",
+  "endedAt": "2026-10-17T01:33:48.817Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-final-build.log",
+  "logSha256": "b1676e49a897a9a816ff58937e39a481d60d55ee6e1cc98bef0dee06f47685f9"
+}

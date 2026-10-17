@@ -1,0 +1,17 @@
+{
+  "label": "desktop-final-discovery",
+  "command": [
+    "npm",
+    "run",
+    "test:discovery"
+  ],
+  "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:33:14.449Z",
+  "endedAt": "2026-10-17T01:33:53.042Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-final-discovery.log",
+  "logSha256": "46f893a953786d2bd93697e35050aadb3d818cdebe290501612f4dcf61cc83e0"
+}

@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "baseline": "f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce",
+  "branch": "feat/research-os-round1-no-deploy",
+  "deploymentEnabled": false,
+  "unchanged": [
+    "dependencies",
+    "lockfile",
+    "formal-data",
+    "contracts",
+    "formal-runtime",
+    "CI-trigger-policy"
+  ],
+  "formalFilesChecked": 23,
+  "demoGraphModules": 1628,
+  "restrictedLiteralsChecked": 455,
+  "forbiddenContentMatches": 0,
+  "secretPatternMatches": 0
+}
+{
+  "status": "passed",
+  "desktopBase": "7cfcc0a4e5aae95e386beeaa0ab5d8b125a9a4b2",
+  "unchanged": [
+    "src/demo/round-one/simulation.ts",
+    "src/demo/round-one/SimulationWorkspace.tsx",
+    "src/demo/runtime.ts",
+    "src/demo/fixtures.ts",
+    "vercel.json",
+    "package.json",
+    "package-lock.json",
+    ".github"
+  ],
+  "meaning": "UI-only change; simulation engine, workspace, runtime, dependencies and deployment/CI configuration unchanged"
+}

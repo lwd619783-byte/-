@@ -1,0 +1,17 @@
+{
+  "label": "desktop-final-demo",
+  "command": [
+    "npm",
+    "run",
+    "test:demo"
+  ],
+  "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:33:02.523Z",
+  "endedAt": "2026-10-17T01:33:06.871Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-final-demo.log",
+  "logSha256": "fcb28417559e2d9d2786d6627e682f38c558674549408efbc393b6f9fe78bb1f"
+}

@@ -1,0 +1,454 @@
+{
+  "scope": "synthetic demo desktop layout only",
+  "testedCodeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "baseline": "7cfcc0a4e5aae95e386beeaa0ab5d8b125a9a4b2",
+  "pr86Dependency": "f64b64a4d2c24a7f3ddc4d6a329091cc983f53ce",
+  "branch": "feat/research-os-round1-no-deploy",
+  "executor": "implementation agent; independent parent audit pending",
+  "environment": {
+    "node": "v24.19.0",
+    "npm": "11.9.0",
+    "browser": "154.0.8037.57",
+    "browserExecutable": "/usr/bin/chromium",
+    "UI_REVIEW_PLAYWRIGHT_MODULE": "/opt/codex/cua_node/lib/node_modules/playwright",
+    "TMPDIR_for_test_contracts": "/tmp/.local-data/os-round1-tests",
+    "DEMO_BROWSER_SCREENSHOTS": "0 for legacy; final round-one browser captures 12 screenshots",
+    "outputFolders": {
+      "ROUND_ONE_BROWSER_OUTPUT": "data-cache/desktop-final-browser",
+      "DEMO_BROWSER_OUTPUT": "data-cache/desktop-final-legacy"
+    },
+    "modelConfiguration": "Parent reports accepted gpt-6-astra/high request and inherited default service tier, turn 01a14775-a98b-715f-8d07-f78f794ee776. Not independently provable from local environment; no configuration changes made."
+  },
+  "results": {
+    "fullVitestFiles": 120,
+    "fullVitestTests": 1590,
+    "demoNodeTests": 2,
+    "demoVitestTests": 67,
+    "contractsNodeTests": [
+      106,
+      78
+    ],
+    "contractsVitestTests": 162,
+    "desktopBrowserChecks": 199,
+    "legacyBrowserChecks": 102,
+    "runtimeErrors": 0,
+    "unexpectedRequests": 0,
+    "unexpectedPopups": 0,
+    "auditExitCode": 1,
+    "auditVulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 5,
+      "critical": 0,
+      "total": 5
+    },
+    "release": "BLOCKED"
+  },
+  "finalCommands": [
+    {
+      "label": "desktop-final-audit",
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:33:13.211Z",
+      "endedAt": "2026-10-17T01:33:15.589Z",
+      "exitCode": 1,
+      "signal": null,
+      "log": "desktop-final-audit.log",
+      "logSha256": "82624c64e9844e97919c9651bffce4313fb3951da3a4cc17892ac3a7b44bf437"
+    },
+    {
+      "label": "desktop-final-browser",
+      "command": [
+        "npm",
+        "run",
+        "test:round-one:browser"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:34:27.387Z",
+      "endedAt": "2026-10-17T01:34:44.374Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-browser.log",
+      "logSha256": "d8f73996b374c1e78f098c8acc010af5d28abc6b2a2c122d7abdfca83dece0e3"
+    },
+    {
+      "label": "desktop-final-build-demo",
+      "command": [
+        "npm",
+        "run",
+        "build:demo"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:33:48.949Z",
+      "endedAt": "2026-10-17T01:34:07.664Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-build-demo.log",
+      "logSha256": "c2aca1d2338e77562a2275cc650be1be0dbf89c5204f173dbf35c9c2e2f4dcdf"
+    },
+    {
+      "label": "desktop-final-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:33:02.520Z",
+      "endedAt": "2026-10-17T01:33:48.817Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-build.log",
+      "logSha256": "b1676e49a897a9a816ff58937e39a481d60d55ee6e1cc98bef0dee06f47685f9"
+    },
+    {
+      "label": "desktop-final-code-remote",
+      "command": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/main",
+        "refs/heads/feat/research-os-round1-no-deploy",
+        "refs/pull/86/head",
+        "refs/pull/87/head"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:34:27.629Z",
+      "endedAt": "2026-10-17T01:34:28.714Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-code-remote.log",
+      "logSha256": "2a9aa3fdfe1bf3766e9cf6864aa635f283c3d5f08d5c8a45781fc3d2cfd12f53"
+    },
+    {
+      "label": "desktop-final-contracts-validate",
+      "command": [
+        "npm",
+        "run",
+        "contracts:validate"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:33:06.923Z",
+      "endedAt": "2026-10-17T01:33:14.182Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-contracts-validate.log",
+      "logSha256": "01655c4f127988dea40e58ff32c2b2fac01f611ef6849eecec683a344dba9a8b"
+    },
+    {
+      "label": "desktop-final-contracts",
+      "command": [
+        "npm",
+        "run",
+        "test:contracts"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:33:14.223Z",
+      "endedAt": "2026-10-17T01:33:28.842Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-contracts.log",
+      "logSha256": "8f4e8a7cbac1e9391484b1d1d28c15bdadf1c76d3ae831215a8dcecdeecd34cd"
+    },
+    {
+      "label": "desktop-final-demo",
+      "command": [
+        "npm",
+        "run",
+        "test:demo"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:33:02.523Z",
+      "endedAt": "2026-10-17T01:33:06.871Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-demo.log",
+      "logSha256": "fcb28417559e2d9d2786d6627e682f38c558674549408efbc393b6f9fe78bb1f"
+    },
+    {
+      "label": "desktop-final-discovery",
+      "command": [
+        "npm",
+        "run",
+        "test:discovery"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:33:14.449Z",
+      "endedAt": "2026-10-17T01:33:53.042Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-discovery.log",
+      "logSha256": "46f893a953786d2bd93697e35050aadb3d818cdebe290501612f4dcf61cc83e0"
+    },
+    {
+      "label": "desktop-final-integrity",
+      "command": [
+        "node",
+        "scripts/desktop-integrity.mjs"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:34:27.395Z",
+      "endedAt": "2026-10-17T01:34:27.518Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-integrity.log",
+      "logSha256": "03a5878b463610d94513a2efc521071d09b3f2f113d0d317f0ebb79f698316a9"
+    },
+    {
+      "label": "desktop-final-legacy",
+      "command": [
+        "npm",
+        "run",
+        "test:demo:browser"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:34:27.400Z",
+      "endedAt": "2026-10-17T01:34:40.548Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-legacy.log",
+      "logSha256": "bb3d1f6a4ce5514c523477242ae823d11a74d58c597cb2df36038adcf51c9237"
+    },
+    {
+      "label": "desktop-final-source-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:34:27.562Z",
+      "endedAt": "2026-10-17T01:34:27.585Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-source-check.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "desktop-final-test",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:33:02.523Z",
+      "endedAt": "2026-10-17T01:34:16.783Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-test.log",
+      "logSha256": "047dcb449ec3b2798668bc5af1a9536bb04a3699059bfa2d4c60da05660f6b27"
+    },
+    {
+      "label": "desktop-final-ui-audit",
+      "command": [
+        "npm",
+        "run",
+        "ui:audit"
+      ],
+      "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+      "worktree": [],
+      "node": "v24.19.0",
+      "startedAt": "2026-10-17T01:34:11.219Z",
+      "endedAt": "2026-10-17T01:34:11.508Z",
+      "exitCode": 0,
+      "signal": null,
+      "log": "desktop-final-ui-audit.log",
+      "logSha256": "d1551ada70f4a482ba8eb52f6fabcaf01f84e44a37a68d149b1b5bff738098f4"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "1440-home.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:28.995Z",
+      "pixelWidth": 1440,
+      "pixelHeight": 1110,
+      "sha256": "9b25c0c8a76ddea320a72427fa0dc12011e31c648b60e3d174196035059144d4",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1440-expanded-navigation.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:29.148Z",
+      "pixelWidth": 1440,
+      "pixelHeight": 1110,
+      "sha256": "1f22d7172bd85b64bf6f099047cbca3d081ad215fa5df4319da3ae70776f1bdf",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1440-individual-decision.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:29.370Z",
+      "pixelWidth": 1440,
+      "pixelHeight": 1112,
+      "sha256": "35d152ed7d82e13b393e07910b904fd16ec0dc0ead30cdac65afd45c45775725",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1440-history.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:30.035Z",
+      "pixelWidth": 1440,
+      "pixelHeight": 960,
+      "sha256": "105dcf7d98ab5a703963ef03543f51499a454ee34c5252e2d017ab8cecce9e29",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1440-simulation.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:31.246Z",
+      "pixelWidth": 1440,
+      "pixelHeight": 1504,
+      "sha256": "9a26486deac7cbf0c9d13b56d735c4ece7214a9db1517150afeef0983b4e1452",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1920-home.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:34.593Z",
+      "pixelWidth": 1920,
+      "pixelHeight": 1155,
+      "sha256": "601de2b16e258660566e50cf37843011350a472c0f014e7739f42f9788b67bc3",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1920-expanded-navigation.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:34.758Z",
+      "pixelWidth": 1920,
+      "pixelHeight": 1155,
+      "sha256": "65fa4328486c176dfab51b4c9e088009c815c6b0bf696e8c07e7dd5a883cb754",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1920-individual-decision.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:34.966Z",
+      "pixelWidth": 1920,
+      "pixelHeight": 1119,
+      "sha256": "746f2b459bba80d53cd8d96b7e0ca8a5f68138cf64d66a254cf46ca4d2f2ea0f",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1920-knowledge.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:35.394Z",
+      "pixelWidth": 1920,
+      "pixelHeight": 960,
+      "sha256": "cba84270254bb7368be8fc51b0e58db25cb84103166dae9dae23fb5798c088c3",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1920-history.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:35.630Z",
+      "pixelWidth": 1920,
+      "pixelHeight": 960,
+      "sha256": "db6a88453c3972b7c6b2f18c320ced54a055276b0e15fb711e9d7f104812b5d4",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "1920-simulation.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:36.838Z",
+      "pixelWidth": 1920,
+      "pixelHeight": 1462,
+      "sha256": "d664496cdd59a9cdffc528e1364042cbfdade101b75bc7362f5a981dd548e34d",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    },
+    {
+      "file": "390-home.png",
+      "width": 390,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:40.040Z",
+      "pixelWidth": 390,
+      "pixelHeight": 1685,
+      "sha256": "4779c3f56e177aa86061d5ec3127e9bb1e9fb51455a3676c9b26a75fd1b9de04",
+      "codeSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4"
+    }
+  ],
+  "precheckReceipts": [
+    "desktop-baseline-remote",
+    "desktop-code-push",
+    "desktop-code-remote",
+    "desktop-pre-browser-final",
+    "desktop-pre-browser",
+    "desktop-pre-build-demo-final",
+    "desktop-pre-build-demo",
+    "desktop-pre-demo-new",
+    "desktop-pre-demo",
+    "desktop-pre-legacy-retry",
+    "desktop-pre-legacy",
+    "desktop-pre-source-check"
+  ],
+  "failuresAndNotes": [
+    "First legacy precheck exited1 because Playwright default cached Chromium was absent. Reused installed /usr/bin/chromium; no browser install or permission bypass. Retry passed102.",
+    "Precheck screenshots are not delivered; JSON reports/command logs retained separately. Only final12 screenshots are delivered,11desktop and1mobile.",
+    "Visual precheck found hidden fixed skip link appearing in scrolled full-page screenshot; clipped hidden link and scroll-to-top capture corrected before fixed code SHA.",
+    "UI audit changes only generated report timestamp; exact generated patch retained, original file restored.",
+    "Discovery negative control reproduces3 nested-checkout failures by design; command passes.",
+    "Build retains existing chunk-size and formal dynamic/static import warnings.",
+    "GitHub GraphQL Forbidden, stopped path; API observation transcribed separately. Parent old CI statement does not establish new HEAD CI.",
+    "All final validation commands started from clean fixed code SHA. Later evidence/doc commit does not alter implementation."
+  ],
+  "limits": [
+    "Synthetic only; no real accounts, private research, trading or formal admission.",
+    "Memory resets on refresh; decision/read/version state has no export; simulation export covers simulation only.",
+    "Notion and industry data are unconnected placeholders; no browser Back app routing.",
+    "Daily-bar model is not intraday/PIT proof; liquidation return includes delayed exits; no independent day20 valuation.",
+    "5high dependency risks block release; automatic deployment disabled; no merge/deploy/PR status changes.",
+    "Independent parent audit and new HEAD CI remain pending."
+  ],
+  "visualReview": {
+    "reviewedBy": "implementation agent",
+    "count": 12,
+    "status": "reviewed all final PNGs with view_image",
+    "notes": [
+      "Desktop main shows only current function, active navigation visible, no clipped text/controls in reviewed frames.",
+      "Home screenshot shows native main focus outline after keyboard skip-link check; expanded group screenshot shows keyboard focus.",
+      "Mobile navigation is initially collapsed; controls and main content remain accessible."
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "label": "desktop-final-audit",
+  "command": [
+    "npm",
+    "audit",
+    "--json"
+  ],
+  "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:33:13.211Z",
+  "endedAt": "2026-10-17T01:33:15.589Z",
+  "exitCode": 1,
+  "signal": null,
+  "log": "desktop-final-audit.log",
+  "logSha256": "82624c64e9844e97919c9651bffce4313fb3951da3a4cc17892ac3a7b44bf437"
+}

@@ -1,0 +1,17 @@
+{
+  "label": "desktop-final-legacy",
+  "command": [
+    "npm",
+    "run",
+    "test:demo:browser"
+  ],
+  "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:34:27.400Z",
+  "endedAt": "2026-10-17T01:34:40.548Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-final-legacy.log",
+  "logSha256": "bb3d1f6a4ce5514c523477242ae823d11a74d58c597cb2df36038adcf51c9237"
+}

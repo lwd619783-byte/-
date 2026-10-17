@@ -1,0 +1,17 @@
+{
+  "label": "desktop-final-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:round-one:browser"
+  ],
+  "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:34:27.387Z",
+  "endedAt": "2026-10-17T01:34:44.374Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-final-browser.log",
+  "logSha256": "d8f73996b374c1e78f098c8acc010af5d28abc6b2a2c122d7abdfca83dece0e3"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "scope": "all desktop handoff/evidence text (PNG separately visually reviewed)",
+  "textFilesChecked": 68,
+  "restrictedSourceFilesCompared": 7,
+  "restrictedLongLiteralsCompared": 455,
+  "restrictedLiteralMatches": 0,
+  "secretPatternMatches": 0,
+  "unapprovedUrlHosts": 0,
+  "newScreenshotsVisuallyReviewed": 12,
+  "note": "Pattern/literal scans are supporting controls, not proof of absence; all 12 screenshots are built from synthetic-only allowed graph and were visually reviewed; 11 desktop, 1 mobile."
+}

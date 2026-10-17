@@ -1,0 +1,19 @@
+{
+  "label": "desktop-code-remote",
+  "command": [
+    "git",
+    "ls-remote",
+    "origin",
+    "refs/heads/feat/research-os-round1-no-deploy",
+    "refs/pull/87/head"
+  ],
+  "sha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": [],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:32:49.816Z",
+  "endedAt": "2026-10-17T01:32:50.535Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-code-remote.log",
+  "logSha256": "a9a3dc2ab17b9942745053f63c6d1ee4d33059b31eac42258daaa00115110eed"
+}

@@ -1,0 +1,33 @@
+{
+  "label": "desktop-baseline-remote",
+  "command": [
+    "git",
+    "ls-remote",
+    "origin",
+    "refs/heads/main",
+    "refs/heads/feat/research-os-round1-no-deploy",
+    "refs/pull/86/head",
+    "refs/pull/87/head"
+  ],
+  "sha": "7cfcc0a4e5aae95e386beeaa0ab5d8b125a9a4b2",
+  "worktree": [
+    "M docs/development-execution-plan-2026-09-07.md",
+    " M docs/feature-registry.md",
+    " M scripts/demo-browser-check.mjs",
+    " M scripts/demo-navigation-scenarios.mjs",
+    " M scripts/round-one-browser-check.mjs",
+    " M src/demo/main.tsx",
+    " M src/demo/round-one/DecisionHome.test.tsx",
+    " M src/demo/round-one/DecisionHome.tsx",
+    " M src/demo/round-one/styles.css",
+    "?? docs/research-os-desktop-20261017/",
+    "?? scripts/demo-shell-navigation.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:30:47.278Z",
+  "endedAt": "2026-10-17T01:30:48.338Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-baseline-remote.log",
+  "logSha256": "6505e9292b47272c28b446c8e290f0fa2b507163aff145349fd9a15e18796fb7"
+}

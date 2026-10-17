@@ -1,0 +1,29 @@
+{
+  "label": "desktop-pre-browser",
+  "command": [
+    "npm",
+    "run",
+    "test:round-one:browser"
+  ],
+  "sha": "7cfcc0a4e5aae95e386beeaa0ab5d8b125a9a4b2",
+  "worktree": [
+    "M docs/development-execution-plan-2026-09-07.md",
+    " M docs/feature-registry.md",
+    " M scripts/demo-browser-check.mjs",
+    " M scripts/demo-navigation-scenarios.mjs",
+    " M scripts/round-one-browser-check.mjs",
+    " M src/demo/main.tsx",
+    " M src/demo/round-one/DecisionHome.test.tsx",
+    " M src/demo/round-one/DecisionHome.tsx",
+    " M src/demo/round-one/styles.css",
+    "?? docs/research-os-desktop-20261017/",
+    "?? scripts/demo-shell-navigation.mjs"
+  ],
+  "node": "v24.19.0",
+  "startedAt": "2026-10-17T01:30:53.409Z",
+  "endedAt": "2026-10-17T01:31:09.923Z",
+  "exitCode": 0,
+  "signal": null,
+  "log": "desktop-pre-browser.log",
+  "logSha256": "32adcd0fae9c15871f34ea1dc1baf9be0533a561a1a373e440e4c212d17d1363"
+}

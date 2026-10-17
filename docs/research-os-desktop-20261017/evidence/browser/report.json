@@ -1,0 +1,906 @@
+{
+  "testedSha": "34e23a4eee12d8a84b8d3306249fe913e2a07cd4",
+  "worktree": "",
+  "scope": "synthetic-only",
+  "browserBack": "NOT_APPLICABLE: in-memory tabs, no history routing; tested explicit home navigation only",
+  "checks": [
+    {
+      "name": "1440 Tab reaches skip link first",
+      "ok": true
+    },
+    {
+      "name": "1440 skip link focuses main",
+      "ok": true
+    },
+    {
+      "name": "1440 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "1440 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "1440 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "1440 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "1440 overview has no detailed card operations",
+      "ok": true
+    },
+    {
+      "name": "1440 keyboard collapses whole drawer",
+      "ok": true
+    },
+    {
+      "name": "1440 collapsed drawer keeps current content",
+      "ok": true
+    },
+    {
+      "name": "1440 keyboard restores drawer",
+      "ok": true
+    },
+    {
+      "name": "1440 keyboard expands subgroup",
+      "ok": true
+    },
+    {
+      "name": "1440 Escape returns focus to drawer control",
+      "ok": true
+    },
+    {
+      "name": "1440 selected stock alone in main",
+      "ok": true
+    },
+    {
+      "name": "1440 navigation focuses current heading",
+      "ok": true
+    },
+    {
+      "name": "1440 active stock highlighted",
+      "ok": true
+    },
+    {
+      "name": "1440 individual decision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "1440 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "1440 cancel decision writes nothing",
+      "ok": true
+    },
+    {
+      "name": "1440 decision confirmation preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 explicit version-bound decision",
+      "ok": true
+    },
+    {
+      "name": "1440 duplicate decision disabled",
+      "ok": true
+    },
+    {
+      "name": "1440 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "1440 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 overview reflects confirmed version",
+      "ok": true
+    },
+    {
+      "name": "1440 index and home preserve decision record",
+      "ok": true
+    },
+    {
+      "name": "1440 revised suggestion invalidates old confirmation",
+      "ok": true
+    },
+    {
+      "name": "1440 old decision history retained",
+      "ok": true
+    },
+    {
+      "name": "1440 decision revision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "1440 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "1440 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "1440 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 simulation draft survives navigation",
+      "ok": true
+    },
+    {
+      "name": "1440 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "1440 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "1440 locked snapshot survives navigation unchanged",
+      "ok": true
+    },
+    {
+      "name": "1440 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "1440 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "1440 day20 final liquidation return unknown",
+      "ok": true
+    },
+    {
+      "name": "1440 day20 planned exit and no completed exit",
+      "ok": true
+    },
+    {
+      "name": "1440 no intraday execution claim",
+      "ok": true
+    },
+    {
+      "name": "1440 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "1440 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "1440 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "1440 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "1440 day22 final liquidation includes delayed exit",
+      "ok": true
+    },
+    {
+      "name": "1440 day22 delay is explicit",
+      "ok": true
+    },
+    {
+      "name": "1440 no day20 return mislabel",
+      "ok": true
+    },
+    {
+      "name": "1440 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "1440 global multiple-active import rejected",
+      "ok": true
+    },
+    {
+      "name": "1440 invalid multi-round import atomic",
+      "ok": true
+    },
+    {
+      "name": "1440 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1440 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "1440 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "1440 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "1440 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "1440 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "1440 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "1440 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "1440 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "1920 Tab reaches skip link first",
+      "ok": true
+    },
+    {
+      "name": "1920 skip link focuses main",
+      "ok": true
+    },
+    {
+      "name": "1920 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "1920 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "1920 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "1920 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "1920 overview has no detailed card operations",
+      "ok": true
+    },
+    {
+      "name": "1920 keyboard collapses whole drawer",
+      "ok": true
+    },
+    {
+      "name": "1920 collapsed drawer keeps current content",
+      "ok": true
+    },
+    {
+      "name": "1920 keyboard restores drawer",
+      "ok": true
+    },
+    {
+      "name": "1920 keyboard expands subgroup",
+      "ok": true
+    },
+    {
+      "name": "1920 Escape returns focus to drawer control",
+      "ok": true
+    },
+    {
+      "name": "1920 selected stock alone in main",
+      "ok": true
+    },
+    {
+      "name": "1920 navigation focuses current heading",
+      "ok": true
+    },
+    {
+      "name": "1920 active stock highlighted",
+      "ok": true
+    },
+    {
+      "name": "1920 individual decision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "1920 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "1920 cancel decision writes nothing",
+      "ok": true
+    },
+    {
+      "name": "1920 decision confirmation preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 explicit version-bound decision",
+      "ok": true
+    },
+    {
+      "name": "1920 duplicate decision disabled",
+      "ok": true
+    },
+    {
+      "name": "1920 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "1920 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 overview reflects confirmed version",
+      "ok": true
+    },
+    {
+      "name": "1920 index and home preserve decision record",
+      "ok": true
+    },
+    {
+      "name": "1920 revised suggestion invalidates old confirmation",
+      "ok": true
+    },
+    {
+      "name": "1920 old decision history retained",
+      "ok": true
+    },
+    {
+      "name": "1920 decision revision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "1920 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "1920 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "1920 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 simulation draft survives navigation",
+      "ok": true
+    },
+    {
+      "name": "1920 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "1920 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "1920 locked snapshot survives navigation unchanged",
+      "ok": true
+    },
+    {
+      "name": "1920 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "1920 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "1920 day20 final liquidation return unknown",
+      "ok": true
+    },
+    {
+      "name": "1920 day20 planned exit and no completed exit",
+      "ok": true
+    },
+    {
+      "name": "1920 no intraday execution claim",
+      "ok": true
+    },
+    {
+      "name": "1920 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "1920 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "1920 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "1920 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "1920 day22 final liquidation includes delayed exit",
+      "ok": true
+    },
+    {
+      "name": "1920 day22 delay is explicit",
+      "ok": true
+    },
+    {
+      "name": "1920 no day20 return mislabel",
+      "ok": true
+    },
+    {
+      "name": "1920 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "1920 global multiple-active import rejected",
+      "ok": true
+    },
+    {
+      "name": "1920 invalid multi-round import atomic",
+      "ok": true
+    },
+    {
+      "name": "1920 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "1920 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "1920 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "1920 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "1920 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "1920 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "1920 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "1920 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "1920 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "390 Tab reaches skip link first",
+      "ok": true
+    },
+    {
+      "name": "390 skip link focuses main",
+      "ok": true
+    },
+    {
+      "name": "390 decision home is default",
+      "ok": true
+    },
+    {
+      "name": "390 stale is unknown",
+      "ok": true
+    },
+    {
+      "name": "390 missing is unknown",
+      "ok": true
+    },
+    {
+      "name": "390 home: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 card text contrast at least 4.5",
+      "ok": true
+    },
+    {
+      "name": "390 overview has no detailed card operations",
+      "ok": true
+    },
+    {
+      "name": "390 keyboard collapses whole drawer",
+      "ok": true
+    },
+    {
+      "name": "390 collapsed drawer keeps current content",
+      "ok": true
+    },
+    {
+      "name": "390 keyboard restores drawer",
+      "ok": true
+    },
+    {
+      "name": "390 keyboard expands subgroup",
+      "ok": true
+    },
+    {
+      "name": "390 Escape returns focus to drawer control",
+      "ok": true
+    },
+    {
+      "name": "390 selected stock alone in main",
+      "ok": true
+    },
+    {
+      "name": "390 navigation focuses current heading",
+      "ok": true
+    },
+    {
+      "name": "390 active stock highlighted",
+      "ok": true
+    },
+    {
+      "name": "390 individual decision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 cancel reading preserves state",
+      "ok": true
+    },
+    {
+      "name": "390 user reading separate from fills",
+      "ok": true
+    },
+    {
+      "name": "390 cancel decision writes nothing",
+      "ok": true
+    },
+    {
+      "name": "390 decision confirmation preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 explicit version-bound decision",
+      "ok": true
+    },
+    {
+      "name": "390 duplicate decision disabled",
+      "ok": true
+    },
+    {
+      "name": "390 knowledge index",
+      "ok": true
+    },
+    {
+      "name": "390 knowledge: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 overview reflects confirmed version",
+      "ok": true
+    },
+    {
+      "name": "390 index and home preserve decision record",
+      "ok": true
+    },
+    {
+      "name": "390 revised suggestion invalidates old confirmation",
+      "ok": true
+    },
+    {
+      "name": "390 old decision history retained",
+      "ok": true
+    },
+    {
+      "name": "390 decision revision: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 skip cancellation",
+      "ok": true
+    },
+    {
+      "name": "390 nineteen cannot lock",
+      "ok": true
+    },
+    {
+      "name": "390 twenty one cannot lock",
+      "ok": true
+    },
+    {
+      "name": "390 selection: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 simulation draft survives navigation",
+      "ok": true
+    },
+    {
+      "name": "390 lock preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 lock cancel writes no event",
+      "ok": true
+    },
+    {
+      "name": "390 locked selection cannot edit",
+      "ok": true
+    },
+    {
+      "name": "390 locked snapshot survives navigation unchanged",
+      "ok": true
+    },
+    {
+      "name": "390 invalid quotes no fills",
+      "ok": true
+    },
+    {
+      "name": "390 blocked maturity exits pending",
+      "ok": true
+    },
+    {
+      "name": "390 day20 final liquidation return unknown",
+      "ok": true
+    },
+    {
+      "name": "390 day20 planned exit and no completed exit",
+      "ok": true
+    },
+    {
+      "name": "390 no intraday execution claim",
+      "ok": true
+    },
+    {
+      "name": "390 pending exits: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 export twenty unique and total100",
+      "ok": true
+    },
+    {
+      "name": "390 export unique IDs",
+      "ok": true
+    },
+    {
+      "name": "390 complete cannot advance",
+      "ok": true
+    },
+    {
+      "name": "390 later exits resolve without replacements",
+      "ok": true
+    },
+    {
+      "name": "390 day22 final liquidation includes delayed exit",
+      "ok": true
+    },
+    {
+      "name": "390 day22 delay is explicit",
+      "ok": true
+    },
+    {
+      "name": "390 no day20 return mislabel",
+      "ok": true
+    },
+    {
+      "name": "390 complete: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 formal scope rejected",
+      "ok": true
+    },
+    {
+      "name": "390 global multiple-active import rejected",
+      "ok": true
+    },
+    {
+      "name": "390 invalid multi-round import atomic",
+      "ok": true
+    },
+    {
+      "name": "390 import preview: no overflow",
+      "ok": true
+    },
+    {
+      "name": "390 import preview no writes",
+      "ok": true
+    },
+    {
+      "name": "390 import cancellation no writes",
+      "ok": true
+    },
+    {
+      "name": "390 cross reload exact roundtrip",
+      "ok": true
+    },
+    {
+      "name": "390 duplicate import no duplicate",
+      "ok": true
+    },
+    {
+      "name": "390 locked conflict rejected",
+      "ok": true
+    },
+    {
+      "name": "390 conflict preserves existing history",
+      "ok": true
+    },
+    {
+      "name": "390 formal storage unchanged",
+      "ok": true
+    },
+    {
+      "name": "390 no opportunity retains pool without holdings",
+      "ok": true
+    },
+    {
+      "name": "zero page errors",
+      "ok": true
+    },
+    {
+      "name": "zero console errors",
+      "ok": true
+    },
+    {
+      "name": "zero unexpected requests",
+      "ok": true
+    },
+    {
+      "name": "zero popups",
+      "ok": true
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "unexpectedRequests": [],
+  "popups": [],
+  "screenshots": [
+    {
+      "file": "1440-home.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:28.995Z"
+    },
+    {
+      "file": "1440-expanded-navigation.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:29.148Z"
+    },
+    {
+      "file": "1440-individual-decision.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:29.370Z"
+    },
+    {
+      "file": "1440-history.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:30.035Z"
+    },
+    {
+      "file": "1440-simulation.png",
+      "width": 1440,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:31.246Z"
+    },
+    {
+      "file": "1920-home.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:34.593Z"
+    },
+    {
+      "file": "1920-expanded-navigation.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:34.758Z"
+    },
+    {
+      "file": "1920-individual-decision.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:34.966Z"
+    },
+    {
+      "file": "1920-knowledge.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:35.394Z"
+    },
+    {
+      "file": "1920-history.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:35.630Z"
+    },
+    {
+      "file": "1920-simulation.png",
+      "width": 1920,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:36.838Z"
+    },
+    {
+      "file": "390-home.png",
+      "width": 390,
+      "height": 960,
+      "capturedAt": "2026-10-17T01:34:40.040Z"
+    }
+  ],
+  "assets": [
+    {
+      "file": "assets/index-BugChAZP.css",
+      "bytes": 58224,
+      "sha256": "4c04d8f9f4aeed716836f9b385e1ef7e004175787f0733f07e5d1d1f456f48b1"
+    },
+    {
+      "file": "assets/index-DA1bGJ2T.js",
+      "bytes": 569715,
+      "sha256": "4fc2821a375e7ac16c8ad084cdaeec887f8e4470bc25920e619d5bc930a4e9d3"
+    },
+    {
+      "file": "demo-boundary.json",
+      "bytes": 101259,
+      "sha256": "991f3571b72eb4e1957dbe545830ce0099071bbc5f9960cf62ccd2b68f7fce6b"
+    },
+    {
+      "file": "index.html",
+      "bytes": 676,
+      "sha256": "69318094674404735652fc75a6cc9bfcd6808843577f6de8bfd5fdff7b388e25"
+    }
+  ],
+  "browser": "154.0.8037.57",
+  "status": "passed"
+}
